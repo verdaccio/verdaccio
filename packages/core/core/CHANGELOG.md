@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 8.0.0-next-8.22
+
+### Patch Changes
+
+- 67e667b: chore: replace conditional require(fs/promises) pattern
+
 ## 8.0.0-next-8.21
 
 ### Patch Changes
