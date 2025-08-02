@@ -1,5 +1,12 @@
 # @verdaccio/website
 
+## 1.0.1-next-8.7
+
+### Patch Changes
+
+- 3b9f1b3: fix(docs): warnings during website build (2)
+- 56d9757: fix(docs): warnings during website build
+
 ## 1.0.1-next-8.6
 
 ### Patch Changes
