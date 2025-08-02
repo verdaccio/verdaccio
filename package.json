@@ -43,11 +43,9 @@
     "debug": "4.4.1",
     "envinfo": "7.14.0",
     "express": "4.21.2",
-    "handlebars": "4.7.8",
     "lodash": "4.17.21",
     "lru-cache": "7.18.3",
     "mime": "3.0.0",
-    "mkdirp": "1.0.4",
     "semver": "7.7.2",
     "verdaccio-audit": "13.0.0-next-8.21",
     "verdaccio-htpasswd": "13.0.0-next-8.21"
