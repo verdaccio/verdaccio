@@ -1568,8 +1568,8 @@
       ]
     },
     {
-      "id": 17563226,
-      "login": "alan-agius4",
+      "id": 18176417,
+      "login": "awshanks",
       "contributions": 2,
       "repositories": [
         {
@@ -1579,8 +1579,8 @@
       ]
     },
     {
-      "id": 18176417,
-      "login": "awshanks",
+      "id": 17563226,
+      "login": "alan-agius4",
       "contributions": 2,
       "repositories": [
         {
@@ -2192,8 +2192,8 @@
       ]
     },
     {
-      "id": 47446,
-      "login": "bwalding",
+      "id": 1667873,
+      "login": "morlay",
       "contributions": 1,
       "repositories": [
         {
@@ -2302,8 +2302,8 @@
       ]
     },
     {
-      "id": 1667873,
-      "login": "morlay",
+      "id": 8954107,
+      "login": "Tiny-Fendy",
       "contributions": 1,
       "repositories": [
         {
@@ -2753,17 +2753,6 @@
       ]
     },
     {
-      "id": 8954107,
-      "login": "Tiny-Fendy",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 1
-        }
-      ]
-    },
-    {
       "id": 988013,
       "login": "tomcoonen",
       "contributions": 1,
@@ -2810,6 +2799,17 @@
     {
       "id": 18412429,
       "login": "TJBlackman",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 16024985,
+      "login": "trivikr",
       "contributions": 1,
       "repositories": [
         {
@@ -3008,6 +3008,17 @@
     {
       "id": 1152706,
       "login": "divdavem",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 47446,
+      "login": "bwalding",
       "contributions": 1,
       "repositories": [
         {
@@ -5224,7 +5235,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "A lightweight Node.js private proxy registry",
-      "stargazers_count": 17051,
+      "stargazers_count": 17057,
       "archived": false
     },
     {
