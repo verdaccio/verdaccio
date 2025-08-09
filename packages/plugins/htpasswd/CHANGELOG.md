@@ -1,5 +1,13 @@
 # Change Log
 
+## 13.0.0-next-8.22
+
+### Patch Changes
+
+- Updated dependencies [67e667b]
+  - @verdaccio/file-locking@13.0.0-next-8.6
+  - @verdaccio/core@8.0.0-next-8.22
+
 ## 13.0.0-next-8.21
 
 ### Patch Changes
