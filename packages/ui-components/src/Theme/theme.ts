@@ -42,15 +42,16 @@ const themeModes = {
   },
 };
 
-function applyPrimaryColor(mode: ThemeMode, primaryColor?: string): any {
+export type ThemeMode = keyof typeof themeModes;
+type ThemeColors = (typeof themeModes)[ThemeMode];
+
+function applyPrimaryColor(mode: ThemeMode, primaryColor?: string): ThemeColors {
   if (mode === 'light') {
-    themeModes['light'].primary = primaryColor || PRIMARY_COLOR;
+    (themeModes['light'] as any).primary = primaryColor || PRIMARY_COLOR;
   }
 
   return themeModes[mode];
 }
-
-export type ThemeMode = keyof typeof themeModes;
 
 const fontSize = {
   xxl: 26,

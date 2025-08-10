@@ -17,18 +17,21 @@ dayjs.extend(localizedFormat);
  * Formats license field for webui.
  * @see https://docs.npmjs.com/files/package.json#license
  */
-// License should use type License defined above, but conflicts with the unit test that provide array or empty object
-/* eslint-disable @typescript-eslint/no-explicit-any */
-export function formatLicense(license: any): string | undefined {
+export function formatLicense(license: string | { type?: string } | unknown): string | undefined {
   if (isString(license)) {
     return license;
   }
 
-  if (license?.type) {
+  if (
+    license &&
+    typeof license === 'object' &&
+    'type' in license &&
+    typeof license.type === 'string'
+  ) {
     return license.type;
   }
 
-  return;
+  return undefined;
 }
 
 export interface Repository {
@@ -40,15 +43,17 @@ export interface Repository {
  * Formats repository field for webui.
  * @see https://docs.npmjs.com/files/package.json#repository
  */
-
-// Repository should use type Repository defined above, but conflicts with the unit test that provide array or empty object
-/* eslint-disable @typescript-eslint/no-explicit-any */
-export function formatRepository(repository: any): string | null {
+export function formatRepository(repository: string | { url?: string } | unknown): string | null {
   if (isString(repository)) {
     return repository;
   }
 
-  if (repository?.url) {
+  if (
+    repository &&
+    typeof repository === 'object' &&
+    'url' in repository &&
+    typeof repository.url === 'string'
+  ) {
     return repository.url;
   }
 

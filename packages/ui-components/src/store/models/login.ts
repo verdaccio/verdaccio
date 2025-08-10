@@ -93,7 +93,8 @@ export const login = createModel<RootModel>()({
         });
         dispatch.login.logInUser(payload);
         dispatch.packages.getPackages(undefined);
-      } catch (error: any) {
+      } catch (error: unknown) {
+        // Handle both API errors and other potential errors
         dispatch.login.addError({
           type: 'error',
           description: i18next.t('form-validation.unable-to-sign-in'),
