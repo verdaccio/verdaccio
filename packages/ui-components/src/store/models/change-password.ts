@@ -3,7 +3,7 @@ import i18next from 'i18next';
 
 import type { RootModel } from '.';
 import { Route } from '../../utils';
-import API from '../api';
+import API, { CustomError } from '../api';
 import { HEADERS, stripTrailingSlash } from './utils';
 
 const TOKEN_BEARER = 'Bearer';
@@ -111,24 +111,32 @@ export const changePassword = createModel<RootModel>()({
         } else {
           throw new Error('Unknown error:' + JSON.stringify(responseChangePassword));
         }
-      } catch (error: any) {
-        if (error.code === 401) {
-          dispatch.changePassword.addError({
-            type: 'error',
-            description: i18next.t('security.error.invalid-credentials'),
-            code: 401,
-          });
-        } else if (error.code === 404) {
-          dispatch.changePassword.addError({
-            type: 'error',
-            description: i18next.t('security.error.username-not-found'),
-            code: 404,
-          });
+      } catch (error: unknown) {
+        if (error instanceof CustomError) {
+          if (error.code === 401) {
+            dispatch.changePassword.addError({
+              type: 'error',
+              description: i18next.t('security.error.invalid-credentials'),
+              code: 401,
+            });
+          } else if (error.code === 404) {
+            dispatch.changePassword.addError({
+              type: 'error',
+              description: i18next.t('security.error.username-not-found'),
+              code: 404,
+            });
+          } else {
+            dispatch.changePassword.addError({
+              type: 'error',
+              description: i18next.t('security.error.unable-to-change-password'),
+              code: error.code,
+            });
+          }
         } else {
           dispatch.changePassword.addError({
             type: 'error',
             description: i18next.t('security.error.unable-to-change-password'),
-            code: error.code || 400,
+            code: 400,
           });
         }
       }

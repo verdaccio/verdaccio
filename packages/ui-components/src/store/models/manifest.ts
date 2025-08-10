@@ -4,7 +4,7 @@ import { Manifest } from '@verdaccio/types';
 
 import type { RootModel } from '.';
 import { PackageMetaInterface } from '../../types/packageMeta';
-import API from '../api';
+import API, { CustomError } from '../api';
 import { APIRoute } from './routes';
 import { stripTrailingSlash } from './utils';
 
@@ -105,8 +105,8 @@ export const manifest = createModel<RootModel>()({
           }`
         );
         dispatch.manifest.saveManifest({ packageName, packageVersion, manifest, readme });
-      } catch (error: any) {
-        if (error.code === 404) {
+      } catch (error: unknown) {
+        if (error instanceof CustomError && error.code === 404) {
           dispatch.manifest.notFound();
         } else {
           dispatch.manifest.forbidden();

@@ -3,11 +3,15 @@ import isEmpty from 'lodash/isEmpty';
 import { Route } from '../../utils';
 
 export interface SecurityUrlParams {
-  next: string;
-  user: string;
+  readonly next: string;
+  readonly user: string;
 }
 
-export function getSecurityUrlParams(location: any): SecurityUrlParams {
+export interface LocationLike {
+  readonly search: string;
+}
+
+export function getSecurityUrlParams(location: LocationLike): SecurityUrlParams {
   const queryParams = new URLSearchParams(location.search);
 
   // Get next parameter to match v1 URLs
@@ -25,11 +29,19 @@ export function getSecurityUrlParams(location: any): SecurityUrlParams {
   return { next, user };
 }
 
+export interface TranslationFunction {
+  (key: string, options?: Record<string, unknown>): string;
+}
+
+export interface DispatchAction {
+  (payload: { type: string; description: string }): void;
+}
+
 export const validateCredentials = (
   username: string,
   password: string,
-  t: (key: string, options?: any) => string,
-  dispatchAction: (payload: any) => void
+  t: TranslationFunction,
+  dispatchAction: DispatchAction
 ): boolean => {
   if (!username || !password || isEmpty(username) || isEmpty(password)) {
     dispatchAction({
