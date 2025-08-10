@@ -10,7 +10,7 @@ import { stripTrailingSlash } from './utils';
 
 export const HEADERS = {
   JSON: 'application/json',
-};
+} as const;
 
 export type LoginError = {
   type: string;

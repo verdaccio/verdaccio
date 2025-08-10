@@ -35,8 +35,8 @@ export function formatLicense(license: string | { type?: string } | unknown): st
 }
 
 export interface Repository {
-  type: string;
-  url: string;
+  readonly type: string;
+  readonly url: string;
 }
 
 /**

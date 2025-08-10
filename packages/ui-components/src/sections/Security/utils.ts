@@ -3,12 +3,12 @@ import isEmpty from 'lodash/isEmpty';
 import { Route } from '../../utils';
 
 export interface SecurityUrlParams {
-  next: string;
-  user: string;
+  readonly next: string;
+  readonly user: string;
 }
 
 export interface LocationLike {
-  search: string;
+  readonly search: string;
 }
 
 export function getSecurityUrlParams(location: LocationLike): SecurityUrlParams {
