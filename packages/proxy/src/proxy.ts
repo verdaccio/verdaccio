@@ -199,6 +199,7 @@ class ProxyStorage implements IProxy {
   private setAuthNext(headers: gotHeaders): gotHeaders {
     const { auth } = this.config;
     if (typeof auth === 'undefined' || typeof headers[HEADERS.AUTHORIZATION] === 'string') {
+      debug('No auth provided for uplink %s', this.uplinkName);
       return headers;
     }
 
