@@ -23,8 +23,6 @@ helm init
 
 ### Install {#install}
 
-> ⚠️ If you are using this helm chart, please [be aware of the migration of the repository](https://github.com/verdaccio/verdaccio/issues/1767).
-
 Deploy the Helm [verdaccio/verdaccio](https://github.com/verdaccio/charts)
 chart.
 

@@ -29,11 +29,11 @@ export const packages = createModel<RootModel>()({
       try {
         const payload: Manifest[] = await API.request(`${basePath}${APIRoute.PACKAGES}`);
         dispatch.packages.savePackages(payload);
-      } catch (error: any) {
+      } catch (error: unknown) {
         // eslint-disable-next-line no-console
         console.error({
           title: 'Warning',
-          message: `Unable to load package list: ${error.message}`,
+          message: `Unable to load package list: ${error instanceof Error ? error.message : 'Unknown error'}`,
         });
         // TODO: handle error, display something retry or something
       }
