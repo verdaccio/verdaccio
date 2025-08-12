@@ -5,7 +5,8 @@ try {
   localStorage.setItem('__TEST__', '');
   localStorage.removeItem('__TEST__');
   storage = localStorage;
-} catch (err: any) {
+} catch (err: unknown) {
+  // Fall back to memory storage if localStorage is not available
   storage = memoryStorage;
 }
 

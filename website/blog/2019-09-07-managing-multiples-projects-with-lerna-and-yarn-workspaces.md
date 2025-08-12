@@ -1,9 +1,6 @@
 ---
 title: Managing multiples projects with Lerna and Yarn Workspaces
-author: sergio_herrera
-authorURL: https://github.com/sergiohgz
-authorImageURL: https://avatars3.githubusercontent.com/u/14012309
-authorTwitter: sergiohgz
+authors: sergio_herrera
 ---
 
 Verdaccio is a project with a big ecosystem, composed by several projects, each one with its own configurations and ways to manage. This fact transforms a simple maintenance operation, like updating a common dependency, into a real hard work.

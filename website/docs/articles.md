@@ -22,6 +22,7 @@ Below is a list of articles about Verdaccio. If you have written a blog post or 
 - [How did I fall in the open source world…and that was a nice thing!](https://medium.com/@priscilawebdev/how-do-i-fall-in-the-open-source-world-and-that-was-a-nice-thing-b0e85d05490d)
 - [Warning and Deprecation Codes](https://github.com/verdaccio/verdaccio/blob/master/docs/warnings.md)
 - [Migration Guide](https://github.com/verdaccio/verdaccio/blob/master/docs/migration-guide.md)
+- [Debugging Guidelines](https://github.com/verdaccio/verdaccio/wiki/Debugging-Verdaccio)
 
 # Articles / Blogs / Tutorials (by Language)
 
@@ -40,6 +41,7 @@ Below is a list of articles about Verdaccio. If you have written a blog post or 
 - [How to set up a free private npm registry… for Windows](https://medium.com/@Anderson7301/how-to-set-up-a-free-private-npm-registry-for-windows-f532c6a381ce)
 - [Setup a Private NPM Server on Azure in 45 Seconds](https://edi.wang/post/2020/7/7/setup-a-private-npm-server-on-azure-in-45-seconds)
 - [Verdaccio: A Comprehensive Guide to Hosting Your Private NPM Registry](https://futuristicgeeks.com/verdaccio-a-comprehensive-guide-to-hosting-your-private-npm-registry/)
+- [Testing Package Consumption Scenarios with pkg-consumption-test](https://pkerschbaum.com/blog/testing-package-consumption-scenarios)
 
 ### English {#english}
 
@@ -59,6 +61,13 @@ Below is a list of articles about Verdaccio. If you have written a blog post or 
 - [How to Publish Custom NPM Packages to a Private Local Registry Using Verdaccio on Docker](https://medium.com/havelsan/how-to-publish-custom-npm-packages-to-a-private-local-registry-using-verdaccio-on-docker-0494fb5938ab)
 - [Local Library Development with Nx Release and Verdaccio](https://itnext.io/local-library-development-with-nx-release-and-verdaccio-019af5c5bec0)
 - [Using Verdaccio with SAP Commerce Cloud and the Composable Storefront](https://hybrismart.com/2024/02/24/spartacus-release-feb24-updates-the-sap-composable-storefront/)
+- [Setting Up Verdaccio and Creating Npm Package](https://javascript.plainenglish.io/setting-up-verdaccio-and-creating-npm-package-4aeab973a810)
+- [How to Deploy Verdaccio in Azure using Terraform](https://medium.com/@gmusumeci/how-to-deploy-verdaccio-in-azure-using-terraform-ce348332b5fe)
+- [Local Library Development with Nx Release and Verdaccio](https://itnext.io/local-library-development-with-nx-release-and-verdaccio-019af5c5bec0)
+- [How to Publish Custom NPM Packages to a Private Local Registry Using Verdaccio on Docker](https://medium.com/havelsan/how-to-publish-custom-npm-packages-to-a-private-local-registry-using-verdaccio-on-docker-0494fb5938ab)
+- [Private npm Repositories](https://dev.to/ernestohs/private-npm-repositories-5e48)
+- [Setup local Verdaccio server to release NPM packages](https://egghead.io/setup-local-verdaccio-server-to-release-npm-packages~cwwyt)
+- [Using private npm packages - Expo Documentation](https://docs.expo.dev/build-reference/private-npm-packages/)
 
 ### Japanese {#japanese}
 

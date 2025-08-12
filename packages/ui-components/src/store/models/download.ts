@@ -23,7 +23,7 @@ export const download = createModel<RootModel>()({
         });
         const fileName = extractFileName(link);
         downloadFile(fileStream, fileName);
-      } catch (error: any) {
+      } catch (error: unknown) {
         // TODO: handle better error
         // eslint-disable-next-line no-console
         console.error('error on download', error);
