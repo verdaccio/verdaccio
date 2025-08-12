@@ -164,6 +164,8 @@ class ProxyStorage implements IProxy {
     this.fail_timeout = parseInterval(setConfig(this.config, 'fail_timeout', '5m'));
     this.strict_ssl = Boolean(setConfig(this.config, 'strict_ssl', true));
     this.retry = { limit: this.max_fails ?? 2 };
+
+    debug('Configured uplink %s using config: %O', this.uplinkName, this.config);
   }
 
   private getAgent() {
