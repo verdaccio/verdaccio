@@ -281,6 +281,8 @@ class Storage {
       let expected_length;
       const passThroughRemoteStream = new PassThrough();
       const proxy = this.getUpLinkForDistFile(name, distFile);
+      debug('fetching tarball from %s', proxy.uplinkName);
+
       const remoteStream = proxy.fetchTarball(distFile.url, {});
 
       remoteStream.on('request', async () => {
@@ -384,6 +386,8 @@ class Storage {
       }
 
       const proxy = this.getUpLinkForDistFile(name, distFile);
+      debug('fetching tarball from %s', proxy.uplinkName);
+
       const remoteStream = proxy.fetchTarball(distFile.url, {});
       remoteStream.on('response', async () => {
         try {
