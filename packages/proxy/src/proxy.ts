@@ -465,7 +465,7 @@ class ProxyStorage implements IProxy {
     }
     const method = 'GET';
     // const uri = this.config.url + `/${encode(name)}`;
-    debug('request uri for %s', url);
+    debug('request uri for %s using headers: %o', url, headers);
 
     const readStream = got
       .stream(url, {
