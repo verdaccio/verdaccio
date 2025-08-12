@@ -43,7 +43,7 @@
     "@verdaccio/store": "workspace:8.0.0-next-8.21",
     "@verdaccio/web": "workspace:8.1.0-next-8.21",
     "verdaccio-audit": "workspace:13.0.0-next-8.21",
-    "compression": "1.8.0",
+    "compression": "1.8.1",
     "cors": "2.8.5",
     "debug": "4.4.1",
     "express": "4.21.2",

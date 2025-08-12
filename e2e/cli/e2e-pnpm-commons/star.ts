@@ -20,7 +20,7 @@ export function runStar(pnpm) {
     test.each([['@verdaccio/foo']])('should star a package %s', async (pkgName) => {
       const { tempFolder } = await prepareGenericEmptyProject(
         pkgName,
-        '1.0.0-patch',
+        '1.0.0',
         registry.port,
         registry.getToken(),
         registry.getRegistryUrl()
@@ -39,7 +39,7 @@ export function runStar(pnpm) {
     test.each([['@verdaccio/bar']])('should unstar a package %s', async (pkgName) => {
       const { tempFolder } = await prepareGenericEmptyProject(
         pkgName,
-        '1.0.0-patch',
+        '1.0.0',
         registry.port,
         registry.getToken(),
         registry.getRegistryUrl()
@@ -67,7 +67,7 @@ export function runStar(pnpm) {
       const pkgName = '@verdaccio/stars';
       const { tempFolder } = await prepareGenericEmptyProject(
         pkgName,
-        '1.0.0-patch',
+        '1.0.0',
         registry.port,
         registry.getToken(),
         registry.getRegistryUrl()

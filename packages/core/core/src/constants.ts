@@ -7,7 +7,8 @@ export const DIST_TAGS = 'dist-tags';
 export const LATEST = 'latest';
 export const USERS = 'users';
 export const MAINTAINERS = 'maintainers';
-export const DEFAULT_USER = 'Anonymous';
+export const DEFAULT_USER = 'Anonymous'; // for display purposes
+export const ANONYMOUS_USER = 'anonymous'; // for username purposes
 
 export const HEADER_TYPE = {
   CONTENT_ENCODING: 'content-encoding',

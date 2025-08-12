@@ -3,7 +3,7 @@ import i18next from 'i18next';
 
 import type { RootModel } from '.';
 import { Route } from '../../utils';
-import API from '../api';
+import API, { CustomError } from '../api';
 import storage from '../storage';
 import { HEADERS, stripTrailingSlash } from './utils';
 
@@ -87,27 +87,35 @@ export const addUser = createModel<RootModel>()({
         } else {
           throw new Error('Unknown add-user error:' + JSON.stringify(response));
         }
-      } catch (error: any) {
+      } catch (error: unknown) {
         storage.removeItem('username');
         storage.removeItem('token');
 
-        if (error.code === 409) {
-          dispatch.addUser.addError({
-            type: 'error',
-            description: i18next.t('security.error.username-already-exists'),
-            code: 409,
-          });
-        } else if (error.code === 404) {
-          dispatch.addUser.addError({
-            type: 'error',
-            description: i18next.t('security.error.username-not-found'),
-            code: 404,
-          });
+        if (error instanceof CustomError) {
+          if (error.code === 409) {
+            dispatch.addUser.addError({
+              type: 'error',
+              description: i18next.t('security.error.username-already-exists'),
+              code: 409,
+            });
+          } else if (error.code === 404) {
+            dispatch.addUser.addError({
+              type: 'error',
+              description: i18next.t('security.error.username-not-found'),
+              code: 404,
+            });
+          } else {
+            dispatch.addUser.addError({
+              type: 'error',
+              description: i18next.t('security.error.unable-to-add-user'),
+              code: error.code,
+            });
+          }
         } else {
           dispatch.addUser.addError({
             type: 'error',
             description: i18next.t('security.error.unable-to-add-user'),
-            code: error.code || 400,
+            code: 400,
           });
         }
       }

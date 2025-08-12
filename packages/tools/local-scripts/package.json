@@ -7,8 +7,11 @@
   "private": "true",
   "description": "Update Website Data",
   "main": "./build/index.js",
+  "types": "./build/index.d.ts",
   "scripts": {
-    "build": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "build": "pnpm run build:js && pnpm run build:types",
+    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "start": "node build/index.js",
     "translations": "node build/run.js translations",
     "downloads:npmjs": "node build/run.js npmjs-api-download",
@@ -20,7 +23,7 @@
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@crowdin/crowdin-api-client": "^1.41.0",
+    "@crowdin/crowdin-api-client": "1.46.0",
     "clipanion": "4.0.0-rc.4",
     "got": "11.8.6",
     "ts-node": "10.9.2"

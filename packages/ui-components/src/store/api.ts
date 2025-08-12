@@ -1,8 +1,13 @@
 import storage from './storage';
 
 export class CustomError extends Error {
-  // @ts-ignore
   code: number;
+
+  constructor(message: string, code?: number) {
+    super(message);
+    this.name = 'CustomError';
+    this.code = code ?? 500;
+  }
 }
 
 /**
@@ -65,8 +70,7 @@ class API {
           if (ok === true) {
             resolve(data);
           } else {
-            const error = new CustomError(data?.statusText ?? 'Unknown error');
-            error.code = data?.status ?? 500;
+            const error = new CustomError(data?.statusText ?? 'Unknown error', data?.status ?? 500);
             reject(error);
           }
         })

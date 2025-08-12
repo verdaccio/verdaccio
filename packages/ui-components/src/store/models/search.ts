@@ -76,8 +76,8 @@ export const search = createModel<RootModel>()({
         dispatch.search.saveSearch({
           suggestions: orderedSuggestions,
         });
-      } catch (error: any) {
-        if (error.name === CONSTANTS.ABORT_ERROR) {
+      } catch (error: unknown) {
+        if (error instanceof Error && error.name === CONSTANTS.ABORT_ERROR) {
           dispatch.search.saveSearch({ suggestions: [] });
         } else {
           dispatch.search.setError();

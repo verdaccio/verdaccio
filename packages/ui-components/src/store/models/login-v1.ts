@@ -3,7 +3,7 @@ import i18next from 'i18next';
 
 import type { RootModel } from '.';
 import { Route } from '../../utils';
-import API from '../api';
+import API, { CustomError } from '../api';
 import storage from '../storage';
 import { HEADERS, stripTrailingSlash } from './utils';
 
@@ -87,27 +87,35 @@ export const loginV1 = createModel<RootModel>()({
         } else {
           throw new Error('Unknown error:' + JSON.stringify(response));
         }
-      } catch (error: any) {
+      } catch (error: unknown) {
         storage.removeItem('username');
         storage.removeItem('token');
 
-        if (error.code === 404) {
-          dispatch.loginV1.addError({
-            type: 'error',
-            description: i18next.t('security.error.username-not-found'),
-            code: 404,
-          });
-        } else if (error.code === 401) {
-          dispatch.loginV1.addError({
-            type: 'error',
-            description: i18next.t('security.error.invalid-credentials'),
-            code: 401,
-          });
+        if (error instanceof CustomError) {
+          if (error.code === 404) {
+            dispatch.loginV1.addError({
+              type: 'error',
+              description: i18next.t('security.error.username-not-found'),
+              code: 404,
+            });
+          } else if (error.code === 401) {
+            dispatch.loginV1.addError({
+              type: 'error',
+              description: i18next.t('security.error.invalid-credentials'),
+              code: 401,
+            });
+          } else {
+            dispatch.loginV1.addError({
+              type: 'error',
+              description: i18next.t('security.error.unable-to-login'),
+              code: error.code,
+            });
+          }
         } else {
           dispatch.loginV1.addError({
             type: 'error',
             description: i18next.t('security.error.unable-to-login'),
-            code: error.code || 403,
+            code: 403,
           });
         }
       }
