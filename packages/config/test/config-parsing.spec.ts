@@ -1,4 +1,4 @@
-import fs from 'node:fs';
+import { writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { describe, expect, test } from 'vitest';
 
@@ -6,8 +6,6 @@ import { fileUtils } from '@verdaccio/core';
 
 import { fromJStoYAML, parseConfigFile } from '../src';
 import { parseConfigurationFile } from './utils';
-
-const { writeFile } = fs.promises ? fs.promises : require('fs/promises');
 
 describe('parse', () => {
   describe('parseConfigFile', () => {

@@ -1,6 +1,6 @@
 import buildDebug from 'debug';
 import _ from 'lodash';
-import fs from 'node:fs';
+import { lstat } from 'node:fs/promises';
 import { dirname, isAbsolute, join, resolve } from 'node:path';
 
 import { PLUGIN_PREFIX, pluginUtils } from '@verdaccio/core';
@@ -8,8 +8,6 @@ import { PLUGIN_PREFIX, pluginUtils } from '@verdaccio/core';
 import { PluginType, isES6, isValid, tryLoad } from './utils';
 
 const debug = buildDebug('verdaccio:plugin:loader:async');
-
-const { lstat } = fs.promises ? fs.promises : require('fs/promises');
 
 async function isDirectory(pathFolder: string) {
   const stat = await lstat(pathFolder);

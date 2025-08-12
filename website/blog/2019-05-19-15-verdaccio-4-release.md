@@ -1,5 +1,5 @@
 ---
-author: ayush_sharma
+authors: ayush_sharma
 title: Verdaccio 4 released !!!
 ---
 

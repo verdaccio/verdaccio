@@ -1,5 +1,5 @@
 ---
-author: juan_picado
+authors: juan_picado
 title: Release 4.1.0
 ---
 

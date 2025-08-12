@@ -17,20 +17,28 @@ export function extractFileName(url: string): string {
   return url.substring(url.lastIndexOf('/') + 1);
 }
 
+// Legacy Edge support for file downloads
+interface NavigatorWithMSSaveBlob extends Navigator {
+  msSaveBlob?: (blob: Blob, fileName: string) => boolean;
+}
+
 function blobToFile(blob: Blob, fileName: string): File {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const b: any = blob;
-  b.lastModified = Date.now();
-  b.name = fileName;
-  return b as File;
+  // Create a proper File object by extending the Blob with File properties
+  const fileProperties = {
+    lastModified: Date.now(),
+    name: fileName,
+  };
+
+  // Use Object.assign to copy properties while maintaining the Blob prototype
+  return Object.assign(blob, fileProperties) as File;
 }
 
 export function downloadFile(fileStream: Blob, fileName: string): void {
   let file: File;
   // File constructor is not supported by Edge
   // https://developer.mozilla.org/en-US/docs/Web/API/File#Browser_compatibility
-  // @ts-ignore. Please see: https://github.com/microsoft/TypeScript/issues/33792
-  if (navigator.msSaveBlob) {
+  const nav = navigator as NavigatorWithMSSaveBlob;
+  if (nav.msSaveBlob) {
     // Detect if Edge
     file = blobToFile(new Blob([fileStream], { type: 'application/octet-stream' }), fileName);
   } else {

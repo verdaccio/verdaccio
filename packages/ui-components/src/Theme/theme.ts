@@ -28,7 +28,7 @@ const colors = {
   background: '#f4f4f4',
   dodgerBlue: '#1ba1f2',
   cyanBlue: '#253341',
-};
+} as const;
 
 const themeModes = {
   light: {
@@ -42,15 +42,16 @@ const themeModes = {
   },
 };
 
-function applyPrimaryColor(mode: ThemeMode, primaryColor?: string): any {
+export type ThemeMode = keyof typeof themeModes;
+type ThemeColors = (typeof themeModes)[ThemeMode];
+
+function applyPrimaryColor(mode: ThemeMode, primaryColor?: string): ThemeColors {
   if (mode === 'light') {
-    themeModes['light'].primary = primaryColor || PRIMARY_COLOR;
+    (themeModes['light'] as any).primary = primaryColor || PRIMARY_COLOR;
   }
 
   return themeModes[mode];
 }
-
-export type ThemeMode = keyof typeof themeModes;
 
 const fontSize = {
   xxl: 26,
@@ -60,7 +61,7 @@ const fontSize = {
   default: 16,
   sm: 14,
   ssm: 12,
-};
+} as const;
 
 export type FontSize = keyof typeof fontSize;
 
@@ -69,7 +70,7 @@ const fontWeight = {
   regular: 400,
   semiBold: 500,
   bold: 700,
-};
+} as const;
 
 export type FontWeight = keyof typeof fontWeight;
 
@@ -80,7 +81,7 @@ export const breakPoints = {
   large: 1024,
   container: 1240,
   xlarge: 1275,
-};
+} as const;
 
 export type BreakPoints = typeof breakPoints;
 
