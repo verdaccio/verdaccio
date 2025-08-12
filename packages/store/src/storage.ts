@@ -911,28 +911,29 @@ class Storage {
   }
 
   private getUpLinkForDistFile(pkgName: string, distFile: DistFile): IProxy {
-    let uplink: IProxy | null = null;
-
     for (const uplinkName in this.uplinks) {
       // refer to https://github.com/verdaccio/verdaccio/issues/1642
       if (hasProxyTo(pkgName, uplinkName, this.config.packages)) {
-        uplink = this.uplinks[uplinkName];
+        const uplink = this.uplinks[uplinkName];
+        const uplinkUrl = uplink.url.toString();
+
+        if (distFile.url.startsWith(uplinkUrl)) {
+          return uplink;
+        }
       }
     }
 
-    if (uplink == null) {
-      debug('upstream not found, creating one for %o', pkgName);
-      uplink = new ProxyStorage(
-        `verdaccio-${pkgName}`,
-        {
-          url: distFile.url,
-          cache: true,
-        },
-        this.config,
-        this.logger
-      );
-    }
-    return uplink;
+    debug('upstream not found, creating one for %o', pkgName);
+
+    return new ProxyStorage(
+      `verdaccio-${pkgName}`,
+      {
+        url: distFile.url,
+        cache: true,
+      },
+      this.config,
+      this.logger
+    );
   }
 
   public async updateManifest(
