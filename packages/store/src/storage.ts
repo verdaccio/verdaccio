@@ -1751,20 +1751,22 @@ class Storage {
 
     const uplinksErrors: any[] = [];
     // we resolve uplinks async in series, first come first serve
+
+    syncManifest = _.isNil(localManifest)
+      ? generatePackageTemplate(name)
+      : { ...localManifest };
+
     for (const uplink of upLinks) {
       try {
-        const tempManifest = _.isNil(localManifest)
-          ? generatePackageTemplate(name)
-          : { ...localManifest };
         syncManifest = await this.mergeCacheRemoteMetadata(
           this.uplinks[uplink],
-          tempManifest,
+          syncManifest,
           options
         );
         debug('syncing on uplink %o', syncManifest.name);
+
         if (_.isNil(syncManifest) === false) {
           found = true;
-          break;
         }
       } catch (err: any) {
         debug('error captured on uplink %o', err.message);
