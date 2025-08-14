@@ -72,7 +72,7 @@ export default function (route, auth: Auth, storage: Storage, logger: Logger): v
       const response: searchUtils.SearchResults = {
         objects: final,
         total: final.length,
-        time: new Date().toUTCString(),
+        time: new Date().toISOString(),
       };
 
       res.status(HTTP_STATUS.OK).json(response);
