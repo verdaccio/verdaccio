@@ -42,7 +42,7 @@ export default function (route, auth: Auth, storage: Storage, logger: Logger): v
     let data;
     const abort = new AbortController();
 
-    req.socket.on('close', function () {
+    req.socket.on('error', function () {
       debug('search web aborted');
       abort.abort();
     });
