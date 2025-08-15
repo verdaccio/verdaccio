@@ -87,7 +87,7 @@ You should only add it to your virtual host config, if you are experiencing the 
 
 # Nginx
 
-The following snippet is a full `docker` example can be tested in our [Docker examples repository](https://github.com/verdaccio/verdaccio/tree/5.x/docker-examples/reverse_proxy/nginx).
+The following snippet is a full `docker` example can be tested in our [Docker examples repository](https://github.com/verdaccio/verdaccio/tree/master/docker-examples/v6/reverse_proxy/nginx).
 
 ```nginx
 upstream verdaccio_v4 {
