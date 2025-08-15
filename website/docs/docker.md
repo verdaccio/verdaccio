@@ -122,7 +122,7 @@ COPY --chown=$VERDACCIO_USER_UID:root --from=builder \
   /verdaccio/plugins/verdaccio-auth-memory
 ```
 
-For more information check real plugin examples with Docker in our [source code](https://github.com/verdaccio/verdaccio/tree/master/docker-examples/v5/plugins).
+For more information check real plugin examples with Docker in our [source code](https://github.com/verdaccio/verdaccio/tree/master/docker-examples/v6/plugins).
 
 ### Docker and custom port configuration {#docker-and-custom-port-configuration}
 
