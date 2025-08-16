@@ -56,12 +56,12 @@ describe('address parsing', () => {
     });
 
     test('throws when given an empty array', () => {
-      expect(() => getListenAddress([])).toThrow(/array cannot be empty/i);
+      expect(() => getListenAddress([], logger)).toThrow(/array cannot be empty/i);
       expect(warn).not.toHaveBeenCalled();
     });
 
     test('localhost:4873  (default value)', () => {
-      const addr = getListenAddress('localhost:4873');
+      const addr = getListenAddress('localhost:4873', logger);
 
       expect(addr).toEqual({ proto: 'http', host: 'localhost', port: '4873' });
       expect(warn).not.toHaveBeenCalled();
