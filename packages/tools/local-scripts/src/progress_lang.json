@@ -3,7 +3,7 @@
   "de": { "translationProgress": 16, "approvalProgress": 14 },
   "es-ES": { "translationProgress": 19, "approvalProgress": 19 },
   "fr": { "translationProgress": 25, "approvalProgress": 25 },
-  "ga-IE": { "translationProgress": 100, "approvalProgress": 94 },
+  "ga-IE": { "translationProgress": 99, "approvalProgress": 94 },
   "gl": { "translationProgress": 1, "approvalProgress": 1 },
   "it": { "translationProgress": 87, "approvalProgress": 87 },
   "ko": { "translationProgress": 7, "approvalProgress": 7 },
@@ -14,6 +14,6 @@
   "tr": { "translationProgress": 3, "approvalProgress": 3 },
   "vi": { "translationProgress": 6, "approvalProgress": 6 },
   "yo": { "translationProgress": 13, "approvalProgress": 13 },
-  "zh-CN": { "translationProgress": 98, "approvalProgress": 98 },
-  "zh-TW": { "translationProgress": 14, "approvalProgress": 14 }
+  "zh-CN": { "translationProgress": 99, "approvalProgress": 99 },
+  "zh-TW": { "translationProgress": 13, "approvalProgress": 13 }
 }
