@@ -245,16 +245,31 @@ class Storage {
    *  once the proxies request has finished search in local storage for all packages
    * (privated and cached).
    */
-  public async search(options: ProxySearchParams): Promise<searchUtils.SearchPackageItem[]> {
+  public async search(options: ProxySearchParams): Promise<searchUtils.SearchResults> {
+    const searchResults: searchUtils.SearchResults = {
+      total: 0,
+      time: new Date().toISOString(),
+      objects: [],
+    };
+
     debug('search on cache packages');
-    const cachePackages = await this.getCachedPackages(options.query);
-    debug('search found on cache packages %o', cachePackages.length);
-    const remotePackages = await this.searchService.search(options);
+    const cachedPackages = await this.getCachedPackages(options.query);
+    debug('search found on cache packages %o', cachedPackages.length);
+    const remoteResults = await this.searchService.search(options);
+    const remotePackages = remoteResults.objects;
+
+    searchResults.total = cachedPackages.length + remoteResults.total;
+
     debug('search found on remote packages %o', remotePackages.length);
-    const totalResults = [...cachePackages, ...remotePackages];
+    const totalResults = [...cachedPackages, ...remotePackages];
     const uniqueResults = removeLowerVersions(totalResults);
     debug('unique results %o', uniqueResults.length);
-    return uniqueResults;
+
+    // Decrement the total by the number of duplicates removed.
+    searchResults.total -= totalResults.length - uniqueResults.length;
+    searchResults.objects = uniqueResults;
+
+    return searchResults;
   }
 
   private async getTarballFromUpstream(name: string, filename: string, { signal }) {
@@ -762,7 +777,8 @@ class Storage {
               score: searchItem.score,
               verdaccioPkgCached: searchItem.verdaccioPkgCached,
               verdaccioPrivate: searchItem.verdaccioPrivate,
-              flags: searchItem?.flags,
+              flags: searchItem.flags,
+              updated: manifest.time['modified'],
               // FUTURE: find a better way to calculate the score
               searchScore: 1,
             };
@@ -1752,9 +1768,7 @@ class Storage {
     const uplinksErrors: any[] = [];
     // we resolve uplinks async in series, first come first serve
 
-    syncManifest = _.isNil(localManifest)
-      ? generatePackageTemplate(name)
-      : { ...localManifest };
+    syncManifest = _.isNil(localManifest) ? generatePackageTemplate(name) : { ...localManifest };
 
     for (const uplink of upLinks) {
       try {

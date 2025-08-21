@@ -36,7 +36,7 @@ export type Score = {
 };
 
 export type SearchResults = {
-  objects: SearchItemPkg[];
+  objects: SearchPackageItem[];
   total: number;
   time: string;
 };
@@ -71,6 +71,7 @@ export interface SearchPackageItem extends UnStable, PrivatePackage {
   package: SearchPackageBody;
   score: Score;
   searchScore?: number;
+  updated?: string;
 }
 
 export const UNSCOPED = 'unscoped';
