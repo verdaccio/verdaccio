@@ -382,6 +382,13 @@ export function mapManifestToSearchPackageBody(
 ): searchUtils.SearchPackageBody {
   const latest = pkgUtils.getLatest(pkg);
   const version: Version = pkg.versions[latest];
+
+  const _npmUser = version._npmUser;
+  const publisher = {
+    username: _npmUser?.name,
+    email: _npmUser?.email,
+  };
+
   const result: searchUtils.SearchPackageBody = {
     name: version.name,
     description: version.description,
@@ -391,7 +398,7 @@ export function mapManifestToSearchPackageBody(
     // FIXME: type
     author: version.author as any,
     // FIXME: not possible fill this out from a private package
-    publisher: {},
+    publisher,
     // FIXME: type
     maintainers: version.maintainers as any,
     links: {
