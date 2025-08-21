@@ -395,7 +395,6 @@ export function mapManifestToSearchPackageBody(
     // FIXME: type
     maintainers: version.maintainers as any,
     links: {
-      npm: '',
       homepage: version.homepage,
       repository: version.repository,
       bugs: version.bugs,
