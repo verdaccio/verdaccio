@@ -30,10 +30,15 @@ class Search {
    * to a stream, once the proxies request has finished search in local storage for all packages
    * (privated and cached).
    */
-  public async search(options: ProxySearchParams): Promise<searchUtils.SearchPackageItem[]> {
-    const results: searchUtils.SearchPackageItem[] = [];
+  public async search(options: ProxySearchParams): Promise<searchUtils.SearchResults> {
+    const results: searchUtils.SearchResults = {
+      total: 0,
+      time: new Date().toISOString(),
+      objects: [],
+    };
+    const searchItems: searchUtils.SearchPackageItem[] = [];
+
     const upLinkList = this.getProxyList();
-    // const transformResults = new TransFormResults({ objectMode: true });
     const streamPassThrough = new PassThrough({ objectMode: true });
     debug('uplinks found %s', upLinkList.length);
     const searchUplinksStreams = upLinkList.map((uplinkName: string) => {
@@ -53,20 +58,24 @@ class Search {
       streamPassThrough.end();
 
       for await (const chunk of streamPassThrough) {
-        if (_.isArray(chunk)) {
-          (chunk as searchUtils.SearchItem[])
-            .filter((pkgItem) => {
-              debug(`streaming remote pkg name ${pkgItem?.package?.name}`);
-              return true;
-            })
-            .forEach((pkgItem) => {
-              // @ts-ignore
-              return results.push({
-                ...pkgItem,
-                verdaccioPkgCached: false,
-                verdaccioPrivate: false,
-              });
+        if (_.isString(chunk)) {
+          const searchResults: searchUtils.SearchResults = JSON.parse(
+            chunk
+          ) as searchUtils.SearchResults;
+          const objects: searchUtils.SearchPackageItem[] = searchResults.objects;
+
+          objects.forEach((searchItem) => {
+            debug(`streaming remote pkg name ${searchItem?.package?.name}`);
+
+            // @ts-ignore
+            return searchItems.push({
+              ...searchItem,
+              verdaccioPkgCached: false,
+              verdaccioPrivate: false,
             });
+          });
+
+          results.total += searchResults.total;
         }
       }
       debug('searching all uplinks done');
@@ -75,7 +84,12 @@ class Search {
       throw err;
     }
 
-    return removeDuplicates(results);
+    results.objects = removeDuplicates(searchItems);
+
+    // Adjust the total to account for the number of duplicates that were removed.
+    results.total -= searchItems.length - results.objects.length;
+
+    return results;
   }
 
   /**

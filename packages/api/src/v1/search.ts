@@ -5,7 +5,6 @@ import { Auth } from '@verdaccio/auth';
 import { HTTP_STATUS, searchUtils } from '@verdaccio/core';
 import { SEARCH_API_ENDPOINTS } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
-import { Manifest } from '@verdaccio/types';
 import { Logger } from '@verdaccio/types';
 
 const debug = buildDebug('verdaccio:api:search');
@@ -17,9 +16,13 @@ const debug = buildDebug('verdaccio:api:search');
  * req: 'GET /-/v1/search?text=react&size=20&frpom=0&quality=0.65&popularity=0.98&maintenance=0.5'
  */
 export default function (route, auth: Auth, storage: Storage, logger: Logger): void {
-  function checkAccess(pkg: any, auth: any, remoteUser): Promise<Manifest | null> {
+  function checkAccess(
+    item: searchUtils.SearchPackageItem,
+    auth: any,
+    remoteUser
+  ): Promise<searchUtils.SearchPackageItem | null> {
     return new Promise((resolve, reject) => {
-      auth.allow_access({ packageName: pkg?.package?.name }, remoteUser, function (err, allowed) {
+      auth.allow_access({ packageName: item?.package?.name }, remoteUser, function (err, allowed) {
         if (err) {
           if (err.status && String(err.status).match(/^4\d\d$/)) {
             // auth plugin returns 4xx user error,
@@ -30,7 +33,7 @@ export default function (route, auth: Auth, storage: Storage, logger: Logger): v
             reject(err);
           }
         } else {
-          return resolve(allowed ? pkg : null);
+          return resolve(allowed ? item : null);
         }
       });
     });
@@ -39,7 +42,6 @@ export default function (route, auth: Auth, storage: Storage, logger: Logger): v
   route.get(SEARCH_API_ENDPOINTS.search, async (req, res, next) => {
     const { query, url } = req;
     let [size, from] = ['size', 'from'].map((k) => query[k]);
-    let data;
     const abort = new AbortController();
 
     req.socket.on('error', function () {
@@ -49,33 +51,33 @@ export default function (route, auth: Auth, storage: Storage, logger: Logger): v
 
     size = parseInt(size, 10) || 20;
     from = parseInt(from, 10) || 0;
+    const end = from + size;
 
     try {
       debug('storage search initiated');
-      data = await storage.search({
+      const results: searchUtils.SearchResults = await storage.search({
         query,
         url,
         abort,
       });
-      debug('storage items tota: %o', data.length);
-      const checkAccessPromises: searchUtils.SearchItemPkg[] = await Promise.all(
-        data.map((pkgItem) => {
-          return checkAccess(pkgItem, auth, req.remote_user);
+      debug('storage items total: %o', results.total);
+
+      const checkAccessPromises: (searchUtils.SearchPackageItem | null)[] = await Promise.all(
+        results.objects.map((searchItem: searchUtils.SearchPackageItem) => {
+          return checkAccess(searchItem, auth, req.remote_user);
         })
       );
 
-      const final: searchUtils.SearchItemPkg[] = checkAccessPromises
+      const finalItems: searchUtils.SearchPackageItem[] = checkAccessPromises
         .filter((i) => !_.isNull(i))
-        .slice(from, size);
-      logger.debug(`search results ${final?.length}`);
+        .slice(from, end) as searchUtils.SearchPackageItem[];
+      logger.debug(`search results ${finalItems?.length}`);
 
-      const response: searchUtils.SearchResults = {
-        objects: final,
-        total: final.length,
-        time: new Date().toISOString(),
-      };
+      // Adjust the total returned by the number that the user does not have access to.
+      results.total -= results.objects.length - finalItems.length;
+      results.objects = finalItems;
 
-      res.status(HTTP_STATUS.OK).json(response);
+      res.status(HTTP_STATUS.OK).json(results);
     } catch (error) {
       logger.error({ error }, 'search endpoint has failed @{error.message}');
       next(next);
