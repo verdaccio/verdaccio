@@ -401,6 +401,7 @@ export function mapManifestToSearchPackageBody(
     publisher,
     // FIXME: type
     maintainers: version.maintainers as any,
+    license: version.license,
     links: {
       homepage: version.homepage,
       repository: version.repository,

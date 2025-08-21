@@ -53,6 +53,7 @@ export type SearchPackageBody = {
   scope?: string;
   description: string;
   author: string | PublisherMaintainer;
+  license?: string;
   version: string;
   keywords: string | string[] | undefined;
   date: string;
