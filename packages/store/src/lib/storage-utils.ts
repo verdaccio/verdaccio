@@ -384,7 +384,6 @@ export function mapManifestToSearchPackageBody(
   const version: Version = pkg.versions[latest];
   const result: searchUtils.SearchPackageBody = {
     name: version.name,
-    scope: '',
     description: version.description,
     version: latest,
     keywords: version.keywords,
