@@ -13,7 +13,14 @@ import {
   searchUtils,
   validationUtils,
 } from '@verdaccio/core';
-import { Author, GenericBody, Manifest, ReadmeOptions, Version } from '@verdaccio/types';
+import {
+  Author,
+  GenericBody,
+  Manifest,
+  PublisherMaintainer,
+  ReadmeOptions,
+  Version,
+} from '@verdaccio/types';
 
 import { sortVersionsAndFilterInvalid } from './versions-utils';
 
@@ -382,6 +389,28 @@ export function mapManifestToSearchPackageBody(
 ): searchUtils.SearchPackageBody {
   const latest = pkgUtils.getLatest(pkg);
   const version: Version = pkg.versions[latest];
+  const versionMaintainers = version.maintainers || [];
+
+  const maintainers = versionMaintainers.reduce(
+    (accumulator: PublisherMaintainer[], maintainer): PublisherMaintainer[] => {
+      if (_.isObject(maintainer)) {
+        const { email, name, username } = maintainer as Author;
+
+        accumulator.push({
+          username: username ?? name,
+          email,
+        });
+      } else {
+        accumulator.push({
+          username: maintainer,
+          email: '',
+        });
+      }
+
+      return accumulator;
+    },
+    []
+  );
 
   const _npmUser = version._npmUser;
   const publisher = {
@@ -400,7 +429,7 @@ export function mapManifestToSearchPackageBody(
     // FIXME: not possible fill this out from a private package
     publisher,
     // FIXME: type
-    maintainers: version.maintainers as any,
+    maintainers,
     license: version.license,
     links: {
       homepage: version.homepage,
