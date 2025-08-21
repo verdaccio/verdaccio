@@ -39,6 +39,7 @@ export function generatePackageMetadata(
         _npmVersion: '5.5.1',
         _npmUser: {
           name: 'foo',
+          email: 'user@domain.com',
         },
         dist: {
           integrity:

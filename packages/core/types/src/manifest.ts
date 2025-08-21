@@ -77,7 +77,7 @@ export interface Dist {
 export interface Author {
   username?: string;
   name: string;
-  email?: string;
+  email: string;
   url?: string;
   _avatar?: string; // for web ui
 }

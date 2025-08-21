@@ -419,6 +419,7 @@ export function normalizeContributors(contributors: Author[]): Author[] {
     return [
       {
         name: contributors,
+        email: '',
       },
     ];
   }

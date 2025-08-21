@@ -28,7 +28,7 @@ export function addNewVersion(
     readmeFilename: 'README.md',
     _id: `${manifest.name}@${version}`,
     _npmVersion: '5.5.1',
-    _npmUser: { name: 'foo' },
+    _npmUser: { name: 'foo', email: 'user@domain.com' },
     dist: {
       integrity: 'sha512-6gHiERpiDgtb3hjqpQHoPoH4g==',
       shasum: '2c03764f651a9f016ca0b7620421457b619151b9',
