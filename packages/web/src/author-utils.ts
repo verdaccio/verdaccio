@@ -137,6 +137,7 @@ function normalizeAuthors(authors: Person[]): Person[] {
     return [
       {
         name: authors,
+        email: '',
       },
     ];
   }
@@ -150,7 +151,7 @@ function normalizeAuthors(authors: Person[]): Person[] {
  * @param {string} author
  * @returns {Object} { name: string, email: string, url: string }
  */
-function splitAuthorString(author: string): { name: string; email?: string; url: string } {
+function splitAuthorString(author: string): { name: string; email: string; url: string } {
   // Limit author string length to prevent ReDoS
   const maxLength = 256;
   const truncatedAuthor = author.slice(0, maxLength);

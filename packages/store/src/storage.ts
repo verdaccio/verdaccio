@@ -245,16 +245,31 @@ class Storage {
    *  once the proxies request has finished search in local storage for all packages
    * (privated and cached).
    */
-  public async search(options: ProxySearchParams): Promise<searchUtils.SearchPackageItem[]> {
+  public async search(options: ProxySearchParams): Promise<searchUtils.SearchResults> {
+    const searchResults: searchUtils.SearchResults = {
+      total: 0,
+      time: new Date().toISOString(),
+      objects: [],
+    };
+
     debug('search on cache packages');
-    const cachePackages = await this.getCachedPackages(options.query);
-    debug('search found on cache packages %o', cachePackages.length);
-    const remotePackages = await this.searchService.search(options);
+    const cachedPackages = await this.getCachedPackages(options.query);
+    debug('search found on cache packages %o', cachedPackages.length);
+    const remoteResults = await this.searchService.search(options);
+    const remotePackages = remoteResults.objects;
+
+    searchResults.total = cachedPackages.length + remoteResults.total;
+
     debug('search found on remote packages %o', remotePackages.length);
-    const totalResults = [...cachePackages, ...remotePackages];
+    const totalResults = [...cachedPackages, ...remotePackages];
     const uniqueResults = removeLowerVersions(totalResults);
     debug('unique results %o', uniqueResults.length);
-    return uniqueResults;
+
+    // Decrement the total by the number of duplicates removed.
+    searchResults.total -= totalResults.length - uniqueResults.length;
+    searchResults.objects = uniqueResults;
+
+    return searchResults;
   }
 
   private async getTarballFromUpstream(name: string, filename: string, { signal }) {
@@ -281,6 +296,8 @@ class Storage {
       let expected_length;
       const passThroughRemoteStream = new PassThrough();
       const proxy = this.getUpLinkForDistFile(name, distFile);
+      debug('fetching tarball from %s', proxy.uplinkName);
+
       const remoteStream = proxy.fetchTarball(distFile.url, {});
 
       remoteStream.on('request', async () => {
@@ -384,6 +401,8 @@ class Storage {
       }
 
       const proxy = this.getUpLinkForDistFile(name, distFile);
+      debug('fetching tarball from %s', proxy.uplinkName);
+
       const remoteStream = proxy.fetchTarball(distFile.url, {});
       remoteStream.on('response', async () => {
         try {
@@ -758,7 +777,8 @@ class Storage {
               score: searchItem.score,
               verdaccioPkgCached: searchItem.verdaccioPkgCached,
               verdaccioPrivate: searchItem.verdaccioPrivate,
-              flags: searchItem?.flags,
+              flags: searchItem.flags,
+              updated: manifest.time['modified'],
               // FUTURE: find a better way to calculate the score
               searchScore: 1,
             };
@@ -907,28 +927,29 @@ class Storage {
   }
 
   private getUpLinkForDistFile(pkgName: string, distFile: DistFile): IProxy {
-    let uplink: IProxy | null = null;
-
     for (const uplinkName in this.uplinks) {
       // refer to https://github.com/verdaccio/verdaccio/issues/1642
       if (hasProxyTo(pkgName, uplinkName, this.config.packages)) {
-        uplink = this.uplinks[uplinkName];
+        const uplink = this.uplinks[uplinkName];
+        const uplinkUrl = uplink.url.toString();
+
+        if (distFile.url.startsWith(uplinkUrl)) {
+          return uplink;
+        }
       }
     }
 
-    if (uplink == null) {
-      debug('upstream not found, creating one for %o', pkgName);
-      uplink = new ProxyStorage(
-        `verdaccio-${pkgName}`,
-        {
-          url: distFile.url,
-          cache: true,
-        },
-        this.config,
-        this.logger
-      );
-    }
-    return uplink;
+    debug('upstream not found, creating one for %o', pkgName);
+
+    return new ProxyStorage(
+      `verdaccio-${pkgName}`,
+      {
+        url: distFile.url,
+        cache: true,
+      },
+      this.config,
+      this.logger
+    );
   }
 
   public async updateManifest(
@@ -1746,20 +1767,20 @@ class Storage {
 
     const uplinksErrors: any[] = [];
     // we resolve uplinks async in series, first come first serve
+
+    syncManifest = _.isNil(localManifest) ? generatePackageTemplate(name) : { ...localManifest };
+
     for (const uplink of upLinks) {
       try {
-        const tempManifest = _.isNil(localManifest)
-          ? generatePackageTemplate(name)
-          : { ...localManifest };
         syncManifest = await this.mergeCacheRemoteMetadata(
           this.uplinks[uplink],
-          tempManifest,
+          syncManifest,
           options
         );
         debug('syncing on uplink %o', syncManifest.name);
+
         if (_.isNil(syncManifest) === false) {
           found = true;
-          break;
         }
       } catch (err: any) {
         debug('error captured on uplink %o', err.message);

@@ -36,7 +36,7 @@ export type Score = {
 };
 
 export type SearchResults = {
-  objects: SearchItemPkg[];
+  objects: SearchPackageItem[];
   total: number;
   time: string;
 };
@@ -50,14 +50,15 @@ type PublisherMaintainer = {
 // @deprecated use @verdaccio/types
 export type SearchPackageBody = {
   name: string;
-  scope: string;
+  scope?: string;
   description: string;
   author: string | PublisherMaintainer;
+  license?: string;
   version: string;
   keywords: string | string[] | undefined;
   date: string;
   links?: {
-    npm: string; // only include placeholder for URL eg: {url}/{packageName}
+    npm?: string; // only include placeholder for URL eg: {url}/{packageName}
     homepage?: string;
     repository?: string;
     bugs?: string;
@@ -70,6 +71,7 @@ export interface SearchPackageItem extends UnStable, PrivatePackage {
   package: SearchPackageBody;
   score: Score;
   searchScore?: number;
+  updated?: string;
 }
 
 export const UNSCOPED = 'unscoped';

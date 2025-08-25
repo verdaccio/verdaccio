@@ -11,6 +11,7 @@ import got, {
 import _ from 'lodash';
 import Stream, { PassThrough, Readable } from 'node:stream';
 import { URL } from 'node:url';
+import URI from 'urijs';
 
 import {
   API_ERROR,
@@ -164,6 +165,8 @@ class ProxyStorage implements IProxy {
     this.fail_timeout = parseInterval(setConfig(this.config, 'fail_timeout', '5m'));
     this.strict_ssl = Boolean(setConfig(this.config, 'strict_ssl', true));
     this.retry = { limit: this.max_fails ?? 2 };
+
+    debug('Configured uplink %s using config: %O', this.uplinkName, this.config);
   }
 
   private getAgent() {
@@ -197,6 +200,7 @@ class ProxyStorage implements IProxy {
   private setAuthNext(headers: gotHeaders): gotHeaders {
     const { auth } = this.config;
     if (typeof auth === 'undefined' || typeof headers[HEADERS.AUTHORIZATION] === 'string') {
+      debug('No auth provided for uplink %s', this.uplinkName);
       return headers;
     }
 
@@ -465,7 +469,7 @@ class ProxyStorage implements IProxy {
     }
     const method = 'GET';
     // const uri = this.config.url + `/${encode(name)}`;
-    debug('request uri for %s', url);
+    debug('request uri for %s using headers: %o', url, headers);
 
     const readStream = got
       .stream(url, {
@@ -490,27 +494,51 @@ class ProxyStorage implements IProxy {
    */
   public async search({ url, abort, retry }: ProxySearchParams): Promise<Stream.Readable> {
     try {
-      // Incoming URL is relative ie /-/v1/search...
-      const uri = new URL(url, this.url).href;
+      const headers = this.applyUplinkHeaders(this.getHeaders());
+      const uplinkUrl = new URL(this.url);
+      const uri = new URI(url);
+
+      const queryParams = uri.search(true);
+
+      // uplink url lacks trailing slash and incoming URL is absolute ie /-/v1/search...
+      uplinkUrl.pathname = URI.joinPaths(uplinkUrl.pathname, uri.pathname(true)).pathname(true);
+
+      for (const key in queryParams) {
+        const value = queryParams[key];
+
+        uplinkUrl.searchParams.set(key, value);
+      }
+
       this.logger.http(
-        { uri, uplink: this.uplinkName },
+        { uri: uplinkUrl.href, uplink: this.uplinkName },
         'search request to uplink @{uplink} - @{uri}'
       );
-      debug('searching on %o', uri);
-      const response = got(uri, {
+      debug('searching on %o', uplinkUrl.href);
+      const response = (await got(uplinkUrl.href, {
+        headers,
         signal: abort ? abort.signal : {},
         agent: this.agent,
         timeout: this.timeout,
         retry: retry ?? this.retry,
-      });
+      }).text()) as any;
 
-      const res = await response.text();
-      const total = JSON.parse(res).total;
-      debug('number of packages found: %o', total);
       const streamSearch = new PassThrough({ objectMode: true });
-      const streamResponse = Readable.from(res);
-      // objects is one of the properties on the body, it ignores date and total
-      streamResponse.pipe(JSONStream.parse('objects')).pipe(streamSearch, { end: true });
+      const streamResponse = Readable.from(response);
+
+      if (debug.enabled) {
+        // Read the total from the response stream.
+        const readResponseStream = JSONStream.parse('total');
+
+        readResponseStream.on('data', function (total) {
+          debug('number of packages found: %o', total);
+        });
+
+        // pipe the response stream through the readRespsonse stream to read the total
+        streamResponse.pipe(new PassThrough().pipe(readResponseStream));
+      }
+
+      // pipe the response stream to result stream.
+      streamResponse.pipe(streamSearch, { end: true });
       return streamSearch;
     } catch (err: any) {
       debug('search error %s', err);

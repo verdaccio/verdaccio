@@ -33,6 +33,7 @@ export function generateRemotePackageMetadata(
       _npmVersion: '5.5.1',
       _npmUser: {
         name: 'foo',
+        email: 'user@domain.com',
       },
       dist: {
         integrity:
@@ -79,6 +80,7 @@ export function generateRemotePackageMetadata(
     ],
     author: {
       name: 'foo',
+      email: 'foo@foo.com',
     },
     readme: '# test',
     _rev: '12-c8fe8a9c79fa57a87347a0213e6f2548',
