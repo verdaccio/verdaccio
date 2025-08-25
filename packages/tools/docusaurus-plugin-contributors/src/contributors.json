@@ -5257,7 +5257,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "A lightweight Node.js private proxy registry",
-      "stargazers_count": 17087,
+      "stargazers_count": 17097,
       "archived": false
     },
     {
@@ -5365,7 +5365,7 @@
       "full_name": "verdaccio/verdaccio-google-cloud",
       "html_url": "https://github.com/verdaccio/verdaccio-google-cloud",
       "description": "☁️📦 Google Cloud storage plugin for verdaccio",
-      "stargazers_count": 18,
+      "stargazers_count": 17,
       "archived": true
     },
     {
