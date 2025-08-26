@@ -1,6 +1,6 @@
 /* eslint-disable */
 import buildDebug from 'debug';
-import _, { assign, isFunction } from 'lodash';
+import { assign, isFunction } from 'lodash';
 import constants from 'node:constants';
 import fs from 'node:fs';
 import http from 'node:http';
@@ -8,7 +8,6 @@ import https from 'node:https';
 import url from 'node:url';
 
 import { getConfigParsed, getListenAddress } from '@verdaccio/config';
-import { DEFAULT_PORT } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 import expressServer from '@verdaccio/server';
 import fastifyServer from '@verdaccio/server-fastify';
@@ -107,7 +106,7 @@ export function createServerFactory(config: ConfigYaml, addr, app) {
 }
 
 /**
- * Start the server on the port defined
+ * Start the server on the port defined (or the port defined in the config file)
  * @param config
  * @param port
  * @param version
@@ -121,8 +120,7 @@ export async function initServer(
 ): Promise<void> {
   return new Promise(async (resolve, reject) => {
     const logger = setup(config?.log as any);
-    const combined: string | undefined | any[] = [port, config?.listen, DEFAULT_PORT];
-    const addr = getListenAddress(combined, logger);
+    const addr = getListenAddress(port ?? config?.listen, logger);
     displayExperimentsInfoBox(config.flags);
 
     let app;
@@ -200,9 +198,7 @@ export async function runServer(config?: string | ConfigYaml): Promise<any> {
   const configurationParsed = getConfigParsed(config);
   setup(configurationParsed.log as any);
   displayExperimentsInfoBox(configurationParsed.flags);
-  // FIXME: get only the first match, the multiple address will be removed
-  const combined: string | undefined | any[] = [configurationParsed?.listen, DEFAULT_PORT];
-  const addr = getListenAddress(combined, logger);
+  const addr = getListenAddress(configurationParsed.listen, logger);
   const app = await expressServer(configurationParsed);
   return createServerFactory(configurationParsed, addr, app);
 }
