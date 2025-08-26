@@ -15,7 +15,6 @@ setup({});
 describe('api with no limited access configuration', () => {
   let app;
   let mockRegistry;
-  // const store = path.join(__dirname, '../../partials/store/access-storage');
   let store;
   vi.setConfig({ testTimeout: 20000 });
 

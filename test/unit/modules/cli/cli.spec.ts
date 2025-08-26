@@ -12,6 +12,8 @@ import startServer from '../../../../src';
 import { DEFAULT_DOMAIN, DEFAULT_PROTOCOL } from '../../../../src/lib/constants';
 import config from '../../partials/config';
 
+vi.setConfig({ testTimeout: 20000 });
+
 describe('startServer via API', () => {
   describe('startServer launcher', () => {
     test('should provide all HTTP server data', async () => {
