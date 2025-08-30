@@ -1,5 +1,14 @@
 # Change Log
 
+## 13.0.0-next-8.22
+
+### Patch Changes
+
+- f443f81: chore(deps): sync and pin dependencies
+- Updated dependencies [67e667b]
+- Updated dependencies [60ef8ff]
+  - @verdaccio/core@8.0.0-next-8.22
+
 ## 13.0.0-next-8.21
 
 ### Patch Changes

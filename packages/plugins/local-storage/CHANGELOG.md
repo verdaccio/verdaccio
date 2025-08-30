@@ -1,5 +1,16 @@
 # Change Log
 
+## 13.0.0-next-8.22
+
+### Patch Changes
+
+- 67e667b: chore: replace conditional require(fs/promises) pattern
+- Updated dependencies [67e667b]
+- Updated dependencies [60ef8ff]
+  - @verdaccio/file-locking@13.0.0-next-8.6
+  - @verdaccio/core@8.0.0-next-8.22
+  - @verdaccio/utils@8.1.0-next-8.22
+
 ## 13.0.0-next-8.21
 
 ### Patch Changes
