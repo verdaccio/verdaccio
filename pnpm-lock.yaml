@@ -2245,8 +2245,8 @@ importers:
         specifier: 1.8.5
         version: 1.8.5(react@18.3.1)
       react-player:
-        specifier: 2.14.1
-        version: 2.14.1(react@18.3.1)
+        specifier: 2.16.1
+        version: 2.16.1(react@18.3.1)
       react-twitter-widgets:
         specifier: 1.11.0
         version: 1.11.0(react@18.3.1)
@@ -12863,8 +12863,8 @@ packages:
       '@types/react': '>=18'
       react: '>=18'
 
-  react-player@2.14.1:
-    resolution: {integrity: sha512-jILj7F9o+6NHzrJ1GqZIxfJgskvGmKeJ05FNhPvgiCpvMZFmFneKEkukywHcULDO2lqITm+zcEkLSq42mX0FbA==}
+  react-player@2.16.1:
+    resolution: {integrity: sha512-mxP6CqjSWjidtyDoMOSHVPdhX0pY16aSvw5fVr44EMaT7X5Xz46uQ4b/YBm1v2x+3hHkB9PmjEEkmbHb9PXQ4w==}
     peerDependencies:
       react: '>=16.6.0'
 
@@ -28467,7 +28467,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  react-player@2.14.1(react@18.3.1):
+  react-player@2.16.1(react@18.3.1):
     dependencies:
       deepmerge: 4.3.1
       load-script: 1.0.0
