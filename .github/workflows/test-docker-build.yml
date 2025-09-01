@@ -11,7 +11,7 @@ jobs:
     name: Test Docker Build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
 
       - name: Build Docker image
         run: docker build -t verdaccio-test .
@@ -40,7 +40,7 @@ jobs:
     name: Test Storage Volume
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
 
       - name: Build Docker image
         run: docker build -t verdaccio-test .
@@ -76,7 +76,7 @@ jobs:
     name: Test Config Volume
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
 
       - name: Build Docker image
         run: docker build -t verdaccio-test .
