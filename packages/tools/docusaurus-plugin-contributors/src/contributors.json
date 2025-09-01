@@ -1700,8 +1700,8 @@
       ]
     },
     {
-      "id": 3189424,
-      "login": "marnel",
+      "id": 1845314,
+      "login": "MasterOdin",
       "contributions": 2,
       "repositories": [
         {
@@ -1711,8 +1711,8 @@
       ]
     },
     {
-      "id": 273367,
-      "login": "kba",
+      "id": 3189424,
+      "login": "marnel",
       "contributions": 2,
       "repositories": [
         {
@@ -1733,8 +1733,8 @@
       ]
     },
     {
-      "id": 1845314,
-      "login": "MasterOdin",
+      "id": 273367,
+      "login": "kba",
       "contributions": 2,
       "repositories": [
         {
@@ -2126,8 +2126,8 @@
       ]
     },
     {
-      "id": 14912729,
-      "login": "Skn0tt",
+      "id": 7500357,
+      "login": "saurabh-gohil",
       "contributions": 1,
       "repositories": [
         {
@@ -2148,8 +2148,8 @@
       ]
     },
     {
-      "id": 7500357,
-      "login": "saurabh-gohil",
+      "id": 14912729,
+      "login": "Skn0tt",
       "contributions": 1,
       "repositories": [
         {
@@ -2203,8 +2203,8 @@
       ]
     },
     {
-      "id": 22884999,
-      "login": "hedocode",
+      "id": 1667873,
+      "login": "morlay",
       "contributions": 1,
       "repositories": [
         {
@@ -2324,17 +2324,6 @@
       ]
     },
     {
-      "id": 1667873,
-      "login": "morlay",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 1
-        }
-      ]
-    },
-    {
       "id": 9381634,
       "login": "morrain",
       "contributions": 1,
@@ -2414,6 +2403,17 @@
     {
       "id": 2574275,
       "login": "oscard0m",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 42185573,
+      "login": "oussamafilani",
       "contributions": 1,
       "repositories": [
         {
@@ -3030,6 +3030,17 @@
     {
       "id": 1152706,
       "login": "divdavem",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 22884999,
+      "login": "hedocode",
       "contributions": 1,
       "repositories": [
         {
@@ -5257,7 +5268,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "A lightweight Node.js private proxy registry",
-      "stargazers_count": 17107,
+      "stargazers_count": 17117,
       "archived": false
     },
     {
