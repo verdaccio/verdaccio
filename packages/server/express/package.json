@@ -51,8 +51,8 @@
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:13.0.0-next-8.7",
-    "supertest": "7.0.0",
-    "vitest": "3.0.4"
+    "supertest": "7.1.4",
+    "vitest": "3.2.4"
   },
   "scripts": {
     "clean": "rimraf ./build",

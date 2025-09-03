@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "pino": "9.9.0",
-    "vitest": "3.0.4"
+    "vitest": "3.2.4"
   },
   "funding": {
     "type": "opencollective",
