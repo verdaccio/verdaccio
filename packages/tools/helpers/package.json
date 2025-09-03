@@ -19,7 +19,7 @@
     "debug": "4.4.1",
     "express": "4.21.2",
     "fs-extra": "11.2.0",
-    "supertest": "7.0.0"
+    "supertest": "7.1.4"
   },
   "scripts": {
     "test": "vitest run",
