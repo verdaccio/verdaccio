@@ -1,5 +1,24 @@
 # @verdaccio/store
 
+## 8.0.0-next-8.22
+
+### Patch Changes
+
+- 60ef8ff: fix(storage): check_owners with anonymous access
+- Updated dependencies [67e667b]
+- Updated dependencies [60ef8ff]
+- Updated dependencies [05f03b3]
+- Updated dependencies [f443f81]
+  - @verdaccio/local-storage@13.0.0-next-8.22
+  - @verdaccio/core@8.0.0-next-8.22
+  - @verdaccio/loaders@8.0.0-next-8.12
+  - @verdaccio/config@8.0.0-next-8.22
+  - @verdaccio/tarball@13.0.0-next-8.22
+  - @verdaccio/proxy@8.0.0-next-8.22
+  - @verdaccio/url@13.0.0-next-8.22
+  - @verdaccio/search@8.0.0-next-8.22
+  - @verdaccio/logger@8.0.0-next-8.22
+
 ## 8.0.0-next-8.21
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @verdaccio/website
 
+## 1.0.1-next-8.7
+
+### Patch Changes
+
+- 3b9f1b3: fix(docs): warnings during website build (2)
+- f443f81: chore(deps): sync and pin dependencies
+- 56d9757: fix(docs): warnings during website build
+- Updated dependencies [f443f81]
+  - @verdaccio/ui-components@4.0.0-next-8.11
+
 ## 1.0.1-next-8.6
 
 ### Patch Changes
