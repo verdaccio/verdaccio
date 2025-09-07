@@ -45,10 +45,10 @@
     "@verdaccio/test-helper": "workspace:4.0.0-next-8.6",
     "@verdaccio/types": "workspace:13.0.0-next-8.7",
     "jsdom": "26.1.0",
-    "supertest": "7.0.0",
+    "supertest": "7.1.4",
     "verdaccio-auth-memory": "workspace:13.0.0-next-8.21",
     "verdaccio-memory": "workspace:13.0.0-next-8.21",
-    "vitest": "3.0.4"
+    "vitest": "3.2.4"
   },
   "scripts": {
     "clean": "rimraf ./build",
