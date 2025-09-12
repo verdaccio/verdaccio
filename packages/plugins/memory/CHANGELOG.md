@@ -1,5 +1,17 @@
 # Change Log
 
+## 13.0.0-next-8.22
+
+### Minor Changes
+
+- cb730c5: feat: rewrite of memory storage
+
+### Patch Changes
+
+- Updated dependencies [67e667b]
+- Updated dependencies [60ef8ff]
+  - @verdaccio/core@8.0.0-next-8.22
+
 ## 13.0.0-next-8.21
 
 ### Patch Changes
