@@ -15,7 +15,7 @@ docker pull verdaccio/verdaccio
 
 ## Tagged Versions {#tagged-versions}
 
-![alt Docker Pulls Count](https://dockeri.co/image/verdaccio/verdaccio 'Docker Pulls Count')
+![alt Docker Pulls Count](https://img.shields.io/docker/pulls/verdaccio/verdaccio?color=f02e65&style=flat-square)
 
 Since version `v2.x` you can pull docker images by [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), as follows:
 
