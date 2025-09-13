@@ -28,7 +28,7 @@ export async function initializeServer(
   config.configPath = config.storage;
   debug('storage: %s', config.storage);
   const storage = new Storage(config);
-  await storage.init(config, []);
+  await storage.init(config);
   const auth: Auth = new Auth(config, logger, { legacyMergeConfigs: true });
   await auth.init();
   // FUTURE: in v6 auth.init() is being called
