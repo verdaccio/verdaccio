@@ -29,7 +29,7 @@
     "@rematch/loading": "2.1.2",
     "@verdaccio/ui-i18n": "workspace:*",
     "country-flag-icons": "1.5.19",
-    "dayjs": "1.11.13",
+    "dayjs": "1.11.18",
     "dompurify": "3.2.6",
     "highlight.js": "11.11.1",
     "i18next": "20.6.1",

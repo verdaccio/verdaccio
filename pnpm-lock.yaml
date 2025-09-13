@@ -923,8 +923,8 @@ importers:
         specifier: 2.0.20
         version: 2.0.20
       dayjs:
-        specifier: 1.11.13
-        version: 1.11.13
+        specifier: 1.11.18
+        version: 1.11.18
       lodash:
         specifier: 4.17.21
         version: 4.17.21
@@ -1240,8 +1240,8 @@ importers:
         specifier: 6.11.0
         version: 6.11.0(webpack@5.101.3)
       dayjs:
-        specifier: 1.11.13
-        version: 1.11.13
+        specifier: 1.11.18
+        version: 1.11.18
       eslint-plugin-verdaccio:
         specifier: 10.0.0
         version: 10.0.0
@@ -1857,8 +1857,8 @@ importers:
         specifier: 1.5.19
         version: 1.5.19
       dayjs:
-        specifier: 1.11.13
-        version: 1.11.13
+        specifier: 1.11.18
+        version: 1.11.18
       dompurify:
         specifier: 3.2.6
         version: 3.2.6
@@ -7847,6 +7847,9 @@ packages:
 
   dayjs@1.11.13:
     resolution: {integrity: sha512-oaMBel6gjolK862uaPQOVTA7q3TZhuSvuMQAAglQDOWYO9A91IrAOUJEyKVlqJlHE0vq5p5UXxzdPfMH/x6xNg==}
+
+  dayjs@1.11.18:
+    resolution: {integrity: sha512-zFBQ7WFRvVRhKcWoUh+ZA1g2HVgUbsZm9sbddh8EC5iv93sui8DVVz1Npvz+r6meo9VKfa8NyLWBsQK1VvIKPA==}
 
   debounce@1.2.1:
     resolution: {integrity: sha512-XRRe6Glud4rd/ZGQfiV1ruXSfbvfJedlV9Y6zOlP+2K04vBYiJEte6stfFkCP03aMnY5tsipamumUjL14fofug==}
@@ -22816,6 +22819,8 @@ snapshots:
 
   dayjs@1.11.13: {}
 
+  dayjs@1.11.18: {}
+
   debounce@1.2.1: {}
 
   debug@2.6.9:
@@ -26563,7 +26568,7 @@ snapshots:
       d3: 7.9.0
       d3-sankey: 0.12.3
       dagre-d3-es: 7.0.11
-      dayjs: 1.11.13
+      dayjs: 1.11.18
       dompurify: 3.2.6
       katex: 0.16.18
       khroma: 2.1.0
