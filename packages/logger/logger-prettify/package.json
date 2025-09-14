@@ -42,7 +42,7 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "dayjs": "1.11.13",
+    "dayjs": "1.11.18",
     "on-exit-leak-free": "2.1.2",
     "pino-abstract-transport": "1.2.0",
     "colorette": "2.0.20",

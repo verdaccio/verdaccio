@@ -33,7 +33,7 @@
     "babel-plugin-dynamic-import-node": "2.3.3",
     "country-flag-icons": "1.5.19",
     "css-loader": "6.11.0",
-    "dayjs": "1.11.13",
+    "dayjs": "1.11.18",
     "eslint-plugin-verdaccio": "10.0.0",
     "friendly-errors-webpack-plugin": "1.7.0",
     "history": "4.10.1",
