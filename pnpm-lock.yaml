@@ -885,8 +885,8 @@ importers:
         specifier: workspace:8.0.0-next-8.21
         version: link:../logger-commons
       pino:
-        specifier: 9.9.0
-        version: 9.9.0
+        specifier: 9.9.5
+        version: 9.9.5
     devDependencies:
       '@verdaccio/types':
         specifier: workspace:13.0.0-next-8.7
@@ -911,8 +911,8 @@ importers:
         specifier: workspace:13.0.0-next-8.7
         version: link:../../core/types
       pino:
-        specifier: 9.9.0
-        version: 9.9.0
+        specifier: 9.9.5
+        version: 9.9.5
       vitest:
         specifier: 3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
@@ -939,8 +939,8 @@ importers:
         version: 3.8.1
     devDependencies:
       pino:
-        specifier: 9.9.0
-        version: 9.9.0
+        specifier: 9.9.5
+        version: 9.9.5
       vitest:
         specifier: 3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
@@ -12124,8 +12124,8 @@ packages:
     resolution: {integrity: sha512-LA6qKgeDMLr2ux2y/YiUt47EfgQ+S9LznBWOJdN3q1dx2sv0ziDLUBeVpyVv17TEcGCBuWf0zNtg3M5m1NhhWQ==}
     hasBin: true
 
-  pino@9.9.0:
-    resolution: {integrity: sha512-zxsRIQG9HzG+jEljmvmZupOMDUQ0Jpj0yAgE28jQvvrdYTlEaiGwelJpdndMl/MBuRr70heIj83QyqJUWaU8mQ==}
+  pino@9.9.5:
+    resolution: {integrity: sha512-d1s98p8/4TfYhsJ09r/Azt30aYELRi6NNnZtEbqFw6BoGsdPVf5lKNK3kUwH8BmJJfpTLNuicjUQjaMbd93dVg==}
     hasBin: true
 
   pirates@4.0.7:
@@ -27706,7 +27706,7 @@ snapshots:
       sonic-boom: 3.8.1
       thread-stream: 2.3.0
 
-  pino@9.9.0:
+  pino@9.9.5:
     dependencies:
       atomic-sleep: 1.0.0
       fast-redact: 3.1.2
