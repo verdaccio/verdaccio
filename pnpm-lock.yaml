@@ -232,7 +232,7 @@ importers:
         version: link:packages/plugins/ui-theme
       '@vitest/coverage-v8':
         specifier: 3.2.4
-        version: 3.2.4(vitest@3.2.4(@types/debug@4.1.12)(@types/node@20.14.12)(jsdom@26.1.0)(msw@2.10.2(@types/node@20.14.12)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3))
+        version: 3.2.4(vitest@3.2.4(@types/debug@4.1.12)(@types/node@20.14.12)(jsdom@26.1.0)(msw@2.11.2(@types/node@20.14.12)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3))
       aria-query:
         specifier: 5.1.3
         version: 5.1.3
@@ -334,7 +334,7 @@ importers:
         version: link:packages/plugins/memory
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@20.14.12)(jsdom@26.1.0)(msw@2.10.2(@types/node@20.14.12)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@20.14.12)(jsdom@26.1.0)(msw@2.11.2(@types/node@20.14.12)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   e2e/cli/cli-commons:
     devDependencies:
@@ -735,7 +735,7 @@ importers:
         version: 0.23.25(typescript@5.3.3)
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/core/file-locking:
     dependencies:
@@ -748,7 +748,7 @@ importers:
         version: link:../types
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/core/i18n: {}
 
@@ -778,7 +778,7 @@ importers:
         version: 1.14.1
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/core/types:
     devDependencies:
@@ -815,7 +815,7 @@ importers:
         version: 1.14.1
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/hooks:
     dependencies:
@@ -846,7 +846,7 @@ importers:
         version: 13.5.6
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/loaders:
     dependencies:
@@ -877,7 +877,7 @@ importers:
         version: link:../plugins/auth-memory
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/logger/logger:
     dependencies:
@@ -915,7 +915,7 @@ importers:
         version: 9.9.0
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/logger/logger-prettify:
     dependencies:
@@ -943,7 +943,7 @@ importers:
         version: 9.9.0
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/middleware:
     dependencies:
@@ -992,7 +992,7 @@ importers:
         version: 7.1.4
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/node-api:
     dependencies:
@@ -1029,7 +1029,7 @@ importers:
         version: 7.1.4
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/plugins/audit:
     dependencies:
@@ -1066,7 +1066,7 @@ importers:
         version: 7.1.4
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/plugins/auth-memory:
     dependencies:
@@ -1125,7 +1125,7 @@ importers:
         version: 3.0.5
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/plugins/local-storage:
     dependencies:
@@ -1162,7 +1162,7 @@ importers:
         version: link:../../core/types
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/plugins/memory:
     dependencies:
@@ -1187,7 +1187,7 @@ importers:
         version: link:../../core/types
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/plugins/ui-theme:
     devDependencies:
@@ -1328,7 +1328,7 @@ importers:
         version: 2.2.0(vite@5.3.1(@types/node@24.3.1)(sass@1.83.4)(terser@5.31.3))
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
       webpack:
         specifier: 5.101.3
         version: 5.101.3(webpack-cli@4.10.0)
@@ -1392,7 +1392,7 @@ importers:
         version: 13.5.6
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/search:
     dependencies:
@@ -1423,7 +1423,7 @@ importers:
         version: 13.5.6
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/search-indexer:
     devDependencies:
@@ -1441,7 +1441,7 @@ importers:
         version: 0.24.2
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/server/express:
     dependencies:
@@ -1499,7 +1499,7 @@ importers:
         version: 7.1.4
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/server/fastify:
     dependencies:
@@ -1564,7 +1564,7 @@ importers:
         version: link:../core/types
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/standalone:
     devDependencies:
@@ -1646,7 +1646,7 @@ importers:
         version: 1.14.1
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/tools/docusaurus-plugin-contributors:
     dependencies:
@@ -1987,11 +1987,11 @@ importers:
         specifier: 3.0.5
         version: 3.0.5
       msw:
-        specifier: 2.10.2
-        version: 2.10.2(@types/node@24.3.1)(typescript@5.3.3)
+        specifier: 2.11.2
+        version: 2.11.2(@types/node@24.3.1)(typescript@5.3.3)
       msw-storybook-addon:
         specifier: 2.0.5
-        version: 2.0.5(msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3))
+        version: 2.0.5(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))
       mutationobserver-shim:
         specifier: 0.3.7
         version: 0.3.7
@@ -2000,7 +2000,7 @@ importers:
         version: 8.6.14(prettier@3.4.2)
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
       whatwg-fetch:
         specifier: 3.6.20
         version: 3.6.20
@@ -2022,7 +2022,7 @@ importers:
         version: link:../core/types
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/verdaccio:
     dependencies:
@@ -2089,7 +2089,7 @@ importers:
         version: 7.1.4
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/web:
     dependencies:
@@ -2150,7 +2150,7 @@ importers:
         version: link:../plugins/memory
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   website:
     dependencies:
@@ -3299,9 +3299,6 @@ packages:
 
   '@bundled-es-modules/statuses@1.0.1':
     resolution: {integrity: sha512-yn7BklA5acgcBr+7w064fGV+SGIFySjCKpqjcWgBAIfrAkY+4GQTJJHQMeT3V/sgz23VTEVV8TtOmkvJAhFVfg==}
-
-  '@bundled-es-modules/tough-cookie@0.1.6':
-    resolution: {integrity: sha512-dvMHbL464C0zI+Yqxbz6kZ5TOEp7GLW+pry/RWndAR8MJQAXZ2rPmIs8tziTZjeIyhSNZgZbCePtfSbdWqStJw==}
 
   '@changesets/apply-release-plan@7.0.8':
     resolution: {integrity: sha512-qjMUj4DYQ1Z6qHawsn7S71SujrExJ+nceyKKyI9iB+M5p9lCL55afuEd6uLBPRpLGWQwkwvWegDHtwHJb1UjpA==}
@@ -5980,9 +5977,6 @@ packages:
 
   '@types/through@0.0.33':
     resolution: {integrity: sha512-HsJ+z3QuETzP3cswwtzt2vEIiHBk/dCcHGhbmG5X3ecnwFD/lPrMpliGXxSCg03L9AhrdwA4Oz/qfspkDW+xGQ==}
-
-  '@types/tough-cookie@4.0.5':
-    resolution: {integrity: sha512-/Ad8+nIOV7Rl++6f1BdKxFSMgmoqEoYbHRpPcx3JEfv8VRsQe9Z4mCXeJBzxs7mbHY/XOZZuXlRNfhpVPbs6ZA==}
 
   '@types/trusted-types@2.0.7':
     resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
@@ -10977,8 +10971,8 @@ packages:
     peerDependencies:
       msw: ^2.0.0
 
-  msw@2.10.2:
-    resolution: {integrity: sha512-RCKM6IZseZQCWcSWlutdf590M8nVfRHG1ImwzOtwz8IYxgT4zhUO0rfTcTvDGiaFE0Rhcc+h43lcF3Jc9gFtwQ==}
+  msw@2.11.2:
+    resolution: {integrity: sha512-MI54hLCsrMwiflkcqlgYYNJJddY5/+S0SnONvhv1owOplvqohKSQyGejpNdUGyCwgs4IH7PqaNbPw/sKOEze9Q==}
     engines: {node: '>=18'}
     hasBin: true
     peerDependencies:
@@ -12727,9 +12721,6 @@ packages:
   proxy-from-env@1.1.0:
     resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
 
-  psl@1.9.0:
-    resolution: {integrity: sha512-E/ZsdU4HLs/68gYzgGTkMicWTLPdAftJLfJFlLUAAKZGkStNU72sZjT66SnMDVOfOWY/YAoiD7Jxa9iHvngcag==}
-
   pstree.remy@1.1.8:
     resolution: {integrity: sha512-77DZwxQmxKnu3aR542U+X8FypNzbfJ+C5XQDk3uWjWxn6151aIMGthWYRXTqT1E5oJvg+ljaa2OJi+VfvCOQ8w==}
 
@@ -12768,9 +12759,6 @@ packages:
     resolution: {integrity: sha512-X/xY82scca2tau62i9mDyU9K+I+djTMUsvwf7xnUX5GLvVzgJybOJf4Y6o9Zx3oJK/LSXg5tTZBjwzqVPaPO2g==}
     engines: {node: '>=0.4.x'}
     deprecated: The querystring API is considered Legacy. new code should use the URLSearchParams API instead.
-
-  querystringify@2.2.0:
-    resolution: {integrity: sha512-FIqgj2EUvTa7R50u0rGsyTftzjYmv/a3hO345bZNrqabNqjtgiDMgmo4mkUjd+nzU5oF3dClKqFIPUKybUyqoQ==}
 
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
@@ -13282,6 +13270,9 @@ packages:
   retry@0.13.1:
     resolution: {integrity: sha512-XQBQ3I8W1Cge0Seh+6gjj03LbmRFWuoszgK9ooCpwYIrhhoO80pfq4cUkU5DkknwfOfFteRwlZ56PYOGYyFWdg==}
     engines: {node: '>= 4'}
+
+  rettime@0.7.0:
+    resolution: {integrity: sha512-LPRKoHnLKd/r3dVxcwO7vhCW+orkOGj9ViueosEBK6ie89CijnfRlhaDhHq/3Hxu4CkWQtxwlBG0mzTQY6uQjw==}
 
   reusify@1.0.4:
     resolution: {integrity: sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==}
@@ -14159,8 +14150,15 @@ packages:
   tldts-core@6.1.48:
     resolution: {integrity: sha512-3gD9iKn/n2UuFH1uilBviK9gvTNT6iYwdqrj1Vr5mh8FuelvpRNaYVH4pNYqUgOGU4aAdL9X35eLuuj0gRsx+A==}
 
+  tldts-core@7.0.14:
+    resolution: {integrity: sha512-viZGNK6+NdluOJWwTO9olaugx0bkKhscIdriQQ+lNNhwitIKvb+SvhbYgnCz6j9p7dX3cJntt4agQAKMXLjJ5g==}
+
   tldts@6.1.48:
     resolution: {integrity: sha512-SPbnh1zaSzi/OsmHb1vrPNnYuwJbdWjwo5TbBYYMlTtH3/1DSb41t8bcSxkwDmmbG2q6VLPVvQc7Yf23T+1EEw==}
+    hasBin: true
+
+  tldts@7.0.14:
+    resolution: {integrity: sha512-lMNHE4aSI3LlkMUMicTmAG3tkkitjOQGDTFboPJwAg2kJXKP1ryWEyqujktg5qhrFZOkk5YFzgkxg3jErE+i5w==}
     hasBin: true
 
   tmp@0.0.33:
@@ -14198,12 +14196,12 @@ packages:
     resolution: {integrity: sha512-WBx8Uy5TLtOSRtIq+M03/sKDrXCLHxwDcquSP2c43Le03/9serjQBIztjRz6FkJez9D/hleyAXTBGLwwZUw9lA==}
     hasBin: true
 
-  tough-cookie@4.1.4:
-    resolution: {integrity: sha512-Loo5UUvLD9ScZ6jh8beX1T6sO1w2/MpCRpEP7V280GKMVUQ0Jzar2U3UJPsrdbziLEMMhu3Ujnq//rhiFuIeag==}
-    engines: {node: '>=6'}
-
   tough-cookie@5.1.2:
     resolution: {integrity: sha512-FVDYdxtnj0G6Qm/DhNPSb8Ju59ULcup3tuJxkFb5K8Bv2pUXILbf0xZWU8PX8Ov19OXljbUyveOFwRMwkXzO+A==}
+    engines: {node: '>=16'}
+
+  tough-cookie@6.0.0:
+    resolution: {integrity: sha512-kXuRi1mtaKMrsLUxz3sQYvVl37B0Ns6MzfrtV5DvJceE9bPyspOqk9xxv7XbZWcfLWbFmm997vl83qUWVJA64w==}
     engines: {node: '>=16'}
 
   tr46@0.0.3:
@@ -14508,10 +14506,6 @@ packages:
     resolution: {integrity: sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==}
     engines: {node: '>= 4.0.0'}
 
-  universalify@0.2.0:
-    resolution: {integrity: sha512-CJ1QgKmNg3CwvAv/kOFmtnEN05f0D/cn9QntgNOQlQF9dgvVTHj3t+8JPdjqawCHk7V/KA+fbUqzZ9XWhcqPUg==}
-    engines: {node: '>= 4.0.0'}
-
   universalify@2.0.0:
     resolution: {integrity: sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==}
     engines: {node: '>= 10.0.0'}
@@ -14564,9 +14558,6 @@ packages:
     peerDependenciesMeta:
       file-loader:
         optional: true
-
-  url-parse@1.5.10:
-    resolution: {integrity: sha512-WypcfiRhfeUP9vvF0j6rw0J3hrWrw6iZv3+22h6iRMJ/8z1Tj6XfLP4DsUix5MhMPnXpiHDoKyoZ/bdCkwBCiQ==}
 
   url@0.11.0:
     resolution: {integrity: sha512-kbailJa29QrtXnxgq+DdCEGlbTeYM2eJUxsz6vjZavrCYPMIFHMKQmSKYAIuUK2i7hgPm28a8piX5NTUtM/LKQ==}
@@ -16506,11 +16497,6 @@ snapshots:
   '@bundled-es-modules/statuses@1.0.1':
     dependencies:
       statuses: 2.0.1
-
-  '@bundled-es-modules/tough-cookie@0.1.6':
-    dependencies:
-      '@types/tough-cookie': 4.0.5
-      tough-cookie: 4.1.4
 
   '@changesets/apply-release-plan@7.0.8':
     dependencies:
@@ -20438,8 +20424,6 @@ snapshots:
     dependencies:
       '@types/node': 20.14.12
 
-  '@types/tough-cookie@4.0.5': {}
-
   '@types/trusted-types@2.0.7':
     optional: true
 
@@ -20667,7 +20651,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vitest/coverage-v8@3.2.4(vitest@3.2.4(@types/debug@4.1.12)(@types/node@20.14.12)(jsdom@26.1.0)(msw@2.10.2(@types/node@20.14.12)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3))':
+  '@vitest/coverage-v8@3.2.4(vitest@3.2.4(@types/debug@4.1.12)(@types/node@20.14.12)(jsdom@26.1.0)(msw@2.11.2(@types/node@20.14.12)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3))':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@bcoe/v8-coverage': 1.0.2
@@ -20682,7 +20666,7 @@ snapshots:
       std-env: 3.9.0
       test-exclude: 7.0.1
       tinyrainbow: 2.0.0
-      vitest: 3.2.4(@types/debug@4.1.12)(@types/node@20.14.12)(jsdom@26.1.0)(msw@2.10.2(@types/node@20.14.12)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+      vitest: 3.2.4(@types/debug@4.1.12)(@types/node@20.14.12)(jsdom@26.1.0)(msw@2.11.2(@types/node@20.14.12)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
     transitivePeerDependencies:
       - supports-color
 
@@ -20701,22 +20685,22 @@ snapshots:
       chai: 5.3.3
       tinyrainbow: 2.0.0
 
-  '@vitest/mocker@3.2.4(msw@2.10.2(@types/node@20.14.12)(typescript@5.3.3))(vite@5.3.1(@types/node@20.14.12)(sass@1.83.4)(terser@5.31.3))':
+  '@vitest/mocker@3.2.4(msw@2.11.2(@types/node@20.14.12)(typescript@5.3.3))(vite@5.3.1(@types/node@20.14.12)(sass@1.83.4)(terser@5.31.3))':
     dependencies:
       '@vitest/spy': 3.2.4
       estree-walker: 3.0.3
       magic-string: 0.30.17
     optionalDependencies:
-      msw: 2.10.2(@types/node@20.14.12)(typescript@5.3.3)
+      msw: 2.11.2(@types/node@20.14.12)(typescript@5.3.3)
       vite: 5.3.1(@types/node@20.14.12)(sass@1.83.4)(terser@5.31.3)
 
-  '@vitest/mocker@3.2.4(msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3))(vite@5.3.1(@types/node@24.3.1)(sass@1.83.4)(terser@5.31.3))':
+  '@vitest/mocker@3.2.4(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))(vite@5.3.1(@types/node@24.3.1)(sass@1.83.4)(terser@5.31.3))':
     dependencies:
       '@vitest/spy': 3.2.4
       estree-walker: 3.0.3
       magic-string: 0.30.17
     optionalDependencies:
-      msw: 2.10.2(@types/node@24.3.1)(typescript@5.3.3)
+      msw: 2.11.2(@types/node@24.3.1)(typescript@5.3.3)
       vite: 5.3.1(@types/node@24.3.1)(sass@1.83.4)(terser@5.31.3)
 
   '@vitest/pretty-format@2.0.5':
@@ -26906,16 +26890,15 @@ snapshots:
 
   ms@2.1.3: {}
 
-  msw-storybook-addon@2.0.5(msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3)):
+  msw-storybook-addon@2.0.5(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3)):
     dependencies:
       is-node-process: 1.2.0
-      msw: 2.10.2(@types/node@24.3.1)(typescript@5.3.3)
+      msw: 2.11.2(@types/node@24.3.1)(typescript@5.3.3)
 
-  msw@2.10.2(@types/node@20.14.12)(typescript@5.3.3):
+  msw@2.11.2(@types/node@20.14.12)(typescript@5.3.3):
     dependencies:
       '@bundled-es-modules/cookie': 2.0.1
       '@bundled-es-modules/statuses': 1.0.1
-      '@bundled-es-modules/tough-cookie': 0.1.6
       '@inquirer/confirm': 5.1.2(@types/node@20.14.12)
       '@mswjs/interceptors': 0.39.2
       '@open-draft/deferred-promise': 2.2.0
@@ -26928,7 +26911,9 @@ snapshots:
       outvariant: 1.4.3
       path-to-regexp: 6.3.0
       picocolors: 1.1.1
+      rettime: 0.7.0
       strict-event-emitter: 0.5.1
+      tough-cookie: 6.0.0
       type-fest: 4.32.0
       yargs: 17.7.2
     optionalDependencies:
@@ -26937,11 +26922,10 @@ snapshots:
       - '@types/node'
     optional: true
 
-  msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3):
+  msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3):
     dependencies:
       '@bundled-es-modules/cookie': 2.0.1
       '@bundled-es-modules/statuses': 1.0.1
-      '@bundled-es-modules/tough-cookie': 0.1.6
       '@inquirer/confirm': 5.1.2(@types/node@24.3.1)
       '@mswjs/interceptors': 0.39.2
       '@open-draft/deferred-promise': 2.2.0
@@ -26954,7 +26938,9 @@ snapshots:
       outvariant: 1.4.3
       path-to-regexp: 6.3.0
       picocolors: 1.1.1
+      rettime: 0.7.0
       strict-event-emitter: 0.5.1
+      tough-cookie: 6.0.0
       type-fest: 4.32.0
       yargs: 17.7.2
     optionalDependencies:
@@ -28337,8 +28323,6 @@ snapshots:
 
   proxy-from-env@1.1.0: {}
 
-  psl@1.9.0: {}
-
   pstree.remy@1.1.8: {}
 
   pump@2.0.1:
@@ -28376,8 +28360,6 @@ snapshots:
       side-channel: 1.1.0
 
   querystring@0.2.0: {}
-
-  querystringify@2.2.0: {}
 
   queue-microtask@1.2.3: {}
 
@@ -29046,6 +29028,8 @@ snapshots:
   retry@0.12.0: {}
 
   retry@0.13.1: {}
+
+  rettime@0.7.0: {}
 
   reusify@1.0.4: {}
 
@@ -30108,9 +30092,15 @@ snapshots:
 
   tldts-core@6.1.48: {}
 
+  tldts-core@7.0.14: {}
+
   tldts@6.1.48:
     dependencies:
       tldts-core: 6.1.48
+
+  tldts@7.0.14:
+    dependencies:
+      tldts-core: 7.0.14
 
   tmp@0.0.33:
     dependencies:
@@ -30136,16 +30126,13 @@ snapshots:
     dependencies:
       nopt: 1.0.10
 
-  tough-cookie@4.1.4:
-    dependencies:
-      psl: 1.9.0
-      punycode: 2.3.1
-      universalify: 0.2.0
-      url-parse: 1.5.10
-
   tough-cookie@5.1.2:
     dependencies:
       tldts: 6.1.48
+
+  tough-cookie@6.0.0:
+    dependencies:
+      tldts: 7.0.14
 
   tr46@0.0.3: {}
 
@@ -30461,8 +30448,6 @@ snapshots:
 
   universalify@0.1.2: {}
 
-  universalify@0.2.0: {}
-
   universalify@2.0.0: {}
 
   unix-crypt-td-js@1.1.4: {}
@@ -30529,11 +30514,6 @@ snapshots:
       webpack: 5.101.3(webpack-cli@4.10.0)
     optionalDependencies:
       file-loader: 6.2.0(webpack@5.101.3)
-
-  url-parse@1.5.10:
-    dependencies:
-      querystringify: 2.2.0
-      requires-port: 1.0.0
 
   url@0.11.0:
     dependencies:
@@ -30725,11 +30705,11 @@ snapshots:
       sass: 1.83.4
       terser: 5.31.3
 
-  vitest@3.2.4(@types/debug@4.1.12)(@types/node@20.14.12)(jsdom@26.1.0)(msw@2.10.2(@types/node@20.14.12)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3):
+  vitest@3.2.4(@types/debug@4.1.12)(@types/node@20.14.12)(jsdom@26.1.0)(msw@2.11.2(@types/node@20.14.12)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3):
     dependencies:
       '@types/chai': 5.2.2
       '@vitest/expect': 3.2.4
-      '@vitest/mocker': 3.2.4(msw@2.10.2(@types/node@20.14.12)(typescript@5.3.3))(vite@5.3.1(@types/node@20.14.12)(sass@1.83.4)(terser@5.31.3))
+      '@vitest/mocker': 3.2.4(msw@2.11.2(@types/node@20.14.12)(typescript@5.3.3))(vite@5.3.1(@types/node@20.14.12)(sass@1.83.4)(terser@5.31.3))
       '@vitest/pretty-format': 3.2.4
       '@vitest/runner': 3.2.4
       '@vitest/snapshot': 3.2.4
@@ -30764,11 +30744,11 @@ snapshots:
       - supports-color
       - terser
 
-  vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3):
+  vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3):
     dependencies:
       '@types/chai': 5.2.2
       '@vitest/expect': 3.2.4
-      '@vitest/mocker': 3.2.4(msw@2.10.2(@types/node@24.3.1)(typescript@5.3.3))(vite@5.3.1(@types/node@24.3.1)(sass@1.83.4)(terser@5.31.3))
+      '@vitest/mocker': 3.2.4(msw@2.11.2(@types/node@24.3.1)(typescript@5.3.3))(vite@5.3.1(@types/node@24.3.1)(sass@1.83.4)(terser@5.31.3))
       '@vitest/pretty-format': 3.2.4
       '@vitest/runner': 3.2.4
       '@vitest/snapshot': 3.2.4
