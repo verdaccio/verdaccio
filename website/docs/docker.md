@@ -20,7 +20,7 @@ docker pull verdaccio/verdaccio
 Since version `v2.x` you can pull docker images by [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), as follows:
 
 ```bash
-docker pull verdaccio/verdaccio:6.1.6
+docker pull verdaccio/verdaccio:latest
 ```
 
 > If you are interested on a list of tags, [please visit the Docker Hub website](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
