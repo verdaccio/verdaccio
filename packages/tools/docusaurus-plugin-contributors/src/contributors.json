@@ -883,6 +883,17 @@
       ]
     },
     {
+      "id": 47841949,
+      "login": "clintonsteiner",
+      "contributions": 4,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 4
+        }
+      ]
+    },
+    {
       "id": 7912231,
       "login": "markpeterfejes",
       "contributions": 4,
@@ -916,8 +927,8 @@
       ]
     },
     {
-      "id": 26556598,
-      "login": "NotWearingPants",
+      "id": 1180931,
+      "login": "BartDubois",
       "contributions": 4,
       "repositories": [
         {
@@ -938,8 +949,8 @@
       ]
     },
     {
-      "id": 1180931,
-      "login": "BartDubois",
+      "id": 26556598,
+      "login": "NotWearingPants",
       "contributions": 4,
       "repositories": [
         {
@@ -1392,8 +1403,8 @@
       ]
     },
     {
-      "id": 49131888,
-      "login": "Marin-Kitagawa",
+      "id": 13708162,
+      "login": "mysiar",
       "contributions": 2,
       "repositories": [
         {
@@ -1414,8 +1425,8 @@
       ]
     },
     {
-      "id": 13708162,
-      "login": "mysiar",
+      "id": 49131888,
+      "login": "Marin-Kitagawa",
       "contributions": 2,
       "repositories": [
         {
@@ -1502,17 +1513,6 @@
       ]
     },
     {
-      "id": 47841949,
-      "login": "clintonsteiner",
-      "contributions": 2,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 2
-        }
-      ]
-    },
-    {
       "id": 48512663,
       "login": "polemius",
       "contributions": 2,
@@ -1535,8 +1535,8 @@
       ]
     },
     {
-      "id": 2270425,
-      "login": "danielo515",
+      "id": 465522,
+      "login": "okv",
       "contributions": 2,
       "repositories": [
         {
@@ -1557,8 +1557,8 @@
       ]
     },
     {
-      "id": 465522,
-      "login": "okv",
+      "id": 2270425,
+      "login": "danielo515",
       "contributions": 2,
       "repositories": [
         {
@@ -5268,7 +5268,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "A lightweight Node.js private proxy registry",
-      "stargazers_count": 17136,
+      "stargazers_count": 17147,
       "archived": false
     },
     {
@@ -5394,7 +5394,7 @@
       "full_name": "verdaccio/monorepo",
       "html_url": "https://github.com/verdaccio/monorepo",
       "description": "🏰 Core dependencies and plugins for verdaccio 6.x branch ⚠️ DEPRECATED",
-      "stargazers_count": 85,
+      "stargazers_count": 86,
       "archived": false
     },
     {
@@ -5466,7 +5466,7 @@
       "full_name": "verdaccio/github-actions",
       "html_url": "https://github.com/verdaccio/github-actions",
       "description": "🤖Verdaccio GitHub Actions",
-      "stargazers_count": 24,
+      "stargazers_count": 25,
       "archived": false
     },
     {
@@ -5529,7 +5529,7 @@
       "full_name": "verdaccio/charts",
       "html_url": "https://github.com/verdaccio/charts",
       "description": "☸️🐳 Verdaccio Helm chart repository",
-      "stargazers_count": 70,
+      "stargazers_count": 71,
       "archived": false
     },
     {
@@ -5556,7 +5556,7 @@
       "full_name": "verdaccio/e2e-tests",
       "html_url": "https://github.com/verdaccio/e2e-tests",
       "description": "run e2e tests for 6.x and 7.x branches",
-      "stargazers_count": 2,
+      "stargazers_count": 3,
       "archived": false
     },
     {
@@ -5574,7 +5574,7 @@
       "full_name": "verdaccio/verdaccio-vscode",
       "html_url": "https://github.com/verdaccio/verdaccio-vscode",
       "description": "visual code extension (experiment)",
-      "stargazers_count": 0,
+      "stargazers_count": 1,
       "archived": false
     }
   ]
