@@ -40,7 +40,7 @@
     "clipanion": "4.0.0-rc.4",
     "compression": "1.8.1",
     "cors": "2.8.5",
-    "debug": "4.4.1",
+    "debug": "4.4.3",
     "envinfo": "7.14.0",
     "express": "4.21.2",
     "lodash": "4.17.21",
