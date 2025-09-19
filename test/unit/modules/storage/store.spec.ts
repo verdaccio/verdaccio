@@ -20,29 +20,60 @@ vi.setConfig({ testTimeout: 10000 });
 const mockServerPort = await getPort();
 const storagePath = await fileUtils.createTempStorageFolder('htpasswd-web-api');
 
-const generateStorage = async function (port = mockServerPort) {
-  const storageConfig = configExample(
-    {
-      self_path: __dirname,
-      storage: storagePath,
-      uplinks: {
-        npmjs: {
-          url: `http://localhost:${port}`,
-        },
+// Configure the plugins folder absolutely so the async loader resolves local test plugins
+const PLUGINS_DIR = path.join(__dirname, '..', 'api', 'partials', 'plugin');
+// The filter plugin id (short name). Loader will look for `${prefix}-${id}` within PLUGINS_DIR
+const FILTER_PLUGIN_ID = 'filter';
+
+type GenerateStorageOptions = {
+  enableFilters?: boolean;
+  filterPkg?: string;
+  filterVersion?: string;
+};
+
+const generateStorage = async function (port = mockServerPort, opts: GenerateStorageOptions = {}) {
+  const { enableFilters = false, filterPkg = 'jquery', filterVersion = '1.5.1' } = opts;
+
+  const baseConfig: any = {
+    self_path: __dirname,
+    storage: storagePath,
+    uplinks: {
+      npmjs: {
+        url: `http://localhost:${port}`,
       },
     },
+  };
+
+  const storageConfig = configExample(
+    enableFilters
+      ? {
+          ...baseConfig,
+          plugins: PLUGINS_DIR,
+          filters: {
+            [FILTER_PLUGIN_ID]: {
+              pkg: filterPkg,
+              version: filterVersion,
+            },
+          },
+        }
+      : baseConfig,
     'store.spec.yaml'
   );
 
   const config: Config = new AppConfig(storageConfig);
   const store: any = new Storage(config);
-  await store.init(config, []);
+  // If filters are enabled, let Storage auto-load them from config by NOT passing []
+  if (enableFilters) {
+    await store.init(config);
+  } else {
+    await store.init(config, []);
+  }
 
   return store;
 };
 
 describe('StorageTest', () => {
-  let mockRegistry;
+  let mockRegistry: any;
 
   beforeAll(async () => {
     mockRegistry = await mockServer(mockServerPort).init();
@@ -63,7 +94,7 @@ describe('StorageTest', () => {
       const storage: any = await generateStorage();
 
       return new Promise((resolve) => {
-        storage._syncUplinksMetadata('jquery', null, {}, (err, metadata) => {
+        storage._syncUplinksMetadata('jquery', null, {}, (err: any, metadata: any) => {
           expect(err).toBeNull();
           expect(metadata).toBeDefined();
           expect(metadata).toBeInstanceOf(Object);
@@ -114,11 +145,43 @@ describe('StorageTest', () => {
       storage.localStorage.updateVersions = vi.fn(storage.localStorage.updateVersions);
       expect(metadata).toBeDefined();
       return new Promise((resolve) => {
-        storage._syncUplinksMetadata('npm_test', metadata, {}, (err) => {
+        storage._syncUplinksMetadata('npm_test', metadata, {}, (err: any) => {
           expect(err).toBeNull();
           // @ts-ignore
           expect(storage.localStorage.updateVersions).not.toHaveBeenCalled();
           resolve(true);
+        });
+      });
+    });
+  });
+
+  describe('filters', () => {
+    test('should load filters from config during init', async () => {
+      const storage: any = await generateStorage(mockServerPort, { enableFilters: true });
+      // Expect at least one filter to be loaded from config
+      expect(Array.isArray(storage.filters)).toBe(true);
+      expect(storage.filters.length).toBeGreaterThan(0);
+    });
+
+    test('should apply configured filter to upstream metadata', async () => {
+      const storage: any = await generateStorage(mockServerPort, {
+        enableFilters: true,
+        filterPkg: 'jquery',
+        filterVersion: '1.5.1',
+      });
+
+      return new Promise<void>((resolve, reject) => {
+        storage._syncUplinksMetadata('jquery', null, {}, (err: any, metadata: any) => {
+          try {
+            expect(err).toBeNull();
+            expect(metadata).toBeDefined();
+            expect(metadata.versions).toBeDefined();
+            // The filter plugin removes the configured version for the target package
+            expect(metadata.versions['1.5.1']).toBeUndefined();
+            resolve();
+          } catch (error) {
+            reject(error);
+          }
         });
       });
     });

@@ -49,19 +49,18 @@ class Storage {
   public config: Config;
   public logger: Logger;
   public uplinks: Record<string, ProxyStorage>;
-  public filters: IPluginFilters;
+  public filters: IPluginFilters | undefined;
 
   public constructor(config: Config) {
     this.config = config;
     this.uplinks = setupUpLinks(config);
     this.logger = logger;
-    this.filters = [];
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this.localStorage = null;
   }
 
-  public async init(config: Config, filters: IPluginFilters = []): Promise<void> {
+  public async init(config: Config, filters?: IPluginFilters): Promise<void> {
     if (this.localStorage === null) {
       this.filters = filters;
       const storageInstance = await this.loadStorage(config, this.logger);
@@ -703,7 +702,7 @@ class Storage {
             // as a broken filter is a security risk.
             const filterErrors: Error[] = [];
             // This MUST be done serially and not in parallel as they modify packageJsonLocal
-            for (const filter of self.filters) {
+            for (const filter of self.filters ?? []) {
               try {
                 // These filters can assume it's save to modify packageJsonLocal and return it directly for
                 // performance (i.e. need not be pure)

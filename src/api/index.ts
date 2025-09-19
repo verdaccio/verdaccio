@@ -113,6 +113,6 @@ export default (async function (configHash: ConfigYaml): Promise<express.Applica
 
   const storage = new Storage(config);
   // waits until init calls have been initialized
-  await storage.init(config, []);
+  await storage.init(config);
   return await defineAPI(config, storage);
 });
