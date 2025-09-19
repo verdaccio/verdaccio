@@ -4401,6 +4401,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"debug@npm:4.4.3":
+  version: 4.4.3
+  resolution: "debug@npm:4.4.3"
+  dependencies:
+    ms: "npm:^2.1.3"
+  peerDependenciesMeta:
+    supports-color:
+      optional: true
+  checksum: 10c0/d79136ec6c83ecbefd0f6a5593da6a9c91ec4d7ddc4b54c883d6e71ec9accb5f67a1a5e96d00a328196b5b5c86d365e98d8a3a70856aaf16b4e7b1985e67f5a6
+  languageName: node
+  linkType: hard
+
 "decamelize-keys@npm:^1.1.0":
   version: 1.1.1
   resolution: "decamelize-keys@npm:1.1.1"
@@ -9992,7 +10004,7 @@ __metadata:
     compression: "npm:1.8.1"
     cors: "npm:2.8.5"
     cross-env: "npm:7.0.3"
-    debug: "npm:4.4.1"
+    debug: "npm:4.4.3"
     envinfo: "npm:7.14.0"
     eslint: "npm:9.30.0"
     express: "npm:4.21.2"
