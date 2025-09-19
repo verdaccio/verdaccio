@@ -1,5 +1,11 @@
 # @verdaccio/ui-components
 
+## 4.0.0-next-8.11
+
+### Patch Changes
+
+- f443f81: chore(deps): sync and pin dependencies
+
 ## 4.0.0-next-8.10
 
 ### Patch Changes
