@@ -59,7 +59,7 @@
     "@babel/register": "7.28.3",
     "@babel/runtime": "7.28.4",
     "@eslint/js": "9.36.0",
-    "@trivago/prettier-plugin-sort-imports": "4.3.0",
+    "@trivago/prettier-plugin-sort-imports": "5.2.2",
     "@types/async": "3.2.25",
     "@types/express": "4.17.23",
     "@types/express-serve-static-core": "4.19.6",
