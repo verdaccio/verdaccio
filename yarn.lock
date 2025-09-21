@@ -2475,15 +2475,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node-forge@npm:^1.3.0":
-  version: 1.3.9
-  resolution: "@types/node-forge@npm:1.3.9"
-  dependencies:
-    "@types/node": "npm:*"
-  checksum: 10c0/735dc138b9140c6bda605efa093a177bbb6b433c6967db74fe7f887754a2fdefc0d89db73993b9a4e22108f6721ba0a583167e46527a8b79a4306fd85b3a7204
-  languageName: node
-  linkType: hard
-
 "@types/node@npm:*":
   version: 18.19.2
   resolution: "@types/node@npm:18.19.2"
@@ -8709,13 +8700,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"selfsigned@npm:2.4.1":
-  version: 2.4.1
-  resolution: "selfsigned@npm:2.4.1"
+"selfsigned@npm:3.0.1":
+  version: 3.0.1
+  resolution: "selfsigned@npm:3.0.1"
   dependencies:
-    "@types/node-forge": "npm:^1.3.0"
     node-forge: "npm:^1"
-  checksum: 10c0/521829ec36ea042f7e9963bf1da2ed040a815cf774422544b112ec53b7edc0bc50a0f8cc2ae7aa6cc19afa967c641fd96a15de0fc650c68651e41277d2e1df09
+  checksum: 10c0/57e266192299ad5230c46f4e40b662d563e3c15b37ecaadadc22966d2b153eea28ede3c7e465ad36e5f688ad97a0974bbaf47fbfbf616d8bc8420d03ee64ffd0
   languageName: node
   linkType: hard
 
@@ -10063,7 +10053,7 @@ __metadata:
     node-mocks-http: "npm:^1.16.2"
     pinst: "npm:2.1.6"
     prettier: "npm:3.6.2"
-    selfsigned: "npm:2.4.1"
+    selfsigned: "npm:3.0.1"
     semver: "npm:7.7.2"
     standard-version: "npm:9.5.0"
     supertest: "npm:7.1.4"
