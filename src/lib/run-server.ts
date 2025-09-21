@@ -9,7 +9,6 @@ import { getConfigParsed, getListenAddress } from '@verdaccio/config';
 import { ConfigYaml, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 
 import endPointAPI from '../api/index';
-import { DEFAULT_PORT } from './constants';
 import { displayExperimentsInfoBox } from './experiments';
 import { logger } from './logger';
 import { initLogger } from './utils';
@@ -41,12 +40,8 @@ export async function runServer(
   };
   displayExperimentsInfoBox(flags);
 
-  const combined: string | undefined | any[] = [
-    options?.listenArg,
-    configurationParsed?.listen,
-    DEFAULT_PORT,
-  ];
-  const address = getListenAddress(combined, logger);
+  const listen = options?.listenArg ?? configurationParsed?.listen;
+  const address = getListenAddress(listen, logger);
 
   const app = await endPointAPI(configurationParsed);
   return createServerFactory(configurationParsed, address, app);
