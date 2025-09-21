@@ -9,7 +9,6 @@ export {
   TOKEN_BEARER,
   SUPPORT_ERRORS,
   APP_ERROR,
-  DEFAULT_PORT,
   DEFAULT_PROTOCOL,
   DEFAULT_DOMAIN,
 } from '@verdaccio/core';

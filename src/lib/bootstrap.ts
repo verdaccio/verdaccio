@@ -12,7 +12,7 @@ import { getListenAddress } from '@verdaccio/config';
 import { Callback, ConfigYaml, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 
 import endPointAPI from '../api/index';
-import { API_ERROR, DEFAULT_PORT } from './constants';
+import { API_ERROR } from './constants';
 import { displayExperimentsInfoBox } from './experiments';
 import { logger } from './logger';
 import { initLogger, logHTTPSWarning } from './utils';
@@ -49,8 +49,8 @@ function startVerdaccio(
   logger.warn('This is a deprecated method, please use runServer instead');
 
   endPointAPI(config).then((app): void => {
-    const combined: string | undefined | any[] = [cliListen, config?.listen, DEFAULT_PORT];
-    const addr = getListenAddress(combined, logger);
+    const listen = cliListen ?? config?.listen;
+    const addr = getListenAddress(listen, logger);
     let webServer;
     if (addr.proto === 'https') {
       webServer = handleHTTPS(app, configPath, config);
