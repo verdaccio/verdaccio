@@ -107,7 +107,7 @@
     "lint-staged": "11.2.6",
     "nock": "13.5.6",
     "nodemon": "3.0.3",
-    "npm-run-all2": "5.0.2",
+    "npm-run-all2": "8.0.4",
     "prettier": "3.4.2",
     "react": "18.3.1",
     "react-dom": "18.3.1",
