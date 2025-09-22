@@ -1,11 +1,13 @@
 import buildDebug from 'debug';
 import express, { Router } from 'express';
+import { RequestHandler } from 'express';
 import _ from 'lodash';
 
 import { PLUGIN_CATEGORY } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { logger } from '@verdaccio/logger';
 import {
+  WebUrlsNamespace,
   renderWebMiddleware,
   setSecurityWebHeaders,
   validateName,
@@ -46,7 +48,11 @@ export async function loadTheme(config: any) {
   }
 }
 
-export function localWebEndpointsApi(auth, storage, config): Router {
+export function webAPIMiddleware(
+  tokenMiddleware: RequestHandler,
+  webEndpointsApi: RequestHandler
+): Router {
+  // eslint-disable-next-line new-cap
   const route = Router();
   // validate all of these params as a package name
   // this might be too harsh, so ask if it causes trouble=
@@ -55,10 +61,27 @@ export function localWebEndpointsApi(auth, storage, config): Router {
   route.param('version', validateName);
   route.use(express.urlencoded({ extended: false }));
   route.use(setSecurityWebHeaders);
-  route.use(auth.apiJWTmiddleware());
-  route.use(webEndpointsApi(auth, storage, config));
+
+  if (typeof tokenMiddleware === 'function') {
+    route.use(tokenMiddleware);
+  }
+
+  if (typeof webEndpointsApi === 'function') {
+    route.use(webEndpointsApi);
+  }
 
   return route;
+}
+
+export function webMiddleware(config, middlewares, pluginOptions): any {
+  // eslint-disable-next-line new-cap
+  const router = express.Router();
+  const { tokenMiddleware, webEndpointsApi } = middlewares;
+  // render web
+  router.use(WebUrlsNamespace.root, renderWebMiddleware(config, tokenMiddleware, pluginOptions));
+  // web endpoints: search, packages, readme, sidebar, etc
+  router.use(WebUrlsNamespace.endpoints, webAPIMiddleware(tokenMiddleware, webEndpointsApi));
+  return router;
 }
 
 export default async (config, auth, storage, logger) => {
@@ -72,9 +95,18 @@ export default async (config, auth, storage, logger) => {
     );
   }
 
+  // eslint-disable-next-line new-cap
   const router = Router();
-  router.use('/', renderWebMiddleware(config, auth.apiJWTmiddleware(), pluginOptions));
   // web endpoints, search, packages, etc
-  router.use(localWebEndpointsApi(auth, storage, config));
+  router.use(
+    webMiddleware(
+      config,
+      {
+        tokenMiddleware: auth.webUIJWTmiddleware(),
+        webEndpointsApi: webEndpointsApi(auth, storage, config),
+      },
+      pluginOptions
+    )
+  );
   return router;
 };
