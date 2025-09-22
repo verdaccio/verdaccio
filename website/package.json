@@ -41,7 +41,7 @@
     "copy-text-to-clipboard": "3.2.0",
     "docusaurus-plugin-contributors": "workspace:*",
     "docusaurus-plugin-downloads": "workspace:*",
-    "dompurify": "3.2.6",
+    "dompurify": "3.2.7",
     "p-cancelable": "4.0.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
