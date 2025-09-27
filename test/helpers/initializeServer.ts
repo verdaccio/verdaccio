@@ -6,6 +6,7 @@ import path from 'path';
 import { Auth } from '@verdaccio/auth';
 import { errorUtils } from '@verdaccio/core';
 import { errorReportingMiddleware, final, handleError } from '@verdaccio/middleware';
+import { ConfigYaml } from '@verdaccio/types';
 import { generateRandomHexString } from '@verdaccio/utils';
 
 import Config from '../../src/lib/config';
@@ -14,9 +15,9 @@ import { logger } from '../../src/lib/logger';
 const debug = buildDebug('verdaccio:tools:helpers:server');
 
 export async function initializeServer(
-  configName,
+  configName: ConfigYaml,
   routesMiddleware: any[] = [],
-  Storage
+  Storage: any
 ): Promise<Application> {
   const app = express();
   const config = new Config(configName);
@@ -34,7 +35,7 @@ export async function initializeServer(
   // FUTURE: in v6 auth.init() is being called
   // TODO: this might not be need it, used in apiEndpoints
   app.use(express.json({ strict: false, limit: '100mb' }));
-  // @ts-ignore
+
   app.use(errorReportingMiddleware(logger));
   for (const route of routesMiddleware) {
     if (route.async) {
@@ -50,9 +51,8 @@ export async function initializeServer(
     next(errorUtils.getNotFound('resource not found'));
   });
 
-  // @ts-ignore
   app.use(handleError(logger));
-  // @ts-ignore
+
   app.use(final);
 
   app.use(function (request, response) {
