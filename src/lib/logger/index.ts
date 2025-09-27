@@ -1,8 +1,9 @@
 import createDebug from 'debug';
 
 import { setup as setupModule } from '@verdaccio/logger';
+import { Logger } from '@verdaccio/types';
 
-let logger;
+let logger: Logger;
 
 const debug = createDebug('verdaccio:logger');
 
