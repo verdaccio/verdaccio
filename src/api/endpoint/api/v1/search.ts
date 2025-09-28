@@ -234,9 +234,11 @@ export default function (route, auth, storage): void {
         completed = true;
         try {
           const response = await sendResponse(resultBuf, resultStream, auth, req, from, size);
+          // @ts-ignore
           logger.info('search endpoint ok results @{total}', { total: response.total });
           res.status(HTTP_STATUS.OK).json(response);
         } catch (err) {
+          // @ts-ignore
           logger.error('search endpoint has failed @{err}', { err });
           next(err);
         }

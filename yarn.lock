@@ -2899,13 +2899,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/types@npm:12.0.0-next-7.5":
-  version: 12.0.0-next-7.5
-  resolution: "@verdaccio/types@npm:12.0.0-next-7.5"
-  checksum: 10c0/8b7d308e1f29c5408c4b844aaea719c493dcdef28c142e944a20329bf8d891e3dd2eadde37ff288af2f74b0cf7fa7cae297c993ce1148a5118845a9bbd03d026
-  languageName: node
-  linkType: hard
-
 "@verdaccio/types@npm:13.0.0-next-8.8":
   version: 13.0.0-next-8.8
   resolution: "@verdaccio/types@npm:13.0.0-next-8.8"
@@ -9970,7 +9963,7 @@ __metadata:
     "@verdaccio/streams": "npm:10.2.1"
     "@verdaccio/tarball": "npm:13.0.0-next-8.23"
     "@verdaccio/test-helper": "npm:4.0.0-next-8.7"
-    "@verdaccio/types": "npm:12.0.0-next-7.5"
+    "@verdaccio/types": "npm:13.0.0-next-8.8"
     "@verdaccio/ui-theme": "npm:8.0.0-next-8.23"
     "@verdaccio/url": "npm:13.0.0-next-8.23"
     "@verdaccio/utils": "npm:8.1.0-next-8.23"
