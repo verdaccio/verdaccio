@@ -62,7 +62,7 @@ describe('test web server', () => {
       manifest: require('./partials/manifest/manifest.json'),
     }));
 
-    const app = await initializeServer('default-test.yaml');
+    const app = await initializeServer('protected-package.yaml');
     const api = supertest(app);
 
     // First login to get the token
@@ -91,5 +91,31 @@ describe('test web server', () => {
       .expect(HTTP_STATUS.OK);
 
     expect(response.body.length).toEqual(1);
+  });
+
+  test('should not display package foo if user is logged out', async () => {
+    mockManifest.mockReturnValue(() => ({
+      staticPath: path.join(__dirname, 'static'),
+      manifestFiles: {
+        js: ['runtime.js', 'vendors.js', 'main.js'],
+      },
+      manifest: require('./partials/manifest/manifest.json'),
+    }));
+
+    const app = await initializeServer('protected-package.yaml');
+    const api = supertest(app);
+
+    // publish a protected package with 2 versions
+    await publishVersion(app, 'foo', '1.0.0');
+    await publishVersion(app, 'foo', '2.0.0');
+
+    // Then access the packages API with the token
+    const response = await api
+      .get('/-/verdaccio/data/packages')
+      .set('Accept', HEADERS.JSON_CHARSET)
+      .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+      .expect(HTTP_STATUS.OK);
+
+    expect(response.body.length).toEqual(0);
   });
 });
