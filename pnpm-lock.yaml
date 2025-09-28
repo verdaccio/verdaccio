@@ -1522,8 +1522,8 @@ importers:
         specifier: workspace:13.0.0-next-8.22
         version: link:../../core/tarball
       core-js:
-        specifier: 3.40.0
-        version: 3.40.0
+        specifier: 3.45.1
+        version: 3.45.1
       debug:
         specifier: 4.4.3
         version: 4.4.3(supports-color@5.5.0)
@@ -7340,8 +7340,8 @@ packages:
   core-js-pure@3.39.0:
     resolution: {integrity: sha512-7fEcWwKI4rJinnK+wLTezeg2smbFFdSBP6E2kQZNbnzM2s1rpKQ6aaRteZSSg7FLU3P0HGGVo/gbpfanU36urg==}
 
-  core-js@3.40.0:
-    resolution: {integrity: sha512-7vsMc/Lty6AGnn7uFpYT56QesI5D2Y/UkgKounk87OP9Z2H9Z8kj6jzcSGAxFmUtDOS0ntK6lbQz+Nsa0Jj6mQ==}
+  core-js@3.45.1:
+    resolution: {integrity: sha512-L4NPsJlCfZsPeXukyzHFlg/i7IIVwHSItR0wg0FLNqYClJ4MQYTYLbC7EkjKYRLZF2iof2MUgN0EGy7MdQFChg==}
 
   core-util-is@1.0.2:
     resolution: {integrity: sha512-3lqz5YjWTYnW6dlDa5TLaTCcShfar1e40rmcJVwCBJC6mWlFuj0eCHIElmG1g5kyuJ/GD+8Wn4FFCcz4gJPfaQ==}
@@ -15595,7 +15595,7 @@ snapshots:
       '@babel/core': 7.28.4
       '@babel/register': 7.28.3(@babel/core@7.28.4)
       commander: 6.2.1
-      core-js: 3.40.0
+      core-js: 3.45.1
       node-environment-flags: 1.0.6
       regenerator-runtime: 0.14.1
       v8flags: 3.2.0
@@ -17076,7 +17076,7 @@ snapshots:
       cli-table3: 0.6.3
       combine-promises: 1.1.0
       commander: 5.1.0
-      core-js: 3.40.0
+      core-js: 3.45.1
       del: 6.1.1
       detect-port: 1.5.1
       escape-html: 1.0.3
@@ -22022,7 +22022,7 @@ snapshots:
 
   core-js-pure@3.39.0: {}
 
-  core-js@3.40.0: {}
+  core-js@3.45.1: {}
 
   core-util-is@1.0.2: {}
 

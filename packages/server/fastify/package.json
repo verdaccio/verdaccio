@@ -39,7 +39,7 @@
     "@verdaccio/logger": "workspace:8.0.0-next-8.22",
     "@verdaccio/store": "workspace:8.0.0-next-8.22",
     "@verdaccio/tarball": "workspace:13.0.0-next-8.22",
-    "core-js": "3.40.0",
+    "core-js": "3.45.1",
     "debug": "4.4.3",
     "fastify": "4.25.2",
     "fastify-plugin": "4.5.1",
