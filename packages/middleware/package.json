@@ -46,7 +46,7 @@
     "@verdaccio/core": "workspace:8.0.0-next-8.22",
     "@verdaccio/url": "workspace:13.0.0-next-8.22",
     "debug": "4.4.1",
-    "express": "4.21.2",
+    "express": "5.1.0",
     "express-rate-limit": "5.5.1",
     "lodash": "4.17.21",
     "lru-cache": "7.18.3",
