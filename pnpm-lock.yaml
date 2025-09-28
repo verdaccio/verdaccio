@@ -1760,7 +1760,7 @@ importers:
         version: 6.3.0(mem-fs@2.3.0)(yeoman-environment@3.19.3)(yeoman-generator@5.9.0(encoding@0.1.13)(mem-fs@2.3.0)(yeoman-environment@3.19.3))
 
   packages/tools/helpers:
-    devDependencies:
+    dependencies:
       '@verdaccio/auth':
         specifier: workspace:8.0.0-next-8.22
         version: link:../../auth
