@@ -1,5 +1,20 @@
 # @verdaccio/web
 
+## 8.1.0-next-8.23
+
+### Patch Changes
+
+- 5c499fa: chore: publish @verdaccio/test-helper
+- Updated dependencies [b671a38]
+  - @verdaccio/config@8.0.0-next-8.23
+  - @verdaccio/store@8.0.0-next-8.23
+  - @verdaccio/auth@8.0.0-next-8.23
+  - @verdaccio/loaders@8.0.0-next-8.13
+  - @verdaccio/middleware@8.0.0-next-8.23
+  - @verdaccio/core@8.0.0-next-8.23
+  - @verdaccio/tarball@13.0.0-next-8.23
+  - @verdaccio/logger@8.0.0-next-8.23
+
 ## 8.1.0-next-8.22
 
 ### Patch Changes

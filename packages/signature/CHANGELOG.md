@@ -1,5 +1,13 @@
 # @verdaccio/signature
 
+## 8.0.0-next-8.15
+
+### Patch Changes
+
+- Updated dependencies [b671a38]
+  - @verdaccio/config@8.0.0-next-8.23
+  - @verdaccio/core@8.0.0-next-8.23
+
 ## 8.0.0-next-8.14
 
 ### Patch Changes
