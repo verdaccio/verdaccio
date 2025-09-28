@@ -33,7 +33,7 @@
     "dompurify": "3.2.7",
     "highlight.js": "11.11.1",
     "i18next": "20.6.1",
-    "js-base64": "3.7.7",
+    "js-base64": "3.7.8",
     "localstorage-memory": "1.0.3",
     "lodash": "4.17.21",
     "marked": "15.0.12",
