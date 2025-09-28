@@ -47,7 +47,7 @@
     "@verdaccio/logger": "workspace:8.0.0-next-8.22",
     "@verdaccio/server": "workspace:8.0.0-next-8.22",
     "@verdaccio/server-fastify": "workspace:8.0.0-next-8.22",
-    "debug": "4.4.1",
+    "debug": "4.4.3",
     "lodash": "4.17.21"
   },
   "devDependencies": {

@@ -51,7 +51,7 @@
     "@verdaccio/search": "workspace:8.0.0-next-8.22",
     "@verdaccio/tarball": "workspace:13.0.0-next-8.22",
     "@verdaccio/url": "workspace:13.0.0-next-8.22",
-    "debug": "4.4.1",
+    "debug": "4.4.3",
     "lodash": "4.17.21",
     "semver": "7.7.2"
   },

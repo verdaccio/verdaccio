@@ -38,7 +38,7 @@
     "apache-md5": "1.1.8",
     "bcryptjs": "2.4.3",
     "http-errors": "2.0.0",
-    "debug": "4.4.1",
+    "debug": "4.4.3",
     "unix-crypt-td-js": "1.1.4"
   },
   "devDependencies": {
