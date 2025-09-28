@@ -75,7 +75,7 @@ export class InitCommand extends Command {
       logger.info({ file: configPathLocation }, 'config file  - @{file}');
     } catch (err: any) {
       console.error(`cannot open config file ${configPathLocation}: ${err.stack}`);
-      // @ts-ignore
+      // @ts-expect-error
       if (typeof logger?.logger?.fatal === 'function') {
         logger.fatal(
           { file: configPathLocation, err: err },
