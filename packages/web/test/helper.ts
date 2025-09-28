@@ -17,7 +17,7 @@ export const getConf = (configName: string) => {
 };
 
 // @deprecated
-export async function initializeServer(configName): Promise<Application> {
+export async function initializeServer(configName: string): Promise<Application> {
   return initializeServerHelper(
     getConf(configName),
     [apiMiddleware, { async: true, routes }],
