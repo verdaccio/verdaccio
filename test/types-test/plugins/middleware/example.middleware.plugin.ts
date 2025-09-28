@@ -1,5 +1,4 @@
 // this file is not aim to be tested, just to check typescript definitions
-
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { pluginUtils } from '@verdaccio/core';
 import { IReadTarball, IUploadTarball } from '@verdaccio/streams';

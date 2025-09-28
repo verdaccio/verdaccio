@@ -5,9 +5,8 @@ import { describe, expect, test } from 'vitest';
 
 import { HTTP_STATUS } from '@verdaccio/core';
 import { API_ERROR, API_MESSAGE, HEADERS, HEADER_TYPE } from '@verdaccio/core';
+import { generatePackageMetadata, generateRemotePackageMetadata } from '@verdaccio/test-helper';
 
-import { generatePackageMetadata } from '../../../helpers/generatePackageMetadata';
-import { generateRemotePackageMetadata } from '../../../helpers/generateRemotePackageMetadata';
 import { getPackage, initializeServer, publishVersion } from './_helper';
 
 describe('publish', () => {

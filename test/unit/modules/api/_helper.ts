@@ -7,14 +7,14 @@ import { expect } from 'vitest';
 
 import { parseConfigFile } from '@verdaccio/config';
 import { HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core';
+import { initializeServer as initializeServerHelper } from '@verdaccio/test-helper';
+import { generatePackageMetadata } from '@verdaccio/test-helper';
 import { GenericBody, PackageUsers } from '@verdaccio/types';
 import { buildToken, generateRandomHexString } from '@verdaccio/utils';
 
 import apiMiddleware from '../../../../src/api/endpoint';
 import { setup } from '../../../../src/lib/logger';
 import Storage from '../../../../src/lib/storage';
-import { generatePackageMetadata } from '../../../helpers/generatePackageMetadata';
-import { initializeServer as initializeServerHelper } from '../../../helpers/initializeServer';
 
 setup({});
 
