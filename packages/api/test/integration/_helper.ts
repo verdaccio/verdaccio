@@ -2,7 +2,6 @@ import { Application } from 'express';
 import _ from 'lodash';
 import path from 'node:path';
 import supertest from 'supertest';
-import { App } from 'supertest/types';
 import { expect } from 'vitest';
 
 import { parseConfigFile } from '@verdaccio/config';
@@ -41,7 +40,7 @@ export async function initializeServer(configName: string): Promise<Application>
   return initializeServerHelper(config, [apiMiddleware], Storage);
 }
 
-export function createUser(app: App, name: string, password: string): supertest.Test {
+export function createUser(app: any, name: string, password: string): supertest.Test {
   return supertest(app)
     .put(`/-/user/org.couchdb.user:${name}`)
     .send({
@@ -62,7 +61,7 @@ export async function getNewToken(app: any, credentials: any): Promise<string> {
   return token;
 }
 
-export async function generateTokenCLI(app: App, token: string, payload: any): Promise<any> {
+export async function generateTokenCLI(app: any, token: string, payload: any): Promise<any> {
   return supertest(app)
     .post('/-/npm/v1/tokens')
     .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
@@ -71,7 +70,7 @@ export async function generateTokenCLI(app: App, token: string, payload: any): P
     .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET);
 }
 
-export async function deleteTokenCLI(app: App, token: string, tokenToDelete: string): Promise<any> {
+export async function deleteTokenCLI(app: any, token: string, tokenToDelete: string): Promise<any> {
   return supertest(app)
     .delete(`/-/npm/v1/tokens/token/${tokenToDelete}`)
     .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
@@ -81,7 +80,7 @@ export async function deleteTokenCLI(app: App, token: string, tokenToDelete: str
 }
 
 export function publishVersionWithToken(
-  app: App,
+  app: any,
   pkgName: string,
   version: string,
   token: string,
@@ -99,7 +98,7 @@ export function publishVersionWithToken(
 }
 
 export function publishVersion(
-  app: App,
+  app: any,
   pkgName: string,
   version: string,
   distTags?: GenericBody,
@@ -122,7 +121,7 @@ export function publishVersion(
 }
 
 export function starPackage(
-  app,
+  app: any,
   options: {
     users: PackageUsers;
     name: string;
@@ -153,7 +152,7 @@ export function starPackage(
 }
 
 export function changeOwners(
-  app: App,
+  app: any,
   options: {
     maintainers: Author[];
     name: string;
@@ -183,7 +182,7 @@ export function changeOwners(
   return test;
 }
 
-export function getDisTags(app: App, pkgName: string): supertest.Test {
+export function getDisTags(app: any, pkgName: string): supertest.Test {
   return supertest(app)
     .get(`/-/package/${encodeURIComponent(pkgName)}/dist-tags`)
     .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
@@ -192,7 +191,7 @@ export function getDisTags(app: App, pkgName: string): supertest.Test {
 }
 
 export function getPackage(
-  app: App,
+  app: any,
   token: string,
   pkgName: string,
   statusCode: number = HTTP_STATUS.OK
