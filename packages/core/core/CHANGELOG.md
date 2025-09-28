@@ -1,5 +1,7 @@
 # @verdaccio/core
 
+## 8.0.0-next-8.23
+
 ## 8.0.0-next-8.22
 
 ### Patch Changes

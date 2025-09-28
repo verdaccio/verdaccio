@@ -1,5 +1,12 @@
 # @verdaccio/config
 
+## 8.0.0-next-8.23
+
+### Patch Changes
+
+- b671a38: chore: add types for createConfigFolder
+  - @verdaccio/core@8.0.0-next-8.23
+
 ## 8.0.0-next-8.22
 
 ### Patch Changes

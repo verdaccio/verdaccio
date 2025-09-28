@@ -1,5 +1,19 @@
 # Change Log
 
+## 4.0.0-next-8.7
+
+### Patch Changes
+
+- 5c499fa: chore: publish @verdaccio/test-helper
+- Updated dependencies [b671a38]
+- Updated dependencies [a02514b]
+  - @verdaccio/config@8.0.0-next-8.23
+  - @verdaccio/types@13.0.0-next-8.8
+  - @verdaccio/auth@8.0.0-next-8.23
+  - @verdaccio/middleware@8.0.0-next-8.23
+  - @verdaccio/core@8.0.0-next-8.23
+  - @verdaccio/logger@8.0.0-next-8.23
+
 ## 4.0.0-next-8.6
 
 ### Patch Changes
