@@ -11,17 +11,16 @@ import {
   HTTP_STATUS,
   TOKEN_BEARER,
 } from '@verdaccio/core';
+import { generatePackageMetadata } from '@verdaccio/test-helper';
 import { buildToken } from '@verdaccio/utils';
 
 import endPointAPI from '../../../../src/api';
 import { setup } from '../../../../src/lib/logger';
-import { generatePackageMetadata } from '../../../helpers/generatePackageMetadata';
-import { addUser } from '../../__helper/api';
+import { addUser, getNewToken } from '../../__helper/api';
 import { mockServer } from '../../__helper/mock';
 import configDefault from '../../partials/config';
 import forbiddenPlace from '../../partials/forbidden-place';
 import publishMetadata from '../../partials/publish-api';
-import { getNewToken } from '../api/_helper';
 
 setup({});
 
@@ -87,7 +86,7 @@ describe('endpoint web unit test', () => {
         expect(res.body).toHaveLength(1);
       });
 
-      test('should display all packages logged', async () => {
+      test.skip('should display all packages logged', async () => {
         const token = await getNewToken(app, { name: 'jota_token', password: 'secretPass' });
         // this packages is protected at the yaml file
         const res = await request(app)

@@ -3,7 +3,7 @@ import path from 'path';
 import Server from '../../lib/server';
 import VerdaccioProcess from '../../lib/server_process';
 import { VerdaccioConfig } from '../../lib/verdaccio-server';
-import { IServerBridge } from '../types';
+import { IServerBridge } from '../../types';
 
 /**
  * Fork a Verdaccio process with a custom configuration.
@@ -62,5 +62,5 @@ export function mockServer(port: number) {
 
   const server: IServerBridge = new Server(verdaccioConfig.domainPath);
 
-  return new VerdaccioProcess(verdaccioConfig, server, false, false, false);
+  return new VerdaccioProcess(verdaccioConfig, server, false);
 }

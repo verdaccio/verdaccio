@@ -5,7 +5,7 @@ import semver from 'semver';
 
 import { parseConfigFile } from '@verdaccio/config';
 import { errorUtils, pkgUtils, validationUtils, warningUtils } from '@verdaccio/core';
-import { ConfigYaml, LoggerConfItem, StringValue } from '@verdaccio/types';
+import { ConfigYaml, LoggerConfigItem, StringValue } from '@verdaccio/types';
 import { Config, Manifest, Version } from '@verdaccio/types';
 import { buildToken as buildTokenUtil } from '@verdaccio/utils';
 
@@ -32,7 +32,7 @@ export function initLogger(logConfig: ConfigYaml) {
     warningUtils.emit(warningUtils.Codes.VERWAR002);
   }
   debug('initializing logger with config: %o', logConfig.log);
-  setup(logConfig.log as LoggerConfItem);
+  setup(logConfig.log as LoggerConfigItem);
 }
 
 export function addScope(scope: string, packageName: string): string {
