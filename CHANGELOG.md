@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.2.0](https://github.com/verdaccio/verdaccio/compare/v6.1.6...v6.2.0) (2025-09-29)
+
+
+### Features
+
+* 6.x refactor test and deps ([#5315](https://github.com/verdaccio/verdaccio/issues/5315)) ([af55fbb](https://github.com/verdaccio/verdaccio/commit/af55fbb65f1d4258ad025b8c4d30e901e20d6d40))
+
+
+### Bug Fixes
+
+* [#5281](https://github.com/verdaccio/verdaccio/issues/5281) view packages logged in ([#5399](https://github.com/verdaccio/verdaccio/issues/5399)) ([9e404c1](https://github.com/verdaccio/verdaccio/commit/9e404c1dca3db6a79cedc41f0a2586e86f11a46a))
+* **deps:** update core verdaccio dependencies ([#5327](https://github.com/verdaccio/verdaccio/issues/5327)) ([f389431](https://github.com/verdaccio/verdaccio/commit/f38943144679083e641a32c983d865e902e1de74))
+* **deps:** update core verdaccio dependencies (6.x) ([#5388](https://github.com/verdaccio/verdaccio/issues/5388)) ([012c19f](https://github.com/verdaccio/verdaccio/commit/012c19f383be67a83c24536dd7378eaa4b299641))
+* **deps:** update dependency debug to v4.4.3 ([#5387](https://github.com/verdaccio/verdaccio/issues/5387)) ([24edd64](https://github.com/verdaccio/verdaccio/commit/24edd646c01ec9457b5c072dca75965768abac23))
+* filter plugins not loading ([#5382](https://github.com/verdaccio/verdaccio/issues/5382)) ([2cbd326](https://github.com/verdaccio/verdaccio/commit/2cbd3268d6ea8657da71c9224826ad2dd20ff8a0))
+* remove unused dependencies ([#5349](https://github.com/verdaccio/verdaccio/issues/5349)) ([87bb1b8](https://github.com/verdaccio/verdaccio/commit/87bb1b8c4d1645d6622e38191a0a34722a87784b))
+
 ### [6.1.6](https://github.com/verdaccio/verdaccio/compare/v6.1.5...v6.1.6) (2025-07-25)
 
 
