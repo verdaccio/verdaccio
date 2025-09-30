@@ -193,6 +193,15 @@ describe('plugin loader', () => {
     });
   });
 
+  describe('no plugins', () => {
+    test('should not fail if config section exists but no plugins are configured', async () => {
+      const config = getConfig('no-plugin.yaml');
+      const plugins = await asyncLoadPlugin(config.auth, { config, logger }, authSanitize);
+
+      expect(plugins).toHaveLength(0);
+    });
+  });
+
   describe('legacy merge configs', () => {
     // whenever 6.x and 7.x version are out of support, we can remove this test
     test('should merge configuration with plugin configuration', async () => {
