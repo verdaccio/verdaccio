@@ -1,5 +1,13 @@
 # @verdaccio/ui-theme
 
+## 8.0.0-next-8.23
+
+## 8.0.0-next-8.22
+
+### Patch Changes
+
+- f443f81: chore(deps): sync and pin dependencies
+
 ## 8.0.0-next-8.21
 
 ## 8.0.0-next-8.20

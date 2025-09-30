@@ -3,11 +3,11 @@
     {
       "id": 558752,
       "login": "juanpicado",
-      "contributions": 5473,
+      "contributions": 5478,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 3074
+          "contributions": 3079
         },
         {
           "name": "verdaccio-cookbook",
@@ -232,11 +232,11 @@
     {
       "id": 59966492,
       "login": "mbtools",
-      "contributions": 200,
+      "contributions": 204,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 200
+          "contributions": 204
         }
       ]
     },
@@ -883,6 +883,17 @@
       ]
     },
     {
+      "id": 47841949,
+      "login": "clintonsteiner",
+      "contributions": 4,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 4
+        }
+      ]
+    },
+    {
       "id": 7912231,
       "login": "markpeterfejes",
       "contributions": 4,
@@ -916,8 +927,8 @@
       ]
     },
     {
-      "id": 26556598,
-      "login": "NotWearingPants",
+      "id": 1180931,
+      "login": "BartDubois",
       "contributions": 4,
       "repositories": [
         {
@@ -938,8 +949,8 @@
       ]
     },
     {
-      "id": 1180931,
-      "login": "BartDubois",
+      "id": 26556598,
+      "login": "NotWearingPants",
       "contributions": 4,
       "repositories": [
         {
@@ -1392,6 +1403,17 @@
       ]
     },
     {
+      "id": 13708162,
+      "login": "mysiar",
+      "contributions": 2,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 2
+        }
+      ]
+    },
+    {
       "id": 85342175,
       "login": "innosatyam",
       "contributions": 2,
@@ -1403,8 +1425,8 @@
       ]
     },
     {
-      "id": 13708162,
-      "login": "mysiar",
+      "id": 49131888,
+      "login": "Marin-Kitagawa",
       "contributions": 2,
       "repositories": [
         {
@@ -1449,28 +1471,6 @@
     {
       "id": 6905832,
       "login": "somethingSTRANGE",
-      "contributions": 2,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 2
-        }
-      ]
-    },
-    {
-      "id": 16936908,
-      "login": "s-h-a-d-o-w",
-      "contributions": 2,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 2
-        }
-      ]
-    },
-    {
-      "id": 49131888,
-      "login": "Marin-Kitagawa",
       "contributions": 2,
       "repositories": [
         {
@@ -1535,8 +1535,8 @@
       ]
     },
     {
-      "id": 2270425,
-      "login": "danielo515",
+      "id": 465522,
+      "login": "okv",
       "contributions": 2,
       "repositories": [
         {
@@ -1557,8 +1557,19 @@
       ]
     },
     {
-      "id": 465522,
-      "login": "okv",
+      "id": 2270425,
+      "login": "danielo515",
+      "contributions": 2,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 2
+        }
+      ]
+    },
+    {
+      "id": 16936908,
+      "login": "s-h-a-d-o-w",
       "contributions": 2,
       "repositories": [
         {
@@ -1689,17 +1700,6 @@
       ]
     },
     {
-      "id": 3189424,
-      "login": "marnel",
-      "contributions": 2,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 2
-        }
-      ]
-    },
-    {
       "id": 1845314,
       "login": "MasterOdin",
       "contributions": 2,
@@ -1711,8 +1711,8 @@
       ]
     },
     {
-      "id": 273367,
-      "login": "kba",
+      "id": 3189424,
+      "login": "marnel",
       "contributions": 2,
       "repositories": [
         {
@@ -1724,6 +1724,17 @@
     {
       "id": 161571,
       "login": "aledbf",
+      "contributions": 2,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 2
+        }
+      ]
+    },
+    {
+      "id": 273367,
+      "login": "kba",
       "contributions": 2,
       "repositories": [
         {
@@ -2115,8 +2126,8 @@
       ]
     },
     {
-      "id": 14912729,
-      "login": "Skn0tt",
+      "id": 7500357,
+      "login": "saurabh-gohil",
       "contributions": 1,
       "repositories": [
         {
@@ -2137,8 +2148,8 @@
       ]
     },
     {
-      "id": 7500357,
-      "login": "saurabh-gohil",
+      "id": 14912729,
+      "login": "Skn0tt",
       "contributions": 1,
       "repositories": [
         {
@@ -2313,17 +2324,6 @@
       ]
     },
     {
-      "id": 988013,
-      "login": "tomcoonen",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 1
-        }
-      ]
-    },
-    {
       "id": 9381634,
       "login": "morrain",
       "contributions": 1,
@@ -2403,6 +2403,17 @@
     {
       "id": 2574275,
       "login": "oscard0m",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 42185573,
+      "login": "oussamafilani",
       "contributions": 1,
       "repositories": [
         {
@@ -2764,6 +2775,17 @@
       ]
     },
     {
+      "id": 988013,
+      "login": "tomcoonen",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
       "id": 907140,
       "login": "grrowl",
       "contributions": 1,
@@ -2975,17 +2997,6 @@
     {
       "id": 19264508,
       "login": "Claude-Ray",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 1
-        }
-      ]
-    },
-    {
-      "id": 47841949,
-      "login": "clintonsteiner",
       "contributions": 1,
       "repositories": [
         {
@@ -5257,7 +5268,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "A lightweight Node.js private proxy registry",
-      "stargazers_count": 17066,
+      "stargazers_count": 17174,
       "archived": false
     },
     {
@@ -5284,7 +5295,7 @@
       "full_name": "verdaccio/generator-verdaccio-plugin",
       "html_url": "https://github.com/verdaccio/generator-verdaccio-plugin",
       "description": " 🧩 yeoman verdaccio plugin generator (low maintenance)",
-      "stargazers_count": 11,
+      "stargazers_count": 12,
       "archived": true
     },
     {
@@ -5365,7 +5376,7 @@
       "full_name": "verdaccio/verdaccio-google-cloud",
       "html_url": "https://github.com/verdaccio/verdaccio-google-cloud",
       "description": "☁️📦 Google Cloud storage plugin for verdaccio",
-      "stargazers_count": 18,
+      "stargazers_count": 17,
       "archived": true
     },
     {
@@ -5383,7 +5394,7 @@
       "full_name": "verdaccio/monorepo",
       "html_url": "https://github.com/verdaccio/monorepo",
       "description": "🏰 Core dependencies and plugins for verdaccio 6.x branch ⚠️ DEPRECATED",
-      "stargazers_count": 85,
+      "stargazers_count": 86,
       "archived": false
     },
     {
@@ -5455,7 +5466,7 @@
       "full_name": "verdaccio/github-actions",
       "html_url": "https://github.com/verdaccio/github-actions",
       "description": "🤖Verdaccio GitHub Actions",
-      "stargazers_count": 24,
+      "stargazers_count": 25,
       "archived": false
     },
     {
@@ -5518,7 +5529,7 @@
       "full_name": "verdaccio/charts",
       "html_url": "https://github.com/verdaccio/charts",
       "description": "☸️🐳 Verdaccio Helm chart repository",
-      "stargazers_count": 69,
+      "stargazers_count": 71,
       "archived": false
     },
     {
@@ -5545,7 +5556,7 @@
       "full_name": "verdaccio/e2e-tests",
       "html_url": "https://github.com/verdaccio/e2e-tests",
       "description": "run e2e tests for 6.x and 7.x branches",
-      "stargazers_count": 2,
+      "stargazers_count": 3,
       "archived": false
     },
     {
@@ -5563,7 +5574,7 @@
       "full_name": "verdaccio/verdaccio-vscode",
       "html_url": "https://github.com/verdaccio/verdaccio-vscode",
       "description": "visual code extension (experiment)",
-      "stargazers_count": 0,
+      "stargazers_count": 1,
       "archived": false
     }
   ]

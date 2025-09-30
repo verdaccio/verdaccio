@@ -9,6 +9,7 @@ export type TypeToken = 'Bearer' | 'Basic';
 export interface Logger {
   child: (conf: any) => any;
   debug: (conf: any, template?: string) => void;
+  fatal: (conf: any, template?: string) => void;
   error: (conf: any, template?: string) => void;
   http: (conf: any, template?: string) => void;
   trace: (conf: any, template?: string) => void;

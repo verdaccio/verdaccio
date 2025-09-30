@@ -15,26 +15,12 @@ docker pull verdaccio/verdaccio
 
 ## Tagged Versions {#tagged-versions}
 
-![alt Docker Pulls Count](https://dockeri.co/image/verdaccio/verdaccio 'Docker Pulls Count')
+![alt Docker Pulls Count](https://img.shields.io/docker/pulls/verdaccio/verdaccio?color=f02e65&style=flat-square)
 
 Since version `v2.x` you can pull docker images by [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), as follows:
 
-For a major version:
-
 ```bash
-docker pull verdaccio/verdaccio:4
-```
-
-For a minor version:
-
-```bash
-docker pull verdaccio/verdaccio:4.0
-```
-
-For a specific (patch) version:
-
-```bash
-docker pull verdaccio/verdaccio:4.0.0
+docker pull verdaccio/verdaccio:latest
 ```
 
 > If you are interested on a list of tags, [please visit the Docker Hub website](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
@@ -122,7 +108,7 @@ COPY --chown=$VERDACCIO_USER_UID:root --from=builder \
   /verdaccio/plugins/verdaccio-auth-memory
 ```
 
-For more information check real plugin examples with Docker in our [source code](https://github.com/verdaccio/verdaccio/tree/master/docker-examples/v5/plugins).
+For more information check real plugin examples with Docker in our [source code](https://github.com/verdaccio/verdaccio/tree/master/docker-examples/v6/plugins).
 
 ### Docker and custom port configuration {#docker-and-custom-port-configuration}
 
@@ -175,23 +161,27 @@ services:
     ports:
       - '4873:4873'
     volumes:
-      - './storage:/verdaccio/storage'
-      - './config:/verdaccio/conf'
-      - './plugins:/verdaccio/plugins'
+      - verdaccio_storage:/verdaccio/storage
+      - verdaccio_conf:/verdaccio/conf
+      - verdaccio_plugins:/verdaccio/plugins
 networks:
   node-network:
     driver: bridge
+volumes:
+  verdaccio_storage:
+  verdaccio_conf:
+  verdaccio_plugins:
 ```
 
 Docker will generate a named volume in which to store persistent application data. You can use `docker inspect` or `docker volume inspect` to reveal the physical location of the volume and edit the configuration, such as:
 
 ```bash
-$ docker volume inspect verdaccio_verdaccio
+$ docker volume inspect verdaccio_conf
 [
     {
-        "Name": "verdaccio_verdaccio",
+        "Name": "verdaccio_conf",
         "Driver": "local",
-        "Mountpoint": "/var/lib/docker/volumes/verdaccio_verdaccio/_data",
+        "Mountpoint": "/var/lib/docker/volumes/verdaccio_conf/_data",
         "Labels": null,
         "Scope": "local"
     }

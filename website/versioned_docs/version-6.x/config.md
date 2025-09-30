@@ -5,28 +5,43 @@ title: 'Configuration File'
 
 This file is the cornerstone of Verdaccio where you can modify the default behaviour, enable plugins and extend features.
 
-A default configuration file `config.yaml` is created the very first time you run `verdaccio`.
+A default configuration file `config.yaml` is created the very first time you run `verdaccio`. You can find the most recent version of the default configuration [here](https://github.com/verdaccio/verdaccio/blob/master/packages/config/src/conf/default.yaml).
 
 ## Default Configuration {#default-configuration}
 
-The default configuration has support for **scoped** packages and allows any user to **access** all packages, but only authenticated users to **publish**.
+The default configuration has support for **scoped** packages and allows any user to **access** all packages, but only authenticated users to **publish** or **unpublish**.
 
 ```yaml
 storage: ./storage
+
 auth:
   htpasswd:
     file: ./htpasswd
+
 uplinks:
   npmjs:
     url: https://registry.npmjs.org/
+
 packages:
   '@*/*':
     access: $all
     publish: $authenticated
+    unpublish: $authenticated
     proxy: npmjs
   '**':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
     proxy: npmjs
-log: { type: stdout, format: pretty, level: http }
+
+middlewares:
+  audit:
+    enabled: true
+
+log:
+  type: stdout
+  format: pretty
+  level: http
 ```
 
 ## Sections {#sections}

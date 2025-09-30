@@ -1,5 +1,11 @@
 # @verdaccio/e2e-ui
 
+## 2.0.1-next-8.0
+
+### Patch Changes
+
+- f443f81: chore(deps): sync and pin dependencies
+
 ## 2.0.0
 
 ### Major Changes

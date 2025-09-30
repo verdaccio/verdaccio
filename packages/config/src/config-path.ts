@@ -78,7 +78,7 @@ export function readDefaultConfig(): string {
   return fs.readFileSync(pathDefaultConf, 'utf8');
 }
 
-function createConfigFolder(configLocation): void {
+function createConfigFolder(configLocation: SetupDirectory): void {
   const folder = path.dirname(configLocation.path);
   debug(`creating default config file folder at %o`, folder);
   fs.mkdirSync(folder, { recursive: true });

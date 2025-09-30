@@ -1,5 +1,11 @@
 # Change Log
 
+## 13.0.0-next-8.8
+
+### Patch Changes
+
+- a02514b: fix: minor logger missing type
+
 ## 13.0.0-next-8.7
 
 ### Patch Changes

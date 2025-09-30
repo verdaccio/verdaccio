@@ -8,7 +8,7 @@
 
 ## Proxy
 
-- [Docker + Nginx + Verdaccio](proxy/reverse_proxy/nginx/README.md)
+- [Docker + Nginx + Verdaccio](reverse_proxy/nginx/README.md)
 - [Docker + Apache + Verdaccio](proxy/apache-verdaccio/README.md)
 - [Docker + HTTPS Portal + Verdaccio](proxy/https-portal-example/README.md)
 

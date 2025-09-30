@@ -1,7 +1,7 @@
 import createDebug from 'debug';
 
 import { DEFAULT_DOMAIN, DEFAULT_PORT, DEFAULT_PROTOCOL } from '@verdaccio/core';
-import { Logger } from '@verdaccio/types';
+import { ListenAddress as ConfigListenAddress, Logger } from '@verdaccio/types';
 
 const debug = createDebug('verdaccio:config:address');
 
@@ -70,7 +70,10 @@ function addrToString(a: ListenAddress): string {
  - localhost:5557
  @return {Array}
  */
-export function getListenAddress(listen: (string | void)[], logger: Logger): ListenAddress {
+export function getListenAddress(
+  listen: ConfigListenAddress | string | undefined,
+  logger: Logger
+): ListenAddress {
   debug('getListenAddress called with %o', listen);
 
   if (!listen) {
@@ -86,31 +89,17 @@ export function getListenAddress(listen: (string | void)[], logger: Logger): Lis
     }
 
     const invalid: string[] = [];
+    const valid: ListenAddress[] = [];
 
     for (const raw of filteredListen) {
       const candidate = parseAddress(raw as string);
       if (candidate) {
         debug('valid listen address found: %o', candidate);
-
-        invalid.forEach((bad) =>
-          logger.warn(
-            { addr: bad },
-            'invalid address - @{addr}, we expect a port (e.g. "4873"), ' +
-              'host:port (e.g. "localhost:4873"), full url ' +
-              '(e.g. "http://localhost:4873/") or unix:/path/socket'
-          )
-        );
-
-        if (listen.length > 1) {
-          logger.warn(
-            `Multiple listen addresses are not supported, using the first valid one ${addrToString(
-              candidate
-            )}`
-          );
-        }
-        return candidate;
+        valid.push(candidate);
+      } else {
+        debug('invalid address found: %o', raw);
+        invalid.push(raw as string);
       }
-      invalid.push(raw as string);
     }
 
     invalid.forEach((bad) =>
@@ -121,10 +110,25 @@ export function getListenAddress(listen: (string | void)[], logger: Logger): Lis
           '(e.g. "http://localhost:4873/") or unix:/path/socket'
       )
     );
-    throw new Error('No valid listen addresses found in configuration array');
+
+    if (valid.length === 0) {
+      throw new Error('No valid listen addresses found in configuration array');
+    }
+
+    const firstValid = valid[0];
+
+    if (listen.length > 1) {
+      logger.warn(
+        `Multiple listen addresses are not supported, using the first valid one ${addrToString(
+          firstValid
+        )}`
+      );
+    }
+
+    return firstValid;
   }
 
-  const single = parseAddress(listen);
+  const single = parseAddress(listen as string);
   if (!single) {
     throw new Error(
       `Invalid address - ${listen}, we expect a port (e.g. "4873"), ` +

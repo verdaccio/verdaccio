@@ -1,5 +1,32 @@
 # verdaccio
 
+## 8.0.0-next-8.23
+
+### Patch Changes
+
+- @verdaccio/cli@8.0.0-next-8.23
+- @verdaccio/hooks@8.0.0-next-8.23
+- @verdaccio/node-api@8.0.0-next-8.23
+- verdaccio-audit@13.0.0-next-8.23
+- verdaccio-htpasswd@13.0.0-next-8.23
+- @verdaccio/logger@8.0.0-next-8.23
+- @verdaccio/ui-theme@8.0.0-next-8.23
+
+## 8.0.0-next-8.22
+
+### Patch Changes
+
+- 67e667b: chore: replace conditional require(fs/promises) pattern
+- Updated dependencies [05f03b3]
+- Updated dependencies [f443f81]
+  - @verdaccio/node-api@8.0.0-next-8.22
+  - @verdaccio/ui-theme@8.0.0-next-8.22
+  - verdaccio-htpasswd@13.0.0-next-8.22
+  - @verdaccio/cli@8.0.0-next-8.22
+  - @verdaccio/hooks@8.0.0-next-8.22
+  - verdaccio-audit@13.0.0-next-8.22
+  - @verdaccio/logger@8.0.0-next-8.22
+
 ## 8.0.0-next-8.21
 
 ### Patch Changes
