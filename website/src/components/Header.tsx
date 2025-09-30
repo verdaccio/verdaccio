@@ -29,8 +29,8 @@ const Header = (): React.ReactElement => {
             style={{ marginTop: '8px' }}
           />
           <div className={styles['header--links']}>
-            <a href="/Talks" className="link-secondary">
-              WATCH
+            <a href="/Talks" className={cx('link-secondary', 'secondarySpecialButton')}>
+              <Translate>WATCH</Translate>
             </a>
             <Link to={useBaseUrl('/docs/what-is-verdaccio')} className="link-primary">
               <Translate>GET STARTED</Translate>

@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/utils",
-  "version": "8.1.0-next-8.21",
+  "version": "8.1.0-next-8.23",
   "description": "Verdaccio Utilities",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -33,13 +33,13 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:8.0.0-next-8.21",
+    "@verdaccio/core": "workspace:8.0.0-next-8.23",
     "lodash": "4.17.21",
     "minimatch": "7.4.6"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:13.0.0-next-8.7",
-    "vitest": "3.0.4"
+    "@verdaccio/types": "workspace:13.0.0-next-8.8",
+    "vitest": "3.2.4"
   },
   "scripts": {
     "clean": "rimraf ./build",

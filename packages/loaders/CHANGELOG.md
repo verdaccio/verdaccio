@@ -1,5 +1,20 @@
 # @verdaccio/loaders
 
+## 8.0.0-next-8.13
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.23
+
+## 8.0.0-next-8.12
+
+### Patch Changes
+
+- 67e667b: chore: replace conditional require(fs/promises) pattern
+- Updated dependencies [67e667b]
+- Updated dependencies [60ef8ff]
+  - @verdaccio/core@8.0.0-next-8.22
+
 ## 8.0.0-next-8.11
 
 ### Patch Changes

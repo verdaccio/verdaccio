@@ -16,15 +16,15 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20, 22, 23]
+        node-version: [20, 22, 24]
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       - name: Build application with Node ${{ matrix.node_version }}
         uses: ./.github/actions/build-app
         with:
           node-version: ${{ matrix.node_version }}
       - name: install verdaccio
-        run: npm install -g verdaccio@5
+        run: npm install -g verdaccio@6
       - name: Start server
         run: verdaccio -c e2e/docker/generator-e2e/generator.yaml &
       - name: ping server
