@@ -1106,17 +1106,6 @@
       ]
     },
     {
-      "id": 597021,
-      "login": "bighuggies",
-      "contributions": 4,
-      "repositories": [
-        {
-          "name": "ui",
-          "contributions": 4
-        }
-      ]
-    },
-    {
       "id": 22054505,
       "login": "alfonsoar",
       "contributions": 4,
@@ -1388,6 +1377,17 @@
         {
           "name": "charts",
           "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 597021,
+      "login": "bighuggies",
+      "contributions": 3,
+      "repositories": [
+        {
+          "name": "ui",
+          "contributions": 3
         }
       ]
     },
@@ -5268,7 +5268,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "A lightweight Node.js private proxy registry",
-      "stargazers_count": 17174,
+      "stargazers_count": 17188,
       "archived": false
     },
     {
