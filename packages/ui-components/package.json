@@ -74,7 +74,7 @@
     "eslint-plugin-verdaccio": "10.0.0",
     "jsdom": "26.1.0",
     "mockdate": "3.0.5",
-    "msw": "2.11.2",
+    "msw": "2.11.3",
     "msw-storybook-addon": "2.0.5",
     "mutationobserver-shim": "0.3.7",
     "storybook": "8.6.14",
