@@ -49,7 +49,7 @@
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:13.0.0-next-8.8",
-    "pino": "9.9.5",
+    "pino": "9.13.1",
     "vitest": "3.2.4"
   },
   "funding": {
