@@ -31,7 +31,7 @@
     "@vitejs/plugin-react": "5.0.2",
     "babel-loader": "9.2.1",
     "babel-plugin-dynamic-import-node": "2.3.3",
-    "country-flag-icons": "1.5.19",
+    "country-flag-icons": "1.5.21",
     "css-loader": "6.11.0",
     "dayjs": "1.11.18",
     "eslint-plugin-verdaccio": "10.0.0",
