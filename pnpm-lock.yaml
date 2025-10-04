@@ -2218,8 +2218,8 @@ importers:
         specifier: 2.1.1
         version: 2.1.1
       copy-text-to-clipboard:
-        specifier: 3.2.0
-        version: 3.2.0
+        specifier: 3.2.2
+        version: 3.2.2
       docusaurus-plugin-contributors:
         specifier: workspace:*
         version: link:../packages/tools/docusaurus-plugin-contributors
@@ -7321,8 +7321,8 @@ packages:
     resolution: {integrity: sha512-TG2hpqe4ELx54QER/S3HQ9SRVnQnGBtKUz5bLQWtYAQ+o6GpgMs6sYUvaiJjVxb+UXwhRhAEP3m7LbsIZ77Hmw==}
     engines: {node: '>= 0.8'}
 
-  copy-text-to-clipboard@3.2.0:
-    resolution: {integrity: sha512-RnJFp1XR/LOBDckxTib5Qjr/PMfkatD0MUCQgdpqS8MdKiNUzBjAQBEN6oUy+jW7LI93BBG3DtMB2KOOKpGs2Q==}
+  copy-text-to-clipboard@3.2.2:
+    resolution: {integrity: sha512-T6SqyLd1iLuqPA90J5N4cTalrtovCySh58iiZDGJ6FGznbclKh4UI+FGacQSgFzwKG77W7XT5gwbVEbd9cIH1A==}
     engines: {node: '>=12'}
 
   copy-webpack-plugin@11.0.0:
@@ -17546,7 +17546,7 @@ snapshots:
       '@docusaurus/utils-validation': 3.6.3(acorn@8.14.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.3.3)
       '@mdx-js/react': 3.1.0(@types/react@18.3.3)(react@18.3.1)
       clsx: 2.1.1
-      copy-text-to-clipboard: 3.2.0
+      copy-text-to-clipboard: 3.2.2
       infima: 0.2.0-alpha.45
       lodash: 4.17.21
       nprogress: 0.2.0
@@ -22000,7 +22000,7 @@ snapshots:
       depd: 2.0.0
       keygrip: 1.1.0
 
-  copy-text-to-clipboard@3.2.0: {}
+  copy-text-to-clipboard@3.2.2: {}
 
   copy-webpack-plugin@11.0.0(webpack@5.101.3):
     dependencies:
