@@ -1225,8 +1225,8 @@ importers:
         specifier: workspace:8.0.0-next-8.13
         version: link:../../core/i18n
       '@vitejs/plugin-react':
-        specifier: 5.0.2
-        version: 5.0.2(vite@5.3.1(@types/node@24.3.1)(sass@1.83.4)(terser@5.31.3))
+        specifier: 5.0.4
+        version: 5.0.4(vite@5.3.1(@types/node@24.3.1)(sass@1.83.4)(terser@5.31.3))
       babel-loader:
         specifier: 9.2.1
         version: 9.2.1(@babel/core@7.28.4)(webpack@5.101.3)
@@ -1972,8 +1972,8 @@ importers:
         specifier: workspace:13.0.0-next-8.8
         version: link:../core/types
       '@vitejs/plugin-react':
-        specifier: 5.0.2
-        version: 5.0.2(vite@5.3.1(@types/node@24.3.1)(sass@1.83.4)(terser@5.31.3))
+        specifier: 5.0.4
+        version: 5.0.4(vite@5.3.1(@types/node@24.3.1)(sass@1.83.4)(terser@5.31.3))
       babel-loader:
         specifier: 9.2.1
         version: 9.2.1(@babel/core@7.28.4)(webpack@5.101.3(esbuild@0.24.2))
@@ -4945,8 +4945,8 @@ packages:
     peerDependencies:
       '@rematch/core': '>=2'
 
-  '@rolldown/pluginutils@1.0.0-beta.34':
-    resolution: {integrity: sha512-LyAREkZHP5pMom7c24meKmJCdhf2hEyvam2q0unr3or9ydwDL+DJ8chTF6Av/RFPb3rH8UFBdMzO5MxTZW97oA==}
+  '@rolldown/pluginutils@1.0.0-beta.38':
+    resolution: {integrity: sha512-N/ICGKleNhA5nc9XXQG/kkKHJ7S55u0x0XUJbbkmdCnFuoRkM1Il12q9q0eX19+M7KKUEPw/daUPIRnxhcxAIw==}
 
   '@rollup/rollup-android-arm-eabi@4.18.0':
     resolution: {integrity: sha512-Tya6xypR10giZV1XzxmH5wr25VcZSncG0pZIjfePT0OVBvqNEurzValetGNarVrGiq66EBVAFn15iYX4w6FKgQ==}
@@ -5559,9 +5559,6 @@ packages:
   '@types/babel__template@7.4.2':
     resolution: {integrity: sha512-/AVzPICMhMOMYoSx9MoKpGDKdBRsIXMNByh1PXSZoa+v6ZoLa8xxtsT/uLQ/NJm0XVAWl/BvId4MlDeXJaeIZQ==}
 
-  '@types/babel__traverse@7.20.2':
-    resolution: {integrity: sha512-ojlGK1Hsfce93J0+kn3H5R73elidKUaZonirN33GSmgTUMpzI/MIFfSpF3haANe3G1bEBS9/9/QEqwTzwqFsKw==}
-
   '@types/babel__traverse@7.28.0':
     resolution: {integrity: sha512-8PvcXf70gTDZBgt9ptxJ8elBeBjcLOAcOtoO/mPJjtji1+CdGbHgm77om1GrsPxsiE+uXIpNSK64UYaIwQXd4Q==}
 
@@ -6097,8 +6094,8 @@ packages:
     resolution: {integrity: sha512-F/YZANu4DmpcEV0jronzI7v2fGVWkQ5Mwi+bVmV+ACJ+EzR0c9Jbhtbe5QyLUuzR97t8R5E/Xe53O0cc2LukdQ==}
     engines: {node: '>=8'}
 
-  '@vitejs/plugin-react@5.0.2':
-    resolution: {integrity: sha512-tmyFgixPZCx2+e6VO9TNITWcCQl8+Nl/E8YbAyPVv85QCc7/A3JrdfG2A8gIzvVhWuzMOVrFW1aReaNxrI6tbw==}
+  '@vitejs/plugin-react@5.0.4':
+    resolution: {integrity: sha512-La0KD0vGkVkSk6K+piWDKRUyg8Rl5iAIKRMH0vMJI0Eg47bq1eOxmoObAaQG37WMW9MSyk7Cs8EIWwJC1PtzKA==}
     engines: {node: ^20.19.0 || >=22.12.0}
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
@@ -19169,7 +19166,7 @@ snapshots:
     dependencies:
       '@rematch/core': 2.2.0(redux@4.2.1)
 
-  '@rolldown/pluginutils@1.0.0-beta.34': {}
+  '@rolldown/pluginutils@1.0.0-beta.38': {}
 
   '@rollup/rollup-android-arm-eabi@4.18.0':
     optional: true
@@ -19902,10 +19899,6 @@ snapshots:
       '@babel/parser': 7.28.4
       '@babel/types': 7.28.4
 
-  '@types/babel__traverse@7.20.2':
-    dependencies:
-      '@babel/types': 7.28.4
-
   '@types/babel__traverse@7.28.0':
     dependencies:
       '@babel/types': 7.28.4
@@ -20570,12 +20563,12 @@ snapshots:
       http-errors: 2.0.0
       http-status-codes: 2.2.0
 
-  '@vitejs/plugin-react@5.0.2(vite@5.3.1(@types/node@24.3.1)(sass@1.83.4)(terser@5.31.3))':
+  '@vitejs/plugin-react@5.0.4(vite@5.3.1(@types/node@24.3.1)(sass@1.83.4)(terser@5.31.3))':
     dependencies:
       '@babel/core': 7.28.4
       '@babel/plugin-transform-react-jsx-self': 7.27.1(@babel/core@7.28.4)
       '@babel/plugin-transform-react-jsx-source': 7.27.1(@babel/core@7.28.4)
-      '@rolldown/pluginutils': 1.0.0-beta.34
+      '@rolldown/pluginutils': 1.0.0-beta.38
       '@types/babel__core': 7.20.5
       react-refresh: 0.17.0
       vite: 5.3.1(@types/node@24.3.1)(sass@1.83.4)(terser@5.31.3)
@@ -28379,7 +28372,7 @@ snapshots:
       '@babel/traverse': 7.28.4
       '@babel/types': 7.28.4
       '@types/babel__core': 7.20.5
-      '@types/babel__traverse': 7.20.2
+      '@types/babel__traverse': 7.28.0
       '@types/doctrine': 0.0.9
       '@types/resolve': 1.20.6
       doctrine: 3.0.0
