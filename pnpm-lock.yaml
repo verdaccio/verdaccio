@@ -1234,8 +1234,8 @@ importers:
         specifier: 2.3.3
         version: 2.3.3
       country-flag-icons:
-        specifier: 1.5.19
-        version: 1.5.19
+        specifier: 1.5.21
+        version: 1.5.21
       css-loader:
         specifier: 6.11.0
         version: 6.11.0(webpack@5.101.3)
@@ -1854,8 +1854,8 @@ importers:
         specifier: workspace:*
         version: link:../core/i18n
       country-flag-icons:
-        specifier: 1.5.19
-        version: 1.5.19
+        specifier: 1.5.21
+        version: 1.5.21
       dayjs:
         specifier: 1.11.18
         version: 1.11.18
@@ -7380,8 +7380,8 @@ packages:
       typescript:
         optional: true
 
-  country-flag-icons@1.5.19:
-    resolution: {integrity: sha512-D/ZkRyj+ywJC6b2IrAN3/tpbReMUqmuRLlcKFoY/o0+EPQN9Ev/e8tV+D3+9scvu/tarxwLErNwS73C3yzxs/g==}
+  country-flag-icons@1.5.21:
+    resolution: {integrity: sha512-0KmU4oeiyAM+F+atzK99ghQDQJKxEY3tiDhnRraVFL4o65rZgrmrx7xKi0b+hxcVpcEpuUbu+KCC6TKTZQTDcA==}
 
   create-jest@29.7.0:
     resolution: {integrity: sha512-Adz2bdH0Vq3F53KEMJOoftQFutWCukm6J24wbPWRO4k1kMY7gS7ds/uoJkNuV8wDCtWWnuwGcJwpWcih+zEW1Q==}
@@ -22076,7 +22076,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.3.3
 
-  country-flag-icons@1.5.19: {}
+  country-flag-icons@1.5.21: {}
 
   create-jest@29.7.0(@types/node@20.14.12)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@20.14.12)(typescript@5.3.3)):
     dependencies:
