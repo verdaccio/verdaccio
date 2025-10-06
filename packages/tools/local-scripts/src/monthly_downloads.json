@@ -116,5 +116,5 @@
   { "downloads": 1422019, "start": "2025-07-01", "end": "2025-07-31", "package": "verdaccio" },
   { "downloads": 1262694, "start": "2025-08-01", "end": "2025-08-31", "package": "verdaccio" },
   { "downloads": 1466753, "start": "2025-09-01", "end": "2025-09-30", "package": "verdaccio" },
-  { "downloads": 0, "start": "2025-10-01", "end": "2025-10-03", "package": "verdaccio" }
+  { "downloads": 199298, "start": "2025-10-01", "end": "2025-10-07", "package": "verdaccio" }
 ]
