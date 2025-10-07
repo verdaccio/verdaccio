@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@verdaccio/logger-commons": "workspace:8.0.0-next-8.23",
-    "pino": "9.9.5"
+    "pino": "9.13.1"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:13.0.0-next-8.8"
