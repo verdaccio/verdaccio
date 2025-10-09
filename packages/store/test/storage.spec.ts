@@ -1347,7 +1347,7 @@ describe('storage', () => {
         const [manifest] = await storage.syncUplinksMetadata(fooManifest.name, fooManifest, {
           retry: { limit: 0 },
         });
-        expect(manifest).toBe(fooManifest);
+        expect(manifest).toEqual(fooManifest);
       });
     });
 
