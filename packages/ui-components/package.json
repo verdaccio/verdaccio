@@ -30,7 +30,7 @@
     "@verdaccio/ui-i18n": "workspace:*",
     "country-flag-icons": "1.5.21",
     "dayjs": "1.11.18",
-    "dompurify": "3.2.7",
+    "dompurify": "3.3.0",
     "highlight.js": "11.11.1",
     "i18next": "20.6.1",
     "js-base64": "3.7.8",
