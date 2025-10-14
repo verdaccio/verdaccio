@@ -49,7 +49,7 @@
     "react-router-dom": "5.3.4",
     "react-virtualized": "9.22.6",
     "redux": "4.2.1",
-    "semver": "7.7.2",
+    "semver": "7.7.3",
     "validator": "13.15.15"
   },
   "devDependencies": {
