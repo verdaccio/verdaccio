@@ -282,8 +282,8 @@ importers:
         specifier: 13.5.6
         version: 13.5.6
       nodemon:
-        specifier: 3.0.3
-        version: 3.0.3
+        specifier: 3.1.10
+        version: 3.1.10
       npm-run-all2:
         specifier: 8.0.4
         version: 8.0.4
@@ -7017,10 +7017,6 @@ packages:
   chevrotain@11.0.3:
     resolution: {integrity: sha512-ci2iJH6LeIkvP9eJW6gpueU8cnZhv85ELY8w8WiFtNjMHA5ad6pQLaJo9mEly/9qUyCpvqX8/POVUTf18/HFdw==}
 
-  chokidar@3.5.3:
-    resolution: {integrity: sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==}
-    engines: {node: '>= 8.10.0'}
-
   chokidar@3.6.0:
     resolution: {integrity: sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==}
     engines: {node: '>= 8.10.0'}
@@ -11064,8 +11060,8 @@ packages:
   node-releases@2.0.21:
     resolution: {integrity: sha512-5b0pgg78U3hwXkCM8Z9b2FJdPZlr9Psr9V2gQPESdGHqbntyFJKFW4r5TeWGFzafGY3hzs1JC62VEQMbl1JFkw==}
 
-  nodemon@3.0.3:
-    resolution: {integrity: sha512-7jH/NXbFPxVaMwmBCC2B9F/V6X1VkEdNgx3iu9jji8WxWcvhMWkmhNWhI5077zknOnZnBzba9hZP6bCPJLSReQ==}
+  nodemon@3.1.10:
+    resolution: {integrity: sha512-WDjw3pJ0/0jMFmyNDp3gvY2YizjLmmOUQo6DEBY+JgdvW/yQ9mEeSw6H5ythl5Ny2ytb7f9C2nIbjSxMNzbJXw==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -21786,18 +21782,6 @@ snapshots:
       '@chevrotain/utils': 11.0.3
       lodash-es: 4.17.21
 
-  chokidar@3.5.3:
-    dependencies:
-      anymatch: 3.1.3
-      braces: 3.0.3
-      glob-parent: 5.1.2
-      is-binary-path: 2.1.0
-      is-glob: 4.0.3
-      normalize-path: 3.0.0
-      readdirp: 3.6.0
-    optionalDependencies:
-      fsevents: 2.3.3
-
   chokidar@3.6.0:
     dependencies:
       anymatch: 3.1.3
@@ -27085,9 +27069,9 @@ snapshots:
 
   node-releases@2.0.21: {}
 
-  nodemon@3.0.3:
+  nodemon@3.1.10:
     dependencies:
-      chokidar: 3.5.3
+      chokidar: 3.6.0
       debug: 4.4.3(supports-color@5.5.0)
       ignore-by-default: 1.0.1
       minimatch: 3.1.2
