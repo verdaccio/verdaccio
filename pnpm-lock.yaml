@@ -232,7 +232,7 @@ importers:
         version: link:packages/plugins/ui-theme
       '@vitest/coverage-v8':
         specifier: 3.2.4
-        version: 3.2.4(vitest@3.2.4(@types/debug@4.1.12)(@types/node@20.14.12)(jsdom@26.1.0)(msw@2.11.3(@types/node@20.14.12)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3))
+        version: 3.2.4(vitest@3.2.4(@types/debug@4.1.12)(@types/node@20.14.12)(jsdom@26.1.0)(msw@2.11.3(@types/node@20.14.12)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3))
       aria-query:
         specifier: 5.1.3
         version: 5.1.3
@@ -334,7 +334,7 @@ importers:
         version: link:packages/plugins/memory
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@20.14.12)(jsdom@26.1.0)(msw@2.11.3(@types/node@20.14.12)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@20.14.12)(jsdom@26.1.0)(msw@2.11.3(@types/node@20.14.12)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
   e2e/cli/cli-commons:
     devDependencies:
@@ -735,7 +735,7 @@ importers:
         version: 0.28.14(typescript@5.3.3)
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
   packages/core/file-locking:
     dependencies:
@@ -748,7 +748,7 @@ importers:
         version: link:../types
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
   packages/core/i18n: {}
 
@@ -778,7 +778,7 @@ importers:
         version: 1.14.1
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
   packages/core/types:
     devDependencies:
@@ -815,7 +815,7 @@ importers:
         version: 1.14.1
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
   packages/hooks:
     dependencies:
@@ -846,7 +846,7 @@ importers:
         version: 13.5.6
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
   packages/loaders:
     dependencies:
@@ -877,7 +877,7 @@ importers:
         version: link:../plugins/auth-memory
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
   packages/logger/logger:
     dependencies:
@@ -915,7 +915,7 @@ importers:
         version: 9.13.1
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
   packages/logger/logger-prettify:
     dependencies:
@@ -943,7 +943,7 @@ importers:
         version: 9.13.1
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
   packages/middleware:
     dependencies:
@@ -992,7 +992,7 @@ importers:
         version: 7.1.4
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
   packages/node-api:
     dependencies:
@@ -1029,7 +1029,7 @@ importers:
         version: 7.1.4
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
   packages/plugins/audit:
     dependencies:
@@ -1066,7 +1066,7 @@ importers:
         version: 7.1.4
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
   packages/plugins/auth-memory:
     dependencies:
@@ -1125,7 +1125,7 @@ importers:
         version: 3.0.5
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
   packages/plugins/local-storage:
     dependencies:
@@ -1162,7 +1162,7 @@ importers:
         version: link:../../core/types
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
   packages/plugins/memory:
     dependencies:
@@ -1187,7 +1187,7 @@ importers:
         version: link:../../core/types
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
   packages/plugins/ui-theme:
     devDependencies:
@@ -1226,7 +1226,7 @@ importers:
         version: link:../../core/i18n
       '@vitejs/plugin-react':
         specifier: 5.0.4
-        version: 5.0.4(vite@5.3.1(@types/node@24.3.1)(sass@1.83.4)(terser@5.31.3))
+        version: 5.0.4(vite@5.3.1(@types/node@24.3.1)(sass@1.93.2)(terser@5.31.3))
       babel-loader:
         specifier: 9.2.1
         version: 9.2.1(@babel/core@7.28.4)(webpack@5.102.1)
@@ -1325,10 +1325,10 @@ importers:
         version: 5.3.14(webpack@5.102.1)
       vite-plugin-markdown:
         specifier: 2.2.0
-        version: 2.2.0(vite@5.3.1(@types/node@24.3.1)(sass@1.83.4)(terser@5.31.3))
+        version: 2.2.0(vite@5.3.1(@types/node@24.3.1)(sass@1.93.2)(terser@5.31.3))
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
       webpack:
         specifier: 5.102.1
         version: 5.102.1(webpack-cli@4.10.0)
@@ -1392,7 +1392,7 @@ importers:
         version: 13.5.6
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
   packages/search:
     dependencies:
@@ -1423,7 +1423,7 @@ importers:
         version: 13.5.6
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
   packages/search-indexer:
     devDependencies:
@@ -1441,7 +1441,7 @@ importers:
         version: 0.25.10
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
   packages/server/express:
     dependencies:
@@ -1499,7 +1499,7 @@ importers:
         version: 7.1.4
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
   packages/server/fastify:
     dependencies:
@@ -1564,7 +1564,7 @@ importers:
         version: link:../core/types
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
   packages/standalone:
     devDependencies:
@@ -1646,7 +1646,7 @@ importers:
         version: 1.14.1
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
   packages/tools/docusaurus-plugin-contributors:
     dependencies:
@@ -1973,7 +1973,7 @@ importers:
         version: link:../core/types
       '@vitejs/plugin-react':
         specifier: 5.0.4
-        version: 5.0.4(vite@5.3.1(@types/node@24.3.1)(sass@1.83.4)(terser@5.31.3))
+        version: 5.0.4(vite@5.3.1(@types/node@24.3.1)(sass@1.93.2)(terser@5.31.3))
       babel-loader:
         specifier: 9.2.1
         version: 9.2.1(@babel/core@7.28.4)(webpack@5.102.1(esbuild@0.25.10))
@@ -2000,7 +2000,7 @@ importers:
         version: 8.6.14(prettier@3.4.2)
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
       whatwg-fetch:
         specifier: 3.6.20
         version: 3.6.20
@@ -2022,7 +2022,7 @@ importers:
         version: link:../core/types
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
   packages/verdaccio:
     dependencies:
@@ -2089,7 +2089,7 @@ importers:
         version: 7.1.4
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
   packages/web:
     dependencies:
@@ -2150,7 +2150,7 @@ importers:
         version: link:../plugins/memory
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
   website:
     dependencies:
@@ -2271,16 +2271,16 @@ importers:
         version: link:../packages/tools/local-scripts
       docusaurus-plugin-sass:
         specifier: 0.2.6
-        version: 0.2.6(@docusaurus/core@3.6.3(@mdx-js/react@3.1.0(@types/react@18.3.3)(react@18.3.1))(acorn@8.15.0)(debug@4.4.3)(eslint@8.57.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.3.3))(sass@1.83.4)(webpack@5.102.1)
+        version: 0.2.6(@docusaurus/core@3.6.3(@mdx-js/react@3.1.0(@types/react@18.3.3)(react@18.3.1))(acorn@8.15.0)(debug@4.4.3)(eslint@8.57.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.3.3))(sass@1.93.2)(webpack@5.102.1)
       prism-react-renderer:
         specifier: 2.4.1
         version: 2.4.1(react@18.3.1)
       sass:
-        specifier: 1.83.4
-        version: 1.83.4
+        specifier: 1.93.2
+        version: 1.93.2
       sass-loader:
         specifier: 16.0.5
-        version: 16.0.5(sass@1.83.4)(webpack@5.102.1)
+        version: 16.0.5(sass@1.93.2)(webpack@5.102.1)
       url-loader:
         specifier: 4.1.1
         version: 4.1.1(file-loader@6.2.0(webpack@5.102.1))(webpack@5.102.1)
@@ -13364,8 +13364,8 @@ packages:
       webpack:
         optional: true
 
-  sass@1.83.4:
-    resolution: {integrity: sha512-B1bozCeNQiOgDcLd33e2Cs2U60wZwjUUXzh900ZyQF5qUasvMdDZYbQ566LJu7cqR+sAHlAfO6RMkaID5s6qpA==}
+  sass@1.93.2:
+    resolution: {integrity: sha512-t+YPtOQHpGW1QWsh1CHQ5cPIr9lbbGZLZnbihP/D/qZj/yuV68m8qarcV17nvkOX81BCrvzAlq2klCQFZghyTg==}
     engines: {node: '>=14.0.0'}
     hasBin: true
 
@@ -20637,7 +20637,7 @@ snapshots:
       http-errors: 2.0.0
       http-status-codes: 2.2.0
 
-  '@vitejs/plugin-react@5.0.4(vite@5.3.1(@types/node@24.3.1)(sass@1.83.4)(terser@5.31.3))':
+  '@vitejs/plugin-react@5.0.4(vite@5.3.1(@types/node@24.3.1)(sass@1.93.2)(terser@5.31.3))':
     dependencies:
       '@babel/core': 7.28.4
       '@babel/plugin-transform-react-jsx-self': 7.27.1(@babel/core@7.28.4)
@@ -20645,11 +20645,11 @@ snapshots:
       '@rolldown/pluginutils': 1.0.0-beta.38
       '@types/babel__core': 7.20.5
       react-refresh: 0.17.0
-      vite: 5.3.1(@types/node@24.3.1)(sass@1.83.4)(terser@5.31.3)
+      vite: 5.3.1(@types/node@24.3.1)(sass@1.93.2)(terser@5.31.3)
     transitivePeerDependencies:
       - supports-color
 
-  '@vitest/coverage-v8@3.2.4(vitest@3.2.4(@types/debug@4.1.12)(@types/node@20.14.12)(jsdom@26.1.0)(msw@2.11.3(@types/node@20.14.12)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3))':
+  '@vitest/coverage-v8@3.2.4(vitest@3.2.4(@types/debug@4.1.12)(@types/node@20.14.12)(jsdom@26.1.0)(msw@2.11.3(@types/node@20.14.12)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3))':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@bcoe/v8-coverage': 1.0.2
@@ -20664,7 +20664,7 @@ snapshots:
       std-env: 3.9.0
       test-exclude: 7.0.1
       tinyrainbow: 2.0.0
-      vitest: 3.2.4(@types/debug@4.1.12)(@types/node@20.14.12)(jsdom@26.1.0)(msw@2.11.3(@types/node@20.14.12)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
+      vitest: 3.2.4(@types/debug@4.1.12)(@types/node@20.14.12)(jsdom@26.1.0)(msw@2.11.3(@types/node@20.14.12)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
     transitivePeerDependencies:
       - supports-color
 
@@ -20683,23 +20683,23 @@ snapshots:
       chai: 5.3.3
       tinyrainbow: 2.0.0
 
-  '@vitest/mocker@3.2.4(msw@2.11.3(@types/node@20.14.12)(typescript@5.3.3))(vite@5.3.1(@types/node@20.14.12)(sass@1.83.4)(terser@5.31.3))':
+  '@vitest/mocker@3.2.4(msw@2.11.3(@types/node@20.14.12)(typescript@5.3.3))(vite@5.3.1(@types/node@20.14.12)(sass@1.93.2)(terser@5.31.3))':
     dependencies:
       '@vitest/spy': 3.2.4
       estree-walker: 3.0.3
       magic-string: 0.30.17
     optionalDependencies:
       msw: 2.11.3(@types/node@20.14.12)(typescript@5.3.3)
-      vite: 5.3.1(@types/node@20.14.12)(sass@1.83.4)(terser@5.31.3)
+      vite: 5.3.1(@types/node@20.14.12)(sass@1.93.2)(terser@5.31.3)
 
-  '@vitest/mocker@3.2.4(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(vite@5.3.1(@types/node@24.3.1)(sass@1.83.4)(terser@5.31.3))':
+  '@vitest/mocker@3.2.4(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(vite@5.3.1(@types/node@24.3.1)(sass@1.93.2)(terser@5.31.3))':
     dependencies:
       '@vitest/spy': 3.2.4
       estree-walker: 3.0.3
       magic-string: 0.30.17
     optionalDependencies:
       msw: 2.11.3(@types/node@24.3.1)(typescript@5.3.3)
-      vite: 5.3.1(@types/node@24.3.1)(sass@1.83.4)(terser@5.31.3)
+      vite: 5.3.1(@types/node@24.3.1)(sass@1.93.2)(terser@5.31.3)
 
   '@vitest/pretty-format@2.0.5':
     dependencies:
@@ -22846,11 +22846,11 @@ snapshots:
     dependencies:
       esutils: 2.0.3
 
-  docusaurus-plugin-sass@0.2.6(@docusaurus/core@3.6.3(@mdx-js/react@3.1.0(@types/react@18.3.3)(react@18.3.1))(acorn@8.15.0)(debug@4.4.3)(eslint@8.57.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.3.3))(sass@1.83.4)(webpack@5.102.1):
+  docusaurus-plugin-sass@0.2.6(@docusaurus/core@3.6.3(@mdx-js/react@3.1.0(@types/react@18.3.3)(react@18.3.1))(acorn@8.15.0)(debug@4.4.3)(eslint@8.57.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.3.3))(sass@1.93.2)(webpack@5.102.1):
     dependencies:
       '@docusaurus/core': 3.6.3(@mdx-js/react@3.1.0(@types/react@18.3.3)(react@18.3.1))(acorn@8.15.0)(debug@4.4.3)(eslint@8.57.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.3.3)
-      sass: 1.83.4
-      sass-loader: 16.0.5(sass@1.83.4)(webpack@5.102.1)
+      sass: 1.93.2
+      sass-loader: 16.0.5(sass@1.93.2)(webpack@5.102.1)
     transitivePeerDependencies:
       - '@rspack/core'
       - node-sass
@@ -29121,14 +29121,14 @@ snapshots:
     dependencies:
       truncate-utf8-bytes: 1.0.2
 
-  sass-loader@16.0.5(sass@1.83.4)(webpack@5.102.1):
+  sass-loader@16.0.5(sass@1.93.2)(webpack@5.102.1):
     dependencies:
       neo-async: 2.6.2
     optionalDependencies:
-      sass: 1.83.4
+      sass: 1.93.2
       webpack: 5.102.1(webpack-cli@4.10.0)
 
-  sass@1.83.4:
+  sass@1.93.2:
     dependencies:
       chokidar: 4.0.3
       immutable: 5.0.3
@@ -30636,13 +30636,13 @@ snapshots:
       remove-trailing-separator: 1.1.0
       replace-ext: 1.0.1
 
-  vite-node@3.2.4(@types/node@20.14.12)(sass@1.83.4)(terser@5.31.3):
+  vite-node@3.2.4(@types/node@20.14.12)(sass@1.93.2)(terser@5.31.3):
     dependencies:
       cac: 6.7.14
       debug: 4.4.3(supports-color@5.5.0)
       es-module-lexer: 1.7.0
       pathe: 2.0.3
-      vite: 5.3.1(@types/node@20.14.12)(sass@1.83.4)(terser@5.31.3)
+      vite: 5.3.1(@types/node@20.14.12)(sass@1.93.2)(terser@5.31.3)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -30653,13 +30653,13 @@ snapshots:
       - supports-color
       - terser
 
-  vite-node@3.2.4(@types/node@24.3.1)(sass@1.83.4)(terser@5.31.3):
+  vite-node@3.2.4(@types/node@24.3.1)(sass@1.93.2)(terser@5.31.3):
     dependencies:
       cac: 6.7.14
       debug: 4.4.3(supports-color@5.5.0)
       es-module-lexer: 1.7.0
       pathe: 2.0.3
-      vite: 5.3.1(@types/node@24.3.1)(sass@1.83.4)(terser@5.31.3)
+      vite: 5.3.1(@types/node@24.3.1)(sass@1.93.2)(terser@5.31.3)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -30670,15 +30670,15 @@ snapshots:
       - supports-color
       - terser
 
-  vite-plugin-markdown@2.2.0(vite@5.3.1(@types/node@24.3.1)(sass@1.83.4)(terser@5.31.3)):
+  vite-plugin-markdown@2.2.0(vite@5.3.1(@types/node@24.3.1)(sass@1.93.2)(terser@5.31.3)):
     dependencies:
       domhandler: 4.3.1
       front-matter: 4.0.2
       htmlparser2: 6.1.0
       markdown-it: 12.3.2
-      vite: 5.3.1(@types/node@24.3.1)(sass@1.83.4)(terser@5.31.3)
+      vite: 5.3.1(@types/node@24.3.1)(sass@1.93.2)(terser@5.31.3)
 
-  vite@5.3.1(@types/node@20.14.12)(sass@1.83.4)(terser@5.31.3):
+  vite@5.3.1(@types/node@20.14.12)(sass@1.93.2)(terser@5.31.3):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.40
@@ -30686,10 +30686,10 @@ snapshots:
     optionalDependencies:
       '@types/node': 20.14.12
       fsevents: 2.3.3
-      sass: 1.83.4
+      sass: 1.93.2
       terser: 5.31.3
 
-  vite@5.3.1(@types/node@24.3.1)(sass@1.83.4)(terser@5.31.3):
+  vite@5.3.1(@types/node@24.3.1)(sass@1.93.2)(terser@5.31.3):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.40
@@ -30697,14 +30697,14 @@ snapshots:
     optionalDependencies:
       '@types/node': 24.3.1
       fsevents: 2.3.3
-      sass: 1.83.4
+      sass: 1.93.2
       terser: 5.31.3
 
-  vitest@3.2.4(@types/debug@4.1.12)(@types/node@20.14.12)(jsdom@26.1.0)(msw@2.11.3(@types/node@20.14.12)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3):
+  vitest@3.2.4(@types/debug@4.1.12)(@types/node@20.14.12)(jsdom@26.1.0)(msw@2.11.3(@types/node@20.14.12)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3):
     dependencies:
       '@types/chai': 5.2.2
       '@vitest/expect': 3.2.4
-      '@vitest/mocker': 3.2.4(msw@2.11.3(@types/node@20.14.12)(typescript@5.3.3))(vite@5.3.1(@types/node@20.14.12)(sass@1.83.4)(terser@5.31.3))
+      '@vitest/mocker': 3.2.4(msw@2.11.3(@types/node@20.14.12)(typescript@5.3.3))(vite@5.3.1(@types/node@20.14.12)(sass@1.93.2)(terser@5.31.3))
       '@vitest/pretty-format': 3.2.4
       '@vitest/runner': 3.2.4
       '@vitest/snapshot': 3.2.4
@@ -30722,8 +30722,8 @@ snapshots:
       tinyglobby: 0.2.14
       tinypool: 1.1.1
       tinyrainbow: 2.0.0
-      vite: 5.3.1(@types/node@20.14.12)(sass@1.83.4)(terser@5.31.3)
-      vite-node: 3.2.4(@types/node@20.14.12)(sass@1.83.4)(terser@5.31.3)
+      vite: 5.3.1(@types/node@20.14.12)(sass@1.93.2)(terser@5.31.3)
+      vite-node: 3.2.4(@types/node@20.14.12)(sass@1.93.2)(terser@5.31.3)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/debug': 4.1.12
@@ -30739,11 +30739,11 @@ snapshots:
       - supports-color
       - terser
 
-  vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3):
+  vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.3.1)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3):
     dependencies:
       '@types/chai': 5.2.2
       '@vitest/expect': 3.2.4
-      '@vitest/mocker': 3.2.4(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(vite@5.3.1(@types/node@24.3.1)(sass@1.83.4)(terser@5.31.3))
+      '@vitest/mocker': 3.2.4(msw@2.11.3(@types/node@24.3.1)(typescript@5.3.3))(vite@5.3.1(@types/node@24.3.1)(sass@1.93.2)(terser@5.31.3))
       '@vitest/pretty-format': 3.2.4
       '@vitest/runner': 3.2.4
       '@vitest/snapshot': 3.2.4
@@ -30761,8 +30761,8 @@ snapshots:
       tinyglobby: 0.2.14
       tinypool: 1.1.1
       tinyrainbow: 2.0.0
-      vite: 5.3.1(@types/node@24.3.1)(sass@1.83.4)(terser@5.31.3)
-      vite-node: 3.2.4(@types/node@24.3.1)(sass@1.83.4)(terser@5.31.3)
+      vite: 5.3.1(@types/node@24.3.1)(sass@1.93.2)(terser@5.31.3)
+      vite-node: 3.2.4(@types/node@24.3.1)(sass@1.93.2)(terser@5.31.3)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/debug': 4.1.12
