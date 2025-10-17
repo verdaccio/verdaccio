@@ -1,14 +1,8 @@
 import _ from 'lodash';
 
-import { HEADERS } from '@verdaccio/core';
+import { HEADERS, constants } from '@verdaccio/core';
 
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
-
-// FIXME: deprecated, moved to @verdaccio/dev-commons
-export const LOG_STATUS_MESSAGE =
-  "@{status}, user: @{user}(@{remoteIP}), req: '@{request.method} @{request.url}'";
-export const LOG_VERDACCIO_ERROR = `${LOG_STATUS_MESSAGE}, error: @{!error}`;
-export const LOG_VERDACCIO_BYTES = `${LOG_STATUS_MESSAGE}, bytes: @{bytes.in}/@{bytes.out}`;
 
 export const log = (logger) => {
   return function log(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
@@ -53,41 +47,42 @@ export const log = (logger) => {
       _write.apply(res, arguments);
     };
 
-    const log = function (): void {
+    // Track if the request completed normally
+    let requestCompleted = false;
+    let abortLogged = false;
+
+    const getRequestContext = () => {
       const forwardedFor = req.get(HEADERS.FORWARDED_FOR);
-      const remoteAddress = req.connection.remoteAddress;
+      const remoteAddress = req.socket.remoteAddress;
       const remoteIP = forwardedFor ? `${forwardedFor} via ${remoteAddress}` : remoteAddress;
-      let message;
-      if (res.locals._verdaccio_error) {
-        message = LOG_VERDACCIO_ERROR;
-      } else {
-        message = LOG_VERDACCIO_BYTES;
-      }
 
       req.url = req.originalUrl;
-      req.log.http(
-        {
-          request: {
-            method: req.method,
-            url: req.url,
-          },
-          user: req.remote_user?.name || null,
-          remoteIP,
-          status: res.statusCode,
-          error: res.locals._verdaccio_error,
-          bytes: {
-            in: bytesin,
-            out: bytesout,
-          },
+      return {
+        request: {
+          method: req.method,
+          url: req.url,
         },
-        message
-      );
-      req.originalUrl = req.url;
+        user: req.remote_user?.name || null,
+        remoteIP,
+        bytes: {
+          in: bytesin,
+          out: bytesout,
+        },
+      };
     };
 
-    req.on('close', function (): void {
-      log();
-    });
+    const logCompletedRequest = function (): void {
+      requestCompleted = true;
+
+      req.log.http(
+        {
+          ...getRequestContext(),
+          status: res.statusCode,
+          error: res.locals._verdaccio_error,
+        },
+        res.locals._verdaccio_error ? constants.LOG_VERDACCIO_ERROR : constants.LOG_VERDACCIO_BYTES
+      );
+    };
 
     const _end = res.end;
     // @ts-ignore
@@ -98,8 +93,34 @@ export const log = (logger) => {
       /* eslint prefer-rest-params: "off" */
       // @ts-ignore
       _end.apply(res, arguments);
-      log();
+      logCompletedRequest();
     };
     next();
+
+    // Handle aborted requests
+    const logAbortedRequest = () => {
+      if (abortLogged || requestCompleted) return;
+      abortLogged = true;
+
+      req.log.warn(
+        {
+          ...getRequestContext(),
+          status: constants.HTTP_STATUS.CLIENT_CLOSED_REQUEST,
+        },
+        constants.LOG_VERDACCIO_ABORT
+      );
+    };
+
+    req.socket.on('close', () => {
+      if (!requestCompleted) {
+        logAbortedRequest();
+      }
+    });
+
+    req.socket.on('error', () => {
+      if (!requestCompleted) {
+        logAbortedRequest();
+      }
+    });
   };
 };
