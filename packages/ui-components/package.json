@@ -75,7 +75,7 @@
     "jsdom": "26.1.0",
     "mockdate": "3.0.5",
     "msw": "2.11.3",
-    "msw-storybook-addon": "2.0.5",
+    "msw-storybook-addon": "2.0.6",
     "mutationobserver-shim": "0.3.7",
     "storybook": "8.6.14",
     "vitest": "3.2.4",
