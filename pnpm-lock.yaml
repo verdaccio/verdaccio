@@ -668,8 +668,8 @@ importers:
         specifier: 4.0.0-rc.4
         version: 4.0.0-rc.4(typanion@3.14.0)
       envinfo:
-        specifier: 7.14.0
-        version: 7.14.0
+        specifier: 7.19.0
+        version: 7.19.0
       kleur:
         specifier: 4.1.5
         version: 4.1.5
@@ -8159,8 +8159,8 @@ packages:
     resolution: {integrity: sha512-+h1lkLKhZMTYjog1VEpJNG7NZJWcuc2DDk/qsqSTRRCOXiLjeQ1d1/udrUGhqMxUgAlwKNZ0cf2uqan5GLuS2A==}
     engines: {node: '>=6'}
 
-  envinfo@7.14.0:
-    resolution: {integrity: sha512-CO40UI41xDQzhLB1hWyqUKgFhs250pNcGbyGKe1l/e4FSaI/+YE4IMG76GDt0In67WLPACIITC+sOi08x4wIvg==}
+  envinfo@7.19.0:
+    resolution: {integrity: sha512-DoSM9VyG6O3vqBf+p3Gjgr/Q52HYBBtO3v+4koAxt1MnWr+zEnxE+nke/yXS4lt2P4SYCHQ4V3f1i88LQVOpAw==}
     engines: {node: '>=4'}
     hasBin: true
 
@@ -20872,7 +20872,7 @@ snapshots:
 
   '@webpack-cli/info@1.5.0(webpack-cli@4.10.0)':
     dependencies:
-      envinfo: 7.14.0
+      envinfo: 7.19.0
       webpack-cli: 4.10.0(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@5.2.2)(webpack@5.102.1)
 
   '@webpack-cli/serve@1.7.0(webpack-cli@4.10.0)':
@@ -23012,7 +23012,7 @@ snapshots:
 
   env-paths@2.2.1: {}
 
-  envinfo@7.14.0: {}
+  envinfo@7.19.0: {}
 
   err-code@2.0.3: {}
 
