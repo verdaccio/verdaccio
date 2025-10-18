@@ -41,7 +41,7 @@
     "normalize.css": "8.0.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "react-hook-form": "7.54.2",
+    "react-hook-form": "7.65.0",
     "react-i18next": "15.6.1",
     "react-markdown": "9.0.3",
     "react-redux": "8.1.3",
