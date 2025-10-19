@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/auth",
-  "version": "8.0.0-next-8.23",
+  "version": "8.0.0-next-8.24",
   "description": "Verdaccio Authentication",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
@@ -42,18 +42,18 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@verdaccio/config": "workspace:8.0.0-next-8.23",
-    "@verdaccio/core": "workspace:8.0.0-next-8.23",
-    "@verdaccio/loaders": "workspace:8.0.0-next-8.13",
-    "@verdaccio/signature": "workspace:8.0.0-next-8.15",
+    "@verdaccio/config": "workspace:8.0.0-next-8.24",
+    "@verdaccio/core": "workspace:8.0.0-next-8.24",
+    "@verdaccio/loaders": "workspace:8.0.0-next-8.14",
+    "@verdaccio/signature": "workspace:8.0.0-next-8.16",
     "debug": "4.4.3",
     "lodash": "4.17.21",
-    "verdaccio-htpasswd": "workspace:13.0.0-next-8.23"
+    "verdaccio-htpasswd": "workspace:13.0.0-next-8.24"
   },
   "devDependencies": {
-    "@verdaccio/middleware": "workspace:8.0.0-next-8.23",
+    "@verdaccio/middleware": "workspace:8.0.0-next-8.24",
     "@verdaccio/types": "workspace:13.0.0-next-8.8",
-    "@verdaccio/logger": "workspace:8.0.0-next-8.23",
+    "@verdaccio/logger": "workspace:8.0.0-next-8.24",
     "express": "4.21.2",
     "supertest": "7.1.4"
   },

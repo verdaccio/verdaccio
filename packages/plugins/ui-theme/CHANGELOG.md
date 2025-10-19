@@ -1,5 +1,7 @@
 # @verdaccio/ui-theme
 
+## 8.0.0-next-8.24
+
 ## 8.0.0-next-8.23
 
 ## 8.0.0-next-8.22
