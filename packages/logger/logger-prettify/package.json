@@ -50,7 +50,7 @@
     "sonic-boom": "3.8.1"
   },
   "devDependencies": {
-    "pino": "9.13.1",
+    "pino": "9.14.0",
     "vitest": "3.2.4"
   },
   "funding": {
