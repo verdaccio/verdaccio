@@ -4,6 +4,7 @@ exports[`<NoItem /> component > should load the component in default state 1`] =
 <div
   class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiAlert-root MuiAlert-colorInfo MuiAlert-standardInfo MuiAlert-standard makeStyles-MuiPaper-root-MuiAlert-root"
   role="alert"
+  style="--Paper-shadow: none;"
 >
   <div
     class="MuiAlert-icon makeStyles-MuiAlert-icon"
