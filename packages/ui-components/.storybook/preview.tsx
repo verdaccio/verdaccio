@@ -1,4 +1,4 @@
-import type { Preview, StoryFn } from '@storybook/react';
+import type { Preview, StoryFn } from '@storybook/react-webpack5';
 import { initialize, mswLoader } from 'msw-storybook-addon';
 import React from 'react';
 import { Provider } from 'react-redux';

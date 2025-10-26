@@ -12,7 +12,7 @@ exports[`DetailContainer > renders correctly 1`] = `
       style="overflow: hidden; margin-bottom: 0px;"
     >
       <div
-        class="MuiTabs-flexContainer makeStyles-MuiTabs-flexContainer"
+        class="MuiTabs-list MuiTabs-flexContainer makeStyles-MuiTabs-list"
         role="tablist"
       >
         <button
@@ -25,9 +25,6 @@ exports[`DetailContainer > renders correctly 1`] = `
           type="button"
         >
           tab.readme
-          <span
-            class="MuiTouchRipple-root makeStyles-MuiTouchRipple-root"
-          />
         </button>
         <button
           aria-selected="false"
@@ -39,9 +36,6 @@ exports[`DetailContainer > renders correctly 1`] = `
           type="button"
         >
           tab.dependencies
-          <span
-            class="MuiTouchRipple-root makeStyles-MuiTouchRipple-root"
-          />
         </button>
         <button
           aria-selected="false"
@@ -53,9 +47,6 @@ exports[`DetailContainer > renders correctly 1`] = `
           type="button"
         >
           tab.versions
-          <span
-            class="MuiTouchRipple-root makeStyles-MuiTouchRipple-root"
-          />
         </button>
         <button
           aria-selected="false"
@@ -67,9 +58,6 @@ exports[`DetailContainer > renders correctly 1`] = `
           type="button"
         >
           tab.uplinks
-          <span
-            class="MuiTouchRipple-root makeStyles-MuiTouchRipple-root"
-          />
         </button>
       </div>
       <span
