@@ -1,5 +1,20 @@
 # @verdaccio/store
 
+## 8.0.0-next-8.24
+
+### Patch Changes
+
+- 71587f3: Fix inconsistency in filter plugin invocation upon receiving 304 from uplink after uplink.maxage has passed
+  - @verdaccio/core@8.0.0-next-8.24
+  - @verdaccio/config@8.0.0-next-8.24
+  - @verdaccio/tarball@13.0.0-next-8.24
+  - @verdaccio/url@13.0.0-next-8.24
+  - @verdaccio/loaders@8.0.0-next-8.14
+  - @verdaccio/local-storage@13.0.0-next-8.24
+  - @verdaccio/proxy@8.0.0-next-8.24
+  - @verdaccio/search@8.0.0-next-8.24
+  - @verdaccio/logger@8.0.0-next-8.24
+
 ## 8.0.0-next-8.23
 
 ### Patch Changes

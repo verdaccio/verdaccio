@@ -17,10 +17,13 @@ exports[`<TextField /> component > should load the component in default state 1`
     />
     <fieldset
       aria-hidden="true"
-      class="MuiOutlinedInput-notchedOutline makeStyles-MuiOutlinedInput-notchedOutline"
+      class="MuiOutlinedInput-notchedOutline makeStyles-MuiNotchedOutlined-root-MuiOutlinedInput-notchedOutline"
     >
-      <legend>
+      <legend
+        class="makeStyles-MuiNotchedOutlined-root"
+      >
         <span
+          aria-hidden="true"
           class="notranslate"
         >
           ​
