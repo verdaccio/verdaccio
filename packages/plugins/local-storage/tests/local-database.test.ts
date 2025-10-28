@@ -155,6 +155,58 @@ describe('Local Database', () => {
         );
       }
     });
+
+    test('should prevent path traversal attacks', () => {
+      // Create a new instance with malicious package configuration
+      const maliciousConfig = {
+        storage: STORAGE_FOLDER,
+        configPath: path.join(tmpFolder, 'malicious-test.yaml'),
+        checkSecretKey: () => 'fooX',
+        packages: {
+          'malicious-package': {
+            access: ['$all'],
+            publish: ['$authenticated'],
+            storage: '../../../etc/passwd', // Path traversal attempt
+          },
+        },
+      };
+
+      const maliciousDatabase = new LocalDatabase(
+        // @ts-expect-error
+        maliciousConfig,
+        optionsPlugin.logger
+      );
+
+      expect(() => {
+        maliciousDatabase.getPackageStorage('malicious-package');
+      }).toThrow('package-specific path is not under the configured storage directory');
+    });
+
+    test('should prevent absolute path attacks', () => {
+      // Create a new instance with malicious package configuration using absolute path
+      const maliciousConfig = {
+        storage: STORAGE_FOLDER,
+        configPath: path.join(tmpFolder, 'malicious-absolute-test.yaml'),
+        checkSecretKey: () => 'fooX',
+        packages: {
+          'malicious-absolute-package': {
+            access: ['$all'],
+            publish: ['$authenticated'],
+            storage: 'C:\\Windows\\System32', // Windows absolute path attempt
+          },
+        },
+      };
+
+      const maliciousDatabase = new LocalDatabase(
+        // @ts-expect-error
+        maliciousConfig,
+        optionsPlugin.logger
+      );
+
+      expect(() => {
+        maliciousDatabase.getPackageStorage('malicious-absolute-package');
+      }).toThrow('package-specific path is not under the configured storage directory');
+    });
   });
 
   describe('Database CRUD', () => {
