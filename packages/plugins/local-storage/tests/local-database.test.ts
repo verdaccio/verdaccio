@@ -192,7 +192,7 @@ describe('Local Database', () => {
           'malicious-absolute-package': {
             access: ['$all'],
             publish: ['$authenticated'],
-            storage: 'C:\\Windows\\System32', // Windows absolute path attempt
+            storage: path.resolve('/tmp'), // Platform-agnostic absolute path attempt
           },
         },
       };
@@ -206,6 +206,52 @@ describe('Local Database', () => {
       expect(() => {
         maliciousDatabase.getPackageStorage('malicious-absolute-package');
       }).toThrow('package-specific path is not under the configured storage directory');
+    });
+
+    test('should prevent Windows drive letter attacks', () => {
+      // Mock Windows platform behavior for path.isAbsolute
+      const originalIsAbsolute = path.isAbsolute;
+      const originalResolve = path.resolve;
+
+      vi.spyOn(path, 'isAbsolute').mockImplementation((p: string) => {
+        // Simulate Windows behavior: treat drive letters as absolute paths
+        return /^[A-Za-z]:\\/.test(p) || originalIsAbsolute(p);
+      });
+
+      vi.spyOn(path, 'resolve').mockImplementation((...args: string[]) => {
+        // For Windows drive letter paths, return them as-is
+        if (args.length === 1 && /^[A-Za-z]:\\/.test(args[0])) {
+          return args[0];
+        }
+        return originalResolve(...args);
+      });
+
+      // Create a new instance with malicious package configuration using Windows drive letter
+      const maliciousConfig = {
+        storage: STORAGE_FOLDER,
+        configPath: path.join(tmpFolder, 'malicious-windows-test.yaml'),
+        checkSecretKey: () => 'fooX',
+        packages: {
+          'malicious-windows-package': {
+            access: ['$all'],
+            publish: ['$authenticated'],
+            storage: 'C:\\Windows\\System32', // Windows drive letter absolute path attempt
+          },
+        },
+      };
+
+      const maliciousDatabase = new LocalDatabase(
+        // @ts-expect-error
+        maliciousConfig,
+        optionsPlugin.logger
+      );
+
+      expect(() => {
+        maliciousDatabase.getPackageStorage('malicious-windows-package');
+      }).toThrow('package-specific path is not under the configured storage directory');
+
+      // Restore original implementations
+      vi.restoreAllMocks();
     });
   });
 
