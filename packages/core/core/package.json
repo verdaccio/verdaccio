@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/core",
-  "version": "8.0.0-next-8.23",
+  "version": "8.0.0-next-8.24",
   "description": "Verdaccio Core Components",
   "keywords": [
     "private",
@@ -38,12 +38,12 @@
     "http-status-codes": "2.3.0",
     "minimatch": "7.4.6",
     "process-warning": "1.0.0",
-    "semver": "7.7.2"
+    "semver": "7.7.3"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:13.0.0-next-8.8",
     "express": "4.21.2",
-    "typedoc": "0.23.25",
+    "typedoc": "0.28.14",
     "vitest": "3.2.4"
   },
   "scripts": {
