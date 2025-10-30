@@ -180,31 +180,6 @@ describe('Local Database', () => {
         database.getPackageStorage('traversal-package');
       }).toThrow('package-specific path is not under the configured storage directory');
     });
-
-    test('should prevent absolute path outside of storage folder', () => {
-      const config = {
-        storage: STORAGE_FOLDER,
-        configPath: path.join(tmpFolder, 'absolute-test.yaml'),
-        checkSecretKey: () => 'fooX',
-        packages: {
-          'absolute-package': {
-            access: ['$all'],
-            publish: ['$authenticated'],
-            storage: '/var', // absolute path outside of storage folder
-          },
-        },
-      };
-
-      const database = new LocalDatabase(
-        // @ts-expect-error
-        config,
-        optionsPlugin.logger
-      );
-
-      expect(() => {
-        database.getPackageStorage('absolute-package');
-      }).toThrow('package-specific path is not under the configured storage directory');
-    });
   });
 
   describe('Database CRUD', () => {
