@@ -206,22 +206,18 @@ class LocalDatabase extends pluginUtils.Plugin<{}> implements Storage {
       throw errorUtils.getInternalError('storage not found or implemented');
     }
 
-    const storagePath = this.getStoragePath();
-    const packageStoragePath: string = path.join(
-      path.resolve(storagePath, packagePath),
-      packageName
-    );
+    const packageStoragePath = path.resolve(path.join(packagePath, packageName));
 
     // Verify that the file path is under the storage root directory
     // to avoid "uncontrolled data used in path expression" issues
-    // If relativePath starts with '..' or is absolute then packageStoragePath is
-    // outside storageRoot. Use path.relative to perform a Windows-safe check.
-    const storageRoot = path.resolve(storagePath);
-    const packageStorageResolved = path.resolve(packageStoragePath);
-    const relativePath = path.relative(storageRoot, packageStorageResolved);
+    const storageRoot = path.resolve(this.getStoragePath());
 
-    if (relativePath.startsWith('..') || path.isAbsolute(relativePath)) {
-      debug('packagePath %o, storagePath %o', packageStoragePath, storagePath);
+    debug('packageStoragePath %o, storageRoot %o', packageStoragePath, storageRoot);
+
+    if (
+      !packageStoragePath.startsWith(storageRoot + path.sep) &&
+      packageStoragePath !== storageRoot
+    ) {
       throw errorUtils.getInternalError(
         'package-specific path is not under the configured storage directory'
       );
