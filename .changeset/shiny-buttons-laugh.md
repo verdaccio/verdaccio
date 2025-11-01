@@ -12,7 +12,6 @@
 'verdaccio-memory': patch
 '@verdaccio/search-indexer': patch
 '@verdaccio/server': patch
-'@verdaccio/server-fastify': patch
 '@verdaccio/logger': patch
 'verdaccio-audit': patch
 '@verdaccio/test-helper': patch

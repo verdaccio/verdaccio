@@ -5,7 +5,6 @@
 '@verdaccio/local-scripts': patch
 '@verdaccio/file-locking': patch
 '@verdaccio/ui-theme': patch
-'@verdaccio/server-fastify': patch
 '@verdaccio/test-helper': patch
 '@verdaccio/middleware': patch
 'verdaccio': patch
