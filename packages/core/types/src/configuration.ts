@@ -81,9 +81,40 @@ export type RateLimit = {
   max?: number;
 };
 
+/**
+ * Feature flags configuration.
+ *
+ * Enables or disables optional functionality at runtime.
+ * All flags are optional and default to `false` when not specified.
+ */
 export type FlagsConfig = {
+  /**
+   * Enables searching for packages in remote registries.
+   * If `false`, only the local registry will be queried.
+   *
+   * @default false
+   */
   searchRemote?: boolean;
+
+  /**
+   * Enables user password change functionality.
+   *
+   * @default false
+   */
   changePassword?: boolean;
+
+  /**
+   * Enables user creation through the API.
+   *
+   * @default false
+   */
+  createUser?: boolean;
+
+  /**
+   * Enables web-based login flow.
+   *
+   * @default false
+   */
   webLogin?: boolean;
 };
 

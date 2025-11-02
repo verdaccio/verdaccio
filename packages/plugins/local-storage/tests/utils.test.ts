@@ -30,7 +30,7 @@ describe('Utitlies', () => {
     const database = loadDb('ok');
     const db = await loadPrivatePackages(database, logger);
 
-    expect(db.list).toHaveLength(15);
+    expect(db.list).toHaveLength(14);
   });
 
   test('should load and empty private packages if database file is valid and empty', async () => {

@@ -205,10 +205,6 @@
   },
   "security": {
     "login": {
-      "title": "Login",
-      "username": "Username",
-      "password": "Password",
-      "submit": "Login",
       "createUser": "Create User",
       "noUserQuestion": "Don't have an account?"
     },
@@ -248,7 +244,7 @@
       "unable-to-change-password": "Unable to change password",
       "unable-to-login": "Unable to login",
       "password-mismatch": "Passwords do not match",
-      "invalid-credentials": "Invalid credentials",
+      "invalid-credentials": "Invalid username or password",
       "invalid-next-param": "Missing or invalid next parameter in login request"
     }
   }

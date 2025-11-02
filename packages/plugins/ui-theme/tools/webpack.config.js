@@ -56,9 +56,11 @@ module.exports = {
         use: 'raw-loader',
       },
       {
-        test: /\.tsx?$/,
-        use: 'babel-loader',
+        test: /\.[jt]sx?$/,
         exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+        },
       },
     ],
   },

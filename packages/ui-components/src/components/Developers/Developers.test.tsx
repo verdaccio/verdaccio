@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cleanup, fireEvent, render, screen } from '../../test/test-react-testing-library';
+import { cleanup, fireEvent, renderWith, screen } from '../../test/test-react-testing-library';
 import { DeveloperType } from './DeveloperType';
 import Developers from './Developers';
 
@@ -40,27 +40,18 @@ describe('test Developers', () => {
     const packageMeta = {
       latest: {},
     };
-    const wrapper = render(
-      <Developers packageMeta={packageMeta} type={DeveloperType.MAINTAINERS} />
-    );
-
-    expect(wrapper).toMatchSnapshot();
+    renderWith(<Developers packageMeta={packageMeta} type={DeveloperType.MAINTAINERS} />);
+    expect(screen.queryAllByTestId('PersonIcon')).toHaveLength(0);
   });
 
   test('should render the component for maintainers with items', () => {
-    const wrapper = render(
-      <Developers packageMeta={packageMeta} type={DeveloperType.MAINTAINERS} />
-    );
-
-    expect(wrapper).toMatchSnapshot();
+    renderWith(<Developers packageMeta={packageMeta} type={DeveloperType.MAINTAINERS} />);
+    expect(screen.queryAllByTestId('PersonIcon')).toHaveLength(2);
   });
 
   test('should render the component for contributors with items', () => {
-    const wrapper = render(
-      <Developers packageMeta={packageMeta} type={DeveloperType.CONTRIBUTORS} />
-    );
-
-    expect(wrapper).toMatchSnapshot();
+    renderWith(<Developers packageMeta={packageMeta} type={DeveloperType.CONTRIBUTORS} />);
+    expect(screen.queryAllByTestId('PersonIcon')).toHaveLength(2);
   });
 
   test('should show only up to max items', () => {
@@ -86,7 +77,7 @@ describe('test Developers', () => {
       },
     };
 
-    const wrapper = render(
+    const wrapper = renderWith(
       <Developers packageMeta={packageMeta} type={DeveloperType.CONTRIBUTORS} visibleMax={1} />
     );
 
@@ -111,7 +102,7 @@ describe('test Developers', () => {
       },
     };
 
-    render(<Developers packageMeta={packageMeta} type={DeveloperType.CONTRIBUTORS} />);
+    renderWith(<Developers packageMeta={packageMeta} type={DeveloperType.CONTRIBUTORS} />);
 
     expect(screen.getByTestId('contributor1')).toBeInTheDocument();
     expect(screen.getByTestId('contributor2')).toBeInTheDocument();

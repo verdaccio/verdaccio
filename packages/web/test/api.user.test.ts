@@ -12,6 +12,8 @@ setup({});
 const mockManifest = vi.fn();
 vi.mock('@verdaccio/ui-theme', () => mockManifest());
 
+const validSessionId = '12345678-1234-1234-1234-123456789012';
+
 describe('test web server', () => {
   beforeAll(() => {
     mockManifest.mockReturnValue(() => ({
@@ -194,6 +196,103 @@ describe('test web server', () => {
         })
       )
       .expect(HTTP_STATUS.OK);
+  });
+
+  describe('signup', () => {
+    test('should reject signup with invalid sessionId', async () => {
+      return supertest(await initializeServer('create-user-test.yaml'))
+        .put('/-/verdaccio/sec/signup')
+        .send(
+          JSON.stringify({
+            password: 'newuser123',
+            email: 'new@test.com',
+            sessionId: 'invalid-short',
+          })
+        )
+        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+        .expect(HTTP_STATUS.BAD_REQUEST)
+        .then((response) => {
+          expect(response.body.error).toEqual(API_ERROR.SESSION_ID_INVALID);
+        });
+    });
+
+    test('should reject signup with missing name', async () => {
+      return supertest(await initializeServer('create-user-test.yaml'))
+        .put('/-/verdaccio/sec/signup')
+        .send(
+          JSON.stringify({
+            password: 'newuser123',
+            email: 'new@test.com',
+            sessionId: validSessionId,
+          })
+        )
+        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+        .expect(HTTP_STATUS.BAD_REQUEST)
+        .then((response) => {
+          expect(response.body.error).toEqual(API_ERROR.BAD_DATA);
+        });
+    });
+
+    test('should reject signup with missing password', async () => {
+      return supertest(await initializeServer('create-user-test.yaml'))
+        .put('/-/verdaccio/sec/signup')
+        .send(
+          JSON.stringify({
+            name: 'newuser',
+            email: 'new@test.com',
+            sessionId: validSessionId,
+          })
+        )
+        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+        .expect(HTTP_STATUS.BAD_REQUEST);
+    });
+
+    test('should reject signup with missing email', async () => {
+      return supertest(await initializeServer('create-user-test.yaml'))
+        .put('/-/verdaccio/sec/signup')
+        .send(
+          JSON.stringify({
+            name: 'newuser',
+            password: 'newuser123',
+            sessionId: validSessionId,
+          })
+        )
+        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+        .expect(HTTP_STATUS.BAD_REQUEST);
+    });
+
+    test('should create user successfully', async () => {
+      return supertest(await initializeServer('create-user-test.yaml'))
+        .put('/-/verdaccio/sec/signup')
+        .send(
+          JSON.stringify({
+            name: 'newuser',
+            password: 'newuser123',
+            email: 'new@test.com',
+            sessionId: validSessionId,
+          })
+        )
+        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+        .expect(HTTP_STATUS.OK)
+        .then((response) => {
+          expect(response.body.token).toBeDefined();
+          expect(response.body.username).toEqual('newuser');
+        });
+    });
+
+    test('should not register signup route when createUser flag is disabled', async () => {
+      return supertest(await initializeServer('default-test.yaml'))
+        .put('/-/verdaccio/sec/signup')
+        .send(
+          JSON.stringify({
+            password: 'newuser123',
+            email: 'new@test.com',
+            sessionId: validSessionId,
+          })
+        )
+        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+        .expect(HTTP_STATUS.CANNOT_HANDLE);
+    });
   });
 
   test('should not change password if flag is disabled', async () => {
