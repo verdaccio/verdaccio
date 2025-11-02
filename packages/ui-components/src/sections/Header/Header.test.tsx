@@ -7,7 +7,7 @@ import {
   act,
   cleanup,
   fireEvent,
-  renderWithStore,
+  renderWith,
   screen,
   waitFor,
   waitForElementToBeRemoved,
@@ -43,7 +43,7 @@ describe('<Header /> component with logged in state', () => {
   });
 
   test('should load the component in logged out state', () => {
-    renderWithStore(
+    renderWith(
       <Router>
         <Header />
       </Router>,
@@ -57,7 +57,7 @@ describe('<Header /> component with logged in state', () => {
 
   test('should load the component in logged in state', async () => {
     vi.spyOn(tokenUtils, 'isTokenExpire').mockReturnValue(false); // avoid immediate logout due to invalid token
-    renderWithStore(
+    renderWith(
       <Router>
         <Header />
       </Router>,
@@ -74,7 +74,7 @@ describe('<Header /> component with logged in state', () => {
   });
 
   test('should open login dialog', async () => {
-    renderWithStore(
+    renderWith(
       <Router>
         <Header />
       </Router>,
@@ -91,7 +91,7 @@ describe('<Header /> component with logged in state', () => {
 
   test('should login and logout the user', async () => {
     vi.spyOn(tokenUtils, 'isTokenExpire').mockReturnValue(false); // avoid immediate logout due to invalid token
-    const { getByText, getByTestId, findByText, findByTestId } = renderWithStore(
+    const { getByText, getByTestId, findByText, findByTestId } = renderWith(
       <Router>
         <Header />
       </Router>,
@@ -123,7 +123,7 @@ describe('<Header /> component with logged in state', () => {
   });
 
   test('should display info button', () => {
-    renderWithStore(
+    renderWith(
       <Router>
         <Header />
       </Router>,
@@ -133,7 +133,7 @@ describe('<Header /> component with logged in state', () => {
   });
 
   test('should display settings button', () => {
-    renderWithStore(
+    renderWith(
       <Router>
         <Header />
       </Router>,
@@ -143,7 +143,7 @@ describe('<Header /> component with logged in state', () => {
   });
 
   test('should display light button switch', () => {
-    renderWithStore(
+    renderWith(
       <Router>
         <Header />
       </Router>,
@@ -155,7 +155,7 @@ describe('<Header /> component with logged in state', () => {
   test.todo('should test display dark button switch');
 
   test('should display search box', () => {
-    renderWithStore(
+    renderWith(
       <Router>
         <Header />
       </Router>,
@@ -165,7 +165,7 @@ describe('<Header /> component with logged in state', () => {
   });
 
   test('should open the registrationInfo modal when clicking on the info icon', async () => {
-    renderWithStore(
+    renderWith(
       <Router>
         <Header HeaderInfoDialog={CustomInfoDialog} />
       </Router>,
@@ -181,7 +181,7 @@ describe('<Header /> component with logged in state', () => {
   });
 
   test('should close the registrationInfo modal when clicking on the button close', async () => {
-    const { getByTestId, findByText, queryByTestId } = renderWithStore(
+    const { getByTestId, findByText, queryByTestId } = renderWith(
       <Router>
         <Header HeaderInfoDialog={CustomInfoDialog} />
       </Router>,
@@ -206,7 +206,7 @@ describe('<Header /> component with logged in state', () => {
       base: 'foo',
       login: false,
     };
-    renderWithStore(
+    renderWith(
       <Router>
         <Header HeaderInfoDialog={CustomInfoDialog} />
       </Router>,
@@ -221,7 +221,7 @@ describe('<Header /> component with logged in state', () => {
       base: 'foo',
       showSearch: false,
     };
-    renderWithStore(
+    renderWith(
       <Router>
         <Header />
       </Router>,
@@ -236,7 +236,7 @@ describe('<Header /> component with logged in state', () => {
       base: 'foo',
       showSettings: false,
     };
-    renderWithStore(
+    renderWith(
       <Router>
         <Header />
       </Router>,
@@ -251,7 +251,7 @@ describe('<Header /> component with logged in state', () => {
       base: 'foo',
       showSettings: false,
     };
-    renderWithStore(
+    renderWith(
       <Router>
         <Header />
       </Router>,
@@ -266,7 +266,7 @@ describe('<Header /> component with logged in state', () => {
       base: 'foo',
       showThemeSwitch: false,
     };
-    renderWithStore(
+    renderWith(
       <Router>
         <Header />
       </Router>,
@@ -283,7 +283,7 @@ describe('<Header /> component with logged in state', () => {
     act(() => {
       store.dispatch.login.logInUser({ username: 'expired', token: 'expired-token' });
     });
-    renderWithStore(
+    renderWith(
       <Router>
         <Header />
       </Router>,
@@ -304,7 +304,7 @@ describe('<Header /> component with logged in state', () => {
       store.dispatch.login.logInUser({ username: 'user', token: 'valid-token' });
     });
 
-    renderWithStore(
+    renderWith(
       <Router>
         <Header tokenCheckIntervalMs={1000} />
       </Router>,

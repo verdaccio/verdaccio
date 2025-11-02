@@ -2,14 +2,8 @@ import React from 'react';
 import { MemoryRouter } from 'react-router';
 import { Route } from 'react-router-dom';
 
-import { Route as Routes, store } from '../../';
-import {
-  act,
-  cleanup,
-  renderWithStore,
-  screen,
-  waitFor,
-} from '../../test/test-react-testing-library';
+import { Route as Routes } from '../../';
+import { act, cleanup, renderWith, screen, waitFor } from '../../test/test-react-testing-library';
 import VersionProvider, { useVersion } from './VersionProvider';
 
 function CustomComponent() {
@@ -31,15 +25,14 @@ describe('<Header /> component with logged in state', () => {
 
   test('should load data from the provider', async () => {
     act(() =>
-      renderWithStore(
+      renderWith(
         <MemoryRouter initialEntries={[`/-/web/detail/storybook`]}>
           <Route path={Routes.PACKAGE}>
             <VersionProvider>
               <CustomComponent />
             </VersionProvider>
           </Route>
-        </MemoryRouter>,
-        store
+        </MemoryRouter>
       )
     );
     await waitFor(() => screen.getByText('storybook'));

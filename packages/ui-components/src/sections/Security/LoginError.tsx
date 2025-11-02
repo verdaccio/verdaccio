@@ -1,12 +1,13 @@
 import { Error } from '@mui/icons-material';
 import { Box, SnackbarContent, styled } from '@mui/material';
+import { common } from '@mui/material/colors';
 import React, { memo } from 'react';
 
-import { LoginV1Error, Theme } from '../../';
+import { Theme } from '../../';
 
 const StyledSnackbarContent = styled(SnackbarContent)<{ theme?: Theme }>(({ theme }) => ({
   backgroundColor: theme.palette.error.dark,
-  color: theme.palette.white,
+  color: common.white,
   marginTop: theme.spacing(2),
   marginBottom: theme.spacing(2),
 }));
@@ -18,7 +19,7 @@ const StyledErrorIcon = styled(Error)<{ theme?: Theme }>(({ theme }) => ({
 }));
 
 interface Props {
-  error: LoginV1Error;
+  error: { description: string };
 }
 
 const LoginError = memo(({ error }: Props) => {

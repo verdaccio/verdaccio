@@ -3,7 +3,6 @@
     "webpack",
     "pnpm",
     "yarn",
-    "react-redux",
     "verdaccio",
     "tslint",
     "@test/pkg1",

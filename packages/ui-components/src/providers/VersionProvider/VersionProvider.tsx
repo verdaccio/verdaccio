@@ -1,33 +1,31 @@
-import React, { useEffect } from 'react';
-import { createContext, useContext } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { ReactElement, createContext, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { Dispatch, RootState } from '../../store/store';
+import { useData } from '../../api/use-data';
+import { useTarballDownload } from '../../api/use-data-mutation';
+import { getConfiguration } from '../../configuration';
+import { APIRoute } from '../../store/routes';
+import { stripTrailingSlash } from '../../store/utils';
 import { PackageMetaInterface } from '../../types/packageMeta';
+import { downloadFile, extractFileName } from '../../utils/url';
 
 function getRouterPackageName(packageName: string, scope?: string): string {
-  if (scope) {
-    return `@${scope}/${packageName}`;
-  }
-
-  return packageName;
+  return scope ? `@${scope}/${packageName}` : packageName;
 }
 
 export interface DetailContextProps {
+  error: any;
   hasNotBeenFound: boolean;
+  isForbidden: boolean;
+  isUnAuthorized: boolean;
+  isError: boolean;
   isLoading: boolean;
-  packageMeta: PackageMetaInterface;
+  packageMeta?: PackageMetaInterface;
   packageName: string;
   packageVersion?: string;
-  readMe: string;
-}
-
-export interface VersionPageConsumerProps {
-  packageMeta: PackageMetaInterface;
-  packageName: string;
-  packageVersion?: string;
-  readMe: string;
+  readMe?: string;
+  downloadTarball?: (args: { link: string }) => Promise<void>;
+  isDownloadingTarball?: boolean;
 }
 
 export const DetailContext = createContext<Partial<DetailContextProps>>({});
@@ -38,51 +36,58 @@ interface Params {
   version?: string;
 }
 
-/**
-*
-*  @example
-    Once a component has been wrapped with `VersionProvider`, use the hook `useVersion()` to get an object with:
-    ```jsx
-    function CustomComponent() {
-      const { packageMeta, packageName, packageVersion } = useVersion();
-      return <div />;
-    }
+const configuration = getConfiguration();
 
-    <Route path={Routes.PACKAGE}>
-      <VersionProvider>
-        <CustomComponent />
-      </VersionProvider>
-    </Route>;
-    ```
-    On mount, the provider will fetch data from the store for specific package or version provided via router.
-   @category Provider
- */
-const VersionProvider: React.FC<{ children: any }> = ({ children }) => {
-  const router = useParams<Params>();
+const VersionProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
+  const { scope, package: pkgName, version: packageVersion } = useParams<Params>();
 
-  const { version: packageVersion, package: pkgName, scope } = router;
+  const basePath = stripTrailingSlash(configuration.base);
+  const packageName = getRouterPackageName(pkgName, scope);
 
-  // @ts-ignore
-  const { manifest, readme, packageName, hasNotBeenFound } = useSelector(
-    (state: RootState) => state.manifest
+  const readmeData = useData<string>(basePath, APIRoute.README, packageName, packageVersion);
+
+  const sidebarData = useData<PackageMetaInterface>(
+    basePath,
+    APIRoute.SIDEBAR,
+    packageName,
+    packageVersion
   );
-  const isLoading = useSelector((state: RootState) => state?.loading?.models.manifest);
-  const dispatch = useDispatch<Dispatch>();
-  useEffect(() => {
-    const packageName = getRouterPackageName(pkgName, scope);
 
-    dispatch.manifest.getManifest({ packageName, packageVersion });
-  }, [dispatch, packageVersion, pkgName, scope]);
+  const { download, isDownloading } = useTarballDownload();
+
+  const downloadTarball = async ({ link }: { link: string }) => {
+    try {
+      const fileStream = await download({ link });
+      if (!fileStream) {
+        return;
+      }
+
+      const fileName = extractFileName(link);
+      downloadFile(fileStream, fileName);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('error on download', error);
+    }
+  };
+
+  const isLoading = readmeData.isLoading || sidebarData.isLoading;
+  const errorCode = readmeData.error?.code ?? sidebarData.error?.code;
 
   return (
     <DetailContext.Provider
       value={{
-        packageMeta: manifest,
-        packageVersion,
-        readMe: readme,
+        packageMeta: sidebarData.data,
+        readMe: readmeData.data,
         packageName,
+        packageVersion,
         isLoading,
-        hasNotBeenFound,
+        isForbidden: errorCode === 403,
+        isUnAuthorized: errorCode === 401,
+        hasNotBeenFound: errorCode === 404,
+        isError: typeof errorCode !== 'undefined',
+        error: readmeData.error || sidebarData.error,
+        downloadTarball,
+        isDownloadingTarball: isDownloading,
       }}
     >
       {children}

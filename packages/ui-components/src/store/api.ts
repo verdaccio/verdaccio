@@ -15,28 +15,29 @@ export class CustomError extends Error {
  * @param {object} response
  * @returns {promise}
  */
-export function handleResponseType(response: Response): Promise<[boolean, any]> {
+export function handleResponseType(response: Response): Promise<[boolean, any, number]> {
+  // console.log('fetcher: handleResponseType response--->', response);
   if (response.headers) {
     const contentType = response.headers.get('Content-Type');
     if (contentType?.includes('application/pdf')) {
-      return Promise.all([response.ok, response.blob()]);
+      return Promise.all([response.ok, response.blob(), response.status]);
     }
     if (contentType?.includes('application/json')) {
-      return Promise.all([response.ok, response.json()]);
+      return Promise.all([response.ok, response.json(), response.status]);
     }
     // it includes all text types
     if (contentType?.includes('text/')) {
-      return Promise.all([response.ok, response.text()]);
+      return Promise.all([response.ok, response.text(), response.status]);
     }
 
     // unfortunately on download files there is no header available
     if (response.url && response.url.endsWith('.tgz') === true) {
-      return Promise.all([response.ok, response.blob()]);
+      return Promise.all([response.ok, response.blob(), response.status]);
     }
   }
 
   // error handling
-  return Promise.all([response.ok, response]);
+  return Promise.all([response.ok, response.text(), response.status]);
 }
 
 const AuthHeader = 'Authorization';
@@ -66,11 +67,23 @@ class API {
       })
         .then(handleResponseType)
         .then((response) => {
-          const [ok, data] = response;
+          const [ok, data, status] = response;
           if (ok === true) {
             resolve(data);
           } else {
-            const error = new CustomError(data?.statusText ?? 'Unknown error', data?.status ?? 500);
+            console.log(
+              'fetcher: error data--->',
+              data,
+              'url--->',
+              url,
+              'status',
+              data?.status,
+              'response--->',
+              response
+            );
+            const error = new Error(data?.statusText ?? 'Unknown error');
+            (error as any).code = data?.status ?? status;
+            console.log('fetcher: rejecting with error--->', error);
             reject(error);
           }
         })

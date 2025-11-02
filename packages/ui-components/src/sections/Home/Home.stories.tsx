@@ -3,6 +3,7 @@ import { HttpResponse, http } from 'msw';
 import React from 'react';
 import { MemoryRouter, Route } from 'react-router';
 
+import { ManifestsProvider } from '../../providers';
 import Home from './Home';
 
 type Story = StoryObj<typeof Home>;
@@ -17,7 +18,9 @@ export const HomeDefault: Story = {
   render: () => (
     <MemoryRouter initialEntries={[`/`]}>
       <Route exact={true} path="/">
-        <Home />
+        <ManifestsProvider>
+          <Home />
+        </ManifestsProvider>
       </Route>
     </MemoryRouter>
   ),

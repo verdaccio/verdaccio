@@ -3,8 +3,7 @@ import { MemoryRouter } from 'react-router';
 import { vi } from 'vitest';
 
 import { VersionProvider } from '../../providers';
-import { store } from '../../store';
-import { act, renderWithStore, screen, waitFor } from '../../test/test-react-testing-library';
+import { act, renderWith, screen, waitFor } from '../../test/test-react-testing-library';
 import Sidebar from './Sidebar';
 
 vi.mock('marked');
@@ -33,7 +32,7 @@ describe('Sidebar', () => {
   });
   test('should render titles', async () => {
     act(() => {
-      renderWithStore(<ComponentSideBar />, store);
+      renderWith(<ComponentSideBar />);
     });
     await waitFor(() => expect(screen.getAllByText('jquery')).toHaveLength(2));
 
@@ -46,7 +45,7 @@ describe('Sidebar', () => {
 
   test('should render commonJS', async () => {
     act(() => {
-      renderWithStore(<ComponentSideBar />, store);
+      renderWith(<ComponentSideBar />);
     });
     // package name + keyword
     await waitFor(() => expect(screen.getAllByText('jquery')).toHaveLength(2));
@@ -56,7 +55,7 @@ describe('Sidebar', () => {
   test('should render typescript', async () => {
     mockPkgName.mockReturnValue('glob');
     act(() => {
-      renderWithStore(<ComponentSideBar />, store);
+      renderWith(<ComponentSideBar />);
     });
     // just package name
     await waitFor(() => expect(screen.getByText('glob')).toBeInTheDocument());
@@ -66,7 +65,7 @@ describe('Sidebar', () => {
   test('should render es modules', async () => {
     mockPkgName.mockReturnValue('got');
     act(() => {
-      renderWithStore(<ComponentSideBar />, store);
+      renderWith(<ComponentSideBar />);
     });
     // package name + keyword
     await waitFor(() => expect(screen.getAllByText('got')).toHaveLength(2));

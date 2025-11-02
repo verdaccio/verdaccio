@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import AppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
+import { common } from '@mui/material/colors';
 
 import { Theme } from '../../Theme';
 
@@ -27,7 +28,7 @@ export const MobileNavBar = styled('div')<{ theme?: Theme }>((props) => ({
 export const InnerMobileNavBar = styled('div')<{ theme?: Theme }>((props) => ({
   borderRadius: '4px',
   backgroundColor: props.theme.palette.greyLight,
-  color: props.theme.palette.white,
+  color: common.white,
   width: '100%',
   padding: '0 5px',
   margin: '0 10px 0 0',
@@ -47,7 +48,7 @@ export const SearchWrapper = styled('div')({
 export const NavBar = styled(AppBar)<{ theme?: Theme }>(({ theme }) => ({
   backgroundColor:
     theme.palette.mode === 'light' ? theme.palette.primary.main : theme.palette.cyanBlue,
-  color: theme.palette.white,
+  color: common.white,
   minHeight: 60,
   display: 'flex',
   justifyContent: 'center',

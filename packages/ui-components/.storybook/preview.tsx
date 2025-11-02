@@ -1,7 +1,6 @@
 import type { Preview, StoryFn } from '@storybook/react-webpack5';
 import { initialize, mswLoader } from 'msw-storybook-addon';
 import React from 'react';
-import { Provider } from 'react-redux';
 
 import {
   AppConfigurationProvider,
@@ -9,25 +8,27 @@ import {
   StyleBaseline,
   ThemeProvider,
   TranslatorProvider,
-  store,
 } from '../src';
+import { AuthProvider } from '../src/providers/AuthProvider';
 import i18n, { listLanguages } from './i18n';
 
 // preview-head file contains the __VERDACCIO_BASENAME_UI_OPTIONS
 // required by AppConfigurationProvider
 export const withMuiTheme = (Story: StoryFn) => (
-  <Provider store={store}>
-    <TranslatorProvider onMount={() => ({})} i18n={i18n} listLanguages={listLanguages}>
-      <PersistenceSettingProvider>
-        <AppConfigurationProvider>
-          <ThemeProvider>
+  <TranslatorProvider onMount={() => ({})} i18n={i18n} listLanguages={listLanguages}>
+    <PersistenceSettingProvider>
+      <AppConfigurationProvider>
+        <ThemeProvider>
+          <>
             <StyleBaseline />
-            <Story />
-          </ThemeProvider>
-        </AppConfigurationProvider>
-      </PersistenceSettingProvider>
-    </TranslatorProvider>
-  </Provider>
+            <AuthProvider>
+              <Story />
+            </AuthProvider>
+          </>
+        </ThemeProvider>
+      </AppConfigurationProvider>
+    </PersistenceSettingProvider>
+  </TranslatorProvider>
 );
 
 /*

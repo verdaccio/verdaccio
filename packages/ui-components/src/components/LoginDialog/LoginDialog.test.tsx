@@ -1,12 +1,12 @@
 import React from 'react';
 import { vi } from 'vitest';
 
-import { api, store } from '../../';
+import { api } from '../../';
 import {
   act,
   cleanup,
   fireEvent,
-  renderWithStore,
+  renderWith,
   screen,
   waitFor,
 } from '../../test/test-react-testing-library';
@@ -23,7 +23,7 @@ describe('<LoginDialog /> component', () => {
     const props = {
       onClose: vi.fn(),
     };
-    const { container } = renderWithStore(<LoginDialog onClose={props.onClose} />, store);
+    const { container } = renderWith(<LoginDialog onClose={props.onClose} />);
     expect(container.firstChild).toMatchSnapshot();
   });
 
@@ -33,10 +33,7 @@ describe('<LoginDialog /> component', () => {
       onClose: vi.fn(),
     };
 
-    const { getByTestId } = renderWithStore(
-      <LoginDialog onClose={props.onClose} open={props.open} />,
-      store
-    );
+    const { getByTestId } = renderWith(<LoginDialog onClose={props.onClose} open={props.open} />);
 
     const loginDialogHeading = await waitFor(() => getByTestId('login-dialog-form-login-button'));
     expect(loginDialogHeading).toBeTruthy();
@@ -48,10 +45,7 @@ describe('<LoginDialog /> component', () => {
       onClose: vi.fn(),
     };
 
-    const { getByTestId } = renderWithStore(
-      <LoginDialog onClose={props.onClose} open={props.open} />,
-      store
-    );
+    const { getByTestId } = renderWith(<LoginDialog onClose={props.onClose} open={props.open} />);
 
     const loginDialogButton = await waitFor(() => getByTestId('close-login-dialog-button'));
     expect(loginDialogButton).toBeTruthy();
@@ -77,7 +71,7 @@ describe('<LoginDialog /> component', () => {
     );
 
     await act(async () => {
-      renderWithStore(<LoginDialog onClose={props.onClose} open={props.open} />, store);
+      renderWith(<LoginDialog onClose={props.onClose} open={props.open} />);
     });
 
     const userNameInput = screen.getByPlaceholderText('form-placeholder.username');

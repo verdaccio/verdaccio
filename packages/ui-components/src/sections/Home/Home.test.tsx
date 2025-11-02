@@ -6,7 +6,7 @@ import { MemoryRouter } from 'react-router';
 import { afterEach, describe, expect, test, vi } from 'vitest';
 
 import { store } from '../../store';
-import { act, renderWithStore, screen, waitFor } from '../../test/test-react-testing-library';
+import { act, renderWith, screen, waitFor } from '../../test/test-react-testing-library';
 import Home from './Home';
 
 // force the windows to expand to display items
@@ -27,14 +27,14 @@ describe('Home', () => {
 
   test('should render titles', async () => {
     act(() => {
-      renderWithStore(<ComponentHome />, store);
+      renderWith(<ComponentHome />, store);
     });
     await waitFor(() => expect(screen.getAllByTestId('package-item-list')).toHaveLength(5));
   });
 
   test('should render loading', async () => {
     act(() => {
-      renderWithStore(<ComponentHome />, store);
+      renderWith(<ComponentHome />, store);
     });
     await waitFor(() => expect(screen.getByTestId('loading')).toBeInTheDocument());
   });

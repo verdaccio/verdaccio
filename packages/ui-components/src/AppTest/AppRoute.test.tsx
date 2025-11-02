@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router';
 import { vi } from 'vitest';
 
 import { store } from '../';
-import { act, renderWithStore, screen, waitFor } from '../test/test-react-testing-library';
+import { act, renderWith, screen, waitFor } from '../test/test-react-testing-library';
 import AppRoute from './AppRoute';
 
 // force the windows to expand to display items
@@ -12,7 +12,7 @@ vi.spyOn(HTMLElement.prototype, 'offsetHeight', 'get').mockReturnValue(600);
 vi.spyOn(HTMLElement.prototype, 'offsetWidth', 'get').mockReturnValue(600);
 
 function appTest(path: string) {
-  renderWithStore(
+  renderWith(
     <MemoryRouter initialEntries={[path]}>
       <AppRoute />
     </MemoryRouter>,

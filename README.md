@@ -8,10 +8,7 @@
 
 # Version Next (Development Branch)
 
-> Looking for Verdaccio version 5 or 6? Version 6 is the latest version and successor to version 5. Version 6 requires Node.js 18 or higher and is maintained in the `6.x` branch.
-
-> The plugins for versions 5 and 6 are located at the [`verdaccio/monorepo`](https://github.com/verdaccio/monorepo) repository. Plugins for the `next-8` version are hosted in this project under the `./packages/plugins` folder.
-
+> Version 6 requires Node.js 18 or higher and is maintained in the `6.x` branch.
 > Note that contributing guidelines might be different based on the branch.
 
 [Verdaccio](https://verdaccio.org/) is a simple, **zero-config-required local private npm registry**.
@@ -127,9 +124,11 @@ Our goal is to give you the confidence to use your preferred package manager wit
 
 ## Donations
 
-Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider doing a long support donation - **and your logo will be on this section of the readme.**
+Verdaccio is run by **volunteers**; nobody works on it full-time. If you find this project useful and would like to support its development, consider making a long-term support donation — **your logo will be featured in this section of the README.**
 
-**[Donate](https://github.com/sponsors/verdaccio)** 💵👍🏻 starting from _$1/month_ or just one single contribution.
+You can support the project via **[Donate](https://opencollective.com/verdaccio)** 💵👍🏻 — starting from _just $1/month_, or with a one-time contribution.
+
+> **Note:** There is currently **no funding available for contributions or security research**.
 
 ## What does Verdaccio do for me?
 

@@ -8,13 +8,15 @@ import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Tooltip from '@mui/material/Tooltip';
+import { common, grey } from '@mui/material/colors';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
 
-import { Dispatch, Link, LinkExternal, RootState, Theme } from '../../';
+import { Link, LinkExternal, Theme, useManifests } from '../../';
 import { FileBinary, Law, Time, Version } from '../../components/Icons';
-import { Author as PackageAuthor, PackageMetaInterface } from '../../types/packageMeta';
+import { getConfiguration } from '../../configuration';
+import type { Author as PackageAuthor } from '../../providers/ManifestsProvider/ManifestsProvider';
+import { PackageMetaInterface } from '../../types/packageMeta';
 import { Route, url, utils } from '../../utils';
 import KeywordListItems from '../Keywords/KeywordListItems';
 import {
@@ -35,6 +37,7 @@ import {
 interface Bugs {
   url: string;
 }
+
 interface Dist {
   unpackedSize: number;
   tarball: string;
@@ -67,18 +70,17 @@ const Package: React.FC<PackageInterface> = ({
   showDownload = true,
   version,
 }) => {
-  const config = useSelector((state: RootState) => state.configuration.config);
-  const dispatch = useDispatch<Dispatch>();
+  const config = getConfiguration();
   const { t } = useTranslation();
-  const isLoading = useSelector((state: RootState) => state?.loading?.models.download);
+  const { isLoading } = useManifests();
 
   const handleDownload = useCallback(
     async (tarballDist: string) => {
       // FIXME: check, the dist might be different thant npmjs
       const link = tarballDist.replace(`https://registry.npmjs.org/`, config.base);
-      dispatch.download.getTarball({ link });
+      console.log('Downloading tarball from link:', link);
     },
-    [dispatch, config]
+    [config]
   );
 
   const renderVersionInfo = (): React.ReactNode =>
@@ -185,7 +187,13 @@ const Package: React.FC<PackageInterface> = ({
             </PackageTitle>
           </WrapperLink>
         </Grid>
-        <GridRightAligned alignItems="center" container={true} justify="flex-end" size={{ xs: 1 }}>
+        <GridRightAligned
+          alignItems="center"
+          container={true}
+          item={true}
+          justify="flex-end"
+          xs={true}
+        >
           {renderHomePageLink()}
           {renderBugsLink()}
           {showDownload && renderDownloadLink()}
@@ -232,7 +240,7 @@ export default Package;
 
 const iconStyle = ({ theme }: { theme: Theme }) => css`
   margin: 0 10px 0 0;
-  fill: ${theme.palette.mode === 'light' ? theme.palette.greyDark : theme.palette.white};
+  fill: ${theme.palette.mode === 'light' ? grey[900] : common.white};
 `;
 
 const StyledVersion = styled(Version)`

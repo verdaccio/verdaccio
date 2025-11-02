@@ -56,6 +56,6 @@ const PersistenceSettingProvider: FunctionComponent<{ children: React.ReactEleme
   );
 };
 
-export default PersistenceSettingProvider;
+export { PersistenceSettingProvider };
 
 export const useSettings = () => useContext(PersistenceSettingContext);

@@ -1,38 +1,44 @@
-import React, { Component } from 'react';
+import React, { Component, ErrorInfo, ReactNode } from 'react';
 
-export interface ErrorProps {
-  children: any;
+interface ErrorBoundaryProps {
+  children: ReactNode;
 }
 
-export interface ErrorAppState {
+interface ErrorBoundaryState {
   hasError: boolean;
   error: Error | null;
-  info: object | null;
 }
 
-export default class ErrorBoundary extends Component<ErrorProps, ErrorAppState> {
-  constructor(props: ErrorProps) {
-    super(props);
-    this.state = { hasError: false, error: null, info: null };
+export default class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  state: ErrorBoundaryState = {
+    hasError: false,
+    error: null,
+  };
+
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return {
+      hasError: true,
+      error,
+    };
   }
 
-  public componentDidCatch(error: Error, info: object) {
-    this.setState({ hasError: true, error, info });
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    // logging / monitoring (Sentry, etc)
+    console.error('ErrorBoundary caught:', error, info);
   }
 
-  public render(): JSX.Element {
-    const { hasError, error, info } = this.state;
-    const { children } = this.props;
+  render() {
+    const { hasError, error } = this.state;
 
     if (hasError) {
       return (
-        <>
-          <h1>{'Something went wrong.'}</h1>
-          <p>{`error: ${error}`}</p>
-          <p>{`info: ${JSON.stringify(info)}`}</p>
-        </>
+        <div role="alert">
+          <h1>Something went wrong.</h1>
+          <pre>{error?.message}</pre>
+        </div>
       );
     }
-    return children;
+
+    return this.props.children;
   }
 }

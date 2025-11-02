@@ -3,7 +3,8 @@ import React, { createContext, useContext } from 'react';
 
 import useLocalStorage from '../hooks/useLocalStorage';
 import { useConfig } from '../providers/AppConfigurationProvider';
-import { ThemeMode, getTheme } from './theme';
+import { ThemeMode } from './modes';
+import { getTheme } from './theme';
 
 interface Props {
   isDarkMode: boolean;
@@ -22,6 +23,7 @@ function getDarkModeDefault(darkModeConfig?: boolean) {
 }
 
 const ThemeProvider: React.FC<{ children: any }> = ({ children }) => {
+  console.log('Rendering ThemeProvider');
   const { configOptions } = useConfig();
   const isDarkModeDefault = getDarkModeDefault(configOptions.darkMode);
   const isSwitchThemeEnabled = configOptions.showThemeSwitch;
@@ -30,6 +32,7 @@ const ThemeProvider: React.FC<{ children: any }> = ({ children }) => {
   const themeMode: ThemeMode = isDarkMode ? 'dark' : 'light';
 
   const currentTheme = getTheme(themeMode, configOptions.primaryColor);
+  console.log('Current theme mode:', currentTheme);
   return (
     <ThemeContext.Provider value={{ isDarkMode, setIsDarkMode }}>
       <StyledEngineProvider injectFirst={true}>

@@ -1,1 +1,1 @@
-export { default, useSettings } from './PersistenceSettingProvider';
+export { PersistenceSettingProvider, useSettings } from './PersistenceSettingProvider';

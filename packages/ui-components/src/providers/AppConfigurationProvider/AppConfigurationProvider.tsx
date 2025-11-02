@@ -1,7 +1,7 @@
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import merge from 'lodash/merge';
-import React, { FunctionComponent, createContext, useContext, useMemo, useState } from 'react';
+import React, { FunctionComponent, createContext, useContext, useMemo } from 'react';
 
 import { TemplateUIOptions } from '@verdaccio/types';
 
@@ -36,6 +36,7 @@ const defaultValues: ConfigProviderProps = {
 
 function getConfiguration() {
   const uiConfiguration = merge(
+    {},
     defaultValues.configOptions,
     window?.__VERDACCIO_BASENAME_UI_OPTIONS
   );
@@ -53,23 +54,28 @@ function getConfiguration() {
 
 const AppConfigurationContext = createContext<ConfigProviderProps>(defaultValues);
 
-const AppConfigurationProvider: FunctionComponent<{ children: React.ReactElement<any> }> = ({
+const AppConfigurationProvider: FunctionComponent<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [configOptions] = useState<TemplateUIOptions>(getConfiguration());
+  const configOptions = useMemo(() => getConfiguration(), []);
 
-  const value = useMemo(
-    () => ({
-      configOptions,
-    }),
-    [configOptions]
-  );
+  const value = {
+    configOptions,
+  };
 
   return (
-    <AppConfigurationContext.Provider value={value}>{children}</AppConfigurationContext.Provider>
+    <AppConfigurationContext.Provider value={value}>
+      <>{children}</>
+    </AppConfigurationContext.Provider>
   );
 };
 
-export default AppConfigurationProvider;
+export { AppConfigurationProvider };
 
-export const useConfig = () => useContext(AppConfigurationContext);
+export const useConfig = () => {
+  const ctx = useContext(AppConfigurationContext);
+  if (!ctx) {
+    throw new Error('useConfig must be used within AppConfigurationProvider');
+  }
+  return ctx;
+};

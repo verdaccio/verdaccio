@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import Add from '@mui/icons-material/Add';
 import Box from '@mui/material/Box';
 import FabMUI from '@mui/material/Fab';
+import { common } from '@mui/material/colors';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Theme } from '../../Theme';
@@ -12,7 +13,7 @@ import getUniqueDeveloperValues from './get-unique-developer-values';
 
 export const Fab = styled(FabMUI)<{ theme?: Theme }>((props) => ({
   backgroundColor: props.theme.palette.primary.main,
-  color: props.theme.palette.white,
+  color: common.white,
 }));
 
 interface Props {

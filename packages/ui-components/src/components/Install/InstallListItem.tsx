@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import Avatar from '@mui/material/Avatar';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
+import { common } from '@mui/material/colors';
 import { useTheme } from '@mui/material/styles';
 import React from 'react';
 
@@ -57,13 +58,14 @@ const InstallListItem: React.FC<Interface> = ({
 }) => {
   const { localSettings } = useSettings();
   const theme: Theme = useTheme();
+  console.log('--heme.palette--', theme.palette);
   const isLatest = localSettings[packageName]?.latest ?? false;
   const isGlobal = localSettings[packageName]?.global ?? false;
   switch (dependencyManager) {
     case DependencyManager.NPM:
       return (
         <InstallItem data-testid={'installListItem-npm'}>
-          <PackageMangerAvatar alt="npm" sx={{ bgcolor: theme.palette.white }}>
+          <PackageMangerAvatar alt="npm" sx={{ bgcolor: common.white }}>
             <Npm />
           </PackageMangerAvatar>
           <InstallListItemText
@@ -80,7 +82,7 @@ const InstallListItem: React.FC<Interface> = ({
     case DependencyManager.YARN:
       return (
         <InstallItem data-testid={'installListItem-yarn'}>
-          <PackageMangerAvatar alt="yarn" sx={{ bgcolor: theme.palette.white }}>
+          <PackageMangerAvatar alt="yarn" sx={{ bgcolor: common.white }}>
             <Yarn />
           </PackageMangerAvatar>
           <InstallListItemText
@@ -115,7 +117,7 @@ const InstallListItem: React.FC<Interface> = ({
     case DependencyManager.PNPM:
       return (
         <InstallItem data-testid={'installListItem-pnpm'}>
-          <PackageMangerAvatar alt={'pnpm'} sx={{ bgcolor: theme.palette.white }}>
+          <PackageMangerAvatar alt={'pnpm'} sx={{ bgcolor: common.white }}>
             <Pnpm />
           </PackageMangerAvatar>
           <InstallListItemText

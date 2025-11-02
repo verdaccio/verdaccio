@@ -1,3 +1,5 @@
+import { Author } from '@verdaccio/types';
+
 export type ModuleType = 'commonjs' | 'module';
 
 export type Latest = {
@@ -83,12 +85,12 @@ export interface Version {
   deprecated?: string;
 }
 
-export interface Author {
-  name?: string;
-  email?: string;
-  url?: string;
-  avatar?: string;
-}
+// export interface Author {
+//   name?: string;
+//   email?: string;
+//   url?: string;
+//   avatar?: string;
+// }
 
 export interface PackageDependencies {
   [key: string]: string;

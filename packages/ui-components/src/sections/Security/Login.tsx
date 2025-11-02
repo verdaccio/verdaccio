@@ -1,11 +1,9 @@
 import { Button, Link, Typography } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 import SecurityLayout from '../../layouts/Security/Dialog';
-import { Dispatch, RootState } from '../../store';
 import { Route } from '../../utils';
 import LoginError from './LoginError';
 import { MessageType } from './Success';
@@ -14,8 +12,8 @@ import { getSecurityUrlParams, validateCredentials } from './utils';
 
 const Login: React.FC = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch<Dispatch>();
-  const loginStore = useSelector((state: RootState) => state.loginV1);
+  // const dispatch = useDispatch<Dispatch>();
+  // const loginStore = useSelector((state: RootState) => state.loginV1);
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
@@ -36,18 +34,18 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch.loginV1.clearError();
+    // dispatch.loginV1.clearError();
 
-    if (!validateCredentials(username, password, t, dispatch.loginV1.addError)) {
-      return;
-    }
+    // if (!validateCredentials(username, password)) {
+    //   return;
+    // }
 
-    await dispatch.loginV1.login({
-      username,
-      password,
-      next,
-      messageType: MessageType.Login,
-    });
+    // await dispatch.loginV1.login({
+    //   username,
+    //   password,
+    //   next,
+    //   messageType: MessageType.Login,
+    // });
   };
 
   return (
@@ -58,7 +56,7 @@ const Login: React.FC = () => {
             {t('security.login.title')}
           </Typography>
           <SecurityTextField
-            error={!!loginStore.error}
+            error={false}
             inputRef={usernameRef}
             label={t('security.login.username')}
             onChange={(e) => setUsername(e.target.value)}
@@ -66,7 +64,7 @@ const Login: React.FC = () => {
             value={username}
           />
           <SecurityTextField
-            error={!!loginStore.error}
+            error={false}
             inputRef={passwordRef}
             label={t('security.login.password')}
             onChange={(e) => setPassword(e.target.value)}
@@ -74,7 +72,7 @@ const Login: React.FC = () => {
             type="password"
             value={password}
           />
-          {loginStore.error && <LoginError error={loginStore.error} />}
+          {/* {true && <LoginError error={{}} />} */}
           <Button color="primary" fullWidth={true} sx={{ mt: 2 }} type="submit" variant="contained">
             {t('security.login.submit')}
           </Button>

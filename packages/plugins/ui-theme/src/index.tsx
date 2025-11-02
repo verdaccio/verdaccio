@@ -1,37 +1,36 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { hot } from 'react-hot-loader/root';
-import { Provider } from 'react-redux';
 
 import {
   AppConfigurationProvider,
+  AuthProvider,
+  ErrorBoundary,
   PersistenceSettingProvider,
   StyleBaseline,
   ThemeProvider,
-  store,
 } from '@verdaccio/ui-components';
 
 import App from './App';
 
 const container = document.getElementById('root');
-const root = createRoot(container as HTMLElement);
+
+if (!container) {
+  throw new Error('Root container missing');
+}
+
+const root = createRoot(container);
 
 const AppContainer = () => (
-  <Provider store={store}>
-    <AppConfigurationProvider>
-      <ThemeProvider>
-        <StyleBaseline />
-        <PersistenceSettingProvider>
+  <AppConfigurationProvider>
+    <ThemeProvider>
+      <StyleBaseline />
+      <PersistenceSettingProvider>
+        <AuthProvider>
           <App />
-        </PersistenceSettingProvider>
-      </ThemeProvider>
-    </AppConfigurationProvider>
-  </Provider>
+        </AuthProvider>
+      </PersistenceSettingProvider>
+    </ThemeProvider>
+  </AppConfigurationProvider>
 );
 
 root.render(<AppContainer />);
-
-// @ts-expect-error
-if (module.hot) {
-  hot(AppContainer);
-}

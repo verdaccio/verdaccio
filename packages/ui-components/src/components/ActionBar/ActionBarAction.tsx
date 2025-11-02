@@ -6,21 +6,20 @@ import RawOnIcon from '@mui/icons-material/RawOn';
 import CircularProgress from '@mui/material/CircularProgress';
 import FabMUI from '@mui/material/Fab';
 import Tooltip from '@mui/material/Tooltip';
+import { common } from '@mui/material/colors';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { Theme } from '../../Theme';
-import { Dispatch, RootState } from '../../store/store';
+import { useVersion } from '../../providers';
 import LinkExternal from '../LinkExternal';
 
 export const Fab = styled(FabMUI)<{ theme?: Theme }>(({ theme }) => ({
-  backgroundColor:
-    theme.palette.mode === 'light' ? theme.palette.primary.main : theme.palette.cyanBlue,
+  backgroundColor: theme.palette.primary.main,
   '&:hover': {
     color: theme.palette.mode === 'light' ? theme.palette.primary.main : theme.palette.cyanBlue,
   },
-  color: theme.palette.white,
+  color: common.white,
 }));
 
 type ActionType = 'VISIT_HOMEPAGE' | 'OPEN_AN_ISSUE' | 'DOWNLOAD_TARBALL' | 'RAW_DATA';
@@ -34,19 +33,18 @@ export interface ActionBarActionProps {
 /* eslint-disable react/jsx-no-bind */
 const ActionBarAction: React.FC<ActionBarActionProps> = ({ type, link, action }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch<Dispatch>();
-  const isLoading = useSelector((state: RootState) => state?.loading?.models.download);
+  const { isLoading, downloadTarball } = useVersion();
 
   const handleDownload = useCallback(async () => {
-    dispatch.download.getTarball({ link });
-  }, [dispatch, link]);
+    downloadTarball?.({ link: link as string });
+  }, [link]);
 
   switch (type) {
     case 'VISIT_HOMEPAGE':
       return (
         <Tooltip title={t('action-bar-action.visit-home-page') as string}>
           <LinkExternal to={link} variant="button">
-            <Fab size="small">
+            <Fab size="small" color="primary">
               <HomeIcon />
             </Fab>
           </LinkExternal>

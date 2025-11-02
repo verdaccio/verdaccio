@@ -1,4 +1,5 @@
 import { GlobalStyles } from '@mui/material';
+import { Theme as MuiTheme, createTheme } from '@mui/material/styles';
 import React from 'react';
 
 import { Theme } from './theme';

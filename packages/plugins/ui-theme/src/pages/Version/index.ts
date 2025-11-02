@@ -1,1 +1,1 @@
-export { default } from './Version';
+export { VersionPage as default } from '@verdaccio/ui-components';

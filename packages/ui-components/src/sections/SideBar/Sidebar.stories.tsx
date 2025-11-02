@@ -15,6 +15,30 @@ export default meta;
 
 type Story = StoryObj<typeof DetailSidebar>;
 
+const handlers = [
+  http.get('https://my-registry.org/-/verdaccio/data/sidebar/storybook', () => {
+    return HttpResponse.json(require('../../../vitest/api/storybook-sidebar.json'));
+  }),
+  http.get('https://my-registry.org/-/verdaccio/data/package/readme/storybook', () => {
+    return HttpResponse.json(require('../../../vitest/api/storybook-readme')());
+  }),
+  http.get('https://my-registry.org/storybook/-/storybook-6.5.15.tgz', () => {
+    const content = 'fake tarball content';
+
+    const blob = new Blob([content], {
+      type: 'application/gzip',
+    });
+
+    return new HttpResponse(blob, {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/gzip',
+        'Content-Disposition': 'attachment; filename="storybook-6.5.15.tgz"',
+      },
+    });
+  }),
+];
+
 export const SidebarLatestPackage: Story = {
   render: () => (
     <MemoryRouter initialEntries={[`/-/web/detail/storybook`]}>
@@ -27,14 +51,7 @@ export const SidebarLatestPackage: Story = {
   ),
   parameters: {
     msw: {
-      handlers: [
-        http.get('https://my-registry.org/-/verdaccio/data/sidebar/storybook', () => {
-          return HttpResponse.json(require('../../../vitest/api/storybook-sidebar.json'));
-        }),
-        http.get('https://my-registry.org/-/verdaccio/data/package/readme/storybook', () => {
-          return HttpResponse.json(require('../../../vitest/api/storybook-readme')());
-        }),
-      ],
+      handlers,
     },
   },
 };
@@ -51,14 +68,7 @@ export const SidebarPackageVersion: Story = {
   ),
   parameters: {
     msw: {
-      handlers: [
-        http.get('https://my-registry.org/-/verdaccio/data/sidebar/storybook', () => {
-          return HttpResponse.json(require('../../../vitest/api/storybook-sidebar.json'));
-        }),
-        http.get('https://my-registry.org/-/verdaccio/data/package/readme/storybook', () => {
-          return HttpResponse.json(require('../../../vitest/api/storybook-readme')());
-        }),
-      ],
+      handlers,
     },
   },
 };

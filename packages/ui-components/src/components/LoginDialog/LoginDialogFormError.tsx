@@ -2,13 +2,15 @@ import styled from '@emotion/styled';
 import Error from '@mui/icons-material/Error';
 import Box from '@mui/material/Box';
 import SnackbarContent from '@mui/material/SnackbarContent';
+import { common } from '@mui/material/colors';
 import React, { memo } from 'react';
 
-import { LoginError, Theme } from '../../';
+import { Theme } from '../../';
 
 const StyledSnackbarContent = styled(SnackbarContent)<{ theme?: Theme }>(({ theme }) => ({
   backgroundColor: theme.palette.error.dark,
-  color: theme.palette.white,
+  marginTop: theme.spacing(2),
+  color: common.white,
 }));
 
 const StyledErrorIcon = styled(Error)<{ theme?: Theme }>(({ theme }) => ({
@@ -17,13 +19,8 @@ const StyledErrorIcon = styled(Error)<{ theme?: Theme }>(({ theme }) => ({
   marginRight: theme.spacing(1),
 }));
 
-export interface FormValues {
-  username: string;
-  password: string;
-}
-
 interface Props {
-  error: LoginError;
+  error: any;
 }
 
 const LoginDialogFormError = memo(({ error }: Props) => {
@@ -32,7 +29,7 @@ const LoginDialogFormError = memo(({ error }: Props) => {
       message={
         <Box alignItems="center" data-testid="error" display="flex">
           <StyledErrorIcon />
-          {error.description}
+          {error.message}
         </Box>
       }
     />

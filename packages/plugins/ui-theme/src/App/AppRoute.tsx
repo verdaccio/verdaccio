@@ -2,10 +2,17 @@ import { createBrowserHistory } from 'history';
 import React from 'react';
 import { Route as ReactRouterDomRoute, Router, Switch } from 'react-router-dom';
 
-import { NotFound, Route, VersionProvider, loadable } from '@verdaccio/ui-components';
+import {
+  AuthV1Provider,
+  ManifestsProvider,
+  NotFound,
+  Route,
+  VersionProvider,
+  loadable,
+} from '@verdaccio/ui-components';
 
 const VersionPage = loadable(() => import(/* webpackChunkName: "Version" */ '../pages/Version'));
-const Front = loadable(() => import(/* webpackChunkName: "Home" */ '../pages/Front'));
+const FrontPage = loadable(() => import(/* webpackChunkName: "Home" */ '../pages/Front'));
 const Login = loadable(() => import(/* webpackChunkName: "Login" */ '../pages/Security/Login'));
 const AddUser = loadable(
   () => import(/* webpackChunkName: "AddUser" */ '../pages/Security/AddUser')
@@ -27,7 +34,9 @@ const AppRoute: React.FC = () => {
     <Router history={history}>
       <Switch>
         <ReactRouterDomRoute exact={true} path={Route.ROOT}>
-          <Front />
+          <ManifestsProvider>
+            <FrontPage />
+          </ManifestsProvider>
         </ReactRouterDomRoute>
         <ReactRouterDomRoute exact={true} path={Route.PACKAGE}>
           <VersionProvider>
@@ -49,18 +58,22 @@ const AppRoute: React.FC = () => {
             <VersionPage />
           </VersionProvider>
         </ReactRouterDomRoute>
-        <ReactRouterDomRoute exact={true} path={Route.LOGIN}>
-          <Login />
-        </ReactRouterDomRoute>
-        <ReactRouterDomRoute exact={true} path={Route.SUCCESS}>
-          <Success />
-        </ReactRouterDomRoute>
-        <ReactRouterDomRoute exact={true} path={Route.ADD_USER}>
-          <AddUser />
-        </ReactRouterDomRoute>
-        <ReactRouterDomRoute exact={true} path={Route.CHANGE_PASSWORD}>
-          <ChangePassword />
-        </ReactRouterDomRoute>
+        <AuthV1Provider>
+          <Switch>
+            <ReactRouterDomRoute exact={true} path={Route.LOGIN}>
+              <Login />
+            </ReactRouterDomRoute>
+            <ReactRouterDomRoute exact={true} path={Route.SUCCESS}>
+              <Success />
+            </ReactRouterDomRoute>
+            <ReactRouterDomRoute exact={true} path={Route.ADD_USER}>
+              <AddUser />
+            </ReactRouterDomRoute>
+            <ReactRouterDomRoute exact={true} path={Route.CHANGE_PASSWORD}>
+              <ChangePassword />
+            </ReactRouterDomRoute>
+          </Switch>
+        </AuthV1Provider>
         <ReactRouterDomRoute>
           <NotFound />
         </ReactRouterDomRoute>

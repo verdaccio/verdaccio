@@ -1,9 +1,7 @@
 import React from 'react';
 import { vi } from 'vitest';
 
-import { store } from '@verdaccio/ui-components';
-
-import { act, renderWithStore, screen } from '../utils/test-react-testing-library';
+import { act, renderWith, screen } from '../utils/test-react-testing-library';
 import App from './App';
 
 // force the windows to expand to display items
@@ -16,7 +14,7 @@ describe('<App />', () => {
   describe('footer', () => {
     test('should display the Footer component', async () => {
       await act(() => {
-        renderWithStore(<App />, store);
+        renderWith(<App />);
       });
       expect(screen.getByTestId('footer')).toBeInTheDocument();
     });
@@ -27,7 +25,7 @@ describe('<App />', () => {
         showFooter: false,
       };
       await act(() => {
-        renderWithStore(<App />, store);
+        renderWith(<App />);
       });
       expect(screen.queryByTestId('footer')).toBeFalsy();
     });

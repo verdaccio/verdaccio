@@ -1,5 +1,6 @@
 {
-    "rules": {
-        "no-invalid-this": 0
-    }
+  "rules": {
+    "no-invalid-this": 0,
+    "no-console": 2,
+  },
 }

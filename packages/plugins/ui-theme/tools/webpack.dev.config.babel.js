@@ -16,7 +16,6 @@ export default {
   entry: {
     main: [
       'whatwg-fetch',
-      'react-hot-loader/patch',
       'webpack-dev-server/client?http://localhost:4873',
       'webpack/hot/only-dev-server',
       `${env.SRC_ROOT}/index.tsx`,

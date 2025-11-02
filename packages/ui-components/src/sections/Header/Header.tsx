@@ -1,9 +1,8 @@
 import Button from '@mui/material/Button';
 import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
 
-import { Dispatch, LoginDialog, RootState, Search, useConfig } from '../../';
+import { LoginDialog, Search, useConfig } from '../../';
 import { isTokenExpire } from '../../utils/token';
 import HeaderLeft from './HeaderLeft';
 import HeaderRight from './HeaderRight';
@@ -27,9 +26,9 @@ const Header: React.FC<Props> = ({
   const [isSettingsDialogOpen, setSettingsDialogOpen] = useState<boolean>(false);
   const [showMobileNavBar, setShowMobileNavBar] = useState<boolean>(false);
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
-  const loginStore = useSelector((state: RootState) => state.login);
+  // TODO: fix the token state
+  const loginStore = { token: 'token', username: 'username' };
   const { configOptions } = useConfig();
-  const dispatch = useDispatch<Dispatch>();
 
   // Use a ref to always have the latest token in the interval callback
   const tokenRef = useRef(loginStore.token);
@@ -41,16 +40,16 @@ const Header: React.FC<Props> = ({
     function checkToken() {
       const token = tokenRef.current;
       if (token && isTokenExpire(token)) {
-        dispatch.login.logOutUser();
+        // dispatch.login.logOutUser();
       }
     }
     checkToken();
     const interval = setInterval(checkToken, tokenCheckIntervalMs);
     return () => clearInterval(interval);
-  }, [dispatch, tokenCheckIntervalMs]);
+  }, [tokenCheckIntervalMs]);
 
   const handleLogout = () => {
-    dispatch.login.logOutUser();
+    // dispatch.login.logOutUser();
     setShowLoginModal(false);
   };
   if (isPlainHeader) {

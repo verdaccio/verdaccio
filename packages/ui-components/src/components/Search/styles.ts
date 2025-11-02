@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
+import { TextField } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
+import { common } from '@mui/material/colors';
 
-import { TextField, Theme } from '../../';
+import { Theme } from '../../';
 
 export interface InputFieldProps {
   color: string;
@@ -14,7 +16,7 @@ export const StyledTextField = styled(TextField)<{ theme?: Theme }>((props) => (
       border: 'none',
     },
     ':after': {
-      borderColor: props.theme.palette.white,
+      borderColor: common.white,
     },
     ':hover:before': {
       content: 'none',
@@ -31,11 +33,11 @@ export const StyledTextField = styled(TextField)<{ theme?: Theme }>((props) => (
   },
   '& .MuiInputBase-input': {
     [`@media screen and (min-width: ${props.theme.breakPoints.medium}px)`]: {
-      color: props.theme.palette.white,
+      color: common.white,
     },
   },
 }));
 
-export const StyledInputAdornment = styled(InputAdornment)<{ theme?: Theme }>((props) => ({
-  color: props.theme.palette.white,
+export const StyledInputAdornment = styled(InputAdornment)<{ theme?: Theme }>(() => ({
+  color: common.white,
 }));

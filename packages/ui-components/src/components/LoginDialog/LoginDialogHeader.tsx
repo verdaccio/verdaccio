@@ -4,6 +4,7 @@ import LockOutlined from '@mui/icons-material/LockOutlined';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
+import { common } from '@mui/material/colors';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -37,7 +38,7 @@ const StyledAvatar = styled(Avatar)<{ theme?: Theme }>(({ theme }) => ({
   margin: theme.spacing(1),
   backgroundColor:
     theme.palette.mode === 'light' ? theme.palette.primary.main : theme.palette.cyanBlue,
-  color: theme.palette.white,
+  color: common.white,
 }));
 
 const StyledIconButton = styled(IconButton)<{ theme?: Theme }>(({ theme }) => ({

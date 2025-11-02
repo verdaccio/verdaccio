@@ -1,11 +1,9 @@
 import { Button, Typography } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 import SecurityLayout from '../../layouts/Security/Dialog';
-import { Dispatch, RootState } from '../../store';
 import LoginError from './LoginError';
 import { MessageType } from './Success';
 import { SecurityContainer, SecurityForm, SecurityTextField } from './styles';
@@ -13,8 +11,8 @@ import { getSecurityUrlParams, validateCredentials } from './utils';
 
 const ChangePassword: React.FC = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch<Dispatch>();
-  const changePasswordStore = useSelector((state: RootState) => state.changePassword);
+  // const dispatch = useDispatch<Dispatch>();
+  // const changePasswordStore = useSelector((state: RootState) => state.changePassword);
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
@@ -37,28 +35,28 @@ const ChangePassword: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch.changePassword.clearError();
+    // dispatch.changePassword.clearError();
     setPasswordMismatch(false);
 
-    if (!validateCredentials(username, oldPassword, t, dispatch.changePassword.addError)) {
-      return;
-    }
+    // if (!validateCredentials(username, oldPassword)) {
+    //   return;
+    // }
 
     if (newPassword !== confirmPassword) {
       setPasswordMismatch(true);
-      dispatch.changePassword.addError({
-        type: 'error',
-        description: t('security.error.password-mismatch'),
-      });
+      // dispatch.changePassword.addError({
+      //   type: 'error',
+      //   description: t('security.error.password-mismatch'),
+      // });
       return;
     }
 
-    await dispatch.changePassword.updatePassword({
-      username,
-      oldPassword,
-      newPassword,
-      messageType: MessageType.ChangePassword,
-    });
+    // await dispatch.changePassword.updatePassword({
+    //   username,
+    //   oldPassword,
+    //   newPassword,
+    //   messageType: MessageType.ChangePassword,
+    // });
   };
 
   return (
@@ -69,7 +67,7 @@ const ChangePassword: React.FC = () => {
             {t('security.changePassword.title')}
           </Typography>
           <SecurityTextField
-            error={!!changePasswordStore.error}
+            // error={!!changePasswordStore.error}
             inputRef={usernameRef}
             label={t('security.changePassword.username')}
             onChange={(e) => setUsername(e.target.value)}
@@ -77,7 +75,7 @@ const ChangePassword: React.FC = () => {
             value={username}
           />
           <SecurityTextField
-            error={!!changePasswordStore.error}
+            // error={!!changePasswordStore.error}
             inputRef={passwordRef}
             label={t('security.changePassword.oldPassword')}
             onChange={(e) => setOldPassword(e.target.value)}
@@ -86,7 +84,7 @@ const ChangePassword: React.FC = () => {
             value={oldPassword}
           />
           <SecurityTextField
-            error={!!changePasswordStore.error || passwordMismatch}
+            // error={!!changePasswordStore.error || passwordMismatch}
             label={t('security.changePassword.newPassword')}
             onChange={(e) => setNewPassword(e.target.value)}
             required={true}
@@ -94,14 +92,14 @@ const ChangePassword: React.FC = () => {
             value={newPassword}
           />
           <SecurityTextField
-            error={!!changePasswordStore.error || passwordMismatch}
+            // error={!!changePasswordStore.error || passwordMismatch}
             label={t('security.changePassword.confirmPassword')}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required={true}
             type="password"
             value={confirmPassword}
           />
-          {changePasswordStore.error && <LoginError error={changePasswordStore.error} />}
+          {/* {changePasswordStore.error && <LoginError error={changePasswordStore.error} />} */}
           <Button color="primary" fullWidth={true} sx={{ mt: 2 }} type="submit" variant="contained">
             {t('security.changePassword.submit')}
           </Button>

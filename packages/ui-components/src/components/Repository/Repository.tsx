@@ -4,6 +4,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
+import { common } from '@mui/material/colors';
 import { useTheme } from '@mui/material/styles';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -61,7 +62,7 @@ const Repository: React.FC<{ packageMeta: any }> = ({ packageMeta }) => {
       subheader={<StyledText variant="subtitle1">{t('sidebar.repository.title')}</StyledText>}
     >
       <RepositoryListItem>
-        <RepositoryAvatar sx={{ bgcolor: theme.palette.white }}>
+        <RepositoryAvatar sx={{ bgcolor: common.white }}>
           <Git />
         </RepositoryAvatar>
         <RepositoryListItemText

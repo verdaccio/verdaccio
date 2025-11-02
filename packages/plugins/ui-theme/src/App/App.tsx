@@ -10,6 +10,9 @@ import ReactMarkdown from 'react-markdown';
 import { Router, useLocation } from 'react-router-dom';
 
 import {
+  AuthProvider,
+  AuthV1Provider,
+  ErrorBoundary,
   Footer,
   Header,
   HeaderInfoDialog,
@@ -111,13 +114,19 @@ const AppContent: React.FC = () => {
 const App: React.FC = () => {
   return (
     <StrictMode>
-      <TranslatorProvider i18n={i18n} listLanguages={listLanguages} onMount={() => loadDayJSLocale}>
-        <Suspense fallback={<Loading />}>
-          <Router history={history}>
-            <AppContent />
-          </Router>
-        </Suspense>
-      </TranslatorProvider>
+      <ErrorBoundary>
+        <TranslatorProvider
+          i18n={i18n}
+          listLanguages={listLanguages}
+          onMount={() => loadDayJSLocale}
+        >
+          <Suspense fallback={<Loading />}>
+            <Router history={history}>
+              <AppContent />
+            </Router>
+          </Suspense>
+        </TranslatorProvider>
+      </ErrorBoundary>
     </StrictMode>
   );
 };

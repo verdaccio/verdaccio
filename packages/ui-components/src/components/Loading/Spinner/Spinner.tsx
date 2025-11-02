@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import CircularProgress from '@mui/material/CircularProgress';
+import { common } from '@mui/material/colors';
 import React from 'react';
 
 import { Theme } from '../../../';
@@ -30,5 +31,5 @@ const Wrapper = styled('div')<Pick<Props, 'centered'>>(({ centered }) => ({
 }));
 
 const Circular = styled(CircularProgress)<{ theme?: Theme }>(({ theme }) => ({
-  color: theme.palette.mode === 'dark' ? theme.palette.white : theme.palette.primary.main,
+  color: theme.palette.mode === 'dark' ? common.white : theme.palette.primary.main,
 }));

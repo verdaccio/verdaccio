@@ -1,13 +1,14 @@
 import styled from '@emotion/styled';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import { common } from '@mui/material/colors';
 
 import { Theme } from '../../';
 
 export const Title = styled(DialogTitle)<{ theme?: Theme }>(({ theme }) => ({
   backgroundColor:
     theme.palette.mode === 'light' ? theme.palette.primary.main : theme.palette.cyanBlue,
-  color: theme.palette.white,
+  color: common.white,
   fontSize: theme.fontSize.lg,
 }));
 

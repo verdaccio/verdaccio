@@ -2,8 +2,7 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { vi } from 'vitest';
 
-import { store } from '../../store';
-import { cleanup, renderWithStore } from '../../test/test-react-testing-library';
+import { cleanup, renderWith } from '../../test/test-react-testing-library';
 import PackageList from './PackageList';
 
 describe('<PackageList /> component', () => {
@@ -13,7 +12,7 @@ describe('<PackageList /> component', () => {
     const props = {
       packages: [],
     };
-    const wrapper = renderWithStore(<PackageList packages={props.packages} />, store);
+    const wrapper = renderWith(<PackageList packages={props.packages} />);
     expect(wrapper.getByText('help.title')).toBeInTheDocument();
   });
 
@@ -48,11 +47,10 @@ describe('<PackageList /> component', () => {
       help: false,
     };
 
-    const wrapper = renderWithStore(
+    const wrapper = renderWith(
       <BrowserRouter>
         <PackageList packages={props.packages} />
-      </BrowserRouter>,
-      store
+      </BrowserRouter>
     );
 
     expect(wrapper.queryAllByTestId('package-item-list')).toHaveLength(3);

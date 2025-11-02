@@ -70,17 +70,4 @@ export const handlers = [
       headers: { 'Content-Type': 'application/octet-stream' },
     });
   }),
-
-  // Login
-  http.post<{ username: string; password: string }, { token: string; username: string }>(
-    'http://localhost:9000/-/verdaccio/sec/login',
-    async ({ request }) => {
-      const body = await request.json();
-      if (body.username === 'fail') {
-        return new HttpResponse('unauthorized', { status: 401 });
-      }
-
-      return HttpResponse.json({ username: body.username, token: 'valid token' });
-    }
-  ),
 ];

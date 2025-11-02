@@ -6,10 +6,11 @@ import { List, ListRowProps } from 'react-virtualized/dist/commonjs/List';
 import { WindowScroller } from 'react-virtualized/dist/commonjs/WindowScroller';
 
 import { Help, Package, useConfig } from '../..';
+import { ManifestWeb } from '../../providers/ManifestsProvider/ManifestsProvider';
 import { utils } from '../../utils';
 
 interface Props {
-  packages: any[];
+  packages: ManifestWeb[];
 }
 
 const cache = new CellMeasurerCache({

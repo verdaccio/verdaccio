@@ -6,10 +6,10 @@ import Tabs from '@mui/material/Tabs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
-import { useSelector } from 'react-redux';
 
-import { RootState, Theme } from '../../';
+import { Theme } from '../../';
 import RegistryInfoDialog from '../../components/RegistryInfoDialog';
+import { getConfiguration } from '../../configuration';
 import LanguageSwitch from './LanguageSwitch';
 import RegistryInfoContent from './RegistryInfoContent';
 
@@ -52,7 +52,7 @@ const HeaderSettingsDialog: React.FC<Props> = ({ onCloseDialog, isOpen }) => {
   const handleChange = (_event, newValue) => {
     setValue(newValue);
   };
-  const configStore = useSelector((state: RootState) => state.configuration.config);
+  const configStore = getConfiguration();
   const { scope, base } = configStore;
   const { t } = useTranslation();
   return (

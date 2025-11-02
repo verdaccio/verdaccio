@@ -1,1 +1,1 @@
-export { default } from './Home';
+export { FrontPage as default } from '@verdaccio/ui-components';

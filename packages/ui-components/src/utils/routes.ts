@@ -15,3 +15,14 @@ export enum Route {
   ADD_USER_API = '/-/user/org.couchdb.user',
   CHANGE_PASSWORD_API = '/-/npm/v1/user',
 }
+
+// Example API request:
+// http://localhost:8000/-/verdaccio/data/package/readme/jquery
+export enum APIRoute {
+  LOGIN = '/-/verdaccio/sec/login',
+  CONFIG = '/-/verdaccio/packages',
+  PACKAGES = '/-/verdaccio/data/packages',
+  SEARCH = '/-/verdaccio/data/search/', // :value
+  SIDEBAR = '/-/verdaccio/data/sidebar/', // :packageName?v=version
+  README = '/-/verdaccio/data/package/readme/', // :packageName?v=version
+}
