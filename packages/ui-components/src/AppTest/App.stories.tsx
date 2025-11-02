@@ -81,7 +81,7 @@ export const ApplicationNotFound: Story = {
     msw: {
       handlers: [
         http.get('https://my-registry.org/-/verdaccio/data/sidebar/kleur', () => {
-          return new HttpResponse('unauthorized', { status: 404 });
+          return new HttpResponse(null, { status: 404 });
         }),
       ],
     },

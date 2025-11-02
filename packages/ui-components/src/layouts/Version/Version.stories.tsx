@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { HttpResponse, http } from 'msw';
 import React from 'react';
-import { MemoryRouter, Route } from 'react-router';
+import { MemoryRouter, Route, Routes } from 'react-router';
 
 import { VersionProvider } from '../../providers';
 import VersionLayout from './Version';
@@ -20,11 +20,16 @@ export const Primary: Story = {
   render: () => {
     return (
       <MemoryRouter initialEntries={[`/-/web/detail/storybook`]}>
-        <Route exact={true} path="/-/web/detail/:package">
-          <VersionProvider>
-            <VersionLayout />
-          </VersionProvider>
-        </Route>
+        <Routes>
+          <Route
+            element={
+              <VersionProvider>
+                <VersionLayout />
+              </VersionProvider>
+            }
+            path="/-/web/detail/:package"
+          />
+        </Routes>
       </MemoryRouter>
     );
   },
@@ -47,11 +52,16 @@ export const jQuery: Story = {
   render: () => {
     return (
       <MemoryRouter initialEntries={[`/-/web/detail/jquery`]}>
-        <Route exact={true} path="/-/web/detail/:package">
-          <VersionProvider>
-            <VersionLayout />
-          </VersionProvider>
-        </Route>
+        <Routes>
+          <Route
+            element={
+              <VersionProvider>
+                <VersionLayout />
+              </VersionProvider>
+            }
+            path="/-/web/detail/:package"
+          />
+        </Routes>
       </MemoryRouter>
     );
   },

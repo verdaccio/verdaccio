@@ -1,0 +1,159 @@
+{
+  "versions": {
+    "1.0.0": {
+      "name": "@verdaccio/proxy",
+      "version": "1.0.0",
+      "description": "Verdaccio proxy for uplink registries",
+      "main": "build/index.js",
+      "scripts": {
+        "build": "tsc",
+        "test": "vitest"
+      },
+      "author": {
+        "name": "verdaccio",
+        "email": "verdaccio@pm.me"
+      },
+      "license": "MIT",
+      "_id": "@verdaccio/proxy@1.0.0",
+      "_shasum": "aa11bb22cc33dd44ee55ff66aa77bb88cc99dd00",
+      "_from": ".",
+      "_npmVersion": "9.5.0",
+      "_nodeVersion": "18.16.0",
+      "_npmUser": {
+        "name": "verdaccio",
+        "email": "verdaccio@pm.me"
+      },
+      "dist": {
+        "shasum": "aa11bb22cc33dd44ee55ff66aa77bb88cc99dd00",
+        "tarball": "https://my-registry.org/@verdaccio/proxy/-/proxy-1.0.0.tgz",
+        "integrity": "sha512-abc123def456ghi789jkl012mno345pqr678stu901vwx234yza567bcd890efg=="
+      },
+      "maintainers": [
+        {
+          "name": "verdaccio",
+          "email": "verdaccio@pm.me"
+        }
+      ],
+      "directories": {},
+      "contributors": []
+    },
+    "1.5.0": {
+      "name": "@verdaccio/proxy",
+      "version": "1.5.0",
+      "description": "Verdaccio proxy for uplink registries with caching",
+      "main": "build/index.js",
+      "scripts": {
+        "build": "tsc",
+        "test": "vitest"
+      },
+      "author": {
+        "name": "verdaccio",
+        "email": "verdaccio@pm.me"
+      },
+      "license": "MIT",
+      "_id": "@verdaccio/proxy@1.5.0",
+      "_shasum": "bb22cc33dd44ee55ff66aa77bb88cc99dd00ee11",
+      "_from": ".",
+      "_npmVersion": "10.2.0",
+      "_nodeVersion": "20.10.0",
+      "_npmUser": {
+        "name": "verdaccio",
+        "email": "verdaccio@pm.me"
+      },
+      "dist": {
+        "shasum": "bb22cc33dd44ee55ff66aa77bb88cc99dd00ee11",
+        "tarball": "https://my-registry.org/@verdaccio/proxy/-/proxy-1.5.0.tgz",
+        "integrity": "sha512-def456ghi789jkl012mno345pqr678stu901vwx234yza567bcd890efg123abc=="
+      },
+      "maintainers": [
+        {
+          "name": "verdaccio",
+          "email": "verdaccio@pm.me"
+        },
+        {
+          "name": "jpicado",
+          "email": "juanpicado19@gmail.com"
+        }
+      ],
+      "dependencies": {
+        "@verdaccio/core": "^8.0.0",
+        "undici": "^6.0.0"
+      },
+      "directories": {},
+      "contributors": []
+    }
+  },
+  "time": {
+    "modified": "2024-11-10T16:00:00.000Z",
+    "created": "2024-03-05T07:30:00.000Z",
+    "1.0.0": "2024-03-05T07:30:00.000Z",
+    "1.5.0": "2024-11-10T16:00:00.000Z"
+  },
+  "dist-tags": {
+    "latest": "1.5.0"
+  },
+  "_uplinks": {
+    "npmjs": {
+      "etag": "W/\"fedcba0987654321\"",
+      "fetched": 1699632000000
+    }
+  },
+  "_id": "@verdaccio/proxy",
+  "latest": {
+    "name": "@verdaccio/proxy",
+    "version": "1.5.0",
+    "description": "Verdaccio proxy for uplink registries with caching",
+    "main": "build/index.js",
+    "keywords": ["verdaccio", "proxy", "uplink", "registry", "cache"],
+    "homepage": "https://github.com/verdaccio/verdaccio",
+    "bugs": {
+      "url": "https://github.com/verdaccio/verdaccio/issues"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/verdaccio/verdaccio.git",
+      "directory": "packages/proxy"
+    },
+    "license": "MIT",
+    "scripts": {
+      "build": "tsc",
+      "test": "vitest"
+    },
+    "dependencies": {
+      "@verdaccio/core": "^8.0.0",
+      "undici": "^6.0.0"
+    },
+    "_id": "@verdaccio/proxy@1.5.0",
+    "_nodeVersion": "20.10.0",
+    "_npmVersion": "10.2.0",
+    "dist": {
+      "integrity": "sha512-def456ghi789jkl012mno345pqr678stu901vwx234yza567bcd890efg123abc==",
+      "shasum": "bb22cc33dd44ee55ff66aa77bb88cc99dd00ee11",
+      "tarball": "https://my-registry.org/@verdaccio/proxy/-/proxy-1.5.0.tgz"
+    },
+    "_npmUser": {
+      "name": "verdaccio",
+      "email": "verdaccio@pm.me"
+    },
+    "directories": {},
+    "maintainers": [
+      {
+        "name": "verdaccio",
+        "email": "verdaccio@pm.me",
+        "avatar": "https://www.gravatar.com/avatar/00000000000000000000000000000000"
+      },
+      {
+        "name": "jpicado",
+        "email": "juanpicado19@gmail.com",
+        "avatar": "https://www.gravatar.com/avatar/00000000000000000000000000000000"
+      }
+    ],
+    "contributors": [],
+    "author": {
+      "name": "verdaccio",
+      "email": "verdaccio@pm.me",
+      "url": "https://verdaccio.org",
+      "avatar": "https://www.gravatar.com/avatar/00000000000000000000000000000000"
+    }
+  }
+}

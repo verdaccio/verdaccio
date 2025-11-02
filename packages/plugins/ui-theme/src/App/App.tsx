@@ -4,15 +4,17 @@ import * as FlagsIcon from 'country-flag-icons/react/3x2';
 import React, { StrictMode, Suspense, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
-import { Router, useLocation } from 'react-router-dom';
+import { BrowserRouter, useLocation } from 'react-router';
 
 import type { Theme } from '@verdaccio/ui-components';
 import {
+  ErrorBoundary,
   Footer,
   Header,
   HeaderInfoDialog,
   Loading,
   Route,
+  SearchProvider,
   TranslatorProvider,
   useConfig,
 } from '@verdaccio/ui-components';
@@ -24,7 +26,7 @@ import license from '../components/license.md';
 import i18n from '../i18n/config';
 import { listLanguages } from '../i18n/enabledLanguages';
 import loadDayJSLocale from '../i18n/load-dayjs-locale';
-import AppRoute, { history } from './AppRoute';
+import AppRoute from './AppRoute';
 
 const StyledBox = styled(Box)<{ theme?: Theme }>(({ theme }) => {
   return {
@@ -96,7 +98,9 @@ const AppContent: React.FC = () => {
 
   return (
     <StyledBox display="flex" flexDirection="column" height="100%">
-      <Header HeaderInfoDialog={CustomInfoDialog} isPlainHeader={isPlainHeader} />
+      <SearchProvider>
+        <Header HeaderInfoDialog={CustomInfoDialog} isPlainHeader={isPlainHeader} />
+      </SearchProvider>
       <StyledBoxContent flexGrow={1}>
         <AppRoute />
       </StyledBoxContent>
@@ -105,18 +109,28 @@ const AppContent: React.FC = () => {
   );
 };
 
+// @ts-ignore
+const basename = window?.__VERDACCIO_BASENAME_UI_OPTIONS?.url_prefix;
+
 const App: React.FC = () => {
   return (
     <StrictMode>
-      <TranslatorProvider i18n={i18n} listLanguages={listLanguages} onMount={() => loadDayJSLocale}>
-        <Suspense fallback={<Loading />}>
-          <Router history={history}>
-            <AppContent />
-          </Router>
-        </Suspense>
-      </TranslatorProvider>
+      <ErrorBoundary>
+        <TranslatorProvider
+          i18n={i18n}
+          listLanguages={listLanguages}
+          onMount={() => loadDayJSLocale}
+        >
+          <Suspense fallback={<Loading />}>
+            <BrowserRouter basename={basename}>
+              <AppContent />
+            </BrowserRouter>
+          </Suspense>
+        </TranslatorProvider>
+      </ErrorBoundary>
     </StrictMode>
   );
 };
 
 export default App;
+export { AppContent };

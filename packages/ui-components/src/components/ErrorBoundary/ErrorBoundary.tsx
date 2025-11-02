@@ -1,38 +1,46 @@
+import type { ErrorInfo, ReactNode } from 'react';
 import React, { Component } from 'react';
 
-export interface ErrorProps {
-  children: any;
+interface ErrorBoundaryProps {
+  children: ReactNode;
 }
 
-export interface ErrorAppState {
+interface ErrorBoundaryState {
   hasError: boolean;
   error: Error | null;
-  info: object | null;
 }
 
-export default class ErrorBoundary extends Component<ErrorProps, ErrorAppState> {
-  constructor(props: ErrorProps) {
-    super(props);
-    this.state = { hasError: false, error: null, info: null };
+export default class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  state: ErrorBoundaryState = {
+    hasError: false,
+    error: null,
+  };
+
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return {
+      hasError: true,
+      error,
+    };
   }
 
-  public componentDidCatch(error: Error, info: object) {
-    this.setState({ hasError: true, error, info });
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    // logging
+    console.error('ErrorBoundary caught:', error, info);
   }
 
-  public render(): JSX.Element {
-    const { hasError, error, info } = this.state;
+  render() {
+    const { hasError, error } = this.state;
     const { children } = this.props;
 
     if (hasError) {
       return (
-        <>
+        <div role="alert">
           <h1>{'Something went wrong.'}</h1>
-          <p>{`error: ${error}`}</p>
-          <p>{`info: ${JSON.stringify(info)}`}</p>
-        </>
+          <pre>{error?.message}</pre>
+        </div>
       );
     }
+
     return children;
   }
 }

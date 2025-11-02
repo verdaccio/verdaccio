@@ -1,15 +1,12 @@
 import SearchMui from '@mui/icons-material/Search';
 import debounce from 'lodash/debounce';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import type { RouteComponentProps } from 'react-router';
-import { withRouter } from 'react-router';
+import { useNavigate } from 'react-router';
 
 import type { SearchResultWeb } from '@verdaccio/types';
 
-import type { Dispatch, RootState } from '../../';
-import { useConfig } from '../../';
+import { useConfig, useSearch } from '../../';
 import { Route } from '../../utils';
 import AutoComplete from './AutoComplete';
 import SearchItem from './SearchItem';
@@ -20,72 +17,110 @@ const CONSTANTS = {
   ABORT_ERROR: 'AbortError',
 };
 
-const Search: React.FC<RouteComponentProps> = ({ history }) => {
+const Search: React.FC = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { searchResults, isLoading, doSearch } = useSearch();
   const {
     configOptions: { flags },
   } = useConfig();
-  const searchRemote = flags?.searchRemote || false;
-  const { suggestions } = useSelector((state: RootState) => state.search);
-  const isLoading = useSelector((state: RootState) => state?.loading?.models.search);
-  const dispatch = useDispatch<Dispatch>();
+  const searchRemote = flags?.searchRemote ?? false;
 
-  /**
-   * Cancel all the requests which are in pending state.
-   */
+  const abortControllerRef = useRef<AbortController | null>(null);
+
   const cancelAllSearchRequests = useCallback(() => {
-    dispatch.search.clearRequestQueue();
-    dispatch.search.saveSearch({ suggestions: [] });
-  }, [dispatch]);
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
+    }
+  }, []);
 
-  /**
-   * As user focuses out from input, we cancel all the request from requestList
-   * and set the API state parameters to default boolean values.
-   */
+  useEffect(() => {
+    return () => cancelAllSearchRequests();
+  }, [cancelAllSearchRequests]);
+
   const handleOnBlur = useCallback(
     (event: React.SyntheticEvent) => {
-      // stops event bubbling
       event.stopPropagation();
       cancelAllSearchRequests();
     },
     [cancelAllSearchRequests]
   );
 
-  /**
-   * When an user select any package by clicking or pressing return key.
-   */
   const handleClickSearch = useCallback(
     (event: React.SyntheticEvent, value: SearchResultWeb, reason: string): void => {
-      // stops event bubbling
       event.stopPropagation();
-      switch (reason) {
-        case 'selectOption':
-          if (searchRemote) {
-            // TODO: check this part
-            // @ts-ignore
-            history.push(`${Route.DETAIL}${value.package.name}`);
-          } else {
-            history.push(`${Route.DETAIL}${value.name}`);
-          }
-          break;
+      if (reason === 'selectOption') {
+        const pkgName = searchRemote ? value['package'].name : value.name;
+        navigate(`${Route.DETAIL}${pkgName}`);
       }
     },
-    [history, searchRemote]
+    [navigate, searchRemote]
   );
 
   /**
-   * Fetch packages from API.
-   * For AbortController see: https://developer.mozilla.org/en-US/docs/Web/API/AbortController
+   * Fetch packages from API with Abort Logic.
    */
   const handleFetchPackages = useCallback(
-    ({ value }: { value: string }) => {
+    async ({ value }: { value: string }) => {
       if (value?.trim() !== '') {
-        dispatch.search.clearRequestQueue();
-        dispatch.search.getSuggestions({ value });
+        // 2. Abort any previous pending request before starting a new one
+        cancelAllSearchRequests();
+
+        // 3. Create a new controller for the current request
+        const controller = new AbortController();
+        abortControllerRef.current = controller;
+
+        try {
+          await doSearch?.({
+            text: value,
+            signal: controller.signal,
+          });
+        } catch (err: any) {
+          if (err.name === CONSTANTS.ABORT_ERROR) {
+            console.warn('Search request aborted');
+          } else {
+            console.error('Search error:', err);
+          }
+        }
       }
     },
-    [dispatch]
+    [doSearch, cancelAllSearchRequests]
   );
+
+  const renderOption = (props, option) => {
+    const { key, ...otherProps } = props;
+
+    if (searchRemote) {
+      const item: SearchResultWeb = option.package;
+      const isPrivate = option?.verdaccioPrivate;
+      const isCached = option?.verdaccioPkgCached;
+      const isRemote = !isCached && !isPrivate;
+      return (
+        <SearchItem
+          key={key}
+          {...otherProps}
+          description={item?.description}
+          isCached={isCached}
+          isPrivate={isPrivate}
+          isRemote={isRemote}
+          name={item?.name}
+          version={item?.version}
+        />
+      );
+    } else {
+      const item: SearchResultWeb = option.package;
+      return (
+        <SearchItem
+          key={key}
+          {...otherProps}
+          description={item?.description}
+          name={item?.name}
+          version={item?.version}
+        />
+      );
+    }
+  };
 
   const renderInput = (params) => {
     return (
@@ -109,45 +144,12 @@ const Search: React.FC<RouteComponentProps> = ({ history }) => {
   const getOptionLabel = () => {
     if (searchRemote) {
       return (option) => {
-        return option?.package?.name ?? '';
+        return option?.package?.name;
       };
     } else {
       return (option) => {
-        return option?.name;
+        return option?.package?.name;
       };
-    }
-  };
-
-  const renderOption = (props, option) => {
-    const { key, ...otherProps } = props;
-
-    if (searchRemote) {
-      const item: SearchResultWeb = option.package;
-      const isPrivate = option?.verdaccioPrivate;
-      const isCached = option?.verdaccioPkgCached;
-      const isRemote = !isCached && !isPrivate;
-      return (
-        <SearchItem
-          key={key}
-          {...otherProps}
-          description={item?.description}
-          isCached={isCached}
-          isPrivate={isPrivate}
-          isRemote={isRemote}
-          name={item?.name}
-          version={item?.version}
-        />
-      );
-    } else {
-      return (
-        <SearchItem
-          key={key}
-          {...otherProps}
-          description={option?.description}
-          name={option?.name}
-          version={option?.version}
-        />
-      );
     }
   };
 
@@ -156,14 +158,15 @@ const Search: React.FC<RouteComponentProps> = ({ history }) => {
       getOptionLabel={getOptionLabel()}
       onCleanSuggestions={handleOnBlur}
       onSelectItem={handleClickSearch}
+      // Debounce the entire fetcher wrapper
       onSuggestionsFetch={debounce(handleFetchPackages, CONSTANTS.API_DELAY)}
       placeholder={t('search.packages')}
       renderInput={renderInput}
       renderOption={renderOption}
-      suggestions={suggestions}
+      suggestions={searchResults}
       suggestionsLoading={isLoading}
     />
   );
 };
 
-export default withRouter(Search as any);
+export default Search;

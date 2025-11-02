@@ -4,7 +4,7 @@ import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 import type { Theme } from '../../Theme';
 import type { PackageDependencies } from '../../types/packageMeta';
@@ -35,12 +35,12 @@ export const Tag = styled(Chip)<{ theme?: Theme }>((props) => ({
 }));
 
 export const DependencyBlock: React.FC<DependencyBlockProps> = ({ title, dependencies }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const deps = Object.entries(dependencies);
 
   function handleClick(name: string): void {
-    history.push(`${Route.DETAIL}${name}`);
+    navigate(`${Route.DETAIL}${name}`);
   }
 
   function labelText(title: string, name: string, version: string): string {

@@ -153,7 +153,6 @@ export const packageMeta = {
       react: '15.6.1',
       'react-dom': '15.6.1',
       'react-hot-loader': '3.0.0-beta.7',
-      'react-router-dom': '4.1.1',
       'react-syntax-highlighter': '5.6.2',
       rimraf: '2.6.1',
       'sass-loader': '6.0.6',

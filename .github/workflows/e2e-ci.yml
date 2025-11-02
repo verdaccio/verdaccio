@@ -66,7 +66,7 @@ jobs:
             pnpm9,
             pnpm10,
           ]        
-        node: [20, 25]
+        node: [20, 24]
     name: ${{ matrix.pkg }} / ubuntu-latest / ${{ matrix.node }}
     runs-on: ubuntu-latest
     steps:

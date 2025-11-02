@@ -1,1 +1,1 @@
-export { default, useConfig } from './AppConfigurationProvider';
+export { AppConfigurationProvider, useConfig } from './AppConfigurationProvider';
