@@ -29,10 +29,19 @@ export async function createTempStorageFolder(prefix: string, folder = 'storage'
 }
 
 /**
- * Resolve a safe path within a base directory.
- * @param basePath The base directory.
- * @param requestPath The requested path.
- * @returns The resolved safe path or null if unsafe.
+ * Resolve a safe path within a base directory, preventing directory traversal attacks.
+ *
+ * This function provides security against path traversal by:
+ * - URL decoding the input path
+ * - Resolving the full absolute path
+ * - Checking that the resolved path stays within the base directory
+ * - Rejecting paths containing '..' that would escape the base directory
+ * - Rejecting absolute paths that bypass the base directory
+ *
+ * @param basePath The base directory that constrains file access
+ * @param requestPath The requested path from user input (may be URL-encoded)
+ * @returns The resolved safe absolute path or null if the path is unsafe/invalid
+ * @security Prevents directory traversal attacks by validating resolved paths
  */
 export function resolveSafePath(basePath: string, requestPath?: string): string | null {
   try {
@@ -52,4 +61,20 @@ export function resolveSafePath(basePath: string, requestPath?: string): string 
     // error resolving path
     return null;
   }
+}
+
+/**
+ * Additional security check for potentially dangerous filenames
+ */
+export function isSecureFilename(filename: string): boolean {
+  // Reject common dangerous patterns
+  const dangerousPatterns = [
+    /\0/, // null bytes
+    /\.\./, // directory traversal
+    /^-/, // command injection via leading dash
+    /[<>:"|?*]/, // invalid filename characters on Windows
+    /^(CON|PRN|AUX|NUL|COM[0-9]|LPT[0-9])(\..*)?$/i, // Windows reserved names
+  ];
+
+  return !dangerousPatterns.some((pattern) => pattern.test(filename));
 }
