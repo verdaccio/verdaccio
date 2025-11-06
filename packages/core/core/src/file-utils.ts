@@ -27,3 +27,29 @@ export async function createTempStorageFolder(prefix: string, folder = 'storage'
   await mkdir(storageFolder);
   return storageFolder;
 }
+
+/**
+ * Resolve a safe path within a base directory.
+ * @param basePath The base directory.
+ * @param requestPath The requested path.
+ * @returns The resolved safe path or null if unsafe.
+ */
+export function resolveSafePath(basePath: string, requestPath?: string): string | null {
+  try {
+    if (!requestPath || requestPath === '') {
+      return null;
+    }
+    const decoded = decodeURIComponent(requestPath);
+    const resolved = path.resolve(basePath, decoded);
+    const relative = path.relative(basePath, resolved);
+    // if relative starts with '..' it's outside the base path
+    if (relative === '' || (!relative.startsWith('..') && !path.isAbsolute(relative))) {
+      return resolved;
+    }
+    // blocked: path outside base path
+    return null;
+  } catch (err) {
+    // error resolving path
+    return null;
+  }
+}
