@@ -1,5 +1,16 @@
 # @verdaccio/server-fastify
 
+## 8.0.0-next-8.25
+
+### Patch Changes
+
+- 6d1a84a: chore(deps): node-api, fastify, ui-comp, web
+  - @verdaccio/core@8.0.0-next-8.25
+  - @verdaccio/config@8.0.0-next-8.25
+  - @verdaccio/auth@8.0.0-next-8.25
+  - @verdaccio/store@8.0.0-next-8.25
+  - @verdaccio/logger@8.0.0-next-8.25
+
 ## 8.0.0-next-8.24
 
 ### Patch Changes

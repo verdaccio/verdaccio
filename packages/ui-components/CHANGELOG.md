@@ -1,5 +1,11 @@
 # @verdaccio/ui-components
 
+## 4.0.0-next-8.12
+
+### Patch Changes
+
+- 6d1a84a: chore(deps): node-api, fastify, ui-comp, web
+
 ## 4.0.0-next-8.11
 
 ### Patch Changes

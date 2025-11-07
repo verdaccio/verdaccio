@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/api",
-  "version": "8.1.0-next-8.24",
+  "version": "8.1.0-next-8.25",
   "description": "Verdaccio Registry API",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -42,12 +42,12 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@verdaccio/auth": "workspace:8.0.0-next-8.24",
-    "@verdaccio/config": "workspace:8.0.0-next-8.24",
-    "@verdaccio/core": "workspace:8.0.0-next-8.24",
-    "@verdaccio/logger": "workspace:8.0.0-next-8.24",
-    "@verdaccio/middleware": "workspace:8.0.0-next-8.24",
-    "@verdaccio/store": "workspace:8.0.0-next-8.24",
+    "@verdaccio/auth": "workspace:8.0.0-next-8.25",
+    "@verdaccio/config": "workspace:8.0.0-next-8.25",
+    "@verdaccio/core": "workspace:8.0.0-next-8.25",
+    "@verdaccio/logger": "workspace:8.0.0-next-8.25",
+    "@verdaccio/middleware": "workspace:8.0.0-next-8.25",
+    "@verdaccio/store": "workspace:8.0.0-next-8.25",
     "abortcontroller-polyfill": "1.7.8",
     "body-parser": "1.20.3",
     "cookies": "0.9.1",
@@ -58,7 +58,7 @@
     "semver": "7.7.3"
   },
   "devDependencies": {
-    "@verdaccio/test-helper": "workspace:4.0.0-next-8.8",
+    "@verdaccio/test-helper": "workspace:4.0.0-next-8.9",
     "@verdaccio/types": "workspace:13.0.0-next-8.8",
     "mockdate": "3.0.5",
     "supertest": "7.1.4"
