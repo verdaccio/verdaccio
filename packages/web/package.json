@@ -46,8 +46,6 @@
     "@verdaccio/types": "workspace:13.0.0-next-8.8",
     "jsdom": "26.1.0",
     "supertest": "7.1.4",
-    "verdaccio-auth-memory": "workspace:13.0.0-next-8.24",
-    "verdaccio-memory": "workspace:13.0.0-next-8.24",
     "vitest": "3.2.4"
   },
   "scripts": {

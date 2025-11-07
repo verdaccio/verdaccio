@@ -43,7 +43,6 @@
   "license": "MIT",
   "dependencies": {
     "@verdaccio/config": "workspace:8.0.0-next-8.24",
-    "@verdaccio/core": "workspace:8.0.0-next-8.24",
     "@verdaccio/logger": "workspace:8.0.0-next-8.24",
     "@verdaccio/server": "workspace:8.0.0-next-8.24",
     "@verdaccio/server-fastify": "workspace:8.0.0-next-8.24",
@@ -52,7 +51,6 @@
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:13.0.0-next-8.8",
-    "selfsigned": "2.4.1",
     "supertest": "7.1.4",
     "vitest": "3.2.4"
   },
