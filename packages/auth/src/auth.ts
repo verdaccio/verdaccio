@@ -76,7 +76,9 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     let plugins = await this.loadPlugin();
 
     debug('auth plugins found %s', plugins.length);
-    if (!plugins || plugins.length === 0) {
+    // Missing auth config or no loaded plugins -> load default htpasswd plugin
+    // Empty auth config (null) -> just use fallback methods
+    if (this.config.auth !== null && (!plugins || plugins.length === 0)) {
       plugins = this.loadDefaultPlugin();
     }
     this.plugins = plugins;
