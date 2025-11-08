@@ -1,6 +1,7 @@
 import { mkdir, mkdtemp } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
+import sanitize from 'sanitize-filename';
 
 export const Files = {
   DatabaseName: '.verdaccio-db.json',
@@ -64,17 +65,10 @@ export function resolveSafePath(basePath: string, requestPath?: string): string 
 }
 
 /**
- * Additional security check for potentially dangerous filenames
+ * Sanitize a filename by removing or replacing unsafe characters.
+ * @param filename The input filename to sanitize.
+ * @returns The sanitized filename.
  */
-export function isSecureFilename(filename: string): boolean {
-  // Reject common dangerous patterns
-  const dangerousPatterns = [
-    /\0/, // null bytes
-    /\.\./, // directory traversal
-    /^-/, // command injection via leading dash
-    /[<>:"|?*]/, // invalid filename characters on Windows
-    /^(CON|PRN|AUX|NUL|COM[0-9]|LPT[0-9])(\..*)?$/i, // Windows reserved names
-  ];
-
-  return !dangerousPatterns.some((pattern) => pattern.test(filename));
+export function sanitizeFilename(filename: string): string {
+  return sanitize(filename);
 }

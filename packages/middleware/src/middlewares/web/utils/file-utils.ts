@@ -23,17 +23,13 @@ export const sendFileCallback = (next) => (err) => {
  * @param next Express next function
  */
 export function sendFileSafe(path: string, filename: string, res, next) {
-  // CodeQL[js/path-injection] - filename is validated by resolveSafePath which prevents directory traversal
   // First validation layer: check filename for basic validity
-  if (!filename || typeof filename !== 'string' || !fileUtils.isSecureFilename(filename)) {
-    debug('invalid filename rejected %o', filename);
-    return next();
-  }
+  const safeFilename = fileUtils.sanitizeFilename(filename);
 
   // Second validation layer: resolve safe path within base directory
-  const safe = fileUtils.resolveSafePath(path, filename);
+  const safe = fileUtils.resolveSafePath(path, safeFilename);
   if (!safe) {
-    debug('unsafe filename requested %o', filename);
+    debug('unsafe filename requested %o', safeFilename);
     return next();
   }
   debug('serve file %o', safe);
