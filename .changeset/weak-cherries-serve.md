@@ -4,7 +4,6 @@
 '@verdaccio/ui-theme': patch
 '@verdaccio/search-indexer': patch
 '@verdaccio/server': patch
-'@verdaccio/server-fastify': patch
 '@verdaccio/test-helper': patch
 '@verdaccio/middleware': patch
 'verdaccio': patch

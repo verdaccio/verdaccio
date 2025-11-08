@@ -45,7 +45,6 @@
     "@verdaccio/config": "workspace:8.0.0-next-8.24",
     "@verdaccio/logger": "workspace:8.0.0-next-8.24",
     "@verdaccio/server": "workspace:8.0.0-next-8.24",
-    "@verdaccio/server-fastify": "workspace:8.0.0-next-8.24",
     "debug": "4.4.3",
     "lodash": "4.17.21"
   },

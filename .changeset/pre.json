@@ -41,7 +41,6 @@
     "@verdaccio/search": "7.0.0",
     "@verdaccio/search-indexer": "7.0.0",
     "@verdaccio/server": "7.0.0",
-    "@verdaccio/server-fastify": "7.0.0",
     "@verdaccio/signature": "7.0.0",
     "@verdaccio/cli-standalone": "7.0.0",
     "@verdaccio/store": "7.0.0",

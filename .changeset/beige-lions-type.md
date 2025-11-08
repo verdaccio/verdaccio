@@ -10,7 +10,6 @@
 'verdaccio-memory': major
 '@verdaccio/search-indexer': major
 '@verdaccio/server': major
-'@verdaccio/server-fastify': major
 '@verdaccio/logger': major
 'verdaccio-audit': major
 '@verdaccio/ui-components': major
