@@ -61,7 +61,6 @@
     "@types/jest": "29.5.14",
     "@types/jsonwebtoken": "9.0.6",
     "@types/lodash": "4.17.7",
-    "@types/mime": "3.0.4",
     "@types/minimatch": "5.1.2",
     "@types/ms": "2.1.0",
     "@types/node": "20.14.12",

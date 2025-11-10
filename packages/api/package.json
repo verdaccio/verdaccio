@@ -50,8 +50,7 @@
     "@verdaccio/store": "workspace:8.0.0-next-8.24",
     "debug": "4.4.3",
     "express": "4.21.2",
-    "lodash": "4.17.21",
-    "mime": "2.6.0"
+    "lodash": "4.17.21"
   },
   "devDependencies": {
     "@verdaccio/test-helper": "workspace:4.0.0-next-8.8",
