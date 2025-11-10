@@ -78,7 +78,6 @@
     "react-hooks/exhaustive-deps": "warn",
     "verdaccio/jsx-no-style": ["warn"],
     "verdaccio/jsx-spread": ["warn"],
-    "jest/expect-expect": 0,
     "quote-props":["error", "as-needed"],
     "prefer-spread": 1,
     "linebreak-style": 0,
@@ -94,7 +93,6 @@
     "__DEBUG__": true
   },
   "env": {
-    "browser": true,
-    "jest/globals": true
+    "browser": true
   }
 }

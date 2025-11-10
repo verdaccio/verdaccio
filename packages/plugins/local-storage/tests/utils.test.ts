@@ -16,6 +16,7 @@ const logger: Logger = {
   warn: vi.fn(),
   http: vi.fn(),
   trace: vi.fn(),
+  fatal: vi.fn(),
 };
 
 describe('Utitlies', () => {
