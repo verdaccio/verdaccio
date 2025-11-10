@@ -11,7 +11,7 @@
     "outDir": "./build",
     "skipLibCheck": true,
     "jsx": "react",
-    "types": ["node", "@testing-library/jest-dom", "vitest/globals"]
+    "types": ["node", "@testing-library/jest-dom"]
   },
   "include": ["src/**/*"],
   "exclude": ["src/**/*.stories.tsx", "src/**/*.test.tsx", "src/**/*.test.ts"],
