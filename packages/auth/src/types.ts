@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import type { NextFunction, Request, Response } from 'express';
 
 import { VerdaccioError } from '@verdaccio/core';
 import { AuthPackageAllow, JWTSignOptions, Logger, RemoteUser } from '@verdaccio/types';

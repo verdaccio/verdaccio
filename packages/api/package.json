@@ -48,20 +48,18 @@
     "@verdaccio/logger": "workspace:8.0.0-next-8.24",
     "@verdaccio/middleware": "workspace:8.0.0-next-8.24",
     "@verdaccio/store": "workspace:8.0.0-next-8.24",
-    "abortcontroller-polyfill": "1.7.8",
-    "body-parser": "1.20.3",
-    "cookies": "0.9.1",
     "debug": "4.4.3",
     "express": "4.21.2",
     "lodash": "4.17.21",
-    "mime": "2.6.0",
-    "semver": "7.7.3"
+    "mime": "2.6.0"
   },
   "devDependencies": {
     "@verdaccio/test-helper": "workspace:4.0.0-next-8.8",
     "@verdaccio/types": "workspace:13.0.0-next-8.8",
     "mockdate": "3.0.5",
-    "supertest": "7.1.4"
+    "nock": "13.5.6",
+    "supertest": "7.1.4",
+    "vitest": "3.2.4"
   },
   "funding": {
     "type": "opencollective",

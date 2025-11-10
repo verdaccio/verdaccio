@@ -128,7 +128,7 @@ describe('<ActionBar /> component', () => {
     });
   });
 
-  test('when click button to download ', async () => {
+  test('when click button to download', async () => {
     renderWithStore(<ActionBar packageMeta={defaultPackageMeta} showRaw={false} />, store);
     fireEvent.click(screen.getByTestId('download-tarball-btn'));
     await waitFor(() => {

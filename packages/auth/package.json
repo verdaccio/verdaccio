@@ -55,7 +55,8 @@
     "@verdaccio/types": "workspace:13.0.0-next-8.8",
     "@verdaccio/logger": "workspace:8.0.0-next-8.24",
     "express": "4.21.2",
-    "supertest": "7.1.4"
+    "supertest": "7.1.4",
+    "vitest": "3.2.4"
   },
   "funding": {
     "type": "opencollective",
