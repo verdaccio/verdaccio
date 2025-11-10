@@ -540,8 +540,8 @@ importers:
         specifier: workspace:4.0.0-next-8.8
         version: link:../../packages/tools/helpers
       cypress:
-        specifier: 15.4.0
-        version: 15.4.0
+        specifier: 15.6.0
+        version: 15.6.0
       debug:
         specifier: 4.4.3
         version: 4.4.3(supports-color@5.5.0)
@@ -572,15 +572,6 @@ importers:
       '@verdaccio/store':
         specifier: workspace:8.0.0-next-8.24
         version: link:../store
-      abortcontroller-polyfill:
-        specifier: 1.7.8
-        version: 1.7.8
-      body-parser:
-        specifier: 1.20.3
-        version: 1.20.3
-      cookies:
-        specifier: 0.9.1
-        version: 0.9.1
       debug:
         specifier: 4.4.3
         version: 4.4.3(supports-color@5.5.0)
@@ -593,9 +584,6 @@ importers:
       mime:
         specifier: 2.6.0
         version: 2.6.0
-      semver:
-        specifier: 7.7.3
-        version: 7.7.3
     devDependencies:
       '@verdaccio/test-helper':
         specifier: workspace:4.0.0-next-8.8
@@ -606,9 +594,15 @@ importers:
       mockdate:
         specifier: 3.0.5
         version: 3.0.5
+      nock:
+        specifier: 13.5.6
+        version: 13.5.6
       supertest:
         specifier: 7.1.4
         version: 7.1.4
+      vitest:
+        specifier: 3.2.4
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.10.0)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.10.0)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
   packages/auth:
     dependencies:
@@ -649,6 +643,9 @@ importers:
       supertest:
         specifier: 7.1.4
         version: 7.1.4
+      vitest:
+        specifier: 3.2.4
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.10.0)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.10.0)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
   packages/cli:
     dependencies:
@@ -670,16 +667,19 @@ importers:
       envinfo:
         specifier: 7.19.0
         version: 7.19.0
-      kleur:
-        specifier: 4.1.5
-        version: 4.1.5
       semver:
         specifier: 7.7.3
         version: 7.7.3
     devDependencies:
+      '@verdaccio/types':
+        specifier: workspace:13.0.0-next-8.8
+        version: link:../core/types
       ts-node:
         specifier: 10.9.2
         version: 10.9.2(@types/node@24.10.0)(typescript@5.3.3)
+      vitest:
+        specifier: 3.2.4
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.10.0)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.10.0)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
   packages/config:
     dependencies:
@@ -695,13 +695,13 @@ importers:
       lodash:
         specifier: 4.17.21
         version: 4.17.21
-      minimatch:
-        specifier: 7.4.6
-        version: 7.4.6
     devDependencies:
-      '@types/minimatch':
-        specifier: 5.1.2
-        version: 5.1.2
+      '@verdaccio/types':
+        specifier: workspace:13.0.0-next-8.8
+        version: link:../core/types
+      vitest:
+        specifier: 3.2.4
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.10.0)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.10.0)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
   packages/core/core:
     dependencies:
@@ -803,16 +803,10 @@ importers:
       debug:
         specifier: 4.4.3
         version: 4.4.3(supports-color@5.5.0)
-      lodash:
-        specifier: 4.17.21
-        version: 4.17.21
       validator:
-        specifier: 13.15.15
-        version: 13.15.15
+        specifier: 13.15.22
+        version: 13.15.22
     devDependencies:
-      '@verdaccio/types':
-        specifier: workspace:13.0.0-next-8.8
-        version: link:../types
       node-mocks-http:
         specifier: 1.14.1
         version: 1.14.1
@@ -1871,8 +1865,8 @@ importers:
         specifier: 7.7.3
         version: 7.7.3
       validator:
-        specifier: 13.15.15
-        version: 13.15.15
+        specifier: 13.15.22
+        version: 13.15.22
     devDependencies:
       '@babel/core':
         specifier: 7.28.4
@@ -6238,18 +6232,9 @@ packages:
     peerDependencies:
       acorn: ^6.0.0 || ^7.0.0 || ^8.0.0
 
-  acorn-walk@8.2.0:
-    resolution: {integrity: sha512-k+iyHEuPgSw6SbuDpGQM+06HQUa04DZ3o+F6CSzXMvvI5KMvnaEqXe+YVe555R9nn6GPt404fos4wcgpw12SDA==}
-    engines: {node: '>=0.4.0'}
-
   acorn-walk@8.3.3:
     resolution: {integrity: sha512-MxXdReSRhGO7VlFe1bRG/oI7/mdLV9B9JJT0N8vZOhF7gFRR5l3M8W9G8JxmKV+JC5mGqJ0QvqfSOLsCPa4nUw==}
     engines: {node: '>=0.4.0'}
-
-  acorn@8.10.0:
-    resolution: {integrity: sha512-F0SAmZ8iUtS//m8DmCTA0jlh6TDKkHQyK6xc6V4KDTyZKA9dnvX9/3sRTVQrWm79glUAZbnmmNcdYwUIHWVybw==}
-    engines: {node: '>=0.4.0'}
-    hasBin: true
 
   acorn@8.12.1:
     resolution: {integrity: sha512-tcpGyI9zbizT9JbV6oYE477V6mTlXvvi0T0G3SNIYE2apm/G5huBa1+K89VGeovbg+jycCrfhl3ADxErOuO6Jg==}
@@ -7244,10 +7229,6 @@ packages:
   cookiejar@2.1.4:
     resolution: {integrity: sha512-LDx6oHrK+PhzLKJU9j5S7/Y3jM/mUHvD/DeI1WQmJn652iPC5Y4TBzC9l+5OMOXlyTTA+SmVUPm0HQUwpD5Jqw==}
 
-  cookies@0.9.1:
-    resolution: {integrity: sha512-TG2hpqe4ELx54QER/S3HQ9SRVnQnGBtKUz5bLQWtYAQ+o6GpgMs6sYUvaiJjVxb+UXwhRhAEP3m7LbsIZ77Hmw==}
-    engines: {node: '>= 0.8'}
-
   copy-text-to-clipboard@3.2.2:
     resolution: {integrity: sha512-T6SqyLd1iLuqPA90J5N4cTalrtovCySh58iiZDGJ6FGznbclKh4UI+FGacQSgFzwKG77W7XT5gwbVEbd9cIH1A==}
     engines: {node: '>=12'}
@@ -7472,8 +7453,8 @@ packages:
   csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
 
-  cypress@15.4.0:
-    resolution: {integrity: sha512-+GC/Y/LXAcaMCzfuM7vRx5okRmonceZbr0ORUAoOrZt/5n2eGK8yh04bok1bWSjZ32wRHrZESqkswQ6biArN5w==}
+  cypress@15.6.0:
+    resolution: {integrity: sha512-Vqo66GG1vpxZ7H1oDX9umfmzA3nF7Wy80QAc3VjwPREO5zTY4d1xfQFNPpOWleQl9vpdmR2z1liliOcYlRX6rQ==}
     engines: {node: ^20.1.0 || ^22.0.0 || >=24.0.0}
     hasBin: true
 
@@ -10043,10 +10024,6 @@ packages:
   katex@0.16.18:
     resolution: {integrity: sha512-LRuk0rPdXrecAFwQucYjMiIs0JFefk6N1q/04mlw14aVIVgxq1FO0MA9RiIIGVaKOB5GIP5GH4aBBNraZERmaQ==}
     hasBin: true
-
-  keygrip@1.1.0:
-    resolution: {integrity: sha512-iYSchDJ+liQ8iwbSI2QqsQOvqv58eJCEanyJPJi+Khyu8smkcKSFUCbPwzFcL7YVtZ6eONjqRX/38caJ7QjRAQ==}
-    engines: {node: '>= 0.6'}
 
   keyv@4.5.3:
     resolution: {integrity: sha512-QCiSav9WaX1PgETJ+SpNnx2PRRapJ/oRSXM4VO5OGYGSjrxbKPVFVhB3l2OCbLCk329N8qyAtsJjSjvVBWzEug==}
@@ -13275,11 +13252,6 @@ packages:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
     hasBin: true
 
-  semver@7.7.2:
-    resolution: {integrity: sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==}
-    engines: {node: '>=10'}
-    hasBin: true
-
   semver@7.7.3:
     resolution: {integrity: sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==}
     engines: {node: '>=10'}
@@ -14113,10 +14085,6 @@ packages:
   tslib@2.6.3:
     resolution: {integrity: sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==}
 
-  tsscmp@1.0.6:
-    resolution: {integrity: sha512-LxhtAkPDTkVCMQjt2h6eBVY28KCjikZqZfMcC15YBeNjkgUpdCfBu5HoiOTDu86v6smE8yOjyEktJ8hlbANHQA==}
-    engines: {node: '>=0.6.x'}
-
   tsutils@3.21.0:
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}
     engines: {node: '>= 6'}
@@ -14460,8 +14428,8 @@ packages:
     resolution: {integrity: sha512-OljLrQ9SQdOUqTaQxqL5dEfZWrXExyyWsozYlAWFawPVNuD83igl7uJD2RTkNMbniIYgt8l81eCJGIdQF7avLQ==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
 
-  validator@13.15.15:
-    resolution: {integrity: sha512-BgWVbCI72aIQy937xbawcs+hrVaN/CZ2UwutgaJ36hGqRrLNM+f5LUT/YPRbo8IV/ASeFzXszezV+y2+rq3l8A==}
+  validator@13.15.22:
+    resolution: {integrity: sha512-uT/YQjiyLJP7HSrv/dPZqK9L28xf8hsNca01HSz1dfmI0DgMfjopp1rO/z13NeGF1tVystF0Ejx3y4rUKPw+bQ==}
     engines: {node: '>= 0.10'}
 
   value-equal@1.0.1:
@@ -14946,6 +14914,7 @@ packages:
   yeoman-assert@3.1.1:
     resolution: {integrity: sha512-bCuLb/j/WzpvrJZCTdJJLFzm7KK8IYQJ3+dF9dYtNs2CUYyezFJDuULiZ2neM4eqjf45GN1KH/MzCTT3i90wUQ==}
     engines: {node: '>=4'}
+    deprecated: 'This package is deprecated. See: https://github.com/yeoman/yeoman/issues/1779'
 
   yeoman-environment@3.19.3:
     resolution: {integrity: sha512-/+ODrTUHtlDPRH9qIC0JREH8+7nsRcjDl3Bxn2Xo/rvAaVvixH5275jHwg0C85g4QsF4P6M2ojfScPPAl+pLAg==}
@@ -20609,13 +20578,9 @@ snapshots:
     dependencies:
       acorn: 8.15.0
 
-  acorn-walk@8.2.0: {}
-
   acorn-walk@8.3.3:
     dependencies:
       acorn: 8.14.0
-
-  acorn@8.10.0: {}
 
   acorn@8.12.1: {}
 
@@ -21728,11 +21693,6 @@ snapshots:
 
   cookiejar@2.1.4: {}
 
-  cookies@0.9.1:
-    dependencies:
-      depd: 2.0.0
-      keygrip: 1.1.0
-
   copy-text-to-clipboard@3.2.2: {}
 
   copy-webpack-plugin@11.0.0(webpack@5.102.1):
@@ -22015,7 +21975,7 @@ snapshots:
 
   csstype@3.1.3: {}
 
-  cypress@15.4.0:
+  cypress@15.6.0:
     dependencies:
       '@cypress/request': 3.0.9
       '@cypress/xvfb': 1.2.4(supports-color@8.1.1)
@@ -22053,7 +22013,7 @@ snapshots:
       process: 0.11.10
       proxy-from-env: 1.0.0
       request-progress: 3.0.0
-      semver: 7.7.2
+      semver: 7.7.3
       supports-color: 8.1.1
       systeminformation: 5.27.7
       tmp: 0.2.5
@@ -25228,10 +25188,6 @@ snapshots:
   katex@0.16.18:
     dependencies:
       commander: 8.3.0
-
-  keygrip@1.1.0:
-    dependencies:
-      tsscmp: 1.0.6
 
   keyv@4.5.3:
     dependencies:
@@ -28683,8 +28639,6 @@ snapshots:
 
   semver@6.3.1: {}
 
-  semver@7.7.2: {}
-
   semver@7.7.3: {}
 
   send@0.19.0:
@@ -29646,8 +29600,8 @@ snapshots:
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.3
       '@types/node': 20.14.12
-      acorn: 8.10.0
-      acorn-walk: 8.2.0
+      acorn: 8.15.0
+      acorn-walk: 8.3.3
       arg: 4.1.3
       create-require: 1.1.1
       diff: 4.0.2
@@ -29664,8 +29618,8 @@ snapshots:
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.3
       '@types/node': 24.10.0
-      acorn: 8.10.0
-      acorn-walk: 8.2.0
+      acorn: 8.15.0
+      acorn-walk: 8.3.3
       arg: 4.1.3
       create-require: 1.1.1
       diff: 4.0.2
@@ -29690,8 +29644,6 @@ snapshots:
   tslib@1.14.1: {}
 
   tslib@2.6.3: {}
-
-  tsscmp@1.0.6: {}
 
   tsutils@3.21.0(typescript@5.3.3):
     dependencies:
@@ -30039,7 +29991,7 @@ snapshots:
 
   validate-npm-package-name@5.0.1: {}
 
-  validator@13.15.15: {}
+  validator@13.15.22: {}
 
   value-equal@1.0.1: {}
 
