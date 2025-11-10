@@ -1996,7 +1996,7 @@ describe('storage', () => {
         ).rejects.toThrow(errorUtils.getServiceUnavailable(API_ERROR.SERVER_TIME_OUT));
       });
 
-      test('should fetch abbreviated version of manifest ', async () => {
+      test('should fetch abbreviated version of manifest', async () => {
         const fooManifest = generateLocalPackageMetadata('foo', '1.0.0');
         nock(domain).get('/foo').reply(201, fooManifest);
         const config = new Config(

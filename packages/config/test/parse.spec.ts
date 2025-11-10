@@ -12,7 +12,7 @@ describe('getConfigParsed', () => {
     expect(config).toBeDefined();
   });
 
-  test('parses config from a YAML file path', () => {
+  test('parses config from JSON', () => {
     const yamlFile = path.join(partialsDir, 'config-getMatchedPackagesSpec.yaml');
     const config = getConfigParsed(parseConfigFile(yamlFile));
     expect(config).toBeDefined();

@@ -11,7 +11,7 @@
     "preserveSymlinks": true,
     "jsx": "react",
     "allowJs": true,
-    "types": ["node", "@testing-library/jest-dom"]
+    "types": ["node", "@testing-library/jest-dom", "vitest/globals"]
   },
   "include": ["src/**/*"],
   "exclude": [

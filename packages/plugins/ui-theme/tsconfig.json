@@ -10,6 +10,7 @@
     "sourceMap": true,
     "checkJs": false,
     "baseUrl": ".",
+    "types": ["vitest/globals"],
     "paths": {
       "verdaccio-ui/components/*": ["src/components/*"],
       "verdaccio-ui/utils/*": ["src/utils/*"]

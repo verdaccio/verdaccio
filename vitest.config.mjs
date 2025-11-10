@@ -6,5 +6,6 @@ export default defineConfig({
     coverage: {
       exclude: ['./build', 'test'],
     },
+    globals: true,
   },
 });

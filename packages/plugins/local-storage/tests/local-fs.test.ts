@@ -28,6 +28,7 @@ const logger: Logger = {
   warn: vi.fn(),
   http: vi.fn(),
   trace: vi.fn(),
+  fatal: vi.fn(),
 };
 
 vi.setConfig({ testTimeout: 20000 });
