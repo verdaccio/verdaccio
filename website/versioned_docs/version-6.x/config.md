@@ -330,7 +330,22 @@ https:
 
 ### Proxy {#proxy}
 
-Proxies are special-purpose HTTP servers designed to transfer data from remote servers to local clients. You can define a HTTP or HTTPS proxy in the main configuration or separately for each uplink. The definition for uplinks have higher priority. The proxy protocol (http or https) has to match the protocol of the registry URL.
+Proxies are special-purpose HTTP servers designed to transfer data from remote servers to local clients. You can define a HTTP or HTTPS proxy in the main configuration or separately for each uplink. The definition for uplinks have higher priority.
+
+:::note
+
+The proxy configuration key (`http_proxy` or `https_proxy`) has to match the protocol of the registry or uplink URLs!
+
+For example, to use a proxy for npm i.e. `https://registry.npmjs.com`, then you have to use `https_proxy` in your configuration to specify you proxy URL (no matter if it's `http` or `https`).
+
+```yaml
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
+    https_proxy: http://my.proxy.local/
+```
+
+:::
 
 #### http_proxy and https_proxy {#http_proxy-and-https_proxy}
 
