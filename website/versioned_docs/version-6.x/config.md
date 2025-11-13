@@ -334,9 +334,9 @@ Proxies are special-purpose HTTP servers designed to transfer data from remote s
 
 :::note
 
-The proxy configuration key (`http_proxy` or `https_proxy`) has to match the protocol of the registry or uplink URLs!
+The proxy configuration key (`http_proxy` or `https_proxy`) has to match the protocol of the uplink URL!
 
-For example, to use a proxy for npm i.e. `https://registry.npmjs.com`, then you have to use `https_proxy` in your configuration to specify you proxy URL (no matter if it's `http` or `https`).
+For example, to use a proxy for npm i.e. `https://registry.npmjs.com`, then you have to use `https_proxy` in your configuration to specify you proxy URL (no matter if the proxy uses `http` or `https`).
 
 ```yaml
 uplinks:
