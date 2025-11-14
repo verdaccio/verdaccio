@@ -45,7 +45,7 @@
     "@orama/orama": "1.2.4",
     "debug": "4.4.3",
     "esbuild": "0.25.10",
-    "vitest": "3.2.4"
+    "vitest": "4.0.9"
   },
   "funding": {
     "type": "opencollective",
