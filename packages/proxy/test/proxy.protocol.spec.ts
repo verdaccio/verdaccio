@@ -28,60 +28,47 @@ describe('Check protocol of proxy', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
-  test('validate main config protocol - http', () => {
+  test('main config - http registry, http proxy', () => {
     expect(
-      getProxyInstance(
-        'http://registry.domain.org',
-        { http_proxy: 'http://registry.local.org' },
-        {}
-      ).proxy
-    ).toEqual('http://registry.local.org');
+      getProxyInstance('http://registry.domain.org', { http_proxy: 'http://proxy.local' }, {}).proxy
+    ).toEqual('http://proxy.local');
   });
-  test('main config invalid protocol - http', () => {
+  test('main config - http registry, https proxy', () => {
     expect(
-      getProxyInstance(
-        'http://registry.domain.org',
-        { http_proxy: 'https://registry.local.org' },
-        {}
-      ).proxy
-    ).toEqual(undefined);
-    expect(mockError).toHaveBeenCalledOnce();
+      getProxyInstance('http://registry.domain.org', { http_proxy: 'https://proxy.local' }, {})
+        .proxy
+    ).toEqual('https://proxy.local');
   });
-  test('main config invalid protocol - https', () => {
+  test('main config invalid config key - http registry', () => {
     expect(
-      getProxyInstance(
-        'https://registry.domain.org',
-        { https_proxy: 'http://registry.local.org' },
-        {}
-      ).proxy
+      getProxyInstance('http://registry.domain.org', { https_proxy: 'anything' }, {}).proxy
     ).toEqual(undefined);
-    expect(mockError).toHaveBeenCalledOnce();
+  });
+  test('main config invalid config key - https registry', () => {
+    expect(
+      getProxyInstance('https://registry.domain.org', { http_proxy: 'anything' }, {}).proxy
+    ).toEqual(undefined);
   });
 
-  test('validate uplink config protocol - http', () => {
+  test('uplink config - http registry, http proxy', () => {
     expect(
-      getProxyInstance(
-        'https://registry.domain.org',
-        {},
-        { https_proxy: 'https://proxy.domain.org' }
-      ).proxy
-    ).toEqual('https://proxy.domain.org');
+      getProxyInstance('http://registry.domain.org', {}, { http_proxy: 'http://proxy.local' }).proxy
+    ).toEqual('http://proxy.local');
   });
-  test('uplink config invalid protocol - http', () => {
+  test('uplink config - http registry, https proxy', () => {
     expect(
-      getProxyInstance('http://registry.domain.org', {}, { http_proxy: 'https://proxy.domain.org' })
+      getProxyInstance('http://registry.domain.org', {}, { http_proxy: 'https://proxy.local' })
         .proxy
-    ).toEqual(undefined);
-    expect(mockError).toHaveBeenCalledOnce();
+    ).toEqual('https://proxy.local');
   });
-  test('uplink config invalid protocol - https', () => {
+  test('uplink config invalid config key - http registry', () => {
     expect(
-      getProxyInstance(
-        'https://registry.domain.org',
-        {},
-        { https_proxy: 'http://proxy.domain.org' }
-      ).proxy
+      getProxyInstance('http://registry.domain.org', {}, { https_proxy: 'anything' }).proxy
     ).toEqual(undefined);
-    expect(mockError).toHaveBeenCalledOnce();
+  });
+  test('uplink config invalid config key - https registry', () => {
+    expect(
+      getProxyInstance('https://registry.domain.org', {}, { http_proxy: 'anything' }).proxy
+    ).toEqual(undefined);
   });
 });
