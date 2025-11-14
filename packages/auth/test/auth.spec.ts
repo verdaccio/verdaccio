@@ -603,16 +603,16 @@ describe('AuthTest', () => {
         app.use(express.json({ strict: false, limit: '10mb' }));
 
         app.use(auth.apiJWTmiddleware());
-        app.use(errorReportingMiddleware(logger));
+        app.use(errorReportingMiddleware(logger) as any);
         app.get('/*', (req, res, next) => {
           if ((req as $RequestExtend).remote_user.error) {
             next(new Error((req as $RequestExtend).remote_user.error));
           } else {
-            next({ user: req?.remote_user });
+            next({ user: (req as $RequestExtend).remote_user });
           }
         });
-        app.use(handleError(logger));
-        app.use(final);
+        app.use(handleError(logger) as any);
+        app.use(final as any);
         return app;
       };
 
