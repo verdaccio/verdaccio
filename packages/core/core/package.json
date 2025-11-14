@@ -38,6 +38,7 @@
     "http-status-codes": "2.3.0",
     "minimatch": "7.4.6",
     "process-warning": "1.0.0",
+    "sanitize-filename": "1.6.3",
     "semver": "7.7.3"
   },
   "devDependencies": {
