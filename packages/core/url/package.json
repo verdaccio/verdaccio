@@ -35,7 +35,7 @@
   "dependencies": {
     "@verdaccio/core": "workspace:8.0.0-next-8.24",
     "debug": "4.4.3",
-    "validator": "13.15.22"
+    "validator": "13.15.23"
   },
   "devDependencies": {
     "node-mocks-http": "1.14.1",
