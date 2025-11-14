@@ -1,5 +1,23 @@
 # @verdaccio/store
 
+## 8.0.0-next-8.25
+
+### Patch Changes
+
+- b24f513: chore(lint): switch rules from jest to vitest
+- Updated dependencies [3aff890]
+- Updated dependencies [265c94a]
+- Updated dependencies [b24f513]
+  - @verdaccio/url@13.0.0-next-8.25
+  - @verdaccio/config@8.0.0-next-8.25
+  - @verdaccio/proxy@8.0.0-next-8.25
+  - @verdaccio/local-storage@13.0.0-next-8.25
+  - @verdaccio/tarball@13.0.0-next-8.25
+  - @verdaccio/loaders@8.0.0-next-8.15
+  - @verdaccio/search@8.0.0-next-8.25
+  - @verdaccio/core@8.0.0-next-8.25
+  - @verdaccio/logger@8.0.0-next-8.25
+
 ## 8.0.0-next-8.24
 
 ### Patch Changes

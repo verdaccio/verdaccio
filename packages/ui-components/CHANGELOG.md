@@ -1,5 +1,13 @@
 # @verdaccio/ui-components
 
+## 4.0.0-next-8.12
+
+### Patch Changes
+
+- b24f513: chore(lint): switch rules from jest to vitest
+- 6d1a84a: chore(deps): node-api, fastify, ui-comp, web
+- 05c8e51: fix(ui): regression after mui 7 upgrade
+
 ## 4.0.0-next-8.11
 
 ### Patch Changes
