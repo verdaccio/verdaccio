@@ -55,7 +55,7 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
   pluginCategory: string = 'unknown'
 ): Promise<PluginType<T>[]> {
   const logger = pluginOptions?.logger;
-  const pluginsIds = Object.keys(pluginConfigs);
+  const pluginsIds = Object.keys(pluginConfigs || {});
   const { config } = pluginOptions;
   let plugins: PluginType<T>[] = [];
   for (let pluginId of pluginsIds) {
