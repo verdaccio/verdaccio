@@ -1956,10 +1956,9 @@ describe('storage', () => {
       });
 
       test('should get ETIMEDOUT with uplink', { retry: 3 }, async () => {
-        nock(domain).get('/foo3').replyWithError({
-          code: 'ETIMEDOUT',
-          error: 'ETIMEDOUT',
-        });
+        const timeoutErr: any = new Error('ETIMEDOUT');
+        timeoutErr.code = 'ETIMEDOUT';
+        nock(domain).get('/foo3').replyWithError(timeoutErr);
         const config = new Config(
           configExample({
             ...getDefaultConfig(),
