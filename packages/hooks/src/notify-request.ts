@@ -45,13 +45,18 @@ export async function notifyRequest(url: string, options: FetchOptions): Promise
     };
 
     let finalUrl = url;
-    if (method === 'GET' && options.body && typeof options.body === 'object') {
+    if (method === 'GET') {
+      debug('using GET with query params');
       const urlObj = new URL(url);
-      urlObj.search = new URLSearchParams(options.body).toString();
+      const params = new URLSearchParams(options.body);
+      params.set('body', options.body);
+      urlObj.search = params.toString();
       finalUrl = urlObj.toString();
       debug('final url with search params %o', finalUrl);
-    } else if (options.body !== undefined && method !== 'GET') {
+    } else if (options.body !== undefined) {
       requestOptions.body = JSON.stringify(options.body);
+    } else {
+      throw new Error('Notification body is undefined');
     }
 
     response = await got(finalUrl, {

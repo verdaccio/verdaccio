@@ -130,7 +130,21 @@ describe('Notifications', () => {
   });
 
   test('when sending a single notification GET', async () => {
-    nock(domain).get(options.path).reply(200);
+    nock(domain)
+      .get('/foo')
+      .query((actualQueryObject) => {
+        // do some compare with the actual Query Object
+        // return true for matched
+        expect(JSON.parse(actualQueryObject.body as string)).toEqual({
+          color: 'green',
+          message: 'New package published: * bar*',
+          message_format: 'text',
+          notify: true,
+        });
+        // return false for not matched
+        return true;
+      })
+      .reply(200);
     const config = parseConfigFile(
       parseConfigurationNotifyFile('single.header.get.notify')
     ) as Partial<Config>;
