@@ -133,15 +133,12 @@ describe('Notifications', () => {
     nock(domain)
       .get('/foo')
       .query((actualQueryObject) => {
-        // do some compare with the actual Query Object
-        // return true for matched
         expect(JSON.parse(actualQueryObject.body as string)).toEqual({
           color: 'green',
           message: 'New package published: * bar*',
           message_format: 'text',
           notify: true,
         });
-        // return false for not matched
         return true;
       })
       .reply(200);
