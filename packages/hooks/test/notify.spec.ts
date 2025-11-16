@@ -80,6 +80,35 @@ describe('Notifications', () => {
     expect(notificationResponse).toEqual([true]);
   });
 
+  test('when sending a single notification with packagePattern', async () => {
+    nock(domain)
+      .post(options.path, (body) => {
+        expect(body).toEqual(
+          '{"color":"green","message":"New package published: * verdaccio*","notify":true,"message_format":"text"}'
+        );
+        return true;
+      })
+      .reply(200);
+    const config = parseConfigFile(
+      parseConfigurationNotifyFile('single.header.post.notify')
+    ) as Partial<Config>;
+    const notificationResponse = await notify(
+      generatePackageMetadata('verdaccio', '1.0.0'),
+      {
+        notify: {
+          ...config.notify,
+          // @ts-expect-error regex is valid
+          packagePattern: 'verdaccio*',
+          packagePatternFlags: 'g',
+        },
+      },
+      createRemoteUser('foo', []),
+      'verdaccio'
+    );
+
+    expect(notificationResponse).toEqual([true]);
+  });
+
   test('when sending a single notification PUT', async () => {
     nock(domain)
       .put(options.path, (body) => {

@@ -37,11 +37,20 @@ export async function handleNotify(
   publishedPackage: string
 ): Promise<boolean> {
   let regex;
-  if (metadata.name && notifyEntry.packagePattern) {
-    regex = new RegExp(notifyEntry.packagePattern, notifyEntry.packagePatternFlags || '');
-    if (!regex.test(metadata.name)) {
-      return false;
+  try {
+    if (metadata.name && notifyEntry.packagePattern) {
+      debug('checking package pattern %o', notifyEntry.packagePattern);
+      debug('checking package pattern flags %o', notifyEntry.packagePatternFlags);
+      regex = new RegExp(notifyEntry.packagePattern, notifyEntry.packagePatternFlags ?? '');
+      if (!regex.test(metadata.name)) {
+        logger.debug('Notification exclude does not match %o', metadata.name);
+        return false;
+      }
+      debug('package pattern matched %o', metadata.name);
     }
+  } catch (error: any) {
+    logger.error('Invalid regex pattern or flags: %o', error?.message);
+    return false;
   }
 
   let content;
