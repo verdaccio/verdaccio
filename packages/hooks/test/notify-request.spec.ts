@@ -55,6 +55,24 @@ describe('Notifications', () => {
     expect(notificationResponse).toEqual([true]);
   });
 
+  test('when single notification is invalid, returns false', async () => {
+    const invalidNotificationConfig = {
+      notify: {
+        foo: 'bar',
+      },
+    };
+
+    const responses = await notify(
+      generatePackageMetadata('bar'),
+      // @ts-expect-error notify expects Config but we are testing partial config
+      invalidNotificationConfig,
+      { name: 'foo' },
+      'bar'
+    );
+
+    expect(responses).toEqual([false]);
+  });
+
   test('when endpoint fails with 400', async () => {
     nock(domain)
       .post(options.path, (body) => {
@@ -120,5 +138,25 @@ describe('Notifications', () => {
       'bar'
     );
     expect(responses).toEqual([true, false, false]);
+  });
+
+  test('when all notifications are invalid, returns all false', async () => {
+    const invalidNotifications = {
+      notify: {
+        first: { foo: 'bar' },
+        second: { endpoint: 'http://domain.com' },
+        third: { content: 'template' },
+      },
+    };
+
+    const responses = await notify(
+      generatePackageMetadata('bar'),
+      // @ts-expect-error notify expects Config but we are testing partial config
+      invalidNotifications,
+      { name: 'foo' },
+      'bar'
+    );
+
+    expect(responses).toEqual([false, false, false]);
   });
 });

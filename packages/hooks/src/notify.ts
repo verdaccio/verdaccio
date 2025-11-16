@@ -129,20 +129,26 @@ export async function notify(
   } else {
     try {
       debug('send multiples notification');
+      const notificationEntries = Object.entries(notification).filter(([, item]) =>
+        isHasNotification(item)
+      );
+      debug('valid notification entries %o', notificationEntries.length);
+      if (notificationEntries.length === 0) {
+        // No valid notifications, return false for each entry
+        return Object.keys(notification).map(() => false);
+      }
+      debug('sending %o notifications', notificationEntries.length);
       const results = await Promise.allSettled(
-        Object.keys(notification).map((keyId: string) => {
-          const item = notification[keyId] as Notification;
-          debug('send item %o', item);
-          return sendNotification(metadata, item, remoteUser, publishedPackage);
-        })
+        notificationEntries.map(([, item]) =>
+          sendNotification(metadata, item, remoteUser, publishedPackage)
+        )
       ).catch((error) => {
         logger.error({ error }, 'notify request has failed: @error');
       });
       if (!results) {
         return [];
       }
-
-      return Object.keys(results).map((promiseValue) => results[promiseValue].value);
+      return results.map((result) => (result.status === 'fulfilled' ? result.value : false));
     } catch (error) {
       debug('error on sending multiple notification %o', error);
       return Object.keys(notification).map(() => false);
