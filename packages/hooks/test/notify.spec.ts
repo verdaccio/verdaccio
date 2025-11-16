@@ -28,12 +28,37 @@ describe('Notifications', () => {
 
   test('when sending a empty notification', async () => {
     nock(domain).post(options.path).reply(200, { body: 'test' });
-    // @ts-expect-error notify expects Config but we are testing invalid config
-    const notificationResponse = await notify({}, {}, createRemoteUser('foo', []), 'bar');
+
+    const notificationResponse = await notify(
+      generatePackageMetadata('bar'),
+      // @ts-expect-error notify expects Config but we are testing invalid config
+      {},
+      createRemoteUser('foo', []),
+      'bar'
+    );
     expect(notificationResponse).toEqual([false]);
   });
 
-  test('when sending a single notification', async () => {
+  test('when template is invalid', async () => {
+    nock(domain).post(options.path).reply(200, { body: 'test' });
+    const config = parseConfigFile(parseConfigurationNotifyFile('single.header.post.notify'));
+    const notificationResponse = await notify(
+      generatePackageMetadata('bar'),
+
+      {
+        // @ts-expect-error notify expects Config but we are testing partial config
+        notify: {
+          ...config.notify,
+          content: 'invalid format {{{{',
+        },
+      },
+      createRemoteUser('foo', []),
+      'bar'
+    );
+    expect(notificationResponse).toEqual([false]);
+  });
+
+  test('when sending a single notification POST', async () => {
     nock(domain)
       .post(options.path, (body) => {
         expect(body).toEqual(
@@ -43,7 +68,71 @@ describe('Notifications', () => {
       })
       .reply(200);
     const config = parseConfigFile(
-      parseConfigurationNotifyFile('single.header.notify')
+      parseConfigurationNotifyFile('single.header.post.notify')
+    ) as Partial<Config>;
+    const notificationResponse = await notify(
+      generatePackageMetadata('bar', '1.0.0'),
+      // @ts-expect-error notify expects Config but we are testing partial config
+      config,
+      createRemoteUser('foo', []),
+      'bar'
+    );
+    expect(notificationResponse).toEqual([true]);
+  });
+
+  test('when sending a single notification PUT', async () => {
+    nock(domain)
+      .put(options.path, (body) => {
+        expect(body).toEqual(
+          '{"color":"green","message":"New package published: * bar*","notify":true,"message_format":"text"}'
+        );
+        return true;
+      })
+      .reply(200);
+    const config = parseConfigFile(
+      parseConfigurationNotifyFile('single.header.put.notify')
+    ) as Partial<Config>;
+    const notificationResponse = await notify(
+      generatePackageMetadata('bar', '1.0.0'),
+      // @ts-expect-error notify expects Config but we are testing partial config
+      config,
+      createRemoteUser('foo', []),
+      'bar'
+    );
+    expect(notificationResponse).toEqual([true]);
+  });
+
+  test('fallback to POST if method is invalid', async () => {
+    nock(domain)
+      .post(options.path, (body) => {
+        expect(body).toEqual(
+          '{"color":"green","message":"New package published: * bar*","notify":true,"message_format":"text"}'
+        );
+        return true;
+      })
+      .reply(200);
+    const config = parseConfigFile(
+      parseConfigurationNotifyFile('single.header.post.notify')
+    ) as Partial<Config>;
+    const notificationResponse = await notify(
+      generatePackageMetadata('bar', '1.0.0'),
+      {
+        // @ts-expect-error notify expects Config but we are testing partial config
+        notify: {
+          ...config.notify,
+          method: 'INVALID_METHOD',
+        },
+      },
+      createRemoteUser('foo', []),
+      'bar'
+    );
+    expect(notificationResponse).toEqual([true]);
+  });
+
+  test('when sending a single notification GET', async () => {
+    nock(domain).get(options.path).reply(200);
+    const config = parseConfigFile(
+      parseConfigurationNotifyFile('single.header.get.notify')
     ) as Partial<Config>;
     const notificationResponse = await notify(
       generatePackageMetadata('bar', '1.0.0'),
@@ -83,7 +172,7 @@ describe('Notifications', () => {
       })
       .reply(400, { error: 'bad request local server' });
     const config = parseConfigFile(
-      parseConfigurationNotifyFile('single.header.notify')
+      parseConfigurationNotifyFile('single.header.post.notify')
     ) as Partial<Config>;
     const notificationResponse = await notify(
       generatePackageMetadata('bar', '1.0.0'),

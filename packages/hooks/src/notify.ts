@@ -20,7 +20,11 @@ export function compileTemplate(content, metadata) {
         return resolve(template(metadata));
       }
     } catch (error: any) {
-      debug('error  template handler %o', error);
+      debug('error  template handler %o', error?.message);
+      logger.error(
+        { error: error.message },
+        'notification template compilation has failed: @{error}'
+      );
       reject(error);
     }
   });
