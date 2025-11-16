@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import got from 'got-cjs';
+import got, { Method } from 'got-cjs';
 
 import { HTTP_STATUS } from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
@@ -12,18 +12,37 @@ export type FetchOptions = {
   method?: string;
 };
 
+export function verifyMethod(value: any): Method {
+  const valid: Method[] = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'];
+
+  if (typeof value === 'string') {
+    const upper = value.toUpperCase() as Method;
+
+    if (valid.includes(upper)) {
+      return upper;
+    }
+  }
+
+  return 'POST';
+}
+
 export async function notifyRequest(url: string, options: FetchOptions): Promise<boolean> {
   let response;
   try {
+    const method: Method = verifyMethod(options.method);
     debug('uri %o', url);
+    debug('headers %o', options.headers);
+    debug('method %o', method);
     response = got.post(url, {
       body: JSON.stringify(options.body),
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method,
+      headers: options.headers ?? { 'Content-Type': 'application/json' },
     });
-    debug('response.status  %o', response.status);
     const body = await response.json();
-    if (response.status >= HTTP_STATUS.BAD_REQUEST) {
+    debug('response.status %o', body.statusCode);
+
+    // in case service do not throw error
+    if (body.statusCode >= HTTP_STATUS.BAD_REQUEST) {
       throw new Error(body);
     }
 
@@ -33,7 +52,7 @@ export async function notifyRequest(url: string, options: FetchOptions): Promise
     );
     return true;
   } catch (err: any) {
-    debug('request error %o', err);
+    debug('request error %o:', err?.message);
     logger.error(
       { errorMessage: err?.message },
       'notify service has thrown an error: @{errorMessage}'

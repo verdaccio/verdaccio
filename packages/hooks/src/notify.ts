@@ -3,7 +3,7 @@ import buildDebug from 'debug';
 import Handlebars from 'handlebars';
 
 import { logger } from '@verdaccio/logger';
-import { Config, Notification, Package, RemoteUser } from '@verdaccio/types';
+import { Config, Manifest, Notification, RemoteUser } from '@verdaccio/types';
 
 import { FetchOptions, notifyRequest } from './notify-request';
 
@@ -27,7 +27,7 @@ export function compileTemplate(content, metadata) {
 }
 
 export async function handleNotify(
-  metadata: Partial<Package>,
+  metadata: Partial<Manifest>,
   notifyEntry,
   remoteUser: Partial<RemoteUser>,
   publishedPackage: string
@@ -51,7 +51,7 @@ export async function handleNotify(
   }
 
   const options: FetchOptions = {
-    body: JSON.stringify(content),
+    body: content,
   };
 
   // provides fallback support, it's accept an Object {} and Array of {}
@@ -85,7 +85,7 @@ export async function handleNotify(
 }
 
 export function sendNotification(
-  metadata: Partial<Package>,
+  metadata: Manifest,
   notify: Notification,
   remoteUser: Partial<RemoteUser>,
   publishedPackage: string
@@ -93,47 +93,59 @@ export function sendNotification(
   return handleNotify(metadata, notify, remoteUser, publishedPackage) as Promise<any>;
 }
 
+function isHasNotification(value: any): value is Notification {
+  return value && typeof value === 'object' && 'endpoint' in value && 'content' in value;
+}
+
 export async function notify(
-  metadata: Partial<Package>,
-  config: Partial<Config>,
-  remoteUser: Partial<RemoteUser>,
+  metadata: Manifest,
+  config: Config,
+  remoteUser: RemoteUser,
   publishedPackage: string
 ): Promise<boolean[]> {
   debug('init send notification');
-  if (config.notify) {
-    const isSingle = Object.keys(config.notify).includes('method');
-    if (isSingle) {
-      debug('send single notification');
-      try {
-        const response = await sendNotification(
-          metadata,
-          config.notify as Notification,
-          remoteUser,
-          publishedPackage
-        );
-        return [response];
-      } catch {
-        debug('error on sending single notification');
-        return [false];
-      }
-    } else {
+  const notification = config?.notify;
+  if (!notification) {
+    debug('no notify configuration detected');
+    return [false];
+  }
+
+  const isSingle = isHasNotification(notification);
+  debug('is single notify %o', isSingle);
+  if (isSingle) {
+    debug('send single notification');
+    try {
+      const response = await sendNotification(
+        metadata,
+        config.notify as Notification,
+        remoteUser,
+        publishedPackage
+      );
+      return [response];
+    } catch {
+      debug('error on sending single notification');
+      return [false];
+    }
+  } else {
+    try {
       debug('send multiples notification');
       const results = await Promise.allSettled(
-        Object.keys(config.notify).map((keyId: string) => {
-          // @ts-ignore
-          const item = config.notify[keyId];
+        Object.keys(notification).map((keyId: string) => {
+          const item = notification[keyId] as Notification;
           debug('send item %o', item);
           return sendNotification(metadata, item, remoteUser, publishedPackage);
         })
       ).catch((error) => {
         logger.error({ error }, 'notify request has failed: @error');
       });
+      if (!results) {
+        return [];
+      }
 
-      // @ts-ignore
       return Object.keys(results).map((promiseValue) => results[promiseValue].value);
+    } catch (error) {
+      debug('error on sending multiple notification %o', error);
+      return Object.keys(notification).map(() => false);
     }
-  } else {
-    debug('no notifications configuration detected');
-    return [false];
   }
 }
