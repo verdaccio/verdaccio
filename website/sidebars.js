@@ -53,6 +53,12 @@ module.exports = {
           label: 'User Interface',
           items: ['webui', 'ui-components'],
         },
+        'plugins',
+        {
+          type: 'link',
+          label: 'Search for Plugins & Tools',
+          href: '/dev/plugins-search',
+        },
       ],
     },
     {
@@ -68,18 +74,12 @@ module.exports = {
           type: 'category',
           label: 'Plugins',
           items: [
-            'plugins',
             'plugin-generator',
             'plugin-auth',
             'plugin-middleware',
             'plugin-storage',
             'plugin-theme',
             'plugin-filter',
-            {
-              type: 'link',
-              label: 'Search for Plugins & Tools',
-              href: '/dev/plugins-search',
-            },
           ],
         },
         'node-api',

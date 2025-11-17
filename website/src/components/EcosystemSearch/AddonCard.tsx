@@ -47,6 +47,7 @@ const AddonCard: FC<Addon> = ({
           title={name}
           disableTypography={false}
           titleTypographyProps={{ variants: 'outline' }}
+          sx={{ paddingBottom: 1 }}
           avatar={
             <Avatar
               alt={name}
@@ -67,8 +68,8 @@ const AddonCard: FC<Addon> = ({
         />
         <CardContent>
           <Grid container>
-            <Grid xs={12} sx={{ padding: theme.spacing(1) }}>
-              <Content sx={{ minHeight: '100px' }}>
+            <Grid xs={12}>
+              <Content sx={{ minHeight: '60px' }}>
                 <Typography variant="body2" color="text.secondary">
                   {description}
                 </Typography>
@@ -76,10 +77,10 @@ const AddonCard: FC<Addon> = ({
             </Grid>
           </Grid>
         </CardContent>
-        <CardActions>
+        <CardActions sx={{ paddingTop: 1, paddingBottom: 1 }}>
           <Grid
             container
-            spacing={{ xs: 3, md: 1 }}
+            spacing={{ xs: 2, md: 1 }}
             justifyContent={{ sm: 'flex-end', xl: 'space-between' }}
             width="100%"
           >

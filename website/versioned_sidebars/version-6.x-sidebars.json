@@ -40,7 +40,20 @@
     {
       "type": "category",
       "label": "Features",
-      "items": ["uplinks", "packages", "authentication", "notifications", "logger", "webui"]
+      "items": [
+        "uplinks",
+        "packages",
+        "authentication",
+        "notifications",
+        "logger",
+        "webui",
+        "plugins",
+        {
+          "type": "link",
+          "label": "Search for Plugins & Tools",
+          "href": "/dev/plugins-search"
+        }
+      ]
     },
     {
       "type": "category",
@@ -55,18 +68,12 @@
           "type": "category",
           "label": "Plugins",
           "items": [
-            "plugins",
             "plugin-generator",
             "plugin-auth",
             "plugin-middleware",
             "plugin-storage",
             "plugin-theme",
-            "plugin-filter",
-            {
-              "type": "link",
-              "label": "Search for Plugins & Tools",
-              "href": "/dev/plugins-search"
-            }
+            "plugin-filter"
           ]
         },
         "node-api"
