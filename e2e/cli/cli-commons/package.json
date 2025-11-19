@@ -11,7 +11,7 @@
     "fs-extra": "11.2.0",
     "get-port": "5.1.1",
     "got": "11.8.6",
-    "js-yaml": "4.1.0",
+    "js-yaml": "4.1.1",
     "lodash": "4.17.21",
     "verdaccio": "workspace:8.0.0-next-8.25"
   },
