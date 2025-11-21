@@ -3,12 +3,13 @@ import type { HttpError } from 'http-errors';
 import _ from 'lodash';
 
 import { API_ERROR, HTTP_STATUS, VerdaccioError } from '@verdaccio/core';
+import type { Logger } from '@verdaccio/types';
 
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
 
 const debug = buildDebug('verdaccio:middleware:error');
 
-export const handleError = (logger) =>
+export const handleError = (logger: Logger) =>
   function handleError(
     err: HttpError,
     req: $RequestExtend,
@@ -37,7 +38,7 @@ export const handleError = (logger) =>
   };
 
 // Middleware
-export const errorReportingMiddleware = (logger) =>
+export const errorReportingMiddleware = (logger: Logger) =>
   function errorReportingMiddleware(
     req: $RequestExtend,
     res: $ResponseExtend,

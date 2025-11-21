@@ -7,24 +7,24 @@ import { validateName, validatePackage } from '../src';
 import { getApp } from './helper';
 
 describe('validate package name middleware', () => {
-  test.each(['jquery', '-'])('%s should be valid package name', (pkg) => {
+  test.each(['jquery', '-'])('%s should be valid package name', async (pkg) => {
     const app = getApp([]);
     app.param('pkg', validatePackage);
     app.get('/:pkg', (_req, res) => {
       res.status(HTTP_STATUS.OK).json({});
     });
 
-    return request(app).get(`/${pkg}`).expect(HTTP_STATUS.OK);
+    await request(app).get(`/${pkg}`).expect(HTTP_STATUS.OK);
   });
 
-  test.each(['node_modules', '%'])('%s should be invalid package name', (pkg) => {
+  test.each(['node_modules', '%'])('%s should be invalid package name', async (pkg) => {
     const app = getApp([]);
     app.param('pkg', validatePackage);
     app.get('/:pkg', (_req, res) => {
       res.status(HTTP_STATUS.OK).json({});
     });
 
-    return request(app).get(`/${pkg}`).expect(HTTP_STATUS.BAD_REQUEST);
+    await request(app).get(`/${pkg}`).expect(HTTP_STATUS.BAD_REQUEST);
   });
 
   test('should validate package name double level', async () => {
@@ -51,24 +51,27 @@ describe('validate package name middleware', () => {
 });
 
 describe('validate file name name middleware', () => {
-  test.each(['old-package@0.1.2.tgz', '--0.0.1.tgz'])('%s should be valid file name', (pkg) => {
+  test.each(['old-package@0.1.2.tgz', '--0.0.1.tgz'])(
+    '%s should be valid file name',
+    async (pkg) => {
+      const app = getApp([]);
+      app.param('pkg', validateName);
+      app.get('/:pkg', (_req, res) => {
+        res.status(HTTP_STATUS.OK).json({});
+      });
+
+      await request(app).get(`/${pkg}`).expect(HTTP_STATUS.OK);
+    }
+  );
+
+  test.each(['some%2Fthing', '.bin'])('%s should be invalid package name', async (pkg) => {
     const app = getApp([]);
     app.param('pkg', validateName);
     app.get('/:pkg', (_req, res) => {
       res.status(HTTP_STATUS.OK).json({});
     });
 
-    return request(app).get(`/${pkg}`).expect(HTTP_STATUS.OK);
-  });
-
-  test.each(['some%2Fthing', '.bin'])('%s should be invalid package name', (pkg) => {
-    const app = getApp([]);
-    app.param('pkg', validateName);
-    app.get('/:pkg', (_req, res) => {
-      res.status(HTTP_STATUS.OK).json({});
-    });
-
-    return request(app).get(`/${pkg}`).expect(HTTP_STATUS.BAD_REQUEST);
+    await request(app).get(`/${pkg}`).expect(HTTP_STATUS.BAD_REQUEST);
   });
 
   test('should fails file name package name', async () => {
