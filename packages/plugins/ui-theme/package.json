@@ -61,7 +61,7 @@
     "stylelint-processor-styled-components": "1.10.0",
     "stylelint-webpack-plugin": "4.1.1",
     "terser-webpack-plugin": "5.3.14",
-    "vitest": "3.2.4",
+    "vitest": "4.0.13",
     "vite-plugin-markdown": "2.2.0",
     "webpack": "5.102.1",
     "webpack-bundle-analyzer": "4.10.2",
