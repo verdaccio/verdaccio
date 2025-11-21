@@ -14,10 +14,10 @@
       "path": "../core/core"
     },
     {
-      "path": "../logger/logger"
+      "path": "../core/types"
     },
     {
-      "path": "../utils"
+      "path": "../logger/logger"
     }
   ]
 }

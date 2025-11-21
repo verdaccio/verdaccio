@@ -3,6 +3,9 @@
   "references": [
     {
       "path": "../cli-commons"
+    },
+    {
+      "path": "../e2e-pnpm-commons"
     }
   ]
 }

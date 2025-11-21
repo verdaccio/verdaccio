@@ -200,7 +200,7 @@ server:
 
 # https://verdaccio.org/docs/configuration#notifications
 # notify:
-#   method: 'POST'
+#   method: 'POST' # methods available: POST, PUT, GET
 #   headers: '[{ "Content-Type": "application/json" }]'
 #   endpoint: 'https://usagge.hipchat.com/v2/room/3729485/notification?auth_token=mySecretToken'
 #   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'

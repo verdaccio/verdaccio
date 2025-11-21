@@ -11,7 +11,16 @@
       "path": "../config"
     },
     {
-      "path": "../utils"
+      "path": "../core/core"
+    },
+    {
+      "path": "../core/types"
+    },
+    {
+      "path": "../logger/logger"
+    },
+    {
+      "path": "../proxy"
     }
   ]
 }

@@ -16,7 +16,7 @@
     "npm",
     "@yarnpkg/cli-dist"
   ],
-  "baseBranches": ["master", "6.x", "7.x"],
+  "baseBranches": ["master", "6.x"],
   "semanticCommitType": "fix",
   "major": true,
   "labels": ["bot: dependencies"],
@@ -112,7 +112,7 @@
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "core verdaccio dependencies",
       "groupSlug": "all-verdaccio",
-      "baseBranchList": ["6.x", "7.x"]
+      "baseBranchList": ["6.x"]
     },
     {
       "matchPackagePatterns": [
@@ -126,7 +126,7 @@
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "all linting dependencies",
       "groupSlug": "all-linting",
-      "baseBranchList": ["master", "6.x", "7.x"]
+      "baseBranchList": ["master", "6.x"]
     },
     {
       "matchPackagePatterns": [
@@ -147,18 +147,18 @@
       "baseBranchList": ["master"]
     },
     {
-      "matchPackagePatterns": ["@testing-library/*", "vitest", "supertest", "nock"],
+      "matchPackagePatterns": ["supertest", "nock"],
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "all test dependencies",
       "groupSlug": "all-test",
-      "baseBranchList": ["master", "6.x", "7.x"]
+      "baseBranchList": ["master", "6.x"]
     },
     {
       "matchPackagePatterns": ["@type/*", "typescript"],
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "typescript dependencies",
       "groupSlug": "all-types",
-      "baseBranchList": ["master", "6.x", "7.x"]
+      "baseBranchList": ["master", "6.x"]
     }
   ],
   "pinVersions": false

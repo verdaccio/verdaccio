@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import got from 'got-cjs';
+import got, { Method } from 'got-cjs';
 
 import { HTTP_STATUS } from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
@@ -12,18 +12,62 @@ export type FetchOptions = {
   method?: string;
 };
 
+export function verifyMethod(value: any): Method {
+  const valid: Method[] = ['GET', 'POST', 'PUT'];
+
+  if (typeof value === 'string') {
+    const upper = value.toUpperCase() as Method;
+
+    if (valid.includes(upper)) {
+      return upper;
+    } else {
+      logger.warn(
+        { method: value },
+        'The notification method @{method} is not valid, using default POST method'
+      );
+    }
+  }
+
+  return 'POST';
+}
+
 export async function notifyRequest(url: string, options: FetchOptions): Promise<boolean> {
   let response;
   try {
+    const method: Method = verifyMethod(options.method);
     debug('uri %o', url);
-    response = got.post(url, {
-      body: JSON.stringify(options.body),
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    debug('headers %o', options.headers);
+    debug('method %o', method);
+
+    const requestOptions: any = {
+      method,
+      headers: options.headers ?? { 'Content-Type': 'application/json' },
+    };
+
+    let finalUrl = url;
+    if (method === 'GET') {
+      debug('using GET with query params');
+      const urlObj = new URL(url);
+      const params = new URLSearchParams(options.body);
+      params.set('body', options.body);
+      urlObj.search = params.toString();
+      finalUrl = urlObj.toString();
+      debug('final url with search params %o', finalUrl);
+    } else if (options.body !== undefined) {
+      requestOptions.body = JSON.stringify(options.body);
+    } else {
+      throw new Error('Notification body is undefined');
+    }
+
+    response = await got(finalUrl, {
+      ...requestOptions,
+      responseType: 'json',
     });
-    debug('response.status  %o', response.status);
-    const body = await response.json();
-    if (response.status >= HTTP_STATUS.BAD_REQUEST) {
+
+    const body = await response.body;
+    debug('response.status %o', body.statusCode);
+
+    if (body.statusCode >= HTTP_STATUS.BAD_REQUEST) {
       throw new Error(body);
     }
 
@@ -33,7 +77,7 @@ export async function notifyRequest(url: string, options: FetchOptions): Promise
     );
     return true;
   } catch (err: any) {
-    debug('request error %o', err);
+    debug('request error %o:', err?.message);
     logger.error(
       { errorMessage: err?.message },
       'notify service has thrown an error: @{errorMessage}'

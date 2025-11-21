@@ -18,7 +18,10 @@
   "include": ["src", "types/*.d.ts", "src/i18n/**/*.json"],
   "references": [
     {
-      "path": "../../node-api"
+      "path": "../../core/i18n"
+    },
+    {
+      "path": "../../core/types"
     },
     {
       "path": "../../ui-components"

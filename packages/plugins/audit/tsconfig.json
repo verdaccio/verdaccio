@@ -8,16 +8,19 @@
   "exclude": ["src/**/*.test.ts"],
   "references": [
     {
-      "path": "../../config"
-    },
-    {
       "path": "../../auth"
     },
     {
-      "path": "../../logger/logger"
+      "path": "../../config"
     },
     {
       "path": "../../core/core"
+    },
+    {
+      "path": "../../core/types"
+    },
+    {
+      "path": "../../logger/logger"
     }
   ]
 }

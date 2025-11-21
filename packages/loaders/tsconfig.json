@@ -16,6 +16,9 @@
     },
     {
       "path": "../logger/logger"
+    },
+    {
+      "path": "../plugins/auth-memory"
     }
   ]
 }

@@ -3,16 +3,16 @@
   "include": ["./cypress/**/*.ts", "./*.ts"],
   "references": [
     {
-      "path": "../../packages/core/core"
-    },
-    {
-      "path": "../../packages/verdaccio"
-    },
-    {
       "path": "../../packages/config"
     },
     {
+      "path": "../../packages/core/core"
+    },
+    {
       "path": "../../packages/tools/helpers"
+    },
+    {
+      "path": "../../packages/verdaccio"
     }
   ]
 }

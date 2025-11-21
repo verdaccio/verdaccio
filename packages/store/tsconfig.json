@@ -11,16 +11,16 @@
       "path": "../config"
     },
     {
-      "path": "../plugins/local-storage"
-    },
-    {
-      "path": "../core/url"
-    },
-    {
       "path": "../core/core"
     },
     {
-      "path": "../hooks"
+      "path": "../core/tarball"
+    },
+    {
+      "path": "../core/types"
+    },
+    {
+      "path": "../core/url"
     },
     {
       "path": "../loaders"
@@ -29,10 +29,16 @@
       "path": "../logger/logger"
     },
     {
+      "path": "../plugins/local-storage"
+    },
+    {
       "path": "../proxy"
     },
     {
-      "path": "../utils"
+      "path": "../search"
+    },
+    {
+      "path": "../tools/helpers"
     }
   ]
 }

@@ -14,7 +14,13 @@
       "path": "../cli"
     },
     {
-      "path": "../plugins/htpasswd"
+      "path": "../config"
+    },
+    {
+      "path": "../core/core"
+    },
+    {
+      "path": "../core/types"
     },
     {
       "path": "../hooks"
@@ -29,13 +35,16 @@
       "path": "../plugins/audit"
     },
     {
+      "path": "../plugins/htpasswd"
+    },
+    {
       "path": "../plugins/ui-theme"
     },
     {
       "path": "../store"
     },
     {
-      "path": "../utils"
+      "path": "../tools/helpers"
     }
   ]
 }

@@ -11,6 +11,9 @@
       "path": "../config"
     },
     {
+      "path": "../core/types"
+    },
+    {
       "path": "../logger/logger"
     },
     {

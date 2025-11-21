@@ -17,6 +17,12 @@
       "path": "../../config"
     },
     {
+      "path": "../../core/core"
+    },
+    {
+      "path": "../../core/types"
+    },
+    {
       "path": "../../loaders"
     },
     {
@@ -29,13 +35,7 @@
       "path": "../../plugins/audit"
     },
     {
-      "path": "../../proxy"
-    },
-    {
       "path": "../../store"
-    },
-    {
-      "path": "../../utils"
     },
     {
       "path": "../../web"

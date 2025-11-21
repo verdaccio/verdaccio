@@ -8,10 +8,16 @@
   "include": ["src/**/*.ts", "types/*.d.ts"],
   "references": [
     {
-      "path": "../config"
+      "path": "../../config"
     },
     {
-      "path": "../utils"
+      "path": "../../core/core"
+    },
+    {
+      "path": "../../core/types"
+    },
+    {
+      "path": "../helpers"
     }
   ]
 }

@@ -7,7 +7,7 @@
   "include": ["src/**/*.ts"],
   "references": [
     {
-      "path": "../logger-prettify"
+      "path": "../../core/types"
     },
     {
       "path": "../logger-commons"
