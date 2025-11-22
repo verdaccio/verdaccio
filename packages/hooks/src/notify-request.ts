@@ -41,7 +41,12 @@ export async function notifyRequest(url: string, options: FetchOptions): Promise
 
     const requestOptions: any = {
       method,
-      headers: options.headers ?? { 'Content-Type': 'application/json' },
+      headers:
+        options.headers && typeof options.headers === 'string'
+          ? JSON.parse(options.headers)
+          : {
+              'Content-Type': 'application/json',
+            },
     };
 
     let finalUrl = url;
