@@ -61,9 +61,12 @@ describe('Notifications', () => {
   test('when sending a single notification POST', async () => {
     nock(domain)
       .post(options.path, (body) => {
-        expect(body).toEqual(
-          '{"color":"green","message":"New package published: * bar*","notify":true,"message_format":"text"}'
-        );
+        expect(body).toEqual({
+          color: 'green',
+          message: 'New package published: * bar*',
+          message_format: 'text',
+          notify: true,
+        });
         return true;
       })
       .reply(200);
@@ -83,9 +86,12 @@ describe('Notifications', () => {
   test('when sending a single notification with packagePattern', async () => {
     nock(domain)
       .post(options.path, (body) => {
-        expect(body).toEqual(
-          '{"color":"green","message":"New package published: * verdaccio*","notify":true,"message_format":"text"}'
-        );
+        expect(body).toEqual({
+          color: 'green',
+          message: 'New package published: * verdaccio*',
+          message_format: 'text',
+          notify: true,
+        });
         return true;
       })
       .reply(200);
@@ -112,9 +118,12 @@ describe('Notifications', () => {
   test('when sending a single notification PUT', async () => {
     nock(domain)
       .put(options.path, (body) => {
-        expect(body).toEqual(
-          '{"color":"green","message":"New package published: * bar*","notify":true,"message_format":"text"}'
-        );
+        expect(body).toEqual({
+          color: 'green',
+          message: 'New package published: * bar*',
+          message_format: 'text',
+          notify: true,
+        });
         return true;
       })
       .reply(200);
@@ -134,9 +143,12 @@ describe('Notifications', () => {
   test('fallback to POST if method is invalid', async () => {
     nock(domain)
       .post(options.path, (body) => {
-        expect(body).toEqual(
-          '{"color":"green","message":"New package published: * bar*","notify":true,"message_format":"text"}'
-        );
+        expect(body).toEqual({
+          color: 'green',
+          message: 'New package published: * bar*',
+          message_format: 'text',
+          notify: true,
+        });
         return true;
       })
       .reply(200);
@@ -205,9 +217,12 @@ describe('Notifications', () => {
   test('when endpoint fails with 400', async () => {
     nock(domain)
       .post(options.path, (body) => {
-        expect(body).toEqual(
-          '{"color":"green","message":"New package published: * bar*","notify":true,"message_format":"text"}'
-        );
+        expect(body).toEqual({
+          color: 'green',
+          message: 'New package published: * bar*',
+          message_format: 'text',
+          notify: true,
+        });
         return true;
       })
       .reply(400, { error: 'bad request local server' });

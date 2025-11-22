@@ -31,6 +31,7 @@ export function verifyMethod(value: any): Method {
   return 'POST';
 }
 
+const baseHeaders = { 'Content-Type': 'application/json' };
 export async function notifyRequest(url: string, options: FetchOptions): Promise<boolean> {
   let response;
   try {
@@ -39,14 +40,20 @@ export async function notifyRequest(url: string, options: FetchOptions): Promise
     debug('headers %o', options.headers);
     debug('method %o', method);
 
+    let userHeaders: Record<string, any> = {};
+
+    if (options.headers) {
+      if (typeof options.headers === 'string') {
+        userHeaders = JSON.parse(options.headers);
+      } else if (typeof options.headers === 'object') {
+        userHeaders = options.headers;
+      }
+    }
+
+    const headers = { ...baseHeaders, ...userHeaders };
     const requestOptions: any = {
       method,
-      headers:
-        options.headers && typeof options.headers === 'string'
-          ? JSON.parse(options.headers)
-          : {
-              'Content-Type': 'application/json',
-            },
+      headers,
     };
 
     let finalUrl = url;
@@ -59,7 +66,7 @@ export async function notifyRequest(url: string, options: FetchOptions): Promise
       finalUrl = urlObj.toString();
       debug('final url with search params %o', finalUrl);
     } else if (options.body !== undefined) {
-      requestOptions.body = JSON.stringify(options.body);
+      requestOptions.body = options.body;
     } else {
       throw new Error('Notification body is undefined');
     }
