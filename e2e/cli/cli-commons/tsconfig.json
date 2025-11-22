@@ -6,16 +6,16 @@
   },
   "references": [
     {
-      "path": "../../../packages/core/core"
-    },
-    {
-      "path": "../../../packages/verdaccio"
-    },
-    {
       "path": "../../../packages/config"
     },
     {
-      "path": "../../../packages/tools/helpers"
+      "path": "../../../packages/core/core"
+    },
+    {
+      "path": "../../../packages/core/types"
+    },
+    {
+      "path": "../../../packages/verdaccio"
     }
   ]
 }
