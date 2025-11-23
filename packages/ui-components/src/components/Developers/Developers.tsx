@@ -42,6 +42,7 @@ const Developers: React.FC<Props> = ({ type, visibleMax = VISIBLE_MAX, packageMe
     if (!developers.length) {
       return;
     }
+    // eslint-disable-next-line
     setVisibleDevelopers(developers.slice(0, visibleDevelopersMax));
   }, [developers, visibleDevelopersMax]);
 

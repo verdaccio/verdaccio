@@ -1,4 +1,3 @@
-/* eslint-disable jest/no-mocks-import */
 import path from 'node:path';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 

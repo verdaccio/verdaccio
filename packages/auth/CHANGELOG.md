@@ -1,5 +1,18 @@
 # @verdaccio/auth
 
+## 8.0.0-next-8.25
+
+### Patch Changes
+
+- 3aff890: chore(deps): api, auth, cli, config, url
+- Updated dependencies [3aff890]
+- Updated dependencies [b24f513]
+  - @verdaccio/config@8.0.0-next-8.25
+  - @verdaccio/loaders@8.0.0-next-8.15
+  - verdaccio-htpasswd@13.0.0-next-8.25
+  - @verdaccio/signature@8.0.0-next-8.17
+  - @verdaccio/core@8.0.0-next-8.25
+
 ## 8.0.0-next-8.24
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 8.0.0-next-8.25
+
+### Patch Changes
+
+- b24f513: chore(lint): switch rules from jest to vitest
+
 ## 8.0.0-next-8.24
 
 ## 8.0.0-next-8.23

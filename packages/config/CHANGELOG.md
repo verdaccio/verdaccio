@@ -1,5 +1,13 @@
 # @verdaccio/config
 
+## 8.0.0-next-8.25
+
+### Patch Changes
+
+- 3aff890: chore(deps): api, auth, cli, config, url
+- b24f513: chore(lint): switch rules from jest to vitest
+  - @verdaccio/core@8.0.0-next-8.25
+
 ## 8.0.0-next-8.24
 
 ### Patch Changes

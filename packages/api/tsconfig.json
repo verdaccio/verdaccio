@@ -17,10 +17,7 @@
       "path": "../core/core"
     },
     {
-      "path": "../core/tarball"
-    },
-    {
-      "path": "../hooks"
+      "path": "../core/types"
     },
     {
       "path": "../logger/logger"
@@ -29,13 +26,10 @@
       "path": "../middleware"
     },
     {
-      "path": "../server/express"
-    },
-    {
       "path": "../store"
     },
     {
-      "path": "../utils"
+      "path": "../tools/helpers"
     }
   ]
 }

@@ -1,9 +1,8 @@
 import buildDebug from 'debug';
 import { Router } from 'express';
-import mime from 'mime';
 
 import { Auth } from '@verdaccio/auth';
-import { API_MESSAGE, HTTP_STATUS } from '@verdaccio/core';
+import { API_MESSAGE, HEADERS, HTTP_STATUS } from '@verdaccio/core';
 import { allow, expectJson, media } from '@verdaccio/middleware';
 // import star from './star';
 import { PUBLISH_API_ENDPOINTS } from '@verdaccio/middleware';
@@ -122,7 +121,7 @@ export default function publish(
   router.put(
     PUBLISH_API_ENDPOINTS.add_package,
     can('publish'),
-    media(mime.getType('json')),
+    media(HEADERS.JSON),
     expectJson,
     publishPackage(storage, logger, 'publish one version')
   );
@@ -130,7 +129,7 @@ export default function publish(
   router.put(
     PUBLISH_API_ENDPOINTS.publish_package,
     can('unpublish'),
-    media(mime.getType('json')),
+    media(HEADERS.JSON),
     expectJson,
     publishPackage(storage, logger, 'publish with revision')
   );

@@ -1956,10 +1956,9 @@ describe('storage', () => {
       });
 
       test('should get ETIMEDOUT with uplink', { retry: 3 }, async () => {
-        nock(domain).get('/foo3').replyWithError({
-          code: 'ETIMEDOUT',
-          error: 'ETIMEDOUT',
-        });
+        const timeoutErr: any = new Error('ETIMEDOUT');
+        timeoutErr.code = 'ETIMEDOUT';
+        nock(domain).get('/foo3').replyWithError(timeoutErr);
         const config = new Config(
           configExample({
             ...getDefaultConfig(),
@@ -1996,7 +1995,7 @@ describe('storage', () => {
         ).rejects.toThrow(errorUtils.getServiceUnavailable(API_ERROR.SERVER_TIME_OUT));
       });
 
-      test('should fetch abbreviated version of manifest ', async () => {
+      test('should fetch abbreviated version of manifest', async () => {
         const fooManifest = generateLocalPackageMetadata('foo', '1.0.0');
         nock(domain).get('/foo').reply(201, fooManifest);
         const config = new Config(
