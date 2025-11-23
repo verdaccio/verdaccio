@@ -32,7 +32,7 @@ const EcosystemSearch = (): React.ReactElement => {
   const { addons, categories, origin } = data as any;
 
   const [filters, setFilters] = useState<Filters>({
-    bundled: true,
+    bundled: false,
     core: true,
     community: true,
     middleware: true,
@@ -46,7 +46,12 @@ const EcosystemSearch = (): React.ReactElement => {
 
   return (
     <ThemeProvider theme={theme}>
-      <FilterControl categories={categories} origins={origin} onChange={setFilters} />
+      <FilterControl
+        categories={categories}
+        origins={origin}
+        filters={filters}
+        onChange={setFilters}
+      />
       <ToolList addons={addons} filters={filters} />
     </ThemeProvider>
   );

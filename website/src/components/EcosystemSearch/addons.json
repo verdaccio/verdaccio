@@ -1163,6 +1163,163 @@
       "url": "https://www.npmjs.org/verdaccio-downloads-count",
       "registry": "https://registry.npmjs.org/verdaccio-downloads-count",
       "latest": "1.0.2",
+      "downloads": 9
+    },
+    {
+      "name": "verdaccio-openid",
+      "bundled": false,
+      "origin": "community",
+      "category": "authentication"
+    },
+    {
+      "name": "verdaccio-package-age-filter",
+      "bundled": false,
+      "origin": "community",
+      "category": "middleware"
+    },
+    {
+      "name": "verdaccio-plugin-delay-filter",
+      "bundled": false,
+      "origin": "community",
+      "category": "filter"
+    },
+    {
+      "name": "verdaccio-sec",
+      "bundled": false,
+      "origin": "community",
+      "category": "filter"
+    },
+    {
+      "name": "verdaccio-ssh-upload",
+      "bundled": false,
+      "origin": "community",
+      "category": "middleware"
+    },
+    {
+      "name": "verdaccio-az-storage",
+      "bundled": false,
+      "origin": "community",
+      "category": "storage"
+    },
+    {
+      "name": "verdaccio-plugin-community-nodes",
+      "bundled": false,
+      "origin": "community",
+      "category": "filter"
+    },
+    {
+      "name": "verdaccio-auth-db",
+      "bundled": false,
+      "origin": "community",
+      "category": "authentication"
+    },
+    {
+      "name": "verdaccio-stats",
+      "bundled": false,
+      "origin": "community",
+      "category": "middleware"
+    },
+    {
+      "name": "verdaccio-theme-notask",
+      "bundled": false,
+      "origin": "community",
+      "category": "ui"
+    },
+    {
+      "name": "verdaccio-tfs",
+      "bundled": false,
+      "origin": "community",
+      "category": "authentication"
+    },
+    {
+      "name": "verdaccio-nexus-auth-proxy",
+      "bundled": false,
+      "origin": "community",
+      "category": "authentication"
+    },
+    {
+      "name": "@anddev-oss/verdaccio-auth-az-tables",
+      "bundled": false,
+      "origin": "community",
+      "category": "authentication"
+    },
+    {
+      "name": "@anddev-oss/verdaccio-htpasswd-azure",
+      "bundled": false,
+      "origin": "community",
+      "category": "authentication"
+    },
+    {
+      "name": "verdaccio-auth0-ui2",
+      "bundled": false,
+      "origin": "community",
+      "category": "authentication"
+    },
+    {
+      "name": "@patricktree/pkg-consumption-test",
+      "bundled": false,
+      "origin": "community",
+      "category": "tool"
+    },
+    {
+      "name": "local-npm-registry",
+      "bundled": false,
+      "origin": "community",
+      "category": "tool"
+    },
+    {
+      "name": "migrate-node-deps",
+      "bundled": false,
+      "origin": "community",
+      "category": "tool"
+    },
+    {
+      "name": "@pnpm/registry-mock",
+      "bundled": false,
+      "origin": "community",
+      "category": "tool"
+    },
+    {
+      "name": "pnpm-airgap",
+      "bundled": false,
+      "origin": "community",
+      "category": "tool"
+    },
+    {
+      "name": "@talend/scripts-publish-local",
+      "bundled": false,
+      "origin": "community",
+      "category": "tool"
+    },
+    {
+      "name": "verdaccio-keep-private",
+      "bundled": false,
+      "origin": "community",
+      "category": "tool"
+    },
+    {
+      "name": "@push-based/nx-verdaccio",
+      "bundled": false,
+      "origin": "community",
+      "category": "tool"
+    },
+    {
+      "name": "@push.rocks/smartnpm",
+      "bundled": false,
+      "origin": "community",
+      "category": "tool"
+    },
+    {
+      "name": "auto-release-tool",
+      "bundled": false,
+      "origin": "community",
+      "category": "tool"
+    },
+    {
+      "name": "offline-registry-manager",
+      "bundled": false,
+      "origin": "community",
+      "category": "tool"
       "downloads": 15
     }
   ]
