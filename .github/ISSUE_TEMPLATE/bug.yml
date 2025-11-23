@@ -92,19 +92,19 @@ body:
       options:
         - label: I am using a reverse proxy
           required: false    
-  - type: dropdown
-    id: container
-    attributes:
-      label: Container
-      description: What container runtime are you using?
-      options:
-        - none
-        - docker
-        - helm
-        - kubernetes
-      default: 0
-    validations:
-      required: true
+  # - type: dropdown
+  #   id: container
+  #   attributes:
+  #     label: Container
+  #     description: What container runtime are you using?
+  #     options:
+  #       - none
+  #       - docker
+  #       - helm
+  #       - kubernetes
+  #     default: 0
+  #   validations:
+  #     required: true
   - type: textarea
     id: logs
     attributes:
