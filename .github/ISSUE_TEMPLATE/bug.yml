@@ -95,19 +95,19 @@ body:
       options:
         - label: I am using a reverse proxy
           required: false    
-  - type: dropdown
-    id: container
-    attributes:
-      label: Containerization
-      description: What containerization technology are you using?
-      options: 
-        - None
-        - Docker
-        - Kubernetes
-        - Other (please specify at the end of this form)
-      default: 0
-    validations:
-      required: false
+  # - type: dropdown
+  #   id: container
+  #   attributes:
+  #     label: Container
+  #     description: What container runtime are you using?
+  #     options:
+  #       - none
+  #       - docker
+  #       - helm
+  #       - kubernetes
+  #     default: 0
+  #   validations:
+  #     required: true
   - type: textarea
     id: logs
     attributes:
