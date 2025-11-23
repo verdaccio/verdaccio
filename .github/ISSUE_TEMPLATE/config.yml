@@ -1,5 +1,8 @@
 blank_issues_enabled: false
 contact_links:
+  - name: Feature Request 🌟
+    url: https://github.com/orgs/verdaccio/discussions/new?category=ideas
+    about: 🆕 Open a new feature request discussion 🙏
   - name: Question 🤷🏻‍♂️
     url: https://github.com/verdaccio/verdaccio/discussions/new?category=q-a
     about: 🆕 Open a new Q&A discussion 🙏
