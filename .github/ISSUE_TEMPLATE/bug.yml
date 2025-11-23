@@ -56,45 +56,33 @@ body:
         - 22.x.x (Maintenance)
         - 24.x.x (LTS)
         - 25.x.x (Current)
+      default: 0
     validations:
       required: true      
-  # - type: dropdown
-  #   id: node-version
-  #   attributes:
-  #     label: Node.js version
-  #     description: What Node.js version are you using?
-  #     options:
-  #       - 18.x.x
-  #       - 20.x.x
-  #       - 22.x.x
-  #       - 24.x.x
-  #   default: 0        
-  #   validations:
-  #     required: true
-  # - type: dropdown
-  #   id: package-manager
-  #   attributes:
-  #     label: Package manager
-  #     description: Which package manager are you using?
-  #     options:
-  #       - npm
-  #       - pnpm
-  #       - yarn
-  #   default: 0    
-    # validations:
-    #   required: true
-  # - type: dropdown
-  #   id: os
-  #   attributes:
-  #     label: Operating system
-  #     description: What operating system are you using?
-  #     options:
-  #       - mac
-  #       - windows
-  #       - linux
-  #     default: 0
-  #   validations:
-  #     required: true
+  - type: dropdown
+    id: pkgmanager
+    attributes:
+      label: Package manager
+      description: Which package manager are you using?
+      options:
+        - npm
+        - pnpm
+        - yarn
+      default: 0
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      description: What operating system are you using?
+      options:
+        - mac
+        - windows
+        - linux
+      default: 0
+    validations:
+      required: true
   # - type: dropdown
   #   id: platform
   #   attributes:
