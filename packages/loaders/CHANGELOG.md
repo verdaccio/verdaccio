@@ -1,5 +1,12 @@
 # @verdaccio/loaders
 
+## 8.0.0-next-8.17
+
+### Patch Changes
+
+- d028ce1: fix: running without auth plugin
+  - @verdaccio/core@8.0.0-next-8.27
+
 ## 8.0.0-next-8.16
 
 ### Patch Changes
