@@ -25,10 +25,9 @@ body:
       label: Version
       description: What version of our software are you running?
       options:
-        - 5.x (Deprecated)
         - 6.x (Stable)
         - 8.x (Experimental)
-      default: 0
+      default: 6.x (Stable)
     validations:
       required: true
   - type: textarea
