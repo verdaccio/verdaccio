@@ -27,7 +27,7 @@ body:
       options:
         - 6.x (Stable)
         - 8.x (Experimental)
-      default: 6.x (Stable)
+      default: 0
     validations:
       required: true
   - type: textarea
