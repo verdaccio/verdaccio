@@ -27,12 +27,12 @@ import {
   Auth,
   allow_action,
   getApiToken,
-  getDefaultPlugins,
+  getDefaultPluginMethods,
 } from '../src';
 
 setup({});
 
-const parseConfigurationFile = (conf) => {
+const parseConfigurationFile = (conf: string) => {
   const { name, ext } = path.parse(conf);
   const format = ext.startsWith('.') ? ext.substring(1) : 'yaml';
 
@@ -42,7 +42,7 @@ const parseConfigurationFile = (conf) => {
 describe('Auth utilities', () => {
   vi.setConfig({ testTimeout: 20000 });
 
-  const parseConfigurationSecurityFile = (name) => {
+  const parseConfigurationSecurityFile = (name: string) => {
     return parseConfigurationFile(`security/${name}`);
   };
 
@@ -122,14 +122,14 @@ describe('Auth utilities', () => {
 
   describe('getDefaultPlugins', () => {
     test('authentication should fail by default (default)', () => {
-      const plugin = getDefaultPlugins(logger);
+      const plugin = getDefaultPluginMethods(logger);
       plugin.authenticate('foo', 'bar', (error: any) => {
         expect(error).toEqual(errorUtils.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
       });
     });
 
     test('add user should not fail by default (default)', () => {
-      const plugin = getDefaultPlugins(logger);
+      const plugin = getDefaultPluginMethods(logger);
       // @ts-ignore
       plugin.adduser('foo', 'bar', (error: any, access: any) => {
         expect(error).toEqual(null);
