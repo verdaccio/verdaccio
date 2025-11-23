@@ -15,8 +15,7 @@ body:
     attributes:
       label: What happened?
       description: Also tell us, what did you expect to happen?
-      placeholder: Tell us what you see!
-      value: "A bug happened!"
+      placeholder: Tell us what you see!      
     validations:
       required: true
   - type: dropdown
@@ -30,15 +29,14 @@ body:
       default: 0
     validations:
       required: true
-  # - type: input
-  #   id: verdaccio-version
-  #   attributes:
-  #     label: Verdaccio version
-  #     description: Specify the exact Verdaccio version (e.g., 6.10.0)
-  #     placeholder: 6.x.x
-  #     value: "6.x.x"
-    # validations:
-    #   required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version details
+      description: Please provide the exact version number (e.g., 6.10.0)
+      placeholder: ex. 6.x.x
+    validations:
+      required: true
   - type: textarea
     id: verdaccio-info
     attributes:
