@@ -30,15 +30,15 @@ body:
       default: 0
     validations:
       required: true
-  - type: input
-    id: verdaccio-version
-    attributes:
-      label: Verdaccio version
-      description: Specify the exact Verdaccio version (e.g., 6.10.0)
-      placeholder: 6.x.x
-      value: "6.x.x"
-    validations:
-      required: true
+  # - type: input
+  #   id: verdaccio-version
+  #   attributes:
+  #     label: Verdaccio version
+  #     description: Specify the exact Verdaccio version (e.g., 6.10.0)
+  #     placeholder: 6.x.x
+  #     value: "6.x.x"
+    # validations:
+    #   required: true
   - type: textarea
     id: verdaccio-info
     attributes:
