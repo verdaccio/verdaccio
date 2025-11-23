@@ -55,6 +55,7 @@ body:
         - 20.x.x
         - 22.x.x
         - 24.x.x
+    default: 0        
     validations:
       required: true
   - type: dropdown
@@ -66,6 +67,7 @@ body:
         - npm
         - pnpm
         - yarn
+    default: 0    
     validations:
       required: true
   - type: dropdown
