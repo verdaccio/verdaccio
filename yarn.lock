@@ -10179,7 +10179,7 @@ __metadata:
     node-mocks-http: "npm:^1.17.2"
     prettier: "npm:3.6.2"
     selfsigned: "npm:3.0.1"
-    semver: "npm:7.7.2"
+    semver: "npm:7.7.3"
     standard-version: "npm:9.5.0"
     supertest: "npm:7.1.4"
     ts-node: "npm:10.9.2"
