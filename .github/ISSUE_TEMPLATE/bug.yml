@@ -58,18 +58,18 @@ body:
   #   default: 0        
   #   validations:
   #     required: true
-  - type: dropdown
-    id: package-manager
-    attributes:
-      label: Package manager
-      description: Which package manager are you using?
-      options:
-        - npm
-        - pnpm
-        - yarn
-    default: 0    
-    validations:
-      required: true
+  # - type: dropdown
+  #   id: package-manager
+  #   attributes:
+  #     label: Package manager
+  #     description: Which package manager are you using?
+  #     options:
+  #       - npm
+  #       - pnpm
+  #       - yarn
+  #   default: 0    
+    # validations:
+    #   required: true
   - type: dropdown
     id: os
     attributes:
