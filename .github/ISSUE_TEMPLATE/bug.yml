@@ -30,7 +30,7 @@ body:
     validations:
       required: true
   - type: input
-    id: version
+    id: specificversion
     attributes:
       label: Version details
       description: Please provide the exact version number (e.g., 6.10.0)
