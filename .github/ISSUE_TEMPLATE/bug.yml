@@ -14,7 +14,7 @@ body:
     id: what-happened
     attributes:
       label: What happened?
-      description: Also tell us, what did you expect to happen?
+      description: Also tell us, what did you expect to happen? Please do not attach files. won't be considered, drag and drop screenshots and formatted text.
       placeholder: Tell us what you see!      
     validations:
       required: true
@@ -25,7 +25,7 @@ body:
       description: What version of our software are you running?
       options:
         - 6.x (Stable)
-        - 8.x (Experimental)
+        - 8.x (Next)
       default: 0
     validations:
       required: true
@@ -38,11 +38,14 @@ body:
     validations:
       required: true
   - type: textarea
-    id: verdaccio-info
+    id: serverinfo
     attributes:
-      label: Output of `verdaccio --info`
-      description: Please paste the results of running `verdaccio --info`
+      label: Output server log info
+      description: Add here any relevant server log output related to the issue. This will be automatically formatted into code, so no need for backticks.
+      render: shell
       placeholder: Paste output here
+    validations:
+      required: false
   - type: dropdown
     id: nodeversion
     attributes:
@@ -81,30 +84,27 @@ body:
       default: 0
     validations:
       required: true
-  # - type: dropdown
-  #   id: platform
-  #   attributes:
-  #     label: Platform
-  #     description: How are you running Verdaccio?
-  #     options:
-  #       - node
-  #       - docker
-  #       - helm
-  #       - other
-  #     default: 0
-  #   validations:
-  #     required: true
-  # - type: dropdown
-  #   id: reverse-proxy
-  #   attributes:
-  #     label: Reverse proxy
-  #     description: Are you using a reverse proxy (e.g., nginx, apache)?
-  #     options:
-  #       - yes
-  #       - no
-  #     default: 1
-  #   validations:
-  #     required: true
+  - type: checkboxes
+    id: reverseproxy
+    attributes:
+      label: Using reverse proxy
+      description: Are you using a reverse proxy (e.g., nginx, apache)?
+      options:
+        - label: I am using a reverse proxy
+          required: false    
+  - type: dropdown
+    id: container
+    attributes:
+      label: Container
+      description: What container runtime are you using?
+      options:
+        - none
+        - docker
+        - helm
+        - kubernetes
+      default: 0
+    validations:
+      required: true
   - type: textarea
     id: logs
     attributes:
