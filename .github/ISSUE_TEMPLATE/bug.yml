@@ -45,6 +45,20 @@ body:
       label: Output of `verdaccio --info`
       description: Please paste the results of running `verdaccio --info`
       placeholder: Paste output here
+  - type: dropdown
+    id: nodeversion
+    attributes:
+      label: Node.js Version
+      description: What Node.js version are you using?
+      options:
+        - 18.x.x (Latest supported)
+        - 20.x.x (Maintenance)
+        - 22.x.x (Maintenance)
+        - 24.x.x (LTS)
+        - 25.x.x (Current)
+      default: 0
+    validations:
+      required: true      
   # - type: dropdown
   #   id: node-version
   #   attributes:
