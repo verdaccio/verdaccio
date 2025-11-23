@@ -70,18 +70,18 @@ body:
   #   default: 0    
     # validations:
     #   required: true
-  - type: dropdown
-    id: os
-    attributes:
-      label: Operating system
-      description: What operating system are you using?
-      options:
-        - mac
-        - windows
-        - linux
-      default: 0
-    validations:
-      required: true
+  # - type: dropdown
+  #   id: os
+  #   attributes:
+  #     label: Operating system
+  #     description: What operating system are you using?
+  #     options:
+  #       - mac
+  #       - windows
+  #       - linux
+  #     default: 0
+  #   validations:
+  #     required: true
   - type: dropdown
     id: platform
     attributes:
