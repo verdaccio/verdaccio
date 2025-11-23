@@ -41,7 +41,7 @@ body:
     id: serverinfo
     attributes:
       label: Output server log info
-      description: Add here any relevant server log output related to the issue. This will be automatically formatted into code, so no need for backticks.
+      description: Add here any relevant server log output related to the issue. This will be automatically formatted into code, so no need for backticks. . Avoid sharing sensitive information.
       render: shell
       placeholder: Paste output here
     validations:
@@ -57,6 +57,7 @@ body:
         - 22.x.x (Maintenance)
         - 24.x.x (LTS)
         - 25.x.x (Current)
+        - Other (please specify at the end of this form)
       default: 0
     validations:
       required: true      
@@ -69,6 +70,7 @@ body:
         - npm
         - pnpm
         - yarn
+        - Other (please specify at the end of this form)
       default: 0
     validations:
       required: true
@@ -81,6 +83,7 @@ body:
         - mac
         - windows
         - linux
+        - Other (please specify at the end of this form)
       default: 0
     validations:
       required: true
@@ -92,24 +95,24 @@ body:
       options:
         - label: I am using a reverse proxy
           required: false    
-  # - type: dropdown
-  #   id: container
-  #   attributes:
-  #     label: Container
-  #     description: What container runtime are you using?
-  #     options:
-  #       - none
-  #       - docker
-  #       - helm
-  #       - kubernetes
-  #     default: 0
-  #   validations:
-  #     required: true
+  - type: dropdown
+    id: containerization
+    attributes:
+      label: Containerization
+      description: What containerization technology are you using?
+      options: 
+        - None
+        - Docker
+        - Kubernetes
+        - Other (please specify at the end of this form)
+      default: 0
+    validations:
+      required: true
   - type: textarea
     id: logs
     attributes:
       label: Relevant log output
-      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks. Avoid sharing sensitive information.
       render: shell
   - type: checkboxes
     id: terms
