@@ -11,7 +11,10 @@
       "path": "../config"
     },
     {
-      "path": "../utils"
+      "path": "../core/core"
+    },
+    {
+      "path": "../core/types"
     }
   ]
 }

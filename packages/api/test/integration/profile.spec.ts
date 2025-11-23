@@ -5,8 +5,8 @@ import { HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core
 
 import { buildToken, createUser, initializeServer } from './_helper';
 
-describe('profile ', () => {
-  describe('get profile ', () => {
+describe('profile', () => {
+  describe('get profile', () => {
     test('should return Unauthorized if header token is missing', async () => {
       const app = await initializeServer('profile.yaml');
       return supertest(app)
@@ -26,7 +26,7 @@ describe('profile ', () => {
         .expect(HTTP_STATUS.OK);
     });
   });
-  describe('post profile ', () => {
+  describe('post profile', () => {
     test('should return Unauthorized if header token is missing', async () => {
       const app = await initializeServer('profile.yaml');
       return supertest(app)

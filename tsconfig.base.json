@@ -24,5 +24,178 @@
     "**/test",
     "**/__tests__",
     "**/*.test.ts"
+  ],
+  "references": [
+    {
+      "path": "packages/api"
+    },
+    {
+      "path": "packages/auth"
+    },
+    {
+      "path": "packages/cli"
+    },
+    {
+      "path": "packages/config"
+    },
+    {
+      "path": "packages/hooks"
+    },
+    {
+      "path": "packages/loaders"
+    },
+    {
+      "path": "packages/middleware"
+    },
+    {
+      "path": "packages/node-api"
+    },
+    {
+      "path": "packages/proxy"
+    },
+    {
+      "path": "packages/search-indexer"
+    },
+    {
+      "path": "packages/search"
+    },
+    {
+      "path": "packages/signature"
+    },
+    {
+      "path": "packages/store"
+    },
+    {
+      "path": "packages/ui-components"
+    },
+    {
+      "path": "packages/utils"
+    },
+    {
+      "path": "packages/verdaccio"
+    },
+    {
+      "path": "packages/web"
+    },
+    {
+      "path": "packages/core/core"
+    },
+    {
+      "path": "packages/core/file-locking"
+    },
+    {
+      "path": "packages/core/i18n"
+    },
+    {
+      "path": "packages/core/tarball"
+    },
+    {
+      "path": "packages/core/types"
+    },
+    {
+      "path": "packages/core/url"
+    },
+    {
+      "path": "packages/tools/docusaurus-plugin-contributors"
+    },
+    {
+      "path": "packages/tools/docusaurus-plugin-downloads"
+    },
+    {
+      "path": "packages/tools/generator-verdaccio-plugin"
+    },
+    {
+      "path": "packages/tools/helpers"
+    },
+    {
+      "path": "packages/tools/local-publish"
+    },
+    {
+      "path": "packages/tools/local-scripts"
+    },
+    {
+      "path": "packages/server/express"
+    },
+    {
+      "path": "packages/logger/logger-commons"
+    },
+    {
+      "path": "packages/logger/logger-prettify"
+    },
+    {
+      "path": "packages/logger/logger"
+    },
+    {
+      "path": "packages/plugins/audit"
+    },
+    {
+      "path": "packages/plugins/auth-memory"
+    },
+    {
+      "path": "packages/plugins/htpasswd"
+    },
+    {
+      "path": "packages/plugins/ui-theme"
+    },
+    {
+      "path": "packages/plugins/memory"
+    },
+    {
+      "path": "packages/plugins/local-storage"
+    },
+    {
+      "path": "e2e/cli/cli-commons"
+    },
+    {
+      "path": "e2e/cli/e2e-npm-commons"
+    },
+    {
+      "path": "e2e/cli/e2e-npm10"
+    },
+    {
+      "path": "e2e/cli/e2e-npm11"
+    },
+    {
+      "path": "e2e/cli/e2e-npm6"
+    },
+    {
+      "path": "e2e/cli/e2e-npm7"
+    },
+    {
+      "path": "e2e/cli/e2e-npm8"
+    },
+    {
+      "path": "e2e/cli/e2e-npm9"
+    },
+    {
+      "path": "e2e/cli/e2e-pnpm-commons"
+    },
+    {
+      "path": "e2e/cli/e2e-pnpm10"
+    },
+    {
+      "path": "e2e/cli/e2e-pnpm8"
+    },
+    {
+      "path": "e2e/cli/e2e-pnpm9"
+    },
+    {
+      "path": "e2e/cli/e2e-yarn1"
+    },
+    {
+      "path": "e2e/cli/e2e-yarn2"
+    },
+    {
+      "path": "e2e/cli/e2e-yarn3"
+    },
+    {
+      "path": "e2e/cli/e2e-yarn4"
+    },
+    {
+      "path": "e2e/ui"
+    },
+    {
+      "path": "website"
+    }
   ]
 }

@@ -1,5 +1,13 @@
 # Change Log
 
+## 13.0.0-next-8.25
+
+### Patch Changes
+
+- b24f513: chore(lint): switch rules from jest to vitest
+  - @verdaccio/core@8.0.0-next-8.25
+  - @verdaccio/utils@8.1.0-next-8.25
+
 ## 13.0.0-next-8.24
 
 ### Patch Changes

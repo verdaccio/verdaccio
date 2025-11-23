@@ -632,20 +632,6 @@ class ProxyStorage implements IProxy {
       }
     }
 
-    // validate proxy protocol matches the proxy_key type
-    if (this.proxy) {
-      const proxyUrl = new URL(this.proxy);
-      const expectedProtocol = isHTTPS ? 'https:' : 'http:';
-      if (proxyUrl.protocol !== expectedProtocol) {
-        this.logger.error(
-          { proxy: this.proxy, expectedProtocol },
-          `invalid protocol for ${proxy_key} - must be ${expectedProtocol}`
-        );
-        this.proxy = undefined;
-        return;
-      }
-    }
-
     if (typeof this.proxy === 'string') {
       debug('using proxy @{proxy} for @{url}', this.proxy, this.url.href);
       this.logger.debug(

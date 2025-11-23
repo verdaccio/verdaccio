@@ -137,7 +137,6 @@ describe('checkSecretKey', () => {
     const config = new Config(parseConfigFile(resolveConf('default')), {
       forceMigrateToSecureLegacySignature: false,
     });
-    // eslint-disable-next-line jest/no-standalone-expect
     expect(() =>
       // 64 characters secret long
       config.checkSecretKey('b4982dbb0108531fafb552374d7e83724b6458a2b3ffa97ad0edb899bdaefc4a')
@@ -149,7 +148,6 @@ describe('checkSecretKey', () => {
       forceMigrateToSecureLegacySignature: false,
     });
     config.security.api.migrateToSecureLegacySignature = true;
-    // eslint-disable-next-line jest/no-standalone-expect
     expect(
       config.checkSecretKey('b4982dbb0108531fafb552374d7e83724b6458a2b3ffa97ad0edb899bdaefc4a')
     ).toHaveLength(TOKEN_VALID_LENGTH);
@@ -161,7 +159,6 @@ describe('checkSecretKey', () => {
       const config = new Config(parseConfigFile(resolveConf('default')));
       config.security.api.migrateToSecureLegacySignature = false;
       // 64 characters secret long
-      // eslint-disable-next-line jest/no-standalone-expect
       expect(
         config.checkSecretKey('b4982dbb0108531fafb552374d7e83724b6458a2b3ffa97ad0edb899bdaefc4a')
       ).toHaveLength(64);
@@ -172,17 +169,16 @@ describe('checkSecretKey', () => {
     const config = new Config(parseConfigFile(resolveConf('default')));
     config.security.api.migrateToSecureLegacySignature = true;
     // 64 characters secret long
-    // eslint-disable-next-line jest/no-standalone-expect
     expect(
       config.checkSecretKey('b4982dbb0108531fafb552374d7e83724b6458a2b3ffa97ad0edb899bdaefc4a')
     ).toHaveLength(TOKEN_VALID_LENGTH);
   });
 
-  test.todo('test emit warning with secret key');
+  test.todo('emit warning with secret key');
 });
 
 describe('getMatchedPackagesSpec', () => {
-  test('should match with react as defined in config file', () => {
+  test('should match with react as defined in config file - react', () => {
     const configParsed = parseConfigFile(parseConfigurationFile('config-getMatchedPackagesSpec'));
     const config = new Config(configParsed);
     expect(config.getMatchedPackagesSpec('react')).toEqual({
@@ -193,7 +189,7 @@ describe('getMatchedPackagesSpec', () => {
     });
   });
 
-  test('should not match with react as defined in config file', () => {
+  test('should not match with react as defined in config file - somePackage', () => {
     const configParsed = parseConfigFile(parseConfigurationFile('config-getMatchedPackagesSpec'));
     const config = new Config(configParsed);
     expect(config.getMatchedPackagesSpec('somePackage')).toEqual({

@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/ui-components",
-  "version": "4.0.0-next-8.11",
+  "version": "4.0.0-next-8.12",
   "description": "Verdaccio UI Components",
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
@@ -8,7 +8,7 @@
   "main": "./build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
-    "test": "cross-env TZ=UTC vitest run -u",
+    "test": "cross-env TZ=UTC vitest run",
     "clean": "rimraf ./build",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
@@ -50,7 +50,7 @@
     "react-virtualized": "9.22.6",
     "redux": "4.2.1",
     "semver": "7.7.3",
-    "validator": "13.15.15"
+    "validator": "13.15.23"
   },
   "devDependencies": {
     "@babel/core": "7.28.4",

@@ -1,5 +1,15 @@
 # @verdaccio/proxy
 
+## 8.0.0-next-8.25
+
+### Patch Changes
+
+- 265c94a: fix(proxy): proxy protocol check
+- Updated dependencies [3aff890]
+- Updated dependencies [b24f513]
+  - @verdaccio/config@8.0.0-next-8.25
+  - @verdaccio/core@8.0.0-next-8.25
+
 ## 8.0.0-next-8.24
 
 ### Patch Changes

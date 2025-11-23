@@ -12,9 +12,6 @@
       "path": "../../config"
     },
     {
-      "path": "../../logger/logger"
-    },
-    {
       "path": "../../core/core"
     },
     {

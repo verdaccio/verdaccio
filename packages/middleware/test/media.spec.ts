@@ -1,4 +1,3 @@
-import mime from 'mime';
 import request from 'supertest';
 import { test } from 'vitest';
 
@@ -9,7 +8,7 @@ import { getApp } from './helper';
 
 test('media is json', async () => {
   const app = getApp([]);
-  app.get('/json', media(mime.getType('json')), (req, res) => {
+  app.get('/json', media(HEADERS.JSON), (req, res) => {
     res.status(200).json();
   });
 
@@ -22,7 +21,7 @@ test('media is json', async () => {
 
 test('media is json with charset', async () => {
   const app = getApp([]);
-  app.get('/json', media(mime.getType('json')), (req, res) => {
+  app.get('/json', media(HEADERS.JSON), (req, res) => {
     res.status(200).json();
   });
 
@@ -35,7 +34,7 @@ test('media is json with charset', async () => {
 
 test('media is not json', async () => {
   const app = getApp([]);
-  app.get('/json', media(mime.getType('json')), (req, res) => {
+  app.get('/json', media(HEADERS.JSON), (req, res) => {
     res.status(HTTP_STATUS.OK).json({});
   });
 
@@ -48,7 +47,7 @@ test('media is not json', async () => {
 
 test('missing content-type', async () => {
   const app = getApp([]);
-  app.get('/json', media(mime.getType('json')), (req, res) => {
+  app.get('/json', media(HEADERS.JSON), (req, res) => {
     res.status(HTTP_STATUS.OK).json({});
   });
 

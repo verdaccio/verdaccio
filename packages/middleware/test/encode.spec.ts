@@ -65,7 +65,7 @@ describe('packages requests', () => {
     expect(res.status).toEqual(HTTP_STATUS.OK);
   });
 
-  test('scoped package with encoded @ and path ', async () => {
+  test('scoped package with encoded @ and path', async () => {
     const res = await request(app).get('/%40scope%2ffoo');
     expect(res.body).toEqual({ package: '@scope/foo' });
     expect(res.status).toEqual(HTTP_STATUS.OK);

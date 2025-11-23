@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/tarball",
-  "version": "13.0.0-next-8.24",
+  "version": "13.0.0-next-8.25",
   "description": "Verdaccio Tarball Utilities",
   "keywords": [
     "private",
@@ -33,8 +33,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:8.0.0-next-8.24",
-    "@verdaccio/url": "workspace:13.0.0-next-8.24",
+    "@verdaccio/core": "workspace:8.0.0-next-8.25",
+    "@verdaccio/url": "workspace:13.0.0-next-8.25",
     "debug": "4.4.3",
     "gunzip-maybe": "1.4.2",
     "tar-stream": "3.1.7"

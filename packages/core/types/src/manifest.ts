@@ -3,7 +3,7 @@ export interface PackageAccess {
   publish?: string[];
   proxy?: string[];
   access?: string[];
-  unpublish?: string[] | boolean; // false means fallback to publish
+  unpublish?: string[] | boolean; // false means fallback to publish access
 }
 
 export interface PackageList {

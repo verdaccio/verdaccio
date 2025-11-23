@@ -1,5 +1,15 @@
 # @verdaccio/website
 
+## 1.0.1-next-8.8
+
+### Patch Changes
+
+- 265c94a: fix(proxy): proxy protocol check
+- Updated dependencies [b24f513]
+- Updated dependencies [6d1a84a]
+- Updated dependencies [05c8e51]
+  - @verdaccio/ui-components@4.0.0-next-8.12
+
 ## 1.0.1-next-8.7
 
 ### Patch Changes
