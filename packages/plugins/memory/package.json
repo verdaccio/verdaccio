@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-memory",
-  "version": "13.0.0-next-8.25",
+  "version": "13.0.0-next-8.26",
   "description": "Verdaccio Memory Storage Plugin",
   "keywords": [
     "private",
@@ -30,14 +30,14 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:8.0.0-next-8.25",
+    "@verdaccio/core": "workspace:8.0.0-next-8.26",
     "debug": "4.4.3",
     "memfs": "4.17.2"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:13.0.0-next-8.8",
-    "@verdaccio/config": "workspace:8.0.0-next-8.25",
-    "@verdaccio/logger": "workspace:8.0.0-next-8.25",
+    "@verdaccio/types": "workspace:13.0.0-next-8.9",
+    "@verdaccio/config": "workspace:8.0.0-next-8.26",
+    "@verdaccio/logger": "workspace:8.0.0-next-8.26",
     "vitest": "3.2.4"
   },
   "scripts": {

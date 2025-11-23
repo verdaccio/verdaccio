@@ -1,5 +1,13 @@
 # @verdaccio/node-api
 
+## 8.0.0-next-8.26
+
+### Patch Changes
+
+- @verdaccio/server@8.0.0-next-8.26
+- @verdaccio/config@8.0.0-next-8.26
+- @verdaccio/logger@8.0.0-next-8.26
+
 ## 8.0.0-next-8.25
 
 ### Patch Changes
