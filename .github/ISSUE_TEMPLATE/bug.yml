@@ -95,17 +95,17 @@ body:
   #     default: 0
   #   validations:
   #     required: true
-  - type: dropdown
-    id: reverse-proxy
-    attributes:
-      label: Reverse proxy
-      description: Are you using a reverse proxy (e.g., nginx, apache)?
-      options:
-        - yes
-        - no
-      default: 1
-    validations:
-      required: true
+  # - type: dropdown
+  #   id: reverse-proxy
+  #   attributes:
+  #     label: Reverse proxy
+  #     description: Are you using a reverse proxy (e.g., nginx, apache)?
+  #     options:
+  #       - yes
+  #       - no
+  #     default: 1
+  #   validations:
+  #     required: true
   - type: textarea
     id: logs
     attributes:
