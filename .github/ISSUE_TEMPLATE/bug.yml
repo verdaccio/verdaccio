@@ -82,19 +82,19 @@ body:
   #     default: 0
   #   validations:
   #     required: true
-  - type: dropdown
-    id: platform
-    attributes:
-      label: Platform
-      description: How are you running Verdaccio?
-      options:
-        - node
-        - docker
-        - helm
-        - other
-      default: 0
-    validations:
-      required: true
+  # - type: dropdown
+  #   id: platform
+  #   attributes:
+  #     label: Platform
+  #     description: How are you running Verdaccio?
+  #     options:
+  #       - node
+  #       - docker
+  #       - helm
+  #       - other
+  #     default: 0
+  #   validations:
+  #     required: true
   - type: dropdown
     id: reverse-proxy
     attributes:
