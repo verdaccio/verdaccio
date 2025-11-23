@@ -39,7 +39,7 @@
     "lockfile": "1.0.4"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:13.0.0-next-8.9",
+    "@verdaccio/types": "workspace:13.0.0-next-8.10",
     "vitest": "3.2.4"
   },
   "scripts": {

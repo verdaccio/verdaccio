@@ -1,5 +1,11 @@
 # Change Log
 
+## 13.0.0-next-8.10
+
+### Patch Changes
+
+- ab8fccd: chore(auth): rename applyFallbackPluginMethods
+
 ## 13.0.0-next-8.9
 
 ### Patch Changes

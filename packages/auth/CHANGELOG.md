@@ -1,5 +1,18 @@
 # @verdaccio/auth
 
+## 8.0.0-next-8.27
+
+### Patch Changes
+
+- ab8fccd: chore(auth): rename applyFallbackPluginMethods
+- d028ce1: fix: running without auth plugin
+- Updated dependencies [d028ce1]
+  - @verdaccio/loaders@8.0.0-next-8.17
+  - @verdaccio/config@8.0.0-next-8.27
+  - @verdaccio/core@8.0.0-next-8.27
+  - verdaccio-htpasswd@13.0.0-next-8.27
+  - @verdaccio/signature@8.0.0-next-8.19
+
 ## 8.0.0-next-8.26
 
 ### Patch Changes
