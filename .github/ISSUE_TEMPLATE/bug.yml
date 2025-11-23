@@ -45,19 +45,19 @@ body:
       label: Output of `verdaccio --info`
       description: Please paste the results of running `verdaccio --info`
       placeholder: Paste output here
-  - type: dropdown
-    id: node-version
-    attributes:
-      label: Node.js version
-      description: What Node.js version are you using?
-      options:
-        - 18.x.x
-        - 20.x.x
-        - 22.x.x
-        - 24.x.x
-    default: 0        
-    validations:
-      required: true
+  # - type: dropdown
+  #   id: node-version
+  #   attributes:
+  #     label: Node.js version
+  #     description: What Node.js version are you using?
+  #     options:
+  #       - 18.x.x
+  #       - 20.x.x
+  #       - 22.x.x
+  #       - 24.x.x
+  #   default: 0        
+  #   validations:
+  #     required: true
   # - type: dropdown
   #   id: package-manager
   #   attributes:
