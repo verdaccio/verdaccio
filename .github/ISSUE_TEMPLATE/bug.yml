@@ -96,7 +96,7 @@ body:
         - label: I am using a reverse proxy
           required: false    
   - type: dropdown
-    id: containerization
+    id: container
     attributes:
       label: Containerization
       description: What containerization technology are you using?
@@ -107,7 +107,7 @@ body:
         - Other (please specify at the end of this form)
       default: 0
     validations:
-      required: true
+      required: false
   - type: textarea
     id: logs
     attributes:
