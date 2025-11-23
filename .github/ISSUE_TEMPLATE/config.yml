@@ -5,7 +5,7 @@ contact_links:
     about: 🆕 Open a new Q&A discussion 🙏
   - name: Security Report 🛡
     url: https://github.com/verdaccio/verdaccio/security/policy
-    about: I want to report a security vulnerability
+    about: I want to report a security vulnerability (note no bug bounty program available)
   - name: Chat 🏘
     url: https://discord.gg/7qWJxBf
     about: Quick question? Try out Discord chat, you can get faster feedback
