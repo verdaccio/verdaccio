@@ -1,5 +1,20 @@
 # @verdaccio/store
 
+## 8.0.0-next-8.26
+
+### Patch Changes
+
+- 1b9bf90: chore(store): nock replywitherror
+  - @verdaccio/config@8.0.0-next-8.26
+  - @verdaccio/core@8.0.0-next-8.26
+  - @verdaccio/tarball@13.0.0-next-8.26
+  - @verdaccio/logger@8.0.0-next-8.26
+  - @verdaccio/local-storage@13.0.0-next-8.26
+  - @verdaccio/proxy@8.0.0-next-8.26
+  - @verdaccio/search@8.0.0-next-8.26
+  - @verdaccio/loaders@8.0.0-next-8.16
+  - @verdaccio/url@13.0.0-next-8.26
+
 ## 8.0.0-next-8.25
 
 ### Patch Changes
