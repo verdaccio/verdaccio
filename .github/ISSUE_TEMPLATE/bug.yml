@@ -1,7 +1,7 @@
 name: Bug Report 🐛
 description: A feature is not working as is expected, I want to report a bug.
 title: "[Bug]: "
-labels: ["bug", "issue_triage_needed"]
+labels: ["bug", "issue_needs_triage"]
 assignees:
   - verdacciobot
 type: bug
@@ -28,6 +28,80 @@ body:
         - 6.x (Stable)
         - 8.x (Experimental)
       default: 0
+    validations:
+      required: true
+  - type: input
+    id: verdaccio-version
+    attributes:
+      label: Verdaccio version
+      description: Specify the exact Verdaccio version (e.g., 6.10.0)
+      placeholder: 6.x.x
+      value: "6.x.x"
+    validations:
+      required: true
+  - type: textarea
+    id: verdaccio-info
+    attributes:
+      label: Output of `verdaccio --info`
+      description: Please paste the results of running `verdaccio --info`
+      placeholder: Paste output here
+  - type: dropdown
+    id: node-version
+    attributes:
+      label: Node.js version
+      description: What Node.js version are you using?
+      options:
+        - 18.x.x
+        - 20.x.x
+        - 22.x.x
+        - 24.x.x
+    validations:
+      required: true
+  - type: dropdown
+    id: package-manager
+    attributes:
+      label: Package manager
+      description: Which package manager are you using?
+      options:
+        - npm
+        - pnpm
+        - yarn
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      description: What operating system are you using?
+      options:
+        - mac
+        - windows
+        - linux
+      default: 0
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      description: How are you running Verdaccio?
+      options:
+        - node
+        - docker
+        - helm
+        - other
+      default: 0
+    validations:
+      required: true
+  - type: dropdown
+    id: reverse-proxy
+    attributes:
+      label: Reverse proxy
+      description: Are you using a reverse proxy (e.g., nginx, apache)?
+      options:
+        - yes
+        - no
+      default: 1
     validations:
       required: true
   - type: textarea
