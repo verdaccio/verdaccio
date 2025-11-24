@@ -23,24 +23,31 @@ const normalizeResults = (hits) => {
   }, []);
 };
 
-const filterByProperty = (addsOns: Addon[], filters: Filters) => {
-  console.log('filters', filters);
-  const filtered = addsOns.filter((item) => {
-    console.log('item', item.name);
-
-    return (
+const filterByProperty = (addsOns: Addon[], filters: Filters): Addon[] => {
+  return addsOns.filter((item) => {
+    // Check origin filter - item must match at least one selected origin
+    const originMatch =
       (item.origin === 'core' && filters.core) ||
-      (item.origin === 'community' && filters.community) ||
-      (item.category === 'authentication' && filters.authentication) ||
-      (item.category === 'filter' && filters.filter) ||
-      (item.category === 'ui' && filters.ui) ||
-      (item.category === 'middleware' && filters.middleware) ||
-      (item.category === 'tool' && filters.tool) ||
-      (item.category === 'storage' && filters.storage) ||
-      (item.bundled && filters.bundled)
-    );
+      (item.origin === 'community' && filters.community);
+
+    if (!originMatch) {
+      return false;
+    }
+
+    // Check category filter - item's category must be selected
+    const categoryMatch = filters[item.category] === true;
+
+    if (!categoryMatch) {
+      return false;
+    }
+
+    // Check bundled filter - if enabled, only show bundled items; if disabled, show all
+    if (filters.bundled && !item.bundled) {
+      return false;
+    }
+
+    return true;
   });
-  return filtered;
 };
 
 const ToolList: FC<Props> = ({ addons = [], filters }): React.ReactElement => {
@@ -61,7 +68,6 @@ const ToolList: FC<Props> = ({ addons = [], filters }): React.ReactElement => {
           description: 'string',
         },
       });
-      console.log('===>', db);
       setDb(db);
       insertMultiple(db as Orama<ProvidedTypes>, addons);
     };
@@ -72,18 +78,20 @@ const ToolList: FC<Props> = ({ addons = [], filters }): React.ReactElement => {
   useEffect(() => {
     const searchKeyword = async () => {
       let results: Addon[] = addons;
-      if (filters.keyword !== '') {
+      if (filters.keyword !== '' && db) {
         const dbResults = await search(db as Orama<ProvidedTypes>, {
           term: filters.keyword,
         });
         results = [...normalizeResults(dbResults.hits)];
       }
-      // TODO: apply advanced filters later
-      // setFilteredAddsOn(filterByProperty(results, filters));
-      setFilteredAddsOn(results);
+      // Apply advanced filters (origin, category, bundled)
+      const filteredResults = filterByProperty(results, filters);
+      setFilteredAddsOn(filteredResults);
     };
-    searchKeyword();
-  }, [filters, addons]);
+    if (db || filters.keyword === '') {
+      searchKeyword();
+    }
+  }, [filters, addons, db]);
 
   return (
     <div>

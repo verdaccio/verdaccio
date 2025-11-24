@@ -1,7 +1,6 @@
 ---
 '@verdaccio/local-storage': patch
 '@verdaccio/server': patch
-'@verdaccio/server-fastify': patch
 '@verdaccio/test-helper': patch
 '@verdaccio/ui-components': patch
 '@verdaccio/tarball': patch

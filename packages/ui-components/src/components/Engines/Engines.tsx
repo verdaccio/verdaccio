@@ -20,7 +20,7 @@ type EngineItemProps = { title: string; element: React.ReactElement; engineText?
  * @category Component
  */
 const EngineItem: FC<EngineItemProps> = ({ title, element, engineText }) => (
-  <Grid item={true} xs={6}>
+  <Grid size={{ xs: 6 }}>
     <List subheader={<StyledText variant={'subtitle1'}>{title}</StyledText>}>
       <EngineListItem>
         <Avatar sx={{ backgroundColor: 'transparent', marginLeft: 0, padding: 0 }}>

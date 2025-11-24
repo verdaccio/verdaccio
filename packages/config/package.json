@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/config",
-  "version": "8.0.0-next-8.24",
+  "version": "8.0.0-next-8.27",
   "description": "Verdaccio Configuration",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -42,14 +42,14 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:8.0.0-next-8.24",
+    "@verdaccio/core": "workspace:8.0.0-next-8.27",
     "debug": "4.4.3",
-    "js-yaml": "4.1.0",
-    "lodash": "4.17.21",
-    "minimatch": "7.4.6"
+    "js-yaml": "4.1.1",
+    "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@types/minimatch": "5.1.2"
+    "@verdaccio/types": "workspace:13.0.0-next-8.10",
+    "vitest": "3.2.4"
   },
   "funding": {
     "type": "opencollective",

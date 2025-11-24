@@ -3,12 +3,12 @@
   "name": "@verdaccio/e2e-ui",
   "version": "2.0.1-next-8.0",
   "devDependencies": {
-    "verdaccio": "workspace:8.0.0-next-8.24",
-    "@verdaccio/core": "workspace:8.0.0-next-8.24",
-    "@verdaccio/config": "workspace:8.0.0-next-8.24",
-    "@verdaccio/test-helper": "workspace:4.0.0-next-8.8",
+    "verdaccio": "workspace:8.0.0-next-8.27",
+    "@verdaccio/core": "workspace:8.0.0-next-8.27",
+    "@verdaccio/config": "workspace:8.0.0-next-8.27",
+    "@verdaccio/test-helper": "workspace:4.0.0-next-8.11",
     "debug": "4.4.3",
-    "cypress": "15.4.0",
+    "cypress": "15.6.0",
     "get-port": "5.1.1"
   },
   "scripts": {

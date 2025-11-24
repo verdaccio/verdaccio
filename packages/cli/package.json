@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/cli",
-  "version": "8.0.0-next-8.24",
+  "version": "8.0.0-next-8.27",
   "author": {
     "name": "Juan Picado",
     "email": "juanpicado19@gmail.com"
@@ -47,17 +47,18 @@
     "start": "ts-node src/index.ts"
   },
   "dependencies": {
-    "@verdaccio/config": "workspace:8.0.0-next-8.24",
-    "@verdaccio/core": "workspace:8.0.0-next-8.24",
-    "@verdaccio/logger": "workspace:8.0.0-next-8.24",
-    "@verdaccio/node-api": "workspace:8.0.0-next-8.24",
+    "@verdaccio/config": "workspace:8.0.0-next-8.27",
+    "@verdaccio/core": "workspace:8.0.0-next-8.27",
+    "@verdaccio/logger": "workspace:8.0.0-next-8.27",
+    "@verdaccio/node-api": "workspace:8.0.0-next-8.27",
     "clipanion": "4.0.0-rc.4",
     "envinfo": "7.19.0",
-    "kleur": "4.1.5",
     "semver": "7.7.3"
   },
   "devDependencies": {
-    "ts-node": "10.9.2"
+    "@verdaccio/types": "workspace:13.0.0-next-8.10",
+    "ts-node": "10.9.2",
+    "vitest": "3.2.4"
   },
   "funding": {
     "type": "opencollective",

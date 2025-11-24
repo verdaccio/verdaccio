@@ -1,5 +1,27 @@
 # Change Log
 
+## 13.0.0-next-8.27
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.27
+- @verdaccio/url@13.0.0-next-8.27
+
+## 13.0.0-next-8.26
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.26
+- @verdaccio/url@13.0.0-next-8.26
+
+## 13.0.0-next-8.25
+
+### Patch Changes
+
+- Updated dependencies [3aff890]
+  - @verdaccio/url@13.0.0-next-8.25
+  - @verdaccio/core@8.0.0-next-8.25
+
 ## 13.0.0-next-8.24
 
 ### Patch Changes

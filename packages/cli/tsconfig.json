@@ -14,10 +14,13 @@
       "path": "../core/core"
     },
     {
-      "path": "../node-api"
+      "path": "../core/types"
     },
     {
       "path": "../logger/logger"
+    },
+    {
+      "path": "../node-api"
     }
   ]
 }

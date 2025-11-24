@@ -1,6 +1,5 @@
 ---
 '@verdaccio/local-storage': patch
-'@verdaccio/server-fastify': patch
 '@verdaccio/middleware': patch
 '@verdaccio/core': patch
 '@verdaccio/config': patch

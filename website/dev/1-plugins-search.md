@@ -1,7 +1,7 @@
 ---
-title: Plugins Search
+title: Search for Plugins & Tools
 hide_title: true
-sidebar_label: Plugin Search
+sidebar_label: Search for Plugins & Tools
 ---
 
 ```mdx-code-block

@@ -1,5 +1,45 @@
 # verdaccio
 
+## 8.0.0-next-8.27
+
+### Patch Changes
+
+- @verdaccio/cli@8.0.0-next-8.27
+- @verdaccio/hooks@8.0.0-next-8.27
+- @verdaccio/logger@8.0.0-next-8.27
+- @verdaccio/node-api@8.0.0-next-8.27
+- verdaccio-audit@13.0.0-next-8.27
+- verdaccio-htpasswd@13.0.0-next-8.27
+- @verdaccio/ui-theme@8.0.0-next-8.27
+
+## 8.0.0-next-8.26
+
+### Patch Changes
+
+- Updated dependencies [758ad49]
+  - @verdaccio/hooks@8.0.0-next-8.26
+  - @verdaccio/cli@8.0.0-next-8.26
+  - @verdaccio/logger@8.0.0-next-8.26
+  - @verdaccio/node-api@8.0.0-next-8.26
+  - verdaccio-audit@13.0.0-next-8.26
+  - verdaccio-htpasswd@13.0.0-next-8.26
+  - @verdaccio/ui-theme@8.0.0-next-8.26
+
+## 8.0.0-next-8.25
+
+### Patch Changes
+
+- Updated dependencies [3aff890]
+- Updated dependencies [b24f513]
+- Updated dependencies [6d1a84a]
+  - @verdaccio/cli@8.0.0-next-8.25
+  - @verdaccio/ui-theme@8.0.0-next-8.25
+  - @verdaccio/node-api@8.0.0-next-8.25
+  - @verdaccio/hooks@8.0.0-next-8.25
+  - verdaccio-audit@13.0.0-next-8.25
+  - verdaccio-htpasswd@13.0.0-next-8.25
+  - @verdaccio/logger@8.0.0-next-8.25
+
 ## 8.0.0-next-8.24
 
 ### Patch Changes

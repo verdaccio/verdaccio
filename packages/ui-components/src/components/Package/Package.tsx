@@ -177,22 +177,15 @@ const Package: React.FC<PackageInterface> = ({
 
   const renderPrimaryComponent = (): React.ReactNode => {
     return (
-      <Grid container={true} item={true} xs={12}>
-        <Grid item={true} xs={11}>
+      <Grid container={true} size={{ xs: 12 }}>
+        <Grid size={{ xs: 11 }}>
           <WrapperLink to={`${Route.DETAIL}${packageName}`}>
             <PackageTitle className="package-title" data-testid="package-title">
               {packageName}
             </PackageTitle>
           </WrapperLink>
         </Grid>
-        <GridRightAligned
-          alignItems="center"
-          container={true}
-          item={true}
-          justify="flex-end"
-          spacing={3}
-          xs={true}
-        >
+        <GridRightAligned alignItems="center" container={true} justify="flex-end" size={{ xs: 1 }}>
           {renderHomePageLink()}
           {renderBugsLink()}
           {showDownload && renderDownloadLink()}
@@ -205,7 +198,6 @@ const Package: React.FC<PackageInterface> = ({
 
   const renderPackageListItemText = (): React.ReactNode => (
     <PackageListItemText
-      className="package-link"
       primary={renderPrimaryComponent()}
       secondary={renderSecondaryComponent()}
     />
