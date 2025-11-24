@@ -1,5 +1,27 @@
 # @verdaccio/hooks
 
+## 8.0.0-next-8.27
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.27
+- @verdaccio/logger@8.0.0-next-8.27
+
+## 8.0.0-next-8.26
+
+### Patch Changes
+
+- 758ad49: fix: notification packages bug #5439
+  - @verdaccio/core@8.0.0-next-8.26
+  - @verdaccio/logger@8.0.0-next-8.26
+
+## 8.0.0-next-8.25
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.25
+- @verdaccio/logger@8.0.0-next-8.25
+
 ## 8.0.0-next-8.24
 
 ### Patch Changes

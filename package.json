@@ -154,7 +154,7 @@
     "ci:version:install": "pnpm install --frozen-lockfile=false",
     "ci:version:changeset": "changeset version",
     "ci:publish": "changeset publish",
-    "ts:ref": "update-ts-references --discardComments",
+    "ts:ref": "update-ts-references --discardComments --rootConfigName tsconfig.base.json",
     "website": "pnpm --filter ...@verdaccio/website build",
     "ui:storybook:build": "pnpm --filter ...@verdaccio/ui-components build-storybook",
     "ui:storybook": "pnpm --filter ...@verdaccio/ui-components start",

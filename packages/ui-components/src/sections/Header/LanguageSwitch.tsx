@@ -78,7 +78,7 @@ const LanguageSwitch = () => {
         {languages.map((language, index) => {
           const { icon, translation } = getCurrentLngDetails(language);
           return (
-            <Grid item={true} key={index} sm={2} xs={6}>
+            <Grid key={index} size={{ sm: 2, xs: 6 }}>
               {language === currentLanguage ? (
                 <CardSelected sx={{ maxWidth: 80 }}>
                   <LanguageContent icon={icon} translation={translation} />

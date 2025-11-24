@@ -1,5 +1,11 @@
 # @verdaccio/eslint-config
 
+## 4.0.0-next-8.2
+
+### Patch Changes
+
+- b24f513: chore(lint): switch rules from jest to vitest
+
 ## 4.0.0-next-8.1
 
 ### Patch Changes

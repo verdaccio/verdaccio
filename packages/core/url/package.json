@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/url",
-  "version": "13.0.0-next-8.24",
+  "version": "13.0.0-next-8.27",
   "description": "Verdaccio URL Utilities",
   "keywords": [
     "private",
@@ -33,9 +33,9 @@
     "access": "public"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:8.0.0-next-8.24",
+    "@verdaccio/core": "workspace:8.0.0-next-8.27",
     "debug": "4.4.3",
-    "validator": "13.15.22"
+    "validator": "13.15.23"
   },
   "devDependencies": {
     "node-mocks-http": "1.14.1",

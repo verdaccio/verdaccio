@@ -5,5 +5,10 @@
     "outDir": "./build"
   },
   "include": ["src/**/*.ts", "types/*.d.ts"],
-  "exclude": ["src/**/*.test.ts"]
+  "exclude": ["src/**/*.test.ts"],
+  "references": [
+    {
+      "path": "../types"
+    }
+  ]
 }

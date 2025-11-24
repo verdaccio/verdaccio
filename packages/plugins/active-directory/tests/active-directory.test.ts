@@ -1,9 +1,9 @@
 import ActiveDirectory from 'activedirectory2';
+import { vi } from 'vitest';
 
 import { HTTP_STATUS } from '@verdaccio/core';
 
 import ActiveDirectoryPlugin, { NotAuthMessage } from '../src/active-directory';
-// eslint-disable-next-line jest/no-mocks-import
 import logger from './__mocks__/Logger';
 
 describe('Active Directory Plugin', () => {
@@ -34,12 +34,12 @@ describe('Active Directory Plugin', () => {
   });
 
   beforeEach(() => {
-    jest.resetModules();
+    vi.resetModules();
   });
 
   test('get error when connection fails', (done) => {
     const errorMessage = 'Unknown error';
-    ActiveDirectory.prototype.authenticate = jest.fn((_1, _2, cb) => cb(errorMessage, undefined));
+    ActiveDirectory.prototype.authenticate = vi.fn((_1, _2, cb) => cb(errorMessage, undefined));
 
     adPlugin.authenticate('', '', (error, authUser) => {
       expect(ActiveDirectory.prototype.authenticate).toHaveBeenCalled();
@@ -52,7 +52,7 @@ describe('Active Directory Plugin', () => {
   });
 
   test('get error when not authenticated satisfactory', (done) => {
-    ActiveDirectory.prototype.authenticate = jest.fn((_1, _2, cb) => cb(null, false));
+    ActiveDirectory.prototype.authenticate = vi.fn((_1, _2, cb) => cb(null, false));
 
     adPlugin.authenticate('', '', (error, authUser) => {
       expect(ActiveDirectory.prototype.authenticate).toHaveBeenCalled();
@@ -68,7 +68,7 @@ describe('Active Directory Plugin', () => {
     const user = 'user';
     const password = 'password';
 
-    ActiveDirectory.prototype.authenticate = jest.fn((_1, _2, cb) => cb(null, true));
+    ActiveDirectory.prototype.authenticate = vi.fn((_1, _2, cb) => cb(null, true));
 
     adPlugin.authenticate(user, password, (error, authUser) => {
       expect(ActiveDirectory.prototype.authenticate).toHaveBeenCalled();
@@ -81,10 +81,10 @@ describe('Active Directory Plugin', () => {
 
   test('get error when getting groups for user', (done) => {
     const errorMessage = 'Unknown error retrieving groups';
-    ActiveDirectory.prototype.authenticate = jest.fn((_1, _2, cb) => cb(null, true));
-    ActiveDirectory.prototype.getGroupMembershipForUser = jest.fn((_, cb) =>
+    ActiveDirectory.prototype.authenticate = vi.fn((_1, _2, cb) => cb(null, true));
+    ActiveDirectory.prototype.getGroupMembershipForUser = vi.fn((_, cb) =>
       cb(errorMessage as unknown as object, null)
-    ) as jest.Mock;
+    );
 
     adPluginSingleGroup.authenticate('', '', (error, authUser) => {
       expect(ActiveDirectory.prototype.authenticate).toHaveBeenCalled();
@@ -101,10 +101,10 @@ describe('Active Directory Plugin', () => {
     const user = 'user';
     const password = 'password';
 
-    ActiveDirectory.prototype.authenticate = jest.fn((_1, _2, cb) => cb(null, true));
-    ActiveDirectory.prototype.getGroupMembershipForUser = jest.fn((_, cb) =>
+    ActiveDirectory.prototype.authenticate = vi.fn((_1, _2, cb) => cb(null, true));
+    ActiveDirectory.prototype.getGroupMembershipForUser = vi.fn((_, cb) =>
       cb(null, [{ cn: 'notMatchGroup' }])
-    ) as jest.Mock;
+    );
 
     adPluginSingleGroup.authenticate(user, password, (error, authUser) => {
       expect(ActiveDirectory.prototype.authenticate).toHaveBeenCalled();
@@ -124,10 +124,10 @@ describe('Active Directory Plugin', () => {
     const user = 'user';
     const password = 'password';
 
-    ActiveDirectory.prototype.authenticate = jest.fn((_1, _2, cb) => cb(null, true));
-    ActiveDirectory.prototype.getGroupMembershipForUser = jest.fn((_, cb) =>
+    ActiveDirectory.prototype.authenticate = vi.fn((_1, _2, cb) => cb(null, true));
+    ActiveDirectory.prototype.getGroupMembershipForUser = vi.fn((_, cb) =>
       cb(null, [{ cn: groupName }])
-    ) as jest.Mock;
+    );
 
     adPluginSingleGroup.authenticate(user, password, (error, authUser) => {
       expect(ActiveDirectory.prototype.authenticate).toHaveBeenCalled();
@@ -144,10 +144,10 @@ describe('Active Directory Plugin', () => {
     const user = 'user';
     const password = 'password';
 
-    ActiveDirectory.prototype.authenticate = jest.fn((_1, _2, cb) => cb(null, true));
-    ActiveDirectory.prototype.getGroupMembershipForUser = jest.fn((_, cb) =>
+    ActiveDirectory.prototype.authenticate = vi.fn((_1, _2, cb) => cb(null, true));
+    ActiveDirectory.prototype.getGroupMembershipForUser = vi.fn((_, cb) =>
       cb(null, [{ cn: group2 }, { dn: group3 }])
-    ) as jest.Mock;
+    );
 
     adPluginMultiGroups.authenticate(user, password, (error, authUser) => {
       expect(ActiveDirectory.prototype.authenticate).toHaveBeenCalled();

@@ -15,7 +15,9 @@ class CustomAgents {
     this.proxy = proxy;
     this.url = url;
     this.agentOptions = agentOptions;
-    const { protocol } = this.getParsedUrl();
+    // Type of agent depends on the protocol of the server URL (no on the proxy)
+    // See https://www.npmjs.com/package/hpagent
+    const { protocol } = new URL(this.url);
     this.agent = this.getAgent(protocol);
   }
 
@@ -40,10 +42,6 @@ class CustomAgents {
         ? { https: new HttpsAgent(this.agentOptions) }
         : { http: new HttpAgent(this.agentOptions) };
     }
-  }
-
-  private getParsedUrl() {
-    return this.proxy ? new URL(this.proxy) : new URL(this.url);
   }
 }
 

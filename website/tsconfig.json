@@ -9,6 +9,24 @@
     "noImplicitAny": false,
     "types": ["node", "@docusaurus/module-type-aliases"],
     "downlevelIteration": true,
-    "plugins": [{ "name": "typescript-plugin-css-modules" }]
-  }
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules"
+      }
+    ]
+  },
+  "references": [
+    {
+      "path": "../packages/tools/docusaurus-plugin-contributors"
+    },
+    {
+      "path": "../packages/tools/docusaurus-plugin-downloads"
+    },
+    {
+      "path": "../packages/tools/local-scripts"
+    },
+    {
+      "path": "../packages/ui-components"
+    }
+  ]
 }

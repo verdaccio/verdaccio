@@ -213,12 +213,30 @@ export interface HttpsConfPfx {
 export type HttpsConf = HttpsConfKeyCert | HttpsConfPfx;
 
 export interface Notifications {
-  method: string;
-  packagePattern: RegExp;
-  packagePatternFlags: string;
+  /**
+   * The endpoint URL to send the notification request to
+   */
   endpoint: string;
+  /**
+   * The content to send in the notification request body
+   */
   content: string;
-  headers: Headers;
+  /**
+   * Only run this notification if the package name matches the regular expression
+   */
+  packagePattern?: RegExp;
+  /**
+   * Any flags to be used with the regular expression
+   */
+  packagePatternFlags?: string;
+  /**
+   * By default use POST method
+   */
+  method?: string;
+  /**
+   * Optional headers to send with the notification request
+   */
+  headers?: Headers;
 }
 
 export type Notification = Notifications;

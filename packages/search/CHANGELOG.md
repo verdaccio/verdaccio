@@ -1,5 +1,35 @@
 # @verdaccio/search
 
+## 8.0.0-next-8.27
+
+### Patch Changes
+
+- @verdaccio/config@8.0.0-next-8.27
+- @verdaccio/core@8.0.0-next-8.27
+- @verdaccio/logger@8.0.0-next-8.27
+- @verdaccio/proxy@8.0.0-next-8.27
+
+## 8.0.0-next-8.26
+
+### Patch Changes
+
+- @verdaccio/config@8.0.0-next-8.26
+- @verdaccio/core@8.0.0-next-8.26
+- @verdaccio/logger@8.0.0-next-8.26
+- @verdaccio/proxy@8.0.0-next-8.26
+
+## 8.0.0-next-8.25
+
+### Patch Changes
+
+- Updated dependencies [3aff890]
+- Updated dependencies [265c94a]
+- Updated dependencies [b24f513]
+  - @verdaccio/config@8.0.0-next-8.25
+  - @verdaccio/proxy@8.0.0-next-8.25
+  - @verdaccio/core@8.0.0-next-8.25
+  - @verdaccio/logger@8.0.0-next-8.25
+
 ## 8.0.0-next-8.24
 
 ### Patch Changes
