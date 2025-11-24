@@ -11,22 +11,25 @@
       "path": "../config"
     },
     {
-      "path": "../plugins/htpasswd"
+      "path": "../core/core"
     },
     {
-      "path": "../core/core"
+      "path": "../core/types"
     },
     {
       "path": "../loaders"
     },
     {
-      "path": "../signature"
-    },
-    {
       "path": "../logger/logger"
     },
     {
-      "path": "../utils"
+      "path": "../middleware"
+    },
+    {
+      "path": "../plugins/htpasswd"
+    },
+    {
+      "path": "../signature"
     }
   ]
 }

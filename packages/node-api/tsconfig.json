@@ -11,13 +11,13 @@
       "path": "../config"
     },
     {
+      "path": "../core/types"
+    },
+    {
       "path": "../logger/logger"
     },
     {
       "path": "../server/express"
-    },
-    {
-      "path": "../server/fastify"
     }
   ]
 }

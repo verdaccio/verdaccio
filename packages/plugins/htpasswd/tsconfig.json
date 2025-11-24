@@ -8,16 +8,16 @@
   "exclude": ["src/**/*.test.ts"],
   "references": [
     {
-      "path": "../../core/file-locking"
-    },
-    {
       "path": "../../config"
     },
     {
-      "path": "../../logger/logger"
+      "path": "../../core/core"
     },
     {
-      "path": "../../core/core"
+      "path": "../../core/file-locking"
+    },
+    {
+      "path": "../../core/types"
     }
   ]
 }

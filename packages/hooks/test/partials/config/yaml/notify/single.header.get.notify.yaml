@@ -1,0 +1,5 @@
+notify:
+  method: GET
+  headers: { 'Content-Type': 'application/json' }
+  endpoint: http://slack-service/foo?auth_token=mySecretToken
+  content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'

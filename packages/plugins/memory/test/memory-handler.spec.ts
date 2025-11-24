@@ -72,7 +72,7 @@ describe('MemoryHandler', () => {
       expect(updated.name).toBe(pkgExample.name);
     });
 
-    test('should fail on update a package', async () => {
+    test('should fail on update a package - mock implementation', async () => {
       mockParsePackage.mockImplementationOnce(() => {
         throw new Error('error on parse');
       });
@@ -86,7 +86,7 @@ describe('MemoryHandler', () => {
       );
     });
 
-    test('should fail updateHandler update a package', async () => {
+    test('should fail on update a package - internal error', async () => {
       const localMemory = new LocalMemory(memoryConfig, defaultConfig);
       const pkgName = 'test6';
       const handler = localMemory.getPackageStorage(pkgName);
@@ -99,7 +99,7 @@ describe('MemoryHandler', () => {
       ).rejects.toEqual(errorUtils.getInternalError('some error'));
     });
 
-    test('should fail on update a package', async () => {
+    test('should fail on update a package - throw error', async () => {
       const localMemory = new LocalMemory(memoryConfig, defaultConfig);
       const pkgName = 'test7';
       const handler = localMemory.getPackageStorage(pkgName);

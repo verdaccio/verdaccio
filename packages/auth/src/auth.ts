@@ -44,7 +44,7 @@ import {
 } from './types';
 import {
   convertPayloadToBase64,
-  getDefaultPlugins,
+  getDefaultPluginMethods,
   getMiddlewareCredentials,
   isAESLegacy,
   isAuthHeaderValid,
@@ -76,12 +76,14 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     let plugins = await this.loadPlugin();
 
     debug('auth plugins found %s', plugins.length);
-    if (!plugins || plugins.length === 0) {
+    // Missing auth config or no loaded plugins -> load default htpasswd plugin
+    // Empty auth config (null) -> just use fallback methods
+    if (this.config.auth !== null && (!plugins || plugins.length === 0)) {
       plugins = this.loadDefaultPlugin();
     }
     this.plugins = plugins;
 
-    this._applyDefaultPlugins();
+    this.applyFallbackPluginMethods();
   }
 
   private loadDefaultPlugin() {
@@ -130,9 +132,8 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     );
   }
 
-  private _applyDefaultPlugins(): void {
-    // TODO: rename to applyFallbackPluginMethods
-    this.plugins.push(getDefaultPlugins(this.logger));
+  private applyFallbackPluginMethods(): void {
+    this.plugins.push(getDefaultPluginMethods(this.logger));
   }
 
   public changePassword(

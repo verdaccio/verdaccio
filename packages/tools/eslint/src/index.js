@@ -3,7 +3,7 @@ module.exports = {
     './rules/base.js',
     './rules/prettier.js',
     './rules/react.js',
-    './rules/jest.js',
+    './rules/vitest.js',
     './rules/cypress.js',
   ],
   env: {

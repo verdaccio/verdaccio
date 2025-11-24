@@ -10,7 +10,6 @@ import url from 'node:url';
 import { getConfigParsed, getListenAddress } from '@verdaccio/config';
 import { logger, setup } from '@verdaccio/logger';
 import expressServer from '@verdaccio/server';
-import fastifyServer from '@verdaccio/server-fastify';
 import { ConfigYaml, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 
 import { displayExperimentsInfoBox } from './experiments';
@@ -123,60 +122,48 @@ export async function initServer(
     const addr = getListenAddress(port ?? config?.listen, logger);
     displayExperimentsInfoBox(config.flags);
 
-    let app;
-    if (process.env.VERDACCIO_SERVER === 'fastify') {
-      app = await fastifyServer(config);
-      app.listen({ port: addr.port, host: addr.host }, (err) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
+    let app = await expressServer(config);
+    const serverFactory = createServerFactory(config, addr, app);
+    serverFactory
+      .listen(addr.port || addr.path, addr.host, (): void => {
+        // send a message for test
+        if (isFunction(process.send)) {
+          process.send({
+            verdaccio_started: true,
+          });
         }
+        const addressServer = `${
+          addr.path
+            ? url.format({
+                protocol: 'unix',
+                pathname: addr.path,
+              })
+            : url.format({
+                protocol: addr.proto,
+                hostname: addr.host,
+                port: addr.port,
+                pathname: '/',
+              })
+        }`;
+        logger.info({ addressServer }, 'http address: @{addressServer}');
+        logger.info({ version }, 'version: @{version}');
+        resolve();
+      })
+      .on('error', function (err): void {
+        reject(err);
+        process.exitCode = 1;
       });
-    } else {
-      app = await expressServer(config);
-      const serverFactory = createServerFactory(config, addr, app);
-      serverFactory
-        .listen(addr.port || addr.path, addr.host, (): void => {
-          // send a message for test
-          if (isFunction(process.send)) {
-            process.send({
-              verdaccio_started: true,
-            });
-          }
-          const addressServer = `${
-            addr.path
-              ? url.format({
-                  protocol: 'unix',
-                  pathname: addr.path,
-                })
-              : url.format({
-                  protocol: addr.proto,
-                  hostname: addr.host,
-                  port: addr.port,
-                  pathname: '/',
-                })
-          }`;
-          logger.info({ addressServer }, 'http address: @{addressServer}');
-          logger.info({ version }, 'version: @{version}');
-          resolve();
-        })
-        .on('error', function (err): void {
-          reject(err);
-          process.exitCode = 1;
-        });
-      function handleShutdownGracefully() {
-        logger.info('received shutdown signal - closing server gracefully...');
-        serverFactory.close(() => {
-          logger.info('server closed.');
-          process.exit(0);
-        });
-      }
+    function handleShutdownGracefully() {
+      logger.info('received shutdown signal - closing server gracefully...');
+      serverFactory.close(() => {
+        logger.info('server closed.');
+        process.exit(0);
+      });
+    }
 
-      for (const signal of ['SIGINT', 'SIGTERM', 'SIGHUP']) {
-        // Use once() so that receiving double signals exit the app.
-        process.once(signal, handleShutdownGracefully);
-      }
+    for (const signal of ['SIGINT', 'SIGTERM', 'SIGHUP']) {
+      // Use once() so that receiving double signals exit the app.
+      process.once(signal, handleShutdownGracefully);
     }
   });
 }

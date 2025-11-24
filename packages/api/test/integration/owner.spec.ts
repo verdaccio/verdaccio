@@ -1,4 +1,3 @@
-/* eslint-disable jest/no-commented-out-tests */
 import nock from 'nock';
 import { describe, expect, test } from 'vitest';
 

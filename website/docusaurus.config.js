@@ -17,7 +17,7 @@ const lgnMapping = {
 
 // @ts-ignore
 const progress = translations;
-const limitLngIncluded = 80;
+const limitLngIncluded = 180;
 console.log('limit translation is on %s%', limitLngIncluded);
 
 const { themes } = require('prism-react-renderer');
