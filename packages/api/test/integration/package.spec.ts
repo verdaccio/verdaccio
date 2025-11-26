@@ -54,7 +54,7 @@ describe('package', () => {
       ['foo', 'foo'],
       ['@scope/foo', '@scope/foo'],
       ['@scope/foo', encodeURIComponent('@scope/foo')],
-    ])('should return a foo private package', async (pkg, path) => {
+    ])('should return a private package', async (pkg, path) => {
       await publishVersion(app, pkg, '1.0.0');
       const response = await supertest(app)
         .get(`/${path}`)
@@ -64,38 +64,14 @@ describe('package', () => {
       expect(response.body.name).toEqual(pkg);
     });
 
-    test.each([['foo', '@scope/foo', encodeURIComponent('@scope/foo')]])(
-      'should return a foo private package by version',
-      async (pkg) => {
-        await publishVersion(app, pkg, '1.0.0');
-        const response = await supertest(app)
-          .get(`/${pkg}`)
-          .set(HEADERS.ACCEPT, HEADERS.JSON)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HTTP_STATUS.OK);
-        expect(response.body.name).toEqual(pkg);
-      }
-    );
-
-    test.each([['foo', '@scope/foo', encodeURIComponent('@scope/foo')]])(
-      'should return a foo private package by version',
-      async (pkg) => {
-        await publishVersion(app, pkg, '1.0.0');
-        const response = await supertest(app)
-          .get(`/${pkg}`)
-          .set(HEADERS.ACCEPT, HEADERS.JSON)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HTTP_STATUS.OK);
-        expect(response.body.name).toEqual(pkg);
-      }
-    );
-
     test.each([
-      ['foo-abbreviated', '@scope/foo-abbreviated', encodeURIComponent('@scope/foo-abbreviated')],
-    ])('should return abbreviated local manifest', async (pkg) => {
+      ['foo-abbreviated', 'foo-abbreviated'],
+      ['@scope/foo-abbreviated', '@scope/foo-abbreviated'],
+      ['@scope/foo-abbreviated', encodeURIComponent('@scope/foo-abbreviated')],
+    ])('should return abbreviated local manifest', async (pkg, path) => {
       await publishVersion(app, pkg, '1.0.0');
       const response = await supertest(app)
-        .get(`/${pkg}`)
+        .get(`/${path}`)
         .set(HEADERS.ACCEPT, HEADERS.JSON)
         .set(HEADERS.ACCEPT, Storage.ABBREVIATED_HEADER)
         .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_INSTALL_CHARSET)
