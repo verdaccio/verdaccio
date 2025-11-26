@@ -1,5 +1,14 @@
 # @verdaccio/middleware
 
+## 8.0.0-next-8.28
+
+### Patch Changes
+
+- 377f38d: fix(middleware): dist-tags with scoped packages
+  - @verdaccio/core@8.0.0-next-8.28
+  - @verdaccio/config@8.0.0-next-8.28
+  - @verdaccio/url@13.0.0-next-8.28
+
 ## 8.0.0-next-8.27
 
 ### Patch Changes
