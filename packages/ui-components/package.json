@@ -57,7 +57,7 @@
     "@emotion/babel-plugin": "11.13.5",
     "@storybook/addon-links": "9.1.15",
     "@storybook/addon-webpack5-compiler-babel": "3.0.6",
-    "@storybook/react-webpack5": "9.1.15",
+    "@storybook/react-webpack5": "9.1.16",
     "@testing-library/dom": "10.4.1",
     "@testing-library/jest-dom": "6.8.0",
     "@testing-library/react": "16.3.0",
