@@ -27,15 +27,17 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
   // any match within the static is routed to the file system
   router.get(WebUrlsNamespace.static + '*', function (req, res, next) {
     const filename = req.params[0];
+    let file = `${staticPath}/${filename}`;
     if (filename === 'favicon.ico' && config?.web?.favicon) {
-      const file = config?.web?.favicon;
+      file = config?.web?.favicon;
       if (isURLhasValidProtocol(file)) {
         debug('redirect to favicon %s', file);
         req.url = file;
         return next();
       }
     }
-    sendFileSafe(staticPath, filename, res, next);
+    debug('render static file %o', file);
+    res.sendFile(file, sendFileCallback(next));
   });
 
   function renderLogo(logo: string | undefined): string | undefined {
@@ -98,6 +100,6 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
       sendFileSafe(config.web.assetFolder, filename, res, next);
     });
   }
-  
+
   return router;
 }
