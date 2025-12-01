@@ -28,7 +28,8 @@ ENV VERDACCIO_APPDIR=/opt/verdaccio \
     VERDACCIO_USER_NAME=verdaccio \
     VERDACCIO_USER_UID=10001 \
     VERDACCIO_PORT=4873 \
-    VERDACCIO_PROTOCOL=http
+    VERDACCIO_PROTOCOL=http \
+    VERDACCIO_ADDRESS=[::]
 ENV PATH=$VERDACCIO_APPDIR/docker-bin:$PATH \
     HOME=$VERDACCIO_APPDIR
 
@@ -56,4 +57,4 @@ VOLUME /verdaccio/storage
 
 ENTRYPOINT ["uid_entrypoint"]
 
-CMD $VERDACCIO_APPDIR/packages/verdaccio/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://[::]:$VERDACCIO_PORT
+CMD $VERDACCIO_APPDIR/packages/verdaccio/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://$VERDACCIO_ADDRESS:$VERDACCIO_PORT

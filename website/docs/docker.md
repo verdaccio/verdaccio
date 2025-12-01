@@ -67,6 +67,7 @@ Verdaccio 4 provides a new set of environment variables to modify either permiss
 | VERDACCIO_USER_UID  | `10001`          | the user id being used to apply folder permissions |
 | VERDACCIO_PORT      | `4873`           | the verdaccio port                                 |
 | VERDACCIO_PROTOCOL  | `http`           | the default http protocol                          |
+| VERDACCIO_ADDRESS   | `[::]`           | the default address to listen on                   |
 
 ### SELinux {#selinux}
 
