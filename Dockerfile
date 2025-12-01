@@ -23,7 +23,7 @@ RUN yarn config set npmRegistryServer $VERDACCIO_BUILD_REGISTRY && \
     yarn config set enableScripts false && \
     yarn install --immutable && \
     yarn build
-    
+
 ## pack the project
 RUN yarn pack --out verdaccio.tgz \
     && mkdir -p /opt/tarball \
@@ -38,7 +38,8 @@ ENV VERDACCIO_APPDIR=/opt/verdaccio \
     VERDACCIO_USER_NAME=verdaccio \
     VERDACCIO_USER_UID=10001 \
     VERDACCIO_PORT=4873 \
-    VERDACCIO_PROTOCOL=http
+    VERDACCIO_PROTOCOL=http \
+    VERDACCIO_ADDRESS=0.0.0.0
 ENV PATH=$VERDACCIO_APPDIR/docker-bin:$PATH \
     HOME=$VERDACCIO_APPDIR
 
@@ -75,7 +76,7 @@ ADD docker-bin $VERDACCIO_APPDIR/docker-bin
 # - Sets home directory to $VERDACCIO_APPDIR
 # - Assigns a shell of /sbin/nologin to prevent login access
 RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APPDIR -g "$VERDACCIO_USER_NAME user" -s /sbin/nologin $VERDACCIO_USER_NAME && \
-    # Ensure Verdaccio's CLI entry points and custom docker binaries are executable    
+    # Ensure Verdaccio's CLI entry points and custom docker binaries are executable
     chmod -R +x /usr/local/lib/node_modules/verdaccio/bin/verdaccio $VERDACCIO_APPDIR/docker-bin && \
     # Give ownership of critical runtime folders to the Verdaccio user
     chown -R $VERDACCIO_USER_UID:root /verdaccio/storage /verdaccio/conf && \
@@ -83,7 +84,7 @@ RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APPDIR -g "$VERDACCIO_USE
     chmod -R g=u /verdaccio/storage /verdaccio/conf /etc/passwd
 
 # Switch to the non-root Verdaccio user by UID for improved security
-# This ensures all following operations (including `CMD`) run as an unprivileged user    
+# This ensures all following operations (including `CMD`) run as an unprivileged user
 USER $VERDACCIO_USER_UID
 
 # Expose Verdaccio's listening port (default: 4873) to the host
@@ -101,4 +102,4 @@ ENTRYPOINT ["uid_entrypoint"]
 
 # Default command to start Verdaccio using the custom config
 # - Uses environment variables for protocol and port binding
-CMD verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://[::]:$VERDACCIO_PORT
+CMD verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://$VERDACCIO_ADDRESS:$VERDACCIO_PORT
