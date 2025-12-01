@@ -39,6 +39,14 @@
   { "downloads": 41869, "start": "2019-02-01", "end": "2019-02-28", "package": "verdaccio" },
   { "downloads": 38958, "start": "2019-03-01", "end": "2019-03-31", "package": "verdaccio" },
   { "downloads": 123377, "start": "2019-04-01", "end": "2019-04-30", "package": "verdaccio" },
+  { "downloads": 148043, "start": "2019-08-01", "end": "2019-08-31", "package": "verdaccio" },
+  { "downloads": 136353, "start": "2019-09-01", "end": "2019-09-30", "package": "verdaccio" },
+  { "downloads": 147244, "start": "2019-10-01", "end": "2019-10-31", "package": "verdaccio" },
+  { "downloads": 60357, "start": "2019-11-01", "end": "2019-11-30", "package": "verdaccio" },
+  { "downloads": 52255, "start": "2019-12-01", "end": "2019-12-31", "package": "verdaccio" },
+  { "downloads": 62815, "start": "2020-01-01", "end": "2020-01-31", "package": "verdaccio" },
+  { "downloads": 59476, "start": "2020-02-01", "end": "2020-02-29", "package": "verdaccio" },
+  { "downloads": 73003, "start": "2020-03-01", "end": "2020-03-31", "package": "verdaccio" },
   { "downloads": 77269, "start": "2020-04-01", "end": "2020-04-30", "package": "verdaccio" },
   { "downloads": 92001, "start": "2020-05-01", "end": "2020-05-31", "package": "verdaccio" },
   { "downloads": 94261, "start": "2020-06-01", "end": "2020-06-30", "package": "verdaccio" },
@@ -106,5 +114,6 @@
   { "downloads": 1262694, "start": "2025-08-01", "end": "2025-08-31", "package": "verdaccio" },
   { "downloads": 1466753, "start": "2025-09-01", "end": "2025-09-30", "package": "verdaccio" },
   { "downloads": 1558233, "start": "2025-10-01", "end": "2025-10-31", "package": "verdaccio" },
-  { "downloads": 1226291, "start": "2025-11-01", "end": "2025-11-28", "package": "verdaccio" }
+  { "downloads": 1426264, "start": "2025-11-01", "end": "2025-11-30", "package": "verdaccio" },
+  { "downloads": 0, "start": "2025-12-01", "end": "2025-12-02", "package": "verdaccio" }
 ]
