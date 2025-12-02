@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.2.4](https://github.com/verdaccio/verdaccio/compare/v6.2.3...v6.2.4) (2025-12-02)
+
+
+### Bug Fixes
+
+* allow docker listen address to be configured (6.x) ([#5503](https://github.com/verdaccio/verdaccio/issues/5503)) ([12a19ac](https://github.com/verdaccio/verdaccio/commit/12a19acedc9557875647777b51e941f9a66d5931))
+
 ### [6.2.3](https://github.com/verdaccio/verdaccio/compare/v6.2.2...v6.2.3) (2025-11-27)
 
 
