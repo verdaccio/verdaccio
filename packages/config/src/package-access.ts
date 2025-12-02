@@ -50,6 +50,24 @@ export function normalizeUserList(groupsList: any): any {
   return _.flatten(result);
 }
 
+function normalizeDeniedVersions(versions: any): string[] {
+  if (_.isNil(versions)) {
+    return [];
+  }
+
+  if (_.isString(versions)) {
+    return [versions];
+  }
+
+  if (Array.isArray(versions)) {
+    return versions.filter((version): version is string => _.isString(version));
+  }
+
+  throw errorUtils.getInternalError(
+    'CONFIG: bad deniedVersions value (array or string expected): ' + JSON.stringify(versions)
+  );
+}
+
 export function normalisePackageAccess(packages: LegacyPackageList): LegacyPackageList {
   const normalizedPkgs: LegacyPackageList = { ...packages };
   if (_.isNil(normalizedPkgs['**'])) {
@@ -58,6 +76,7 @@ export function normalisePackageAccess(packages: LegacyPackageList): LegacyPacka
       publish: [],
       unpublish: [],
       proxy: [],
+      deniedVersions: [],
     };
   }
 
@@ -75,6 +94,7 @@ export function normalisePackageAccess(packages: LegacyPackageList): LegacyPacka
       normalizedPkgs[pkg].unpublish = _.isUndefined(packageAccess.unpublish)
         ? false
         : normalizeUserList(packageAccess.unpublish);
+      normalizedPkgs[pkg].deniedVersions = normalizeDeniedVersions(packageAccess.deniedVersions);
     }
   }
 
