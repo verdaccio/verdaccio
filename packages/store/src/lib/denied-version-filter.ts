@@ -6,13 +6,13 @@ import { Config, Manifest, Version } from '@verdaccio/types';
 import { sortVersionsAndFilterInvalid } from './versions-utils';
 
 export class DeniedVersionFilter {
-  private cache: Map<string, string[]> = new Map();
+  private cache: Map<string, Set<string>> = new Map();
 
   public constructor(private config: Config) {}
 
   public filterManifest(pkgName: string, manifest: Manifest): Manifest {
     const deniedVersions = this.getDeniedVersions(pkgName);
-    if (deniedVersions.length === 0) {
+    if (deniedVersions.size === 0) {
       return manifest;
     }
 
@@ -49,22 +49,20 @@ export class DeniedVersionFilter {
     if (!version) {
       return false;
     }
-    return this.getDeniedVersions(pkgName).includes(version);
+    return this.getDeniedVersions(pkgName).has(version);
   }
 
-  private getDeniedVersions(pkgName: string): string[] {
+  private getDeniedVersions(pkgName: string): Set<string> {
     if (this.cache.has(pkgName)) {
       return this.cache.get(pkgName)!;
     }
 
     const matchedSpec = authUtils.getMatchedPackagesSpec(pkgName, this.config.packages);
     const denied = matchedSpec?.deniedVersions ?? [];
-    const normalized = Array.from(
-      new Set(
-        denied.filter((version) => {
-          return _.isString(version) && version.length > 0;
-        })
-      )
+    const normalized = new Set(
+      denied.filter((version) => {
+        return _.isString(version) && version.length > 0;
+      })
     );
     this.cache.set(pkgName, normalized);
     return normalized;
@@ -145,6 +143,6 @@ export class DeniedVersionFilter {
     }
 
     const sorted = sortVersionsAndFilterInvalid(availableVersions);
-    return sorted.pop();
+    return sorted[sorted.length - 1];
   }
 }
