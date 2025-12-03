@@ -74,6 +74,24 @@ const defaultRequestOptions = {
   headers: {},
 };
 
+const createDeniedPackageConfig = (pkgName: string, deniedVersions: string[]): Config => {
+  const baseConfig = getDefaultConfig();
+  return new Config({
+    ...baseConfig,
+    storage: generateRandomStorage(),
+    packages: {
+      [pkgName]: {
+        access: '$all',
+        publish: '$authenticated',
+        unpublish: '$authenticated',
+        proxy: 'npmjs',
+        deniedVersions,
+      },
+      ...(baseConfig.packages || {}),
+    },
+  });
+};
+
 const executeStarPackage = async (
   storage,
   options: {
@@ -2059,6 +2077,77 @@ describe('storage', () => {
         // @ts-expect-error
         expect(manifest._attachments).not.toBeDefined();
       });
+    });
+  });
+
+  describe('denied versions', () => {
+    const publishVersion = async (storage: Storage, pkgName: string, version: string) => {
+      await storage.updateManifest(generatePackageMetadata(pkgName, version), {
+        signal: new AbortController().signal,
+        name: pkgName,
+        uplinksLook: false,
+        requestOptions: defaultRequestOptions,
+      });
+    };
+
+    test('should omit denied versions from manifest responses even when latest is denied', async () => {
+      const pkgName = 'denied-manifest';
+      const config = createDeniedPackageConfig(pkgName, ['2.0.0']);
+      const storage = new Storage(config, logger);
+      await storage.init(config);
+      await publishVersion(storage, pkgName, '1.0.0');
+      await publishVersion(storage, pkgName, '2.0.0');
+
+      const manifest = (await storage.getPackageByOptions({
+        name: pkgName,
+        uplinksLook: false,
+        requestOptions: defaultRequestOptions,
+      })) as Manifest;
+
+      expect(Object.keys(manifest.versions)).toEqual(['1.0.0']);
+      expect(manifest[DIST_TAGS].latest).toEqual('1.0.0');
+    });
+
+    test('should reject fetching denied versions explicitly', async () => {
+      const pkgName = 'denied-by-version';
+      const config = createDeniedPackageConfig(pkgName, ['2.0.0']);
+      const storage = new Storage(config, logger);
+      await storage.init(config);
+      await publishVersion(storage, pkgName, '1.0.0');
+      await publishVersion(storage, pkgName, '2.0.0');
+
+      await expect(
+        storage.getPackageByVersion({
+          name: pkgName,
+          version: '2.0.0',
+          uplinksLook: false,
+          requestOptions: defaultRequestOptions,
+        })
+      ).rejects.toThrow(`${API_ERROR.VERSION_NOT_EXIST}: 2.0.0`);
+
+      const allowedVersion = await storage.getPackageByVersion({
+        name: pkgName,
+        version: '1.0.0',
+        uplinksLook: false,
+        requestOptions: defaultRequestOptions,
+      });
+
+      expect(allowedVersion.version).toBe('1.0.0');
+    });
+
+    test('should reject tarball downloads for denied versions', async () => {
+      const pkgName = 'denied-tarball';
+      const config = createDeniedPackageConfig(pkgName, ['2.0.0']);
+      const storage = new Storage(config, logger);
+      await storage.init(config);
+      await publishVersion(storage, pkgName, '1.0.0');
+      await publishVersion(storage, pkgName, '2.0.0');
+
+      await expect(
+        storage.getTarball(pkgName, `${pkgName}-2.0.0.tgz`, {
+          signal: new AbortController().signal,
+        })
+      ).rejects.toThrow(API_ERROR.NO_SUCH_FILE);
     });
   });
 });

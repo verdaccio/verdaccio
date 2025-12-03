@@ -37,6 +37,10 @@ export class DeniedVersionFilter {
 
     this.removeDeniedVersions(clonedManifest, deniedSet);
     this.normalizeDistTags(clonedManifest, deniedSet);
+    clonedManifest.time = {
+      ...(clonedManifest.time || {}),
+      modified: new Date().toISOString(),
+    };
 
     return clonedManifest;
   }
