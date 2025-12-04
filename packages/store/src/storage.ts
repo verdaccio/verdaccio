@@ -69,6 +69,7 @@ import {
   tagVersion,
   tagVersionNext,
 } from '.';
+import { DeniedVersionFilter } from './lib/denied-version-filter';
 import { isExecutingStarCommand, isPublishablePackage } from './lib/star-utils';
 import {
   STORAGE,
@@ -102,11 +103,13 @@ class Storage {
   public readonly logger: Logger;
   public readonly uplinks: ProxyInstanceList;
   private searchService: Search;
+  private deniedVersionFilter: DeniedVersionFilter;
   public constructor(config: Config, logger: Logger) {
     this.config = config;
     this.logger = logger.child({ module: 'storage' });
     this.uplinks = setupUpLinks(config, this.logger);
     this.searchService = new Search(config, this.logger);
+    this.deniedVersionFilter = new DeniedVersionFilter(config);
     this.filters = null;
     // @ts-ignore
     this.localStorage = null;
@@ -419,6 +422,15 @@ class Storage {
   public async getTarball(name: string, filename: string, { signal }): Promise<PassThrough> {
     this.logger.info({ name, filename }, 'get tarball for package @{name} filename @{filename}');
     debug('get tarball for package %o filename %o', name, filename);
+    const versionFromTarball = tarballUtils.getVersionFromTarball(filename);
+    if (this.deniedVersionFilter.isVersionDenied(name, versionFromTarball)) {
+      debug(
+        'tarball version %o for package %o is denied, rejecting download',
+        versionFromTarball,
+        name
+      );
+      throw errorUtils.getNotFound(API_ERROR.NO_SUCH_FILE);
+    }
     // TODO: check if isOpen is need it after all.
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     let isOpen = false;
@@ -611,17 +623,18 @@ class Storage {
     for (const pkg of database) {
       debug('get local database %o', pkg);
       const manifest = await this.getPackageLocalMetadata(pkg);
-      const latest = manifest[DIST_TAGS].latest;
-      if (latest && manifest.versions[latest]) {
-        const version: Version = manifest.versions[latest];
-        const timeList = manifest.time as GenericBody;
+      const filteredManifest = this.applyDeniedVersions(pkg, manifest);
+      const latest = filteredManifest?.[DIST_TAGS]?.latest;
+      if (latest && filteredManifest?.versions[latest]) {
+        const version: Version = filteredManifest.versions[latest];
+        const timeList = filteredManifest.time as GenericBody;
         const time = timeList[latest];
         // @ts-ignore
         version.time = time;
 
         // Add for stars api
         // @ts-ignore
-        version.users = manifest.users;
+        version.users = filteredManifest.users;
 
         packages.push(version);
       } else {
@@ -750,8 +763,9 @@ class Storage {
       try {
         for (const searchItem of items) {
           const manifest = await this.getPackageLocalMetadata(searchItem.package.name);
-          if (_.isEmpty(manifest?.versions) === false) {
-            const searchPackage = mapManifestToSearchPackageBody(manifest, searchItem);
+          const filteredManifest = this.applyDeniedVersions(searchItem.package.name, manifest);
+          if (_.isEmpty(filteredManifest.versions) === false) {
+            const searchPackage = mapManifestToSearchPackageBody(filteredManifest, searchItem);
             debug('search local stream found %o', searchPackage.name);
             const searchPackageItem: searchUtils.SearchPackageItem = {
               package: searchPackage,
@@ -1684,7 +1698,8 @@ class Storage {
       // if the remote manifest is empty, we return local data
     } else if (!remoteManifest && !_.isNull(data)) {
       // no data on uplinks
-      return [data as Manifest, upLinksErrors];
+      const filteredLocal = this.applyDeniedVersions(name, data as Manifest);
+      return [filteredLocal as Manifest, upLinksErrors];
     }
 
     // if we have local data, we try to update it with the upstream registry
@@ -1695,7 +1710,8 @@ class Storage {
     });
 
     debug('no sync uplinks errors %o for %s', upLinksErrors?.length, name);
-    return [normalizedPkg, upLinksErrors];
+    const filteredNormalized = this.applyDeniedVersions(name, normalizedPkg);
+    return [filteredNormalized as Manifest, upLinksErrors];
   }
 
   /**
@@ -1741,7 +1757,7 @@ class Storage {
     //  if no uplinks match we return the local manifest
     if (upLinks.length === 0) {
       debug('no uplinks found for %o, upstream update aborted', name);
-      return [localManifest, []];
+      return [this.applyDeniedVersions(name, localManifest), []];
     }
 
     const uplinksErrors: any[] = [];
@@ -1774,14 +1790,19 @@ class Storage {
       let updatedCacheManifest = await this.updateVersionsNext(name, syncManifest);
       // plugin filter applied to the manifest
       const [filteredManifest, filtersErrors] = await this.applyFilters(updatedCacheManifest);
+      const manifestToReturn = { ...updatedCacheManifest, ...filteredManifest };
       return [
-        { ...updatedCacheManifest, ...filteredManifest },
+        this.applyDeniedVersions(name, manifestToReturn),
         [...uplinksErrors, ...filtersErrors],
       ];
     } else if (found && _.isNil(localManifest) === false) {
       // apply filter to local manifest (it is cached in unfiltered state)
       const [filteredManifest, filtersErrors] = await this.applyFilters(localManifest);
-      return [{ ...localManifest, ...filteredManifest }, [...uplinksErrors, ...filtersErrors]];
+      const manifestToReturn = { ...localManifest, ...filteredManifest };
+      return [
+        this.applyDeniedVersions(name, manifestToReturn),
+        [...uplinksErrors, ...filtersErrors],
+      ];
     } else {
       // if is not found, calculate the right error to return
       debug('uplinks sync failed with %o errors', uplinksErrors.length);
@@ -1890,6 +1911,13 @@ class Storage {
       }
     }
     return [filteredManifest, filterPluginErrors];
+  }
+
+  private applyDeniedVersions<T extends Manifest | null>(pkgName: string, manifest: T): T {
+    if (manifest === null) {
+      return manifest;
+    }
+    return this.deniedVersionFilter.filterManifest(pkgName, manifest) as T;
   }
 
   private _createNewPackage(name: string): Manifest {

@@ -142,6 +142,18 @@ describe('Package access utilities', () => {
       expect(all.publish).toBeDefined();
       expect(_.isArray(all.publish)).toBeTruthy();
     });
+
+    test('should normalize deniedVersions definitions', () => {
+      const { packages } = parseConfigFile(parseConfigurationFile('pkgs-denied'));
+      const access = normalisePackageAccess(packages);
+      const denied = access['denied/*'];
+      const single = access['single-denied'];
+      const all = access[`${PACKAGE_ACCESS.ALL}`];
+
+      expect(denied.deniedVersions).toEqual(['1.0.0', '2.0.0']);
+      expect(single.deniedVersions).toEqual(['3.0.0']);
+      expect(all.deniedVersions).toEqual([]);
+    });
   });
   describe('normaliseUserList', () => {
     test('should normalize user list', () => {

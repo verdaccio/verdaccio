@@ -4,6 +4,7 @@ export interface PackageAccess {
   proxy?: string[];
   access?: string[];
   unpublish?: string[] | boolean; // false means fallback to publish access
+  deniedVersions?: string[];
 }
 
 export interface PackageList {
