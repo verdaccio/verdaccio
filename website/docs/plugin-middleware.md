@@ -42,6 +42,19 @@ The `auth` and `storage` are instances and can be extended, but we don't recomme
 
 > A good example of a middleware plugin is the [verdaccio-audit](https://github.com/verdaccio/monorepo/tree/master/plugins/audit).
 
+## Overwriting HTTP Security Headers
+
+By default, Verdaccio sets the following HTTP headers. If you have other security requirements, you can overwrite these settings using a middleware plugin.
+
+| Header                  | Verdaccio Setting  |
+| ----------------------- | ------------------ |
+| Content-Security-Policy | connect-src 'self' |
+| X-Content-Type-Options  | nosniff            |
+| X-Frame-Options         | deny               |
+| X-XSS-Protection        | 1; mode=block      |
+
+For details, see [HTTP Headers on MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers).
+
 ## Generate a middleware plugin {#generate-a-middleware-plugin}
 
 For detailed info check our [plugin generator page](plugin-generator). Run the `yo` command in your terminal and follow the steps.

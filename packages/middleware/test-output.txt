@@ -1,0 +1,59 @@
+
+> @verdaccio/middleware@8.0.0-next-8.27 test C:\Github\~verdaccio\verdaccio\packages\middleware
+> vitest run "sec"
+
+
+[1m[46m RUN [49m[22m [36mv3.2.4 [39m[90mC:/Github/~verdaccio/verdaccio/packages/middleware[39m
+
+ [31mΓ¥»[39m test/security.spec.ts [2m([22m[2m7 tests[22m[2m | [22m[31m2 failed[39m[2m)[22m[32m 139[2mms[22m[39m
+   [32mΓ£ô[39m should get frame options[32m 44[2mms[22m[39m
+   [32mΓ£ô[39m should get csp options[32m 9[2mms[22m[39m
+   [32mΓ£ô[39m should get cto[32m 20[2mms[22m[39m
+   [32mΓ£ô[39m should get xss[32m 10[2mms[22m[39m
+[31m   [31m├ù[31m should set own content security policy[39m[32m 16[2mms[22m[39m
+[31m     ΓåÆ expected 'connect-src \'self\'' to deeply equal 'default "self"; connect-src "self" htΓÇª'[39m
+   [32mΓ£ô[39m should overwrite invalid frame options[32m 28[2mms[22m[39m
+[31m   [31m├ù[31m should get changed xss header[39m[32m 11[2mms[22m[39m
+[31m     ΓåÆ expected '1; mode=block' to deeply equal '1; report=https://example.com/report'[39m
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ» Failed Tests 2 ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»
+
+ FAIL  test/security.spec.ts > should set own content security policy
+AssertionError: expected 'connect-src \'self\'' to deeply equal 'default "self"; connect-src "self" htΓÇª'
+
+Expected: "default "self"; connect-src "self" https://other.example.com"
+Received: "connect-src 'self'"
+
+ Γ¥» test/security.spec.ts:75:32
+     73| 
+     74|   const res = await request(app).get('/sec').expect(HTTP_STATUS.OK);
+     75|   expect(res.get(HEADERS.CSP)).toEqual(csp);
+       |                                ^
+     76| });
+     77| 
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[1/2]ΓÄ»
+
+ FAIL  test/security.spec.ts > should get changed xss header
+AssertionError: expected '1; mode=block' to deeply equal '1; report=https://example.com/report'
+
+Expected: "1; report=https://example.com/report"
+Received: "1; mode=block"
+
+ Γ¥» test/security.spec.ts:110:32
+    108| 
+    109|   const res = await request(app).get('/sec').expect(HTTP_STATUS.OK);
+    110|   expect(res.get(HEADERS.XSS)).toEqual(xss);
+       |                                ^
+    111| });
+    112| 
+
+ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»ΓÄ»[2/2]ΓÄ»
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m2 failed[39m[22m[2m | [22m[1m[32m5 passed[39m[22m[90m (7)[39m
+[2m   Start at [22m 22:16:48
+[2m   Duration [22m 6.31s[2m (transform 1.89s, setup 0ms, collect 4.32s, tests 139ms, environment 0ms, prepare 849ms)[22m
+
+ΓÇëELIFECYCLEΓÇë Test failed. See above for more details.
