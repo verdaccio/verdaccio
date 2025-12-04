@@ -1,7 +1,7 @@
 import { Command, Option } from 'clipanion';
 
 import { findConfigFile, parseConfigFile } from '@verdaccio/config';
-import { warningUtils } from '@verdaccio/core';
+import { pkgUtils, warningUtils } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 import { initServer } from '@verdaccio/node-api';
 import { ConfigYaml, LoggerConfigItem } from '@verdaccio/types';
@@ -63,9 +63,9 @@ export class InitCommand extends Command {
 
       process.title = web?.title || DEFAULT_PROCESS_NAME;
 
-      const { version, name } = require('../../package.json');
+      const { version, name } = pkgUtils.getPackageJson(__dirname, '../..');
 
-      await initServer(configParsed, this.port as string, version, name);
+      await initServer(configParsed, this.port as string, version as string, name as string);
 
       const logLevel = configParsed.log?.level || 'default';
       logger.info({ logLevel }, 'log level: @{logLevel}');

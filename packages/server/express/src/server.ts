@@ -13,6 +13,7 @@ import {
   PLUGIN_CATEGORY,
   PLUGIN_PREFIX,
   errorUtils,
+  pkgUtils,
   pluginUtils,
 } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
@@ -34,7 +35,7 @@ import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/cust
 import hookDebug from './debug';
 
 const debug = buildDebug('verdaccio:server');
-const { version } = require('../package.json');
+const { version } = pkgUtils.getPackageJson(__dirname, '..');
 
 const defineAPI = async function (config: IConfig, storage: Storage): Promise<Express> {
   const auth = new Auth(config, logger);
