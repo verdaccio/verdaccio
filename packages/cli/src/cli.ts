@@ -1,6 +1,6 @@
 import { Cli } from 'clipanion';
 
-import { warningUtils } from '@verdaccio/core';
+import { pkgUtils, warningUtils } from '@verdaccio/core';
 
 import { InfoCommand } from './commands/info';
 import { InitCommand } from './commands/init';
@@ -23,7 +23,7 @@ const [node, app, ...args] = process.argv;
 const cli = new Cli({
   binaryLabel: `verdaccio`,
   binaryName: `${node} ${app}`,
-  binaryVersion: require('../package.json').version,
+  binaryVersion: pkgUtils.getPackageJson(__dirname, '..').version as string,
 });
 
 cli.register(InfoCommand);

@@ -1,4 +1,6 @@
 import { Cli } from 'clipanion';
+import fs from 'node:fs';
+import path from 'node:path';
 
 import { DockerPullCommand } from './api/dockerPullCommand';
 import { NpmjsApiDownloadCommand } from './api/npmjsApiDownloadCommand';
@@ -7,10 +9,14 @@ import { TranslationsApiCommand } from './api/translationsCommand';
 
 const [node, app, ...args] = process.argv;
 
+const getPackageJson = () => {
+  return JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json'), 'utf8'));
+};
+
 const cli = new Cli({
   binaryLabel: `translations`,
   binaryName: `${node} ${app}`,
-  binaryVersion: require('../package.json').version,
+  binaryVersion: getPackageJson().version as string,
 });
 
 cli.register(TranslationsApiCommand);
