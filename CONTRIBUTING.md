@@ -136,7 +136,6 @@ Any interaction with the server should be done through the port `8000` eg: `npm 
 #### Useful commands
 
 - `pnpm debug`: Run the server in debug mode `--inspect`. UI runs too but without hot reload. For automatic break use `pnpm debug:break`.
-- `pnpm website`: Build the website, for more commands to run the _website_, run `cd website` and then `pnpm serve`, website will run on port `3000`.
 - `pnpm docker`: Build the docker image. Requires `docker` command available in your system.
 
 #### Debugging compiled code {#debugging-compiled-code}

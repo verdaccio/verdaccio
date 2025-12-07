@@ -2,7 +2,6 @@
 'docusaurus-plugin-contributors': patch
 'generator-verdaccio-plugin': patch
 '@verdaccio/logger-prettify': patch
-'@verdaccio/local-scripts': patch
 '@verdaccio/file-locking': patch
 '@verdaccio/ui-theme': patch
 '@verdaccio/test-helper': patch
