@@ -34,7 +34,6 @@
 '@verdaccio/auth': patch
 '@verdaccio/api': patch
 '@verdaccio/cli': patch
-'@verdaccio/website': patch
 ---
 
 chore: update readme badges and license files

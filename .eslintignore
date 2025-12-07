@@ -7,7 +7,6 @@ build/
 coverage/
 node_modules/
 static/
-website/
 wiki/
 dist/
 docs/

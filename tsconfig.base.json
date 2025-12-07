@@ -193,9 +193,6 @@
     },
     {
       "path": "e2e/ui"
-    },
-    {
-      "path": "website"
     }
   ]
 }

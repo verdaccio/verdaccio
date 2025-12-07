@@ -8,16 +8,12 @@ assets/**/*
 **/verdaccio-corrupted.db.json
 **/wrong.package.json
 crowdin.yaml
-/docs/website
-/website/translated_docs/
 CHANGELOG.md
 CONTRIBUTORS.md
 node_modules/
 **/coverage/**
 **/static/*.js
 **/dist/*.js
-website/.docusaurus/**/*
-website/i18n/**/*
 **/build/*.js
 packages/core/local-storage/_storage/**
 packages/partials/storage_default_storage/
@@ -36,5 +32,4 @@ packages/plugins/ui-theme/static/
 .verdaccio-db.json
 test/cli/e2e-yarn4/bin/yarn-4.0.0-rc.14.cjs
 yarn.js
-website/docs/api/*
 packages/ui-components/storybook-static/*
