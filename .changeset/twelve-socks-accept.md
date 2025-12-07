@@ -1,6 +1,5 @@
 ---
 'verdaccio-auth-memory': patch
-'@verdaccio/local-scripts': patch
 '@verdaccio/ui-theme': patch
 '@verdaccio/ui-components': patch
 '@verdaccio/tarball': patch
