@@ -23,7 +23,6 @@ docker-examples/v5/reverse_proxy/nginx/relative_path/storage/*
 build/
 .vscode/
 .github/
-.netlify/
 packages/**/docs/**
 packages/mock/mock-store/**
 api/**
