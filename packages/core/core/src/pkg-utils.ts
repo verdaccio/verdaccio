@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import semver from 'semver';
 
 import { Manifest } from '@verdaccio/types';
@@ -76,4 +78,14 @@ export function mergeVersions(local: Manifest, upstream: Manifest) {
       }
     }
   }
+}
+
+/**
+ * Get package informations from package.json
+ * @param packagePath - The path to the package.json file.
+ * @returns The package.json content
+ */
+export function getPackageJson(packagePath: string, relativePath: string): Record<string, unknown> {
+  const packageJsonPath = path.join(packagePath, relativePath, 'package.json');
+  return JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 }
