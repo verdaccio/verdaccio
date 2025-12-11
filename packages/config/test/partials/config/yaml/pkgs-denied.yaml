@@ -1,0 +1,26 @@
+packages:
+  '@*/*':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+    proxy: npmjs
+
+  '**':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+    proxy: npmjs
+
+  'denied/*':
+    access: $all
+    publish: $authenticated
+    proxy: npmjs
+    deniedVersions:
+      - 1.0.0
+      - 2.0.0
+
+  single-denied:
+    access: $all
+    publish: $authenticated
+    proxy: npmjs
+    deniedVersions: 3.0.0

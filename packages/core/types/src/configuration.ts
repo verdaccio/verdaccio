@@ -47,6 +47,7 @@ export interface PackageAccessYaml {
   proxy?: string;
   access?: string;
   unpublish?: string;
+  deniedVersions?: string[];
 }
 
 export interface Headers {
