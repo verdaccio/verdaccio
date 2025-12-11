@@ -4,7 +4,6 @@
 '@verdaccio/logger-commons': patch
 '@verdaccio/local-storage': patch
 '@verdaccio/local-publish': patch
-'@verdaccio/local-scripts': patch
 '@verdaccio/file-locking': patch
 'verdaccio-htpasswd': patch
 '@verdaccio/ui-theme': patch
