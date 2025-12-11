@@ -25,7 +25,7 @@ The Verdaccio project is split into several areas, the first three hosted in the
 - **User Interface**: The [user Interface](https://github.com/verdaccio/ui) is based in **react** and **material-ui** and looking for front-end contributors.
 - **Kubernetes and Helm**: Ts the official repository for the [**Helm chart**](https://github.com/verdaccio/charts).
 
-> There are other areas to contribute, like [documentation](https://github.com/verdaccio/verdaccio/tree/master/website/docs) or translations.
+> There are other areas to contribute, like [documentation](https://github.com/verdaccio/website/tree/master/website/docs) or translations.
 
 ## Prepare local setup {#local-setup}
 
