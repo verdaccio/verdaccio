@@ -15,7 +15,6 @@
     "build:js": "babel src/ --out-dir build/ --copy-files --no-copy-ignored --extensions \".ts,.tsx\" --source-maps --ignore \"src/**/*.stories.tsx\" --ignore \"src/**/*.test.tsx\" --ignore \"src/**/*.test.ts\"",
     "watch": "babel src/ --out-dir build/ --watch --copy-files --no-copy-ignored --extensions \".ts,.tsx\" --source-maps --ignore \"src/**/*.stories.tsx\" --ignore \"src/**/*.test.tsx\" --ignore \"src/**/*.test.ts\"",
     "build": "pnpm run build:js && pnpm run build:types",
-    "netlify:ui:deploy": "npx netlify-cli deploy --dir=./packages/ui-components/storybook-static --prod",
     "start": "cross-env BROWSER=none storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -57,7 +56,7 @@
     "@emotion/babel-plugin": "11.13.5",
     "@storybook/addon-links": "9.1.15",
     "@storybook/addon-webpack5-compiler-babel": "3.0.6",
-    "@storybook/react-webpack5": "9.1.15",
+    "@storybook/react-webpack5": "9.1.16",
     "@testing-library/dom": "10.4.1",
     "@testing-library/jest-dom": "6.8.0",
     "@testing-library/react": "16.3.0",

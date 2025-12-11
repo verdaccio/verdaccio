@@ -1,5 +1,18 @@
 # @verdaccio/api
 
+## 8.1.0-next-8.28
+
+### Patch Changes
+
+- 377f38d: fix(middleware): dist-tags with scoped packages
+- Updated dependencies [377f38d]
+  - @verdaccio/middleware@8.0.0-next-8.28
+  - @verdaccio/auth@8.0.0-next-8.28
+  - @verdaccio/store@8.0.0-next-8.28
+  - @verdaccio/core@8.0.0-next-8.28
+  - @verdaccio/config@8.0.0-next-8.28
+  - @verdaccio/logger@8.0.0-next-8.28
+
 ## 8.1.0-next-8.27
 
 ### Patch Changes
