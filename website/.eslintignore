@@ -1,6 +1,0 @@
-node_modules
-static
-*rc.js
-*.config.js
-sidebars.js
-*.scss

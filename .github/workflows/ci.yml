@@ -106,8 +106,6 @@ jobs:
         run: pnpm install --registry http://localhost:4873
       - name: build
         run: pnpm build
-      - name: generate website translations
-        run: pnpm --filter ...@verdaccio/website write-translations
       - name: sync
         env:
           CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}

@@ -28,7 +28,9 @@ export function encodeScopePackage(
   // e.g.: /%40org/pkg/1.2.3 -> /@org/pkg/1.2.3
   // For scoped packages, encode the slash to make it a single path segment/parameter
   // e.g.: /@org/pkg/1.2.3 -> /@org%2Fpkg/1.2.3, /@org%2Fpkg/1.2.3 -> /@org%2Fpkg/1.2.3
-  req.url = req.url.replace(/^\/%40/, '/@').replace(/^(\/@[^\/%]+)\/(?!$)/, '$1%2F');
+  // also handle cases for dist-tags where package is in the middle of the path and not at the beginning
+  // e.g.: /-/package/@org/pkg/dist-tags/latest -> /-/package/@org%2Fpkg/dist-tags/latest
+  req.url = req.url.replace(/\/%40/, '/@').replace(/(\/@[^\/%]+)\/(?!$)/, '$1%2F');
 
   if (original !== req.url) {
     debug('encodeScopePackage: %o -> %o', original, req.url);

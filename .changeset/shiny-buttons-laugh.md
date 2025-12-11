@@ -5,7 +5,6 @@
 '@verdaccio/local-storage': patch
 'verdaccio-auth-memory': patch
 '@verdaccio/local-publish': patch
-'@verdaccio/local-scripts': patch
 '@verdaccio/file-locking': patch
 'verdaccio-htpasswd': patch
 '@verdaccio/ui-theme': patch
@@ -34,7 +33,6 @@
 '@verdaccio/auth': patch
 '@verdaccio/api': patch
 '@verdaccio/cli': patch
-'@verdaccio/website': patch
 ---
 
 chore: update readme badges and license files
