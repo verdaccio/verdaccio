@@ -17,7 +17,6 @@
 
 # do not copy over node_modules we will run `pnpm install` anyway
 node_modules
-website
 jest
 docs
 contrib

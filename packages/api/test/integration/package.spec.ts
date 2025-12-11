@@ -14,12 +14,13 @@ describe('package', () => {
     });
 
     test.each([
-      ['foo', 'foo-1.0.0.tgz'],
-      ['@scope/foo', 'foo-1.0.0.tgz'],
-    ])('should return a file tarball', async (pkg, fileName) => {
+      ['foo', 'foo', 'foo-1.0.0.tgz'],
+      ['@scope/foo', '@scope/foo', 'foo-1.0.0.tgz'],
+      ['@scope/foo', encodeURIComponent('@scope/foo'), 'foo-1.0.0.tgz'],
+    ])('should return a file tarball', async (pkg, path, fileName) => {
       await publishVersion(app, pkg, '1.0.0');
       const response = await supertest(app)
-        .get(`/${pkg}/-/${fileName}`)
+        .get(`/${path}/-/${fileName}`)
         .set(HEADERS.ACCEPT, HEADERS.JSON)
         .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
         .expect(HTTP_STATUS.OK);
@@ -27,12 +28,13 @@ describe('package', () => {
     });
 
     test.each([
-      ['foo2', 'foo2-1.0.0.tgz'],
-      ['@scope/foo2', 'foo2-1.0.0.tgz'],
-    ])('should fails if tarball does not exist', async (pkg, fileName) => {
+      ['foo2', 'foo2', 'foo2-1.0.0.tgz'],
+      ['@scope/foo2', '@scope/foo2', 'foo2-1.0.0.tgz'],
+      ['@scope/foo2', encodeURIComponent('@scope/foo2'), 'foo2-1.0.0.tgz'],
+    ])('should fails if tarball does not exist', async (pkg, path, fileName) => {
       await publishVersion(app, pkg, '1.0.1');
       await supertest(app)
-        .get(`/${pkg}/-/${fileName}`)
+        .get(`/${path}/-/${fileName}`)
         .set(HEADERS.ACCEPT, HEADERS.JSON)
         .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
         .expect(HTTP_STATUS.NOT_FOUND);
@@ -48,60 +50,39 @@ describe('package', () => {
       app = await initializeServer('package.yaml');
     });
 
-    test.each([['foo'], ['@scope/foo']])('should return a foo private package', async (pkg) => {
+    test.each([
+      ['foo', 'foo'],
+      ['@scope/foo', '@scope/foo'],
+      ['@scope/foo', encodeURIComponent('@scope/foo')],
+    ])('should return a private package', async (pkg, path) => {
       await publishVersion(app, pkg, '1.0.0');
       const response = await supertest(app)
-        .get(`/${pkg}`)
+        .get(`/${path}`)
         .set(HEADERS.ACCEPT, HEADERS.JSON)
         .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HTTP_STATUS.OK);
       expect(response.body.name).toEqual(pkg);
     });
 
-    test.each([['foo'], ['@scope/foo']])(
-      'should return a foo private package by version',
-      async (pkg) => {
-        await publishVersion(app, pkg, '1.0.0');
-        const response = await supertest(app)
-          .get(`/${pkg}`)
-          .set(HEADERS.ACCEPT, HEADERS.JSON)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HTTP_STATUS.OK);
-        expect(response.body.name).toEqual(pkg);
-      }
-    );
-
-    test.each([['foo'], ['@scope/foo']])(
-      'should return a foo private package by version',
-      async (pkg) => {
-        await publishVersion(app, pkg, '1.0.0');
-        const response = await supertest(app)
-          .get(`/${pkg}`)
-          .set(HEADERS.ACCEPT, HEADERS.JSON)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HTTP_STATUS.OK);
-        expect(response.body.name).toEqual(pkg);
-      }
-    );
-
-    test.each([['foo-abbreviated'], ['@scope/foo-abbreviated']])(
-      'should return abbreviated local manifest',
-      async (pkg) => {
-        await publishVersion(app, pkg, '1.0.0');
-        const response = await supertest(app)
-          .get(`/${pkg}`)
-          .set(HEADERS.ACCEPT, HEADERS.JSON)
-          .set(HEADERS.ACCEPT, Storage.ABBREVIATED_HEADER)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_INSTALL_CHARSET)
-          .expect(HTTP_STATUS.OK);
-        expect(response.body.name).toEqual(pkg);
-        expect(response.body.time).toBeDefined();
-        expect(response.body.modified).toBeDefined();
-        expect(response.body[DIST_TAGS]).toEqual({ latest: '1.0.0' });
-        expect(response.body.readme).toBeDefined();
-        expect(response.body._rev).toBeDefined();
-        expect(response.body.users).not.toBeDefined();
-      }
-    );
+    test.each([
+      ['foo-abbreviated', 'foo-abbreviated'],
+      ['@scope/foo-abbreviated', '@scope/foo-abbreviated'],
+      ['@scope/foo-abbreviated', encodeURIComponent('@scope/foo-abbreviated')],
+    ])('should return abbreviated local manifest', async (pkg, path) => {
+      await publishVersion(app, pkg, '1.0.0');
+      const response = await supertest(app)
+        .get(`/${path}`)
+        .set(HEADERS.ACCEPT, HEADERS.JSON)
+        .set(HEADERS.ACCEPT, Storage.ABBREVIATED_HEADER)
+        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_INSTALL_CHARSET)
+        .expect(HTTP_STATUS.OK);
+      expect(response.body.name).toEqual(pkg);
+      expect(response.body.time).toBeDefined();
+      expect(response.body.modified).toBeDefined();
+      expect(response.body[DIST_TAGS]).toEqual({ latest: '1.0.0' });
+      expect(response.body.readme).toBeDefined();
+      expect(response.body._rev).toBeDefined();
+      expect(response.body.users).not.toBeDefined();
+    });
   });
 });

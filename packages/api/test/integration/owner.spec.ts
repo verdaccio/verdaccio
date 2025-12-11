@@ -12,8 +12,12 @@ import {
 } from './_helper';
 
 describe('owner', () => {
-  test.each([['foo', '@scope%2Ffoo']])('should get owner of package', async (pkgName) => {
-    nock('https://registry.npmjs.org').get(`/${pkgName}`).reply(404);
+  test.each([
+    ['foo', 'foo'],
+    ['@scope/foo', '@scope/foo'],
+    ['@scope/foo', encodeURIComponent('@scope/foo')],
+  ])('should get owner of package', async (pkgName, path) => {
+    nock('https://registry.npmjs.org').get(`/${path}`).reply(404);
     const app = await initializeServer('owner.yaml');
     const credentials = { name: 'test', password: 'test' };
     const response = await createUser(app, credentials.name, credentials.password);
@@ -30,8 +34,12 @@ describe('owner', () => {
     expect(maintainers).toEqual([{ name: credentials.name, email: '' }]);
   });
 
-  test.each([['foo', '@scope%2Ffoo']])('should add/remove owner to package', async (pkgName) => {
-    nock('https://registry.npmjs.org').get(`/${pkgName}`).reply(404);
+  test.each([
+    ['foo', 'foo'],
+    ['@scope/foo', '@scope/foo'],
+    ['@scope/foo', encodeURIComponent('@scope/foo')],
+  ])('should add/remove owner to package', async (pkgName, path) => {
+    nock('https://registry.npmjs.org').get(`/${path}`).reply(404);
     const app = await initializeServer('owner.yaml');
     const credentials = { name: 'test', password: 'test' };
     const firstOwner = { name: 'test', email: '' };
@@ -42,7 +50,7 @@ describe('owner', () => {
     );
 
     // publish sets owner to logged in user
-    const manifest = await getPackage(app, '', decodeURIComponent(pkgName));
+    const manifest = await getPackage(app, '', pkgName);
     const maintainers = manifest.body.maintainers;
     expect(maintainers).toHaveLength(1);
     expect(maintainers).toEqual([firstOwner]);
@@ -61,7 +69,7 @@ describe('owner', () => {
       response.body.token
     ).expect(HTTP_STATUS.CREATED);
 
-    const manifest2 = await getPackage(app, '', decodeURIComponent(pkgName));
+    const manifest2 = await getPackage(app, '', pkgName);
     const maintainers2 = manifest2.body.maintainers;
     expect(maintainers2).toHaveLength(2);
     expect(maintainers2).toEqual([firstOwner, secondOwner]);
@@ -78,14 +86,18 @@ describe('owner', () => {
       response.body.token
     ).expect(HTTP_STATUS.CREATED);
 
-    const manifest3 = await getPackage(app, '', decodeURIComponent(pkgName));
+    const manifest3 = await getPackage(app, '', pkgName);
     const maintainers3 = manifest3.body.maintainers;
     expect(maintainers3).toHaveLength(1);
     expect(maintainers3).toEqual([secondOwner]);
   });
 
-  test.each([['foo', '@scope%2Ffoo']])('should fail if user is not logged in', async (pkgName) => {
-    nock('https://registry.npmjs.org').get(`/${pkgName}`).reply(404);
+  test.each([
+    ['foo', 'foo'],
+    ['@scope/foo', '@scope/foo'],
+    ['@scope/foo', encodeURIComponent('@scope/foo')],
+  ])('should fail if user is not logged in', async (pkgName, path) => {
+    nock('https://registry.npmjs.org').get(`/${path}`).reply(404);
     const app = await initializeServer('owner.yaml');
     const credentials = { name: 'test', password: 'test' };
     const firstOwner = { name: 'test', email: '' };
@@ -96,7 +108,7 @@ describe('owner', () => {
     );
 
     // publish sets owner to logged in user
-    const manifest = await getPackage(app, '', decodeURIComponent(pkgName));
+    const manifest = await getPackage(app, '', pkgName);
     const maintainers = manifest.body.maintainers;
     expect(maintainers).toHaveLength(1);
     expect(maintainers).toEqual([firstOwner]);

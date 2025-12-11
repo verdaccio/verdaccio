@@ -1,5 +1,15 @@
 # @verdaccio/auth
 
+## 8.0.0-next-8.28
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.28
+- @verdaccio/config@8.0.0-next-8.28
+- @verdaccio/loaders@8.0.0-next-8.18
+- verdaccio-htpasswd@13.0.0-next-8.28
+- @verdaccio/signature@8.0.0-next-8.20
+
 ## 8.0.0-next-8.27
 
 ### Patch Changes
