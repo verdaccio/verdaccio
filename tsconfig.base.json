@@ -96,12 +96,6 @@
       "path": "packages/core/url"
     },
     {
-      "path": "packages/tools/docusaurus-plugin-contributors"
-    },
-    {
-      "path": "packages/tools/docusaurus-plugin-downloads"
-    },
-    {
       "path": "packages/tools/generator-verdaccio-plugin"
     },
     {
@@ -109,9 +103,6 @@
     },
     {
       "path": "packages/tools/local-publish"
-    },
-    {
-      "path": "packages/tools/local-scripts"
     },
     {
       "path": "packages/server/express"
@@ -193,9 +184,6 @@
     },
     {
       "path": "e2e/ui"
-    },
-    {
-      "path": "website"
     }
   ]
 }
