@@ -2,4 +2,4 @@
 '@verdaccio/middleware': patch
 ---
 
-fix(middleware): logo test
+chore(middleware): update logo tests
