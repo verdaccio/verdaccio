@@ -1,5 +1,14 @@
 # @verdaccio/middleware
 
+## 8.0.0-next-8.29
+
+### Patch Changes
+
+- 5efe84f: chore(middleware): update logo tests
+  - @verdaccio/core@8.0.0-next-8.29
+  - @verdaccio/config@8.0.0-next-8.29
+  - @verdaccio/url@13.0.0-next-8.29
+
 ## 8.0.0-next-8.28
 
 ### Patch Changes

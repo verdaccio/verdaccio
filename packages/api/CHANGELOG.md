@@ -1,5 +1,17 @@
 # @verdaccio/api
 
+## 8.1.0-next-8.29
+
+### Patch Changes
+
+- Updated dependencies [5efe84f]
+  - @verdaccio/middleware@8.0.0-next-8.29
+  - @verdaccio/auth@8.0.0-next-8.29
+  - @verdaccio/store@8.0.0-next-8.29
+  - @verdaccio/core@8.0.0-next-8.29
+  - @verdaccio/config@8.0.0-next-8.29
+  - @verdaccio/logger@8.0.0-next-8.29
+
 ## 8.1.0-next-8.28
 
 ### Patch Changes
