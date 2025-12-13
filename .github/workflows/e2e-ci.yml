@@ -69,7 +69,7 @@ jobs:
             pnpm10,
           ]
         # Node.js 25 still has some issues with pnpm in our e2e tests
-        node: [20, 22, 24]
+        node: [20, 22, 25]
     name: ${{ matrix.pkg }} / ubuntu-latest / ${{ matrix.node }}
     runs-on: ubuntu-latest
     steps:
