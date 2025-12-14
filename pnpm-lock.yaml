@@ -273,8 +273,8 @@ importers:
         specifier: 11.2.6
         version: 11.2.6
       nock:
-        specifier: 13.5.6
-        version: 13.5.6
+        specifier: 14.0.10
+        version: 14.0.10
       nodemon:
         specifier: 3.1.10
         version: 3.1.10
@@ -586,8 +586,8 @@ importers:
         specifier: 3.0.5
         version: 3.0.5
       nock:
-        specifier: 13.5.6
-        version: 13.5.6
+        specifier: 14.0.10
+        version: 14.0.10
       supertest:
         specifier: 7.1.4
         version: 7.1.4
@@ -830,8 +830,8 @@ importers:
         specifier: workspace:13.0.0-next-8.10
         version: link:../core/types
       nock:
-        specifier: 13.5.6
-        version: 13.5.6
+        specifier: 14.0.10
+        version: 14.0.10
       vitest:
         specifier: 3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.10.0)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.10.0)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
@@ -1035,8 +1035,8 @@ importers:
         specifier: workspace:13.0.0-next-8.10
         version: link:../../core/types
       nock:
-        specifier: 13.5.6
-        version: 13.5.6
+        specifier: 14.0.10
+        version: 14.0.10
       supertest:
         specifier: 7.1.4
         version: 7.1.4
@@ -1364,8 +1364,8 @@ importers:
         specifier: 6.0.1
         version: 6.0.1
       nock:
-        specifier: 13.5.6
-        version: 13.5.6
+        specifier: 14.0.10
+        version: 14.0.10
       vitest:
         specifier: 3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.10.0)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.10.0)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
@@ -1395,8 +1395,8 @@ importers:
         specifier: workspace:13.0.0-next-8.10
         version: link:../core/types
       nock:
-        specifier: 13.5.6
-        version: 13.5.6
+        specifier: 14.0.10
+        version: 14.0.10
       vitest:
         specifier: 3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.10.0)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.10.0)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
@@ -1572,8 +1572,8 @@ importers:
         specifier: 3.0.5
         version: 3.0.5
       nock:
-        specifier: 13.5.6
-        version: 13.5.6
+        specifier: 14.0.10
+        version: 14.0.10
       node-mocks-http:
         specifier: 1.14.1
         version: 1.14.1
@@ -1959,8 +1959,8 @@ importers:
         specifier: 4.17.21
         version: 4.17.21
       nock:
-        specifier: 13.5.6
-        version: 13.5.6
+        specifier: 14.0.10
+        version: 14.0.10
       supertest:
         specifier: 7.1.4
         version: 7.1.4
@@ -3569,6 +3569,10 @@ packages:
 
   '@mswjs/interceptors@0.39.2':
     resolution: {integrity: sha512-RuzCup9Ct91Y7V79xwCb146RaBRHZ7NBbrIUySumd1rpKqHL5OonaqrGIbug5hNwP/fRyxFMA6ISgw4FTtYFYg==}
+    engines: {node: '>=18'}
+
+  '@mswjs/interceptors@0.39.8':
+    resolution: {integrity: sha512-2+BzZbjRO7Ct61k8fMNHEtoKjeWI9pIlHFTqBwZ5icHpqszIgEZbjb1MW5Z0+bITTCTl3gk4PDBxs9tA/csXvA==}
     engines: {node: '>=18'}
 
   '@mui/core-downloads-tracker@5.18.0':
@@ -8727,9 +8731,9 @@ packages:
   no-case@3.0.4:
     resolution: {integrity: sha512-fgAN3jGAh+RoxUGZHTSOLJIqUc2wmoBwGR4tbpNAKmmovFoWq0OdRkb0VkldReO2a2iBT/OEulG9XSUc10r3zg==}
 
-  nock@13.5.6:
-    resolution: {integrity: sha512-o2zOYiCpzRqSzPj0Zt/dQ/DqZeYoaQ7TUonc/xUPjCGl9WeHpNbxgVvOquXYAaJzI0M9BXV3HTzG0p8IUAbBTQ==}
-    engines: {node: '>= 10.13'}
+  nock@14.0.10:
+    resolution: {integrity: sha512-Q7HjkpyPeLa0ZVZC5qpxBt5EyLczFJ91MEewQiIi9taWuA0KB/MDJlUWtON+7dGouVdADTQsf9RA7TZk6D8VMw==}
+    engines: {node: '>=18.20.0 <20 || >=20.12.1'}
 
   node-abort-controller@3.1.1:
     resolution: {integrity: sha512-AGK2yQKIjRuqnc6VkX2Xj5d+QW8xZ87pa1UK6yA6ouUyuxfHuMP6umE5QK7UmTeOAymo+Zx1Fxiuw9rVx8taHQ==}
@@ -13988,6 +13992,15 @@ snapshots:
       - '@types/react'
 
   '@mswjs/interceptors@0.39.2':
+    dependencies:
+      '@open-draft/deferred-promise': 2.2.0
+      '@open-draft/logger': 0.3.0
+      '@open-draft/until': 2.1.0
+      is-node-process: 1.2.0
+      outvariant: 1.4.3
+      strict-event-emitter: 0.5.1
+
+  '@mswjs/interceptors@0.39.8':
     dependencies:
       '@open-draft/deferred-promise': 2.2.0
       '@open-draft/logger': 0.3.0
@@ -20382,13 +20395,11 @@ snapshots:
       lower-case: 2.0.2
       tslib: 2.6.3
 
-  nock@13.5.6:
+  nock@14.0.10:
     dependencies:
-      debug: 4.4.3(supports-color@5.5.0)
+      '@mswjs/interceptors': 0.39.8
       json-stringify-safe: 5.0.1
       propagate: 2.0.1
-    transitivePeerDependencies:
-      - supports-color
 
   node-abort-controller@3.1.1: {}
 
