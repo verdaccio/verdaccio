@@ -53,3 +53,56 @@ test('should get xss', async () => {
   const res = await request(app).get('/sec').expect(HTTP_STATUS.OK);
   expect(res.get(HEADERS.XSS)).toEqual('1; mode=block');
 });
+
+test('should set own content security policy', async () => {
+  const csp = 'default "self"; connect-src "self" https://other.example.com';
+  const app = getApp([]);
+  // @ts-ignore
+  app.use((req, res, next) => {
+    res.header(HEADERS.CSP, csp);
+    next();
+  });
+  // @ts-ignore
+  app.use(setSecurityWebHeaders);
+  app.get('/sec', (req, res) => {
+    res.status(HTTP_STATUS.OK).json({});
+  });
+
+  const res = await request(app).get('/sec').expect(HTTP_STATUS.OK);
+  expect(res.get(HEADERS.CSP)).toEqual(csp);
+});
+
+test('should overwrite invalid frame options', async () => {
+  const app = getApp([]);
+  // @ts-ignore
+  app.use((req, res, next) => {
+    res.header(HEADERS.FRAMES_OPTIONS, 'allow something');
+    next();
+  });
+  // @ts-ignore
+  app.use(setSecurityWebHeaders);
+  app.get('/sec', (req, res) => {
+    res.status(HTTP_STATUS.OK).json({});
+  });
+
+  const res = await request(app).get('/sec').expect(HTTP_STATUS.OK);
+  expect(res.get(HEADERS.FRAMES_OPTIONS)).toEqual('deny');
+});
+
+test('should get changed xss header', async () => {
+  const xss = '1; report=https://example.com/report';
+  const app = getApp([]);
+  // @ts-ignore
+  app.use((req, res, next) => {
+    res.header(HEADERS.XSS, xss);
+    next();
+  });
+  // @ts-ignore
+  app.use(setSecurityWebHeaders);
+  app.get('/sec', (req, res) => {
+    res.status(HTTP_STATUS.OK).json({});
+  });
+
+  const res = await request(app).get('/sec').expect(HTTP_STATUS.OK);
+  expect(res.get(HEADERS.XSS)).toEqual(xss);
+});
