@@ -1,5 +1,4 @@
 export { match } from './middlewares/match';
-export { setSecurityWebHeaders } from './middlewares/security-headers';
 export { validateName, validatePackage } from './middlewares/validation';
 export { media } from './middlewares/media';
 export { makeURLrelative } from './middlewares/make-url-relative';
@@ -10,7 +9,7 @@ export { final } from './middlewares/final';
 export { allow } from './middlewares/allow';
 export { rateLimit } from './middlewares/rate-limit';
 export { userAgent } from './middlewares/user-agent';
-export { webMiddleware, renderWebMiddleware } from './middlewares/web';
+export { webMiddleware, renderWebMiddleware, setSecurityWebHeaders } from './middlewares/web';
 export { errorReportingMiddleware, handleError } from './middlewares/error';
 export { log } from './middlewares/log';
 export * from './types';

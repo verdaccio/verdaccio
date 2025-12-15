@@ -44,7 +44,7 @@
   "dependencies": {
     "@verdaccio/config": "workspace:8.0.0-next-8.28",
     "@verdaccio/core": "workspace:8.0.0-next-8.28",
-    "jsonwebtoken": "9.0.2",
+    "jsonwebtoken": "9.0.3",
     "debug": "4.4.3"
   },
   "devDependencies": {
