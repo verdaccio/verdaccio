@@ -10,7 +10,7 @@ on:
       - .github/workflows/codeql-analysis.yml
       - 'packages/**'
   schedule:
-    - cron: '0 2 * * 4'
+    - cron: '0 2 1 * *'  # At 02:00 on day-of-month 1
 
 permissions:
   contents: read
