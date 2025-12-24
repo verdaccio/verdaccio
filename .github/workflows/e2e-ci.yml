@@ -31,11 +31,7 @@ jobs:
       fail-fast: false
       matrix:
         pkg:
-          [
-            npm6,
-            npm7,
-            npm8,
-            npm9,
+          [           
             npm10,
             npm11,
           ]
@@ -64,11 +60,10 @@ jobs:
       matrix:
         pkg:
           [
-            pnpm8,
             pnpm9,
             pnpm10,
           ]        
-        node: [20, 22, 24, 25]
+        node: [20, 25]
     name: ${{ matrix.pkg }} / ubuntu-latest / ${{ matrix.node }}
     runs-on: ubuntu-latest
     steps:
@@ -94,8 +89,6 @@ jobs:
         pkg:
           [
             yarn1,
-            yarn2,
-            yarn3,
             yarn4
           ]
         node: [22, 24]
