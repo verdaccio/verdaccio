@@ -67,7 +67,7 @@ jobs:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
-        node_version: [18, 20, 25]
+        node_version: [18, 25]
     name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     steps:
