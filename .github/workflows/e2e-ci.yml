@@ -1,6 +1,8 @@
 name: E2E CLI
 
-on: [pull_request]
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
 
 permissions:
   contents: read
@@ -11,6 +13,7 @@ concurrency:
 
 jobs:
   prepare:
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     name: setup e2e verdaccio
     services:
