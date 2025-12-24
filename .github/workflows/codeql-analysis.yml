@@ -6,6 +6,7 @@ on:
       - .github/workflows/codeql-analysis.yml
       - 'packages/**'
   pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
     paths:
       - .github/workflows/codeql-analysis.yml
       - 'packages/**'
@@ -21,6 +22,7 @@ concurrency:
 
 jobs:
   CodeQL-Build:
+    if: github.event.pull_request.draft == false
     permissions:
       actions: read  # for github/codeql-action/init to get workflow details
       contents: read  # for actions/checkout to fetch code

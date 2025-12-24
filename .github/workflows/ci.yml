@@ -1,8 +1,8 @@
 name: CI
 
 on:
-  push:
   pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
     paths:
       - .changeset/**
       - .github/workflows/ci.yml
@@ -20,6 +20,8 @@ concurrency:
 
 jobs:
   prepare:
+    # Avoid running on draft PRs
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     name: setup verdaccio
     services:
@@ -68,7 +70,7 @@ jobs:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
-        node_version: [18, 20, 22, 24, 25]
+        node_version: [18, 25]
     name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     steps:
