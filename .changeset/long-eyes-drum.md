@@ -27,7 +27,6 @@
 '@verdaccio/server': minor
 '@verdaccio/signature': minor
 '@verdaccio/store': minor
-'generator-verdaccio-plugin': minor
 '@verdaccio/ui-components': minor
 '@verdaccio/utils': minor
 'verdaccio': minor

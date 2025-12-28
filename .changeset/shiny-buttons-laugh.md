@@ -1,5 +1,4 @@
 ---
-'generator-verdaccio-plugin': patch
 '@verdaccio/logger-prettify': patch
 '@verdaccio/logger-commons': patch
 '@verdaccio/local-storage': patch

@@ -18,5 +18,3 @@ yarn.js
 packages/ui-components/storybook-static
 dist.js
 bundle.js
-# generator templates
-packages/tools/generator-verdaccio-plugin/generators/app/**
