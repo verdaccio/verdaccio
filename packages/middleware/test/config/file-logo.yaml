@@ -13,7 +13,7 @@ web:
   showDownloadTarball: true
   showRaw: true
   primary_color: '#ffffff'
-  logo: './test/config/dark-logo.png'
+  logo: './test/config/logo.png'
   logoDark: './test/config/dark-logo.png'
   favicon: './test/config/favicon.ico'
   html_cache: false

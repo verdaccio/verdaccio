@@ -1,5 +1,4 @@
 ---
-'generator-verdaccio-plugin': major
 '@verdaccio/logger-prettify': major
 '@verdaccio/logger-commons': major
 '@verdaccio/local-storage': major

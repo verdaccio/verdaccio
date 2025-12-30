@@ -1,6 +1,6 @@
 {
   "extends": ["config:base", "helpers:pinGitHubActionDigests"],
-  "prConcurrentLimit": 8,
+  "prConcurrentLimit": 2,
   "ignorePaths": ["docker-examples/**"],
   "schedule": ["before 3:00am on the 3 day of the month"],
   "ignoreDeps": [
@@ -25,7 +25,7 @@
       "packageNames": ["actions/*", "github/codeql-action/*"],
       "groupName": "all actions",
       "groupSlug": "github-actions",
-      "schedule": ["every 4 month"]
+      "schedule": ["every 6 month"]
     },
     {
       "packageNames": ["aws-sdk"],
