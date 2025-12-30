@@ -96,9 +96,6 @@
       "path": "packages/core/url"
     },
     {
-      "path": "packages/tools/generator-verdaccio-plugin"
-    },
-    {
       "path": "packages/tools/helpers"
     },
     {
