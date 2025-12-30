@@ -1,6 +1,8 @@
 name: E2E CLI
 
-on: [pull_request]
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
 
 permissions:
   contents: read
@@ -11,6 +13,7 @@ concurrency:
 
 jobs:
   prepare:
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     name: setup e2e verdaccio
     services:
@@ -31,11 +34,7 @@ jobs:
       fail-fast: false
       matrix:
         pkg:
-          [
-            npm6,
-            npm7,
-            npm8,
-            npm9,
+          [           
             npm10,
             npm11,
           ]
@@ -64,11 +63,10 @@ jobs:
       matrix:
         pkg:
           [
-            pnpm8,
             pnpm9,
             pnpm10,
-          ]
-        node: [22, 24]
+          ]        
+        node: [20, 25]
     name: ${{ matrix.pkg }} / ubuntu-latest / ${{ matrix.node }}
     runs-on: ubuntu-latest
     steps:
@@ -94,8 +92,6 @@ jobs:
         pkg:
           [
             yarn1,
-            yarn2,
-            yarn3,
             yarn4
           ]
         node: [22, 24]
