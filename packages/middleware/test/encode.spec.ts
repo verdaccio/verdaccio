@@ -24,7 +24,7 @@ describe('packages requests', () => {
   const app = getApp([]);
   // @ts-ignore
   app.use(encodeScopePackage);
-  app.get('/:package/:version?', (req, res) => {
+  app.get('/:package/{:version}', (req, res) => {
     const { package: pkg, version } = req.params;
     res.status(HTTP_STATUS.OK).json({ package: pkg, version });
   });

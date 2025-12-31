@@ -36,8 +36,9 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
   router.use(setSecurityWebHeaders);
 
   // any match within the static is routed to the file system
-  router.get(WebUrlsNamespace.static + '*', function (req, res, next) {
-    const filename = req.params[0];
+  router.get(WebUrlsNamespace.static, function (req, res, next) {
+    // TODO: juan
+    const filename = req.params;
     let file = `${staticPath}/${filename}`;
     if (filename === 'favicon.ico' && config?.web?.favicon) {
       file = config?.web?.favicon;
@@ -94,7 +95,7 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
   }
 
   // Handle all web routes including security routes
-  router.get(WebUrlsNamespace.web + '*', function (req, res) {
+  router.get(WebUrlsNamespace.web, function (req, res) {
     renderHTML(config, manifest, manifestFiles, req, res);
     debug('render html section');
   });

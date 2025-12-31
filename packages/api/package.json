@@ -49,7 +49,7 @@
     "@verdaccio/middleware": "workspace:9.0.0-next-9.0",
     "@verdaccio/store": "workspace:9.0.0-next-9.0",
     "debug": "4.4.3",
-    "express": "4.22.1",
+    "express": "5.2.1",
     "lodash": "4.17.23"
   },
   "devDependencies": {

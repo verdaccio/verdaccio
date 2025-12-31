@@ -1,8 +1,8 @@
 export enum USER_API_ENDPOINTS {
   whoami = '/-/whoami',
   get_user = '/-/user/:org_couchdb_user',
-  add_user = '/-/user/:org_couchdb_user/:_rev?/:revision?',
-  user_token = '/-/user/token/*',
+  add_user = '/-/user/:org_couchdb_user/{:_rev}/{:revision}',
+  user_token = '/-/user/token/{*subject}',
 }
 
 export enum STARS_API_ENDPOINTS {
@@ -11,7 +11,7 @@ export enum STARS_API_ENDPOINTS {
 
 export enum SEARCH_API_ENDPOINTS {
   search = '/-/v1/search',
-  deprecated_search = '/-/all(/since)?',
+  deprecated_search = '/-/all/{:since}',
 }
 
 export enum PUBLISH_API_ENDPOINTS {
@@ -25,7 +25,7 @@ export enum PING_API_ENDPOINTS {
 }
 
 export enum PACKAGE_API_ENDPOINTS {
-  get_package_by_version = '/:package/:version?',
+  get_package_by_version = '/:package/{:version}',
   get_package_tarball = '/:package/-/:filename',
 }
 
