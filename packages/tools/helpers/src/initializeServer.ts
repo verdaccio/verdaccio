@@ -43,7 +43,7 @@ export async function initializeServer(
   }
 
   // catch 404
-  app.get('/*', function (req, res, next) {
+  app.get('/{*any}', function (req, res, next) {
     next(errorUtils.getNotFound('resource not found'));
   });
 
