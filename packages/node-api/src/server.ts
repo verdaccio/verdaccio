@@ -75,19 +75,20 @@ export function createServerFactory(config: ConfigYaml, addr, app) {
     serverFactory = http.createServer(app);
   }
 
-  // List of all routes registered in the app
-  function printRoutes(layer) {
-    if (layer.route) {
-      debug('%s (%s)', layer.route.path, Object.keys(layer.route.methods).join(', '));
-    } else if (layer.name === 'router') {
-      layer.handle.stack.forEach((nestedLayer) => {
-        printRoutes(nestedLayer);
-      });
-    }
-  }
+  // TODO: not compatible with 5.x express
+  // // List of all routes registered in the app
+  // function printRoutes(layer) {
+  //   if (layer.route) {
+  //     debug('%s (%s)', layer.route.path, Object.keys(layer.route.methods).join(', '));
+  //   } else if (layer.name === 'router') {
+  //     layer.handle.stack.forEach((nestedLayer) => {
+  //       printRoutes(nestedLayer);
+  //     });
+  //   }
+  // }
 
   debug('registered routes:');
-  app._router.stack.forEach(printRoutes);
+  // app._router.stack.forEach(printRoutes);
 
   if (
     config.server &&

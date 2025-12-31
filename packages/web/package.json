@@ -37,7 +37,7 @@
     "@verdaccio/store": "workspace:8.0.0-next-8.28",
     "@verdaccio/tarball": "workspace:13.0.0-next-8.28",
     "debug": "4.4.3",
-    "express": "4.22.1",
+    "express": "5.2.1",
     "lodash": "4.17.21"
   },
   "devDependencies": {
