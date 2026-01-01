@@ -44,7 +44,6 @@
     "@verdaccio/signature": "7.0.0",
     "@verdaccio/cli-standalone": "7.0.0",
     "@verdaccio/store": "7.0.0",
-    "@verdaccio/eslint-config": "3.0.0",
     "@verdaccio/test-helper": "3.0.0",
     "customprefix-auth": "2.0.0",
     "@verdaccio/ui-components": "3.0.0",
