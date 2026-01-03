@@ -62,13 +62,13 @@
     "@trivago/prettier-plugin-sort-imports": "5.2.2",
     "@types/async": "3.2.25",
     "@types/debug": "4.1.12",
-    "@types/express": "4.17.23",
-    "@types/express-serve-static-core": "4.19.6",
+    "@types/express": "5.0.6",
+    "@types/express-serve-static-core": "5.1.0",
     "@types/http-errors": "2.0.5",
     "@types/lodash": "4.17.20",
-    "@types/mime": "3.0.4",
-    "@types/minimatch": "5.1.2",
-    "@types/node": "20.19.17",
+    "@types/mime": "4.0.0",
+    "@types/minimatch": "6.0.0",
+    "@types/node": "24.10.4",
     "@types/pino": "7.0.5",
     "@types/request": "2.48.13",
     "@types/semver": "7.7.1",
@@ -135,8 +135,8 @@
   "preferGlobal": true,
   "license": "MIT",
   "resolutions": {
-    "@types/serve-static": "1.15.8",
-    "@types/express-serve-static-core": "4.19.6"
+    "@types/serve-static": "2.2.0",
+    "@types/express-serve-static-core": "5.1.0"
   },
   "collective": {
     "type": "opencollective",
