@@ -74,7 +74,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<Ex
 
   // Hook for tests only
   if (config._debug) {
-    hookDebug(app, config);
+    hookDebug(app, config.configPath);
   }
 
   const plugins: pluginUtils.ExpressMiddleware<IConfig, {}, Auth>[] = await asyncLoadPlugin(
