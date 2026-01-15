@@ -13,7 +13,6 @@
 '@verdaccio/test-helper': patch
 '@verdaccio/ui-components': patch
 '@verdaccio/tarball': patch
-'@verdaccio/eslint-config': patch
 '@verdaccio/types': patch
 '@verdaccio/middleware': patch
 '@verdaccio/cli-standalone': patch
