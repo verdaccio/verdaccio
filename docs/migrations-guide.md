@@ -72,7 +72,7 @@ flags:
 ### Legacy token secret length
 
 If the migration to v6 include an update to node 22 or higher, be aware that token secrets with a length other than 32 are not
-supported anymore. A new secret will be generated. See [docs](https://verdaccio.org/docs/6.x/configuration#legacy-token-signature)
+supported anymore. A new secret will be generated. See [docs](https://verdaccio.org/docs/configuration#legacy-token-signature)
 for more details.
 
 #### New environment variables
