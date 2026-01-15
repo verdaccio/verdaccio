@@ -71,7 +71,7 @@ export interface StorageHandler {
 /**
  * Storage Plugin interface
  *
- * https://verdaccio.org/docs/next/plugin-storage
+ * https://verdaccio.org/docs/plugin-storage
  */
 export interface Storage<PluginConfig> extends Plugin<PluginConfig> {
   add(packageName: string): Promise<void>;
@@ -92,7 +92,7 @@ export interface Storage<PluginConfig> extends Plugin<PluginConfig> {
 /**
  * Middleware Plugin Interface
  *
- * https://verdaccio.org/docs/next/plugin-middleware
+ * https://verdaccio.org/docs/plugin-middleware
  *
  * This function allow add middleware to the application.
  *
@@ -135,7 +135,7 @@ export interface AuthPluginPackage {
 /**
  * Authentication Plugin Interface
  *
- * https://verdaccio.org/docs/next/plugin-auth
+ * https://verdaccio.org/docs/plugin-auth
  */
 export interface Auth<T> extends Plugin<T> {
   /**
@@ -198,7 +198,7 @@ export interface IBasicAuth {
 /**
  * Filter Plugin Interface
  *
- * https://verdaccio.org/docs/next/plugin-filter
+ * https://verdaccio.org/docs/plugin-filter
  */
 export interface ManifestFilter<T> extends Plugin<T> {
   filter_metadata(manifest: Manifest): Promise<Manifest>;
