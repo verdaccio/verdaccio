@@ -24,13 +24,13 @@ const debug = buildDebug('verdaccio:web:api:package');
 
 function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router {
   const isLoginEnabled = hasLogin(config);
+  debug('is login enabled: %o', isLoginEnabled);
   const pkgRouter = Router(); /* eslint new-cap: 0 */
   const anonymousRemoteUser: RemoteUser = createAnonymousRemoteUser();
 
   debug('initialized package web api');
   const checkAllow = (name: string, remoteUser: RemoteUser): Promise<boolean> =>
     new Promise((resolve, reject): void => {
-      debug('is login enabled: %o', isLoginEnabled);
       const remoteUserAccess = !isLoginEnabled ? anonymousRemoteUser : remoteUser;
       try {
         auth.allow_access({ packageName: name }, remoteUserAccess, (err, allowed): void => {
@@ -47,7 +47,7 @@ function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router 
   async function processPackages(packages: Version[] = [], req): Promise<Version[]> {
     const permissions: Version[] = [];
     const packagesToProcess = packages.slice();
-    debug('process packages %o', packagesToProcess);
+    debug('process %o packages', packagesToProcess.length);
     for (const pkg of packagesToProcess) {
       const pkgCopy = { ...pkg };
       pkgCopy.author = formatAuthor(pkg.author);
@@ -79,6 +79,7 @@ function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router 
       }
     }
 
+    debug('allowed %o packages', permissions.length);
     return permissions;
   }
 
