@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/logger",
-  "version": "8.0.0-next-8.28",
+  "version": "8.0.0-next-8.29",
   "description": "Verdaccio Logger",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
@@ -42,7 +42,7 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "@verdaccio/logger-commons": "workspace:8.0.0-next-8.28",
+    "@verdaccio/logger-commons": "workspace:8.0.0-next-8.29",
     "pino": "9.14.0"
   },
   "devDependencies": {

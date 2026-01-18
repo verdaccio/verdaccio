@@ -1,5 +1,12 @@
 # @verdaccio/core
 
+## 8.0.0-next-8.29
+
+### Patch Changes
+
+- 4edcae8: chore: replacing require('package.json')
+- 184632c: chore: fix links to docs
+
 ## 8.0.0-next-8.28
 
 ## 8.0.0-next-8.27
