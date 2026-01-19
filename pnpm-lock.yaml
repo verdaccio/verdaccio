@@ -1156,6 +1156,25 @@ importers:
         specifier: 3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.10.0)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.10.0)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
+  packages/plugins/package-filter:
+    dependencies:
+      '@verdaccio/core':
+        specifier: workspace:8.0.0-next-8.28
+        version: link:../../core/core
+      debug:
+        specifier: 4.4.3
+        version: 4.4.3(supports-color@5.5.0)
+    devDependencies:
+      '@types/debug':
+        specifier: 4.1.12
+        version: 4.1.12
+      '@verdaccio/config':
+        specifier: workspace:8.0.0-next-8.28
+        version: link:../../config
+      '@verdaccio/types':
+        specifier: workspace:13.0.0-next-8.10
+        version: link:../../core/types
+
   packages/plugins/ui-theme:
     devDependencies:
       '@emotion/babel-plugin':
