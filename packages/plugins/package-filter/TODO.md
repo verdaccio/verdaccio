@@ -54,7 +54,7 @@
 - 🔴 Move plugin to verdaccio monorepo.
   - ✅ Change `CustomConfig` to some meaningful name.
   - ✅ It seems that `CustomConfig` doesn't need to extend `Config`.
-  - 🔴 Setup logger the same way other plugins do - via setup({}) from @verdaccio/logger.
+  - ✅ Setup logger the same way other plugins do - via setup({}) from @verdaccio/logger.
   - 🔴 Use `Manifest` instead of deprecated `Package`.
   - 🔴 Cleanup package.json dependencies, devDependencies and tsconfig.json references.
     These files were copied from Verdaccio Memory Storage Plugin.

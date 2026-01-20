@@ -2,25 +2,14 @@ import path from 'node:path';
 import { describe, expect, test } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
-import { Dist, DistFile, Logger, Package, Version } from '@verdaccio/types';
+import { logger, setup } from '@verdaccio/logger';
+import { Dist, DistFile, Package, Version } from '@verdaccio/types';
 
 import PackageFilterPlugin from '../src/index';
 
+setup({});
+
 const verdaccioConfig = new Config(parseConfigFile(path.join(__dirname, 'config.yaml')));
-
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-const noop = (): void => {};
-const logger: Logger = {
-  child: noop,
-  debug: noop,
-  error: noop,
-  http: noop,
-  warn: noop,
-  info: noop,
-  trace: noop,
-  fatal: noop,
-};
-
 const pluginOptions = { logger, config: verdaccioConfig };
 
 const versionStub: Version = {
