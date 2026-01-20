@@ -1,6 +1,6 @@
 import { satisfies } from 'semver';
 
-import { Package } from '@verdaccio/types';
+import { Manifest } from '@verdaccio/types';
 
 import { ParsedRule } from '../config/types';
 import { MatchResult, MatchType } from './types';
@@ -25,10 +25,10 @@ function splitName(name: string): { name: string; scope?: string } {
 }
 
 export function matchRules(
-  packageInfo: Package,
+  manifest: Manifest,
   rules: Map<string, ParsedRule>
 ): MatchResult | undefined {
-  const { scope } = splitName(packageInfo.name);
+  const { scope } = splitName(manifest.name);
   if (scope) {
     const rule = rules.get(scope);
     if (rule === 'scope') {
@@ -36,12 +36,12 @@ export function matchRules(
         type: MatchType.SCOPE,
         rule,
         scope,
-        versions: Object.keys(packageInfo.versions),
+        versions: Object.keys(manifest.versions),
       };
     }
   }
 
-  const rule = rules.get(packageInfo.name);
+  const rule = rules.get(manifest.name);
   if (!rule) {
     // No match
     return undefined;
@@ -51,8 +51,8 @@ export function matchRules(
     return {
       type: MatchType.PACKAGE,
       rule,
-      package: packageInfo.name,
-      versions: Object.keys(packageInfo.versions),
+      package: manifest.name,
+      versions: Object.keys(manifest.versions),
     };
   }
 
@@ -67,7 +67,7 @@ export function matchRules(
   }
 
   const matchedVersions: string[] = [];
-  Object.keys(packageInfo.versions).forEach((version) => {
+  Object.keys(manifest.versions).forEach((version) => {
     versionRanges.forEach((versionRange) => {
       if (
         satisfies(version, versionRange, {
