@@ -9,7 +9,9 @@ import PackageFilterPlugin from '../src/index';
 
 setup({});
 
-const verdaccioConfig = new Config(parseConfigFile(path.join(__dirname, 'config.yaml')));
+const verdaccioConfig = new Config(
+  parseConfigFile(path.join(__dirname, '__fixtures__', 'config.yaml'))
+);
 const pluginOptions = { logger, config: verdaccioConfig };
 
 const versionStub: Version = {
