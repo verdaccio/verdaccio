@@ -52,13 +52,14 @@
 - ✅ Fix vulnerabilities revealed by npm audit: 39 vulnerabilities (7 low, 18 moderate, 14 high).
   UPD: this task is not applicable after moving plugin to verdaccio monorepo.
 - 🔴 Move plugin to verdaccio monorepo.
-  - 🔴 Change `CustomConfig` to some meaningful name.
-  - 🔴 It seems that `CustomConfig` doesn't need to extend `Config`.
+  - ✅ Change `CustomConfig` to some meaningful name.
+  - ✅ It seems that `CustomConfig` doesn't need to extend `Config`.
+  - 🔴 Setup logger the same way other plugins do - via setup({}) from @verdaccio/logger.
   - 🔴 Use `Manifest` instead of deprecated `Package`.
   - 🔴 Cleanup package.json dependencies, devDependencies and tsconfig.json references.
     These files were copied from Verdaccio Memory Storage Plugin.
   - 🔴 Bring unit tests back to life.
-    - 🔴 Integrate tests from original project.
+    - ✅ Integrate tests from original project.
     - ✅ Migrate test code from jest to vitest.
     - 🔴 Extract babelTestPackage, typesNodePackage and other test data to separate file.
     - ✅ See if relying on shapshots is the best approach here. It often makes intent unclear.

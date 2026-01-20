@@ -1,7 +1,5 @@
 import { Range } from 'semver';
 
-import { Config } from '@verdaccio/types';
-
 export type BlockStrategy = 'block' | 'replace';
 
 export type ConfigRule =
@@ -9,7 +7,7 @@ export type ConfigRule =
   | { package: string }
   | { package: string; versions: string; strategy?: BlockStrategy };
 
-export interface CustomConfig extends Config {
+export interface PluginConfig {
   dateThreshold?: string | number;
   minAgeDays?: number;
   block?: ConfigRule[];

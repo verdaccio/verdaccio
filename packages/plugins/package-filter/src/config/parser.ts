@@ -1,6 +1,6 @@
 import { Range } from 'semver';
 
-import { ConfigRule, CustomConfig, ParsedConfig, ParsedRule } from './types';
+import { ConfigRule, ParsedConfig, ParsedRule, PluginConfig } from './types';
 
 export function parseConfigRules(configRules: ConfigRule[]): Map<string, ParsedRule> {
   const ruleMap = new Map<string, ParsedRule>();
@@ -44,7 +44,7 @@ export function parseConfigRules(configRules: ConfigRule[]): Map<string, ParsedR
   return ruleMap;
 }
 
-export function parseConfig(config: CustomConfig): ParsedConfig {
+export function parseConfig(config: PluginConfig): ParsedConfig {
   const blockMap = parseConfigRules(config.block ?? []);
   const allowMap = parseConfigRules(config.allow ?? []);
   const dateThreshold = config.dateThreshold ? new Date(config.dateThreshold) : null;

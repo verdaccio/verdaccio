@@ -1,9 +1,27 @@
+import path from 'node:path';
 import { describe, expect, test } from 'vitest';
 
+import { Config, parseConfigFile } from '@verdaccio/config';
 import { Dist, DistFile, Logger, Package, Version } from '@verdaccio/types';
 
-import { CustomConfig } from '../src/config/types';
 import PackageFilterPlugin from '../src/index';
+
+const verdaccioConfig = new Config(parseConfigFile(path.join(__dirname, 'config.yaml')));
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noop = (): void => {};
+const logger: Logger = {
+  child: noop,
+  debug: noop,
+  error: noop,
+  http: noop,
+  warn: noop,
+  info: noop,
+  trace: noop,
+  fatal: noop,
+};
+
+const pluginOptions = { logger, config: verdaccioConfig };
 
 const versionStub: Version = {
   _id: '',
@@ -135,19 +153,6 @@ const testaccioPackage: Package = {
   readme: 'It is a testaccio test package',
 };
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-const noop = (): void => {};
-const logger: Logger = {
-  child: noop,
-  debug: noop,
-  error: noop,
-  http: noop,
-  warn: noop,
-  info: noop,
-  trace: noop,
-  fatal: noop,
-};
-
 function getDaysSince(date: Date | string): number {
   if (typeof date === 'string') {
     date = new Date(date);
@@ -163,8 +168,8 @@ describe('PackageFilterPlugin', () => {
     test('filters by minAgeDays', async function () {
       const config = {
         minAgeDays: getDaysSince('2023'),
-      } as CustomConfig; // Some properties are omitted on purpose
-      const plugin = new PackageFilterPlugin(config, { logger, config });
+      };
+      const plugin = new PackageFilterPlugin(config, pluginOptions);
 
       // Should block 3.0.0 version of @babel/test
       expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -176,8 +181,8 @@ describe('PackageFilterPlugin', () => {
     test('filters by dateThreshold', async function () {
       const config = {
         dateThreshold: '2023-01-01',
-      } as CustomConfig; // Some properties are omitted on purpose
-      const plugin = new PackageFilterPlugin(config, { logger, config });
+      };
+      const plugin = new PackageFilterPlugin(config, pluginOptions);
 
       // Should block 3.0.0 version of @babel/test
       expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -191,8 +196,8 @@ describe('PackageFilterPlugin', () => {
         const config = {
           minAgeDays: getDaysSince('2023-01-01'),
           dateThreshold: '2024-06-01',
-        } as CustomConfig; // Some properties are omitted on purpose
-        const plugin = new PackageFilterPlugin(config, { logger, config });
+        };
+        const plugin = new PackageFilterPlugin(config, pluginOptions);
 
         // Should block 3.0.0 version of @babel/test
         expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -205,8 +210,8 @@ describe('PackageFilterPlugin', () => {
         const config = {
           minAgeDays: getDaysSince('2024-06-01'),
           dateThreshold: '2023-01-01',
-        } as CustomConfig; // Some properties are omitted on purpose
-        const plugin = new PackageFilterPlugin(config, { logger, config });
+        };
+        const plugin = new PackageFilterPlugin(config, pluginOptions);
 
         // Should block 3.0.0 version of @babel/test
         expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -221,8 +226,8 @@ describe('PackageFilterPlugin', () => {
     test('filters by scope', async function () {
       const config = {
         block: [{ scope: '@babel' }],
-      } as CustomConfig; // Some properties are omitted on purpose
-      const plugin = new PackageFilterPlugin(config, { logger, config });
+      };
+      const plugin = new PackageFilterPlugin(config, pluginOptions);
 
       // Should block all versions of @babel/test
       expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -234,8 +239,8 @@ describe('PackageFilterPlugin', () => {
     test('filters by package', async function () {
       const config = {
         block: [{ package: '@babel/test' }],
-      } as CustomConfig; // Some properties are omitted on purpose
-      const plugin = new PackageFilterPlugin(config, { logger, config });
+      };
+      const plugin = new PackageFilterPlugin(config, pluginOptions);
 
       // Should block all versions of @babel/test
       expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -247,8 +252,8 @@ describe('PackageFilterPlugin', () => {
     test('filters by versions', async function () {
       const config = {
         block: [{ package: '@babel/test', versions: '>1.0.0' }],
-      } as CustomConfig; // Some properties are omitted on purpose
-      const plugin = new PackageFilterPlugin(config, { logger, config });
+      };
+      const plugin = new PackageFilterPlugin(config, pluginOptions);
 
       // Should block all versions of @babel/test greater than 1.0.0
       expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -263,8 +268,8 @@ describe('PackageFilterPlugin', () => {
           { package: '@babel/test', versions: '>2.0.0' },
           { package: '@babel/test', versions: '<1.3.0' },
         ],
-      } as CustomConfig; // Some properties are omitted on purpose
-      const plugin = new PackageFilterPlugin(config, { logger, config });
+      };
+      const plugin = new PackageFilterPlugin(config, pluginOptions);
 
       // Should leave only 1.5.0 version of @babel/test
       expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -276,8 +281,8 @@ describe('PackageFilterPlugin', () => {
     test('replaces versions', async function () {
       const config = {
         block: [{ package: '@babel/test', versions: '>1.0.0', strategy: 'replace' }],
-      } as CustomConfig; // Some properties are omitted on purpose
-      const plugin = new PackageFilterPlugin(config, { logger, config });
+      };
+      const plugin = new PackageFilterPlugin(config, pluginOptions);
 
       // Should replace all versions of @babel/test greater than 1.0.0
       expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -290,8 +295,8 @@ describe('PackageFilterPlugin', () => {
       test('filter by versions', async function () {
         const config = {
           block: [{ package: '@babel/test', versions: '>10.0.0' }],
-        } as CustomConfig; // Some properties are omitted on purpose
-        const plugin = new PackageFilterPlugin(config, { logger, config });
+        };
+        const plugin = new PackageFilterPlugin(config, pluginOptions);
 
         // Should not change anything
         expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -300,8 +305,8 @@ describe('PackageFilterPlugin', () => {
       test('version replacement', async function () {
         const config = {
           block: [{ package: '@babel/test', versions: '>10.0.0', strategy: 'replace' }],
-        } as CustomConfig; // Some properties are omitted on purpose
-        const plugin = new PackageFilterPlugin(config, { logger, config });
+        };
+        const plugin = new PackageFilterPlugin(config, pluginOptions);
 
         // Should not change anything
         expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -315,8 +320,8 @@ describe('PackageFilterPlugin', () => {
         const config = {
           minAgeDays: getDaysSince('2021'),
           allow: [{ scope: '@babel' }],
-        } as CustomConfig; // Some properties are omitted on purpose
-        const plugin = new PackageFilterPlugin(config, { logger, config });
+        };
+        const plugin = new PackageFilterPlugin(config, pluginOptions);
 
         // Should unblock all versions of @babel
         expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -329,8 +334,8 @@ describe('PackageFilterPlugin', () => {
         const config = {
           minAgeDays: getDaysSince('2021'),
           allow: [{ package: '@babel/test' }],
-        } as CustomConfig; // Some properties are omitted on purpose
-        const plugin = new PackageFilterPlugin(config, { logger, config });
+        };
+        const plugin = new PackageFilterPlugin(config, pluginOptions);
 
         // Should unblock all versions of @babel/test
         expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -343,8 +348,8 @@ describe('PackageFilterPlugin', () => {
         const config = {
           minAgeDays: getDaysSince('2021'),
           allow: [{ package: '@babel/test', versions: '3.0.0' }],
-        } as CustomConfig; // Some properties are omitted on purpose
-        const plugin = new PackageFilterPlugin(config, { logger, config });
+        };
+        const plugin = new PackageFilterPlugin(config, pluginOptions);
 
         // Should block 2.0.0 version of @babel/test and unblock 3.0.0
         expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -360,8 +365,8 @@ describe('PackageFilterPlugin', () => {
             { package: '@babel/test', versions: '3.0.0' },
             { package: '@types/node', versions: '>2.5.0' },
           ],
-        } as CustomConfig; // Some properties are omitted on purpose
-        const plugin = new PackageFilterPlugin(config, { logger, config });
+        };
+        const plugin = new PackageFilterPlugin(config, pluginOptions);
 
         // Should block 2.0.0 version of @babel/test and unblock 3.0.0
         expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -376,8 +381,8 @@ describe('PackageFilterPlugin', () => {
         const config = {
           dateThreshold: '2021',
           allow: [{ scope: '@babel' }],
-        } as CustomConfig; // Some properties are omitted on purpose
-        const plugin = new PackageFilterPlugin(config, { logger, config });
+        };
+        const plugin = new PackageFilterPlugin(config, pluginOptions);
 
         // Should unblock all versions of @babel
         expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -390,8 +395,8 @@ describe('PackageFilterPlugin', () => {
         const config = {
           dateThreshold: '2021',
           allow: [{ package: '@babel/test' }],
-        } as CustomConfig; // Some properties are omitted on purpose
-        const plugin = new PackageFilterPlugin(config, { logger, config });
+        };
+        const plugin = new PackageFilterPlugin(config, pluginOptions);
 
         // Should unblock all versions of @babel/test
         expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -404,8 +409,8 @@ describe('PackageFilterPlugin', () => {
         const config = {
           dateThreshold: '2021',
           allow: [{ package: '@babel/test', versions: '3.0.0' }],
-        } as CustomConfig; // Some properties are omitted on purpose
-        const plugin = new PackageFilterPlugin(config, { logger, config });
+        };
+        const plugin = new PackageFilterPlugin(config, pluginOptions);
 
         // Should block 2.0.0 version of @babel/test and unblock 3.0.0
         expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -421,8 +426,8 @@ describe('PackageFilterPlugin', () => {
             { package: '@babel/test', versions: '3.0.0' },
             { package: '@types/node', versions: '>2.5.0' },
           ],
-        } as CustomConfig; // Some properties are omitted on purpose
-        const plugin = new PackageFilterPlugin(config, { logger, config });
+        };
+        const plugin = new PackageFilterPlugin(config, pluginOptions);
 
         // Should block 2.0.0 version of @babel/test and unblock 3.0.0
         expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -437,8 +442,8 @@ describe('PackageFilterPlugin', () => {
         const config = {
           block: [{ scope: '@babel' }, { scope: '@types' }],
           allow: [{ scope: '@babel' }],
-        } as CustomConfig; // Some properties are omitted on purpose
-        const plugin = new PackageFilterPlugin(config, { logger, config });
+        };
+        const plugin = new PackageFilterPlugin(config, pluginOptions);
 
         // Should unblock all versions of @babel
         expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -451,8 +456,8 @@ describe('PackageFilterPlugin', () => {
         const config = {
           block: [{ scope: '@babel' }, { scope: '@types' }],
           allow: [{ package: '@babel/test' }],
-        } as CustomConfig; // Some properties are omitted on purpose
-        const plugin = new PackageFilterPlugin(config, { logger, config });
+        };
+        const plugin = new PackageFilterPlugin(config, pluginOptions);
 
         // Should unblock all versions of @babel
         expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -465,8 +470,8 @@ describe('PackageFilterPlugin', () => {
         const config = {
           block: [{ scope: '@babel' }, { scope: '@types' }],
           allow: [{ package: '@babel/test', versions: '3.0.0' }],
-        } as CustomConfig; // Some properties are omitted on purpose
-        const plugin = new PackageFilterPlugin(config, { logger, config });
+        };
+        const plugin = new PackageFilterPlugin(config, pluginOptions);
 
         // Should unblock version 3.0.0 of @babel
         expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -481,8 +486,8 @@ describe('PackageFilterPlugin', () => {
         const config = {
           block: [{ package: '@babel/test' }, { package: '@types/node' }],
           allow: [{ scope: '@babel' }],
-        } as CustomConfig; // Some properties are omitted on purpose
-        const plugin = new PackageFilterPlugin(config, { logger, config });
+        };
+        const plugin = new PackageFilterPlugin(config, pluginOptions);
 
         // Should unblock all versions of @babel
         expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -495,8 +500,8 @@ describe('PackageFilterPlugin', () => {
         const config = {
           block: [{ package: '@babel/test' }, { package: '@types/node' }],
           allow: [{ package: '@babel/test' }],
-        } as CustomConfig; // Some properties are omitted on purpose
-        const plugin = new PackageFilterPlugin(config, { logger, config });
+        };
+        const plugin = new PackageFilterPlugin(config, pluginOptions);
 
         // Should unblock all versions of @babel/test
         expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -509,8 +514,8 @@ describe('PackageFilterPlugin', () => {
         const config = {
           block: [{ package: '@babel/test' }, { package: '@types/node' }],
           allow: [{ package: '@babel/test', versions: '3.0.0' }],
-        } as CustomConfig; // Some properties are omitted on purpose
-        const plugin = new PackageFilterPlugin(config, { logger, config });
+        };
+        const plugin = new PackageFilterPlugin(config, pluginOptions);
 
         // Should unblock version 3.0.0 of @babel/test
         expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -528,8 +533,8 @@ describe('PackageFilterPlugin', () => {
             { package: '@types/node', versions: '>=2.2.0' },
           ],
           allow: [{ scope: '@babel' }],
-        } as CustomConfig; // Some properties are omitted on purpose
-        const plugin = new PackageFilterPlugin(config, { logger, config });
+        };
+        const plugin = new PackageFilterPlugin(config, pluginOptions);
 
         // Should unblock all versions of @babel
         expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -545,8 +550,8 @@ describe('PackageFilterPlugin', () => {
             { package: '@types/node', versions: '>=2.2.0' },
           ],
           allow: [{ package: '@babel/test' }],
-        } as CustomConfig; // Some properties are omitted on purpose
-        const plugin = new PackageFilterPlugin(config, { logger, config });
+        };
+        const plugin = new PackageFilterPlugin(config, pluginOptions);
 
         // Should unblock all versions of @babel/test
         expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -562,8 +567,8 @@ describe('PackageFilterPlugin', () => {
             { package: '@types/node', versions: '>=2.2.0' },
           ],
           allow: [{ package: '@babel/test', versions: '3.0.0' }],
-        } as CustomConfig; // Some properties are omitted on purpose
-        const plugin = new PackageFilterPlugin(config, { logger, config });
+        };
+        const plugin = new PackageFilterPlugin(config, pluginOptions);
 
         // Should unblock version 3.0.0 of @babel/test
         expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -581,8 +586,8 @@ describe('PackageFilterPlugin', () => {
             { package: '@types/node', versions: '>1.0.0', strategy: 'replace' },
           ],
           allow: [{ scope: '@babel' }],
-        } as CustomConfig; // Some properties are omitted on purpose
-        const plugin = new PackageFilterPlugin(config, { logger, config });
+        };
+        const plugin = new PackageFilterPlugin(config, pluginOptions);
 
         // Should not replace versions of @babel
         expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -598,8 +603,8 @@ describe('PackageFilterPlugin', () => {
             { package: '@types/node', versions: '>1.0.0', strategy: 'replace' },
           ],
           allow: [{ package: '@babel/test' }],
-        } as CustomConfig; // Some properties are omitted on purpose
-        const plugin = new PackageFilterPlugin(config, { logger, config });
+        };
+        const plugin = new PackageFilterPlugin(config, pluginOptions);
 
         // Should not replace versions of @babel/test
         expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -615,8 +620,8 @@ describe('PackageFilterPlugin', () => {
             { package: '@types/node', versions: '>1.0.0', strategy: 'replace' },
           ],
           allow: [{ package: '@babel/test', versions: '3.0.0' }],
-        } as CustomConfig; // Some properties are omitted on purpose
-        const plugin = new PackageFilterPlugin(config, { logger, config });
+        };
+        const plugin = new PackageFilterPlugin(config, pluginOptions);
 
         // Should only replace version 2.0.0 of @babel/test
         expect(await plugin.filter_metadata(babelTestPackage)).toMatchSnapshot();
@@ -631,8 +636,8 @@ describe('PackageFilterPlugin', () => {
     test('latest tag is set to a latest stable version', async function () {
       const config = {
         block: [{ package: '@testaccio/test', versions: '1.7.0' }],
-      } as CustomConfig; // Some properties are omitted on purpose
-      const plugin = new PackageFilterPlugin(config, { logger, config });
+      };
+      const plugin = new PackageFilterPlugin(config, pluginOptions);
 
       // Should block '1.7.0' version of @testaccio/test
       // Should set 'latest' to '1.4.2', not to '1.4.4-beta' despite it is untagged
@@ -642,8 +647,8 @@ describe('PackageFilterPlugin', () => {
     test('_distfiles are cleaned', async function () {
       const config = {
         block: [{ package: '@testaccio/test', versions: '1.7.0' }],
-      } as CustomConfig; // Some properties are omitted on purpose
-      const plugin = new PackageFilterPlugin(config, { logger, config });
+      };
+      const plugin = new PackageFilterPlugin(config, pluginOptions);
 
       // Should block '1.7.0' version of @testaccio/test
       // Should clean _distfiles['testaccio-test-1.7.0.tgz']
@@ -655,8 +660,8 @@ describe('PackageFilterPlugin', () => {
     test('empty package does not break the plugin', async function () {
       const config = {
         block: [{ package: 'some-package', versions: '7.7.7' }],
-      } as CustomConfig; // Some properties are omitted on purpose
-      const plugin = new PackageFilterPlugin(config, { logger, config });
+      };
+      const plugin = new PackageFilterPlugin(config, pluginOptions);
 
       // It's unlikely that Verdaccio will call this method with an empty package, but just in case
       expect(await plugin.filter_metadata(emptyPackage)).toMatchSnapshot();
@@ -665,8 +670,8 @@ describe('PackageFilterPlugin', () => {
     test('_distfiles presence is not required', async function () {
       const config = {
         block: [{ package: '@testaccio/test', versions: '1.7.0' }],
-      } as CustomConfig; // Some properties are omitted on purpose
-      const plugin = new PackageFilterPlugin(config, { logger, config });
+      };
+      const plugin = new PackageFilterPlugin(config, pluginOptions);
 
       // Should block '1.7.0' version of @testaccio/test
       // Should behave as if _distfiles were set to an empty object

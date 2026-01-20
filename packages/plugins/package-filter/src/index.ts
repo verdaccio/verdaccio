@@ -4,7 +4,7 @@ import { pluginUtils } from '@verdaccio/core';
 import { Logger, Package } from '@verdaccio/types';
 
 import { parseConfig } from './config/parser';
-import { CustomConfig, ParsedConfig } from './config/types';
+import { ParsedConfig, PluginConfig } from './config/types';
 import { filterBlockedVersions } from './filtering/packageVersion';
 import { filterVersionsByPublishDate } from './filtering/publishDate';
 
@@ -155,23 +155,21 @@ function getPackageClone(packageInfo: Readonly<Package>): Package {
 }
 
 export default class PackageFilterPlugin
-  extends pluginUtils.Plugin<CustomConfig>
-  implements pluginUtils.ManifestFilter<CustomConfig>
+  extends pluginUtils.Plugin<PluginConfig>
+  implements pluginUtils.ManifestFilter<PluginConfig>
 {
-  public readonly config: CustomConfig;
+  public readonly config: PluginConfig;
   private readonly parsedConfig: ParsedConfig;
   protected readonly logger: Logger;
 
-  public constructor(config: CustomConfig, options: pluginUtils.PluginOptions) {
+  public constructor(config: PluginConfig, options: pluginUtils.PluginOptions) {
     super(config, options);
     this.config = config;
     this.logger = options.logger;
     this.parsedConfig = parseConfig(config);
 
     options.logger.debug(
-      `Loaded plugin-delay-filter, ${JSON.stringify(this.parsedConfig, null, 4)}, ${Array.from(
-        this.parsedConfig.blockRules.entries()
-      )}`
+      `Loaded plugin-delay-filter, ${JSON.stringify(this.parsedConfig, null, 4)}`
     );
   }
 
