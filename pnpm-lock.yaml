@@ -1171,9 +1171,15 @@ importers:
       '@verdaccio/config':
         specifier: workspace:8.0.0-next-8.28
         version: link:../../config
+      '@verdaccio/logger':
+        specifier: workspace:8.0.0-next-8.28
+        version: link:../../logger/logger
       '@verdaccio/types':
         specifier: workspace:13.0.0-next-8.10
         version: link:../../core/types
+      vitest:
+        specifier: 3.2.4
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.10.0)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.10.0)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
   packages/plugins/ui-theme:
     devDependencies:
@@ -14406,7 +14412,7 @@ snapshots:
   css-tree@2.3.1:
     dependencies:
       mdn-data: 2.0.30
-      source-map-js: 1.2.0
+      source-map-js: 1.2.1
 
   css-what@6.1.0: {}
 
@@ -16763,7 +16769,7 @@ snapshots:
     dependencies:
       '@babel/parser': 7.28.4
       '@babel/types': 7.28.4
-      source-map-js: 1.2.0
+      source-map-js: 1.2.1
 
   make-dir@2.1.0:
     dependencies:
@@ -17227,8 +17233,7 @@ snapshots:
 
   mute-stream@2.0.0: {}
 
-  nanoid@3.3.11:
-    optional: true
+  nanoid@3.3.11: {}
 
   nanoid@3.3.7: {}
 
@@ -17756,9 +17761,9 @@ snapshots:
 
   postcss@8.4.31:
     dependencies:
-      nanoid: 3.3.7
+      nanoid: 3.3.11
       picocolors: 1.1.1
-      source-map-js: 1.2.0
+      source-map-js: 1.2.1
 
   postcss@8.4.40:
     dependencies:
@@ -17771,7 +17776,6 @@ snapshots:
       nanoid: 3.3.11
       picocolors: 1.1.1
       source-map-js: 1.2.1
-    optional: true
 
   prelude-ls@1.2.1: {}
 
@@ -18605,8 +18609,7 @@ snapshots:
 
   source-map-js@1.2.0: {}
 
-  source-map-js@1.2.1:
-    optional: true
+  source-map-js@1.2.1: {}
 
   source-map-support@0.5.21:
     dependencies:
@@ -19521,7 +19524,7 @@ snapshots:
   vite@5.3.1(@types/node@20.14.12)(sass@1.93.2)(terser@5.31.3):
     dependencies:
       esbuild: 0.21.5
-      postcss: 8.4.40
+      postcss: 8.5.6
       rollup: 4.18.0
     optionalDependencies:
       '@types/node': 20.14.12
@@ -19532,7 +19535,7 @@ snapshots:
   vite@5.3.1(@types/node@24.10.0)(sass@1.93.2)(terser@5.31.3):
     dependencies:
       esbuild: 0.21.5
-      postcss: 8.4.40
+      postcss: 8.5.6
       rollup: 4.18.0
     optionalDependencies:
       '@types/node': 24.10.0
