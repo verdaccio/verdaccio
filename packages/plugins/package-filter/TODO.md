@@ -61,7 +61,7 @@
   - 🔴 Bring unit tests back to life.
     - ✅ Integrate tests from original project.
     - ✅ Migrate test code from jest to vitest.
-    - 🔴 Extract babelTestPackage, typesNodePackage and other test data to separate file.
+    - ✅ Extract babelTestPackage, typesNodePackage and other test data to separate file.
     - ✅ See if relying on shapshots is the best approach here. It often makes intent unclear.
       UPD: yes, using snapshots to ensure transformed package.json conforms to what we expect
       is the most approriate way here.
