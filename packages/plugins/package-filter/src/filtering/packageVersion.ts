@@ -1,6 +1,6 @@
 import { Range, satisfies } from 'semver';
 
-import { Logger, Package } from '@verdaccio/types';
+import { Logger, Manifest } from '@verdaccio/types';
 
 import { ParsedConfigRule, ParsedRule } from '../config/types';
 import { matchRules } from './matcher';
@@ -11,24 +11,24 @@ import { MatchType } from './types';
  * If all package is blocked, or it's scope is blocked - block all versions.
  */
 export function filterBlockedVersions(
-  packageInfo: Package,
+  manifest: Manifest,
   blockRules: Map<string, ParsedRule>,
   allowRules: Map<string, ParsedRule>,
   logger: Logger
-): Package {
-  const allowMatch = matchRules(packageInfo, allowRules);
+): Manifest {
+  const allowMatch = matchRules(manifest, allowRules);
   if (
     allowMatch &&
     (allowMatch.type === MatchType.SCOPE || allowMatch.type === MatchType.PACKAGE)
   ) {
     // An entire scope or package is whitelisted
-    return packageInfo;
+    return manifest;
   }
 
-  const blockMatch = matchRules(packageInfo, blockRules);
+  const blockMatch = matchRules(manifest, blockRules);
   if (!blockMatch) {
     // No rule is blocking this package
-    return packageInfo;
+    return manifest;
   }
 
   const whitelistedVersions: string[] = allowMatch ? allowMatch.versions : [];
@@ -40,7 +40,7 @@ export function filterBlockedVersions(
   if (blockMatch.type === MatchType.SCOPE) {
     if (whitelistedVersions.length === 0) {
       return {
-        ...packageInfo,
+        ...manifest,
         versions: {},
         readme: `All packages in scope ${blockMatch.scope} are blocked by rule`,
       };
@@ -48,7 +48,7 @@ export function filterBlockedVersions(
   } else if (blockMatch.type === MatchType.PACKAGE) {
     if (whitelistedVersions.length === 0) {
       return {
-        ...packageInfo,
+        ...manifest,
         versions: {},
         readme: `All package versions are blocked by rule`,
       };
@@ -60,30 +60,30 @@ export function filterBlockedVersions(
   const versionRanges = blockRule.versions;
   if (versionRanges.length === 0) {
     // No version range specified. Nothing is blocked then.
-    return packageInfo;
+    return manifest;
   }
 
   if (blockRule.strategy === 'block') {
     const blockedVersions = blockMatch.versions.filter((v) => !whitelistedVersions.includes(v));
     for (const version of blockedVersions) {
-      delete packageInfo.versions[version];
+      delete manifest.versions[version];
     }
 
     if (blockedVersions.length > 0) {
       // Add debug info for devs
-      packageInfo.readme =
-        (packageInfo.readme || '') +
+      manifest.readme =
+        (manifest.readme || '') +
         `\nSome versions(${blockedVersions.length}) of package are blocked by rules: ${versionRanges.map(
           (range) => range.raw
         )}`;
     }
 
-    return packageInfo;
+    return manifest;
   }
 
   // Process block rule strategy 'replace'.
   // We assume that the order of versions is already sorted.
-  const nonBlockedVersions = { ...packageInfo.versions };
+  const nonBlockedVersions = { ...manifest.versions };
   const newVersionsMapping: Record<string, string | null> = {};
 
   versionRanges.forEach((versionRange) => {
@@ -109,7 +109,7 @@ export function filterBlockedVersions(
     });
   });
 
-  logger.debug(`Filtering package ${packageInfo.name}, replacing versions`);
+  logger.debug(`Filtering package ${manifest.name}, replacing versions`);
   logger.debug(`${JSON.stringify(newVersionsMapping)}`);
 
   const removedVersions = Object.entries(newVersionsMapping).filter(
@@ -123,27 +123,27 @@ export function filterBlockedVersions(
 
   removedVersions.forEach(([version]) => {
     logger.debug(`No version to replace ${version}`);
-    delete packageInfo.versions[version];
+    delete manifest.versions[version];
   });
 
   replacedVersions.forEach(([version, replaceVersion]) => {
-    packageInfo.versions[version] = {
-      ...packageInfo.versions[replaceVersion],
+    manifest.versions[version] = {
+      ...manifest.versions[replaceVersion],
       version,
     };
   });
 
   if (removedVersions.length > 0) {
-    packageInfo.readme +=
+    manifest.readme +=
       `\nSome versions of package could not be replaced and thus are fully blocked (${removedVersions.length}):` +
       ` ${removedVersions.map((a) => a[0])}`;
   }
 
   if (replacedVersions.length > 0) {
-    packageInfo.readme +=
+    manifest.readme +=
       `\nSome versions of package are replaced by other(${replacedVersions.length}):` +
       ` ${replacedVersions.map((a) => `${a[0]} => ${a[1]}`)}`;
   }
 
-  return packageInfo;
+  return manifest;
 }

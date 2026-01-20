@@ -1,7 +1,7 @@
 import semver from 'semver';
 
 import { pluginUtils } from '@verdaccio/core';
-import { Logger, Package } from '@verdaccio/types';
+import { Logger, Manifest } from '@verdaccio/types';
 
 import { parseConfig } from './config/parser';
 import { ParsedConfig, PluginConfig } from './config/types';
@@ -9,21 +9,21 @@ import { filterBlockedVersions } from './filtering/packageVersion';
 import { filterVersionsByPublishDate } from './filtering/publishDate';
 
 /**
- * Delete a tag if it maps to a removed version
+ * Delete tags corresponding to removed versions
  */
-function cleanupTags(packageInfo: Package): void {
-  const distTags = packageInfo['dist-tags'];
+function cleanupTags(manifest: Manifest): void {
+  const distTags = manifest['dist-tags'];
   Object.entries(distTags).forEach(([tag, tagVersion]) => {
-    if (!packageInfo.versions[tagVersion]) {
+    if (!manifest.versions[tagVersion]) {
       delete distTags[tag];
     }
   });
 }
 
 /**
- * Delete a time entry if it maps to a removed version
+ * Delete time entries corresponding to removed versions
  */
-function cleanupTime(packageInfo: Package): void {
+function cleanupTime(packageInfo: Manifest): void {
   const time = packageInfo.time;
   if (!time) {
     return;
@@ -36,7 +36,7 @@ function cleanupTime(packageInfo: Package): void {
   });
 }
 
-function getLatestVersion(packageInfo: Package, versions: string[]): string | undefined {
+function getLatestVersion(packageInfo: Manifest, versions: string[]): string | undefined {
   const time = packageInfo.time;
   if (!time) {
     // No time information, it's the best we can do
@@ -64,7 +64,7 @@ function getLatestVersion(packageInfo: Package, versions: string[]): string | un
 /**
  * Set the latest tag if dist-tags/latest is missing
  */
-function setupLatestTag(packageInfo: Package): void {
+function setupLatestTag(packageInfo: Manifest): void {
   const distTags = packageInfo['dist-tags'];
   if (distTags.latest) {
     // Tag 'latest' must only be fixed when latest version was blocked
@@ -103,7 +103,7 @@ function setupLatestTag(packageInfo: Package): void {
 /**
  * Set the created and modified times
  */
-function setupCreatedAndModified(packageInfo: Package): void {
+function setupCreatedAndModified(packageInfo: Manifest): void {
   const time = packageInfo.time;
   if (!time) {
     return;
@@ -122,11 +122,11 @@ function setupCreatedAndModified(packageInfo: Package): void {
 /**
  * Remove distfiles that are not used by any version
  */
-function cleanupDistFiles(newPackage: Package): void {
-  const distFiles = newPackage._distfiles;
+function cleanupDistFiles(manifest: Manifest): void {
+  const distFiles = manifest._distfiles;
   Object.entries(distFiles).forEach(([key, file]) => {
     const fileUrl = file.url;
-    const versionPointingToFile = Object.values(newPackage.versions).find(
+    const versionPointingToFile = Object.values(manifest.versions).find(
       (v) => v.dist.tarball === fileUrl
     );
     if (!versionPointingToFile) {
@@ -135,7 +135,7 @@ function cleanupDistFiles(newPackage: Package): void {
   });
 }
 
-function getPackageClone(packageInfo: Readonly<Package>): Package {
+function getManifestClone(packageInfo: Readonly<Manifest>): Manifest {
   return {
     ...packageInfo,
     name: packageInfo.name ?? '',
@@ -173,12 +173,12 @@ export default class PackageFilterPlugin
     );
   }
 
-  public async filter_metadata(packageInfo: Readonly<Package>): Promise<Package> {
+  public async filter_metadata(packageInfo: Readonly<Manifest>): Promise<Manifest> {
     const { dateThreshold, minAgeMs, blockRules, allowRules } = this.parsedConfig;
 
-    let newPackage = getPackageClone(packageInfo);
+    let newManifest = getManifestClone(packageInfo);
     if (blockRules.size > 0) {
-      newPackage = filterBlockedVersions(newPackage, blockRules, allowRules, this.logger);
+      newManifest = filterBlockedVersions(newManifest, blockRules, allowRules, this.logger);
     }
 
     let earliestDateThreshold: Date | null = null;
@@ -191,14 +191,14 @@ export default class PackageFilterPlugin
     }
 
     if (earliestDateThreshold) {
-      newPackage = filterVersionsByPublishDate(newPackage, earliestDateThreshold, allowRules);
+      newManifest = filterVersionsByPublishDate(newManifest, earliestDateThreshold, allowRules);
     }
 
-    cleanupTags(newPackage);
-    setupLatestTag(newPackage);
-    cleanupTime(newPackage);
-    setupCreatedAndModified(newPackage);
-    cleanupDistFiles(newPackage);
-    return Promise.resolve(newPackage);
+    cleanupTags(newManifest);
+    setupLatestTag(newManifest);
+    cleanupTime(newManifest);
+    setupCreatedAndModified(newManifest);
+    cleanupDistFiles(newManifest);
+    return Promise.resolve(newManifest);
   }
 }

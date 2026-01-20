@@ -1,4 +1,4 @@
-import { Package } from '@verdaccio/types';
+import { Manifest } from '@verdaccio/types';
 
 import { ParsedRule } from '../config/types';
 import { matchRules } from './matcher';
@@ -6,24 +6,24 @@ import { MatchType } from './types';
 
 /**
  * filter out all package versions that were published after dateThreshold
- * @param packageInfo
+ * @param manifest
  * @param dateThreshold
  */
 export function filterVersionsByPublishDate(
-  packageInfo: Package,
+  manifest: Manifest,
   dateThreshold: Date,
   allowRules: Map<string, ParsedRule>
-): Package {
-  const allowMatch = matchRules(packageInfo, allowRules);
+): Manifest {
+  const allowMatch = matchRules(manifest, allowRules);
   if (
     allowMatch &&
     (allowMatch.type === MatchType.SCOPE || allowMatch.type === MatchType.PACKAGE)
   ) {
     // An entire scope or package is whitelisted
-    return packageInfo;
+    return manifest;
   }
 
-  const { versions, time, name } = packageInfo;
+  const { versions, time, name } = manifest;
 
   if (!time) {
     throw new TypeError(`Time of publication was not provided for package ${name}`);
@@ -53,8 +53,8 @@ export function filterVersionsByPublishDate(
 
   // delete version from versions
   clearVersions.forEach((version) => {
-    delete packageInfo.versions[version];
+    delete manifest.versions[version];
   });
 
-  return packageInfo;
+  return manifest;
 }
