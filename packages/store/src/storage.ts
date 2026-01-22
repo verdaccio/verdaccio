@@ -1741,7 +1741,11 @@ class Storage {
     //  if no uplinks match we return the local manifest
     if (upLinks.length === 0) {
       debug('no uplinks found for %o, upstream update aborted', name);
-      return [localManifest, []];
+      if (_.isNil(localManifest)) {
+        return [null, []];
+      }
+
+      return await this.applyFilters(localManifest);
     }
 
     const uplinksErrors: any[] = [];
