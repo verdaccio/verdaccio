@@ -1,5 +1,5 @@
 import { pluginUtils } from '@verdaccio/core';
-import { Logger, Manifest } from '@verdaccio/types';
+import type { Logger, Manifest } from '@verdaccio/types';
 
 import { parseConfig } from './config/parser';
 import { ParsedConfig, PluginConfig } from './config/types';

@@ -1,6 +1,6 @@
 import { satisfies } from 'semver';
 
-import { Manifest } from '@verdaccio/types';
+import type { Manifest } from '@verdaccio/types';
 
 import { ParsedRule } from '../config/types';
 import { MatchResult, MatchType } from './types';

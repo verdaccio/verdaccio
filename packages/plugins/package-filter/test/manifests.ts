@@ -1,4 +1,4 @@
-import { Dist, DistFile, Manifest, Version } from '@verdaccio/types';
+import type { Dist, DistFile, Manifest, Version } from '@verdaccio/types';
 
 const versionStub: Version = {
   _id: '',

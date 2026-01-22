@@ -1,6 +1,6 @@
 import semver from 'semver';
 
-import { Manifest } from '@verdaccio/types';
+import type { Manifest } from '@verdaccio/types';
 
 /**
  * Delete `dist-tags` entries corresponding to missing versions.

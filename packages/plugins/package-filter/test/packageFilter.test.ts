@@ -3,7 +3,7 @@ import { describe, expect, test } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
 import { logger, setup } from '@verdaccio/logger';
-import { Manifest } from '@verdaccio/types';
+import type { Manifest } from '@verdaccio/types';
 
 import PackageFilterPlugin from '../src/index';
 import {
