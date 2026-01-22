@@ -27,7 +27,7 @@
     "url": "https://github.com/verdaccio/verdaccio/issues"
   },
   "main": "build/index.js",
-  "types": "build/src/index.d.ts",
+  "types": "build/index.d.ts",
   "engines": {
     "node": ">=18"
   },
