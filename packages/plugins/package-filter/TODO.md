@@ -61,17 +61,25 @@
     They probably need some additional attention for this package.
   - ✅ Split index.ts code to several files.
   - ✅ Add named export to accompany default export in index.ts.
-  - 🔴 Bring unit tests back to life.
+  - ✅ Bring unit tests back to life.
     - ✅ Integrate tests from original project.
     - ✅ Migrate test code from jest to vitest.
     - ✅ Extract babelTestPackage, typesNodePackage and other test data to separate file.
     - ✅ See if relying on shapshots is the best approach here. It often makes intent unclear.
       UPD: yes, using snapshots to ensure transformed package.json conforms to what we expect
       is the most approriate way here.
-    - 🔴 See whether we need to add e2e tests for this plugin.
-  - 🔴 Fix lint issues if any.
-  - 🔴 Search for verdaccio coding/style guidelines (aside from lint rules).
-    - 🔴 Align code with guidelines.
+    - ✅ See whether we need to add e2e tests for this plugin.
+      UPD: no other plugin have them.
+  - 🔴 See what can be borrowed from pyhp2017's solution regarding to methods of storage.ts,
+    e.g. his changes for getTarball(), getLocalDatabase(), etc.
+    https://github.com/verdaccio/verdaccio/pull/5505/commits/707bb35e5f878df094a8385288231237ab030c4a
+    UPD: changing these methods requires testing and it can only be solved with e2e tests
+    where verdaccio loads with filter plugin onboard.
+    UPD: actually I might wrong on e2e requirement.
+    It seems only the storage.spec.ts needs to be modified to cover new functionality of changed methods.
+  - ✅ Fix lint issues if any.
+  - ✅ Search for verdaccio coding/style guidelines (aside from lint rules).
+    UPD: no guidelines, only lint/prettier.
   - 🔴 Add readme that conforms to other built-in plugins.
   - 🔴 Add changelog.
   - 🔴 See what can be done with this request:

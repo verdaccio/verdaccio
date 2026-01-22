@@ -16,6 +16,9 @@
     "filter"
   ],
   "author": "Vitalii Sugrobov <vsugrob@hotmail.com>",
+  "contributors": [
+    "Ansile <ansilet@yandex.ru> (original project)"
+  ],
   "license": "MIT",
   "homepage": "https://verdaccio.org",
   "repository": {
