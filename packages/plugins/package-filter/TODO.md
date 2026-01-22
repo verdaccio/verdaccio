@@ -58,6 +58,8 @@
   - ✅ Use `Manifest` instead of deprecated `Package`.
   - 🔴 Cleanup package.json dependencies, devDependencies and tsconfig.json references.
     These files were copied from Verdaccio Memory Storage Plugin.
+  - ✅ Split index.ts code to several files.
+  - ✅ Add named export to accompany default export in index.ts.
   - 🔴 Bring unit tests back to life.
     - ✅ Integrate tests from original project.
     - ✅ Migrate test code from jest to vitest.
@@ -71,4 +73,8 @@
     - 🔴 Align code with guidelines.
   - 🔴 Add readme that conforms to other built-in plugins.
   - 🔴 Add changelog.
+  - 🔴 See what can be done with this request:
+    (https://github.com/verdaccio/verdaccio/pull/5505#issuecomment-3708200082)
+- 🔴 Bump plugin version to make it appear unambiguously newer
+  than the original verdaccio-plugin-delay-filter.
 - 🔴 Remove this TODO.md file before PR.

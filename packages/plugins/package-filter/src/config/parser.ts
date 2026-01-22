@@ -2,7 +2,7 @@ import { Range } from 'semver';
 
 import { ConfigRule, ParsedConfig, ParsedRule, PluginConfig } from './types';
 
-export function parseConfigRules(configRules: ConfigRule[]): Map<string, ParsedRule> {
+function parseConfigRules(configRules: ConfigRule[]): Map<string, ParsedRule> {
   const ruleMap = new Map<string, ParsedRule>();
   for (const rule of configRules) {
     if ('scope' in rule && typeof rule.scope === 'string') {
