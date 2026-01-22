@@ -1,5 +1,25 @@
 # @verdaccio/server
 
+## 8.0.0-next-8.29
+
+### Patch Changes
+
+- 4edcae8: chore: replacing require('package.json')
+- Updated dependencies [4edcae8]
+- Updated dependencies [f200baa]
+- Updated dependencies [184632c]
+- Updated dependencies [5efe84f]
+  - @verdaccio/core@8.0.0-next-8.29
+  - @verdaccio/middleware@8.0.0-next-8.29
+  - @verdaccio/api@8.1.0-next-8.29
+  - @verdaccio/auth@8.0.0-next-8.29
+  - @verdaccio/config@8.0.0-next-8.29
+  - @verdaccio/loaders@8.0.0-next-8.19
+  - verdaccio-audit@13.0.0-next-8.29
+  - @verdaccio/store@8.0.0-next-8.29
+  - @verdaccio/web@8.1.0-next-8.29
+  - @verdaccio/logger@8.0.0-next-8.29
+
 ## 8.0.0-next-8.28
 
 ### Patch Changes

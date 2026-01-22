@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/hooks",
-  "version": "8.0.0-next-8.28",
+  "version": "8.0.0-next-8.29",
   "description": "Verdaccio Hooks",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -33,14 +33,14 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:8.0.0-next-8.28",
-    "@verdaccio/logger": "workspace:8.0.0-next-8.28",
+    "@verdaccio/core": "workspace:8.0.0-next-8.29",
+    "@verdaccio/logger": "workspace:8.0.0-next-8.29",
     "debug": "4.4.3",
     "got-cjs": "12.5.4",
     "handlebars": "4.7.8"
   },
   "devDependencies": {
-    "@verdaccio/config": "workspace:8.0.0-next-8.28",
+    "@verdaccio/config": "workspace:8.0.0-next-8.29",
     "@verdaccio/types": "workspace:13.0.0-next-8.10",
     "@verdaccio/test-helper": "workspace:*",
     "nock": "13.5.6",
