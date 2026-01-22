@@ -84,8 +84,8 @@
     Debug log shows that `allowRules` is empty even though `allow` is set.
     I presume this is because Map converter is not supplied to JSON.stringify().
     - ✅ Print full data of parsed config into debug log.
-    - 🔴 Fix parseConfig(): make it return parsed config consisting only of what it actually understood.
-      There is no need to spread input config into result.
+    - ✅ Fix parseConfig(): make it return parsed config consisting only of what it actually understood.
+      There is no need to merge input config into result.
     - 🔴 Fix 'storage has failed' error doesn't provide details in log when config is malformed.
       Verdaccio uses its own error type with 'msg' property instead of 'message'.
   - 🔴 Add readme that conforms to other built-in plugins.
