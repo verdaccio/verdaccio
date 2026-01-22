@@ -5,6 +5,7 @@ import { parseConfig } from './config/parser';
 import { ParsedConfig, PluginConfig } from './config/types';
 import { filterBlockedVersions } from './filtering/packageVersion';
 import { filterVersionsByPublishDate } from './filtering/publishDate';
+import { jsonLogReplacer } from './utils/jsonUtils';
 import {
   cleanupDistFiles,
   cleanupTags,
@@ -12,7 +13,7 @@ import {
   getManifestClone,
   setupCreatedAndModified,
   setupLatestTag,
-} from './manifestUtils';
+} from './utils/manifestUtils';
 
 export class PackageFilterPlugin
   extends pluginUtils.Plugin<PluginConfig>
@@ -29,7 +30,7 @@ export class PackageFilterPlugin
     this.parsedConfig = parseConfig(config);
 
     options.logger.debug(
-      `Loaded plugin-delay-filter, ${JSON.stringify(this.parsedConfig, null, 4)}`
+      `Loaded package-filter plugin. Parsed config: ${JSON.stringify(this.parsedConfig, jsonLogReplacer, 2)}`
     );
   }
 
