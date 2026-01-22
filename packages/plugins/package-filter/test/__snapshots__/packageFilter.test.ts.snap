@@ -519,7 +519,6 @@ exports[`PackageFilterPlugin > manifest validity > empty package does not break 
 {
   "_distfiles": {},
   "dist-tags": {},
-  "name": "",
   "time": {},
   "versions": {},
 }

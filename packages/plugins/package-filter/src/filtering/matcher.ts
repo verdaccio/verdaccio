@@ -10,6 +10,10 @@ import { MatchResult, MatchType } from './types';
  * @param name
  */
 function splitName(name: string): { name: string; scope?: string } {
+  if (!name) {
+    return { name: '' };
+  }
+
   const parts = name.split('/');
 
   if (parts.length > 1) {
