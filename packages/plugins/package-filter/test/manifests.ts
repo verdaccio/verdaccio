@@ -1,3 +1,4 @@
+import { DIST_TAGS } from '@verdaccio/core';
 import type { Dist, DistFile, Manifest, Version } from '@verdaccio/types';
 
 const versionStub: Version = {
@@ -11,7 +12,7 @@ const versionStub: Version = {
 export const emptyManifest: Manifest = {} as Manifest;
 
 export const babelTestManifest: Manifest = {
-  'dist-tags': { latest: '3.0.0' },
+  [DIST_TAGS]: { latest: '3.0.0' },
   _attachments: {},
   _distfiles: {},
   _rev: '',
@@ -33,7 +34,7 @@ export const babelTestManifest: Manifest = {
 };
 
 export const typesNodeManifest: Manifest = {
-  'dist-tags': { latest: '2.6.3' },
+  [DIST_TAGS]: { latest: '2.6.3' },
   _attachments: {},
   _distfiles: {},
   _rev: '',
@@ -55,7 +56,7 @@ export const typesNodeManifest: Manifest = {
 };
 
 export const testaccioManifest: Manifest = {
-  'dist-tags': {
+  [DIST_TAGS]: {
     latest: '1.7.0',
     beta: '1.7.1-beta',
     next: '2.2.1-next',

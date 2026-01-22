@@ -1,12 +1,13 @@
 import semver from 'semver';
 
+import { DIST_TAGS } from '@verdaccio/core';
 import type { Manifest } from '@verdaccio/types';
 
 /**
  * Delete `dist-tags` entries corresponding to missing versions.
  */
 export function cleanupTags(manifest: Manifest): void {
-  const distTags = manifest['dist-tags'];
+  const distTags = manifest[DIST_TAGS];
   Object.entries(distTags).forEach(([tag, tagVersion]) => {
     if (!manifest.versions[tagVersion]) {
       delete distTags[tag];
@@ -65,7 +66,7 @@ export function getLatestVersion(manifest: Manifest, versions: string[]): string
  * Otherwise, it uses the latest version not found in dist-tags.
  */
 export function setupLatestTag(manifest: Manifest): void {
-  const distTags = manifest['dist-tags'];
+  const distTags = manifest[DIST_TAGS];
   if (distTags.latest) {
     // Tag 'latest' must only be fixed when latest version was blocked
     return;
@@ -148,8 +149,8 @@ export function getManifestClone(manifest: Readonly<Manifest>): Manifest {
     versions: {
       ...manifest.versions,
     },
-    'dist-tags': {
-      ...manifest['dist-tags'],
+    [DIST_TAGS]: {
+      ...manifest[DIST_TAGS],
     },
     time: {
       ...manifest.time,
