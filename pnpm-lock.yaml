@@ -317,6 +317,9 @@ importers:
       verdaccio-memory:
         specifier: workspace:*
         version: link:packages/plugins/memory
+      verdaccio-package-filter:
+        specifier: workspace:*
+        version: link:packages/plugins/package-filter
       vitest:
         specifier: 3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@20.14.12)(jsdom@26.1.0)(msw@2.11.3(@types/node@20.14.12)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
