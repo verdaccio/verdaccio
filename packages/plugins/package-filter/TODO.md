@@ -56,7 +56,7 @@
   - ✅ It seems that `CustomConfig` doesn't need to extend `Config`.
   - ✅ Setup logger the same way other plugins do - via setup({}) from @verdaccio/logger.
   - ✅ Use `Manifest` instead of deprecated `Package`.
-  - 🔴 Manage package.json dependencies, devDependencies and tsconfig.json references.
+  - ✅ Manage package.json dependencies, devDependencies and tsconfig.json references.
     These files were copied from Verdaccio Memory Storage Plugin.
     They probably need some additional attention for this package.
   - ✅ Split index.ts code to several files.
