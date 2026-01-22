@@ -5,9 +5,7 @@ import { matchRules } from './matcher';
 import { MatchType } from './types';
 
 /**
- * filter out all package versions that were published after dateThreshold
- * @param manifest
- * @param dateThreshold
+ * Filter out all package versions that were published after dateThreshold.
  */
 export function filterVersionsByPublishDate(
   manifest: Manifest,

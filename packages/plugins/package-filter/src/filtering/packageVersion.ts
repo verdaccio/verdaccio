@@ -8,7 +8,7 @@ import { MatchType } from './types';
 
 /**
  * Filter out all blocked package versions.
- * If all package is blocked, or it's scope is blocked - block all versions.
+ * If package or scope is blocked, then block all versions.
  */
 export function filterBlockedVersions(
   manifest: Manifest,

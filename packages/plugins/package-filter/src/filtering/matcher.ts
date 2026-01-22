@@ -6,8 +6,7 @@ import { ParsedRule } from '../config/types';
 import { MatchResult, MatchType } from './types';
 
 /**
- * Split a package name into name itself and scope
- * @param name
+ * Split a package name into name itself and scope.
  */
 function splitName(name: string): { name: string; scope?: string } {
   if (!name) {
@@ -28,6 +27,10 @@ function splitName(name: string): { name: string; scope?: string } {
   }
 }
 
+/**
+ * Try to find a rule that matches the package.
+ * If found, returns the rule and the matched package versions from the manifest.
+ */
 export function matchRules(
   manifest: Manifest,
   rules: Map<string, ParsedRule>
