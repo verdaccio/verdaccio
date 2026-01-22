@@ -80,6 +80,14 @@
   - ✅ Fix lint issues if any.
   - ✅ Search for verdaccio coding/style guidelines (aside from lint rules).
     UPD: no guidelines, only lint/prettier.
+  - 🔴 Fix what went wrong with config parsing.
+    Debug log shows that `allowRules` is empty even though `allow` is set.
+    I presume this is because Map converter is not supplied to JSON.stringify().
+    - ✅ Print full data of parsed config into debug log.
+    - 🔴 Fix parseConfig(): make it return parsed config consisting only of what it actually understood.
+      There is no need to spread input config into result.
+    - 🔴 Fix 'storage has failed' error doesn't provide details in log when config is malformed.
+      Verdaccio uses its own error type with 'msg' property instead of 'message'.
   - 🔴 Add readme that conforms to other built-in plugins.
   - 🔴 Add changelog.
   - 🔴 See what can be done with this request:
