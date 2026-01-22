@@ -16,6 +16,9 @@
     },
     {
       "path": "../../core/types"
+    },
+    {
+      "path": "../../logger/logger"
     }
   ]
 }
