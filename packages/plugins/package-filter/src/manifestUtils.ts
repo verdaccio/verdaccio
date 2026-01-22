@@ -145,7 +145,6 @@ export function cleanupDistFiles(manifest: Manifest): void {
 export function getManifestClone(manifest: Readonly<Manifest>): Manifest {
   return {
     ...manifest,
-    name: manifest.name ?? '',
     versions: {
       ...manifest.versions,
     },
