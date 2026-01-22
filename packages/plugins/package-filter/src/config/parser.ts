@@ -63,7 +63,6 @@ export function parseConfig(config: PluginConfig): ParsedConfig {
   }
 
   return {
-    ...config,
     dateThreshold,
     minAgeMs,
     blockRules: blockMap,
