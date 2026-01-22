@@ -56,8 +56,9 @@
   - ✅ It seems that `CustomConfig` doesn't need to extend `Config`.
   - ✅ Setup logger the same way other plugins do - via setup({}) from @verdaccio/logger.
   - ✅ Use `Manifest` instead of deprecated `Package`.
-  - 🔴 Cleanup package.json dependencies, devDependencies and tsconfig.json references.
+  - 🔴 Manage package.json dependencies, devDependencies and tsconfig.json references.
     These files were copied from Verdaccio Memory Storage Plugin.
+    They probably need some additional attention for this package.
   - ✅ Split index.ts code to several files.
   - ✅ Add named export to accompany default export in index.ts.
   - 🔴 Bring unit tests back to life.
@@ -76,5 +77,7 @@
   - 🔴 See what can be done with this request:
     (https://github.com/verdaccio/verdaccio/pull/5505#issuecomment-3708200082)
 - 🔴 Bump plugin version to make it appear unambiguously newer
-  than the original verdaccio-plugin-delay-filter.
+  than the original verdaccio-plugin-delay-filter package.
+  Original package readme will be updated to direct users
+  towards the new package hosted in verdaccio scope.
 - 🔴 Remove this TODO.md file before PR.

@@ -1,6 +1,6 @@
 import { Range, satisfies } from 'semver';
 
-import { Logger, Manifest } from '@verdaccio/types';
+import type { Logger, Manifest } from '@verdaccio/types';
 
 import { ParsedConfigRule, ParsedRule } from '../config/types';
 import { matchRules } from './matcher';
