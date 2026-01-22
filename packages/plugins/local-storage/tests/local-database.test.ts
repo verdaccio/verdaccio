@@ -35,7 +35,7 @@ const optionsPlugin: pluginUtils.PluginOptions = {
 let locaDatabase: pluginUtils.Storage<{}>;
 
 describe('Local Database', () => {
-  let tmpFolder;
+  let tmpFolder: string;
   beforeEach(async () => {
     tmpFolder = await fileUtils.createTempFolder(TEMP_FOLDER);
     const tempFolder = path.join(tmpFolder, 'verdaccio-test.yaml');
@@ -153,6 +153,31 @@ describe('Local Database', () => {
           )
         );
       }
+    });
+
+    test('should prevent path traversal', () => {
+      const config = {
+        storage: STORAGE_FOLDER,
+        configPath: path.join(tmpFolder, 'traversal-test.yaml'),
+        checkSecretKey: () => 'fooX',
+        packages: {
+          'traversal-package': {
+            access: ['$all'],
+            publish: ['$authenticated'],
+            storage: '../../../etc', // Path traversal attempt
+          },
+        },
+      };
+
+      const database = new LocalDatabase(
+        // @ts-expect-error
+        config,
+        optionsPlugin.logger
+      );
+
+      expect(() => {
+        database.getPackageStorage('traversal-package');
+      }).toThrow('package-specific path is not under the configured storage directory');
     });
   });
 
