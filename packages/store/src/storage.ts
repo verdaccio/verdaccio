@@ -1684,7 +1684,8 @@ class Storage {
       // if the remote manifest is empty, we return local data
     } else if (!remoteManifest && !_.isNull(data)) {
       // no data on uplinks
-      return [data as Manifest, upLinksErrors];
+      const [filteredData, filtersErrors] = await this.applyFilters(data);
+      return [{ ...data, ...filteredData }, [...upLinksErrors, ...filtersErrors]];
     }
 
     // if we have local data, we try to update it with the upstream registry
