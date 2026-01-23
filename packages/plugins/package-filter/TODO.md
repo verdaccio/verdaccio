@@ -51,7 +51,7 @@
 - ✅ Implement whitelisting packages by scope, package and/or versions.
 - ✅ Fix vulnerabilities revealed by npm audit: 39 vulnerabilities (7 low, 18 moderate, 14 high).
   UPD: this task is not applicable after moving plugin to verdaccio monorepo.
-- 🔴 Move plugin to verdaccio monorepo.
+- ✅ Move plugin to verdaccio monorepo.
   - ✅ Change `CustomConfig` to some meaningful name.
   - ✅ It seems that `CustomConfig` doesn't need to extend `Config`.
   - ✅ Setup logger the same way other plugins do - via setup({}) from @verdaccio/logger.
@@ -70,7 +70,7 @@
       is the most approriate way here.
     - ✅ See whether we need to add e2e tests for this plugin.
       UPD: no other plugin have them.
-  - 🔴 See what can be borrowed from pyhp2017's solution regarding to methods of storage.ts,
+  - ✅ See what can be borrowed from pyhp2017's solution regarding to methods of storage.ts,
     e.g. his changes for getTarball(), getLocalDatabase(), etc.
     https://github.com/verdaccio/verdaccio/pull/5505/commits/707bb35e5f878df094a8385288231237ab030c4a
     UPD: changing these methods requires testing and it can only be solved with e2e tests
@@ -95,8 +95,13 @@
       I don't know, it's out of the scope for this task.
   - ✅ Add readme that conforms to other built-in plugins.
   - ✅ Add changelog.
-  - 🔴 See what can be done with this request:
+  - ✅ See what can be done with this request (npm search filtering):
     (https://github.com/verdaccio/verdaccio/pull/5505#issuecomment-3708200082)
+    UPD: unfortunately, not much can be done.
+    There are two stages of the search - local (cached) and uplinks.
+    Filtering of cached packages was added.
+    Uplinks search cannot be filtered without fetching manifests for each of the search results.
+    And fetching them is a heavy burden.
   - ✅ Bump plugin version to make it appear unambiguously newer
     than the original verdaccio-plugin-delay-filter package.
     Original package readme will be updated to direct users
