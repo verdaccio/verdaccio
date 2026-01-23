@@ -1685,7 +1685,7 @@ class Storage {
     } else if (!remoteManifest && !_.isNull(data)) {
       // no data on uplinks
       const [filteredData, filtersErrors] = await this.applyFilters(data);
-      return [{ ...data, ...filteredData }, [...upLinksErrors, ...filtersErrors]];
+      return [filteredData, [...upLinksErrors, ...filtersErrors]];
     }
 
     // if we have local data, we try to update it with the upstream registry
@@ -1746,8 +1746,7 @@ class Storage {
         return [null, []];
       }
 
-      const [filteredManifest, filtersErrors] = await this.applyFilters(localManifest);
-      return [{ ...localManifest, ...filteredManifest }, filtersErrors];
+      return await this.applyFilters(localManifest);
     }
 
     const uplinksErrors: any[] = [];
@@ -1780,14 +1779,11 @@ class Storage {
       let updatedCacheManifest = await this.updateVersionsNext(name, syncManifest);
       // plugin filter applied to the manifest
       const [filteredManifest, filtersErrors] = await this.applyFilters(updatedCacheManifest);
-      return [
-        { ...updatedCacheManifest, ...filteredManifest },
-        [...uplinksErrors, ...filtersErrors],
-      ];
+      return [filteredManifest, [...uplinksErrors, ...filtersErrors]];
     } else if (found && _.isNil(localManifest) === false) {
       // apply filter to local manifest (it is cached in unfiltered state)
       const [filteredManifest, filtersErrors] = await this.applyFilters(localManifest);
-      return [{ ...localManifest, ...filteredManifest }, [...uplinksErrors, ...filtersErrors]];
+      return [filteredManifest, [...uplinksErrors, ...filtersErrors]];
     } else {
       // if is not found, calculate the right error to return
       debug('uplinks sync failed with %o errors', uplinksErrors.length);
