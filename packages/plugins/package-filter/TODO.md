@@ -80,20 +80,25 @@
   - ✅ Fix lint issues if any.
   - ✅ Search for verdaccio coding/style guidelines (aside from lint rules).
     UPD: no guidelines, only lint/prettier.
-  - 🔴 Fix what went wrong with config parsing.
+  - ✅ Fix what went wrong with config parsing.
     Debug log shows that `allowRules` is empty even though `allow` is set.
     I presume this is because Map converter is not supplied to JSON.stringify().
     - ✅ Print full data of parsed config into debug log.
     - ✅ Fix parseConfig(): make it return parsed config consisting only of what it actually understood.
       There is no need to merge input config into result.
-    - 🔴 Fix 'storage has failed' error doesn't provide details in log when config is malformed.
-      Verdaccio uses its own error type with 'msg' property instead of 'message'.
+    - ✅ Fix 'storage has failed' error doesn't provide details in log when config is malformed.
+      UPD: error details are actually provided, but instead of printing it after the 'storage has failed',
+      verdaccio prints it as uncaught exception.
+      It seems that at some point in time there was a change in verdaccio,
+      as in server.ts it tries to print value of err.msg property, whereas it clearly should address err.message.
+      Probably it was err.msg everywhere earlier and now code is mixed.
+      I don't know, it's out of the scope for this task.
   - 🔴 Add readme that conforms to other built-in plugins.
   - 🔴 Add changelog.
   - 🔴 See what can be done with this request:
     (https://github.com/verdaccio/verdaccio/pull/5505#issuecomment-3708200082)
-- 🔴 Bump plugin version to make it appear unambiguously newer
-  than the original verdaccio-plugin-delay-filter package.
-  Original package readme will be updated to direct users
-  towards the new package hosted in verdaccio scope.
+  - ✅ Bump plugin version to make it appear unambiguously newer
+    than the original verdaccio-plugin-delay-filter package.
+    Original package readme will be updated to direct users
+    towards the new package hosted in verdaccio scope.
 - 🔴 Remove this TODO.md file before PR.
