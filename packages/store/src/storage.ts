@@ -1889,7 +1889,7 @@ class Storage {
       // and return it directly for
       // performance (i.e. need not be pure)
       try {
-        filteredManifest = await filter.filter_metadata(manifest);
+        filteredManifest = await filter.filter_metadata(filteredManifest);
       } catch (err: any) {
         this.logger.error({ err }, 'filter has failed: @{err.message}');
         filterPluginErrors.push(err);
