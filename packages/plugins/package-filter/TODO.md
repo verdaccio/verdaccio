@@ -93,8 +93,8 @@
       as in server.ts it tries to print value of err.msg property, whereas it clearly should address err.message.
       Probably it was err.msg everywhere earlier and now code is mixed.
       I don't know, it's out of the scope for this task.
-  - 🔴 Add readme that conforms to other built-in plugins.
-  - 🔴 Add changelog.
+  - ✅ Add readme that conforms to other built-in plugins.
+  - ✅ Add changelog.
   - 🔴 See what can be done with this request:
     (https://github.com/verdaccio/verdaccio/pull/5505#issuecomment-3708200082)
   - ✅ Bump plugin version to make it appear unambiguously newer
