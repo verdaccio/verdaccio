@@ -1735,7 +1735,8 @@ class Storage {
         return [null, []];
       }
 
-      return await this.applyFilters(localManifest);
+      const [filteredManifest, filtersErrors] = await this.applyFilters(localManifest);
+      return [{ ...localManifest, ...filteredManifest }, filtersErrors];
     }
 
     const uplinksErrors: any[] = [];
