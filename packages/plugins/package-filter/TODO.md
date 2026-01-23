@@ -5,11 +5,10 @@
   - ✅ Modify `dist-tags/latest` only if it was removed by `cleanupTags()` earlier.
   - ✅ Make it set `dist-tags/latest` to a version that has no tags associated with it.
   - ✅ Add unit tests.
-- 🔴 Fix `setupLatestTag()` logic again:
+- ✅ Fix `setupLatestTag()` logic again:
   - ✅ Investigate why it may assign not the most recent release to be a latest.
   - ✅ Make it pick version which is not suffixed with "-next" or "-beta" or whatever in the first pass.
     If it fails, fall back to standard algorithm.
-  - 🔴 Add/modify unit tests.
 - ✅ Investigate whether `_attachments` and `_distfiles` needs to be cleaned.
   See whether there are other parts of `package.json` are in need of cleaning.
   UPD: yes, `_distfiles` needs to be cleaned. And no, it appears that no other part needs to be cleaned.
@@ -106,4 +105,3 @@
     than the original verdaccio-plugin-delay-filter package.
     Original package readme will be updated to direct users
     towards the new package hosted in verdaccio scope.
-- 🔴 Remove this TODO.md file before PR.
