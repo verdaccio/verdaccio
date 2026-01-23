@@ -265,6 +265,7 @@ class Storage {
     let cachedManifest: Manifest | null = null;
     try {
       cachedManifest = await this.getPackageLocalMetadata(name);
+      [cachedManifest] = await this.applyFilters(cachedManifest);
     } catch (err) {
       debug('error on get package local metadata %o', err);
     }
@@ -611,17 +612,18 @@ class Storage {
     for (const pkg of database) {
       debug('get local database %o', pkg);
       const manifest = await this.getPackageLocalMetadata(pkg);
-      const latest = manifest[DIST_TAGS].latest;
-      if (latest && manifest.versions[latest]) {
-        const version: Version = manifest.versions[latest];
-        const timeList = manifest.time as GenericBody;
+      const [filteredManifest] = await this.applyFilters(manifest);
+      const latest = filteredManifest[DIST_TAGS].latest;
+      if (latest && filteredManifest.versions[latest]) {
+        const version: Version = filteredManifest.versions[latest];
+        const timeList = filteredManifest.time as GenericBody;
         const time = timeList[latest];
         // @ts-ignore
         version.time = time;
 
         // Add for stars api
         // @ts-ignore
-        version.users = manifest.users;
+        version.users = filteredManifest.users;
 
         packages.push(version);
       } else {
@@ -750,8 +752,9 @@ class Storage {
       try {
         for (const searchItem of items) {
           const manifest = await this.getPackageLocalMetadata(searchItem.package.name);
-          if (_.isEmpty(manifest?.versions) === false) {
-            const searchPackage = mapManifestToSearchPackageBody(manifest, searchItem);
+          const [filteredManifest] = await this.applyFilters(manifest);
+          if (_.isEmpty(filteredManifest?.versions) === false) {
+            const searchPackage = mapManifestToSearchPackageBody(filteredManifest, searchItem);
             debug('search local stream found %o', searchPackage.name);
             const searchPackageItem: searchUtils.SearchPackageItem = {
               package: searchPackage,
