@@ -691,8 +691,8 @@ importers:
         specifier: 8.17.1
         version: 8.17.1
       http-errors:
-        specifier: 2.0.0
-        version: 2.0.0
+        specifier: 2.0.1
+        version: 2.0.1
       http-status-codes:
         specifier: 2.3.0
         version: 2.3.0
@@ -958,8 +958,8 @@ importers:
         specifier: workspace:13.0.0-next-8.10
         version: link:../core/types
       http-errors:
-        specifier: 2.0.0
-        version: 2.0.0
+        specifier: 2.0.1
+        version: 2.0.1
       jsdom:
         specifier: 26.1.0
         version: 26.1.0
@@ -1072,8 +1072,8 @@ importers:
         specifier: 4.4.3
         version: 4.4.3(supports-color@5.5.0)
       http-errors:
-        specifier: 2.0.0
-        version: 2.0.0
+        specifier: 2.0.1
+        version: 2.0.1
       unix-crypt-td-js:
         specifier: 1.1.4
         version: 1.1.4
@@ -11463,7 +11463,7 @@ snapshots:
 
   '@bundled-es-modules/statuses@1.0.1':
     dependencies:
-      statuses: 2.0.1
+      statuses: 2.0.2
 
   '@changesets/apply-release-plan@7.0.8':
     dependencies:
