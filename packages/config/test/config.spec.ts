@@ -185,6 +185,7 @@ describe('getMatchedPackagesSpec', () => {
       access: ['admin'],
       proxy: ['facebook'],
       publish: ['admin'],
+      deniedVersions: [],
       unpublish: false,
     });
   });
@@ -196,6 +197,7 @@ describe('getMatchedPackagesSpec', () => {
       access: [ROLES.$ALL],
       proxy: ['npmjs'],
       publish: [ROLES.$AUTH],
+      deniedVersions: [],
       unpublish: false,
     });
   });
