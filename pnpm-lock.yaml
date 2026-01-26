@@ -1162,7 +1162,7 @@ importers:
   packages/plugins/package-filter:
     dependencies:
       '@verdaccio/core':
-        specifier: workspace:8.0.0-next-8.28
+        specifier: workspace:8.0.0-next-8.29
         version: link:../../core/core
       debug:
         specifier: 4.4.3
@@ -1172,10 +1172,10 @@ importers:
         specifier: 4.1.12
         version: 4.1.12
       '@verdaccio/config':
-        specifier: workspace:8.0.0-next-8.28
+        specifier: workspace:8.0.0-next-8.29
         version: link:../../config
       '@verdaccio/logger':
-        specifier: workspace:8.0.0-next-8.28
+        specifier: workspace:8.0.0-next-8.29
         version: link:../../logger/logger
       '@verdaccio/types':
         specifier: workspace:13.0.0-next-8.10
