@@ -11,12 +11,7 @@ export { rateLimit } from './middlewares/rate-limit';
 export { userAgent } from './middlewares/user-agent';
 export { webMiddleware, renderWebMiddleware, setSecurityWebHeaders } from './middlewares/web';
 export { errorReportingMiddleware, handleError } from './middlewares/error';
-export {
-  log,
-  LOG_STATUS_MESSAGE,
-  LOG_VERDACCIO_BYTES,
-  LOG_VERDACCIO_ERROR,
-} from './middlewares/log';
+export { log } from './middlewares/log';
 export * from './types';
 export * from './middlewares/api_urls';
 export * from './middlewares/web/web-urls';
