@@ -23,7 +23,7 @@ Plugin for filtering packages and their versions with security purposes. It allo
 - Versions released after specific date.
 
 ```
- npm install --global verdaccio-package-filter
+ npm install --global @verdaccio/package-filter
 ```
 
 ### Requirements
@@ -42,7 +42,7 @@ Edit `config.yaml` of Verdaccio to achieve desired filtering.
 
 ```yaml
 filters:
-  package-filter:
+  '@verdaccio/package-filter':
     minAgeDays: 30 # Block versions younger than 30 days
 ```
 
@@ -54,7 +54,7 @@ seek for `allow` rules later in this document.
 
 ```yaml
 filters:
-  package-filter:
+  '@verdaccio/package-filter':
     block:
       - scope: @evilscope # block all packages in this scope
       - package: semvver # block a malicious package trying to pretend 'semver'
@@ -65,7 +65,7 @@ filters:
 
 ```yaml
 filters:
-  package-filter:
+  '@verdaccio/package-filter':
     block:
       - package: @coolauthor/stolen
         versions:
@@ -77,7 +77,7 @@ filters:
 
 ```yaml
 filters:
-  package-filter:
+  '@verdaccio/package-filter':
     block:
       - package: @coolauthor/stolen
         versions: '>2.0.1'
@@ -91,7 +91,7 @@ filters:
 
 ```yaml
 filters:
-  package-filter:
+  '@verdaccio/package-filter':
     dateThreshold: '2022-03-10T23:00:00.000Z' # Allow only packages released up to this date
 ```
 
@@ -109,7 +109,7 @@ Rules specified in `allow` take precedence over all blocking rules
 
 ```yaml
 filters:
-  package-filter:
+  '@verdaccio/package-filter':
     minAgeDays: 30 # Block versions younger than 30 days
     allow:
       - scope: @my-company-scope # Don't block the scope that belongs to you
