@@ -132,6 +132,9 @@
       "path": "packages/plugins/local-storage"
     },
     {
+      "path": "packages/plugins/package-filter"
+    },
+    {
       "path": "e2e/cli/cli-commons"
     },
     {

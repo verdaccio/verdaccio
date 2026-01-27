@@ -1,0 +1,2386 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`PackageFilterPlugin > date filtering > dateThreshold combined with minAgeDays > filters by dateThreshold when it's earlier than minAgeDays 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "1.5.0",
+  },
+  "name": "@babel/test",
+  "readme": "It is a babel test package",
+  "time": {
+    "1.0.0": "2020-01-01T00:00:00.000Z",
+    "1.5.0": "2022-01-01T00:00:00.000Z",
+    "created": "2020-01-01T00:00:00.000Z",
+    "modified": "2022-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@babel/test@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "1.5.0": {
+      "_id": "@babel/test@1.5.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > date filtering > dateThreshold combined with minAgeDays > filters by dateThreshold when it's earlier than minAgeDays 2`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "2.2.0",
+  },
+  "name": "@types/node",
+  "readme": "It is a types node package",
+  "time": {
+    "1.0.0": "2010-01-01T00:00:00.000Z",
+    "2.2.0": "2015-01-01T00:00:00.000Z",
+    "created": "2010-01-01T00:00:00.000Z",
+    "modified": "2015-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@types/node@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "2.2.0": {
+      "_id": "@types/node@2.2.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > date filtering > dateThreshold combined with minAgeDays > filters by minAgeDays when it's earlier than dateThreshold 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "1.5.0",
+  },
+  "name": "@babel/test",
+  "readme": "It is a babel test package",
+  "time": {
+    "1.0.0": "2020-01-01T00:00:00.000Z",
+    "1.5.0": "2022-01-01T00:00:00.000Z",
+    "created": "2020-01-01T00:00:00.000Z",
+    "modified": "2022-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@babel/test@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "1.5.0": {
+      "_id": "@babel/test@1.5.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > date filtering > dateThreshold combined with minAgeDays > filters by minAgeDays when it's earlier than dateThreshold 2`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "2.2.0",
+  },
+  "name": "@types/node",
+  "readme": "It is a types node package",
+  "time": {
+    "1.0.0": "2010-01-01T00:00:00.000Z",
+    "2.2.0": "2015-01-01T00:00:00.000Z",
+    "created": "2010-01-01T00:00:00.000Z",
+    "modified": "2015-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@types/node@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "2.2.0": {
+      "_id": "@types/node@2.2.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > date filtering > filters by dateThreshold 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "1.5.0",
+  },
+  "name": "@babel/test",
+  "readme": "It is a babel test package",
+  "time": {
+    "1.0.0": "2020-01-01T00:00:00.000Z",
+    "1.5.0": "2022-01-01T00:00:00.000Z",
+    "created": "2020-01-01T00:00:00.000Z",
+    "modified": "2022-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@babel/test@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "1.5.0": {
+      "_id": "@babel/test@1.5.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > date filtering > filters by dateThreshold 2`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "2.2.0",
+  },
+  "name": "@types/node",
+  "readme": "It is a types node package",
+  "time": {
+    "1.0.0": "2010-01-01T00:00:00.000Z",
+    "2.2.0": "2015-01-01T00:00:00.000Z",
+    "created": "2010-01-01T00:00:00.000Z",
+    "modified": "2015-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@types/node@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "2.2.0": {
+      "_id": "@types/node@2.2.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > date filtering > filters by minAgeDays 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "1.5.0",
+  },
+  "name": "@babel/test",
+  "readme": "It is a babel test package",
+  "time": {
+    "1.0.0": "2020-01-01T00:00:00.000Z",
+    "1.5.0": "2022-01-01T00:00:00.000Z",
+    "created": "2020-01-01T00:00:00.000Z",
+    "modified": "2022-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@babel/test@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "1.5.0": {
+      "_id": "@babel/test@1.5.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > date filtering > filters by minAgeDays 2`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "2.2.0",
+  },
+  "name": "@types/node",
+  "readme": "It is a types node package",
+  "time": {
+    "1.0.0": "2010-01-01T00:00:00.000Z",
+    "2.2.0": "2015-01-01T00:00:00.000Z",
+    "created": "2010-01-01T00:00:00.000Z",
+    "modified": "2015-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@types/node@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "2.2.0": {
+      "_id": "@types/node@2.2.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > manifest cleanup > _distfiles are cleaned 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {
+    "testaccio-test-1.4.2.tgz": {
+      "url": "https://registry.npmjs.org/@testaccio/test/-/testaccio-test-1.4.2.tgz",
+    },
+    "testaccio-test-1.4.4-beta.tgz": {
+      "url": "https://registry.npmjs.org/@testaccio/test/-/testaccio-test-1.4.4-beta.tgz",
+    },
+    "testaccio-test-1.7.1-beta.tgz": {
+      "url": "https://registry.npmjs.org/@testaccio/test/-/testaccio-test-1.7.1-beta.tgz",
+    },
+    "testaccio-test-2.2.1-next.tgz": {
+      "url": "https://registry.npmjs.org/@testaccio/test/-/testaccio-test-2.2.1-next.tgz",
+    },
+  },
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "beta": "1.7.1-beta",
+    "latest": "1.4.2",
+    "next": "2.2.1-next",
+  },
+  "name": "@testaccio/test",
+  "readme": "It is a testaccio test package
+Some versions(1) of package are blocked by rules: 1.7.0",
+  "time": {
+    "1.4.2": "2021-05-01T00:00:00.000Z",
+    "1.4.4-beta": "2021-06-01T00:00:00.000Z",
+    "1.7.1-beta": "2022-03-01T00:00:00.000Z",
+    "2.2.1-next": "2023-03-01T00:00:00.000Z",
+    "created": "2021-05-01T00:00:00.000Z",
+    "modified": "2023-03-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.4.2": {
+      "_id": "@testaccio/test@1.4.2",
+      "dist": {
+        "tarball": "https://registry.npmjs.org/@testaccio/test/-/testaccio-test-1.4.2.tgz",
+      },
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "1.4.4-beta": {
+      "_id": "@testaccio/test@1.4.4-beta",
+      "dist": {
+        "tarball": "https://registry.npmjs.org/@testaccio/test/-/testaccio-test-1.4.4-beta.tgz",
+      },
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "1.7.1-beta": {
+      "_id": "@testaccio/test@1.7.1-beta",
+      "dist": {
+        "tarball": "https://registry.npmjs.org/@testaccio/test/-/testaccio-test-1.7.1-beta.tgz",
+      },
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "2.2.1-next": {
+      "_id": "@testaccio/test@2.2.1-next",
+      "dist": {
+        "tarball": "https://registry.npmjs.org/@testaccio/test/-/testaccio-test-2.2.1-next.tgz",
+      },
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > manifest cleanup > latest tag is set to a latest stable version 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {
+    "testaccio-test-1.4.2.tgz": {
+      "url": "https://registry.npmjs.org/@testaccio/test/-/testaccio-test-1.4.2.tgz",
+    },
+    "testaccio-test-1.4.4-beta.tgz": {
+      "url": "https://registry.npmjs.org/@testaccio/test/-/testaccio-test-1.4.4-beta.tgz",
+    },
+    "testaccio-test-1.7.1-beta.tgz": {
+      "url": "https://registry.npmjs.org/@testaccio/test/-/testaccio-test-1.7.1-beta.tgz",
+    },
+    "testaccio-test-2.2.1-next.tgz": {
+      "url": "https://registry.npmjs.org/@testaccio/test/-/testaccio-test-2.2.1-next.tgz",
+    },
+  },
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "beta": "1.7.1-beta",
+    "latest": "1.4.2",
+    "next": "2.2.1-next",
+  },
+  "name": "@testaccio/test",
+  "readme": "It is a testaccio test package
+Some versions(1) of package are blocked by rules: 1.7.0",
+  "time": {
+    "1.4.2": "2021-05-01T00:00:00.000Z",
+    "1.4.4-beta": "2021-06-01T00:00:00.000Z",
+    "1.7.1-beta": "2022-03-01T00:00:00.000Z",
+    "2.2.1-next": "2023-03-01T00:00:00.000Z",
+    "created": "2021-05-01T00:00:00.000Z",
+    "modified": "2023-03-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.4.2": {
+      "_id": "@testaccio/test@1.4.2",
+      "dist": {
+        "tarball": "https://registry.npmjs.org/@testaccio/test/-/testaccio-test-1.4.2.tgz",
+      },
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "1.4.4-beta": {
+      "_id": "@testaccio/test@1.4.4-beta",
+      "dist": {
+        "tarball": "https://registry.npmjs.org/@testaccio/test/-/testaccio-test-1.4.4-beta.tgz",
+      },
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "1.7.1-beta": {
+      "_id": "@testaccio/test@1.7.1-beta",
+      "dist": {
+        "tarball": "https://registry.npmjs.org/@testaccio/test/-/testaccio-test-1.7.1-beta.tgz",
+      },
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "2.2.1-next": {
+      "_id": "@testaccio/test@2.2.1-next",
+      "dist": {
+        "tarball": "https://registry.npmjs.org/@testaccio/test/-/testaccio-test-2.2.1-next.tgz",
+      },
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > manifest validity > _distfiles presence is not required 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "beta": "1.7.1-beta",
+    "latest": "1.4.2",
+    "next": "2.2.1-next",
+  },
+  "name": "@testaccio/test",
+  "readme": "It is a testaccio test package
+Some versions(1) of package are blocked by rules: 1.7.0",
+  "time": {
+    "1.4.2": "2021-05-01T00:00:00.000Z",
+    "1.4.4-beta": "2021-06-01T00:00:00.000Z",
+    "1.7.1-beta": "2022-03-01T00:00:00.000Z",
+    "2.2.1-next": "2023-03-01T00:00:00.000Z",
+    "created": "2021-05-01T00:00:00.000Z",
+    "modified": "2023-03-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.4.2": {
+      "_id": "@testaccio/test@1.4.2",
+      "dist": {
+        "tarball": "https://registry.npmjs.org/@testaccio/test/-/testaccio-test-1.4.2.tgz",
+      },
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "1.4.4-beta": {
+      "_id": "@testaccio/test@1.4.4-beta",
+      "dist": {
+        "tarball": "https://registry.npmjs.org/@testaccio/test/-/testaccio-test-1.4.4-beta.tgz",
+      },
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "1.7.1-beta": {
+      "_id": "@testaccio/test@1.7.1-beta",
+      "dist": {
+        "tarball": "https://registry.npmjs.org/@testaccio/test/-/testaccio-test-1.7.1-beta.tgz",
+      },
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "2.2.1-next": {
+      "_id": "@testaccio/test@2.2.1-next",
+      "dist": {
+        "tarball": "https://registry.npmjs.org/@testaccio/test/-/testaccio-test-2.2.1-next.tgz",
+      },
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > manifest validity > empty package does not break the plugin 1`] = `
+{
+  "_distfiles": {},
+  "dist-tags": {},
+  "time": {},
+  "versions": {},
+}
+`;
+
+exports[`PackageFilterPlugin > package and version filtering > filters by multiple versions 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "1.5.0",
+  },
+  "name": "@babel/test",
+  "readme": "It is a babel test package
+Some versions(2) of package are blocked by rules: >2.0.0,<1.3.0",
+  "time": {
+    "1.5.0": "2022-01-01T00:00:00.000Z",
+    "created": "2022-01-01T00:00:00.000Z",
+    "modified": "2022-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.5.0": {
+      "_id": "@babel/test@1.5.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > package and version filtering > filters by multiple versions 2`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "2.6.3",
+  },
+  "name": "@types/node",
+  "readme": "It is a types node package",
+  "time": {
+    "1.0.0": "2010-01-01T00:00:00.000Z",
+    "2.2.0": "2015-01-01T00:00:00.000Z",
+    "2.6.3": "2025-01-01T00:00:00.000Z",
+    "created": "2010-01-01T00:00:00.000Z",
+    "modified": "2025-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@types/node@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "2.2.0": {
+      "_id": "@types/node@2.2.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "2.6.3": {
+      "_id": "@types/node@2.6.3",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > package and version filtering > filters by package 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {},
+  "name": "@babel/test",
+  "readme": "All package versions are blocked by rule",
+  "time": {},
+  "versions": {},
+}
+`;
+
+exports[`PackageFilterPlugin > package and version filtering > filters by package 2`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "2.6.3",
+  },
+  "name": "@types/node",
+  "readme": "It is a types node package",
+  "time": {
+    "1.0.0": "2010-01-01T00:00:00.000Z",
+    "2.2.0": "2015-01-01T00:00:00.000Z",
+    "2.6.3": "2025-01-01T00:00:00.000Z",
+    "created": "2010-01-01T00:00:00.000Z",
+    "modified": "2025-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@types/node@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "2.2.0": {
+      "_id": "@types/node@2.2.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "2.6.3": {
+      "_id": "@types/node@2.6.3",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > package and version filtering > filters by scope 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {},
+  "name": "@babel/test",
+  "readme": "All packages in scope @babel are blocked by rule",
+  "time": {},
+  "versions": {},
+}
+`;
+
+exports[`PackageFilterPlugin > package and version filtering > filters by scope 2`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "2.6.3",
+  },
+  "name": "@types/node",
+  "readme": "It is a types node package",
+  "time": {
+    "1.0.0": "2010-01-01T00:00:00.000Z",
+    "2.2.0": "2015-01-01T00:00:00.000Z",
+    "2.6.3": "2025-01-01T00:00:00.000Z",
+    "created": "2010-01-01T00:00:00.000Z",
+    "modified": "2025-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@types/node@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "2.2.0": {
+      "_id": "@types/node@2.2.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "2.6.3": {
+      "_id": "@types/node@2.6.3",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > package and version filtering > filters by versions 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "1.0.0",
+  },
+  "name": "@babel/test",
+  "readme": "It is a babel test package
+Some versions(2) of package are blocked by rules: >1.0.0",
+  "time": {
+    "1.0.0": "2020-01-01T00:00:00.000Z",
+    "created": "2020-01-01T00:00:00.000Z",
+    "modified": "2020-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@babel/test@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > package and version filtering > filters by versions 2`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "2.6.3",
+  },
+  "name": "@types/node",
+  "readme": "It is a types node package",
+  "time": {
+    "1.0.0": "2010-01-01T00:00:00.000Z",
+    "2.2.0": "2015-01-01T00:00:00.000Z",
+    "2.6.3": "2025-01-01T00:00:00.000Z",
+    "created": "2010-01-01T00:00:00.000Z",
+    "modified": "2025-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@types/node@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "2.2.0": {
+      "_id": "@types/node@2.2.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "2.6.3": {
+      "_id": "@types/node@2.6.3",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > package and version filtering > readme stays intact when no filtering applied > filter by versions 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "3.0.0",
+  },
+  "name": "@babel/test",
+  "readme": "It is a babel test package",
+  "time": {
+    "1.0.0": "2020-01-01T00:00:00.000Z",
+    "1.5.0": "2022-01-01T00:00:00.000Z",
+    "3.0.0": "2024-01-01T00:00:00.000Z",
+    "created": "2020-01-01T00:00:00.000Z",
+    "modified": "2024-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@babel/test@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "1.5.0": {
+      "_id": "@babel/test@1.5.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "3.0.0": {
+      "_id": "@babel/test@3.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > package and version filtering > readme stays intact when no filtering applied > version replacement 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "3.0.0",
+  },
+  "name": "@babel/test",
+  "readme": "It is a babel test package",
+  "time": {
+    "1.0.0": "2020-01-01T00:00:00.000Z",
+    "1.5.0": "2022-01-01T00:00:00.000Z",
+    "3.0.0": "2024-01-01T00:00:00.000Z",
+    "created": "2020-01-01T00:00:00.000Z",
+    "modified": "2024-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@babel/test@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "1.5.0": {
+      "_id": "@babel/test@1.5.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "3.0.0": {
+      "_id": "@babel/test@3.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > package and version filtering > replaces versions 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "3.0.0",
+  },
+  "name": "@babel/test",
+  "readme": "It is a babel test package
+Some versions of package are replaced by other(2): 1.5.0 => 1.0.0,3.0.0 => 1.0.0",
+  "time": {
+    "1.0.0": "2020-01-01T00:00:00.000Z",
+    "1.5.0": "2022-01-01T00:00:00.000Z",
+    "3.0.0": "2024-01-01T00:00:00.000Z",
+    "created": "2020-01-01T00:00:00.000Z",
+    "modified": "2024-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@babel/test@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "1.5.0": {
+      "_id": "@babel/test@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "1.5.0",
+    },
+    "3.0.0": {
+      "_id": "@babel/test@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "3.0.0",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > package and version filtering > replaces versions 2`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "2.6.3",
+  },
+  "name": "@types/node",
+  "readme": "It is a types node package",
+  "time": {
+    "1.0.0": "2010-01-01T00:00:00.000Z",
+    "2.2.0": "2015-01-01T00:00:00.000Z",
+    "2.6.3": "2025-01-01T00:00:00.000Z",
+    "created": "2010-01-01T00:00:00.000Z",
+    "modified": "2025-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@types/node@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "2.2.0": {
+      "_id": "@types/node@2.2.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "2.6.3": {
+      "_id": "@types/node@2.6.3",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by dateThreshold > allow by package 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "3.0.0",
+  },
+  "name": "@babel/test",
+  "readme": "It is a babel test package",
+  "time": {
+    "1.0.0": "2020-01-01T00:00:00.000Z",
+    "1.5.0": "2022-01-01T00:00:00.000Z",
+    "3.0.0": "2024-01-01T00:00:00.000Z",
+    "created": "2020-01-01T00:00:00.000Z",
+    "modified": "2024-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@babel/test@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "1.5.0": {
+      "_id": "@babel/test@1.5.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "3.0.0": {
+      "_id": "@babel/test@3.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by dateThreshold > allow by package 2`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "2.2.0",
+  },
+  "name": "@types/node",
+  "readme": "It is a types node package",
+  "time": {
+    "1.0.0": "2010-01-01T00:00:00.000Z",
+    "2.2.0": "2015-01-01T00:00:00.000Z",
+    "created": "2010-01-01T00:00:00.000Z",
+    "modified": "2015-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@types/node@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "2.2.0": {
+      "_id": "@types/node@2.2.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by dateThreshold > allow by scope 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "3.0.0",
+  },
+  "name": "@babel/test",
+  "readme": "It is a babel test package",
+  "time": {
+    "1.0.0": "2020-01-01T00:00:00.000Z",
+    "1.5.0": "2022-01-01T00:00:00.000Z",
+    "3.0.0": "2024-01-01T00:00:00.000Z",
+    "created": "2020-01-01T00:00:00.000Z",
+    "modified": "2024-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@babel/test@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "1.5.0": {
+      "_id": "@babel/test@1.5.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "3.0.0": {
+      "_id": "@babel/test@3.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by dateThreshold > allow by scope 2`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "2.2.0",
+  },
+  "name": "@types/node",
+  "readme": "It is a types node package",
+  "time": {
+    "1.0.0": "2010-01-01T00:00:00.000Z",
+    "2.2.0": "2015-01-01T00:00:00.000Z",
+    "created": "2010-01-01T00:00:00.000Z",
+    "modified": "2015-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@types/node@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "2.2.0": {
+      "_id": "@types/node@2.2.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by dateThreshold > allow by version 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "3.0.0",
+  },
+  "name": "@babel/test",
+  "readme": "It is a babel test package",
+  "time": {
+    "1.0.0": "2020-01-01T00:00:00.000Z",
+    "3.0.0": "2024-01-01T00:00:00.000Z",
+    "created": "2020-01-01T00:00:00.000Z",
+    "modified": "2024-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@babel/test@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "3.0.0": {
+      "_id": "@babel/test@3.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by dateThreshold > allow by version 2`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "2.2.0",
+  },
+  "name": "@types/node",
+  "readme": "It is a types node package",
+  "time": {
+    "1.0.0": "2010-01-01T00:00:00.000Z",
+    "2.2.0": "2015-01-01T00:00:00.000Z",
+    "created": "2010-01-01T00:00:00.000Z",
+    "modified": "2015-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@types/node@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "2.2.0": {
+      "_id": "@types/node@2.2.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by dateThreshold > multiple allow rules 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "3.0.0",
+  },
+  "name": "@babel/test",
+  "readme": "It is a babel test package",
+  "time": {
+    "1.0.0": "2020-01-01T00:00:00.000Z",
+    "3.0.0": "2024-01-01T00:00:00.000Z",
+    "created": "2020-01-01T00:00:00.000Z",
+    "modified": "2024-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@babel/test@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "3.0.0": {
+      "_id": "@babel/test@3.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by dateThreshold > multiple allow rules 2`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "2.6.3",
+  },
+  "name": "@types/node",
+  "readme": "It is a types node package",
+  "time": {
+    "1.0.0": "2010-01-01T00:00:00.000Z",
+    "2.2.0": "2015-01-01T00:00:00.000Z",
+    "2.6.3": "2025-01-01T00:00:00.000Z",
+    "created": "2010-01-01T00:00:00.000Z",
+    "modified": "2025-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@types/node@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "2.2.0": {
+      "_id": "@types/node@2.2.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "2.6.3": {
+      "_id": "@types/node@2.6.3",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by minAgeDays > allow by package 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "3.0.0",
+  },
+  "name": "@babel/test",
+  "readme": "It is a babel test package",
+  "time": {
+    "1.0.0": "2020-01-01T00:00:00.000Z",
+    "1.5.0": "2022-01-01T00:00:00.000Z",
+    "3.0.0": "2024-01-01T00:00:00.000Z",
+    "created": "2020-01-01T00:00:00.000Z",
+    "modified": "2024-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@babel/test@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "1.5.0": {
+      "_id": "@babel/test@1.5.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "3.0.0": {
+      "_id": "@babel/test@3.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by minAgeDays > allow by package 2`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "2.2.0",
+  },
+  "name": "@types/node",
+  "readme": "It is a types node package",
+  "time": {
+    "1.0.0": "2010-01-01T00:00:00.000Z",
+    "2.2.0": "2015-01-01T00:00:00.000Z",
+    "created": "2010-01-01T00:00:00.000Z",
+    "modified": "2015-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@types/node@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "2.2.0": {
+      "_id": "@types/node@2.2.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by minAgeDays > allow by scope 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "3.0.0",
+  },
+  "name": "@babel/test",
+  "readme": "It is a babel test package",
+  "time": {
+    "1.0.0": "2020-01-01T00:00:00.000Z",
+    "1.5.0": "2022-01-01T00:00:00.000Z",
+    "3.0.0": "2024-01-01T00:00:00.000Z",
+    "created": "2020-01-01T00:00:00.000Z",
+    "modified": "2024-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@babel/test@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "1.5.0": {
+      "_id": "@babel/test@1.5.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "3.0.0": {
+      "_id": "@babel/test@3.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by minAgeDays > allow by scope 2`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "2.2.0",
+  },
+  "name": "@types/node",
+  "readme": "It is a types node package",
+  "time": {
+    "1.0.0": "2010-01-01T00:00:00.000Z",
+    "2.2.0": "2015-01-01T00:00:00.000Z",
+    "created": "2010-01-01T00:00:00.000Z",
+    "modified": "2015-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@types/node@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "2.2.0": {
+      "_id": "@types/node@2.2.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by minAgeDays > allow by version 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "3.0.0",
+  },
+  "name": "@babel/test",
+  "readme": "It is a babel test package",
+  "time": {
+    "1.0.0": "2020-01-01T00:00:00.000Z",
+    "3.0.0": "2024-01-01T00:00:00.000Z",
+    "created": "2020-01-01T00:00:00.000Z",
+    "modified": "2024-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@babel/test@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "3.0.0": {
+      "_id": "@babel/test@3.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by minAgeDays > allow by version 2`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "2.2.0",
+  },
+  "name": "@types/node",
+  "readme": "It is a types node package",
+  "time": {
+    "1.0.0": "2010-01-01T00:00:00.000Z",
+    "2.2.0": "2015-01-01T00:00:00.000Z",
+    "created": "2010-01-01T00:00:00.000Z",
+    "modified": "2015-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@types/node@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "2.2.0": {
+      "_id": "@types/node@2.2.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by minAgeDays > multiple allow rules 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "3.0.0",
+  },
+  "name": "@babel/test",
+  "readme": "It is a babel test package",
+  "time": {
+    "1.0.0": "2020-01-01T00:00:00.000Z",
+    "3.0.0": "2024-01-01T00:00:00.000Z",
+    "created": "2020-01-01T00:00:00.000Z",
+    "modified": "2024-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@babel/test@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "3.0.0": {
+      "_id": "@babel/test@3.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by minAgeDays > multiple allow rules 2`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "2.6.3",
+  },
+  "name": "@types/node",
+  "readme": "It is a types node package",
+  "time": {
+    "1.0.0": "2010-01-01T00:00:00.000Z",
+    "2.2.0": "2015-01-01T00:00:00.000Z",
+    "2.6.3": "2025-01-01T00:00:00.000Z",
+    "created": "2010-01-01T00:00:00.000Z",
+    "modified": "2025-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@types/node@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "2.2.0": {
+      "_id": "@types/node@2.2.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "2.6.3": {
+      "_id": "@types/node@2.6.3",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by package > allow by package 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "3.0.0",
+  },
+  "name": "@babel/test",
+  "readme": "It is a babel test package",
+  "time": {
+    "1.0.0": "2020-01-01T00:00:00.000Z",
+    "1.5.0": "2022-01-01T00:00:00.000Z",
+    "3.0.0": "2024-01-01T00:00:00.000Z",
+    "created": "2020-01-01T00:00:00.000Z",
+    "modified": "2024-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@babel/test@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "1.5.0": {
+      "_id": "@babel/test@1.5.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "3.0.0": {
+      "_id": "@babel/test@3.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by package > allow by package 2`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {},
+  "name": "@types/node",
+  "readme": "All package versions are blocked by rule",
+  "time": {},
+  "versions": {},
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by package > allow by scope 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "3.0.0",
+  },
+  "name": "@babel/test",
+  "readme": "It is a babel test package",
+  "time": {
+    "1.0.0": "2020-01-01T00:00:00.000Z",
+    "1.5.0": "2022-01-01T00:00:00.000Z",
+    "3.0.0": "2024-01-01T00:00:00.000Z",
+    "created": "2020-01-01T00:00:00.000Z",
+    "modified": "2024-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@babel/test@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "1.5.0": {
+      "_id": "@babel/test@1.5.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "3.0.0": {
+      "_id": "@babel/test@3.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by package > allow by scope 2`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {},
+  "name": "@types/node",
+  "readme": "All package versions are blocked by rule",
+  "time": {},
+  "versions": {},
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by package > allow by version 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "3.0.0",
+  },
+  "name": "@babel/test",
+  "readme": "It is a babel test package
+Some versions(2) of package are blocked by rules: *",
+  "time": {
+    "3.0.0": "2024-01-01T00:00:00.000Z",
+    "created": "2024-01-01T00:00:00.000Z",
+    "modified": "2024-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "3.0.0": {
+      "_id": "@babel/test@3.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by package > allow by version 2`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {},
+  "name": "@types/node",
+  "readme": "All package versions are blocked by rule",
+  "time": {},
+  "versions": {},
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by scope > allow by package 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "3.0.0",
+  },
+  "name": "@babel/test",
+  "readme": "It is a babel test package",
+  "time": {
+    "1.0.0": "2020-01-01T00:00:00.000Z",
+    "1.5.0": "2022-01-01T00:00:00.000Z",
+    "3.0.0": "2024-01-01T00:00:00.000Z",
+    "created": "2020-01-01T00:00:00.000Z",
+    "modified": "2024-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@babel/test@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "1.5.0": {
+      "_id": "@babel/test@1.5.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "3.0.0": {
+      "_id": "@babel/test@3.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by scope > allow by package 2`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {},
+  "name": "@types/node",
+  "readme": "All packages in scope @types are blocked by rule",
+  "time": {},
+  "versions": {},
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by scope > allow by scope 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "3.0.0",
+  },
+  "name": "@babel/test",
+  "readme": "It is a babel test package",
+  "time": {
+    "1.0.0": "2020-01-01T00:00:00.000Z",
+    "1.5.0": "2022-01-01T00:00:00.000Z",
+    "3.0.0": "2024-01-01T00:00:00.000Z",
+    "created": "2020-01-01T00:00:00.000Z",
+    "modified": "2024-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@babel/test@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "1.5.0": {
+      "_id": "@babel/test@1.5.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "3.0.0": {
+      "_id": "@babel/test@3.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by scope > allow by scope 2`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {},
+  "name": "@types/node",
+  "readme": "All packages in scope @types are blocked by rule",
+  "time": {},
+  "versions": {},
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by scope > allow by version 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "3.0.0",
+  },
+  "name": "@babel/test",
+  "readme": "It is a babel test package
+Some versions(2) of package are blocked by rules: *",
+  "time": {
+    "3.0.0": "2024-01-01T00:00:00.000Z",
+    "created": "2024-01-01T00:00:00.000Z",
+    "modified": "2024-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "3.0.0": {
+      "_id": "@babel/test@3.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by scope > allow by version 2`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {},
+  "name": "@types/node",
+  "readme": "All packages in scope @types are blocked by rule",
+  "time": {},
+  "versions": {},
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by version > allow by package 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "3.0.0",
+  },
+  "name": "@babel/test",
+  "readme": "It is a babel test package",
+  "time": {
+    "1.0.0": "2020-01-01T00:00:00.000Z",
+    "1.5.0": "2022-01-01T00:00:00.000Z",
+    "3.0.0": "2024-01-01T00:00:00.000Z",
+    "created": "2020-01-01T00:00:00.000Z",
+    "modified": "2024-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@babel/test@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "1.5.0": {
+      "_id": "@babel/test@1.5.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "3.0.0": {
+      "_id": "@babel/test@3.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by version > allow by package 2`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "1.0.0",
+  },
+  "name": "@types/node",
+  "readme": "It is a types node package
+Some versions(2) of package are blocked by rules: >=2.2.0",
+  "time": {
+    "1.0.0": "2010-01-01T00:00:00.000Z",
+    "created": "2010-01-01T00:00:00.000Z",
+    "modified": "2010-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@types/node@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by version > allow by scope 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "3.0.0",
+  },
+  "name": "@babel/test",
+  "readme": "It is a babel test package",
+  "time": {
+    "1.0.0": "2020-01-01T00:00:00.000Z",
+    "1.5.0": "2022-01-01T00:00:00.000Z",
+    "3.0.0": "2024-01-01T00:00:00.000Z",
+    "created": "2020-01-01T00:00:00.000Z",
+    "modified": "2024-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@babel/test@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "1.5.0": {
+      "_id": "@babel/test@1.5.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "3.0.0": {
+      "_id": "@babel/test@3.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by version > allow by scope 2`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "1.0.0",
+  },
+  "name": "@types/node",
+  "readme": "It is a types node package
+Some versions(2) of package are blocked by rules: >=2.2.0",
+  "time": {
+    "1.0.0": "2010-01-01T00:00:00.000Z",
+    "created": "2010-01-01T00:00:00.000Z",
+    "modified": "2010-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@types/node@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by version > allow by versions 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "3.0.0",
+  },
+  "name": "@babel/test",
+  "readme": "It is a babel test package
+Some versions(1) of package are blocked by rules: >=1.5.0",
+  "time": {
+    "1.0.0": "2020-01-01T00:00:00.000Z",
+    "3.0.0": "2024-01-01T00:00:00.000Z",
+    "created": "2020-01-01T00:00:00.000Z",
+    "modified": "2024-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@babel/test@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "3.0.0": {
+      "_id": "@babel/test@3.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > block by version > allow by versions 2`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "1.0.0",
+  },
+  "name": "@types/node",
+  "readme": "It is a types node package
+Some versions(2) of package are blocked by rules: >=2.2.0",
+  "time": {
+    "1.0.0": "2010-01-01T00:00:00.000Z",
+    "created": "2010-01-01T00:00:00.000Z",
+    "modified": "2010-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@types/node@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > replace by version > allow by package 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "3.0.0",
+  },
+  "name": "@babel/test",
+  "readme": "It is a babel test package",
+  "time": {
+    "1.0.0": "2020-01-01T00:00:00.000Z",
+    "1.5.0": "2022-01-01T00:00:00.000Z",
+    "3.0.0": "2024-01-01T00:00:00.000Z",
+    "created": "2020-01-01T00:00:00.000Z",
+    "modified": "2024-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@babel/test@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "1.5.0": {
+      "_id": "@babel/test@1.5.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "3.0.0": {
+      "_id": "@babel/test@3.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > replace by version > allow by package 2`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "2.6.3",
+  },
+  "name": "@types/node",
+  "readme": "It is a types node package
+Some versions of package are replaced by other(2): 2.2.0 => 1.0.0,2.6.3 => 1.0.0",
+  "time": {
+    "1.0.0": "2010-01-01T00:00:00.000Z",
+    "2.2.0": "2015-01-01T00:00:00.000Z",
+    "2.6.3": "2025-01-01T00:00:00.000Z",
+    "created": "2010-01-01T00:00:00.000Z",
+    "modified": "2025-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@types/node@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "2.2.0": {
+      "_id": "@types/node@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "2.2.0",
+    },
+    "2.6.3": {
+      "_id": "@types/node@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "2.6.3",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > replace by version > allow by scope 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "3.0.0",
+  },
+  "name": "@babel/test",
+  "readme": "It is a babel test package",
+  "time": {
+    "1.0.0": "2020-01-01T00:00:00.000Z",
+    "1.5.0": "2022-01-01T00:00:00.000Z",
+    "3.0.0": "2024-01-01T00:00:00.000Z",
+    "created": "2020-01-01T00:00:00.000Z",
+    "modified": "2024-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@babel/test@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "1.5.0": {
+      "_id": "@babel/test@1.5.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "3.0.0": {
+      "_id": "@babel/test@3.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > replace by version > allow by scope 2`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "2.6.3",
+  },
+  "name": "@types/node",
+  "readme": "It is a types node package
+Some versions of package are replaced by other(2): 2.2.0 => 1.0.0,2.6.3 => 1.0.0",
+  "time": {
+    "1.0.0": "2010-01-01T00:00:00.000Z",
+    "2.2.0": "2015-01-01T00:00:00.000Z",
+    "2.6.3": "2025-01-01T00:00:00.000Z",
+    "created": "2010-01-01T00:00:00.000Z",
+    "modified": "2025-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@types/node@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "2.2.0": {
+      "_id": "@types/node@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "2.2.0",
+    },
+    "2.6.3": {
+      "_id": "@types/node@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "2.6.3",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > replace by version > allow by version 1`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "3.0.0",
+  },
+  "name": "@babel/test",
+  "readme": "It is a babel test package
+Some versions of package are replaced by other(1): 1.5.0 => 1.0.0",
+  "time": {
+    "1.0.0": "2020-01-01T00:00:00.000Z",
+    "1.5.0": "2022-01-01T00:00:00.000Z",
+    "3.0.0": "2024-01-01T00:00:00.000Z",
+    "created": "2020-01-01T00:00:00.000Z",
+    "modified": "2024-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@babel/test@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "1.5.0": {
+      "_id": "@babel/test@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "1.5.0",
+    },
+    "3.0.0": {
+      "_id": "@babel/test@3.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+  },
+}
+`;
+
+exports[`PackageFilterPlugin > whitelist > replace by version > allow by version 2`] = `
+{
+  "_attachments": {},
+  "_distfiles": {},
+  "_rev": "",
+  "_uplinks": {},
+  "dist-tags": {
+    "latest": "2.6.3",
+  },
+  "name": "@types/node",
+  "readme": "It is a types node package
+Some versions of package are replaced by other(2): 2.2.0 => 1.0.0,2.6.3 => 1.0.0",
+  "time": {
+    "1.0.0": "2010-01-01T00:00:00.000Z",
+    "2.2.0": "2015-01-01T00:00:00.000Z",
+    "2.6.3": "2025-01-01T00:00:00.000Z",
+    "created": "2010-01-01T00:00:00.000Z",
+    "modified": "2025-01-01T00:00:00.000Z",
+  },
+  "versions": {
+    "1.0.0": {
+      "_id": "@types/node@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "",
+    },
+    "2.2.0": {
+      "_id": "@types/node@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "2.2.0",
+    },
+    "2.6.3": {
+      "_id": "@types/node@1.0.0",
+      "main": "",
+      "name": "",
+      "readme": "",
+      "version": "2.6.3",
+    },
+  },
+}
+`;

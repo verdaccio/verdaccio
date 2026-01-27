@@ -82,6 +82,7 @@
     "@types/yeoman-generator": "5.2.14",
     "@types/yeoman-test": "4.0.6",
     "@verdaccio/eslint-config": "11.0.1",
+    "@verdaccio/package-filter": "workspace:*",
     "@verdaccio/types": "workspace:*",
     "@verdaccio/ui-theme": "workspace:*",
     "@vitest/coverage-v8": "3.2.4",

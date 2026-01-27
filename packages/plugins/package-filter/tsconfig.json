@@ -1,0 +1,24 @@
+{
+  "extends": "../../../tsconfig.reference.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./build",
+    "noImplicitAny": true
+  },
+  "include": ["src/**/*", "types/*.d.ts"],
+  "exclude": ["src/**/*.test.ts"],
+  "references": [
+    {
+      "path": "../../config"
+    },
+    {
+      "path": "../../core/core"
+    },
+    {
+      "path": "../../core/types"
+    },
+    {
+      "path": "../../logger/logger"
+    }
+  ]
+}
