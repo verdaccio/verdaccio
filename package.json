@@ -91,7 +91,7 @@
     "supertest": "7.1.4",
     "ts-node": "10.9.2",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.53.1",
+    "typescript-eslint": "8.54.0",
     "verdaccio-auth-memory": "10.3.1",
     "verdaccio-memory": "10.4.1",
     "vitest": "3.2.4"
