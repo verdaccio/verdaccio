@@ -19,7 +19,7 @@
   "dependencies": {
     "@verdaccio/core": "workspace:8.0.0-next-8.29",
     "debug": "4.4.3",
-    "lodash": "4.17.21"
+    "lodash": "4.17.23"
   },
   "devDependencies": {
     "@verdaccio/logger": "workspace:8.0.0-next-8.29",
