@@ -18,6 +18,7 @@ export enum WebUrls {
  */
 export enum WebUrlsNamespace {
   root = '/',
+  assets = '/-/assets/',
   static = '/-/static/',
   endpoints = '/-/verdaccio/',
   web = '/-/web/',
