@@ -34,7 +34,7 @@
     "i18next": "20.6.1",
     "js-base64": "3.7.8",
     "localstorage-memory": "1.0.3",
-    "lodash": "4.17.21",
+    "lodash": "4.17.23",
     "marked": "15.0.12",
     "marked-highlight": "2.2.1",
     "normalize.css": "8.0.1",

@@ -47,7 +47,7 @@
     "cors": "2.8.5",
     "debug": "4.4.3",
     "express": "4.22.1",
-    "lodash": "4.17.21"
+    "lodash": "4.17.23"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:13.0.0-next-8.10",

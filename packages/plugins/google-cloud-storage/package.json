@@ -37,7 +37,7 @@
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.12",
     "memory-fs": "0.5.0",
-    "lodash": "4.17.21"
+    "lodash": "4.17.23"
   },
   "optionalDependencies": {
     "fast-crc32c": "1.0.7"

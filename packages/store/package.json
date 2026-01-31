@@ -52,7 +52,7 @@
     "@verdaccio/tarball": "workspace:13.0.0-next-8.29",
     "@verdaccio/url": "workspace:13.0.0-next-8.29",
     "debug": "4.4.3",
-    "lodash": "4.17.21",
+    "lodash": "4.17.23",
     "semver": "7.7.3"
   },
   "devDependencies": {
