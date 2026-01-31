@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.2.5](https://github.com/verdaccio/verdaccio/compare/v6.2.4...v6.2.5) (2026-01-31)
+
+
+### Bug Fixes
+
+* update express v4.22.1 ([#5557](https://github.com/verdaccio/verdaccio/issues/5557)) ([0a64b69](https://github.com/verdaccio/verdaccio/commit/0a64b6973283e10ad1d6f867d95454b434b6d793))
+* update node.js v22.22.0 ([#5558](https://github.com/verdaccio/verdaccio/issues/5558)) ([f6f32ff](https://github.com/verdaccio/verdaccio/commit/f6f32ffa86b575c12aca0e5a137a177b8cc71216))
+
 ### [6.2.4](https://github.com/verdaccio/verdaccio/compare/v6.2.3...v6.2.4) (2025-12-02)
 
 
