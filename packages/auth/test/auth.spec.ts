@@ -717,6 +717,24 @@ describe('AuthTest', () => {
               ROLES.DEPRECATED_ANONYMOUS,
             ]);
           });
+
+          test('should handle malformed Basic auth credentials without crashing', async () => {
+            // @ts-expect-error
+            const config: Config = new AppConfig({
+              ...authProfileConf,
+              ...{ security: { api: { jwt: { sign: { expiresIn: '29d' } } } } },
+            });
+            config.checkSecretKey(secret);
+            const auth = new Auth(config, logger);
+            await auth.init();
+            const app = await getServer(auth);
+            // base64 of "test" (no colon separator) - must not crash with TypeError
+            const malformedToken = Buffer.from('test').toString('base64');
+            return supertest(app)
+              .get(`/`)
+              .set(HEADERS.AUTHORIZATION, `Basic ${malformedToken}`)
+              .expect(HTTP_STATUS.INTERNAL_ERROR);
+          });
         });
         describe('valid signature handlers', () => {
           test('should handle valid auth token', async () => {
