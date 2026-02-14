@@ -1,5 +1,14 @@
 # @verdaccio/search
 
+## 8.0.0-next-8.30
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.30
+- @verdaccio/config@8.0.0-next-8.30
+- @verdaccio/proxy@8.0.0-next-8.30
+- @verdaccio/logger@8.0.0-next-8.30
+
 ## 8.0.0-next-8.29
 
 ### Patch Changes

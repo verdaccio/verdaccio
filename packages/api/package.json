@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/api",
-  "version": "8.1.0-next-8.29",
+  "version": "8.1.0-next-8.30",
   "description": "Verdaccio Registry API",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -42,18 +42,18 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@verdaccio/auth": "workspace:8.0.0-next-8.29",
-    "@verdaccio/config": "workspace:8.0.0-next-8.29",
-    "@verdaccio/core": "workspace:8.0.0-next-8.29",
-    "@verdaccio/logger": "workspace:8.0.0-next-8.29",
-    "@verdaccio/middleware": "workspace:8.0.0-next-8.29",
-    "@verdaccio/store": "workspace:8.0.0-next-8.29",
+    "@verdaccio/auth": "workspace:8.0.0-next-8.30",
+    "@verdaccio/config": "workspace:8.0.0-next-8.30",
+    "@verdaccio/core": "workspace:8.0.0-next-8.30",
+    "@verdaccio/logger": "workspace:8.0.0-next-8.30",
+    "@verdaccio/middleware": "workspace:8.0.0-next-8.30",
+    "@verdaccio/store": "workspace:8.0.0-next-8.30",
     "debug": "4.4.3",
     "express": "4.22.1",
     "lodash": "4.17.23"
   },
   "devDependencies": {
-    "@verdaccio/test-helper": "workspace:4.0.0-next-8.13",
+    "@verdaccio/test-helper": "workspace:4.0.0-next-8.14",
     "@verdaccio/types": "workspace:13.0.0-next-8.10",
     "mockdate": "3.0.5",
     "nock": "13.5.6",
