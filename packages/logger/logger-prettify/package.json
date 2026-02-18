@@ -46,7 +46,7 @@
     "on-exit-leak-free": "2.1.2",
     "pino-abstract-transport": "1.2.0",
     "colorette": "2.0.20",
-    "lodash": "4.17.21",
+    "lodash": "4.17.23",
     "sonic-boom": "3.8.1"
   },
   "devDependencies": {
