@@ -455,7 +455,13 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
       debug('handle basic token');
       // this should happen when client tries to login with an existing user
       const credentials = convertPayloadToBase64(token).toString();
-      const { user, password } = parseBasicPayload(credentials) as AESPayload;
+      const parsedCredentials = parseBasicPayload(credentials);
+      if (!parsedCredentials) {
+        debug('invalid basic credentials format (missing colon separator)');
+        next(errorUtils.getBadRequest(API_ERROR.BAD_USERNAME_PASSWORD));
+        return;
+      }
+      const { user, password } = parsedCredentials as AESPayload;
       debug('authenticating %o', user);
       this.authenticate(user, password, (err: VerdaccioError | null, user): void => {
         if (!err) {
