@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.2.7](https://github.com/verdaccio/verdaccio/compare/v6.2.6...v6.2.7) (2026-02-21)
+
 ### [6.2.6](https://github.com/verdaccio/verdaccio/compare/v6.2.5...v6.2.6) (2026-02-21)
 
 
