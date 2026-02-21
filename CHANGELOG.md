@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.2.6](https://github.com/verdaccio/verdaccio/compare/v6.2.5...v6.2.6) (2026-02-21)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @cypress/request to v3.0.10 ([#5580](https://github.com/verdaccio/verdaccio/issues/5580)) ([eefa2f2](https://github.com/verdaccio/verdaccio/commit/eefa2f2f76be53e17770547ddc6203e60133860b))
+* **deps:** update dependency cors to v2.8.6 ([#5576](https://github.com/verdaccio/verdaccio/issues/5576)) ([f0d9d89](https://github.com/verdaccio/verdaccio/commit/f0d9d89eedc748a90011d9c0c2244cc9817c4d32))
+* **deps:** update dependency lodash to v4.17.23 ([#5577](https://github.com/verdaccio/verdaccio/issues/5577)) ([40071b2](https://github.com/verdaccio/verdaccio/commit/40071b2af5abc2e77a745c6cc5598ec0564d66d4))
+* **deps:** update dependency semver to v7.7.4 ([#5578](https://github.com/verdaccio/verdaccio/issues/5578)) ([973f0cb](https://github.com/verdaccio/verdaccio/commit/973f0cb7302b5551da4fe484fe841155d448f4a3))
+
 ### [6.2.5](https://github.com/verdaccio/verdaccio/compare/v6.2.4...v6.2.5) (2026-01-31)
 
 
