@@ -68,7 +68,7 @@
     "@types/lodash": "4.17.23",
     "@types/mime": "3.0.4",
     "@types/minimatch": "5.1.2",
-    "@types/node": "20.19.30",
+    "@types/node": "20.19.33",
     "@types/pino": "7.0.5",
     "@types/request": "2.48.13",
     "@types/semver": "7.7.1",
@@ -91,7 +91,7 @@
     "supertest": "7.1.4",
     "ts-node": "10.9.2",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.54.0",
+    "typescript-eslint": "8.56.0",
     "verdaccio-auth-memory": "10.3.1",
     "verdaccio-memory": "10.4.1",
     "vitest": "3.2.4"
