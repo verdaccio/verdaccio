@@ -40,7 +40,7 @@ docker-bin/
 tsconfig.json
 *.md
 prettier.config.js
-eslintrc.cjs
+eslint.config.mjs
 babel.config.js
 debug/*
 tsconfig*
