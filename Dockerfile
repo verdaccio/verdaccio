@@ -9,7 +9,6 @@ ENV NODE_ENV=production \
 RUN apk add --no-cache \
     openssl \
     ca-certificates \
-    wget \
     g++ \
     gcc \
     libgcc \
