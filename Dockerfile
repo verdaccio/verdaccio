@@ -107,4 +107,4 @@ ENTRYPOINT ["uid_entrypoint"]
 
 # Default command to start Verdaccio using the custom config
 # - Uses environment variables for protocol and port binding
-CMD verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://$VERDACCIO_ADDRESS:$VERDACCIO_PORT
+CMD ["/bin/sh", "-c", "verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://$VERDACCIO_ADDRESS:$VERDACCIO_PORT"]
