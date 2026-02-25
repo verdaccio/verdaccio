@@ -1,4 +1,4 @@
-FROM --platform=${BUILDPLATFORM:-linux/amd64} node:22.22.0-alpine as builder
+FROM --platform=${BUILDPLATFORM:-linux/amd64} node:22.22.0-alpine AS builder
 
 ENV NODE_ENV=production \
     VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org  \
@@ -6,12 +6,18 @@ ENV NODE_ENV=production \
     CI=true \
     HUSKY_DEBUG=1
 
-RUN apk add --force-overwrite && \
-    apk --no-cache add openssl ca-certificates wget && \
-    apk --no-cache add g++ gcc libgcc libstdc++ linux-headers make python3 && \
-    wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub && \
-    wget -q https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r1/glibc-2.35-r1.apk && \
-    apk add --force-overwrite glibc-2.35-r1.apk
+RUN apk add --no-cache \
+    openssl \
+    ca-certificates \
+    wget \
+    g++ \
+    gcc \
+    libgcc \
+    libstdc++ \
+    linux-headers \
+    make \
+    python3 \
+    libc6-compat
 
 WORKDIR /opt/verdaccio-build
 COPY . .
@@ -28,7 +34,7 @@ RUN yarn config set npmRegistryServer $VERDACCIO_BUILD_REGISTRY && \
 RUN yarn pack --out verdaccio.tgz \
     && mkdir -p /opt/tarball \
     && mv /opt/verdaccio-build/verdaccio.tgz /opt/tarball
-## clean up and reduce bundle size
+
 RUN rm -Rf /opt/verdaccio-build
 
 FROM node:22.22.0-alpine
