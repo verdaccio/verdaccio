@@ -25,5 +25,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: verdaccio/verdaccio:6.x
+          tags: verdaccio/verdaccio:6.x-next
           platforms: linux/amd64,linux/arm64
