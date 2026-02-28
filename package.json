@@ -86,7 +86,7 @@
     "nock": "13.5.6",
     "node-mocks-http": "^1.17.2",
     "prettier": "3.6.2",
-    "selfsigned": "3.0.1",
+    "selfsigned": "5.5.0",
     "standard-version": "9.5.0",
     "supertest": "7.1.4",
     "ts-node": "10.9.2",
