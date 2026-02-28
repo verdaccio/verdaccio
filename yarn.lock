@@ -5164,12 +5164,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"envinfo@npm:7.15.0":
-  version: 7.15.0
-  resolution: "envinfo@npm:7.15.0"
+"envinfo@npm:7.21.0":
+  version: 7.21.0
+  resolution: "envinfo@npm:7.21.0"
   bin:
     envinfo: dist/cli.js
-  checksum: 10c0/f03b8dba6713837fdc615bdcb767c269b740df5af2fc7c70124038ad4c123332d5939ec1d3d81fda2794fc3a2f6458a25761c0847a22ddff94fe827e6c30bf35
+  checksum: 10c0/4170127ca72dbf85be2c114f85558bd08178e8a43b394951ba9fd72d067c6fea3374df45a7b040e39e4e7b30bdd268e5bdf8661d99ae28302c2a88dedb41b5e6
   languageName: node
   linkType: hard
 
@@ -10702,7 +10702,7 @@ __metadata:
     cors: "npm:2.8.6"
     cross-env: "npm:10.0.0"
     debug: "npm:4.4.3"
-    envinfo: "npm:7.15.0"
+    envinfo: "npm:7.21.0"
     eslint: "npm:9.36.0"
     express: "npm:4.22.1"
     fs-extra: "npm:11.3.2"
