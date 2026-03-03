@@ -6,6 +6,10 @@ on:
     branches:
       - master
 
+permissions:
+  contents: write
+  pull-requests: write
+
 env:
   CI: true
   PNPM_CACHE_FOLDER: .pnpm-store
