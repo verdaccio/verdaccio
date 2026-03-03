@@ -2,4 +2,4 @@
 '@verdaccio/api': patch
 ---
 
-fix(auth): remove unnecessary allow check
+fix(api): remove unnecessary allow check
