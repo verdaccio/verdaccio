@@ -92,7 +92,7 @@ export function validateURL(publicUrl: string | void) {
 
 export type RequestOptions = {
   /**
-   * Request host including port.
+   * Request host (without port in Express 4).
    */
   host: string;
   /**

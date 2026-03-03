@@ -9,11 +9,14 @@ const debug = buildDebug('verdaccio:middleware:request-options');
 
 export function getRequestOptions(req: $RequestExtend): RequestOptions {
   const requestOptions = {
-    // Verdaccio needs host to include the port for it to work correctly
+    // FIXME: decide if host should contain port or not
     //
-    // req.hostname strips the port so we use req.host instead
-    // (req.host is marked as deprecated in Express 4 but fully supported in Express 5)
-    // https://expressjs.com/en/api.html#req.host
+    // Express 4:
+    // - req.host is marked as deprecated since it does not include the port
+    // - use req.headers['host'] instead, which includes the port
+    // Express 5:
+    // - req.host is fully supported and includes the port
+    // - https://expressjs.com/en/api.html#req.host
     host: req.host,
     protocol: req.protocol,
     headers: req.headers as IncomingHttpHeaders,
