@@ -1,0 +1,13 @@
+storage: TEST_STORAGE_PATH
+
+log: TEST_LOG_CONFIG
+
+web:
+  title: TEST_WEB_TITLE
+  showInfo: TEST_WEB_SHOW_INFO
+  metaScripts:
+    - TEST_META_SCRIPT_1
+    - TEST_META_SCRIPT_2
+
+server:
+  keepAliveTimeout: TEST_SERVER_KEEP_ALIVE_TIMEOUT
