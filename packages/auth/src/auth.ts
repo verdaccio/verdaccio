@@ -274,35 +274,48 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     callback: pluginUtils.AccessCallback
   ): void {
     const plugins = this.plugins.slice(0);
-    const pkgAllowAccess: AllowAccess = { name: packageName, version: packageVersion };
     const pkg = Object.assign(
-      {},
-      pkgAllowAccess,
+      { name: packageName, version: packageVersion },
       authUtils.getMatchedPackagesSpec(packageName, this.config.packages)
     ) as AllowAccess & PackageAccess;
-    debug('allow access for %o', packageName);
 
-    (function next(): void {
+    debug('check access permissions for user %o to package %o', user.name, packageName);
+
+    // Use const instead of function declaration so we can use this.logger
+    const next = (): void => {
       const plugin = plugins.shift();
 
       if (typeof plugin?.allow_access !== 'function') {
+        debug('plugin does not implement allow_access');
         return next();
       }
 
-      plugin.allow_access!(user, pkg, function (err: VerdaccioError | null, ok?: boolean): void {
+      plugin.allow_access(user, pkg, (err: VerdaccioError | null, ok?: boolean): void => {
         if (err) {
-          debug('forbidden access for %o. Error: %o', packageName, err?.message);
+          debug('forbidden access. Error: %o', err);
           return callback(err);
         }
 
         if (ok) {
-          debug('allowed access for %o', packageName);
+          debug('access was granted');
+          this.logger.trace(
+            { user: user.name, name: pkg.name },
+            `access was granted for @{name} by @{user}`
+          );
           return callback(null, ok);
         }
 
-        next(); // cb(null, false) causes next plugin to roll
+        // cb(null, false) causes next plugin to roll
+        debug('access was denied. Rolling to next plugin');
+        this.logger.trace(
+          { user: user.name, name: pkg.name },
+          `access was denied for @{name} by @{user}`
+        );
+        next();
       });
-    })();
+    };
+
+    next();
   }
 
   public allow_unpublish(
@@ -310,38 +323,63 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     user: RemoteUser,
     callback: Callback
   ): void {
+    const plugins = this.plugins.slice(0);
     const pkg = Object.assign(
       { name: packageName, version: packageVersion },
       authUtils.getMatchedPackagesSpec(packageName, this.config.packages)
     );
-    debug('allow unpublish for %o', packageName);
 
-    for (const plugin of this.plugins) {
+    debug('check unpublish permissions for user %o to package %o', user.name, packageName);
+
+    // Use const instead of function declaration so we can use this.logger
+    const next = (): void => {
+      const plugin = plugins.shift();
+
       if (typeof plugin?.allow_unpublish !== 'function') {
-        debug('allow unpublish for %o plugin does not implement allow_unpublish', packageName);
-        continue;
-      } else {
-        plugin.allow_unpublish(user, pkg, (err: VerdaccioError | null, ok?: boolean): void => {
-          if (err) {
-            debug(
-              'forbidden publish for %o, it will fallback on unpublish permissions',
-              packageName
-            );
-            return callback(err);
-          }
-
-          if (_.isNil(ok) === true) {
-            debug('bypass unpublish for %o, publish will handle the access', packageName);
-            return this.allow_publish({ packageName, packageVersion }, user, callback);
-          }
-
-          if (ok) {
-            debug('allowed unpublish for %o', packageName);
-            return callback(null, ok);
-          }
-        });
+        debug('plugin does not implement allow_unpublish');
+        return next();
       }
-    }
+
+      plugin.allow_unpublish(user, pkg, (err: VerdaccioError | null, ok?: boolean): void => {
+        if (err) {
+          debug('forbidden unpublish. Error: %o', err);
+          return callback(err);
+        }
+
+        // The following is different from the allow_publish and allow_access implementations.
+        // To support legacy versions, if the unpublish permission is not granted,
+        // we fallback to the publish permission.
+        // This is triggered by the built-in default methods if the packages config is missing
+        // an entry for unpublish (see utils.ts, handleSpecialUnpublish, cb(null, undefined))
+        if (_.isNil(ok) === true) {
+          debug('bypass unpublish for %o, publish will handle the access', packageName);
+          this.logger.trace(
+            { user: user.name, name: pkg.name },
+            `bypass unpublish for @{name} by @{user}, publish will handle the access`
+          );
+          return this.allow_publish({ packageName, packageVersion }, user, callback);
+        }
+
+        if (ok) {
+          debug('unpublish was granted');
+          this.logger.trace(
+            { user: user.name, name: pkg.name },
+            `unpublish was granted for @{name} by @{user}`
+          );
+          return callback(null, ok);
+        }
+
+        // cb(null, false) causes next plugin to roll
+        debug('unpublish was denied. Rolling to next plugin');
+        this.logger.trace(
+          { user: user.name, name: pkg.name },
+          `unpublish was denied for @{name} by @{user}`
+        );
+        next();
+      });
+    };
+
+    next();
   }
 
   /**
@@ -357,31 +395,44 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
       { name: packageName, version: packageVersion },
       authUtils.getMatchedPackagesSpec(packageName, this.config.packages)
     );
-    debug('allow publish for %o init | plugins: %o', packageName, plugins.length);
 
-    (function next(): void {
+    debug('check publish permissions for user %o to package %o', user.name, packageName);
+
+    // Use const instead of function declaration so we can use this.logger
+    const next = (): void => {
       const plugin = plugins.shift();
 
       if (typeof plugin?.allow_publish !== 'function') {
-        debug('allow publish for %o plugin does not implement allow_publish', packageName);
+        debug('plugin does not implement allow_publish');
         return next();
       }
 
       plugin.allow_publish(user, pkg, (err: VerdaccioError | null, ok?: boolean): void => {
-        if (_.isNil(err) === false && _.isError(err)) {
-          debug('forbidden publish for %o', packageName);
+        if (err) {
+          debug('forbidden publish. Error: %o', err);
           return callback(err);
         }
 
         if (ok) {
-          debug('allowed publish for %o', packageName);
+          debug('publish was granted');
+          this.logger.trace(
+            { user: user.name, name: pkg.name },
+            `publish was granted for @{name} by @{user}`
+          );
           return callback(null, ok);
         }
 
-        debug('allow publish skip validation for %o', packageName);
-        next(); // cb(null, false) causes next plugin to roll
+        // cb(null, false) causes next plugin to roll
+        debug('publish was denied. Rolling to next plugin');
+        this.logger.trace(
+          { user: user.name, name: pkg.name },
+          `publish was denied for @{name} by @{user}`
+        );
+        next();
       });
-    })();
+    };
+
+    next();
   }
 
   public apiJWTmiddleware(): any {
