@@ -1,0 +1,6 @@
+/*
+!/bin/**/*
+!/build/**/*
+!index.js
+!LICENSE
+!README.md
