@@ -4,7 +4,13 @@ import { Router } from 'express';
 import { Auth } from '@verdaccio/auth';
 import { DIST_TAGS, HEADERS, HEADER_TYPE } from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend, allow } from '@verdaccio/middleware';
+import {
+  $NextFunctionVer,
+  $RequestExtend,
+  $ResponseExtend,
+  allow,
+  getRequestOptions,
+} from '@verdaccio/middleware';
 // Was required by other packages
 import { WebUrls } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
@@ -69,13 +75,7 @@ function addReadmeWebApi(storage: Storage, auth: Auth): Router {
       const scope = rawScope ? rawScope.slice(1) : null; // Remove '@' if present
       const name = scope ? addScope(scope, req.params.package) : req.params.package;
       debug('readme name %o', name);
-      const requestOptions = {
-        protocol: req.protocol,
-        headers: req.headers as any,
-        // FIXME: if we migrate to req.hostname, the port is not longer included.
-        host: req.host,
-        remoteAddress: req.socket.remoteAddress,
-      };
+      const requestOptions = getRequestOptions(req);
       try {
         const manifest = (await storage.getPackageByOptions({
           name,
