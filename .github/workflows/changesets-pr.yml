@@ -7,6 +7,9 @@ concurrency:
   group: changeset-pr-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   version:
     if: github.event.pull_request.head.repo.fork == false
