@@ -3,7 +3,7 @@ import { Router } from 'express';
 
 import { Auth } from '@verdaccio/auth';
 import { HEADERS, HEADER_TYPE, stringUtils } from '@verdaccio/core';
-import { allow } from '@verdaccio/middleware';
+import { allow, getRequestOptions } from '@verdaccio/middleware';
 import { PACKAGE_API_ENDPOINTS } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 import { Logger } from '@verdaccio/types';
@@ -25,33 +25,14 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
       _res: $ResponseExtend,
       next: $NextFunctionVer
     ): Promise<void> {
-      debug('get package by version');
       const name = req.params.package;
-      let version = req.params.version;
-      const write = req.query.write === 'true';
-      const username = req?.remote_user?.name;
+      const version = req.params.version;
+      debug('get package by version: %o %o', name, version);
       const abbreviated =
         stringUtils.getByQualityPriorityValue(req.get('Accept')) === Storage.ABBREVIATED_HEADER;
-      if (debug.enabled) {
-        debug('is write %o', write);
-        debug('is abbreviated %o', abbreviated);
-        debug('package %o', name);
-        debug('version %o', version);
-        debug('username %o', username);
-        debug('remote address %o', req.socket.remoteAddress);
-        debug('host %o', req.host);
-        debug('protocol %o', req.protocol);
-        debug('url %o', req.url);
-      }
-      const requestOptions = {
-        protocol: req.protocol,
-        headers: req.headers as any,
-        // FIXME: if we migrate to req.hostname, the port is not longer included.
-        host: req.host,
-        remoteAddress: req.socket.remoteAddress,
-        byPassCache: write,
-        username,
-      };
+      debug('abbreviated: %o', abbreviated);
+
+      const requestOptions = getRequestOptions(req);
 
       try {
         const manifest = await storage.getPackageByOptions({

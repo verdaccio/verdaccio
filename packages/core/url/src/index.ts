@@ -92,17 +92,20 @@ export function validateURL(publicUrl: string | void) {
 
 export type RequestOptions = {
   /**
-   * Request host.
+   * Request host (without port in Express 4).
    */
   host: string;
   /**
-   * Request protocol.
+   * Request protocol, usually http or https.
    */
   protocol: string;
   /**
    * Request headers.
    */
   headers: IncomingHttpHeaders;
+  /**
+   * Request remote address. This is the IPv4 or IPv6 address of the client.
+   */
   remoteAddress?: string;
   /**
    * Logged username the request, usually after token verification.

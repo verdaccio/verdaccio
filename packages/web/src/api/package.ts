@@ -5,7 +5,12 @@ import _ from 'lodash';
 import { Auth } from '@verdaccio/auth';
 import { createAnonymousRemoteUser } from '@verdaccio/config';
 import { logger } from '@verdaccio/logger';
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '@verdaccio/middleware';
+import {
+  $NextFunctionVer,
+  $RequestExtend,
+  $ResponseExtend,
+  getRequestOptions,
+} from '@verdaccio/middleware';
 import { WebUrls } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 import { getLocalRegistryTarballUri } from '@verdaccio/tarball';
@@ -52,6 +57,7 @@ function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router 
     const permissions: Version[] = [];
     const packagesToProcess = packages.slice();
     debug('process packages %o', packagesToProcess);
+    const requestOptions = getRequestOptions(req);
     for (const pkg of packagesToProcess) {
       const pkgCopy = { ...pkg };
       pkgCopy.author = formatAuthor(pkg.author);
@@ -67,7 +73,7 @@ function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router 
             pkgCopy.dist.tarball = getLocalRegistryTarballUri(
               pkgCopy.dist.tarball,
               pkg.name,
-              { protocol: req.protocol, headers: req.headers as any, host: req.hostname },
+              requestOptions,
               config?.url_prefix
             );
           }
