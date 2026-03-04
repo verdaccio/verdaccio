@@ -346,11 +346,10 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
           return callback(err);
         }
 
-        // The following is different from the allow_publish and allow_access implementations.
-        // To support legacy versions, if the unpublish permission is not granted,
-        // we fallback to the publish permission.
-        // This is triggered by the built-in default methods if the packages config is missing
-        // an entry for unpublish (see utils.ts, handleSpecialUnpublish, cb(null, undefined))
+        // The following is different from the allow_access and allow_publish implementations:
+        // If the packages config is missing an entry for "unpublish", the built-in default method
+        // (or a plugin) will return undefined, which will trigger the allow_publish fallback.
+        // (see utils.ts, handleSpecialUnpublish, callback(null, undefined))
         if (_.isNil(ok) === true) {
           debug('bypass unpublish for %o, publish will handle the access', packageName);
           this.logger.trace(
