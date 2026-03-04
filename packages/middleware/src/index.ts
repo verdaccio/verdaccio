@@ -12,6 +12,7 @@ export { registerBodyParser } from './middlewares/body-parser';
 export { userAgent } from './middlewares/user-agent';
 export { webMiddleware, renderWebMiddleware, setSecurityWebHeaders } from './middlewares/web';
 export { errorReportingMiddleware, handleError } from './middlewares/error';
+export { getRequestOptions } from './middlewares/request-options';
 export {
   log,
   LOG_STATUS_MESSAGE,

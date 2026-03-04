@@ -4,7 +4,7 @@ The following table describes the versions of this project:
 
 | Version          | Supported          | Minimum Node.js | Branch | Npm Tag          | Docker Images           | Helm Charts | E2E Tests                                                          |
 | ---------------- | ------------------ | --------------- | ------ | ---------------- | ----------------------- | ----------- | ------------------------------------------------------------------ |
-| 4.x              | :x: (deprecated)   | 10              | 4.x    | latest-4         | 4, 4.x, 4.x.x, 4.x-next | 3.x         | ❌                                                                 |
+| 4.x              | :x: (deprecated)   | 10              | 4.x    | latest-4         | (Not available)         | 3.x         | ❌                                                                 |
 | 5.x previous     | :x: (deprecated)   | 14              | 5.x    | latest-5         | 5, 5.x, 5.x.x, 5.x-next | 4.0 - 4.18  | ❌                                                                 |
 | 6.x current      | :white_check_mark: | 18              | 6.x    | latest-6, latest | 6, 6.x, 6.x.x, 6.x-next | 4.19 - ...  | [e2e-tests/main](https://github.com/verdaccio/e2e-tests/tree/main) |
 | 7.x next         | :x:                | 18              | 7.x    | next-7           | 7.x-next                | n/a         | [e2e-tests/6.x](https://github.com/verdaccio/e2e-tests/tree/6.x)   |
@@ -30,6 +30,8 @@ The official Verdaccio npm packages are located at https://www.npmjs.com/package
 ## Docker Hub
 
 The official Verdaccio Docker Images are found at https://hub.docker.com/r/verdaccio/verdaccio.
+
+Deprecated Docker images will be removed from Docker Hub after one year of their deprecation. We cannot guarantee their availability after this period. This applies to versions 2.x, 3.x, and 4.x, which are no longer available
 
 ## Helms Charts
 
