@@ -1,8 +1,10 @@
 {
   "extends": ["config:base", "helpers:pinGitHubActionDigests"],
   "prConcurrentLimit": 2,
+  "minimumReleaseAge": "15 days",
+  "internalChecksFilter": "strict",
   "ignorePaths": ["docker-examples/**"],
-  "schedule": ["before 3:00am on the 3 day of the month"],
+  "schedule": ["on the 1,11,21 day of the month"],
   "ignoreDeps": [
     "customprefix-auth",
     "eslint-plugin-verdaccio",
