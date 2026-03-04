@@ -24,6 +24,7 @@ import {
   handleError,
   log,
   rateLimit,
+  registerBodyParser,
   userAgent,
 } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
@@ -57,6 +58,11 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<Ex
   app.use(errorReportingMiddlewareWrap);
   app.use(userAgent(config));
   app.use(compression());
+
+  // Body parser for JSON requests must be registered before plugins
+  // so plugins can access req.body instead of manually reading the stream
+  // This prevents "stream is not readable" errors when plugins try to read req.body
+  registerBodyParser(app, config);
 
   app.get(
     '/favicon.ico',

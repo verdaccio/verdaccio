@@ -1,4 +1,3 @@
-import buildDebug from 'debug';
 import express, { Router } from 'express';
 
 import { Auth } from '@verdaccio/auth';
@@ -7,6 +6,7 @@ import {
   encodeScopePackage,
   makeURLrelative,
   match,
+  registerBodyParser,
   validateName,
   validatePackage,
 } from '@verdaccio/middleware';
@@ -25,8 +25,6 @@ import profile from './v1/profile';
 import v1Search from './v1/search';
 import token from './v1/token';
 import whoami from './whoami';
-
-const debug = buildDebug('verdaccio:api');
 
 export default function (config: Config, auth: Auth, storage: Storage, logger: Logger): Router {
   /* eslint new-cap:off */
@@ -47,14 +45,10 @@ export default function (config: Config, auth: Auth, storage: Storage, logger: L
   app.param('_rev', match(/^-rev$/));
   app.param('org_couchdb_user', match(/^org\.couchdb\.user:/));
 
-  app.use(auth.apiJWTmiddleware());
+  // Body parser must be registered before JWT middleware which pauses/resumes the stream
+  registerBodyParser(app, config);
 
-  // middleware might have registered a json parser already
-  if (hasBodyParser(app)) {
-    debug('json parser already registered');
-  } else {
-    app.use(express.json({ strict: false, limit: config.max_body_size || '10mb' }));
-  }
+  app.use(auth.apiJWTmiddleware());
 
   app.use(antiLoop(config));
   app.use(makeURLrelative);
@@ -76,11 +70,4 @@ export default function (config: Config, auth: Auth, storage: Storage, logger: L
     login(app, auth, storage, config, logger);
   }
   return app;
-}
-
-function hasBodyParser(app: Router): boolean {
-  const stack = app.stack || [];
-  return stack.some((middleware) => {
-    return middleware.handle?.name === 'jsonParser' || middleware.name === 'jsonParser';
-  });
 }
