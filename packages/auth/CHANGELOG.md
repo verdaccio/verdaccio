@@ -1,5 +1,16 @@
 # @verdaccio/auth
 
+## 8.0.0-next-8.31
+
+### Patch Changes
+
+- 17842bd: chore(auth): remove unsued file
+  - @verdaccio/core@8.0.0-next-8.31
+  - @verdaccio/config@8.0.0-next-8.31
+  - @verdaccio/loaders@8.0.0-next-8.21
+  - verdaccio-htpasswd@13.0.0-next-8.31
+  - @verdaccio/signature@8.0.0-next-8.23
+
 ## 8.0.0-next-8.30
 
 ### Patch Changes

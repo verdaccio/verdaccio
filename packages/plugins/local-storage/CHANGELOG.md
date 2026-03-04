@@ -1,5 +1,13 @@
 # Change Log
 
+## 13.0.0-next-8.31
+
+### Patch Changes
+
+- a7831bf: fix: sanitize tmp filename
+  - @verdaccio/core@8.0.0-next-8.31
+  - @verdaccio/utils@8.1.0-next-8.31
+
 ## 13.0.0-next-8.30
 
 ### Patch Changes

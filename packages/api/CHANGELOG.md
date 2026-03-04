@@ -1,5 +1,19 @@
 # @verdaccio/api
 
+## 8.1.0-next-8.31
+
+### Patch Changes
+
+- 95fc87c: refactor: handling of request options
+- Updated dependencies [17842bd]
+- Updated dependencies [95fc87c]
+  - @verdaccio/auth@8.0.0-next-8.31
+  - @verdaccio/middleware@8.0.0-next-8.31
+  - @verdaccio/store@8.0.0-next-8.31
+  - @verdaccio/core@8.0.0-next-8.31
+  - @verdaccio/config@8.0.0-next-8.31
+  - @verdaccio/logger@8.0.0-next-8.31
+
 ## 8.1.0-next-8.30
 
 ### Patch Changes
