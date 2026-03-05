@@ -1,5 +1,4 @@
 // / <reference path="./testing-library.d.ts" />
-
 /**
  * Setup configuration for Jest
  * This file includes global settings for the JEST environment.
