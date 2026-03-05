@@ -3,14 +3,15 @@ import { Router } from 'express';
 import _ from 'lodash';
 import { URLSearchParams } from 'node:url';
 
-import { Auth } from '@verdaccio/auth';
-import { errorUtils, searchUtils } from '@verdaccio/core';
-import { SearchQuery } from '@verdaccio/core/src/search-utils';
+import type { Auth } from '@verdaccio/auth';
+import type { searchUtils } from '@verdaccio/core';
+import { errorUtils } from '@verdaccio/core';
+import type { SearchQuery } from '@verdaccio/core/src/search-utils';
 import { WebUrls } from '@verdaccio/middleware';
-import { Storage } from '@verdaccio/store';
-import { Manifest } from '@verdaccio/types';
+import type { Storage } from '@verdaccio/store';
+import type { Manifest } from '@verdaccio/types';
 
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from './package';
+import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from './package';
 
 const debug = buildDebug('verdaccio:web:api:search');
 
@@ -43,7 +44,6 @@ function addSearchWebApi(storage: Storage, auth: Auth): Router {
       next: $NextFunctionVer
     ): Promise<void> {
       try {
-        let data;
         const abort = new AbortController();
         req.socket.on('close', function () {
           debug('search web aborted');
@@ -65,7 +65,7 @@ function addSearchWebApi(storage: Storage, auth: Auth): Router {
         // @ts-ignore
         const urlParams = new URLSearchParams(query);
         debug('search web init');
-        data = await storage?.search({
+        const data = await storage?.search({
           query,
           url: `/-/v1/search?${urlParams.toString()}`,
           abort,

@@ -1,7 +1,7 @@
 import { createModel } from '@rematch/core';
 import orderBy from 'lodash/orderBy';
 
-import { SearchResultWeb } from '@verdaccio/types';
+import type { SearchResultWeb } from '@verdaccio/types';
 
 import type { RootModel } from '.';
 import API from '../api';

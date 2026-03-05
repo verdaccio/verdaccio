@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
-import { Logger } from '@verdaccio/types';
+import type { Logger } from '@verdaccio/types';
 
 import { ProxyStorage } from '../src';
 

@@ -1,4 +1,3 @@
-/* eslint-disable verdaccio/jsx-spread */
 import styled from '@emotion/styled';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
@@ -8,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import { useSelector } from 'react-redux';
 
-import { RootState, Theme } from '../../';
+import type { RootState, Theme } from '../../';
 import RegistryInfoDialog from '../../components/RegistryInfoDialog';
 import LanguageSwitch from './LanguageSwitch';
 import RegistryInfoContent from './RegistryInfoContent';

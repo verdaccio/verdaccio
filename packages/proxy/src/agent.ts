@@ -1,10 +1,10 @@
-import { Agents } from 'got-cjs';
+import type { Agents } from 'got-cjs';
 import { HttpProxyAgent, HttpsProxyAgent } from 'hpagent';
 import { Agent as HttpAgent } from 'node:http';
 import { Agent as HttpsAgent } from 'node:https';
 import { URL } from 'node:url';
 
-import { AgentOptionsConf } from '@verdaccio/types';
+import type { AgentOptionsConf } from '@verdaccio/types';
 
 class CustomAgents {
   private url: string;

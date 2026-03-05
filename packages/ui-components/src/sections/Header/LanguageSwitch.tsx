@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-pascal-case */
 import styled from '@emotion/styled';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -8,7 +7,8 @@ import i18next from 'i18next';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Theme, useLanguage } from '../../';
+import type { Theme } from '../../';
+import { useLanguage } from '../../';
 
 export const CardSelected = styled(Card)<{ theme?: Theme }>(({ theme }) => {
   return {

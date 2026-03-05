@@ -1,5 +1,5 @@
 import { DEFAULT_USER, cryptoUtils } from '@verdaccio/core';
-import { Author, Person, WebManifest } from '@verdaccio/types';
+import type { Author, Person, WebManifest } from '@verdaccio/types';
 
 const AVATAR_PROVIDER = 'https://www.gravatar.com/avatar/';
 

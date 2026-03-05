@@ -6,7 +6,7 @@ import React from 'react';
 
 import { useCustomTheme } from '../../';
 import './github-markdown.css';
-import { Props } from './types';
+import type { Props } from './types';
 import { parseReadme } from './utils';
 
 const Readme: React.FC<Props> = ({ description }) => {

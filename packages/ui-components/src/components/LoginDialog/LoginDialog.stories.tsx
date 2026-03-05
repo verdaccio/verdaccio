@@ -1,4 +1,3 @@
-/* eslint-disable verdaccio/jsx-spread */
 import React from 'react';
 import { action } from 'storybook/actions';
 

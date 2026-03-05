@@ -1,6 +1,7 @@
-import { Config, Logger, Manifest } from '@verdaccio/types';
+import type { Config, Logger, Manifest } from '@verdaccio/types';
 
-import { IProxy, ProxyStorage } from './index';
+import type { IProxy } from './index';
+import { ProxyStorage } from './index';
 
 export interface ProxyInstanceList {
   [key: string]: IProxy;

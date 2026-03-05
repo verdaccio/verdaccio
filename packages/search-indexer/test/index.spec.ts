@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest';
 
-import { Logger } from '@verdaccio/types';
+import type { Logger } from '@verdaccio/types';
 
 import { SearchMemoryIndexer } from '../src';
 
@@ -26,7 +26,6 @@ class MockStore {
 }
 
 const logger = {
-  // eslint-disable-next-line no-console
   error: (...arg) => console.error(...arg),
 } as Logger;
 

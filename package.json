@@ -81,7 +81,7 @@
     "@types/yeoman-environment": "2.10.11",
     "@types/yeoman-generator": "5.2.14",
     "@types/yeoman-test": "4.0.6",
-    "@verdaccio/eslint-config": "11.0.1",
+    "@verdaccio/eslint-config": "12.0.0",
     "@verdaccio/types": "workspace:*",
     "@verdaccio/ui-theme": "workspace:*",
     "@vitest/coverage-v8": "3.2.4",
@@ -94,6 +94,8 @@
     "debug": "4.4.3",
     "detect-secrets": "1.0.6",
     "eslint": "10.0.0",
+    "eslint-plugin-react-x": "2.13.0",
+    "@vitest/eslint-plugin": "1.6.9",
     "fs-extra": "11.2.0",
     "got": "11.8.6",
     "husky": "8.0.3",
@@ -128,7 +130,8 @@
     "docker": "docker build -t verdaccio/verdaccio:local . --no-cache",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,yml,yaml,md}\"",
     "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,yml,yaml,md}\"",
-    "lint": "eslint --max-warnings 70 \"**/*.{js,jsx,ts,tsx}\"",
+    "lint": "eslint --max-warnings 70 .",
+    "lint:fix": "eslint --fix .",
     "test": "pnpm --filter \"./packages/**\" test",
     "test:e2e:cli": "pnpm --filter ...@verdaccio/e2e-cli-* test -- --coverage=false",
     "test:e2e:ui": "pnpm --filter ...@verdaccio/e2e-ui test",
@@ -168,7 +171,7 @@
   "license": "MIT",
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,yml,yaml,md}": "prettier --write",
-    "*.{js,jsx,ts,tsx}": "eslint --cache --fix"
+    "*.{js,jsx,ts,tsx}": "eslint --fix"
   },
   "packageManager": "pnpm@10.5.2"
 }

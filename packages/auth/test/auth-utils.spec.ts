@@ -10,25 +10,14 @@ import {
   getDefaultConfig,
   parseConfigFile,
 } from '@verdaccio/config';
-import {
-  API_ERROR,
-  CHARACTER_ENCODING,
-  VerdaccioError,
-  authUtils,
-  errorUtils,
-} from '@verdaccio/core';
+import type { VerdaccioError } from '@verdaccio/core';
+import { API_ERROR, CHARACTER_ENCODING, authUtils, errorUtils } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 import { aesDecrypt, verifyPayload } from '@verdaccio/signature';
-import { Config, RemoteUser } from '@verdaccio/types';
+import type { Config, RemoteUser } from '@verdaccio/types';
 
-import {
-  ActionsAllowed,
-  AllowActionCallbackResponse,
-  Auth,
-  allow_action,
-  getApiToken,
-  getDefaultPluginMethods,
-} from '../src';
+import type { ActionsAllowed, AllowActionCallbackResponse } from '../src';
+import { Auth, allow_action, getApiToken, getDefaultPluginMethods } from '../src';
 
 setup({});
 

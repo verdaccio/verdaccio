@@ -8,7 +8,7 @@ import { fileExists, folderExists } from './config-utils';
 
 const CONFIG_FILE = 'config.yaml';
 const XDG = 'xdg';
-// eslint-disable-next-line
+
 const pkgJSON = {
   name: 'verdaccio',
 };

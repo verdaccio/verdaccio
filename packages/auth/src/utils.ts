@@ -2,23 +2,17 @@ import buildDebug from 'debug';
 import _ from 'lodash';
 
 import { createAnonymousRemoteUser } from '@verdaccio/config';
-import {
-  API_ERROR,
-  HTTP_STATUS,
-  TOKEN_BASIC,
-  TOKEN_BEARER,
-  errorUtils,
-  pluginUtils,
-} from '@verdaccio/core';
+import type { pluginUtils } from '@verdaccio/core';
+import { API_ERROR, HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER, errorUtils } from '@verdaccio/core';
 import {
   aesDecrypt,
   aesDecryptDeprecated,
   parseBasicPayload,
   verifyPayload,
 } from '@verdaccio/signature';
-import { AuthPackageAllow, Config, Logger, RemoteUser, Security } from '@verdaccio/types';
+import type { AuthPackageAllow, Config, Logger, RemoteUser, Security } from '@verdaccio/types';
 
-import {
+import type {
   ActionsAllowed,
   AllowAction,
   AllowActionCallback,

@@ -31,7 +31,6 @@ function CustomInfoDialog({ onCloseDialog, title, isOpen }) {
   );
 }
 
-/* eslint-disable react/jsx-no-bind*/
 describe('<Header /> component with logged in state', () => {
   beforeEach(() => {
     store.dispatch.login.logOutUser();

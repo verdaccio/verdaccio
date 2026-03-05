@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 
-import { Theme } from '../../';
+import type { Theme } from '../../';
 
 export const Title = styled(DialogTitle)<{ theme?: Theme }>(({ theme }) => ({
   backgroundColor:

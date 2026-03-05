@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
-import { default as MaterialUISvgIcon, SvgIconProps } from '@mui/material/SvgIcon';
+import type { SvgIconProps } from '@mui/material/SvgIcon';
+import { default as MaterialUISvgIcon } from '@mui/material/SvgIcon';
 import React from 'react';
 
 type Size = 'sm' | 'md';
@@ -14,7 +15,6 @@ const SvgIcon = React.forwardRef<SVGSVGElement, Props>(function SvgIcon(
   { size = 'md', title, ...props },
   ref
 ) {
-  // eslint-disable-next-line verdaccio/jsx-spread
   return <StyledMaterialUISvgIcon size={size} titleAccess={title} {...props} ref={ref} />;
 });
 

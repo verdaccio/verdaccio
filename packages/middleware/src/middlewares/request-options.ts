@@ -1,9 +1,9 @@
 import buildDebug from 'debug';
-import { IncomingHttpHeaders } from 'node:http';
+import type { IncomingHttpHeaders } from 'node:http';
 
 import type { RequestOptions } from '@verdaccio/url';
 
-import { $RequestExtend } from '../types';
+import type { $RequestExtend } from '../types';
 
 const debug = buildDebug('verdaccio:middleware:request-options');
 

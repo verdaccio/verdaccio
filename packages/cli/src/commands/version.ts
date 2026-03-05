@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 import { Command } from 'clipanion';
 
 import { pkgUtils } from '@verdaccio/core';

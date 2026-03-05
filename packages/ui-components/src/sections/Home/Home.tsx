@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Dispatch, Loading, PackageList, RootState } from '../..';
+import type { Dispatch, RootState } from '../..';
+import { Loading, PackageList } from '../..';
 
 const Home: React.FC = () => {
   const packages = useSelector((state: RootState) => state.packages.response);

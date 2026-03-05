@@ -3,7 +3,7 @@ import { cp, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { URL } from 'node:url';
 
-import { Dependencies } from '@verdaccio/types';
+import type { Dependencies } from '@verdaccio/types';
 
 import { createTempFolder, getPackageJSON, getREADME } from './utils';
 

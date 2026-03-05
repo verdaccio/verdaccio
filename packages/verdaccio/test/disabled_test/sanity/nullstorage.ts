@@ -48,7 +48,7 @@ export default function (server, server2) {
         });
 
         beforeAll(function () {
-          let pkg = generatePkg(PKG_NAME);
+          const pkg = generatePkg(PKG_NAME);
           pkg.dist.shasum = cryptoUtils.createTarballHash().update(getBinary()).digest('hex');
           return server2
             .putVersion(PKG_NAME, PKG_VERSION, pkg)

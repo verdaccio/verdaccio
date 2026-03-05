@@ -1,4 +1,4 @@
-import { SnapshotSerializer } from 'vitest';
+import type { SnapshotSerializer } from 'vitest';
 
 const serializer: SnapshotSerializer = {
   serialize(val, config, indentation, depth, refs, printer) {

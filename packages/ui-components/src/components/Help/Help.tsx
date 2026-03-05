@@ -5,8 +5,7 @@ import Typography from '@mui/material/Typography';
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { CopyClipboard, useConfig } from '../../';
-import { Heading } from '../../';
+import { CopyClipboard, Heading, useConfig } from '../../';
 import { CardStyled as Card } from './styles';
 
 function renderHeadingClipboardSegments(title: string, text: string): React.ReactNode {

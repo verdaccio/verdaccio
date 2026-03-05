@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { Config, getDefaultConfig } from '@verdaccio/config';
-import { pluginUtils } from '@verdaccio/core';
+import type { pluginUtils } from '@verdaccio/core';
 
 import Memory from '../src/index';
-import { Users, VerdaccioMemoryConfig } from '../src/types';
+import type { Users, VerdaccioMemoryConfig } from '../src/types';
 
 describe('Memory', function () {
   let auth: pluginUtils.Auth<VerdaccioMemoryConfig>;

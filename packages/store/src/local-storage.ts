@@ -2,10 +2,11 @@ import buildDebug from 'debug';
 import _ from 'lodash';
 import assert from 'node:assert';
 
-import { PLUGIN_CATEGORY, PLUGIN_PREFIX, errorUtils, pluginUtils } from '@verdaccio/core';
+import type { pluginUtils } from '@verdaccio/core';
+import { PLUGIN_CATEGORY, PLUGIN_PREFIX, errorUtils } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import LocalDatabase from '@verdaccio/local-storage';
-import { Config, Logger } from '@verdaccio/types';
+import type { Config, Logger } from '@verdaccio/types';
 
 const debug = buildDebug('verdaccio:storage:local');
 

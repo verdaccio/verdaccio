@@ -5,7 +5,8 @@ import { beforeEach, describe, test, vi } from 'vitest';
 import { Config, parseConfigFile } from '@verdaccio/config';
 import { logger, setup } from '@verdaccio/logger';
 
-import { IProxy, ProxyStorage } from '../src';
+import type { IProxy } from '../src';
+import { ProxyStorage } from '../src';
 
 setup({});
 

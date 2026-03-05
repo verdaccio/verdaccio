@@ -1,5 +1,5 @@
-import { Callback, CallbackAction } from '@verdaccio/types/src/commons';
-import { Manifest, Token } from '@verdaccio/types/src/manifest';
+import type { Callback, CallbackAction } from '@verdaccio/types/src/commons';
+import type { Manifest, Token } from '@verdaccio/types/src/manifest';
 
 export type StorageList = string[];
 

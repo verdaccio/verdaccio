@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 import SecurityLayout from '../../layouts/Security/Dialog';
-import { Dispatch, RootState } from '../../store';
+import type { Dispatch, RootState } from '../../store';
 import LoginError from './LoginError';
 import { MessageType } from './Success';
 import { SecurityContainer, SecurityForm, SecurityTextField } from './styles';

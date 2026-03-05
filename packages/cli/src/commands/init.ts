@@ -4,7 +4,7 @@ import { findConfigFile, parseConfigFile } from '@verdaccio/config';
 import { pkgUtils, warningUtils } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 import { initServer } from '@verdaccio/node-api';
-import { ConfigYaml, LoggerConfigItem } from '@verdaccio/types';
+import type { ConfigYaml, LoggerConfigItem } from '@verdaccio/types';
 
 export const DEFAULT_PROCESS_NAME: string = 'verdaccio';
 
@@ -15,7 +15,6 @@ export class InitCommand extends Command {
     description: 'host:port number to listen on (default: localhost:4873)',
   });
 
-  // eslint-disable-next-line
   static usage = Command.Usage({
     description: `launch the server`,
     details: `

@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
-import { createContext, useContext } from 'react';
+import React, { createContext, useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { Dispatch, RootState } from '../../store/store';
-import { PackageMetaInterface } from '../../types/packageMeta';
+import type { Dispatch, RootState } from '../../store/store';
+import type { PackageMetaInterface } from '../../types/packageMeta';
 
 function getRouterPackageName(packageName: string, scope?: string): string {
   if (scope) {

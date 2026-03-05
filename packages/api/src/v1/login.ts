@@ -1,15 +1,16 @@
 import buildDebug from 'debug';
-import { Response, Router } from 'express';
+import type { Response, Router } from 'express';
 import { randomUUID } from 'node:crypto';
 
-import { Auth, getApiToken } from '@verdaccio/auth';
+import type { Auth } from '@verdaccio/auth';
+import { getApiToken } from '@verdaccio/auth';
 import { createRemoteUser } from '@verdaccio/config';
 import { API_ERROR, HEADERS, HTTP_STATUS, authUtils, errorUtils } from '@verdaccio/core';
 import { LOGIN_API_ENDPOINTS, rateLimit } from '@verdaccio/middleware';
-import { Storage } from '@verdaccio/store';
-import { Config, Logger } from '@verdaccio/types';
+import type { Storage } from '@verdaccio/store';
+import type { Config, Logger } from '@verdaccio/types';
 
-import { $NextFunctionVer, $RequestExtend } from '../../types/custom';
+import type { $NextFunctionVer, $RequestExtend } from '../../types/custom';
 
 const debug = buildDebug('verdaccio:api:login');
 

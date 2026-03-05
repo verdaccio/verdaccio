@@ -2,7 +2,7 @@ import { createModel } from '@rematch/core';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 
-import { Manifest, TemplateUIOptions } from '@verdaccio/types';
+import type { Manifest, TemplateUIOptions } from '@verdaccio/types';
 
 import type { RootModel } from '.';
 import { colors } from '../../Theme';

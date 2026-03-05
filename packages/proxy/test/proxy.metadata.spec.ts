@@ -5,7 +5,7 @@ import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
 import { API_ERROR, errorUtils } from '@verdaccio/core';
-import { Logger } from '@verdaccio/types';
+import type { Logger } from '@verdaccio/types';
 
 import { ProxyStorage } from '../src';
 

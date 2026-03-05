@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import semver from 'semver';
 
-import { Manifest } from '@verdaccio/types';
+import type { Manifest } from '@verdaccio/types';
 
 import { DIST_TAGS } from './constants';
 

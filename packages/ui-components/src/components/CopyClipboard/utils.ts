@@ -1,4 +1,4 @@
-import { SyntheticEvent } from 'react';
+import type { SyntheticEvent } from 'react';
 
 export const copyToClipBoardUtility =
   (str: string): ((e: SyntheticEvent<HTMLElement>) => void) =>

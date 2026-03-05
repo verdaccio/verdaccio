@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Theme } from '../../Theme';
+import type { Theme } from '../../Theme';
 import Heading from '../Heading';
 import { CommonJS, ES6Modules, TypeScript } from '../Icons';
 import { formatDate, formatDateDistance } from './utils';

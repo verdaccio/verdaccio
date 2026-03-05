@@ -1,9 +1,10 @@
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import merge from 'lodash/merge';
-import React, { FunctionComponent, createContext, useContext, useMemo, useState } from 'react';
+import type { FunctionComponent } from 'react';
+import React, { createContext, useContext, useMemo, useState } from 'react';
 
-import { TemplateUIOptions } from '@verdaccio/types';
+import type { TemplateUIOptions } from '@verdaccio/types';
 
 import { PRIMARY_COLOR } from '../../Theme/colors';
 

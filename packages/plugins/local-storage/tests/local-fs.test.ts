@@ -4,7 +4,7 @@ import { Readable } from 'node:stream';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { fileUtils } from '@verdaccio/core';
-import { Logger, Manifest } from '@verdaccio/types';
+import type { Logger, Manifest } from '@verdaccio/types';
 
 import LocalDriver from '../src/local-fs';
 import pkg from './__fixtures__/pkg';

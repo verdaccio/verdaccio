@@ -41,7 +41,7 @@ describe('race publishing packages', () => {
 
     for (const time of Array.from(Array(times).keys())) {
       try {
-        let message = success === 0 ? API_MESSAGE.PKG_CREATED : API_MESSAGE.PKG_CHANGED;
+        const message = success === 0 ? API_MESSAGE.PKG_CREATED : API_MESSAGE.PKG_CHANGED;
         await server.addPackage('race-pkg', `1.0.${time}`, message);
         success++;
       } catch (error) {

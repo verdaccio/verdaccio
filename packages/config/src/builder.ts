@@ -1,6 +1,6 @@
 import { merge } from 'lodash';
 
-import {
+import type {
   AuthConf,
   ConfigYaml,
   LoggerConfigItem,

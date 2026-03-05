@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import { ThemeProvider } from '../Theme';
 import AppConfigurationProvider from '../providers/AppConfigurationProvider';
 import PersistenceSettingProvider from '../providers/PersistenceSettingProvider';
-import { Store } from '../store/store';
+import type { Store } from '../store/store';
 import i18nConfig from './i18n-config';
 
 const renderWithStore = (ui: React.ReactElement<any>, store: Store) =>

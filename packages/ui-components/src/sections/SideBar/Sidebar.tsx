@@ -11,9 +11,8 @@ import Install from '../../components/Install';
 import Keywords from '../../components/Keywords';
 import Repository from '../../components/Repository';
 import SideBarTitle from '../../components/SideBarTitle';
-import { useConfig } from '../../providers';
-import { useVersion } from '../../providers';
-import { ModuleType, PackageMetaInterface } from '../../types/packageMeta';
+import { useConfig, useVersion } from '../../providers';
+import type { ModuleType, PackageMetaInterface } from '../../types/packageMeta';
 
 const getModuleTypes = (manifest: PackageMetaInterface) => {
   if (!manifest.latest) return [];

@@ -1,4 +1,4 @@
-import { BasicPayload } from './types';
+import type { BasicPayload } from './types';
 
 /**
  *

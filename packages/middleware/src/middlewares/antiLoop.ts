@@ -1,7 +1,7 @@
 import { HTTP_STATUS, errorUtils } from '@verdaccio/core';
-import { Config } from '@verdaccio/types';
+import type { Config } from '@verdaccio/types';
 
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
+import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
 
 /**
  * A middleware that avoid a registry points itself as proxy and avoid create infinite loops.

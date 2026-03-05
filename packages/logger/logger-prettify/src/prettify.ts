@@ -1,12 +1,13 @@
 import { isColorSupported } from 'colorette';
-import { WriteStream } from 'node:fs';
+import type { WriteStream } from 'node:fs';
 import { Transform, pipeline } from 'node:stream';
 import { isMainThread } from 'node:worker_threads';
 import build from 'pino-abstract-transport';
-import SonicBoom, { SonicBoomOpts } from 'sonic-boom';
+import type { SonicBoomOpts } from 'sonic-boom';
+import SonicBoom from 'sonic-boom';
 
 import { fillInMsgTemplate, printMessage } from './formatter';
-import { PrettyOptionsExtended } from './types';
+import type { PrettyOptionsExtended } from './types';
 
 export { fillInMsgTemplate };
 
@@ -111,7 +112,6 @@ export default function (opts) {
 
     pipeline(source, stream, destination, (err) => {
       if (err) {
-        // eslint-disable-next-line no-console
         console.error('prettify pipeline error ', err);
       }
     });

@@ -3,7 +3,7 @@ import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import React from 'react';
 
-import { Developer } from '../../types/packageMeta';
+import type { Developer } from '../../types/packageMeta';
 import LinkExternal from '../LinkExternal';
 import PersonTooltip from './PersonTooltip';
 import { getLink, getName } from './utils';

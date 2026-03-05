@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { Theme } from '../../';
+import type { Theme } from '../../';
 
 export const Wrapper = styled('div')<{ theme?: Theme }>(({ theme }) => ({
   background: theme.palette.mode === 'light' ? theme.palette.snow : theme.palette.cyanBlue,

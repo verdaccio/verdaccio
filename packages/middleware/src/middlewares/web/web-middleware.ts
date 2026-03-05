@@ -5,7 +5,6 @@ import { webAPIMiddleware } from './web-api';
 import { WebUrlsNamespace } from './web-urls';
 
 export default (config, middlewares, pluginOptions): any => {
-  // eslint-disable-next-line new-cap
   const router = express.Router();
   const { tokenMiddleware, webEndpointsApi } = middlewares;
   // render web

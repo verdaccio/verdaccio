@@ -1,4 +1,3 @@
-/* eslint-disable curly */
 // ensure that all arguments are validated
 import fs from 'node:fs';
 import path from 'node:path';
@@ -25,7 +24,7 @@ describe('api endpoint app.param()', () => {
       continue;
     }
 
-    let inner = m[2].slice(1, m[2].length - 1);
+    const inner = m[2].slice(1, m[2].length - 1);
     let t;
 
     inner.split('/').forEach(function (x) {

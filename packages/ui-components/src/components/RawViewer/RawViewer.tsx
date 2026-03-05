@@ -8,7 +8,7 @@ import { useTheme } from '@mui/material/styles';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Theme } from '../../Theme';
+import type { Theme } from '../../Theme';
 
 export interface ViewerTitleProps {
   id: string;
@@ -47,7 +47,6 @@ type Props = {
   packageMeta: any;
 };
 
-/* eslint-disable verdaccio/jsx-spread */
 const RawViewer: React.FC<Props> = ({ isOpen = false, onClose, packageMeta }) => {
   const { t } = useTranslation();
   const theme: Theme = useTheme();

@@ -1,11 +1,6 @@
 import buildDebug from 'debug';
-import {
-  BinaryToTextEncoding,
-  CharacterEncoding,
-  createCipheriv,
-  createDecipheriv,
-  randomBytes,
-} from 'node:crypto';
+import type { BinaryToTextEncoding, CharacterEncoding } from 'node:crypto';
+import { createCipheriv, createDecipheriv, randomBytes } from 'node:crypto';
 
 import { TOKEN_VALID_LENGTH } from '@verdaccio/config';
 
@@ -65,7 +60,7 @@ export function aesDecrypt(value: string, key: string): string | void {
     decrypted += decipher.final(inputEncoding);
     debug('legacy token payload decrypted successfully');
     return decrypted.toString();
-  } catch (_: any) {
+  } catch {
     return;
   }
 }

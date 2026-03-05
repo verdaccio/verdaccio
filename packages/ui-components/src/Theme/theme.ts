@@ -1,4 +1,5 @@
-import { Theme as MuiTheme, createTheme } from '@mui/material/styles';
+import type { Theme as MuiTheme } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 
 import { PRIMARY_COLOR } from './colors';
 
@@ -140,9 +141,8 @@ declare module '@mui/material/styles' {
 }
 
 declare module '@mui/material/styles/createTheme' {
-  /* eslint-disable-next-line @typescript-eslint/no-empty-interface */
   interface Theme extends CustomizedTheme {}
-  /* eslint-disable-next-line @typescript-eslint/no-empty-interface */
+
   interface DeprecatedThemeOptions extends CustomizedTheme {}
 }
 
@@ -173,8 +173,7 @@ declare module '@mui/material/styles/createPalette' {
     cyanBlue: string;
   }
 
-  /* eslint-disable-next-line @typescript-eslint/no-empty-interface */
   interface Palette extends CustomPalette {}
-  /* eslint-disable-next-line @typescript-eslint/no-empty-interface */
+
   interface PaletteOptions extends Partial<CustomPalette> {}
 }

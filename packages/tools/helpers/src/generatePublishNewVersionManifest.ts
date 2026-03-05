@@ -1,4 +1,4 @@
-import { Manifest } from '@verdaccio/types';
+import type { Manifest } from '@verdaccio/types';
 
 export interface DistTags {
   [key: string]: string;

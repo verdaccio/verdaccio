@@ -1,9 +1,8 @@
-/* eslint-disable verdaccio/jsx-spread */
 import styled from '@emotion/styled';
 import Cached from '@mui/icons-material/Cached';
 import HttpsIcon from '@mui/icons-material/Https';
 import SyncAlt from '@mui/icons-material/SyncAlt';
-import { Theme } from '@mui/material';
+import type { Theme } from '@mui/material';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import React from 'react';
@@ -80,7 +79,6 @@ const SearchItem: React.FC<SearchItemProps> = ({
     // no action assigned by default
   };
   return (
-    // eslint-disable-next-line verdaccio/jsx-no-style
     <li {...props} style={{ flexDirection: 'column' }}>
       <Wrapper>
         <NameGroup>

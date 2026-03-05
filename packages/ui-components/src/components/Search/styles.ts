@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import InputAdornment from '@mui/material/InputAdornment';
 
-import { TextField, Theme } from '../../';
+import type { Theme } from '../../';
+import { TextField } from '../../';
 
 export interface InputFieldProps {
   color: string;

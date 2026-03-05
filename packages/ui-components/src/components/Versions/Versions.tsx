@@ -10,7 +10,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import semver from 'semver';
 
-import { Theme } from '../../Theme';
+import type { Theme } from '../../Theme';
 import { useConfig } from '../../providers';
 import VersionsHistoryList from './HistoryList';
 import VersionsTagList from './TagList';
