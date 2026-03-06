@@ -1,11 +1,11 @@
-/* eslint-disable verdaccio/jsx-spread */
 import styled from '@emotion/styled';
 import Button from '@mui/material/Button';
 import React, { memo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import { LoginError, TextField, Theme } from '../../';
+import type { LoginError, Theme } from '../../';
+import { TextField } from '../../';
 import LoginDialogFormError from './LoginDialogFormError';
 
 const StyledForm = styled('form')<{ theme?: Theme }>(({ theme }) => ({

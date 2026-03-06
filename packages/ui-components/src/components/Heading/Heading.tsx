@@ -1,4 +1,5 @@
-import { default as MaterialUITypography, TypographyProps } from '@mui/material/Typography';
+import type { TypographyProps } from '@mui/material/Typography';
+import { default as MaterialUITypography } from '@mui/material/Typography';
 import React, { forwardRef } from 'react';
 
 type HeadingType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
@@ -9,7 +10,6 @@ interface Props extends Omit<TypographyProps, 'variant'> {
 }
 
 const Heading = forwardRef<HeadingRef, Props>(function Heading({ variant = 'h6', ...props }, ref) {
-  // eslint-disable-next-line verdaccio/jsx-spread
   return <MaterialUITypography {...props} ref={ref} variant={variant} />;
 });
 

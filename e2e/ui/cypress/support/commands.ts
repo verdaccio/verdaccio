@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 // / <reference types="cypress" />;
 
 Cypress.Commands.add('getByTestId', (selector, ...args) => {

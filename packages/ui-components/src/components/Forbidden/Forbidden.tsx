@@ -1,6 +1,3 @@
-/* eslint-disable react/forbid-component-props */
-
-/* eslint-disable verdaccio/jsx-no-style */
 import styled from '@emotion/styled';
 import LockIcon from '@mui/icons-material/Lock';
 import Box from '@mui/material/Box';
@@ -9,7 +6,7 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 
-import { Theme } from '../..';
+import type { Theme } from '../..';
 import Heading from '../Heading';
 
 const Foebidden: React.FC = () => {

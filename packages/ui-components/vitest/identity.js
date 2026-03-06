@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 let idObj;
 
 idObj = new Proxy(

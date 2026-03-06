@@ -3,7 +3,7 @@ import _ from 'lodash';
 import assert from 'node:assert';
 
 import { errorUtils } from '@verdaccio/core';
-import { PackageAccess } from '@verdaccio/types';
+import type { PackageAccess } from '@verdaccio/types';
 
 const debug = buildDebug('verdaccio:config:utils');
 

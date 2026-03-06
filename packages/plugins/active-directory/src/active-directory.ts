@@ -1,7 +1,8 @@
 import ActiveDirectory from 'activedirectory2';
 
-import { errorUtils, pluginUtils } from '@verdaccio/core';
-import { Callback, Logger } from '@verdaccio/types';
+import type { pluginUtils } from '@verdaccio/core';
+import { errorUtils } from '@verdaccio/core';
+import type { Callback, Logger } from '@verdaccio/types';
 
 export const NotAuthMessage = 'AD - Active Directory authentication failed';
 
@@ -64,7 +65,6 @@ class ActiveDirectoryPlugin implements pluginUtils.Auth<ActiveDirectoryConfig> {
           );
 
           if (matchingGroups.length <= 0) {
-            // eslint-disable-next-line max-len
             const notMemberMessage = `AD - User ${user} is not member of group(s): ${requestedGroups.join(
               ', '
             )}`;

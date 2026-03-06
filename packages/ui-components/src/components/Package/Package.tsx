@@ -12,9 +12,10 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Dispatch, Link, LinkExternal, RootState, Theme } from '../../';
+import type { Dispatch, RootState, Theme } from '../../';
+import { Link, LinkExternal } from '../../';
 import { FileBinary, Law, Time, Version } from '../../components/Icons';
-import { Author as PackageAuthor, PackageMetaInterface } from '../../types/packageMeta';
+import type { Author as PackageAuthor, PackageMetaInterface } from '../../types/packageMeta';
 import { Route, url, utils } from '../../utils';
 import KeywordListItems from '../Keywords/KeywordListItems';
 import {

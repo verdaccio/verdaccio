@@ -1,10 +1,10 @@
-/* eslint-disable verdaccio/jsx-spread */
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { vi } from 'vitest';
 
 import { fireEvent, render, screen } from '../../test/test-react-testing-library';
-import Versions, { Props } from './Versions';
+import type { Props } from './Versions';
+import Versions from './Versions';
 import data from './__partials__/data.json';
 import dataDeprecated from './__partials__/deprecated-versions.json';
 import dataUnsorted from './__partials__/unsorted-versions.json';

@@ -123,9 +123,12 @@
         "eslint-*",
         "eslint",
         "stylelint",
-        "@typescript-eslint/*"
+        "@typescript-eslint/*",
+        "@vitest/eslint-plugin",
+        "eslint-plugin-react-x"
       ],
       "matchUpdateTypes": ["minor", "patch", "major"],
+      "minimumReleaseAge": "60 days",
       "groupName": "all linting dependencies",
       "groupSlug": "all-linting",
       "baseBranchList": ["master", "6.x"]

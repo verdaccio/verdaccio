@@ -1,5 +1,6 @@
 import buildDebug from 'debug';
-import got, { HTTPAlias, Response, Headers as gotHeaders } from 'got';
+import type { HTTPAlias, Response, Headers as gotHeaders } from 'got';
+import got from 'got';
 import { isNil, isObject, isRegExp } from 'lodash';
 import assert from 'node:assert';
 

@@ -1,7 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { Forbidden, Loading, NotFound, RootState, VersionLayout } from '@verdaccio/ui-components';
+import type { RootState } from '@verdaccio/ui-components';
+import { Forbidden, Loading, NotFound, VersionLayout } from '@verdaccio/ui-components';
 
 const Version: React.FC = () => {
   const manifestStore = useSelector((state: RootState) => state.manifest);

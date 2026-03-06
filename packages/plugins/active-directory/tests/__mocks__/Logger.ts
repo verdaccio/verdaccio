@@ -1,6 +1,6 @@
 import { vi } from 'vitest';
 
-import { Logger } from '@verdaccio/types';
+import type { Logger } from '@verdaccio/types';
 
 const logger: Logger = {
   warn: vi.fn(),

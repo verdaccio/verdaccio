@@ -3,7 +3,8 @@ import React, { createContext, useContext } from 'react';
 
 import useLocalStorage from '../hooks/useLocalStorage';
 import { useConfig } from '../providers/AppConfigurationProvider';
-import { ThemeMode, getTheme } from './theme';
+import type { ThemeMode } from './theme';
+import { getTheme } from './theme';
 
 interface Props {
   isDarkMode: boolean;

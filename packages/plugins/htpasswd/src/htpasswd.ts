@@ -4,11 +4,11 @@ import { dirname, resolve } from 'node:path';
 
 import { constants, pluginUtils } from '@verdaccio/core';
 import { unlockFile } from '@verdaccio/file-locking';
-import { Callback, Logger } from '@verdaccio/types';
+import type { Callback, Logger } from '@verdaccio/types';
 
+import type { HtpasswdHashConfig } from './utils';
 import {
   DEFAULT_BCRYPT_ROUNDS,
-  HtpasswdHashConfig,
   addUserToHTPasswd,
   changePasswordToHTPasswd,
   lockAndRead,
@@ -138,7 +138,7 @@ export default class HTPasswd
           );
         }
       } catch (error: any) {
-        this.logger.error({ message: err.message }, 'Unable to verify user password: @{message}');
+        this.logger.error({ message: error.message }, 'Unable to verify user password: @{message}');
       }
       if (!passwordValid) {
         debug('password invalid for %s', user);

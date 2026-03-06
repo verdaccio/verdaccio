@@ -5,7 +5,7 @@ import ListItemText from '@mui/material/ListItemText';
 import { useTheme } from '@mui/material/styles';
 import React from 'react';
 
-import { Theme } from '../../Theme';
+import type { Theme } from '../../Theme';
 import { useSettings } from '../../providers/PersistenceSettingProvider';
 import CopyToClipBoard from '../CopyClipboard';
 import { Npm, Pnpm, Yarn } from '../Icons';

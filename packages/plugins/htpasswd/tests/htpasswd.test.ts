@@ -4,9 +4,10 @@ import path from 'node:path';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
-import { pluginUtils } from '@verdaccio/core';
+import type { pluginUtils } from '@verdaccio/core';
 
-import HTPasswd, { DEFAULT_SLOW_VERIFY_MS, HTPasswdConfig } from '../src/htpasswd';
+import type { HTPasswdConfig } from '../src/htpasswd';
+import HTPasswd, { DEFAULT_SLOW_VERIFY_MS } from '../src/htpasswd';
 
 const options = {
   logger: { warn: vi.fn(), info: vi.fn() },
@@ -52,7 +53,7 @@ describe('HTPasswd', () => {
     });
 
     test('should switch to bcrypt if incorrect algorithm is set', () => {
-      let invalidConfig = { algorithm: 'invalid', ...config } as HTPasswdConfig;
+      const invalidConfig = { algorithm: 'invalid', ...config } as HTPasswdConfig;
       new HTPasswd(invalidConfig, emptyPluginOptions);
       expect(warn).toHaveBeenCalledWith(
         'The algorithm selected %s is invalid, switching to to default one "bcrypt", password validation can be affected',
@@ -99,7 +100,7 @@ describe('HTPasswd', () => {
     test.skip('it should warn on slow password verification', () => {
       return new Promise((done) => {
         // @ts-ignore
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
         bcrypt.compare = vi.fn((_passwd, _hash) => {
           return new Promise((resolve) => setTimeout(resolve, DEFAULT_SLOW_VERIFY_MS + 1)).then(
             () => true

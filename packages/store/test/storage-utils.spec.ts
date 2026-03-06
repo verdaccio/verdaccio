@@ -2,7 +2,7 @@ import { describe, expect, test } from 'vitest';
 
 import { DIST_TAGS } from '@verdaccio/core';
 import { generatePackageMetadata } from '@verdaccio/test-helper';
-import { Manifest } from '@verdaccio/types';
+import type { Manifest } from '@verdaccio/types';
 
 import {
   STORAGE,

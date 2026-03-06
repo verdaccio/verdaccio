@@ -1,7 +1,8 @@
 import buildDebug from 'debug';
-import jwt, { SignOptions, VerifyOptions } from 'jsonwebtoken';
+import type { SignOptions, VerifyOptions } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
-import { RemoteUser } from '@verdaccio/types';
+import type { RemoteUser } from '@verdaccio/types';
 
 export type SignOptionsSignature = SignOptions;
 export type VerifyOptionsSignature = VerifyOptions;

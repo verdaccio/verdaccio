@@ -2,7 +2,7 @@ import { Error } from '@mui/icons-material';
 import { Box, SnackbarContent, styled } from '@mui/material';
 import React, { memo } from 'react';
 
-import { LoginV1Error, Theme } from '../../';
+import type { LoginV1Error, Theme } from '../../';
 
 const StyledSnackbarContent = styled(SnackbarContent)<{ theme?: Theme }>(({ theme }) => ({
   backgroundColor: theme.palette.error.dark,

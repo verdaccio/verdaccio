@@ -1,11 +1,10 @@
-/* eslint-disable prefer-promise-reject-errors */
 import buildDebug from 'debug';
 import getPort from 'get-port';
 import { merge } from 'lodash';
 import { Registry } from 'verdaccio';
 
 import { getDefaultConfig } from '@verdaccio/config';
-import { ConfigYaml } from '@verdaccio/types';
+import type { ConfigYaml } from '@verdaccio/types';
 
 const debug = buildDebug('verdaccio:e2e:registry-utils');
 

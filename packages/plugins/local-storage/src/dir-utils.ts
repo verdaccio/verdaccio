@@ -2,7 +2,8 @@ import buildDebug from 'debug';
 import globby from 'globby';
 import { join } from 'node:path';
 
-import { searchUtils, validationUtils } from '@verdaccio/core';
+import type { searchUtils } from '@verdaccio/core';
+import { validationUtils } from '@verdaccio/core';
 
 const debug = buildDebug('verdaccio:plugin:local-storage:utils');
 
@@ -65,13 +66,13 @@ export async function searchOnStorage(
   const storageFolders = Array.from(storages.keys());
   debug('search on %o', storagePath);
   debug('storage folders %o', matchedStorages.length);
-  let results: searchUtils.SearchItemPkg[] = [];
+  const results: searchUtils.SearchItemPkg[] = [];
   // watch base path and ignore storage folders
   const basePathFolders = (await getFolders(storagePath, '*')).filter(
     (storageFolder) => !storageFolders.includes(storageFolder)
   );
 
-  for (let store of basePathFolders) {
+  for (const store of basePathFolders) {
     if (validationUtils.isPackageNameScoped(store)) {
       const scopedPackages = await getFolders(join(storagePath, store), '*');
       const listScoped = scopedPackages.map((scoped) => ({
@@ -89,7 +90,7 @@ export async function searchOnStorage(
   // iterate each storage folder
   for (const store of storageFolders) {
     const foldersOnStorage = await getFolders(join(storagePath, store), '*');
-    for (let pkgName of foldersOnStorage) {
+    for (const pkgName of foldersOnStorage) {
       if (validationUtils.isPackageNameScoped(pkgName)) {
         const scopedPackages = await getFolders(join(storagePath, store, pkgName), '*');
         const listScoped = scopedPackages.map((scoped) => ({

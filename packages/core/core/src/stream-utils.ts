@@ -1,11 +1,12 @@
-import { Readable, Transform } from 'node:stream';
+import type { Readable } from 'node:stream';
+import { Transform } from 'node:stream';
 
 /**
  * Converts a buffer stream to a string.
  */
 const readableToString = async (stream: Readable) => {
   const chunks: Buffer[] = [];
-  for await (let chunk of stream) {
+  for await (const chunk of stream) {
     chunks.push(Buffer.from(chunk));
   }
   const buffer = Buffer.concat(chunks);

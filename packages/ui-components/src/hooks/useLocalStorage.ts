@@ -21,7 +21,7 @@ const useLocalStorage = <V>(key: string, initialValue: V) => {
       return item ? JSON.parse(item) : initialValue;
     } catch (error: unknown) {
       // If error also return initialValue
-      // eslint-disable-next-line no-console
+
       console.error('An error occurred getting a sessionStorage key', error);
       return initialValue;
     }
@@ -38,7 +38,6 @@ const useLocalStorage = <V>(key: string, initialValue: V) => {
       // Save to local storage
       window.localStorage.setItem(key, JSON.stringify(valueToStore));
     } catch (error: unknown) {
-      // eslint-disable-next-line no-console
       console.error('An error occurred writing to sessionStorage', error);
     }
   };

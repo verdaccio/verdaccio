@@ -2,9 +2,9 @@ import buildDebug from 'debug';
 import _ from 'lodash';
 
 import { HEADERS, HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER, cryptoUtils } from '@verdaccio/core';
-import { Manifest } from '@verdaccio/types';
+import type { Manifest } from '@verdaccio/types';
 
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend, MiddlewareError } from '../types';
+import type { $NextFunctionVer, $RequestExtend, $ResponseExtend, MiddlewareError } from '../types';
 
 export type FinalBody = Manifest | MiddlewareError | string;
 

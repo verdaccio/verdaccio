@@ -6,7 +6,7 @@ import List from '@mui/material/List';
 import ListItemText from '@mui/material/ListItemText';
 import { Link } from 'react-router-dom';
 
-import { Theme } from '../../';
+import type { Theme } from '../../';
 
 export const OverviewItem = styled('span')<{ theme?: Theme }>(({ theme }) => ({
   display: 'flex',

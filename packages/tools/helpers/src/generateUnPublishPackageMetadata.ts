@@ -1,4 +1,4 @@
-import { UnPublishManifest } from '@verdaccio/types';
+import type { UnPublishManifest } from '@verdaccio/types';
 
 export function generateUnPublishPackageMetadata(
   pkgName: string,

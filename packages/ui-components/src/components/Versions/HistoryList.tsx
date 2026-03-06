@@ -5,7 +5,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useConfig } from '../../providers';
-import { Time, Versions } from '../../types/packageMeta';
+import type { Time, Versions } from '../../types/packageMeta';
 import { Route, utils } from '../../utils';
 import Link from '../Link';
 import { ListItemText, Spacer } from './styles';

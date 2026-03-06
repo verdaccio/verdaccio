@@ -1,6 +1,6 @@
-import { FetchOptions } from '@verdaccio/proxy';
-import { Manifest, RemoteUser } from '@verdaccio/types';
-import { RequestOptions } from '@verdaccio/url';
+import type { FetchOptions } from '@verdaccio/proxy';
+import type { Manifest, RemoteUser } from '@verdaccio/types';
+import type { RequestOptions } from '@verdaccio/url';
 
 // @deprecated use IGetPackageOptionsNext
 export type IGetPackageOptionsNext = {

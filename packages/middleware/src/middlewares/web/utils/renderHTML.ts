@@ -6,7 +6,7 @@ import { URL } from 'node:url';
 
 import { WEB_TITLE } from '@verdaccio/config';
 import { HEADERS } from '@verdaccio/core';
-import { ConfigYaml, TemplateUIOptions } from '@verdaccio/types';
+import type { ConfigYaml, TemplateUIOptions } from '@verdaccio/types';
 import type { RequestOptions } from '@verdaccio/url';
 import { getPublicUrl, isURLhasValidProtocol } from '@verdaccio/url';
 
@@ -132,7 +132,7 @@ export default function renderHTML(
 
   let webPage;
 
-  let cacheKey = `template:${JSON.stringify(options)}`;
+  const cacheKey = `template:${JSON.stringify(options)}`;
 
   try {
     webPage = cache.get(cacheKey);

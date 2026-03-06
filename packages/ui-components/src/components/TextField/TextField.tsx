@@ -1,5 +1,5 @@
-/* eslint-disable verdaccio/jsx-spread */
-import { default as MaterialUITextField, TextFieldProps } from '@mui/material/TextField';
+import type { TextFieldProps } from '@mui/material/TextField';
+import { default as MaterialUITextField } from '@mui/material/TextField';
 import React, { forwardRef } from 'react';
 
 // The default element type of MUI's TextField is 'div'

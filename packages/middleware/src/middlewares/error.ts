@@ -2,10 +2,11 @@ import buildDebug from 'debug';
 import type { HttpError } from 'http-errors';
 import _ from 'lodash';
 
-import { API_ERROR, HTTP_STATUS, VerdaccioError } from '@verdaccio/core';
+import type { VerdaccioError } from '@verdaccio/core';
+import { API_ERROR, HTTP_STATUS } from '@verdaccio/core';
 import type { Logger } from '@verdaccio/types';
 
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
+import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
 
 const debug = buildDebug('verdaccio:middleware:error');
 

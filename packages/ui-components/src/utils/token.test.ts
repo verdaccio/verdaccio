@@ -8,7 +8,6 @@ import {
   generateTokenWithTimeRange,
 } from './token-generate';
 
-/* eslint-disable no-console */
 console.error = vi.fn();
 
 describe('isTokenExpire', (): void => {

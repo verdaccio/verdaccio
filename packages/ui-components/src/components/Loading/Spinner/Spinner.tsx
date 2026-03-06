@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import CircularProgress from '@mui/material/CircularProgress';
 import React from 'react';
 
-import { Theme } from '../../../';
+import type { Theme } from '../../../';
 
 interface Props {
   size?: number;

@@ -15,8 +15,6 @@ interface Props {
 
 type HeaderToolTipIconRef = HTMLButtonElement;
 
-/* eslint-disable react/jsx-no-undef */
-/* eslint-disable react/display-name */
 const HeaderToolTipIcon = forwardRef<HeaderToolTipIconRef, Props>(function HeaderToolTipIcon(
   { tooltipIconType, onClick },
   ref

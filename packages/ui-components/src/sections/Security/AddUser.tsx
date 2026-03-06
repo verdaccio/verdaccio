@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 import SecurityLayout from '../../layouts/Security/Dialog';
-import { Dispatch, RootState } from '../../store';
+import type { Dispatch, RootState } from '../../store';
 import { Route } from '../../utils';
 import LoginError from './LoginError';
 import { MessageType } from './Success';

@@ -1,11 +1,11 @@
-/* eslint-disable verdaccio/jsx-spread */
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import React, { useState } from 'react';
 
 import { url } from '../../utils';
 import RawViewer from '../RawViewer';
-import ActionBarAction, { ActionBarActionProps } from './ActionBarAction';
+import type { ActionBarActionProps } from './ActionBarAction';
+import ActionBarAction from './ActionBarAction';
 
 export type Props = {
   showRaw?: boolean;

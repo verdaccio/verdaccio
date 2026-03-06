@@ -1,11 +1,12 @@
 import path from 'node:path';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
-import { fileUtils, pluginUtils } from '@verdaccio/core';
+import type { pluginUtils } from '@verdaccio/core';
+import { fileUtils } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 
 import LocalDatabase, { ERROR_DB_LOCKED } from '../src/local-database';
-import { ILocalFSPackageManager } from '../src/local-fs';
+import type { ILocalFSPackageManager } from '../src/local-fs';
 
 const TEMP_FOLDER = 'local-storage-plugin';
 const STORAGE_FOLDER = 'storage';

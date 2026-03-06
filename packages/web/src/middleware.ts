@@ -47,7 +47,6 @@ export default async (config, auth, storage, logger) => {
     );
   }
 
-  // eslint-disable-next-line new-cap
   const router = express.Router();
   // load application
   router.use(

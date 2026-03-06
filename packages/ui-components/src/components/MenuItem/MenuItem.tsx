@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
-import { default as MaterialUIMenuItem, MenuItemProps } from '@mui/material/MenuItem';
+import type { MenuItemProps } from '@mui/material/MenuItem';
+import { default as MaterialUIMenuItem } from '@mui/material/MenuItem';
 import React, { forwardRef } from 'react';
 
 type HTMLElementTagName = keyof HTMLElementTagNameMap;

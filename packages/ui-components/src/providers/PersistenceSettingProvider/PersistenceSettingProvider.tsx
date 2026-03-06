@@ -1,11 +1,5 @@
-import React, {
-  FunctionComponent,
-  createContext,
-  useCallback,
-  useContext,
-  useMemo,
-  useState,
-} from 'react';
+import type { FunctionComponent } from 'react';
+import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
 
 import useLocalStorage from '../../hooks/useLocalStorage';
 

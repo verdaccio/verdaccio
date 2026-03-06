@@ -10,8 +10,8 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Theme } from '../../Theme';
-import { Dispatch, RootState } from '../../store/store';
+import type { Theme } from '../../Theme';
+import type { Dispatch, RootState } from '../../store/store';
 import LinkExternal from '../LinkExternal';
 
 export const Fab = styled(FabMUI)<{ theme?: Theme }>(({ theme }) => ({
@@ -31,7 +31,6 @@ export interface ActionBarActionProps {
   action?: () => void;
 }
 
-/* eslint-disable react/jsx-no-bind */
 const ActionBarAction: React.FC<ActionBarActionProps> = ({ type, link, action }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch<Dispatch>();

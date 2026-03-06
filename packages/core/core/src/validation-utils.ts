@@ -1,6 +1,6 @@
 import assert from 'node:assert';
 
-import { Manifest } from '@verdaccio/types';
+import type { Manifest } from '@verdaccio/types';
 
 import { DEFAULT_PASSWORD_VALIDATION, DIST_TAGS, MAINTAINERS } from './constants';
 

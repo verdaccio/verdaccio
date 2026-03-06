@@ -4,7 +4,7 @@ import { default as MuiTabs } from '@mui/material/Tabs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Theme } from '../../Theme';
+import type { Theme } from '../../Theme';
 
 interface Props {
   onChange: (event: React.ChangeEvent<{}>, newValue: number) => void;

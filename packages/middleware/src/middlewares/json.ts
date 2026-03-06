@@ -1,6 +1,6 @@
 import { errorUtils, validationUtils } from '@verdaccio/core';
 
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
+import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
 
 export function expectJson(
   req: $RequestExtend,

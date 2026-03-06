@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import SnackbarContent from '@mui/material/SnackbarContent';
 import React, { memo } from 'react';
 
-import { LoginError, Theme } from '../../';
+import type { LoginError, Theme } from '../../';
 
 const StyledSnackbarContent = styled(SnackbarContent)<{ theme?: Theme }>(({ theme }) => ({
   backgroundColor: theme.palette.error.dark,

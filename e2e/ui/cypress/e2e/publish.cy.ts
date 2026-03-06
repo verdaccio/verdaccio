@@ -1,5 +1,5 @@
 describe('publish spec', () => {
-  let ctx: any = {};
+  const ctx: any = {};
   const credentials = { user: 'test', password: 'test' };
   beforeEach(async () => {
     // @ts-expect-error

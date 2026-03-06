@@ -1,17 +1,13 @@
 import JSONStream from 'JSONStream';
 import buildDebug from 'debug';
-import got, {
-  Agents,
-  Delays,
-  Options,
-  RequestError,
-  RetryOptions,
-  Headers as gotHeaders,
-} from 'got-cjs';
+import type { Agents, Delays, RequestError, RetryOptions, Headers as gotHeaders } from 'got-cjs';
+import got, { Options } from 'got-cjs';
 import _ from 'lodash';
-import Stream, { PassThrough, Readable } from 'node:stream';
+import type Stream from 'node:stream';
+import { PassThrough, Readable } from 'node:stream';
 import { URL } from 'node:url';
 
+import type { searchUtils } from '@verdaccio/core';
 import {
   API_ERROR,
   HEADERS,
@@ -21,9 +17,8 @@ import {
   authUtils,
   constants,
   errorUtils,
-  searchUtils,
 } from '@verdaccio/core';
-import { AgentOptionsConf, Config, Logger, Manifest, UpLinkConf } from '@verdaccio/types';
+import type { AgentOptionsConf, Config, Logger, Manifest, UpLinkConf } from '@verdaccio/types';
 
 import CustomAgents from './agent';
 import { parseInterval } from './proxy-utils';

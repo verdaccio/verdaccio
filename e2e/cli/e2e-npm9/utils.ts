@@ -1,8 +1,7 @@
-import { SpawnOptions } from 'node:child_process';
+import type { SpawnOptions } from 'node:child_process';
 import { join } from 'node:path';
 
-import { exec } from '@verdaccio/test-cli-commons';
-import { addRegistry } from '@verdaccio/test-cli-commons';
+import { addRegistry, exec } from '@verdaccio/test-cli-commons';
 
 export function getCommand() {
   return join(__dirname, './node_modules/.bin/npm');

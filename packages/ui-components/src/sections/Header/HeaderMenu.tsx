@@ -1,7 +1,8 @@
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
-import React, { MouseEvent } from 'react';
+import type { MouseEvent } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { MenuItem } from '../../';

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import { ConfigYaml, Manifest } from '@verdaccio/types';
+import type { ConfigYaml, Manifest } from '@verdaccio/types';
 
 export function hasLogin(config: ConfigYaml) {
   return _.isNil(config?.web?.login) || config?.web?.login === true;

@@ -1,13 +1,14 @@
-import { Response, Router } from 'express';
+import type { Response, Router } from 'express';
 import _ from 'lodash';
 
-import { Auth, getApiToken } from '@verdaccio/auth';
+import type { Auth } from '@verdaccio/auth';
+import { getApiToken } from '@verdaccio/auth';
 import { HEADERS, HTTP_STATUS, SUPPORT_ERRORS, cryptoUtils, errorUtils } from '@verdaccio/core';
 import { TOKEN_API_ENDPOINTS, rateLimit } from '@verdaccio/middleware';
-import { Storage } from '@verdaccio/store';
-import { Config, Logger, RemoteUser, Token } from '@verdaccio/types';
+import type { Storage } from '@verdaccio/store';
+import type { Config, Logger, RemoteUser, Token } from '@verdaccio/types';
 
-import { $NextFunctionVer, $RequestExtend } from '../../types/custom';
+import type { $NextFunctionVer, $RequestExtend } from '../../types/custom';
 
 export type NormalizeToken = Token & {
   cidr_whitelist: string[];

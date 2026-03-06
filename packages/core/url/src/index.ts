@@ -84,7 +84,7 @@ export function validateURL(publicUrl: string | void) {
       throw Error('invalid protocol');
     }
     return true;
-  } catch (err: any) {
+  } catch {
     // TODO: add error logger here
     return false;
   }

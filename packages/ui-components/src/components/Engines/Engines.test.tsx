@@ -2,7 +2,7 @@ import React from 'react';
 import { vi } from 'vitest';
 
 import { cleanup, render } from '../../test/test-react-testing-library';
-import { PackageMetaInterface } from '../../types/packageMeta';
+import type { PackageMetaInterface } from '../../types/packageMeta';
 import Engine from './Engines';
 
 vi.mock('./img/node.png', () => '');

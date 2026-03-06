@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-
 /* global AbortController */
 import getStream from 'get-stream';
 import nock from 'nock';

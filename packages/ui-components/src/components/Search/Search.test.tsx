@@ -14,7 +14,6 @@ vi.mock('lodash/debounce', () => ({
   }),
 }));
 
-/* eslint-disable verdaccio/jsx-spread */
 const ComponentToBeRendered: React.FC = () => (
   <Router>
     <Search />
