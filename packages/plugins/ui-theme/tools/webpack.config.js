@@ -1,5 +1,3 @@
-const StyleLintPlugin = require('stylelint-webpack-plugin');
-
 const env = require('../config/env');
 
 module.exports = {
@@ -20,14 +18,6 @@ module.exports = {
       'verdaccio-ui/providers': `${env.SRC_ROOT}/providers`,
     },
   },
-
-  plugins: [
-    new StyleLintPlugin({
-      files: ['src/**/styles.ts'],
-      failOnError: false,
-      emitErrors: true,
-    }),
-  ],
 
   optimization: {
     runtimeChunk: {
