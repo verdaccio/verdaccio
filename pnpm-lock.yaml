@@ -1279,20 +1279,17 @@ importers:
         specifier: 3.3.4
         version: 3.3.4(webpack@5.103.0)
       stylelint:
-        specifier: 17.3.0
-        version: 17.3.0(typescript@5.3.3)
+        specifier: 17.4.0
+        version: 17.4.0(typescript@5.3.3)
       stylelint-config-recommended:
         specifier: 18.0.0
-        version: 18.0.0(stylelint@17.3.0(typescript@5.3.3))
+        version: 18.0.0(stylelint@17.4.0(typescript@5.3.3))
       stylelint-config-styled-components:
         specifier: 0.1.1
         version: 0.1.1
       stylelint-processor-styled-components:
         specifier: 1.10.0
         version: 1.10.0
-      stylelint-webpack-plugin:
-        specifier: 4.1.1
-        version: 4.1.1(stylelint@17.3.0(typescript@5.3.3))(webpack@5.103.0)
       terser-webpack-plugin:
         specifier: 5.3.14
         version: 5.3.14(webpack@5.103.0)
@@ -4970,10 +4967,6 @@ packages:
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
 
-  balanced-match@3.0.1:
-    resolution: {integrity: sha512-vjtV3hiLqYDNRoiAv0zC4QaGAMPomEoq83PRmYIofPswwZurCeWR5LByXm7SyoL0Zh5+2z0+HC7jG8gSZJUh0w==}
-    engines: {node: '>= 16'}
-
   balanced-match@4.0.4:
     resolution: {integrity: sha512-BLrgEcRTwX2o6gGxGOCNyMvGSp35YofuYzw9h1IMTRmKqttAZZVU67bdb9Pr2vUHA8+j3i2tJfjO6C6+4myGTA==}
     engines: {node: 18 || 20 || >=22}
@@ -7184,10 +7177,6 @@ packages:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
 
-  jest-worker@29.5.0:
-    resolution: {integrity: sha512-NcrQnevGoSp4b5kg+akIpthoAFHxPBcb5P6mYPY0fUNT+sSvmtu6jlkEle3anczUKIKEbMxFimk9oTP/tpIPgA==}
-    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
-
   js-base64@3.7.8:
     resolution: {integrity: sha512-hNngCeKxIUQiEUN3GPJOkz4wF/YvdUdbNL9hsBcMQTkKzboD7T/q3OYOuuPZLUE6dBxSGpwhk5mwuDud7JVAow==}
 
@@ -7309,9 +7298,6 @@ packages:
   kleur@4.1.5:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
     engines: {node: '>=6'}
-
-  known-css-properties@0.37.0:
-    resolution: {integrity: sha512-JCDrsP4Z1Sb9JwG0aJ8Eo2r7k4Ou5MwmThS/6lcIe1ICyb7UBJKGRIUUdqc2ASdE/42lgz6zFUnzAIhtXnBVrQ==}
 
   launch-editor@2.10.0:
     resolution: {integrity: sha512-D7dBRJo/qcGX9xlvt/6wUYzQxjh5G1RvZPgPv8vi4KRU99DVQL/oW7tnVOCCTm2HGeo3C5HvGE5Yrh6UBoZ0vA==}
@@ -9304,10 +9290,6 @@ packages:
     resolution: {integrity: sha512-pN/yOAvcC+5rQ5nERGuwrjLlYvLTbCibnZ1I7B1LaiAz9BRBlE9GMgE/eqV30P7aJQUf7Ddimy/RsbYO/GrVGg==}
     engines: {node: '>= 10.13.0'}
 
-  schema-utils@4.0.0:
-    resolution: {integrity: sha512-1edyXKgh6XnJsJSQ8mKWXnN/BVaIbFMLpouRUrXgVq7WYne5kw3MW7UPhO44uRXQSIpTSXoJbmrR2X0w9kUTyg==}
-    engines: {node: '>= 12.13.0'}
-
   schema-utils@4.3.0:
     resolution: {integrity: sha512-Gf9qqc58SpCA/xdziiHz35F4GNIWYWZrEshUc/G/r5BnLph6xpKuLeoJoQuj5WfBIx/eQLf+hmVPYHaxJu7V2g==}
     engines: {node: '>= 10.13.0'}
@@ -9692,15 +9674,8 @@ packages:
   stylelint-processor-styled-components@1.10.0:
     resolution: {integrity: sha512-g4HpN9rm0JD0LoHuIOcd/FIjTZCJ0ErQ+dC3VTxp+dSvnkV+MklKCCmCQEdz5K5WxF4vPuzfVgdbSDuPYGZhoA==}
 
-  stylelint-webpack-plugin@4.1.1:
-    resolution: {integrity: sha512-yOyd2AfrxfawxKDememazGVJX2vMq9o11E6HvBu4+SKvgK3ZulkjpYdI1muBTxItwoxH2UmfIZzQM+/M5V3kTQ==}
-    engines: {node: '>= 14.15.0'}
-    peerDependencies:
-      stylelint: ^13.0.0 || ^14.0.0 || ^15.0.0
-      webpack: ^5.0.0
-
-  stylelint@17.3.0:
-    resolution: {integrity: sha512-1POV91lcEMhj6SLVaOeA0KlS9yattS+qq+cyWqP/nYzWco7K5jznpGH1ExngvPlTM9QF1Kjd2bmuzJu9TH2OcA==}
+  stylelint@17.4.0:
+    resolution: {integrity: sha512-3kQ2/cHv3Zt8OBg+h2B8XCx9evEABQIrv4hh3uXahGz/ZEHrTR80zxBiK2NfXNaSoyBzxO1pjsz1Vhdzwn5XSw==}
     engines: {node: '>=20.19.0'}
     hasBin: true
 
@@ -14109,8 +14084,6 @@ snapshots:
 
   balanced-match@1.0.2: {}
 
-  balanced-match@3.0.1: {}
-
   balanced-match@4.0.4: {}
 
   bare-events@2.4.2:
@@ -16709,13 +16682,6 @@ snapshots:
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
-  jest-worker@29.5.0:
-    dependencies:
-      '@types/node': 24.10.0
-      jest-util: 29.7.0
-      merge-stream: 2.0.0
-      supports-color: 8.1.1
-
   js-base64@3.7.8: {}
 
   js-tokens@4.0.0: {}
@@ -16857,8 +16823,6 @@ snapshots:
   kind-of@6.0.3: {}
 
   kleur@4.1.5: {}
-
-  known-css-properties@0.37.0: {}
 
   launch-editor@2.10.0:
     dependencies:
@@ -18613,13 +18577,6 @@ snapshots:
       ajv: 6.12.6
       ajv-keywords: 3.5.2(ajv@6.12.6)
 
-  schema-utils@4.0.0:
-    dependencies:
-      '@types/json-schema': 7.0.15
-      ajv: 8.17.1
-      ajv-formats: 2.1.1(ajv@8.17.1)
-      ajv-keywords: 5.1.0(ajv@8.17.1)
-
   schema-utils@4.3.0:
     dependencies:
       '@types/json-schema': 7.0.15
@@ -19091,9 +19048,9 @@ snapshots:
     dependencies:
       inline-style-parser: 0.2.2
 
-  stylelint-config-recommended@18.0.0(stylelint@17.3.0(typescript@5.3.3)):
+  stylelint-config-recommended@18.0.0(stylelint@17.4.0(typescript@5.3.3)):
     dependencies:
-      stylelint: 17.3.0(typescript@5.3.3)
+      stylelint: 17.4.0(typescript@5.3.3)
 
   stylelint-config-styled-components@0.1.1: {}
 
@@ -19106,17 +19063,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  stylelint-webpack-plugin@4.1.1(stylelint@17.3.0(typescript@5.3.3))(webpack@5.103.0):
-    dependencies:
-      globby: 11.1.0
-      jest-worker: 29.5.0
-      micromatch: 4.0.5
-      normalize-path: 3.0.0
-      schema-utils: 4.0.0
-      stylelint: 17.3.0(typescript@5.3.3)
-      webpack: 5.103.0(webpack-cli@4.10.0)
-
-  stylelint@17.3.0(typescript@5.3.3):
+  stylelint@17.4.0(typescript@5.3.3):
     dependencies:
       '@csstools/css-calc': 3.1.1(@csstools/css-parser-algorithms@4.0.0(@csstools/css-tokenizer@4.0.0))(@csstools/css-tokenizer@4.0.0)
       '@csstools/css-parser-algorithms': 4.0.0(@csstools/css-tokenizer@4.0.0)
@@ -19125,7 +19072,6 @@ snapshots:
       '@csstools/media-query-list-parser': 5.0.0(@csstools/css-parser-algorithms@4.0.0(@csstools/css-tokenizer@4.0.0))(@csstools/css-tokenizer@4.0.0)
       '@csstools/selector-resolve-nested': 4.0.0(postcss-selector-parser@7.1.1)
       '@csstools/selector-specificity': 6.0.0(postcss-selector-parser@7.1.1)
-      balanced-match: 3.0.1
       colord: 2.9.3
       cosmiconfig: 9.0.1(typescript@5.3.3)
       css-functions-list: 3.3.3
@@ -19142,7 +19088,6 @@ snapshots:
       import-meta-resolve: 4.2.0
       imurmurhash: 0.1.4
       is-plain-object: 5.0.0
-      known-css-properties: 0.37.0
       mathml-tag-names: 4.0.0
       meow: 14.1.0
       micromatch: 4.0.8
