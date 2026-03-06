@@ -88,12 +88,12 @@ const debug = buildDebug('verdaccio:api:publish');
    * is the users property which is part of the payload and the body only includes
    *
    * {
-		  "_id": pkgName,
-	  	"_rev": "3-b0cdaefc9bdb77c8",
-		  "users": {
-		    [username]: boolean value (true, false)
-		  }
-	   }
+      "_id": pkgName,
+      "_rev": "3-b0cdaefc9bdb77c8",
+      "users": {
+        [username]: boolean value (true, false)
+      }
+     }
    *
    * 4. Change owners of a package
    *
@@ -103,14 +103,14 @@ const debug = buildDebug('verdaccio:api:publish');
    * The body includes a list of the new owners with the following format
    *
    * {
-		  "_id": pkgName,
-	  	"_rev": "4-b0cdaefc9bdb77c8",
-		  "maintainers": [
+      "_id": pkgName,
+      "_rev": "4-b0cdaefc9bdb77c8",
+      "maintainers": [
         { "name": "first owner", "email": "me@verdaccio.org" },
         { "name": "second owner", "email": "you@verdaccio.org" },
         ...
-		  ]
-	   }
+      ]
+     }
    *
    */
 export default function publish(
@@ -183,7 +183,6 @@ export default function publish(
   router.delete(
     PUBLISH_API_ENDPOINTS.remove_tarball,
     can('unpublish'),
-    can('publish'),
     async function (
       req: $RequestExtend,
       res: $ResponseExtend,
