@@ -1,5 +1,12 @@
 # @verdaccio/proxy
 
+## 8.0.0-next-8.31
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.31
+- @verdaccio/config@8.0.0-next-8.31
+
 ## 8.0.0-next-8.30
 
 ### Patch Changes
