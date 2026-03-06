@@ -309,13 +309,13 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
         debug('access was denied. Rolling to next plugin');
         this.logger.trace(
           { user: user.name, name: pkg.name },
-          `access was denied for @{name} by @{user}`
+          `intermediate access denial for @{name} by @{user}, rolling to next plugin`
         );
-        next();
+        return next();
       });
     };
 
-    next();
+    return next();
   }
 
   public allow_unpublish(
@@ -372,13 +372,13 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
         debug('unpublish was denied. Rolling to next plugin');
         this.logger.trace(
           { user: user.name, name: pkg.name },
-          `unpublish was denied for @{name} by @{user}`
+          `intermediate unpublish denial for @{name} by @{user}, rolling to next plugin`
         );
-        next();
+        return next();
       });
     };
 
-    next();
+    return next();
   }
 
   /**
@@ -425,13 +425,13 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
         debug('publish was denied. Rolling to next plugin');
         this.logger.trace(
           { user: user.name, name: pkg.name },
-          `publish was denied for @{name} by @{user}`
+          `intermediate publish denial for @{name} by @{user}, rolling to next plugin`
         );
-        next();
+        return next();
       });
     };
 
-    next();
+    return next();
   }
 
   public apiJWTmiddleware(): any {
