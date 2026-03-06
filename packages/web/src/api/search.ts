@@ -4,7 +4,6 @@ import _ from 'lodash';
 import { URLSearchParams } from 'node:url';
 
 import type { Auth } from '@verdaccio/auth';
-import type { searchUtils } from '@verdaccio/core';
 import { errorUtils } from '@verdaccio/core';
 import type { SearchQuery } from '@verdaccio/core/src/search-utils';
 import { WebUrls } from '@verdaccio/middleware';
@@ -70,14 +69,14 @@ function addSearchWebApi(storage: Storage, auth: Auth): Router {
           url: `/-/v1/search?${urlParams.toString()}`,
           abort,
         });
-        const checkAccessPromises: searchUtils.SearchItemPkg[] = await Promise.all(
+        const checkAccessPromises = await Promise.all(
           data.map((pkgItem) => {
             return checkAccess(pkgItem, auth, req.remote_user);
           })
         );
 
-        const final: searchUtils.SearchItemPkg[] = checkAccessPromises
-          .filter((i) => !_.isNull(i))
+        const final = checkAccessPromises
+          .filter((i): i is Manifest => !_.isNull(i))
           .slice(from, size);
 
         next(final);
