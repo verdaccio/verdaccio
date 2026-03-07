@@ -8,8 +8,6 @@ import { getConfiguration } from '../../configuration';
 import { APIRoute } from '../../store/routes';
 import { stripTrailingSlash } from '../../store/utils';
 
-// import { PackageMetaInterface } from '../../types/packageMeta';
-
 export interface ManifestsContextProps {
   isError: boolean;
   isLoading: boolean;

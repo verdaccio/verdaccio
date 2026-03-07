@@ -141,21 +141,13 @@ const Search: React.FC = () => {
     );
   };
 
-  const getOptionLabel = () => {
-    if (searchRemote) {
-      return (option) => {
-        return option?.package?.name;
-      };
-    } else {
-      return (option) => {
-        return option?.package?.name;
-      };
-    }
+  const getOptionLabel = (option) => {
+    return option?.package?.name;
   };
 
   return (
     <AutoComplete
-      getOptionLabel={getOptionLabel()}
+      getOptionLabel={getOptionLabel}
       onCleanSuggestions={handleOnBlur}
       onSelectItem={handleClickSearch}
       // Debounce the entire fetcher wrapper

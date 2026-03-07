@@ -9,14 +9,14 @@ import { stripTrailingSlash } from '../../store/utils';
 import type { LoginBody } from './types';
 import { getDefaultUserState } from './utils';
 
-interface ManifestsContextProps {
+interface AuthContextProps {
   handleLogin: (body: { username: string; password: string }) => Promise<any>;
-  setUserState: any;
+  setUserState: React.Dispatch<React.SetStateAction<LoginBody>>;
   logOutUser: () => void;
   userState: LoginBody;
 }
 
-export const AuthContext = createContext<Partial<ManifestsContextProps>>({
+export const AuthContext = createContext<Partial<AuthContextProps>>({
   userState: { token: null, username: null },
   setUserState: () => {},
   handleLogin: async () => {},
@@ -47,7 +47,9 @@ const AuthProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
   useEffect(() => {
     if (data && !isMutating) {
       setUserState(data as LoginBody);
-      saveAuth(data.username as string, data.token as string);
+      if (data.username && data.token) {
+        saveAuth(data.username, data.token);
+      }
     }
   }, [data, isMutating]);
 
