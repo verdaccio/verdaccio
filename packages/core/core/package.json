@@ -33,10 +33,10 @@
     "access": "public"
   },
   "dependencies": {
-    "ajv": "8.17.1",
+    "ajv": "8.18.0",
     "http-errors": "2.0.1",
     "http-status-codes": "2.3.0",
-    "minimatch": "7.4.6",
+    "minimatch": "10.2.4",
     "process-warning": "1.0.0",
     "semver": "7.7.3"
   },
