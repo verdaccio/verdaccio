@@ -9,8 +9,10 @@ describe('DetailContainer', () => {
   });
 
   test('renders correctly', () => {
-    const { container } = renderWithRouteDetail(<DetailContainer />);
-    expect(container.firstChild).toMatchSnapshot();
+    renderWithRouteDetail(<DetailContainer />);
+    expect(screen.getByTestId('readme-tab')).toBeInTheDocument();
+    expect(screen.getByTestId('dependencies-tab')).toBeInTheDocument();
+    expect(screen.getByTestId('versions-tab')).toBeInTheDocument();
   });
 
   test('renders without uplinks', () => {

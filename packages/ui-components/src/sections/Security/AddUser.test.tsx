@@ -154,7 +154,7 @@ describe('<AddUser /> component', () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByText('Invalid username or password')).toBeInTheDocument();
+      expect(screen.getByText('Failed to create user')).toBeInTheDocument();
     });
   });
 });

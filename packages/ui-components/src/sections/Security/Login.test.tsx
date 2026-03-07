@@ -33,7 +33,7 @@ describe('<Login /> component', () => {
       renderWithRouter(<Login />, Route.LOGIN, [Route.LOGIN]);
     });
 
-    expect(screen.getByTestId('unauthorized')).toBeInTheDocument();
+    expect(screen.getByTestId('404')).toBeInTheDocument();
   });
 
   test('should render the login form when next param is valid', async () => {
