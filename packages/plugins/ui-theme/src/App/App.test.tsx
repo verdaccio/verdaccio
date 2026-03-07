@@ -42,8 +42,10 @@ describe('<App />', () => {
     });
 
     test('should not display the Footer component', async () => {
-      // @ts-ignore
+      // @ts-expect-error __VERDACCIO_BASENAME_UI_OPTIONS is a global set by the server
       window.__VERDACCIO_BASENAME_UI_OPTIONS = {
+        // @ts-expect-error __VERDACCIO_BASENAME_UI_OPTIONS is a global set by the server
+        ...window.__VERDACCIO_BASENAME_UI_OPTIONS,
         showFooter: false,
       };
       await act(() => {

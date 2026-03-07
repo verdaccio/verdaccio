@@ -1,12 +1,11 @@
-import styled from '@emotion/styled';
 import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
 import * as FlagsIcon from 'country-flag-icons/react/3x2';
 import React, { StrictMode, Suspense, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import { BrowserRouter, useLocation } from 'react-router';
 
-import type { Theme } from '@verdaccio/ui-components';
 import {
   ErrorBoundary,
   Footer,
@@ -16,6 +15,7 @@ import {
   Route,
   SearchProvider,
   TranslatorProvider,
+  breakPoints,
   useConfig,
 } from '@verdaccio/ui-components';
 
@@ -28,22 +28,20 @@ import { listLanguages } from '../i18n/enabledLanguages';
 import loadDayJSLocale from '../i18n/load-dayjs-locale';
 import AppRoute from './AppRoute';
 
-const StyledBox = styled(Box)<{ theme?: Theme }>(({ theme }) => {
-  return {
-    backgroundColor: theme.palette.background.default,
-  };
-});
+const StyledBox = styled(Box)(({ theme }) => ({
+  backgroundColor: theme.palette.background.default,
+}));
 
-const StyledBoxContent = styled(Box)<{ theme?: Theme }>(({ theme }) => ({
-  [`@media screen and (min-width: ${theme.breakPoints.container}px)`]: {
-    maxWidth: theme.breakPoints.container,
+const StyledBoxContent = styled(Box)({
+  [`@media screen and (min-width: ${breakPoints.container}px)`]: {
+    maxWidth: breakPoints.container,
     width: '100%',
     marginLeft: 'auto',
     marginRight: 'auto',
   },
-}));
+});
 
-const Flags = styled('span')<{ theme?: Theme }>(() => ({
+const Flags = styled('span')(() => ({
   width: '25px',
 }));
 
