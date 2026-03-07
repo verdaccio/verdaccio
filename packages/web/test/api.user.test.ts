@@ -216,11 +216,29 @@ describe('test web server', () => {
         });
     });
 
+    test('should reject signup with missing name', async () => {
+      return supertest(await initializeServer('create-user-test.yaml'))
+        .put('/-/verdaccio/sec/signup')
+        .send(
+          JSON.stringify({
+            password: 'newuser123',
+            email: 'new@test.com',
+            sessionId: validSessionId,
+          })
+        )
+        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+        .expect(HTTP_STATUS.BAD_REQUEST)
+        .then((response) => {
+          expect(response.body.error).toEqual(API_ERROR.BAD_DATA);
+        });
+    });
+
     test('should reject signup with missing password', async () => {
       return supertest(await initializeServer('create-user-test.yaml'))
         .put('/-/verdaccio/sec/signup')
         .send(
           JSON.stringify({
+            name: 'newuser',
             email: 'new@test.com',
             sessionId: validSessionId,
           })
@@ -234,12 +252,32 @@ describe('test web server', () => {
         .put('/-/verdaccio/sec/signup')
         .send(
           JSON.stringify({
+            name: 'newuser',
             password: 'newuser123',
             sessionId: validSessionId,
           })
         )
         .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
         .expect(HTTP_STATUS.BAD_REQUEST);
+    });
+
+    test('should create user successfully', async () => {
+      return supertest(await initializeServer('create-user-test.yaml'))
+        .put('/-/verdaccio/sec/signup')
+        .send(
+          JSON.stringify({
+            name: 'newuser',
+            password: 'newuser123',
+            email: 'new@test.com',
+            sessionId: validSessionId,
+          })
+        )
+        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+        .expect(HTTP_STATUS.OK)
+        .then((response) => {
+          expect(response.body.token).toBeDefined();
+          expect(response.body.username).toEqual('newuser');
+        });
     });
 
     test('should not register signup route when createUser flag is disabled', async () => {

@@ -58,8 +58,7 @@ function addUserAuthApi(auth: Auth, config: Config, storage: Storage): Router {
       WebUrls.user_signup,
       rateLimit(config?.userRateLimit),
       function (req: Request, res: Response, next: $NextFunctionVer): void {
-        const { name } = req.params;
-        const { password, email, sessionId } = req.body;
+        const { name, password, email, sessionId } = req.body;
         debug('login or adduser');
 
         // TOOD: reuse with login.ts file
