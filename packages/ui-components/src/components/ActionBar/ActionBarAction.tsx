@@ -11,6 +11,7 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { Theme } from '../../Theme';
+import { greyMedium } from '../../Theme/colors';
 import { useDownload, useVersion } from '../../providers';
 import LinkExternal from '../LinkExternal';
 
@@ -18,7 +19,7 @@ export const Fab = styled(FabMUI)<{ theme?: Theme }>(({ theme }) => ({
   backgroundColor:
     theme.palette.mode === 'dark' ? theme.palette.secondary.main : theme.palette.primary.main,
   '&:hover': {
-    backgroundColor: theme.palette.mode === 'dark' ? '#616161' : undefined,
+    backgroundColor: theme.palette.mode === 'dark' ? greyMedium : undefined,
     color: theme.palette.mode === 'light' ? theme.palette.primary.main : common.white,
   },
   color: common.white,

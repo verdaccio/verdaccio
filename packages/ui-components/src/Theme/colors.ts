@@ -12,4 +12,5 @@ export const baseColors = {
 } as const;
 
 export const greyDark = grey[900];
+export const greyMedium = grey[700];
 export const greyLight = grey[200];
