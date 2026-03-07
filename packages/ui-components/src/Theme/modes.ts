@@ -1,11 +1,15 @@
 import type { PaletteOptions } from '@mui/material/styles';
+import { common } from '@mui/material/colors';
 
 import { baseColors } from './colors';
 
 export type ThemeMode = 'light' | 'dark';
 
+const DARK_MODE_PRIMARY = common.white;
+
 export const getModePalette = (mode: ThemeMode, primaryColor?: string): PaletteOptions => {
-  const primary = primaryColor ? { main: primaryColor } : baseColors.primary;
+  const basePrimary = primaryColor || baseColors.primary.main;
+  const primary = mode === 'dark' ? { main: DARK_MODE_PRIMARY } : { main: basePrimary };
 
   if (mode === 'dark') {
     return {

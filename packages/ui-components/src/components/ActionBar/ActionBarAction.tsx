@@ -15,9 +15,11 @@ import { useDownload, useVersion } from '../../providers';
 import LinkExternal from '../LinkExternal';
 
 export const Fab = styled(FabMUI)<{ theme?: Theme }>(({ theme }) => ({
-  backgroundColor: theme.palette.primary.main,
+  backgroundColor:
+    theme.palette.mode === 'dark' ? theme.palette.secondary.main : theme.palette.primary.main,
   '&:hover': {
-    color: theme.palette.mode === 'light' ? theme.palette.primary.main : theme.palette.cyanBlue,
+    backgroundColor: theme.palette.mode === 'dark' ? '#616161' : undefined,
+    color: theme.palette.mode === 'light' ? theme.palette.primary.main : common.white,
   },
   color: common.white,
 }));

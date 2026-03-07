@@ -11,10 +11,10 @@ describe('getModePalette', () => {
     expect(palette.background).toEqual({ default: '#f4f4f4', paper: '#ffffff' });
   });
 
-  test('should return dark palette', () => {
+  test('should return dark palette with white primary', () => {
     const palette = getModePalette('dark');
     expect(palette.mode).toBe('dark');
-    expect(palette.primary).toEqual({ main: PRIMARY_COLOR });
+    expect(palette.primary).toEqual({ main: '#fff' });
     expect(palette.secondary).toEqual({ main: '#424242' });
     expect(palette.background).toEqual({ default: '#1a202c', paper: '#2d3748' });
   });
@@ -25,10 +25,10 @@ describe('getModePalette', () => {
     expect(palette.primary).toEqual({ main: customColor });
   });
 
-  test('should use custom primary color in dark mode', () => {
+  test('should ignore custom primary color in dark mode and use white', () => {
     const customColor = '#ff5733';
     const palette = getModePalette('dark', customColor);
-    expect(palette.primary).toEqual({ main: customColor });
+    expect(palette.primary).toEqual({ main: '#fff' });
   });
 });
 
@@ -41,10 +41,10 @@ describe('getTheme', () => {
     expect(theme.palette.background.paper).toBe('#ffffff');
   });
 
-  test('should create a dark theme', () => {
+  test('should create a dark theme with white primary', () => {
     const theme = getTheme('dark');
     expect(theme.palette.mode).toBe('dark');
-    expect(theme.palette.primary.main).toBe(PRIMARY_COLOR);
+    expect(theme.palette.primary.main).toBe('#fff');
     expect(theme.palette.background.default).toBe('#1a202c');
     expect(theme.palette.background.paper).toBe('#2d3748');
   });
