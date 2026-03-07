@@ -33,6 +33,7 @@ const meta: Meta<typeof AppRoute> = {
   title: 'Components/AppRoute',
   component: AppRoute,
   parameters: {
+    layout: 'fullscreen',
     viewport: {
       options: INITIAL_VIEWPORTS,
     },
