@@ -57,7 +57,7 @@ const Login: React.FC = () => {
 
   const onSuccess = useCallback(() => {
     navigate(`${Route.SUCCESS}?messageType=${MessageType.Login}`);
-  }, [next, navigate]);
+  }, [navigate]);
 
   const onSubmit = useCallback(
     async (data: LoginFormValues) => {
@@ -76,8 +76,8 @@ const Login: React.FC = () => {
   );
 
   useEffect(() => {
-    if (data && !isMutating) {
-      saveAuth(data.username as string, data.token as string);
+    if (data && !isMutating && data.username && data.token) {
+      saveAuth(data.username, data.token);
     }
   }, [data, isMutating]);
 

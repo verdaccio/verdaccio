@@ -10,7 +10,7 @@ import { APIRoute } from '../../store/routes';
 import { stripTrailingSlash } from '../../store/utils';
 
 export interface SearchContextProps {
-  error: any;
+  error: Error | undefined;
   isLoading: boolean;
   isError: boolean;
   searchResults: SearchResultWeb[];

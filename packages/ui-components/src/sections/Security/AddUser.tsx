@@ -83,7 +83,7 @@ const AddUser: React.FC = () => {
         setError('root', {
           type: 'server',
           // TODO: add translation key
-          message: 'Invalid username or password',
+          message: 'Failed to create user',
         });
       }
     },

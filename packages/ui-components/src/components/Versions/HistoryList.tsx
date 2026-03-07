@@ -53,6 +53,7 @@ const VersionsHistoryList: React.FC<Props> = ({ versions, packageName, time }) =
                 data-testid={`version-list-link`}
                 disableTypography={false}
                 primary={version}
+                sx={typeof versions[version]?.deprecated === 'string' ? { textDecoration: 'line-through' } : undefined}
               />
             </Link>
             {typeof versions[version]?.deprecated === 'string' ? (

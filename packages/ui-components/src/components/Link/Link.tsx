@@ -21,7 +21,7 @@ const Link = function LinkFunction({
 }: any & { ref?: React.RefObject<HTMLAnchorElement | null> }) {
   return (
     <CustomRouterLink className={className} onClick={onClick} ref={ref} to={to}>
-      <Typography variant={variant}>{children}</Typography>
+      <Typography color="primary" variant={variant}>{children}</Typography>
     </CustomRouterLink>
   );
 };
