@@ -11,12 +11,14 @@ type Props = Omit<SvgIconProps, 'color' | 'fontsize' | 'name'> & {
   className?: string;
 };
 
-const SvgIcon = React.forwardRef<SVGSVGElement, Props>(function SvgIcon(
-  { size = 'md', title, ...props },
-  ref
-) {
+const SvgIcon = function SvgIcon({
+  ref,
+  size = 'md',
+  title,
+  ...props
+}: Props & { ref?: React.RefObject<SVGSVGElement | null> }) {
   return <StyledMaterialUISvgIcon size={size} titleAccess={title} {...props} ref={ref} />;
-});
+};
 
 export { SvgIcon };
 

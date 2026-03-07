@@ -24,7 +24,8 @@ const ResetStyles: React.FC<{ children?: React.ReactNode }> = ({ children }) => 
             listStyle: 'none',
           },
           '.container': {
-            padding: 15,
+            paddingTop: 15,
+            paddingBottom: 15,
             flex: 1,
             height: '100%',
             [`@media screen and (min-width: ${theme.breakPoints.container}px)`]: {

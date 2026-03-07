@@ -4,22 +4,23 @@ import { join } from 'path';
 import { Registry, ServerQuery } from 'verdaccio';
 
 import { parseConfigFile } from '@verdaccio/config';
-import { HEADERS, fileUtils } from '@verdaccio/core';
+import { HEADERS, HTTP_STATUS, fileUtils } from '@verdaccio/core';
 import { generatePackageMetadata } from '@verdaccio/test-helper';
 
 let registry1;
 export default defineConfig({
   retries: {
-    runMode: 5,
+    runMode: 1,
     openMode: 0,
   },
-  // Enable this to see debug screenshots on test failure
-  // screenshotOnRunFailure: true,
-  // Enable this to see debug video on test failure
-  // video: true,
+  screenshotOnRunFailure: true,
+  video: true,
   e2e: {
     setupNodeEvents(on) {
-      on('before:run', async () => {
+      async function ensureRegistryStarted() {
+        if (registry1) {
+          return;
+        }
         const configProtected = parseConfigFile(join(__dirname, './config/config.yaml'));
         const registry1storage = await fileUtils.createTempStorageFolder('storage-1');
         const protectedRegistry = await Registry.fromConfigToPath({
@@ -33,33 +34,46 @@ export default defineConfig({
           port,
         });
         await registry1.init();
+      }
+
+      on('before:run', async () => {
+        await ensureRegistryStarted();
+      });
+
+      on('before:spec', async () => {
+        await ensureRegistryStarted();
       });
 
       on('after:run', async () => {
-        registry1.stop();
+        registry1?.stop();
       });
 
       on('task', {
-        publishScoped({ pkgName }) {
+        async publishScoped({ pkgName }) {
+          await ensureRegistryStarted();
           const scopedPackageMetadata = generatePackageMetadata(pkgName, '1.0.6');
           const server = new ServerQuery(registry1.getRegistryUrl());
-          server
-            .putPackage(scopedPackageMetadata.name, scopedPackageMetadata, {
+          const response = await server.putPackage(
+            scopedPackageMetadata.name,
+            scopedPackageMetadata,
+            {
               [HEADERS.AUTHORIZATION]: `Bearer ${registry1.getToken()}`,
-            })
-            .then(() => {});
+            }
+          );
+          response.status(HTTP_STATUS.CREATED);
           return null;
         },
-        publishProtected({ pkgName }) {
+        async publishProtected({ pkgName }) {
+          await ensureRegistryStarted();
           const protectedPackageMetadata = generatePackageMetadata(pkgName, '5.0.5');
           const server = new ServerQuery(registry1.getRegistryUrl());
-          server
-            .putPackage(protectedPackageMetadata.name, protectedPackageMetadata, {
-              [HEADERS.AUTHORIZATION]: `Bearer ${registry1.getToken()}`,
-            })
-            .then(() => {});
+          await server.putPackage(protectedPackageMetadata.name, protectedPackageMetadata, {
+            [HEADERS.AUTHORIZATION]: `Bearer ${registry1.getToken()}`,
+          });
+          return null;
         },
-        registry() {
+        async registry() {
+          await ensureRegistryStarted();
           return {
             registryUrl: registry1.getRegistryUrl(),
             port: registry1.getPort(),

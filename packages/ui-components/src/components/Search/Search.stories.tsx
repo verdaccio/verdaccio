@@ -4,6 +4,7 @@ import { HttpResponse, http } from 'msw';
 import React from 'react';
 import { MemoryRouter } from 'react-router';
 
+import { SearchProvider } from '../../providers';
 import Home from '../../sections/Home';
 import Search from './Search';
 
@@ -18,32 +19,31 @@ export default meta;
 export const SearchByQuery: Story = {
   render: (args) => (
     <MemoryRouter initialEntries={[`/-/web/detail/storybook`]}>
-      <Box
-        sx={{
-          height: 100,
-          padding: 10,
-          backgroundColor: 'primary.dark',
-          '&:hover': {
-            backgroundColor: 'primary.main',
-            opacity: [0.9, 0.8, 0.7],
-          },
-        }}
-      >
-        <Search {...args} />
+      <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
+        <SearchProvider>
+          <Search {...args} />
+        </SearchProvider>
       </Box>
     </MemoryRouter>
   ),
   parameters: {
     msw: {
       handlers: [
-        http.get('https://my-registry.org/-/verdaccio/data/sidebar/storybook', () => {
-          return HttpResponse.json(require('../../../vitest/api/storybook-sidebar.json'));
-        }),
-        http.get('https://my-registry.org/-/verdaccio/data/package/readme/storybook', () => {
-          return HttpResponse.json(require('../../../vitest/api/storybook-readme')());
-        }),
-        http.get('https://my-registry.org/-/verdaccio/data/search/*', () => {
-          return HttpResponse.json(require('../../../vitest/api/search-verdaccio.json'));
+        http.get('https://my-registry.org/-/verdaccio/data/search/*', ({ request }) => {
+          const url = new URL(request.url);
+          const query = url.searchParams.get('text');
+
+          const packages = require('../../../vitest/api/search-verdaccio.json');
+
+          if (!query) {
+            return HttpResponse.json(packages);
+          }
+
+          const filteredPackages = packages.filter((pkg: { name: string }) => {
+            const regex = new RegExp(query, 'i'); // 'i' flag for case-insensitive
+            return pkg['package'].name.match(regex) !== null;
+          });
+          return HttpResponse.json(filteredPackages);
         }),
       ],
     },

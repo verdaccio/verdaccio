@@ -6,11 +6,12 @@ import type { ListRowProps } from 'react-virtualized/dist/commonjs/List';
 import { List } from 'react-virtualized/dist/commonjs/List';
 import { WindowScroller } from 'react-virtualized/dist/commonjs/WindowScroller';
 
-import { Help, Package, useConfig } from '../..';
+import { DownloadProvider, Help, Package, useConfig } from '../..';
+import type { ManifestWeb } from '../../providers/ManifestsProvider/ManifestsProvider';
 import { utils } from '../../utils';
 
 interface Props {
-  packages: any[];
+  packages: ManifestWeb[];
 }
 
 const cache = new CellMeasurerCache({
@@ -47,34 +48,38 @@ const PackageList: React.FC<Props> = ({ packages }) => {
     );
   };
 
-  if (packages.length === 0) {
+  const hasPackages = packages?.length > 0;
+
+  if (!hasPackages) {
     return <Help />;
   }
 
   return (
-    <WindowScroller>
-      {({ height, isScrolling, scrollTop, onChildScroll }) => (
-        <AutoSizer disableHeight={true}>
-          {({ width }) => {
-            return (
-              <List
-                autoHeight={true}
-                deferredMeasurementCache={cache}
-                height={height}
-                isScrolling={isScrolling}
-                onScroll={onChildScroll}
-                overscanRowCount={3}
-                rowCount={packages.length}
-                rowHeight={cache.rowHeight}
-                rowRenderer={renderRow}
-                scrollTop={scrollTop}
-                width={width}
-              />
-            );
-          }}
-        </AutoSizer>
-      )}
-    </WindowScroller>
+    <DownloadProvider>
+      <WindowScroller>
+        {({ height, isScrolling, scrollTop, onChildScroll }) => (
+          <AutoSizer disableHeight={true}>
+            {({ width }) => {
+              return (
+                <List
+                  autoHeight={true}
+                  deferredMeasurementCache={cache}
+                  height={height}
+                  isScrolling={isScrolling}
+                  onScroll={onChildScroll}
+                  overscanRowCount={3}
+                  rowCount={packages?.length}
+                  rowHeight={cache.rowHeight}
+                  rowRenderer={renderRow}
+                  scrollTop={scrollTop}
+                  width={width}
+                />
+              );
+            }}
+          </AutoSizer>
+        )}
+      </WindowScroller>
+    </DownloadProvider>
   );
 };
 

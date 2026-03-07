@@ -39,6 +39,11 @@
       "matchBaseBranches": ["7.x"]
     },
     {
+      "matchPackageNames": ["@verdaccio/ui-theme"],
+      "matchBaseBranches": ["6.x"],
+      "allowedVersions": "8.0.0-next-8.29"
+    },
+    {
       "packageNames": ["@emotion/*"],
       "matchFileNames": ["./package.json", "./packages/**/package.json"],
       "matchBaseBranches": ["master"]

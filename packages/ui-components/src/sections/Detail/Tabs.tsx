@@ -15,7 +15,13 @@ interface Props {
 const DetailContainerTabs: React.FC<Props> = ({ tabPosition, onChange, showUplinks }) => {
   const { t } = useTranslation();
   return (
-    <Tabs onChange={onChange} value={tabPosition} variant={'fullWidth'}>
+    <Tabs
+      allowScrollButtonsMobile={true}
+      onChange={onChange}
+      scrollButtons="auto"
+      value={tabPosition}
+      variant="scrollable"
+    >
       <Tab data-testid={'readme-tab'} id={'readme-tab'} label={t('tab.readme')} />
       <Tab data-testid={'dependencies-tab'} id={'dependencies-tab'} label={t('tab.dependencies')} />
       <Tab data-testid={'versions-tab'} id={'versions-tab'} label={t('tab.versions')} />

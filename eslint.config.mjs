@@ -4,6 +4,7 @@ import verdaccio, {
 } from '@verdaccio/eslint-config';
 import vitest from '@vitest/eslint-plugin';
 import reactX from 'eslint-plugin-react-x';
+import verdaccioPlugin from 'eslint-plugin-verdaccio';
 
 export default [
   ...verdaccio,
@@ -52,6 +53,19 @@ export default [
     },
     rules: {
       ...reactX.configs['recommended-typescript'].rules,
+    },
+  },
+
+  // -----------------------------------------------
+  // Verdaccio custom rules
+  // -----------------------------------------------
+  {
+    files: ['**/*.{jsx,tsx}'],
+    plugins: {
+      verdaccio: verdaccioPlugin,
+    },
+    rules: {
+      ...verdaccioPlugin.configs.recommended.rules,
     },
   },
 

@@ -2,11 +2,16 @@
  * @vitest-environment jsdom
  */
 import React from 'react';
-import { MemoryRouter } from 'react-router';
 import { afterEach, describe, expect, test, vi } from 'vitest';
 
-import { store } from '../../store';
-import { act, renderWithStore, screen, waitFor } from '../../test/test-react-testing-library';
+import { ManifestsProvider } from '../../providers';
+import {
+  RouterPath,
+  act,
+  renderWithRouter,
+  screen,
+  waitFor,
+} from '../../test/test-react-testing-library';
 import Home from './Home';
 
 // force the windows to expand to display items
@@ -15,9 +20,9 @@ vi.spyOn(HTMLElement.prototype, 'offsetHeight', 'get').mockReturnValue(600);
 vi.spyOn(HTMLElement.prototype, 'offsetWidth', 'get').mockReturnValue(600);
 
 const ComponentHome: React.FC = () => (
-  <MemoryRouter>
+  <ManifestsProvider>
     <Home />
-  </MemoryRouter>
+  </ManifestsProvider>
 );
 
 describe('Home', () => {
@@ -26,15 +31,15 @@ describe('Home', () => {
   });
 
   test('should render titles', async () => {
-    act(() => {
-      renderWithStore(<ComponentHome />, store);
+    await act(async () => {
+      renderWithRouter(<ComponentHome />, RouterPath.ROOT, ['/']);
     });
     await waitFor(() => expect(screen.getAllByTestId('package-item-list')).toHaveLength(5));
   });
 
   test('should render loading', async () => {
-    act(() => {
-      renderWithStore(<ComponentHome />, store);
+    await act(async () => {
+      renderWithRouter(<ComponentHome />, RouterPath.ROOT, ['/']);
     });
     await waitFor(() => expect(screen.getByTestId('loading')).toBeInTheDocument());
   });

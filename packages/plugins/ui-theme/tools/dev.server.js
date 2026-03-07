@@ -30,7 +30,7 @@ const devServer = new WebpackDevServer(
     },
     proxy: [
       {
-        context: ['/-/verdaccio/**', '**/*.tgz'],
+        context: ['/-/verdaccio/**', '/-/v1/**', '/-/user/**', '**/*.tgz'],
         target: 'http://localhost:8000',
       },
     ],

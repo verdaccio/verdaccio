@@ -2,7 +2,6 @@ import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 import yaml from 'js-yaml';
 import fs from 'node:fs';
-import StyleLintPlugin from 'stylelint-webpack-plugin';
 import webpack from 'webpack';
 
 import env from '../config/env';
@@ -16,7 +15,6 @@ export default {
   entry: {
     main: [
       'whatwg-fetch',
-      'react-hot-loader/patch',
       'webpack-dev-server/client?http://localhost:4873',
       'webpack/hot/only-dev-server',
       `${env.SRC_ROOT}/index.tsx`,
@@ -58,10 +56,5 @@ export default {
     }),
     new webpack.NoEmitOnErrorsPlugin(),
     new FriendlyErrorsPlugin(),
-    new StyleLintPlugin({
-      files: ['src/**/styles.ts'],
-      failOnError: false,
-      emitErrors: false,
-    }),
   ],
 };

@@ -1,17 +1,23 @@
 import React from 'react';
 
-import { render, screen } from '../../test/test-react-testing-library';
+import { cleanup, renderWithRouteDetail, screen } from '../../test/test-react-testing-library';
 import DetailContainer from './Detail';
 
 describe('DetailContainer', () => {
+  afterEach(() => {
+    cleanup();
+  });
+
   test('renders correctly', () => {
-    const { container } = render(<DetailContainer />);
-    expect(container.firstChild).toMatchSnapshot();
+    renderWithRouteDetail(<DetailContainer />);
+    expect(screen.getByTestId('readme-tab')).toBeInTheDocument();
+    expect(screen.getByTestId('dependencies-tab')).toBeInTheDocument();
+    expect(screen.getByTestId('versions-tab')).toBeInTheDocument();
   });
 
   test('renders without uplinks', () => {
     window.__VERDACCIO_BASENAME_UI_OPTIONS.showUplinks = false;
-    render(<DetailContainer />);
+    renderWithRouteDetail(<DetailContainer />);
     expect(screen.queryByTestId('uplinks-tab')).toBeFalsy();
   });
 

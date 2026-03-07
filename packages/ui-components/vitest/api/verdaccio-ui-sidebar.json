@@ -1,0 +1,209 @@
+{
+  "versions": {
+    "1.0.0": {
+      "name": "@verdaccio/ui-components",
+      "version": "1.0.0",
+      "description": "Verdaccio UI Components Library",
+      "main": "build/index.js",
+      "scripts": {
+        "build": "tsc",
+        "test": "vitest"
+      },
+      "author": {
+        "name": "verdaccio",
+        "email": "verdaccio@pm.me"
+      },
+      "license": "MIT",
+      "_id": "@verdaccio/ui-components@1.0.0",
+      "_shasum": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0",
+      "_from": ".",
+      "_npmVersion": "9.5.0",
+      "_nodeVersion": "18.16.0",
+      "_npmUser": {
+        "name": "verdaccio",
+        "email": "verdaccio@pm.me"
+      },
+      "dist": {
+        "shasum": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0",
+        "tarball": "https://my-registry.org/@verdaccio/ui-components/-/ui-components-1.0.0.tgz",
+        "integrity": "sha512-R96xmoGXpNvpEg81wedUzKCPBb0zHYVozEE7Kz+vw+p/q38V78jzm6vnZvT0s0+Qgu380r+IcvxCVEAsfopm8A=="
+      },
+      "maintainers": [
+        {
+          "name": "verdaccio",
+          "email": "verdaccio@pm.me"
+        }
+      ],
+      "directories": {},
+      "contributors": []
+    },
+    "1.1.0": {
+      "name": "@verdaccio/ui-components",
+      "version": "1.1.0",
+      "description": "Verdaccio UI Components Library",
+      "main": "build/index.js",
+      "scripts": {
+        "build": "tsc",
+        "test": "vitest"
+      },
+      "author": {
+        "name": "verdaccio",
+        "email": "verdaccio@pm.me"
+      },
+      "license": "MIT",
+      "_id": "@verdaccio/ui-components@1.1.0",
+      "_shasum": "b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1",
+      "_from": ".",
+      "_npmVersion": "9.5.0",
+      "_nodeVersion": "18.16.0",
+      "_npmUser": {
+        "name": "verdaccio",
+        "email": "verdaccio@pm.me"
+      },
+      "dist": {
+        "shasum": "b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1",
+        "tarball": "https://my-registry.org/@verdaccio/ui-components/-/ui-components-1.1.0.tgz",
+        "integrity": "sha512-AOE5lJXo9OivBoyeNu8AAV6k55q2HMw0kelUO6TaZGUAVdGTV/vUH74fSWVIlqeAA/UO00YbKzHmLyDUcGYaNQ=="
+      },
+      "maintainers": [
+        {
+          "name": "verdaccio",
+          "email": "verdaccio@pm.me"
+        }
+      ],
+      "directories": {},
+      "contributors": []
+    },
+    "2.0.0": {
+      "name": "@verdaccio/ui-components",
+      "version": "2.0.0",
+      "description": "Verdaccio UI Components Library - Major rewrite with React 19 support",
+      "main": "build/index.js",
+      "types": "build/index.d.ts",
+      "scripts": {
+        "build": "tsc",
+        "test": "vitest"
+      },
+      "author": {
+        "name": "verdaccio",
+        "email": "verdaccio@pm.me"
+      },
+      "license": "MIT",
+      "keywords": ["verdaccio", "ui", "components", "react"],
+      "homepage": "https://github.com/verdaccio/verdaccio",
+      "bugs": {
+        "url": "https://github.com/verdaccio/verdaccio/issues"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/verdaccio/verdaccio.git",
+        "directory": "packages/ui-components"
+      },
+      "_id": "@verdaccio/ui-components@2.0.0",
+      "_shasum": "c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2",
+      "_from": ".",
+      "_npmVersion": "10.2.0",
+      "_nodeVersion": "20.10.0",
+      "_npmUser": {
+        "name": "verdaccio",
+        "email": "verdaccio@pm.me"
+      },
+      "dist": {
+        "shasum": "c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2",
+        "tarball": "https://my-registry.org/@verdaccio/ui-components/-/ui-components-2.0.0.tgz",
+        "integrity": "sha512-MEYCIQD6V2l3FZpZutttNCQyYQT5HmW0OP4yW47HyyMUskwhdwIhAJJ6sauQzEmJFsNbMN5w0sYZf1dJncfzB5=="
+      },
+      "maintainers": [
+        {
+          "name": "verdaccio",
+          "email": "verdaccio@pm.me"
+        },
+        {
+          "name": "jpicado",
+          "email": "juanpicado19@gmail.com"
+        }
+      ],
+      "dependencies": {
+        "@mui/material": "^5.15.0",
+        "react": "^19.0.0"
+      },
+      "directories": {},
+      "contributors": []
+    }
+  },
+  "time": {
+    "modified": "2024-12-15T10:00:00.000Z",
+    "created": "2024-01-10T08:00:00.000Z",
+    "1.0.0": "2024-01-10T08:00:00.000Z",
+    "1.1.0": "2024-06-20T12:30:00.000Z",
+    "2.0.0": "2024-12-15T10:00:00.000Z"
+  },
+  "dist-tags": {
+    "latest": "2.0.0"
+  },
+  "_uplinks": {
+    "npmjs": {
+      "etag": "W/\"abcdef1234567890\"",
+      "fetched": 1702641600000
+    }
+  },
+  "_id": "@verdaccio/ui-components",
+  "latest": {
+    "name": "@verdaccio/ui-components",
+    "version": "2.0.0",
+    "description": "Verdaccio UI Components Library - Major rewrite with React 19 support",
+    "main": "build/index.js",
+    "types": "build/index.d.ts",
+    "keywords": ["verdaccio", "ui", "components", "react"],
+    "homepage": "https://github.com/verdaccio/verdaccio",
+    "bugs": {
+      "url": "https://github.com/verdaccio/verdaccio/issues"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/verdaccio/verdaccio.git",
+      "directory": "packages/ui-components"
+    },
+    "license": "MIT",
+    "scripts": {
+      "build": "tsc",
+      "test": "vitest"
+    },
+    "dependencies": {
+      "@mui/material": "^5.15.0",
+      "react": "^19.0.0"
+    },
+    "_id": "@verdaccio/ui-components@2.0.0",
+    "_nodeVersion": "20.10.0",
+    "_npmVersion": "10.2.0",
+    "dist": {
+      "integrity": "sha512-MEYCIQD6V2l3FZpZutttNCQyYQT5HmW0OP4yW47HyyMUskwhdwIhAJJ6sauQzEmJFsNbMN5w0sYZf1dJncfzB5==",
+      "shasum": "c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2",
+      "tarball": "https://my-registry.org/@verdaccio/ui-components/-/ui-components-2.0.0.tgz"
+    },
+    "_npmUser": {
+      "name": "verdaccio",
+      "email": "verdaccio@pm.me"
+    },
+    "directories": {},
+    "maintainers": [
+      {
+        "name": "verdaccio",
+        "email": "verdaccio@pm.me",
+        "avatar": "https://www.gravatar.com/avatar/00000000000000000000000000000000"
+      },
+      {
+        "name": "jpicado",
+        "email": "juanpicado19@gmail.com",
+        "avatar": "https://www.gravatar.com/avatar/00000000000000000000000000000000"
+      }
+    ],
+    "contributors": [],
+    "author": {
+      "name": "verdaccio",
+      "email": "verdaccio@pm.me",
+      "url": "https://verdaccio.org",
+      "avatar": "https://www.gravatar.com/avatar/00000000000000000000000000000000"
+    }
+  }
+}

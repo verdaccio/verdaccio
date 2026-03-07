@@ -14,8 +14,8 @@ export type OnSelecItem = (
   details?: string
 ) => void;
 interface Props {
-  suggestions: SearchResultWeb[];
-  suggestionsLoading: boolean;
+  suggestions?: SearchResultWeb[];
+  suggestionsLoading?: boolean;
   placeholder: string;
   renderOption?: (props: any, option: any) => JSX.Element;
   renderInput: (params: any) => JSX.Element;
@@ -26,7 +26,7 @@ interface Props {
 }
 
 const AutoComplete: FC<Props> = ({
-  suggestions,
+  suggestions = [],
   onSuggestionsFetch,
   onCleanSuggestions,
   renderInput,
