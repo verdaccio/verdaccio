@@ -1,5 +1,5 @@
-import type { PaletteOptions } from '@mui/material/styles';
 import { common } from '@mui/material/colors';
+import type { PaletteOptions } from '@mui/material/styles';
 
 import { baseColors } from './colors';
 

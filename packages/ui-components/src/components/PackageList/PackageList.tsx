@@ -56,29 +56,29 @@ const PackageList: React.FC<Props> = ({ packages }) => {
 
   return (
     <DownloadProvider>
-    <WindowScroller>
-      {({ height, isScrolling, scrollTop, onChildScroll }) => (
-        <AutoSizer disableHeight={true}>
-          {({ width }) => {
-            return (
-              <List
-                autoHeight={true}
-                deferredMeasurementCache={cache}
-                height={height}
-                isScrolling={isScrolling}
-                onScroll={onChildScroll}
-                overscanRowCount={3}
-                rowCount={packages?.length}
-                rowHeight={cache.rowHeight}
-                rowRenderer={renderRow}
-                scrollTop={scrollTop}
-                width={width}
-              />
-            );
-          }}
-        </AutoSizer>
-      )}
-    </WindowScroller>
+      <WindowScroller>
+        {({ height, isScrolling, scrollTop, onChildScroll }) => (
+          <AutoSizer disableHeight={true}>
+            {({ width }) => {
+              return (
+                <List
+                  autoHeight={true}
+                  deferredMeasurementCache={cache}
+                  height={height}
+                  isScrolling={isScrolling}
+                  onScroll={onChildScroll}
+                  overscanRowCount={3}
+                  rowCount={packages?.length}
+                  rowHeight={cache.rowHeight}
+                  rowRenderer={renderRow}
+                  scrollTop={scrollTop}
+                  width={width}
+                />
+              );
+            }}
+          </AutoSizer>
+        )}
+      </WindowScroller>
     </DownloadProvider>
   );
 };
