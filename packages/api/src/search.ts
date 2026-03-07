@@ -1,6 +1,6 @@
 import { HTTP_STATUS } from '@verdaccio/core';
 import { SEARCH_API_ENDPOINTS } from '@verdaccio/middleware';
-import { Logger } from '@verdaccio/types';
+import type { Logger } from '@verdaccio/types';
 
 export default function (route, logger: Logger): void {
   // TODO: next major version, remove this

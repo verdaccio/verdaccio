@@ -4,9 +4,9 @@ import Box from '@mui/material/Box';
 import FabMUI from '@mui/material/Fab';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { Theme } from '../../Theme';
+import type { Theme } from '../../Theme';
 import Person from '../Person';
-import { DeveloperType } from './DeveloperType';
+import type { DeveloperType } from './DeveloperType';
 import Title from './Title';
 import getUniqueDeveloperValues from './get-unique-developer-values';
 
@@ -42,7 +42,7 @@ const Developers: React.FC<Props> = ({ type, visibleMax = VISIBLE_MAX, packageMe
     if (!developers.length) {
       return;
     }
-    // eslint-disable-next-line
+
     setVisibleDevelopers(developers.slice(0, visibleDevelopersMax));
   }, [developers, visibleDevelopersMax]);
 

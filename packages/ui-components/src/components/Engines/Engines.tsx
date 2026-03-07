@@ -2,10 +2,11 @@ import { Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { PackageMetaInterface } from '../../types/packageMeta';
+import type { PackageMetaInterface } from '../../types/packageMeta';
 import { NodeJS, Npm, Pnpm, Yarn } from '../Icons';
 import { EngineListItem, StyledText } from './styles';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { fireEvent, render, screen } from '../../test/test-react-testing-library';
-import { Developer } from '../../types/packageMeta';
+import type { Developer } from '../../types/packageMeta';
 import Person from './Person';
 
 const mockPerson: Developer = {

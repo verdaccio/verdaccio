@@ -1,6 +1,6 @@
-import { Manifest } from '@verdaccio/types';
+import type { Manifest } from '@verdaccio/types';
 
-import { DistTags } from './types';
+import type { DistTags } from './types';
 import { getTarball } from './utils';
 
 export function generatePackageMetadata(

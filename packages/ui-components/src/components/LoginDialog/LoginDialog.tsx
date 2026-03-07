@@ -5,9 +5,10 @@ import isEmpty from 'lodash/isEmpty';
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Dispatch, LoginBody, RootState } from '../../';
+import type { Dispatch, LoginBody, RootState } from '../../';
 import LoginDialogCloseButton from './LoginDialogCloseButton';
-import LoginDialogForm, { FormValues } from './LoginDialogForm';
+import type { FormValues } from './LoginDialogForm';
+import LoginDialogForm from './LoginDialogForm';
 import LoginDialogHeader from './LoginDialogHeader';
 
 interface Props {
@@ -47,7 +48,7 @@ const LoginDialog: React.FC<Props> = ({ onClose, open = false }) => {
           type: 'error',
           description: i18next.t('form-validation.unable-to-sign-in'),
         });
-        // eslint-disable-next-line no-console
+
         console.error('login error', e.message);
       }
     },

@@ -1,8 +1,8 @@
-import { Algorithm as Algorithms, SignOptions, VerifyOptions } from 'jsonwebtoken';
-import { AgentOptions as HttpAgentOptions } from 'node:http';
-import { AgentOptions as HttpsAgentOptions } from 'node:https';
+import type { Algorithm as Algorithms, SignOptions, VerifyOptions } from 'jsonwebtoken';
+import type { AgentOptions as HttpAgentOptions } from 'node:http';
+import type { AgentOptions as HttpsAgentOptions } from 'node:https';
 
-import { PackageAccess, PackageList } from '@verdaccio/types/src/manifest';
+import type { PackageAccess, PackageList } from '@verdaccio/types/src/manifest';
 
 export type TypeToken = 'Bearer' | 'Basic';
 

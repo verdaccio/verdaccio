@@ -23,7 +23,6 @@ function CustomComponent() {
   );
 }
 
-/* eslint-disable react/jsx-no-bind*/
 describe('<Header /> component with logged in state', () => {
   afterEach(() => {
     cleanup();

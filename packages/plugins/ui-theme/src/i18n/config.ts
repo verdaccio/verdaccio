@@ -3,12 +3,8 @@ import { initReactI18next } from 'react-i18next';
 
 import loadTranslationFile from '@verdaccio/ui-i18n';
 
-import {
-  DEFAULT_LANGUAGE,
-  LanguageConfiguration,
-  listLanguages,
-  listLanguagesAsString,
-} from './enabledLanguages';
+import type { LanguageConfiguration } from './enabledLanguages';
+import { DEFAULT_LANGUAGE, listLanguages, listLanguagesAsString } from './enabledLanguages';
 
 const languages = listLanguages.reduce((acc, item: LanguageConfiguration) => {
   acc[item.lng] = {

@@ -1,4 +1,4 @@
-import { FullRemoteManifest, GenericBody, Version, Versions } from '@verdaccio/types';
+import type { FullRemoteManifest, GenericBody, Version, Versions } from '@verdaccio/types';
 
 import { getTarball } from './utils';
 

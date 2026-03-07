@@ -2,7 +2,8 @@ import styled from '@emotion/styled';
 import { useTheme } from '@mui/material/styles';
 import React from 'react';
 
-import { Theme, useConfig } from '../../';
+import type { Theme } from '../../';
+import { useConfig } from '../../';
 
 const blackAndWithLogo = require('./img/logo-black-and-white.svg');
 const defaultLogo = require('./img/logo.svg');

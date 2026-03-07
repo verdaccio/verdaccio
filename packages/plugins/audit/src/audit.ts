@@ -5,9 +5,9 @@ import https from 'node:https';
 
 import type { Auth } from '@verdaccio/auth';
 import { pluginUtils } from '@verdaccio/core';
-import { Logger } from '@verdaccio/types';
+import type { Logger } from '@verdaccio/types';
 
-import { ConfigAudit } from './types';
+import type { ConfigAudit } from './types';
 
 // FUTURE: we should be able to overwrite this
 export const REGISTRY_DOMAIN = 'https://registry.npmjs.org';
@@ -93,7 +93,6 @@ export default class ProxyAudit
 
     /* eslint new-cap:off */
     const router = express.Router();
-    /* eslint new-cap:off */
 
     router.post('/audits', express.json({ limit: '10mb' }), handleAudit);
     router.post('/audits/quick', express.json({ limit: '10mb' }), handleAudit);

@@ -11,7 +11,6 @@ import App from './App';
 vi.spyOn(HTMLElement.prototype, 'offsetHeight', 'get').mockReturnValue(600);
 vi.spyOn(HTMLElement.prototype, 'offsetWidth', 'get').mockReturnValue(600);
 
-/* eslint-disable react/jsx-no-bind*/
 describe('<App />', () => {
   describe('footer', () => {
     test('should display the Footer component', async () => {

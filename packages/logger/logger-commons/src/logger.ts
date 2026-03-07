@@ -3,7 +3,7 @@ import { isColorSupported } from 'colorette';
 import buildDebug from 'debug';
 
 import { fillInMsgTemplate } from '@verdaccio/logger-prettify';
-import { Logger, LoggerConfigItem, LoggerFormat } from '@verdaccio/types';
+import type { Logger, LoggerConfigItem, LoggerFormat } from '@verdaccio/types';
 
 const debug = buildDebug('verdaccio:logger');
 
@@ -27,7 +27,7 @@ export type LogPlugin = {
 
 export function createLogger(
   options: LoggerConfigItem = { level: 'http' },
-  // eslint-disable-next-line no-undef
+
   // @ts-ignore
   destination: NodeJS.WritableStream = pino.destination(1),
   format: LoggerFormat = DEFAULT_LOG_FORMAT,
@@ -90,7 +90,6 @@ export function createLogger(
   }
   const logger = pino(pinoConfig, destination);
 
-  /* eslint-disable */
   /* istanbul ignore next */
   if (process.env.DEBUG) {
     logger.on('level-change', (lvl, val, prevLvl, prevVal, instance) => {
@@ -127,7 +126,7 @@ export function prepareSetup(options: LoggerConfigItem = DEFAULT_LOGGER_CONF, pi
   if (loggerConfig.type === 'file') {
     debug('logging file enabled');
     const destination = pino.destination(loggerConfig.path);
-    /* eslint-disable */
+
     /* istanbul ignore next */
     process.on('SIGUSR2', () => destination.reopen());
     logger = createLogger(loggerConfig, destination, loggerConfig.format, pino);

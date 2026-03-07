@@ -4,7 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import React from 'react';
 
-import { Theme } from '../../Theme';
+import type { Theme } from '../../Theme';
 import { copyToClipBoardUtility } from './utils';
 
 interface Props {

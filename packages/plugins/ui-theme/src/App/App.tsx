@@ -1,6 +1,3 @@
-/* eslint-disable react/jsx-pascal-case */
-
-/* eslint-disable react/jsx-max-depth */
 import styled from '@emotion/styled';
 import Box from '@mui/material/Box';
 import * as FlagsIcon from 'country-flag-icons/react/3x2';
@@ -9,13 +6,13 @@ import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import { Router, useLocation } from 'react-router-dom';
 
+import type { Theme } from '@verdaccio/ui-components';
 import {
   Footer,
   Header,
   HeaderInfoDialog,
   Loading,
   Route,
-  Theme,
   TranslatorProvider,
   useConfig,
 } from '@verdaccio/ui-components';

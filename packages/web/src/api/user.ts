@@ -1,22 +1,22 @@
 import buildDebug from 'debug';
-import { Request, Response, Router } from 'express';
+import type { Request, Response } from 'express';
+import { Router } from 'express';
 import _ from 'lodash';
 
-import { Auth } from '@verdaccio/auth';
+import type { Auth } from '@verdaccio/auth';
+import type { VerdaccioError } from '@verdaccio/core';
 import {
   API_ERROR,
   APP_ERROR,
   HEADERS,
   HTTP_STATUS,
-  VerdaccioError,
   errorUtils,
   validationUtils,
 } from '@verdaccio/core';
-import { rateLimit } from '@verdaccio/middleware';
-import { WebUrls } from '@verdaccio/middleware';
-import { Config, JWTSignOptions, RemoteUser } from '@verdaccio/types';
+import { WebUrls, rateLimit } from '@verdaccio/middleware';
+import type { Config, JWTSignOptions, RemoteUser } from '@verdaccio/types';
 
-import { $NextFunctionVer } from './package';
+import type { $NextFunctionVer } from './package';
 
 const debug = buildDebug('verdaccio:web:api:user');
 

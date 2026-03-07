@@ -1,21 +1,20 @@
 import buildDebug from 'debug';
 import { Router } from 'express';
 
-import { Auth } from '@verdaccio/auth';
+import type { Auth } from '@verdaccio/auth';
 import { DIST_TAGS, HTTP_STATUS } from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
 import {
   $NextFunctionVer,
   $RequestExtend,
   $ResponseExtend,
+  WebUrls,
   allow,
   getRequestOptions,
 } from '@verdaccio/middleware';
-// Was required by other packages
-import { WebUrls } from '@verdaccio/middleware';
-import { Storage } from '@verdaccio/store';
+import type { Storage } from '@verdaccio/store';
 import { convertDistRemoteToLocalTarballUrls } from '@verdaccio/tarball';
-import { Config, Manifest, WebManifest } from '@verdaccio/types';
+import type { Config, Manifest, WebManifest } from '@verdaccio/types';
 
 import { addGravatarSupport, formatAuthor } from '../author-utils';
 import { addScope, deleteProperties, isVersionValid } from '../web-utils';
@@ -71,7 +70,7 @@ function addSidebarWebApi(config: Config, storage: Storage, auth: Auth): Router 
           ? addGravatarSupport(sideBarInfo, config.web.gravatar)
           : addGravatarSupport(sideBarInfo);
         next(authorAvatar);
-      } catch (err) {
+      } catch {
         res.status(HTTP_STATUS.NOT_FOUND);
         res.end();
       }

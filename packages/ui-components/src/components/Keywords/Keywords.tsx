@@ -4,8 +4,8 @@ import { useTheme } from '@mui/material/styles';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Theme } from '../../Theme';
-import { PackageMetaInterface } from '../../types/packageMeta';
+import type { Theme } from '../../Theme';
+import type { PackageMetaInterface } from '../../types/packageMeta';
 import KeywordListItems from './KeywordListItems';
 
 const Keywords: React.FC<{ packageMeta: PackageMetaInterface }> = ({ packageMeta }) => {

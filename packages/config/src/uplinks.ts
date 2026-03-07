@@ -2,7 +2,7 @@ import _ from 'lodash';
 import assert from 'node:assert';
 
 import { authUtils } from '@verdaccio/core';
-import { PackageList, UpLinksConfList } from '@verdaccio/types';
+import type { PackageList, UpLinksConfList } from '@verdaccio/types';
 
 export const DEFAULT_REGISTRY = 'https://registry.npmjs.org';
 export const DEFAULT_UPLINK = 'npmjs';

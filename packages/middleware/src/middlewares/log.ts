@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 import { HEADERS } from '@verdaccio/core';
 
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
+import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
 
 // FIXME: deprecated, moved to @verdaccio/dev-commons
 export const LOG_STATUS_MESSAGE =
@@ -95,7 +95,6 @@ export const log = (logger) => {
       if (buf) {
         bytesout += buf.length;
       }
-      /* eslint prefer-rest-params: "off" */
       // @ts-ignore
       _end.apply(res, arguments);
       log();

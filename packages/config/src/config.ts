@@ -4,7 +4,7 @@ import assert from 'node:assert';
 
 import { APP_ERROR, authUtils, cryptoUtils, validationUtils, warningUtils } from '@verdaccio/core';
 import { Codes } from '@verdaccio/core/build/warning-utils';
-import {
+import type {
   Config as AppConfig,
   AuthConf,
   ConfigYaml,

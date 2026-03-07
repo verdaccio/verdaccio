@@ -2,7 +2,8 @@ import Divider from '@mui/material/Divider';
 import React from 'react';
 import { AutoSizer } from 'react-virtualized/dist/commonjs/AutoSizer';
 import { CellMeasurer, CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
-import { List, ListRowProps } from 'react-virtualized/dist/commonjs/List';
+import type { ListRowProps } from 'react-virtualized/dist/commonjs/List';
+import { List } from 'react-virtualized/dist/commonjs/List';
 import { WindowScroller } from 'react-virtualized/dist/commonjs/WindowScroller';
 
 import { Help, Package, useConfig } from '../..';
@@ -17,7 +18,6 @@ const cache = new CellMeasurerCache({
   defaultHeight: 100,
 });
 
-/* eslint-disable  verdaccio/jsx-no-style */
 const PackageList: React.FC<Props> = ({ packages }) => {
   const { configOptions } = useConfig();
   const renderRow = ({ index, key, parent, style }: ListRowProps) => {

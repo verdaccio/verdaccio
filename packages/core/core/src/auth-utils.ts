@@ -1,6 +1,7 @@
-import { MMRegExp, minimatch } from 'minimatch';
+import type { MMRegExp } from 'minimatch';
+import { minimatch } from 'minimatch';
 
-import { PackageAccess, PackageList } from '@verdaccio/types';
+import type { PackageAccess, PackageList } from '@verdaccio/types';
 
 export interface CookieSessionToken {
   expires: Date;

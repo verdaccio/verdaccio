@@ -33,7 +33,6 @@ cli.runExit(args, Cli.defaultContext);
 
 process.on('uncaughtException', function (err) {
   console.error(
-    // eslint-disable-next-line max-len
     `uncaught exception, please report (https://github.com/verdaccio/verdaccio/issues) this: \n${err.stack}`
   );
   process.exit(1);

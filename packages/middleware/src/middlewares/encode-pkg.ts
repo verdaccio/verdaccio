@@ -2,7 +2,7 @@ import buildDebug from 'debug';
 
 import { errorUtils } from '@verdaccio/core';
 
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
+import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
 
 const debug = buildDebug('verdaccio:middleware:encode');
 

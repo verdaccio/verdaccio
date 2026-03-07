@@ -2,9 +2,11 @@ import path from 'node:path';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
-import { fileUtils, pluginUtils } from '@verdaccio/core';
+import type { pluginUtils } from '@verdaccio/core';
+import { fileUtils } from '@verdaccio/core';
 
-import HTPasswd, { HTPasswdConfig } from '../src/htpasswd';
+import type { HTPasswdConfig } from '../src/htpasswd';
+import HTPasswd from '../src/htpasswd';
 
 const options = {
   logger: { warn: vi.fn(), info: vi.fn() },

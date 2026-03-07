@@ -1,5 +1,6 @@
 import buildDebug from 'debug';
-import { SpawnOptions, spawn } from 'node:child_process';
+import type { SpawnOptions } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import { createInterface } from 'node:readline';
 
 const debug = buildDebug('verdaccio:e2e:process');

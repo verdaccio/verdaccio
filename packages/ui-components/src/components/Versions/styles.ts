@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { default as MuiListItemText } from '@mui/material/ListItemText';
 
-import { Theme } from '../../Theme';
+import type { Theme } from '../../Theme';
 
 export const Spacer = styled('div')<{ theme?: Theme }>(({ theme }) => ({
   flex: '1 1 auto',

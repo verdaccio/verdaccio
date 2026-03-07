@@ -9,7 +9,7 @@ describe('config-path', () => {
   let mkdirSyncMock;
   let writeFileSyncMock;
   let accessSyncMock;
-  let fakeStats = {
+  const fakeStats = {
     isDirectory: vi.fn().mockReturnValue(true),
   };
 

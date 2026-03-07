@@ -93,7 +93,7 @@ export const login = createModel<RootModel>()({
         });
         dispatch.login.logInUser(payload);
         dispatch.packages.getPackages(undefined);
-      } catch (error: unknown) {
+      } catch {
         // Handle both API errors and other potential errors
         dispatch.login.addError({
           type: 'error',

@@ -1,9 +1,9 @@
-/* eslint-disable verdaccio/jsx-spread */
 import Autocomplete from '@mui/material/Autocomplete';
-import React, { FC, useState } from 'react';
+import type { FC } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { SearchResultWeb } from '@verdaccio/types';
+import type { SearchResultWeb } from '@verdaccio/types';
 
 import { Wrapper } from './styles';
 

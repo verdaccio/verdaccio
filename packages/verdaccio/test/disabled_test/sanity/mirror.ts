@@ -20,7 +20,7 @@ export default function (server, server2) {
     const pkgList = ['pkg1', 'pkg2', 'pkg3'];
 
     pkgList.forEach(function (pkg) {
-      let prefix = pkg;
+      const prefix = pkg;
       pkg = `test-mirror-${pkg}`;
 
       describe(`testing mirror for ${pkg}`, () => {

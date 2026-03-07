@@ -3,8 +3,7 @@ import { basename } from 'node:path';
 import supertest from 'supertest';
 import { describe, expect, test } from 'vitest';
 
-import { HTTP_STATUS } from '@verdaccio/core';
-import { API_ERROR, API_MESSAGE, HEADERS, HEADER_TYPE } from '@verdaccio/core';
+import { API_ERROR, API_MESSAGE, HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 import { generatePackageMetadata, generateRemotePackageMetadata } from '@verdaccio/test-helper';
 
 import { getPackage, initializeServer, publishVersion } from './_helper';

@@ -8,7 +8,6 @@ describe('Parse interval', () => {
     test('parse ' + str, () => {
       if (res === null) {
         assert.throws(function () {
-          // eslint-disable-next-line no-console
           console.log(parseInterval(str));
         });
       } else {

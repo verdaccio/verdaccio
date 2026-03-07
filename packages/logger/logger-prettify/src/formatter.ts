@@ -1,8 +1,9 @@
 import { green, red, white } from 'colorette';
 import { inspect } from 'node:util';
 
-import { LevelCode, calculateLevel, levelsColors, subSystemLevels } from './levels';
-import { PrettyOptionsExtended } from './types';
+import type { LevelCode } from './levels';
+import { calculateLevel, levelsColors, subSystemLevels } from './levels';
+import type { PrettyOptionsExtended } from './types';
 import { formatLoggingDate, isObject, padRight } from './utils';
 
 let LEVEL_VALUE_MAX = 0;

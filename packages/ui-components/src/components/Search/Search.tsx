@@ -1,14 +1,15 @@
-/* eslint-disable verdaccio/jsx-spread */
 import SearchMui from '@mui/icons-material/Search';
 import debounce from 'lodash/debounce';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { RouteComponentProps, withRouter } from 'react-router';
+import type { RouteComponentProps } from 'react-router';
+import { withRouter } from 'react-router';
 
-import { SearchResultWeb } from '@verdaccio/types';
+import type { SearchResultWeb } from '@verdaccio/types';
 
-import { Dispatch, RootState, useConfig } from '../../';
+import type { Dispatch, RootState } from '../../';
+import { useConfig } from '../../';
 import { Route } from '../../utils';
 import AutoComplete from './AutoComplete';
 import SearchItem from './SearchItem';

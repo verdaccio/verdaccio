@@ -1,4 +1,3 @@
-/* eslint-disable verdaccio/jsx-spread */
 import Box from '@mui/material/Box';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { HttpResponse, http } from 'msw';

@@ -1,14 +1,13 @@
-import { Router } from 'express';
+import type { Router } from 'express';
 import _ from 'lodash';
 
-import { Auth } from '@verdaccio/auth';
+import type { Auth } from '@verdaccio/auth';
 import { HEADERS, constants, errorUtils } from '@verdaccio/core';
-import { allow, getRequestOptions, media } from '@verdaccio/middleware';
-import { DIST_TAGS_API_ENDPOINTS } from '@verdaccio/middleware';
-import { Storage } from '@verdaccio/store';
-import { Logger } from '@verdaccio/types';
+import { DIST_TAGS_API_ENDPOINTS, allow, getRequestOptions, media } from '@verdaccio/middleware';
+import type { Storage } from '@verdaccio/store';
+import type { Logger } from '@verdaccio/types';
 
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
+import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
 
 export default function (route: Router, auth: Auth, storage: Storage, logger: Logger): void {
   const can = allow(auth, {

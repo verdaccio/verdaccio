@@ -7,7 +7,8 @@ import IconButton from '@mui/material/IconButton';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Heading, Theme } from '../../';
+import type { Theme } from '../../';
+import { Heading } from '../../';
 
 interface Props {
   onClose?: () => void;

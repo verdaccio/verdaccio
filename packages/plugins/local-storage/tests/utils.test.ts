@@ -1,7 +1,7 @@
 import path from 'node:path';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
-import { Logger } from '@verdaccio/types';
+import type { Logger } from '@verdaccio/types';
 
 import * as readFile from '../src/fs';
 import { noSuchFile } from '../src/local-fs';

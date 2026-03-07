@@ -2,19 +2,19 @@ import buildDebug from 'debug';
 import { Router } from 'express';
 import _ from 'lodash';
 
-import { Auth } from '@verdaccio/auth';
+import type { Auth } from '@verdaccio/auth';
 import { createAnonymousRemoteUser } from '@verdaccio/config';
 import { logger } from '@verdaccio/logger';
 import {
   $NextFunctionVer,
   $RequestExtend,
   $ResponseExtend,
+  WebUrls,
   getRequestOptions,
 } from '@verdaccio/middleware';
-import { WebUrls } from '@verdaccio/middleware';
-import { Storage } from '@verdaccio/store';
+import type { Storage } from '@verdaccio/store';
 import { getLocalRegistryTarballUri } from '@verdaccio/tarball';
-import { Config, RemoteUser, Version } from '@verdaccio/types';
+import type { Config, RemoteUser, Version } from '@verdaccio/types';
 
 import { formatAuthor, generateGravatarUrl } from '../author-utils';
 import { hasLogin, sortByName } from '../web-utils';

@@ -6,8 +6,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 
-import { Theme } from '../../Theme';
-import { PackageDependencies } from '../../types/packageMeta';
+import type { Theme } from '../../Theme';
+import type { PackageDependencies } from '../../types/packageMeta';
 import { Route } from '../../utils';
 
 interface DependencyBlockProps {
@@ -68,7 +68,6 @@ export const DependencyBlock: React.FC<DependencyBlockProps> = ({ title, depende
               data-testid={packageName}
               key={packageName}
               label={labelText(title, packageName, version)}
-              // eslint-disable-next-line
               onClick={() => {
                 handleClick(packageName);
               }}

@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, test } from 'vitest';
 import { createRemoteUser, parseConfigFile } from '@verdaccio/config';
 import { setup } from '@verdaccio/logger';
 import { generatePackageMetadata } from '@verdaccio/test-helper';
-import { Config } from '@verdaccio/types';
+import type { Config } from '@verdaccio/types';
 
 import { notify } from '../src';
 import { parseConfigurationFile } from './__helper';

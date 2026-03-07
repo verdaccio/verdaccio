@@ -14,9 +14,10 @@ import {
 } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 import { errorReportingMiddleware, final, handleError } from '@verdaccio/middleware';
-import { Config } from '@verdaccio/types';
+import type { Config } from '@verdaccio/types';
 
-import { $RequestExtend, Auth } from '../src';
+import type { $RequestExtend } from '../src';
+import { Auth } from '../src';
 import {
   authChangePasswordConf,
   authPluginFailureConf,

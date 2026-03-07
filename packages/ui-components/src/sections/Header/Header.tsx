@@ -3,7 +3,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Dispatch, LoginDialog, RootState, Search, useConfig } from '../../';
+import type { Dispatch, RootState } from '../../';
+import { LoginDialog, Search, useConfig } from '../../';
 import { isTokenExpire } from '../../utils/token';
 import HeaderLeft from './HeaderLeft';
 import HeaderRight from './HeaderRight';

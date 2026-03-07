@@ -1,6 +1,6 @@
 import { HEADER_TYPE, HTTP_STATUS, errorUtils } from '@verdaccio/core';
 
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
+import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
 
 export function media(expect: string | null): any {
   return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {

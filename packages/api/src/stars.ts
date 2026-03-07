@@ -1,12 +1,12 @@
-import { Response, Router } from 'express';
+import type { Response, Router } from 'express';
 import _ from 'lodash';
 
 import { HTTP_STATUS, USERS, errorUtils } from '@verdaccio/core';
 import { STARS_API_ENDPOINTS } from '@verdaccio/middleware';
-import { Storage } from '@verdaccio/store';
-import { Version } from '@verdaccio/types';
+import type { Storage } from '@verdaccio/store';
+import type { Version } from '@verdaccio/types';
 
-import { $NextFunctionVer, $RequestExtend } from '../types/custom';
+import type { $NextFunctionVer, $RequestExtend } from '../types/custom';
 
 export default function (route: Router, storage: Storage): void {
   route.get(

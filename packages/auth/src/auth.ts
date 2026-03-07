@@ -3,6 +3,7 @@ import _ from 'lodash';
 import { HTPasswd } from 'verdaccio-htpasswd';
 
 import { TOKEN_VALID_LENGTH, createAnonymousRemoteUser, createRemoteUser } from '@verdaccio/config';
+import type { VerdaccioError, pluginUtils } from '@verdaccio/core';
 import {
   API_ERROR,
   PLUGIN_CATEGORY,
@@ -10,10 +11,8 @@ import {
   SUPPORT_ERRORS,
   TOKEN_BASIC,
   TOKEN_BEARER,
-  VerdaccioError,
   authUtils,
   errorUtils,
-  pluginUtils,
   warningUtils,
 } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
@@ -23,7 +22,7 @@ import {
   parseBasicPayload,
   signPayload,
 } from '@verdaccio/signature';
-import {
+import type {
   AllowAccess,
   Callback,
   Config,
@@ -34,7 +33,7 @@ import {
   Security,
 } from '@verdaccio/types';
 
-import {
+import type {
   $RequestExtend,
   $ResponseExtend,
   AESPayload,
@@ -564,7 +563,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
       let credentials: RemoteUser | undefined;
       try {
         credentials = verifyJWTPayload(token, this.config.secret, this.config.security);
-      } catch (err: any) {
+      } catch {
         // FIXME: intended behaviour, do we want it?
       }
 

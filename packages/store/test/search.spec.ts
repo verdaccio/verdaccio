@@ -2,7 +2,8 @@ import nock from 'nock';
 import { describe, expect, test } from 'vitest';
 
 import { Config, getDefaultConfig } from '@verdaccio/config';
-import { fileUtils, searchUtils } from '@verdaccio/core';
+import type { searchUtils } from '@verdaccio/core';
+import { fileUtils } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
 import { removeDuplicates } from '@verdaccio/search';
 import { generatePackageMetadata } from '@verdaccio/test-helper';

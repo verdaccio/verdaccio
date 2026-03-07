@@ -15,7 +15,7 @@ export function folderExists(path: string): boolean {
     const isDirectory = stat.isDirectory();
     debug('folder exist', isDirectory);
     return isDirectory;
-  } catch (_: any) {
+  } catch {
     debug('folder %s does not exist', path);
     return false;
   }
@@ -33,7 +33,7 @@ export function fileExists(path: string): boolean {
     const isFile = stat.isFile();
     debug('file exist', isFile);
     return isFile;
-  } catch (_: any) {
+  } catch {
     debug('file %s does not exist', path);
     return false;
   }

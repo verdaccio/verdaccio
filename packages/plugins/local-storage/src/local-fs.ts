@@ -1,13 +1,14 @@
-/* eslint-disable no-undef */
 import buildDebug from 'debug';
 import fs from 'node:fs';
 import path from 'node:path';
-import { Readable, Writable, addAbortSignal } from 'node:stream';
+import type { Readable, Writable } from 'node:stream';
+import { addAbortSignal } from 'node:stream';
 import sanitzers from 'sanitize-filename';
 
-import { VerdaccioError, errorUtils, pluginUtils } from '@verdaccio/core';
+import type { VerdaccioError, pluginUtils } from '@verdaccio/core';
+import { errorUtils } from '@verdaccio/core';
 import { readFileNext, unlockFileNext } from '@verdaccio/file-locking';
-import { Logger, Manifest } from '@verdaccio/types';
+import type { Logger, Manifest } from '@verdaccio/types';
 
 import {
   accessPromise,
@@ -110,12 +111,11 @@ export default class LocalFS implements ILocalFSPackageManager {
         'error on update package @{packageName}: @{err.message}'
       );
       if (locked) {
-        // eslint-disable-next-line no-useless-catch
         try {
           await this._unlockJSON(packageJSONFileName);
           // after unlock bubble up error.
           throw err;
-        } catch (err: any) {
+        } catch {
           // unlock could fail, we bubble up error
           throw errorUtils.getInternalError('resource temporarily unavailable');
         }

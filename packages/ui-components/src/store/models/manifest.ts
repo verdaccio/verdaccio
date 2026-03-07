@@ -1,9 +1,9 @@
 import { createModel } from '@rematch/core';
 
-import { Manifest } from '@verdaccio/types';
+import type { Manifest } from '@verdaccio/types';
 
 import type { RootModel } from '.';
-import { PackageMetaInterface } from '../../types/packageMeta';
+import type { PackageMetaInterface } from '../../types/packageMeta';
 import API, { CustomError } from '../api';
 import { APIRoute } from './routes';
 import { stripTrailingSlash } from './utils';

@@ -1,9 +1,11 @@
 import buildDebug from 'debug';
 
-import { pluginUtils, searchUtils } from '@verdaccio/core';
-import { Logger, Token, TokenFilter } from '@verdaccio/types';
+import type { searchUtils } from '@verdaccio/core';
+import { pluginUtils } from '@verdaccio/core';
+import type { Logger, Token, TokenFilter } from '@verdaccio/types';
 
-import MemoryHandler, { DataHandler } from './memory-handler';
+import type { DataHandler } from './memory-handler';
+import MemoryHandler from './memory-handler';
 
 export type ConfigMemory = { limit?: number };
 export interface MemoryLocalStorage {
@@ -95,7 +97,6 @@ class LocalMemory
     return list.filter((name) => regex.test(name));
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private getScore(_pkg: searchUtils.SearchItemPkg): searchUtils.Score {
     return {
       final: 1,

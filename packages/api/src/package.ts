@@ -1,14 +1,13 @@
 import buildDebug from 'debug';
-import { Router } from 'express';
+import type { Router } from 'express';
 
-import { Auth } from '@verdaccio/auth';
+import type { Auth } from '@verdaccio/auth';
 import { HEADERS, HEADER_TYPE, stringUtils } from '@verdaccio/core';
-import { allow, getRequestOptions } from '@verdaccio/middleware';
-import { PACKAGE_API_ENDPOINTS } from '@verdaccio/middleware';
+import { PACKAGE_API_ENDPOINTS, allow, getRequestOptions } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
-import { Logger } from '@verdaccio/types';
+import type { Logger } from '@verdaccio/types';
 
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
+import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
 
 const debug = buildDebug('verdaccio:api:package');
 

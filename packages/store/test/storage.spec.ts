@@ -27,7 +27,7 @@ import {
   generateUnPublishPackageMetadata,
   getDeprecatedPackageMetadata,
 } from '@verdaccio/test-helper';
-import {
+import type {
   AbbreviatedManifest,
   Author,
   ConfigYaml,
