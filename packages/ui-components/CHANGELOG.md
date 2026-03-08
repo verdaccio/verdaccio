@@ -1,5 +1,16 @@
 # @verdaccio/ui-components
 
+## 4.0.0-next-8.13
+
+### Minor Changes
+
+- b5eccfc: feat: remove rematch refactor ui
+
+### Patch Changes
+
+- Updated dependencies [b5eccfc]
+  - @verdaccio/ui-i18n@8.0.0-next-8.14
+
 ## 4.0.0-next-8.12
 
 ### Patch Changes

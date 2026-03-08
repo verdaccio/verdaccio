@@ -1,5 +1,30 @@
 # @verdaccio/web
 
+## 8.1.0-next-8.31
+
+### Minor Changes
+
+- b5eccfc: feat: remove rematch refactor ui
+
+### Patch Changes
+
+- 6705d30: chore(web): reduce memory consumption of package list
+- 95fc87c: refactor: handling of request options
+- Updated dependencies [17842bd]
+- Updated dependencies [b5eccfc]
+- Updated dependencies [dabb1d5]
+- Updated dependencies [6705d30]
+- Updated dependencies [3243194]
+- Updated dependencies [95fc87c]
+  - @verdaccio/auth@8.0.0-next-8.31
+  - @verdaccio/config@8.0.0-next-8.31
+  - @verdaccio/store@8.0.0-next-8.31
+  - @verdaccio/middleware@8.0.0-next-8.31
+  - @verdaccio/core@8.0.0-next-8.31
+  - @verdaccio/tarball@13.0.0-next-8.31
+  - @verdaccio/logger@8.0.0-next-8.31
+  - @verdaccio/loaders@8.0.0-next-8.21
+
 ## 8.1.0-next-8.30
 
 ### Patch Changes

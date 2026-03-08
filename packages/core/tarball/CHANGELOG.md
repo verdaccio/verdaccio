@@ -1,5 +1,13 @@
 # Change Log
 
+## 13.0.0-next-8.31
+
+### Patch Changes
+
+- Updated dependencies [95fc87c]
+  - @verdaccio/url@13.0.0-next-8.31
+  - @verdaccio/core@8.0.0-next-8.31
+
 ## 13.0.0-next-8.30
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @verdaccio/ui-theme
 
+## 8.0.0-next-8.31
+
+### Minor Changes
+
+- b5eccfc: feat: remove rematch refactor ui
+- 3243194: refactor: make asset manifest bundler-agnostic
+
 ## 8.0.0-next-8.30
 
 ## 8.0.0-next-8.29

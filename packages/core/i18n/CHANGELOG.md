@@ -1,5 +1,11 @@
 # @verdaccio/ui-i18n
 
+## 8.0.0-next-8.14
+
+### Minor Changes
+
+- b5eccfc: feat: remove rematch refactor ui
+
 ## 8.0.0-next-8.13
 
 ### Patch Changes

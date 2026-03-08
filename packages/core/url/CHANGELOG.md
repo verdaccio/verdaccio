@@ -1,5 +1,12 @@
 # Change Log
 
+## 13.0.0-next-8.31
+
+### Patch Changes
+
+- 95fc87c: refactor: handling of request options
+  - @verdaccio/core@8.0.0-next-8.31
+
 ## 13.0.0-next-8.30
 
 ### Patch Changes
