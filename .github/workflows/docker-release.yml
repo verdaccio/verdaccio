@@ -25,7 +25,7 @@ jobs:
           images: verdaccio/verdaccio
           # flavor: latest=true ensures 'latest' is always pushed with a release
           flavor: |
-            latest=true
+            latest=false
           tags: |
             # Full version (e.g., 10.6.1)
             type=semver,pattern={{version}}
