@@ -2,7 +2,6 @@ import getPort from 'get-port';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest';
 
-import { fileUtils } from '@verdaccio/core';
 import {
   API_ERROR,
   DIST_TAGS,
@@ -10,6 +9,7 @@ import {
   HEADER_TYPE,
   HTTP_STATUS,
   TOKEN_BEARER,
+  fileUtils,
 } from '@verdaccio/core';
 import { generatePackageMetadata } from '@verdaccio/test-helper';
 import { buildToken } from '@verdaccio/utils';

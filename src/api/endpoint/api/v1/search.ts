@@ -2,7 +2,7 @@ import _ from 'lodash';
 import semver from 'semver';
 
 import { SEARCH_API_ENDPOINTS } from '@verdaccio/middleware';
-import { Manifest } from '@verdaccio/types';
+import type { Manifest } from '@verdaccio/types';
 
 import { HTTP_STATUS } from '../../../../lib/constants';
 import { logger } from '../../../../lib/logger';

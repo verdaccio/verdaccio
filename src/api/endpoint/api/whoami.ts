@@ -1,8 +1,8 @@
-import { Response, Router } from 'express';
+import type { Response, Router } from 'express';
 
 import { USER_API_ENDPOINTS } from '@verdaccio/middleware';
 
-import { $NextFunctionVer, $RequestExtend } from '../../../types';
+import type { $NextFunctionVer, $RequestExtend } from '../../../types';
 
 export default function (route: Router): void {
   route.get(

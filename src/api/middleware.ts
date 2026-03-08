@@ -3,11 +3,11 @@ import fs from 'fs';
 import _ from 'lodash';
 import path from 'path';
 
-import { Config } from '@verdaccio/types';
+import type { Config } from '@verdaccio/types';
 import { isURL } from '@verdaccio/url';
 
 import { HTTP_STATUS } from '../lib/constants';
-import { $RequestExtend, $ResponseExtend } from '../types';
+import type { $RequestExtend, $ResponseExtend } from '../types';
 
 const debug = buildDebug('verdaccio:middleware:favicon');
 

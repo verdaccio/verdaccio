@@ -1,18 +1,18 @@
 import buildDebug from 'debug';
-import { Response, Router } from 'express';
+import type { Response, Router } from 'express';
 import _ from 'lodash';
 
 import { getApiToken } from '@verdaccio/auth';
 import { cryptoUtils } from '@verdaccio/core';
 import { rateLimit } from '@verdaccio/middleware';
-import { Config, RemoteUser, Token } from '@verdaccio/types';
+import type { Config, RemoteUser, Token } from '@verdaccio/types';
 
-import Auth from '../../../../lib/auth';
+import type Auth from '../../../../lib/auth';
 import { HEADERS, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../lib/constants';
 import { logger } from '../../../../lib/logger';
-import Storage from '../../../../lib/storage';
+import type Storage from '../../../../lib/storage';
 import { ErrorCode } from '../../../../lib/utils';
-import { $NextFunctionVer, $RequestExtend } from '../../../../types';
+import type { $NextFunctionVer, $RequestExtend } from '../../../../types';
 
 const debug = buildDebug('verdaccio:token');
 export type NormalizeToken = Token & {

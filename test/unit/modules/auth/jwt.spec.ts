@@ -2,7 +2,6 @@ import getPort from 'get-port';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest';
 
-import { fileUtils } from '@verdaccio/core';
 import {
   API_ERROR,
   HEADERS,
@@ -10,9 +9,9 @@ import {
   HTTP_STATUS,
   TOKEN_BASIC,
   TOKEN_BEARER,
+  fileUtils,
 } from '@verdaccio/core';
-import { buildUserBuffer } from '@verdaccio/utils';
-import { buildToken } from '@verdaccio/utils';
+import { buildToken, buildUserBuffer } from '@verdaccio/utils';
 
 import endPointAPI from '../../../../src/api';
 import { setup } from '../../../../src/lib/logger';

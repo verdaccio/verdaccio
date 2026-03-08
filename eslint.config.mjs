@@ -1,8 +1,6 @@
-// @ts-check
-import eslint from '@eslint/js';
-import tseslint from 'typescript-eslint';
+import verdaccio from '@verdaccio/eslint-config';
 
-export default tseslint.config(
+const ignores = [
   {
     ignores: [
       '**/debug/**',
@@ -11,57 +9,44 @@ export default tseslint.config(
       '**/test/types-test/plugins/**/*.ts',
     ],
   },
-  eslint.configs.recommended,
-  tseslint.configs.recommended,
-  // JS files with CommonJS (module.exports, require)
-  {
-    files: ['**/*.js'],
-    languageOptions: {
-      sourceType: 'commonjs',
-      globals: {
-        module: 'readonly',
-        require: 'readonly',
-        __dirname: 'readonly',
-        exports: 'readonly',
-      },
-    },
-  },
+];
 
-  // TS files with ESM-style
+const testFilePatterns = [
+  '**/*.{test,spec}.{js,ts,jsx,tsx}',
+  '**/tests/**/*.{ts,tsx}',
+  '**/test/**/*.{ts,tsx}',
+  '**/__tests__/**/*.{ts,tsx}',
+  '**/__mocks__/**/*.{ts,tsx}',
+];
+
+export default [
+  ...verdaccio,
   {
     files: ['**/*.ts', '**/*.tsx'],
     rules: {
       '@typescript-eslint/no-this-alias': 'warn',
       '@typescript-eslint/ban-ts-comment': 'warn',
-    },
-    languageOptions: {
-      parserOptions: {
-        sourceType: 'module', // Typical for TS with `import/export`
-      },
+      '@typescript-eslint/no-misused-promises': 'off',
+      '@typescript-eslint/no-floating-promises': 'off',
     },
   },
-
   {
-    files: [
-      '**/*.spec.ts',
-      '**/*.spec.js',
-      '**/__tests__/**/*.ts',
-      '**/__tests__/**/*.js',
-      'test/unit/**/*.ts',
-      'test/unit/**/*.js',
-    ],
+    files: testFilePatterns,
     rules: {
       '@typescript-eslint/no-require-imports': 'off',
       '@typescript-eslint/ban-ts-comment': 'off',
       'prefer-const': 'off',
-      '@typescript-eslint/no-empty-object-types': 'off',
+      '@typescript-eslint/no-empty-object-type': 'off',
       '@typescript-eslint/no-unused-vars': 'error',
+      'no-console': 'off',
     },
   },
   {
     rules: {
       'no-useless-escape': 'off',
+      'no-useless-assignment': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
     },
-  }
-);
+  },
+  ...ignores,
+];

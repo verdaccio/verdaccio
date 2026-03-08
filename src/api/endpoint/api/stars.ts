@@ -1,14 +1,14 @@
 import createDebug from 'debug';
-import { Response, Router } from 'express';
+import type { Response, Router } from 'express';
 import _ from 'lodash';
 
 import { errorUtils } from '@verdaccio/core';
 import { STARS_API_ENDPOINTS } from '@verdaccio/middleware';
-import { Version } from '@verdaccio/types';
+import type { Version } from '@verdaccio/types';
 
 import { HTTP_STATUS, USERS } from '../../../lib/constants';
-import Storage from '../../../lib/storage';
-import { $NextFunctionVer, $RequestExtend } from '../../../types';
+import type Storage from '../../../lib/storage';
+import type { $NextFunctionVer, $RequestExtend } from '../../../types';
 
 const debug = createDebug('verdaccio:api:stars');
 

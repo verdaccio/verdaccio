@@ -7,13 +7,13 @@ import {
   convertDistRemoteToLocalTarballUrls,
   getLocalRegistryTarballUri,
 } from '@verdaccio/tarball';
-import { Config, Manifest, RemoteUser } from '@verdaccio/types';
+import type { Config, Manifest, RemoteUser } from '@verdaccio/types';
 import { addGravatarSupport, formatAuthor, generateGravatarUrl } from '@verdaccio/utils';
 
-import Auth from '../../../lib/auth';
+import type Auth from '../../../lib/auth';
 import { DIST_TAGS, HEADERS, HEADER_TYPE, HTTP_STATUS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
-import Storage from '../../../lib/storage';
+import type Storage from '../../../lib/storage';
 import {
   ErrorCode,
   addScope,
@@ -22,7 +22,12 @@ import {
   parseReadme,
   sortByName,
 } from '../../../lib/utils';
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend, $SidebarPackage } from '../../../types';
+import type {
+  $NextFunctionVer,
+  $RequestExtend,
+  $ResponseExtend,
+  $SidebarPackage,
+} from '../../../types';
 import { wrapPath } from './utils';
 
 const getOrder = (order = 'asc') => {

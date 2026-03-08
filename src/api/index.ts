@@ -1,23 +1,24 @@
 import compression from 'compression';
 import cors from 'cors';
-import express, { Application } from 'express';
+import type { Application } from 'express';
+import express from 'express';
 import _ from 'lodash';
 
 import { Auth } from '@verdaccio/auth';
 import { getUserAgent } from '@verdaccio/config';
-import { PLUGIN_CATEGORY, pluginUtils } from '@verdaccio/core';
+import type { pluginUtils } from '@verdaccio/core';
+import { PLUGIN_CATEGORY } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
-import { errorReportingMiddleware, final, handleError } from '@verdaccio/middleware';
-import { log } from '@verdaccio/middleware';
+import { errorReportingMiddleware, final, handleError, log } from '@verdaccio/middleware';
 import { SearchMemoryIndexer } from '@verdaccio/search-indexer';
-import { ConfigYaml, Config as IConfig } from '@verdaccio/types';
+import type { ConfigYaml, Config as IConfig } from '@verdaccio/types';
 
 import AppConfig from '../lib/config';
 import { API_ERROR } from '../lib/constants';
 import { logger } from '../lib/logger';
 import Storage from '../lib/storage';
 import { ErrorCode } from '../lib/utils';
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
+import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
 import hookDebug from './debug';
 import apiEndpoint from './endpoint';
 import { serveFavicon } from './middleware';

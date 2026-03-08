@@ -1,18 +1,19 @@
-import express, { Response, Router } from 'express';
+import type { Response, Router } from 'express';
+import express from 'express';
 import _ from 'lodash';
 
 import { getApiToken } from '@verdaccio/auth';
 import { createRemoteUser } from '@verdaccio/config';
 import { validationUtils } from '@verdaccio/core';
 import { rateLimit } from '@verdaccio/middleware';
-import { Config, RemoteUser } from '@verdaccio/types';
+import type { Config, RemoteUser } from '@verdaccio/types';
 import { getAuthenticatedMessage } from '@verdaccio/utils';
 
-import Auth from '../../../lib/auth';
+import type Auth from '../../../lib/auth';
 import { API_ERROR, API_MESSAGE, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
 import { ErrorCode } from '../../../lib/utils';
-import { $NextFunctionVer, $RequestExtend } from '../../../types';
+import type { $NextFunctionVer, $RequestExtend } from '../../../types';
 
 export default function (route: Router, auth: Auth, config: Config): void {
   /* eslint new-cap:off */

@@ -1,5 +1,5 @@
-import { pluginUtils } from '@verdaccio/core';
-import { Logger, RemoteUser } from '@verdaccio/types';
+import type { pluginUtils } from '@verdaccio/core';
+import type { Logger, RemoteUser } from '@verdaccio/types';
 
 declare global {
   namespace Express {
