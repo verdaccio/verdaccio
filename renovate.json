@@ -1,7 +1,7 @@
 {
   "extends": ["config:base", "helpers:pinGitHubActionDigests"],
   "prConcurrentLimit": 2,
-  "minimumReleaseAge": "15 days",
+  "minimumReleaseAge": "20 days",
   "internalChecksFilter": "strict",
   "ignorePaths": ["docker-examples/**"],
   "schedule": ["on the 1,11,21 day of the month"],
@@ -18,7 +18,13 @@
     "npm",
     "@yarnpkg/cli-dist"
   ],
-  "baseBranches": ["master", "6.x"],
+  "baseBranches": ["master", "6.x", "7.x"],
+  "securityUpdates": {
+    "enabled": true,
+    "labels": ["bot: security"],
+    "groupName": "security updates",
+    "groupSlug": "security-updates"
+  },
   "semanticCommitType": "fix",
   "major": true,
   "labels": ["bot: dependencies"],
@@ -32,11 +38,6 @@
     {
       "packageNames": ["aws-sdk"],
       "allowedVersions": "2.607.0"
-    },
-    {
-      "packageNames": ["@verdaccio/local-storage"],
-      "allowedVersions": "^10.3.4",
-      "matchBaseBranches": ["7.x"]
     },
     {
       "description": "Latest ui-theme version available for 6.x branch",
@@ -122,10 +123,11 @@
         "verdaccio-auth-memory",
         "verdaccio-memory"
       ],
+      "minimumReleaseAge": "0 days",
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "core verdaccio dependencies",
       "groupSlug": "all-verdaccio",
-      "baseBranchList": ["6.x"]
+      "baseBranchList": ["6.x", "7.x"]
     },
     {
       "matchPackagePatterns": [
@@ -157,7 +159,7 @@
         "babel-loader",
         "webpack-*"
       ],
-      "matchUpdateTypes": ["minor", "patch", "major"],
+      "matchUpdateTypes": ["minor", "patch"],
       "groupName": "all build dependencies",
       "groupSlug": "all-build",
       "baseBranchList": ["master"]
@@ -167,14 +169,14 @@
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "all test dependencies",
       "groupSlug": "all-test",
-      "baseBranchList": ["master", "6.x"]
+      "baseBranchList": ["master", "6.x", "7.x"]
     },
     {
       "matchPackagePatterns": ["@type/*", "typescript"],
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "typescript dependencies",
       "groupSlug": "all-types",
-      "baseBranchList": ["master", "6.x"]
+      "baseBranchList": ["master", "6.x", "7.x"]
     }
   ],
   "pinVersions": false

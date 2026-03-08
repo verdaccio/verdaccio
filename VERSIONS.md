@@ -7,7 +7,7 @@ The following table describes the versions of this project:
 | 4.x              | :x: (deprecated)   | 10              | 4.x    | latest-4         | (Not available)         | 3.x         | ❌                                                                 |
 | 5.x previous     | :x: (deprecated)   | 14              | 5.x    | latest-5         | 5, 5.x, 5.x.x, 5.x-next | 4.0 - 4.18  | ❌                                                                 |
 | 6.x current      | :white_check_mark: | 18              | 6.x    | latest-6, latest | 6, 6.x, 6.x.x, 6.x-next | 4.19 - ...  | [e2e-tests/main](https://github.com/verdaccio/e2e-tests/tree/main) |
-| 7.x next         | :x:                | 18              | 7.x    | next-7           | 7.x-next                | n/a         | [e2e-tests/6.x](https://github.com/verdaccio/e2e-tests/tree/6.x)   |
+| 7.x next         | :x:                | 22              | 7.x    | next-7           | 7.x-next                | n/a         | [e2e-tests/6.x](https://github.com/verdaccio/e2e-tests/tree/6.x)   |
 | 8.x experimental | :x:                | 18              | master | next-8           | nightly-master          | n/a         | master branch                                                      |
 
 ## Migration Guide
