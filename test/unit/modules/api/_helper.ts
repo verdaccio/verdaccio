@@ -1,15 +1,14 @@
-import { Application } from 'express';
+import type { Application } from 'express';
 import _ from 'lodash';
 import path from 'path';
 import supertest from 'supertest';
-import { App } from 'supertest/types';
+import type { App } from 'supertest/types';
 import { expect } from 'vitest';
 
 import { parseConfigFile } from '@verdaccio/config';
 import { HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core';
-import { initializeServer as initializeServerHelper } from '@verdaccio/test-helper';
-import { generatePackageMetadata } from '@verdaccio/test-helper';
-import { GenericBody, PackageUsers } from '@verdaccio/types';
+import { initializeServer as initializeServerHelper, generatePackageMetadata  } from '@verdaccio/test-helper';
+import type { GenericBody, PackageUsers } from '@verdaccio/types';
 import { buildToken, generateRandomHexString } from '@verdaccio/utils';
 
 import apiMiddleware from '../../../../src/api/endpoint';

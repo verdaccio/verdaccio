@@ -3,7 +3,7 @@ import _ from 'lodash';
 import request from 'supertest';
 import { expect } from 'vitest';
 
-import { Manifest } from '@verdaccio/types';
+import type { Manifest } from '@verdaccio/types';
 import { generateRandomHexString } from '@verdaccio/utils';
 
 import { HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '../../../src/lib/constants';

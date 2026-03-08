@@ -1,14 +1,14 @@
-import { Response, Router } from 'express';
+import type { Response, Router } from 'express';
 import _ from 'lodash';
 
 import { validationUtils } from '@verdaccio/core';
 import { rateLimit } from '@verdaccio/middleware';
-import { ConfigYaml } from '@verdaccio/types';
+import type { ConfigYaml } from '@verdaccio/types';
 
-import Auth from '../../../../lib/auth';
+import type Auth from '../../../../lib/auth';
 import { API_ERROR, APP_ERROR, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../lib/constants';
 import { ErrorCode } from '../../../../lib/utils';
-import { $NextFunctionVer, $RequestExtend } from '../../../../types';
+import type { $NextFunctionVer, $RequestExtend } from '../../../../types';
 
 export interface Profile {
   tfa: boolean;

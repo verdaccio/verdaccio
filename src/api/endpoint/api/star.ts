@@ -1,11 +1,11 @@
 import buildDebug from 'debug';
-import { Response } from 'express';
+import type { Response } from 'express';
 import _ from 'lodash';
 
 import { HTTP_STATUS, USERS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
-import Storage from '../../../lib/storage';
-import { $NextFunctionVer, $RequestExtend } from '../../../types';
+import type Storage from '../../../lib/storage';
+import type { $NextFunctionVer, $RequestExtend } from '../../../types';
 
 const debug = buildDebug('verdaccio:star');
 export default function (

@@ -1,17 +1,17 @@
-import { Router } from 'express';
+import type { Router } from 'express';
 import _ from 'lodash';
 
 import { stringUtils } from '@verdaccio/core';
 import { PACKAGE_API_ENDPOINTS, allow } from '@verdaccio/middleware';
 import { convertDistRemoteToLocalTarballUrls } from '@verdaccio/tarball';
-import { Config, Manifest } from '@verdaccio/types';
+import type { Config, Manifest } from '@verdaccio/types';
 
-import Auth from '../../../lib/auth';
+import type Auth from '../../../lib/auth';
 import { API_ERROR, DIST_TAGS, HEADERS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
-import Storage from '../../../lib/storage';
+import type Storage from '../../../lib/storage';
 import { ErrorCode, getVersion } from '../../../lib/utils';
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../../../types';
+import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../../../types';
 
 const downloadStream = (
   packageName: string,

@@ -5,7 +5,7 @@ import { statSync } from 'node:fs';
 import { join } from 'node:path';
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, test } from 'vitest';
 
-import { Config, UpLinkConf } from '@verdaccio/types';
+import type { Config, UpLinkConf } from '@verdaccio/types';
 
 import AppConfig from '../../../../src/lib/config';
 import {

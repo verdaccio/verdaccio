@@ -2,17 +2,14 @@ import getPort from 'get-port';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest';
 
-import { fileUtils } from '@verdaccio/core';
-import {
+import { fileUtils,
   API_ERROR,
   HEADERS,
   HEADER_TYPE,
   HTTP_STATUS,
   TOKEN_BASIC,
-  TOKEN_BEARER,
-} from '@verdaccio/core';
-import { buildUserBuffer } from '@verdaccio/utils';
-import { buildToken } from '@verdaccio/utils';
+  TOKEN_BEARER } from '@verdaccio/core';
+import { buildUserBuffer, buildToken  } from '@verdaccio/utils';
 
 import endPointAPI from '../../../../src/api';
 import { setup } from '../../../../src/lib/logger';

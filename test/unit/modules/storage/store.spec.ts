@@ -4,7 +4,7 @@ import path from 'path';
 import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest';
 
 import { fileUtils } from '@verdaccio/core';
-import { Config } from '@verdaccio/types';
+import type { Config } from '@verdaccio/types';
 
 import AppConfig from '../../../../src/lib/config';
 import { API_ERROR, HTTP_STATUS } from '../../../../src/lib/constants';

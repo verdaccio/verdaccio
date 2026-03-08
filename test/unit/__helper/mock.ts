@@ -3,7 +3,7 @@ import path from 'path';
 import Server from '../../lib/server';
 import VerdaccioProcess from '../../lib/server_process';
 import { VerdaccioConfig } from '../../lib/verdaccio-server';
-import { IServerBridge } from '../../types';
+import type { IServerBridge } from '../../types';
 
 /**
  * Fork a Verdaccio process with a custom configuration.

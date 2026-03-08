@@ -1,15 +1,16 @@
-import { Request, Response, Router } from 'express';
+import type { Request, Response} from 'express';
+import { Router } from 'express';
 import _ from 'lodash';
 
 import { validationUtils } from '@verdaccio/core';
 import { WebUrls, rateLimit } from '@verdaccio/middleware';
-import { Config, JWTSignOptions, RemoteUser } from '@verdaccio/types';
+import type { Config, JWTSignOptions, RemoteUser } from '@verdaccio/types';
 
-import Auth from '../../../lib/auth';
+import type Auth from '../../../lib/auth';
 import { getSecurity } from '../../../lib/auth-utils';
 import { API_ERROR, APP_ERROR, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { ErrorCode } from '../../../lib/utils';
-import { $NextFunctionVer } from '../../../types';
+import type { $NextFunctionVer } from '../../../types';
 import { wrapSecPath } from './utils';
 
 function addUserAuthApi(auth: Auth, config: Config): Router {
