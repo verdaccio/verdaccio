@@ -12,7 +12,7 @@ import { getPublicUrl, isURLhasValidProtocol } from '@verdaccio/url';
 
 import type { Manifest } from './manifest';
 import renderTemplate from './template';
-import type { WebpackManifest } from './template';
+import type { AssetManifest } from './template';
 import { hasLogin, validatePrimaryColor } from './web-utils';
 
 const DEFAULT_LANGUAGE = 'es-US';
@@ -21,7 +21,7 @@ const cache = new LRU({ max: 500, ttl: 1000 * 60 * 60 });
 const debug = buildDebug('verdaccio:web:render');
 
 const defaultManifestFiles: Manifest = {
-  js: ['runtime.js', 'vendors.js', 'main.js'],
+  js: ['vendors.js', 'main.js'],
   ico: 'favicon.ico',
   css: [],
 };
@@ -47,7 +47,7 @@ export function resolveLogo(
 
 export default function renderHTML(
   config: ConfigYaml,
-  manifest: WebpackManifest,
+  manifest: AssetManifest,
   manifestFiles: Manifest | null | undefined,
   requestOptions: RequestOptions,
   res: Response

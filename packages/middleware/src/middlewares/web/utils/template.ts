@@ -15,12 +15,11 @@ export type Template = {
   scriptsBodyBefore?: string[];
 };
 
-// the outcome of the Webpack Manifest Plugin
-export interface WebpackManifest {
+export interface AssetManifest {
   [key: string]: string;
 }
 
-export default function renderTemplate(template: Template, manifest: WebpackManifest) {
+export default function renderTemplate(template: Template, manifest: AssetManifest) {
   debug('template %o', template);
   debug('manifest %o', manifest);
 
