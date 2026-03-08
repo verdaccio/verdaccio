@@ -1,4 +1,4 @@
-FROM --platform=${BUILDPLATFORM:-linux/amd64} node:22.22.0-alpine AS builder
+FROM --platform=${BUILDPLATFORM:-linux/amd64} node:24.13.1-alpine AS builder
 
 ENV NODE_ENV=production \
     VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org  \
@@ -36,7 +36,7 @@ RUN yarn pack --out verdaccio.tgz \
 
 RUN rm -Rf /opt/verdaccio-build
 
-FROM node:22.22.0-alpine
+FROM node:24.13.1-alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
 
 ENV VERDACCIO_APPDIR=/opt/verdaccio \
