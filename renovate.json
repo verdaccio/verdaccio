@@ -19,12 +19,6 @@
     "@yarnpkg/cli-dist"
   ],
   "baseBranches": ["master", "6.x", "7.x"],
-  "securityUpdates": {
-    "enabled": true,
-    "labels": ["bot: security"],
-    "groupName": "security updates",
-    "groupSlug": "security-updates"
-  },
   "semanticCommitType": "fix",
   "major": true,
   "labels": ["bot: dependencies"],
