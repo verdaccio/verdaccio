@@ -22,7 +22,12 @@ import {
   parseReadme,
   sortByName,
 } from '../../../lib/utils';
-import type { $NextFunctionVer, $RequestExtend, $ResponseExtend, $SidebarPackage } from '../../../types';
+import type {
+  $NextFunctionVer,
+  $RequestExtend,
+  $ResponseExtend,
+  $SidebarPackage,
+} from '../../../types';
 import { wrapPath } from './utils';
 
 const getOrder = (order = 'asc') => {

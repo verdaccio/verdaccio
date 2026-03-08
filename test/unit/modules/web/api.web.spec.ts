@@ -2,13 +2,15 @@ import getPort from 'get-port';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest';
 
-import { fileUtils,
+import {
   API_ERROR,
   DIST_TAGS,
   HEADERS,
   HEADER_TYPE,
   HTTP_STATUS,
-  TOKEN_BEARER } from '@verdaccio/core';
+  TOKEN_BEARER,
+  fileUtils,
+} from '@verdaccio/core';
 import { generatePackageMetadata } from '@verdaccio/test-helper';
 import { buildToken } from '@verdaccio/utils';
 

@@ -1,6 +1,6 @@
 import buildDebug from 'debug';
-import type { RequestHandler  } from 'express';
-import express, { Router  } from 'express';
+import type { RequestHandler } from 'express';
+import express, { Router } from 'express';
 import _ from 'lodash';
 
 import { PLUGIN_CATEGORY } from '@verdaccio/core';
@@ -52,7 +52,6 @@ export function webAPIMiddleware(
   tokenMiddleware: RequestHandler,
   webEndpointsApi: RequestHandler
 ): Router {
-   
   const route = Router();
   // validate all of these params as a package name
   // this might be too harsh, so ask if it causes trouble=
@@ -74,7 +73,6 @@ export function webAPIMiddleware(
 }
 
 export function webMiddleware(config, middlewares, pluginOptions): any {
-   
   const router = express.Router();
   const { tokenMiddleware, webEndpointsApi } = middlewares;
   // render web
@@ -95,7 +93,6 @@ export default async (config, auth, storage, logger) => {
     );
   }
 
-   
   const router = Router();
   // web endpoints, search, packages, etc
   router.use(

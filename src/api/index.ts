@@ -9,7 +9,7 @@ import { getUserAgent } from '@verdaccio/config';
 import type { pluginUtils } from '@verdaccio/core';
 import { PLUGIN_CATEGORY } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
-import { errorReportingMiddleware, final, handleError, log  } from '@verdaccio/middleware';
+import { errorReportingMiddleware, final, handleError, log } from '@verdaccio/middleware';
 import { SearchMemoryIndexer } from '@verdaccio/search-indexer';
 import type { ConfigYaml, Config as IConfig } from '@verdaccio/types';
 
