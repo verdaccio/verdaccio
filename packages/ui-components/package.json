@@ -44,7 +44,7 @@
     "react-markdown": "10.1.0",
     "react-router": "7.13.0",
     "react-virtualized": "9.22.6",
-    "semver": "7.7.3",
+    "semver": "7.7.4",
     "swr": "2.3.8",
     "validator": "13.15.23",
     "yup": "1.7.1"
