@@ -5,11 +5,14 @@ const debug = buildDebug('verdaccio:plugin:ui-theme');
 
 const manifest = require('./static/manifest.json');
 
+// Entry-point scripts that must be eagerly loaded in the HTML.
+// Lazy-loaded code-split chunks (e.g. Home.js, Version.js) are excluded
+// so they remain loaded on demand by the bundler runtime.
+const ENTRY_POINTS = ['runtime.js', 'vendors.js', 'main.js'];
+
 function getManifestFiles(manifest) {
   const keys = Object.keys(manifest);
-  const js = keys.filter((k) => k.endsWith('.js'));
-  // ensure main.js loads last (after runtime/vendors)
-  js.sort((a, b) => (a === 'main.js' ? 1 : b === 'main.js' ? -1 : 0));
+  const js = ENTRY_POINTS.filter((entry) => keys.includes(entry));
   const css = keys.filter((k) => k.endsWith('.css'));
   const ico = keys.find((k) => k.endsWith('.ico')) || 'favicon.ico';
   debug('manifest files js: %o', js);
