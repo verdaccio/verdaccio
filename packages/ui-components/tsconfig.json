@@ -6,14 +6,13 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "sourceMap": true,
-    "rootDir": "./src",
     "outDir": "./build",
     "preserveSymlinks": true,
     "jsx": "react",
     "allowJs": true,
     "types": ["node", "@testing-library/jest-dom"]
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "vitest/**/*"],
   "exclude": [
     "**/build",
     "node_modules",

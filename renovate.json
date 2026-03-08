@@ -39,9 +39,20 @@
       "matchBaseBranches": ["7.x"]
     },
     {
+      "description": "Latest ui-theme version available for 6.x branch",
+      "matchPackageNames": ["@verdaccio/ui-theme"],
+      "matchBaseBranches": ["6.x"],
+      "allowedVersions": "8.0.0-next-8.30"
+    },
+    {
+      "description": "Emotion 11.14+ breaks @emotion/styled theme injection with MUI ThemeProvider",
       "packageNames": ["@emotion/*"],
-      "matchFileNames": ["./package.json", "./packages/**/package.json"],
-      "matchBaseBranches": ["master"]
+      "allowedVersions": "<= 11.13.5"
+    },
+    {
+      "description": "react-router 7.13.1+ breaks router context in webpack builds with BrowserRouter",
+      "packageNames": ["react-router", "react-router-dom"],
+      "allowedVersions": "<= 7.13.0"
     },
     {
       "packageNames": ["got"],

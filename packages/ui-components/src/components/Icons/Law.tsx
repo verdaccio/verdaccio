@@ -2,9 +2,7 @@ import React from 'react';
 
 import { SvgIcon } from './SvgIcon';
 
-type Props = React.ComponentProps<typeof SvgIcon>;
-
-const Law = React.forwardRef(function Law(props: Props, ref: React.Ref<SVGSVGElement>) {
+const Law = function Law({ ref, ...props }: React.ComponentProps<typeof SvgIcon>) {
   return (
     <SvgIcon viewBox="0 0 14 16" {...props} ref={ref}>
       <path
@@ -13,7 +11,7 @@ const Law = React.forwardRef(function Law(props: Props, ref: React.Ref<SVGSVGEle
       />
     </SvgIcon>
   );
-});
+};
 
 Law.displayName = 'Law';
 

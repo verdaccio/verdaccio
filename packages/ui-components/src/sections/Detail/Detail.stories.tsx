@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { HttpResponse, http } from 'msw';
 import React from 'react';
-import { MemoryRouter, Route } from 'react-router';
+import { MemoryRouter, Route, Routes } from 'react-router';
 
 import { VersionProvider } from '../../providers';
 import Detail from './Detail';
@@ -16,11 +16,16 @@ export default meta;
 type Story = StoryObj<typeof Detail>;
 const getDetailApp = (url: string) => (
   <MemoryRouter initialEntries={[url]}>
-    <Route exact={true} path="/-/web/detail/:package">
-      <VersionProvider>
-        <Detail />
-      </VersionProvider>
-    </Route>
+    <Routes>
+      <Route
+        element={
+          <VersionProvider>
+            <Detail />
+          </VersionProvider>
+        }
+        path="/-/web/detail/:package"
+      />
+    </Routes>
   </MemoryRouter>
 );
 

@@ -1,7 +1,10 @@
 import Link from '@mui/material/Link';
 import React from 'react';
 
-const LinkExternal = React.forwardRef<HTMLAnchorElement, any>((props, ref) => {
+const LinkExternal = ({
+  ref,
+  ...props
+}: any & { ref?: React.RefObject<HTMLAnchorElement | null> }) => {
   const { to, children, variant, ...rest } = props;
   return (
     <Link
@@ -16,6 +19,6 @@ const LinkExternal = React.forwardRef<HTMLAnchorElement, any>((props, ref) => {
       {children}
     </Link>
   );
-});
+};
 
 export default LinkExternal;

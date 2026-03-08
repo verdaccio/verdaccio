@@ -39,7 +39,7 @@ function addSearchWebApi(storage: Storage, auth: Auth): Router {
     WebUrls.search,
     async function (
       req: $RequestExtend,
-      res: $ResponseExtend,
+      _res: $ResponseExtend,
       next: $NextFunctionVer
     ): Promise<void> {
       try {

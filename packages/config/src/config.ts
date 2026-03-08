@@ -106,6 +106,7 @@ class Config implements AppConfig {
       searchRemote: config.flags?.searchRemote ?? true,
       changePassword: config.flags?.changePassword ?? false,
       webLogin: config.flags?.webLogin ?? false,
+      createUser: config.flags?.createUser ?? false,
     };
     this.user_agent = config.user_agent;
 

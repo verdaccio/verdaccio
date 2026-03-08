@@ -1,0 +1,225 @@
+{
+  "versions": {
+    "1.0.0": {
+      "name": "@verdaccio/auth",
+      "version": "1.0.0",
+      "description": "Verdaccio authentication handler",
+      "main": "build/index.js",
+      "scripts": {
+        "build": "tsc",
+        "test": "vitest"
+      },
+      "author": {
+        "name": "verdaccio",
+        "email": "verdaccio@pm.me"
+      },
+      "license": "MIT",
+      "_id": "@verdaccio/auth@1.0.0",
+      "_shasum": "d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3",
+      "_from": ".",
+      "_npmVersion": "9.5.0",
+      "_nodeVersion": "18.16.0",
+      "_npmUser": {
+        "name": "verdaccio",
+        "email": "verdaccio@pm.me"
+      },
+      "dist": {
+        "shasum": "d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3",
+        "tarball": "https://my-registry.org/@verdaccio/auth/-/auth-1.0.0.tgz",
+        "integrity": "sha512-Xz4J8K6m9F0nQa1cHw7YEv+U6pJ3j9K5F2A3m+r/0cWV5zQR1e/pLjkfKN0TxEHqxZh2VR/B9MK0zMn2iU+gA=="
+      },
+      "maintainers": [
+        {
+          "name": "verdaccio",
+          "email": "verdaccio@pm.me"
+        }
+      ],
+      "directories": {},
+      "contributors": []
+    },
+    "2.0.0": {
+      "name": "@verdaccio/auth",
+      "version": "2.0.0",
+      "description": "Verdaccio authentication handler with JWT support",
+      "main": "build/index.js",
+      "types": "build/index.d.ts",
+      "scripts": {
+        "build": "tsc",
+        "test": "vitest"
+      },
+      "author": {
+        "name": "verdaccio",
+        "email": "verdaccio@pm.me"
+      },
+      "license": "MIT",
+      "keywords": ["verdaccio", "auth", "authentication", "jwt"],
+      "homepage": "https://github.com/verdaccio/verdaccio",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/verdaccio/verdaccio.git",
+        "directory": "packages/auth"
+      },
+      "_id": "@verdaccio/auth@2.0.0",
+      "_shasum": "e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4",
+      "_from": ".",
+      "_npmVersion": "10.2.0",
+      "_nodeVersion": "20.10.0",
+      "_npmUser": {
+        "name": "verdaccio",
+        "email": "verdaccio@pm.me"
+      },
+      "dist": {
+        "shasum": "e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4",
+        "tarball": "https://my-registry.org/@verdaccio/auth/-/auth-2.0.0.tgz",
+        "integrity": "sha512-Yp5K8m6F0nQa1cHw7YEv+U6pJ3j9K5F2A3m+r/0cWV5zQR1e/pLjkfKN0TxEHqxZh2VR/B9MK0zMn2iU+abcd=="
+      },
+      "maintainers": [
+        {
+          "name": "verdaccio",
+          "email": "verdaccio@pm.me"
+        },
+        {
+          "name": "jpicado",
+          "email": "juanpicado19@gmail.com"
+        }
+      ],
+      "dependencies": {
+        "jsonwebtoken": "^9.0.0",
+        "@verdaccio/config": "^8.0.0"
+      },
+      "directories": {},
+      "contributors": []
+    },
+    "3.0.0": {
+      "name": "@verdaccio/auth",
+      "version": "3.0.0",
+      "description": "Verdaccio authentication handler with plugin system",
+      "main": "build/index.js",
+      "types": "build/index.d.ts",
+      "scripts": {
+        "build": "tsc",
+        "test": "vitest"
+      },
+      "author": {
+        "name": "verdaccio",
+        "email": "verdaccio@pm.me"
+      },
+      "license": "MIT",
+      "keywords": ["verdaccio", "auth", "authentication", "jwt", "plugins"],
+      "homepage": "https://github.com/verdaccio/verdaccio",
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/verdaccio/verdaccio.git",
+        "directory": "packages/auth"
+      },
+      "_id": "@verdaccio/auth@3.0.0",
+      "_shasum": "f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5",
+      "_from": ".",
+      "_npmVersion": "10.2.0",
+      "_nodeVersion": "20.10.0",
+      "_npmUser": {
+        "name": "verdaccio",
+        "email": "verdaccio@pm.me"
+      },
+      "dist": {
+        "shasum": "f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5",
+        "tarball": "https://my-registry.org/@verdaccio/auth/-/auth-3.0.0.tgz",
+        "integrity": "sha512-Zp5K8m6F0nQa1cHw7YEv+U6pJ3j9K5F2A3m+r/0cWV5zQR1e/pLjkfKN0TxEHqxZh2VR/B9MK0zMn2iU+efgh=="
+      },
+      "maintainers": [
+        {
+          "name": "verdaccio",
+          "email": "verdaccio@pm.me"
+        },
+        {
+          "name": "jpicado",
+          "email": "juanpicado19@gmail.com"
+        }
+      ],
+      "dependencies": {
+        "jsonwebtoken": "^9.0.0",
+        "@verdaccio/config": "^8.0.0",
+        "@verdaccio/core": "^8.0.0"
+      },
+      "directories": {},
+      "contributors": []
+    }
+  },
+  "time": {
+    "modified": "2025-01-20T14:00:00.000Z",
+    "created": "2023-08-01T09:00:00.000Z",
+    "1.0.0": "2023-08-01T09:00:00.000Z",
+    "2.0.0": "2024-05-15T11:00:00.000Z",
+    "3.0.0": "2025-01-20T14:00:00.000Z"
+  },
+  "dist-tags": {
+    "latest": "3.0.0",
+    "next": "3.0.0"
+  },
+  "_uplinks": {
+    "npmjs": {
+      "etag": "W/\"1234567890abcdef\"",
+      "fetched": 1705766400000
+    }
+  },
+  "_id": "@verdaccio/auth",
+  "latest": {
+    "name": "@verdaccio/auth",
+    "version": "3.0.0",
+    "description": "Verdaccio authentication handler with plugin system",
+    "main": "build/index.js",
+    "types": "build/index.d.ts",
+    "keywords": ["verdaccio", "auth", "authentication", "jwt", "plugins"],
+    "homepage": "https://github.com/verdaccio/verdaccio",
+    "bugs": {
+      "url": "https://github.com/verdaccio/verdaccio/issues"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/verdaccio/verdaccio.git",
+      "directory": "packages/auth"
+    },
+    "license": "MIT",
+    "scripts": {
+      "build": "tsc",
+      "test": "vitest"
+    },
+    "dependencies": {
+      "jsonwebtoken": "^9.0.0",
+      "@verdaccio/config": "^8.0.0",
+      "@verdaccio/core": "^8.0.0"
+    },
+    "_id": "@verdaccio/auth@3.0.0",
+    "_nodeVersion": "20.10.0",
+    "_npmVersion": "10.2.0",
+    "dist": {
+      "integrity": "sha512-Zp5K8m6F0nQa1cHw7YEv+U6pJ3j9K5F2A3m+r/0cWV5zQR1e/pLjkfKN0TxEHqxZh2VR/B9MK0zMn2iU+efgh==",
+      "shasum": "f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5",
+      "tarball": "https://my-registry.org/@verdaccio/auth/-/auth-3.0.0.tgz"
+    },
+    "_npmUser": {
+      "name": "verdaccio",
+      "email": "verdaccio@pm.me"
+    },
+    "directories": {},
+    "maintainers": [
+      {
+        "name": "verdaccio",
+        "email": "verdaccio@pm.me",
+        "avatar": "https://www.gravatar.com/avatar/00000000000000000000000000000000"
+      },
+      {
+        "name": "jpicado",
+        "email": "juanpicado19@gmail.com",
+        "avatar": "https://www.gravatar.com/avatar/00000000000000000000000000000000"
+      }
+    ],
+    "contributors": [],
+    "author": {
+      "name": "verdaccio",
+      "email": "verdaccio@pm.me",
+      "url": "https://verdaccio.org",
+      "avatar": "https://www.gravatar.com/avatar/00000000000000000000000000000000"
+    }
+  }
+}

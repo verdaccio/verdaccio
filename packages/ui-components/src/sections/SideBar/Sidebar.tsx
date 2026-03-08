@@ -11,7 +11,7 @@ import Install from '../../components/Install';
 import Keywords from '../../components/Keywords';
 import Repository from '../../components/Repository';
 import SideBarTitle from '../../components/SideBarTitle';
-import { useConfig, useVersion } from '../../providers';
+import { DownloadProvider, useConfig, useVersion } from '../../providers';
 import type { ModuleType, PackageMetaInterface } from '../../types/packageMeta';
 
 const getModuleTypes = (manifest: PackageMetaInterface) => {
@@ -37,7 +37,7 @@ const DetailSidebar: React.FC = () => {
   }
 
   return (
-    <Paper data-testid="sidebar" sx={{ position: 'sticky', top: 0, p: 2, ml: 2 }}>
+    <Paper data-testid="sidebar" sx={{ position: 'sticky', top: 0, p: 2, ml: { xs: 0, md: 2 } }}>
       <SideBarTitle
         description={packageMeta.latest?.description}
         hasTypes={typeof packageMeta.latest?.types === 'string'}
@@ -47,11 +47,13 @@ const DetailSidebar: React.FC = () => {
         time={time}
         version={version}
       />
-      <ActionBar
-        packageMeta={packageMeta}
-        showDownloadTarball={configOptions.showDownloadTarball}
-        showRaw={configOptions.showRaw}
-      />
+      <DownloadProvider>
+        <ActionBar
+          packageMeta={packageMeta}
+          showDownloadTarball={configOptions.showDownloadTarball}
+          showRaw={configOptions.showRaw}
+        />
+      </DownloadProvider>
       <FundButton packageMeta={packageMeta} />
       <Install configOptions={configOptions} packageMeta={packageMeta} packageName={packageName} />
       <Repository packageMeta={packageMeta} />

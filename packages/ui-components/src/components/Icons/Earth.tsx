@@ -2,9 +2,7 @@ import React from 'react';
 
 import { SvgIcon } from './SvgIcon';
 
-type Props = React.ComponentProps<typeof SvgIcon>;
-
-const Earth = React.forwardRef(function Earth(props: Props, ref: React.Ref<SVGSVGElement>) {
+const Earth = function Earth({ ref, ...props }: React.ComponentProps<typeof SvgIcon>) {
   return (
     <SvgIcon viewBox="0 0 45 45" {...props} ref={ref}>
       <defs>
@@ -29,7 +27,7 @@ const Earth = React.forwardRef(function Earth(props: Props, ref: React.Ref<SVGSV
       </g>
     </SvgIcon>
   );
-});
+};
 
 Earth.displayName = 'Earth';
 
