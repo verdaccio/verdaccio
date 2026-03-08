@@ -11,8 +11,21 @@
     "url": "git://github.com/verdaccio/verdaccio"
   },
   "homepage": "https://verdaccio.org",
-  "main": "build/index.js",
+  "main": "build/cjs/index.js",
+  "module": "build/esm/index.js",
   "types": "build/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./build/index.d.ts",
+        "default": "./build/esm/index.js"
+      },
+      "require": {
+        "types": "./build/index.d.ts",
+        "default": "./build/cjs/index.js"
+      }
+    }
+  },
   "bin": "./bin/verdaccio",
   "funding": {
     "type": "opencollective",
@@ -128,9 +141,13 @@
     "start:brk": "yarn babel-node --extensions \".ts,.tsx\" src/lib/cli --inspect-brk",
     "start:debug": "yarn node debug/bootstrap.js",
     "start:run-server": "yarn node debug/bootstrap-runserver.js",
-    "build": "rm -Rf build && PACKAGE_VERSION=$(node -p \"require('./package.json').version\")  yarn babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps inline",
+    "build": "rm -Rf build && yarn build:cjs && yarn build:esm && yarn build:types && yarn build:markers",
+    "build:markers": "echo '{\"type\":\"commonjs\"}' > build/cjs/package.json && echo '{\"type\":\"module\"}' > build/esm/package.json",
+    "build:cjs": "PACKAGE_VERSION=$(node -p \"require('./package.json').version\") yarn babel src/ --out-dir build/cjs/ --copy-files --extensions \".ts,.tsx\" --source-maps inline",
+    "build:esm": "PACKAGE_VERSION=$(node -p \"require('./package.json').version\") BABEL_MODULE=esm yarn babel src/ --out-dir build/esm/ --copy-files --extensions \".ts,.tsx\" --source-maps inline",
+    "build:types": "tsc --emitDeclarationOnly -p tsconfig.json",
     "code:types": "tsc --emitDeclarationOnly -p tsconfig.json",
-    "code:docker-build": "yarn babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\"",
+    "code:docker-build": "yarn babel src/ --out-dir build/cjs/ --copy-files --extensions \".ts,.tsx\"",
     "docker": "docker build -t verdaccio/verdaccio:local . --no-cache",
     "docker:run": "docker run -it --rm -p 4873:4873 -e \"DEBUG=verdaccio*\" verdaccio/verdaccio:local"
   },

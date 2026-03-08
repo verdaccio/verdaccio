@@ -3,6 +3,8 @@
     "target": "esnext",
     "module": "commonjs",
     "declaration": true,
+    "declarationDir": "./build",
+    "emitDeclarationOnly": true,
     "noImplicitAny": false,
     "strict": true,
     "strictNullChecks": true,
