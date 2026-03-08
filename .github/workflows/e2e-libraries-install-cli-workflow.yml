@@ -2,7 +2,7 @@ on:
   pull_request:
         
 concurrency:
-  group: e2e-cli-${{ github.ref }}-6.x
+  group: e2e-cli-${{ github.ref }}-7.x
   cancel-in-progress: true  
 
 name: 'E2E install CLI libraries through verdaccio' 

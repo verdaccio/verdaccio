@@ -2,7 +2,7 @@
 
 ![verdaccio gif](https://cdn.verdaccio.dev/readme/readme-website.png)
 
-# Version 6
+# Version 7
 
 [Verdaccio](https://verdaccio.org/) is a simple, **zero-configuration-required local private npm registry**.
 Verdaccio doesn't require a full-fledged database to get started. It comes out of the box with **its own tiny database** and the ability to proxy other registries (e.g., npmjs.org), caching downloaded modules along the way.
@@ -174,7 +174,7 @@ docker pull verdaccio/verdaccio
 Available as [tags](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
 
 ```bash
-docker pull verdaccio/verdaccio:6.x-next
+docker pull verdaccio/verdaccio:7.x-next
 ```
 
 ### Running Verdaccio using Docker

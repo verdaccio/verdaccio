@@ -2,9 +2,9 @@
 
 Full text for contributing can be read [here](https://verdaccio.org/community/contributing).
 
-## Especifics for the branch 6.x
+## Especifics for the branch 7.x
 
-The 6.x uses `yarn berry` with Plug and Play enabled, thus some advices are required for helping contributing:
+The 7.x uses `yarn berry` with Plug and Play enabled, thus some advices are required for helping contributing:
 
 ### Debugging Jest
 

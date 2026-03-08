@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - 6.x
+      - 7.x
 jobs:
   snapshot:
     secrets: inherit

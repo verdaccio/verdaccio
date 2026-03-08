@@ -3,7 +3,7 @@ name: Docker Nightly Build
 on:
   push:
     branches:
-      - 6.x
+      - 7.x
 
 jobs:
   docker-nightly:
@@ -25,5 +25,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: verdaccio/verdaccio:6.x-next
+          tags: verdaccio/verdaccio:7.x-next
           platforms: linux/amd64,linux/arm64

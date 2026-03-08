@@ -6,12 +6,12 @@ permissions:
   contents: read
 
 concurrency:
-  group: e2e-docker-pkgs-${{ github.ref }}-6.x
+  group: e2e-docker-pkgs-${{ github.ref }}-7.x
   cancel-in-progress: true  
 
 jobs:
   smoke:  
     uses: verdaccio/verdaccio/.github/workflows/x-smok-test-docker.yml@master
     with:
-      docker_tag: '6.x-next'
+      docker_tag: '7.x-next'
       module_tag: '@latest'
