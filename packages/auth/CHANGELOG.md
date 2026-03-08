@@ -1,5 +1,18 @@
 # @verdaccio/auth
 
+## 8.0.0-next-8.31
+
+### Patch Changes
+
+- 17842bd: chore(auth): remove unsued file
+- dabb1d5: fix(auth): processing allow_unpublish
+- Updated dependencies [b5eccfc]
+  - @verdaccio/config@8.0.0-next-8.31
+  - @verdaccio/core@8.0.0-next-8.31
+  - verdaccio-htpasswd@13.0.0-next-8.31
+  - @verdaccio/signature@8.0.0-next-8.23
+  - @verdaccio/loaders@8.0.0-next-8.21
+
 ## 8.0.0-next-8.30
 
 ### Patch Changes

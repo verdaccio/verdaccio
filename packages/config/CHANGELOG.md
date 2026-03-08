@@ -1,5 +1,15 @@
 # @verdaccio/config
 
+## 8.0.0-next-8.31
+
+### Minor Changes
+
+- b5eccfc: feat: remove rematch refactor ui
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.31
+
 ## 8.0.0-next-8.30
 
 ### Patch Changes

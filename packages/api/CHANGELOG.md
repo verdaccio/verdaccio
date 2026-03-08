@@ -1,5 +1,28 @@
 # @verdaccio/api
 
+## 8.1.0-next-8.31
+
+### Minor Changes
+
+- b5eccfc: feat: remove rematch refactor ui
+
+### Patch Changes
+
+- 01f7ca6: fix(api): remove unnecessary allow check
+- 95fc87c: refactor: handling of request options
+- Updated dependencies [17842bd]
+- Updated dependencies [b5eccfc]
+- Updated dependencies [dabb1d5]
+- Updated dependencies [6705d30]
+- Updated dependencies [3243194]
+- Updated dependencies [95fc87c]
+  - @verdaccio/auth@8.0.0-next-8.31
+  - @verdaccio/config@8.0.0-next-8.31
+  - @verdaccio/store@8.0.0-next-8.31
+  - @verdaccio/middleware@8.0.0-next-8.31
+  - @verdaccio/core@8.0.0-next-8.31
+  - @verdaccio/logger@8.0.0-next-8.31
+
 ## 8.1.0-next-8.30
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @verdaccio/e2e-ui
 
+## 2.1.0-next-8.1
+
+### Minor Changes
+
+- b5eccfc: feat: remove rematch refactor ui
+
 ## 2.0.1-next-8.0
 
 ### Patch Changes
