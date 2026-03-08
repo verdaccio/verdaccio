@@ -79,6 +79,8 @@ Verdaccio is run by **volunteers**, with no one working on it full-time. If you 
 
 You can donate at **[Open Collective](https://opencollective.com/verdaccio)** 💵👍🏻 starting from _$1/month_ or with a single contribution.
 
+> **Note:** There is currently **no funding available for contributions or security research**.
+
 ## What does Verdaccio do for me?
 
 ### Use private packages
@@ -238,8 +240,6 @@ Special thanks to the following companies for helping us achieve our goals by pr
 | JetBrains    | [![jetbrain](assets/thanks/jetbrains/logo.png)](https://www.jetbrains.com/)                                                     | JetBrains provides licenses for products for active maintainers, renewable yearly |
 | Crowdin      | [![crowdin](assets/thanks/crowdin/logo.png)](https://crowdin.com/)                                                              | Crowdin provides platform for translations                                        |
 | BrowserStack | [![browserstack](https://cdn.verdaccio.dev/readme/browserstack_logo.png)](https://www.browserstack.com/)                        | BrowserStack provides plan to run End to End testing for the UI                   |
-| Netlify      | [![netlify](https://www.netlify.com/img/global/badges/netlify-color-accent.svg)](https://www.netlify.com/)                      | Netlify provides pro plan for website deployment                                  |
-| Algolia      | [![algolia](https://cdn.verdaccio.dev/sponsor/logo/algolia/logo.png)](https://algolia.com/)                                     | Algolia provides search services for the website                                  |
 | Docker       | [![docker](https://cdn.verdaccio.dev/sponsor/logo/docker/docker.png)](https://www.docker.com/community/open-source/application) | Docker offers unlimited pulls and unlimited egress to any and all users           |
 
 
