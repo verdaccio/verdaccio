@@ -92,6 +92,27 @@
       "labels": ["bot: docker-update"]
     },
     {
+      "description": "Pin Docker node image to 22.x for 6.x branch",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["node"],
+      "matchBaseBranches": ["6.x"],
+      "allowedVersions": "/^22/"
+    },
+    {
+      "description": "Pin Docker node image to 24.x for 7.x branch",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["node"],
+      "matchBaseBranches": ["7.x"],
+      "allowedVersions": "/^24/"
+    },
+    {
+      "description": "Pin Docker node image to 24.x for master branch",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["node"],
+      "matchBaseBranches": ["master"],
+      "allowedVersions": "/^24/"
+    },
+    {
       "matchDatasources": ["crazy-max/ghaction-docker-meta"],
       "allowedVersions": "1.12.0"
     },
