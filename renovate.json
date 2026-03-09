@@ -18,11 +18,23 @@
     "npm",
     "@yarnpkg/cli-dist"
   ],
-  "baseBranches": ["master", "6.x", "7.x"],
+  "baseBranches": ["master", "8.x", "6.x", "7.x"],
   "semanticCommitType": "fix",
   "major": true,
   "labels": ["bot: dependencies"],
   "packageRules": [
+    {
+      "description": "Forbid major updates on 8.x branch",
+      "matchBaseBranches": ["8.x"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    },
+    {
+      "description": "Disable devDependencies updates on 8.x branch",
+      "matchBaseBranches": ["8.x"],
+      "matchDepTypes": ["devDependencies"],
+      "enabled": false
+    },
     {
       "packageNames": ["actions/*", "github/codeql-action/*"],
       "groupName": "all actions",
