@@ -1,5 +1,18 @@
 # Change Log
 
+## 14.0.0-next-9.0
+
+### Major Changes
+
+- 7f80af5: chore: bump package
+
+### Patch Changes
+
+- Updated dependencies [7f80af5]
+  - @verdaccio/core@9.0.0-next-9.0
+  - @verdaccio/file-locking@14.0.0-next-9.0
+  - @verdaccio/utils@9.0.0-next-9.0
+
 ## 13.0.0-next-8.31
 
 ### Minor Changes

@@ -40,5 +40,5 @@
     "@verdaccio/web": "8.0.0",
     "@verdaccio/local-publish": "1.0.0"
   },
-  "changesets": []
+  "changesets": ["olive-lobsters-protect", "ten-cougars-flash"]
 }
