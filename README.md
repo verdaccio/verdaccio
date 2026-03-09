@@ -23,11 +23,11 @@ Google Cloud Storage** or create your own plugin.
 
 ## Branch Strategy
 
-| Branch   | Purpose                              | Accepts                          |
-| -------- | ------------------------------------ | -------------------------------- |
-| `master` | Active development (next major)      | Features, bug fixes, security    |
-| `8.x`    | Current release line                 | Bug fixes, security patches      |
-| `6.x`    | Legacy stable (bug/security only)    | Bug fixes, security patches only |
+| Branch   | Purpose                           | Accepts                          |
+| -------- | --------------------------------- | -------------------------------- |
+| `master` | Active development (next major)   | Features, bug fixes, security    |
+| `8.x`    | Current release line              | Bug fixes, security patches      |
+| `6.x`    | Legacy stable (bug/security only) | Bug fixes, security patches only |
 
 ## License
 

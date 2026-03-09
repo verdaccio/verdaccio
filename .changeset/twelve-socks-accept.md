@@ -4,7 +4,6 @@
 '@verdaccio/ui-components': patch
 '@verdaccio/tarball': patch
 '@verdaccio/proxy': patch
-
 ---
 
 chore(deps): sync and pin dependencies

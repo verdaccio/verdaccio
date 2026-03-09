@@ -12,9 +12,7 @@
       "@verdaccio/ui-theme"
     ]
   ],
-  "ignoredPackages": [
-    "@verdaccio/local-publish"
-  ],
+  "ignoredPackages": ["@verdaccio/local-publish"],
   "access": "public",
   "baseBranch": "8.x",
   "updateInternalDependencies": "patch"

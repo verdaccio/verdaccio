@@ -11,4 +11,3 @@ packages:
   - packages/plugins/ui-theme
   - packages/plugins/memory
   - packages/plugins/local-storage
-
