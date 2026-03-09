@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 9.0.0-next-9.1
+
+### Major Changes
+
+- dd9bad3: feat: upgrade to express v5
+
 ## 9.0.0-next-9.0
 
 ### Major Changes
