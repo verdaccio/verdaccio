@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/local-publish",
-  "version": "0.0.3-next-8.0",
+  "version": "1.0.0",
   "private": true,
   "description": "Trigger Server for Local Development",
   "author": "Juan Picado <juanpicado19@gmail.com>",

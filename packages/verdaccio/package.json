@@ -1,6 +1,6 @@
 {
   "name": "verdaccio",
-  "version": "8.0.0-next-8.31",
+  "version": "9.0.0",
   "description": "A lightweight private npm proxy registry",
   "main": "build/index.js",
   "types": "build/index.d.ts",

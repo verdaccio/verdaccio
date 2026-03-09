@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/server",
-  "version": "8.0.0-next-8.31",
+  "version": "9.0.0",
   "description": "Verdaccio Express Server",
   "main": "./build/index.js",
   "types": "build/index.d.ts",

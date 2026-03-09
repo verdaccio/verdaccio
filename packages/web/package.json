@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/web",
-  "version": "8.1.0-next-8.31",
+  "version": "9.0.0",
   "description": "Verdaccio Web Middleware",
   "main": "./build/index.js",
   "types": "build/index.d.ts",

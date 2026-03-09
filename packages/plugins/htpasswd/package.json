@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-htpasswd",
-  "version": "13.0.0-next-8.31",
+  "version": "14.0.0",
   "description": "Htpasswd Authentication Plugin for Verdaccio",
   "keywords": [
     "private",
