@@ -1,5 +1,20 @@
 # @verdaccio/server
 
+## 8.0.0-next-8.32
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.32
+- @verdaccio/config@8.0.0-next-8.32
+- @verdaccio/api@8.1.0-next-8.32
+- @verdaccio/auth@8.0.0-next-8.32
+- @verdaccio/loaders@8.0.0-next-8.22
+- @verdaccio/middleware@8.0.0-next-8.32
+- verdaccio-audit@13.0.0-next-8.32
+- @verdaccio/store@8.0.0-next-8.32
+- @verdaccio/web@8.1.0-next-8.32
+- @verdaccio/logger@8.0.0-next-8.32
+
 ## 8.0.0-next-8.31
 
 ### Patch Changes

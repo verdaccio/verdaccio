@@ -1,5 +1,13 @@
 # @verdaccio/middleware
 
+## 8.0.0-next-8.32
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.32
+- @verdaccio/config@8.0.0-next-8.32
+- @verdaccio/url@13.0.0-next-8.32
+
 ## 8.0.0-next-8.31
 
 ### Minor Changes

@@ -1,5 +1,18 @@
 # verdaccio
 
+## 8.0.0-next-8.32
+
+### Patch Changes
+
+- 3b3afe8: chore: bumb package
+  - @verdaccio/cli@8.0.0-next-8.32
+  - @verdaccio/node-api@8.0.0-next-8.32
+  - @verdaccio/ui-theme@8.0.0-next-8.32
+  - @verdaccio/hooks@8.0.0-next-8.32
+  - verdaccio-audit@13.0.0-next-8.32
+  - verdaccio-htpasswd@13.0.0-next-8.32
+  - @verdaccio/logger@8.0.0-next-8.32
+
 ## 8.0.0-next-8.31
 
 ### Patch Changes
