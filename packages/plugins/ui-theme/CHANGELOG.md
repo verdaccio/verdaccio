@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 9.0.0-next-9.0
+
+### Major Changes
+
+- 7f80af5: chore: bump package
+
 ## 8.0.0-next-8.31
 
 ### Minor Changes

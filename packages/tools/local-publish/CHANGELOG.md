@@ -1,5 +1,11 @@
 # @verdaccio/local-publish
 
+## 2.0.0-next-9.0
+
+### Major Changes
+
+- 7f80af5: chore: bump package
+
 ## 0.0.3-next-8.0
 
 ### Patch Changes

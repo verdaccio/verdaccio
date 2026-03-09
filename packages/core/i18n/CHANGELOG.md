@@ -1,5 +1,11 @@
 # @verdaccio/ui-i18n
 
+## 10.0.0-next-9.0
+
+### Major Changes
+
+- 7f80af5: chore: bump package
+
 ## 8.0.0-next-8.14
 
 ### Minor Changes

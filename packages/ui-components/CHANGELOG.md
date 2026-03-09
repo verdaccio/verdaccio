@@ -1,5 +1,16 @@
 # @verdaccio/ui-components
 
+## 5.0.0-next-9.0
+
+### Major Changes
+
+- 7f80af5: chore: bump package
+
+### Patch Changes
+
+- Updated dependencies [7f80af5]
+  - @verdaccio/ui-i18n@10.0.0-next-9.0
+
 ## 4.0.0-next-8.13
 
 ### Minor Changes
