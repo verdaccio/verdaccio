@@ -33,12 +33,12 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:9.0.0",
+    "@verdaccio/core": "workspace:8.0.0",
     "activedirectory2": "2.2.0"
   },
   "devDependencies": {
     "@types/activedirectory2": "1.2.6",
-    "@verdaccio/types": "workspace:14.0.0"
+    "@verdaccio/types": "workspace:13.0.0"
   },
   "scripts": {
     "clean": "rimraf ./build",
