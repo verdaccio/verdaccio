@@ -1,5 +1,20 @@
 # @verdaccio/search
 
+## 9.0.0-next-9.0
+
+### Major Changes
+
+- 7f80af5: chore: bump package
+
+### Patch Changes
+
+- Updated dependencies [7f80af5]
+- Updated dependencies [34da6e6]
+  - @verdaccio/config@9.0.0-next-9.0
+  - @verdaccio/core@9.0.0-next-9.0
+  - @verdaccio/logger@9.0.0-next-9.0
+  - @verdaccio/proxy@9.0.0-next-9.0
+
 ## 8.0.0-next-8.31
 
 ### Patch Changes

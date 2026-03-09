@@ -1,5 +1,16 @@
 # @verdaccio/loaders
 
+## 9.0.0-next-9.0
+
+### Major Changes
+
+- 7f80af5: chore: bump package
+
+### Patch Changes
+
+- Updated dependencies [7f80af5]
+  - @verdaccio/core@9.0.0-next-9.0
+
 ## 8.0.0-next-8.21
 
 ### Patch Changes
