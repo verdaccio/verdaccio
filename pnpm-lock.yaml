@@ -1343,9 +1343,6 @@ importers:
       '@verdaccio/types':
         specifier: workspace:14.0.0-next-9.0
         version: link:../../core/types
-      body-parser:
-        specifier: 2.2.1
-        version: 2.2.1
       debug:
         specifier: 4.4.3
         version: 4.4.3(supports-color@5.5.0)
@@ -12568,7 +12565,7 @@ snapshots:
 
   '@vue/compiler-core@3.4.34':
     dependencies:
-      '@babel/parser': 7.28.4
+      '@babel/parser': 7.29.0
       '@vue/shared': 3.4.34
       entities: 4.5.0
       estree-walker: 2.0.2
@@ -12583,7 +12580,7 @@ snapshots:
 
   '@vue/compiler-sfc@3.4.34':
     dependencies:
-      '@babel/parser': 7.28.4
+      '@babel/parser': 7.29.0
       '@vue/compiler-core': 3.4.34
       '@vue/compiler-dom': 3.4.34
       '@vue/compiler-ssr': 3.4.34
@@ -14240,7 +14237,7 @@ snapshots:
   eslint-plugin-react-hooks@7.0.1(eslint@10.0.3):
     dependencies:
       '@babel/core': 7.28.4
-      '@babel/parser': 7.28.4
+      '@babel/parser': 7.29.0
       eslint: 10.0.3
       hermes-parser: 0.25.1
       zod: 4.1.12

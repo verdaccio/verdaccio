@@ -36,9 +36,8 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
   router.use(setSecurityWebHeaders);
 
   // any match within the static is routed to the file system
-  router.get(WebUrlsNamespace.static, function (req, res, next) {
-    // TODO: juan
-    const filename = req.params;
+  router.get(WebUrlsNamespace.static, function (req: express.Request<{ all: string }>, res, next) {
+    const filename = req.params.all;
     let file = `${staticPath}/${filename}`;
     if (filename === 'favicon.ico' && config?.web?.favicon) {
       file = config?.web?.favicon;
@@ -66,7 +65,7 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
         ) {
           // Note: `path.join` will break on Windows, because it transforms `/` to `\`
           // Use POSIX version `path.posix.join` instead.
-          logo = path.posix.join(WebUrlsNamespace.static, path.basename(logo));
+          logo = `/-/static/${path.basename(logo)}`;
           router.get(logo, function (_req, res, next) {
             // @ts-ignore
             debug('serve custom logo  web:%s - local:%s', logo, absoluteLocalFile);
