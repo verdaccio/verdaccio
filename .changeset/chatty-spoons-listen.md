@@ -7,7 +7,7 @@
 '@verdaccio/config': minor
 '@verdaccio/api': minor
 '@verdaccio/web': minor
-'@verdaccio/e2e-ui': minor
+
 ---
 
 feat: remove rematch refactor ui
