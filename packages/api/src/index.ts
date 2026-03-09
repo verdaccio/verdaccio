@@ -79,8 +79,9 @@ export default function (config: Config, auth: Auth, storage: Storage, logger: L
 }
 
 function hasBodyParser(app: Router): boolean {
-  const stack = app.stack || [];
-  return stack.some((middleware) => {
+  // @ts-ignore - Express internals: app.stack is not part of the public API
+  const stack = (app as any).stack || (app as any)._router?.stack || [];
+  return stack.some((middleware: any) => {
     return middleware.handle?.name === 'jsonParser' || middleware.name === 'jsonParser';
   });
 }

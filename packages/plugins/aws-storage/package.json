@@ -14,7 +14,7 @@
     "verdaccio"
   ],
   "engines": {
-    "node": ">=18"
+    "node": ">=24"
   },
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",

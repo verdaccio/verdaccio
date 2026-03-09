@@ -113,7 +113,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<Ex
   }
 
   // Catch 404
-  app.get('/*', function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+  app.get('/{*any}', function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     next(errorUtils.getNotFound('resource not found'));
   });
 

@@ -41,24 +41,24 @@ You can find more details about the different versions of Verdaccio, minimum req
 
 ## Install
 
-> Node.js v18 as minimum version required
+> Node.js v24 as minimum version required
 
 Install with npm:
 
 ```bash
-npm install -g verdaccio@next-8
+npm install -g verdaccio@next-9
 ```
 
 With `yarn`
 
 ```bash
-yarn global add verdaccio@next-8
+yarn global add verdaccio@next-9
 ```
 
 With `pnpm`
 
 ```bash
-pnpm i -g verdaccio@next-8
+pnpm i -g verdaccio@next-9
 ```
 
 or

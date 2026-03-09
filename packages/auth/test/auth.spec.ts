@@ -605,7 +605,7 @@ describe('AuthTest', () => {
 
         app.use(auth.apiJWTmiddleware());
         app.use(errorReportingMiddleware(logger) as any);
-        app.get('/*', (req, res, next) => {
+        app.get('/{*any}', (req, res, next) => {
           if ((req as $RequestExtend).remote_user.error) {
             next(new Error((req as $RequestExtend).remote_user.error));
           } else {
