@@ -208,7 +208,7 @@ importers:
         version: 4.0.6
       '@verdaccio/eslint-config':
         specifier: 13.0.0
-        version: 13.0.0(@typescript-eslint/utils@8.57.0(eslint@10.0.3)(typescript@5.3.3))(@vitest/eslint-plugin@1.6.9(eslint@10.0.3)(typescript@5.3.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@20.14.12)(jsdom@26.1.0)(msw@2.12.10(@types/node@20.14.12)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)))(eslint-import-resolver-node@0.3.9)(eslint-plugin-cypress@6.1.0(eslint@10.0.3))(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.57.0(eslint@10.0.3)(typescript@5.3.3))(eslint@10.0.3))(eslint-plugin-react-hooks@7.0.1(eslint@10.0.3))(eslint-plugin-react@7.37.5(eslint@10.0.3))(eslint-plugin-verdaccio@10.1.0(eslint@10.0.3))(eslint@10.0.3)(typescript@5.3.3)
+        version: 13.0.0(@typescript-eslint/utils@8.57.0(eslint@10.0.3)(typescript@5.3.3))(@vitest/eslint-plugin@1.6.9(eslint@10.0.3)(typescript@5.3.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@20.14.12)(jsdom@26.1.0)(msw@2.12.10(@types/node@20.14.12)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)))(eslint-import-resolver-node@0.3.9)(eslint-plugin-cypress@6.1.0(eslint@10.0.3))(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.57.0(eslint@10.0.3)(typescript@5.3.3))(eslint@10.0.3))(eslint-plugin-jest@29.15.0(@typescript-eslint/eslint-plugin@8.57.0(@typescript-eslint/parser@8.57.0(eslint@10.0.3)(typescript@5.3.3))(eslint@10.0.3)(typescript@5.3.3))(eslint@10.0.3)(typescript@5.3.3))(eslint-plugin-react-hooks@7.0.1(eslint@10.0.3))(eslint-plugin-react@7.37.5(eslint@10.0.3))(eslint-plugin-verdaccio@10.1.0(eslint@10.0.3))(eslint@10.0.3)(typescript@5.3.3)
       '@verdaccio/types':
         specifier: workspace:*
         version: link:packages/core/types
@@ -248,6 +248,9 @@ importers:
       eslint-plugin-cypress:
         specifier: 6.1.0
         version: 6.1.0(eslint@10.0.3)
+      eslint-plugin-jest:
+        specifier: 29.15.0
+        version: 29.15.0(@typescript-eslint/eslint-plugin@8.57.0(@typescript-eslint/parser@8.57.0(eslint@10.0.3)(typescript@5.3.3))(eslint@10.0.3)(typescript@5.3.3))(eslint@10.0.3)(typescript@5.3.3)
       eslint-plugin-react-x:
         specifier: 2.13.0
         version: 2.13.0(eslint@10.0.3)(typescript@5.3.3)
@@ -5586,6 +5589,22 @@ packages:
       eslint: ^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8 || ^9
     peerDependenciesMeta:
       '@typescript-eslint/parser':
+        optional: true
+
+  eslint-plugin-jest@29.15.0:
+    resolution: {integrity: sha512-ZCGr7vTH2WSo2hrK5oM2RULFmMruQ7W3cX7YfwoTiPfzTGTFBMmrVIz45jZHd++cGKj/kWf02li/RhTGcANJSA==}
+    engines: {node: ^20.12.0 || ^22.0.0 || >=24.0.0}
+    peerDependencies:
+      '@typescript-eslint/eslint-plugin': ^8.0.0
+      eslint: ^8.57.0 || ^9.0.0 || ^10.0.0
+      jest: '*'
+      typescript: '>=4.8.4 <6.0.0'
+    peerDependenciesMeta:
+      '@typescript-eslint/eslint-plugin':
+        optional: true
+      jest:
+        optional: true
+      typescript:
         optional: true
 
   eslint-plugin-react-hooks@7.0.1:
@@ -12435,7 +12454,7 @@ snapshots:
       http-errors: 2.0.0
       http-status-codes: 2.2.0
 
-  '@verdaccio/eslint-config@13.0.0(@typescript-eslint/utils@8.57.0(eslint@10.0.3)(typescript@5.3.3))(@vitest/eslint-plugin@1.6.9(eslint@10.0.3)(typescript@5.3.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@20.14.12)(jsdom@26.1.0)(msw@2.12.10(@types/node@20.14.12)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)))(eslint-import-resolver-node@0.3.9)(eslint-plugin-cypress@6.1.0(eslint@10.0.3))(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.57.0(eslint@10.0.3)(typescript@5.3.3))(eslint@10.0.3))(eslint-plugin-react-hooks@7.0.1(eslint@10.0.3))(eslint-plugin-react@7.37.5(eslint@10.0.3))(eslint-plugin-verdaccio@10.1.0(eslint@10.0.3))(eslint@10.0.3)(typescript@5.3.3)':
+  '@verdaccio/eslint-config@13.0.0(@typescript-eslint/utils@8.57.0(eslint@10.0.3)(typescript@5.3.3))(@vitest/eslint-plugin@1.6.9(eslint@10.0.3)(typescript@5.3.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@20.14.12)(jsdom@26.1.0)(msw@2.12.10(@types/node@20.14.12)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)))(eslint-import-resolver-node@0.3.9)(eslint-plugin-cypress@6.1.0(eslint@10.0.3))(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.57.0(eslint@10.0.3)(typescript@5.3.3))(eslint@10.0.3))(eslint-plugin-jest@29.15.0(@typescript-eslint/eslint-plugin@8.57.0(@typescript-eslint/parser@8.57.0(eslint@10.0.3)(typescript@5.3.3))(eslint@10.0.3)(typescript@5.3.3))(eslint@10.0.3)(typescript@5.3.3))(eslint-plugin-react-hooks@7.0.1(eslint@10.0.3))(eslint-plugin-react@7.37.5(eslint@10.0.3))(eslint-plugin-verdaccio@10.1.0(eslint@10.0.3))(eslint@10.0.3)(typescript@5.3.3)':
     dependencies:
       '@eslint/js': 10.0.1(eslint@10.0.3)
       eslint: 10.0.3
@@ -12447,6 +12466,7 @@ snapshots:
     optionalDependencies:
       '@vitest/eslint-plugin': 1.6.9(eslint@10.0.3)(typescript@5.3.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@20.14.12)(jsdom@26.1.0)(msw@2.12.10(@types/node@20.14.12)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3))
       eslint-plugin-cypress: 6.1.0(eslint@10.0.3)
+      eslint-plugin-jest: 29.15.0(@typescript-eslint/eslint-plugin@8.57.0(@typescript-eslint/parser@8.57.0(eslint@10.0.3)(typescript@5.3.3))(eslint@10.0.3)(typescript@5.3.3))(eslint@10.0.3)(typescript@5.3.3)
       eslint-plugin-react: 7.37.5(eslint@10.0.3)
       eslint-plugin-react-hooks: 7.0.1(eslint@10.0.3)
       eslint-plugin-verdaccio: 10.1.0(eslint@10.0.3)
@@ -14233,6 +14253,16 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
     optional: true
+
+  eslint-plugin-jest@29.15.0(@typescript-eslint/eslint-plugin@8.57.0(@typescript-eslint/parser@8.57.0(eslint@10.0.3)(typescript@5.3.3))(eslint@10.0.3)(typescript@5.3.3))(eslint@10.0.3)(typescript@5.3.3):
+    dependencies:
+      '@typescript-eslint/utils': 8.57.0(eslint@10.0.3)(typescript@5.3.3)
+      eslint: 10.0.3
+    optionalDependencies:
+      '@typescript-eslint/eslint-plugin': 8.57.0(@typescript-eslint/parser@8.57.0(eslint@10.0.3)(typescript@5.3.3))(eslint@10.0.3)(typescript@5.3.3)
+      typescript: 5.3.3
+    transitivePeerDependencies:
+      - supports-color
 
   eslint-plugin-react-hooks@7.0.1(eslint@10.0.3):
     dependencies:
