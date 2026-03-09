@@ -44,18 +44,16 @@ export const log = (logger) => {
 
     let bytesout = 0;
     const _write = res.write;
-    // FIXME: res.write should return boolean
     // @ts-ignore
-    res.write = function (buf): boolean {
-      bytesout += buf.length;
-      /* eslint prefer-rest-params: "off" */
+    res.write = function (...args): boolean {
+      bytesout += args[0]?.length || 0;
       // @ts-ignore
-      _write.apply(res, arguments);
+      return _write.apply(res, args);
     };
 
     const log = function (): void {
       const forwardedFor = req.get(HEADERS.FORWARDED_FOR);
-      const remoteAddress = req.connection.remoteAddress;
+      const remoteAddress = req.socket.remoteAddress;
       const remoteIP = forwardedFor ? `${forwardedFor} via ${remoteAddress}` : remoteAddress;
       let message;
       if (res.locals._verdaccio_error) {
@@ -91,12 +89,12 @@ export const log = (logger) => {
 
     const _end = res.end;
     // @ts-ignore
-    res.end = function (buf): void {
-      if (buf) {
-        bytesout += buf.length;
+    res.end = function (...args): void {
+      if (args[0]) {
+        bytesout += args[0].length;
       }
       // @ts-ignore
-      _end.apply(res, arguments);
+      _end.apply(res, args);
       log();
     };
     next();

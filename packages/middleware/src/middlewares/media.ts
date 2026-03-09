@@ -19,7 +19,7 @@ export function media(expect: string | null): any {
       next(
         errorUtils.getCode(
           HTTP_STATUS.UNSUPPORTED_MEDIA,
-          'wrong content-type, expect: ' + expect + ', got: ' + req.get[HEADER_TYPE.CONTENT_TYPE]
+          'wrong content-type, expect: ' + expect + ', got: ' + req.get(HEADER_TYPE.CONTENT_TYPE)
         )
       );
     } else {
