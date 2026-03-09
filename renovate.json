@@ -36,6 +36,12 @@
       "enabled": false
     },
     {
+      "description": "Only allow @verdaccio/* and verdaccio-* versions 9+ on 7.x branch",
+      "matchBaseBranches": ["7.x"],
+      "matchPackagePatterns": ["@verdaccio/*", "verdaccio-*"],
+      "allowedVersions": ">= 9.0.0"
+    },
+    {
       "packageNames": ["actions/*", "github/codeql-action/*"],
       "groupName": "all actions",
       "groupSlug": "github-actions",
