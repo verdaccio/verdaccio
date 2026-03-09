@@ -1,6 +1,6 @@
 import semver from 'semver';
 
-export const MIN_NODE_VERSION = '14.0.0';
+export const MIN_NODE_VERSION = '24.0.0';
 
 export function isVersionValid(processVersion) {
   const version = processVersion.slice(1);

@@ -166,7 +166,7 @@
     "local:publish:release": "concurrently \"pnpm local:registry\" \"pnpm local:publish\""
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=24"
   },
   "license": "MIT",
   "lint-staged": {

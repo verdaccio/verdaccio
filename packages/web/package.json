@@ -24,7 +24,7 @@
     "verdaccio"
   ],
   "engines": {
-    "node": ">=18"
+    "node": ">=24"
   },
   "license": "MIT",
   "dependencies": {
