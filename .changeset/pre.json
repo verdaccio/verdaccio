@@ -38,7 +38,24 @@
     "@verdaccio/utils": "8.0.0",
     "verdaccio": "8.0.0",
     "@verdaccio/web": "8.0.0",
-    "@verdaccio/local-publish": "1.0.0"
+    "@verdaccio/local-publish": "1.0.0",
+    "@verdaccio/test-cli-commons": "2.0.0-next-8.1",
+    "@verdaccio/e2e-cli-npm-common": "1.0.1-next-8.1",
+    "@verdaccio/e2e-cli-npm10": "1.0.2-next-8.2",
+    "@verdaccio/e2e-cli-npm11": "1.0.2-next-8.2",
+    "@verdaccio/e2e-cli-npm6": "1.0.2-next-8.2",
+    "@verdaccio/e2e-cli-npm7": "1.0.2-next-8.2",
+    "@verdaccio/e2e-cli-npm8": "1.0.2-next-8.2",
+    "@verdaccio/e2e-cli-npm9": "1.0.2-next-8.2",
+    "@verdaccio/e2e-cli-pnpm-common": "1.0.2-next-8.1",
+    "@verdaccio/e2e-cli-pnpm10": "1.0.1-next-8.0",
+    "@verdaccio/e2e-cli-pnpm8": "1.0.2-next-8.1",
+    "@verdaccio/e2e-cli-pnpm9": "1.0.2-next-8.1",
+    "@verdaccio/e2e-cli-yarn1": "1.0.2-next-8.1",
+    "@verdaccio/e2e-cli-yarn2": "1.0.2-next-8.1",
+    "@verdaccio/e2e-cli-yarn3": "1.0.2-next-8.1",
+    "@verdaccio/e2e-cli-yarn4": "1.0.2-next-8.1",
+    "@verdaccio/e2e-ui": "2.1.0-next-8.1"
   },
-  "changesets": ["olive-lobsters-protect", "ten-cougars-flash"]
+  "changesets": ["olive-lobsters-protect", "stale-poets-sit", "ten-cougars-flash"]
 }

@@ -1,5 +1,23 @@
 # @verdaccio/web
 
+## 9.0.0-next-9.1
+
+### Major Changes
+
+- dd9bad3: feat: upgrade to express v5
+
+### Patch Changes
+
+- Updated dependencies [dd9bad3]
+  - @verdaccio/middleware@9.0.0-next-9.1
+  - @verdaccio/core@9.0.0-next-9.1
+  - @verdaccio/auth@9.0.0-next-9.1
+  - @verdaccio/store@9.0.0-next-9.1
+  - @verdaccio/config@9.0.0-next-9.1
+  - @verdaccio/tarball@14.0.0-next-9.1
+  - @verdaccio/loaders@9.0.0-next-9.1
+  - @verdaccio/logger@9.0.0-next-9.1
+
 ## 9.0.0-next-9.0
 
 ### Major Changes

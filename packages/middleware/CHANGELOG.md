@@ -1,5 +1,18 @@
 # @verdaccio/middleware
 
+## 9.0.0-next-9.1
+
+### Major Changes
+
+- dd9bad3: feat: upgrade to express v5
+
+### Patch Changes
+
+- Updated dependencies [dd9bad3]
+  - @verdaccio/core@9.0.0-next-9.1
+  - @verdaccio/config@9.0.0-next-9.1
+  - @verdaccio/url@14.0.0-next-9.1
+
 ## 9.0.0-next-9.0
 
 ### Major Changes
