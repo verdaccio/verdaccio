@@ -17,14 +17,14 @@
     "url": "https://github.com/verdaccio/verdaccio/issues"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:8.0.0-next-8.31",
+    "@verdaccio/core": "workspace:9.0.0",
     "debug": "4.4.3",
     "lodash": "4.17.23"
   },
   "devDependencies": {
-    "@verdaccio/logger": "workspace:8.0.0-next-8.31",
-    "@verdaccio/config": "workspace:8.0.0-next-8.31",
-    "@verdaccio/core": "workspace:8.0.0-next-8.31",
+    "@verdaccio/logger": "workspace:9.0.0",
+    "@verdaccio/config": "workspace:9.0.0",
+    "@verdaccio/core": "workspace:9.0.0",
     "@verdaccio-scope/verdaccio-auth-foo": "0.0.2",
     "customprefix-auth": "workspace:2.0.0",
     "verdaccio-auth-memory": "workspace:*",

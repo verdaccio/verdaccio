@@ -42,14 +42,14 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@verdaccio/config": "workspace:8.0.0-next-8.31",
-    "@verdaccio/logger": "workspace:8.0.0-next-8.31",
-    "@verdaccio/server": "workspace:8.0.0-next-8.31",
+    "@verdaccio/config": "workspace:9.0.0",
+    "@verdaccio/logger": "workspace:9.0.0",
+    "@verdaccio/server": "workspace:9.0.0",
     "debug": "4.4.3",
     "lodash": "4.17.23"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:13.0.0-next-8.11",
+    "@verdaccio/types": "workspace:14.0.0",
     "supertest": "7.1.4",
     "vitest": "3.2.4"
   },
