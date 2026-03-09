@@ -1,5 +1,15 @@
 # Change Log
 
+## 4.0.0-next-8.16
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.32
+- @verdaccio/config@8.0.0-next-8.32
+- @verdaccio/auth@8.0.0-next-8.32
+- @verdaccio/middleware@8.0.0-next-8.32
+- @verdaccio/logger@8.0.0-next-8.32
+
 ## 4.0.0-next-8.15
 
 ### Patch Changes

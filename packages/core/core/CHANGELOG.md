@@ -1,5 +1,7 @@
 # @verdaccio/core
 
+## 8.0.0-next-8.32
+
 ## 8.0.0-next-8.31
 
 ## 8.0.0-next-8.30
