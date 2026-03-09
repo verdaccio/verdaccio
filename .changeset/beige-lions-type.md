@@ -13,7 +13,7 @@
 'verdaccio-audit': major
 '@verdaccio/ui-components': major
 '@verdaccio/tarball': major
-'@verdaccio/test-cli-commons': major
+
 '@verdaccio/types': major
 '@verdaccio/middleware': major
 '@verdaccio/cli-standalone': major

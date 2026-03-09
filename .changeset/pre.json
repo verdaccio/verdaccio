@@ -2,18 +2,6 @@
   "mode": "pre",
   "tag": "next-8",
   "initialVersions": {
-    "@verdaccio/test-cli-commons": "1.1.0",
-    "@verdaccio/e2e-cli-npm9": "1.0.1",
-    "@verdaccio/e2e-cli-npm6": "1.0.1",
-    "@verdaccio/e2e-cli-npm7": "1.0.1",
-    "@verdaccio/e2e-cli-npm8": "1.0.1",
-    "@verdaccio/e2e-cli-pnpm8": "1.0.1",
-    "@verdaccio/e2e-cli-pnpm9": "1.0.1",
-    "@verdaccio/e2e-cli-yarn1": "1.0.1",
-    "@verdaccio/e2e-cli-yarn2": "1.0.1",
-    "@verdaccio/e2e-cli-yarn3": "1.0.1",
-    "@verdaccio/e2e-cli-yarn4": "1.0.1",
-    "@verdaccio/e2e-ui": "2.0.0",
     "@verdaccio/ui-i18n": "8.0.0",
     "@verdaccio/api": "7.0.0",
     "@verdaccio/auth": "7.0.0",
@@ -50,12 +38,7 @@
     "@verdaccio/utils": "7.0.0",
     "verdaccio": "7.0.0",
     "@verdaccio/web": "7.0.0",
-    "@verdaccio/e2e-cli-npm-common": "1.0.0",
-    "@verdaccio/e2e-cli-pnpm-common": "1.0.2-next-8.0",
-    "@verdaccio/e2e-cli-pnpm10": "1.0.0",
-    "@verdaccio/local-publish": "0.0.2",
-    "@verdaccio/e2e-cli-npm10": "1.0.1",
-    "@verdaccio/e2e-cli-npm11": "1.0.2-next-8.0"
+    "@verdaccio/local-publish": "0.0.2"
   },
   "changesets": [
     "afraid-cars-sneeze",
@@ -210,7 +193,7 @@
     "thirty-comics-trade",
     "tidy-socks-battle",
     "tricky-impalas-shake",
-    "tricky-kiwis-thank",
+
     "tricky-knives-end",
     "twelve-games-wonder",
     "twelve-socks-accept",
