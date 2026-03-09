@@ -2,7 +2,6 @@
   "mode": "pre",
   "tag": "next-9",
   "initialVersions": {
-    "@verdaccio/logger-commons": "7.0.0",
     "@verdaccio/ui-i18n": "9.0.0",
     "@verdaccio/api": "9.0.0",
     "@verdaccio/auth": "9.0.0",
