@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - 'master'
+      - '8.x'
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
     paths:
@@ -11,7 +11,7 @@ on:
       - .github/workflows/ci.yml
       - 'packages/**'
       - 'test/**'
-      - 'docker-examples/**'
+
       - 'jest/**'
       - 'package.json'
       - 'pnpm-workspace.yaml'
@@ -73,7 +73,7 @@ jobs:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
-        node_version: [18, 25]
+        node_version: [18]
     name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     steps:
@@ -82,21 +82,14 @@ jobs:
         uses: ./.github/actions/build-app
         with:
           node-version: ${{ matrix.node_version }}
-      - name: Test (Node 25)
-        if: matrix.node_version == 25
-        run: pnpm test
-        env:
-          NODE_OPTIONS: --no-webstorage
-
       # Test for all other Node versions
-      - name: Test (Other Node)
-        if: matrix.node_version != 25
+      - name: Test
         run: pnpm test
   sync-translations:
     needs: [test]
     runs-on: ubuntu-latest
     name: synchronize translations
-    if: (github.event_name == 'push' && github.ref == 'refs/heads/master' && github.repository == 'verdaccio/verdaccio') || github.event_name == 'workflow_dispatch'
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/8.x' && github.repository == 'verdaccio/verdaccio') || github.event_name == 'workflow_dispatch'
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0

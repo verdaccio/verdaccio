@@ -6,7 +6,7 @@
     "*.spec.js",
     "test/*",
     "assets/*",
-    "docker-examples/*",
+
     "packages/plugins/ui-theme/*",
     "scripts/*",
     "systemd/*",

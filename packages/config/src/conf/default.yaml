@@ -3,9 +3,6 @@
 # please read carefully the documentation and best practices to
 # improve security.
 #
-# Look here for more config file examples:
-# https://github.com/verdaccio/verdaccio/blob/master/docker-examples/README.md
-#
 # Read about the best practices
 # https://verdaccio.org/docs/best
 
