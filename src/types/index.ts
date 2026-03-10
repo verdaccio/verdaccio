@@ -60,7 +60,7 @@ export interface Profile {
   fullname: string;
 }
 
-export type $RequestExtend = Request & { remote_user?: any; log: Logger };
+export type $RequestExtend = Omit<Request, 'params'> & { remote_user?: any; log: Logger; params: Record<string, string> };
 export type $ResponseExtend = Response & { cookies?: any };
 export type $NextFunctionVer = NextFunction & any;
 export type $SidebarPackage = Manifest & { latest: any };
