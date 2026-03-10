@@ -18,5 +18,6 @@ module.exports = {
         include: ['PACKAGE_VERSION'],
       },
     ],
+    ...(isESM ? [['add-import-extension', { extension: 'js' }]] : []),
   ],
 };

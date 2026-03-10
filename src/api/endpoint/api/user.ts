@@ -31,7 +31,7 @@ export default function (route: Router, auth: Auth, config: Config): void {
   );
 
   userRouter.put(
-    '/-/user/:org_couchdb_user/:_rev?/:revision?',
+    '/-/user/:org_couchdb_user{/:_rev}{/:revision}',
     rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       const { name, password } = req.body;
@@ -99,7 +99,7 @@ export default function (route: Router, auth: Auth, config: Config): void {
   );
 
   userRouter.delete(
-    '/-/user/token/*',
+    '/-/user/token/*token',
     rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       res.status(HTTP_STATUS.OK);

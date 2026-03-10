@@ -91,7 +91,7 @@ export default function publish(
    *
    */
   router.put(
-    '/:package/:_rev?/:revision?',
+    '/:package{/:_rev}{/:revision}',
     can('publish'),
     media(mime.getType('json')),
     expectJson,
@@ -106,7 +106,7 @@ export default function publish(
    * npm http fetch GET 304 http://localhost:4873/@scope%2ftest1?write=true 1076ms (from cache)
      npm http fetch DELETE 201 http://localhost:4873/@scope%2ftest1/-rev/18-d8ebe3020bd4ac9c 22ms
    */
-  router.delete('/:package/-rev/*', can('unpublish'), unPublishPackage(storage));
+  router.delete('/:package/-rev/*rev', can('unpublish'), unPublishPackage(storage));
 
   // removing a tarball
   router.delete(
@@ -118,7 +118,7 @@ export default function publish(
 
   // uploading package tarball
   router.put(
-    '/:package/-/:filename/*',
+    '/:package/-/:filename/*rest',
     can('publish'),
     media(HEADERS.OCTET_STREAM),
     uploadPackageTarball(storage)

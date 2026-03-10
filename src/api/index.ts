@@ -100,7 +100,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<ex
     });
   }
 
-  app.get('/*', function (_, __, next: $NextFunctionVer) {
+  app.get('/*path', function (_, __, next: $NextFunctionVer) {
     next(ErrorCode.getNotFound(API_ERROR.FILE_NOT_FOUND));
   });
   app.use(handleError(logger));
