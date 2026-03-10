@@ -42,15 +42,14 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
+    "colorette": "2.0.20",
     "dayjs": "1.11.18",
     "on-exit-leak-free": "2.1.2",
     "pino-abstract-transport": "1.2.0",
-    "colorette": "2.0.20",
-    "lodash": "4.17.23",
     "sonic-boom": "3.8.1"
   },
   "devDependencies": {
-    "pino": "9.14.0",
+    "pino": "10.3.1",
     "vitest": "3.2.4"
   },
   "funding": {

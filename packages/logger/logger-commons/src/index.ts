@@ -1,1 +1,1 @@
-export { setup, createLogger, prepareSetup } from './logger';
+export { setup, createLogger, prepareSetup, willUseTransport } from './logger';
