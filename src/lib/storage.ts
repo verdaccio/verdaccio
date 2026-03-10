@@ -7,7 +7,11 @@ import Stream from 'stream';
 import { hasProxyTo } from '@verdaccio/config';
 import { PLUGIN_CATEGORY, pluginUtils, validationUtils } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
-import LocalDatabasePlugin from '@verdaccio/local-storage-legacy';
+import LocalDatabasePluginModule from '@verdaccio/local-storage-legacy';
+
+// Handle CJS/ESM interop: the module may expose the class as .default or directly
+const LocalDatabasePlugin =
+  (LocalDatabasePluginModule as any).default || LocalDatabasePluginModule;
 import { SearchMemoryIndexer } from '@verdaccio/search-indexer';
 import { ReadTarball } from '@verdaccio/streams';
 import {
