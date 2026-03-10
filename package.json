@@ -57,7 +57,7 @@
     "envinfo": "7.21.0",
     "express": "5.2.1",
     "lodash": "4.17.23",
-    "lru-cache": "7.18.3",
+    "lru-cache": "11.2.6",
     "mime": "3.0.0",
     "semver": "7.7.4",
     "verdaccio-audit": "14.0.0-next-9.1",
