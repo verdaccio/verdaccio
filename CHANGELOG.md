@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.0.0-beta.4](https://github.com/verdaccio/verdaccio/compare/v7.0.0-beta.3...v7.0.0-beta.4) (2026-03-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency express to v5 (7.x) ([#5622](https://github.com/verdaccio/verdaccio/issues/5622)) ([9563f50](https://github.com/verdaccio/verdaccio/commit/9563f501af5b83a3f5adb9f2d68deb6508df89d0))
+
 ## [7.0.0-beta.3](https://github.com/verdaccio/verdaccio/compare/v7.0.0-beta.2...v7.0.0-beta.3) (2026-03-08)
 
 
