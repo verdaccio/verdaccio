@@ -8534,12 +8534,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mime@npm:3.0.0":
-  version: 3.0.0
-  resolution: "mime@npm:3.0.0"
+"mime@npm:4.1.0":
+  version: 4.1.0
+  resolution: "mime@npm:4.1.0"
   bin:
-    mime: cli.js
-  checksum: 10c0/402e792a8df1b2cc41cb77f0dcc46472b7944b7ec29cb5bbcd398624b6b97096728f1239766d3fdeb20551dd8d94738344c195a6ea10c4f906eb0356323b0531
+    mime: bin/cli.js
+  checksum: 10c0/3b8602e50dff1049aea8bb2d4c65afc55bf7f3eb5c17fd2bcb315b8c8ae225a7553297d424d3621757c24cdba99e930ecdc4108467009cdc7ed55614cd55031d
   languageName: node
   linkType: hard
 
@@ -12060,7 +12060,6 @@ __metadata:
     get-port: "npm:7.1.0"
     kleur: "npm:4.1.5"
     lodash: "npm:4.17.23"
-    mime: "npm:3.0.0"
     nock: "npm:13.5.6"
     node-mocks-http: "npm:^1.17.2"
     prettier: "npm:3.6.2"
