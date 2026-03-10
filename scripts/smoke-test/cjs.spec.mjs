@@ -1,5 +1,7 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
-const { expect, test } = require('vitest');
+import { createRequire } from 'module';
+import { expect, test } from 'vitest';
+
+const require = createRequire(import.meta.url);
 const { runServer, getDefaultConfig, fileUtils } = require('verdaccio');
 
 test('CJS: runServer should start correctly with default config', async () => {

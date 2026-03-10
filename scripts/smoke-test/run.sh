@@ -32,7 +32,7 @@ run_spec() {
 }
 
 run_spec "$SCRIPT_DIR/esm.spec.mjs"
-run_spec "$SCRIPT_DIR/cjs.spec.cjs"
+run_spec "$SCRIPT_DIR/cjs.spec.mjs"
 run_spec "$SCRIPT_DIR/legacy.spec.mjs"
 
 echo "All smoke tests passed."
