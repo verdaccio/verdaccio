@@ -10,6 +10,9 @@ import { useTranslation } from 'react-i18next';
 import { useConfig } from '../../providers';
 import { useSettings } from '../../providers/PersistenceSettingProvider';
 
+// Workaround: MUI v7 MenuProps type resolution breaks inherited PopoverProps (anchorOrigin, transformOrigin, id, etc.)
+const TypedMenu = Menu as React.FC<any>;
+
 interface Props {
   packageName: string;
 }
@@ -70,10 +73,7 @@ const SettingsMenu: React.FC<Props> = ({ packageName }) => {
       >
         <Settings fontSize="small" />
       </IconButton>
-      <Menu
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
+      <TypedMenu
         anchorEl={anchorEl}
         anchorOrigin={{
           vertical: 'bottom',
@@ -82,6 +82,11 @@ const SettingsMenu: React.FC<Props> = ({ packageName }) => {
         id="basic-menu"
         onClose={handleClose}
         open={open}
+        slotProps={{
+          list: {
+            'aria-labelledby': 'basic-button',
+          },
+        }}
         transformOrigin={{
           vertical: 'top',
           horizontal: 'right',
@@ -116,7 +121,7 @@ const SettingsMenu: React.FC<Props> = ({ packageName }) => {
             {t('sidebar.installation.yarnModern')}
           </MenuItem>
         )}
-      </Menu>
+      </TypedMenu>
     </>
   );
 };

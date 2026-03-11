@@ -49,9 +49,10 @@ const UpLinks: React.FC<{ packageMeta: any }> = ({ packageMeta }) => {
                     <UpLinkLink packageName={latest.name} uplinkName={name} />
                   </ListItemText>
                   <Spacer />
-                  <ListItemText title={utils.formatDate(uplinks[name].fetched)}>
-                    {utils.formatDateDistance(uplinks[name].fetched)}
-                  </ListItemText>
+                  <ListItemText
+                    primary={utils.formatDateDistance(uplinks[name].fetched)}
+                    slotProps={{ primary: { title: utils.formatDate(uplinks[name].fetched) } }}
+                  />
                 </ListItem>
               ))}
           </List>

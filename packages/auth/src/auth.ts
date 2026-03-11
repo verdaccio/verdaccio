@@ -640,7 +640,11 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
       name,
       groups: groupedGroups,
     };
-    const token: string = await signPayload(payload, this.secret, signOptions);
+    const token: string = await signPayload(
+      payload,
+      this.secret,
+      signOptions as Parameters<typeof signPayload>[2]
+    );
 
     return token;
   }

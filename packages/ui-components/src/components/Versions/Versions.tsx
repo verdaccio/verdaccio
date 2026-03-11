@@ -78,7 +78,7 @@ const Versions: React.FC<Props> = ({ packageMeta, packageName }) => {
               }, 200)}
               size="small"
               variant="standard"
-              width="50%"
+              sx={{ width: '50%' }}
             />
           </>
           {hasVersionHistory ? (

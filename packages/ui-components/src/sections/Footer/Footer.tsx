@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import FlagsIcon from 'country-flag-icons/react/3x2';
+import * as FlagsIcon from 'country-flag-icons/react/3x2';
 import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 
