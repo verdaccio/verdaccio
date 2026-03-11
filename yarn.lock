@@ -12060,7 +12060,6 @@ __metadata:
     get-port: "npm:7.1.0"
     kleur: "npm:4.1.5"
     lodash: "npm:4.17.23"
-    lru-cache: "npm:7.18.3"
     mime: "npm:3.0.0"
     nock: "npm:13.5.6"
     node-mocks-http: "npm:^1.17.2"
