@@ -1,6 +1,5 @@
 import type { Router } from 'express';
 import _ from 'lodash';
-import mime from 'mime';
 
 import { DIST_TAGS_API_ENDPOINTS, allow, media } from '@verdaccio/middleware';
 import type { Package } from '@verdaccio/types';
@@ -40,21 +39,21 @@ export default function (route: Router, auth: Auth, storage: Storage): void {
   route.put(
     DIST_TAGS_API_ENDPOINTS.tagging,
     can('publish'),
-    media(mime.getType('json')),
+    media('application/json'),
     tag_package_version
   );
 
   route.post(
     DIST_TAGS_API_ENDPOINTS.tagging_package,
     can('publish'),
-    media(mime.getType('json')),
+    media('application/json'),
     tag_package_version
   );
 
   route.put(
     DIST_TAGS_API_ENDPOINTS.tagging_package,
     can('publish'),
-    media(mime.getType('json')),
+    media('application/json'),
     tag_package_version
   );
 

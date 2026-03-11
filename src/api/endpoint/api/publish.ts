@@ -1,7 +1,6 @@
 import buildDebug from 'debug';
 import type { Router } from 'express';
 import _ from 'lodash';
-import mime from 'mime';
 import Path from 'path';
 
 import { validationUtils } from '@verdaccio/core';
@@ -93,7 +92,7 @@ export default function publish(
   router.put(
     '/:package{/:_rev}{/:revision}',
     can('publish'),
-    media(mime.getType('json')),
+    media('application/json'),
     expectJson,
     publishPackage(storage, config, auth)
   );
@@ -130,7 +129,7 @@ export default function publish(
     router.put(
       '/:package/:version/-tag/:tag',
       can('publish'),
-      media(mime.getType('json')),
+      media('application/json'),
       expectJson,
       addVersion(storage)
     );
