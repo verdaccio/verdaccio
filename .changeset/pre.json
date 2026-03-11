@@ -2,7 +2,6 @@
   "mode": "pre",
   "tag": "next-8",
   "initialVersions": {
-    "@verdaccio/ui-i18n": "8.0.0",
     "@verdaccio/api": "7.0.0",
     "@verdaccio/auth": "7.0.0",
     "@verdaccio/config": "7.0.0",

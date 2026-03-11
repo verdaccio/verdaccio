@@ -5,7 +5,6 @@ node_modules
 verdaccio-*.tgz
 docker-compose.yaml
 Dockerfile
-crowdin.yaml
 scripts/
 src/
 /.*

@@ -1,7 +1,6 @@
 ---
 '@verdaccio/local-storage': minor
 '@verdaccio/types': minor
-'@verdaccio/ui-i18n': minor
 '@verdaccio/config': minor
 '@verdaccio/api': minor
 '@verdaccio/web': minor

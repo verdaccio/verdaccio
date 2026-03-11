@@ -12,7 +12,6 @@
 '@verdaccio/types': patch
 '@verdaccio/middleware': patch
 '@verdaccio/core': patch
-'@verdaccio/ui-i18n': patch
 '@verdaccio/signature': patch
 '@verdaccio/url': patch
 '@verdaccio/loaders': patch

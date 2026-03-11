@@ -7,7 +7,6 @@ assets/**/*
 **/pnpm-lock.yaml
 **/verdaccio-corrupted.db.json
 **/wrong.package.json
-crowdin.yaml
 CHANGELOG.md
 CONTRIBUTORS.md
 node_modules/
