@@ -2,10 +2,11 @@
   "extends": "../../tsconfig.reference.json",
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "./build"
+    "outDir": "./build",
+    "composite": true,
+    "declaration": true
   },
-  "include": ["src/**/*.ts", "types/*.d.ts"],
-  "exclude": ["src/**/*.test.ts"],
+  "include": ["src/**/*.ts"],
   "references": [
     {
       "path": "../auth"
@@ -24,9 +25,6 @@
     },
     {
       "path": "../middleware"
-    },
-    {
-      "path": "../store"
     }
   ]
 }

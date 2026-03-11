@@ -36,9 +36,6 @@
     },
     {
       "path": "../store"
-    },
-    {
-      "path": "../tools/helpers"
     }
   ]
 }

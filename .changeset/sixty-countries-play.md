@@ -1,5 +1,4 @@
 ---
-'@verdaccio/ui-theme': minor
 '@verdaccio/middleware': minor
 ---
 

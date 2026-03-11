@@ -1,6 +1,5 @@
 ---
 '@verdaccio/search-indexer': patch
-'@verdaccio/node-api': patch
 '@verdaccio/search': patch
 '@verdaccio/proxy': patch
 ---

@@ -1,7 +1,6 @@
 ---
 '@verdaccio/server': patch
 'verdaccio-audit': patch
-'@verdaccio/test-helper': patch
 '@verdaccio/middleware': patch
 '@verdaccio/auth': patch
 '@verdaccio/api': patch

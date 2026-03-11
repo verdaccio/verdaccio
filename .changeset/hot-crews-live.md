@@ -1,7 +1,6 @@
 ---
 '@verdaccio/types': patch
 '@verdaccio/core': patch
-'verdaccio': patch
 '@verdaccio/store': patch
 '@verdaccio/api': patch
 ---

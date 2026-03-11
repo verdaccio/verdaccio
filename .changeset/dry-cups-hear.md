@@ -1,5 +1,4 @@
 ---
-'@verdaccio/test-helper': patch
 '@verdaccio/api': patch
 '@verdaccio/web': patch
 ---

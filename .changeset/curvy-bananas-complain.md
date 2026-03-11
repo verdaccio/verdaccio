@@ -1,5 +1,4 @@
 ---
-'@verdaccio/node-api': patch
 '@verdaccio/config': patch
 ---
 

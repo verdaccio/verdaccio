@@ -1,12 +1,9 @@
 ---
 '@verdaccio/local-storage': patch
 '@verdaccio/server': patch
-'@verdaccio/test-helper': patch
-'@verdaccio/ui-components': patch
 '@verdaccio/tarball': patch
 '@verdaccio/types': patch
 '@verdaccio/middleware': patch
-'verdaccio': patch
 '@verdaccio/config': patch
 '@verdaccio/proxy': patch
 '@verdaccio/store': patch

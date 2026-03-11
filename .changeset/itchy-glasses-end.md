@@ -1,6 +1,4 @@
 ---
-'@verdaccio/ui-theme': minor
-'@verdaccio/ui-components': minor
 '@verdaccio/ui-i18n': minor
 ---
 

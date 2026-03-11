@@ -5,23 +5,18 @@
 'verdaccio-auth-memory': major
 '@verdaccio/file-locking': major
 'verdaccio-htpasswd': major
-'@verdaccio/ui-theme': major
 'verdaccio-memory': major
 '@verdaccio/search-indexer': major
 '@verdaccio/server': major
 '@verdaccio/logger': major
 'verdaccio-audit': major
-'@verdaccio/ui-components': major
 '@verdaccio/tarball': major
 
 '@verdaccio/types': major
 '@verdaccio/middleware': major
-'@verdaccio/cli-standalone': major
 '@verdaccio/core': major
 '@verdaccio/signature': major
-'verdaccio': major
 '@verdaccio/url': major
-'@verdaccio/node-api': major
 '@verdaccio/web': major
 '@verdaccio/loaders': major
 '@verdaccio/config': major

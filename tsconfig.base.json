@@ -6,9 +6,8 @@
     "noImplicitAny": false,
     "strict": true,
     "declaration": true,
-    "jsx": "react",
     "strictNullChecks": true,
-    "types": ["node", "express", "@testing-library/jest-dom"],
+    "types": ["node", "express"],
     "resolveJsonModule": true,
     // "preserveSymlinks": true,
     "allowSyntheticDefaultImports": true,
@@ -33,9 +32,6 @@
       "path": "packages/auth"
     },
     {
-      "path": "packages/cli"
-    },
-    {
       "path": "packages/config"
     },
     {
@@ -46,9 +42,6 @@
     },
     {
       "path": "packages/middleware"
-    },
-    {
-      "path": "packages/node-api"
     },
     {
       "path": "packages/proxy"
@@ -66,13 +59,7 @@
       "path": "packages/store"
     },
     {
-      "path": "packages/ui-components"
-    },
-    {
       "path": "packages/utils"
-    },
-    {
-      "path": "packages/verdaccio"
     },
     {
       "path": "packages/web"
@@ -96,12 +83,6 @@
       "path": "packages/core/url"
     },
     {
-      "path": "packages/tools/helpers"
-    },
-    {
-      "path": "packages/tools/local-publish"
-    },
-    {
       "path": "packages/server/express"
     },
     {
@@ -123,64 +104,10 @@
       "path": "packages/plugins/htpasswd"
     },
     {
-      "path": "packages/plugins/ui-theme"
-    },
-    {
       "path": "packages/plugins/memory"
     },
     {
       "path": "packages/plugins/local-storage"
-    },
-    {
-      "path": "e2e/cli/cli-commons"
-    },
-    {
-      "path": "e2e/cli/e2e-npm-commons"
-    },
-    {
-      "path": "e2e/cli/e2e-npm10"
-    },
-    {
-      "path": "e2e/cli/e2e-npm11"
-    },
-    {
-      "path": "e2e/cli/e2e-npm6"
-    },
-    {
-      "path": "e2e/cli/e2e-npm7"
-    },
-    {
-      "path": "e2e/cli/e2e-npm8"
-    },
-    {
-      "path": "e2e/cli/e2e-npm9"
-    },
-    {
-      "path": "e2e/cli/e2e-pnpm-commons"
-    },
-    {
-      "path": "e2e/cli/e2e-pnpm10"
-    },
-    {
-      "path": "e2e/cli/e2e-pnpm8"
-    },
-    {
-      "path": "e2e/cli/e2e-pnpm9"
-    },
-    {
-      "path": "e2e/cli/e2e-yarn1"
-    },
-    {
-      "path": "e2e/cli/e2e-yarn2"
-    },
-    {
-      "path": "e2e/cli/e2e-yarn3"
-    },
-    {
-      "path": "e2e/cli/e2e-yarn4"
-    },
-    {
-      "path": "e2e/ui"
     }
   ]
 }

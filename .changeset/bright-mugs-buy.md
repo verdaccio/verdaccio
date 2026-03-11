@@ -1,11 +1,7 @@
 ---
 '@verdaccio/logger-prettify': patch
 '@verdaccio/file-locking': patch
-'@verdaccio/ui-theme': patch
-'@verdaccio/test-helper': patch
 '@verdaccio/middleware': patch
-'verdaccio': patch
-'@verdaccio/node-api': patch
 '@verdaccio/config': patch
 '@verdaccio/hooks': patch
 '@verdaccio/proxy': patch

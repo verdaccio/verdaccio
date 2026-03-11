@@ -3,25 +3,18 @@
 '@verdaccio/logger-commons': patch
 '@verdaccio/local-storage': patch
 'verdaccio-auth-memory': patch
-'@verdaccio/local-publish': patch
 '@verdaccio/file-locking': patch
 'verdaccio-htpasswd': patch
-'@verdaccio/ui-theme': patch
 'verdaccio-memory': patch
 '@verdaccio/search-indexer': patch
 '@verdaccio/server': patch
 '@verdaccio/logger': patch
 'verdaccio-audit': patch
-'@verdaccio/test-helper': patch
-'@verdaccio/ui-components': patch
 '@verdaccio/tarball': patch
 '@verdaccio/types': patch
 '@verdaccio/middleware': patch
-'@verdaccio/cli-standalone': patch
 '@verdaccio/core': patch
-'verdaccio': patch
 '@verdaccio/url': patch
-'@verdaccio/node-api': patch
 '@verdaccio/loaders': patch
 '@verdaccio/config': patch
 '@verdaccio/hooks': patch
@@ -30,7 +23,6 @@
 '@verdaccio/utils': patch
 '@verdaccio/auth': patch
 '@verdaccio/api': patch
-'@verdaccio/cli': patch
 ---
 
 chore: update readme badges and license files

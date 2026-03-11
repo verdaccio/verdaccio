@@ -1,7 +1,5 @@
 ---
 'verdaccio-auth-memory': patch
-'@verdaccio/ui-theme': patch
-'@verdaccio/ui-components': patch
 '@verdaccio/tarball': patch
 '@verdaccio/proxy': patch
 ---
