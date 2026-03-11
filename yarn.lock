@@ -8306,13 +8306,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lru-cache@npm:11.2.6":
-  version: 11.2.6
-  resolution: "lru-cache@npm:11.2.6"
-  checksum: 10c0/73bbffb298760e71b2bfe8ebc16a311c6a60ceddbba919cfedfd8635c2d125fbfb5a39b71818200e67973b11f8d59c5a9e31d6f90722e340e90393663a66e5cd
-  languageName: node
-  linkType: hard
-
 "lru-cache@npm:7.18.3, lru-cache@npm:^7.7.1":
   version: 7.18.3
   resolution: "lru-cache@npm:7.18.3"
@@ -12067,7 +12060,6 @@ __metadata:
     get-port: "npm:7.1.0"
     kleur: "npm:4.1.5"
     lodash: "npm:4.17.23"
-    lru-cache: "npm:11.2.6"
     mime: "npm:3.0.0"
     nock: "npm:13.5.6"
     node-mocks-http: "npm:^1.17.2"
