@@ -114,7 +114,7 @@
     "supertest": "7.1.4",
     "ts-node": "10.9.2",
     "typescript": "5.9.3",
-    "undici-types": "5.28.4",
+    "undici-types": "6.21.0",
     "update-ts-references": "3.6.2",
     "verdaccio-audit": "workspace:*",
     "verdaccio-auth-memory": "workspace:*",

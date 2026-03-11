@@ -71,11 +71,15 @@ const VersionsHistoryList: React.FC<Props> = ({ versions, packageName, time }) =
               />
             ) : null}
             <Spacer />
-            <ListItemText data-testid={`version-list-text`} title={utils.formatDate(time[version])}>
-              {time[version]
-                ? utils.formatDateDistance(time[version])
-                : t('versions.not-available')}
-            </ListItemText>
+            <ListItemText
+              data-testid={`version-list-text`}
+              primary={
+                time[version]
+                  ? utils.formatDateDistance(time[version])
+                  : t('versions.not-available')
+              }
+              slotProps={{ primary: { title: utils.formatDate(time[version]) } }}
+            />
           </ListItem>
         ))}
     </List>

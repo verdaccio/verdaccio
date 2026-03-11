@@ -127,7 +127,11 @@ export const expireReasons: string[] = ['JsonWebTokenError', 'TokenExpiredError'
 
 export function verifyJWTPayload(token: string, secret: string, security: Security): RemoteUser {
   try {
-    const payload: RemoteUser = verifyPayload(token, secret, security?.api?.jwt?.verify);
+    const payload: RemoteUser = verifyPayload(
+      token,
+      secret,
+      security?.api?.jwt?.verify as Parameters<typeof verifyPayload>[2]
+    );
 
     return payload;
   } catch (error: any) {

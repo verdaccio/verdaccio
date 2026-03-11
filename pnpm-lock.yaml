@@ -306,8 +306,8 @@ importers:
         specifier: 5.9.3
         version: 5.9.3
       undici-types:
-        specifier: 5.28.4
-        version: 5.28.4
+        specifier: 6.21.0
+        version: 6.21.0
       update-ts-references:
         specifier: 3.6.2
         version: 3.6.2
@@ -771,8 +771,8 @@ importers:
   packages/core/types:
     devDependencies:
       '@types/jsonwebtoken':
-        specifier: 9.0.10
-        version: 9.0.10
+        specifier: 9.0.7
+        version: 9.0.7
       '@types/ms':
         specifier: 2.1.0
         version: 2.1.0
@@ -4022,6 +4022,9 @@ packages:
 
   '@types/jsonwebtoken@9.0.10':
     resolution: {integrity: sha512-asx5hIG9Qmf/1oStypjanR7iKTv0gXQ1Ov/jfrX6kS/EO0OFni8orbmGCn0672NHR3kXHwpAwR+B368ZGN/2rA==}
+
+  '@types/jsonwebtoken@9.0.7':
+    resolution: {integrity: sha512-ugo316mmTYBl2g81zDFnZ7cfxlut3o+/EQdaP7J8QN2kY6lJ22hmQYCK5EHcJHbrW+dkCGSCPgbG8JtYj6qSrg==}
 
   '@types/keyv@3.1.4':
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
@@ -9988,9 +9991,6 @@ packages:
   undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
 
-  undici-types@5.28.4:
-    resolution: {integrity: sha512-3OeMF5Lyowe8VW0skf5qaIE7Or3yS9LS7fvMUI0gg4YxpIBVg0L8BxCmROw2CcYhSkpR68Epz7CGc8MPj94Uww==}
-
   undici-types@6.21.0:
     resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
 
@@ -13115,6 +13115,10 @@ snapshots:
   '@types/jsonwebtoken@9.0.10':
     dependencies:
       '@types/ms': 2.1.0
+      '@types/node': 24.10.13
+
+  '@types/jsonwebtoken@9.0.7':
+    dependencies:
       '@types/node': 24.10.13
 
   '@types/keyv@3.1.4':
@@ -19710,8 +19714,6 @@ snapshots:
   undefsafe@2.0.5: {}
 
   undici-types@5.26.5: {}
-
-  undici-types@5.28.4: {}
 
   undici-types@6.21.0: {}
 
