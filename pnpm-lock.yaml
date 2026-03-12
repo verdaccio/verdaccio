@@ -383,8 +383,6 @@ importers:
         specifier: 3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.10.0)(jsdom@26.1.0)(msw@2.12.10(@types/node@24.10.0)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)(yaml@2.8.1)
 
-  packages/core/i18n: {}
-
   packages/core/tarball:
     dependencies:
       '@verdaccio/core':
@@ -901,8 +899,8 @@ importers:
         specifier: 1.8.1
         version: 1.8.1
       cors:
-        specifier: 2.8.5
-        version: 2.8.5
+        specifier: 2.8.6
+        version: 2.8.6
       debug:
         specifier: 4.4.3
         version: 4.4.3(supports-color@8.1.1)
@@ -3448,8 +3446,8 @@ packages:
   core-util-is@1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
 
-  cors@2.8.5:
-    resolution: {integrity: sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==}
+  cors@2.8.6:
+    resolution: {integrity: sha512-tJtZBBHA6vjIAaF6EnIaq6laBBP9aq/Y3ouVJjEfoHbRBcHBAHYcMh/w8LDrk2PvIMMq8gmopa5D4V8RmbrxGw==}
     engines: {node: '>= 0.10'}
 
   cosmiconfig@7.1.0:
@@ -8179,14 +8177,14 @@ snapshots:
       msw: 2.12.10(@types/node@20.14.12)(typescript@5.3.3)
       vite: 7.3.1(@types/node@20.14.12)(sass@1.93.2)(terser@5.31.3)(yaml@2.8.1)
 
-  '@vitest/mocker@3.2.4(msw@2.12.10(@types/node@24.10.0)(typescript@5.3.3))(vite@7.3.1(@types/node@20.14.12)(sass@1.93.2)(terser@5.31.3)(yaml@2.8.1))':
+  '@vitest/mocker@3.2.4(msw@2.12.10(@types/node@24.10.0)(typescript@5.3.3))(vite@7.3.1(@types/node@24.10.0)(sass@1.93.2)(terser@5.31.3)(yaml@2.8.1))':
     dependencies:
       '@vitest/spy': 3.2.4
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
       msw: 2.12.10(@types/node@24.10.0)(typescript@5.3.3)
-      vite: 7.3.1(@types/node@20.14.12)(sass@1.93.2)(terser@5.31.3)(yaml@2.8.1)
+      vite: 7.3.1(@types/node@24.10.0)(sass@1.93.2)(terser@5.31.3)(yaml@2.8.1)
 
   '@vitest/pretty-format@3.2.4':
     dependencies:
@@ -8730,7 +8728,7 @@ snapshots:
 
   core-util-is@1.0.3: {}
 
-  cors@2.8.5:
+  cors@2.8.6:
     dependencies:
       object-assign: 4.1.1
       vary: 1.1.2
@@ -11761,7 +11759,7 @@ snapshots:
     dependencies:
       '@types/chai': 5.2.2
       '@vitest/expect': 3.2.4
-      '@vitest/mocker': 3.2.4(msw@2.12.10(@types/node@24.10.0)(typescript@5.3.3))(vite@7.3.1(@types/node@20.14.12)(sass@1.93.2)(terser@5.31.3)(yaml@2.8.1))
+      '@vitest/mocker': 3.2.4(msw@2.12.10(@types/node@24.10.0)(typescript@5.3.3))(vite@7.3.1(@types/node@24.10.0)(sass@1.93.2)(terser@5.31.3)(yaml@2.8.1))
       '@vitest/pretty-format': 3.2.4
       '@vitest/runner': 3.2.4
       '@vitest/snapshot': 3.2.4
