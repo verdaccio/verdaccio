@@ -59,3 +59,4 @@ packages/ui-components/storybook-static
 # AI generated files
 AGENTS.md
 CLAUDE.md
+/.claude

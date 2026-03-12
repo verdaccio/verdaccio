@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { clone, merge } from 'lodash';
 import React from 'react';
 import { MemoryRouter, Route, Routes } from 'react-router';

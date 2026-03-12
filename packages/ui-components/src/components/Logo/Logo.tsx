@@ -4,9 +4,8 @@ import React from 'react';
 
 import type { Theme } from '../../';
 import { useConfig } from '../../';
-
-const blackAndWithLogo = require('./img/logo-black-and-white.svg');
-const defaultLogo = require('./img/logo.svg');
+import blackAndWithLogo from './img/logo-black-and-white.svg';
+import defaultLogo from './img/logo.svg';
 
 const sizes = {
   'x-small': '30px',

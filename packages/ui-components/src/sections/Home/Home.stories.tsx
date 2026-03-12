@@ -1,8 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { HttpResponse, delay, http } from 'msw';
 import React from 'react';
 import { MemoryRouter, Route, Routes } from 'react-router';
 
+import homeData from '../../../vitest/api/home.json';
 import { ManifestsProvider } from '../../providers';
 import Home from './Home';
 
@@ -34,7 +35,7 @@ export const HomeDefault: Story = {
       handlers: [
         http.get('https://my-registry.org/-/verdaccio/data/packages', async () => {
           await delay(3000);
-          return HttpResponse.json([...require('../../../vitest/api/home.json')]);
+          return HttpResponse.json([...homeData]);
         }),
       ],
     },

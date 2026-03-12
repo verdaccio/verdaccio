@@ -1,10 +1,17 @@
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { HttpResponse, delay, http } from 'msw';
 import React from 'react';
 import { MemoryRouter, useLocation } from 'react-router';
 import { INITIAL_VIEWPORTS } from 'storybook/viewport';
 
 import { Header, SearchProvider } from '../../';
+import homeRoute from '../../../vitest/api/home-route.json';
+import searchVerdaccio from '../../../vitest/api/search-verdaccio.json';
+import storybookReadme from '../../../vitest/api/storybook-readme.js';
+import storybookSidebar from '../../../vitest/api/storybook-sidebar.json';
+import verdaccioAuthSidebar from '../../../vitest/api/verdaccio-auth-sidebar.json';
+import verdaccioProxySidebar from '../../../vitest/api/verdaccio-proxy-sidebar.json';
+import verdaccioUiSidebar from '../../../vitest/api/verdaccio-ui-sidebar.json';
 import { Route } from '../../utils';
 import AppRoute from './AppRoute';
 
@@ -45,14 +52,14 @@ export default meta;
 type Story = StoryObj<typeof AppRoute>;
 
 const sidebarByPackage: Record<string, any> = {
-  storybook: require('../../../vitest/api/storybook-sidebar.json'),
-  '@verdaccio/ui-components': require('../../../vitest/api/verdaccio-ui-sidebar.json'),
-  '@verdaccio/auth': require('../../../vitest/api/verdaccio-auth-sidebar.json'),
-  '@verdaccio/proxy': require('../../../vitest/api/verdaccio-proxy-sidebar.json'),
+  storybook: storybookSidebar,
+  '@verdaccio/ui-components': verdaccioUiSidebar,
+  '@verdaccio/auth': verdaccioAuthSidebar,
+  '@verdaccio/proxy': verdaccioProxySidebar,
 };
 
 const readmeByPackage: Record<string, string> = {
-  storybook: require('../../../vitest/api/storybook-readme')(),
+  storybook: storybookReadme,
   '@verdaccio/ui-components':
     '<h1>@verdaccio/ui-components</h1>\n<p>Shared React components for the Verdaccio UI. Built with MUI and Emotion.</p>',
   '@verdaccio/auth':
@@ -74,7 +81,7 @@ function extractPackageName(url: string): string {
 
 const handlers = [
   http.get('https://my-registry.org/-/verdaccio/data/packages', () => {
-    return HttpResponse.json([...require('../../../vitest/api/home-route.json')]);
+    return HttpResponse.json([...homeRoute]);
   }),
   http.get('https://my-registry.org/-/verdaccio/data/sidebar/*', ({ request }) => {
     const pkgName = extractPackageName(request.url);
@@ -87,7 +94,7 @@ const handlers = [
   http.get('https://my-registry.org/-/verdaccio/data/search/*', async ({ request }) => {
     const url = new URL(request.url);
     const query = url.searchParams.get('text');
-    const packages = require('../../../vitest/api/search-verdaccio.json');
+    const packages = searchVerdaccio;
     await delay(600);
     if (!query) {
       return HttpResponse.json(packages);

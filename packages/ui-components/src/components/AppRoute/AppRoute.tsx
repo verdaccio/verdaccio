@@ -7,18 +7,12 @@ import { Route } from '../../utils';
 import loadable from '../../utils/loadable';
 import NotFound from '../NotFound';
 
-const VersionPage = loadable(() => import(/* webpackChunkName: "Version" */ '../../pages/Version'));
-const Front = loadable(() => import(/* webpackChunkName: "Home" */ '../../pages/Front'));
-const Login = loadable(() => import(/* webpackChunkName: "Login" */ '../../pages/Security/Login'));
-const Success = loadable(
-  () => import(/* webpackChunkName: "Success" */ '../../pages/Security/Success')
-);
-const AddUser = loadable(
-  () => import(/* webpackChunkName: "AddUser" */ '../../pages/Security/AddUser')
-);
-const ChangePassword = loadable(
-  () => import(/* webpackChunkName: "ChangePassword" */ '../../pages/Security/ChangePassword')
-);
+const VersionPage = loadable(() => import('../../pages/Version'));
+const Front = loadable(() => import('../../pages/Front'));
+const Login = loadable(() => import('../../pages/Security/Login'));
+const Success = loadable(() => import('../../pages/Security/Success'));
+const AddUser = loadable(() => import('../../pages/Security/AddUser'));
+const ChangePassword = loadable(() => import('../../pages/Security/ChangePassword'));
 
 const versionElement = (
   <VersionProvider>

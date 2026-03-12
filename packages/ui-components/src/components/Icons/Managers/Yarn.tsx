@@ -1,6 +1,6 @@
 import React from 'react';
 
-const icon = require('./yarn.svg');
+import icon from './yarn.svg';
 
 export function Yarn() {
   return <img alt="npm package manager" height="20" src={icon} width="20" />;

@@ -20,7 +20,7 @@ export async function loadTheme(config: any) {
         /**
          *
           - `staticPath`: is the same data returned in Verdaccio 5.
-          - `manifest`: A webpack manifest object.
+          - `manifest`: A manifest object.
           - `manifestFiles`: A object with one property `js` and the array (order matters) of the manifest id to be loaded in the template dynamically.
          */
         return plugin.staticPath && plugin.manifest && plugin.manifestFiles;

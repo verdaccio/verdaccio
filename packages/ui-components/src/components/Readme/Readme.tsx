@@ -2,6 +2,8 @@ import styled from '@emotion/styled';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import 'highlight.js/styles/github-dark.css';
+import 'highlight.js/styles/github.css';
 import React from 'react';
 
 import { useCustomTheme } from '../../';
@@ -12,14 +14,6 @@ import { parseReadme } from './utils';
 const Readme: React.FC<Props> = ({ description }) => {
   // @ts-ignore
   const { isDarkMode } = useCustomTheme();
-
-  // Stackoverflow theme fits well to Verdaccio dark colors
-  // https://highlightjs.org/examples
-  if (isDarkMode) {
-    require('highlight.js/styles/github-dark.css');
-  } else {
-    require('highlight.js/styles/github.css');
-  }
 
   return (
     <Card sx={{ mb: 2 }}>
