@@ -1,8 +1,6 @@
-import warning from 'process-warning';
+import { createDeprecation, createWarning } from 'process-warning';
 
-const warningInstance = warning();
 const verdaccioWarning = 'VerdaccioWarning';
-const verdaccioDeprecation = 'VerdaccioDeprecation';
 
 export enum Codes {
   VERWAR001 = 'VERWAR001',
@@ -17,53 +15,56 @@ export enum Codes {
 
 /* general warnings */
 
-warningInstance.create(
-  verdaccioWarning,
-  Codes.VERWAR001,
-  `Verdaccio doesn't need superuser privileges. don't run it under root`
-);
+const warnings: Record<string, (a?: any, b?: any, c?: any) => void> = {};
 
-warningInstance.create(
-  verdaccioWarning,
-  Codes.VERWAR002,
-  `The configuration property "logs" has been deprecated, please rename to "log" for future compatibility`
-);
+warnings[Codes.VERWAR001] = createWarning({
+  name: verdaccioWarning,
+  code: Codes.VERWAR001,
+  message: `Verdaccio doesn't need superuser privileges. don't run it under root`,
+});
 
-warningInstance.create(
-  verdaccioWarning,
-  Codes.VERWAR003,
-  'rotating-file type is not longer supported, consider use [logrotate] instead'
-);
+warnings[Codes.VERWAR002] = createWarning({
+  name: verdaccioWarning,
+  code: Codes.VERWAR002,
+  message: `The configuration property "logs" has been deprecated, please rename to "log" for future compatibility`,
+});
 
-warningInstance.create(
-  verdaccioWarning,
-  Codes.VERWAR004,
-  `invalid address - %s, we expect a port (e.g. "4873"), 
+warnings[Codes.VERWAR003] = createWarning({
+  name: verdaccioWarning,
+  code: Codes.VERWAR003,
+  message: 'rotating-file type is not longer supported, consider use [logrotate] instead',
+});
+
+warnings[Codes.VERWAR004] = createWarning({
+  name: verdaccioWarning,
+  code: Codes.VERWAR004,
+  message: `invalid address - %s, we expect a port (e.g. "4873"),
 host:port (e.g. "localhost:4873") or full url '(e.g. "http://localhost:4873/")
-https://verdaccio.org/docs/en/configuration#listen-port`
-);
+https://verdaccio.org/docs/en/configuration#listen-port`,
+});
 
-warningInstance.create(
-  verdaccioDeprecation,
-  Codes.VERWAR006,
-  'the auth plugin method "add_user" in the auth plugin is deprecated and will be removed in next major release, rename to "adduser"'
-);
+warnings[Codes.VERWAR006] = createDeprecation({
+  code: Codes.VERWAR006,
+  message:
+    'the auth plugin method "add_user" in the auth plugin is deprecated and will be removed in next major release, rename to "adduser"',
+});
 
-warningInstance.create(
-  verdaccioDeprecation,
-  Codes.VERWAR007,
-  `the secret length is too long, it must be 32 characters long, please consider generate a new one 
-  Learn more at https://verdaccio.org/docs/configuration/#.verdaccio-db`
-);
+warnings[Codes.VERWAR007] = createDeprecation({
+  code: Codes.VERWAR007,
+  message: `the secret length is too long, it must be 32 characters long, please consider generate a new one
+  Learn more at https://verdaccio.org/docs/configuration/#.verdaccio-db`,
+});
 
 /* deprecation warnings */
 
-warningInstance.create(
-  verdaccioDeprecation,
-  Codes.VERDEP003,
-  'multiple addresses will be deprecated in the next major, only use one'
-);
+warnings[Codes.VERDEP003] = createDeprecation({
+  code: Codes.VERDEP003,
+  message: 'multiple addresses will be deprecated in the next major, only use one',
+});
 
 export function emit(code: string, a?: string, b?: string, c?: string) {
-  warningInstance.emit(code, a, b, c);
+  const warning = warnings[code];
+  if (warning) {
+    warning(a, b, c);
+  }
 }
