@@ -7,13 +7,19 @@
   "homepage": "https://verdaccio.org",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
+  "exports": {
+    ".": {
+      "source": "./src/index.ts",
+      "default": "./build/index.js"
+    }
+  },
   "scripts": {
     "test": "cross-env TZ=UTC vitest run",
     "clean": "rimraf ./build",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
-    "build:js": "babel src/ --out-dir build/ --copy-files --no-copy-ignored --extensions \".ts,.tsx\" --source-maps --ignore \"src/**/*.stories.tsx\" --ignore \"src/**/*.test.tsx\" --ignore \"src/**/*.test.ts\"",
-    "watch": "babel src/ --out-dir build/ --watch --copy-files --no-copy-ignored --extensions \".ts,.tsx\" --source-maps --ignore \"src/**/*.stories.tsx\" --ignore \"src/**/*.test.tsx\" --ignore \"src/**/*.test.ts\"",
+    "build:js": "vite build",
+    "watch": "vite build --watch",
     "build": "pnpm run build:js && pnpm run build:types",
     "start": "cross-env BROWSER=none storybook dev -p 6006",
     "build-storybook": "storybook build"
@@ -52,25 +58,24 @@
   "devDependencies": {
     "@babel/core": "7.28.4",
     "@emotion/babel-plugin": "11.13.5",
-    "@storybook/addon-docs": "10.2.10",
-    "@storybook/addon-links": "10.2.10",
-    "@storybook/addon-webpack5-compiler-babel": "4.0.0",
-    "@storybook/react-webpack5": "10.2.10",
+    "@storybook/addon-docs": "10.2.17",
+    "@storybook/addon-links": "10.2.17",
+    "@storybook/react-vite": "10.2.17",
     "@testing-library/dom": "10.4.1",
     "@testing-library/jest-dom": "6.8.0",
     "@testing-library/react": "16.3.0",
     "@types/node": "24.10.13",
     "@verdaccio/types": "workspace:14.0.0-next-9.0",
     "@vitejs/plugin-react": "5.0.4",
-    "babel-loader": "9.2.1",
-    "eslint-plugin-storybook": "10.2.10",
+    "vite": "^8.0.0",
+    "eslint-plugin-storybook": "10.2.17",
     "eslint-plugin-verdaccio": "10.0.0",
     "jsdom": "26.1.0",
     "mockdate": "3.0.5",
     "msw": "2.12.10",
     "msw-storybook-addon": "2.0.6",
     "mutationobserver-shim": "0.3.7",
-    "storybook": "10.2.10",
+    "storybook": "10.2.17",
     "vitest": "3.2.4",
     "whatwg-fetch": "3.6.20"
   },

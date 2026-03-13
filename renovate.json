@@ -70,16 +70,6 @@
       "allowedVersions": "8.0.0-next-8.30"
     },
     {
-      "description": "Emotion 11.14+ breaks @emotion/styled theme injection with MUI ThemeProvider",
-      "packageNames": ["@emotion/*"],
-      "allowedVersions": "<= 11.13.5"
-    },
-    {
-      "description": "react-router 7.13.1+ breaks router context in webpack builds with BrowserRouter",
-      "packageNames": ["react-router", "react-router-dom"],
-      "allowedVersions": "<= 7.13.0"
-    },
-    {
       "packageNames": ["got"],
       "allowedVersions": "^11.8.5"
     },
@@ -193,16 +183,13 @@
     },
     {
       "matchPackagePatterns": [
-        "webpack",
-        "css-loader",
-        "eslint-loader",
-        "file-loader",
-        "sass-loader",
-        "url-loader",
-        "styles-loader",
-        "source-map-loader",
-        "babel-loader",
-        "webpack-*"
+        "vite",
+        "vite-*",
+        "@vitejs/*",
+        "@storybook/*",
+        "storybook",
+        "@rollup/*",
+        "rollup"
       ],
       "matchUpdateTypes": ["minor", "patch"],
       "groupName": "all build dependencies",

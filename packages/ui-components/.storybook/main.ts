@@ -1,21 +1,14 @@
-// This file has been automatically migrated to valid ESM format by Storybook.
-import type { StorybookConfig } from '@storybook/react-webpack5';
-import { createRequire } from 'node:module';
-import { dirname, join } from 'node:path';
-
-const require = createRequire(import.meta.url);
+import type { StorybookConfig } from '@storybook/react-vite';
+import react from '@vitejs/plugin-react';
+import type { InlineConfig } from 'vite';
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
 
-  addons: [
-    getAbsolutePath('@storybook/addon-links'),
-    getAbsolutePath('@storybook/addon-webpack5-compiler-babel'),
-    getAbsolutePath('@storybook/addon-docs'),
-  ],
+  addons: ['@storybook/addon-links', '@storybook/addon-docs'],
 
   framework: {
-    name: '@storybook/react-webpack5',
+    name: '@storybook/react-vite',
     options: {},
   },
 
@@ -24,10 +17,22 @@ const config: StorybookConfig = {
   typescript: {
     reactDocgen: 'react-docgen-typescript',
   },
-};
 
-function getAbsolutePath(value) {
-  return dirname(require.resolve(join(value, 'package.json')));
-}
+  async viteFinal(config): Promise<InlineConfig> {
+    // Resolve workspace packages via their TypeScript source ("source" export condition)
+    // to avoid CJS/ESM issues with pre-built packages.
+    config.resolve ??= {};
+    config.resolve.conditions = ['source', ...(config.resolve.conditions ?? [])];
+
+    // Replace the framework's default React plugin with one that includes the
+    // Emotion Babel plugin, so component selectors (e.g. styled(Foo)) work correctly.
+    config.plugins = (config.plugins ?? []).filter(
+      (p) => p && 'name' in p && !String((p as { name: string }).name).startsWith('vite:react')
+    );
+    config.plugins.push(react({ babel: { plugins: ['@emotion'] } }));
+
+    return config;
+  },
+};
 
 export default config;

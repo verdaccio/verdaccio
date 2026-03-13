@@ -5,10 +5,9 @@ const debug = buildDebug('verdaccio:plugin:ui-theme');
 
 const manifest = require('./static/manifest.json');
 
-// Entry-point scripts that must be eagerly loaded in the HTML.
-// Lazy-loaded code-split chunks (e.g. Home.js, Version.js) are excluded
-// so they remain loaded on demand by the bundler runtime.
-const ENTRY_POINTS = ['runtime.js', 'vendors.js', 'main.js'];
+// With type="module", the browser resolves all static and dynamic imports
+// automatically from the entry point. Only main.js needs a <script> tag.
+const ENTRY_POINTS = ['main.js'];
 
 function getManifestFiles(manifest) {
   const keys = Object.keys(manifest);

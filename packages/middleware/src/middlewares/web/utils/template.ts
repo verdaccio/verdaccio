@@ -35,13 +35,20 @@ export default function renderTemplate(template: Template, manifest: AssetManife
         <script>
             window.__VERDACCIO_BASENAME_UI_OPTIONS=${JSON.stringify(template.options)}
         </script>
+        ${
+          template.manifest.css?.length
+            ? getManifestValue(template.manifest.css, manifest, template?.options.base)
+                .map((item) => `<link rel="stylesheet" href="${item}">`)
+                .join('\n        ')
+            : ''
+        }
         ${template?.metaScripts ? template.metaScripts.join('') : ''}
       </head>
       <body class="body">
         ${template?.scriptsBodyBefore ? template.scriptsBodyBefore.join('') : ''}
         <div id="root"></div>
         ${getManifestValue(template.manifest.js, manifest, template?.options.base)
-          .map((item) => `<script defer="defer" src="${item}"></script>`)
+          .map((item) => `<script type="module" src="${item}"></script>`)
           .join(`\n        `)}
         ${template?.scriptsBodyAfter ? template.scriptsBodyAfter.join('') : ''}
       </body>

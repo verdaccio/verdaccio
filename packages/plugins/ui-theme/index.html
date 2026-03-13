@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8" />
+    <title>Verdaccio Dev UI</title>
+    <base href="/" />
+    <link rel="icon" type="image/png" href="/src/template/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      window.__VERDACCIO_BASENAME_UI_OPTIONS = {
+        base: 'http://localhost:4873/',
+        protocol: 'http',
+        host: 'localhost',
+        primaryColor: '#4b5e40',
+        url_prefix: '',
+        darkMode: false,
+        language: 'en-US',
+        uri: 'http://localhost:4873/',
+        pkgManagers: ['pnpm', 'yarn', 'npm'],
+        title: 'Verdaccio Dev UI',
+        scope: '',
+        version: 'dev',
+      };
+    </script>
+  </head>
+  <body class="body">
+    <div id="root"></div>
+    <script type="module" src="/src/index.tsx"></script>
+  </body>
+</html>

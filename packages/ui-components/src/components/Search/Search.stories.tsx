@@ -1,9 +1,10 @@
 import Box from '@mui/material/Box';
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { HttpResponse, http } from 'msw';
 import React from 'react';
 import { MemoryRouter } from 'react-router';
 
+import searchVerdaccio from '../../../vitest/api/search-verdaccio.json';
 import { SearchProvider } from '../../providers';
 import Home from '../../sections/Home';
 import Search from './Search';
@@ -33,7 +34,7 @@ export const SearchByQuery: Story = {
           const url = new URL(request.url);
           const query = url.searchParams.get('text');
 
-          const packages = require('../../../vitest/api/search-verdaccio.json');
+          const packages = searchVerdaccio;
 
           if (!query) {
             return HttpResponse.json(packages);
