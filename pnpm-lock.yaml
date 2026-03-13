@@ -1155,15 +1155,6 @@ importers:
 
   packages/plugins/ui-theme:
     devDependencies:
-      '@emotion/babel-plugin':
-        specifier: 11.13.5
-        version: 11.13.5
-      '@emotion/react':
-        specifier: 11.11.4
-        version: 11.11.4(@types/react@18.3.28)(react@19.2.3)
-      '@emotion/styled':
-        specifier: 11.11.5
-        version: 11.11.5(@emotion/react@11.11.4(@types/react@18.3.28)(react@19.2.3))(@types/react@18.3.28)(react@19.2.3)
       '@mui/material':
         specifier: 7.3.7
         version: 7.3.7(@emotion/react@11.11.4(@types/react@18.3.28)(react@19.2.3))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@18.3.28)(react@19.2.3))(@types/react@18.3.28)(react@19.2.3))(@types/react@18.3.28)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
