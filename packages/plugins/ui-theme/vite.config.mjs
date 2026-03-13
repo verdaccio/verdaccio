@@ -4,6 +4,10 @@ import path from 'node:path';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
+import pkg from './package.json' with { type: 'json' };
+
+const { version, name, license } = pkg;
+
 /**
  * Inlines SVG files as base64 data URIs (replaces webpack url-loader for SVGs).
  * This ensures SVGs work identically in dev and build, and avoids path issues
@@ -33,10 +37,6 @@ function markdownRawPlugin() {
     },
   };
 }
-
-import pkg from './package.json' with { type: 'json' };
-
-const { version, name, license } = pkg;
 
 /**
  * Generates a webpack-compatible manifest.json that maps original entry names
@@ -97,21 +97,9 @@ export default defineConfig(({ command }) => ({
     __APP_VERSION__: JSON.stringify(version),
   },
 
-  plugins: [
-    svgInlinePlugin(),
-    markdownRawPlugin(),
-    react({
-      babel: {
-        plugins: ['@emotion'],
-      },
-    }),
-    verdaccioManifestPlugin(),
-  ],
+  plugins: [svgInlinePlugin(), markdownRawPlugin(), react(), verdaccioManifestPlugin()],
 
   resolve: {
-    // Resolve the "source" condition in package exports (used by workspace packages
-    // to expose their TypeScript source directly, avoiding CJS/ESM issues).
-    conditions: ['source'],
     alias: {
       'verdaccio-ui/components': path.resolve(__dirname, './src/components'),
       'verdaccio-ui/utils': path.resolve(__dirname, './src/utils'),
