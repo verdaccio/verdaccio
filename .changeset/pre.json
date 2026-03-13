@@ -56,5 +56,10 @@
     "@verdaccio/e2e-cli-yarn4": "1.0.2-next-8.1",
     "@verdaccio/e2e-ui": "2.1.0-next-8.1"
   },
-  "changesets": ["olive-lobsters-protect", "stale-poets-sit", "ten-cougars-flash"]
+  "changesets": [
+    "honest-lizards-exercise",
+    "olive-lobsters-protect",
+    "stale-poets-sit",
+    "ten-cougars-flash"
+  ]
 }

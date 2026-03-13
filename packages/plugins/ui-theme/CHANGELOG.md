@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 9.0.0-next-9.2
+
+### Major Changes
+
+- 325c584: feat: migrate to vite
+
 ## 9.0.0-next-9.1
 
 ## 9.0.0-next-9.0

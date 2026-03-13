@@ -1,5 +1,11 @@
 # @verdaccio/ui-i18n
 
+## 10.0.0-next-9.1
+
+### Major Changes
+
+- 325c584: feat: migrate to vite
+
 ## 10.0.0-next-9.0
 
 ### Major Changes

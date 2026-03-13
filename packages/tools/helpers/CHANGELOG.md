@@ -1,5 +1,16 @@
 # Change Log
 
+## 5.0.0-next-9.2
+
+### Patch Changes
+
+- Updated dependencies [325c584]
+  - @verdaccio/middleware@9.0.0-next-9.2
+  - @verdaccio/auth@9.0.0-next-9.2
+  - @verdaccio/core@9.0.0-next-9.2
+  - @verdaccio/config@9.0.0-next-9.2
+  - @verdaccio/logger@9.0.0-next-9.2
+
 ## 5.0.0-next-9.1
 
 ### Major Changes
