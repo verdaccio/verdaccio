@@ -5,43 +5,14 @@ import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
 import pkg from './package.json' with { type: 'json' };
+import { markdownRawPlugin, svgInlinePlugin } from './tools/vite-plugins.mjs';
 
 const { version, name, license } = pkg;
 
 /**
- * Inlines SVG files as base64 data URIs (replaces webpack url-loader for SVGs).
- * This ensures SVGs work identically in dev and build, and avoids path issues
- * with SVGs imported from packages outside the Vite project root.
- */
-function svgInlinePlugin() {
-  return {
-    name: 'svg-inline',
-    enforce: 'pre',
-    load(id) {
-      if (!id.endsWith('.svg')) return;
-      const svg = fs.readFileSync(id);
-      const base64 = svg.toString('base64');
-      return { code: `export default "data:image/svg+xml;base64,${base64}"`, map: null };
-    },
-  };
-}
-
-/** Exports .md files as raw string default exports (replaces webpack raw-loader). */
-function markdownRawPlugin() {
-  return {
-    name: 'markdown-raw',
-    transform(code, id) {
-      if (id.endsWith('.md')) {
-        return { code: `export default ${JSON.stringify(code)}`, map: null };
-      }
-    },
-  };
-}
-
-/**
- * Generates a webpack-compatible manifest.json that maps original entry names
- * to their hashed output paths. The Verdaccio server reads this manifest to
- * know which JS/CSS files to inject into the HTML response.
+ * Generates a manifest.json that maps entry names to their hashed output paths.
+ * The Verdaccio server reads this manifest to know which JS/CSS files to inject
+ * into the HTML response.
  */
 function verdaccioManifestPlugin() {
   const staticPrefix = '-/static/';
@@ -104,6 +75,8 @@ export default defineConfig(({ command }) => ({
       'verdaccio-ui/components': path.resolve(__dirname, './src/components'),
       'verdaccio-ui/utils': path.resolve(__dirname, './src/utils'),
       'verdaccio-ui/providers': path.resolve(__dirname, './src/providers'),
+      // Swap @verdaccio/ui-i18n for a Vite-native loader that uses import.meta.glob
+      // instead of the CJS require()-based implementation in the published package.
       '@verdaccio/ui-i18n': path.resolve(__dirname, './src/i18n/loadTranslationFile.ts'),
     },
   },
