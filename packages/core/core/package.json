@@ -37,7 +37,7 @@
     "http-errors": "2.0.1",
     "http-status-codes": "2.3.0",
     "minimatch": "7.4.9",
-    "process-warning": "1.0.0",
+    "process-warning": "5.0.0",
     "semver": "7.7.4"
   },
   "devDependencies": {
