@@ -1,6 +1,6 @@
 import buildDebug from 'debug';
 import type { Response } from 'express';
-import LRU from 'lru-cache';
+import { LRUCache } from 'lru-cache';
 import path from 'node:path';
 import { URL } from 'node:url';
 
@@ -16,7 +16,8 @@ import type { AssetManifest } from './template';
 import { hasLogin, validatePrimaryColor } from './web-utils';
 
 const DEFAULT_LANGUAGE = 'es-US';
-const cache = new LRU({ max: 500, ttl: 1000 * 60 * 60 });
+// Cache for rendered HTML templates: max 500 entries, 1 hour TTL
+const cache = new LRUCache({ max: 500, ttl: 1000 * 60 * 60 });
 
 const debug = buildDebug('verdaccio:web:render');
 

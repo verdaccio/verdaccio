@@ -49,7 +49,7 @@
     "express": "5.2.1",
     "express-rate-limit": "8.2.1",
     "lodash": "4.17.23",
-    "lru-cache": "7.18.3"
+    "lru-cache": "11.2.6"
   },
   "funding": {
     "type": "opencollective",
