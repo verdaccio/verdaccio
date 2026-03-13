@@ -118,9 +118,9 @@ Our goal is to give you the confidence to use your preferred package manager wit
 > - yarn search cmd exist in _modern_ but, it do not uses the search registry endpoint.
 > - yarn _modern_ has two info commands, the one used here is `yarn npm info`
 
-❌ = no tested
+❌ = not tested
 ✅ = tested
-⛔ = no supported
+⛔ = not supported
 
 ## Donations
 
