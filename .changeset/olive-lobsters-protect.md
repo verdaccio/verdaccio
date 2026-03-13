@@ -27,7 +27,6 @@
 '@verdaccio/search-indexer': major
 '@verdaccio/server': major
 '@verdaccio/signature': major
-'@verdaccio/cli-standalone': major
 '@verdaccio/store': major
 '@verdaccio/test-helper': major
 '@verdaccio/local-publish': major

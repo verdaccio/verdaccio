@@ -30,7 +30,6 @@
     "@verdaccio/search-indexer": "8.0.0",
     "@verdaccio/server": "8.0.0",
     "@verdaccio/signature": "8.0.0",
-    "@verdaccio/cli-standalone": "8.0.0",
     "@verdaccio/store": "8.0.0",
     "@verdaccio/test-helper": "4.0.0",
     "customprefix-auth": "3.0.0",
