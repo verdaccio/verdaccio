@@ -98,22 +98,22 @@ jobs:
               exit 1
             fi
           done
-      - name: Install jquery through verdaccio
+      - name: Install lodash through verdaccio
         run: |
           mkdir /tmp/test-project && cd /tmp/test-project
           npm init -y
-          npm install jquery --registry http://localhost:4873 2>&1 | tee /tmp/npm-install.log
-          # Verify jquery was installed
-          if [ ! -d node_modules/jquery ]; then
-            echo "::error::jquery was not installed"
+          npm install lodash --registry http://localhost:4873 2>&1 | tee /tmp/npm-install.log
+          # Verify lodash was installed
+          if [ ! -d node_modules/lodash ]; then
+            echo "::error::lodash was not installed"
             exit 1
           fi
-          echo "jquery installed successfully"
-          node -e "const jq = require('jquery'); console.log('jquery version:', require('jquery/package.json').version)"
+          echo "lodash installed successfully"
+          node -e "const _ = require('lodash'); console.log('lodash version:', _.VERSION)"
       - name: Verify request logging
         run: |
           # Make a request that should appear in logs
-          curl -s http://localhost:4873/jquery > /dev/null
+          curl -s http://localhost:4873/lodash > /dev/null
           echo "Package request made — verdaccio process still running: $(kill -0 $VERDACCIO_PID 2>/dev/null && echo 'yes' || echo 'no')"
       - name: Stop verdaccio
         if: always()
