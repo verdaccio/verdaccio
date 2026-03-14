@@ -1,5 +1,35 @@
 # @verdaccio/server
 
+## 9.0.0-next-9.3
+
+### Minor Changes
+
+- 66e7538: fix: static files returning 404 after Express 5 upgrade
+
+  - fix(middleware): resolve static file 404s caused by `send@1.x` dotfile detection on absolute paths containing dot-prefixed directories (e.g. `.nvm`). Use `res.sendFile(filename, { root })` instead of absolute paths
+  - fix(middleware): handle Express 5 `{*all}` wildcard returning arrays instead of strings for `req.params`
+  - feat(middleware): add configurable `dotfiles` middleware to block dotfile path requests (`.env`, `.git/config`, etc.) with deny/ignore/allow policies
+  - feat(middleware): add `hideStaticLogs` option to `log()` middleware to suppress `/-/static/` request logging (defaults to true)
+  - fix(proxy): resolve `http-errors` deprecation warning for non-error status codes (304)
+  - feat(config): add `server.dotfiles` and `server.hideStaticLogs` options to configuration schema with secure defaults
+  - chore: add `pnpm global:install` script for testing local builds globally
+  - ci: add smoke test workflow for local builds verifying version, web UI rendering, static assets, and package installation
+
+### Patch Changes
+
+- Updated dependencies [66e7538]
+- Updated dependencies [d9e5adf]
+  - @verdaccio/middleware@9.0.0-next-9.3
+  - @verdaccio/config@9.0.0-next-9.3
+  - @verdaccio/api@9.0.0-next-9.3
+  - @verdaccio/auth@9.0.0-next-9.3
+  - @verdaccio/web@9.0.0-next-9.3
+  - @verdaccio/store@9.0.0-next-9.3
+  - @verdaccio/loaders@9.0.0-next-9.3
+  - verdaccio-audit@14.0.0-next-9.3
+  - @verdaccio/core@9.0.0-next-9.3
+  - @verdaccio/logger@9.0.0-next-9.3
+
 ## 9.0.0-next-9.2
 
 ### Patch Changes
