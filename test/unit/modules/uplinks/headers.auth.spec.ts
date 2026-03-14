@@ -1,30 +1,33 @@
 import { describe, expect, test } from 'vitest';
 
 import { DEFAULT_REGISTRY } from '@verdaccio/config';
-import { HEADERS, TOKEN_BASIC, TOKEN_BEARER } from '@verdaccio/core';
+import { HEADERS, TOKEN_BASIC, TOKEN_BEARER, authUtils } from '@verdaccio/core';
+import { ProxyStorage } from '@verdaccio/proxy';
 
 import { ERROR_CODE } from '../../../../src/lib/constants';
 import { setup } from '../../../../src/lib/logger';
-import ProxyStorage from '../../../../src/lib/up-storage';
-import { buildToken } from '../../../../src/lib/utils';
 
 setup({});
+
+const dummyLogger: any = {
+  warn: () => {},
+  error: () => {},
+  info: () => {},
+  http: () => {},
+  debug: () => {},
+};
 
 function createUplink(config) {
   const defaultConfig = {
     url: DEFAULT_REGISTRY,
   };
   let mergeConfig = Object.assign({}, defaultConfig, config);
-  // @ts-ignore
-  return new ProxyStorage(mergeConfig, {});
+  return new ProxyStorage('test', mergeConfig, {} as any, dummyLogger);
 }
 
 function setHeaders(config: unknown = {}, headers: unknown = {}) {
   const uplink = createUplink(config);
-  // @ts-ignore
-  return uplink._setHeaders({
-    headers,
-  });
+  return uplink.getHeaders(headers);
 }
 
 describe('uplink headers auth test', () => {
@@ -53,12 +56,14 @@ describe('uplink headers auth test', () => {
     const headers = setHeaders(
       {},
       {
-        [HEADERS.AUTHORIZATION]: buildToken(TOKEN_BASIC, 'Zm9vX2Jhcg=='),
+        [HEADERS.AUTHORIZATION]: authUtils.buildToken(TOKEN_BASIC, 'Zm9vX2Jhcg=='),
       }
     );
 
     expect(Object.keys(headers)).toHaveLength(4);
-    expect(headers[HEADERS.AUTHORIZATION]).toEqual(buildToken(TOKEN_BASIC, 'Zm9vX2Jhcg=='));
+    expect(headers[HEADERS.AUTHORIZATION]).toEqual(
+      authUtils.buildToken(TOKEN_BASIC, 'Zm9vX2Jhcg==')
+    );
   });
 
   test('if assigns headers authorization and token the header precedes', () => {
@@ -70,11 +75,13 @@ describe('uplink headers auth test', () => {
         },
       },
       {
-        [HEADERS.AUTHORIZATION]: buildToken(TOKEN_BASIC, 'tokenBasic'),
+        [HEADERS.AUTHORIZATION]: authUtils.buildToken(TOKEN_BASIC, 'tokenBasic'),
       }
     );
 
-    expect(headers[HEADERS.AUTHORIZATION]).toEqual(buildToken(TOKEN_BASIC, 'tokenBasic'));
+    expect(headers[HEADERS.AUTHORIZATION]).toEqual(
+      authUtils.buildToken(TOKEN_BASIC, 'tokenBasic')
+    );
   });
 
   test('set type auth basic', () => {
@@ -86,7 +93,9 @@ describe('uplink headers auth test', () => {
     });
 
     expect(Object.keys(headers)).toHaveLength(4);
-    expect(headers[HEADERS.AUTHORIZATION]).toEqual(buildToken(TOKEN_BASIC, 'Zm9vX2Jhcg=='));
+    expect(headers[HEADERS.AUTHORIZATION]).toEqual(
+      authUtils.buildToken(TOKEN_BASIC, 'Zm9vX2Jhcg==')
+    );
   });
 
   test('set type auth bearer', () => {
@@ -98,7 +107,9 @@ describe('uplink headers auth test', () => {
     });
 
     expect(Object.keys(headers)).toHaveLength(4);
-    expect(headers[HEADERS.AUTHORIZATION]).toEqual(buildToken(TOKEN_BEARER, 'Zm9vX2Jhcf==='));
+    expect(headers[HEADERS.AUTHORIZATION]).toEqual(
+      authUtils.buildToken(TOKEN_BEARER, 'Zm9vX2Jhcf===')
+    );
   });
 
   test('set auth type invalid', () => {
@@ -124,7 +135,7 @@ describe('uplink headers auth test', () => {
       },
     });
 
-    expect(headers[HEADERS.AUTHORIZATION]).toBe(buildToken(TOKEN_BEARER, 'myToken'));
+    expect(headers[HEADERS.AUTHORIZATION]).toBe(authUtils.buildToken(TOKEN_BEARER, 'myToken'));
     delete process.env.NPM_TOKEN;
   });
 
@@ -137,7 +148,9 @@ describe('uplink headers auth test', () => {
       },
     });
 
-    expect(headers[HEADERS.AUTHORIZATION]).toBe(buildToken(TOKEN_BASIC, 'myTokenTest'));
+    expect(headers[HEADERS.AUTHORIZATION]).toBe(
+      authUtils.buildToken(TOKEN_BASIC, 'myTokenTest')
+    );
     delete process.env.NPM_TOKEN_TEST;
   });
 
