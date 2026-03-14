@@ -8,15 +8,19 @@ inputs:
     default: 'http://localhost:4873'
   node-version:
     description: 'Node.js version to use'
-    required: true
+    required: false
+  node-version-file:
+    description: 'File containing the Node.js version (e.g. .nvmrc)'
+    required: false
 
 runs:
   using: composite
   steps:
-    - name: Install dependencies with a custom registry version ${{ inputs.node-version }}
+    - name: Install dependencies
       uses: ./.github/actions/install-app-node
       with:
         node-version: ${{ inputs.node-version }}
+        node-version-file: ${{ inputs.node-version-file }}
     - name: build
       run: pnpm build
       shell: bash

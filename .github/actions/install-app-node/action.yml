@@ -16,7 +16,10 @@ inputs:
     default: 'error'
   node-version:
     description: 'Node.js version to use'
-    required: true
+    required: false
+  node-version-file:
+    description: 'File containing the Node.js version (e.g. .nvmrc)'
+    required: false
 
 runs:
   using: composite
@@ -25,6 +28,7 @@ runs:
       uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
       with:
         node-version: ${{ inputs.node-version }}
+        node-version-file: ${{ inputs.node-version-file }}
     - name: Install pnpm
       run: |
         npm install --global corepack@latest
@@ -48,4 +52,3 @@ runs:
     - name: Save cache pnpm store
       if: steps.cache-npm.outputs.cache-hit == 'false'
       uses: ./.github/actions/cache-store
-
