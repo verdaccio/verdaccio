@@ -1,5 +1,18 @@
 # @verdaccio/middleware
 
+## 8.0.0-next-8.33
+
+### Patch Changes
+
+- eabde8c: fix: handle missing host header in URL basename resolution
+
+  Use `URL.canParse()` before constructing a `new URL()` for basename extraction in `renderHTML`, falling back to the raw base string when the URL is not parseable (e.g., when the request has no host header).
+
+- Updated dependencies [3dd1959]
+  - @verdaccio/config@8.0.0-next-8.33
+  - @verdaccio/core@8.0.0-next-8.33
+  - @verdaccio/url@13.0.0-next-8.33
+
 ## 8.0.0-next-8.32
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # Change Log
 
+## 4.0.0-next-8.17
+
+### Patch Changes
+
+- Updated dependencies [3dd1959]
+- Updated dependencies [eabde8c]
+  - @verdaccio/config@8.0.0-next-8.33
+  - @verdaccio/middleware@8.0.0-next-8.33
+  - @verdaccio/auth@8.0.0-next-8.33
+  - @verdaccio/core@8.0.0-next-8.33
+  - @verdaccio/logger@8.0.0-next-8.33
+
 ## 4.0.0-next-8.16
 
 ### Patch Changes
