@@ -140,9 +140,7 @@ describe('search', () => {
       const res = await createUser(app, 'test', 'test');
       await publishVersionWithToken(app, 'abort-pkg', '1.0.0', res.body.token);
       const response = await supertest(app)
-        .get(
-          `/-/v1/search?text=abort-pkg&size=20&from=0&quality=1&popularity=0.1&maintenance=0.1`
-        )
+        .get(`/-/v1/search?text=abort-pkg&size=20&from=0&quality=1&popularity=0.1&maintenance=0.1`)
         .set(HEADERS.ACCEPT, HEADERS.JSON)
         .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
         .expect(HEADERS.CONTENT_TYPE, HEADERS.JSON_CHARSET)
