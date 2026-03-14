@@ -1,5 +1,17 @@
 # @verdaccio/middleware
 
+## 9.0.0-next-9.2
+
+### Major Changes
+
+- 325c584: feat: migrate to vite
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.2
+- @verdaccio/config@9.0.0-next-9.2
+- @verdaccio/url@14.0.0-next-9.2
+
 ## 9.0.0-next-9.1
 
 ### Major Changes

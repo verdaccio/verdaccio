@@ -1,5 +1,23 @@
 # @verdaccio/web
 
+## 9.0.0-next-9.2
+
+### Major Changes
+
+- 325c584: feat: migrate to vite
+
+### Patch Changes
+
+- Updated dependencies [325c584]
+  - @verdaccio/middleware@9.0.0-next-9.2
+  - @verdaccio/auth@9.0.0-next-9.2
+  - @verdaccio/store@9.0.0-next-9.2
+  - @verdaccio/core@9.0.0-next-9.2
+  - @verdaccio/config@9.0.0-next-9.2
+  - @verdaccio/tarball@14.0.0-next-9.2
+  - @verdaccio/loaders@9.0.0-next-9.2
+  - @verdaccio/logger@9.0.0-next-9.2
+
 ## 9.0.0-next-9.1
 
 ### Major Changes

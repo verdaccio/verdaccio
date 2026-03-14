@@ -1,5 +1,16 @@
 # @verdaccio/ui-components
 
+## 5.0.0-next-9.2
+
+### Major Changes
+
+- 325c584: feat: migrate to vite
+
+### Patch Changes
+
+- Updated dependencies [325c584]
+  - @verdaccio/ui-i18n@10.0.0-next-9.1
+
 ## 5.0.0-next-9.1
 
 ### Major Changes
