@@ -279,6 +279,60 @@ describe('UpStorage', () => {
     });
   });
 
+  describe('search', () => {
+    test('should search packages from uplink', async () => {
+      nock(`http://localhost:${mockServerPort}`)
+        .get('/-/v1/search?text=jquery')
+        .reply(200, {
+          objects: [{ package: { name: 'jquery', version: '3.0.0' } }],
+          total: 1,
+          time: new Date().toUTCString(),
+        });
+      const proxy = generateProxy();
+      const abort = new AbortController();
+      const stream = await proxy.search({
+        url: '/-/v1/search?text=jquery',
+        abort,
+      });
+
+      return new Promise<void>((resolve, reject) => {
+        const results: any[] = [];
+        stream.on('error', function (err) {
+          reject(err);
+        });
+        stream.on('data', function (chunk) {
+          results.push(chunk);
+        });
+        stream.on('end', function () {
+          expect(results.length).toBeGreaterThan(0);
+          resolve();
+        });
+      });
+    });
+
+    test('should handle abort signal on search', async () => {
+      nock(`http://localhost:${mockServerPort}`)
+        .get('/-/v1/search?text=jquery')
+        .delay(5000)
+        .reply(200, {
+          objects: [],
+          total: 0,
+          time: new Date().toUTCString(),
+        });
+      const proxy = generateProxy();
+      const abort = new AbortController();
+
+      const searchPromise = proxy.search({
+        url: '/-/v1/search?text=jquery',
+        abort,
+      });
+
+      abort.abort();
+
+      await expect(searchPromise).rejects.toThrow();
+    });
+  });
+
   describe('fetchTarball', () => {
     test('should fetch a tarball from uplink', async () => {
       const tarballPath = join(__dirname, '__fixtures__', 'jquery-1.5.1.tgz');

@@ -155,6 +155,98 @@ describe('StorageTest', () => {
     });
   });
 
+  describe('search', () => {
+    test('should search and return a stream with local results', async () => {
+      const storage: any = await generateStorage();
+
+      // First publish a package so there's something to find
+      await new Promise<void>((resolve) => {
+        storage._syncUplinksMetadata('jquery', null, {}, (err: any) => {
+          expect(err).toBeNull();
+          resolve();
+        });
+      });
+
+      const abort = new AbortController();
+      const req = {
+        url: '/-/v1/search?text=jquery',
+        query: { local: '1' },
+      };
+      const searchStream = storage.search(0, { req, abort });
+
+      return new Promise<void>((resolve, reject) => {
+        const results: any[] = [];
+        searchStream.on('data', (pkg: any) => {
+          results.push(pkg);
+        });
+        searchStream.on('error', (err: any) => {
+          reject(err);
+        });
+        searchStream.on('end', () => {
+          expect(results).toBeDefined();
+          resolve();
+        });
+      });
+    });
+
+    test('should search uplinks with abort controller', async () => {
+      const storage: any = await generateStorage();
+      const abort = new AbortController();
+      const req = {
+        url: '/-/v1/search?text=jquery',
+        query: {},
+      };
+      const searchStream = storage.search(0, { req, abort });
+
+      expect(searchStream).toBeDefined();
+      expect(typeof searchStream.on).toBe('function');
+
+      return new Promise<void>((resolve, reject) => {
+        const results: any[] = [];
+        searchStream.on('data', (pkg: any) => {
+          results.push(pkg);
+        });
+        searchStream.on('error', (err: any) => {
+          reject(err);
+        });
+        searchStream.on('end', () => {
+          resolve();
+        });
+      });
+    });
+
+    test('should skip uplinks when local=1 query param is set', async () => {
+      const storage: any = await generateStorage();
+      const abort = new AbortController();
+      const req = {
+        url: '/-/v1/search?text=jquery&local=1',
+        query: { local: '1' },
+      };
+
+      // Spy on uplink search to ensure it's NOT called
+      const uplinkKeys = Object.keys(storage.uplinks);
+      const spies = uplinkKeys.map((key) => vi.spyOn(storage.uplinks[key], 'search'));
+
+      const searchStream = storage.search(0, { req, abort });
+
+      // Collect some data or wait for end, with a short timeout
+      await new Promise<void>((resolve) => {
+        searchStream.on('end', () => resolve());
+        // In case the stream doesn't end naturally (no local packages indexed),
+        // give it a moment then destroy
+        setTimeout(() => {
+          searchStream.destroy();
+          resolve();
+        }, 2000);
+      });
+
+      // Verify no uplink search was called
+      spies.forEach((spy) => {
+        expect(spy).not.toHaveBeenCalled();
+      });
+    });
+  });
+
   describe('filters', () => {
     test('should load filters from config during init', async () => {
       const storage: any = await generateStorage(mockServerPort, { enableFilters: true });

@@ -476,10 +476,9 @@ class Storage {
           return cb();
         }
         logger.info(`search for uplink ${up_name}`);
-        const abort = new AbortController();
         // search by keyword for each uplink
         self.uplinks[up_name]
-          .search({ url: options.req.url, abort })
+          .search({ url: options.req.url, abort: options.abort })
           .then((uplinkStream) => {
             // join uplink stream with streams PassThrough
             uplinkStream.pipe(searchStream, { end: false });
@@ -496,7 +495,7 @@ class Storage {
             });
 
             searchStream.abort = function (): void {
-              abort.abort();
+              options.abort.abort();
               cb();
               // to avoid call callback more than once
               cb = function (): void {};

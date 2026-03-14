@@ -197,7 +197,8 @@ export default function (route, auth, storage): void {
 
     const isInteresting = compileTextSearch(text);
 
-    const resultStream = storage.search(0, { req });
+    const abort = new AbortController();
+    const resultStream = storage.search(0, { req, abort });
     let resultBuf = [] as any;
     let completed = false;
 
