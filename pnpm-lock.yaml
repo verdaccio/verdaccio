@@ -273,8 +273,8 @@ importers:
         specifier: 3.4.2
         version: 3.4.2
       rimraf:
-        specifier: 5.0.10
-        version: 5.0.10
+        specifier: 6.1.3
+        version: 6.1.3
       selfsigned:
         specifier: 2.4.1
         version: 2.4.1
@@ -1201,8 +1201,8 @@ importers:
         specifier: 7.13.0
         version: 7.13.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       rimraf:
-        specifier: 5.0.10
-        version: 5.0.10
+        specifier: 6.1.3
+        version: 6.1.3
       vite:
         specifier: ^8.0.0
         version: 8.0.0(@types/node@24.10.13)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(yaml@2.8.1)
@@ -7947,6 +7947,9 @@ packages:
   package-json-from-dist@1.0.0:
     resolution: {integrity: sha512-dATvCeZN/8wQsGywez1mzHtTlP22H8OEfPrVMLNr4/eGa+ijtLn/6M5f0dY8UKNrC2O9UCU6SSoG3qRKnt7STw==}
 
+  package-json-from-dist@1.0.1:
+    resolution: {integrity: sha512-UEZIS3/by4OC8vL3P2dTXRETpebLI2NiI5vIrjaD/5UtrkFX/tNbwjTSRAGC/+7CAo2pIcBaRgWmcBBHcsaCIw==}
+
   package-manager-detector@0.2.6:
     resolution: {integrity: sha512-9vPH3qooBlYRJdmdYP00nvjZOulm40r5dhtal8st18ctf+6S1k7pi5yIHLvI4w5D70x0Y+xdVD9qITH0QO/A8A==}
 
@@ -8478,8 +8481,9 @@ packages:
   rfdc@1.3.0:
     resolution: {integrity: sha512-V2hovdzFbOi77/WajaSMXk2OLm+xNIeQdMMuB7icj7bk6zi2F8GGAxigcnDFpJHbNyNcgyJDiP+8nOrY5cZGrA==}
 
-  rimraf@5.0.10:
-    resolution: {integrity: sha512-l0OE8wL34P4nJH/H2ffoaniAokM2qSmrtXHmlpvYr5AVVX8msAyW0l8NVJFDxlSK4u3Uh/f41cQheDVdnYijwQ==}
+  rimraf@6.1.3:
+    resolution: {integrity: sha512-LKg+Cr2ZF61fkcaK1UdkH2yEBBKnYjTyWzTJT6KNPcSPaiT7HSdhtMXQuN5wkTX0Xu72KQ1l8S42rlmexS2hSA==}
+    engines: {node: 20 || >=22}
     hasBin: true
 
   rolldown@1.0.0-rc.9:
@@ -11315,7 +11319,7 @@ snapshots:
 
   '@isaacs/fs-minipass@4.0.1':
     dependencies:
-      minipass: 7.1.2
+      minipass: 7.1.3
 
   '@istanbuljs/schema@0.1.3': {}
 
@@ -14630,7 +14634,7 @@ snapshots:
       foreground-child: 3.1.1
       jackspeak: 3.4.3
       minimatch: 9.0.5
-      minipass: 7.1.2
+      minipass: 7.1.3
       package-json-from-dist: 1.0.0
       path-scurry: 1.11.1
 
@@ -15998,7 +16002,7 @@ snapshots:
 
   minizlib@3.0.2:
     dependencies:
-      minipass: 7.1.2
+      minipass: 7.1.3
 
   mkdirp@3.0.1: {}
 
@@ -16347,6 +16351,8 @@ snapshots:
 
   package-json-from-dist@1.0.0: {}
 
+  package-json-from-dist@1.0.1: {}
+
   package-manager-detector@0.2.6: {}
 
   pako@0.2.9: {}
@@ -16400,7 +16406,7 @@ snapshots:
   path-scurry@1.11.1:
     dependencies:
       lru-cache: 10.4.3
-      minipass: 7.1.2
+      minipass: 7.1.3
 
   path-scurry@2.0.2:
     dependencies:
@@ -16899,9 +16905,10 @@ snapshots:
 
   rfdc@1.3.0: {}
 
-  rimraf@5.0.10:
+  rimraf@6.1.3:
     dependencies:
-      glob: 10.4.5
+      glob: 13.0.6
+      package-json-from-dist: 1.0.1
 
   rolldown@1.0.0-rc.9:
     dependencies:
