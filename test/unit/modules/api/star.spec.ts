@@ -10,6 +10,8 @@ describe('star', () => {
   test.each([['foo', '@scope/foo']])('should list stared packages for an user', async (pkgName) => {
     const userLogged = 'jota_token';
     nock('https://registry.npmjs.org').get(`/${pkgName}`).reply(404);
+    nock('https://registry.npmjs.org').get('/pkg-1').reply(404);
+    nock('https://registry.npmjs.org').get('/pkg-2').reply(404);
     const app = await initializeServer('star.yaml');
     const token = await getNewToken(app, { name: userLogged, password: 'secretPass' });
     await publishVersion(app, pkgName, '1.0.0', undefined, token).expect(HTTP_STATUS.CREATED);
