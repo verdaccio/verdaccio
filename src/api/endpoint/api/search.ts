@@ -60,7 +60,8 @@ export default function (route, auth, storage): void {
       res.write('{"_updated":' + 99999);
     }
 
-    const stream = storage.search(req.query.startkey || 0, { req: req });
+    const abort = new AbortController();
+    const stream = storage.search(req.query.startkey || 0, { req: req, abort });
 
     stream.on('data', function each(pkg) {
       processing_pkgs++;
