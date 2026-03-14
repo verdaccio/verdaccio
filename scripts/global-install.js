@@ -30,15 +30,37 @@ function runCapture(cmd, opts = {}) {
 const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'verdaccio-global-'));
 console.log(`Temp directory: ${tmpDir}`);
 
-// Workspace packages to overlay on the global install
-const OVERLAY_PACKAGES = [
-  { dir: 'packages/middleware', scope: '@verdaccio/middleware' },
-  { dir: 'packages/plugins/ui-theme', scope: '@verdaccio/ui-theme' },
-  { dir: 'packages/proxy', scope: '@verdaccio/proxy' },
-  { dir: 'packages/core/core', scope: '@verdaccio/core' },
-  { dir: 'packages/server/express', scope: '@verdaccio/server' },
-  { dir: 'packages/config', scope: '@verdaccio/config' },
-];
+// Auto-discover all workspace packages by scanning for package.json files
+function discoverWorkspacePackages() {
+  const packages = [];
+  const packagesDir = path.join(ROOT, 'packages');
+
+  function scan(dir, depth = 0) {
+    if (depth > 4) return;
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+    for (const entry of entries) {
+      if (!entry.isDirectory() || entry.name === 'node_modules' || entry.name === 'build') continue;
+      const fullPath = path.join(dir, entry.name);
+      const pkgJson = path.join(fullPath, 'package.json');
+      if (fs.existsSync(pkgJson)) {
+        try {
+          const { name } = JSON.parse(fs.readFileSync(pkgJson, 'utf-8'));
+          if (name && name !== 'verdaccio') {
+            packages.push({ dir: path.relative(ROOT, fullPath), scope: name });
+          }
+        } catch {
+          /* skip unparseable package.json */
+        }
+      }
+      scan(fullPath, depth + 1);
+    }
+  }
+
+  scan(packagesDir);
+  return packages;
+}
+
+const OVERLAY_PACKAGES = discoverWorkspacePackages();
 
 // 1. Pack verdaccio itself
 console.log('\nPacking verdaccio...');
@@ -75,22 +97,18 @@ for (const pkg of OVERLAY_PACKAGES) {
   }
 
   console.log(`\nOverlaying ${pkg.scope}...`);
-  run(`pnpm pack --pack-destination "${tmpDir}"`, { cwd: pkgDir });
+  // Pack into an isolated subdirectory to avoid tarball name collisions
+  const packDir = path.join(tmpDir, pkg.dir.replace(/\//g, '-'));
+  fs.mkdirSync(packDir, { recursive: true });
+  run(`pnpm pack --pack-destination "${packDir}"`, { cwd: pkgDir });
 
-  // Find the tarball (take the most recent one matching the package name)
-  const pkgName = pkg.scope.replace('@verdaccio/', 'verdaccio-');
-  const pkgTarball = fs
-    .readdirSync(tmpDir)
-    .filter((f) => f.startsWith(pkgName) && f.endsWith('.tgz'))
-    .sort()
-    .pop();
-
+  const pkgTarball = fs.readdirSync(packDir).find((f) => f.endsWith('.tgz'));
   if (!pkgTarball) {
     console.warn(`No tarball found for ${pkg.scope}`);
     continue;
   }
 
-  run(`tar xzf "${path.join(tmpDir, pkgTarball)}" --strip-components=1 -C "${targetDir}"`);
+  run(`tar xzf "${path.join(packDir, pkgTarball)}" --strip-components=1 -C "${targetDir}"`);
 }
 
 // 5. Verify
