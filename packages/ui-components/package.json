@@ -78,7 +78,7 @@
     "vite": "^8.0.0",
     "eslint-plugin-storybook": "10.2.17",
     "eslint-plugin-verdaccio": "10.0.0",
-    "jsdom": "26.1.0",
+    "jsdom": "28.1.0",
     "mockdate": "3.0.5",
     "msw": "2.12.10",
     "msw-storybook-addon": "2.0.6",
