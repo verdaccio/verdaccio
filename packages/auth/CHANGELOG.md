@@ -1,5 +1,16 @@
 # @verdaccio/auth
 
+## 9.0.0-next-9.3
+
+### Patch Changes
+
+- Updated dependencies [66e7538]
+  - @verdaccio/config@9.0.0-next-9.3
+  - @verdaccio/loaders@9.0.0-next-9.3
+  - verdaccio-htpasswd@14.0.0-next-9.3
+  - @verdaccio/signature@9.0.0-next-9.3
+  - @verdaccio/core@9.0.0-next-9.3
+
 ## 9.0.0-next-9.2
 
 ### Patch Changes

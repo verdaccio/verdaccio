@@ -1,5 +1,11 @@
 # @verdaccio/loaders
 
+## 9.0.0-next-9.3
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.3
+
 ## 9.0.0-next-9.2
 
 ### Patch Changes
