@@ -20,11 +20,8 @@
     "lint": "eslint . --ext .js,.ts",
     "test": "vitest run --testTimeout 50000 --hookTimeout 20000",
     "ge:docs": "typedoc src/index.ts --tsconfig tsconfig.build.json --plugin typedoc-plugin-markdown",
-    "type-check": "tsc --noEmit -p tsconfig.build.json",
-    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
-    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
-    "build": "pnpm run build:js && pnpm run build:types",
-    "code:docker-build": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\"",
+    "build": "vite build",
+    "code:docker-build": "vite build",
     "build:docker": "docker build -t verdaccio/verdaccio:local . --no-cache"
   },
   "author": {
@@ -83,5 +80,19 @@
     "type": "opencollective",
     "url": "https://opencollective.com/verdaccio",
     "logo": "https://opencollective.com/verdaccio/logo.txt"
+  },
+  "module": "./build/index.mjs",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./build/index.d.ts",
+        "default": "./build/index.mjs"
+      },
+      "require": {
+        "types": "./build/index.d.ts",
+        "default": "./build/index.js"
+      }
+    },
+    "./build/*": "./build/*"
   }
 }

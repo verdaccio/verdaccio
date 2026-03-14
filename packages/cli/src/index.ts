@@ -1,1 +1,1 @@
-require('./cli');
+import './cli';

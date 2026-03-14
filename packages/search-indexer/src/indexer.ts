@@ -125,4 +125,4 @@ class SearchMemoryIndexer {
 
 export default new SearchMemoryIndexer();
 
-export { Results };
+export type { Results };

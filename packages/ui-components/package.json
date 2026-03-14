@@ -6,12 +6,20 @@
   "license": "MIT",
   "homepage": "https://verdaccio.org",
   "main": "./build/index.js",
+  "module": "./build/index.mjs",
   "types": "build/index.d.ts",
   "exports": {
     ".": {
-      "source": "./src/index.ts",
-      "default": "./build/index.js"
-    }
+      "import": {
+        "types": "./build/index.d.ts",
+        "default": "./build/index.mjs"
+      },
+      "require": {
+        "types": "./build/index.d.ts",
+        "default": "./build/index.js"
+      }
+    },
+    "./build/*": "./build/*"
   },
   "scripts": {
     "test": "cross-env TZ=UTC vitest run",
