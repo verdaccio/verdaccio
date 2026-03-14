@@ -1,3 +1,5 @@
+export { dotfiles } from './middlewares/dotfiles';
+export type { DotfilesPolicy } from './middlewares/dotfiles';
 export { match } from './middlewares/match';
 export { validateName, validatePackage } from './middlewares/validation';
 export { media } from './middlewares/media';
@@ -18,6 +20,7 @@ export {
   LOG_VERDACCIO_BYTES,
   LOG_VERDACCIO_ERROR,
 } from './middlewares/log';
+export type { LogOptions } from './middlewares/log';
 export * from './types';
 export * from './middlewares/api_urls';
 export * from './middlewares/web/web-urls';

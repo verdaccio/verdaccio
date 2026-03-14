@@ -14,6 +14,7 @@ import { API_ERROR, PLUGIN_CATEGORY, PLUGIN_PREFIX, errorUtils, pkgUtils } from 
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { logger } from '@verdaccio/logger';
 import {
+  dotfiles,
   errorReportingMiddleware,
   final,
   handleError,
@@ -44,10 +45,12 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<Ex
   app.use(cors());
   app.use(rateLimit(config.server?.rateLimit));
 
+  app.use(dotfiles(config.server?.dotfiles ?? 'ignore'));
+
   const errorReportingMiddlewareWrap = errorReportingMiddleware(logger);
 
   // Router setup
-  app.use(log(logger));
+  app.use(log(logger, { hideStaticLogs: config.server?.hideStaticLogs ?? true }));
   app.use(errorReportingMiddlewareWrap);
   app.use(userAgent(config));
   app.use(compression());

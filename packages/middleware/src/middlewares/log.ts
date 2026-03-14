@@ -1,8 +1,15 @@
+import buildDebug from 'debug';
 import _ from 'lodash';
 
 import { HEADERS } from '@verdaccio/core';
 
 import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
+
+const debug = buildDebug('verdaccio:middleware:log');
+
+function isStaticRequest(url: string): boolean {
+  return url.startsWith('/-/static/');
+}
 
 // FIXME: deprecated, moved to @verdaccio/dev-commons
 export const LOG_STATUS_MESSAGE =
@@ -10,7 +17,15 @@ export const LOG_STATUS_MESSAGE =
 export const LOG_VERDACCIO_ERROR = `${LOG_STATUS_MESSAGE}, error: @{!error}`;
 export const LOG_VERDACCIO_BYTES = `${LOG_STATUS_MESSAGE}, bytes: @{bytes.in}/@{bytes.out}`;
 
-export const log = (logger) => {
+export type LogOptions = {
+  // When true, static file requests (/-/static/*) are hidden from pino logs
+  // and only visible via DEBUG=verdaccio:middleware:log. Defaults to true.
+  hideStaticLogs?: boolean;
+};
+
+export const log = (logger, options: LogOptions = {}) => {
+  const { hideStaticLogs = true } = options;
+
   return function log(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     // logger
     req.log = logger.child({ sub: 'in' });
@@ -26,7 +41,12 @@ export const log = (logger) => {
     }
 
     req.url = req.originalUrl;
-    req.log.info({ req: req, ip: req.ip }, "@{ip} requested '@{req.method} @{req.url}'");
+    const _skipLog = hideStaticLogs && isStaticRequest(req.url);
+    if (_skipLog) {
+      debug("@{ip} requested '@{req.method} @{req.url}'", { ip: req.ip, req });
+    } else {
+      req.log.info({ req: req, ip: req.ip }, "@{ip} requested '@{req.method} @{req.url}'");
+    }
     req.originalUrl = req.url;
 
     if (_.isNil(_auth) === false) {
@@ -63,23 +83,34 @@ export const log = (logger) => {
       }
 
       req.url = req.originalUrl;
-      req.log.http(
-        {
-          request: {
-            method: req.method,
-            url: req.url,
-          },
+      if (_skipLog) {
+        debug(message, {
+          request: { method: req.method, url: req.url },
           user: req.remote_user?.name || null,
           remoteIP,
           status: res.statusCode,
           error: res.locals._verdaccio_error,
-          bytes: {
-            in: bytesin,
-            out: bytesout,
+          bytes: { in: bytesin, out: bytesout },
+        });
+      } else {
+        req.log.http(
+          {
+            request: {
+              method: req.method,
+              url: req.url,
+            },
+            user: req.remote_user?.name || null,
+            remoteIP,
+            status: res.statusCode,
+            error: res.locals._verdaccio_error,
+            bytes: {
+              in: bytesin,
+              out: bytesout,
+            },
           },
-        },
-        message
-      );
+          message
+        );
+      }
       req.originalUrl = req.url;
     };
 

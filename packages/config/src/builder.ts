@@ -6,6 +6,7 @@ import type {
   LoggerConfigItem,
   PackageAccessYaml,
   Security,
+  ServerSettingsConf,
   UpLinkConf,
 } from '@verdaccio/types';
 
@@ -49,6 +50,11 @@ export default class ConfigBuilder {
 
   public addLogger(log: LoggerConfigItem) {
     this.config.log = log;
+    return this;
+  }
+
+  public addServer(server: Partial<ServerSettingsConf>) {
+    this.config.server = merge(this.config.server, server);
     return this;
   }
 
