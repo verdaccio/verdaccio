@@ -1,9 +1,9 @@
 ---
-'@verdaccio/middleware': feat
-'@verdaccio/proxy': feat
-'@verdaccio/server': feat
-'@verdaccio/config': feat
-'@verdaccio/types': feat
+'@verdaccio/middleware': minor
+'@verdaccio/proxy': minor
+'@verdaccio/server': minor
+'@verdaccio/config': minor
+'@verdaccio/types': minor
 ---
 
 fix: static files returning 404 after Express 5 upgrade
