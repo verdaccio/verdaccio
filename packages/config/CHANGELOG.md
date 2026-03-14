@@ -1,5 +1,12 @@
 # @verdaccio/config
 
+## 8.0.0-next-8.33
+
+### Patch Changes
+
+- 3dd1959: fix: restore docker.yaml configuration file
+  - @verdaccio/core@8.0.0-next-8.33
+
 ## 8.0.0-next-8.32
 
 ### Patch Changes
