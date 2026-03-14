@@ -84,7 +84,12 @@ jobs:
           echo "Found script bundles:"
           echo "$SCRIPTS"
           for SCRIPT in $SCRIPTS; do
-            URL="http://localhost:4873${SCRIPT}"
+            # Handle both absolute URLs and relative paths
+            if echo "$SCRIPT" | grep -q '^http'; then
+              URL="$SCRIPT"
+            else
+              URL="http://localhost:4873${SCRIPT}"
+            fi
             STATUS=$(curl -s -o /dev/null -w '%{http_code}' "$URL")
             CONTENT_TYPE=$(curl -s -o /dev/null -w '%{content_type}' "$URL")
             echo "  $SCRIPT -> HTTP $STATUS ($CONTENT_TYPE)"
