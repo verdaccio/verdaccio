@@ -87,6 +87,14 @@ describe('check basic content parsed file', () => {
     expect(config.auth.htpasswd.file).toBe('./htpasswd');
     checkDefaultConfPackages(config);
   });
+
+  test('parse docker.yaml', () => {
+    const config = new Config(getDefaultConfig('docker.yaml'));
+    checkDefaultUplink(config);
+    expect(config.storage).toBe('/verdaccio/storage/data');
+    expect(config.auth.htpasswd.file).toBe('/verdaccio/storage/htpasswd');
+    checkDefaultConfPackages(config);
+  });
 });
 
 describe('checkSecretKey', () => {
