@@ -101,6 +101,17 @@ describe('test web server', () => {
         expect(__VERDACCIO_BASENAME_UI_OPTIONS.favicon).toEqual('');
       });
 
+      test('should render successfully when request has no host header', async () => {
+        const response = await supertest(initializeServer('default-test.yaml'))
+          .get('/')
+          .set('Accept', HEADERS.TEXT_HTML)
+          .unset('Host')
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_HTML_UTF8)
+          .expect(HTTP_STATUS.OK);
+        const dom = new JSDOM(response.text, { runScripts: 'dangerously' });
+        expect(dom.window.__VERDACCIO_BASENAME_UI_OPTIONS.basename).toEqual('/');
+      });
+
       test.todo('should default title');
       test.todo('should need html cache');
     });
