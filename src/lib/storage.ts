@@ -8,6 +8,8 @@ import { hasProxyTo } from '@verdaccio/config';
 import { PLUGIN_CATEGORY, pluginUtils, validationUtils } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import LocalDatabasePluginModule from '@verdaccio/local-storage-legacy';
+import { ProxyStorage } from '@verdaccio/proxy';
+import type { IProxy } from '@verdaccio/proxy';
 import { SearchMemoryIndexer } from '@verdaccio/search-indexer';
 import { ReadTarball } from '@verdaccio/streams';
 import {
@@ -37,8 +39,6 @@ import {
   mergeUplinkTimeIntoLocal,
   publishPackage,
 } from './storage-utils';
-import { ProxyStorage } from '@verdaccio/proxy';
-import type { IProxy } from '@verdaccio/proxy';
 import { setupUpLinks, updateVersionsHiddenUpLinkNext } from './uplink-util';
 import { ErrorCode, isObject, normalizeDistTags } from './utils';
 

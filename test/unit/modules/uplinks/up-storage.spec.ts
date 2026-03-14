@@ -5,9 +5,8 @@ import { statSync } from 'node:fs';
 import { join } from 'node:path';
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, test } from 'vitest';
 
-import type { Config, UpLinkConf } from '@verdaccio/types';
-
 import { ProxyStorage } from '@verdaccio/proxy';
+import type { Config, UpLinkConf } from '@verdaccio/types';
 
 import AppConfig from '../../../../src/lib/config';
 import {
@@ -314,9 +313,7 @@ describe('UpStorage', () => {
     });
 
     test('should throw on fetch a tarball 404 from uplink', async () => {
-      nock(`http://localhost:${mockServerPort}`)
-        .get('/jquery/-/no-exist-1.5.1.tgz')
-        .reply(404);
+      nock(`http://localhost:${mockServerPort}`).get('/jquery/-/no-exist-1.5.1.tgz').reply(404);
       const proxy = generateProxy();
       const tarball = `http://localhost:${mockServerPort}/jquery/-/no-exist-1.5.1.tgz`;
       const stream = proxy.fetchTarball(tarball, {});

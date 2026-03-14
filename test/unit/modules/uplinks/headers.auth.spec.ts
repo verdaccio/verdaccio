@@ -79,9 +79,7 @@ describe('uplink headers auth test', () => {
       }
     );
 
-    expect(headers[HEADERS.AUTHORIZATION]).toEqual(
-      authUtils.buildToken(TOKEN_BASIC, 'tokenBasic')
-    );
+    expect(headers[HEADERS.AUTHORIZATION]).toEqual(authUtils.buildToken(TOKEN_BASIC, 'tokenBasic'));
   });
 
   test('set type auth basic', () => {
@@ -148,9 +146,7 @@ describe('uplink headers auth test', () => {
       },
     });
 
-    expect(headers[HEADERS.AUTHORIZATION]).toBe(
-      authUtils.buildToken(TOKEN_BASIC, 'myTokenTest')
-    );
+    expect(headers[HEADERS.AUTHORIZATION]).toBe(authUtils.buildToken(TOKEN_BASIC, 'myTokenTest'));
     delete process.env.NPM_TOKEN_TEST;
   });
 

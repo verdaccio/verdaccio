@@ -37,11 +37,7 @@ describe('Use proxy', () => {
   });
 
   test('no_proxy is invalid', () => {
-    let x = setupProxy(
-      'http://x/x',
-      { http_proxy: 'http://proxy:8080', no_proxy: false },
-      {}
-    );
+    let x = setupProxy('http://x/x', { http_proxy: 'http://proxy:8080', no_proxy: false }, {});
 
     expect(x.proxy).toEqual('http://proxy:8080');
     x = setupProxy('http://x/x', { http_proxy: 'http://proxy:8080', no_proxy: null }, {});
@@ -80,35 +76,15 @@ describe('Use proxy', () => {
     );
 
     expect(x.proxy).toEqual('http://proxy:8080');
-    x = setupProxy(
-      'http://blah.blah',
-      {},
-      { http_proxy: 'http://proxy:8080', no_proxy: 'blah' }
-    );
+    x = setupProxy('http://blah.blah', {}, { http_proxy: 'http://proxy:8080', no_proxy: 'blah' });
     expect(x.proxy).toEqual(undefined);
-    x = setupProxy(
-      'http://blahblah',
-      {},
-      { http_proxy: 'http://proxy:8080', no_proxy: '.blah' }
-    );
+    x = setupProxy('http://blahblah', {}, { http_proxy: 'http://proxy:8080', no_proxy: '.blah' });
     expect(x.proxy).toEqual('http://proxy:8080');
-    x = setupProxy(
-      'http://blah.blah',
-      { http_proxy: 'http://proxy:8080', no_proxy: '.blah' },
-      {}
-    );
+    x = setupProxy('http://blah.blah', { http_proxy: 'http://proxy:8080', no_proxy: '.blah' }, {});
     expect(x.proxy).toEqual(undefined);
-    x = setupProxy(
-      'http://blah',
-      { http_proxy: 'http://proxy:8080', no_proxy: '.blah' },
-      {}
-    );
+    x = setupProxy('http://blah', { http_proxy: 'http://proxy:8080', no_proxy: '.blah' }, {});
     expect(x.proxy).toEqual(undefined);
-    x = setupProxy(
-      'http://blahh',
-      { http_proxy: 'http://proxy:8080', no_proxy: 'blah' },
-      {}
-    );
+    x = setupProxy('http://blahh', { http_proxy: 'http://proxy:8080', no_proxy: 'blah' }, {});
     expect(x.proxy).toEqual('http://proxy:8080');
   });
 
