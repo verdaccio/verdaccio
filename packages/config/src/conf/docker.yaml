@@ -116,6 +116,12 @@ packages:
 # WORKAROUND: Through given configuration you can workaround following issue https://github.com/verdaccio/verdaccio/issues/301. Set to 0 in case 60 is not enough.
 server:
   keepAliveTimeout: 60
+  # Controls how requests with dotfile path segments (e.g. /.env, /.well-known/) are handled.
+  # 'deny' returns 403, 'ignore' returns 404 (default), 'allow' passes through.
+  dotfiles: ignore
+  # Hide static file requests (/-/static/*) from pino logs.
+  # They remain visible via DEBUG=verdaccio:middleware:log.
+  # hideStaticLogs: true
   # The pluginPrefix replaces the default plugins prefix which is `verdaccio`. Please don't include `-`. If `something` is provided
   # the resolved package will be `something-xxxx`.
   # pluginPrefix: something

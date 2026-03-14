@@ -400,9 +400,11 @@ class ProxyStorage implements IProxy {
       const data = response.body;
 
       // not modified status (304) registry does not return any payload
-      // it is handled as an error
+      // it is handled as an error with the original 304 status preserved
       if (response?.statusCode === HTTP_STATUS.NOT_MODIFIED) {
-        throw errorUtils.getCode(HTTP_STATUS.NOT_MODIFIED, API_ERROR.NOT_MODIFIED_NO_DATA);
+        const err = errorUtils.getNotFound(API_ERROR.NOT_MODIFIED_NO_DATA);
+        err.code = HTTP_STATUS.NOT_MODIFIED;
+        throw err;
       }
 
       debug('uri %s success', uri);

@@ -285,6 +285,13 @@ export type ServerSettingsConf = {
   passwordValidationRegex?: RegExp;
   // docs on `trustProxy` can be found at: https://expressjs.com/en/guide/behind-proxies.html
   trustProxy?: string;
+  // Controls how requests with dotfile path segments (e.g. /.env, /.well-known/) are handled.
+  // 'deny' returns 403 (default), 'ignore' returns 404, 'allow' passes through.
+  // Mirrors serve-static's dotfiles option.
+  dotfiles?: 'allow' | 'deny' | 'ignore';
+  // When true, static file requests (/-/static/*) are hidden from pino logs
+  // and only visible via DEBUG=verdaccio:middleware:log. Defaults to true.
+  hideStaticLogs?: boolean;
 };
 
 /**

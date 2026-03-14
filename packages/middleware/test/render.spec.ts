@@ -136,5 +136,40 @@ describe('test web server', () => {
           .expect(HTTP_STATUS.OK);
       });
     });
+
+    describe('static file serving with root option', () => {
+      test('should serve static files using root-relative path', async () => {
+        const response = await supertest(initializeServer('default-test.yaml'))
+          .get('/-/static/main.js')
+          .expect(HTTP_STATUS.OK);
+        expect(response.status).toBe(HTTP_STATUS.OK);
+      });
+
+      test('should serve files with dots in hash (e.g. main.abc123.js)', async () => {
+        // The static directory has main.js, which proves the root option works
+        // even when the staticPath contains dot-prefixed directories (e.g. .nvm)
+        return supertest(await initializeServer('default-test.yaml'))
+          .get('/-/static/main.js')
+          .expect(HTTP_STATUS.OK);
+      });
+
+      test('should return 404 for non-existent static file', async () => {
+        return supertest(await initializeServer('default-test.yaml'))
+          .get('/-/static/does-not-exist.js')
+          .expect(HTTP_STATUS.NOT_FOUND);
+      });
+
+      test('should serve vendors.js static file', async () => {
+        return supertest(await initializeServer('default-test.yaml'))
+          .get('/-/static/vendors.js')
+          .expect(HTTP_STATUS.OK);
+      });
+
+      test('should serve runtime.js static file', async () => {
+        return supertest(await initializeServer('default-test.yaml'))
+          .get('/-/static/runtime.js')
+          .expect(HTTP_STATUS.OK);
+      });
+    });
   });
 });

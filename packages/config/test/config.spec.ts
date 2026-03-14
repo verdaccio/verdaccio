@@ -78,6 +78,11 @@ describe('check basic content parsed file', () => {
 
     expect(config.experiments).toBeUndefined();
     expect(config.security).toEqual(defaultSecurity);
+    // server settings
+    expect(config.server).toBeDefined();
+    expect(config.server.dotfiles).toEqual('ignore');
+    // hideStaticLogs is not set in default config, defaults to true at runtime
+    expect(config.server.hideStaticLogs).toBeUndefined();
   };
 
   test('parse default.yaml', () => {
