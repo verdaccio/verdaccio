@@ -1,4 +1,4 @@
-FROM --platform=${BUILDPLATFORM:-linux/amd64} node:24.13.1-alpine AS builder
+FROM --platform=${BUILDPLATFORM:-linux/amd64} node:24.14.0-alpine AS builder
 
 ENV NODE_ENV=production \
     VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org
@@ -35,7 +35,7 @@ RUN yarn pack --out verdaccio.tgz \
     && mkdir -p /opt/tarball \
     && mv /opt/verdaccio-build/verdaccio.tgz /opt/tarball
 
-FROM --platform=${BUILDPLATFORM:-linux/amd64} node:24.13.1-alpine
+FROM --platform=${BUILDPLATFORM:-linux/amd64} node:24.14.0-alpine
 
 LABEL maintainer="https://github.com/verdaccio/verdaccio" \
       org.opencontainers.image.title="Verdaccio" \
