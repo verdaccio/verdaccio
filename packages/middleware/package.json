@@ -34,12 +34,9 @@
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "type-check": "tsc --noEmit -p tsconfig.build.json",
-    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
-    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
-    "watch": "pnpm build:js -- --watch",
+    "watch": "vite build --watch",
     "test": "vitest run",
-    "build": "pnpm run build:js && pnpm run build:types"
+    "build": "vite build"
   },
   "dependencies": {
     "@verdaccio/config": "workspace:9.0.0-next-9.3",
@@ -62,5 +59,19 @@
     "supertest": "7.1.4",
     "jsdom": "26.1.0",
     "vitest": "3.2.4"
+  },
+  "module": "./build/index.mjs",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./build/index.d.ts",
+        "default": "./build/index.mjs"
+      },
+      "require": {
+        "types": "./build/index.d.ts",
+        "default": "./build/index.js"
+      }
+    },
+    "./build/*": "./build/*"
   }
 }

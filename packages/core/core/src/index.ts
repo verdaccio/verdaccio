@@ -12,7 +12,8 @@ import * as tarballUtils from './tarball-utils';
 import * as validationUtils from './validation-utils';
 import * as warningUtils from './warning-utils';
 
-export { VerdaccioError, API_ERROR, SUPPORT_ERRORS, APP_ERROR } from './error-utils';
+export type { VerdaccioError } from './error-utils';
+export { API_ERROR, SUPPORT_ERRORS, APP_ERROR } from './error-utils';
 export {
   TOKEN_BASIC,
   TOKEN_BEARER,

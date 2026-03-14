@@ -46,20 +46,27 @@ export default defineConfig({
     outDir: 'build',
     emptyOutDir: true,
     sourcemap: true,
+    minify: false,
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
-      formats: ['es'],
     },
     rollupOptions: {
       external: (id) =>
         externalDeps.has(id) || [...externalDeps].some((dep) => id.startsWith(`${dep}/`)),
-      output: {
-        // Preserve individual file structure to mirror the source tree,
-        // matching the previous Babel build output.
-        preserveModules: true,
-        preserveModulesRoot: 'src',
-        entryFileNames: '[name].js',
-      },
+      output: [
+        {
+          format: 'es',
+          preserveModules: true,
+          preserveModulesRoot: 'src',
+          entryFileNames: '[name].mjs',
+        },
+        {
+          format: 'cjs',
+          preserveModules: true,
+          preserveModulesRoot: 'src',
+          entryFileNames: '[name].js',
+        },
+      ],
     },
   },
 });
