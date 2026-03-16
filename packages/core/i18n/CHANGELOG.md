@@ -1,5 +1,11 @@
 # @verdaccio/ui-i18n
 
+## 10.0.0-next-9.2
+
+### Major Changes
+
+- 52a6520: Replace Babel and esbuild build pipeline with Vite 8 across all packages. All packages now output dual ESM (.mjs) and CJS (.js) formats with TypeScript declarations generated via vite-plugin-dts. Includes shared build config at vite.lib.config.mjs, proper exports field in all package.json files, and fixes for type-only re-exports required by Rollup's stricter module analysis.
+
 ## 10.0.0-next-9.1
 
 ### Major Changes
