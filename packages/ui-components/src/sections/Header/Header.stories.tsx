@@ -63,7 +63,8 @@ export const HeaderAll: Story = {
         }),
         http.get('https://my-registry.org/-/verdaccio/data/search/*', async ({ request }) => {
           const url = new URL(request.url);
-          const query = url.searchParams.get('text');
+          const rawQuery = url.pathname.split('/-/verdaccio/data/search/')[1] || '';
+          const query = decodeURIComponent(rawQuery);
 
           const packages = searchVerdaccio;
 
