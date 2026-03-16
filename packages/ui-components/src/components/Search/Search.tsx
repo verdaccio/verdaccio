@@ -1,6 +1,6 @@
 import SearchMui from '@mui/icons-material/Search';
 import debounce from 'lodash/debounce';
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
@@ -35,10 +35,6 @@ const Search: React.FC = () => {
     }
   }, []);
 
-  useEffect(() => {
-    return () => cancelAllSearchRequests();
-  }, [cancelAllSearchRequests]);
-
   const handleOnBlur = useCallback(
     (event: React.SyntheticEvent) => {
       event.stopPropagation();
@@ -51,28 +47,33 @@ const Search: React.FC = () => {
     (event: React.SyntheticEvent, value: SearchResultWeb, reason: string): void => {
       event.stopPropagation();
       if (reason === 'selectOption') {
-        const pkgName = searchRemote ? value['package'].name : value.name;
+        const pkgName = value['package']?.name ?? value.name;
         navigate(`${Route.DETAIL}${pkgName}`);
       }
     },
     [navigate, searchRemote]
   );
 
+  // Use a ref to always access the latest doSearch without re-creating the debounced function
+  const doSearchRef = useRef(doSearch);
+  doSearchRef.current = doSearch;
+
   /**
-   * Fetch packages from API with Abort Logic.
+   * Stable fetch function that reads the latest doSearch from a ref,
+   * avoiding dependency changes that would break the debounce.
    */
   const handleFetchPackages = useCallback(
     async ({ value }: { value: string }) => {
       if (value?.trim() !== '') {
-        // 2. Abort any previous pending request before starting a new one
+        // Abort any previous pending request before starting a new one
         cancelAllSearchRequests();
 
-        // 3. Create a new controller for the current request
+        // Create a new controller for the current request
         const controller = new AbortController();
         abortControllerRef.current = controller;
 
         try {
-          await doSearch?.({
+          await doSearchRef.current?.({
             text: value,
             signal: controller.signal,
           });
@@ -85,8 +86,22 @@ const Search: React.FC = () => {
         }
       }
     },
-    [doSearch, cancelAllSearchRequests]
+    [cancelAllSearchRequests]
   );
+
+  // Memoize the debounced function so a single instance is reused across renders,
+  // ensuring the debounce timer works correctly instead of creating a new timer per render.
+  const debouncedFetch = useMemo(
+    () => debounce(handleFetchPackages, CONSTANTS.API_DELAY),
+    [handleFetchPackages]
+  );
+
+  useEffect(() => {
+    return () => {
+      debouncedFetch.cancel?.();
+      cancelAllSearchRequests();
+    };
+  }, [debouncedFetch, cancelAllSearchRequests]);
 
   const renderOption = (props, option) => {
     const { key, ...otherProps } = props;
@@ -150,8 +165,7 @@ const Search: React.FC = () => {
       getOptionLabel={getOptionLabel}
       onCleanSuggestions={handleOnBlur}
       onSelectItem={handleClickSearch}
-      // Debounce the entire fetcher wrapper
-      onSuggestionsFetch={debounce(handleFetchPackages, CONSTANTS.API_DELAY)}
+      onSuggestionsFetch={debouncedFetch}
       placeholder={t('search.packages')}
       renderInput={renderInput}
       renderOption={renderOption}

@@ -61,13 +61,14 @@ const AutoComplete: FC<Props> = ({
         /* @ts-ignore */
         clearOnBlur={true}
         disablePortal={true}
-        freeSolo={true}
+        filterOptions={(options, state) => (state.inputValue.trim() ? options : [])}
         fullWidth={true}
         getOptionLabel={getOptionLabel}
         id="search-header-suggest"
         inputValue={inputValue}
         loading={suggestionsLoading}
         loadingText={t('autoComplete.loading')}
+        noOptionsText={t('autoComplete.no-results-found')}
         onChange={onSelectItem as any}
         onClose={handleOnClose}
         onInputChange={handleOnInputChange}

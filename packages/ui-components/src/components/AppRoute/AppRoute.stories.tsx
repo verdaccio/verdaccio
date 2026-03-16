@@ -93,15 +93,19 @@ const handlers = [
   }),
   http.get('https://my-registry.org/-/verdaccio/data/search/*', async ({ request }) => {
     const url = new URL(request.url);
-    const query = url.searchParams.get('text');
+    const rawQuery = url.pathname.split('/-/verdaccio/data/search/')[1] || '';
+    const query = decodeURIComponent(rawQuery);
+    console.warn('search query', query);
     const packages = searchVerdaccio;
     await delay(600);
     if (!query) {
       return HttpResponse.json(packages);
     }
     const filteredPackages = packages.filter((pkg: { package: { name: string } }) => {
-      return pkg.package.name.match(new RegExp(query, 'i')) !== null;
+      const matches = pkg.package.name.match(new RegExp(query, 'i')) !== null;
+      return matches;
     });
+    console.warn('filteredPackages', filteredPackages);
     return HttpResponse.json(filteredPackages);
   }),
   http.post('https://my-registry.org/-/verdaccio/sec/login', async ({ request }) => {

@@ -1,3 +1,4 @@
+import debounce from 'lodash/debounce';
 import React from 'react';
 import { vi } from 'vitest';
 
@@ -14,9 +15,13 @@ import { cleanDescription } from './utils';
 vi.mock('lodash/debounce', () => ({
   default: vi.fn((fn) => {
     // Immediately execute the function for testing
-    return (...args: any[]) => fn(...args);
+    const debounced = (...args: any[]) => fn(...args);
+    debounced.cancel = vi.fn();
+    return debounced;
   }),
 }));
+
+const mockedDebounce = vi.mocked(debounce);
 
 // Add this near the top of your test file, outside describe blocks
 const abortSpy = vi.spyOn(AbortController.prototype, 'abort');
@@ -142,6 +147,54 @@ describe('<Search /> component', () => {
     // // when the page redirects, the list box should be empty again
     expect(listBoxElement).toHaveLength(0);
   }, 5000);
+
+  test('should create a stable debounced function via useMemo', () => {
+    renderWithRouteDetail(<ComponentToBeRendered />);
+    // debounce should be called once on mount with the fetch handler and 300ms delay
+    expect(mockedDebounce).toHaveBeenCalledWith(expect.any(Function), 300);
+    const callCount = mockedDebounce.mock.calls.length;
+
+    // re-render should not create a new debounced instance
+    renderWithRouteDetail(<ComponentToBeRendered />);
+    // debounce is called once per mount, not on every render
+    expect(mockedDebounce).toHaveBeenCalledTimes(callCount * 2);
+  });
+
+  test('should cancel debounced function and abort requests on unmount', async () => {
+    const { unmount, getByPlaceholderText } = renderWithRouteDetail(<ComponentToBeRendered />);
+
+    // get the cancel mock from the last debounced function created
+    const lastDebouncedFn = mockedDebounce.mock.results[mockedDebounce.mock.results.length - 1]
+      .value as any;
+
+    const autoCompleteInput = getByPlaceholderText('search.packages');
+
+    // trigger a search so there's an active AbortController
+    fireEvent.focus(autoCompleteInput);
+    fireEvent.change(autoCompleteInput, { target: { value: 'verdaccio' } });
+
+    await waitFor(() => {
+      expect(autoCompleteInput).toHaveAttribute('value', 'verdaccio');
+    });
+
+    abortSpy.mockClear();
+    unmount();
+
+    // cleanup effect should cancel debounce and abort pending requests
+    expect(lastDebouncedFn.cancel).toHaveBeenCalled();
+    expect(abortSpy).toHaveBeenCalled();
+  });
+
+  test('should not fetch when search value is only whitespace', async () => {
+    renderWithRouteDetail(<ComponentToBeRendered />);
+    const autoCompleteInput = screen.getByPlaceholderText('search.packages');
+
+    fireEvent.focus(autoCompleteInput);
+    fireEvent.change(autoCompleteInput, { target: { value: '   ' } });
+
+    // no abort should be called since no request was started
+    expect(abortSpy).not.toHaveBeenCalled();
+  });
 
   test.todo('handle SearchItem properties, isPrivate, isRemote, isCached');
 });
