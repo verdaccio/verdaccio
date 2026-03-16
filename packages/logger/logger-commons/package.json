@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/logger-commons",
-  "version": "9.0.0-next-9.3",
+  "version": "9.0.0-next-9.4",
   "description": "Verdaccio Logger Commons",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
@@ -39,8 +39,8 @@
     "build": "vite build"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:9.0.0-next-9.3",
-    "@verdaccio/logger-prettify": "workspace:9.0.0-next-9.0",
+    "@verdaccio/core": "workspace:9.0.0-next-9.4",
+    "@verdaccio/logger-prettify": "workspace:9.0.0-next-9.1",
     "debug": "4.4.3",
     "colorette": "2.0.20"
   },

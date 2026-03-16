@@ -58,10 +58,12 @@
   },
   "changesets": [
     "fair-ducks-think",
+    "fix-search-ui",
     "honest-lizards-exercise",
     "olive-lobsters-protect",
     "stale-poets-sit",
     "ten-cougars-flash",
+    "vite-build-migration",
     "warm-pandas-glow"
   ]
 }

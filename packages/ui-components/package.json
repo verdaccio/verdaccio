@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/ui-components",
-  "version": "5.0.0-next-9.2",
+  "version": "5.0.0-next-9.3",
   "description": "Verdaccio UI Components",
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
@@ -39,7 +39,7 @@
     "@microlink/react-json-view": "1.26.2",
     "@mui/icons-material": "7.3.4",
     "@mui/material": "7.3.7",
-    "@verdaccio/ui-i18n": "workspace:10.0.0-next-9.1",
+    "@verdaccio/ui-i18n": "workspace:10.0.0-next-9.2",
     "country-flag-icons": "1.5.21",
     "dayjs": "1.11.18",
     "dompurify": "3.3.1",
