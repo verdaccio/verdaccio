@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import Tab from '@mui/material/Tab';
 import { default as MuiTabs } from '@mui/material/Tabs';
-import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -16,8 +15,7 @@ interface Props {
 
 const DetailContainerTabs: React.FC<Props> = ({ tabPosition, onChange, showUplinks }) => {
   const { t } = useTranslation();
-  const muiTheme = useTheme();
-  const isMobile = useMediaQuery(muiTheme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery('(max-width:599px)');
 
   return (
     <Tabs
