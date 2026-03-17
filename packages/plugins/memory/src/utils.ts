@@ -1,4 +1,4 @@
-import { Manifest } from '@verdaccio/types';
+import type { Manifest } from '@verdaccio/types';
 
 export function stringifyPackage(manifest: Manifest): string {
   return JSON.stringify(manifest, null, '\t');

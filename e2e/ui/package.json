@@ -1,12 +1,12 @@
 {
   "private": true,
   "name": "@verdaccio/e2e-ui",
-  "version": "2.0.1-next-8.0",
+  "version": "2.1.0-next-8.1",
   "devDependencies": {
-    "verdaccio": "workspace:8.0.0-next-8.30",
-    "@verdaccio/core": "workspace:8.0.0-next-8.30",
-    "@verdaccio/config": "workspace:8.0.0-next-8.30",
-    "@verdaccio/test-helper": "workspace:4.0.0-next-8.14",
+    "verdaccio": "workspace:*",
+    "@verdaccio/core": "workspace:*",
+    "@verdaccio/config": "workspace:*",
+    "@verdaccio/test-helper": "workspace:*",
     "debug": "4.4.3",
     "cypress": "15.10.0",
     "get-port": "5.1.1"

@@ -1,10 +1,9 @@
 import { describe, expect, test } from 'vitest';
 
-import { Manifest } from '@verdaccio/types';
+import type { Manifest } from '@verdaccio/types';
 
 import { generatePackageMetadata } from '../../api/node_modules/@verdaccio/test-helper/build';
-import { isExecutingStarCommand } from '../src';
-import { isStarManifest } from '../src';
+import { isExecutingStarCommand, isStarManifest } from '../src';
 
 describe('Star Utils', () => {
   describe('isExecutingStarCommand', () => {

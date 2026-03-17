@@ -5,7 +5,7 @@ import { Config, parseConfigFile } from '@verdaccio/config';
 import { TOKEN_BASIC, TOKEN_BEARER } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 
-import { IProxy } from '../src/index';
+import type { IProxy } from '../src/index';
 import { setupUpLinks } from '../src/uplink-util';
 
 const getConf = (name) => path.join(__dirname, '/conf', name);

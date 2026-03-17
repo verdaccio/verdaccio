@@ -1,5 +1,11 @@
 # customprefix-auth
 
+## 4.0.0-next-9.0
+
+### Major Changes
+
+- 7f80af5: chore: bump package
+
 ## 2.0.0
 
 ### Major Changes

@@ -1,12 +1,13 @@
-/* eslint-disable new-cap */
 import MockDate from 'mockdate';
 import path from 'node:path';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
-import { API_ERROR, constants, fileUtils, pluginUtils } from '@verdaccio/core';
+import type { pluginUtils } from '@verdaccio/core';
+import { API_ERROR, constants, fileUtils } from '@verdaccio/core';
 
-import HTPasswd, { HTPasswdConfig } from '../src/htpasswd';
+import type { HTPasswdConfig } from '../src/htpasswd';
+import HTPasswd from '../src/htpasswd';
 
 const options = {
   logger: { warn: vi.fn(), info: vi.fn() },

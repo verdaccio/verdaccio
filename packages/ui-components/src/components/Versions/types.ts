@@ -1,4 +1,4 @@
-import { PackageMetaInterface } from '../../types/packageMeta';
+import type { PackageMetaInterface } from '../../types/packageMeta';
 
 export interface DetailContextProps {
   hasNotBeenFound: boolean;

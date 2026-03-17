@@ -2,9 +2,20 @@ import ActiveDirectory from 'activedirectory2';
 import { vi } from 'vitest';
 
 import { HTTP_STATUS } from '@verdaccio/core';
+import type { Logger } from '@verdaccio/types';
 
 import ActiveDirectoryPlugin, { NotAuthMessage } from '../src/active-directory';
-import logger from './__mocks__/Logger';
+
+const logger: Logger = {
+  warn: vi.fn(),
+  error: vi.fn(),
+  fatal: vi.fn(),
+  info: vi.fn(),
+  debug: vi.fn(),
+  child: vi.fn(),
+  http: vi.fn(),
+  trace: vi.fn(),
+};
 
 describe('Active Directory Plugin', () => {
   let adPlugin;

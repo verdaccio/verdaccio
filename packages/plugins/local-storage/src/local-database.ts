@@ -6,13 +6,15 @@ import FileAsync from 'lowdb/adapters/FileAsync';
 import FileMemory from 'lowdb/adapters/Memory';
 import path from 'node:path';
 
-import { authUtils, errorUtils, fileUtils, pluginUtils, searchUtils } from '@verdaccio/core';
-import { Config, Logger, Token, TokenFilter } from '@verdaccio/types';
+import type { searchUtils } from '@verdaccio/core';
+import { authUtils, errorUtils, fileUtils, pluginUtils } from '@verdaccio/core';
+import type { Config, Logger, Token, TokenFilter } from '@verdaccio/types';
 
 import { searchOnStorage } from './dir-utils';
 import { mkdirPromise, writeFilePromise } from './fs';
 import LocalDriver, { noSuchFile } from './local-fs';
-import { LocalStorage, loadPrivatePackages } from './pkg-utils';
+import type { LocalStorage } from './pkg-utils';
+import { loadPrivatePackages } from './pkg-utils';
 import { _dbGenPath } from './utils';
 
 const TOKEN_DB_NAME = '.token-db.json';
@@ -123,7 +125,6 @@ class LocalDatabase extends pluginUtils.Plugin<{}> implements Storage {
     }) as searchUtils.SearchItemPkg[];
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public async getScore(_pkg: searchUtils.SearchItemPkg): Promise<searchUtils.Score> {
     // TODO: there is no particular reason to predefined scores
     // could be improved by using
@@ -149,7 +150,7 @@ class LocalDatabase extends pluginUtils.Plugin<{}> implements Storage {
     const localResults = await searchOnStorage(storagePath, this.storages);
     const packagesOnStorage = await this.filterByQuery(localResults, query);
     debug('packages found %o', packagesOnStorage.length);
-    for (let storage of packagesOnStorage) {
+    for (const storage of packagesOnStorage) {
       // check if package is listed on the cache private database
       const isPrivate = (this.data as LocalStorage).list.includes(storage.name);
       const score = await this.getScore(storage);
@@ -206,16 +207,18 @@ class LocalDatabase extends pluginUtils.Plugin<{}> implements Storage {
       throw errorUtils.getInternalError('storage not found or implemented');
     }
 
-    const storagePath = this.getStoragePath();
-    const packageStoragePath: string = path.join(
-      path.resolve(storagePath, packagePath),
-      packageName
-    );
+    const packageStoragePath = path.resolve(path.join(packagePath, packageName));
 
     // Verify that the file path is under the storage root directory
     // to avoid "uncontrolled data used in path expression" issues
-    if (!packageStoragePath.startsWith(storagePath)) {
-      debug('packagePath %o, storagePath %o', packageStoragePath, storagePath);
+    const storageRoot = path.resolve(this.getStoragePath());
+
+    debug('packageStoragePath %o, storageRoot %o', packageStoragePath, storageRoot);
+
+    if (
+      !packageStoragePath.startsWith(storageRoot + path.sep) &&
+      packageStoragePath !== storageRoot
+    ) {
       throw errorUtils.getInternalError(
         'package-specific path is not under the configured storage directory'
       );

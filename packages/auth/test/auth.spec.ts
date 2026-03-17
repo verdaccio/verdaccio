@@ -14,9 +14,10 @@ import {
 } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 import { errorReportingMiddleware, final, handleError } from '@verdaccio/middleware';
-import { Config } from '@verdaccio/types';
+import type { Config } from '@verdaccio/types';
 
-import { $RequestExtend, Auth } from '../src';
+import type { $RequestExtend } from '../src';
+import { Auth } from '../src';
 import {
   authChangePasswordConf,
   authPluginFailureConf,
@@ -604,7 +605,7 @@ describe('AuthTest', () => {
 
         app.use(auth.apiJWTmiddleware());
         app.use(errorReportingMiddleware(logger) as any);
-        app.get('/*', (req, res, next) => {
+        app.get('/{*any}', (req, res, next) => {
           if ((req as $RequestExtend).remote_user.error) {
             next(new Error((req as $RequestExtend).remote_user.error));
           } else {

@@ -2,16 +2,15 @@ import buildDebug from 'debug';
 
 import { API_ERROR, errorUtils, tarballUtils } from '@verdaccio/core';
 
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
+import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
 
 const debug = buildDebug('verdaccio:middleware:allow');
 
 export function allow<T>(
   auth: T,
   options = {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     beforeAll: (_a: any, _b: any) => {},
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
     afterAll: (_a: any, _b: any) => {},
   }
 ): Function {

@@ -36,20 +36,25 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
   router.use(setSecurityWebHeaders);
 
   // any match within the static is routed to the file system
-  router.get(WebUrlsNamespace.static + '*', function (req, res, next) {
-    const filename = req.params[0];
-    let file = `${staticPath}/${filename}`;
-    if (filename === 'favicon.ico' && config?.web?.favicon) {
-      file = config?.web?.favicon;
-      if (isURLhasValidProtocol(file)) {
-        debug('redirect to favicon %s', file);
-        req.url = file;
-        return next();
+  router.get(
+    WebUrlsNamespace.static,
+    function (req: express.Request<{ all: string | string[] }>, res, next) {
+      const filename = Array.isArray(req.params.all) ? req.params.all.join('/') : req.params.all;
+      if (filename === 'favicon.ico' && config?.web?.favicon) {
+        const file = config?.web?.favicon;
+        if (isURLhasValidProtocol(file)) {
+          debug('redirect to favicon %s', file);
+          req.url = file;
+          return next();
+        }
+        debug('render custom favicon %o', file);
+        res.sendFile(file, sendFileCallback(next));
+        return;
       }
+      debug('render static file %o', filename);
+      res.sendFile(filename, { root: staticPath }, sendFileCallback(next));
     }
-    debug('render static file %o', file);
-    res.sendFile(file, sendFileCallback(next));
-  });
+  );
 
   function renderLogo(logo: string | undefined): string | undefined {
     // check the origin of the logo
@@ -65,11 +70,15 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
         ) {
           // Note: `path.join` will break on Windows, because it transforms `/` to `\`
           // Use POSIX version `path.posix.join` instead.
-          logo = path.posix.join(WebUrlsNamespace.static, path.basename(logo));
+          logo = `/-/static/${path.basename(logo)}`;
           router.get(logo, function (_req, res, next) {
             // @ts-ignore
             debug('serve custom logo  web:%s - local:%s', logo, absoluteLocalFile);
-            res.sendFile(absoluteLocalFile, sendFileCallback(next));
+            res.sendFile(
+              path.basename(absoluteLocalFile),
+              { root: path.dirname(absoluteLocalFile) },
+              sendFileCallback(next)
+            );
           });
           debug('enabled custom logo %s', logo);
         } else {
@@ -94,7 +103,7 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
   }
 
   // Handle all web routes including security routes
-  router.get(WebUrlsNamespace.web + '*', function (req, res) {
+  router.get(WebUrlsNamespace.web, function (req, res) {
     renderHTML(config, manifest, manifestFiles, req, res);
     debug('render html section');
   });

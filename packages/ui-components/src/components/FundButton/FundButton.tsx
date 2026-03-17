@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import React from 'react';
 import { Trans } from 'react-i18next';
 
-import { Theme } from '../../Theme';
+import type { Theme } from '../../Theme';
 import { url } from '../../utils';
 import LinkExternal from '../LinkExternal';
 
@@ -23,7 +23,6 @@ const StyledFundStrong = styled('strong')({
   marginRight: 3,
 });
 
-/* eslint-disable react/jsx-no-bind */
 const FundButton: React.FC<{ packageMeta: any }> = ({ packageMeta }) => {
   const fundingUrl = packageMeta?.latest?.funding?.url as string;
 

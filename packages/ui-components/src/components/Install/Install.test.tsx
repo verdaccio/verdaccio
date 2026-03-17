@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { PackageManagers } from '@verdaccio/types';
+import type { PackageManagers } from '@verdaccio/types';
 
 import { useConfig } from '../../providers';
 import { render, screen } from '../../test/test-react-testing-library';
@@ -15,7 +15,6 @@ const ComponentToBeRendered: React.FC<{ name?: string; pkgManagers?: PackageMana
   return <Install configOptions={configOptions} packageMeta={data} packageName={name} />;
 };
 
-/* eslint-disable react/jsx-no-bind*/
 describe('<Install />', () => {
   test('renders correctly', () => {
     render(<ComponentToBeRendered />);

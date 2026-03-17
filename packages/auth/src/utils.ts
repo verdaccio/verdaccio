@@ -2,23 +2,17 @@ import buildDebug from 'debug';
 import _ from 'lodash';
 
 import { createAnonymousRemoteUser } from '@verdaccio/config';
-import {
-  API_ERROR,
-  HTTP_STATUS,
-  TOKEN_BASIC,
-  TOKEN_BEARER,
-  errorUtils,
-  pluginUtils,
-} from '@verdaccio/core';
+import type { pluginUtils } from '@verdaccio/core';
+import { API_ERROR, HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER, errorUtils } from '@verdaccio/core';
 import {
   aesDecrypt,
   aesDecryptDeprecated,
   parseBasicPayload,
   verifyPayload,
 } from '@verdaccio/signature';
-import { AuthPackageAllow, Config, Logger, RemoteUser, Security } from '@verdaccio/types';
+import type { AuthPackageAllow, Config, Logger, RemoteUser, Security } from '@verdaccio/types';
 
-import {
+import type {
   ActionsAllowed,
   AllowAction,
   AllowActionCallback,
@@ -133,7 +127,11 @@ export const expireReasons: string[] = ['JsonWebTokenError', 'TokenExpiredError'
 
 export function verifyJWTPayload(token: string, secret: string, security: Security): RemoteUser {
   try {
-    const payload: RemoteUser = verifyPayload(token, secret, security?.api?.jwt?.verify);
+    const payload: RemoteUser = verifyPayload(
+      token,
+      secret,
+      security?.api?.jwt?.verify as Parameters<typeof verifyPayload>[2]
+    );
 
     return payload;
   } catch (error: any) {

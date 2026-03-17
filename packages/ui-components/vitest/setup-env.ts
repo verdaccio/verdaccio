@@ -11,7 +11,7 @@ Object.defineProperty(window, 'location', {
 });
 
 beforeAll(() => {
-  // Enable debug logging
+  // Enable these lines for futher debugging of MSW requests
   // server.events.on('request:start', (req) => {
   //   console.log('Request started:', req.url.href);
   // });

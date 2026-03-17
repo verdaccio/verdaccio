@@ -1,2 +1,2 @@
 export { runServer } from '@verdaccio/node-api';
-export { Registry, ResponseAssert, ServerQuery } from './server';
+export { Registry, type ResponseAssert, ServerQuery } from './server';

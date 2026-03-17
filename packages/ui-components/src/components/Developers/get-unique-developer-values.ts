@@ -1,4 +1,4 @@
-import { Developer } from '../../types/packageMeta';
+import type { Developer } from '../../types/packageMeta';
 
 function getUniqueDeveloperValues(developers?: Developer[]): Developer[] {
   if (!developers) {

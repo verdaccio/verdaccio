@@ -6,7 +6,8 @@ import { Config, parseConfigFile } from '@verdaccio/config';
 import { HEADER_TYPE } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 
-import { IProxy, ProxyStorage } from '../src';
+import type { IProxy } from '../src';
+import { ProxyStorage } from '../src';
 
 const getConf = (name) => path.join(__dirname, '/conf', name);
 

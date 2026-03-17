@@ -1,0 +1,77 @@
+[
+  {
+    "name": "storybook",
+    "version": "0.0.0",
+    "description": "Storybook: UI component explorer for frontend developers",
+    "author": {
+      "name": "gdi2290",
+      "email": "npm@gdi2290.com",
+      "url": "",
+      "avatar": "https://www.gravatar.com/avatar/00000000000000000000000000000000"
+    },
+    "license": "Apache-2.0",
+    "homepage": "https://storybook.js.org",
+    "time": "2023-01-15T10:30:00.000Z",
+    "keywords": ["ui", "components", "storybook"]
+  },
+  {
+    "name": "jquery",
+    "version": "1.5.1",
+    "description": "jQuery: The Write Less, Do More, JavaScript Library",
+    "author": {
+      "name": "John Resig",
+      "email": "jeresig@gmail.com",
+      "url": "",
+      "avatar": "https://www.gravatar.com/avatar/00000000000000000000000000000000"
+    },
+    "license": "MIT",
+    "homepage": "https://jquery.com",
+    "time": "2023-02-20T14:00:00.000Z",
+    "keywords": ["util", "dom", "jquery"]
+  },
+  {
+    "name": "@verdaccio/ui-components",
+    "version": "2.0.0",
+    "description": "Verdaccio UI Components Library - Major rewrite with React 19 support",
+    "author": {
+      "name": "verdaccio",
+      "email": "verdaccio@pm.me",
+      "url": "https://verdaccio.org",
+      "avatar": "https://www.gravatar.com/avatar/00000000000000000000000000000000"
+    },
+    "license": "MIT",
+    "homepage": "https://github.com/verdaccio/verdaccio",
+    "time": "2024-12-15T10:00:00.000Z",
+    "keywords": ["verdaccio", "ui", "components", "react"]
+  },
+  {
+    "name": "@verdaccio/auth",
+    "version": "3.0.0",
+    "description": "Verdaccio authentication handler with plugin system",
+    "author": {
+      "name": "verdaccio",
+      "email": "verdaccio@pm.me",
+      "url": "https://verdaccio.org",
+      "avatar": "https://www.gravatar.com/avatar/00000000000000000000000000000000"
+    },
+    "license": "MIT",
+    "homepage": "https://github.com/verdaccio/verdaccio",
+    "time": "2025-01-20T14:00:00.000Z",
+    "keywords": ["verdaccio", "auth", "authentication", "jwt"]
+  },
+  {
+    "name": "@verdaccio/proxy",
+    "version": "1.5.0",
+    "description": "Verdaccio proxy for uplink registries with caching",
+    "author": {
+      "name": "verdaccio",
+      "email": "verdaccio@pm.me",
+      "url": "https://verdaccio.org",
+      "avatar": "https://www.gravatar.com/avatar/00000000000000000000000000000000"
+    },
+    "license": "MIT",
+    "homepage": "https://github.com/verdaccio/verdaccio",
+    "time": "2024-11-10T16:00:00.000Z",
+    "keywords": ["verdaccio", "proxy", "uplink", "registry"]
+  }
+]

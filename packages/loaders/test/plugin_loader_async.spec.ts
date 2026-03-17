@@ -2,7 +2,7 @@ import path from 'node:path';
 import { describe, expect, test } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
-import { pluginUtils } from '@verdaccio/core';
+import type { pluginUtils } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 
 import { asyncLoadPlugin } from '../src/index';

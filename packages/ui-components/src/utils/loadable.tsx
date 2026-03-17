@@ -1,4 +1,3 @@
-/* eslint-disable verdaccio/jsx-spread */
 import React, { Suspense, lazy } from 'react';
 
 /**

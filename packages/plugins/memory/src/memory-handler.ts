@@ -2,10 +2,12 @@
 import buildDebug from 'debug';
 import { fs } from 'memfs';
 import path from 'node:path';
-import { Readable, Writable, addAbortSignal } from 'node:stream';
+import type { Readable, Writable } from 'node:stream';
+import { addAbortSignal } from 'node:stream';
 
-import { errorUtils, pluginUtils } from '@verdaccio/core';
-import { Logger, Manifest } from '@verdaccio/types';
+import type { pluginUtils } from '@verdaccio/core';
+import { errorUtils } from '@verdaccio/core';
+import type { Logger, Manifest } from '@verdaccio/types';
 
 import { parsePackage, stringifyPackage } from './utils';
 
@@ -288,7 +290,7 @@ class MemoryHandler implements pluginUtils.StorageHandler {
     debug('update package %o', packageName);
     try {
       const json = this.data[packageName];
-      let manifest = parsePackage(json);
+      const manifest = parsePackage(json);
       const newManifest = await handleUpdate(manifest);
       return newManifest;
     } catch (err: any) {

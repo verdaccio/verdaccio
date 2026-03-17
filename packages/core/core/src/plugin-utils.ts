@@ -1,7 +1,7 @@
 import type { Express, RequestHandler } from 'express';
-import { Readable, Writable } from 'node:stream';
+import type { Readable, Writable } from 'node:stream';
 
-import {
+import type {
   AllowAccess,
   Callback,
   Config,
@@ -13,7 +13,7 @@ import {
   TokenFilter,
 } from '@verdaccio/types';
 
-import { VerdaccioError, searchUtils } from '.';
+import type { VerdaccioError, searchUtils } from '.';
 
 export interface PluginOptions {
   config: Config;

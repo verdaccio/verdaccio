@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
-import { Manifest } from '@verdaccio/types';
+import type { Manifest } from '@verdaccio/types';
 
 import { getDeprecatedPackageMetadata } from '../src/getDeprecatedPackageMetadata';
-import { DistTags } from '../src/types';
+import type { DistTags } from '../src/types';
 
 describe('getDeprecatedPackageMetadata', () => {
   const pkgName = 'test-package';

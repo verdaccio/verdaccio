@@ -5,7 +5,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 import { API_ERROR, APP_ERROR } from '@verdaccio/core';
-import { ConfigYaml } from '@verdaccio/types';
+import type { ConfigYaml } from '@verdaccio/types';
 
 import { findConfigFile } from './config-path';
 import { fileExists } from './config-utils';
@@ -85,21 +85,21 @@ export function getConfigParsed(config?: string | ConfigYaml): ConfigYaml {
     debug('using default configuration');
     const configPathLocation = findConfigFile(config);
     configurationParsed = parseConfigFile(configPathLocation);
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+
     // @ts-expect-error
     if (!configurationParsed.self_path) {
       debug('self_path not defined, using config path location');
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+
       // @ts-expect-error
       configurationParsed.self_path = path.resolve(configPathLocation);
     }
   } else if (typeof config === 'object' && config !== null) {
     configurationParsed = config;
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+
     // @ts-expect-error
     if (!configurationParsed.self_path) {
       debug('self_path not defined, using config path location');
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+
       // @ts-expect-error
       configurationParsed.self_path = configurationParsed.configPath;
     }

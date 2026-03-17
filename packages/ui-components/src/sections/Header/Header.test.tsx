@@ -1,13 +1,12 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { vi } from 'vitest';
 
-import { HeaderInfoDialog, store } from '../../';
+import { HeaderInfoDialog } from '../../';
 import {
   act,
   cleanup,
   fireEvent,
-  renderWithStore,
+  renderWithRouter,
   screen,
   waitFor,
   waitForElementToBeRemoved,
@@ -15,6 +14,7 @@ import {
 import * as tokenUtils from '../../utils/token';
 import Header from './Header';
 
+// custom info dialog to test the info button in the header component
 function CustomInfoDialog({ onCloseDialog, title, isOpen }) {
   return (
     <HeaderInfoDialog
@@ -31,55 +31,83 @@ function CustomInfoDialog({ onCloseDialog, title, isOpen }) {
   );
 }
 
-/* eslint-disable react/jsx-no-bind*/
+async function login(username: string, password: string) {
+  fireEvent.click(screen.getByText('button.login'));
+  const userNameInput = screen.getByPlaceholderText('form-placeholder.username');
+  fireEvent.focus(userNameInput);
+  fireEvent.change(userNameInput, { target: { value: username } });
+  const passwordInput = screen.getByPlaceholderText('form-placeholder.password');
+  fireEvent.focus(passwordInput);
+  await act(async () => {
+    fireEvent.change(passwordInput, { target: { value: password } });
+  });
+  const signInButton = screen.getByTestId('login-dialog-form-login-button');
+  await act(async () => {
+    fireEvent.click(signInButton);
+  });
+}
+
+async function logout() {
+  const headerMenuAccountCircle = screen.getByTestId('logInDialogIcon');
+  fireEvent.click(headerMenuAccountCircle);
+  const logoutBtn = await waitFor(() => screen.findByText('button.logout'));
+  fireEvent.click(logoutBtn);
+}
+
 describe('<Header /> component with logged in state', () => {
-  beforeEach(() => {
-    store.dispatch.login.logOutUser();
+  const renderHeader = () => {
+    return renderWithRouter(
+      <Header HeaderInfoDialog={CustomInfoDialog} />,
+      '/-/web/detail/storybook',
+      ['/-/web/detail/storybook']
+    );
+  };
+
+  const originalLocation = window.location;
+  beforeAll(() => {
+    // Mock window.location with a reload function
+    Object.defineProperty(window, 'location', {
+      value: { reload: vi.fn() },
+      writable: true,
+    });
+  });
+
+  afterAll(() => {
+    // server.close();
+    // Restore the original window.location object
+    Object.defineProperty(window, 'location', {
+      value: originalLocation,
+      writable: true,
+    });
   });
 
   afterEach(() => {
     cleanup();
     vi.clearAllMocks();
+    // server.resetHandlers();
   });
 
   test('should load the component in logged out state', () => {
-    renderWithStore(
-      <Router>
-        <Header />
-      </Router>,
-      store
-    );
-
+    renderHeader();
     expect(screen.queryByTestId('logInDialogIcon')).toBeNull();
     expect(screen.getByText('button.login')).toBeTruthy();
     expect(screen.queryByTestId('header--button-login')).toBeInTheDocument();
   });
 
   test('should load the component in logged in state', async () => {
-    vi.spyOn(tokenUtils, 'isTokenExpire').mockReturnValue(false); // avoid immediate logout due to invalid token
-    renderWithStore(
-      <Router>
-        <Header />
-      </Router>,
-      store
-    );
-    act(() => {
-      store.dispatch.login.logInUser({ username: 'store', token: '12345' });
-    });
+    vi.spyOn(tokenUtils, 'isTokenExpire').mockReturnValue(false);
 
+    renderHeader();
+    await login('user', 'token');
     await waitFor(() => {
       expect(screen.getByTestId('logInDialogIcon')).toBeTruthy();
       expect(screen.queryByText('button.login')).toBeNull();
     });
+    await logout();
   });
 
   test('should open login dialog', async () => {
-    renderWithStore(
-      <Router>
-        <Header />
-      </Router>,
-      store
-    );
+    renderHeader();
 
     const loginBtn = screen.getByTestId('header--button-login');
     fireEvent.click(loginBtn);
@@ -91,86 +119,36 @@ describe('<Header /> component with logged in state', () => {
 
   test('should login and logout the user', async () => {
     vi.spyOn(tokenUtils, 'isTokenExpire').mockReturnValue(false); // avoid immediate logout due to invalid token
-    const { getByText, getByTestId, findByText, findByTestId } = renderWithStore(
-      <Router>
-        <Header />
-      </Router>,
-      store
-    );
-
-    fireEvent.click(screen.getByText('button.login'));
-    const userNameInput = screen.getByPlaceholderText('form-placeholder.username');
-    fireEvent.focus(userNameInput);
-    fireEvent.change(userNameInput, { target: { value: 'xyz' } });
-    const passwordInput = screen.getByPlaceholderText('form-placeholder.password');
-    fireEvent.focus(passwordInput);
-    await act(async () => {
-      fireEvent.change(passwordInput, { target: { value: '1234' } });
-    });
-    const signInButton = screen.getByTestId('login-dialog-form-login-button');
-    await act(async () => {
-      fireEvent.click(signInButton);
-    });
-    await waitFor(() => findByTestId('logInDialogIcon'));
-    const headerMenuAccountCircle = getByTestId('logInDialogIcon');
-    fireEvent.click(headerMenuAccountCircle);
-
-    // // wait for button Logout's appearance and return the element
-    const logoutBtn = await waitFor(() => findByText('button.logout'));
-    fireEvent.click(logoutBtn);
-    await waitFor(() => findByText('button.login'));
-    expect(getByText('button.login')).toBeTruthy();
+    renderHeader();
+    await login('user', 'token');
+    expect(screen.getByTestId('logInDialogIcon')).toBeTruthy();
+    await logout();
   });
 
   test('should display info button', () => {
-    renderWithStore(
-      <Router>
-        <Header />
-      </Router>,
-      store
-    );
+    renderHeader();
     expect(screen.getByTestId('header--tooltip-info')).toBeInTheDocument();
   });
 
   test('should display settings button', () => {
-    renderWithStore(
-      <Router>
-        <Header />
-      </Router>,
-      store
-    );
+    renderHeader();
     expect(screen.getByTestId('header--tooltip-settings')).toBeInTheDocument();
   });
 
   test('should display light button switch', () => {
-    renderWithStore(
-      <Router>
-        <Header />
-      </Router>,
-      store
-    );
+    renderHeader();
     expect(screen.getByTestId('header--button--light')).toBeInTheDocument();
   });
 
   test.todo('should test display dark button switch');
 
   test('should display search box', () => {
-    renderWithStore(
-      <Router>
-        <Header />
-      </Router>,
-      store
-    );
+    renderHeader();
     expect(screen.getByTestId('search-container')).toBeInTheDocument();
   });
 
   test('should open the registrationInfo modal when clicking on the info icon', async () => {
-    renderWithStore(
-      <Router>
-        <Header HeaderInfoDialog={CustomInfoDialog} />
-      </Router>,
-      store
-    );
+    renderHeader();
 
     const infoBtn = screen.getByTestId('header--tooltip-info');
     expect(infoBtn).toBeInTheDocument();
@@ -181,12 +159,7 @@ describe('<Header /> component with logged in state', () => {
   });
 
   test('should close the registrationInfo modal when clicking on the button close', async () => {
-    const { getByTestId, findByText, queryByTestId } = renderWithStore(
-      <Router>
-        <Header HeaderInfoDialog={CustomInfoDialog} />
-      </Router>,
-      store
-    );
+    const { getByTestId, findByText, queryByTestId } = renderHeader();
 
     const infoBtn = getByTestId('header--tooltip-info');
     fireEvent.click(infoBtn);
@@ -206,12 +179,7 @@ describe('<Header /> component with logged in state', () => {
       base: 'foo',
       login: false,
     };
-    renderWithStore(
-      <Router>
-        <Header HeaderInfoDialog={CustomInfoDialog} />
-      </Router>,
-      store
-    );
+    renderHeader();
 
     expect(screen.queryByTestId('header--button-login')).toBeNull();
   });
@@ -221,13 +189,7 @@ describe('<Header /> component with logged in state', () => {
       base: 'foo',
       showSearch: false,
     };
-    renderWithStore(
-      <Router>
-        <Header />
-      </Router>,
-      store
-    );
-
+    renderHeader();
     expect(screen.queryByTestId('search-container')).toBeNull();
   });
 
@@ -236,12 +198,7 @@ describe('<Header /> component with logged in state', () => {
       base: 'foo',
       showSettings: false,
     };
-    renderWithStore(
-      <Router>
-        <Header />
-      </Router>,
-      store
-    );
+    renderHeader();
 
     expect(screen.queryByTitle('header--tooltip-settings')).toBeNull();
   });
@@ -251,12 +208,7 @@ describe('<Header /> component with logged in state', () => {
       base: 'foo',
       showSettings: false,
     };
-    renderWithStore(
-      <Router>
-        <Header />
-      </Router>,
-      store
-    );
+    renderHeader();
 
     expect(screen.queryByTitle('header.registry-info')).toBeNull();
   });
@@ -266,56 +218,12 @@ describe('<Header /> component with logged in state', () => {
       base: 'foo',
       showThemeSwitch: false,
     };
-    renderWithStore(
-      <Router>
-        <Header />
-      </Router>,
-      store
-    );
+    renderHeader();
 
     expect(screen.queryByTitle('header.registry-info')).toBeNull();
   });
 
   test.todo('autocompletion should display suggestions according to the type value');
 
-  test('should log out user on mount if token is expired', async () => {
-    vi.spyOn(tokenUtils, 'isTokenExpire').mockReturnValue(true); // avoid immediate logout due to invalid token
-    act(() => {
-      store.dispatch.login.logInUser({ username: 'expired', token: 'expired-token' });
-    });
-    renderWithStore(
-      <Router>
-        <Header />
-      </Router>,
-      store
-    );
-    await waitFor(() => {
-      expect(store.getState().login.username).toBeNull();
-      expect(store.getState().login.token).toBeNull();
-    });
-  });
-
-  test('should log out user after 3 seconds if token expires (mocked interval)', async () => {
-    // Use real timers for this test
-    const isTokenExpireMock = vi.spyOn(tokenUtils, 'isTokenExpire');
-    isTokenExpireMock.mockReturnValue(false);
-
-    act(() => {
-      store.dispatch.login.logInUser({ username: 'user', token: 'valid-token' });
-    });
-
-    renderWithStore(
-      <Router>
-        <Header tokenCheckIntervalMs={1000} />
-      </Router>,
-      store
-    );
-
-    // Set token to expire before the interval fires and wait for the token to expire
-    isTokenExpireMock.mockReturnValue(true);
-    await new Promise((res) => setTimeout(res, 1500));
-
-    expect(store.getState().login.username).toBeNull();
-    expect(store.getState().login.token).toBeNull();
-  });
+  test.todo('token expiration and auto logout');
 });

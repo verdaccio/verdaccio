@@ -1,14 +1,12 @@
-/* eslint-disable verdaccio/jsx-spread */
 import SearchMui from '@mui/icons-material/Search';
 import debounce from 'lodash/debounce';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import { RouteComponentProps, withRouter } from 'react-router';
+import { useNavigate } from 'react-router';
 
-import { SearchResultWeb } from '@verdaccio/types';
+import type { SearchResultWeb } from '@verdaccio/types';
 
-import { Dispatch, RootState, useConfig } from '../../';
+import { useConfig, useSearch } from '../../';
 import { Route } from '../../utils';
 import AutoComplete from './AutoComplete';
 import SearchItem from './SearchItem';
@@ -19,103 +17,91 @@ const CONSTANTS = {
   ABORT_ERROR: 'AbortError',
 };
 
-const Search: React.FC<RouteComponentProps> = ({ history }) => {
+const Search: React.FC = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { searchResults, isLoading, doSearch } = useSearch();
   const {
     configOptions: { flags },
   } = useConfig();
-  const searchRemote = flags?.searchRemote || false;
-  const { suggestions } = useSelector((state: RootState) => state.search);
-  const isLoading = useSelector((state: RootState) => state?.loading?.models.search);
-  const dispatch = useDispatch<Dispatch>();
+  const searchRemote = flags?.searchRemote ?? false;
 
-  /**
-   * Cancel all the requests which are in pending state.
-   */
+  const abortControllerRef = useRef<AbortController | null>(null);
+
   const cancelAllSearchRequests = useCallback(() => {
-    dispatch.search.clearRequestQueue();
-    dispatch.search.saveSearch({ suggestions: [] });
-  }, [dispatch]);
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
+    }
+  }, []);
 
-  /**
-   * As user focuses out from input, we cancel all the request from requestList
-   * and set the API state parameters to default boolean values.
-   */
   const handleOnBlur = useCallback(
     (event: React.SyntheticEvent) => {
-      // stops event bubbling
       event.stopPropagation();
       cancelAllSearchRequests();
     },
     [cancelAllSearchRequests]
   );
 
-  /**
-   * When an user select any package by clicking or pressing return key.
-   */
   const handleClickSearch = useCallback(
     (event: React.SyntheticEvent, value: SearchResultWeb, reason: string): void => {
-      // stops event bubbling
       event.stopPropagation();
-      switch (reason) {
-        case 'selectOption':
-          if (searchRemote) {
-            // TODO: check this part
-            // @ts-ignore
-            history.push(`${Route.DETAIL}${value.package.name}`);
-          } else {
-            history.push(`${Route.DETAIL}${value.name}`);
-          }
-          break;
+      if (reason === 'selectOption') {
+        const pkgName = value['package']?.name ?? value.name;
+        navigate(`${Route.DETAIL}${pkgName}`);
       }
     },
-    [history, searchRemote]
+    [navigate, searchRemote]
   );
+
+  // Use a ref to always access the latest doSearch without re-creating the debounced function
+  const doSearchRef = useRef(doSearch);
+  doSearchRef.current = doSearch;
 
   /**
-   * Fetch packages from API.
-   * For AbortController see: https://developer.mozilla.org/en-US/docs/Web/API/AbortController
+   * Stable fetch function that reads the latest doSearch from a ref,
+   * avoiding dependency changes that would break the debounce.
    */
   const handleFetchPackages = useCallback(
-    ({ value }: { value: string }) => {
+    async ({ value }: { value: string }) => {
       if (value?.trim() !== '') {
-        dispatch.search.clearRequestQueue();
-        dispatch.search.getSuggestions({ value });
+        // Abort any previous pending request before starting a new one
+        cancelAllSearchRequests();
+
+        // Create a new controller for the current request
+        const controller = new AbortController();
+        abortControllerRef.current = controller;
+
+        try {
+          await doSearchRef.current?.({
+            text: value,
+            signal: controller.signal,
+          });
+        } catch (err: any) {
+          if (err.name === CONSTANTS.ABORT_ERROR) {
+            console.warn('Search request aborted');
+          } else {
+            console.error('Search error:', err);
+          }
+        }
       }
     },
-    [dispatch]
+    [cancelAllSearchRequests]
   );
 
-  const renderInput = (params) => {
-    return (
-      <StyledTextField
-        {...params}
-        InputProps={{
-          ...params.InputProps,
-          startAdornment: (
-            <StyledInputAdornment position="start">
-              <SearchMui />
-            </StyledInputAdornment>
-          ),
-        }}
-        label=""
-        placeholder={t('search.packages')}
-        variant="standard"
-      />
-    );
-  };
+  // Memoize the debounced function so a single instance is reused across renders,
+  // ensuring the debounce timer works correctly instead of creating a new timer per render.
+  const debouncedFetch = useMemo(
+    () => debounce(handleFetchPackages, CONSTANTS.API_DELAY),
+    [handleFetchPackages]
+  );
 
-  const getOptionLabel = () => {
-    if (searchRemote) {
-      return (option) => {
-        return option?.package?.name ?? '';
-      };
-    } else {
-      return (option) => {
-        return option?.name;
-      };
-    }
-  };
+  useEffect(() => {
+    return () => {
+      debouncedFetch.cancel?.();
+      cancelAllSearchRequests();
+    };
+  }, [debouncedFetch, cancelAllSearchRequests]);
 
   const renderOption = (props, option) => {
     const { key, ...otherProps } = props;
@@ -138,31 +124,55 @@ const Search: React.FC<RouteComponentProps> = ({ history }) => {
         />
       );
     } else {
+      const item: SearchResultWeb = option.package;
       return (
         <SearchItem
           key={key}
           {...otherProps}
-          description={option?.description}
-          name={option?.name}
-          version={option?.version}
+          description={item?.description}
+          name={item?.name}
+          version={item?.version}
         />
       );
     }
   };
 
+  const renderInput = (params) => {
+    return (
+      <StyledTextField
+        {...params}
+        InputProps={{
+          ...params.InputProps,
+          startAdornment: (
+            <StyledInputAdornment position="start">
+              <SearchMui />
+            </StyledInputAdornment>
+          ),
+        }}
+        label=""
+        placeholder={t('search.packages')}
+        variant="standard"
+      />
+    );
+  };
+
+  const getOptionLabel = (option) => {
+    return option?.package?.name;
+  };
+
   return (
     <AutoComplete
-      getOptionLabel={getOptionLabel()}
+      getOptionLabel={getOptionLabel}
       onCleanSuggestions={handleOnBlur}
       onSelectItem={handleClickSearch}
-      onSuggestionsFetch={debounce(handleFetchPackages, CONSTANTS.API_DELAY)}
+      onSuggestionsFetch={debouncedFetch}
       placeholder={t('search.packages')}
       renderInput={renderInput}
       renderOption={renderOption}
-      suggestions={suggestions}
+      suggestions={searchResults}
       suggestionsLoading={isLoading}
     />
   );
 };
 
-export default withRouter(Search as any);
+export default Search;

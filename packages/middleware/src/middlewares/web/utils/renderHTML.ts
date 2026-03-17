@@ -1,27 +1,28 @@
 import buildDebug from 'debug';
 import type { Response } from 'express';
-import LRU from 'lru-cache';
+import { LRUCache } from 'lru-cache';
 import path from 'node:path';
 import { URL } from 'node:url';
 
 import { WEB_TITLE } from '@verdaccio/config';
 import { HEADERS } from '@verdaccio/core';
-import { ConfigYaml, TemplateUIOptions } from '@verdaccio/types';
+import type { ConfigYaml, TemplateUIOptions } from '@verdaccio/types';
 import type { RequestOptions } from '@verdaccio/url';
 import { getPublicUrl, isURLhasValidProtocol } from '@verdaccio/url';
 
 import type { Manifest } from './manifest';
 import renderTemplate from './template';
-import type { WebpackManifest } from './template';
+import type { AssetManifest } from './template';
 import { hasLogin, validatePrimaryColor } from './web-utils';
 
 const DEFAULT_LANGUAGE = 'es-US';
-const cache = new LRU({ max: 500, ttl: 1000 * 60 * 60 });
+// Cache for rendered HTML templates: max 500 entries, 1 hour TTL
+const cache = new LRUCache({ max: 500, ttl: 1000 * 60 * 60 });
 
 const debug = buildDebug('verdaccio:web:render');
 
 const defaultManifestFiles: Manifest = {
-  js: ['runtime.js', 'vendors.js', 'main.js'],
+  js: ['vendors.js', 'main.js'],
   ico: 'favicon.ico',
   css: [],
 };
@@ -47,14 +48,14 @@ export function resolveLogo(
 
 export default function renderHTML(
   config: ConfigYaml,
-  manifest: WebpackManifest,
+  manifest: AssetManifest,
   manifestFiles: Manifest | null | undefined,
   requestOptions: RequestOptions,
   res: Response
 ) {
   const { url_prefix } = config;
   const base = getPublicUrl(config?.url_prefix, requestOptions);
-  const basename = new URL(base).pathname;
+  const basename = URL.canParse(base) ? new URL(base).pathname : base;
   const language = config?.i18n?.web ?? DEFAULT_LANGUAGE;
   const hideDeprecatedVersions = config?.web?.hideDeprecatedVersions ?? false;
   // @ts-ignore
@@ -132,7 +133,7 @@ export default function renderHTML(
 
   let webPage;
 
-  let cacheKey = `template:${JSON.stringify(options)}`;
+  const cacheKey = `template:${JSON.stringify(options)}`;
 
   try {
     webPage = cache.get(cacheKey);

@@ -5,13 +5,15 @@ import { vi } from 'vitest';
 import { fireEvent, render, screen } from '../../test/test-react-testing-library';
 import NotFound from './NotFound';
 
-const mockHistory = vi.fn();
+const mockNavigate = vi.fn();
 
-vi.mock('react-router-dom', () => ({
-  useHistory: () => ({
-    push: mockHistory,
-  }),
-}));
+vi.mock('react-router', async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    ...actual,
+    useNavigate: () => mockNavigate,
+  };
+});
 
 describe('<NotFound /> component', () => {
   test('should load the component in default state', () => {
@@ -35,6 +37,6 @@ describe('<NotFound /> component', () => {
 
     const node = getByTestId('not-found-go-to-home-button');
     fireEvent.click(node);
-    expect(mockHistory).toHaveBeenCalled();
+    expect(mockNavigate).toHaveBeenCalledWith('/');
   });
 });

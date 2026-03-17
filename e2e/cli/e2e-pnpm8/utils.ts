@@ -1,4 +1,4 @@
-import { SpawnOptions } from 'node:child_process';
+import type { SpawnOptions } from 'node:child_process';
 import { join } from 'node:path';
 
 import { exec } from '@verdaccio/test-cli-commons';

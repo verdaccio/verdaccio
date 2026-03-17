@@ -1,24 +1,20 @@
 import compression from 'compression';
 import cors from 'cors';
 import buildDebug from 'debug';
-import express, { Express } from 'express';
+import type { Express } from 'express';
+import express from 'express';
 import _ from 'lodash';
 import AuditMiddleware from 'verdaccio-audit';
 
 import apiEndpoint from '@verdaccio/api';
 import { Auth } from '@verdaccio/auth';
 import { Config as AppConfig } from '@verdaccio/config';
-import {
-  API_ERROR,
-  PLUGIN_CATEGORY,
-  PLUGIN_PREFIX,
-  errorUtils,
-  pkgUtils,
-  pluginUtils,
-} from '@verdaccio/core';
+import type { pluginUtils } from '@verdaccio/core';
+import { API_ERROR, PLUGIN_CATEGORY, PLUGIN_PREFIX, errorUtils, pkgUtils } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { logger } from '@verdaccio/logger';
 import {
+  dotfiles,
   errorReportingMiddleware,
   final,
   handleError,
@@ -27,11 +23,10 @@ import {
   userAgent,
 } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
-import { ConfigYaml } from '@verdaccio/types';
-import { Config as IConfig } from '@verdaccio/types';
+import type { ConfigYaml, Config as IConfig } from '@verdaccio/types';
 import webMiddleware from '@verdaccio/web';
 
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
+import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
 import hookDebug from './debug';
 
 const debug = buildDebug('verdaccio:server');
@@ -50,10 +45,12 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<Ex
   app.use(cors());
   app.use(rateLimit(config.server?.rateLimit));
 
+  app.use(dotfiles(config.server?.dotfiles ?? 'ignore'));
+
   const errorReportingMiddlewareWrap = errorReportingMiddleware(logger);
 
   // Router setup
-  app.use(log(logger));
+  app.use(log(logger, { hideStaticLogs: config.server?.hideStaticLogs ?? true }));
   app.use(errorReportingMiddlewareWrap);
   app.use(userAgent(config));
   app.use(compression());
@@ -119,7 +116,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<Ex
   }
 
   // Catch 404
-  app.get('/*', function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+  app.get('/{*any}', function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     next(errorUtils.getNotFound('resource not found'));
   });
 

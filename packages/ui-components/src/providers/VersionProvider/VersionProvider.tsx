@@ -1,95 +1,83 @@
-import React, { useEffect } from 'react';
-import { createContext, useContext } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import React, { createContext, useContext, useMemo } from 'react';
+import { useParams } from 'react-router';
 
-import { Dispatch, RootState } from '../../store/store';
-import { PackageMetaInterface } from '../../types/packageMeta';
+import { useData } from '../../api/use-data';
+import { getConfiguration } from '../../configuration';
+import { APIRoute } from '../../store/routes';
+import { stripTrailingSlash } from '../../store/utils';
+import type { PackageMetaInterface } from '../../types/packageMeta';
 
 function getRouterPackageName(packageName: string, scope?: string): string {
-  if (scope) {
-    return `@${scope}/${packageName}`;
-  }
+  return scope ? `${scope}/${packageName}` : packageName;
+}
 
-  return packageName;
+export interface ApiError extends Error {
+  code?: number;
 }
 
 export interface DetailContextProps {
+  error: ApiError | undefined;
   hasNotBeenFound: boolean;
+  isForbidden: boolean;
+  isUnAuthorized: boolean;
+  isError: boolean;
   isLoading: boolean;
-  packageMeta: PackageMetaInterface;
+  packageMeta?: PackageMetaInterface;
   packageName: string;
   packageVersion?: string;
-  readMe: string;
+  readMe?: string;
 }
 
-export interface VersionPageConsumerProps {
-  packageMeta: PackageMetaInterface;
-  packageName: string;
-  packageVersion?: string;
-  readMe: string;
-}
+export const DetailContext = createContext<DetailContextProps | undefined>(undefined);
 
-export const DetailContext = createContext<Partial<DetailContextProps>>({});
+const VersionProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const {
+    scope,
+    package: pkgName,
+    version: packageVersion,
+  } = useParams<Record<'scope' | 'package' | 'version', string | undefined>>();
 
-interface Params {
-  scope?: string;
-  package: string;
-  version?: string;
-}
+  const configuration = getConfiguration();
+  const basePath = stripTrailingSlash(configuration.base);
+  const packageName = getRouterPackageName(pkgName ?? '', scope);
 
-/**
-*
-*  @example
-    Once a component has been wrapped with `VersionProvider`, use the hook `useVersion()` to get an object with:
-    ```jsx
-    function CustomComponent() {
-      const { packageMeta, packageName, packageVersion } = useVersion();
-      return <div />;
-    }
+  const readmeData = useData<string>(basePath, APIRoute.README, packageName, packageVersion);
 
-    <Route path={Routes.PACKAGE}>
-      <VersionProvider>
-        <CustomComponent />
-      </VersionProvider>
-    </Route>;
-    ```
-    On mount, the provider will fetch data from the store for specific package or version provided via router.
-   @category Provider
- */
-const VersionProvider: React.FC<{ children: any }> = ({ children }) => {
-  const router = useParams<Params>();
-
-  const { version: packageVersion, package: pkgName, scope } = router;
-
-  // @ts-ignore
-  const { manifest, readme, packageName, hasNotBeenFound } = useSelector(
-    (state: RootState) => state.manifest
+  const sidebarData = useData<PackageMetaInterface>(
+    basePath,
+    APIRoute.SIDEBAR,
+    packageName,
+    packageVersion
   );
-  const isLoading = useSelector((state: RootState) => state?.loading?.models.manifest);
-  const dispatch = useDispatch<Dispatch>();
-  useEffect(() => {
-    const packageName = getRouterPackageName(pkgName, scope);
+  const isLoading = readmeData.isLoading || sidebarData.isLoading;
+  const error: ApiError | undefined = readmeData.error || sidebarData.error;
+  const errorCode = (readmeData.error as ApiError)?.code ?? (sidebarData.error as ApiError)?.code;
 
-    dispatch.manifest.getManifest({ packageName, packageVersion });
-  }, [dispatch, packageVersion, pkgName, scope]);
-
-  return (
-    <DetailContext.Provider
-      value={{
-        packageMeta: manifest,
-        packageVersion,
-        readMe: readme,
-        packageName,
-        isLoading,
-        hasNotBeenFound,
-      }}
-    >
-      {children}
-    </DetailContext.Provider>
+  const value = useMemo<DetailContextProps>(
+    () => ({
+      packageMeta: sidebarData.data,
+      readMe: readmeData.data,
+      packageName,
+      packageVersion,
+      isLoading,
+      isForbidden: errorCode === 403,
+      isUnAuthorized: errorCode === 401,
+      hasNotBeenFound: errorCode === 404,
+      isError: errorCode !== undefined,
+      error,
+    }),
+    [sidebarData.data, readmeData.data, packageName, packageVersion, isLoading, errorCode, error]
   );
+
+  return <DetailContext.Provider value={value}>{children}</DetailContext.Provider>;
 };
 
 export default VersionProvider;
 
-export const useVersion = () => useContext(DetailContext);
+export const useVersion = (): DetailContextProps => {
+  const context = useContext(DetailContext);
+  if (context === undefined) {
+    throw new Error('useVersion must be used within a VersionProvider');
+  }
+  return context;
+};

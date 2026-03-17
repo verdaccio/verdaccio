@@ -4,7 +4,7 @@ import { describe, expect, test } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
 import { logger, setup } from '@verdaccio/logger';
-import { Token } from '@verdaccio/types';
+import type { Token } from '@verdaccio/types';
 
 import LocalMemory from '../src/index';
 import pkgExample from './partials/pkg';

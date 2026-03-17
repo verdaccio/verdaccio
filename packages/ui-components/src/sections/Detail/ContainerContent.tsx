@@ -11,16 +11,10 @@ export enum TabPosition {
   UPLINKS = 'uplinks',
 }
 
-const Versions = loadable(
-  () => import(/* webpackChunkName: "Versions" */ '../../components/Versions')
-);
-const UpLinks = loadable(
-  () => import(/* webpackChunkName: "UpLinks" */ '../../components/UpLinks')
-);
+const Versions = loadable(() => import('../../components/Versions'));
+const UpLinks = loadable(() => import('../../components/UpLinks'));
 
-const Dependencies = loadable(
-  () => import(/* webpackChunkName: "Dependencies" */ '../../components/Dependencies')
-);
+const Dependencies = loadable(() => import('../../components/Dependencies'));
 
 interface Props {
   tabPosition: TabPosition;

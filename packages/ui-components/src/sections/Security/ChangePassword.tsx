@@ -1,114 +1,140 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Typography } from '@mui/material';
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
+import { useDataMutation } from '../../api/use-data-mutation';
+import LoginDialogFormError from '../../components/LoginDialog/LoginDialogFormError';
+import { getConfiguration } from '../../configuration';
 import SecurityLayout from '../../layouts/Security/Dialog';
-import { Dispatch, RootState } from '../../store';
-import LoginError from './LoginError';
+import { normalizeAuthError } from '../../providers/AuthProvider/utils';
+import { stripTrailingSlash } from '../../store/utils';
+import { Route } from '../../utils';
+import { APIRoute } from '../../utils/routes';
+import type { ChangePasswordFormValues } from '../../utils/schemas';
+import { changePasswordSchema } from '../../utils/schemas';
 import { MessageType } from './Success';
 import { SecurityContainer, SecurityForm, SecurityTextField } from './styles';
-import { getSecurityUrlParams, validateCredentials } from './utils';
 
 const ChangePassword: React.FC = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch<Dispatch>();
-  const changePasswordStore = useSelector((state: RootState) => state.changePassword);
-  const usernameRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
+  const configuration = getConfiguration();
+  const basePath = stripTrailingSlash(configuration.base);
+  const changePasswordEnabled = configuration?.flags?.changePassword;
 
-  const location = useLocation();
-  const { user } = getSecurityUrlParams(location);
+  const form = useForm<ChangePasswordFormValues>({
+    mode: 'onChange',
+    defaultValues: {
+      username: '',
+      oldPassword: '',
+      newPassword: '',
+      confirmPassword: '',
+    },
+    resolver: yupResolver(changePasswordSchema),
+  });
 
-  const [username, setUsername] = React.useState(user);
-  const [oldPassword, setOldPassword] = React.useState('');
-  const [newPassword, setNewPassword] = React.useState('');
-  const [confirmPassword, setConfirmPassword] = React.useState('');
-  const [passwordMismatch, setPasswordMismatch] = React.useState(false);
+  const {
+    setError,
+    handleSubmit,
+    register,
+    formState: { isValid, errors },
+  } = form;
+
+  const { trigger } = useDataMutation<{ ok: string }>(basePath, APIRoute.RESET_PASSWORD, 'PUT');
+
+  const handleChangePassword = useCallback(
+    async (body: { password: { old: string; new: string } }) => {
+      try {
+        await trigger(body);
+      } catch (err) {
+        throw normalizeAuthError(err);
+      }
+    },
+    [trigger]
+  );
+
+  const onSubmit = useCallback(
+    async (data: ChangePasswordFormValues) => {
+      try {
+        await handleChangePassword({
+          password: {
+            old: data.oldPassword,
+            new: data.newPassword,
+          },
+        });
+        navigate(`${Route.SUCCESS}?messageType=${MessageType.ChangePassword}`);
+      } catch {
+        setError('root', {
+          type: 'server',
+          message: 'Failed to change password',
+        });
+      }
+    },
+    [handleChangePassword, setError, navigate]
+  );
 
   useEffect(() => {
-    if (username) {
-      passwordRef.current?.focus();
-    } else {
-      usernameRef.current?.focus();
+    if (!changePasswordEnabled) {
+      navigate('/');
     }
-  }, [username]);
+  }, [changePasswordEnabled, navigate]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    dispatch.changePassword.clearError();
-    setPasswordMismatch(false);
-
-    if (!validateCredentials(username, oldPassword, t, dispatch.changePassword.addError)) {
-      return;
-    }
-
-    if (newPassword !== confirmPassword) {
-      setPasswordMismatch(true);
-      dispatch.changePassword.addError({
-        type: 'error',
-        description: t('security.error.password-mismatch'),
-      });
-      return;
-    }
-
-    await dispatch.changePassword.updatePassword({
-      username,
-      oldPassword,
-      newPassword,
-      messageType: MessageType.ChangePassword,
-    });
-  };
-
-  return (
+  return changePasswordEnabled ? (
     <SecurityLayout>
       <SecurityContainer>
-        <SecurityForm component="form" onSubmit={handleSubmit}>
+        <SecurityForm component="form" onSubmit={handleSubmit(onSubmit)}>
           <Typography align="center" component="h1" gutterBottom={true} variant="h4">
             {t('security.changePassword.title')}
           </Typography>
           <SecurityTextField
-            error={!!changePasswordStore.error}
-            inputRef={usernameRef}
+            error={!!errors.username}
+            helperText={errors.username?.message}
             label={t('security.changePassword.username')}
-            onChange={(e) => setUsername(e.target.value)}
+            {...register('username')}
             required={true}
-            value={username}
           />
           <SecurityTextField
-            error={!!changePasswordStore.error}
-            inputRef={passwordRef}
+            error={!!errors.oldPassword}
+            helperText={errors.oldPassword?.message}
             label={t('security.changePassword.oldPassword')}
-            onChange={(e) => setOldPassword(e.target.value)}
+            {...register('oldPassword')}
             required={true}
             type="password"
-            value={oldPassword}
           />
           <SecurityTextField
-            error={!!changePasswordStore.error || passwordMismatch}
+            error={!!errors.newPassword}
+            helperText={errors.newPassword?.message}
             label={t('security.changePassword.newPassword')}
-            onChange={(e) => setNewPassword(e.target.value)}
+            {...register('newPassword')}
             required={true}
             type="password"
-            value={newPassword}
           />
           <SecurityTextField
-            error={!!changePasswordStore.error || passwordMismatch}
+            error={!!errors.confirmPassword}
+            helperText={errors.confirmPassword?.message}
             label={t('security.changePassword.confirmPassword')}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            {...register('confirmPassword')}
             required={true}
             type="password"
-            value={confirmPassword}
           />
-          {changePasswordStore.error && <LoginError error={changePasswordStore.error} />}
-          <Button color="primary" fullWidth={true} sx={{ mt: 2 }} type="submit" variant="contained">
+          {errors.root && <LoginDialogFormError error={errors.root} />}
+          <Button
+            color="primary"
+            disabled={!isValid}
+            fullWidth={true}
+            sx={{ mt: 2 }}
+            type="submit"
+            variant="contained"
+          >
             {t('security.changePassword.submit')}
           </Button>
         </SecurityForm>
       </SecurityContainer>
     </SecurityLayout>
-  );
+  ) : null;
 };
 
 export default ChangePassword;

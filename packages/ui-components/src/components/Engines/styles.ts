@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import ListItem from '@mui/material/ListItem';
 import Typography from '@mui/material/Typography';
 
-import { Theme } from '../../Theme';
+import type { Theme } from '../../Theme';
 
 export const StyledText = styled(Typography)<{ theme?: Theme }>((props) => ({
   fontWeight: props.theme.fontWeight.bold,

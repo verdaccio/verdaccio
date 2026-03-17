@@ -1,4 +1,4 @@
-import { APITokenOptions, JWTOptions, Security } from '@verdaccio/types';
+import type { APITokenOptions, JWTOptions, Security } from '@verdaccio/types';
 
 // TODO: get this from core package
 export const TIME_EXPIRATION_1H = '1h';

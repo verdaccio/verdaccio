@@ -1,5 +1,5 @@
 describe('home spec', () => {
-  let ctx: any = {};
+  const ctx: any = {};
   beforeEach(async () => {
     // @ts-expect-error
     const registry = await cy.task('registry');

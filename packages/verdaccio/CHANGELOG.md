@@ -1,5 +1,91 @@
 # verdaccio
 
+## 9.0.0-next-9.4
+
+### Major Changes
+
+- 52a6520: Replace Babel and esbuild build pipeline with Vite 8 across all packages. All packages now output dual ESM (.mjs) and CJS (.js) formats with TypeScript declarations generated via vite-plugin-dts. Includes shared build config at vite.lib.config.mjs, proper exports field in all package.json files, and fixes for type-only re-exports required by Rollup's stricter module analysis.
+
+### Patch Changes
+
+- Updated dependencies [52a6520]
+  - @verdaccio/cli@9.0.0-next-9.4
+  - @verdaccio/hooks@9.0.0-next-9.4
+  - @verdaccio/logger@9.0.0-next-9.4
+  - @verdaccio/node-api@9.0.0-next-9.4
+  - verdaccio-audit@14.0.0-next-9.4
+  - verdaccio-htpasswd@14.0.0-next-9.4
+  - @verdaccio/ui-theme@9.0.0-next-9.4
+
+## 9.0.0-next-9.3
+
+### Patch Changes
+
+- @verdaccio/node-api@9.0.0-next-9.3
+- @verdaccio/cli@9.0.0-next-9.3
+- @verdaccio/hooks@9.0.0-next-9.3
+- verdaccio-audit@14.0.0-next-9.3
+- verdaccio-htpasswd@14.0.0-next-9.3
+- @verdaccio/logger@9.0.0-next-9.3
+- @verdaccio/ui-theme@9.0.0-next-9.3
+
+## 9.0.0-next-9.2
+
+### Patch Changes
+
+- Updated dependencies [325c584]
+  - @verdaccio/ui-theme@9.0.0-next-9.2
+  - @verdaccio/node-api@9.0.0-next-9.2
+  - @verdaccio/hooks@9.0.0-next-9.2
+  - @verdaccio/cli@9.0.0-next-9.2
+  - verdaccio-audit@14.0.0-next-9.2
+  - verdaccio-htpasswd@14.0.0-next-9.2
+  - @verdaccio/logger@9.0.0-next-9.2
+
+## 9.0.0-next-9.1
+
+### Patch Changes
+
+- Updated dependencies [dd9bad3]
+  - verdaccio-audit@14.0.0-next-9.1
+  - @verdaccio/node-api@9.0.0-next-9.1
+  - @verdaccio/hooks@9.0.0-next-9.1
+  - @verdaccio/ui-theme@9.0.0-next-9.1
+  - @verdaccio/cli@9.0.0-next-9.1
+  - verdaccio-htpasswd@14.0.0-next-9.1
+  - @verdaccio/logger@9.0.0-next-9.1
+
+## 9.0.0-next-9.0
+
+### Major Changes
+
+- 7f80af5: chore: bump package
+
+### Patch Changes
+
+- Updated dependencies [7f80af5]
+  - @verdaccio/cli@9.0.0-next-9.0
+  - @verdaccio/hooks@9.0.0-next-9.0
+  - @verdaccio/logger@9.0.0-next-9.0
+  - @verdaccio/node-api@9.0.0-next-9.0
+  - verdaccio-audit@14.0.0-next-9.0
+  - verdaccio-htpasswd@14.0.0-next-9.0
+  - @verdaccio/ui-theme@9.0.0-next-9.0
+
+## 8.0.0-next-8.31
+
+### Patch Changes
+
+- Updated dependencies [b5eccfc]
+- Updated dependencies [3243194]
+  - @verdaccio/ui-theme@8.0.0-next-8.31
+  - verdaccio-audit@13.0.0-next-8.31
+  - @verdaccio/cli@8.0.0-next-8.31
+  - @verdaccio/hooks@8.0.0-next-8.31
+  - @verdaccio/logger@8.0.0-next-8.31
+  - @verdaccio/node-api@8.0.0-next-8.31
+  - verdaccio-htpasswd@13.0.0-next-8.31
+
 ## 8.0.0-next-8.30
 
 ### Patch Changes

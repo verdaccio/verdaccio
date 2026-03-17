@@ -1,12 +1,32 @@
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { clone, merge } from 'lodash';
 import React from 'react';
+import { MemoryRouter, Route, Routes } from 'react-router';
 
 import { default as ActionBar } from '.';
+import { DownloadProvider, VersionProvider } from '../../providers';
+
+const withProviders = (Story) => (
+  <MemoryRouter initialEntries={['/detail/verdaccio']}>
+    <Routes>
+      <Route
+        element={
+          <VersionProvider>
+            <DownloadProvider>
+              <Story />
+            </DownloadProvider>
+          </VersionProvider>
+        }
+        path="/detail/:package"
+      />
+    </Routes>
+  </MemoryRouter>
+);
 
 const meta: Meta<typeof ActionBar> = {
   title: 'Components/Sidebar/ActionBar',
   component: ActionBar,
+  decorators: [withProviders],
 };
 
 export default meta;

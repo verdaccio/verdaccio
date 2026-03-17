@@ -3,7 +3,7 @@ import NightsStay from '@mui/icons-material/NightsStay';
 import Search from '@mui/icons-material/Search';
 import Settings from '@mui/icons-material/Settings';
 import WbSunny from '@mui/icons-material/WbSunny';
-import React, { forwardRef } from 'react';
+import React from 'react';
 
 import { IconSearchButton, InfoButton, SettingsButtom, SwitchThemeButton } from './styles';
 
@@ -15,12 +15,11 @@ interface Props {
 
 type HeaderToolTipIconRef = HTMLButtonElement;
 
-/* eslint-disable react/jsx-no-undef */
-/* eslint-disable react/display-name */
-const HeaderToolTipIcon = forwardRef<HeaderToolTipIconRef, Props>(function HeaderToolTipIcon(
-  { tooltipIconType, onClick },
-  ref
-) {
+const HeaderToolTipIcon = function HeaderToolTipIcon({
+  ref,
+  tooltipIconType,
+  onClick,
+}: Props & { ref?: React.RefObject<HeaderToolTipIconRef | null> }) {
   switch (tooltipIconType) {
     case 'info':
       return (
@@ -82,6 +81,6 @@ const HeaderToolTipIcon = forwardRef<HeaderToolTipIconRef, Props>(function Heade
     default:
       return null;
   }
-});
+};
 
 export default HeaderToolTipIcon;

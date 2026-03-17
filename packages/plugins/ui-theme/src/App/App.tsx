@@ -1,22 +1,21 @@
-/* eslint-disable react/jsx-pascal-case */
-
-/* eslint-disable react/jsx-max-depth */
-import styled from '@emotion/styled';
 import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
 import * as FlagsIcon from 'country-flag-icons/react/3x2';
 import React, { StrictMode, Suspense, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
-import { Router, useLocation } from 'react-router-dom';
+import { BrowserRouter, useLocation } from 'react-router';
 
 import {
+  ErrorBoundary,
   Footer,
   Header,
   HeaderInfoDialog,
   Loading,
   Route,
-  Theme,
+  SearchProvider,
   TranslatorProvider,
+  breakPoints,
   useConfig,
 } from '@verdaccio/ui-components';
 
@@ -27,24 +26,22 @@ import license from '../components/license.md';
 import i18n from '../i18n/config';
 import { listLanguages } from '../i18n/enabledLanguages';
 import loadDayJSLocale from '../i18n/load-dayjs-locale';
-import AppRoute, { history } from './AppRoute';
+import AppRoute from './AppRoute';
 
-const StyledBox = styled(Box)<{ theme?: Theme }>(({ theme }) => {
-  return {
-    backgroundColor: theme.palette.background.default,
-  };
-});
+const StyledBox = styled(Box)(({ theme }) => ({
+  backgroundColor: theme.palette.background.default,
+}));
 
-const StyledBoxContent = styled(Box)<{ theme?: Theme }>(({ theme }) => ({
-  [`@media screen and (min-width: ${theme.breakPoints.container}px)`]: {
-    maxWidth: theme.breakPoints.container,
+const StyledBoxContent = styled(Box)({
+  [`@media screen and (min-width: ${breakPoints.container}px)`]: {
+    maxWidth: breakPoints.container,
     width: '100%',
     marginLeft: 'auto',
     marginRight: 'auto',
   },
-}));
+});
 
-const Flags = styled('span')<{ theme?: Theme }>(() => ({
+const Flags = styled('span')(() => ({
   width: '25px',
 }));
 
@@ -99,7 +96,9 @@ const AppContent: React.FC = () => {
 
   return (
     <StyledBox display="flex" flexDirection="column" height="100%">
-      <Header HeaderInfoDialog={CustomInfoDialog} isPlainHeader={isPlainHeader} />
+      <SearchProvider>
+        <Header HeaderInfoDialog={CustomInfoDialog} isPlainHeader={isPlainHeader} />
+      </SearchProvider>
       <StyledBoxContent flexGrow={1}>
         <AppRoute />
       </StyledBoxContent>
@@ -108,18 +107,28 @@ const AppContent: React.FC = () => {
   );
 };
 
+// @ts-ignore
+const basename = window?.__VERDACCIO_BASENAME_UI_OPTIONS?.url_prefix;
+
 const App: React.FC = () => {
   return (
     <StrictMode>
-      <TranslatorProvider i18n={i18n} listLanguages={listLanguages} onMount={() => loadDayJSLocale}>
-        <Suspense fallback={<Loading />}>
-          <Router history={history}>
-            <AppContent />
-          </Router>
-        </Suspense>
-      </TranslatorProvider>
+      <ErrorBoundary>
+        <TranslatorProvider
+          i18n={i18n}
+          listLanguages={listLanguages}
+          onMount={() => loadDayJSLocale}
+        >
+          <Suspense fallback={<Loading />}>
+            <BrowserRouter basename={basename}>
+              <AppContent />
+            </BrowserRouter>
+          </Suspense>
+        </TranslatorProvider>
+      </ErrorBoundary>
     </StrictMode>
   );
 };
 
 export default App;
+export { AppContent };

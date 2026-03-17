@@ -1,4 +1,4 @@
-import { GenericBody, Manifest } from '@verdaccio/types';
+import type { GenericBody, Manifest } from '@verdaccio/types';
 
 import { getTarball } from './utils';
 

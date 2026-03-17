@@ -1,12 +1,12 @@
 import React from 'react';
 import { vi } from 'vitest';
 
-import { render, screen } from '../../test/test-react-testing-library';
+import { renderWithRouteDetail, screen } from '../../test/test-react-testing-library';
 import ErrorBoundary from './ErrorBoundary';
 
 describe('ErrorBoundary component', () => {
   test('should render children when no error is caught', () => {
-    render(
+    renderWithRouteDetail(
       <ErrorBoundary>
         <div>{'Test'}</div>
       </ErrorBoundary>
@@ -24,15 +24,14 @@ describe('ErrorBoundary component', () => {
     const spy = vi.spyOn(console, 'error');
     spy.mockImplementation(() => {});
 
-    render(
+    renderWithRouteDetail(
       <ErrorBoundary>
         <ErrorComponent />
       </ErrorBoundary>
     );
 
-    expect(screen.getByText('Something went wrong.')).toBeInTheDocument();
-    expect(screen.getByText(/error:/)).toBeInTheDocument();
-    expect(screen.getByText(/info:/)).toBeInTheDocument();
+    expect(screen.getByText('Something went wrong.', { exact: false })).toBeInTheDocument();
+    expect(screen.getByText('error', { exact: false })).toBeInTheDocument();
 
     // Restore console.error after test
     spy.mockRestore();

@@ -98,7 +98,7 @@ export function runDeprecate(npm) {
         // // deprecate all version
         await deprecate(tempFolder, pkgName, registry, message);
         // verify is deprecated
-        for (let v of ['1.0.0', '1.1.0', '1.2.0', '1.3.0']) {
+        for (const v of ['1.0.0', '1.1.0', '1.2.0', '1.3.0']) {
           const infoResp = await npmUtils.getInfoVersions(npm, `${pkgName}@${v}`, registry);
           expect(infoResp.deprecated).toEqual(message);
         }

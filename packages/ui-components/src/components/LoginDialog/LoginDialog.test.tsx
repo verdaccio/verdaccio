@@ -1,12 +1,11 @@
 import React from 'react';
 import { vi } from 'vitest';
 
-import { api, store } from '../../';
 import {
   act,
   cleanup,
   fireEvent,
-  renderWithStore,
+  renderWithRouter,
   screen,
   waitFor,
 } from '../../test/test-react-testing-library';
@@ -23,7 +22,9 @@ describe('<LoginDialog /> component', () => {
     const props = {
       onClose: vi.fn(),
     };
-    const { container } = renderWithStore(<LoginDialog onClose={props.onClose} />, store);
+    const { container } = renderWithRouter(<LoginDialog onClose={props.onClose} />, '/login', [
+      '/login',
+    ]);
     expect(container.firstChild).toMatchSnapshot();
   });
 
@@ -33,9 +34,10 @@ describe('<LoginDialog /> component', () => {
       onClose: vi.fn(),
     };
 
-    const { getByTestId } = renderWithStore(
+    const { getByTestId } = renderWithRouter(
       <LoginDialog onClose={props.onClose} open={props.open} />,
-      store
+      '/login',
+      ['/login']
     );
 
     const loginDialogHeading = await waitFor(() => getByTestId('login-dialog-form-login-button'));
@@ -48,9 +50,10 @@ describe('<LoginDialog /> component', () => {
       onClose: vi.fn(),
     };
 
-    const { getByTestId } = renderWithStore(
+    const { getByTestId } = renderWithRouter(
       <LoginDialog onClose={props.onClose} open={props.open} />,
-      store
+      '/login',
+      ['/login']
     );
 
     const loginDialogButton = await waitFor(() => getByTestId('close-login-dialog-button'));
@@ -69,15 +72,10 @@ describe('<LoginDialog /> component', () => {
       onClose: vi.fn(),
     };
 
-    vi.spyOn(api, 'request').mockImplementation(() =>
-      Promise.resolve({
-        username: 'xyz',
-        token: 'djsadaskljd',
-      })
-    );
-
     await act(async () => {
-      renderWithStore(<LoginDialog onClose={props.onClose} open={props.open} />, store);
+      renderWithRouter(<LoginDialog onClose={props.onClose} open={props.open} />, '/login', [
+        '/login',
+      ]);
     });
 
     const userNameInput = screen.getByPlaceholderText('form-placeholder.username');

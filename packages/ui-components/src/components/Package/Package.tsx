@@ -8,13 +8,16 @@ import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Tooltip from '@mui/material/Tooltip';
+import { common, grey } from '@mui/material/colors';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
 
-import { Dispatch, Link, LinkExternal, RootState, Theme } from '../../';
+import type { Theme } from '../../';
+import { Link, LinkExternal, useDownload, useManifests } from '../../';
 import { FileBinary, Law, Time, Version } from '../../components/Icons';
-import { Author as PackageAuthor, PackageMetaInterface } from '../../types/packageMeta';
+import { getConfiguration } from '../../configuration';
+import type { Author as PackageAuthor } from '../../providers/ManifestsProvider/ManifestsProvider';
+import type { PackageMetaInterface } from '../../types/packageMeta';
 import { Route, url, utils } from '../../utils';
 import KeywordListItems from '../Keywords/KeywordListItems';
 import {
@@ -35,6 +38,7 @@ import {
 interface Bugs {
   url: string;
 }
+
 interface Dist {
   unpackedSize: number;
   tarball: string;
@@ -67,18 +71,18 @@ const Package: React.FC<PackageInterface> = ({
   showDownload = true,
   version,
 }) => {
-  const config = useSelector((state: RootState) => state.configuration.config);
-  const dispatch = useDispatch<Dispatch>();
+  const config = getConfiguration();
   const { t } = useTranslation();
-  const isLoading = useSelector((state: RootState) => state?.loading?.models.download);
+  const { isLoading } = useManifests();
+  const { downloadTarball } = useDownload();
 
   const handleDownload = useCallback(
     async (tarballDist: string) => {
       // FIXME: check, the dist might be different thant npmjs
       const link = tarballDist.replace(`https://registry.npmjs.org/`, config.base);
-      dispatch.download.getTarball({ link });
+      downloadTarball?.({ link });
     },
-    [dispatch, config]
+    [config, downloadTarball]
   );
 
   const renderVersionInfo = (): React.ReactNode =>
@@ -132,7 +136,7 @@ const Package: React.FC<PackageInterface> = ({
     url.isURL(homepage) && (
       <LinkExternal to={homepage}>
         <Tooltip aria-label={t('package.homepage')} title={t('package.visit-home-page')}>
-          <IconButton aria-label={t('package.homepage')} size="large">
+          <IconButton aria-label={t('package.homepage')} color="primary" size="large">
             <HomeIcon />
           </IconButton>
         </Tooltip>
@@ -144,7 +148,7 @@ const Package: React.FC<PackageInterface> = ({
     url.isURL(bugs.url) && (
       <LinkExternal to={bugs.url}>
         <Tooltip aria-label={t('package.bugs')} title={t('package.open-an-issue')}>
-          <IconButton aria-label={t('package.bugs')} size="large">
+          <IconButton aria-label={t('package.bugs')} color="primary" size="large">
             <BugReport />
           </IconButton>
         </Tooltip>
@@ -166,6 +170,7 @@ const Package: React.FC<PackageInterface> = ({
         >
           <IconButton
             aria-label={t('package.download')}
+            color="primary"
             data-testid="download-tarball"
             size="large"
           >
@@ -177,15 +182,15 @@ const Package: React.FC<PackageInterface> = ({
 
   const renderPrimaryComponent = (): React.ReactNode => {
     return (
-      <Grid container={true} size={{ xs: 12 }}>
-        <Grid size={{ xs: 11 }}>
+      <Grid alignItems="center" container={true} size={{ xs: 12 }} wrap="wrap">
+        <Grid size="grow">
           <WrapperLink to={`${Route.DETAIL}${packageName}`}>
             <PackageTitle className="package-title" data-testid="package-title">
               {packageName}
             </PackageTitle>
           </WrapperLink>
         </Grid>
-        <GridRightAligned alignItems="center" container={true} justify="flex-end" size={{ xs: 1 }}>
+        <GridRightAligned size="auto">
           {renderHomePageLink()}
           {renderBugsLink()}
           {showDownload && renderDownloadLink()}
@@ -232,7 +237,7 @@ export default Package;
 
 const iconStyle = ({ theme }: { theme: Theme }) => css`
   margin: 0 10px 0 0;
-  fill: ${theme.palette.mode === 'light' ? theme.palette.greyDark : theme.palette.white};
+  fill: ${theme.palette.mode === 'light' ? grey[900] : common.white};
 `;
 
 const StyledVersion = styled(Version)`

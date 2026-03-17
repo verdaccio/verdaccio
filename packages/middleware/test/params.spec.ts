@@ -25,7 +25,7 @@ describe('match', () => {
   test('should match middleware', async () => {
     const app = getApp([]);
     app.param('_rev', match(/^-rev$/));
-    app.get('/-/user/:_rev?', (req, res) => {
+    app.get('/-/user{/:_rev}', (req, res) => {
       res.status(HTTP_STATUS.OK).json({});
     });
 

@@ -1,4 +1,4 @@
-import { Application } from 'express';
+import type { Application } from 'express';
 import path from 'node:path';
 
 import apiMiddleware from '@verdaccio/api';

@@ -15,82 +15,58 @@ function getFallFackLanguage(): string | undefined {
   return undefined;
 }
 
-function loadDayJSLocale() {
+async function loadDayJSLocale() {
   const fallbackLanguage = getFallFackLanguage();
   const locale = i18n.language || fallbackLanguage;
 
   switch (locale?.toLowerCase()) {
     case 'pt-br':
-      {
-        require('dayjs/locale/pt-br');
-        dayjs.locale('pt-br');
-      }
+      await import('dayjs/locale/pt-br');
+      dayjs.locale('pt-br');
       break;
     case 'de-de':
-      {
-        require('dayjs/locale/de');
-        dayjs.locale('de');
-      }
+      await import('dayjs/locale/de');
+      dayjs.locale('de');
       break;
     case 'es-es':
-      {
-        require('dayjs/locale/es');
-        dayjs.locale('es');
-      }
+      await import('dayjs/locale/es');
+      dayjs.locale('es');
       break;
     case 'fr-fr':
-      {
-        require('dayjs/locale/fr');
-        dayjs.locale('fr');
-      }
+      await import('dayjs/locale/fr');
+      dayjs.locale('fr');
       break;
     case 'zh-cn':
-      {
-        require('dayjs/locale/zh-cn');
-        dayjs.locale('zh-cn');
-      }
+      await import('dayjs/locale/zh-cn');
+      dayjs.locale('zh-cn');
       break;
     case 'ja-jp':
-      {
-        require('dayjs/locale/ja');
-        dayjs.locale('ja');
-      }
+      await import('dayjs/locale/ja');
+      dayjs.locale('ja');
       break;
     case 'ru-ru':
-      {
-        require('dayjs/locale/ru');
-        dayjs.locale('ru');
-      }
+      await import('dayjs/locale/ru');
+      dayjs.locale('ru');
       break;
     case 'tr-tr':
-      {
-        require('dayjs/locale/tr');
-        dayjs.locale('tr');
-      }
+      await import('dayjs/locale/tr');
+      dayjs.locale('tr');
       break;
     case 'uk-ua':
-      {
-        require('dayjs/locale/uk');
-        dayjs.locale('uk');
-      }
+      await import('dayjs/locale/uk');
+      dayjs.locale('uk');
       break;
     case 'zh-tw':
-      {
-        require('dayjs/locale/zh-tw');
-        dayjs.locale('zh-tw');
-      }
+      await import('dayjs/locale/zh-tw');
+      dayjs.locale('zh-tw');
       break;
     case 'cs-cz':
-      {
-        require('dayjs/locale/cs');
-        dayjs.locale('cs');
-      }
+      await import('dayjs/locale/cs');
+      dayjs.locale('cs');
       break;
     default:
-      {
-        require('dayjs/locale/en');
-        dayjs.locale('en');
-      }
+      await import('dayjs/locale/en');
+      dayjs.locale('en');
       break;
   }
 }

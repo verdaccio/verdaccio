@@ -1,93 +1,129 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Link, Typography } from '@mui/material';
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 
+import { useDataMutation } from '../../api/use-data-mutation';
+import LoginDialogFormError from '../../components/LoginDialog/LoginDialogFormError';
+import PasswordField from '../../components/LoginForm/PasswordField';
+import UsernameField from '../../components/LoginForm/UsernameField';
+import { getConfiguration } from '../../configuration';
 import SecurityLayout from '../../layouts/Security/Dialog';
-import { Dispatch, RootState } from '../../store';
+import { normalizeAuthError } from '../../providers/AuthProvider/utils';
+import { stripTrailingSlash } from '../../store/utils';
 import { Route } from '../../utils';
-import LoginError from './LoginError';
+import type { AddUserFormValues } from '../../utils/schemas';
+import { addUserSchema } from '../../utils/schemas';
 import { MessageType } from './Success';
 import { SecurityContainer, SecurityForm, SecurityTextField } from './styles';
-import { getSecurityUrlParams, validateCredentials } from './utils';
+import { getSecurityUrlParams } from './utils';
+
+type AddUserBody = {
+  name: string;
+  password: string;
+  email?: string;
+};
 
 const AddUser: React.FC = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch<Dispatch>();
-  const addUserStore = useSelector((state: RootState) => state.addUser);
-  const usernameRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
-
   const location = useLocation();
+  const navigate = useNavigate();
+  const configuration = getConfiguration();
+  const basePath = stripTrailingSlash(configuration.base);
   const { next, user } = getSecurityUrlParams(location);
-  const loginLink = Route.LOGIN + (next ? '?next=' + next : '');
+  const loginLink = Route.LOGIN + (next ? `?next=${encodeURIComponent(next)}` : '');
+  const createUserEnabled = configuration?.flags?.createUser;
+  const form = useForm<AddUserFormValues>({
+    mode: 'onChange',
+    defaultValues: {
+      username: typeof user === 'string' ? user : '',
+      password: '',
+      email: '',
+    },
+    resolver: yupResolver(addUserSchema),
+  });
 
-  const [username, setUsername] = React.useState(user);
-  const [password, setPassword] = React.useState('');
-  const [email, setEmail] = React.useState('');
+  const {
+    setError,
+    handleSubmit,
+    register,
+    watch,
+    formState: { isValid, errors },
+  } = form;
+
+  const username = watch('username');
+
+  const addUserLink = `${Route.ADD_USER}:${encodeURIComponent(username)}`;
+
+  const { trigger } = useDataMutation<{ ok: string; token: string }>(basePath, addUserLink, 'PUT');
+
+  const handleAddUser = useCallback(
+    async (body: AddUserBody) => {
+      try {
+        await trigger(body);
+      } catch (err) {
+        throw normalizeAuthError(err);
+      }
+    },
+    [trigger]
+  );
+
+  const onSubmit = useCallback(
+    async (data: AddUserFormValues) => {
+      try {
+        await handleAddUser({
+          name: data.username,
+          password: data.password,
+          email: data.email,
+        });
+        navigate(`${Route.SUCCESS}?messageType=${MessageType.AddUser}`);
+      } catch {
+        setError('root', {
+          type: 'server',
+          // TODO: add translation key
+          message: 'Failed to create user',
+        });
+      }
+    },
+    [handleAddUser, setError, navigate]
+  );
 
   useEffect(() => {
-    if (username) {
-      passwordRef.current?.focus();
-    } else {
-      usernameRef.current?.focus();
+    if (!createUserEnabled) {
+      navigate('/');
     }
-  }, [username]);
+  }, [createUserEnabled, navigate]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    dispatch.addUser.clearError();
-
-    if (!validateCredentials(username, password, t, dispatch.addUser.addError)) {
-      return;
-    }
-
-    await dispatch.addUser.register({
-      username: username,
-      password,
-      email,
-      next,
-      messageType: MessageType.AddUser,
-    });
-  };
-
-  return (
+  return createUserEnabled ? (
     <SecurityLayout>
       <SecurityContainer>
-        <SecurityForm component="form" onSubmit={handleSubmit}>
+        <SecurityForm component="form" onSubmit={handleSubmit(onSubmit)}>
           <Typography align="center" component="h1" gutterBottom={true} variant="h4">
             {t('security.addUser.title')}
           </Typography>
+          <UsernameField errors={errors} register={register} />
+          <PasswordField errors={errors} register={register} />
+
           <SecurityTextField
-            error={!!addUserStore.error}
-            inputRef={usernameRef}
-            label={t('security.addUser.username')}
-            onChange={(e) => setUsername(e.target.value)}
-            required={true}
-            value={username}
-          />
-          <SecurityTextField
-            error={!!addUserStore.error}
-            inputRef={passwordRef}
-            label={t('security.addUser.password')}
-            onChange={(e) => setPassword(e.target.value)}
-            required={true}
-            type="password"
-            value={password}
-          />
-          <SecurityTextField
-            error={!!addUserStore.error}
             label={t('security.addUser.email')}
-            onChange={(e) => setEmail(e.target.value)}
             type="email"
-            value={email}
+            {...register('email')}
           />
+
           <Typography color="text.secondary" paragraph={true} sx={{ fontSize: 12 }} variant="body2">
             {t('security.addUser.emailDescription')}
           </Typography>
-          {addUserStore.error && <LoginError error={addUserStore.error} />}
-          <Button color="primary" fullWidth={true} sx={{ mt: 2 }} type="submit" variant="contained">
+          {errors.root && <LoginDialogFormError error={errors.root} />}
+          <Button
+            color="primary"
+            disabled={!isValid}
+            fullWidth={true}
+            sx={{ mt: 2 }}
+            type="submit"
+            variant="contained"
+          >
             {t('security.addUser.submit')}
           </Button>
           <Typography align="center" sx={{ mt: 2, fontSize: 12 }} variant="body2">
@@ -99,7 +135,7 @@ const AddUser: React.FC = () => {
         </SecurityForm>
       </SecurityContainer>
     </SecurityLayout>
-  );
+  ) : null;
 };
 
 export default AddUser;

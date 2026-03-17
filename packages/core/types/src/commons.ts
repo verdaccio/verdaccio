@@ -2,7 +2,7 @@
 export type Callback = Function;
 // FIXME: err should be something flexible enough for any implementation
 export type CallbackAction = (err: any | null) => void;
-// eslint-disable-next-line no-undef
+
 export type CallbackError = (err: NodeJS.ErrnoException) => void;
 
 export interface RemoteUser {

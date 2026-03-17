@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { Theme } from '../../';
+import type { Theme } from '../../';
 
 export const Wrapper = styled('div')({
   transform: 'translate(-50%, -50%)',

@@ -1,8 +1,0 @@
-/*
-!/bin/**/*
-!/build/**/*
-!/dist/**/*
-!build.js
-!index.js
-!LICENSE
-!README.md

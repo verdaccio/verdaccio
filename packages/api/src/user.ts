@@ -1,8 +1,8 @@
 import buildDebug from 'debug';
-import { Response, Router } from 'express';
+import type { Response, Router } from 'express';
 
+import type { Auth } from '@verdaccio/auth';
 import { getApiToken } from '@verdaccio/auth';
-import { Auth } from '@verdaccio/auth';
 import { createRemoteUser } from '@verdaccio/config';
 import {
   API_ERROR,
@@ -15,10 +15,9 @@ import {
   validationUtils,
 } from '@verdaccio/core';
 import { USER_API_ENDPOINTS, rateLimit } from '@verdaccio/middleware';
-import { Logger } from '@verdaccio/types';
-import { Config, RemoteUser } from '@verdaccio/types';
+import type { Config, Logger, RemoteUser } from '@verdaccio/types';
 
-import { $NextFunctionVer, $RequestExtend } from '../types/custom';
+import type { $NextFunctionVer, $RequestExtend } from '../types/custom';
 
 const debug = buildDebug('verdaccio:api:user');
 
@@ -124,7 +123,7 @@ export default function (route: Router, auth: Auth, config: Config, logger: Logg
           false
         ) {
           debug('adduser: invalid password');
-          // eslint-disable-next-line new-cap
+
           return next(errorUtils.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.PASSWORD_SHORT));
         }
 
