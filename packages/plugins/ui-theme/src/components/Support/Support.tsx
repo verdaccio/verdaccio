@@ -1,8 +1,3 @@
-/* eslint-disable verdaccio/jsx-no-style */
-
-/* eslint-disable react/jsx-max-depth */
-
-/* eslint-disable react/jsx-pascal-case */
 import { Link } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';

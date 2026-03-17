@@ -1,7 +1,8 @@
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
-import React, { MouseEvent } from 'react';
+import type { MouseEvent } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { MenuItem } from '../../';
@@ -38,15 +39,19 @@ const HeaderMenu: React.FC<Props> = ({
       </IconButton>
       <Menu
         anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
-        }}
         onClose={onLoggedInMenuClose}
         open={isMenuOpen}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+        slotProps={{
+          root: {
+            anchorOrigin: {
+              vertical: 'bottom',
+              horizontal: 'right',
+            },
+            transformOrigin: {
+              vertical: 'top',
+              horizontal: 'right',
+            },
+          } as any,
         }}
       >
         <MenuItem>

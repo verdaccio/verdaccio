@@ -1,8 +1,9 @@
 import List from '@mui/material/List';
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { PackageMetaInterface } from '../../types/packageMeta';
+import type { PackageMetaInterface } from '../../types/packageMeta';
 import { fileSizeSI, formatLicense } from '../../utils/utils';
 import { DistChips, DistListItem, StyledText } from './styles';
 

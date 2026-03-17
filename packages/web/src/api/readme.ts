@@ -1,20 +1,19 @@
 import buildDebug from 'debug';
 import { Router } from 'express';
 
-import { Auth } from '@verdaccio/auth';
+import type { Auth } from '@verdaccio/auth';
 import { DIST_TAGS, HEADERS, HEADER_TYPE } from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
 import {
   $NextFunctionVer,
   $RequestExtend,
   $ResponseExtend,
+  WebUrls,
   allow,
   getRequestOptions,
 } from '@verdaccio/middleware';
-// Was required by other packages
-import { WebUrls } from '@verdaccio/middleware';
-import { Storage } from '@verdaccio/store';
-import { Manifest } from '@verdaccio/types';
+import type { Storage } from '@verdaccio/store';
+import type { Manifest } from '@verdaccio/types';
 
 import { addScope, isVersionValid } from '../web-utils';
 

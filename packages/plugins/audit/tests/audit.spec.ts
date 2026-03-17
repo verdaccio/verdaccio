@@ -8,7 +8,8 @@ import { Config, parseConfigFile } from '@verdaccio/config';
 import { logger, setup } from '@verdaccio/logger';
 
 import { HTTP_STATUS } from '../../local-storage/node_modules/@verdaccio/core/build';
-import ProxyAudit, { ConfigAudit } from '../src/index';
+import type { ConfigAudit } from '../src/index';
+import ProxyAudit from '../src/index';
 
 setup({});
 

@@ -40,12 +40,12 @@ describe('race publishing packages', () => {
     let failures = 0;
     let success = 0;
 
-    // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     for (const _time of Array.from(Array(times).keys())) {
       try {
         await server.addPackage('race-pkg', `1.0.0`);
         success++;
-      } catch (error) {
+      } catch {
         failures++;
       }
     }

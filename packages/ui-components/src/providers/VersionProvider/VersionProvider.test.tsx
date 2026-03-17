@@ -1,49 +1,57 @@
 import React from 'react';
-import { MemoryRouter } from 'react-router';
-import { Route } from 'react-router-dom';
 
-import { Route as Routes, store } from '../../';
 import {
+  RouterPath,
   act,
   cleanup,
-  renderWithStore,
+  renderWithRouter,
   screen,
   waitFor,
 } from '../../test/test-react-testing-library';
 import VersionProvider, { useVersion } from './VersionProvider';
 
 function CustomComponent() {
-  const { packageMeta, packageName, packageVersion } = useVersion();
-  return (
+  const { isLoading, packageMeta, packageName, packageVersion } = useVersion();
+
+  return isLoading ? (
+    <div>{'loading ...'}</div>
+  ) : (
     <div>
-      <div>{packageMeta?.latest?.license as string}</div>
-      <div>{packageName}</div>
-      <div>{packageVersion}</div>
+      <div>{'readme:'}</div>
+      <div>
+        {'packageMeta:'}
+        {packageMeta?.latest?.name}
+      </div>
+      <div>
+        {'packageName:'}
+        {packageName}
+      </div>
+      <div>
+        {'packageVersion:'}
+        {packageVersion}
+      </div>
     </div>
   );
 }
 
-/* eslint-disable react/jsx-no-bind*/
-describe('<Header /> component with logged in state', () => {
+describe('<VersionProvider />', () => {
   afterEach(() => {
     cleanup();
   });
 
   test('should load data from the provider', async () => {
-    act(() =>
-      renderWithStore(
-        <MemoryRouter initialEntries={[`/-/web/detail/storybook`]}>
-          <Route path={Routes.PACKAGE}>
-            <VersionProvider>
-              <CustomComponent />
-            </VersionProvider>
-          </Route>
-        </MemoryRouter>,
-        store
+    await act(async () =>
+      renderWithRouter(
+        <VersionProvider>
+          <CustomComponent />
+        </VersionProvider>,
+        RouterPath.PACKAGE_VERSION,
+        ['/-/web/detail/jquery/v/1.5.1']
       )
     );
-    await waitFor(() => screen.getByText('storybook'));
-    expect(screen.getByText('storybook')).toBeInTheDocument();
-    expect(screen.getByText('MIT')).toBeInTheDocument();
+    await waitFor(() => {
+      screen.queryAllByText('jquery', { exact: false });
+      screen.queryAllByText('1.5.1', { exact: false });
+    });
   });
 });

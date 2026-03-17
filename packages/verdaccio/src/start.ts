@@ -1,1 +1,1 @@
-require('@verdaccio/cli');
+import '@verdaccio/cli';

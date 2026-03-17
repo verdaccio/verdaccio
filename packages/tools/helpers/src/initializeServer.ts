@@ -1,5 +1,6 @@
 import buildDebug from 'debug';
-import express, { Application } from 'express';
+import type { Application } from 'express';
+import express from 'express';
 import os from 'node:os';
 import path from 'node:path';
 
@@ -33,7 +34,7 @@ export async function initializeServer(
   app.use(express.json({ strict: false, limit: '10mb' }));
   // @ts-ignore
   app.use(errorReportingMiddleware(logger));
-  for (let route of routesMiddleware) {
+  for (const route of routesMiddleware) {
     if (route.async) {
       const middleware = await route.routes(config, auth, storage, logger);
       app.use(middleware);
@@ -43,7 +44,7 @@ export async function initializeServer(
   }
 
   // catch 404
-  app.get('/*', function (req, res, next) {
+  app.get('/{*any}', function (req, res, next) {
     next(errorUtils.getNotFound('resource not found'));
   });
 

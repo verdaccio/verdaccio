@@ -1,5 +1,30 @@
 # @verdaccio/ui-theme
 
+## 9.0.0-next-9.4
+
+## 9.0.0-next-9.3
+
+## 9.0.0-next-9.2
+
+### Major Changes
+
+- 325c584: feat: migrate to vite
+
+## 9.0.0-next-9.1
+
+## 9.0.0-next-9.0
+
+### Major Changes
+
+- 7f80af5: chore: bump package
+
+## 8.0.0-next-8.31
+
+### Minor Changes
+
+- b5eccfc: feat: remove rematch refactor ui
+- 3243194: refactor: make asset manifest bundler-agnostic
+
 ## 8.0.0-next-8.30
 
 ## 8.0.0-next-8.29

@@ -1,5 +1,6 @@
 import List from '@mui/material/List';
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Person from '../Person';

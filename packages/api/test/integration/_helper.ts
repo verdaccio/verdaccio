@@ -1,4 +1,4 @@
-import { Application } from 'express';
+import type { Application } from 'express';
 import _ from 'lodash';
 import path from 'node:path';
 import supertest from 'supertest';
@@ -19,7 +19,7 @@ import {
   generatePackageMetadata,
   initializeServer as initializeServerHelper,
 } from '@verdaccio/test-helper';
-import { Author, GenericBody, PackageUsers } from '@verdaccio/types';
+import type { Author, GenericBody, PackageUsers } from '@verdaccio/types';
 
 import apiMiddleware from '../../src';
 

@@ -1,5 +1,134 @@
 # @verdaccio/server
 
+## 9.0.0-next-9.4
+
+### Major Changes
+
+- 52a6520: Replace Babel and esbuild build pipeline with Vite 8 across all packages. All packages now output dual ESM (.mjs) and CJS (.js) formats with TypeScript declarations generated via vite-plugin-dts. Includes shared build config at vite.lib.config.mjs, proper exports field in all package.json files, and fixes for type-only re-exports required by Rollup's stricter module analysis.
+
+### Patch Changes
+
+- Updated dependencies [52a6520]
+  - @verdaccio/api@9.0.0-next-9.4
+  - @verdaccio/auth@9.0.0-next-9.4
+  - @verdaccio/config@9.0.0-next-9.4
+  - @verdaccio/core@9.0.0-next-9.4
+  - @verdaccio/loaders@9.0.0-next-9.4
+  - @verdaccio/logger@9.0.0-next-9.4
+  - @verdaccio/middleware@9.0.0-next-9.4
+  - @verdaccio/store@9.0.0-next-9.4
+  - @verdaccio/web@9.0.0-next-9.4
+  - verdaccio-audit@14.0.0-next-9.4
+
+## 9.0.0-next-9.3
+
+### Minor Changes
+
+- 66e7538: fix: static files returning 404 after Express 5 upgrade
+
+  - fix(middleware): resolve static file 404s caused by `send@1.x` dotfile detection on absolute paths containing dot-prefixed directories (e.g. `.nvm`). Use `res.sendFile(filename, { root })` instead of absolute paths
+  - fix(middleware): handle Express 5 `{*all}` wildcard returning arrays instead of strings for `req.params`
+  - feat(middleware): add configurable `dotfiles` middleware to block dotfile path requests (`.env`, `.git/config`, etc.) with deny/ignore/allow policies
+  - feat(middleware): add `hideStaticLogs` option to `log()` middleware to suppress `/-/static/` request logging (defaults to true)
+  - fix(proxy): resolve `http-errors` deprecation warning for non-error status codes (304)
+  - feat(config): add `server.dotfiles` and `server.hideStaticLogs` options to configuration schema with secure defaults
+  - chore: add `pnpm global:install` script for testing local builds globally
+  - ci: add smoke test workflow for local builds verifying version, web UI rendering, static assets, and package installation
+
+### Patch Changes
+
+- Updated dependencies [66e7538]
+- Updated dependencies [d9e5adf]
+  - @verdaccio/middleware@9.0.0-next-9.3
+  - @verdaccio/config@9.0.0-next-9.3
+  - @verdaccio/api@9.0.0-next-9.3
+  - @verdaccio/auth@9.0.0-next-9.3
+  - @verdaccio/web@9.0.0-next-9.3
+  - @verdaccio/store@9.0.0-next-9.3
+  - @verdaccio/loaders@9.0.0-next-9.3
+  - verdaccio-audit@14.0.0-next-9.3
+  - @verdaccio/core@9.0.0-next-9.3
+  - @verdaccio/logger@9.0.0-next-9.3
+
+## 9.0.0-next-9.2
+
+### Patch Changes
+
+- Updated dependencies [325c584]
+  - @verdaccio/middleware@9.0.0-next-9.2
+  - @verdaccio/web@9.0.0-next-9.2
+  - @verdaccio/api@9.0.0-next-9.2
+  - @verdaccio/auth@9.0.0-next-9.2
+  - @verdaccio/store@9.0.0-next-9.2
+  - @verdaccio/core@9.0.0-next-9.2
+  - @verdaccio/config@9.0.0-next-9.2
+  - @verdaccio/loaders@9.0.0-next-9.2
+  - verdaccio-audit@14.0.0-next-9.2
+  - @verdaccio/logger@9.0.0-next-9.2
+
+## 9.0.0-next-9.1
+
+### Major Changes
+
+- dd9bad3: feat: upgrade to express v5
+
+### Patch Changes
+
+- Updated dependencies [dd9bad3]
+  - verdaccio-audit@14.0.0-next-9.1
+  - @verdaccio/middleware@9.0.0-next-9.1
+  - @verdaccio/core@9.0.0-next-9.1
+  - @verdaccio/auth@9.0.0-next-9.1
+  - @verdaccio/api@9.0.0-next-9.1
+  - @verdaccio/web@9.0.0-next-9.1
+  - @verdaccio/store@9.0.0-next-9.1
+  - @verdaccio/config@9.0.0-next-9.1
+  - @verdaccio/loaders@9.0.0-next-9.1
+  - @verdaccio/logger@9.0.0-next-9.1
+
+## 9.0.0-next-9.0
+
+### Major Changes
+
+- 7f80af5: chore: bump package
+
+### Patch Changes
+
+- Updated dependencies [7f80af5]
+- Updated dependencies [34da6e6]
+  - @verdaccio/api@9.0.0-next-9.0
+  - @verdaccio/auth@9.0.0-next-9.0
+  - @verdaccio/config@9.0.0-next-9.0
+  - @verdaccio/core@9.0.0-next-9.0
+  - @verdaccio/loaders@9.0.0-next-9.0
+  - @verdaccio/logger@9.0.0-next-9.0
+  - @verdaccio/middleware@9.0.0-next-9.0
+  - verdaccio-audit@14.0.0-next-9.0
+  - @verdaccio/store@9.0.0-next-9.0
+  - @verdaccio/web@9.0.0-next-9.0
+
+## 8.0.0-next-8.31
+
+### Patch Changes
+
+- Updated dependencies [17842bd]
+- Updated dependencies [b5eccfc]
+- Updated dependencies [01f7ca6]
+- Updated dependencies [dabb1d5]
+- Updated dependencies [6705d30]
+- Updated dependencies [3243194]
+- Updated dependencies [95fc87c]
+  - @verdaccio/auth@8.0.0-next-8.31
+  - @verdaccio/config@8.0.0-next-8.31
+  - @verdaccio/api@8.1.0-next-8.31
+  - @verdaccio/web@8.1.0-next-8.31
+  - @verdaccio/store@8.0.0-next-8.31
+  - @verdaccio/middleware@8.0.0-next-8.31
+  - verdaccio-audit@13.0.0-next-8.31
+  - @verdaccio/core@8.0.0-next-8.31
+  - @verdaccio/logger@8.0.0-next-8.31
+  - @verdaccio/loaders@8.0.0-next-8.21
+
 ## 8.0.0-next-8.30
 
 ### Patch Changes

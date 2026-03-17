@@ -1,10 +1,10 @@
 import buildDebug from 'debug';
-import { Response, Router } from 'express';
+import type { Response, Router } from 'express';
 
 import { errorUtils } from '@verdaccio/core';
 import { USER_API_ENDPOINTS } from '@verdaccio/middleware';
 
-import { $NextFunctionVer, $RequestExtend } from '../types/custom';
+import type { $NextFunctionVer, $RequestExtend } from '../types/custom';
 
 const debug = buildDebug('verdaccio:api:user');
 

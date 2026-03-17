@@ -1,5 +1,6 @@
-import { i18n } from 'i18next';
-import React, { FunctionComponent, createContext, useCallback, useContext, useEffect } from 'react';
+import type { i18n } from 'i18next';
+import type { FunctionComponent } from 'react';
+import React, { createContext, useCallback, use, useEffect } from 'react';
 import { I18nextProvider } from 'react-i18next';
 
 import useLocalStorage from '../../hooks/useLocalStorage';
@@ -13,7 +14,6 @@ export type TranslatorProviderProps = {
 export type LanguageItem = { lng: string; icon: any; menuKey: string };
 
 const I18nTranslatorContext = createContext<TranslatorProviderProps>({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setLanguage: (_lng: string) => {},
   language: 'en-US',
   listLanguages: [],
@@ -42,13 +42,13 @@ const TranslatorProvider: FunctionComponent<{
 
   return (
     <I18nextProvider i18n={i18n}>
-      <I18nTranslatorContext.Provider value={{ setLanguage, language, listLanguages }}>
+      <I18nTranslatorContext value={{ setLanguage, language, listLanguages }}>
         {children}
-      </I18nTranslatorContext.Provider>
+      </I18nTranslatorContext>
     </I18nextProvider>
   );
 };
 
 export default TranslatorProvider;
 
-export const useLanguage = () => useContext(I18nTranslatorContext);
+export const useLanguage = () => use(I18nTranslatorContext);

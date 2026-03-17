@@ -1,8 +1,8 @@
-import { Algorithm as Algorithms, SignOptions, VerifyOptions } from 'jsonwebtoken';
-import { AgentOptions as HttpAgentOptions } from 'node:http';
-import { AgentOptions as HttpsAgentOptions } from 'node:https';
+import type { Algorithm as Algorithms, SignOptions, VerifyOptions } from 'jsonwebtoken';
+import type { AgentOptions as HttpAgentOptions } from 'node:http';
+import type { AgentOptions as HttpsAgentOptions } from 'node:https';
 
-import { PackageAccess, PackageList } from '@verdaccio/types/src/manifest';
+import type { PackageAccess, PackageList } from '@verdaccio/types/src/manifest';
 
 export type TypeToken = 'Bearer' | 'Basic';
 
@@ -81,9 +81,40 @@ export type RateLimit = {
   max?: number;
 };
 
+/**
+ * Feature flags configuration.
+ *
+ * Enables or disables optional functionality at runtime.
+ * All flags are optional and default to `false` when not specified.
+ */
 export type FlagsConfig = {
+  /**
+   * Enables searching for packages in remote registries.
+   * If `false`, only the local registry will be queried.
+   *
+   * @default false
+   */
   searchRemote?: boolean;
+
+  /**
+   * Enables user password change functionality.
+   *
+   * @default false
+   */
   changePassword?: boolean;
+
+  /**
+   * Enables user creation through the API.
+   *
+   * @default false
+   */
+  createUser?: boolean;
+
+  /**
+   * Enables web-based login flow.
+   *
+   * @default false
+   */
   webLogin?: boolean;
 };
 
@@ -254,6 +285,13 @@ export type ServerSettingsConf = {
   passwordValidationRegex?: RegExp;
   // docs on `trustProxy` can be found at: https://expressjs.com/en/guide/behind-proxies.html
   trustProxy?: string;
+  // Controls how requests with dotfile path segments (e.g. /.env, /.well-known/) are handled.
+  // 'deny' returns 403 (default), 'ignore' returns 404, 'allow' passes through.
+  // Mirrors serve-static's dotfiles option.
+  dotfiles?: 'allow' | 'deny' | 'ignore';
+  // When true, static file requests (/-/static/*) are hidden from pino logs
+  // and only visible via DEBUG=verdaccio:middleware:log. Defaults to true.
+  hideStaticLogs?: boolean;
 };
 
 /**

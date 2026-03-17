@@ -1,6 +1,6 @@
 {
   "name": "verdaccio",
-  "version": "8.0.0-next-8.30",
+  "version": "9.0.0-next-9.4",
   "description": "A lightweight private npm proxy registry",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -20,11 +20,8 @@
     "lint": "eslint . --ext .js,.ts",
     "test": "vitest run --testTimeout 50000 --hookTimeout 20000",
     "ge:docs": "typedoc src/index.ts --tsconfig tsconfig.build.json --plugin typedoc-plugin-markdown",
-    "type-check": "tsc --noEmit -p tsconfig.build.json",
-    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
-    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
-    "build": "pnpm run build:js && pnpm run build:types",
-    "code:docker-build": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\"",
+    "build": "vite build",
+    "code:docker-build": "vite build",
     "build:docker": "docker build -t verdaccio/verdaccio:local . --no-cache"
   },
   "author": {
@@ -41,22 +38,22 @@
   },
   "homepage": "https://verdaccio.org",
   "dependencies": {
-    "@verdaccio/cli": "workspace:8.0.0-next-8.30",
-    "@verdaccio/hooks": "workspace:8.0.0-next-8.30",
-    "@verdaccio/logger": "workspace:8.0.0-next-8.30",
-    "@verdaccio/node-api": "workspace:8.0.0-next-8.30",
-    "@verdaccio/ui-theme": "workspace:8.0.0-next-8.30",
-    "verdaccio-audit": "workspace:13.0.0-next-8.30",
-    "verdaccio-htpasswd": "workspace:13.0.0-next-8.30",
+    "@verdaccio/cli": "workspace:9.0.0-next-9.4",
+    "@verdaccio/hooks": "workspace:9.0.0-next-9.4",
+    "@verdaccio/logger": "workspace:9.0.0-next-9.4",
+    "@verdaccio/node-api": "workspace:9.0.0-next-9.4",
+    "@verdaccio/ui-theme": "workspace:9.0.0-next-9.4",
+    "verdaccio-audit": "workspace:14.0.0-next-9.4",
+    "verdaccio-htpasswd": "workspace:14.0.0-next-9.4",
     "debug": "4.4.3"
   },
   "devDependencies": {
-    "@verdaccio/auth": "workspace:8.0.0-next-8.30",
-    "@verdaccio/config": "workspace:8.0.0-next-8.30",
-    "@verdaccio/core": "workspace:8.0.0-next-8.30",
-    "@verdaccio/store": "workspace:8.0.0-next-8.30",
-    "@verdaccio/test-helper": "workspace:4.0.0-next-8.14",
-    "@verdaccio/types": "workspace:13.0.0-next-8.10",
+    "@verdaccio/auth": "workspace:9.0.0-next-9.4",
+    "@verdaccio/config": "workspace:9.0.0-next-9.4",
+    "@verdaccio/core": "workspace:9.0.0-next-9.4",
+    "@verdaccio/store": "workspace:9.0.0-next-9.4",
+    "@verdaccio/test-helper": "workspace:5.0.0-next-9.4",
+    "@verdaccio/types": "workspace:14.0.0-next-9.1",
     "get-port": "5.1.1",
     "got": "11.8.6",
     "lodash": "4.17.23",
@@ -76,12 +73,26 @@
     "verdaccio"
   ],
   "engines": {
-    "node": ">=18"
+    "node": ">=24"
   },
   "preferGlobal": true,
   "collective": {
     "type": "opencollective",
     "url": "https://opencollective.com/verdaccio",
     "logo": "https://opencollective.com/verdaccio/logo.txt"
+  },
+  "module": "./build/index.mjs",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./build/index.d.ts",
+        "default": "./build/index.mjs"
+      },
+      "require": {
+        "types": "./build/index.d.ts",
+        "default": "./build/index.js"
+      }
+    },
+    "./build/*": "./build/*"
   }
 }

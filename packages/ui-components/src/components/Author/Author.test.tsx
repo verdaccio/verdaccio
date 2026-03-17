@@ -1,8 +1,8 @@
 import React from 'react';
 import { vi } from 'vitest';
 
-import { cleanup, render, screen } from '../../test/test-react-testing-library';
-import { PackageMetaInterface } from '../../types/packageMeta';
+import { cleanup, renderWith, screen } from '../../test/test-react-testing-library';
+import type { PackageMetaInterface } from '../../types/packageMeta';
 import Authors from './Author';
 
 const withAuthorComponent = (packageMeta: PackageMetaInterface): JSX.Element => (
@@ -31,8 +31,18 @@ describe('<Author /> component', () => {
       _uplinks: {},
     };
 
-    const wrapper = render(withAuthorComponent(packageMeta));
-    expect(wrapper).toMatchSnapshot();
+    renderWith(withAuthorComponent(packageMeta));
+    expect(screen.getByText('sidebar.author.title')).toBeInTheDocument();
+    expect(screen.getByAltText('verdaccio user')).toBeInTheDocument();
+    expect(screen.getByText('verdaccio user')).toBeInTheDocument();
+    const emailElement = screen.getByTestId('verdaccio user');
+    expect(emailElement).toBeInTheDocument();
+    expect(emailElement).toHaveAttribute(
+      'href',
+      'mailto:verdaccio.user@verdaccio.org?subject=verdaccio v4.0.0'
+    );
+    expect(emailElement).toHaveAttribute('target', '_blank');
+    expect(emailElement).toHaveAttribute('rel', 'noopener noreferrer');
   });
 
   test('should render the component when there is no author information available', () => {
@@ -45,8 +55,8 @@ describe('<Author /> component', () => {
       _uplinks: {},
     };
 
-    const wrapper = render(withAuthorComponent(packageMeta));
-    expect(wrapper.queryAllByText('verdaccio')).toHaveLength(0);
+    renderWith(withAuthorComponent(packageMeta));
+    expect(screen.queryAllByText('verdaccio')).toHaveLength(0);
   });
 
   test('should render the component when there is no author email', () => {
@@ -64,13 +74,17 @@ describe('<Author /> component', () => {
       _uplinks: {},
     };
 
-    const wrapper = render(withAuthorComponent(packageMeta));
-    expect(wrapper).toMatchSnapshot();
+    renderWith(withAuthorComponent(packageMeta));
+    const emailElement = screen.queryByTestId('verdaccio user');
+    expect(emailElement).not.toHaveAttribute('href');
+    expect(emailElement).not.toHaveAttribute('target');
+    expect(emailElement).not.toHaveAttribute('rel');
+    expect(screen.getByText('verdaccio user')).toBeInTheDocument();
   });
 
   test('should not render if data is missing', () => {
     // @ts-ignore - testing with missing data
-    render(withAuthorComponent(undefined));
+    renderWith(withAuthorComponent(undefined));
     expect(screen.queryByText('sidebar.author.title')).toBeNull();
   });
 });

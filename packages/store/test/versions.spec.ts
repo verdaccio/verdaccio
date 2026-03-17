@@ -76,7 +76,7 @@ describe('versions-utils', () => {
 
   describe('tagVersion', () => {
     test('add new one', () => {
-      let pkg = {
+      const pkg = {
         versions: {},
         'dist-tags': {},
       };
@@ -104,7 +104,7 @@ describe('versions-utils', () => {
     });
 
     test('add fresh tag', () => {
-      let x = {
+      const x = {
         versions: {},
         'dist-tags': { foo: '1.1.0' },
       };

@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/types",
-  "version": "13.0.0-next-8.10",
+  "version": "14.0.0-next-9.1",
   "description": "Verdaccio Type Definitions",
   "keywords": [
     "private",
@@ -17,7 +17,7 @@
   "license": "MIT",
   "homepage": "https://verdaccio.org",
   "engines": {
-    "node": ">=18"
+    "node": ">=24"
   },
   "repository": {
     "type": "https",
@@ -40,7 +40,7 @@
     "build": "echo 0"
   },
   "devDependencies": {
-    "@types/jsonwebtoken": "9.0.6",
+    "@types/jsonwebtoken": "9.0.7",
     "@types/ms": "2.1.0",
     "typedoc": "0.28.14"
   },

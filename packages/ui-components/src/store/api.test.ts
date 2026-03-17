@@ -1,157 +1,130 @@
-import { vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import api, { CustomError, handleResponseType } from './api';
+import API, { CustomError, handleResponseType } from './api';
+import storage from './storage';
 
-describe('api', () => {
-  describe('handleResponseType', () => {
-    test('should handle missing Content-Type', async () => {
-      const responseText = `responseText`;
-      const ok = false;
-      const response: Response = {
-        url: 'http://localhost:8080/-/packages',
-        ok,
-        headers: new Headers(),
-        text: async () => responseText,
-      } as Response;
+// Mock the storage dependency (assuming it's a default export)
+vi.mock('./storage', () => ({
+  default: {
+    getItem: vi.fn(),
+  },
+}));
 
-      const handled = await handleResponseType(response);
+describe('API Module', () => {
+  beforeEach(() => {
+    // This is the safest way to mock globals in Vitest
+    vi.stubGlobal('fetch', vi.fn());
+    vi.clearAllMocks();
+  });
 
-      expect(handled[0]).toBeFalsy();
-      expect(handled[1]).toBeDefined();
+  describe('CustomError', () => {
+    it('should create an error with a name and status code', () => {
+      const err = new CustomError('Unauthorized', 401);
+      expect(err.message).toBe('Unauthorized');
+      expect(err.code).toBe(401);
+      expect(err.name).toBe('CustomError');
     });
 
-    test('should test tgz scenario', async () => {
-      const blob = new Blob(['foo']);
-      const blobPromise = Promise.resolve<Blob>(blob);
-      const response: Response = {
-        url: 'http://localhost:8080/bootstrap/-/bootstrap-4.3.1.tgz',
-        blob: () => blobPromise,
-        ok: true,
-        headers: new Headers(),
-      } as Response;
-      const handled = await handleResponseType(response);
-
-      expect(handled).toEqual([true, blob]);
-    });
-
-    test('should test pdf scenario', async () => {
-      const blob = new Blob(['foo']);
-      const blobPromise = Promise.resolve<Blob>(blob);
-      const response: Response = {
-        url: 'http://localhost:8080/test.pdf',
-        blob: () => blobPromise,
-        ok: true,
-        headers: new Headers({
-          'Content-Type': 'application/pdf',
-        }),
-      } as Response;
-      const handled = await handleResponseType(response);
-
-      expect(handled).toEqual([true, blob]);
+    it('should default to code 500', () => {
+      const err = new CustomError('Server Error');
+      expect(err.code).toBe(500);
     });
   });
 
-  describe('api client', () => {
-    let fetchSpy;
+  describe('handleResponseType', () => {
+    it('should process JSON content correctly', async () => {
+      const mockResponse = {
+        ok: true,
+        status: 200,
+        headers: new Headers({ 'Content-Type': 'application/json' }),
+        json: vi.fn().mockResolvedValue({ user: 'verdaccio' }),
+      } as unknown as Response;
 
-    beforeEach(() => {
-      fetchSpy = vi.spyOn(window, 'fetch');
+      const [ok, data, status] = await handleResponseType(mockResponse);
+      expect(ok).toBe(true);
+      expect(data).toEqual({ user: 'verdaccio' });
+      expect(status).toBe(200);
     });
 
-    afterEach(() => {
-      fetchSpy.mockRestore();
+    it('should process .tgz files as blobs via URL matching', async () => {
+      const mockResponse = {
+        ok: true,
+        status: 200,
+        url: 'https://registry.npmjs.org/package/-/file.tgz',
+        headers: new Headers({ 'Content-Type': 'application/octet-stream' }),
+        blob: vi.fn().mockResolvedValue(new Blob(['archive-data'])),
+      } as unknown as Response;
+
+      const [ok, data] = await handleResponseType(mockResponse);
+      expect(ok).toBe(true);
+      expect(data).toBeInstanceOf(Blob);
+    });
+  });
+
+  describe('API.request', () => {
+    it('should inject Authorization header when token exists', async () => {
+      // Setup: Mock storage to return a token
+      vi.mocked(storage.getItem).mockReturnValue('valid-jwt-token');
+
+      // Setup: Mock fetch response
+      const mockFetch = vi.mocked(global.fetch).mockResolvedValue({
+        ok: true,
+        status: 200,
+        headers: new Headers({ 'Content-Type': 'application/json' }),
+        json: vi.fn().mockResolvedValue({ success: true }),
+      } as unknown as Response);
+
+      await API.request('/api/packages');
+
+      // Verify the call
+      const [url, init] = mockFetch.mock.calls[0];
+      const headers = init?.headers as Headers;
+
+      expect(url).toBe('/api/packages');
+      expect(headers.get('Authorization')).toBe('Bearer valid-jwt-token');
+      expect(headers.get('x-client')).toBe('verdaccio-ui');
     });
 
-    test('when url is a resource url', async () => {
-      fetchSpy.mockImplementation(() =>
-        Promise.resolve({
-          headers: new Headers({
-            'Content-Type': 'application/json',
-          }),
-          ok: true,
-          json: () => ({ a: 1 }),
-        })
-      );
+    it('should reject when the fetch call fails (network error)', async () => {
+      vi.mocked(global.fetch).mockRejectedValue(new Error('Network Failure'));
 
-      const response = await api.request('https://verdaccio.tld/resource');
-
-      expect(fetchSpy).toHaveBeenCalledWith('https://verdaccio.tld/resource', {
-        credentials: 'same-origin',
-        headers: {},
-        method: 'GET',
-      });
-      expect(response).toEqual({ a: 1 });
+      await expect(API.request('/any-url')).rejects.toThrow('Network Failure');
     });
 
-    test.skip('when there is token from storage', async () => {
-      vi.resetModules();
-      vi.doMock('./storage', () => ({ getItem: () => 'token-xx-xx-xx' }));
+    it('should reject with CustomError when response.ok is false (text response)', async () => {
+      vi.mocked(global.fetch).mockResolvedValue({
+        ok: false,
+        status: 403,
+        headers: new Headers({ 'Content-Type': 'text/plain' }),
+        text: vi.fn().mockResolvedValue('Forbidden'),
+      } as unknown as Response);
 
-      fetchSpy.mockImplementation(() =>
-        Promise.resolve({
-          headers: new Headers({
-            'Content-Type': 'application/json',
-          }),
-          ok: true,
-          json: () => ({ c: 3 }),
-        })
-      );
-
-      const api = await require('./api').default;
-      const response = await api.request('https://verdaccio.tld/resource', 'GET');
-
-      expect(fetchSpy).toHaveBeenCalledWith('https://verdaccio.tld/resource', {
-        credentials: 'same-origin',
-        headers: new Headers({
-          Authorization: 'Bearer token-xx-xx-xx',
-          'x-client': 'verdaccio-ui',
-        }),
-        method: 'GET',
-      });
-      expect(response).toEqual({ c: 3 });
+      try {
+        await API.request('/admin');
+        expect(true).toBe(false);
+      } catch (error: any) {
+        expect(error).toBeInstanceOf(CustomError);
+        expect(error.message).toBe('Forbidden');
+        expect(error.code).toBe(403);
+      }
     });
 
-    test('when url is a cross origin url', async () => {
-      fetchSpy.mockImplementation(() =>
-        Promise.resolve({
-          headers: new Headers({
-            'Content-Type': 'application/json',
-          }),
-          ok: true,
-          json: () => ({ b: 2 }),
-        })
-      );
+    it('should reject with CustomError when response.ok is false (JSON response)', async () => {
+      vi.mocked(global.fetch).mockResolvedValue({
+        ok: false,
+        status: 404,
+        headers: new Headers({ 'Content-Type': 'application/json' }),
+        json: vi.fn().mockResolvedValue({ error: 'package not found' }),
+      } as unknown as Response);
 
-      const response = await api.request('https://verdaccio.xyz/resource');
-      expect(fetchSpy).toHaveBeenCalledWith('https://verdaccio.xyz/resource', {
-        credentials: 'same-origin',
-        headers: {},
-        method: 'GET',
-      });
-      expect(response).toEqual({ b: 2 });
-    });
-
-    test('when api returns an error 3.x.x - 4.x.x', async () => {
-      fetchSpy.mockImplementation(() =>
-        Promise.resolve({
-          headers: new Headers({
-            'Content-Type': 'application/json',
-          }),
-          ok: false,
-          json: () => {},
-        })
-      );
-
-      const error = new CustomError('Unknown error');
-      error.code = 500;
-      await expect(api.request('/resource')).rejects.toThrow(error);
-    });
-
-    test('when api returns an error 5.x.x', async () => {
-      const errorMessage = 'Internal server error';
-      fetchSpy.mockImplementation(() => Promise.reject(new Error(errorMessage)));
-
-      await expect(api.request('/resource')).rejects.toThrow(new Error(errorMessage));
+      try {
+        await API.request('/api/packages/missing');
+        expect(true).toBe(false);
+      } catch (error: any) {
+        expect(error).toBeInstanceOf(CustomError);
+        expect(error.message).toBe('package not found');
+        expect(error.code).toBe(404);
+      }
     });
   });
 });

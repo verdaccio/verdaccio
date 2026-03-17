@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import { Logger, StorageList } from '@verdaccio/types';
+import type { Logger, StorageList } from '@verdaccio/types';
 
 import { readFilePromise } from './fs';
 

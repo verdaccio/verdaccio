@@ -5,7 +5,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Content, Title } from './styles';
-import { Props } from './types';
+import type { Props } from './types';
 
 const RegistryInfoDialog: React.FC<Props> = ({ open = false, children, onClose, title = '' }) => {
   const { t } = useTranslation();

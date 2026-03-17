@@ -1,5 +1,4 @@
-import { HEADERS, HTTP_STATUS } from '@verdaccio/core';
-import { DIST_TAGS } from '@verdaccio/core';
+import { DIST_TAGS, HEADERS, HTTP_STATUS } from '@verdaccio/core';
 
 import { DOMAIN_SERVERS, PORT_SERVER_1, PORT_SERVER_2 } from '../config.functional';
 import { generateSha } from '../lib/test.utils';

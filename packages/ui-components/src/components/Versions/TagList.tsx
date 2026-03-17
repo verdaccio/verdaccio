@@ -2,7 +2,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import React from 'react';
 
-import { DistTags, Time } from '../../types/packageMeta';
+import type { DistTags, Time } from '../../types/packageMeta';
 import { Route } from '../../utils';
 import Link from '../Link';
 import { ListItemText, Spacer } from './styles';

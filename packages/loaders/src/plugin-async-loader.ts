@@ -3,9 +3,11 @@ import _ from 'lodash';
 import { lstat } from 'node:fs/promises';
 import { dirname, isAbsolute, join, resolve } from 'node:path';
 
-import { PLUGIN_PREFIX, pluginUtils } from '@verdaccio/core';
+import type { pluginUtils } from '@verdaccio/core';
+import { PLUGIN_PREFIX } from '@verdaccio/core';
 
-import { PluginType, isES6, isValid, tryLoad } from './utils';
+import type { PluginType } from './utils';
+import { isES6, isValid, tryLoad } from './utils';
 
 const debug = buildDebug('verdaccio:plugin:loader:async');
 
@@ -57,8 +59,8 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
   const logger = pluginOptions?.logger;
   const pluginsIds = Object.keys(pluginConfigs || {});
   const { config } = pluginOptions;
-  let plugins: PluginType<T>[] = [];
-  for (let pluginId of pluginsIds) {
+  const plugins: PluginType<T>[] = [];
+  for (const pluginId of pluginsIds) {
     debug('>>> looking for plugin %o', pluginId);
 
     const isScoped: boolean = pluginId.startsWith('@') && pluginId.includes('/');
@@ -163,13 +165,13 @@ export function executePlugin<T>(
   // this is a legacy support for plugins that are not using the new API
   if (legacyMergeConfigs) {
     debug('>>> plugin merge config enabled');
-    let originalConfig = pluginOptions.config;
+    const originalConfig = pluginOptions.config;
     pluginConfig = mergeConfig(originalConfig, pluginConfig);
   }
   if (isES6(plugin)) {
     debug('plugin is ES6');
     // @ts-expect-error no relevant for the code
-    // eslint-disable-next-line new-cap
+
     return new plugin.default(pluginConfig, pluginOptions) as Plugin;
   } else {
     debug('plugin is commonJS');

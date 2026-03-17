@@ -3,7 +3,7 @@ import path from 'node:path';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { fileUtils } from '@verdaccio/core';
-import { Logger, Token } from '@verdaccio/types';
+import type { Logger, Token } from '@verdaccio/types';
 
 import LocalDatabase from '../src/local-database';
 
@@ -43,7 +43,7 @@ describe('Local Database', () => {
   });
 
   describe('token', () => {
-    let token: Token = {
+    const token: Token = {
       user: 'someUser',
       token: 'foo..foo',
       key: 'someHash',

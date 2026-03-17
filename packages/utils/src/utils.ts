@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 import { DEFAULT_USER, DIST_TAGS } from '@verdaccio/core';
-import { Author, Manifest, Package } from '@verdaccio/types';
+import type { Author, Manifest, Package } from '@verdaccio/types';
 
 import { stringToMD5 } from './crypto-utils';
 

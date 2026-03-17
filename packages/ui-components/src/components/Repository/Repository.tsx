@@ -4,11 +4,11 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
-import { useTheme } from '@mui/material/styles';
+import { common } from '@mui/material/colors';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Theme } from '../../Theme';
+import type { Theme } from '../../Theme';
 import { url as urlUtils } from '../../utils';
 import CopyClipboard from '../CopyClipboard';
 import { Git } from '../Icons';
@@ -39,7 +39,6 @@ const RepositoryAvatar = styled(Avatar)({
 
 const Repository: React.FC<{ packageMeta: any }> = ({ packageMeta }) => {
   const { t } = useTranslation();
-  const theme: Theme = useTheme();
   const url = packageMeta?.latest?.repository?.url;
   if (!url || !urlUtils.isURL(url)) {
     return null;
@@ -61,7 +60,7 @@ const Repository: React.FC<{ packageMeta: any }> = ({ packageMeta }) => {
       subheader={<StyledText variant="subtitle1">{t('sidebar.repository.title')}</StyledText>}
     >
       <RepositoryListItem>
-        <RepositoryAvatar sx={{ bgcolor: theme.palette.white }}>
+        <RepositoryAvatar sx={{ bgcolor: common.white }}>
           <Git />
         </RepositoryAvatar>
         <RepositoryListItemText

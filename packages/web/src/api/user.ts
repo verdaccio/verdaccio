@@ -1,26 +1,29 @@
 import buildDebug from 'debug';
-import { Request, Response, Router } from 'express';
+import type { Request, Response } from 'express';
+import { Router } from 'express';
 import _ from 'lodash';
 
-import { Auth } from '@verdaccio/auth';
+import { type Auth, getApiToken } from '@verdaccio/auth';
+import type { VerdaccioError } from '@verdaccio/core';
 import {
   API_ERROR,
   APP_ERROR,
   HEADERS,
   HTTP_STATUS,
-  VerdaccioError,
+  cryptoUtils,
   errorUtils,
   validationUtils,
 } from '@verdaccio/core';
-import { rateLimit } from '@verdaccio/middleware';
-import { WebUrls } from '@verdaccio/middleware';
-import { Config, JWTSignOptions, RemoteUser } from '@verdaccio/types';
+import { WebUrls, rateLimit } from '@verdaccio/middleware';
+import type { Config, JWTSignOptions, RemoteUser } from '@verdaccio/types';
 
-import { $NextFunctionVer } from './package';
+import type { $NextFunctionVer } from './package';
 
 const debug = buildDebug('verdaccio:web:api:user');
 
-function addUserAuthApi(auth: Auth, config: Config): Router {
+const WEB_LOGIN_SESSION_ID = 'web-login-sessionId';
+
+function addUserAuthApi(auth: Auth, config: Config, storage: Storage): Router {
   const route = Router(); /* eslint new-cap: 0 */
   route.post(
     WebUrls.user_login,
@@ -49,6 +52,84 @@ function addUserAuthApi(auth: Auth, config: Config): Router {
       );
     }
   );
+
+  if (config?.flags?.createUser === true) {
+    route.put(
+      WebUrls.user_signup,
+      rateLimit(config?.userRateLimit),
+      function (req: Request, res: Response, next: $NextFunctionVer): void {
+        const { name, password, email, sessionId } = req.body;
+        debug('login or adduser');
+
+        // TOOD: reuse with login.ts file
+        if (typeof sessionId !== 'string' || sessionId.length !== 36) {
+          debug('sessionId is invalid length: %o', sessionId.length);
+          return next(errorUtils.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.SESSION_ID_INVALID));
+        }
+
+        if (!name || !password || !email) {
+          return next(errorUtils.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.BAD_DATA));
+        }
+
+        auth.add_user(name, password, async function (err, user): Promise<void> {
+          if (err) {
+            if (err.status >= HTTP_STATUS.BAD_REQUEST && err.status < HTTP_STATUS.INTERNAL_ERROR) {
+              debug('adduser: error on create user');
+              // With npm registering is the same as logging in,
+              // and npm accepts only an 409 error.
+              // So, changing status code here.
+              return next(
+                errorUtils.getCode(err.status, err.message) || errorUtils.getConflict(err.message)
+              );
+            }
+            return next(err);
+          }
+
+          const tokens = await storage.readTokens({ user: sessionId });
+          debug('tokens found for sessionId %o: %o', sessionId, tokens.length);
+          if (tokens && tokens.length === 1 && tokens[0].key === WEB_LOGIN_SESSION_ID) {
+            if (tokens[0].token.length === 0) {
+              debug('waiting for authentication');
+              // Poll again after short delay
+              // TODO: make this configurable (default 5 seconds)
+              res.status(HTTP_STATUS.ACCEPTED);
+              res.set(HEADERS.RETRY_AFTER, '5');
+              res.json({});
+              return;
+            }
+
+            // session token can only be used once
+            debug('deleting session token');
+            await storage.deleteToken(sessionId, tokens[0].key);
+
+            // Check if token has expired
+            // TODO: make this configurable (default 2 minutes)
+            const tokenCreatedDate = new Date(tokens[0].created);
+            const minutesAgo = new Date(Date.now() - 2 * 60 * 1000);
+            if (tokenCreatedDate < minutesAgo) {
+              debug('session token expired');
+              return next(errorUtils.getUnauthorized(API_ERROR.SESSION_TOKEN_EXPIRED));
+            }
+
+            debug('session token is valid, login successful');
+            res.status(HTTP_STATUS.OK);
+            res.json({ token: tokens[0].token });
+            return;
+          }
+
+          const token =
+            name && password
+              ? await getApiToken(auth, config, user as RemoteUser, password)
+              : undefined;
+          if (token) {
+            debug('adduser: new token %o', cryptoUtils.mask(token as string, 4));
+            return next({ token, username: name });
+          }
+          return next(errorUtils.getUnauthorized());
+        });
+      }
+    );
+  }
 
   if (config?.flags?.changePassword === true) {
     route.put(

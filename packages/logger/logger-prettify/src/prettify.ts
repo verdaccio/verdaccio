@@ -1,12 +1,13 @@
 import { isColorSupported } from 'colorette';
-import { WriteStream } from 'node:fs';
+import type { WriteStream } from 'node:fs';
 import { Transform, pipeline } from 'node:stream';
 import { isMainThread } from 'node:worker_threads';
 import build from 'pino-abstract-transport';
-import SonicBoom, { SonicBoomOpts } from 'sonic-boom';
+import type { SonicBoomOpts } from 'sonic-boom';
+import SonicBoom from 'sonic-boom';
 
 import { fillInMsgTemplate, printMessage } from './formatter';
-import { PrettyOptionsExtended } from './types';
+import type { PrettyOptionsExtended } from './types';
 
 export { fillInMsgTemplate };
 
@@ -40,38 +41,34 @@ function buildSafeSonicBoom(opts: SonicBoomOpts) {
   }
 }
 
-function setupOnExit(stream) {
-  /* istanbul ignore next */
-  if (global.WeakRef && global.WeakMap && global.FinalizationRegistry) {
-    // This is leak free, it does not leave event handlers
-    const onExit = require('on-exit-leak-free');
-
-    onExit.register(stream, autoEnd);
-
-    stream.on('close', function () {
-      onExit.unregister(stream);
-    });
-  }
-}
-
-/* istanbul ignore next */
 function autoEnd(stream, eventName) {
-  // This check is needed only on some platforms
-
   if (stream.destroyed) {
     return;
   }
 
   if (eventName === 'beforeExit') {
-    // We still have an event loop, let's use it
     stream.flush();
     stream.on('drain', function () {
       stream.end();
     });
   } else {
-    // We do not have an event loop, so flush synchronously
-    stream.flushSync();
+    // Guard against SonicBoom not being ready (file not yet opened)
+    // to prevent "sonic boom is not ready yet" crash on early process exit
+    try {
+      stream.flushSync();
+    } catch {
+      // Stream not ready, nothing to flush
+    }
   }
+}
+
+function setupOnExit(stream) {
+  // WeakRef/FinalizationRegistry are guaranteed available in Node 20+ (pino v10 minimum)
+  const onExit = require('on-exit-leak-free');
+  onExit.register(stream, autoEnd);
+  stream.on('close', function () {
+    onExit.unregister(stream);
+  });
 }
 
 export function hasColors(colors: boolean | undefined) {
@@ -102,7 +99,7 @@ export default function (opts) {
     });
     const destination = buildSafeSonicBoom({
       dest: opts.destination || 1,
-      sync: opts.sync || true,
+      sync: opts.sync ?? true,
     }) as unknown as WriteStream;
 
     source.on('unknown', function (line) {
@@ -111,7 +108,6 @@ export default function (opts) {
 
     pipeline(source, stream, destination, (err) => {
       if (err) {
-        // eslint-disable-next-line no-console
         console.error('prettify pipeline error ', err);
       }
     });

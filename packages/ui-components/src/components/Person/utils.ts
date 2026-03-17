@@ -1,6 +1,6 @@
 import i18next from 'i18next';
 
-import { Developer } from '../../types/packageMeta';
+import type { Developer } from '../../types/packageMeta';
 import { url } from '../../utils';
 
 export function getLink(person: Developer, packageName: string, version: string): string {

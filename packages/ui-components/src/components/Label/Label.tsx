@@ -1,8 +1,7 @@
-/* eslint-disable verdaccio/jsx-spread */
 import styled from '@emotion/styled';
 import React from 'react';
 
-import { FontWeight, Theme } from '../../';
+import type { FontWeight, Theme } from '../../';
 
 interface Props {
   text: string;

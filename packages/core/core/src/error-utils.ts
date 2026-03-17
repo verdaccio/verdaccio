@@ -1,4 +1,5 @@
-import createError, { HttpError } from 'http-errors';
+import type { HttpError } from 'http-errors';
+import createError from 'http-errors';
 
 import { HTTP_STATUS } from './constants';
 

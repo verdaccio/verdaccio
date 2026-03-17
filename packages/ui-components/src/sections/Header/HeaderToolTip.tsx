@@ -1,6 +1,7 @@
 import React from 'react';
 
-import HeaderToolTipIcon, { TooltipIconType } from './HeaderToolTipIcon';
+import type { TooltipIconType } from './HeaderToolTipIcon';
+import HeaderToolTipIcon from './HeaderToolTipIcon';
 
 interface Props {
   title: string;

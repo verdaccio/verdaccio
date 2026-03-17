@@ -1,4 +1,4 @@
-import { SyntheticEvent } from 'react';
+import type { SyntheticEvent } from 'react';
 import { vi } from 'vitest';
 
 import { copyToClipBoardUtility, getCLISetConfigRegistry } from './cli-utils';

@@ -24,7 +24,7 @@ export default (auth, storage, config) => {
   route.use(WebUrlsNamespace.data, sidebar(config, storage, auth));
   route.use(WebUrlsNamespace.data, readme(storage, auth));
   if (hasLogin(config)) {
-    route.use(WebUrlsNamespace.sec, user(auth, config));
+    route.use(WebUrlsNamespace.sec, user(auth, config, storage));
   }
   return route;
 };

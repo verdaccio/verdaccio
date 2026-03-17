@@ -4,7 +4,7 @@ import { mergeVersions, semverSort } from '../src/pkg-utils';
 
 describe('Storage._merge_versions versions', () => {
   test('simple', () => {
-    let pkg = {
+    const pkg = {
       versions: { a: 1, b: 1, c: 1 },
       'dist-tags': {},
     };
@@ -19,7 +19,7 @@ describe('Storage._merge_versions versions', () => {
   });
 
   test('dist-tags - compat', () => {
-    let pkg = {
+    const pkg = {
       versions: {},
       'dist-tags': { q: '1.1.1', w: '2.2.2' },
     };
@@ -34,7 +34,7 @@ describe('Storage._merge_versions versions', () => {
   });
 
   test('dist-tags - staging', () => {
-    let pkg = {
+    const pkg = {
       versions: {},
       // we've been locally publishing 1.1.x in preparation for the next
       // public release

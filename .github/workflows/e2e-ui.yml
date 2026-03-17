@@ -23,10 +23,10 @@ jobs:
           NODE_ENV: production
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Build application with Node 20
+      - name: Build application with Node 24
         uses: ./.github/actions/build-app
         with:
-          node-version: 20
+          node-version: 24
       - name: Test UI
         run: pnpm test:e2e:ui
       - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0

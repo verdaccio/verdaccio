@@ -5,7 +5,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useConfig } from '../../providers';
-import { Time, Versions } from '../../types/packageMeta';
+import type { Time, Versions } from '../../types/packageMeta';
 import { Route, utils } from '../../utils';
 import Link from '../Link';
 import { ListItemText, Spacer } from './styles';
@@ -53,6 +53,11 @@ const VersionsHistoryList: React.FC<Props> = ({ versions, packageName, time }) =
                 data-testid={`version-list-link`}
                 disableTypography={false}
                 primary={version}
+                sx={
+                  typeof versions[version]?.deprecated === 'string'
+                    ? { textDecoration: 'line-through' }
+                    : undefined
+                }
               />
             </Link>
             {typeof versions[version]?.deprecated === 'string' ? (
@@ -66,11 +71,15 @@ const VersionsHistoryList: React.FC<Props> = ({ versions, packageName, time }) =
               />
             ) : null}
             <Spacer />
-            <ListItemText data-testid={`version-list-text`} title={utils.formatDate(time[version])}>
-              {time[version]
-                ? utils.formatDateDistance(time[version])
-                : t('versions.not-available')}
-            </ListItemText>
+            <ListItemText
+              data-testid={`version-list-text`}
+              primary={
+                time[version]
+                  ? utils.formatDateDistance(time[version])
+                  : t('versions.not-available')
+              }
+              slotProps={{ primary: { title: utils.formatDate(time[version]) } }}
+            />
           </ListItem>
         ))}
     </List>

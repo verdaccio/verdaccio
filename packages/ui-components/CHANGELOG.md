@@ -1,5 +1,65 @@
 # @verdaccio/ui-components
 
+## 5.0.0-next-9.3
+
+### Major Changes
+
+- 52a6520: Replace Babel and esbuild build pipeline with Vite 8 across all packages. All packages now output dual ESM (.mjs) and CJS (.js) formats with TypeScript declarations generated via vite-plugin-dts. Includes shared build config at vite.lib.config.mjs, proper exports field in all package.json files, and fixes for type-only re-exports required by Rollup's stricter module analysis.
+
+### Patch Changes
+
+- f32524b: fix: search component improvements
+
+  - fix: extract search query from URL path instead of query params to match API routing
+  - fix: decode URI components in search query (e.g. `%40` to `@`) for scoped packages
+  - fix: resolve undefined package name on search result click when `searchRemote` is disabled
+  - feat: display "No results found" message when search yields no matches
+  - feat: make detail page tabs full-width on desktop and scrollable on mobile
+  - test: add unit tests for AutoComplete component
+  - test: update Search tests to cover debounce memoization and cleanup on unmount
+
+- Updated dependencies [52a6520]
+  - @verdaccio/ui-i18n@10.0.0-next-9.2
+
+## 5.0.0-next-9.2
+
+### Major Changes
+
+- 325c584: feat: migrate to vite
+
+### Patch Changes
+
+- Updated dependencies [325c584]
+  - @verdaccio/ui-i18n@10.0.0-next-9.1
+
+## 5.0.0-next-9.1
+
+### Major Changes
+
+- dd9bad3: feat: upgrade to express v5
+
+## 5.0.0-next-9.0
+
+### Major Changes
+
+- 7f80af5: chore: bump package
+
+### Patch Changes
+
+- Updated dependencies [7f80af5]
+  - @verdaccio/ui-i18n@10.0.0-next-9.0
+
+## 4.0.0-next-8.13
+
+### Minor Changes
+
+- b5eccfc: feat: remove rematch refactor ui
+
+### Patch Changes
+
+- Updated dependencies [b5eccfc]
+  - @verdaccio/ui-i18n@8.0.0-next-8.14
+
 ## 4.0.0-next-8.12
 
 ### Patch Changes

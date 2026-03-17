@@ -30,15 +30,15 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "engines": {
-    "node": ">=18"
+    "node": ">=24"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:6.0.0-6-next.5",
+    "@verdaccio/core": "workspace:8.0.0",
     "activedirectory2": "2.2.0"
   },
   "devDependencies": {
     "@types/activedirectory2": "1.2.6",
-    "@verdaccio/types": "workspace:11.0.0-6-next.12"
+    "@verdaccio/types": "workspace:13.0.0"
   },
   "scripts": {
     "clean": "rimraf ./build",

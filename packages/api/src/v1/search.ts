@@ -1,12 +1,12 @@
 import buildDebug from 'debug';
 import _ from 'lodash';
 
-import { Auth } from '@verdaccio/auth';
-import { HTTP_STATUS, searchUtils } from '@verdaccio/core';
+import type { Auth } from '@verdaccio/auth';
+import type { searchUtils } from '@verdaccio/core';
+import { HTTP_STATUS } from '@verdaccio/core';
 import { SEARCH_API_ENDPOINTS } from '@verdaccio/middleware';
-import { Storage } from '@verdaccio/store';
-import { Manifest } from '@verdaccio/types';
-import { Logger } from '@verdaccio/types';
+import type { Storage } from '@verdaccio/store';
+import type { Logger, Manifest } from '@verdaccio/types';
 
 const debug = buildDebug('verdaccio:api:search');
 

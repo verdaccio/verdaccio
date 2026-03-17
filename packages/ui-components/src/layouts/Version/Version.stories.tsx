@@ -1,8 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { HttpResponse, http } from 'msw';
 import React from 'react';
-import { MemoryRouter, Route } from 'react-router';
+import { MemoryRouter, Route, Routes } from 'react-router';
 
+import jqueryReadme from '../../../vitest/api/jquery-readme.js';
+import jquerySidebar from '../../../vitest/api/jquery-sidebar.json';
+import storybookReadme from '../../../vitest/api/storybook-readme.js';
+import storybookSidebar from '../../../vitest/api/storybook-sidebar.json';
 import { VersionProvider } from '../../providers';
 import VersionLayout from './Version';
 
@@ -20,11 +24,16 @@ export const Primary: Story = {
   render: () => {
     return (
       <MemoryRouter initialEntries={[`/-/web/detail/storybook`]}>
-        <Route exact={true} path="/-/web/detail/:package">
-          <VersionProvider>
-            <VersionLayout />
-          </VersionProvider>
-        </Route>
+        <Routes>
+          <Route
+            element={
+              <VersionProvider>
+                <VersionLayout />
+              </VersionProvider>
+            }
+            path="/-/web/detail/:package"
+          />
+        </Routes>
       </MemoryRouter>
     );
   },
@@ -32,10 +41,10 @@ export const Primary: Story = {
     msw: {
       handlers: [
         http.get('https://my-registry.org/-/verdaccio/data/sidebar/storybook', () => {
-          return HttpResponse.json(require('../../../vitest/api/storybook-sidebar.json'));
+          return HttpResponse.json(storybookSidebar);
         }),
         http.get('https://my-registry.org/-/verdaccio/data/package/readme/storybook', () => {
-          return HttpResponse.json(require('../../../vitest/api/storybook-readme')());
+          return HttpResponse.json(storybookReadme);
         }),
       ],
     },
@@ -47,11 +56,16 @@ export const jQuery: Story = {
   render: () => {
     return (
       <MemoryRouter initialEntries={[`/-/web/detail/jquery`]}>
-        <Route exact={true} path="/-/web/detail/:package">
-          <VersionProvider>
-            <VersionLayout />
-          </VersionProvider>
-        </Route>
+        <Routes>
+          <Route
+            element={
+              <VersionProvider>
+                <VersionLayout />
+              </VersionProvider>
+            }
+            path="/-/web/detail/:package"
+          />
+        </Routes>
       </MemoryRouter>
     );
   },
@@ -59,10 +73,10 @@ export const jQuery: Story = {
     msw: {
       handlers: [
         http.get('https://my-registry.org/-/verdaccio/data/sidebar/jquery', () => {
-          return HttpResponse.json(require('../../../vitest/api/jquery-sidebar.json'));
+          return HttpResponse.json(jquerySidebar);
         }),
         http.get('https://my-registry.org/-/verdaccio/data/package/readme/jquery', () => {
-          return HttpResponse.json(require('../../../vitest/api/jquery-readme')());
+          return HttpResponse.json(jqueryReadme);
         }),
       ],
     },

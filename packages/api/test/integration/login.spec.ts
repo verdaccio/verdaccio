@@ -3,8 +3,7 @@ import { describe, expect, test } from 'vitest';
 
 import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 
-import { initializeServer } from './_helper';
-import { createUser } from './_helper';
+import { createUser, initializeServer } from './_helper';
 
 describe('login', () => {
   test('should return login and done urls, set session id', async () => {

@@ -1,7 +1,7 @@
 import createDebug from 'debug';
 
 import { DEFAULT_DOMAIN, DEFAULT_PORT, DEFAULT_PROTOCOL } from '@verdaccio/core';
-import { ListenAddress as ConfigListenAddress, Logger } from '@verdaccio/types';
+import type { ListenAddress as ConfigListenAddress, Logger } from '@verdaccio/types';
 
 const debug = createDebug('verdaccio:config:address');
 

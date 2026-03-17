@@ -1,4 +1,4 @@
-import { Callback } from '@verdaccio/types';
+import type { Callback } from '@verdaccio/types';
 
 import { lockfile, statDir, statfile } from './utils';
 

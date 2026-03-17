@@ -2,9 +2,7 @@ import React from 'react';
 
 import { SvgIcon } from './SvgIcon';
 
-type Props = React.ComponentProps<typeof SvgIcon>;
-
-const Version = React.forwardRef(function Version(props: Props, ref: React.Ref<SVGSVGElement>) {
+const Version = function Version({ ref, ...props }: React.ComponentProps<typeof SvgIcon>) {
   return (
     <SvgIcon height={16} viewBox="0 0 14 16" width={14} {...props} ref={ref}>
       <path
@@ -13,7 +11,7 @@ const Version = React.forwardRef(function Version(props: Props, ref: React.Ref<S
       />
     </SvgIcon>
   );
-});
+};
 
 Version.displayName = 'Version';
 

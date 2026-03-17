@@ -1,9 +1,9 @@
 import { describe, expect, test } from 'vitest';
 
 import { HTTP_STATUS } from '../src/constants';
+import type { VerdaccioError } from '../src/error-utils';
 import {
   API_ERROR,
-  VerdaccioError,
   getBadData,
   getCode,
   getConflict,

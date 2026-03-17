@@ -1,11 +1,10 @@
 import dayjs from 'dayjs';
-import _ from 'lodash';
 
 export const FORMAT_DATE = 'YYYY-MM-DD HH:mm:ss';
 export const CUSTOM_PAD_LENGTH = 1;
 
 export function isObject(obj: unknown): boolean {
-  return _.isObject(obj) && _.isNull(obj) === false && _.isArray(obj) === false;
+  return typeof obj === 'object' && obj !== null && !Array.isArray(obj);
 }
 
 export function padRight(message: string, max = message.length + CUSTOM_PAD_LENGTH) {
