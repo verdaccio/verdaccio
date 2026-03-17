@@ -6,13 +6,13 @@ import {
   Config as AppConfig,
   createAnonymousRemoteUser,
   createRemoteUser,
+  getDefaultConfig,
   parseConfigFile,
 } from '@verdaccio/config';
-import { getDefaultConfig } from '@verdaccio/config';
 import { TOKEN_BEARER, authUtils } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 import { signPayload } from '@verdaccio/signature';
-import { Config, RemoteUser, Security } from '@verdaccio/types';
+import type { Config, RemoteUser, Security } from '@verdaccio/types';
 
 import { Auth, getApiToken, getMiddlewareCredentials, verifyJWTPayload } from '../src';
 

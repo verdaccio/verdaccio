@@ -1,8 +1,0 @@
-{  
-  "rules": {
-    "jest/no-disabled-tests": 0,
-    "jest/no-commented-out-tests": 0,
-    "jest/no-standalone-expect": 0,
-    "no-console": 0
-  }    
-}

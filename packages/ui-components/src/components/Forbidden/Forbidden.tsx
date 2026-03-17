@@ -1,25 +1,32 @@
-/* eslint-disable react/forbid-component-props */
-
-/* eslint-disable verdaccio/jsx-no-style */
 import styled from '@emotion/styled';
 import LockIcon from '@mui/icons-material/Lock';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import { common } from '@mui/material/colors';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
-import { Theme } from '../..';
+import type { Theme } from '../..';
 import Heading from '../Heading';
 
-const Foebidden: React.FC = () => {
-  const history = useHistory();
+const Container = styled('div')({
+  margin: '0 auto',
+});
+
+const StyledHeading = styled(Heading)<{ theme?: Theme }>(({ theme }) => ({
+  color: theme.palette.mode === 'light' ? theme.palette.primary.main : common.white,
+  marginBottom: 16,
+}));
+
+const Forbidden: React.FC = () => {
+  const navigate = useNavigate();
 
   const { t } = useTranslation();
 
   const handleGoHome = useCallback(() => {
-    history.push('/');
-  }, [history]);
+    navigate('/');
+  }, [navigate]);
 
   return (
     <Box
@@ -44,13 +51,5 @@ const Foebidden: React.FC = () => {
   );
 };
 
-export default Foebidden;
-
-const Container = styled('div')({
-  margin: '0 auto',
-});
-
-const StyledHeading = styled(Heading)<{ theme?: Theme }>(({ theme }) => ({
-  color: theme.palette.mode === 'light' ? theme.palette.primary.main : theme.palette.white,
-  marginBottom: 16,
-}));
+export default Forbidden;
+export { Forbidden };

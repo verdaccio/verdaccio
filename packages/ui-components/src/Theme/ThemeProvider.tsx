@@ -1,9 +1,10 @@
 import { ThemeProvider as MUIThemeProvider, StyledEngineProvider } from '@mui/material/styles';
-import React, { createContext, useContext } from 'react';
+import React, { createContext, use } from 'react';
 
 import useLocalStorage from '../hooks/useLocalStorage';
 import { useConfig } from '../providers/AppConfigurationProvider';
-import { ThemeMode, getTheme } from './theme';
+import type { ThemeMode } from './modes';
+import { getTheme } from './theme';
 
 interface Props {
   isDarkMode: boolean;
@@ -30,15 +31,16 @@ const ThemeProvider: React.FC<{ children: any }> = ({ children }) => {
   const themeMode: ThemeMode = isDarkMode ? 'dark' : 'light';
 
   const currentTheme = getTheme(themeMode, configOptions.primaryColor);
+
   return (
-    <ThemeContext.Provider value={{ isDarkMode, setIsDarkMode }}>
+    <ThemeContext value={{ isDarkMode, setIsDarkMode }}>
       <StyledEngineProvider injectFirst={true}>
         <MUIThemeProvider theme={currentTheme}>{children}</MUIThemeProvider>
       </StyledEngineProvider>
-    </ThemeContext.Provider>
+    </ThemeContext>
   );
 };
 
-export const useCustomTheme = () => useContext(ThemeContext);
+export const useCustomTheme = () => use(ThemeContext);
 
 export { ThemeProvider };

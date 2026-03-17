@@ -1,9 +1,22 @@
 {
   "name": "@verdaccio/search-indexer",
-  "version": "8.0.0-next-8.5",
+  "version": "9.0.0-next-9.1",
   "description": "Verdaccio Search Indexer",
   "main": "./build/dist.js",
+  "module": "./build/dist.mjs",
   "types": "build/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./build/index.d.ts",
+        "default": "./build/dist.mjs"
+      },
+      "require": {
+        "types": "./build/index.d.ts",
+        "default": "./build/dist.js"
+      }
+    }
+  },
   "author": {
     "name": "Juan Picado",
     "email": "juanpicado19@gmail.com"
@@ -30,21 +43,17 @@
     "verdaccio"
   ],
   "engines": {
-    "node": ">=18"
+    "node": ">=24"
   },
   "scripts": {
     "clean": "rimraf ./build",
     "test": "vitest run",
-    "type-check": "tsc --noEmit -p tsconfig.build.json",
-    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
-    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
-    "build": "esbuild src/index.ts --bundle --outfile=build/dist.js --platform=node --target=node18  && pnpm run build:types"
+    "build": "vite build"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:13.0.0-next-8.10",
+    "@verdaccio/types": "workspace:14.0.0-next-9.1",
     "@orama/orama": "1.2.11",
     "debug": "4.4.3",
-    "esbuild": "0.25.10",
     "vitest": "3.2.4"
   },
   "funding": {

@@ -2,9 +2,10 @@ import buildDebug from 'debug';
 import _ from 'lodash';
 import { PassThrough } from 'node:stream';
 
-import { searchUtils } from '@verdaccio/core';
-import { IProxy, ProxyInstanceList, ProxySearchParams, setupUpLinks } from '@verdaccio/proxy';
-import { Config, Logger } from '@verdaccio/types';
+import type { searchUtils } from '@verdaccio/core';
+import type { IProxy, ProxyInstanceList, ProxySearchParams } from '@verdaccio/proxy';
+import { setupUpLinks } from '@verdaccio/proxy';
+import type { Config, Logger } from '@verdaccio/types';
 
 import { removeDuplicates } from './search-utils';
 

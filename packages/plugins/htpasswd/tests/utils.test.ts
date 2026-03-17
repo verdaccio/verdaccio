@@ -6,8 +6,8 @@ import { beforeAll, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { constants } from '@verdaccio/core';
 
-import { DEFAULT_BCRYPT_ROUNDS } from '../src/utils';
 import {
+  DEFAULT_BCRYPT_ROUNDS,
   addUserToHTPasswd,
   changePasswordToHTPasswd,
   generateHtpasswdLine,

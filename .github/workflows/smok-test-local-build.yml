@@ -1,0 +1,124 @@
+on:
+  workflow_call:
+  pull_request:
+
+permissions:
+  contents: read
+concurrency:
+  group: smok-local-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Smoke Test Local Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Build application
+        uses: ./.github/actions/build-app
+        with:
+          node-version: 24
+      - name: Install verdaccio globally from local build
+        run: node scripts/global-install.js
+      - name: Verify version
+        run: |
+          VERSION=$(verdaccio --version)
+          echo "Installed version: $VERSION"
+          if [ -z "$VERSION" ]; then
+            echo "::error::verdaccio --version returned empty"
+            exit 1
+          fi
+      - name: Start verdaccio in background
+        run: |
+          verdaccio --listen 4873 &
+          VERDACCIO_PID=$!
+          echo "VERDACCIO_PID=$VERDACCIO_PID" >> "$GITHUB_ENV"
+          # Wait for server to be ready
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:4873/-/ping > /dev/null 2>&1; then
+              echo "Verdaccio is up after ${i}s"
+              break
+            fi
+            if [ "$i" -eq 30 ]; then
+              echo "::error::Verdaccio did not start within 30s"
+              exit 1
+            fi
+            sleep 1
+          done
+      - name: Verify startup logs
+        run: |
+          # Give a moment for logs to flush
+          sleep 2
+          # Check verdaccio process is still running
+          if ! kill -0 "$VERDACCIO_PID" 2>/dev/null; then
+            echo "::error::Verdaccio process is no longer running"
+            exit 1
+          fi
+          echo "Verdaccio is running (PID: $VERDACCIO_PID)"
+      - name: Verify web UI renders
+        run: |
+          HTTP_CODE=$(curl -s -o /tmp/verdaccio-web.html -w '%{http_code}' -H 'Accept: text/html' http://localhost:4873/)
+          echo "Web UI HTTP status: $HTTP_CODE"
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "::error::Web UI returned HTTP $HTTP_CODE"
+            cat /tmp/verdaccio-web.html
+            exit 1
+          fi
+          # Verify HTML contains expected verdaccio UI markers
+          if grep -q '__VERDACCIO_BASENAME_UI_OPTIONS' /tmp/verdaccio-web.html; then
+            echo "Web UI contains expected UI options"
+          else
+            echo "::error::Web UI HTML missing __VERDACCIO_BASENAME_UI_OPTIONS"
+            cat /tmp/verdaccio-web.html
+            exit 1
+          fi
+      - name: Verify static assets load
+        run: |
+          # Extract JS bundle paths from the HTML
+          SCRIPTS=$(grep -oP 'src="[^"]*\.js"' /tmp/verdaccio-web.html | sed 's/src="//;s/"//' || true)
+          if [ -z "$SCRIPTS" ]; then
+            echo "::error::No script tags found in web UI HTML"
+            cat /tmp/verdaccio-web.html
+            exit 1
+          fi
+          echo "Found script bundles:"
+          echo "$SCRIPTS"
+          for SCRIPT in $SCRIPTS; do
+            # Handle both absolute URLs and relative paths
+            if echo "$SCRIPT" | grep -q '^http'; then
+              URL="$SCRIPT"
+            else
+              URL="http://localhost:4873${SCRIPT}"
+            fi
+            STATUS=$(curl -s -o /dev/null -w '%{http_code}' "$URL")
+            CONTENT_TYPE=$(curl -s -o /dev/null -w '%{content_type}' "$URL")
+            echo "  $SCRIPT -> HTTP $STATUS ($CONTENT_TYPE)"
+            if [ "$STATUS" != "200" ]; then
+              echo "::error::Static asset $SCRIPT returned HTTP $STATUS"
+              exit 1
+            fi
+          done
+      - name: Install lodash through verdaccio
+        run: |
+          mkdir /tmp/test-project && cd /tmp/test-project
+          npm init -y
+          npm install lodash --registry http://localhost:4873 2>&1 | tee /tmp/npm-install.log
+          # Verify lodash was installed
+          if [ ! -d node_modules/lodash ]; then
+            echo "::error::lodash was not installed"
+            exit 1
+          fi
+          echo "lodash installed successfully"
+          node -e "const _ = require('lodash'); console.log('lodash version:', _.VERSION)"
+      - name: Verify request logging
+        run: |
+          # Make a request that should appear in logs
+          curl -s http://localhost:4873/lodash > /dev/null
+          echo "Package request made — verdaccio process still running: $(kill -0 $VERDACCIO_PID 2>/dev/null && echo 'yes' || echo 'no')"
+      - name: Stop verdaccio
+        if: always()
+        run: |
+          if [ -n "$VERDACCIO_PID" ] && kill -0 "$VERDACCIO_PID" 2>/dev/null; then
+            kill "$VERDACCIO_PID" || true
+            echo "Verdaccio stopped"
+          fi

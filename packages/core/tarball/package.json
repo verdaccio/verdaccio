@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/tarball",
-  "version": "13.0.0-next-8.30",
+  "version": "14.0.0-next-9.4",
   "description": "Verdaccio Tarball Utilities",
   "keywords": [
     "private",
@@ -19,7 +19,7 @@
   "license": "MIT",
   "homepage": "https://verdaccio.org",
   "engines": {
-    "node": ">=18"
+    "node": ">=24"
   },
   "repository": {
     "type": "https",
@@ -33,28 +33,39 @@
     "access": "public"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:8.0.0-next-8.30",
-    "@verdaccio/url": "workspace:13.0.0-next-8.30",
+    "@verdaccio/core": "workspace:9.0.0-next-9.4",
+    "@verdaccio/url": "workspace:14.0.0-next-9.4",
     "debug": "4.4.3",
     "gunzip-maybe": "1.4.2",
     "tar-stream": "3.1.7"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:13.0.0-next-8.10",
+    "@verdaccio/types": "workspace:14.0.0-next-9.1",
     "node-mocks-http": "1.14.1",
     "vitest": "3.2.4"
   },
   "scripts": {
     "clean": "rimraf ./build",
     "test": "vitest run",
-    "type-check": "tsc --noEmit -p tsconfig.build.json",
-    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
-    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
-    "watch": "pnpm build:js -- --watch",
-    "build": "pnpm run build:js && pnpm run build:types"
+    "watch": "vite build --watch",
+    "build": "vite build"
   },
   "funding": {
     "type": "opencollective",
     "url": "https://opencollective.com/verdaccio"
+  },
+  "module": "./build/index.mjs",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./build/index.d.ts",
+        "default": "./build/index.mjs"
+      },
+      "require": {
+        "types": "./build/index.d.ts",
+        "default": "./build/index.js"
+      }
+    },
+    "./build/*": "./build/*"
   }
 }

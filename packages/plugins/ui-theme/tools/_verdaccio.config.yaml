@@ -12,6 +12,9 @@ web:
 
 flags:
   searchRemote: true
+  webLogin: true
+  createUser: true
+  changePassword: true
 
 plugins: ../
 
@@ -24,6 +27,7 @@ auth:
       bar:
         name: bar
         password: test #pragma: allowlist secret
+
 security:
   api:
     jwt:

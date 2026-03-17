@@ -1,9 +1,9 @@
-/* eslint-disable verdaccio/jsx-spread */
 import Autocomplete from '@mui/material/Autocomplete';
-import React, { FC, useState } from 'react';
+import type { FC } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { SearchResultWeb } from '@verdaccio/types';
+import type { SearchResultWeb } from '@verdaccio/types';
 
 import { Wrapper } from './styles';
 
@@ -14,8 +14,8 @@ export type OnSelecItem = (
   details?: string
 ) => void;
 interface Props {
-  suggestions: SearchResultWeb[];
-  suggestionsLoading: boolean;
+  suggestions?: SearchResultWeb[];
+  suggestionsLoading?: boolean;
   placeholder: string;
   renderOption?: (props: any, option: any) => JSX.Element;
   renderInput: (params: any) => JSX.Element;
@@ -26,7 +26,7 @@ interface Props {
 }
 
 const AutoComplete: FC<Props> = ({
-  suggestions,
+  suggestions = [],
   onSuggestionsFetch,
   onCleanSuggestions,
   renderInput,
@@ -61,13 +61,14 @@ const AutoComplete: FC<Props> = ({
         /* @ts-ignore */
         clearOnBlur={true}
         disablePortal={true}
-        freeSolo={true}
+        filterOptions={(options, state) => (state.inputValue.trim() ? options : [])}
         fullWidth={true}
         getOptionLabel={getOptionLabel}
         id="search-header-suggest"
         inputValue={inputValue}
         loading={suggestionsLoading}
         loadingText={t('autoComplete.loading')}
+        noOptionsText={t('autoComplete.no-results-found')}
         onChange={onSelectItem as any}
         onClose={handleOnClose}
         onInputChange={handleOnInputChange}

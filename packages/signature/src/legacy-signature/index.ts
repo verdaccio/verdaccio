@@ -42,7 +42,7 @@ export function aesDecryptDeprecated(buf: Buffer, secret: string): Buffer {
     const b2 = c.final();
     debug('deprecated legacy token payload decrypted successfully');
     return Buffer.concat([b1, b2]);
-  } catch (_) {
+  } catch {
     return Buffer.alloc(0);
   }
 }

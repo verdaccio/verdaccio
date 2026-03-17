@@ -1,15 +1,16 @@
 import buildDebug from 'debug';
-import { Response, Router } from 'express';
+import type { Response, Router } from 'express';
 import { randomUUID } from 'node:crypto';
 
-import { Auth, getApiToken } from '@verdaccio/auth';
+import type { Auth } from '@verdaccio/auth';
+import { getApiToken } from '@verdaccio/auth';
 import { createRemoteUser } from '@verdaccio/config';
 import { API_ERROR, HEADERS, HTTP_STATUS, authUtils, errorUtils } from '@verdaccio/core';
 import { LOGIN_API_ENDPOINTS, rateLimit } from '@verdaccio/middleware';
-import { Storage } from '@verdaccio/store';
-import { Config, Logger } from '@verdaccio/types';
+import type { Storage } from '@verdaccio/store';
+import type { Config, Logger } from '@verdaccio/types';
 
-import { $NextFunctionVer, $RequestExtend } from '../../types/custom';
+import type { $NextFunctionVer, $RequestExtend } from '../../types/custom';
 
 const debug = buildDebug('verdaccio:api:login');
 
@@ -65,16 +66,18 @@ export default function (
       debug('polling login session %o', req.params.sessionId);
 
       if (!req.params.sessionId) {
+        debug('sessionId is missing');
         return next(errorUtils.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.SESSION_ID_REQUIRED));
       }
       const sessionId = req.params.sessionId;
       if (sessionId.length !== 36) {
+        debug('sessionId is invalid length: %o', sessionId.length);
         return next(errorUtils.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.SESSION_ID_INVALID));
       }
 
       try {
         const tokens = await storage.readTokens({ user: sessionId });
-
+        debug('tokens found for sessionId %o: %o', sessionId, tokens.length);
         if (tokens && tokens.length === 1 && tokens[0].key === WEB_LOGIN_SESSION_ID) {
           if (tokens[0].token.length === 0) {
             debug('waiting for authentication');
@@ -85,6 +88,7 @@ export default function (
             res.json({});
           } else {
             // session token can only be used once
+            debug('deleting session token');
             await storage.deleteToken(sessionId, tokens[0].key);
 
             // Check if token has expired
@@ -119,10 +123,12 @@ export default function (
       debug('authenticating login session %o for user %o', req.params.sessionId, username);
 
       if (!req.params.sessionId) {
+        debug('sessionId is missing');
         return next(errorUtils.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.SESSION_ID_REQUIRED));
       }
       const sessionId = req.params.sessionId;
       if (sessionId.length !== 36) {
+        debug('sessionId is invalid length: %o', sessionId.length);
         return next(errorUtils.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.SESSION_ID_INVALID));
       }
 
@@ -146,6 +152,7 @@ export default function (
           }
 
           // Replace login session with token (to be picked up by the "done" endpoint)
+          debug('saving token for sessionId %o', sessionId);
           await storage.deleteToken(sessionId, WEB_LOGIN_SESSION_ID);
           await storage.saveToken({
             user: sessionId,

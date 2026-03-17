@@ -1,89 +1,108 @@
-import { Button, Link, Typography } from '@mui/material';
-import React, { useEffect, useRef } from 'react';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Link, Typography } from '@mui/material';
+import React, { useCallback, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router';
 
+import { useDataMutation } from '../../api/use-data-mutation';
+import type { LoginFormValues } from '../../components/LoginForm/Login';
+import LoginForm from '../../components/LoginForm/Login';
+import LoginFormHeader from '../../components/LoginForm/styles';
+import NotFound from '../../components/NotFound';
+import { getConfiguration } from '../../configuration';
 import SecurityLayout from '../../layouts/Security/Dialog';
-import { Dispatch, RootState } from '../../store';
+import type { LoginBody } from '../../providers/AuthProvider/types';
+import { normalizeAuthError } from '../../providers/AuthProvider/utils';
+import { saveAuth } from '../../store/storage';
+import { stripTrailingSlash } from '../../store/utils';
 import { Route } from '../../utils';
-import LoginError from './LoginError';
+import { loginSchema } from '../../utils/schemas';
 import { MessageType } from './Success';
-import { SecurityContainer, SecurityForm, SecurityTextField } from './styles';
-import { getSecurityUrlParams, validateCredentials } from './utils';
+import { SecurityContainer, SecurityForm } from './styles';
+import { getSecurityUrlParams } from './utils';
+
+const configuration = getConfiguration();
+const basePath = stripTrailingSlash(configuration.base);
 
 const Login: React.FC = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch<Dispatch>();
-  const loginStore = useSelector((state: RootState) => state.loginV1);
-  const usernameRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
-
   const location = useLocation();
-  const { next, user } = getSecurityUrlParams(location);
+  const navigate = useNavigate();
+  const { next } = getSecurityUrlParams(location);
+  const createUserEnabled = configuration?.flags?.createUser;
   const addUserLink = Route.ADD_USER + (next ? '?next=' + next : '');
 
-  const [username, setUsername] = React.useState(user);
-  const [password, setPassword] = React.useState('');
+  const { data, isMutating, trigger } = useDataMutation<LoginBody>(basePath, next, 'POST');
 
-  useEffect(() => {
-    if (username) {
-      passwordRef.current?.focus();
-    } else {
-      usernameRef.current?.focus();
+  const form = useForm<LoginFormValues>({
+    mode: 'onChange',
+    resolver: yupResolver(loginSchema),
+  });
+
+  const {
+    setError,
+    handleSubmit,
+    register,
+    formState: { isValid, errors },
+  } = form;
+
+  const handleLogin = async (body: { username: string; password: string }) => {
+    try {
+      await trigger(body);
+    } catch (err) {
+      throw normalizeAuthError(err);
     }
-  }, [username]);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    dispatch.loginV1.clearError();
-
-    if (!validateCredentials(username, password, t, dispatch.loginV1.addError)) {
-      return;
-    }
-
-    await dispatch.loginV1.login({
-      username,
-      password,
-      next,
-      messageType: MessageType.Login,
-    });
   };
 
-  return (
+  const onSuccess = useCallback(() => {
+    navigate(`${Route.SUCCESS}?messageType=${MessageType.Login}`);
+  }, [navigate]);
+
+  const onSubmit = useCallback(
+    async (data: LoginFormValues) => {
+      try {
+        await handleLogin?.(data);
+        onSuccess();
+      } catch {
+        setError('root', {
+          type: 'server',
+          // TODO: add translation key
+          message: 'Invalid username or password',
+        });
+      }
+    },
+    [handleLogin, setError, onSuccess]
+  );
+
+  useEffect(() => {
+    if (data && !isMutating && data.username && data.token) {
+      saveAuth(data.username, data.token);
+    }
+  }, [data, isMutating]);
+
+  return !next ? (
+    <NotFound />
+  ) : (
     <SecurityLayout>
       <SecurityContainer>
-        <SecurityForm component="form" onSubmit={handleSubmit}>
-          <Typography align="center" component="h1" gutterBottom={true} variant="h4">
-            {t('security.login.title')}
-          </Typography>
-          <SecurityTextField
-            error={!!loginStore.error}
-            inputRef={usernameRef}
-            label={t('security.login.username')}
-            onChange={(e) => setUsername(e.target.value)}
-            required={true}
-            value={username}
+        <SecurityForm>
+          <LoginFormHeader />
+          <LoginForm
+            errors={errors}
+            handleSubmit={handleSubmit}
+            isValid={isValid}
+            onSubmit={onSubmit}
+            register={register}
           />
-          <SecurityTextField
-            error={!!loginStore.error}
-            inputRef={passwordRef}
-            label={t('security.login.password')}
-            onChange={(e) => setPassword(e.target.value)}
-            required={true}
-            type="password"
-            value={password}
-          />
-          {loginStore.error && <LoginError error={loginStore.error} />}
-          <Button color="primary" fullWidth={true} sx={{ mt: 2 }} type="submit" variant="contained">
-            {t('security.login.submit')}
-          </Button>
-          <Typography align="center" sx={{ mt: 2, fontSize: 12 }} variant="body2">
-            {t('security.login.noUserQuestion')}
-            <Link href={addUserLink} sx={{ ml: 1 }}>
-              {t('security.login.createUser')}
-            </Link>
-          </Typography>
+          {createUserEnabled && (
+            <Typography align="center" sx={{ mt: 2, fontSize: 12 }} variant="body2">
+              {t('security.login.noUserQuestion')}
+              <Link href={addUserLink} sx={{ ml: 1 }}>
+                {t('security.login.createUser')}
+              </Link>
+            </Typography>
+          )}
         </SecurityForm>
       </SecurityContainer>
     </SecurityLayout>

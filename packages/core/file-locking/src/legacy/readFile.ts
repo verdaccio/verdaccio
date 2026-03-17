@@ -1,7 +1,6 @@
-/* eslint-disable no-undef */
 import fs from 'node:fs';
 
-import { Callback } from '@verdaccio/types';
+import type { Callback } from '@verdaccio/types';
 
 import { lockFile } from './lockfile';
 
@@ -19,7 +18,7 @@ export type ReadFileOptions = {
  * @param {*} options
  * @param {*} callback
  */
-// eslint-disable-next-line @typescript-eslint/no-empty-function
+
 function readFile(
   name: string,
   options: ReadFileOptions = {},

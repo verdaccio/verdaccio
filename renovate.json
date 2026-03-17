@@ -1,7 +1,7 @@
 {
   "extends": ["config:base", "helpers:pinGitHubActionDigests"],
   "prConcurrentLimit": 2,
-  "minimumReleaseAge": "15 days",
+  "minimumReleaseAge": "20 days",
   "internalChecksFilter": "strict",
   "ignorePaths": ["docker-examples/**"],
   "schedule": ["on the 1,11,21 day of the month"],
@@ -18,11 +18,41 @@
     "npm",
     "@yarnpkg/cli-dist"
   ],
-  "baseBranches": ["master", "6.x"],
+  "baseBranches": ["master", "8.x", "6.x", "7.x"],
   "semanticCommitType": "fix",
   "major": true,
   "labels": ["bot: dependencies"],
   "packageRules": [
+    {
+      "description": "Forbid major updates on 8.x branch",
+      "matchBaseBranches": ["8.x"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    },
+    {
+      "description": "Disable devDependencies updates on 8.x branch",
+      "matchBaseBranches": ["8.x"],
+      "matchDepTypes": ["devDependencies"],
+      "enabled": false
+    },
+    {
+      "description": "Only allow @verdaccio/* and verdaccio-* versions 9+ on 7.x branch",
+      "matchBaseBranches": ["7.x"],
+      "matchPackagePatterns": ["@verdaccio/*", "verdaccio-*"],
+      "allowedVersions": ">= 9.0.0"
+    },
+    {
+      "description": "Forbid major updates on 6.x branch",
+      "matchBaseBranches": ["6.x"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    },
+    {
+      "description": "Disable devDependencies updates on 6.x branch",
+      "matchBaseBranches": ["6.x"],
+      "matchDepTypes": ["devDependencies"],
+      "enabled": false
+    },
     {
       "packageNames": ["actions/*", "github/codeql-action/*"],
       "groupName": "all actions",
@@ -34,14 +64,10 @@
       "allowedVersions": "2.607.0"
     },
     {
-      "packageNames": ["@verdaccio/local-storage"],
-      "allowedVersions": "^10.3.4",
-      "matchBaseBranches": ["7.x"]
-    },
-    {
-      "packageNames": ["@emotion/*"],
-      "matchFileNames": ["./package.json", "./packages/**/package.json"],
-      "matchBaseBranches": ["master"]
+      "description": "Latest ui-theme version available for 6.x branch",
+      "matchPackageNames": ["@verdaccio/ui-theme"],
+      "matchBaseBranches": ["6.x"],
+      "allowedVersions": "8.0.0-next-8.30"
     },
     {
       "packageNames": ["got"],
@@ -80,6 +106,27 @@
       "labels": ["bot: docker-update"]
     },
     {
+      "description": "Pin Docker node image to 22.x for 6.x branch",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["node"],
+      "matchBaseBranches": ["6.x"],
+      "allowedVersions": "/^22/"
+    },
+    {
+      "description": "Pin Docker node image to 24.x for 7.x branch",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["node"],
+      "matchBaseBranches": ["7.x"],
+      "allowedVersions": "/^24/"
+    },
+    {
+      "description": "Pin Docker node image to 24.x for master branch",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["node"],
+      "matchBaseBranches": ["master"],
+      "allowedVersions": "/^24/"
+    },
+    {
       "matchDatasources": ["crazy-max/ghaction-docker-meta"],
       "allowedVersions": "1.12.0"
     },
@@ -111,10 +158,11 @@
         "verdaccio-auth-memory",
         "verdaccio-memory"
       ],
+      "minimumReleaseAge": "0 days",
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "core verdaccio dependencies",
       "groupSlug": "all-verdaccio",
-      "baseBranchList": ["6.x"]
+      "baseBranchList": ["6.x", "7.x"]
     },
     {
       "matchPackagePatterns": [
@@ -123,27 +171,27 @@
         "eslint-*",
         "eslint",
         "stylelint",
-        "@typescript-eslint/*"
+        "@typescript-eslint/*",
+        "@vitest/eslint-plugin",
+        "eslint-plugin-react-x"
       ],
       "matchUpdateTypes": ["minor", "patch", "major"],
+      "minimumReleaseAge": "60 days",
       "groupName": "all linting dependencies",
       "groupSlug": "all-linting",
       "baseBranchList": ["master", "6.x"]
     },
     {
       "matchPackagePatterns": [
-        "webpack",
-        "css-loader",
-        "eslint-loader",
-        "file-loader",
-        "sass-loader",
-        "url-loader",
-        "styles-loader",
-        "source-map-loader",
-        "babel-loader",
-        "webpack-*"
+        "vite",
+        "vite-*",
+        "@vitejs/*",
+        "@storybook/*",
+        "storybook",
+        "@rollup/*",
+        "rollup"
       ],
-      "matchUpdateTypes": ["minor", "patch", "major"],
+      "matchUpdateTypes": ["minor", "patch"],
       "groupName": "all build dependencies",
       "groupSlug": "all-build",
       "baseBranchList": ["master"]
@@ -153,14 +201,14 @@
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "all test dependencies",
       "groupSlug": "all-test",
-      "baseBranchList": ["master", "6.x"]
+      "baseBranchList": ["master", "6.x", "7.x"]
     },
     {
       "matchPackagePatterns": ["@type/*", "typescript"],
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "typescript dependencies",
       "groupSlug": "all-types",
-      "baseBranchList": ["master", "6.x"]
+      "baseBranchList": ["master", "6.x", "7.x"]
     }
   ],
   "pinVersions": false

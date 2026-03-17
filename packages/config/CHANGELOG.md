@@ -1,5 +1,70 @@
 # @verdaccio/config
 
+## 9.0.0-next-9.4
+
+### Major Changes
+
+- 52a6520: Replace Babel and esbuild build pipeline with Vite 8 across all packages. All packages now output dual ESM (.mjs) and CJS (.js) formats with TypeScript declarations generated via vite-plugin-dts. Includes shared build config at vite.lib.config.mjs, proper exports field in all package.json files, and fixes for type-only re-exports required by Rollup's stricter module analysis.
+
+### Patch Changes
+
+- Updated dependencies [52a6520]
+  - @verdaccio/core@9.0.0-next-9.4
+
+## 9.0.0-next-9.3
+
+### Minor Changes
+
+- 66e7538: fix: static files returning 404 after Express 5 upgrade
+
+  - fix(middleware): resolve static file 404s caused by `send@1.x` dotfile detection on absolute paths containing dot-prefixed directories (e.g. `.nvm`). Use `res.sendFile(filename, { root })` instead of absolute paths
+  - fix(middleware): handle Express 5 `{*all}` wildcard returning arrays instead of strings for `req.params`
+  - feat(middleware): add configurable `dotfiles` middleware to block dotfile path requests (`.env`, `.git/config`, etc.) with deny/ignore/allow policies
+  - feat(middleware): add `hideStaticLogs` option to `log()` middleware to suppress `/-/static/` request logging (defaults to true)
+  - fix(proxy): resolve `http-errors` deprecation warning for non-error status codes (304)
+  - feat(config): add `server.dotfiles` and `server.hideStaticLogs` options to configuration schema with secure defaults
+  - chore: add `pnpm global:install` script for testing local builds globally
+  - ci: add smoke test workflow for local builds verifying version, web UI rendering, static assets, and package installation
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.3
+
+## 9.0.0-next-9.2
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.2
+
+## 9.0.0-next-9.1
+
+### Patch Changes
+
+- Updated dependencies [dd9bad3]
+  - @verdaccio/core@9.0.0-next-9.1
+
+## 9.0.0-next-9.0
+
+### Major Changes
+
+- 7f80af5: chore: bump package
+- 34da6e6: bump to 9.x
+
+### Patch Changes
+
+- Updated dependencies [7f80af5]
+  - @verdaccio/core@9.0.0-next-9.0
+
+## 8.0.0-next-8.31
+
+### Minor Changes
+
+- b5eccfc: feat: remove rematch refactor ui
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.31
+
 ## 8.0.0-next-8.30
 
 ### Patch Changes

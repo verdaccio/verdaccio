@@ -1,11 +1,5 @@
-import React, {
-  FunctionComponent,
-  createContext,
-  useCallback,
-  useContext,
-  useMemo,
-  useState,
-} from 'react';
+import type { FunctionComponent } from 'react';
+import React, { createContext, useCallback, use, useMemo, useState } from 'react';
 
 import useLocalStorage from '../../hooks/useLocalStorage';
 
@@ -50,12 +44,12 @@ const PersistenceSettingProvider: FunctionComponent<{ children: React.ReactEleme
   );
 
   return (
-    <PersistenceSettingContext.Provider value={value}>
+    <PersistenceSettingContext value={value}>
       {children}
-    </PersistenceSettingContext.Provider>
+    </PersistenceSettingContext>
   );
 };
 
-export default PersistenceSettingProvider;
+export { PersistenceSettingProvider };
 
-export const useSettings = () => useContext(PersistenceSettingContext);
+export const useSettings = () => use(PersistenceSettingContext);

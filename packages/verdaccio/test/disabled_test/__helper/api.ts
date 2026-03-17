@@ -9,7 +9,7 @@ import {
   authUtils,
   cryptoUtils,
 } from '@verdaccio/core';
-import { Package } from '@verdaccio/types';
+import type { Package } from '@verdaccio/types';
 
 import { getTaggedVersionFromPackage } from './expects';
 
@@ -30,7 +30,7 @@ export function putPackage(
   token?: string
 ): Promise<any[]> {
   return new Promise((resolve) => {
-    let put = request
+    const put = request
       .put(pkgName)
       .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
       .send(JSON.stringify(publishMetadata));
@@ -52,7 +52,7 @@ export function putPackage(
 
 export function deletePackage(request: any, pkgName: string, token?: string): Promise<any[]> {
   return new Promise((resolve) => {
-    let del = request
+    const del = request
       .put(`/${pkgName}/-rev/${cryptoUtils.generateRandomHexString(8)}`)
       .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON);
 
@@ -76,7 +76,7 @@ export function getPackage(
   statusCode: number = HTTP_STATUS.OK
 ): Promise<any[]> {
   return new Promise((resolve) => {
-    let getRequest = request.get(`/${pkgName}`);
+    const getRequest = request.get(`/${pkgName}`);
 
     // token is a string
     if (token !== '') {

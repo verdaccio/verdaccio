@@ -27,15 +27,15 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "engines": {
-    "node": ">=18"
+    "node": ">=24"
   },
   "dependencies": {
     "@google-cloud/datastore": "6.5.0",
     "@google-cloud/storage": "5.14.0",
-    "@verdaccio/core": "workspace:6.0.0-6-next.5"
+    "@verdaccio/core": "workspace:8.0.0"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.12",
+    "@verdaccio/types": "workspace:13.0.0",
     "memory-fs": "0.5.0",
     "lodash": "4.17.23"
   },

@@ -1,6 +1,7 @@
 import Button from '@mui/material/Button';
 import Toolbar from '@mui/material/Toolbar';
-import React, { MouseEvent, useEffect, useState } from 'react';
+import type { MouseEvent } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useCustomTheme } from '../../';

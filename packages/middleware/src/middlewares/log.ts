@@ -1,8 +1,15 @@
+import buildDebug from 'debug';
 import _ from 'lodash';
 
 import { HEADERS } from '@verdaccio/core';
 
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
+import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
+
+const debug = buildDebug('verdaccio:middleware:log');
+
+function isStaticRequest(url: string): boolean {
+  return url.startsWith('/-/static/');
+}
 
 // FIXME: deprecated, moved to @verdaccio/dev-commons
 export const LOG_STATUS_MESSAGE =
@@ -10,7 +17,15 @@ export const LOG_STATUS_MESSAGE =
 export const LOG_VERDACCIO_ERROR = `${LOG_STATUS_MESSAGE}, error: @{!error}`;
 export const LOG_VERDACCIO_BYTES = `${LOG_STATUS_MESSAGE}, bytes: @{bytes.in}/@{bytes.out}`;
 
-export const log = (logger) => {
+export type LogOptions = {
+  // When true, static file requests (/-/static/*) are hidden from pino logs
+  // and only visible via DEBUG=verdaccio:middleware:log. Defaults to true.
+  hideStaticLogs?: boolean;
+};
+
+export const log = (logger, options: LogOptions = {}) => {
+  const { hideStaticLogs = true } = options;
+
   return function log(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     // logger
     req.log = logger.child({ sub: 'in' });
@@ -26,7 +41,12 @@ export const log = (logger) => {
     }
 
     req.url = req.originalUrl;
-    req.log.info({ req: req, ip: req.ip }, "@{ip} requested '@{req.method} @{req.url}'");
+    const _skipLog = hideStaticLogs && isStaticRequest(req.url);
+    if (_skipLog) {
+      debug("@{ip} requested '@{req.method} @{req.url}'", { ip: req.ip, req });
+    } else {
+      req.log.info({ req: req, ip: req.ip }, "@{ip} requested '@{req.method} @{req.url}'");
+    }
     req.originalUrl = req.url;
 
     if (_.isNil(_auth) === false) {
@@ -44,18 +64,16 @@ export const log = (logger) => {
 
     let bytesout = 0;
     const _write = res.write;
-    // FIXME: res.write should return boolean
     // @ts-ignore
-    res.write = function (buf): boolean {
-      bytesout += buf.length;
-      /* eslint prefer-rest-params: "off" */
+    res.write = function (...args): boolean {
+      bytesout += args[0]?.length || 0;
       // @ts-ignore
-      _write.apply(res, arguments);
+      return _write.apply(res, args);
     };
 
     const log = function (): void {
       const forwardedFor = req.get(HEADERS.FORWARDED_FOR);
-      const remoteAddress = req.connection.remoteAddress;
+      const remoteAddress = req.socket.remoteAddress;
       const remoteIP = forwardedFor ? `${forwardedFor} via ${remoteAddress}` : remoteAddress;
       let message;
       if (res.locals._verdaccio_error) {
@@ -65,23 +83,34 @@ export const log = (logger) => {
       }
 
       req.url = req.originalUrl;
-      req.log.http(
-        {
-          request: {
-            method: req.method,
-            url: req.url,
-          },
+      if (_skipLog) {
+        debug(message, {
+          request: { method: req.method, url: req.url },
           user: req.remote_user?.name || null,
           remoteIP,
           status: res.statusCode,
           error: res.locals._verdaccio_error,
-          bytes: {
-            in: bytesin,
-            out: bytesout,
+          bytes: { in: bytesin, out: bytesout },
+        });
+      } else {
+        req.log.http(
+          {
+            request: {
+              method: req.method,
+              url: req.url,
+            },
+            user: req.remote_user?.name || null,
+            remoteIP,
+            status: res.statusCode,
+            error: res.locals._verdaccio_error,
+            bytes: {
+              in: bytesin,
+              out: bytesout,
+            },
           },
-        },
-        message
-      );
+          message
+        );
+      }
       req.originalUrl = req.url;
     };
 
@@ -91,13 +120,12 @@ export const log = (logger) => {
 
     const _end = res.end;
     // @ts-ignore
-    res.end = function (buf): void {
-      if (buf) {
-        bytesout += buf.length;
+    res.end = function (...args): void {
+      if (args[0]) {
+        bytesout += args[0].length;
       }
-      /* eslint prefer-rest-params: "off" */
       // @ts-ignore
-      _end.apply(res, arguments);
+      _end.apply(res, args);
       log();
     };
     next();

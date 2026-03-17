@@ -10,7 +10,7 @@ const debug = buildDebug('verdaccio:tools:helpers:actions');
 
 export function publishVersion(app: any, pkgName, version, metadata: Partial<Manifest> = {}): any {
   debug('publishVersion %s : %s : %s', pkgName, version, JSON.stringify(metadata, null, 2));
-  let pkgMetadata = { ...generatePackageMetadata(pkgName, version), ...metadata };
+  const pkgMetadata = { ...generatePackageMetadata(pkgName, version), ...metadata };
   // sync metadata readme to version of package
   pkgMetadata.versions[version].readme = metadata.readme ? (metadata.readme as string) : '';
   debug('metadata %s', JSON.stringify(pkgMetadata, null, 2));

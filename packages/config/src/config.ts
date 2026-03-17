@@ -3,8 +3,7 @@ import _ from 'lodash';
 import assert from 'node:assert';
 
 import { APP_ERROR, authUtils, cryptoUtils, validationUtils, warningUtils } from '@verdaccio/core';
-import { Codes } from '@verdaccio/core/build/warning-utils';
-import {
+import type {
   Config as AppConfig,
   AuthConf,
   ConfigYaml,
@@ -22,6 +21,8 @@ import { defaultSecurity } from './security';
 import defaultServerSettings from './serverSettings';
 import { generateRandomSecretKey } from './token';
 import { sanityCheckUplinksProps, uplinkSanityCheck } from './uplinks';
+
+const { Codes } = warningUtils;
 
 const strategicConfigProps = ['uplinks', 'packages'];
 const allowedEnvConfig = ['http_proxy', 'https_proxy', 'no_proxy'];
@@ -106,6 +107,7 @@ class Config implements AppConfig {
       searchRemote: config.flags?.searchRemote ?? true,
       changePassword: config.flags?.changePassword ?? false,
       webLogin: config.flags?.webLogin ?? false,
+      createUser: config.flags?.createUser ?? false,
     };
     this.user_agent = config.user_agent;
 

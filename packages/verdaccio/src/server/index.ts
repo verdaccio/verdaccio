@@ -1,2 +1,2 @@
 export { Registry } from './registry';
-export { ServerQuery, createRequest, ResponseAssert } from './request';
+export { ServerQuery, createRequest, type ResponseAssert } from './request';

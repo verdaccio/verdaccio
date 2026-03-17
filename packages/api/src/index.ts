@@ -1,7 +1,8 @@
 import buildDebug from 'debug';
-import express, { Router } from 'express';
+import type { Router } from 'express';
+import express from 'express';
 
-import { Auth } from '@verdaccio/auth';
+import type { Auth } from '@verdaccio/auth';
 import {
   antiLoop,
   encodeScopePackage,
@@ -10,8 +11,8 @@ import {
   validateName,
   validatePackage,
 } from '@verdaccio/middleware';
-import { Storage } from '@verdaccio/store';
-import { Config, Logger } from '@verdaccio/types';
+import type { Storage } from '@verdaccio/store';
+import type { Config, Logger } from '@verdaccio/types';
 
 import distTags from './dist-tags';
 import pkg from './package';
@@ -31,7 +32,6 @@ const debug = buildDebug('verdaccio:api');
 export default function (config: Config, auth: Auth, storage: Storage, logger: Logger): Router {
   /* eslint new-cap:off */
   const app = express.Router();
-  /* eslint new-cap:off */
 
   // validate all of these params as a package name
   // this might be too harsh, so ask if it causes trouble
@@ -79,8 +79,9 @@ export default function (config: Config, auth: Auth, storage: Storage, logger: L
 }
 
 function hasBodyParser(app: Router): boolean {
-  const stack = app.stack || [];
-  return stack.some((middleware) => {
+  // @ts-ignore - Express internals: app.stack is not part of the public API
+  const stack = (app as any).stack || (app as any)._router?.stack || [];
+  return stack.some((middleware: any) => {
     return middleware.handle?.name === 'jsonParser' || middleware.name === 'jsonParser';
   });
 }

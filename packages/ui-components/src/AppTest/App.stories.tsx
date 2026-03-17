@@ -1,8 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { HttpResponse, http } from 'msw';
 import React from 'react';
 import { MemoryRouter } from 'react-router';
 
+import jqueryReadme from '../../vitest/api/jquery-readme.js';
+import jquerySidebar from '../../vitest/api/jquery-sidebar.json';
+import storybookReadme from '../../vitest/api/storybook-readme.js';
+import storybookSidebar from '../../vitest/api/storybook-sidebar.json';
 import AppRoute from './AppRoute';
 
 const meta: Meta<typeof AppRoute> = {
@@ -24,10 +28,10 @@ export const ApplicationStoryBook: Story = {
     msw: {
       handlers: [
         http.get('https://my-registry.org/-/verdaccio/data/sidebar/storybook', () => {
-          return HttpResponse.json(require('../../vitest/api/storybook-sidebar.json'));
+          return HttpResponse.json(storybookSidebar);
         }),
         http.get('https://my-registry.org/-/verdaccio/data/package/readme/storybook', () => {
-          return HttpResponse.json(require('../../vitest/api/storybook-readme')());
+          return HttpResponse.json(storybookReadme);
         }),
       ],
     },
@@ -44,10 +48,10 @@ export const ApplicationJquery: Story = {
     msw: {
       handlers: [
         http.get('https://my-registry.org/-/verdaccio/data/sidebar/jquery', () => {
-          return HttpResponse.json(require('../../vitest/api/jquery-sidebar.json'));
+          return HttpResponse.json(jquerySidebar);
         }),
         http.get('https://my-registry.org/-/verdaccio/data/package/readme/jquery', () => {
-          return HttpResponse.json(require('../../vitest/api/jquery-readme')());
+          return HttpResponse.json(jqueryReadme);
         }),
       ],
     },
@@ -81,7 +85,7 @@ export const ApplicationNotFound: Story = {
     msw: {
       handlers: [
         http.get('https://my-registry.org/-/verdaccio/data/sidebar/kleur', () => {
-          return new HttpResponse('unauthorized', { status: 404 });
+          return new HttpResponse(null, { status: 404 });
         }),
       ],
     },

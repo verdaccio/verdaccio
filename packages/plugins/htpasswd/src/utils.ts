@@ -6,7 +6,7 @@ import crypto from 'node:crypto';
 
 import { API_ERROR, HTTP_STATUS, constants } from '@verdaccio/core';
 import { readFile } from '@verdaccio/file-locking';
-import { Callback } from '@verdaccio/types';
+import type { Callback } from '@verdaccio/types';
 
 import crypt3 from './crypt3';
 
@@ -213,7 +213,7 @@ export async function changePasswordToHTPasswd(
   hashConfig: HtpasswdHashConfig
 ): Promise<string> {
   debug('change password for user %o', user);
-  let lines = body.split('\n');
+  const lines = body.split('\n');
   const userLineIndex = lines.findIndex((line) => line.split(':', 1).shift() === user);
   if (userLineIndex === -1) {
     debug('user %o does not exist', user);

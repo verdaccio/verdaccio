@@ -1,8 +1,7 @@
 import React from 'react';
-import { HashRouter } from 'react-router-dom';
 import { vi } from 'vitest';
 
-import { render, screen } from '../../test/test-react-testing-library';
+import { renderWithRouteDetail, screen } from '../../test/test-react-testing-library';
 import Dependencies from './Dependencies';
 
 const replaceMock = vi.fn(() => []);
@@ -31,7 +30,7 @@ describe('<Dependencies /> component', () => {
       _uplinks: {},
     };
 
-    const { getByText } = render(<Dependencies packageMeta={packageMeta} />);
+    const { getByText } = renderWithRouteDetail(<Dependencies packageMeta={packageMeta} />);
 
     expect(getByText('dependencies.has-no-dependencies')).toBeDefined();
   });
@@ -62,11 +61,7 @@ describe('<Dependencies /> component', () => {
       _uplinks: {},
     };
 
-    const { getByText } = render(
-      <HashRouter>
-        <Dependencies packageMeta={packageMeta} />
-      </HashRouter>
-    );
+    const { getByText } = renderWithRouteDetail(<Dependencies packageMeta={packageMeta} />);
 
     expect(getByText('dependencies (2)')).toBeDefined();
     expect(getByText('devDependencies (1)')).toBeDefined();

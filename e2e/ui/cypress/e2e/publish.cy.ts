@@ -1,16 +1,20 @@
 describe('publish spec', () => {
-  let ctx: any = {};
+  const ctx: any = {};
   const credentials = { user: 'test', password: 'test' };
-  beforeEach(async () => {
+  const pkgName = `@verdaccio/pkg-scoped`;
+
+  before(async () => {
     // @ts-expect-error
     const registry = await cy.task('registry');
     ctx.url = registry.registryUrl;
-    const pkgName = `@verdaccio/pkg-scoped`;
+    cy.task('publishScoped', { pkgName });
+  });
+
+  beforeEach(() => {
     cy.intercept('POST', '/-/verdaccio/sec/login').as('sign');
     cy.intercept('GET', '/-/verdaccio/data/packages').as('pkgs');
     cy.intercept('GET', `/-/verdaccio/data/sidebar/${pkgName}`).as('sidebar');
     cy.intercept('GET', `/-/verdaccio/data/package/readme/${pkgName}`).as('readme');
-    cy.task('publishScoped', { pkgName });
   });
 
   it('should have one published package', () => {

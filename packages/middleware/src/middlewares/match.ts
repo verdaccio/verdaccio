@@ -1,4 +1,4 @@
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
+import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
 
 export function match(regexp: RegExp): any {
   return function (

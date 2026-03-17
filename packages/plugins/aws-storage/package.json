@@ -14,7 +14,7 @@
     "verdaccio"
   ],
   "engines": {
-    "node": ">=18"
+    "node": ">=24"
   },
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
@@ -30,11 +30,11 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "dependencies": {
-    "@verdaccio/core": "workspace:6.0.0-6-next.5",
+    "@verdaccio/core": "workspace:8.0.0",
     "aws-sdk": "2.1354.0"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.12",
+    "@verdaccio/types": "workspace:13.0.0",
     "recursive-readdir": "2.2.3"
   },
   "scripts": {

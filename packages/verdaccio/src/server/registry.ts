@@ -1,11 +1,12 @@
 import buildDebug from 'debug';
-import { ChildProcess, fork } from 'node:child_process';
+import type { ChildProcess } from 'node:child_process';
+import { fork } from 'node:child_process';
 import { writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 import { fromJStoYAML } from '@verdaccio/config';
 import { HTTP_STATUS, TOKEN_BEARER, authUtils, fileUtils } from '@verdaccio/core';
-import { ConfigYaml } from '@verdaccio/types';
+import type { ConfigYaml } from '@verdaccio/types';
 
 import { ServerQuery } from './request';
 
@@ -149,24 +150,21 @@ export class Registry {
             return resolve(this.childFork);
           }
         } catch (e: any) {
-          // eslint-disable-next-line no-console
           console.error(e);
-          // eslint-disable-next-line prefer-promise-reject-errors
+
           return reject([e, this]);
         }
       });
 
       this.childFork.on('error', (err) => {
         debug('error  %s', err);
-        // eslint-disable-next-line prefer-promise-reject-errors
+
         reject([err, this]);
       });
       this.childFork.on('disconnect', (err) => {
-        // eslint-disable-next-line prefer-promise-reject-errors
         reject([err, this]);
       });
       this.childFork.on('exit', (err) => {
-        // eslint-disable-next-line prefer-promise-reject-errors
         reject([err, this]);
       });
     });

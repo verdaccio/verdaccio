@@ -1,6 +1,6 @@
 import { orderBy } from 'lodash';
 
-import { searchUtils } from '@verdaccio/core';
+import type { searchUtils } from '@verdaccio/core';
 
 export function removeDuplicates(results: searchUtils.SearchPackageItem[]) {
   const pkgNames: any[] = [];

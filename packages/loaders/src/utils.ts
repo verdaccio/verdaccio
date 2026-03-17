@@ -1,7 +1,7 @@
 import buildDebug from 'debug';
 import _ from 'lodash';
 
-import { pluginUtils } from '@verdaccio/core';
+import type { pluginUtils } from '@verdaccio/core';
 
 const debug = buildDebug('verdaccio:plugin:loader:utils');
 const MODULE_NOT_FOUND = 'MODULE_NOT_FOUND';

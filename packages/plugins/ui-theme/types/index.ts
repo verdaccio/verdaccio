@@ -1,4 +1,4 @@
-import { TemplateUIOptions } from '@verdaccio/types';
+import type { TemplateUIOptions } from '@verdaccio/types';
 
 declare global {
   interface Window {

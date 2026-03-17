@@ -1,5 +1,51 @@
 # @verdaccio/logger
 
+## 9.0.0-next-9.4
+
+### Major Changes
+
+- 52a6520: Replace Babel and esbuild build pipeline with Vite 8 across all packages. All packages now output dual ESM (.mjs) and CJS (.js) formats with TypeScript declarations generated via vite-plugin-dts. Includes shared build config at vite.lib.config.mjs, proper exports field in all package.json files, and fixes for type-only re-exports required by Rollup's stricter module analysis.
+
+### Patch Changes
+
+- Updated dependencies [52a6520]
+  - @verdaccio/logger-commons@9.0.0-next-9.4
+
+## 9.0.0-next-9.3
+
+### Patch Changes
+
+- @verdaccio/logger-commons@9.0.0-next-9.3
+
+## 9.0.0-next-9.2
+
+### Patch Changes
+
+- @verdaccio/logger-commons@9.0.0-next-9.2
+
+## 9.0.0-next-9.1
+
+### Patch Changes
+
+- @verdaccio/logger-commons@9.0.0-next-9.1
+
+## 9.0.0-next-9.0
+
+### Major Changes
+
+- 7f80af5: chore: bump package
+
+### Patch Changes
+
+- Updated dependencies [7f80af5]
+  - @verdaccio/logger-commons@9.0.0-next-9.0
+
+## 8.0.0-next-8.31
+
+### Patch Changes
+
+- @verdaccio/logger-commons@8.0.0-next-8.31
+
 ## 8.0.0-next-8.30
 
 ### Patch Changes

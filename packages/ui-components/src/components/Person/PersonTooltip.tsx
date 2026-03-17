@@ -1,7 +1,7 @@
 import Typography from '@mui/material/Typography';
 import React from 'react';
 
-import { Developer } from '../../types/packageMeta';
+import type { Developer } from '../../types/packageMeta';
 import { url } from '../../utils';
 import LinkExternal from '../LinkExternal';
 

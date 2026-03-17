@@ -4,10 +4,10 @@ import List from '@mui/material/List';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { TemplateUIOptions } from '@verdaccio/types';
+import type { TemplateUIOptions } from '@verdaccio/types';
 
-import { Theme } from '../../Theme';
-import { PackageMetaInterface } from '../../types/packageMeta';
+import type { Theme } from '../../Theme';
+import type { PackageMetaInterface } from '../../types/packageMeta';
 import { SettingsMenu } from '../SettingsMenu';
 import InstallListItem, { DependencyManager } from './InstallListItem';
 

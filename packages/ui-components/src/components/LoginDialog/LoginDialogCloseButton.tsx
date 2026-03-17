@@ -5,7 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Theme } from '../../';
+import type { Theme } from '../../';
 
 const StyledIconButton = styled(IconButton)<{ theme?: Theme }>(({ theme }) => ({
   position: 'absolute',

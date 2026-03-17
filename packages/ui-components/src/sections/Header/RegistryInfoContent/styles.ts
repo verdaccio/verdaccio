@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { Theme } from '../../../';
+import type { Theme } from '../../../';
 
 export const TextContent = styled('div')<{ theme?: Theme }>(({ theme }) => ({
   paddingBottom: '10px',

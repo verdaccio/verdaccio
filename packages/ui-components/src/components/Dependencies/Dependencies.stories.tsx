@@ -1,11 +1,19 @@
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import React from 'react';
+import { MemoryRouter } from 'react-router';
 
 import { default as Dependencies } from '.';
 
 const meta: Meta<typeof Dependencies> = {
   title: 'Components/Detail/Dependencies',
   component: Dependencies,
+  decorators: [
+    (Story) => (
+      <MemoryRouter initialEntries={['/']}>
+        <Story />
+      </MemoryRouter>
+    ),
+  ],
 };
 
 export default meta;

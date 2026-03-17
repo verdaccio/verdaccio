@@ -1,5 +1,5 @@
-import { Manifest, Version } from '@verdaccio/types';
-import { RequestOptions } from '@verdaccio/url';
+import type { Manifest, Version } from '@verdaccio/types';
+import type { RequestOptions } from '@verdaccio/url';
 
 import { getLocalRegistryTarballUri } from './getLocalRegistryTarballUri';
 

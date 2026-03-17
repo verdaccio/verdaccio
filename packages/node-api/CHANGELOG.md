@@ -1,5 +1,71 @@
 # @verdaccio/node-api
 
+## 9.0.0-next-9.4
+
+### Major Changes
+
+- 52a6520: Replace Babel and esbuild build pipeline with Vite 8 across all packages. All packages now output dual ESM (.mjs) and CJS (.js) formats with TypeScript declarations generated via vite-plugin-dts. Includes shared build config at vite.lib.config.mjs, proper exports field in all package.json files, and fixes for type-only re-exports required by Rollup's stricter module analysis.
+
+### Patch Changes
+
+- Updated dependencies [52a6520]
+  - @verdaccio/config@9.0.0-next-9.4
+  - @verdaccio/logger@9.0.0-next-9.4
+  - @verdaccio/server@9.0.0-next-9.4
+
+## 9.0.0-next-9.3
+
+### Patch Changes
+
+- Updated dependencies [66e7538]
+  - @verdaccio/server@9.0.0-next-9.3
+  - @verdaccio/config@9.0.0-next-9.3
+  - @verdaccio/logger@9.0.0-next-9.3
+
+## 9.0.0-next-9.2
+
+### Patch Changes
+
+- @verdaccio/server@9.0.0-next-9.2
+- @verdaccio/config@9.0.0-next-9.2
+- @verdaccio/logger@9.0.0-next-9.2
+
+## 9.0.0-next-9.1
+
+### Major Changes
+
+- dd9bad3: feat: upgrade to express v5
+
+### Patch Changes
+
+- Updated dependencies [dd9bad3]
+  - @verdaccio/server@9.0.0-next-9.1
+  - @verdaccio/config@9.0.0-next-9.1
+  - @verdaccio/logger@9.0.0-next-9.1
+
+## 9.0.0-next-9.0
+
+### Major Changes
+
+- 7f80af5: chore: bump package
+
+### Patch Changes
+
+- Updated dependencies [7f80af5]
+- Updated dependencies [34da6e6]
+  - @verdaccio/config@9.0.0-next-9.0
+  - @verdaccio/logger@9.0.0-next-9.0
+  - @verdaccio/server@9.0.0-next-9.0
+
+## 8.0.0-next-8.31
+
+### Patch Changes
+
+- Updated dependencies [b5eccfc]
+  - @verdaccio/config@8.0.0-next-8.31
+  - @verdaccio/server@8.0.0-next-8.31
+  - @verdaccio/logger@8.0.0-next-8.31
+
 ## 8.0.0-next-8.30
 
 ### Patch Changes

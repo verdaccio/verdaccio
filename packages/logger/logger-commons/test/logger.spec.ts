@@ -1,3 +1,4 @@
+import { execFileSync } from 'node:child_process';
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { setTimeout } from 'node:timers/promises';
@@ -6,7 +7,7 @@ import { describe, expect, test } from 'vitest';
 
 import { fileUtils } from '@verdaccio/core';
 
-import { prepareSetup } from '../src';
+import { prepareSetup, willUseTransport } from '../src';
 
 async function readLogFile(path: string) {
   await setTimeout(1000, 'resolved');
@@ -124,6 +125,46 @@ describe('logger test', () => {
       const content = await readLogFile(file);
       // TODO: we might want mock time for testing
       expect(content).toMatch('info --- publishing or updating a new version for test\n');
+    });
+  });
+
+  describe('willUseTransport', () => {
+    test('should use transport for pretty format', () => {
+      expect(willUseTransport('pretty')).toBe(true);
+    });
+
+    test('should use transport for pretty-timestamped format', () => {
+      expect(willUseTransport('pretty-timestamped')).toBe(true);
+    });
+
+    test('should not use transport for json format', () => {
+      expect(willUseTransport('json')).toBe(false);
+    });
+
+    test('should default to pretty (transport) when format is undefined', () => {
+      expect(willUseTransport(undefined)).toBe(true);
+    });
+  });
+
+  describe('file logging early exit', () => {
+    test('should not crash with "sonic boom is not ready yet" on immediate exit', async () => {
+      const file = await createLogFile();
+      // Spawn a process that sets up file logging with pretty format and exits immediately.
+      // Before the fix, this would crash with "sonic boom is not ready yet" because
+      // prepareSetup created an unused pino.destination(path) that registered with
+      // on-exit-leak-free but was never opened before the process exited.
+      const script = `
+        const pino = require('pino');
+        const { prepareSetup } = require('${join(__dirname, '..', 'build')}');
+        prepareSetup({ type: 'file', path: '${file}', level: 'info', format: 'pretty', colors: false }, pino);
+        process.exit(0);
+      `;
+      expect(() => {
+        execFileSync(process.execPath, ['-e', script], {
+          timeout: 5000,
+          stdio: 'pipe',
+        });
+      }).not.toThrow();
     });
   });
 

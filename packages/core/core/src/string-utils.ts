@@ -17,7 +17,7 @@ export function getByQualityPriorityValue(headerValue: string | undefined | null
     return qList[0];
   }
 
-  let [header] = split
+  const [header] = split
     .reduce((acc, item: string) => {
       const qList = item.split(';');
       if (qList.length > 1) {

@@ -7,6 +7,7 @@ import { pipeline } from 'node:stream/promises';
 import { default as URL } from 'node:url';
 
 import { getProxiesForPackage, hasProxyTo } from '@verdaccio/config';
+import type { pluginUtils, searchUtils } from '@verdaccio/core';
 import {
   ANONYMOUS_USER,
   API_ERROR,
@@ -21,29 +22,25 @@ import {
   USERS,
   cryptoUtils,
   errorUtils,
-  pluginUtils,
-  searchUtils,
   tarballUtils,
   validationUtils,
 } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
-import {
+import type {
   IProxy,
   ISyncUplinksOptions,
   ProxyInstanceList,
   ProxySearchParams,
-  ProxyStorage,
-  setupUpLinks,
-  updateVersionsHiddenUpLinkNext,
 } from '@verdaccio/proxy';
+import { ProxyStorage, setupUpLinks, updateVersionsHiddenUpLinkNext } from '@verdaccio/proxy';
 import Search from '@verdaccio/search';
+import type { TarballDetails } from '@verdaccio/tarball';
 import {
-  TarballDetails,
   convertDistRemoteToLocalTarballUrls,
   convertDistVersionToLocalTarballsUrl,
   getTarballDetails,
 } from '@verdaccio/tarball';
-import {
+import type {
   AbbreviatedManifest,
   AbbreviatedVersions,
   Author,
@@ -61,14 +58,8 @@ import {
   Version,
 } from '@verdaccio/types';
 
-import {
-  PublishOptions,
-  UpdateManifestOptions,
-  cleanUpReadme,
-  isDeprecatedManifest,
-  tagVersion,
-  tagVersionNext,
-} from '.';
+import type { PublishOptions, UpdateManifestOptions } from '.';
+import { cleanUpReadme, isDeprecatedManifest, tagVersion, tagVersionNext } from '.';
 import { isExecutingStarCommand, isPublishablePackage } from './lib/star-utils';
 import {
   STORAGE,
@@ -86,7 +77,7 @@ import {
 } from './lib/storage-utils';
 import { getVersion, removeLowerVersions } from './lib/versions-utils';
 import { LocalStorage } from './local-storage';
-import { IGetPackageOptionsNext, OwnerManifestBody, StarManifestBody } from './type';
+import type { IGetPackageOptionsNext, OwnerManifestBody, StarManifestBody } from './type';
 
 const debug = buildDebug('verdaccio:storage');
 
@@ -188,7 +179,7 @@ class Storage {
   public async removeTarball(
     name: string,
     filename: string,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
     _revision: string,
     username: string
   ): Promise<Manifest> {
@@ -217,7 +208,7 @@ class Storage {
     }
 
     const manifest = await this.updatePackage(name, async (data: Manifest): Promise<Manifest> => {
-      let newData: Manifest = { ...data };
+      const newData: Manifest = { ...data };
       delete data._attachments[filename];
       return newData;
     });
@@ -425,13 +416,11 @@ class Storage {
     const localTarballStream = new PassThrough();
     const localStream = await this.getLocalTarball(name, filename, { signal });
     localStream.on('open', async () => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       isOpen = true;
       await pipeline(localStream, localTarballStream, { signal });
     });
 
     localStream.on('error', (err: any) => {
-      // eslint-disable-next-line no-console
       if (err.code === STORAGE.NO_SUCH_FILE_ERROR || err.code === HTTP_STATUS.NOT_FOUND) {
         this.getTarballFromUpstream(name, filename, { signal })
           .then((uplinkStream) => {
@@ -622,6 +611,8 @@ class Storage {
         // Add for stars api
         // @ts-ignore
         version.users = manifest.users;
+        // Remove readmes for packages list (which might exist with keep_readmes config)
+        version.readme = '';
 
         packages.push(version);
       } else {
@@ -814,7 +805,7 @@ class Storage {
       // remove each attachment
       const attachments = Object.keys(manifest._attachments);
       debug('attachments to remove %s', attachments?.length);
-      for (let attachment of attachments) {
+      for (const attachment of attachments) {
         debug('remove attachment %s', attachment);
         await storage.deletePackage(attachment);
         this.logger.info({ attachment }, 'attachment @{attachment} removed');
@@ -840,7 +831,7 @@ class Storage {
    * @param revision of package
    * @returns local manifest
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   public async getPackageLocalMetadata(name: string, _revision?: string): Promise<Manifest> {
     const storage: pluginUtils.StorageHandler = this.getPrivatePackageStorage(name);
     debug('get package metadata for %o', name);
@@ -1105,7 +1096,7 @@ class Storage {
   private async getPackagelocalByName(name: string): Promise<Manifest | null> {
     try {
       return await this.getPackageLocalMetadata(name);
-    } catch (err: any) {
+    } catch {
       debug('local package %s not found', name);
       return null;
     }
@@ -1261,7 +1252,7 @@ class Storage {
   }
 
   // TODO: pending implementation
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   private async notify(_manifest: Manifest, _message: string): Promise<void> {
     return;
   }
@@ -1771,7 +1762,7 @@ class Storage {
 
     if (found && syncManifest !== null) {
       // updates the local cache manifest with fresh data
-      let updatedCacheManifest = await this.updateVersionsNext(name, syncManifest);
+      const updatedCacheManifest = await this.updateVersionsNext(name, syncManifest);
       // plugin filter applied to the manifest
       const [filteredManifest, filtersErrors] = await this.applyFilters(updatedCacheManifest);
       return [
@@ -1876,7 +1867,7 @@ class Storage {
       return [manifest, []];
     }
 
-    let filterPluginErrors: any[] = [];
+    const filterPluginErrors: any[] = [];
     let filteredManifest = { ...manifest };
     for (const filter of this.filters) {
       // These filters can assume it's save to modify packageJsonLocal
@@ -1963,7 +1954,7 @@ class Storage {
   */
   public async updateVersionsNext(name: string, remoteManifest: Manifest): Promise<Manifest> {
     debug(`updating versions for package %o`, name);
-    let cacheManifest: Manifest = await this.readCreatePackage(name);
+    const cacheManifest: Manifest = await this.readCreatePackage(name);
     let change = false;
     // updating readme
     cacheManifest.readme = getLatestReadme(remoteManifest);

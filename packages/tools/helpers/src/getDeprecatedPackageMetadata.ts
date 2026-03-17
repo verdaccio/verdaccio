@@ -1,7 +1,7 @@
-import { Manifest } from '@verdaccio/types';
+import type { Manifest } from '@verdaccio/types';
 
 import { generatePackageMetadata } from './generatePackageMetadata';
-import { DistTags } from './types';
+import type { DistTags } from './types';
 
 export function getDeprecatedPackageMetadata(
   pkgName: string,

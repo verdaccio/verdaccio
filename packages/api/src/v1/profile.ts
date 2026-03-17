@@ -1,7 +1,7 @@
-import { Response, Router } from 'express';
+import type { Response, Router } from 'express';
 import _ from 'lodash';
 
-import { Auth } from '@verdaccio/auth';
+import type { Auth } from '@verdaccio/auth';
 import {
   API_ERROR,
   APP_ERROR,
@@ -10,11 +10,10 @@ import {
   errorUtils,
   validationUtils,
 } from '@verdaccio/core';
-import { PROFILE_API_ENDPOINTS } from '@verdaccio/middleware';
-import { rateLimit } from '@verdaccio/middleware';
-import { Config } from '@verdaccio/types';
+import { PROFILE_API_ENDPOINTS, rateLimit } from '@verdaccio/middleware';
+import type { Config } from '@verdaccio/types';
 
-import { $NextFunctionVer, $RequestExtend } from '../../types/custom';
+import type { $NextFunctionVer, $RequestExtend } from '../../types/custom';
 
 export interface Profile {
   tfa: boolean;
@@ -79,7 +78,6 @@ export default function (route: Router, auth: Auth, config: Config): void {
         ) {
           /* eslint new-cap:off */
           return next(errorUtils.getCode(HTTP_STATUS.UNAUTHORIZED, API_ERROR.PASSWORD_SHORT));
-          /* eslint new-cap:off */
         }
 
         if (_.isEmpty(password.old)) {

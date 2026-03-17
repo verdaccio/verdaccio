@@ -1,12 +1,10 @@
-/* eslint-disable react/jsx-max-depth */
-
-/* eslint-disable react/jsx-pascal-case */
 import styled from '@emotion/styled';
-import FlagsIcon from 'country-flag-icons/react/3x2';
+import * as FlagsIcon from 'country-flag-icons/react/3x2';
 import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 
-import { Logo, Theme, useConfig } from '../../';
+import type { Theme } from '../../';
+import { Logo, useConfig } from '../../';
 import { Earth } from '../../components/Icons';
 import { Inner, Left, Love, Right, Wrapper } from './styles';
 
@@ -14,7 +12,6 @@ function goToVerdaccioWebsite(): void {
   window.open('https://verdaccio.org', '_blank');
 }
 
-/* eslint-disable react/jsx-key */
 const Footer = () => {
   const { t } = useTranslation();
   const { configOptions } = useConfig();
@@ -22,7 +19,7 @@ const Footer = () => {
     <Wrapper data-testid="footer">
       <Inner>
         <Left>
-          <Trans components={[<Love />]} i18nKey="footer.made-with-love-on" />
+          <Trans components={[<Love key="love" />]} i18nKey="footer.made-with-love-on" />
           <ToolTip>
             <StyledEarth />
             <Flags>

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 // Update the import path accordingly
-import { UnPublishManifest } from '@verdaccio/types';
+import type { UnPublishManifest } from '@verdaccio/types';
 
 import { generateUnPublishPackageMetadata } from '../src/generateUnPublishPackageMetadata';
 

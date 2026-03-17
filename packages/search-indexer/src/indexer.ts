@@ -1,7 +1,7 @@
 import { create, insert, remove, search } from '@orama/orama';
 import buildDebug from 'debug';
 
-import { Logger, Version } from '@verdaccio/types';
+import type { Logger, Version } from '@verdaccio/types';
 
 const debug = buildDebug('verdaccio:search:indexer');
 
@@ -125,4 +125,4 @@ class SearchMemoryIndexer {
 
 export default new SearchMemoryIndexer();
 
-export { Results };
+export type { Results };

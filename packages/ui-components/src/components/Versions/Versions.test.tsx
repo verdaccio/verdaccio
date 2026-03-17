@@ -1,19 +1,14 @@
-/* eslint-disable verdaccio/jsx-spread */
 import React from 'react';
-import { MemoryRouter } from 'react-router-dom';
 import { vi } from 'vitest';
 
-import { fireEvent, render, screen } from '../../test/test-react-testing-library';
-import Versions, { Props } from './Versions';
+import { fireEvent, renderWithRouteDetail, screen } from '../../test/test-react-testing-library';
+import type { Props } from './Versions';
+import Versions from './Versions';
 import data from './__partials__/data.json';
 import dataDeprecated from './__partials__/deprecated-versions.json';
 import dataUnsorted from './__partials__/unsorted-versions.json';
 
-const VersionsComponent: React.FC<Props> = (props) => (
-  <MemoryRouter>
-    <Versions {...props} />
-  </MemoryRouter>
-);
+const VersionsComponent: React.FC<Props> = (props) => <Versions {...props} />;
 
 vi.mock('lodash/debounce', () => ({
   default: vi.fn((fn) => {
@@ -21,13 +16,18 @@ vi.mock('lodash/debounce', () => ({
     return (...args: any[]) => fn(...args);
   }),
 }));
+
+const renderVersions = (props: Props) => {
+  return renderWithRouteDetail(<VersionsComponent {...props} />);
+};
+
 describe('<Version /> component', () => {
   afterEach(() => {
     vi.clearAllMocks();
   });
 
   test('should render versions', () => {
-    const { getByText } = render(<VersionsComponent packageMeta={data} packageName={'foo'} />);
+    const { getByText } = renderVersions({ packageMeta: data, packageName: 'jquery' });
 
     expect(getByText('versions.version-history')).toBeTruthy();
     expect(getByText('versions.current-tags')).toBeTruthy();
@@ -40,7 +40,8 @@ describe('<Version /> component', () => {
   });
 
   test('should filter by version', () => {
-    render(<VersionsComponent packageMeta={data} packageName={'foo'} />);
+    renderVersions({ packageMeta: data, packageName: 'jquery' });
+
     expect(screen.getByText('versions.version-history')).toBeTruthy();
     expect(screen.getByText('versions.current-tags')).toBeTruthy();
     expect(screen.queryAllByTestId('version-list-text')).toHaveLength(65);
@@ -51,7 +52,7 @@ describe('<Version /> component', () => {
   });
 
   test('should not render versions', () => {
-    render(<VersionsComponent packageMeta={{}} packageName={'foo'} />);
+    renderVersions({ packageMeta: {}, packageName: 'jquery' });
 
     expect(screen.queryByText('versions.version-history')).toBeFalsy();
     expect(screen.queryByText('versions.current-tags')).toBeFalsy();
@@ -59,10 +60,10 @@ describe('<Version /> component', () => {
 
   test('should render versions deprecated settings', () => {
     window.__VERDACCIO_BASENAME_UI_OPTIONS.hideDeprecatedVersions = true;
-    const { getByText } = render(
-      <VersionsComponent packageMeta={dataDeprecated} packageName={'foo'} />
-    );
-    expect(getByText('versions.hide-deprecated')).toBeTruthy();
+    renderVersions({ packageMeta: dataDeprecated, packageName: 'jquery' });
+
+    expect(screen.queryByText('versions.version-history')).toBeTruthy();
+    expect(screen.getByText('versions.hide-deprecated')).toBeTruthy();
 
     // pick some versions
     expect(screen.queryByText('0.0.2')).not.toBeInTheDocument();
@@ -70,7 +71,7 @@ describe('<Version /> component', () => {
   });
 
   test('should render versions sorted by timestamp in descending order', () => {
-    render(<VersionsComponent packageMeta={dataUnsorted} packageName={'dummy'} />);
+    renderVersions({ packageMeta: dataUnsorted, packageName: 'jquery' });
 
     const versionElements = screen.getAllByTestId('version-list-link');
     const versions = versionElements.map((el) => el.textContent);

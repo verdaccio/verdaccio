@@ -1,4 +1,4 @@
-import { RemoteUser } from '@verdaccio/types';
+import type { RemoteUser } from '@verdaccio/types';
 
 import { ROLES } from './package-access';
 

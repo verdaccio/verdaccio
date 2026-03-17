@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/logger",
-  "version": "8.0.0-next-8.30",
+  "version": "9.0.0-next-9.4",
   "description": "Verdaccio Logger",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
@@ -30,26 +30,37 @@
     "verdaccio"
   ],
   "engines": {
-    "node": ">=18"
+    "node": ">=24"
   },
   "scripts": {
     "clean": "rimraf ./build",
     "test": "echo 1",
-    "type-check": "tsc --noEmit -p tsconfig.build.json",
-    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
-    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
-    "watch": "pnpm build:js -- --watch",
-    "build": "pnpm run build:js && pnpm run build:types"
+    "watch": "vite build --watch",
+    "build": "vite build"
   },
   "dependencies": {
-    "@verdaccio/logger-commons": "workspace:8.0.0-next-8.30",
-    "pino": "9.14.0"
+    "@verdaccio/logger-commons": "workspace:9.0.0-next-9.4",
+    "pino": "10.3.1"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:13.0.0-next-8.10"
+    "@verdaccio/types": "workspace:14.0.0-next-9.1"
   },
   "funding": {
     "type": "opencollective",
     "url": "https://opencollective.com/verdaccio"
+  },
+  "module": "./build/index.mjs",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./build/index.d.ts",
+        "default": "./build/index.mjs"
+      },
+      "require": {
+        "types": "./build/index.d.ts",
+        "default": "./build/index.js"
+      }
+    },
+    "./build/*": "./build/*"
   }
 }

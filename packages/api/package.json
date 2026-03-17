@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/api",
-  "version": "8.1.0-next-8.30",
+  "version": "9.0.0-next-9.4",
   "description": "Verdaccio Registry API",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -29,32 +29,29 @@
     "verdaccio"
   ],
   "engines": {
-    "node": ">=18"
+    "node": ">=24"
   },
   "scripts": {
     "clean": "rimraf ./build",
     "test": "vitest run",
-    "type-check": "tsc --noEmit -p tsconfig.build.json",
-    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
-    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
-    "watch": "pnpm build:js -- --watch",
-    "build": "pnpm run build:js && pnpm run build:types"
+    "watch": "vite build --watch",
+    "build": "vite build"
   },
   "license": "MIT",
   "dependencies": {
-    "@verdaccio/auth": "workspace:8.0.0-next-8.30",
-    "@verdaccio/config": "workspace:8.0.0-next-8.30",
-    "@verdaccio/core": "workspace:8.0.0-next-8.30",
-    "@verdaccio/logger": "workspace:8.0.0-next-8.30",
-    "@verdaccio/middleware": "workspace:8.0.0-next-8.30",
-    "@verdaccio/store": "workspace:8.0.0-next-8.30",
+    "@verdaccio/auth": "workspace:9.0.0-next-9.4",
+    "@verdaccio/config": "workspace:9.0.0-next-9.4",
+    "@verdaccio/core": "workspace:9.0.0-next-9.4",
+    "@verdaccio/logger": "workspace:9.0.0-next-9.4",
+    "@verdaccio/middleware": "workspace:9.0.0-next-9.4",
+    "@verdaccio/store": "workspace:9.0.0-next-9.4",
     "debug": "4.4.3",
-    "express": "4.22.1",
+    "express": "5.2.1",
     "lodash": "4.17.23"
   },
   "devDependencies": {
-    "@verdaccio/test-helper": "workspace:4.0.0-next-8.14",
-    "@verdaccio/types": "workspace:13.0.0-next-8.10",
+    "@verdaccio/test-helper": "workspace:5.0.0-next-9.4",
+    "@verdaccio/types": "workspace:14.0.0-next-9.1",
     "mockdate": "3.0.5",
     "nock": "13.5.6",
     "supertest": "7.1.4",
@@ -63,5 +60,19 @@
   "funding": {
     "type": "opencollective",
     "url": "https://opencollective.com/verdaccio"
+  },
+  "module": "./build/index.mjs",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./build/index.d.ts",
+        "default": "./build/index.mjs"
+      },
+      "require": {
+        "types": "./build/index.d.ts",
+        "default": "./build/index.js"
+      }
+    },
+    "./build/*": "./build/*"
   }
 }

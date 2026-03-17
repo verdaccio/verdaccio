@@ -2,10 +2,10 @@ import styled from '@emotion/styled';
 import { useTheme } from '@mui/material/styles';
 import React from 'react';
 
-import { Theme, useConfig } from '../../';
-
-const blackAndWithLogo = require('./img/logo-black-and-white.svg');
-const defaultLogo = require('./img/logo.svg');
+import type { Theme } from '../../';
+import { useConfig } from '../../';
+import blackAndWithLogo from './img/logo-black-and-white.svg';
+import defaultLogo from './img/logo.svg';
 
 const sizes = {
   'x-small': '30px',

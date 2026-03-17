@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-memory",
-  "version": "13.0.0-next-8.30",
+  "version": "14.0.0-next-9.4",
   "description": "Verdaccio Memory Storage Plugin",
   "keywords": [
     "private",
@@ -27,30 +27,41 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "engines": {
-    "node": ">=18"
+    "node": ">=24"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:8.0.0-next-8.30",
+    "@verdaccio/core": "workspace:9.0.0-next-9.4",
     "debug": "4.4.3",
     "memfs": "4.17.2"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:13.0.0-next-8.10",
-    "@verdaccio/config": "workspace:8.0.0-next-8.30",
-    "@verdaccio/logger": "workspace:8.0.0-next-8.30",
+    "@verdaccio/types": "workspace:14.0.0-next-9.1",
+    "@verdaccio/config": "workspace:9.0.0-next-9.4",
+    "@verdaccio/logger": "workspace:9.0.0-next-9.4",
     "vitest": "3.2.4"
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "type-check": "tsc --noEmit -p tsconfig.build.json",
-    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
-    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
-    "build": "pnpm run build:js && pnpm run build:types",
-    "watch": "pnpm build:js -- --watch",
+    "build": "vite build",
+    "watch": "vite build --watch",
     "test": "cross-env NODE_ENV=test vitest run"
   },
   "funding": {
     "type": "opencollective",
     "url": "https://opencollective.com/verdaccio"
+  },
+  "module": "./build/index.mjs",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./build/index.d.ts",
+        "default": "./build/index.mjs"
+      },
+      "require": {
+        "types": "./build/index.d.ts",
+        "default": "./build/index.js"
+      }
+    },
+    "./build/*": "./build/*"
   }
 }

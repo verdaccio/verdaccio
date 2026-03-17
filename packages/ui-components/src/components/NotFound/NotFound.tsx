@@ -1,22 +1,22 @@
-/* eslint-disable verdaccio/jsx-no-style */
 import styled from '@emotion/styled';
 import FolderOffIcon from '@mui/icons-material/FolderOff';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import { common } from '@mui/material/colors';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
-import { Theme } from '../../';
+import type { Theme } from '../../';
 import Heading from '../Heading';
 
 const NotFound: React.FC = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { t } = useTranslation();
 
   const handleGoHome = useCallback(() => {
-    history.push('/');
-  }, [history]);
+    navigate('/');
+  }, [navigate]);
 
   return (
     <Box
@@ -48,6 +48,6 @@ const Container = styled('div')({
 });
 
 const StyledHeading = styled(Heading)<{ theme?: Theme }>(({ theme }) => ({
-  color: theme.palette.mode === 'light' ? theme.palette.primary.main : theme.palette.white,
+  color: theme.palette.mode === 'light' ? theme.palette.primary.main : common.white,
   marginBottom: 16,
 }));

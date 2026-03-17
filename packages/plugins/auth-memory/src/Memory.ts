@@ -1,9 +1,9 @@
 import buildDebug from 'debug';
 
 import { API_ERROR, errorUtils, pluginUtils } from '@verdaccio/core';
-import { Config, Logger, PackageAccess, RemoteUser } from '@verdaccio/types';
+import type { Config, Logger, PackageAccess, RemoteUser } from '@verdaccio/types';
 
-import { Users, VerdaccioMemoryConfig } from './types';
+import type { Users, VerdaccioMemoryConfig } from './types';
 
 const debug = buildDebug('verdaccio:plugin:auth:memory:user');
 

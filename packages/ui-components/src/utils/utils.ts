@@ -4,9 +4,9 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import i18next from 'i18next';
 import isString from 'lodash/isString';
 
-import { UpLinks } from '@verdaccio/types';
+import type { UpLinks } from '@verdaccio/types';
 
-import { Time } from '../types/packageMeta';
+import type { Time } from '../types/packageMeta';
 
 export const TIMEFORMAT = 'L LTS';
 
@@ -130,7 +130,7 @@ export function fileSizeSI(
   c = b.log;
   d = 1e3;
   e = (c(a) / c(d)) | 0;
-  let size = a / b.pow(d, e);
+  const size = a / b.pow(d, e);
   // no decimals for Bytes
   if (e === 0) {
     return Math.floor(size) + ' Bytes';
