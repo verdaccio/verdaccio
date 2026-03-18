@@ -3,25 +3,14 @@ import express from 'express';
 import fs from 'node:fs';
 import path from 'node:path';
 
-import { HTTP_STATUS } from '@verdaccio/core';
 import { isURLhasValidProtocol } from '@verdaccio/url';
 
 import { setSecurityWebHeaders } from './security';
+import { sendFileCallback, sendFileSafe } from './utils/file-utils';
 import renderHTML from './utils/renderHTML';
 import { WebUrlsNamespace } from './web-urls';
 
 const debug = buildDebug('verdaccio:web:render');
-
-const sendFileCallback = (next) => (err) => {
-  if (!err) {
-    return;
-  }
-  if (err.status === HTTP_STATUS.NOT_FOUND) {
-    next();
-  } else {
-    next(err);
-  }
-};
 
 export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
   const { staticPath, manifest, manifestFiles } = pluginOptions;
@@ -112,6 +101,17 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
     renderHTML(config, manifest, manifestFiles, req, res);
     debug('render root');
   });
+
+  // any match within the asset folder is routed to the file system
+  if (config?.web?.assetFolder) {
+    router.get(
+      WebUrlsNamespace.assets,
+      function (req: express.Request<{ all: string | string[] }>, res, next) {
+        const filename = Array.isArray(req.params.all) ? req.params.all.join('/') : req.params.all;
+        sendFileSafe(config.web.assetFolder, filename, res, next);
+      }
+    );
+  }
 
   return router;
 }
