@@ -1,7 +1,7 @@
 blank_issues_enabled: false
 contact_links:
   - name: Documentation 📚
-    url: https://verdaccio.org/docs/en/installation
+    url: https://verdaccio.org/docs/installation
     about: Find more information in our documentation resources
   - name: Feature Request 🌟
     url: https://github.com/orgs/verdaccio/discussions/new?category=ideas
