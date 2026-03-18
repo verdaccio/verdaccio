@@ -1,6 +1,6 @@
 import nock from 'nock';
 import path from 'node:path';
-import { beforeEach, describe, test, vi } from 'vitest';
+import { beforeAll, beforeEach, describe, test, vi } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
 import { logger, setup } from '@verdaccio/logger';
@@ -8,7 +8,9 @@ import { logger, setup } from '@verdaccio/logger';
 import type { IProxy } from '../src';
 import { ProxyStorage } from '../src';
 
-setup({});
+beforeAll(async () => {
+  await setup({});
+});
 
 const getConf = (name) => path.join(__dirname, '/conf', name);
 

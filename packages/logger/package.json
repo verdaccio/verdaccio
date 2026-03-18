@@ -1,9 +1,9 @@
 {
-  "name": "@verdaccio/logger-prettify",
-  "version": "9.0.0-next-9.1",
-  "description": "Verdaccio Logger Prettify",
+  "name": "@verdaccio/logger",
+  "version": "9.0.0-next-9.4",
+  "description": "Verdaccio Logger",
   "main": "./build/index.js",
-  "types": "build/index.d.ts",
+  "types": "./build/index.d.ts",
   "author": {
     "name": "Juan Picado",
     "email": "juanpicado19@gmail.com"
@@ -11,7 +11,7 @@
   "repository": {
     "type": "https",
     "url": "https://github.com/verdaccio/verdaccio",
-    "directory": "packages/logger/logger-prettify"
+    "directory": "packages/logger"
   },
   "bugs": {
     "url": "https://github.com/verdaccio/verdaccio/issues"
@@ -39,13 +39,17 @@
     "build": "vite build"
   },
   "dependencies": {
+    "@verdaccio/core": "workspace:9.0.0-next-9.4",
     "colorette": "2.0.20",
     "dayjs": "1.11.18",
+    "debug": "4.4.3",
     "on-exit-leak-free": "2.1.2",
+    "pino": "10.3.1",
     "pino-abstract-transport": "1.2.0",
     "sonic-boom": "3.8.1"
   },
   "devDependencies": {
+    "@verdaccio/types": "workspace:14.0.0-next-9.1",
     "pino": "10.3.1",
     "vitest": "4.1.0"
   },

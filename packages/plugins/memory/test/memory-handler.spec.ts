@@ -1,5 +1,5 @@
 import { join } from 'node:path';
-import { describe, expect, test, vi } from 'vitest';
+import { beforeAll, describe, expect, test, vi } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
 import { errorUtils } from '@verdaccio/core';
@@ -9,11 +9,13 @@ import LocalMemory from '../src/index';
 import MemoryHandler from '../src/memory-handler';
 import pkgExample from './partials/pkg';
 
-setup({});
+beforeAll(async () => {
+  await setup({});
+});
 
 const config = new Config(parseConfigFile(join(__dirname, 'config.yaml')));
 
-const defaultConfig = { logger, config };
+const getDefaultConfig = () => ({ logger, config });
 const memoryConfig = { limit: 10 };
 
 const mockStringify = vi.fn((value) => JSON.stringify(value));
@@ -41,7 +43,7 @@ describe('MemoryHandler', () => {
       mockStringify.mockImplementationOnce(() => {
         throw new Error('error on parse');
       });
-      const localMemory = new LocalMemory(memoryConfig, defaultConfig);
+      const localMemory = new LocalMemory(memoryConfig, getDefaultConfig());
       const pkgName = 'test2';
       const handler = localMemory.getPackageStorage(pkgName);
       await expect(handler.savePackage(pkgName, pkgExample)).rejects.toEqual(
@@ -50,7 +52,7 @@ describe('MemoryHandler', () => {
     });
 
     test('should fail on read a package', async () => {
-      const localMemory = new LocalMemory(memoryConfig, defaultConfig);
+      const localMemory = new LocalMemory(memoryConfig, getDefaultConfig());
       const pkgName = 'test3';
       const handler = localMemory.getPackageStorage(pkgName);
       expect(handler).toBeDefined();
@@ -58,7 +60,7 @@ describe('MemoryHandler', () => {
     });
 
     test('should update a package', async () => {
-      const localMemory = new LocalMemory(memoryConfig, defaultConfig);
+      const localMemory = new LocalMemory(memoryConfig, getDefaultConfig());
       const pkgName = 'test4';
       const handler = localMemory.getPackageStorage(pkgName);
       expect(handler).toBeDefined();
@@ -76,7 +78,7 @@ describe('MemoryHandler', () => {
       mockParsePackage.mockImplementationOnce(() => {
         throw new Error('error on parse');
       });
-      const localMemory = new LocalMemory(memoryConfig, defaultConfig);
+      const localMemory = new LocalMemory(memoryConfig, getDefaultConfig());
       const pkgName = 'test5';
       const handler = localMemory.getPackageStorage(pkgName);
       expect(handler).toBeDefined();
@@ -87,7 +89,7 @@ describe('MemoryHandler', () => {
     });
 
     test('should fail on update a package - internal error', async () => {
-      const localMemory = new LocalMemory(memoryConfig, defaultConfig);
+      const localMemory = new LocalMemory(memoryConfig, getDefaultConfig());
       const pkgName = 'test6';
       const handler = localMemory.getPackageStorage(pkgName);
       expect(handler).toBeDefined();
@@ -100,7 +102,7 @@ describe('MemoryHandler', () => {
     });
 
     test('should fail on update a package - throw error', async () => {
-      const localMemory = new LocalMemory(memoryConfig, defaultConfig);
+      const localMemory = new LocalMemory(memoryConfig, getDefaultConfig());
       const pkgName = 'test7';
       const handler = localMemory.getPackageStorage(pkgName);
       expect(handler).toBeDefined();
@@ -113,7 +115,7 @@ describe('MemoryHandler', () => {
     });
 
     test('should delete a package', async () => {
-      const localMemory = new LocalMemory(memoryConfig, defaultConfig);
+      const localMemory = new LocalMemory(memoryConfig, getDefaultConfig());
       const pkgName = 'test8';
       const handler = localMemory.getPackageStorage(pkgName);
       expect(handler).toBeDefined();
@@ -125,7 +127,7 @@ describe('MemoryHandler', () => {
 
   describe('tarball tests', () => {
     test('should read a tarball', async () => {
-      const localMemory = new LocalMemory(memoryConfig, defaultConfig);
+      const localMemory = new LocalMemory(memoryConfig, getDefaultConfig());
       const pkgName = 'test9';
       const dataTarball = '12345';
 
@@ -148,7 +150,7 @@ describe('MemoryHandler', () => {
     });
 
     test('should abort read a tarball', async () => {
-      const localMemory = new LocalMemory(memoryConfig, defaultConfig);
+      const localMemory = new LocalMemory(memoryConfig, getDefaultConfig());
       const pkgName = 'test10';
       const dataTarball = '12345';
 
@@ -175,7 +177,7 @@ describe('MemoryHandler', () => {
     });
 
     test('should fail read a tarball not found', async () => {
-      const localMemory = new LocalMemory(memoryConfig, defaultConfig);
+      const localMemory = new LocalMemory(memoryConfig, getDefaultConfig());
       const pkgName = 'test11';
       const handler = localMemory.getPackageStorage(pkgName);
       const abort = new AbortController();

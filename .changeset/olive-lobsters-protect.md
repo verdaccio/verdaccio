@@ -12,8 +12,6 @@
 '@verdaccio/hooks': major
 '@verdaccio/loaders': major
 '@verdaccio/logger': major
-'@verdaccio/logger-commons': major
-'@verdaccio/logger-prettify': major
 '@verdaccio/middleware': major
 '@verdaccio/node-api': major
 'verdaccio-audit': major

@@ -5,7 +5,7 @@ import { pseudoRandomBytes } from 'node:crypto';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { beforeEach, describe, expect, test, vi } from 'vitest';
+import { beforeAll, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { Config, getDefaultConfig } from '@verdaccio/config';
 import {
@@ -27,14 +27,13 @@ import {
   generateUnPublishPackageMetadata,
   getDeprecatedPackageMetadata,
 } from '@verdaccio/test-helper';
-import type {
+import type { Logger,
   AbbreviatedManifest,
   Author,
   ConfigYaml,
   Manifest,
   PackageUsers,
-  Version,
-} from '@verdaccio/types';
+  Version } from '@verdaccio/types';
 
 import { Storage } from '../src';
 import manifestFooRemoteNpmjs from './fixtures/manifests/foo-npmjs.json';
@@ -47,7 +46,10 @@ function generateRandomStorage() {
   return path.join(tempRoot, tempStorage);
 }
 
-const logger = setup({ type: 'stdout', format: 'pretty', level: 'trace' });
+let logger: Logger;
+beforeAll(async () => {
+  logger = await setup({ type: 'stdout', format: 'pretty', level: 'trace' });
+});
 
 const domain = 'https://registry.npmjs.org';
 const fakeHost = 'localhost:4873';

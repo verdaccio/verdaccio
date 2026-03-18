@@ -1,5 +1,5 @@
 import path from 'node:path';
-import { describe, expect, test } from 'vitest';
+import { beforeAll, describe, expect, test } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
 import type { pluginUtils } from '@verdaccio/core';
@@ -21,7 +21,9 @@ const storeSanitize = function (plugin) {
 
 const pluginsPartialsFolder = path.join(__dirname, './partials/test-plugin-storage');
 
-setup({});
+beforeAll(async () => {
+  await setup({});
+});
 
 describe('plugin loader', () => {
   describe('file plugins', () => {

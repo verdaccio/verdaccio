@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import path from 'node:path';
-import { describe, expect, test, vi } from 'vitest';
+import { beforeAll, describe, expect, test, vi } from 'vitest';
 
 import {
   Config as AppConfig,
@@ -19,7 +19,9 @@ import type { Config, RemoteUser } from '@verdaccio/types';
 import type { ActionsAllowed, AllowActionCallbackResponse } from '../src';
 import { Auth, allow_action, getApiToken, getDefaultPluginMethods } from '../src';
 
-setup({});
+beforeAll(async () => {
+  await setup({});
+});
 
 const parseConfigurationFile = (conf: string) => {
   const { name, ext } = path.parse(conf);

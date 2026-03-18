@@ -1,10 +1,11 @@
 // <reference types="node" />
-import { isColorSupported } from 'colorette';
 import buildDebug from 'debug';
 import type { LoggerOptions } from 'pino';
 
-import { fillInMsgTemplate } from '@verdaccio/logger-prettify';
 import type { Logger, LoggerConfigItem, LoggerFormat } from '@verdaccio/types';
+
+import { fillInMsgTemplate } from './formatter';
+import { createPrettyTransport, isPrettyFormat } from './transport';
 
 const debug = buildDebug('verdaccio:logger');
 
@@ -12,14 +13,8 @@ function isProd() {
   return process.env.NODE_ENV === 'production';
 }
 
-function hasColors(colors: boolean | undefined) {
-  if (colors) {
-    return isColorSupported;
-  }
-  return typeof colors === 'undefined' ? true : colors;
-}
-
 const DEFAULT_LOG_FORMAT = isProd() ? 'json' : 'pretty';
+debug('default log format: %s', DEFAULT_LOG_FORMAT);
 
 export type LogPlugin = {
   dest: string;
@@ -47,23 +42,11 @@ export function createLogger(
   };
 
   debug('has prettifier? %o', !isProd());
+  let logger;
   // pretty logs are not allowed in production for performance reasons
-  if (['pretty-timestamped', 'pretty'].includes(format) && isProd() === false) {
-    pinoConfig = {
-      ...pinoConfig,
-      transport: {
-        target: '@verdaccio/logger-prettify',
-        options: {
-          // string or 1 (file descriptor for process.stdout)
-          destination: options.path || 1,
-          colors: hasColors(options.colors),
-          prettyStamp: format === 'pretty-timestamped',
-        },
-        worker: {
-          name: 'verdaccio-logger-prettify',
-        },
-      },
-    };
+  if (isPrettyFormat(format) && isProd() === false) {
+    const transport = createPrettyTransport(pino, options, format);
+    logger = pino(pinoConfig, transport);
   } else {
     pinoConfig = {
       ...pinoConfig,
@@ -81,8 +64,8 @@ export function createLogger(
         },
       },
     };
+    logger = pino(pinoConfig, destination);
   }
-  const logger = pino(pinoConfig, destination);
 
   if (process.env.DEBUG) {
     logger.on('level-change', (lvl, val, prevLvl, prevVal, instance) => {
@@ -106,11 +89,13 @@ export type LoggerConfig = LoggerConfigItem;
 
 export function willUseTransport(format: LoggerFormat | undefined): boolean {
   const resolvedFormat = format ?? (isProd() ? 'json' : 'pretty');
-  return ['pretty-timestamped', 'pretty'].includes(resolvedFormat) && isProd() === false;
+  return isPrettyFormat(resolvedFormat) && isProd() === false;
 }
 
-export function prepareSetup(options: LoggerConfigItem = DEFAULT_LOGGER_CONF, pino) {
-  let logger: Logger;
+export async function prepareSetup(
+  options: LoggerConfigItem = DEFAULT_LOGGER_CONF,
+  pino
+): Promise<Logger> {
   let loggerConfig = options;
   if (!loggerConfig?.level) {
     loggerConfig = {
@@ -125,27 +110,19 @@ export function prepareSetup(options: LoggerConfigItem = DEFAULT_LOGGER_CONF, pi
     // still registered with on-exit-leak-free, causing "sonic boom is not ready yet"
     // crashes if the process exits before the file is opened.
     if (willUseTransport(loggerConfig.format)) {
-      logger = createLogger(loggerConfig, pino.destination(1), loggerConfig.format, pino);
-    } else {
-      const destination = pino.destination(loggerConfig.path);
-      process.on('SIGUSR2', () => destination.reopen());
-      logger = createLogger(loggerConfig, destination, loggerConfig.format, pino);
+      return createLogger(loggerConfig, pino.destination(1), loggerConfig.format, pino);
     }
-    return logger;
-  } else {
-    debug('logging stdout enabled');
-    logger = createLogger(loggerConfig, pino.destination(1), loggerConfig.format, pino);
-    return logger;
+    // For file destinations (json format), wait for the fd to be ready
+    // so we fail fast on bad paths / permissions instead of losing early logs
+    const destination = pino.destination(loggerConfig.path);
+    await new Promise<void>((resolve, reject) => {
+      destination.once('ready', resolve);
+      destination.once('error', reject);
+    });
+    debug('file destination ready: %s', loggerConfig.path);
+    process.on('SIGUSR2', () => destination.reopen());
+    return createLogger(loggerConfig, destination, loggerConfig.format, pino);
   }
-}
-
-export let logger: Logger;
-
-export function setup(options: LoggerConfigItem, pino) {
-  if (typeof logger !== 'undefined') {
-    return logger;
-  }
-
-  logger = prepareSetup(options, pino);
-  return logger;
+  debug('logging stdout enabled');
+  return createLogger(loggerConfig, pino.destination(1), loggerConfig.format, pino);
 }

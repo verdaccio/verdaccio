@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 
-import { formatLoggingDate, padRight } from '../src/utils';
+import { formatLoggingDate, padRight } from '../src';
 
 describe('formatLoggingDate', () => {
   test('basic', () => {
