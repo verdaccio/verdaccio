@@ -84,7 +84,7 @@
     "msw-storybook-addon": "2.0.6",
     "mutationobserver-shim": "0.3.7",
     "storybook": "10.2.17",
-    "vitest": "3.2.4",
+    "vitest": "4.1.0",
     "whatwg-fetch": "3.6.20"
   },
   "resolutions": {
