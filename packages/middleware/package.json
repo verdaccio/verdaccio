@@ -58,7 +58,7 @@
     "http-errors": "2.0.1",
     "supertest": "7.1.4",
     "jsdom": "28.1.0",
-    "vitest": "3.2.4"
+    "vitest": "4.1.0"
   },
   "module": "./build/index.mjs",
   "exports": {
