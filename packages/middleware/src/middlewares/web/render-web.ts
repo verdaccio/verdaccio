@@ -41,7 +41,7 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
         return;
       }
       debug('render static file %o', filename);
-      res.sendFile(filename, { root: staticPath }, sendFileCallback(next));
+      sendFileSafe(staticPath, filename, res, next);
     }
   );
 

@@ -49,17 +49,29 @@ export function resolveSafePath(basePath: string, requestPath?: string): string 
     if (!requestPath || requestPath === '') {
       return null;
     }
+
     const decoded = decodeURIComponent(requestPath);
-    const resolved = path.resolve(basePath, decoded);
-    const relative = path.relative(basePath, resolved);
-    // if relative starts with '..' it's outside the base path
-    if (relative === '' || (!relative.startsWith('..') && !path.isAbsolute(relative))) {
-      return resolved;
+    // Prevent absolute paths (should not start from '/')
+    if (path.isAbsolute(decoded)) {
+      return null;
     }
-    // blocked: path outside base path
-    return null;
+
+    // Resolve against the base directory without requiring the target to exist.
+    const baseResolved = path.resolve(basePath);
+    const reqResolved = path.resolve(baseResolved, decoded);
+
+    // Normalize for Windows case-insensitive filesystem comparisons.
+    const baseComparable = process.platform === 'win32' ? baseResolved.toLowerCase() : baseResolved;
+    const reqComparable = process.platform === 'win32' ? reqResolved.toLowerCase() : reqResolved;
+
+    // Ensure the resolved path is within basePath (subdirectory or exactly the base).
+    if (reqComparable !== baseComparable && !reqComparable.startsWith(baseComparable + path.sep)) {
+      return null;
+    }
+
+    return reqResolved;
   } catch {
-    // error resolving path
+    // error resolving path (e.g., path does not exist or permission denied)
     return null;
   }
 }

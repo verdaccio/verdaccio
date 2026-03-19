@@ -52,4 +52,21 @@ describe('test web server', () => {
     const app = await initializeServer('web-assets.yaml');
     await supertest(app).get('/-/assets/invalid.svg').expect(HTTP_STATUS.NOT_FOUND);
   });
+
+  test('should reject path traversal using dot-dot segment to escape base directory', async () => {
+    const app = await initializeServer('web-assets.yaml');
+    await supertest(app).get('/-/assets/../secret-file.yaml').expect(HTTP_STATUS.UNAUTHORIZED);
+  });
+  test('should reject URL-encoded dot-dot traversal', async () => {
+    const app = await initializeServer('web-assets.yaml');
+    await supertest(app).get('/-/assets/%2e%2e%2fweb-assets.yaml').expect(HTTP_STATUS.NOT_FOUND);
+  });
+  test('should resolve current-directory pattern', async () => {
+    const app = await initializeServer('web-assets.yaml');
+    await supertest(app).get('/-/assets/./verdaccio.svg').expect(HTTP_STATUS.OK);
+  });
+  test('should resolve subdirectory dot-dot traversal', async () => {
+    const app = await initializeServer('web-assets.yaml');
+    await supertest(app).get('/-/assets/test/../verdaccio.svg').expect(HTTP_STATUS.OK);
+  });
 });
