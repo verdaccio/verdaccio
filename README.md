@@ -147,7 +147,7 @@ If you use multiples registries in your organization and need to fetch packages 
 
 ### Override public packages
 
-If you want to use a modified version of some 3rd-party package (for example, you found a bug, but maintainer didn't accept pull request yet), you can publish your version locally under the same name. See in detail [here](https://verdaccio.org/docs/en/best#override-public-packages).
+If you want to use a modified version of some 3rd-party package (for example, you found a bug, but maintainer didn't accept pull request yet), you can publish your version locally under the same name. See in detail [here](https://verdaccio.org/docs/best#override-public-packages).
 
 ### E2E Testing
 
@@ -231,7 +231,7 @@ This will prompt you for user credentials which will be saved on the `verdaccio`
 ## Docker
 
 Below are the most commonly needed information,
-every aspect of Docker and verdaccio is [documented separately](https://www.verdaccio.org/docs/en/docker.html)
+every aspect of Docker and verdaccio is [documented separately](https://www.verdaccio.org/docs/docker)
 
 ```
 docker pull verdaccio/verdaccio:nightly-master

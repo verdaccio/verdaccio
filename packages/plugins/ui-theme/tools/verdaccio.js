@@ -27,5 +27,5 @@ const serverHandler = function (webServer, addr, pkgName, pkgVersion) {
   });
 };
 
-// https://verdaccio.org/docs/en/node-api
+// https://verdaccio.org/docs/node-api
 startServer(configJsonFormat, 8080, '', '1.0.0', 'verdaccio', serverHandler);

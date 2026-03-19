@@ -5,7 +5,7 @@
 #
 # Do not configure host and port under `listen` in this file
 # as it will be ignored when using docker.
-# see https://verdaccio.org/docs/en/docker#docker-and-custom-port-configuration
+# see https://verdaccio.org/docs/docker#docker-and-custom-port-configuration
 #
 # Look here for more config file examples:
 # https://github.com/verdaccio/verdaccio/tree/5.x/conf
