@@ -1,4 +1,4 @@
-import ReactJson from '@microlink/react-json-view';
+import * as ReactJsonViewModule from '@microlink/react-json-view';
 import CloseIcon from '@mui/icons-material/Close';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
@@ -9,6 +9,10 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { Theme } from '../../Theme';
+
+const ReactJson = ((ReactJsonViewModule as any).default ??
+  (ReactJsonViewModule as any).reactJsonView ??
+  ReactJsonViewModule) as React.ComponentType<any>;
 
 export interface ViewerTitleProps {
   id: string;
