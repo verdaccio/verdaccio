@@ -1385,21 +1385,22 @@ importers:
       '@verdaccio/middleware':
         specifier: workspace:9.0.0-next-9.4
         version: link:../../middleware
-      '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.1
-        version: link:../../core/types
       debug:
         specifier: 4.4.3
         version: 4.4.3(supports-color@5.5.0)
       express:
         specifier: 5.2.1
         version: 5.2.1
-      fs-extra:
-        specifier: 11.2.0
-        version: 11.2.0
       supertest:
         specifier: 7.1.4
         version: 7.1.4
+    devDependencies:
+      '@verdaccio/types':
+        specifier: workspace:14.0.0-next-9.1
+        version: link:../../core/types
+      vitest:
+        specifier: 4.1.0
+        version: 4.1.0(@types/node@24.10.13)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.10.13)(typescript@5.9.3))(vite@8.0.0(@types/node@24.10.13)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1))
 
   packages/tools/local-publish:
     devDependencies:
@@ -11271,7 +11272,7 @@ snapshots:
     dependencies:
       '@vitest/spy': 3.2.4
       estree-walker: 3.0.3
-      magic-string: 0.30.17
+      magic-string: 0.30.21
     optionalDependencies:
       msw: 2.12.10(@types/node@24.10.13)(typescript@5.9.3)
       vite: 7.3.1(@types/node@24.10.13)(lightningcss@1.32.0)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1)
@@ -11316,7 +11317,7 @@ snapshots:
   '@vitest/snapshot@3.2.4':
     dependencies:
       '@vitest/pretty-format': 3.2.4
-      magic-string: 0.30.17
+      magic-string: 0.30.21
       pathe: 2.0.3
 
   '@vitest/snapshot@4.1.0':
@@ -12792,7 +12793,7 @@ snapshots:
       get-tsconfig: 4.13.6
       is-bun-module: 2.0.0
       stable-hash-x: 0.2.0
-      tinyglobby: 0.2.14
+      tinyglobby: 0.2.15
       unrs-resolver: 1.11.1
     optionalDependencies:
       eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.57.0(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3)
