@@ -41,7 +41,6 @@
   },
   "devDependencies": {
     "@types/jsonwebtoken": "9.0.7",
-    "@types/ms": "2.1.0",
     "typedoc": "0.28.14"
   },
   "typedoc": {
