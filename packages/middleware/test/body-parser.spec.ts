@@ -68,13 +68,9 @@ describe('body-parser middleware', () => {
 
   test('registerBodyParser should enforce max_body_size limit', async () => {
     const router = express.Router();
-    registerBodyParser(router as any, { max_body_size: '1kb' } as any);
+    registerBodyParser(router, { max_body_size: '1kb' } as any);
 
-    // Error handler so supertest can assert the 413 code coming from express.json/body-parser.
     const app = express();
-    app.use((err: any, _req: any, res: any, _next: any) => {
-      res.status(err?.status || err?.statusCode || 400).json({ message: err?.message });
-    });
 
     router.post('/limited', (req, res) => {
       res.json({ ok: true, body: req.body });
