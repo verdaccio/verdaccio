@@ -27,13 +27,15 @@ import {
   generateUnPublishPackageMetadata,
   getDeprecatedPackageMetadata,
 } from '@verdaccio/test-helper';
-import type { Logger,
+import type {
   AbbreviatedManifest,
   Author,
   ConfigYaml,
+  Logger,
   Manifest,
   PackageUsers,
-  Version } from '@verdaccio/types';
+  Version,
+} from '@verdaccio/types';
 
 import { Storage } from '../src';
 import manifestFooRemoteNpmjs from './fixtures/manifests/foo-npmjs.json';
