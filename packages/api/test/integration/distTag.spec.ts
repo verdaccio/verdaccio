@@ -1,12 +1,14 @@
 import supertest from 'supertest';
-import { beforeEach, describe, expect, test } from 'vitest';
+import { beforeAll, beforeEach, describe, expect, test } from 'vitest';
 
 import { API_MESSAGE, HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
 
 import { getDisTags, initializeServer, publishVersion } from './_helper';
 
-setup({});
+beforeAll(async () => {
+  await setup({});
+});
 
 describe('package', () => {
   let app;

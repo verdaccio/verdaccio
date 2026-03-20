@@ -26,7 +26,7 @@
       "path": "../loaders"
     },
     {
-      "path": "../logger/logger"
+      "path": "../logger"
     },
     {
       "path": "../plugins/local-storage"

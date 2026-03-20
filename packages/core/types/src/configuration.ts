@@ -33,6 +33,7 @@ export type LoggerConfigItem = {
   path?: string;
   level?: LoggerLevel;
   colors?: boolean;
+  /** Perform writes synchronously (similar to console.log). Defaults to false. */
   sync?: boolean;
   redact?: LoggerRedact;
 };

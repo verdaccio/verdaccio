@@ -1,6 +1,6 @@
 import nock from 'nock';
 import path from 'node:path';
-import { beforeEach, describe, expect, test } from 'vitest';
+import { beforeAll, beforeEach, describe, expect, test } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
 import { HEADER_TYPE } from '@verdaccio/core';
@@ -11,7 +11,9 @@ import { ProxyStorage } from '../src';
 
 const getConf = (name) => path.join(__dirname, '/conf', name);
 
-setup({});
+beforeAll(async () => {
+  await setup({});
+});
 
 const domain = 'https://registry.npmjs.org';
 

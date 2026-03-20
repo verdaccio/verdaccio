@@ -67,7 +67,7 @@ describe('formatDate', (): void => {
 
 describe('formatDateDistance', (): void => {
   test('should calculate the distance', (): void => {
-    // https://day.js.org/docs/en/display/from-now#list-of-breakdown-range
+    // https://day.js.org/docs/display/from-now#list-of-breakdown-range
     const dateYearAgo = () => {
       const date = new Date();
       date.setDate(date.getDate() - 365);

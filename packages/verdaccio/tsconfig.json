@@ -26,7 +26,7 @@
       "path": "../hooks"
     },
     {
-      "path": "../logger/logger"
+      "path": "../logger"
     },
     {
       "path": "../node-api"

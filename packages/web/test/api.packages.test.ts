@@ -1,6 +1,6 @@
 import path from 'node:path';
 import supertest from 'supertest';
-import { afterEach, describe, expect, test, vi } from 'vitest';
+import { afterEach, beforeAll, describe, expect, test, vi } from 'vitest';
 
 import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
@@ -8,7 +8,9 @@ import { publishVersion } from '@verdaccio/test-helper';
 
 import { initializeServer } from './helper';
 
-setup({});
+beforeAll(async () => {
+  await setup({});
+});
 
 const mockManifest = vi.fn();
 vi.mock('@verdaccio/ui-theme', () => mockManifest());
