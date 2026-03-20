@@ -166,10 +166,10 @@ export default [
   },
 
   // -----------------------------------------------
-  // Logger prettify: allow for-in without guard
+  // Logger: allow for-in without guard in prettify
   // -----------------------------------------------
   {
-    files: ['packages/logger/logger-prettify/**/*.ts'],
+    files: ['packages/logger/src/prettify.ts'],
     rules: {
       'guard-for-in': 'off',
     },

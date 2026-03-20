@@ -1,5 +1,5 @@
 import path from 'node:path';
-import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
+import { afterEach, beforeAll, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import type { pluginUtils } from '@verdaccio/core';
 import { fileUtils } from '@verdaccio/core';
@@ -25,13 +25,15 @@ vi.mock('../src/fs', () => ({
   writeFilePromise: (path: string, data: string) => mockWrite(path, data),
 }));
 
-setup({});
+beforeAll(async () => {
+  await setup({});
+});
 
-const optionsPlugin: pluginUtils.PluginOptions = {
+const getOptionsPlugin = (): pluginUtils.PluginOptions => ({
   logger,
   // @ts-expect-error
   config: null,
-};
+});
 
 let locaDatabase: pluginUtils.Storage<{}>;
 
@@ -58,7 +60,7 @@ describe('Local Database', () => {
           },
         },
       },
-      optionsPlugin.logger
+      getOptionsPlugin().logger
     );
     await (locaDatabase as any).init();
     (locaDatabase as any).clean();
@@ -98,11 +100,11 @@ describe('Local Database', () => {
         storage: STORAGE_FOLDER,
         config_path: tempFolder,
       },
-      optionsPlugin.logger
+      getOptionsPlugin().logger
     );
 
     await expect(instance.init()).rejects.toEqual(new Error(ERROR_DB_LOCKED));
-    // expect(optionsPlugin.logger.error).toHaveBeenCalled();
+    // expect(getOptionsPlugin().logger.error).toHaveBeenCalled();
   });
 
   describe('should handle secret', () => {
@@ -173,7 +175,7 @@ describe('Local Database', () => {
       const database = new LocalDatabase(
         // @ts-expect-error
         config,
-        optionsPlugin.logger
+        getOptionsPlugin().logger
       );
 
       expect(() => {

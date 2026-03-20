@@ -15,8 +15,6 @@
     "@verdaccio/hooks": "8.0.0",
     "@verdaccio/loaders": "8.0.0",
     "@verdaccio/logger": "8.0.0",
-    "@verdaccio/logger-commons": "8.0.0",
-    "@verdaccio/logger-prettify": "8.0.0",
     "@verdaccio/middleware": "8.0.0",
     "@verdaccio/node-api": "8.0.0",
     "verdaccio-audit": "13.0.0",

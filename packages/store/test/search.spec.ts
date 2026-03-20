@@ -1,5 +1,5 @@
 import nock from 'nock';
-import { describe, expect, test } from 'vitest';
+import { beforeAll, describe, expect, test } from 'vitest';
 
 import { Config, getDefaultConfig } from '@verdaccio/config';
 import type { searchUtils } from '@verdaccio/core';
@@ -7,10 +7,14 @@ import { fileUtils } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
 import { removeDuplicates } from '@verdaccio/search';
 import { generatePackageMetadata } from '@verdaccio/test-helper';
+import type { Logger } from '@verdaccio/types';
 
 import { Storage } from '../src';
 
-const logger = setup({});
+let logger: Logger;
+beforeAll(async () => {
+  logger = await setup({});
+});
 
 describe('search', () => {
   describe('search manager utils', () => {

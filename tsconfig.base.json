@@ -105,13 +105,7 @@
       "path": "packages/server/express"
     },
     {
-      "path": "packages/logger/logger-commons"
-    },
-    {
-      "path": "packages/logger/logger-prettify"
-    },
-    {
-      "path": "packages/logger/logger"
+      "path": "packages/logger"
     },
     {
       "path": "packages/plugins/audit"
