@@ -1,6 +1,6 @@
 import path from 'node:path';
 import request from 'supertest';
-import { describe, expect, test, vi } from 'vitest';
+import { beforeAll, describe, expect, test, vi } from 'vitest';
 
 import { HTTP_STATUS } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
@@ -8,11 +8,13 @@ import { logger, setup } from '@verdaccio/logger';
 import { log } from '../src';
 import { getApp } from './helper';
 
-setup({
-  type: 'file',
-  path: path.join(__dirname, './verdaccio.log'),
-  level: 'trace',
-  format: 'json',
+beforeAll(async () => {
+  await setup({
+    type: 'file',
+    path: path.join(__dirname, './verdaccio.log'),
+    level: 'trace',
+    format: 'json',
+  });
 });
 
 test('should log request', async () => {

@@ -16,7 +16,7 @@
 
 `invalid address - %s, we expect a port (e.g. "4873"), host:port (e.g. "localhost:4873") or full url '(e.g. "http://localhost:4873/")`
 
-Learn more at https://verdaccio.org/docs/en/configuration#listen-port
+Learn more at https://verdaccio.org/docs/configuration#listen-port
 
 ## VERWAR005
 

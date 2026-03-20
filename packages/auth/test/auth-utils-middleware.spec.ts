@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import path from 'node:path';
-import { describe, expect, test, vi } from 'vitest';
+import { beforeAll, describe, expect, test, vi } from 'vitest';
 
 import {
   Config as AppConfig,
@@ -16,7 +16,9 @@ import type { Config, RemoteUser, Security } from '@verdaccio/types';
 
 import { Auth, getApiToken, getMiddlewareCredentials, verifyJWTPayload } from '../src';
 
-setup({});
+beforeAll(async () => {
+  await setup({});
+});
 
 const buildToken = authUtils.buildToken;
 

@@ -4,7 +4,7 @@
 
 This is an experiment for the **uplinks** feature.
 
-https://verdaccio.org/docs/en/uplinks
+https://verdaccio.org/docs/uplinks
 
 Furthermore, this experiment also proves the oldest Verdaccio (2.x) still is able to communicate with the latest development version (4.x).
 

@@ -21,7 +21,7 @@
       "path": "../../core/types"
     },
     {
-      "path": "../../logger/logger"
+      "path": "../../logger"
     },
     {
       "path": "../../middleware"

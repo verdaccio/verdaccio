@@ -40,7 +40,7 @@ warnings[Codes.VERWAR004] = createWarning({
   code: Codes.VERWAR004,
   message: `invalid address - %s, we expect a port (e.g. "4873"),
 host:port (e.g. "localhost:4873") or full url '(e.g. "http://localhost:4873/")
-https://verdaccio.org/docs/en/configuration#listen-port`,
+https://verdaccio.org/docs/configuration#listen-port`,
 });
 
 warnings[Codes.VERWAR006] = createDeprecation({

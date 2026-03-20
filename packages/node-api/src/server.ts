@@ -106,7 +106,7 @@ export async function initServer(
   pkgName: string
 ): Promise<void> {
   return new Promise(async (resolve, reject) => {
-    const logger = setup(config?.log as any);
+    const logger = await setup(config?.log as any);
     const addr = getListenAddress(port ?? config?.listen, logger);
     displayExperimentsInfoBox(config.flags);
 
@@ -171,7 +171,7 @@ export async function initServer(
  */
 export async function runServer(config?: string | ConfigYaml): Promise<any> {
   const configurationParsed = getConfigParsed(config);
-  setup(configurationParsed.log as any);
+  await setup(configurationParsed.log as any);
   displayExperimentsInfoBox(configurationParsed.flags);
   const addr = getListenAddress(configurationParsed.listen, logger);
   const app = await expressServer(configurationParsed);
