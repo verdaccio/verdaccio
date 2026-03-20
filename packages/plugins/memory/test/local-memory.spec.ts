@@ -1,6 +1,6 @@
 import { join } from 'node:path';
 import { Readable } from 'node:stream';
-import { describe, expect, test } from 'vitest';
+import { beforeAll, describe, expect, test } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
 import { logger, setup } from '@verdaccio/logger';
@@ -9,23 +9,25 @@ import type { Token } from '@verdaccio/types';
 import LocalMemory from '../src/index';
 import pkgExample from './partials/pkg';
 
-setup({});
+beforeAll(async () => {
+  await setup({});
+});
 
 const config = new Config(parseConfigFile(join(__dirname, 'config.yaml')));
 
-const defaultConfig = { logger, config };
+const getDefaultConfig = () => ({ logger, config });
 
 describe('LocalMemory', () => {
   describe('package tests', () => {
     test('should create an LocalMemory instance', () => {
-      const localMemory = new LocalMemory({ limit: 10 }, { ...defaultConfig, config });
+      const localMemory = new LocalMemory({ limit: 10 }, { ...getDefaultConfig(), config });
 
       expect(localMemory).toBeDefined();
     });
 
     test('should create add a package', () => {
       return new Promise((done) => {
-        const localMemory = new LocalMemory({ limit: 10 }, { ...defaultConfig, config });
+        const localMemory = new LocalMemory({ limit: 10 }, { ...getDefaultConfig(), config });
         localMemory.add('test').then(() => {
           localMemory.get().then((data) => {
             expect(data).toHaveLength(1);
@@ -37,7 +39,7 @@ describe('LocalMemory', () => {
 
     test('should reach max limit', () => {
       return new Promise((done) => {
-        const localMemory = new LocalMemory({ limit: 2 }, defaultConfig);
+        const localMemory = new LocalMemory({ limit: 2 }, getDefaultConfig());
 
         localMemory.add('test1').then(() => {
           localMemory.add('test2').then(() => {
@@ -54,7 +56,7 @@ describe('LocalMemory', () => {
     test('should remove a package', () => {
       return new Promise((done) => {
         const pkgName = 'test4';
-        const localMemory = new LocalMemory({}, { ...defaultConfig, config });
+        const localMemory = new LocalMemory({}, { ...getDefaultConfig(), config });
         localMemory.add(pkgName).then(() => {
           localMemory.remove(pkgName).then(() => {
             localMemory.get().then((data) => {
@@ -67,7 +69,7 @@ describe('LocalMemory', () => {
     });
 
     test('should search for packages by substring', async () => {
-      const localMemory = new LocalMemory({}, { ...defaultConfig, config });
+      const localMemory = new LocalMemory({}, { ...getDefaultConfig(), config });
       await localMemory.add('alpha');
       await localMemory.add('beta');
       await localMemory.add('alphabet');
@@ -84,7 +86,7 @@ describe('LocalMemory', () => {
   describe('token tests', () => {
     test('should save a token for a user', () => {
       return new Promise((done) => {
-        const localMemory = new LocalMemory({}, { ...defaultConfig, config });
+        const localMemory = new LocalMemory({}, { ...getDefaultConfig(), config });
 
         const token1: Token = {
           user: 'testuser',
@@ -117,7 +119,7 @@ describe('LocalMemory', () => {
 
     test('should delete a token for a user', () => {
       return new Promise((done) => {
-        const localMemory = new LocalMemory({}, { ...defaultConfig, config });
+        const localMemory = new LocalMemory({}, { ...getDefaultConfig(), config });
 
         const token1: Token = {
           user: 'testuser',
@@ -151,7 +153,7 @@ describe('LocalMemory', () => {
 
     test('should handle deleting a token for a non-existent user', () => {
       return new Promise((done) => {
-        const localMemory = new LocalMemory({}, { ...defaultConfig, config });
+        const localMemory = new LocalMemory({}, { ...getDefaultConfig(), config });
 
         localMemory.deleteToken('nouser', 'nokey').catch((err) => {
           expect(err).toBeInstanceOf(Error);
@@ -163,7 +165,7 @@ describe('LocalMemory', () => {
 
     test('should return empty array for user with no tokens', () => {
       return new Promise((done) => {
-        const localMemory = new LocalMemory({}, { ...defaultConfig, config });
+        const localMemory = new LocalMemory({}, { ...getDefaultConfig(), config });
 
         localMemory.readTokens({ user: 'emptyuser' }).then((tokens) => {
           expect(tokens).toEqual([]);
@@ -175,7 +177,7 @@ describe('LocalMemory', () => {
 
   describe('tarball tests', () => {
     test('should write, read, and delete a tarball', async () => {
-      const localMemory = new LocalMemory({}, { ...defaultConfig, config });
+      const localMemory = new LocalMemory({}, { ...getDefaultConfig(), config });
       const pkgName = 'test';
       const tarballName = 'test-1.0.0.tgz';
 
@@ -198,7 +200,7 @@ describe('LocalMemory', () => {
     });
 
     test('should write, read, and delete a tarball for a scoped package', async () => {
-      const localMemory = new LocalMemory({}, { ...defaultConfig, config });
+      const localMemory = new LocalMemory({}, { ...getDefaultConfig(), config });
       const pkgName = '@scope/test_npm';
       const tarballName = 'test_npm-1.0.1.tgz';
 
@@ -221,7 +223,7 @@ describe('LocalMemory', () => {
     });
 
     test('should create, read, update, and delete a scoped package', async () => {
-      const localMemory = new LocalMemory({}, { ...defaultConfig, config });
+      const localMemory = new LocalMemory({}, { ...getDefaultConfig(), config });
       const pkgName = '@scope/test';
       const handler = localMemory.getPackageStorage(pkgName);
       // Create
@@ -241,7 +243,7 @@ describe('LocalMemory', () => {
     });
 
     test('should handle tarball upload stream events correctly for storage.ts integration', async () => {
-      const localMemory = new LocalMemory({}, { ...defaultConfig, config });
+      const localMemory = new LocalMemory({}, { ...getDefaultConfig(), config });
       const pkgName = 'stream-test';
       const tarballName = 'stream-test-1.0.0.tgz';
       const tarballContent = Buffer.from('test tarball content');

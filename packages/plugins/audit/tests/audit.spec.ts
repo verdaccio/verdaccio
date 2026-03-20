@@ -2,7 +2,7 @@ import express from 'express';
 import nock from 'nock';
 import { join } from 'node:path';
 import supertest from 'supertest';
-import { describe, expect, test } from 'vitest';
+import { beforeAll, describe, expect, test } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
 import { logger, setup } from '@verdaccio/logger';
@@ -11,7 +11,9 @@ import { HTTP_STATUS } from '../../local-storage/node_modules/@verdaccio/core/bu
 import type { ConfigAudit } from '../src/index';
 import ProxyAudit from '../src/index';
 
-setup({});
+beforeAll(async () => {
+  await setup({});
+});
 
 const auditConfig: ConfigAudit = {
   enabled: true,

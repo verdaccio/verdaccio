@@ -2,7 +2,7 @@ import express from 'express';
 import { JSDOM } from 'jsdom';
 import path from 'node:path';
 import supertest from 'supertest';
-import { describe, expect, test } from 'vitest';
+import { beforeAll, describe, expect, test } from 'vitest';
 
 import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
@@ -24,7 +24,9 @@ const initializeServer = (configName: string, middlewares = {}) => {
   return app;
 };
 
-setup({});
+beforeAll(async () => {
+  await setup({});
+});
 
 describe('test web server', () => {
   describe('render', () => {

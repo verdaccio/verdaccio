@@ -5,7 +5,7 @@ import { pseudoRandomBytes } from 'node:crypto';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { beforeEach, describe, expect, test, vi } from 'vitest';
+import { beforeAll, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { Config, getDefaultConfig } from '@verdaccio/config';
 import {
@@ -31,6 +31,7 @@ import type {
   AbbreviatedManifest,
   Author,
   ConfigYaml,
+  Logger,
   Manifest,
   PackageUsers,
   Version,
@@ -47,7 +48,10 @@ function generateRandomStorage() {
   return path.join(tempRoot, tempStorage);
 }
 
-const logger = setup({ type: 'stdout', format: 'pretty', level: 'trace' });
+let logger: Logger;
+beforeAll(async () => {
+  logger = await setup({ type: 'stdout', format: 'pretty', level: 'trace' });
+});
 
 const domain = 'https://registry.npmjs.org';
 const fakeHost = 'localhost:4873';
