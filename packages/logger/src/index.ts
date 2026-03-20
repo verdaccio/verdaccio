@@ -6,13 +6,8 @@ import { prepareSetup } from './logger';
 
 export { createLogger, prepareSetup, willUseTransport } from './logger';
 export type { LogPlugin, LoggerConfig } from './logger';
-export {
-  default as prettifyTransport,
-  autoEnd,
-  buildPretty,
-  buildSafeSonicBoom,
-  hasColors,
-} from './prettify';
+export { default as prettifyTransport, autoEnd, buildPretty, buildSafeSonicBoom } from './prettify';
+export { hasColors } from './colors';
 export { fillInMsgTemplate, printMessage } from './formatter';
 export { createPrettyTransport, isPrettyFormat } from './transport';
 export type { LevelCode } from './levels';

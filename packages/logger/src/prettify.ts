@@ -1,4 +1,3 @@
-import { isColorSupported } from 'colorette';
 import type { WriteStream } from 'node:fs';
 import { Transform, pipeline } from 'node:stream';
 import { isMainThread } from 'node:worker_threads';
@@ -6,6 +5,7 @@ import build from 'pino-abstract-transport';
 import type { SonicBoomOpts } from 'sonic-boom';
 import SonicBoom from 'sonic-boom';
 
+import { hasColors } from './colors';
 import { fillInMsgTemplate, printMessage } from './formatter';
 import type { PrettyOptionsExtended } from './types';
 
@@ -76,12 +76,7 @@ function setupOnExit(stream) {
   });
 }
 
-export function hasColors(colors: boolean | undefined) {
-  if (colors) {
-    return isColorSupported;
-  }
-  return typeof colors === 'undefined' ? true : colors;
-}
+export { hasColors } from './colors';
 
 export function buildPretty(opts: PrettyOptionsExtended) {
   return (chunk) => {

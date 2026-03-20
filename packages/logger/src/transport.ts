@@ -1,18 +1,20 @@
-import { isColorSupported } from 'colorette';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import type { LoggerConfigItem, LoggerFormat } from '@verdaccio/types';
 
-// Pino transports run in a worker thread and require an absolute path to a built JS file.
-// Resolve from the package root so it works from both src/ (vitest) and build/ (runtime).
-const prettifyPath = join(__dirname, '..', 'build', 'prettify.js');
+import { hasColors } from './colors';
 
-function hasColors(colors: boolean | undefined) {
-  if (colors) {
-    return isColorSupported;
+// Pino transports run in a worker thread and require an absolute path to a built JS file.
+// __dirname works in CJS; import.meta.url works in ESM (Node 20+).
+function getCurrentDir(): string {
+  if (typeof __dirname !== 'undefined') {
+    return __dirname;
   }
-  return typeof colors === 'undefined' ? true : colors;
+  // @ts-ignore -- import.meta.url requires module: es2020+ but vite preserves it for ESM output
+  return dirname(fileURLToPath(import.meta.url));
 }
+const prettifyPath = join(getCurrentDir(), '..', 'build', 'prettify.js');
 
 export function isPrettyFormat(format: LoggerFormat | undefined): boolean {
   return ['pretty-timestamped', 'pretty'].includes(format ?? 'pretty');

@@ -23,7 +23,7 @@ export type LogPlugin = {
 
 export function createLogger(
   options: LoggerConfigItem = { level: 'http' },
-  destination: NodeJS.WritableStream,
+  destination: NodeJS.WritableStream | undefined,
   format: LoggerFormat = DEFAULT_LOG_FORMAT,
   pino
 ): any {
@@ -105,12 +105,10 @@ export async function prepareSetup(
   }
   if (loggerConfig.type === 'file') {
     debug('logging file enabled');
-    // When using a pino transport (pretty format), the transport creates its own
-    // destination stream. Creating a pino.destination() here would be unused but
-    // still registered with on-exit-leak-free, causing "sonic boom is not ready yet"
-    // crashes if the process exits before the file is opened.
+    // Pretty format uses a pino transport that creates its own destination stream,
+    // so no destination is needed here.
     if (willUseTransport(loggerConfig.format)) {
-      return createLogger(loggerConfig, pino.destination(1), loggerConfig.format, pino);
+      return createLogger(loggerConfig, undefined, loggerConfig.format, pino);
     }
     // For file destinations (json format), wait for the fd to be ready
     // so we fail fast on bad paths / permissions instead of losing early logs
