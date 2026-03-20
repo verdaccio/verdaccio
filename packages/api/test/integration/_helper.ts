@@ -13,7 +13,6 @@ import {
   authUtils,
   cryptoUtils,
 } from '@verdaccio/core';
-import { setup } from '@verdaccio/logger';
 import { Storage } from '@verdaccio/store';
 import {
   generatePackageMetadata,
@@ -22,8 +21,6 @@ import {
 import type { Author, GenericBody, PackageUsers } from '@verdaccio/types';
 
 import apiMiddleware from '../../src';
-
-setup({});
 
 export const buildToken = authUtils.buildToken;
 

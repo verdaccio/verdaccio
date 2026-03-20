@@ -57,6 +57,8 @@ function verdaccioManifestPlugin() {
   };
 }
 
+const backendUrl = process.env.VERDACCIO_DEV_TARGET || 'http://localhost:8000';
+
 export default defineConfig(({ command }) => ({
   // In build mode, all dynamic chunk imports must be prefixed with /-/static/
   // so Verdaccio's static file server can resolve them.
@@ -85,10 +87,10 @@ export default defineConfig(({ command }) => ({
     host: '0.0.0.0',
     port: 4873,
     proxy: {
-      '/-/verdaccio': { target: 'http://localhost:8000', changeOrigin: true },
-      '/-/v1': { target: 'http://localhost:8000', changeOrigin: true },
-      '/-/user': { target: 'http://localhost:8000', changeOrigin: true },
-      '**/*.tgz': { target: 'http://localhost:8000', changeOrigin: true },
+      '/-/verdaccio': { target: backendUrl, changeOrigin: true },
+      '/-/v1': { target: backendUrl, changeOrigin: true },
+      '/-/user': { target: backendUrl, changeOrigin: true },
+      '**/*.tgz': { target: backendUrl, changeOrigin: true },
     },
   },
 

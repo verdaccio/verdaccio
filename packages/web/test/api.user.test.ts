@@ -7,7 +7,9 @@ import { setup } from '@verdaccio/logger';
 
 import { initializeServer } from './helper';
 
-setup({});
+beforeAll(async () => {
+  await setup({});
+});
 
 const mockManifest = vi.fn();
 vi.mock('@verdaccio/ui-theme', () => mockManifest());

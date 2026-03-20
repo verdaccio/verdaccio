@@ -29,7 +29,7 @@
       "path": "../loaders"
     },
     {
-      "path": "../logger/logger"
+      "path": "../logger"
     },
     {
       "path": "../middleware"

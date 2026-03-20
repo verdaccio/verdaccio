@@ -1,12 +1,14 @@
 import supertest from 'supertest';
-import { describe, expect, test } from 'vitest';
+import { beforeAll, describe, expect, test } from 'vitest';
 
 import { API_ERROR, HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
 
 import { initializeServer } from './_helper';
 
-setup({});
+beforeAll(async () => {
+  await setup({});
+});
 
 describe('server api', () => {
   test('should request any package', async () => {
