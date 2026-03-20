@@ -1,5 +1,5 @@
 import path from 'node:path';
-import { describe, expect, test } from 'vitest';
+import { beforeAll, describe, expect, test } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
 import { TOKEN_BASIC, TOKEN_BEARER } from '@verdaccio/core';
@@ -10,7 +10,9 @@ import { setupUpLinks } from '../src/uplink-util';
 
 const getConf = (name) => path.join(__dirname, '/conf', name);
 
-setup({});
+beforeAll(async () => {
+  await setup({});
+});
 
 describe('setupUpLinks', () => {
   test('should create uplinks for each proxy configuration', () => {

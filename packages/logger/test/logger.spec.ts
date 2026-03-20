@@ -30,7 +30,7 @@ describe('logger test', () => {
   describe('basic', () => {
     test('should include default level', async () => {
       const file = await createLogFile();
-      const logger = prepareSetup({ type: 'file', path: file, colors: false }, pino);
+      const logger = await prepareSetup({ type: 'file', path: file, colors: false }, pino);
       logger.info({ packageName: 'test' }, `testing @{packageName}`);
       // Note: this should not be logged
       logger.debug(`this should not be logged`);
@@ -43,7 +43,7 @@ describe('logger test', () => {
 
     test('should include all logging level', async () => {
       const file = await createLogFile();
-      const logger = prepareSetup(
+      const logger = await prepareSetup(
         { type: 'file', level: 'trace', path: file, colors: false },
         pino
       );
@@ -61,7 +61,7 @@ describe('logger test', () => {
   describe('json format', () => {
     test('should log into a file with json format', async () => {
       const file = await createLogFile();
-      const logger = prepareSetup(
+      const logger = await prepareSetup(
         {
           ...defaultOptions,
           format: 'json',
@@ -83,12 +83,46 @@ describe('logger test', () => {
         })
       );
     });
+
+    test('should reject with error for invalid file path', async () => {
+      await expect(
+        prepareSetup(
+          {
+            ...defaultOptions,
+            format: 'json',
+            type: 'file',
+            path: '/nonexistent/directory/that/does/not/exist/logger.log',
+            level: 'info',
+          },
+          pino
+        )
+      ).rejects.toThrow();
+    });
+
+    test('should resolve when file destination is ready', async () => {
+      const file = await createLogFile();
+      const result = prepareSetup(
+        {
+          ...defaultOptions,
+          format: 'json',
+          type: 'file',
+          path: file,
+          level: 'info',
+        },
+        pino
+      );
+      // For json file destinations, prepareSetup returns a Promise
+      expect(result).toBeInstanceOf(Promise);
+      const logger = await result;
+      expect(logger).toBeDefined();
+      expect(typeof logger.info).toBe('function');
+    });
   });
 
   describe('pretty format', () => {
     test('should log into a file with pretty', async () => {
       const file = await createLogFile();
-      const logger = prepareSetup(
+      const logger = await prepareSetup(
         {
           format: 'pretty',
           type: 'file',
@@ -108,7 +142,7 @@ describe('logger test', () => {
 
     test('should log into a file with pretty-timestamped', async () => {
       const file = await createLogFile();
-      const logger = prepareSetup(
+      const logger = await prepareSetup(
         {
           format: 'pretty-timestamped',
           type: 'file',
@@ -156,8 +190,8 @@ describe('logger test', () => {
       const script = `
         const pino = require('pino');
         const { prepareSetup } = require('${join(__dirname, '..', 'build')}');
-        prepareSetup({ type: 'file', path: '${file}', level: 'info', format: 'pretty', colors: false }, pino);
-        process.exit(0);
+        const result = prepareSetup({ type: 'file', path: '${file}', level: 'info', format: 'pretty', colors: false }, pino);
+        if (result instanceof Promise) { result.then(() => process.exit(0)); } else { process.exit(0); }
       `;
       expect(() => {
         execFileSync(process.execPath, ['-e', script], {
@@ -171,7 +205,7 @@ describe('logger test', () => {
   describe('redacting sensitive data', () => {
     test('should redact sensitive data with default censor', async () => {
       const file = await createLogFile();
-      const logger = prepareSetup(
+      const logger = await prepareSetup(
         {
           ...defaultOptions,
           format: 'json',
@@ -206,7 +240,7 @@ describe('logger test', () => {
 
     test('should redact sensitive data with custom censor string', async () => {
       const file = await createLogFile();
-      const logger = prepareSetup(
+      const logger = await prepareSetup(
         {
           ...defaultOptions,
           format: 'json',
@@ -243,7 +277,7 @@ describe('logger test', () => {
 
     test('should remove sensitive fields when remove option is true', async () => {
       const file = await createLogFile();
-      const logger = prepareSetup(
+      const logger = await prepareSetup(
         {
           ...defaultOptions,
           format: 'json',
@@ -280,7 +314,7 @@ describe('logger test', () => {
 
     test('should redact nested paths correctly', async () => {
       const file = await createLogFile();
-      const logger = prepareSetup(
+      const logger = await prepareSetup(
         {
           ...defaultOptions,
           format: 'json',

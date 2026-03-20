@@ -1,4 +1,3 @@
-import { isColorSupported } from 'colorette';
 import type { WriteStream } from 'node:fs';
 import { Transform, pipeline } from 'node:stream';
 import { isMainThread } from 'node:worker_threads';
@@ -6,6 +5,7 @@ import build from 'pino-abstract-transport';
 import type { SonicBoomOpts } from 'sonic-boom';
 import SonicBoom from 'sonic-boom';
 
+import { hasColors } from './colors';
 import { fillInMsgTemplate, printMessage } from './formatter';
 import type { PrettyOptionsExtended } from './types';
 
@@ -20,7 +20,7 @@ function noop() {}
  *
  * @returns {object} A new SonicBoom stream
  */
-function buildSafeSonicBoom(opts: SonicBoomOpts) {
+export function buildSafeSonicBoom(opts: SonicBoomOpts) {
   const stream = new SonicBoom(opts);
   stream.on('error', filterBrokenPipe);
   if (!opts.sync && isMainThread) {
@@ -41,7 +41,7 @@ function buildSafeSonicBoom(opts: SonicBoomOpts) {
   }
 }
 
-function autoEnd(stream, eventName) {
+export function autoEnd(stream: SonicBoom & { destroyed?: boolean }, eventName: string) {
   if (stream.destroyed) {
     return;
   }
@@ -56,8 +56,13 @@ function autoEnd(stream, eventName) {
     // to prevent "sonic boom is not ready yet" crash on early process exit
     try {
       stream.flushSync();
-    } catch {
-      // Stream not ready, nothing to flush
+    } catch (err: unknown) {
+      if (err instanceof Error && err.message?.includes('not ready')) {
+        // Stream not ready, nothing to flush
+        return;
+      }
+      // Re-throw real I/O errors (disk full, permission denied, etc.)
+      throw err;
     }
   }
 }
@@ -71,12 +76,7 @@ function setupOnExit(stream) {
   });
 }
 
-export function hasColors(colors: boolean | undefined) {
-  if (colors) {
-    return isColorSupported;
-  }
-  return typeof colors === 'undefined' ? true : colors;
-}
+export { hasColors } from './colors';
 
 export function buildPretty(opts: PrettyOptionsExtended) {
   return (chunk) => {
@@ -99,7 +99,10 @@ export default function (opts) {
     });
     const destination = buildSafeSonicBoom({
       dest: opts.destination || 1,
-      sync: opts.sync ?? true,
+      // Defaults to async (false). The transport runs in a worker thread,
+      // so sync only blocks the worker, not the main thread.
+      // Can be set to true via config for deterministic log ordering (like console.log).
+      sync: opts.sync ?? false,
     }) as unknown as WriteStream;
 
     source.on('unknown', function (line) {

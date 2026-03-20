@@ -1,10 +1,12 @@
-import { describe, expect, test } from 'vitest';
+import { beforeAll, describe, expect, test } from 'vitest';
 
 import { logger, setup } from '@verdaccio/logger';
 
 import { ProxyStorage } from '../src';
 
-setup({});
+beforeAll(async () => {
+  await setup({});
+});
 
 function getProxyInstance(host, uplinkConf, appConfig) {
   uplinkConf.url = host;

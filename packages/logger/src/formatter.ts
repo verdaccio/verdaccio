@@ -7,7 +7,7 @@ import type { PrettyOptionsExtended } from './types';
 import { formatLoggingDate, isObject, padRight } from './utils';
 
 let LEVEL_VALUE_MAX = 0;
-for (const l in levelsColors) {
+for (const l of Object.keys(levelsColors)) {
   LEVEL_VALUE_MAX = Math.max(LEVEL_VALUE_MAX, l.length);
 }
 

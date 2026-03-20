@@ -1,7 +1,7 @@
 import { describe, expect, test, vi } from 'vitest';
 
-import { printMessage } from '../src/formatter';
-import type { LevelCode } from '../src/levels';
+import { printMessage } from '../src';
+import type { LevelCode } from '../src';
 
 vi.mock('dayjs', () => ({
   __esModule: true,
