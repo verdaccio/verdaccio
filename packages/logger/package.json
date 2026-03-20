@@ -45,7 +45,7 @@
     "debug": "4.4.3",
     "on-exit-leak-free": "2.1.2",
     "pino": "10.3.1",
-    "pino-abstract-transport": "1.2.0",
+    "pino-abstract-transport": "3.0.0",
     "sonic-boom": "3.8.1"
   },
   "devDependencies": {
