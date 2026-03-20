@@ -168,7 +168,7 @@ const RegistryInfoContent: FC<Props> = ({ scope, registryUrl }) => {
         </Accordion>
 
         <LinkContainer>
-          <Link href="https://verdaccio.org/docs/en/cli-registry" target="_blank">
+          <Link href="https://verdaccio.org/docs/cli-registry" target="_blank">
             <Typography>{t('header.registry-info-link')}</Typography>
           </Link>
         </LinkContainer>

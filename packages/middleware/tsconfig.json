@@ -20,7 +20,7 @@
       "path": "../core/url"
     },
     {
-      "path": "../logger/logger"
+      "path": "../logger"
     }
   ]
 }

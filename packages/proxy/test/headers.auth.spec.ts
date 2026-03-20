@@ -1,4 +1,4 @@
-import { describe, expect, test } from 'vitest';
+import { beforeAll, describe, expect, test } from 'vitest';
 
 import { DEFAULT_REGISTRY } from '@verdaccio/config';
 import { HEADERS, TOKEN_BASIC, TOKEN_BEARER, authUtils, constants } from '@verdaccio/core';
@@ -6,7 +6,9 @@ import { logger, setup } from '@verdaccio/logger';
 
 import { ProxyStorage } from '../src';
 
-setup({});
+beforeAll(async () => {
+  await setup({});
+});
 
 const buildToken = authUtils.buildToken;
 
