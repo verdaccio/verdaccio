@@ -1,6 +1,4 @@
 ---
-'@verdaccio/logger-prettify': patch
-'@verdaccio/logger-commons': patch
 '@verdaccio/local-storage': patch
 '@verdaccio/file-locking': patch
 'verdaccio-htpasswd': patch
