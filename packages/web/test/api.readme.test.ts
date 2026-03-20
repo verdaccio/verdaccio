@@ -9,7 +9,9 @@ import { publishVersion } from '@verdaccio/test-helper';
 import { NOT_README_FOUND } from '../src/api/readme';
 import { initializeServer } from './helper';
 
-setup({});
+beforeAll(async () => {
+  await setup({});
+});
 
 const mockManifest = vi.fn();
 vi.mock('@verdaccio/ui-theme', () => mockManifest());

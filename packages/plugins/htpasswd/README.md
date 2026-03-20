@@ -86,8 +86,8 @@ and storage plugins since (v3.x).
 
 #### Useful Links
 
-- [Plugin Development](http://www.verdaccio.org/docs/en/dev-plugins.html)
-- [List of Plugins](http://www.verdaccio.org/docs/en/plugins.html)
+- [Plugin Development](http://www.verdaccio.org/docs/dev-plugins)
+- [List of Plugins](http://www.verdaccio.org/docs/plugins)
 
 ## License
 

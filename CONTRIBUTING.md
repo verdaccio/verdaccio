@@ -406,7 +406,7 @@ If you want to develop your own plugin:
 1. Check whether there is a legacy Sinopia plugin for the feature that you need
    via [npmjs](https://www.npmjs.com/search?q=sinopia)
 2. Keep in mind the [life-cycle to load a plugin
-   ](https://verdaccio.org/docs/en/dev-plugins)
+   ](https://verdaccio.org/docs/dev-plugins)
 3. You are free to host your plugin in your repository
 4. Provide a detailed description of your plugin to help users understand how to
    use it

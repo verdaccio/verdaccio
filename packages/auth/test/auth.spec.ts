@@ -1,7 +1,7 @@
 import express from 'express';
 import path from 'node:path';
 import supertest from 'supertest';
-import { describe, expect, test, vi } from 'vitest';
+import { beforeAll, describe, expect, test, vi } from 'vitest';
 
 import { Config as AppConfig, ROLES, createRemoteUser, getDefaultConfig } from '@verdaccio/config';
 import {
@@ -25,7 +25,9 @@ import {
   authProfileConf,
 } from './helper/plugin';
 
-setup({});
+beforeAll(async () => {
+  await setup({});
+});
 
 const buildToken = authUtils.buildToken;
 

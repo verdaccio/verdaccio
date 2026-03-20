@@ -9,8 +9,6 @@
 '@verdaccio/loaders': major
 '@verdaccio/local-storage': major
 '@verdaccio/logger': major
-'@verdaccio/logger-commons': major
-'@verdaccio/logger-prettify': major
 '@verdaccio/middleware': major
 '@verdaccio/node-api': major
 '@verdaccio/proxy': major
