@@ -1,5 +1,13 @@
 # @verdaccio/ui-components
 
+## 5.0.0-next-9.4
+
+### Patch Changes
+
+- 8f9bcc8: fix: links to doc
+- ed4c844: fix(ui-components): json viewer
+- fd09d4f: chore: update vitest to 4.1.0 and @vitest/coverage-v8 to 4.1.0
+
 ## 5.0.0-next-9.3
 
 ### Major Changes

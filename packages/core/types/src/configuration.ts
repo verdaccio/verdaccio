@@ -128,6 +128,7 @@ export type CommonWebConf = {
   logoDark?: string;
   favicon?: string;
   gravatar?: boolean;
+  sort_field?: string;
   sort_packages?: string;
   darkMode?: boolean;
   url_prefix?: string;

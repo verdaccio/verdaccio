@@ -53,9 +53,10 @@ function copyDir(src, dest) {
  * @param {object} [options] - Override options
  * @param {string|string[]} [options.entry] - Entry file(s) relative to dirname (default: 'src/index.ts')
  * @param {string} [options.outDir] - Output directory (default: 'build')
+ * @param {boolean} [options.esmOnly] - When true, output only ESM with .js extensions (for pure ESM packages with "type": "module")
  */
 export function createLibConfig(dirname, options = {}) {
-  const { entry = 'src/index.ts', outDir = 'build' } = options;
+  const { entry = 'src/index.ts', outDir = 'build', esmOnly = false } = options;
   const entries = Array.isArray(entry)
     ? entry.map((e) => path.resolve(dirname, e))
     : path.resolve(dirname, entry);
@@ -99,24 +100,31 @@ export function createLibConfig(dirname, options = {}) {
       minify: false,
       lib: {
         entry: entries,
+        ...(esmOnly && { formats: ['es'] }),
       },
       rollupOptions: {
         external: isExternal,
-        output: [
-          {
-            format: 'es',
-            entryFileNames: '[name].mjs',
-            ...sharedOutput,
-          },
-          {
-            format: 'cjs',
-            entryFileNames: '[name].js',
-            interop: 'auto',
-            esModule: true,
-            exports: 'named',
-            ...sharedOutput,
-          },
-        ],
+        output: esmOnly
+          ? {
+              format: 'es',
+              entryFileNames: '[name].js',
+              ...sharedOutput,
+            }
+          : [
+              {
+                format: 'es',
+                entryFileNames: '[name].mjs',
+                ...sharedOutput,
+              },
+              {
+                format: 'cjs',
+                entryFileNames: '[name].js',
+                interop: 'auto',
+                esModule: true,
+                exports: 'named',
+                ...sharedOutput,
+              },
+            ],
       },
     },
   });

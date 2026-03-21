@@ -1,0 +1,7 @@
+{
+  "exports": {
+    ".": {
+      "default": "./lib/fallback.js"
+    }
+  }
+}

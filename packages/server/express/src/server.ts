@@ -10,7 +10,14 @@ import apiEndpoint from '@verdaccio/api';
 import { Auth } from '@verdaccio/auth';
 import { Config as AppConfig } from '@verdaccio/config';
 import type { pluginUtils } from '@verdaccio/core';
-import { API_ERROR, PLUGIN_CATEGORY, PLUGIN_PREFIX, errorUtils, pkgUtils } from '@verdaccio/core';
+import {
+  API_ERROR,
+  PLUGIN_CATEGORY,
+  PLUGIN_PREFIX,
+  errorUtils,
+  pkgUtils,
+  pluginUtils as pluginSanity,
+} from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { logger } from '@verdaccio/logger';
 import {
@@ -20,6 +27,7 @@ import {
   handleError,
   log,
   rateLimit,
+  registerBodyParser,
   userAgent,
 } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
@@ -55,6 +63,11 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<Ex
   app.use(userAgent(config));
   app.use(compression());
 
+  // Body parser for JSON requests must be registered before plugins
+  // so plugins can access req.body instead of manually reading the stream
+  // This prevents "stream is not readable" errors when plugins try to read req.body
+  registerBodyParser(app, config);
+
   app.get(
     '/favicon.ico',
     function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
@@ -74,9 +87,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<Ex
       config,
       logger,
     },
-    function (plugin) {
-      return typeof plugin.register_middlewares !== 'undefined';
-    },
+    pluginSanity.middlewareSanityCheck,
     false,
     config.server?.pluginPrefix ?? PLUGIN_PREFIX,
     PLUGIN_CATEGORY.MIDDLEWARE

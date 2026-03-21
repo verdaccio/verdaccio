@@ -17,9 +17,13 @@ import { getLocalRegistryTarballUri } from '@verdaccio/tarball';
 import type { Config, RemoteUser, Version } from '@verdaccio/types';
 
 import { formatAuthor, generateGravatarUrl } from '../author-utils';
-import { hasLogin, sortByName } from '../web-utils';
+import { hasLogin, sortByName, sortByTime } from '../web-utils';
 
 export { $RequestExtend, $ResponseExtend, $NextFunctionVer }; // Was required by other packages
+
+const getField = (field = 'name') => {
+  return field === 'name' || field === 'time' ? field : 'name';
+};
 
 const getOrder = (order = 'asc') => {
   return order === 'asc';
@@ -102,10 +106,12 @@ function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router 
       try {
         const localPackages: Version[] = await storage.getLocalDatabase();
 
+        const field = getField(config?.web?.sort_field);
         const order = getOrder(config?.web?.sort_packages);
-        debug('order %o', order);
+        debug('order by %o %o', field, order);
         const pkgs = await processPackages(localPackages, req);
-        next(sortByName(pkgs, order));
+        if (field === 'name') next(sortByName(pkgs, order));
+        else next(sortByTime(pkgs, order));
       } catch (error: any) {
         next(error);
       }

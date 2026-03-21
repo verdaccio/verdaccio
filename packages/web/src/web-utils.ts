@@ -13,6 +13,13 @@ export function sortByName(packages: any[], orderAscending: boolean | void = tru
   });
 }
 
+export function sortByTime(packages: any[], orderAscending: boolean | void = true): string[] {
+  return packages.slice().sort(function (a, b): number {
+    const comparatorTime = a.time < b.time;
+    return orderAscending ? (comparatorTime ? -1 : 1) : comparatorTime ? 1 : -1;
+  });
+}
+
 export function addScope(scope: string, packageName: string): string {
   return `@${scope}/${packageName}`;
 }
