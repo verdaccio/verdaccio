@@ -51,16 +51,16 @@ If you want to report a security vulnerability, please follow the steps which we
 
 Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/verdaccio/contribute)]
 
-[![sponsor](https://opencollective.com/verdaccio/sponsor/0/avatar.svg)](https://opencollective.com/verdaccio/sponsor/0/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/1/avatar.svg)](https://opencollective.com/verdaccio/sponsor/1/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/2/avatar.svg)](https://opencollective.com/verdaccio/sponsor/2/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/3/avatar.svg)](https://opencollective.com/verdaccio/sponsor/3/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/4/avatar.svg)](https://opencollective.com/verdaccio/sponsor/4/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/5/avatar.svg)](https://opencollective.com/verdaccio/sponsor/5/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/6/avatar.svg)](https://opencollective.com/verdaccio/sponsor/6/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/7/avatar.svg)](https://opencollective.com/verdaccio/sponsor/7/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/8/avatar.svg)](https://opencollective.com/verdaccio/sponsor/8/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/9/avatar.svg)](https://opencollective.com/verdaccio/sponsor/9/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/0/avatar.png)](https://opencollective.com/verdaccio/sponsor/0/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/1/avatar.png)](https://opencollective.com/verdaccio/sponsor/1/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/2/avatar.png)](https://opencollective.com/verdaccio/sponsor/2/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/3/avatar.png)](https://opencollective.com/verdaccio/sponsor/3/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/4/avatar.png)](https://opencollective.com/verdaccio/sponsor/4/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/5/avatar.png)](https://opencollective.com/verdaccio/sponsor/5/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/6/avatar.png)](https://opencollective.com/verdaccio/sponsor/6/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/7/avatar.png)](https://opencollective.com/verdaccio/sponsor/7/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/8/avatar.png)](https://opencollective.com/verdaccio/sponsor/8/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/9/avatar.png)](https://opencollective.com/verdaccio/sponsor/9/website)
 
 ## Open Collective Backers
 
