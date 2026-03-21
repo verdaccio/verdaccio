@@ -909,6 +909,9 @@ importers:
       '@verdaccio/logger':
         specifier: workspace:9.0.0-next-9.4
         version: link:../../logger
+      '@verdaccio/plugin-verifier':
+        specifier: workspace:1.0.0-next-9.0
+        version: link:../../tools/plugin-verifier
       '@verdaccio/types':
         specifier: workspace:14.0.0-next-9.1
         version: link:../../core/types
@@ -937,6 +940,9 @@ importers:
       '@verdaccio/config':
         specifier: workspace:9.0.0-next-9.4
         version: link:../../config
+      '@verdaccio/plugin-verifier':
+        specifier: workspace:1.0.0-next-9.0
+        version: link:../../tools/plugin-verifier
       '@verdaccio/types':
         specifier: workspace:14.0.0-next-9.1
         version: link:../../core/types
@@ -971,6 +977,9 @@ importers:
       '@verdaccio/config':
         specifier: workspace:9.0.0-next-9.4
         version: link:../../config
+      '@verdaccio/plugin-verifier':
+        specifier: workspace:1.0.0-next-9.0
+        version: link:../../tools/plugin-verifier
       '@verdaccio/types':
         specifier: workspace:14.0.0-next-9.1
         version: link:../../core/types
@@ -1036,6 +1045,9 @@ importers:
       '@verdaccio/logger':
         specifier: workspace:9.0.0-next-9.4
         version: link:../../logger
+      '@verdaccio/plugin-verifier':
+        specifier: workspace:1.0.0-next-9.0
+        version: link:../../tools/plugin-verifier
       '@verdaccio/types':
         specifier: workspace:14.0.0-next-9.1
         version: link:../../core/types
@@ -1383,6 +1395,34 @@ importers:
       verdaccio:
         specifier: workspace:9.0.0-next-9.4
         version: link:../../verdaccio
+
+  packages/tools/plugin-verifier:
+    dependencies:
+      '@verdaccio/core':
+        specifier: workspace:9.0.0-next-9.4
+        version: link:../../core/core
+      '@verdaccio/loaders':
+        specifier: workspace:9.0.0-next-9.4
+        version: link:../../loaders
+      '@verdaccio/logger':
+        specifier: workspace:9.0.0-next-9.4
+        version: link:../../logger
+      clipanion:
+        specifier: 4.0.0-rc.4
+        version: 4.0.0-rc.4(typanion@3.14.0)
+      debug:
+        specifier: 4.4.3
+        version: 4.4.3(supports-color@5.5.0)
+    devDependencies:
+      '@verdaccio/config':
+        specifier: workspace:9.0.0-next-9.4
+        version: link:../../config
+      '@verdaccio/types':
+        specifier: workspace:14.0.0-next-9.1
+        version: link:../../core/types
+      vitest:
+        specifier: 4.1.0
+        version: 4.1.0(@types/node@24.10.13)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.10.13)(typescript@5.9.3))(vite@8.0.0(@types/node@24.10.13)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1))
 
   packages/tools/verdaccio-prefix-fake-plugin: {}
 

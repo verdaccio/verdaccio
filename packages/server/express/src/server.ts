@@ -10,7 +10,14 @@ import apiEndpoint from '@verdaccio/api';
 import { Auth } from '@verdaccio/auth';
 import { Config as AppConfig } from '@verdaccio/config';
 import type { pluginUtils } from '@verdaccio/core';
-import { API_ERROR, PLUGIN_CATEGORY, PLUGIN_PREFIX, errorUtils, pkgUtils } from '@verdaccio/core';
+import {
+  API_ERROR,
+  PLUGIN_CATEGORY,
+  PLUGIN_PREFIX,
+  errorUtils,
+  pkgUtils,
+  pluginUtils as pluginSanity,
+} from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { logger } from '@verdaccio/logger';
 import {
@@ -80,9 +87,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<Ex
       config,
       logger,
     },
-    function (plugin) {
-      return typeof plugin.register_middlewares !== 'undefined';
-    },
+    pluginSanity.middlewareSanityCheck,
     false,
     config.server?.pluginPrefix ?? PLUGIN_PREFIX,
     PLUGIN_CATEGORY.MIDDLEWARE

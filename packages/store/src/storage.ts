@@ -22,6 +22,7 @@ import {
   USERS,
   cryptoUtils,
   errorUtils,
+  pluginUtils as pluginSanity,
   tarballUtils,
   validationUtils,
 } from '@verdaccio/core';
@@ -675,9 +676,7 @@ class Storage {
           config: this.config,
           logger: this.logger,
         },
-        (plugin: pluginUtils.ManifestFilter<Config>) => {
-          return typeof plugin.filter_metadata !== 'undefined';
-        },
+        pluginSanity.filterSanityCheck,
         false,
         this.config.server?.pluginPrefix ?? PLUGIN_PREFIX,
         PLUGIN_CATEGORY.FILTER

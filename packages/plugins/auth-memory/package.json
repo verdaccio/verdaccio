@@ -36,6 +36,7 @@
   "devDependencies": {
     "@types/debug": "4.1.12",
     "@verdaccio/config": "workspace:9.0.0-next-9.4",
+    "@verdaccio/plugin-verifier": "workspace:1.0.0-next-9.0",
     "@verdaccio/types": "workspace:14.0.0-next-9.1"
   },
   "scripts": {
