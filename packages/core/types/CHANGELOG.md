@@ -1,5 +1,12 @@
 # Change Log
 
+## 14.0.0-next-9.2
+
+### Patch Changes
+
+- 6faa188: feat(web): sort by packages by update time
+- 1d5462f: chore: finish update vitest to 4.1.0
+
 ## 14.0.0-next-9.1
 
 ### Minor Changes

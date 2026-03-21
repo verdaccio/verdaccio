@@ -1,5 +1,14 @@
 # Change Log
 
+## 14.0.0-next-9.5
+
+### Patch Changes
+
+- Updated dependencies [8f9bcc8]
+- Updated dependencies [a9d7b4a]
+- Updated dependencies [1d5462f]
+  - @verdaccio/core@9.0.0-next-9.5
+
 ## 14.0.0-next-9.4
 
 ### Major Changes
