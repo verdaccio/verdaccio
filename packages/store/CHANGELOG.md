@@ -1,5 +1,20 @@
 # @verdaccio/store
 
+## 8.0.0-next-8.34
+
+### Patch Changes
+
+- Updated dependencies [13ff0d4]
+  - @verdaccio/core@8.0.0-next-8.34
+  - @verdaccio/config@8.0.0-next-8.34
+  - @verdaccio/tarball@13.0.0-next-8.34
+  - @verdaccio/url@13.0.0-next-8.34
+  - @verdaccio/loaders@8.0.0-next-8.24
+  - @verdaccio/local-storage@13.0.0-next-8.34
+  - @verdaccio/proxy@8.0.0-next-8.34
+  - @verdaccio/search@8.0.0-next-8.34
+  - @verdaccio/logger@8.0.0-next-8.34
+
 ## 8.0.0-next-8.33
 
 ### Patch Changes
