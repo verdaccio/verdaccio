@@ -1,7 +1,7 @@
 import MockDate from 'mockdate';
 import nock from 'nock';
 import * as httpMocks from 'node-mocks-http';
-import { pseudoRandomBytes } from 'node:crypto';
+import { randomBytes } from 'node:crypto';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -41,7 +41,7 @@ import manifestFooRemoteNpmjs from './fixtures/manifests/foo-npmjs.json';
 import { configExample } from './helpers';
 
 function generateRandomStorage() {
-  const tempStorage = pseudoRandomBytes(5).toString('hex');
+  const tempStorage = randomBytes(5).toString('hex');
   const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), '/verdaccio-storage-'));
 
   return path.join(tempRoot, tempStorage);

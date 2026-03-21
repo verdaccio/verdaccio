@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 
-import { cryptoUtils } from '../src';
+import * as cryptoUtils from '../src/crypto-utils';
 
 describe('Crypto Utilities', () => {
   describe('createTarballHash', () => {

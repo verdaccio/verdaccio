@@ -20,11 +20,6 @@ vi.mock('crypto', () => {
         toString: (): string => 'foo-random-bytes',
       };
     },
-    pseudoRandomBytes: (): { toString: () => string } => {
-      return {
-        toString: (): string => 'foo-phseudo-bytes',
-      };
-    },
   };
 });
 
