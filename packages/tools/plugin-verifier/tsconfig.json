@@ -1,0 +1,24 @@
+{
+  "extends": "../../../tsconfig.reference.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./build",
+    "composite": true,
+    "declaration": true
+  },
+  "include": ["src/**/*.ts"],
+  "references": [
+    {
+      "path": "../../core/core"
+    },
+    {
+      "path": "../../core/types"
+    },
+    {
+      "path": "../../loaders"
+    },
+    {
+      "path": "../../logger"
+    }
+  ]
+}

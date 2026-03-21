@@ -203,3 +203,43 @@ export interface IBasicAuth {
 export interface ManifestFilter<T> extends Plugin<T> {
   filter_metadata(manifest: Manifest): Promise<Manifest>;
 }
+
+// --- SANITY CHECKS ---
+
+/**
+ * Sanity check for authentication plugins.
+ * A valid auth plugin must implement at least one of: authenticate, allow_access, allow_publish.
+ */
+export function authSanityCheck(plugin: Auth<unknown>): boolean {
+  return (
+    typeof plugin.authenticate !== 'undefined' ||
+    typeof plugin.allow_access !== 'undefined' ||
+    typeof plugin.allow_publish !== 'undefined'
+  );
+}
+
+/**
+ * Sanity check for storage plugins.
+ * A valid storage plugin must implement getPackageStorage.
+ */
+export function storageSanityCheck(plugin: Storage<unknown>): boolean {
+  return typeof plugin.getPackageStorage !== 'undefined';
+}
+
+/**
+ * Sanity check for middleware plugins.
+ * A valid middleware plugin must implement register_middlewares.
+ */
+export function middlewareSanityCheck(
+  plugin: ExpressMiddleware<unknown, unknown, unknown>
+): boolean {
+  return typeof plugin.register_middlewares !== 'undefined';
+}
+
+/**
+ * Sanity check for filter plugins.
+ * A valid filter plugin must implement filter_metadata.
+ */
+export function filterSanityCheck(plugin: ManifestFilter<unknown>): boolean {
+  return typeof plugin.filter_metadata !== 'undefined';
+}

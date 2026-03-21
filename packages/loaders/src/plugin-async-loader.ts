@@ -7,7 +7,7 @@ import type { pluginUtils } from '@verdaccio/core';
 import { PLUGIN_PREFIX } from '@verdaccio/core';
 
 import type { PluginType } from './utils';
-import { isES6, isValid, tryLoad } from './utils';
+import { isES6, isValid, tryLoadAsync } from './utils';
 
 const debug = buildDebug('verdaccio:plugin:loader:async');
 
@@ -91,7 +91,7 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
         await isDirectory(pluginsPath);
         const pluginDir = pluginsPath;
         const externalFilePlugin = resolve(pluginDir, pluginName);
-        let plugin = tryLoad<T>(externalFilePlugin, (a: any, b: any) => {
+        let plugin = await tryLoadAsync<T>(externalFilePlugin, (a: any, b: any) => {
           logger.error(a, b);
         });
         debug('external plugin %o', plugin);
@@ -127,7 +127,7 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
 
     // Try to load the plugin from the node_modules or global based on the `require` native algorithm
     if (typeof pluginId === 'string') {
-      let plugin = tryLoad<T>(pluginName, (a: any, b: any) => {
+      let plugin = await tryLoadAsync<T>(pluginName, (a: any, b: any) => {
         logger.error(a, b);
       });
       if (plugin && isValid(plugin)) {
