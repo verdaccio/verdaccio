@@ -1,5 +1,12 @@
 # @verdaccio/logger-commons
 
+## 8.0.0-next-8.34
+
+### Patch Changes
+
+- Updated dependencies [13ff0d4]
+  - @verdaccio/core@8.0.0-next-8.34
+
 ## 8.0.0-next-8.33
 
 ### Patch Changes

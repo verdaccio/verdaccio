@@ -1,5 +1,15 @@
 # @verdaccio/middleware
 
+## 8.0.0-next-8.34
+
+### Patch Changes
+
+- bc9ca3e: fix(middleware): stream is not readable (http 500)
+- Updated dependencies [13ff0d4]
+  - @verdaccio/core@8.0.0-next-8.34
+  - @verdaccio/config@8.0.0-next-8.34
+  - @verdaccio/url@13.0.0-next-8.34
+
 ## 8.0.0-next-8.33
 
 ### Patch Changes

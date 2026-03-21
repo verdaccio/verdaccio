@@ -1,5 +1,13 @@
 # @verdaccio/utils
 
+## 8.1.0-next-8.34
+
+### Patch Changes
+
+- 13ff0d4: replace deprecated `pseudoRandomBytes` with `randomBytes` from `node:crypto`
+- Updated dependencies [13ff0d4]
+  - @verdaccio/core@8.0.0-next-8.34
+
 ## 8.1.0-next-8.33
 
 ### Patch Changes
