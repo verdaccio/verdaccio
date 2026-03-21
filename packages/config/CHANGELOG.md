@@ -1,5 +1,16 @@
 # @verdaccio/config
 
+## 9.0.0-next-9.5
+
+### Patch Changes
+
+- 8f9bcc8: fix: links to doc
+- fd09d4f: chore: update vitest to 4.1.0 and @vitest/coverage-v8 to 4.1.0
+- Updated dependencies [8f9bcc8]
+- Updated dependencies [a9d7b4a]
+- Updated dependencies [1d5462f]
+  - @verdaccio/core@9.0.0-next-9.5
+
 ## 9.0.0-next-9.4
 
 ### Major Changes

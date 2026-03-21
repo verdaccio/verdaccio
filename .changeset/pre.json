@@ -52,15 +52,25 @@
     "@verdaccio/e2e-cli-yarn2": "1.0.2-next-8.1",
     "@verdaccio/e2e-cli-yarn3": "1.0.2-next-8.1",
     "@verdaccio/e2e-cli-yarn4": "1.0.2-next-8.1",
-    "@verdaccio/e2e-ui": "2.1.0-next-8.1"
+    "@verdaccio/e2e-ui": "2.1.0-next-8.1",
+    "@verdaccio/plugin-verifier": "1.0.0-next-9.0"
   },
   "changesets": [
+    "combine-logger-packages",
     "fair-ducks-think",
     "fix-search-ui",
     "honest-lizards-exercise",
+    "neat-beds-joke",
     "olive-lobsters-protect",
+    "plugin-verifier-tool",
+    "rotten-walls-happen",
+    "shy-moons-retire",
+    "sour-ravens-compete",
     "stale-poets-sit",
     "ten-cougars-flash",
+    "tricky-coats-clap",
+    "unlucky-chefs-impress",
+    "update-vitest-4",
     "vite-build-migration",
     "warm-pandas-glow"
   ]

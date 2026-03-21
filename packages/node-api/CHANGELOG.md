@@ -1,5 +1,20 @@
 # @verdaccio/node-api
 
+## 9.0.0-next-9.5
+
+### Patch Changes
+
+- fd09d4f: chore: update vitest to 4.1.0 and @vitest/coverage-v8 to 4.1.0
+- Updated dependencies [4eda7ac]
+- Updated dependencies [8f9bcc8]
+- Updated dependencies [a9d7b4a]
+- Updated dependencies [6b55816]
+- Updated dependencies [1d5462f]
+- Updated dependencies [fd09d4f]
+  - @verdaccio/logger@9.0.0-next-9.5
+  - @verdaccio/config@9.0.0-next-9.5
+  - @verdaccio/server@9.0.0-next-9.5
+
 ## 9.0.0-next-9.4
 
 ### Major Changes

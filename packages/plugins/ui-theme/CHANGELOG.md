@@ -1,5 +1,12 @@
 # @verdaccio/ui-theme
 
+## 9.0.0-next-9.5
+
+### Patch Changes
+
+- 8f9bcc8: fix: links to doc
+- 1d5462f: chore: finish update vitest to 4.1.0
+
 ## 9.0.0-next-9.4
 
 ## 9.0.0-next-9.3

@@ -1,5 +1,22 @@
 # Change Log
 
+## 5.0.0-next-9.5
+
+### Patch Changes
+
+- 686e2f2: chore: update deps for tools/helpers
+- Updated dependencies [4eda7ac]
+- Updated dependencies [8f9bcc8]
+- Updated dependencies [a9d7b4a]
+- Updated dependencies [6b55816]
+- Updated dependencies [1d5462f]
+- Updated dependencies [fd09d4f]
+  - @verdaccio/logger@9.0.0-next-9.5
+  - @verdaccio/core@9.0.0-next-9.5
+  - @verdaccio/config@9.0.0-next-9.5
+  - @verdaccio/auth@9.0.0-next-9.5
+  - @verdaccio/middleware@9.0.0-next-9.5
+
 ## 5.0.0-next-9.4
 
 ### Major Changes

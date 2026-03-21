@@ -1,5 +1,19 @@
 # @verdaccio/middleware
 
+## 9.0.0-next-9.5
+
+### Patch Changes
+
+- 6b55816: fix(middleware): stream is not readable (http 500)
+- fd09d4f: chore: update vitest to 4.1.0 and @vitest/coverage-v8 to 4.1.0
+- Updated dependencies [8f9bcc8]
+- Updated dependencies [a9d7b4a]
+- Updated dependencies [1d5462f]
+- Updated dependencies [fd09d4f]
+  - @verdaccio/core@9.0.0-next-9.5
+  - @verdaccio/config@9.0.0-next-9.5
+  - @verdaccio/url@14.0.0-next-9.5
+
 ## 9.0.0-next-9.4
 
 ### Major Changes
