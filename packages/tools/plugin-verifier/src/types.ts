@@ -31,6 +31,12 @@ export interface VerifyPluginOptions {
    * Maps to `config.plugins` in Verdaccio configuration.
    */
   pluginsFolder?: string;
+  /**
+   * Absolute path to the Verdaccio configuration file.
+   * Maps to `config.configPath` — required by plugins that resolve
+   * relative paths (e.g. htpasswd resolves its `file` relative to this).
+   */
+  configPath?: string;
 }
 
 export interface DiagnosticStep {

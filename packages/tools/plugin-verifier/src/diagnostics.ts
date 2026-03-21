@@ -28,7 +28,7 @@ function isES6(plugin: any): boolean {
  * Resolve the ESM entry point for a directory-based plugin.
  * import() doesn't support directory imports, so we resolve via package.json.
  */
-function resolveEntryPoint(dirPath: string): string {
+export function resolveEntryPoint(dirPath: string): string {
   const pkgPath = join(dirPath, 'package.json');
   if (existsSync(pkgPath)) {
     try {

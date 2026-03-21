@@ -1,3 +1,5 @@
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { describe, expect, test } from 'vitest';
 
 import { PLUGIN_CATEGORY } from '@verdaccio/core';
@@ -8,6 +10,8 @@ describe('Plugin loading verification', () => {
     const result = await verifyPlugin({
       pluginPath: 'htpasswd',
       category: PLUGIN_CATEGORY.AUTHENTICATION,
+      pluginConfig: { file: join(tmpdir(), 'htpasswd-verify-test') },
+      configPath: join(tmpdir(), 'verdaccio-config.yaml'),
     });
 
     expect(result.success).toBe(true);

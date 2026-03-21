@@ -35,6 +35,7 @@ export async function verifyPlugin(options: VerifyPluginOptions): Promise<Verify
     sanityCheck: customSanityCheck,
     prefix = PLUGIN_PREFIX,
     pluginsFolder,
+    configPath,
   } = options;
 
   debug('verifying plugin %o for category %o', pluginPath, category);
@@ -52,6 +53,11 @@ export async function verifyPlugin(options: VerifyPluginOptions): Promise<Verify
   if (pluginsFolder) {
     config.plugins = resolve(pluginsFolder);
     debug('resolved plugins folder: %o', config.plugins);
+  }
+
+  if (configPath) {
+    config.configPath = configPath;
+    debug('config path: %o', config.configPath);
   }
 
   const pluginConfigs = { [pluginPath]: pluginConfig };
