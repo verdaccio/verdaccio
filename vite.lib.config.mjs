@@ -102,29 +102,29 @@ export function createLibConfig(dirname, options = {}) {
         entry: entries,
         ...(esmOnly && { formats: ['es'] }),
       },
-      rollupOptions: {
+      rolldownOptions: {
         external: isExternal,
         output: esmOnly
           ? {
-              format: 'es',
-              entryFileNames: '[name].js',
-              ...sharedOutput,
-            }
+            format: 'es',
+            entryFileNames: '[name].js',
+            ...sharedOutput,
+          }
           : [
-              {
-                format: 'es',
-                entryFileNames: '[name].mjs',
-                ...sharedOutput,
-              },
-              {
-                format: 'cjs',
-                entryFileNames: '[name].js',
-                interop: 'auto',
-                esModule: true,
-                exports: 'named',
-                ...sharedOutput,
-              },
-            ],
+            {
+              format: 'es',
+              entryFileNames: '[name].mjs',
+              ...sharedOutput,
+            },
+            {
+              format: 'cjs',
+              entryFileNames: '[name].js',
+              interop: 'auto',
+              esModule: true,
+              exports: 'named',
+              ...sharedOutput,
+            },
+          ],
       },
     },
   });
