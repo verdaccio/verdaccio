@@ -38,7 +38,6 @@ jobs:
             packages/*/dist
             packages/*/*/build
             packages/*/*/dist
-            node_modules
           key: e2e-build-${{ github.sha }}
 
   e2e-cli:
@@ -79,9 +78,11 @@ jobs:
             packages/*/dist
             packages/*/*/build
             packages/*/*/dist
-            node_modules
           key: e2e-build-${{ github.sha }}
           fail-on-cache-miss: true
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Start Verdaccio
         run: |
