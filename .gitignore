@@ -39,8 +39,5 @@ static/*
 # This is the Yarn install state cache, it can be rebuilt anytime
 /.yarn/install-state.gz
 .history
-
-# AI generated files
-AGENTS.md
 CLAUDE.md
 .claude/settings.json
