@@ -70,24 +70,5 @@ for i in $(seq 1 30); do
 done
 
 echo "Running e2e-cli tests with pm=$PM..."
-case "$PM" in
-  yarn-modern)
-    COREPACK_ENABLE_STRICT=0 yarn verdaccio-e2e --registry "$REGISTRY_URL" --pm "yarn-modern=$(which yarn)" -v
-    ;;
-  yarn-classic)
-    # Install Yarn 1.x and create a wrapper that sets YARN_IGNORE_PATH=1
-    # to prevent it from deferring to .yarnrc.yml's yarnPath (Berry)
-    YARN1_DIR="$WORK_DIR/yarn1"
-    mkdir -p "$YARN1_DIR"
-    (cd "$YARN1_DIR" && npm init -y > /dev/null 2>&1 && npm install yarn@1 > /dev/null 2>&1)
-    cat > "$YARN1_DIR/yarn-classic" << 'WRAPPER'
-#!/usr/bin/env bash
-YARN_IGNORE_PATH=1 exec "$(dirname "$0")/node_modules/yarn/bin/yarn.js" "$@"
-WRAPPER
-    chmod +x "$YARN1_DIR/yarn-classic"
-    yarn verdaccio-e2e --registry "$REGISTRY_URL" --pm "yarn-classic=$YARN1_DIR/yarn-classic" -v
-    ;;
-  *)
-    yarn verdaccio-e2e --registry "$REGISTRY_URL" --pm "$PM" -v
-    ;;
-esac
+COREPACK_ENABLE_STRICT=0 YARN_IGNORE_PATH=1 \
+  yarn verdaccio-e2e --registry "$REGISTRY_URL" --pm "$PM" -v

@@ -3308,9 +3308,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/e2e-cli@npm:2.1.1":
-  version: 2.1.1
-  resolution: "@verdaccio/e2e-cli@npm:2.1.1"
+"@verdaccio/e2e-cli@npm:2.2.0":
+  version: 2.2.0
+  resolution: "@verdaccio/e2e-cli@npm:2.2.0"
   dependencies:
     debug: "npm:4.4.0"
     get-port: "npm:5.1.1"
@@ -3318,7 +3318,7 @@ __metadata:
     js-yaml: "npm:4.1.0"
   bin:
     verdaccio-e2e: bin/e2e-cli.js
-  checksum: 10c0/528b243c09722daeb12b25dcec4d2113de9c2191e59d7bcf65442c76f78d478dfed059470bd62dde0f87858054bbda67b7c152d7e9b355554dd92ce7cc2053dd
+  checksum: 10c0/40be696733dc4adb36306c7b972c73f0137e5ffc894efed8e65cfa463e391c4848da55875f85988294296314ffdd276722f9539d0c8b8aa69bde5742fb657bb3
   languageName: node
   linkType: hard
 
@@ -12301,7 +12301,7 @@ __metadata:
     "@verdaccio/auth": "npm:8.0.0-next-8.34"
     "@verdaccio/config": "npm:8.0.0-next-8.34"
     "@verdaccio/core": "npm:8.0.0-next-8.34"
-    "@verdaccio/e2e-cli": "npm:2.1.1"
+    "@verdaccio/e2e-cli": "npm:2.2.0"
     "@verdaccio/eslint-config": "npm:13.0.0"
     "@verdaccio/hooks": "npm:8.0.0-next-8.34"
     "@verdaccio/loaders": "npm:8.0.0-next-8.24"
