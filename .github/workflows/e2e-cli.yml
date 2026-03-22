@@ -33,7 +33,7 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Build
+      - name: Build Verdaccio
         run: yarn build
 
       - name: Start Verdaccio
@@ -45,7 +45,7 @@ jobs:
           done
 
       - name: Run E2E CLI tests
-        run: npx @verdaccio/e2e-cli@2.0.0 --registry http://localhost:4873 --pm ${{ matrix.pm }} -v
+        run: yarn verdaccio-e2e --registry http://localhost:4873 --pm ${{ matrix.pm }} -v
 
       - name: Show Verdaccio logs
         if: always()
