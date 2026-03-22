@@ -70,7 +70,4 @@ for i in $(seq 1 30); do
 done
 
 echo "Running e2e-cli tests with pm=$PM..."
-RUN_DIR="$WORK_DIR/e2e-run"
-mkdir -p "$RUN_DIR"
-(cd "$RUN_DIR" && COREPACK_ENABLE_STRICT=0 YARN_IGNORE_PATH=1 \
-  node "$ROOT_DIR/node_modules/@verdaccio/e2e-cli/bin/e2e-cli.js" --registry "$REGISTRY_URL" --pm "$PM" -v)
+yarn verdaccio-e2e --registry "$REGISTRY_URL" --pm "$PM" -v
