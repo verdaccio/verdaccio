@@ -6,7 +6,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: e2e-cli-${{ github.ref }}-6x
+  group: e2e-cli-${{ github.ref }}-7x
   cancel-in-progress: true
 
 jobs:
