@@ -48,7 +48,7 @@ export default defineConfig({
         path.resolve(dirname, 'src/cli.ts'),
       ],
     },
-    rollupOptions: {
+    rolldownOptions: {
       external: isExternal,
       output: [
         {
