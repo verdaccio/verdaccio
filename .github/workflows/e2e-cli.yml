@@ -10,9 +10,41 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  build:
+    name: Build Verdaccio
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
+
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Setup Node
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: pnpm build
+
+      - name: Cache build artifacts
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            packages/*/build
+            packages/*/dist
+            packages/*/*/build
+            packages/*/*/dist
+            node_modules
+          key: e2e-build-${{ github.sha }}
+
   e2e-cli:
     name: E2E CLI (${{ matrix.pm }})
     runs-on: ubuntu-latest
+    needs: build
     strategy:
       fail-fast: false
       matrix:
@@ -39,11 +71,17 @@ jobs:
         with:
           node-version-file: '.nvmrc'
 
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Build Verdaccio
-        run: pnpm build
+      - name: Restore build artifacts
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            packages/*/build
+            packages/*/dist
+            packages/*/*/build
+            packages/*/*/dist
+            node_modules
+          key: e2e-build-${{ github.sha }}
+          fail-on-cache-miss: true
 
       - name: Start Verdaccio
         run: |
