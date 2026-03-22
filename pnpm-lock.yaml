@@ -122,6 +122,9 @@ importers:
       '@types/validator':
         specifier: 13.15.10
         version: 13.15.10
+      '@verdaccio/e2e-cli':
+        specifier: 2.3.0
+        version: 2.3.0
       '@verdaccio/eslint-config':
         specifier: 13.0.0
         version: 13.0.0(@typescript-eslint/utils@8.57.0(eslint@10.0.3)(typescript@5.9.3))(@vitest/eslint-plugin@1.6.9(eslint@10.0.3)(typescript@5.9.3)(vitest@4.1.0(@types/node@20.19.33)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@20.19.33)(typescript@5.9.3))(vite@8.0.0(@types/node@20.19.33)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1))))(eslint-import-resolver-node@0.3.9)(eslint-plugin-cypress@6.1.0(eslint@10.0.3))(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.57.0(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3))(eslint-plugin-jest@29.15.0(@typescript-eslint/eslint-plugin@8.57.0(@typescript-eslint/parser@8.57.0(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3)(typescript@5.9.3))(eslint-plugin-react-hooks@7.0.1(eslint@10.0.3))(eslint-plugin-react@7.37.5(eslint@10.0.3))(eslint-plugin-verdaccio@10.1.0(eslint@10.0.3))(eslint@10.0.3)(typescript@5.9.3)
@@ -242,198 +245,6 @@ importers:
       vitest:
         specifier: 4.1.0
         version: 4.1.0(@types/node@20.19.33)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@20.19.33)(typescript@5.9.3))(vite@8.0.0(@types/node@20.19.33)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1))
-
-  e2e/cli/cli-commons:
-    devDependencies:
-      '@verdaccio/config':
-        specifier: workspace:*
-        version: link:../../../packages/config
-      '@verdaccio/core':
-        specifier: workspace:*
-        version: link:../../../packages/core/core
-      '@verdaccio/types':
-        specifier: workspace:*
-        version: link:../../../packages/core/types
-      debug:
-        specifier: 4.4.3
-        version: 4.4.3(supports-color@5.5.0)
-      fs-extra:
-        specifier: 11.2.0
-        version: 11.2.0
-      get-port:
-        specifier: 5.1.1
-        version: 5.1.1
-      got:
-        specifier: 11.8.6
-        version: 11.8.6
-      js-yaml:
-        specifier: 4.1.1
-        version: 4.1.1
-      lodash:
-        specifier: 4.17.23
-        version: 4.17.23
-      verdaccio:
-        specifier: workspace:*
-        version: link:../../../packages/verdaccio
-
-  e2e/cli/e2e-npm-commons:
-    dependencies:
-      '@verdaccio/test-cli-commons':
-        specifier: workspace:*
-        version: link:../cli-commons
-
-  e2e/cli/e2e-npm10:
-    dependencies:
-      '@verdaccio/e2e-cli-npm-common':
-        specifier: workspace:*
-        version: link:../e2e-npm-commons
-      '@verdaccio/test-cli-commons':
-        specifier: workspace:*
-        version: link:../cli-commons
-      npm:
-        specifier: 10.9.2
-        version: 10.9.2
-
-  e2e/cli/e2e-npm11:
-    dependencies:
-      '@verdaccio/e2e-cli-npm-common':
-        specifier: workspace:*
-        version: link:../e2e-npm-commons
-      '@verdaccio/test-cli-commons':
-        specifier: workspace:*
-        version: link:../cli-commons
-      npm:
-        specifier: 11.4.2
-        version: 11.4.2
-
-  e2e/cli/e2e-npm6:
-    dependencies:
-      '@verdaccio/e2e-cli-npm-common':
-        specifier: workspace:*
-        version: link:../e2e-npm-commons
-      '@verdaccio/test-cli-commons':
-        specifier: workspace:*
-        version: link:../cli-commons
-      npm:
-        specifier: 6.14.18
-        version: 6.14.18
-
-  e2e/cli/e2e-npm7:
-    dependencies:
-      '@verdaccio/e2e-cli-npm-common':
-        specifier: workspace:*
-        version: link:../e2e-npm-commons
-      '@verdaccio/test-cli-commons':
-        specifier: workspace:*
-        version: link:../cli-commons
-      npm:
-        specifier: 7.24.2
-        version: 7.24.2
-
-  e2e/cli/e2e-npm8:
-    dependencies:
-      '@verdaccio/e2e-cli-npm-common':
-        specifier: workspace:*
-        version: link:../e2e-npm-commons
-      '@verdaccio/test-cli-commons':
-        specifier: workspace:*
-        version: link:../cli-commons
-      npm:
-        specifier: 8.19.4
-        version: 8.19.4
-
-  e2e/cli/e2e-npm9:
-    dependencies:
-      '@verdaccio/e2e-cli-npm-common':
-        specifier: workspace:*
-        version: link:../e2e-npm-commons
-      '@verdaccio/test-cli-commons':
-        specifier: workspace:*
-        version: link:../cli-commons
-      npm:
-        specifier: 9.9.4
-        version: 9.9.4
-
-  e2e/cli/e2e-pnpm-commons:
-    dependencies:
-      '@verdaccio/test-cli-commons':
-        specifier: workspace:*
-        version: link:../cli-commons
-      pnpm:
-        specifier: 10.5.2
-        version: 10.5.2
-
-  e2e/cli/e2e-pnpm10:
-    dependencies:
-      '@verdaccio/e2e-cli-pnpm-common':
-        specifier: workspace:*
-        version: link:../e2e-pnpm-commons
-      '@verdaccio/test-cli-commons':
-        specifier: workspace:*
-        version: link:../cli-commons
-      pnpm:
-        specifier: 10.12.1
-        version: 10.12.1
-
-  e2e/cli/e2e-pnpm8:
-    dependencies:
-      '@verdaccio/e2e-cli-pnpm-common':
-        specifier: workspace:*
-        version: link:../e2e-pnpm-commons
-      '@verdaccio/test-cli-commons':
-        specifier: workspace:*
-        version: link:../cli-commons
-      pnpm:
-        specifier: 8.15.9
-        version: 8.15.9
-
-  e2e/cli/e2e-pnpm9:
-    dependencies:
-      '@verdaccio/e2e-cli-pnpm-common':
-        specifier: workspace:*
-        version: link:../e2e-pnpm-commons
-      '@verdaccio/test-cli-commons':
-        specifier: workspace:*
-        version: link:../cli-commons
-      pnpm:
-        specifier: 9.15.9
-        version: 9.15.9
-
-  e2e/cli/e2e-yarn1:
-    dependencies:
-      '@verdaccio/test-cli-commons':
-        specifier: workspace:*
-        version: link:../cli-commons
-      yarn:
-        specifier: 1.22.22
-        version: 1.22.22
-
-  e2e/cli/e2e-yarn2:
-    dependencies:
-      '@verdaccio/test-cli-commons':
-        specifier: workspace:*
-        version: link:../cli-commons
-      '@yarnpkg/cli-dist':
-        specifier: 2.4.2
-        version: 2.4.2
-
-  e2e/cli/e2e-yarn3:
-    dependencies:
-      '@verdaccio/test-cli-commons':
-        specifier: workspace:*
-        version: link:../cli-commons
-      '@yarnpkg/cli-dist':
-        specifier: 3.8.7
-        version: 3.8.7
-
-  e2e/cli/e2e-yarn4:
-    dependencies:
-      '@verdaccio/test-cli-commons':
-        specifier: workspace:*
-        version: link:../cli-commons
-      '@yarnpkg/cli-dist':
-        specifier: 4.9.2
-        version: 4.9.2
 
   e2e/ui:
     devDependencies:
@@ -3697,6 +3508,10 @@ packages:
     resolution: {integrity: sha512-F/YZANu4DmpcEV0jronzI7v2fGVWkQ5Mwi+bVmV+ACJ+EzR0c9Jbhtbe5QyLUuzR97t8R5E/Xe53O0cc2LukdQ==}
     engines: {node: '>=8'}
 
+  '@verdaccio/e2e-cli@2.3.0':
+    resolution: {integrity: sha512-rk5cZtn0KW3ai5KfB4cqbU18A9OEYoobV8eOUnXZy752xcQ7wsdONAflW++BiqqcRXArwAyPZW9oIoS66bupsg==}
+    hasBin: true
+
   '@verdaccio/eslint-config@13.0.0':
     resolution: {integrity: sha512-c+5RWlpbErNgNt3HjZ1SaJH79/J/0334fDh/iWJ9vaJp+i6m+VkSiY30DEKg9lJJyGTM/2nfWqaoYtbEg6kDLQ==}
     peerDependencies:
@@ -3897,21 +3712,6 @@ packages:
 
   '@xtuc/long@4.2.2':
     resolution: {integrity: sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==}
-
-  '@yarnpkg/cli-dist@2.4.2':
-    resolution: {integrity: sha512-M82xg3uZnE836u68o/DpLtSQjxHUoYkuK82v4psznrFjZO3msYD6qb/wAhGD9KdkO/puwfnDhOc9imA3NDrp9g==}
-    engines: {node: '>=12 <14 || 14.2 - 14.9 || >14.10.0'}
-    hasBin: true
-
-  '@yarnpkg/cli-dist@3.8.7':
-    resolution: {integrity: sha512-YMoAlLR9f+kxXjK72ggBIidi3ulQQrQpMSxzrLUt0OUk9Xdst2v26LBSYFlzOm+7KRNWgYIJpFjA8uRnCgB5xQ==}
-    engines: {node: '>=12 <14 || 14.2 - 14.9 || >14.10.0'}
-    hasBin: true
-
-  '@yarnpkg/cli-dist@4.9.2':
-    resolution: {integrity: sha512-qrMyWzvEnWhaWOflvE1pGxWGiVOPsO/q4XfGCeRPnLU8ECkvhrhJEfCNakcy3s3VHcApBASQ4fmL0sOEw6xtZQ==}
-    engines: {node: '>=18.12.0'}
-    hasBin: true
 
   JSONStream@1.3.5:
     resolution: {integrity: sha512-E+iruNOY8VV9s4JEbe1aNEm6MiszPRr/UfcHMz0TQh1BXSxHK+ASV1R6W4HpjBhSeS+54PIsAMCBmwD06LLsqQ==}
@@ -4623,6 +4423,15 @@ packages:
 
   debug@3.2.7:
     resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
+
+  debug@4.4.0:
+    resolution: {integrity: sha512-6WTZ/IxCY/T6BALoZHaE4ctp9xm+Z5kY/pzYaCHRFeyVhojxlrm+46y68HA6hr0TcwEssoxNiDEUJQjfPZ/RYA==}
+    engines: {node: '>=6.0'}
     peerDependencies:
       supports-color: '*'
     peerDependenciesMeta:
@@ -6001,6 +5810,10 @@ packages:
     resolution: {integrity: sha512-okMH7OXXJ7YrN9Ok3/SXrnu4iX9yOk+25nqX4imS2npuvTYDmo/QEZoqwZkYaIDk3jVvBOTOIEgEhaLOynBS9g==}
     hasBin: true
 
+  js-yaml@4.1.0:
+    resolution: {integrity: sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==}
+    hasBin: true
+
   js-yaml@4.1.1:
     resolution: {integrity: sha512-qQKT4zQxXl8lLwBtHMWwaTcGfFOZviOJet3Oy/xmGk2gZH677CJM9EvtfdSkgWcATZhj/55JZ0rmy3myCT5lsA==}
     hasBin: true
@@ -6678,512 +6491,6 @@ packages:
     resolution: {integrity: sha512-S48WzZW777zhNIrn7gxOlISNAqi9ZC/uQFnRdbeIHhZhCA6UqpkOT8T1G7BvfdgP4Er8gF4sUbaS0i7QvIfCWw==}
     engines: {node: '>=8'}
 
-  npm@10.9.2:
-    resolution: {integrity: sha512-iriPEPIkoMYUy3F6f3wwSZAU93E0Eg6cHwIR6jzzOXWSy+SD/rOODEs74cVONHKSx2obXtuUoyidVEhISrisgQ==}
-    engines: {node: ^18.17.0 || >=20.5.0}
-    hasBin: true
-    bundledDependencies:
-      - '@isaacs/string-locale-compare'
-      - '@npmcli/arborist'
-      - '@npmcli/config'
-      - '@npmcli/fs'
-      - '@npmcli/map-workspaces'
-      - '@npmcli/package-json'
-      - '@npmcli/promise-spawn'
-      - '@npmcli/redact'
-      - '@npmcli/run-script'
-      - '@sigstore/tuf'
-      - abbrev
-      - archy
-      - cacache
-      - chalk
-      - ci-info
-      - cli-columns
-      - fastest-levenshtein
-      - fs-minipass
-      - glob
-      - graceful-fs
-      - hosted-git-info
-      - ini
-      - init-package-json
-      - is-cidr
-      - json-parse-even-better-errors
-      - libnpmaccess
-      - libnpmdiff
-      - libnpmexec
-      - libnpmfund
-      - libnpmhook
-      - libnpmorg
-      - libnpmpack
-      - libnpmpublish
-      - libnpmsearch
-      - libnpmteam
-      - libnpmversion
-      - make-fetch-happen
-      - minimatch
-      - minipass
-      - minipass-pipeline
-      - ms
-      - node-gyp
-      - nopt
-      - normalize-package-data
-      - npm-audit-report
-      - npm-install-checks
-      - npm-package-arg
-      - npm-pick-manifest
-      - npm-profile
-      - npm-registry-fetch
-      - npm-user-validate
-      - p-map
-      - pacote
-      - parse-conflict-json
-      - proc-log
-      - qrcode-terminal
-      - read
-      - semver
-      - spdx-expression-parse
-      - ssri
-      - supports-color
-      - tar
-      - text-table
-      - tiny-relative-date
-      - treeverse
-      - validate-npm-package-name
-      - which
-      - write-file-atomic
-
-  npm@11.4.2:
-    resolution: {integrity: sha512-+QweyLIHtiXW7bZpOu8j2ss5w45CF/6MRqlz8RnKs5KsDeI/4/B+WDGI2un9kQizhFrW9SW1mHQr0GDrrWC/8w==}
-    engines: {node: ^20.17.0 || >=22.9.0}
-    hasBin: true
-    bundledDependencies:
-      - '@isaacs/string-locale-compare'
-      - '@npmcli/arborist'
-      - '@npmcli/config'
-      - '@npmcli/fs'
-      - '@npmcli/map-workspaces'
-      - '@npmcli/package-json'
-      - '@npmcli/promise-spawn'
-      - '@npmcli/redact'
-      - '@npmcli/run-script'
-      - '@sigstore/tuf'
-      - abbrev
-      - archy
-      - cacache
-      - chalk
-      - ci-info
-      - cli-columns
-      - fastest-levenshtein
-      - fs-minipass
-      - glob
-      - graceful-fs
-      - hosted-git-info
-      - ini
-      - init-package-json
-      - is-cidr
-      - json-parse-even-better-errors
-      - libnpmaccess
-      - libnpmdiff
-      - libnpmexec
-      - libnpmfund
-      - libnpmorg
-      - libnpmpack
-      - libnpmpublish
-      - libnpmsearch
-      - libnpmteam
-      - libnpmversion
-      - make-fetch-happen
-      - minimatch
-      - minipass
-      - minipass-pipeline
-      - ms
-      - node-gyp
-      - nopt
-      - normalize-package-data
-      - npm-audit-report
-      - npm-install-checks
-      - npm-package-arg
-      - npm-pick-manifest
-      - npm-profile
-      - npm-registry-fetch
-      - npm-user-validate
-      - p-map
-      - pacote
-      - parse-conflict-json
-      - proc-log
-      - qrcode-terminal
-      - read
-      - semver
-      - spdx-expression-parse
-      - ssri
-      - supports-color
-      - tar
-      - text-table
-      - tiny-relative-date
-      - treeverse
-      - validate-npm-package-name
-      - which
-
-  npm@6.14.18:
-    resolution: {integrity: sha512-p3SjqSchSuNQUqbJBgwdv0L3O6bKkaSfQrQzJsskNpNKLg0g37c5xTXFV0SqTlX9GWvoGxBELVJMRWq0J8oaLA==}
-    engines: {node: 6 >=6.2.0 || 8 || >=9.3.0}
-    hasBin: true
-    bundledDependencies:
-      - abbrev
-      - ansicolors
-      - ansistyles
-      - aproba
-      - archy
-      - bin-links
-      - bluebird
-      - byte-size
-      - cacache
-      - call-limit
-      - chownr
-      - ci-info
-      - cli-columns
-      - cli-table3
-      - cmd-shim
-      - columnify
-      - config-chain
-      - debuglog
-      - detect-indent
-      - detect-newline
-      - dezalgo
-      - editor
-      - figgy-pudding
-      - find-npm-prefix
-      - fs-vacuum
-      - fs-write-stream-atomic
-      - gentle-fs
-      - glob
-      - graceful-fs
-      - has-unicode
-      - hosted-git-info
-      - iferr
-      - imurmurhash
-      - infer-owner
-      - inflight
-      - inherits
-      - ini
-      - init-package-json
-      - is-cidr
-      - json-parse-better-errors
-      - JSONStream
-      - lazy-property
-      - libcipm
-      - libnpm
-      - libnpmaccess
-      - libnpmhook
-      - libnpmorg
-      - libnpmsearch
-      - libnpmteam
-      - libnpx
-      - lock-verify
-      - lockfile
-      - lodash._baseindexof
-      - lodash._baseuniq
-      - lodash._bindcallback
-      - lodash._cacheindexof
-      - lodash._createcache
-      - lodash._getnative
-      - lodash.clonedeep
-      - lodash.restparam
-      - lodash.union
-      - lodash.uniq
-      - lodash.without
-      - lru-cache
-      - meant
-      - mississippi
-      - mkdirp
-      - move-concurrently
-      - node-gyp
-      - nopt
-      - normalize-package-data
-      - npm-audit-report
-      - npm-cache-filename
-      - npm-install-checks
-      - npm-lifecycle
-      - npm-package-arg
-      - npm-packlist
-      - npm-pick-manifest
-      - npm-profile
-      - npm-registry-fetch
-      - npm-user-validate
-      - npmlog
-      - once
-      - opener
-      - osenv
-      - pacote
-      - path-is-inside
-      - promise-inflight
-      - qrcode-terminal
-      - query-string
-      - qw
-      - read-cmd-shim
-      - read-installed
-      - read-package-json
-      - read-package-tree
-      - read
-      - readable-stream
-      - readdir-scoped-modules
-      - request
-      - retry
-      - rimraf
-      - safe-buffer
-      - semver
-      - sha
-      - slide
-      - sorted-object
-      - sorted-union-stream
-      - ssri
-      - stringify-package
-      - tar
-      - text-table
-      - tiny-relative-date
-      - uid-number
-      - umask
-      - unique-filename
-      - unpipe
-      - update-notifier
-      - uuid
-      - validate-npm-package-license
-      - validate-npm-package-name
-      - which
-      - worker-farm
-      - write-file-atomic
-
-  npm@7.24.2:
-    resolution: {integrity: sha512-120p116CE8VMMZ+hk8IAb1inCPk4Dj3VZw29/n2g6UI77urJKVYb7FZUDW8hY+EBnfsjI/2yrobBgFyzo7YpVQ==}
-    engines: {node: '>=10'}
-    hasBin: true
-    bundledDependencies:
-      - '@isaacs/string-locale-compare'
-      - '@npmcli/arborist'
-      - '@npmcli/ci-detect'
-      - '@npmcli/config'
-      - '@npmcli/map-workspaces'
-      - '@npmcli/package-json'
-      - '@npmcli/run-script'
-      - abbrev
-      - ansicolors
-      - ansistyles
-      - archy
-      - cacache
-      - chalk
-      - chownr
-      - cli-columns
-      - cli-table3
-      - columnify
-      - fastest-levenshtein
-      - glob
-      - graceful-fs
-      - hosted-git-info
-      - ini
-      - init-package-json
-      - is-cidr
-      - json-parse-even-better-errors
-      - libnpmaccess
-      - libnpmdiff
-      - libnpmexec
-      - libnpmfund
-      - libnpmhook
-      - libnpmorg
-      - libnpmpack
-      - libnpmpublish
-      - libnpmsearch
-      - libnpmteam
-      - libnpmversion
-      - make-fetch-happen
-      - minipass
-      - minipass-pipeline
-      - mkdirp
-      - mkdirp-infer-owner
-      - ms
-      - node-gyp
-      - nopt
-      - npm-audit-report
-      - npm-install-checks
-      - npm-package-arg
-      - npm-pick-manifest
-      - npm-profile
-      - npm-registry-fetch
-      - npm-user-validate
-      - npmlog
-      - opener
-      - pacote
-      - parse-conflict-json
-      - qrcode-terminal
-      - read
-      - read-package-json
-      - read-package-json-fast
-      - readdir-scoped-modules
-      - rimraf
-      - semver
-      - ssri
-      - tar
-      - text-table
-      - tiny-relative-date
-      - treeverse
-      - validate-npm-package-name
-      - which
-      - write-file-atomic
-
-  npm@8.19.4:
-    resolution: {integrity: sha512-3HANl8i9DKnUA89P4KEgVNN28EjSeDCmvEqbzOAuxCFDzdBZzjUl99zgnGpOUumvW5lvJo2HKcjrsc+tfyv1Hw==}
-    engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
-    hasBin: true
-    bundledDependencies:
-      - '@isaacs/string-locale-compare'
-      - '@npmcli/arborist'
-      - '@npmcli/ci-detect'
-      - '@npmcli/config'
-      - '@npmcli/fs'
-      - '@npmcli/map-workspaces'
-      - '@npmcli/package-json'
-      - '@npmcli/run-script'
-      - abbrev
-      - archy
-      - cacache
-      - chalk
-      - chownr
-      - cli-columns
-      - cli-table3
-      - columnify
-      - fastest-levenshtein
-      - fs-minipass
-      - glob
-      - graceful-fs
-      - hosted-git-info
-      - ini
-      - init-package-json
-      - is-cidr
-      - json-parse-even-better-errors
-      - libnpmaccess
-      - libnpmdiff
-      - libnpmexec
-      - libnpmfund
-      - libnpmhook
-      - libnpmorg
-      - libnpmpack
-      - libnpmpublish
-      - libnpmsearch
-      - libnpmteam
-      - libnpmversion
-      - make-fetch-happen
-      - minimatch
-      - minipass
-      - minipass-pipeline
-      - mkdirp
-      - mkdirp-infer-owner
-      - ms
-      - node-gyp
-      - nopt
-      - npm-audit-report
-      - npm-install-checks
-      - npm-package-arg
-      - npm-pick-manifest
-      - npm-profile
-      - npm-registry-fetch
-      - npm-user-validate
-      - npmlog
-      - opener
-      - p-map
-      - pacote
-      - parse-conflict-json
-      - proc-log
-      - qrcode-terminal
-      - read
-      - read-package-json
-      - read-package-json-fast
-      - readdir-scoped-modules
-      - rimraf
-      - semver
-      - ssri
-      - tar
-      - text-table
-      - tiny-relative-date
-      - treeverse
-      - validate-npm-package-name
-      - which
-      - write-file-atomic
-
-  npm@9.9.4:
-    resolution: {integrity: sha512-NzcQiLpqDuLhavdyJ2J3tGJ/ni/ebcqHVFZkv1C4/6lblraUPbPgCJ4Vhb4oa3FFhRa2Yj9gA58jGH/ztKueNQ==}
-    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
-    hasBin: true
-    bundledDependencies:
-      - '@isaacs/string-locale-compare'
-      - '@npmcli/arborist'
-      - '@npmcli/config'
-      - '@npmcli/fs'
-      - '@npmcli/map-workspaces'
-      - '@npmcli/package-json'
-      - '@npmcli/promise-spawn'
-      - '@npmcli/run-script'
-      - abbrev
-      - archy
-      - cacache
-      - chalk
-      - ci-info
-      - cli-columns
-      - cli-table3
-      - columnify
-      - fastest-levenshtein
-      - fs-minipass
-      - glob
-      - graceful-fs
-      - hosted-git-info
-      - ini
-      - init-package-json
-      - is-cidr
-      - json-parse-even-better-errors
-      - libnpmaccess
-      - libnpmdiff
-      - libnpmexec
-      - libnpmfund
-      - libnpmhook
-      - libnpmorg
-      - libnpmpack
-      - libnpmpublish
-      - libnpmsearch
-      - libnpmteam
-      - libnpmversion
-      - make-fetch-happen
-      - minimatch
-      - minipass
-      - minipass-pipeline
-      - ms
-      - node-gyp
-      - nopt
-      - normalize-package-data
-      - npm-audit-report
-      - npm-install-checks
-      - npm-package-arg
-      - npm-pick-manifest
-      - npm-profile
-      - npm-registry-fetch
-      - npm-user-validate
-      - npmlog
-      - p-map
-      - pacote
-      - parse-conflict-json
-      - proc-log
-      - qrcode-terminal
-      - read
-      - semver
-      - sigstore
-      - spdx-expression-parse
-      - ssri
-      - supports-color
-      - tar
-      - text-table
-      - tiny-relative-date
-      - treeverse
-      - validate-npm-package-name
-      - which
-      - write-file-atomic
-
   object-assign@4.1.1:
     resolution: {integrity: sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==}
     engines: {node: '>=0.10.0'}
@@ -7434,26 +6741,6 @@ packages:
 
   please-upgrade-node@3.2.0:
     resolution: {integrity: sha512-gQR3WpIgNIKwBMVLkpMUeR3e1/E1y42bqDQZfql+kDeXd8COYfM8PQA4X6y7a8u9Ua9FHmsrrmirW2vHs45hWg==}
-
-  pnpm@10.12.1:
-    resolution: {integrity: sha512-8N2oWA8O6UgcXHmh2Se5Fk8sR46QmSrSaLuyRlpzaYQ5HWMz0sMnkTV4soBK8zR0ylVLopwEqLEwYKcXZ1rjrA==}
-    engines: {node: '>=18.12'}
-    hasBin: true
-
-  pnpm@10.5.2:
-    resolution: {integrity: sha512-2p3CjNP/QNBZIYgjWrJdMgKt2KIHr77caCIg5KACn/v/RWIQK55uRrTj+ei9U+bQXeSFRLDFfUsBeeIsdtEZmw==}
-    engines: {node: '>=18.12'}
-    hasBin: true
-
-  pnpm@8.15.9:
-    resolution: {integrity: sha512-SZQ0ydj90aJ5Tr9FUrOyXApjOrzuW7Fee13pDzL0e1E6ypjNXP0AHDHw20VLw4BO3M1XhQHkyik6aBYWa72fgQ==}
-    engines: {node: '>=16.14'}
-    hasBin: true
-
-  pnpm@9.15.9:
-    resolution: {integrity: sha512-aARhQYk8ZvrQHAeSMRKOmvuJ74fiaR1p5NQO7iKJiClf1GghgbrlW1hBjDolO95lpQXsfF+UA+zlzDzTfc8lMQ==}
-    engines: {node: '>=18.12'}
-    hasBin: true
 
   possible-typed-array-names@1.0.0:
     resolution: {integrity: sha512-d7Uw+eZoloe0EHDIYoe+bQ5WXnGMOpmiZFTuMWCwpjzzkL2nTjcKiAk4hh8TjnGye2TwWOk3UXucZ+3rbmBa8Q==}
@@ -8894,11 +8181,6 @@ packages:
   yargs@17.7.2:
     resolution: {integrity: sha512-7dSzzRQ++CKnNI/krKnYRV7JKKPUXMEh61soaHKg9mrWEhzFWhFnxPxGl+69cD1Ou63C13NUPCnmIcrvqCuM6w==}
     engines: {node: '>=12'}
-
-  yarn@1.22.22:
-    resolution: {integrity: sha512-prL3kGtyG7o9Z9Sv8IPfBNrWTDmXB4Qbes8A9rEzt6wkJV8mUvoirjU0Mp3GGAU06Y0XQyA3/2/RQFVuK7MTfg==}
-    engines: {node: '>=4.0.0'}
-    hasBin: true
 
   yauzl@2.10.0:
     resolution: {integrity: sha512-p4a9I6X6nu6IhoGmBqAcbJy1mlC4j27vEPZX9F4L4/vZT3Lyq1VkFHw/V/PUcB9Buo+DG3iHkT0x3Qya58zc3g==}
@@ -10980,6 +10262,15 @@ snapshots:
       http-errors: 2.0.0
       http-status-codes: 2.2.0
 
+  '@verdaccio/e2e-cli@2.3.0':
+    dependencies:
+      debug: 4.4.0
+      get-port: 5.1.1
+      got: 11.8.6
+      js-yaml: 4.1.0
+    transitivePeerDependencies:
+      - supports-color
+
   '@verdaccio/eslint-config@13.0.0(@typescript-eslint/utils@8.57.0(eslint@10.0.3)(typescript@5.9.3))(@vitest/eslint-plugin@1.6.9(eslint@10.0.3)(typescript@5.9.3)(vitest@4.1.0(@types/node@20.19.33)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@20.19.33)(typescript@5.9.3))(vite@8.0.0(@types/node@20.19.33)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1))))(eslint-import-resolver-node@0.3.9)(eslint-plugin-cypress@6.1.0(eslint@10.0.3))(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.57.0(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3))(eslint-plugin-jest@29.15.0(@typescript-eslint/eslint-plugin@8.57.0(@typescript-eslint/parser@8.57.0(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3)(typescript@5.9.3))(eslint-plugin-react-hooks@7.0.1(eslint@10.0.3))(eslint-plugin-react@7.37.5(eslint@10.0.3))(eslint-plugin-verdaccio@10.1.0(eslint@10.0.3))(eslint@10.0.3)(typescript@5.9.3)':
     dependencies:
       '@eslint/js': 10.0.1(eslint@10.0.3)
@@ -11296,12 +10587,6 @@ snapshots:
 
   '@xtuc/long@4.2.2':
     optional: true
-
-  '@yarnpkg/cli-dist@2.4.2': {}
-
-  '@yarnpkg/cli-dist@3.8.7': {}
-
-  '@yarnpkg/cli-dist@4.9.2': {}
 
   JSONStream@1.3.5:
     dependencies:
@@ -12086,6 +11371,10 @@ snapshots:
       ms: 2.1.3
     optionalDependencies:
       supports-color: 8.1.1
+
+  debug@4.4.0:
+    dependencies:
+      ms: 2.1.3
 
   debug@4.4.3(supports-color@5.5.0):
     dependencies:
@@ -13813,6 +13102,10 @@ snapshots:
       argparse: 1.0.10
       esprima: 4.0.1
 
+  js-yaml@4.1.0:
+    dependencies:
+      argparse: 2.0.1
+
   js-yaml@4.1.1:
     dependencies:
       argparse: 2.0.1
@@ -14653,18 +13946,6 @@ snapshots:
     dependencies:
       path-key: 3.1.1
 
-  npm@10.9.2: {}
-
-  npm@11.4.2: {}
-
-  npm@6.14.18: {}
-
-  npm@7.24.2: {}
-
-  npm@8.19.4: {}
-
-  npm@9.9.4: {}
-
   object-assign@4.1.1: {}
 
   object-inspect@1.13.4: {}
@@ -14927,14 +14208,6 @@ snapshots:
   please-upgrade-node@3.2.0:
     dependencies:
       semver-compare: 1.0.0
-
-  pnpm@10.12.1: {}
-
-  pnpm@10.5.2: {}
-
-  pnpm@8.15.9: {}
-
-  pnpm@9.15.9: {}
 
   possible-typed-array-names@1.0.0: {}
 
@@ -16670,8 +15943,6 @@ snapshots:
       string-width: 4.2.3
       y18n: 5.0.8
       yargs-parser: 21.1.1
-
-  yarn@1.22.22: {}
 
   yauzl@2.10.0:
     dependencies:

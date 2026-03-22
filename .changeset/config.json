@@ -12,23 +12,7 @@
       "@verdaccio/ui-theme"
     ]
   ],
-  "ignoredPackages": [
-    "@verdaccio/local-publish",
-    "@verdaccio/test-cli-commons",
-    "@verdaccio/e2e-cli-npm6",
-    "@verdaccio/e2e-cli-npm7",
-    "@verdaccio/e2e-cli-npm8",
-    "@verdaccio/e2e-cli-npm9",
-    "@verdaccio/e2e-cli-npm10",
-    "@verdaccio/e2e-cli-npm-common",
-    "@verdaccio/e2e-cli-yarn1",
-    "@verdaccio/e2e-cli-yarn2",
-    "@verdaccio/e2e-cli-yarn3",
-    "@verdaccio/e2e-cli-yarn4",
-    "@verdaccio/e2e-cli-pnpm8",
-    "@verdaccio/e2e-cli-pnpm9",
-    "@verdaccio/e2e-cli-pnpm10"
-  ],
+  "ignoredPackages": ["@verdaccio/local-publish"],
   "access": "public",
   "baseBranch": "master",
   "updateInternalDependencies": "patch"
