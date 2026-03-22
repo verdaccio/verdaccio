@@ -16,7 +16,7 @@ There are many ways to contribute:
 - [Test and triage bugs reported by others](https://github.com/verdaccio/verdaccio/issues?q=is%3Aopen+is%3Aissue+label%3Aissue_needs_triage)
 - [Working on requested/approved features](https://github.com/verdaccio/verdaccio/issues?q=is%3Aopen+is%3Aissue+label%3A%22topic%3A+feature+request%22+)
 - [Improve the codebase (linting, naming, comments, test descriptions, etc...)](https://github.com/verdaccio/verdaccio/discussions/1461)
-- Improve code coverage for unit testing for every module, [end to end](https://github.com/verdaccio/verdaccio/tree/master/e2e/cli) or [UI test](https://github.com/verdaccio/verdaccio/tree/master/e2e/ui) (with cypress).
+- Improve code coverage for unit testing for every module or [UI test](https://github.com/verdaccio/verdaccio/tree/master/e2e/ui) (with cypress).
 
 The Verdaccio project is split into several areas, the first three hosted in the main repository:
 
