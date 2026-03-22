@@ -1,6 +1,6 @@
 name: E2E CLI Tests
 
-on: [push, pull_request]
+on: [pull_request]
 
 permissions:
   contents: read
@@ -17,7 +17,7 @@ jobs:
       fail-fast: false
       matrix:
         node_version: [18]
-        pm: [npm, pnpm]
+        pm: [npm, pnpm, yarn-classic, yarn-modern]
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
 
@@ -29,6 +29,14 @@ jobs:
       - name: Install pnpm
         if: matrix.pm == 'pnpm'
         run: npm install -g pnpm
+
+      - name: Install Yarn Classic (1.x)
+        if: matrix.pm == 'yarn-classic'
+        run: |
+          mkdir -p /tmp/yarn1 && cd /tmp/yarn1 && npm install yarn@1
+          printf '#!/usr/bin/env bash\nYARN_IGNORE_PATH=1 exec /tmp/yarn1/node_modules/yarn/bin/yarn.js "$@"\n' > /tmp/yarn1/yarn-classic
+          chmod +x /tmp/yarn1/yarn-classic
+          echo "YARN1_BIN=/tmp/yarn1/yarn-classic" >> $GITHUB_ENV
 
       - name: Install dependencies
         run: yarn install
@@ -44,7 +52,18 @@ jobs:
             sleep 1
           done
 
+      - name: Run E2E CLI tests (yarn-modern)
+        if: matrix.pm == 'yarn-modern'
+        run: yarn verdaccio-e2e --registry http://localhost:4873 --pm yarn-modern=$(which yarn) -v
+        env:
+          COREPACK_ENABLE_STRICT: 0
+
+      - name: Run E2E CLI tests (yarn-classic)
+        if: matrix.pm == 'yarn-classic'
+        run: yarn verdaccio-e2e --registry http://localhost:4873 --pm yarn-classic=${{ env.YARN1_BIN }} -v
+
       - name: Run E2E CLI tests
+        if: matrix.pm != 'yarn-modern' && matrix.pm != 'yarn-classic'
         run: yarn verdaccio-e2e --registry http://localhost:4873 --pm ${{ matrix.pm }} -v
 
       - name: Show Verdaccio logs
