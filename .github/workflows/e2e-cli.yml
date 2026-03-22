@@ -85,7 +85,7 @@ jobs:
 
       - name: Start Verdaccio
         run: |
-          node packages/verdaccio/debug/bootstrap.js &
+          node packages/verdaccio/bin/verdaccio &
           for i in $(seq 1 30); do
             curl -s http://localhost:4873/-/ping && break
             sleep 1
