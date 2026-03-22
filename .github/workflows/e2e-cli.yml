@@ -49,6 +49,7 @@ jobs:
             packages/*/dist
             packages/*/*/build
             packages/*/*/dist
+            packages/plugins/ui-theme/static
           key: e2e-build-${{ github.sha }}
 
   e2e-cli:
@@ -100,6 +101,7 @@ jobs:
             packages/*/dist
             packages/*/*/build
             packages/*/*/dist
+            packages/plugins/ui-theme/static
           key: e2e-build-${{ github.sha }}
           fail-on-cache-miss: true
 
