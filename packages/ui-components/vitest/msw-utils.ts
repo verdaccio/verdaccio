@@ -1,4 +1,5 @@
 import createDebugger from 'debug';
+import type { HttpResponseResolver } from 'msw';
 import { HttpResponse, delay, http } from 'msw';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -8,26 +9,29 @@ debug('Setting up MSW API mocks.');
 
 const BASE_URL = 'http://localhost:9000';
 
+/** MSW 2 defaults `ResponseBodyType` to `undefined`, which does not match `HttpResponse.json()`; widen the resolver. */
+type MswResolver = HttpResponseResolver<any, any, any>;
+
 export const mockHomePackages = (data?: any) =>
-  http.get(`${BASE_URL}/-/verdaccio/data/packages`, async () => {
+  http.get(`${BASE_URL}/-/verdaccio/data/packages`, (async () => {
     debug('Received request for home packages. Returning mock data.');
     await delay(500);
     const responseData = data || Array(400).fill(require('./api/home-packages.json'));
     debug(`Responding with ${responseData.length} packages.`);
     return HttpResponse.json(responseData);
-  });
+  }) as unknown as MswResolver);
 
 export const mockSearch = (data?: any) =>
-  http.get(`${BASE_URL}/-/verdaccio/data/search/*`, async () => {
+  http.get(`${BASE_URL}/-/verdaccio/data/search/*`, (async () => {
     await delay(500);
     debug('Received search request. Returning mock search results.');
     const responseData = data || require('./api/search-verdaccio.json');
     debug(`Responding with ${responseData.length} search results.`);
     return HttpResponse.json(responseData);
-  });
+  }) as unknown as MswResolver);
 
 export const mockSidebar = (packageName: string, data?: any, status = 200) =>
-  http.get(`${BASE_URL}/-/verdaccio/data/sidebar/${packageName}`, ({ params }) => {
+  http.get(`${BASE_URL}/-/verdaccio/data/sidebar/${packageName}`, (({ params }) => {
     if (status !== 200) {
       debug(
         `Simulating error response for sidebar of package ${packageName} with status ${status}`
@@ -47,10 +51,10 @@ export const mockSidebar = (packageName: string, data?: any, status = 200) =>
 
     const responseData = data || require(`./api/${packageName}-sidebar.json`);
     return HttpResponse.json(responseData);
-  });
+  }) as unknown as MswResolver);
 
 export const mockReadme = (packageName: string, content?: string) =>
-  http.get(`${BASE_URL}/-/verdaccio/data/package/readme/${packageName}`, () => {
+  http.get(`${BASE_URL}/-/verdaccio/data/package/readme/${packageName}`, (() => {
     debug(`Received request for README of package ${packageName}.`);
     if (content) {
       debug(`Received request for README of package ${packageName}. Returning custom content.`);
@@ -68,17 +72,17 @@ export const mockReadme = (packageName: string, content?: string) =>
     }
     debug(`Returning README for package ${packageName}.`);
     return HttpResponse.text(`readme for ${packageName}`);
-  });
+  }) as unknown as MswResolver);
 
 export const mockTarball = (fileName = 'verdaccio-1.0.0.tgz') =>
-  http.get(`${BASE_URL}/verdaccio/-/${fileName}`, () => {
+  http.get(`${BASE_URL}/verdaccio/-/${fileName}`, (() => {
     const filePath = path.resolve(__dirname, `./api/${fileName}`);
     const fileContent = fs.readFileSync(filePath);
     return new HttpResponse(fileContent, {
       status: 200,
       headers: { 'Content-Type': 'application/octet-stream' },
     });
-  });
+  }) as unknown as MswResolver);
 
 /**
  * Mocks the Verdaccio reset password endpoint (PUT /-/verdaccio/sec/reset_password).
@@ -86,7 +90,7 @@ export const mockTarball = (fileName = 'verdaccio-1.0.0.tgz') =>
  * @param customResponse - Override the default JSON body
  */
 export const mockResetPassword = (status = 200, customResponse?: object) =>
-  http.put(`${BASE_URL}/-/verdaccio/sec/reset_password`, async ({ request }) => {
+  http.put(`${BASE_URL}/-/verdaccio/sec/reset_password`, (async ({ request }) => {
     debug('Received reset password request', request.method, request.url);
     const body = (await request.json()) as { password: { old: string; new: string } };
 
@@ -108,7 +112,7 @@ export const mockResetPassword = (status = 200, customResponse?: object) =>
 
     debug('Simulating successful password reset');
     return HttpResponse.json(customResponse || { ok: 'password changed' });
-  });
+  }) as unknown as MswResolver);
 
 /**
  * Mocks the Verdaccio CLI login endpoint (POST /-/v1/login_cli/:token).
@@ -116,7 +120,7 @@ export const mockResetPassword = (status = 200, customResponse?: object) =>
  * @param customResponse - Override the default JSON body
  */
 export const mockCliLogin = (status = 200, customResponse?: object) =>
-  http.post(`${BASE_URL}/-/v1/login_cli/:token`, async ({ request }) => {
+  http.post(`${BASE_URL}/-/v1/login_cli/:token`, (async ({ request }) => {
     debug('Received CLI login request', request.method, request.url);
     const body = (await request.json()) as { username: string; password: string };
 
@@ -143,7 +147,7 @@ export const mockCliLogin = (status = 200, customResponse?: object) =>
         token: 'valid-mock-token',
       }
     );
-  });
+  }) as unknown as MswResolver);
 
 /**
  * Mocks the Verdaccio add user endpoint (PUT /-/web/add-user:username).
@@ -151,7 +155,7 @@ export const mockCliLogin = (status = 200, customResponse?: object) =>
  * @param customResponse - Override the default JSON body
  */
 export const mockAddUser = (status = 201, customResponse?: object) =>
-  http.put(`${BASE_URL}/-/web/add-user:*`, async ({ request }) => {
+  http.put(`${BASE_URL}/-/web/add-user:*`, (async ({ request }) => {
     debug('Received add user request', request.method, request.url);
     const body = (await request.json()) as { name: string; password: string; email?: string };
 
@@ -171,7 +175,7 @@ export const mockAddUser = (status = 201, customResponse?: object) =>
       },
       { status: 201 }
     );
-  });
+  }) as unknown as MswResolver);
 
 /**
  * Mocks the Verdaccio login endpoint.
@@ -179,7 +183,7 @@ export const mockAddUser = (status = 201, customResponse?: object) =>
  * @param customResponse - Override the default JSON body
  */
 export const mockLogin = (status = 200, customResponse?: object) =>
-  http.post(`${BASE_URL}/-/verdaccio/sec/login`, async ({ request }) => {
+  http.post(`${BASE_URL}/-/verdaccio/sec/login`, (async ({ request }) => {
     debug('Received login request', request);
     const body = (await request.json()) as { username: string; password: string };
 
@@ -209,4 +213,4 @@ export const mockLogin = (status = 200, customResponse?: object) =>
         token: 'valid-mock-token',
       }
     );
-  });
+  }) as unknown as MswResolver);
