@@ -45,7 +45,9 @@ jobs:
           done
 
       - name: Run E2E CLI tests
-        run: yarn verdaccio-e2e --registry http://localhost:4873 --pm ${{ matrix.pm }} -v
+        run: |
+          mkdir -p /tmp/e2e-run && cd /tmp/e2e-run
+          node $GITHUB_WORKSPACE/node_modules/@verdaccio/e2e-cli/bin/e2e-cli.js --registry http://localhost:4873 --pm ${{ matrix.pm }} -v
         env:
           COREPACK_ENABLE_STRICT: 0
           YARN_IGNORE_PATH: 1
