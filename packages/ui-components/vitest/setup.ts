@@ -81,6 +81,8 @@ const handlers = [
 ];
 const server = setupServer(...handlers);
 
+export { server };
+
 beforeAll(() => {
   server.listen({
     // This will warn you in the console if a request doesn't match a mock
