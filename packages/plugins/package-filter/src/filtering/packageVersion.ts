@@ -12,6 +12,19 @@ const debug = buildDebug('verdaccio:plugin:package-filter:filter');
 /**
  * Filter out all blocked package versions.
  * If package or scope is blocked, then block all versions.
+ *
+ * TODO: consider adding a `prerelease` filter option to block/allow
+ * prerelease versions independently. Currently prereleases are matched by
+ * semver ranges with `includePrerelease: true`, but there's no dedicated toggle.
+ *
+ * Example config (not yet implemented):
+ *   block:
+ *     - package: 'foo'
+ *       prerelease: true    # block 1.0.0-beta.1, 2.0.0-rc.1, keep 1.0.0, 2.0.0
+ *     - package: 'bar'
+ *       prerelease: false   # block 1.0.0, 2.0.0, keep 1.0.0-beta.1
+ *
+ * Today the only workaround is using awkward ranges like ">=1.0.0-0 <1.0.0".
  */
 export function filterBlockedVersions(
   manifest: Manifest,
@@ -74,10 +87,6 @@ export function filterBlockedVersions(
   }
 
   const versionRanges = blockRule.versions;
-  if (versionRanges.length === 0) {
-    // No version range specified. Nothing is blocked then.
-    return manifest;
-  }
 
   if (blockRule.strategy === 'block') {
     const blockedVersions = blockMatch.versions.filter((v) => !whitelistedVersions.includes(v));
@@ -142,11 +151,9 @@ export function filterBlockedVersions(
   debug('replacing versions for %s: %o', manifest.name, newVersionsMapping);
 
   const removedVersions = Object.entries(newVersionsMapping).filter(
-     
     ([_, replace]) => replace === null
   ) as [string, null][];
   const replacedVersions = Object.entries(newVersionsMapping).filter(
-     
     ([_, replace]) => replace !== null
   ) as [string, string][];
 

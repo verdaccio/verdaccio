@@ -34,13 +34,13 @@ export class PackageFilterPlugin
     this.parsedConfig = parseConfig(this.config);
 
     debug(
-      'plugin loaded with config: %o',
-      JSON.parse(JSON.stringify(this.parsedConfig, jsonLogReplacer))
-    );
-    debug(
-      'block rules: %d, allow rules: %d',
+      'plugin loaded: block rules: %d, allow rules: %d',
       this.parsedConfig.blockRules.size,
       this.parsedConfig.allowRules.size
+    );
+    this.logger.debug(
+      { config: JSON.stringify(this.parsedConfig, jsonLogReplacer) },
+      'package-filter loaded with config: @{config}'
     );
     this.logger.trace(
       {

@@ -131,18 +131,29 @@ filters:
 
 With `replace`, `npm install @coolauthor/stolen@3.0.0` still resolves, but the client receives the content of `2.0.1`.
 
-### Allow-list (Exceptions)
+### Whitelisting Blocked Packages
 
-Exempt specific scopes, packages, or versions from all blocking rules, including `minAgeDays` and `dateThreshold`.
+In some cases, you may need to bypass your own rules and whitelist certain scopes, packages, or package versions even though they fall within a blocked area. For example, this might happen when you own some private registry or you really need the latest version of some package and you ensured that its code is safe. You can configure whitelist rules with the `allow` clause, which follows the same rules as `block`. Rules specified in `allow` take precedence over all blocking rules (even `minAgeDays` and `dateThreshold`).
 
 ```yaml
 filters:
   '@verdaccio/package-filter':
-    minAgeDays: 30
+    minAgeDays: 30 # Block versions younger than 30 days
+    allow:
+      - scope: '@my-company-scope' # Don't block the scope that belongs to you
+      - package: '@coolauthor/not-stolen' # Don't block package you really trust
+      - package: semver
+        versions: '7.7.3' # Don't block specific package version that you know is not malicious
+```
+
+You can also combine `allow` with `block` rules to create fine-grained exceptions:
+
+```yaml
+filters:
+  '@verdaccio/package-filter':
     block:
       - scope: '@untrusted'
     allow:
-      - scope: '@my-company'
       - package: '@untrusted/but-verified'
       - package: 'some-pkg'
         versions: '2.1.0'
@@ -221,6 +232,46 @@ DEBUG=verdaccio:plugin:package-filter*,verdaccio:storage verdaccio
 
 Originally authored by Ansile as [verdaccio-plugin-secfilter](https://github.com/Ansile/verdaccio-plugin-secfilter) (MIT license). Forked by Vitalii Sugrobov as [verdaccio-plugin-delay-filter](https://github.com/vsugrob/verdaccio-plugin-delay-filter). Now maintained as a built-in plugin in the Verdaccio monorepo.
 
+## Donations
+
+Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider making a donation - **your logo might end up in this readme.**
+
+**[Donate](https://opencollective.com/verdaccio)** starting from _\$1/month_ or just one single contribution.
+
+## Report a vulnerability
+
+If you want to report a security vulnerability, please follow the steps which we have defined for you in our [security policy](https://github.com/verdaccio/verdaccio/security/policy).
+
+## Open Collective Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/verdaccio/contribute)]
+
+[![sponsor](https://opencollective.com/verdaccio/sponsor/0/avatar.svg)](https://opencollective.com/verdaccio/sponsor/0/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/1/avatar.svg)](https://opencollective.com/verdaccio/sponsor/1/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/2/avatar.svg)](https://opencollective.com/verdaccio/sponsor/2/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/3/avatar.svg)](https://opencollective.com/verdaccio/sponsor/3/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/4/avatar.svg)](https://opencollective.com/verdaccio/sponsor/4/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/5/avatar.svg)](https://opencollective.com/verdaccio/sponsor/5/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/6/avatar.svg)](https://opencollective.com/verdaccio/sponsor/6/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/7/avatar.svg)](https://opencollective.com/verdaccio/sponsor/7/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/8/avatar.svg)](https://opencollective.com/verdaccio/sponsor/8/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/9/avatar.svg)](https://opencollective.com/verdaccio/sponsor/9/website)
+
+## Open Collective Backers
+
+Thank you to all our backers! [[Become a backer](https://opencollective.com/verdaccio/contribute)]
+
+[![backers](https://opencollective.com/verdaccio/backers.svg?width=890)](https://opencollective.com/verdaccio/contributes)
+
+## Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md)].
+
+[![contributors](https://opencollective.com/verdaccio/contributors.svg?width=890&button=true)](https://github.com/verdaccio/verdaccio/graphs/contributors)
+
 ## License
 
 Verdaccio is [MIT licensed](https://github.com/verdaccio/verdaccio/blob/master/LICENSE).
+
+The Verdaccio documentation and logos (excluding /thanks, e.g., .md, .png, .sketch files within the /assets folder) are
+[Creative Commons licensed](https://creativecommons.org/licenses/by/4.0/).
