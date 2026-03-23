@@ -1,9 +1,13 @@
+import buildDebug from 'debug';
 import { satisfies } from 'semver';
 
 import type { Manifest } from '@verdaccio/types';
 
-import { ParsedRule } from '../config/types';
-import { MatchResult, MatchType } from './types';
+import type { ParsedRule } from '../config/types';
+import type { MatchResult} from './types';
+import { MatchType } from './types';
+
+const debug = buildDebug('verdaccio:plugin:package-filter:filter');
 
 /**
  * Split a package name into name itself and scope.
@@ -39,6 +43,7 @@ export function matchRules(
   if (scope) {
     const rule = rules.get(scope);
     if (rule === 'scope') {
+      debug('scope match: %s matched rule for %s', manifest.name, scope);
       return {
         type: MatchType.SCOPE,
         rule,
@@ -55,6 +60,7 @@ export function matchRules(
   }
 
   if (rule === 'package') {
+    debug('package match: %s', manifest.name);
     return {
       type: MatchType.PACKAGE,
       rule,
@@ -86,6 +92,15 @@ export function matchRules(
       }
     });
   });
+
+  if (matchedVersions.length > 0) {
+    debug(
+      'version match: %s matched %d versions: %o',
+      manifest.name,
+      matchedVersions.length,
+      matchedVersions
+    );
+  }
 
   return {
     type: MatchType.VERSIONS,

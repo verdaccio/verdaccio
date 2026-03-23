@@ -1,10 +1,13 @@
+import buildDebug from 'debug';
 import { Range, satisfies } from 'semver';
 
 import type { Logger, Manifest } from '@verdaccio/types';
 
-import { ParsedConfigRule, ParsedRule } from '../config/types';
+import type { ParsedConfigRule, ParsedRule } from '../config/types';
 import { matchRules } from './matcher';
 import { MatchType } from './types';
+
+const debug = buildDebug('verdaccio:plugin:package-filter:filter');
 
 /**
  * Filter out all blocked package versions.
@@ -22,6 +25,7 @@ export function filterBlockedVersions(
     (allowMatch.type === MatchType.SCOPE || allowMatch.type === MatchType.PACKAGE)
   ) {
     // An entire scope or package is whitelisted
+    logger.trace({ name: manifest.name }, 'package @{name} is allow-listed, skipping block rules');
     return manifest;
   }
 
@@ -31,6 +35,11 @@ export function filterBlockedVersions(
     return manifest;
   }
 
+  logger.trace(
+    { name: manifest.name, type: blockMatch.type },
+    'block rule matched for @{name} (type: @{type})'
+  );
+
   const whitelistedVersions: string[] = allowMatch ? allowMatch.versions : [];
   let blockRule: ParsedConfigRule = {
     versions: [new Range('*')],
@@ -39,6 +48,11 @@ export function filterBlockedVersions(
 
   if (blockMatch.type === MatchType.SCOPE) {
     if (whitelistedVersions.length === 0) {
+      debug('blocking all versions of %s (scope %s blocked)', manifest.name, blockMatch.scope);
+      logger.trace(
+        { name: manifest.name, scope: blockMatch.scope },
+        'all versions of @{name} blocked (scope @{scope})'
+      );
       return {
         ...manifest,
         versions: {},
@@ -47,6 +61,8 @@ export function filterBlockedVersions(
     }
   } else if (blockMatch.type === MatchType.PACKAGE) {
     if (whitelistedVersions.length === 0) {
+      debug('blocking all versions of %s (package blocked)', manifest.name);
+      logger.trace({ name: manifest.name }, 'all versions of @{name} blocked (package rule)');
       return {
         ...manifest,
         versions: {},
@@ -70,6 +86,20 @@ export function filterBlockedVersions(
     }
 
     if (blockedVersions.length > 0) {
+      debug(
+        'blocked %d versions of %s: %o',
+        blockedVersions.length,
+        manifest.name,
+        blockedVersions
+      );
+      logger.trace(
+        {
+          name: manifest.name,
+          count: blockedVersions.length,
+          versions: blockedVersions.join(', '),
+        },
+        '@{count} versions of @{name} blocked: @{versions}'
+      );
       // Add debug info for devs
       manifest.readme =
         (manifest.readme || '') +
@@ -109,24 +139,31 @@ export function filterBlockedVersions(
     });
   });
 
-  logger.debug(`Filtering package ${manifest.name}, replacing versions`);
-  logger.debug(`${JSON.stringify(newVersionsMapping)}`);
+  debug('replacing versions for %s: %o', manifest.name, newVersionsMapping);
 
   const removedVersions = Object.entries(newVersionsMapping).filter(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+     
     ([_, replace]) => replace === null
   ) as [string, null][];
   const replacedVersions = Object.entries(newVersionsMapping).filter(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+     
     ([_, replace]) => replace !== null
   ) as [string, string][];
 
   removedVersions.forEach(([version]) => {
-    logger.debug(`No version to replace ${version}`);
+    debug('no version to replace %s in %s', version, manifest.name);
+    logger.trace(
+      { name: manifest.name, version },
+      'version @{version} of @{name} removed (no replacement available)'
+    );
     delete manifest.versions[version];
   });
 
   replacedVersions.forEach(([version, replaceVersion]) => {
+    logger.trace(
+      { name: manifest.name, version, replaceVersion },
+      'version @{version} of @{name} replaced with @{replaceVersion}'
+    );
     manifest.versions[version] = {
       ...manifest.versions[replaceVersion],
       version,

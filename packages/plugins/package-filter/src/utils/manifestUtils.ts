@@ -1,7 +1,10 @@
+import buildDebug from 'debug';
 import semver from 'semver';
 
 import { DIST_TAGS } from '@verdaccio/core';
 import type { Manifest } from '@verdaccio/types';
+
+const debug = buildDebug('verdaccio:plugin:package-filter:manifest');
 
 /**
  * Delete `dist-tags` entries corresponding to missing versions.
@@ -10,6 +13,7 @@ export function cleanupTags(manifest: Manifest): void {
   const distTags = manifest[DIST_TAGS];
   Object.entries(distTags).forEach(([tag, tagVersion]) => {
     if (!manifest.versions[tagVersion]) {
+      debug('removing orphaned dist-tag %s -> %s from %s', tag, tagVersion, manifest.name);
       delete distTags[tag];
     }
   });
@@ -87,6 +91,7 @@ export function setupLatestTag(manifest: Manifest): void {
   const stableVersions = untaggedVersions.filter((v) => !semver.prerelease(v));
   const latestStableVersion = getLatestVersion(manifest, stableVersions);
   if (latestStableVersion) {
+    debug('reassigned latest tag to stable version %s for %s', latestStableVersion, manifest.name);
     distTags.latest = latestStableVersion;
     return;
   }
@@ -97,6 +102,7 @@ export function setupLatestTag(manifest: Manifest): void {
     return;
   }
 
+  debug('reassigned latest tag to pre-release version %s for %s', latestVersion, manifest.name);
   distTags.latest = latestVersion;
 }
 

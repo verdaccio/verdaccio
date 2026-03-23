@@ -1,8 +1,12 @@
+import buildDebug from 'debug';
+
 import type { Manifest } from '@verdaccio/types';
 
-import { ParsedRule } from '../config/types';
+import type { ParsedRule } from '../config/types';
 import { matchRules } from './matcher';
 import { MatchType } from './types';
+
+const debug = buildDebug('verdaccio:plugin:package-filter:filter');
 
 /**
  * Filter out all package versions that were published after dateThreshold.
@@ -53,6 +57,15 @@ export function filterVersionsByPublishDate(
   clearVersions.forEach((version) => {
     delete manifest.versions[version];
   });
+
+  if (clearVersions.length > 0) {
+    debug(
+      'date filter removed %d versions from %s: %o',
+      clearVersions.length,
+      manifest.name,
+      clearVersions
+    );
+  }
 
   return manifest;
 }

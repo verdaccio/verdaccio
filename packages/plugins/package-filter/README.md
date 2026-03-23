@@ -1,189 +1,226 @@
-# verdaccio-memory - Verdaccio Memory Storage Plugin
+# @verdaccio/package-filter
 
 [![Verdaccio Home](https://img.shields.io/badge/Homepage-Verdaccio-405236?style=flat)](https://verdaccio.org)
 [![MIT License](https://img.shields.io/github/license/verdaccio/verdaccio?label=License&color=405236)](https://github.com/verdaccio/verdaccio/blob/master/LICENSE)
 [![Verdaccio Latest](https://img.shields.io/npm/v/verdaccio?label=Latest%20Version&color=405236)](https://github.com/verdaccio/verdaccio)
-[![This Package Latest](https://img.shields.io/npm/v/verdaccio-memory?label=verdaccio-memory&color=405236)](https://npmjs.com/package/verdaccio-memory)
 
 [![Documentation](https://img.shields.io/badge/Help-Verdaccio?style=flat&logo=Verdaccio&label=Verdaccio&color=cd4000)](https://verdaccio.org/docs)
 [![Discord](https://img.shields.io/badge/Chat-Discord?style=flat&logo=Discord&label=Discord&color=cd4000)](https://discord.com/channels/388674437219745793)
-[![Bluesky](https://img.shields.io/badge/Follow-Bluesky?style=flat&logo=Bluesky&label=Bluesky&color=cd4000)](https://bsky.app/profile/verdaccio.org)
-[![Backers](https://img.shields.io/opencollective/backers/verdaccio?style=flat&logo=opencollective&label=Join%20Backers&color=cd4000)](https://opencollective.com/verdaccio/contribute)
-[![Sponsors](https://img.shields.io/opencollective/sponsors/verdaccio?style=flat&logo=opencollective&label=Sponsor%20Us&color=cd4000)](https://opencollective.com/verdaccio/contribute)
 
-[![Verdaccio Downloads](https://img.shields.io/npm/dm/verdaccio?style=flat&logo=npm&label=Npm%20Downloads&color=lightgrey)](https://www.npmjs.com/package/verdaccio)
-[![Docker Pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio?style=flat&logo=docker&label=Docker%20Pulls&color=lightgrey)](https://hub.docker.com/r/verdaccio/verdaccio)
-[![GitHub Stars](https://img.shields.io/github/stars/verdaccio?style=flat&logo=github&label=GitHub%20Stars%20%E2%AD%90&color=lightgrey)](https://github.com/verdaccio/verdaccio/stargazers)
+A built-in Verdaccio filter plugin for controlling which package versions are visible to consumers. It intercepts every manifest response and removes or replaces versions that match configurable rules.
 
-Plugin for filtering packages and their versions with security purposes. It allows you to make Verdaccio block:
+## Use Cases
 
-- Versions released less than N days ago.
-- Specific versions or version ranges (with semver semantics).
-- Entire packages or even scopes.
-- Versions released after specific date.
+- **Supply-chain security** - block known-malicious packages, scopes, or version ranges.
+- **Version quarantine** - hide versions younger than N days so newly published code has time to be reviewed before adoption.
+- **Date freeze** - pin the registry to a point-in-time snapshot (e.g., only serve versions published before a specific date).
+- **Emergency response** - immediately block a compromised version while keeping older safe versions available.
 
-```
- npm install --global @verdaccio/package-filter
-```
+## How It Works
 
-### Requirements
+The plugin implements Verdaccio's `ManifestFilter` interface. Every time Verdaccio serves a package manifest (via `npm install`, `npm view`, search, or the web UI), the manifest passes through `filter_metadata()` before reaching the client.
 
-> `verdaccio@6.2.0` or newer.
+The processing pipeline:
 
 ```
-npm install --global verdaccio
+Incoming manifest
+  1. Clone manifest (avoids mutating cached data)
+  2. Apply block/replace rules by package name, scope, or version range
+  3. Apply date-based filtering (minAgeDays / dateThreshold)
+  4. Cleanup: remove orphaned dist-tags, time entries, and dist files
+  5. Recalculate "latest" tag from remaining versions
+Output filtered manifest
 ```
 
-### Configuration
+Filtered versions are removed from the manifest metadata only. Tarballs already downloaded or cached are not affected.
 
-Edit `config.yaml` of Verdaccio to achieve desired filtering.
+## Configuration
 
-#### Filter package versions by age
+The plugin is enabled by default in Verdaccio's `config.yaml`. With no rules configured, it acts as a no-op passthrough.
+
+### Minimal Configuration (no-op)
 
 ```yaml
 filters:
   '@verdaccio/package-filter':
-    minAgeDays: 30 # Block versions younger than 30 days
 ```
 
-Note that this option is global for all packages and scopes.
-If you want some scopes, packages or package version to survive this filtering,
-seek for `allow` rules later in this document.
+### Block Versions by Age
 
-#### Block by scope or package
+Hide versions published less than N days ago. This is a global rule applied to all packages.
+
+```yaml
+filters:
+  '@verdaccio/package-filter':
+    minAgeDays: 30
+```
+
+### Block Versions by Date
+
+Only serve versions published before a specific date.
+
+```yaml
+filters:
+  '@verdaccio/package-filter':
+    dateThreshold: '2024-01-01'
+```
+
+When both `minAgeDays` and `dateThreshold` are set, the **earlier** cutoff wins (more versions are filtered).
+
+### Block by Scope
+
+Block all packages under a scope.
 
 ```yaml
 filters:
   '@verdaccio/package-filter':
     block:
-      - scope: @evilscope # block all packages in this scope
-      - package: semvver # block a malicious package trying to pretend 'semver'
-      - package: @coolauthor/stolen # block a malicious package
+      - scope: '@evilscope'
 ```
 
-#### Block package versions
+### Block by Package Name
+
+Block all versions of a specific package.
 
 ```yaml
 filters:
   '@verdaccio/package-filter':
     block:
-      - package: @coolauthor/stolen
-        versions:
-          '>2.0.1' # block some malicious versions of previously ok package
-          # uses https://www.npmjs.com/package/semver syntax
+      - package: 'malicious-pkg'
+      - package: '@coolauthor/stolen'
 ```
 
-#### Replace newer package versions with older version
+### Block by Version Range
+
+Block specific semver ranges of a package. Uses [semver](https://www.npmjs.com/package/semver) syntax.
 
 ```yaml
 filters:
   '@verdaccio/package-filter':
     block:
-      - package: @coolauthor/stolen
+      - package: '@coolauthor/stolen'
         versions: '>2.0.1'
-        strategy:
-          replace # block some malicious versions of previously ok package,
-          # replacing them with older, correct versions.
-          # use this when package is used in transient dependencies and 'block' breaks the installs
 ```
 
-#### dateThreshold
+Multiple version ranges for the same package are merged:
 
 ```yaml
 filters:
   '@verdaccio/package-filter':
-    dateThreshold: '2022-03-10T23:00:00.000Z' # Allow only packages released up to this date
+    block:
+      - package: 'some-pkg'
+        versions: '>2.0.0'
+      - package: 'some-pkg'
+        versions: '<1.3.0'
 ```
 
-#### Whitelisting blocked packages
+This leaves only versions in `[1.3.0, 2.0.0]` visible.
 
-In some cases, you may need to bypass your own rules
-and whitelist certain scopes, packages, or package versions
-even though they fall within a blocked area.
-For example, this might happen when you own some private registry or you really need
-latest version of some package and you ensured that its code is safe.
-You can configure whitelist rules with `allow` clause,
-which follows the same rules as `block`.
-Rules specified in `allow` take precedence over all blocking rules
-(even `minAgeDays` and `dateThreshold`).
+### Replace Strategy
+
+Instead of removing blocked versions, substitute them with the nearest older safe version. Useful when a blocked version is a transitive dependency and removing it would break installs.
 
 ```yaml
 filters:
   '@verdaccio/package-filter':
-    minAgeDays: 30 # Block versions younger than 30 days
+    block:
+      - package: '@coolauthor/stolen'
+        versions: '>2.0.1'
+        strategy: replace
+```
+
+With `replace`, `npm install @coolauthor/stolen@3.0.0` still resolves, but the client receives the content of `2.0.1`.
+
+### Allow-list (Exceptions)
+
+Exempt specific scopes, packages, or versions from all blocking rules, including `minAgeDays` and `dateThreshold`.
+
+```yaml
+filters:
+  '@verdaccio/package-filter':
+    minAgeDays: 30
+    block:
+      - scope: '@untrusted'
     allow:
-      - scope: @my-company-scope # Don't block the scope that belongs to you
-      - package: @coolauthor/not-stolen # Don't block package you really trust
-      - package: semver
-        versions: '7.7.3' # Don't block specific package version that you know is not malicious
+      - scope: '@my-company'
+      - package: '@untrusted/but-verified'
+      - package: 'some-pkg'
+        versions: '2.1.0'
 ```
 
-### Plugin history
+Allow rules are checked before block rules. The granularity levels:
 
-Originally this plugin was authored by Ansile as [verdaccio-plugin-secfilter](https://github.com/Ansile/verdaccio-plugin-secfilter) (MIT license) and hosted as independent package.
-Then it was forked by Vitalii Sugrobov as [verdaccio-plugin-delay-filter](https://github.com/vsugrob/verdaccio-plugin-delay-filter), also as independent package.
-Now it lives in Verdaccio monorepo as built-in plugin.
+| Allow rule                           | Effect                              |
+| ------------------------------------ | ----------------------------------- |
+| `scope: '@x'`                        | Entire scope bypasses all rules     |
+| `package: 'x'`                       | Entire package bypasses all rules   |
+| `package: 'x'` + `versions: '1.0.0'` | Only matching versions are exempted |
 
-## Donations
+### Full Example
 
-Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider making a donation - **your logo might end up in this readme.** 😉
+```yaml
+filters:
+  '@verdaccio/package-filter':
+    minAgeDays: 7
+    dateThreshold: '2025-01-01'
+    block:
+      - scope: '@malicious'
+      - package: 'typosquat-pkg'
+      - package: 'compromised-lib'
+        versions: '>=3.0.0'
+      - package: 'legacy-lib'
+        versions: '>=2.0.0'
+        strategy: replace
+    allow:
+      - scope: '@my-org'
+      - package: 'compromised-lib'
+        versions: '3.0.1'
+```
 
-**[Donate](https://opencollective.com/verdaccio)** 💵👍🏻 starting from _\$1/month_ or just one single contribution.
+### Disabling the Plugin
 
-## Report a vulnerability
+Remove or comment out the `filters` section in `config.yaml`:
 
-If you want to report a security vulnerability, please follow the steps which we have defined for you in our [security policy](https://github.com/verdaccio/verdaccio/security/policy).
+```yaml
+# filters:
+#   '@verdaccio/package-filter':
+```
 
-## Open Collective Sponsors
+## Manifest Cleanup
 
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/verdaccio/contribute)]
+After filtering, the plugin automatically cleans up the manifest:
 
-[![sponsor](https://opencollective.com/verdaccio/sponsor/0/avatar.svg)](https://opencollective.com/verdaccio/sponsor/0/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/1/avatar.svg)](https://opencollective.com/verdaccio/sponsor/1/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/2/avatar.svg)](https://opencollective.com/verdaccio/sponsor/2/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/3/avatar.svg)](https://opencollective.com/verdaccio/sponsor/3/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/4/avatar.svg)](https://opencollective.com/verdaccio/sponsor/4/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/5/avatar.svg)](https://opencollective.com/verdaccio/sponsor/5/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/6/avatar.svg)](https://opencollective.com/verdaccio/sponsor/6/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/7/avatar.svg)](https://opencollective.com/verdaccio/sponsor/7/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/8/avatar.svg)](https://opencollective.com/verdaccio/sponsor/8/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/9/avatar.svg)](https://opencollective.com/verdaccio/sponsor/9/website)
+- **Dist-tags**: tags pointing to removed versions are deleted.
+- **Latest tag**: if `latest` was removed, the most recent remaining stable version becomes `latest`. If no stable version exists, the most recent pre-release is used.
+- **Time entries**: publish timestamps for removed versions are deleted.
+- **Created/modified**: recalculated from remaining time entries.
+- **Dist files**: `_distfiles` entries not referenced by any remaining version are removed.
 
-## Open Collective Backers
+## Debugging
 
-Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/verdaccio/contribute)]
+The plugin uses the [`debug`](https://www.npmjs.com/package/debug) library under the `verdaccio:plugin:package-filter` namespace.
 
-[![backers](https://opencollective.com/verdaccio/backers.svg?width=890)](https://opencollective.com/verdaccio/contributes)
+```bash
+# See all plugin debug output
+DEBUG=verdaccio:plugin:package-filter* verdaccio
 
-## Special Thanks
+# See only config parsing
+DEBUG=verdaccio:plugin:package-filter:config verdaccio
 
-Thanks to the following companies to help us to achieve our goals providing free open source licenses.
+# See only filtering decisions
+DEBUG=verdaccio:plugin:package-filter:filter verdaccio
 
-[![jetbrains](https://github.com/verdaccio/verdaccio/blob/master/assets/thanks/jetbrains/logo.jpg?raw=true)](https://www.jetbrains.com/)
-[![crowdin](https://github.com/verdaccio/verdaccio/blob/master/assets/thanks/crowdin/logo.png?raw=true)](https://crowdin.com/)
+# See manifest cleanup details
+DEBUG=verdaccio:plugin:package-filter:manifest verdaccio
 
-## Contributors
+# Combine with other verdaccio debug namespaces
+DEBUG=verdaccio:plugin:package-filter*,verdaccio:storage verdaccio
+```
 
-This project exists thanks to all the people who contribute. [[Contribute](https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md)].
+## Plugin History
 
-[![contributors](https://opencollective.com/verdaccio/contributors.svg?width=890&button=true)](https://github.com/verdaccio/verdaccio/graphs/contributors)
-
-## FAQ / Contact / Troubleshoot
-
-If you have any issue you can try the following options. Do not hesitate to ask or check our issues database. Perhaps someone has asked already what you are looking for.
-
-- [Blog](https://verdaccio.org/blog/)
-- [Donations](https://opencollective.com/verdaccio)
-- [Reporting an issue](https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md#reporting-a-bug)
-- [Running discussions](https://github.com/orgs/verdaccio/discussions)
-- [Chat](https://discord.com/channels/388674437219745793)
-- [Logos](https://verdaccio.org/docs/logo)
-- [Docker Examples](https://github.com/verdaccio/verdaccio/tree/master/docker-examples)
-- [FAQ](https://github.com/verdaccio/verdaccio/issues?utf8=%E2%9C%93&q=is%3Aissue%20label%3Aquestion%20)
+Originally authored by Ansile as [verdaccio-plugin-secfilter](https://github.com/Ansile/verdaccio-plugin-secfilter) (MIT license). Forked by Vitalii Sugrobov as [verdaccio-plugin-delay-filter](https://github.com/vsugrob/verdaccio-plugin-delay-filter). Now maintained as a built-in plugin in the Verdaccio monorepo.
 
 ## License
 
-Verdaccio is [MIT licensed](https://github.com/verdaccio/verdaccio/blob/master/LICENSE)
-
-The Verdaccio documentation and logos (excluding /thanks, e.g., .md, .png, .sketch files within the /assets folder) are
-[Creative Commons licensed](https://creativecommons.org/licenses/by/4.0/).
+Verdaccio is [MIT licensed](https://github.com/verdaccio/verdaccio/blob/master/LICENSE).

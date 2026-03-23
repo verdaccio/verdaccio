@@ -214,6 +214,26 @@ middlewares:
     enabled: true
     # timeout: 10000
 
+# Settings for filter plugins
+# https://verdaccio.org/docs/configuration#filters
+filters:
+  '@verdaccio/package-filter':
+    # Block versions younger than N days
+    # minAgeDays: 30
+    # Block versions published after a specific date
+    # dateThreshold: '2024-01-01'
+    # Block specific packages, scopes, or version ranges
+    # block:
+    #   - scope: '@evilscope'
+    #   - package: 'malicious-pkg'
+    #   - package: 'some-pkg'
+    #     versions: '>=2.0.0'
+    # Allow exceptions to block rules
+    # allow:
+    #   - scope: '@trusted'
+    #   - package: 'some-pkg'
+    #     versions: '2.1.0'
+
 # Log settings
 # https://verdaccio.org/docs/logger
 # Redaction: https://getpino.io/#/docs/redaction

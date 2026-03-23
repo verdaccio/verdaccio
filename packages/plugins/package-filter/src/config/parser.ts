@@ -1,6 +1,9 @@
+import buildDebug from 'debug';
 import { Range } from 'semver';
 
-import { ConfigRule, ParsedConfig, ParsedRule, PluginConfig } from './types';
+import type { ConfigRule, ParsedConfig, ParsedRule, PluginConfig } from './types';
+
+const debug = buildDebug('verdaccio:plugin:package-filter:config');
 
 function parseConfigRules(configRules: ConfigRule[]): Map<string, ParsedRule> {
   const ruleMap = new Map<string, ParsedRule>();
@@ -45,8 +48,10 @@ function parseConfigRules(configRules: ConfigRule[]): Map<string, ParsedRule> {
 }
 
 export function parseConfig(config: PluginConfig): ParsedConfig {
+  debug('parsing config: %o', config);
   const blockMap = parseConfigRules(config.block ?? []);
   const allowMap = parseConfigRules(config.allow ?? []);
+  debug('parsed %d block rules, %d allow rules', blockMap.size, allowMap.size);
   const dateThreshold = config.dateThreshold ? new Date(config.dateThreshold) : null;
   if (dateThreshold && isNaN(dateThreshold.getTime())) {
     throw new TypeError(`Invalid date ${config.dateThreshold} was provided for dateThreshold`);

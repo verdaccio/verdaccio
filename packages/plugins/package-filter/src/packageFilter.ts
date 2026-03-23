@@ -1,8 +1,10 @@
+import buildDebug from 'debug';
+
 import { pluginUtils } from '@verdaccio/core';
 import type { Logger, Manifest } from '@verdaccio/types';
 
 import { parseConfig } from './config/parser';
-import { ParsedConfig, PluginConfig } from './config/types';
+import type { ParsedConfig, PluginConfig } from './config/types';
 import { filterBlockedVersions } from './filtering/packageVersion';
 import { filterVersionsByPublishDate } from './filtering/publishDate';
 import { jsonLogReplacer } from './utils/jsonUtils';
@@ -15,6 +17,8 @@ import {
   setupLatestTag,
 } from './utils/manifestUtils';
 
+const debug = buildDebug('verdaccio:plugin:package-filter');
+
 export class PackageFilterPlugin
   extends pluginUtils.Plugin<PluginConfig>
   implements pluginUtils.ManifestFilter<PluginConfig>
@@ -25,17 +29,48 @@ export class PackageFilterPlugin
 
   public constructor(config: PluginConfig, options: pluginUtils.PluginOptions) {
     super(config, options);
-    this.config = config;
+    this.config = config ?? {};
     this.logger = options.logger;
-    this.parsedConfig = parseConfig(config);
+    this.parsedConfig = parseConfig(this.config);
 
-    options.logger.debug(
-      `Loaded package-filter plugin. Parsed config: ${JSON.stringify(this.parsedConfig, jsonLogReplacer, 2)}`
+    debug(
+      'plugin loaded with config: %o',
+      JSON.parse(JSON.stringify(this.parsedConfig, jsonLogReplacer))
     );
+    debug(
+      'block rules: %d, allow rules: %d',
+      this.parsedConfig.blockRules.size,
+      this.parsedConfig.allowRules.size
+    );
+    this.logger.trace(
+      {
+        blockRules: this.parsedConfig.blockRules.size,
+        allowRules: this.parsedConfig.allowRules.size,
+      },
+      'package-filter plugin initialized: @{blockRules} block rules, @{allowRules} allow rules'
+    );
+    if (this.parsedConfig.dateThreshold) {
+      debug('date threshold: %s', this.parsedConfig.dateThreshold.toISOString());
+      this.logger.trace(
+        { dateThreshold: this.parsedConfig.dateThreshold.toISOString() },
+        'package-filter date threshold: @{dateThreshold}'
+      );
+    }
+    if (this.parsedConfig.minAgeMs) {
+      const minAgeDays = this.parsedConfig.minAgeMs / (24 * 60 * 60 * 1000);
+      debug('min age: %d days', minAgeDays);
+      this.logger.trace({ minAgeDays }, 'package-filter min age: @{minAgeDays} days');
+    }
   }
 
   public async filter_metadata(manifest: Readonly<Manifest>): Promise<Manifest> {
     const { dateThreshold, minAgeMs, blockRules, allowRules } = this.parsedConfig;
+    const versionCount = Object.keys(manifest.versions ?? {}).length;
+    debug('filtering manifest for %s (%d versions)', manifest.name, versionCount);
+    this.logger.trace(
+      { name: manifest.name, versionCount },
+      'package-filter processing @{name} (@{versionCount} versions)'
+    );
 
     let newManifest = getManifestClone(manifest);
     if (blockRules.size > 0) {
@@ -52,6 +87,15 @@ export class PackageFilterPlugin
     }
 
     if (earliestDateThreshold) {
+      debug(
+        'applying date filter for %s, threshold: %s',
+        manifest.name,
+        earliestDateThreshold.toISOString()
+      );
+      this.logger.trace(
+        { name: manifest.name, threshold: earliestDateThreshold.toISOString() },
+        'applying date filter for @{name}, cutoff: @{threshold}'
+      );
       newManifest = filterVersionsByPublishDate(newManifest, earliestDateThreshold, allowRules);
     }
 
@@ -60,6 +104,25 @@ export class PackageFilterPlugin
     cleanupTime(newManifest);
     setupCreatedAndModified(newManifest);
     cleanupDistFiles(newManifest);
-    return Promise.resolve(newManifest);
+
+    const filteredCount = Object.keys(newManifest.versions).length;
+    const removedCount = versionCount - filteredCount;
+    if (filteredCount !== versionCount) {
+      debug(
+        'filtered %s: %d -> %d versions (%d removed)',
+        manifest.name,
+        versionCount,
+        filteredCount,
+        removedCount
+      );
+      this.logger.trace(
+        { name: manifest.name, before: versionCount, after: filteredCount, removed: removedCount },
+        'package-filter @{name}: @{before} -> @{after} versions (@{removed} removed)'
+      );
+    } else {
+      debug('no versions filtered for %s', manifest.name);
+    }
+
+    return newManifest;
   }
 }
