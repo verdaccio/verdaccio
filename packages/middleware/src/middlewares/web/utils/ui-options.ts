@@ -36,7 +36,7 @@ export function getUIOptions(
 ): TemplateUIOptions {
   const { url_prefix } = config;
   const base = getPublicUrl(config?.url_prefix, requestOptions);
-  const basename = new URL(base).pathname;
+  const basename = URL.canParse(base) ? new URL(base).pathname : base;
   const language = config?.i18n?.web ?? DEFAULT_LANGUAGE;
   const hideDeprecatedVersions = config?.web?.hideDeprecatedVersions ?? false;
   const darkMode = config?.web?.darkMode ?? false;
