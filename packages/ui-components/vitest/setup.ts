@@ -1,16 +1,15 @@
 // / <reference path="./testing-library.d.ts" />
 /**
- * Setup configuration for Jest
- * This file includes global settings for the JEST environment.
+ * Setup configuration for Vitest
+ * This file includes global settings for the test environment.
  */
 import '@testing-library/jest-dom';
 import createDebugger from 'debug';
-import { setupServer } from 'msw/node';
 import 'mutationobserver-shim';
 import { vi } from 'vitest';
 import { Headers, Request, Response, fetch } from 'whatwg-fetch';
 
-import * as mockHandlers from './msw-utils';
+import { server } from './server';
 
 const debug = createDebugger('verdaccio:ui-components:vitest-setup');
 
@@ -53,33 +52,6 @@ if (global.document) {
   }));
   document.execCommand = vi.fn();
 }
-
-/**
- * Setting up MSW server with predefined handlers for testing.
- * The server will intercept network requests and return mock responses based on the handlers defined in msw-utils.ts.
- * This allows for consistent and controlled testing of components that rely on API interactions without making actual network requests.
- */
-
-const handlers = [
-  mockHandlers.mockLogin(),
-  mockHandlers.mockHomePackages(),
-  mockHandlers.mockSearch(),
-  mockHandlers.mockHomePackages(),
-  mockHandlers.mockSidebar('storybook'),
-  mockHandlers.mockSidebar('jquery'),
-  mockHandlers.mockSidebar('glob'),
-  mockHandlers.mockReadme('storybook'),
-  mockHandlers.mockReadme('jquery'),
-  mockHandlers.mockReadme('glob'),
-  mockHandlers.mockResetPassword(),
-  mockHandlers.mockCliLogin(),
-  mockHandlers.mockAddUser(),
-  mockHandlers.mockTarball(),
-  // To handle errors
-  mockHandlers.mockSidebar('JSONStream', null, 401),
-  mockHandlers.mockSidebar('kleur', null, 404),
-];
-const server = setupServer(...handlers);
 
 beforeAll(() => {
   server.listen({
