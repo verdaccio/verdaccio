@@ -4,7 +4,7 @@ import { satisfies } from 'semver';
 import type { Manifest } from '@verdaccio/types';
 
 import type { ParsedRule } from '../config/types';
-import type { MatchResult} from './types';
+import type { MatchResult } from './types';
 import { MatchType } from './types';
 
 const debug = buildDebug('verdaccio:plugin:package-filter:filter');
