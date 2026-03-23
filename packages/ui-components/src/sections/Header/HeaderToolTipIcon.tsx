@@ -49,7 +49,12 @@ const HeaderToolTipIcon = function HeaderToolTipIcon({
       );
     case 'search':
       return (
-        <IconSearchButton color="inherit" onClick={onClick} ref={ref}>
+        <IconSearchButton
+          data-testid="header--tooltip-search"
+          color="inherit"
+          onClick={onClick}
+          ref={ref}
+        >
           <Search />
         </IconSearchButton>
       );

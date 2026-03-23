@@ -2,7 +2,6 @@
 
 exports[`<Logo /> component > should render the component in default state 1`] = `
 <div
-  class="makeStyles-StyledLogo exban010"
   data-testid="default-logo"
   title=""
 />

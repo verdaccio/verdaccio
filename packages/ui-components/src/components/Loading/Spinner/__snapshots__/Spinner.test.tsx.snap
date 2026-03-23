@@ -5,11 +5,9 @@ Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      <div
-        class="makeStyles-Wrapper eapffsy1"
-      >
+      <div>
         <span
-          class="MuiCircularProgress-root MuiCircularProgress-indeterminate MuiCircularProgress-colorPrimary eapffsy0 makeStyles-MuiCircularProgress-root-Circular"
+          class="MuiCircularProgress-root MuiCircularProgress-indeterminate MuiCircularProgress-colorPrimary makeStyles-MuiCircularProgress-root"
           role="progressbar"
           style="width: 50px; height: 50px;"
         >
@@ -31,11 +29,9 @@ Object {
     </div>
   </body>,
   "container": <div>
-    <div
-      class="makeStyles-Wrapper eapffsy1"
-    >
+    <div>
       <span
-        class="MuiCircularProgress-root MuiCircularProgress-indeterminate MuiCircularProgress-colorPrimary eapffsy0 makeStyles-MuiCircularProgress-root-Circular"
+        class="MuiCircularProgress-root MuiCircularProgress-indeterminate MuiCircularProgress-colorPrimary makeStyles-MuiCircularProgress-root"
         role="progressbar"
         style="width: 50px; height: 50px;"
       >

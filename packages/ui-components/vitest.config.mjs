@@ -80,13 +80,7 @@ export default defineConfig({
       ],
     },
   },
-  plugins: [
-    react({
-      babel: {
-        plugins: ['@emotion'],
-      },
-    }),
-  ],
+  plugins: [react()],
   resolve: {
     alias: {
       'verdaccio-ui/components': path.resolve(__dirname, './src/components'),
