@@ -17,8 +17,8 @@ interface Props {
   suggestions?: SearchResultWeb[];
   suggestionsLoading?: boolean;
   placeholder: string;
-  renderOption?: (props: any, option: any) => JSX.Element;
-  renderInput: (params: any) => JSX.Element;
+  renderOption?: (props: any, option: any) => React.JSX.Element;
+  renderInput: (params: any) => React.JSX.Element;
   onSuggestionsFetch: any;
   getOptionLabel: (option: any) => any;
   onCleanSuggestions: (event: React.SyntheticEvent) => void;

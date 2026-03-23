@@ -1,5 +1,5 @@
 import path from 'node:path';
-import { describe, expect, test } from 'vitest';
+import { beforeAll, describe, expect, test } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
 import { logger, setup } from '@verdaccio/logger';
@@ -13,12 +13,15 @@ import {
   typesNodeManifest,
 } from './manifests';
 
-setup({});
+let pluginOptions: { logger: any; config: Config };
 
-const verdaccioConfig = new Config(
-  parseConfigFile(path.join(__dirname, '__fixtures__', 'config.yaml'))
-);
-const pluginOptions = { logger, config: verdaccioConfig };
+beforeAll(async () => {
+  await setup({});
+  const verdaccioConfig = new Config(
+    parseConfigFile(path.join(__dirname, '__fixtures__', 'config.yaml'))
+  );
+  pluginOptions = { logger, config: verdaccioConfig };
+});
 
 function getDaysSince(date: Date | string): number {
   if (typeof date === 'string') {

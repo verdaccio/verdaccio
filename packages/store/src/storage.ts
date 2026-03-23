@@ -16,17 +16,13 @@ import {
   HEADER_TYPE,
   HTTP_STATUS,
   MAINTAINERS,
-  PLUGIN_CATEGORY,
-  PLUGIN_PREFIX,
   SUPPORT_ERRORS,
   USERS,
   cryptoUtils,
   errorUtils,
-  pluginUtils as pluginSanity,
   tarballUtils,
   validationUtils,
 } from '@verdaccio/core';
-import { asyncLoadPlugin } from '@verdaccio/loaders';
 import type {
   IProxy,
   ISyncUplinksOptions,
@@ -61,6 +57,7 @@ import type {
 
 import type { PublishOptions, UpdateManifestOptions } from '.';
 import { cleanUpReadme, isDeprecatedManifest, tagVersion, tagVersionNext } from '.';
+import { type Filters, applyManifestFilters, loadFilterPlugins } from './filter-pipeline';
 import { isExecutingStarCommand, isPublishablePackage } from './lib/star-utils';
 import {
   STORAGE,
@@ -82,7 +79,6 @@ import type { IGetPackageOptionsNext, OwnerManifestBody, StarManifestBody } from
 
 const debug = buildDebug('verdaccio:storage');
 
-export type Filters = pluginUtils.ManifestFilter<Config>[];
 export const noSuchFile = 'ENOENT';
 export const resourceNotAvailable = 'EAGAIN';
 export const PROTO_NAME = '__proto__';
@@ -670,18 +666,7 @@ class Storage {
       debug('storage has been already initialized');
     }
     if (!this.filters) {
-      this.filters = await asyncLoadPlugin<pluginUtils.ManifestFilter<unknown>>(
-        this.config.filters,
-        {
-          config: this.config,
-          logger: this.logger,
-        },
-        pluginSanity.filterSanityCheck,
-        false,
-        this.config.server?.pluginPrefix ?? PLUGIN_PREFIX,
-        PLUGIN_CATEGORY.FILTER
-      );
-      debug('filters available %o', this.filters.length);
+      this.filters = await loadFilterPlugins(this.config, this.logger);
     }
     return;
   }
@@ -1865,24 +1850,7 @@ class Storage {
    * @returns
    */
   public async applyFilters(manifest: Manifest): Promise<[Manifest, any]> {
-    if (this.filters === null || this.filters.length === 0) {
-      return [manifest, []];
-    }
-
-    const filterPluginErrors: any[] = [];
-    let filteredManifest = { ...manifest };
-    for (const filter of this.filters) {
-      // These filters can assume it's save to modify packageJsonLocal
-      // and return it directly for
-      // performance (i.e. need not be pure)
-      try {
-        filteredManifest = await filter.filter_metadata(filteredManifest);
-      } catch (err: any) {
-        this.logger.error({ err }, 'filter has failed: @{err.message}');
-        filterPluginErrors.push(err);
-      }
-    }
-    return [filteredManifest, filterPluginErrors];
+    return applyManifestFilters(manifest, this.filters ?? [], this.logger);
   }
 
   private _createNewPackage(name: string): Manifest {
