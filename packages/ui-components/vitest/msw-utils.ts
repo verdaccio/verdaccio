@@ -77,6 +77,7 @@ export const mockReadme = (packageName: string, content?: string) =>
 export const mockTarball = (fileName = 'verdaccio-1.0.0.tgz') =>
   http.get(`${BASE_URL}/verdaccio/-/${fileName}`, (() => {
     const filePath = path.resolve(import.meta.dirname, `./api/${fileName}`);
+    debug('filePath', filePath);
     const fileContent = fs.readFileSync(filePath);
     return new HttpResponse(fileContent, {
       status: 200,
@@ -155,7 +156,7 @@ export const mockCliLogin = (status = 200, customResponse?: object) =>
  * @param customResponse - Override the default JSON body
  */
 export const mockAddUser = (status = 201, customResponse?: object) =>
-  http.put(`${BASE_URL}/-/web/add-user:*`, (async ({ request }) => {
+  http.put(`${BASE_URL}/-/web/add-user:username`, (async ({ request }) => {
     debug('Received add user request', request.method, request.url);
     const body = (await request.json()) as { name: string; password: string; email?: string };
 

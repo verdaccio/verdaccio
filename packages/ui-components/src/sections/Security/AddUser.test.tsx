@@ -13,10 +13,21 @@ import {
 import { Route } from '../../utils';
 import AddUser from './AddUser';
 
+const mockNavigate = vi.fn();
+
+vi.mock('react-router', async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    ...actual,
+    useNavigate: () => mockNavigate,
+  };
+});
+
 describe('<AddUser /> component', () => {
   beforeEach(() => {
     vi.resetModules();
     vi.resetAllMocks();
+    mockNavigate.mockClear();
     cleanup();
   });
 
@@ -35,6 +46,7 @@ describe('<AddUser /> component', () => {
       renderWithRouter(<AddUser />, Route.ADD_USER, [Route.ADD_USER]);
     });
 
+    expect(mockNavigate).toHaveBeenCalledWith('/');
     expect(screen.queryByText('security.addUser.title')).not.toBeInTheDocument();
   });
 
