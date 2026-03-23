@@ -32,9 +32,7 @@ export default function renderTemplate(template: Template, manifest: AssetManife
         <title>${template?.options?.title ?? ''}</title>
         <link rel="icon" href="${template?.options.base}-/static/favicon.ico">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script>
-            window.__VERDACCIO_BASENAME_UI_OPTIONS=${JSON.stringify(template.options)}
-        </script>
+        <script src="${template?.options.base}-/static/ui-options.js"></script>
         ${
           template.manifest.css?.length
             ? getManifestValue(template.manifest.css, manifest, template?.options.base)
