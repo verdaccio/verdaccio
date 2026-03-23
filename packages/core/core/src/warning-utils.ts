@@ -1,4 +1,6 @@
-import { createDeprecation, createWarning } from 'process-warning';
+import processWarning from 'process-warning';
+
+const { createDeprecation, createWarning } = processWarning;
 
 const verdaccioWarning = 'VerdaccioWarning';
 

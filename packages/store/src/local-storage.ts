@@ -3,7 +3,12 @@ import _ from 'lodash';
 import assert from 'node:assert';
 
 import type { pluginUtils } from '@verdaccio/core';
-import { PLUGIN_CATEGORY, PLUGIN_PREFIX, errorUtils } from '@verdaccio/core';
+import {
+  PLUGIN_CATEGORY,
+  PLUGIN_PREFIX,
+  errorUtils,
+  pluginUtils as pluginSanity,
+} from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import LocalDatabase from '@verdaccio/local-storage';
 import type { Config, Logger } from '@verdaccio/types';
@@ -78,9 +83,7 @@ class LocalStorage {
         config: this.config,
         logger: this.logger,
       },
-      (plugin) => {
-        return typeof plugin.getPackageStorage !== 'undefined';
-      },
+      pluginSanity.storageSanityCheck,
       false,
       this.config.server?.pluginPrefix ?? PLUGIN_PREFIX,
       PLUGIN_CATEGORY.STORAGE

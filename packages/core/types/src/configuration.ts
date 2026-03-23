@@ -2,7 +2,7 @@ import type { Algorithm as Algorithms, SignOptions, VerifyOptions } from 'jsonwe
 import type { AgentOptions as HttpAgentOptions } from 'node:http';
 import type { AgentOptions as HttpsAgentOptions } from 'node:https';
 
-import type { PackageAccess, PackageList } from '@verdaccio/types/src/manifest';
+import type { PackageAccess, PackageList } from './manifest';
 
 export type TypeToken = 'Bearer' | 'Basic';
 
@@ -128,6 +128,7 @@ export type CommonWebConf = {
   logoDark?: string;
   favicon?: string;
   gravatar?: boolean;
+  sort_field?: string;
   sort_packages?: string;
   darkMode?: boolean;
   url_prefix?: string;

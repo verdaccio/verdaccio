@@ -13,6 +13,7 @@ import {
   TOKEN_BEARER,
   authUtils,
   errorUtils,
+  pluginUtils as pluginSanity,
   warningUtils,
 } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
@@ -116,15 +117,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
         config: this.config,
         logger: this.logger,
       },
-      (plugin): boolean => {
-        const { authenticate, allow_access, allow_publish } = plugin;
-
-        return (
-          typeof authenticate !== 'undefined' ||
-          typeof allow_access !== 'undefined' ||
-          typeof allow_publish !== 'undefined'
-        );
-      },
+      pluginSanity.authSanityCheck,
       this.options.legacyMergeConfigs,
       this.config?.server?.pluginPrefix ?? PLUGIN_PREFIX,
       PLUGIN_CATEGORY.AUTHENTICATION

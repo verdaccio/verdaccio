@@ -1,5 +1,26 @@
 # @verdaccio/core
 
+## 9.0.0-next-9.5
+
+### Minor Changes
+
+- a9d7b4a: feat: add @verdaccio/plugin-verifier tool package
+
+  - feat(plugin-verifier): new package to verify that a Verdaccio plugin can be loaded, instantiated, and passes sanity checks — uses `asyncLoadPlugin` from `@verdaccio/loaders` (the same loader Verdaccio runs at startup)
+  - feat(plugin-verifier): CLI built with clipanion (`verdaccio-plugin-verifier <plugin> --category <category>`)
+  - feat(plugin-verifier): programmatic API for use in plugin test suites
+  - feat(plugin-verifier): step-by-step diagnostics on failure (resolve, export, instantiate, sanity-check) with actionable error messages
+  - feat(core): add shared sanity check functions (`authSanityCheck`, `storageSanityCheck`, `middlewareSanityCheck`, `filterSanityCheck`) to `pluginUtils` in `@verdaccio/core`
+  - feat(loaders): add ESM plugin support — `tryLoadAsync` falls back from `require()` to dynamic `import()` when loading ESM plugins
+  - refactor(auth,store,server): replace inline sanity check callbacks with shared functions from `@verdaccio/core`
+  - fix(core): replace removed `pseudoRandomBytes` with `randomBytes` for Node.js 24 compatibility
+  - fix(core): fix `process-warning` ESM interop — use default import instead of named imports for CJS compatibility
+
+### Patch Changes
+
+- 8f9bcc8: fix: links to doc
+- 1d5462f: chore: finish update vitest to 4.1.0
+
 ## 9.0.0-next-9.4
 
 ### Major Changes

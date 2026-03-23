@@ -1,5 +1,18 @@
 # @verdaccio/logger
 
+## 9.0.0-next-9.5
+
+### Major Changes
+
+- 4eda7ac: Combine @verdaccio/logger-commons and @verdaccio/logger-prettify into @verdaccio/logger as a single package
+
+### Patch Changes
+
+- Updated dependencies [8f9bcc8]
+- Updated dependencies [a9d7b4a]
+- Updated dependencies [1d5462f]
+  - @verdaccio/core@9.0.0-next-9.5
+
 ## 9.0.0-next-9.4
 
 ### Major Changes

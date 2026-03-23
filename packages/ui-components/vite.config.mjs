@@ -50,7 +50,7 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
     },
-    rollupOptions: {
+    rolldownOptions: {
       external: (id) =>
         externalDeps.has(id) || [...externalDeps].some((dep) => id.startsWith(`${dep}/`)),
       output: [

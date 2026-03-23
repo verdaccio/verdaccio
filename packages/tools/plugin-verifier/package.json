@@ -1,0 +1,63 @@
+{
+  "name": "@verdaccio/plugin-verifier",
+  "version": "1.0.0-next-9.1",
+  "description": "Tool to verify that a Verdaccio plugin can be loaded and passes sanity checks",
+  "type": "module",
+  "main": "./build/index.js",
+  "types": "build/index.d.ts",
+  "bin": {
+    "verdaccio-plugin-verifier": "./bin/verdaccio-plugin-verifier"
+  },
+  "author": {
+    "name": "Juan Picado",
+    "email": "juanpicado19@gmail.com"
+  },
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio",
+    "directory": "packages/tools/plugin-verifier"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
+  },
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "keywords": [
+    "verdaccio",
+    "plugin",
+    "testing",
+    "verification",
+    "cli"
+  ],
+  "engines": {
+    "node": ">=24"
+  },
+  "dependencies": {
+    "@verdaccio/core": "workspace:9.0.0-next-9.5",
+    "@verdaccio/loaders": "workspace:9.0.0-next-9.5",
+    "@verdaccio/logger": "workspace:9.0.0-next-9.5",
+    "clipanion": "4.0.0-rc.4",
+    "debug": "4.4.3"
+  },
+  "devDependencies": {
+    "@verdaccio/config": "workspace:9.0.0-next-9.5",
+    "@verdaccio/types": "workspace:14.0.0-next-9.2",
+    "vitest": "4.1.0"
+  },
+  "scripts": {
+    "clean": "rimraf ./build",
+    "test": "vitest run",
+    "watch": "vite build --watch",
+    "build": "vite build"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  },
+  "exports": {
+    ".": {
+      "types": "./build/index.d.ts",
+      "import": "./build/index.js"
+    }
+  }
+}

@@ -99,7 +99,7 @@ export default defineConfig(({ command }) => ({
     emptyOutDir: true,
     assetsDir: '',
     sourcemap: 'inline',
-    rollupOptions: {
+    rolldownOptions: {
       input: { main: path.resolve(__dirname, './src/index.tsx') },
       output: {
         entryFileNames: '[name].[hash].js',

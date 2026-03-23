@@ -120,4 +120,65 @@ describe('test web server', () => {
 
     expect(response.body.length).toEqual(0);
   });
+
+  test('should sort packages by name in ascending order', async () => {
+    mockManifest.mockReturnValue(() => ({
+      staticPath: path.join(__dirname, 'static'),
+      manifestFiles: {
+        js: ['runtime.js', 'vendors.js', 'main.js'],
+      },
+      manifest: require('./partials/manifest/manifest.json'),
+    }));
+
+    const app = await initializeServer('sort-name-asc.yaml');
+    const api = supertest(app);
+
+    // publish packages in non-alphabetical order
+    await publishVersion(app, 'zebra', '1.0.0');
+    await publishVersion(app, 'apple', '1.0.0');
+    await publishVersion(app, 'banana', '1.0.0');
+
+    const response = await api
+      .get('/-/verdaccio/data/packages')
+      .set('Accept', HEADERS.JSON_CHARSET)
+      .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+      .expect(HTTP_STATUS.OK);
+
+    expect(response.body.length).toEqual(3);
+    expect(response.body[0].name).toEqual('apple');
+    expect(response.body[1].name).toEqual('banana');
+    expect(response.body[2].name).toEqual('zebra');
+  });
+
+  test('should sort packages by time in descending order', async () => {
+    mockManifest.mockReturnValue(() => ({
+      staticPath: path.join(__dirname, 'static'),
+      manifestFiles: {
+        js: ['runtime.js', 'vendors.js', 'main.js'],
+      },
+      manifest: require('./partials/manifest/manifest.json'),
+    }));
+
+    const app = await initializeServer('sort-time-desc.yaml');
+    const api = supertest(app);
+
+    // publish packages with delays to ensure different timestamps
+    await publishVersion(app, 'first', '1.0.0');
+    await new Promise((resolve) => setTimeout(resolve, 10));
+    await publishVersion(app, 'second', '1.0.0');
+    await new Promise((resolve) => setTimeout(resolve, 10));
+    await publishVersion(app, 'third', '1.0.0');
+
+    const response = await api
+      .get('/-/verdaccio/data/packages')
+      .set('Accept', HEADERS.JSON_CHARSET)
+      .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+      .expect(HTTP_STATUS.OK);
+
+    expect(response.body.length).toEqual(3);
+    // Packages should be sorted by time descending (newest first)
+    expect(response.body[0].name).toEqual('third');
+    expect(response.body[1].name).toEqual('second');
+    expect(response.body[2].name).toEqual('first');
+  });
 });

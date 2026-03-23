@@ -90,37 +90,16 @@ Learn more [here](https://verdaccio.org/docs/dev-plugins) how to develop plugins
 
 ## End to End Testing
 
-In our compatibility testing project, we're dedicated to ensuring that your favorite commands work seamlessly across different versions of npm, pnpm, and Yarn. From publishing packages to managing dependencies.
-Our goal is to give you the confidence to use your preferred package manager without any issues. So dive in, check out our matrix, and see how your commands fare across the board!
+We test compatibility across different versions of npm, pnpm, and Yarn to ensure your favorite commands — from publishing packages to managing dependencies — work seamlessly with Verdaccio.
 
-[Learn or contribute here](https://github.com/verdaccio/verdaccio/tree/master/e2e/cli)
+E2E CLI tests run in CI via the `verdaccio-e2e` tool on Node.js 24 against the following matrix:
 
-### Commands
-
-| cmd       | npm6 | npm7 | npm8 | npm9 | npm10 | npm11 | pnpm8 | pnpm9 | pnpm10 | yarn1 | yarn2 | yarn3 | yarn4 |
-| --------- | ---- | ---- | ---- | ---- | ----- | ----- | ----- | ----- | ------ | ----- | ----- | ----- | ----- |
-| publish   | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅    | ✅    |
-| unpublish | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅     | ❌    | ❌    | ❌    | ❌    |
-| info      | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅    | ✅    |
-| audit     | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅    | ❌    |
-| install   | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅    | ✅    |
-| deprecate | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅     | ⛔    | ⛔    | ⛔    | ⛔    |
-| ping      | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅     | ⛔    | ⛔    | ⛔    | ⛔    |
-| search    | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅     | ⛔    | ⛔    | ⛔    | ⛔    |
-| star      | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅     | ⛔    | ⛔    | ⛔    | ⛔    |
-| stars     | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅     | ⛔    | ⛔    | ⛔    | ⛔    |
-| dist-tag  | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅     | ✅    | ❌    | ❌    | ❌    |
-
-<!--          n6      n7     n8      n9     n10      n11     p8       p9      p10       y1      y2       y3      y4 -->
-
-> notes:
->
-> - yarn search cmd exist in _modern_ but, it do not uses the search registry endpoint.
-> - yarn _modern_ has two info commands, the one used here is `yarn npm info`
-
-❌ = not tested
-✅ = tested
-⛔ = not supported
+| Package Manager | Versions        |
+| --------------- | --------------- |
+| npm             | 7, 8, 9, 10, 11 |
+| yarn classic    | 1               |
+| yarn modern     | 2, 3, 4         |
+| pnpm            | 9, 10           |
 
 ## Donations
 
@@ -336,16 +315,16 @@ You can find and chat with them over Discord, click [here](http://chat.verdaccio
 
 Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/verdaccio/contribute)]
 
-[![sponsor](https://opencollective.com/verdaccio/sponsor/0/avatar.svg)](https://opencollective.com/verdaccio/sponsor/0/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/1/avatar.svg)](https://opencollective.com/verdaccio/sponsor/1/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/2/avatar.svg)](https://opencollective.com/verdaccio/sponsor/2/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/3/avatar.svg)](https://opencollective.com/verdaccio/sponsor/3/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/4/avatar.svg)](https://opencollective.com/verdaccio/sponsor/4/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/5/avatar.svg)](https://opencollective.com/verdaccio/sponsor/5/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/6/avatar.svg)](https://opencollective.com/verdaccio/sponsor/6/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/7/avatar.svg)](https://opencollective.com/verdaccio/sponsor/7/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/8/avatar.svg)](https://opencollective.com/verdaccio/sponsor/8/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/9/avatar.svg)](https://opencollective.com/verdaccio/sponsor/9/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/0/avatar.png)](https://opencollective.com/verdaccio/sponsor/0/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/1/avatar.png)](https://opencollective.com/verdaccio/sponsor/1/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/2/avatar.png)](https://opencollective.com/verdaccio/sponsor/2/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/3/avatar.png)](https://opencollective.com/verdaccio/sponsor/3/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/4/avatar.png)](https://opencollective.com/verdaccio/sponsor/4/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/5/avatar.png)](https://opencollective.com/verdaccio/sponsor/5/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/6/avatar.png)](https://opencollective.com/verdaccio/sponsor/6/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/7/avatar.png)](https://opencollective.com/verdaccio/sponsor/7/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/8/avatar.png)](https://opencollective.com/verdaccio/sponsor/8/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/9/avatar.png)](https://opencollective.com/verdaccio/sponsor/9/website)
 
 ## Open Collective Backers
 

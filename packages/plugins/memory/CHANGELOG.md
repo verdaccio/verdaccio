@@ -1,5 +1,15 @@
 # Change Log
 
+## 14.0.0-next-9.5
+
+### Patch Changes
+
+- 1d5462f: chore: finish update vitest to 4.1.0
+- Updated dependencies [8f9bcc8]
+- Updated dependencies [a9d7b4a]
+- Updated dependencies [1d5462f]
+  - @verdaccio/core@9.0.0-next-9.5
+
 ## 14.0.0-next-9.4
 
 ### Major Changes

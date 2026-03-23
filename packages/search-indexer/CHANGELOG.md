@@ -1,5 +1,11 @@
 # @verdaccio/search-indexer
 
+## 9.0.0-next-9.2
+
+### Patch Changes
+
+- fd09d4f: chore: update vitest to 4.1.0 and @vitest/coverage-v8 to 4.1.0
+
 ## 9.0.0-next-9.1
 
 ### Major Changes

@@ -16,6 +16,12 @@ const debug = createDebugger('verdaccio:ui-components:vitest-setup');
 
 debug('Setting up Vitest environment for ui-components package.');
 
+// Configure the test environment URL
+Object.defineProperty(window, 'location', {
+  writable: true,
+  value: new URL('http://localhost:9000/'),
+});
+
 // Override the global fetch and related APIs
 global.fetch = fetch;
 global.Headers = Headers;
