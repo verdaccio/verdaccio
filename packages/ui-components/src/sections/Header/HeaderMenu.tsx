@@ -39,19 +39,15 @@ const HeaderMenu: React.FC<Props> = ({
       </IconButton>
       <Menu
         anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
         onClose={onLoggedInMenuClose}
         open={isMenuOpen}
-        slotProps={{
-          root: {
-            anchorOrigin: {
-              vertical: 'bottom',
-              horizontal: 'right',
-            },
-            transformOrigin: {
-              vertical: 'top',
-              horizontal: 'right',
-            },
-          } as any,
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
         }}
       >
         <MenuItem>

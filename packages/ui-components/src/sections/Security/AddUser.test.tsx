@@ -2,6 +2,7 @@ import React from 'react';
 import { vi } from 'vitest';
 
 import { mockAddUser } from '../../../vitest/msw-utils';
+import { server } from '../../../vitest/setup';
 import {
   act,
   cleanup,
@@ -133,7 +134,6 @@ describe('<AddUser /> component', () => {
 
   test('should show error message on failed submission', async () => {
     // Override the default handler with a 409 error response
-    const { server } = await import('../../../vitest/server');
     server.use(mockAddUser(409, { error: 'user already exists' }));
 
     window.__VERDACCIO_BASENAME_UI_OPTIONS = {
