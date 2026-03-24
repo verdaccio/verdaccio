@@ -105,9 +105,10 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<Ex
     plugins.push(auditPlugin);
   }
 
-  plugins.forEach((plugin: pluginUtils.ExpressMiddleware<IConfig, {}, Auth>) => {
+  // Ensure sequential execution in order, and that each registration completes before the next one starts
+  for (const plugin of plugins) {
     plugin.register_middlewares(app, auth, storage);
-  });
+  }
 
   // For package manager requests
   app.use(apiEndpoint(config, auth, storage, logger));
