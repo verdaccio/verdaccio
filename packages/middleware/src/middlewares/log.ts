@@ -1,7 +1,7 @@
 import buildDebug from 'debug';
 import _ from 'lodash';
 
-import { HEADERS } from '@verdaccio/core';
+import { HEADERS, constants } from '@verdaccio/core';
 
 import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
 
@@ -10,12 +10,6 @@ const debug = buildDebug('verdaccio:middleware:log');
 function isStaticRequest(url: string): boolean {
   return url.startsWith('/-/static/');
 }
-
-// FIXME: deprecated, moved to @verdaccio/dev-commons
-export const LOG_STATUS_MESSAGE =
-  "@{status}, user: @{user}(@{remoteIP}), req: '@{request.method} @{request.url}'";
-export const LOG_VERDACCIO_ERROR = `${LOG_STATUS_MESSAGE}, error: @{!error}`;
-export const LOG_VERDACCIO_BYTES = `${LOG_STATUS_MESSAGE}, bytes: @{bytes.in}/@{bytes.out}`;
 
 export type LogOptions = {
   // When true, static file requests (/-/static/*) are hidden from pino logs
@@ -64,59 +58,85 @@ export const log = (logger, options: LogOptions = {}) => {
 
     let bytesout = 0;
     const _write = res.write;
-    // @ts-ignore
     res.write = function (...args): boolean {
       bytesout += args[0]?.length || 0;
       // @ts-ignore
       return _write.apply(res, args);
     };
 
-    const log = function (): void {
+    // Track if the request completed normally
+    let requestCompleted = false;
+    let abortLogged = false;
+
+    const getRequestContext = () => {
       const forwardedFor = req.get(HEADERS.FORWARDED_FOR);
       const remoteAddress = req.socket.remoteAddress;
       const remoteIP = forwardedFor ? `${forwardedFor} via ${remoteAddress}` : remoteAddress;
-      let message;
-      if (res.locals._verdaccio_error) {
-        message = LOG_VERDACCIO_ERROR;
-      } else {
-        message = LOG_VERDACCIO_BYTES;
-      }
-
-      req.url = req.originalUrl;
-      if (_skipLog) {
-        debug(message, {
-          request: { method: req.method, url: req.url },
-          user: req.remote_user?.name || null,
-          remoteIP,
-          status: res.statusCode,
-          error: res.locals._verdaccio_error,
-          bytes: { in: bytesin, out: bytesout },
-        });
-      } else {
-        req.log.http(
-          {
-            request: {
-              method: req.method,
-              url: req.url,
-            },
-            user: req.remote_user?.name || null,
-            remoteIP,
-            status: res.statusCode,
-            error: res.locals._verdaccio_error,
-            bytes: {
-              in: bytesin,
-              out: bytesout,
-            },
-          },
-          message
-        );
-      }
-      req.originalUrl = req.url;
+      return {
+        request: {
+          method: req.method,
+          url: req.originalUrl,
+        },
+        user: req.remote_user?.name || null,
+        remoteIP,
+        status: res.statusCode,
+        error: res.locals._verdaccio_error,
+        bytes: {
+          in: bytesin,
+          out: bytesout,
+        },
+      };
     };
 
-    req.on('close', function (): void {
-      log();
-    });
+    const logAbortedRequest = () => {
+      if (abortLogged || requestCompleted) return;
+      abortLogged = true;
+
+      req.log.info(
+        {
+          ...getRequestContext(),
+          status: constants.HTTP_STATUS.CLIENT_CLOSED_REQUEST,
+        },
+        constants.LOG_VERDACCIO_ABORT
+      );
+    };
+
+    const cleanupSocketListeners = () => {
+      req.socket.removeListener('close', onClose);
+      req.socket.removeListener('error', onError);
+    };
+
+    const onClose = () => {
+      if (!requestCompleted) {
+        logAbortedRequest();
+      }
+      cleanupSocketListeners();
+    };
+
+    const onError = () => {
+      if (!requestCompleted) {
+        logAbortedRequest();
+      }
+      cleanupSocketListeners();
+    };
+
+    const logCompletedRequest = () => {
+      requestCompleted = true;
+
+      const message = res.locals._verdaccio_error
+        ? constants.LOG_VERDACCIO_ERROR
+        : constants.LOG_VERDACCIO_BYTES;
+
+      if (_skipLog) {
+        debug(message, getRequestContext());
+      } else {
+        req.url = req.originalUrl;
+        req.log.http(getRequestContext(), message);
+        req.originalUrl = req.url;
+      }
+
+      cleanupSocketListeners();
+    };
 
     const _end = res.end;
     // @ts-ignore
@@ -126,8 +146,12 @@ export const log = (logger, options: LogOptions = {}) => {
       }
       // @ts-ignore
       _end.apply(res, args);
-      log();
+      logCompletedRequest();
     };
+
+    req.socket.on('close', onClose);
+    req.socket.on('error', onError);
+
     next();
   };
 };
