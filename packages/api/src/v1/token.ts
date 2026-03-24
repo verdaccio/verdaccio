@@ -112,7 +112,7 @@ export default function (
 
           await storage.saveToken(saveToken);
           logger.debug({ key, name }, 'token @{key} was created for user @{name}');
-          res.set(HEADERS.CACHE_CONTROL, 'no-cache, no-store');
+          res.set(HEADERS.CACHE_CONTROL, HEADERS.NO_CACHE);
           return next(
             normalizeToken({
               token,

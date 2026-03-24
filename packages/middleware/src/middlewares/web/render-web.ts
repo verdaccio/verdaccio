@@ -107,6 +107,7 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
   router.get(WebUrlsNamespace.static + 'ui-options.js', function (req, res) {
     const options = getUIOptions(config, req, res);
     const script = `window.__VERDACCIO_BASENAME_UI_OPTIONS=${JSON.stringify(options)};`;
+    res.setHeader(HEADERS.CACHE_CONTROL, HEADERS.NO_CACHE);
     res.setHeader(HEADERS.CONTENT_TYPE, HEADERS.JAVASCRIPT_CHARSET);
     res.send(script);
   });

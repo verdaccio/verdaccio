@@ -34,6 +34,7 @@ describe('test web server', () => {
         const response = await supertest(initializeServer(config))
           .get('/-/static/ui-options.js')
           .set('Accept', HEADERS.JAVASCRIPT_CHARSET)
+          .expect(HEADERS.CACHE_CONTROL, HEADERS.NO_CACHE)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JAVASCRIPT_CHARSET)
           .expect(HTTP_STATUS.OK);
         const options = JSON.parse(response.text.slice(response.text.indexOf('=') + 1, -1));
@@ -108,6 +109,7 @@ describe('test web server', () => {
           .get('/-/static/ui-options.js')
           .set('Accept', HEADERS.JAVASCRIPT_CHARSET)
           .unset('Host')
+          .expect(HEADERS.CACHE_CONTROL, HEADERS.NO_CACHE)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JAVASCRIPT_CHARSET)
           .expect(HTTP_STATUS.OK);
         const options = JSON.parse(response.text.slice(response.text.indexOf('=') + 1, -1));

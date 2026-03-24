@@ -165,7 +165,7 @@ export default function (
           const message = authUtils.getAuthenticatedMessage(remoteUser.name ?? '');
 
           res.status(HTTP_STATUS.CREATED);
-          res.set(HEADERS.CACHE_CONTROL, 'no-cache, no-store');
+          res.set(HEADERS.CACHE_CONTROL, HEADERS.NO_CACHE);
           res.json({ ok: message, token });
         }
       );

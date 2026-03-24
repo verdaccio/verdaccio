@@ -39,6 +39,7 @@ export const HEADERS = {
   TEXT_HTML: 'text/html',
   AUTHORIZATION: 'authorization',
   CACHE_CONTROL: 'Cache-Control',
+  NO_CACHE: HEADERS.NO_CACHE,
   RETRY_AFTER: 'Retry-After',
   // only set with proxy that setup HTTPS
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Proto
