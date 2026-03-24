@@ -129,7 +129,6 @@ export function filterBlockedVersions(
     const allVersions = Object.keys(nonBlockedVersions);
 
     let lastNonBlockedVersion: string | null = null;
-    let firstNonBlockedVersion: string | null = null;
 
     allVersions.forEach((version) => {
       if (
@@ -143,7 +142,6 @@ export function filterBlockedVersions(
         newVersionsMapping[version] = lastNonBlockedVersion;
       } else {
         lastNonBlockedVersion = version;
-        firstNonBlockedVersion = firstNonBlockedVersion ?? version;
       }
     });
   });
