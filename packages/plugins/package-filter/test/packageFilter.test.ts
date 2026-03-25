@@ -190,6 +190,8 @@ describe('PackageFilterPlugin', () => {
 
       // Should leave only 1.5.0 version of @babel/test
       const babelResult = await plugin.filter_metadata(babelTestManifest);
+      expect(getVersionKeys(babelResult)).not.toContain('1.0.0');
+      expect(getVersionKeys(babelResult)).not.toContain('3.0.0');
       expect(getVersionKeys(babelResult)).toEqual(['1.5.0']);
       expect(getLatest(babelResult)).toBe('1.5.0');
 
@@ -217,6 +219,9 @@ describe('PackageFilterPlugin', () => {
       // Should not replace versions of @types/node
       const typesResult = await plugin.filter_metadata(typesNodeManifest);
       expect(getVersionKeys(typesResult)).toEqual(['1.0.0', '2.2.0', '2.6.3']);
+      expect(typesResult.versions['1.0.0']._id).toBe('@types/node@1.0.0');
+      expect(typesResult.versions['2.2.0']._id).toBe('@types/node@2.2.0');
+      expect(typesResult.versions['2.6.3']._id).toBe('@types/node@2.6.3');
       expect(getLatest(typesResult)).toBe('2.6.3');
     });
 
@@ -265,6 +270,7 @@ describe('PackageFilterPlugin', () => {
 
         // Should not unblock @types. Version 2.6.3 should be blocked.
         const typesResult = await plugin.filter_metadata(typesNodeManifest);
+        expect(getVersionKeys(typesResult)).not.toContain('2.6.3');
         expect(getVersionKeys(typesResult)).toEqual(['1.0.0', '2.2.0']);
         expect(getLatest(typesResult)).toBe('2.2.0');
       });
@@ -283,6 +289,7 @@ describe('PackageFilterPlugin', () => {
 
         // Should not unblock @types. Version 2.6.3 should be blocked.
         const typesResult = await plugin.filter_metadata(typesNodeManifest);
+        expect(getVersionKeys(typesResult)).not.toContain('2.6.3');
         expect(getVersionKeys(typesResult)).toEqual(['1.0.0', '2.2.0']);
         expect(getLatest(typesResult)).toBe('2.2.0');
       });
@@ -294,13 +301,15 @@ describe('PackageFilterPlugin', () => {
         };
         const plugin = new PackageFilterPlugin(config, pluginOptions);
 
-        // Should block 2.0.0 version of @babel/test and unblock 3.0.0
+        // Should block 1.5.0 version of @babel/test and unblock 3.0.0
         const babelResult = await plugin.filter_metadata(babelTestManifest);
+        expect(getVersionKeys(babelResult)).not.toContain('1.5.0');
         expect(getVersionKeys(babelResult)).toEqual(['1.0.0', '3.0.0']);
         expect(getLatest(babelResult)).toBe('3.0.0');
 
         // Should not unblock @types. Version 2.6.3 should be blocked.
         const typesResult = await plugin.filter_metadata(typesNodeManifest);
+        expect(getVersionKeys(typesResult)).not.toContain('2.6.3');
         expect(getVersionKeys(typesResult)).toEqual(['1.0.0', '2.2.0']);
         expect(getLatest(typesResult)).toBe('2.2.0');
       });
@@ -315,8 +324,9 @@ describe('PackageFilterPlugin', () => {
         };
         const plugin = new PackageFilterPlugin(config, pluginOptions);
 
-        // Should block 2.0.0 version of @babel/test and unblock 3.0.0
+        // Should block 1.5.0 version of @babel/test and unblock 3.0.0
         const babelResult = await plugin.filter_metadata(babelTestManifest);
+        expect(getVersionKeys(babelResult)).not.toContain('1.5.0');
         expect(getVersionKeys(babelResult)).toEqual(['1.0.0', '3.0.0']);
         expect(getLatest(babelResult)).toBe('3.0.0');
 
@@ -342,6 +352,7 @@ describe('PackageFilterPlugin', () => {
 
         // Should not unblock @types. Version 2.6.3 should be blocked.
         const typesResult = await plugin.filter_metadata(typesNodeManifest);
+        expect(getVersionKeys(typesResult)).not.toContain('2.6.3');
         expect(getVersionKeys(typesResult)).toEqual(['1.0.0', '2.2.0']);
         expect(getLatest(typesResult)).toBe('2.2.0');
       });
@@ -360,6 +371,7 @@ describe('PackageFilterPlugin', () => {
 
         // Should not unblock @types. Version 2.6.3 should be blocked.
         const typesResult = await plugin.filter_metadata(typesNodeManifest);
+        expect(getVersionKeys(typesResult)).not.toContain('2.6.3');
         expect(getVersionKeys(typesResult)).toEqual(['1.0.0', '2.2.0']);
         expect(getLatest(typesResult)).toBe('2.2.0');
       });
@@ -371,13 +383,15 @@ describe('PackageFilterPlugin', () => {
         };
         const plugin = new PackageFilterPlugin(config, pluginOptions);
 
-        // Should block 2.0.0 version of @babel/test and unblock 3.0.0
+        // Should block 1.5.0 version of @babel/test and unblock 3.0.0
         const babelResult = await plugin.filter_metadata(babelTestManifest);
+        expect(getVersionKeys(babelResult)).not.toContain('1.5.0');
         expect(getVersionKeys(babelResult)).toEqual(['1.0.0', '3.0.0']);
         expect(getLatest(babelResult)).toBe('3.0.0');
 
         // Should not unblock @types. Version 2.6.3 should be blocked.
         const typesResult = await plugin.filter_metadata(typesNodeManifest);
+        expect(getVersionKeys(typesResult)).not.toContain('2.6.3');
         expect(getVersionKeys(typesResult)).toEqual(['1.0.0', '2.2.0']);
         expect(getLatest(typesResult)).toBe('2.2.0');
       });
@@ -392,8 +406,9 @@ describe('PackageFilterPlugin', () => {
         };
         const plugin = new PackageFilterPlugin(config, pluginOptions);
 
-        // Should block 2.0.0 version of @babel/test and unblock 3.0.0
+        // Should block 1.5.0 version of @babel/test and unblock 3.0.0
         const babelResult = await plugin.filter_metadata(babelTestManifest);
+        expect(getVersionKeys(babelResult)).not.toContain('1.5.0');
         expect(getVersionKeys(babelResult)).toEqual(['1.0.0', '3.0.0']);
         expect(getLatest(babelResult)).toBe('3.0.0');
 
@@ -534,6 +549,8 @@ describe('PackageFilterPlugin', () => {
 
         // Should not unblock @types/node
         const typesResult = await plugin.filter_metadata(typesNodeManifest);
+        expect(getVersionKeys(typesResult)).not.toContain('2.2.0');
+        expect(getVersionKeys(typesResult)).not.toContain('2.6.3');
         expect(getVersionKeys(typesResult)).toEqual(['1.0.0']);
         expect(getLatest(typesResult)).toBe('1.0.0');
       });
@@ -555,6 +572,8 @@ describe('PackageFilterPlugin', () => {
 
         // Should not unblock @types/node
         const typesResult = await plugin.filter_metadata(typesNodeManifest);
+        expect(getVersionKeys(typesResult)).not.toContain('2.2.0');
+        expect(getVersionKeys(typesResult)).not.toContain('2.6.3');
         expect(getVersionKeys(typesResult)).toEqual(['1.0.0']);
         expect(getLatest(typesResult)).toBe('1.0.0');
       });
@@ -571,11 +590,14 @@ describe('PackageFilterPlugin', () => {
 
         // Should unblock version 3.0.0 of @babel/test
         const babelResult = await plugin.filter_metadata(babelTestManifest);
+        expect(getVersionKeys(babelResult)).not.toContain('1.5.0');
         expect(getVersionKeys(babelResult)).toEqual(['1.0.0', '3.0.0']);
         expect(getLatest(babelResult)).toBe('3.0.0');
 
         // Should not unblock @types/node
         const typesResult = await plugin.filter_metadata(typesNodeManifest);
+        expect(getVersionKeys(typesResult)).not.toContain('2.2.0');
+        expect(getVersionKeys(typesResult)).not.toContain('2.6.3');
         expect(getVersionKeys(typesResult)).toEqual(['1.0.0']);
         expect(getLatest(typesResult)).toBe('1.0.0');
       });
@@ -595,6 +617,9 @@ describe('PackageFilterPlugin', () => {
         // Should not replace versions of @babel
         const babelResult = await plugin.filter_metadata(babelTestManifest);
         expect(getVersionKeys(babelResult)).toEqual(['1.0.0', '1.5.0', '3.0.0']);
+        expect(babelResult.versions['1.0.0']._id).toBe('@babel/test@1.0.0');
+        expect(babelResult.versions['1.5.0']._id).toBe('@babel/test@1.5.0');
+        expect(babelResult.versions['3.0.0']._id).toBe('@babel/test@3.0.0');
         expect(getLatest(babelResult)).toBe('3.0.0');
 
         // Should replace version of @types/node to 1.0.0
@@ -618,6 +643,9 @@ describe('PackageFilterPlugin', () => {
         // Should not replace versions of @babel/test
         const babelResult = await plugin.filter_metadata(babelTestManifest);
         expect(getVersionKeys(babelResult)).toEqual(['1.0.0', '1.5.0', '3.0.0']);
+        expect(babelResult.versions['1.0.0']._id).toBe('@babel/test@1.0.0');
+        expect(babelResult.versions['1.5.0']._id).toBe('@babel/test@1.5.0');
+        expect(babelResult.versions['3.0.0']._id).toBe('@babel/test@3.0.0');
         expect(getLatest(babelResult)).toBe('3.0.0');
 
         // Should replace version of @types/node to 1.0.0
@@ -638,7 +666,7 @@ describe('PackageFilterPlugin', () => {
         };
         const plugin = new PackageFilterPlugin(config, pluginOptions);
 
-        // Should only replace version 2.0.0 of @babel/test
+        // Should only replace version 1.5.0 of @babel/test
         const babelResult = await plugin.filter_metadata(babelTestManifest);
         expect(getVersionKeys(babelResult)).toEqual(['1.0.0', '1.5.0', '3.0.0']);
         expect(babelResult.versions['1.5.0']._id).toBe('@babel/test@1.0.0');
