@@ -128,6 +128,9 @@ importers:
       '@verdaccio/eslint-config':
         specifier: 13.0.0
         version: 13.0.0(@typescript-eslint/utils@8.57.0(eslint@10.0.3)(typescript@5.9.3))(@vitest/eslint-plugin@1.6.9(eslint@10.0.3)(typescript@5.9.3)(vitest@4.1.0(@types/node@20.19.33)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@20.19.33)(typescript@5.9.3))(vite@8.0.0(@types/node@20.19.33)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1))))(eslint-import-resolver-node@0.3.9)(eslint-plugin-cypress@6.1.0(eslint@10.0.3))(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.57.0(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3))(eslint-plugin-jest@29.15.0(@typescript-eslint/eslint-plugin@8.57.0(@typescript-eslint/parser@8.57.0(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3)(typescript@5.9.3))(eslint-plugin-react-hooks@7.0.1(eslint@10.0.3))(eslint-plugin-react@7.37.5(eslint@10.0.3))(eslint-plugin-verdaccio@10.1.0(eslint@10.0.3))(eslint@10.0.3)(typescript@5.9.3)
+      '@verdaccio/package-filter':
+        specifier: workspace:*
+        version: link:packages/plugins/package-filter
       '@verdaccio/types':
         specifier: workspace:*
         version: link:packages/core/types
@@ -865,6 +868,34 @@ importers:
       vitest:
         specifier: 4.1.0
         version: 4.1.0(@types/node@24.10.13)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.10.13)(typescript@5.9.3))(vite@8.0.0(@types/node@24.10.13)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1))
+
+  packages/plugins/package-filter:
+    dependencies:
+      '@verdaccio/core':
+        specifier: workspace:9.0.0-next-9.5
+        version: link:../../core/core
+      debug:
+        specifier: 4.4.3
+        version: 4.4.3(supports-color@5.5.0)
+      semver:
+        specifier: 7.7.4
+        version: 7.7.4
+    devDependencies:
+      '@types/debug':
+        specifier: 4.1.12
+        version: 4.1.12
+      '@verdaccio/config':
+        specifier: workspace:9.0.0-next-9.5
+        version: link:../../config
+      '@verdaccio/logger':
+        specifier: workspace:9.0.0-next-9.5
+        version: link:../../logger
+      '@verdaccio/plugin-verifier':
+        specifier: workspace:1.0.0-next-9.1
+        version: link:../../tools/plugin-verifier
+      '@verdaccio/types':
+        specifier: workspace:14.0.0-next-9.2
+        version: link:../../core/types
 
   packages/plugins/ui-theme:
     devDependencies:

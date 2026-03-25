@@ -27,7 +27,7 @@ export const NODE_MANAGER = {
   pnpm: 'pnpm',
 };
 
-const renderNpmTab = (scope: string | undefined, registryUrl: string): JSX.Element => {
+const renderNpmTab = (scope: string | undefined, registryUrl: string): React.JSX.Element => {
   return (
     <Box display="flex" flexDirection="column">
       <CopyClipboard
@@ -43,7 +43,7 @@ const renderNpmTab = (scope: string | undefined, registryUrl: string): JSX.Eleme
   );
 };
 
-const renderPnpmTab = (scope: string | undefined, registryUrl: string): JSX.Element => {
+const renderPnpmTab = (scope: string | undefined, registryUrl: string): React.JSX.Element => {
   return (
     <Box display="flex" flexDirection="column">
       <CopyClipboard
@@ -62,7 +62,7 @@ const renderPnpmTab = (scope: string | undefined, registryUrl: string): JSX.Elem
   );
 };
 
-const renderYarnTab = (scope: string | undefined, registryUrl: string): JSX.Element => {
+const renderYarnTab = (scope: string | undefined, registryUrl: string): React.JSX.Element => {
   return (
     <Box display="flex" flexDirection="column">
       <CopyClipboard
@@ -73,7 +73,7 @@ const renderYarnTab = (scope: string | undefined, registryUrl: string): JSX.Elem
   );
 };
 
-const renderYarnBerryTab = (scope: string | undefined, registryUrl: string): JSX.Element => {
+const renderYarnBerryTab = (scope: string | undefined, registryUrl: string): React.JSX.Element => {
   return (
     <Box display="flex" flexDirection="column">
       <CopyClipboard dataTestId="copy" text={getCLISBerryYamlRegistry(scope, registryUrl)} />
