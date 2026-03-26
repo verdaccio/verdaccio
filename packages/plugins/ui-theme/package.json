@@ -24,7 +24,7 @@
     "@verdaccio/types": "workspace:14.0.0-next-9.2",
     "@verdaccio/ui-components": "workspace:5.0.0-next-9.4",
     "@verdaccio/ui-i18n": "workspace:10.0.0-next-9.2",
-    "@vitejs/plugin-react": "6.0.0",
+    "@vitejs/plugin-react": "6.0.1",
     "country-flag-icons": "1.6.15",
     "dayjs": "1.11.19",
     "eslint-plugin-verdaccio": "10.0.0",

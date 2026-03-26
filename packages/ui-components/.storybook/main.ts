@@ -29,7 +29,7 @@ const config: StorybookConfig = {
     config.plugins = (config.plugins ?? []).filter(
       (p) => p && 'name' in p && !String((p as { name: string }).name).startsWith('vite:react')
     );
-    config.plugins.push(react({ babel: { plugins: ['@emotion'] } }));
+    config.plugins.push(react());
 
     return config;
   },
