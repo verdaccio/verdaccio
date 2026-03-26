@@ -1,5 +1,5 @@
 {
-  "extends": ["config:base", "helpers:pinGitHubActionDigests"],
+  "extends": ["config:base"],
   "prConcurrentLimit": 2,
   "minimumReleaseAge": "20 days",
   "internalChecksFilter": "strict",
@@ -12,11 +12,7 @@
     "docker/setup-buildx-action",
     "docker/login-action",
     "docker/build-push-action",
-    "crazy-max/ghaction-docker-meta",
-    "pnpm",
-    "yarn",
-    "npm",
-    "@yarnpkg/cli-dist"
+    "crazy-max/ghaction-docker-meta"
   ],
   "baseBranches": ["master", "8.x", "6.x", "7.x"],
   "semanticCommitType": "fix",
@@ -54,14 +50,11 @@
       "enabled": false
     },
     {
-      "packageNames": ["actions/*", "github/codeql-action/*"],
+      "matchManagers": ["github-actions"],
+      "pinDigests": false,
       "groupName": "all actions",
       "groupSlug": "github-actions",
       "schedule": ["every 6 month"]
-    },
-    {
-      "packageNames": ["aws-sdk"],
-      "allowedVersions": "2.607.0"
     },
     {
       "description": "Latest ui-theme version available for 6.x branch",
@@ -80,18 +73,6 @@
     {
       "packageNames": ["get-port"],
       "allowedVersions": "^5.1.1"
-    },
-    {
-      "packageNames": ["@google-cloud/datastore"],
-      "allowedVersions": "4.5.0"
-    },
-    {
-      "packageNames": ["@google-cloud/storage"],
-      "allowedVersions": "3.5.0"
-    },
-    {
-      "packageNames": ["fast-crc32c"],
-      "allowedVersions": "1.0.7"
     },
     {
       "packageNames": ["lowdb"],
