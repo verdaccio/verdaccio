@@ -8,7 +8,7 @@ import { type RequestOptions, getPublicUrl, isURLhasValidProtocol } from '@verda
 
 import { hasLogin, validatePrimaryColor } from './web-utils';
 
-const DEFAULT_LANGUAGE = 'es-US';
+const DEFAULT_LANGUAGE = 'en-US';
 
 function resolveLogo(
   logo: string | undefined,
