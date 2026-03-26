@@ -4,10 +4,11 @@ import { vi } from 'vitest';
 import { act, renderWith, screen } from '../utils/test-react-testing-library';
 
 vi.mock('@verdaccio/ui-components', async (importOriginal) => {
-  const mod = await importOriginal<typeof import('@verdaccio/ui-components')>();
+  const mod = await importOriginal();
   return {
     ...mod,
     Header: () => <div data-testid="header">Header</div>,
+    Footer: () => <div data-testid="footer">Footer</div>,
     SearchProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>,
   };
 });
@@ -17,7 +18,7 @@ vi.mock('./AppRoute', () => ({
 }));
 
 vi.mock('react-router', async (importOriginal) => {
-  const mod = await importOriginal<typeof import('react-router')>();
+  const mod = await importOriginal();
   return {
     ...mod,
     BrowserRouter: ({ children }: { children: React.ReactNode }) => <>{children}</>,
