@@ -98,7 +98,8 @@ export default defineConfig(({ command }) => ({
     outDir: 'static',
     emptyOutDir: true,
     assetsDir: '',
-    sourcemap: 'inline',
+    sourcemap: false,
+    minify: true,
     rolldownOptions: {
       input: { main: path.resolve(__dirname, './src/index.tsx') },
       output: {
