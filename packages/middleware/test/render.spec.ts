@@ -66,7 +66,7 @@ describe('test web server', () => {
             pkgManagers: ['pnpm', 'yarn'],
             title: 'verdaccio web',
             scope: '@scope',
-            language: 'es-US',
+            language: 'en-US',
           })
         );
       });
