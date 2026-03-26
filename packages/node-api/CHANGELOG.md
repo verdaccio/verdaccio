@@ -1,5 +1,15 @@
 # @verdaccio/node-api
 
+## 9.0.0-next-9.6
+
+### Patch Changes
+
+- Updated dependencies [d2cb717]
+- Updated dependencies [1905990]
+  - @verdaccio/server@9.0.0-next-9.6
+  - @verdaccio/config@9.0.0-next-9.6
+  - @verdaccio/logger@9.0.0-next-9.6
+
 ## 9.0.0-next-9.5
 
 ### Patch Changes

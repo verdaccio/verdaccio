@@ -1,5 +1,16 @@
 # Change Log
 
+## 14.0.0-next-9.30
+
+### Patch Changes
+
+- 8fb8763: - Add @verdaccio/package-filter plugin.
+  - Fix filter plugin invocations in Storage.
+    - Fix local manifest not filtered when no uplinks configured (e.g. they were removed at some point).
+    - Fix only one filter plugin is applied (last).
+- Updated dependencies [1905990]
+  - @verdaccio/core@9.0.0-next-9.6
+
 ## 13.0.0-next-8.28
 
 ### Patch Changes

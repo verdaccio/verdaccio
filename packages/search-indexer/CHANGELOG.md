@@ -1,5 +1,11 @@
 # @verdaccio/search-indexer
 
+## 9.0.0-next-9.3
+
+### Patch Changes
+
+- 360541c: chore: fix vite config for search-indexer
+
 ## 9.0.0-next-9.2
 
 ### Patch Changes

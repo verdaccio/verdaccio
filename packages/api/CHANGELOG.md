@@ -1,5 +1,19 @@
 # @verdaccio/api
 
+## 9.0.0-next-9.6
+
+### Patch Changes
+
+- 1905990: chore(middleware): move ui-options to external script
+- Updated dependencies [8fb8763]
+- Updated dependencies [1905990]
+  - @verdaccio/store@9.0.0-next-9.6
+  - @verdaccio/middleware@9.0.0-next-9.6
+  - @verdaccio/core@9.0.0-next-9.6
+  - @verdaccio/auth@9.0.0-next-9.6
+  - @verdaccio/config@9.0.0-next-9.6
+  - @verdaccio/logger@9.0.0-next-9.6
+
 ## 9.0.0-next-9.5
 
 ### Patch Changes

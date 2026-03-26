@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 9.0.0-next-9.6
+
+### Patch Changes
+
+- 1905990: chore(middleware): move ui-options to external script
+
 ## 9.0.0-next-9.5
 
 ### Minor Changes
