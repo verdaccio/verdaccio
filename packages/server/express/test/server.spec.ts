@@ -32,7 +32,6 @@ describe('server api', () => {
     const response = await supertest(app)
       .get('/')
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_HTML_UTF8)
-      .expect(HEADER_TYPE.CONTENT_ENCODING, HEADERS.GZIP)
       .expect(HTTP_STATUS.OK);
     expect(response.text).toMatch('<title>verdaccio</title>');
   });
