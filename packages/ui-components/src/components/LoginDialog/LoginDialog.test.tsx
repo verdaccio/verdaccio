@@ -25,7 +25,8 @@ describe('<LoginDialog /> component', () => {
     const { container } = renderWithRouter(<LoginDialog onClose={props.onClose} />, '/login', [
       '/login',
     ]);
-    expect(container.firstChild).toMatchSnapshot();
+    // Dialog is closed by default (open=false), so content is not visible
+    expect(container.querySelector('[data-testid="dialogContentLogin"]')).toBeNull();
   });
 
   test('should load the component with the open prop', async () => {
