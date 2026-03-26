@@ -1450,6 +1450,9 @@ importers:
       '@verdaccio/node-api':
         specifier: workspace:9.0.0-next-9.6
         version: link:../node-api
+      '@verdaccio/package-filter':
+        specifier: workspace:14.0.0-next-9.30
+        version: link:../plugins/package-filter
       '@verdaccio/ui-theme':
         specifier: workspace:9.0.0-next-9.6
         version: link:../plugins/ui-theme
