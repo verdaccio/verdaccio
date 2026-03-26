@@ -1,4 +1,4 @@
-import * as ReactJsonViewModule from '@microlink/react-json-view';
+import ReactJsonView from '@microlink/react-json-view';
 import CloseIcon from '@mui/icons-material/Close';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
@@ -9,10 +9,6 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { Theme } from '../../Theme';
-
-const ReactJson = ((ReactJsonViewModule as any).default ??
-  (ReactJsonViewModule as any).reactJsonView ??
-  ReactJsonViewModule) as React.ComponentType<any>;
 
 export interface ViewerTitleProps {
   id: string;
@@ -60,7 +56,7 @@ const RawViewer: React.FC<Props> = ({ isOpen = false, onClose, packageMeta }) =>
         {t('action-bar-action.raw-title', { package: packageMeta.latest.name })}
       </ViewerTitle>
       <DialogContent>
-        <ReactJson
+        <ReactJsonView
           collapseStringsAfterLength={200}
           collapsed={2}
           enableClipboard={true}
