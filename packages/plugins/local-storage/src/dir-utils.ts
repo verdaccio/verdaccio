@@ -1,6 +1,6 @@
 import buildDebug from 'debug';
-import globby from 'globby';
 import { join } from 'node:path';
+import { glob } from 'tinyglobby';
 
 import type { searchUtils } from '@verdaccio/core';
 import { validationUtils } from '@verdaccio/core';
@@ -13,7 +13,7 @@ const debug = buildDebug('verdaccio:plugin:local-storage:utils');
  * @return a promise that resolves to an array of absolute paths
  */
 export async function getFolders(storagePath: string, pattern = '*'): Promise<string[]> {
-  const files = await globby(pattern, {
+  const files = await glob(pattern, {
     // @ts-ignore
     cwd: storagePath,
     expandDirectories: true,
@@ -24,7 +24,6 @@ export async function getFolders(storagePath: string, pattern = '*'): Promise<st
     dot: false,
     followSymbolicLinks: true,
     caseSensitiveMatch: true,
-    unique: true,
     // FIXME: add here list of forbiden patterns
     // don't include scoped folders.
     // ignore: [`@*`],

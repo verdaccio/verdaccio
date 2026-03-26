@@ -815,9 +815,6 @@ importers:
       debug:
         specifier: 4.4.3
         version: 4.4.3(supports-color@5.5.0)
-      globby:
-        specifier: 11.1.0
-        version: 11.1.0
       lodash:
         specifier: 4.17.23
         version: 4.17.23
@@ -827,6 +824,9 @@ importers:
       sanitize-filename:
         specifier: 1.6.3
         version: 1.6.3
+      tinyglobby:
+        specifier: 0.2.15
+        version: 0.2.15
     devDependencies:
       '@verdaccio/logger':
         specifier: workspace:9.0.0-next-9.6
