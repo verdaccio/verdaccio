@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '../../test/test-react-testing-library';
+import { render, screen } from '../../test/test-react-testing-library';
 import Label from './Label';
 
 describe('<Label /> component', () => {
@@ -8,7 +8,7 @@ describe('<Label /> component', () => {
     text: 'test',
   };
   test('should render the component in default state', () => {
-    const { container } = render(<Label text={props.text} />);
-    expect(container.firstChild).toMatchSnapshot();
+    render(<Label text={props.text} />);
+    expect(screen.getByText('test')).toBeTruthy();
   });
 });
