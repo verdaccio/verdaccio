@@ -1,19 +1,11 @@
 {
   "extends": ["config:base"],
   "prConcurrentLimit": 2,
-  "minimumReleaseAge": "20 days",
+  "minimumReleaseAge": "30 days",
   "internalChecksFilter": "strict",
   "ignorePaths": ["docker-examples/**"],
   "schedule": ["on the 1,11,21 day of the month"],
-  "ignoreDeps": [
-    "customprefix-auth",
-    "eslint-plugin-verdaccio",
-    "@verdaccio/test-helper",
-    "docker/setup-buildx-action",
-    "docker/login-action",
-    "docker/build-push-action",
-    "crazy-max/ghaction-docker-meta"
-  ],
+  "ignoreDeps": ["customprefix-auth", "eslint-plugin-verdaccio"],
   "baseBranches": ["master", "8.x", "6.x", "7.x"],
   "semanticCommitType": "fix",
   "major": true,
@@ -34,7 +26,7 @@
     {
       "description": "Only allow @verdaccio/* and verdaccio-* versions 9+ on 7.x branch",
       "matchBaseBranches": ["7.x"],
-      "matchPackagePatterns": ["@verdaccio/*", "verdaccio-*"],
+      "matchPackageNames": ["@verdaccio/*", "verdaccio-*"],
       "allowedVersions": ">= 9.0.0"
     },
     {
@@ -54,33 +46,13 @@
       "pinDigests": false,
       "groupName": "all actions",
       "groupSlug": "github-actions",
-      "schedule": ["every 6 month"]
+      "schedule": ["every 3 month"]
     },
     {
       "description": "Latest ui-theme version available for 6.x branch",
       "matchPackageNames": ["@verdaccio/ui-theme"],
       "matchBaseBranches": ["6.x"],
       "allowedVersions": "8.0.0-next-8.30"
-    },
-    {
-      "packageNames": ["got"],
-      "allowedVersions": "^11.8.5"
-    },
-    {
-      "packageNames": ["globby"],
-      "allowedVersions": "^12.2.0"
-    },
-    {
-      "packageNames": ["get-port"],
-      "allowedVersions": "^5.1.1"
-    },
-    {
-      "packageNames": ["lowdb"],
-      "allowedVersions": "1.0.0"
-    },
-    {
-      "packageNames": ["node-fetch"],
-      "allowedVersions": "< 3.0.0"
     },
     {
       "matchDatasources": ["docker"],
@@ -108,31 +80,7 @@
       "allowedVersions": "/^24/"
     },
     {
-      "matchDatasources": ["crazy-max/ghaction-docker-meta"],
-      "allowedVersions": "1.12.0"
-    },
-    {
-      "matchDatasources": ["react-router"],
-      "allowedVersions": "5.2.1"
-    },
-    {
-      "matchDatasources": ["react-router-dom"],
-      "allowedVersions": "5.2.1"
-    },
-    {
-      "matchDatasources": ["actions/github-script"],
-      "allowedVersions": "v3"
-    },
-    {
-      "matchDatasources": ["lint-staged"],
-      "allowedVersions": "11.2.6"
-    },
-    {
-      "matchDatasources": ["get-port"],
-      "allowedVersions": "5.1.1"
-    },
-    {
-      "matchPackagePatterns": [
+      "matchPackageNames": [
         "@verdaccio/*",
         "verdaccio-audit",
         "verdaccio-htpasswd",
@@ -143,53 +91,46 @@
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "core verdaccio dependencies",
       "groupSlug": "all-verdaccio",
-      "baseBranchList": ["6.x", "7.x"]
+      "matchBaseBranches": ["6.x", "7.x"]
     },
     {
-      "matchPackagePatterns": [
+      "matchPackageNames": [
         "@trivago/*",
         "prettier",
         "eslint-*",
         "eslint",
         "stylelint",
         "@typescript-eslint/*",
-        "@vitest/eslint-plugin",
+        "vitest",
+        "@vitest/*",
         "eslint-plugin-react-x"
       ],
       "matchUpdateTypes": ["minor", "patch", "major"],
       "minimumReleaseAge": "60 days",
       "groupName": "all linting dependencies",
       "groupSlug": "all-linting",
-      "baseBranchList": ["master", "6.x"]
+      "matchBaseBranches": ["master", "7.x"]
     },
     {
-      "matchPackagePatterns": [
-        "vite",
-        "vite-*",
-        "@vitejs/*",
-        "@storybook/*",
-        "storybook",
-        "@rollup/*",
-        "rollup"
-      ],
+      "matchPackageNames": ["vite", "vite-*", "@vitejs/*", "@storybook/*", "storybook"],
       "matchUpdateTypes": ["minor", "patch"],
       "groupName": "all build dependencies",
       "groupSlug": "all-build",
-      "baseBranchList": ["master"]
+      "matchBaseBranches": ["master"]
     },
     {
-      "matchPackagePatterns": ["supertest", "nock"],
+      "matchPackageNames": ["supertest", "nock"],
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "all test dependencies",
       "groupSlug": "all-test",
-      "baseBranchList": ["master", "6.x", "7.x"]
+      "matchBaseBranches": ["master", "7.x"]
     },
     {
-      "matchPackagePatterns": ["@type/*", "typescript"],
+      "matchPackageNames": ["@types/*", "typescript"],
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "typescript dependencies",
       "groupSlug": "all-types",
-      "baseBranchList": ["master", "6.x", "7.x"]
+      "matchBaseBranches": ["master", "7.x"]
     }
   ],
   "pinVersions": false
