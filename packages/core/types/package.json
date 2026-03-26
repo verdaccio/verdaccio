@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@types/jsonwebtoken": "9.0.7",
-    "typedoc": "0.28.14"
+    "typedoc": "0.28.17"
   },
   "typedoc": {
     "entryPoint": "./src/types.ts",

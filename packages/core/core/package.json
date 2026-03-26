@@ -43,7 +43,7 @@
   "devDependencies": {
     "@verdaccio/types": "workspace:14.0.0-next-9.3",
     "express": "5.2.1",
-    "typedoc": "0.28.14",
+    "typedoc": "0.28.17",
     "vitest": "4.1.0"
   },
   "scripts": {
