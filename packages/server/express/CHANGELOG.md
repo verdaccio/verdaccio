@@ -1,5 +1,24 @@
 # @verdaccio/server
 
+## 9.0.0-next-9.6
+
+### Patch Changes
+
+- d2cb717: fix(express): middleware registration order
+- 1905990: chore(middleware): move ui-options to external script
+- Updated dependencies [8fb8763]
+- Updated dependencies [1905990]
+  - @verdaccio/store@9.0.0-next-9.6
+  - @verdaccio/middleware@9.0.0-next-9.6
+  - @verdaccio/core@9.0.0-next-9.6
+  - @verdaccio/api@9.0.0-next-9.6
+  - @verdaccio/web@9.0.0-next-9.6
+  - @verdaccio/auth@9.0.0-next-9.6
+  - @verdaccio/config@9.0.0-next-9.6
+  - @verdaccio/logger@9.0.0-next-9.6
+  - verdaccio-audit@14.0.0-next-9.6
+  - @verdaccio/loaders@9.0.0-next-9.6
+
 ## 9.0.0-next-9.5
 
 ### Patch Changes

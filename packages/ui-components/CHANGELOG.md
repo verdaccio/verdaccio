@@ -1,5 +1,14 @@
 # @verdaccio/ui-components
 
+## 5.0.0-next-9.5
+
+### Patch Changes
+
+- aeb0ae6: chore(ui-components): simplify test server setup
+- 80ddcda: chore(ui): remove babel dependency
+- b4cac24: chore(ui-components): fix flaky tests, msw
+- 9d5360b: chore: vite replace rollupOptions with rolldownOptions
+
 ## 5.0.0-next-9.4
 
 ### Patch Changes
