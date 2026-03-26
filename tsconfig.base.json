@@ -69,9 +69,6 @@
       "path": "packages/ui-components"
     },
     {
-      "path": "packages/utils"
-    },
-    {
       "path": "packages/verdaccio"
     },
     {
