@@ -1,0 +1,73 @@
+{
+  "name": "@verdaccio/package-filter",
+  "version": "14.0.0-next-9.30",
+  "description": "Package filter plugin for Verdaccio that allows blocking packages by name, scope, version or date",
+  "keywords": [
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "enterprise",
+    "modules",
+    "proxy",
+    "server",
+    "verdaccio",
+    "plugin",
+    "filter"
+  ],
+  "author": "Vitalii Sugrobov <vsugrob@hotmail.com>",
+  "contributors": [
+    "Ansile <ansilet@yandex.ru> (original project)"
+  ],
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio",
+    "directory": "packages/plugins/package-filter"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
+  },
+  "main": "build/index.js",
+  "types": "build/src/index.d.ts",
+  "engines": {
+    "node": ">=24"
+  },
+  "dependencies": {
+    "@verdaccio/core": "workspace:9.0.0-next-9.6",
+    "debug": "4.4.3",
+    "semver": "7.7.4"
+  },
+  "devDependencies": {
+    "@types/debug": "4.1.12",
+    "@verdaccio/config": "workspace:9.0.0-next-9.6",
+    "@verdaccio/logger": "workspace:9.0.0-next-9.6",
+    "@verdaccio/plugin-verifier": "workspace:1.0.0-next-9.2",
+    "@verdaccio/types": "workspace:14.0.0-next-9.3"
+  },
+  "scripts": {
+    "clean": "rimraf ./build",
+    "build": "vite build",
+    "watch": "vite build --watch",
+    "test": "vitest run"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  },
+  "module": "./build/index.mjs",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./build/index.d.ts",
+        "default": "./build/index.mjs"
+      },
+      "require": {
+        "types": "./build/index.d.ts",
+        "default": "./build/index.js"
+      }
+    },
+    "./build/*": "./build/*"
+  }
+}

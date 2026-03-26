@@ -42,7 +42,7 @@ function addUserAuthApi(auth: Auth, config: Config, storage: Storage): Router {
           } else {
             req.remote_user = user as RemoteUser;
             const jWTSignOptions: JWTSignOptions = config.security.web.sign;
-            res.set(HEADERS.CACHE_CONTROL, 'no-cache, no-store');
+            res.set(HEADERS.CACHE_CONTROL, HEADERS.NO_CACHE);
             next({
               token: await auth.jwtEncrypt(user as RemoteUser, jWTSignOptions),
               username: req.remote_user.name,

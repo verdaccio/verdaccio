@@ -60,7 +60,7 @@ describe('test web server', () => {
       )
       .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-      .expect(HEADERS.CACHE_CONTROL, 'no-cache, no-store')
+      .expect(HEADERS.CACHE_CONTROL, HEADERS.NO_CACHE)
       .expect(HTTP_STATUS.OK)
       .then((res) => {
         expect(res.body.error).toBeUndefined();

@@ -1,5 +1,11 @@
 # Change Log
 
+## 14.0.0-next-9.3
+
+### Patch Changes
+
+- d6debee: chore(types): replace self-reference, remove unused type
+
 ## 14.0.0-next-9.2
 
 ### Patch Changes

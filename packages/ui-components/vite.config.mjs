@@ -30,17 +30,7 @@ const externalDeps = new Set([
 ]);
 
 export default defineConfig({
-  plugins: [
-    svgInlinePlugin(),
-    // @vitejs/plugin-react@5 uses Babel, so @emotion/babel-plugin is applied here.
-    // This ensures __emotion_real is set on styled components, which is required
-    // for Emotion component selectors (e.g. `${Flags}` inside another styled component).
-    react({
-      babel: {
-        plugins: ['@emotion/babel-plugin'],
-      },
-    }),
-  ],
+  plugins: [svgInlinePlugin(), react()],
 
   build: {
     outDir: 'build',

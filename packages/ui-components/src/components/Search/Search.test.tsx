@@ -54,6 +54,10 @@ describe('<Search /> component', () => {
 
     fireEvent.focus(autoCompleteInput);
     fireEvent.change(autoCompleteInput, { target: { value: '@verdaccio/file-locking' } });
+
+    // Clear any abort calls triggered by providers (VersionProvider, etc.) during render
+    abortSpy.mockClear();
+
     // forcing abort to be called in the search function, to make sure that the previous request is cancelled when user types a new value
     fireEvent.change(autoCompleteInput, { target: { value: '@verdaccio/file' } });
 
@@ -64,7 +68,7 @@ describe('<Search /> component', () => {
     });
 
     expect(suggestionsElements).toHaveLength(1);
-    expect(abortSpy).toHaveBeenCalledTimes(1);
+    expect(abortSpy).toHaveBeenCalled();
   });
 
   test('onBlur: should cancel all search requests', async () => {

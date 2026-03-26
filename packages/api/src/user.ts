@@ -105,7 +105,7 @@ export default function (route: Router, auth: Auth, config: Config, logger: Logg
             }
 
             res.status(HTTP_STATUS.CREATED);
-            res.set(HEADERS.CACHE_CONTROL, 'no-cache, no-store');
+            res.set(HEADERS.CACHE_CONTROL, HEADERS.NO_CACHE);
 
             const message = authUtils.getAuthenticatedMessage(req.remote_user.name);
             debug('login: created user message %o', message);
@@ -154,7 +154,7 @@ export default function (route: Router, auth: Auth, config: Config, logger: Logg
 
           req.remote_user = user;
           res.status(HTTP_STATUS.CREATED);
-          res.set(HEADERS.CACHE_CONTROL, 'no-cache, no-store');
+          res.set(HEADERS.CACHE_CONTROL, HEADERS.NO_CACHE);
           debug('adduser: user has been created');
           return next({
             ok: `user '${req.body.name}' created`,

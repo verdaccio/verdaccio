@@ -3,11 +3,13 @@ import express from 'express';
 import fs from 'node:fs';
 import path from 'node:path';
 
+import { HEADERS } from '@verdaccio/core';
 import { isURLhasValidProtocol } from '@verdaccio/url';
 
 import { setSecurityWebHeaders } from './security';
 import { sendFileCallback, sendFileSafe } from './utils/file-utils';
 import renderHTML from './utils/renderHTML';
+import { getUIOptions } from './utils/ui-options';
 import { WebUrlsNamespace } from './web-urls';
 
 const debug = buildDebug('verdaccio:web:render');
@@ -91,14 +93,25 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
     config.web.logoDark = logoDark;
   }
 
+  // Serve external script that loads UI options
+  router.get(WebUrlsNamespace.static + 'ui-options.js', function (req, res) {
+    const options = getUIOptions(config, req, res);
+    const script = `window.__VERDACCIO_BASENAME_UI_OPTIONS=${JSON.stringify(options)};`;
+    res.setHeader(HEADERS.CACHE_CONTROL, HEADERS.NO_CACHE);
+    res.setHeader(HEADERS.CONTENT_TYPE, HEADERS.JAVASCRIPT_CHARSET);
+    res.send(script);
+  });
+
   // Handle all web routes including security routes
   router.get(WebUrlsNamespace.web, function (req, res) {
-    renderHTML(config, manifest, manifestFiles, req, res);
+    const options = getUIOptions(config, req, res);
+    renderHTML(config, manifest, manifestFiles, options, res);
     debug('render html section');
   });
 
   router.get(WebUrlsNamespace.root, function (req, res) {
-    renderHTML(config, manifest, manifestFiles, req, res);
+    const options = getUIOptions(config, req, res);
+    renderHTML(config, manifest, manifestFiles, options, res);
     debug('render root');
   });
 

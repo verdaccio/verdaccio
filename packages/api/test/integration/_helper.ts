@@ -45,7 +45,7 @@ export function createUser(app: any, name: string, password: string): supertest.
       password: password,
     })
     .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-    .expect(HEADERS.CACHE_CONTROL, 'no-cache, no-store')
+    .expect(HEADERS.CACHE_CONTROL, HEADERS.NO_CACHE)
     .expect(HTTP_STATUS.CREATED);
 }
 

@@ -16,17 +16,13 @@ import {
   HEADER_TYPE,
   HTTP_STATUS,
   MAINTAINERS,
-  PLUGIN_CATEGORY,
-  PLUGIN_PREFIX,
   SUPPORT_ERRORS,
   USERS,
   cryptoUtils,
   errorUtils,
-  pluginUtils as pluginSanity,
   tarballUtils,
   validationUtils,
 } from '@verdaccio/core';
-import { asyncLoadPlugin } from '@verdaccio/loaders';
 import type {
   IProxy,
   ISyncUplinksOptions,
@@ -61,6 +57,7 @@ import type {
 
 import type { PublishOptions, UpdateManifestOptions } from '.';
 import { cleanUpReadme, isDeprecatedManifest, tagVersion, tagVersionNext } from '.';
+import { type Filters, applyManifestFilters, loadFilterPlugins } from './filter-pipeline';
 import { isExecutingStarCommand, isPublishablePackage } from './lib/star-utils';
 import {
   STORAGE,
@@ -82,7 +79,6 @@ import type { IGetPackageOptionsNext, OwnerManifestBody, StarManifestBody } from
 
 const debug = buildDebug('verdaccio:storage');
 
-export type Filters = pluginUtils.ManifestFilter<Config>[];
 export const noSuchFile = 'ENOENT';
 export const resourceNotAvailable = 'EAGAIN';
 export const PROTO_NAME = '__proto__';
@@ -257,6 +253,7 @@ class Storage {
     let cachedManifest: Manifest | null = null;
     try {
       cachedManifest = await this.getPackageLocalMetadata(name);
+      [cachedManifest] = await this.applyFilters(cachedManifest);
     } catch (err) {
       debug('error on get package local metadata %o', err);
     }
@@ -601,19 +598,18 @@ class Storage {
     for (const pkg of database) {
       debug('get local database %o', pkg);
       const manifest = await this.getPackageLocalMetadata(pkg);
-      const latest = manifest[DIST_TAGS].latest;
-      if (latest && manifest.versions[latest]) {
-        const version: Version = manifest.versions[latest];
-        const timeList = manifest.time as GenericBody;
+      const [filteredManifest] = await this.applyFilters(manifest);
+      const latest = filteredManifest[DIST_TAGS].latest;
+      if (latest && filteredManifest.versions[latest]) {
+        const version: Version = filteredManifest.versions[latest];
+        const timeList = filteredManifest.time as GenericBody;
         const time = timeList[latest];
         // @ts-ignore
         version.time = time;
 
         // Add for stars api
         // @ts-ignore
-        version.users = manifest.users;
-        // Remove readmes for packages list (which might exist with keep_readmes config)
-        version.readme = '';
+        version.users = filteredManifest.users;
 
         packages.push(version);
       } else {
@@ -670,18 +666,7 @@ class Storage {
       debug('storage has been already initialized');
     }
     if (!this.filters) {
-      this.filters = await asyncLoadPlugin<pluginUtils.ManifestFilter<unknown>>(
-        this.config.filters,
-        {
-          config: this.config,
-          logger: this.logger,
-        },
-        pluginSanity.filterSanityCheck,
-        false,
-        this.config.server?.pluginPrefix ?? PLUGIN_PREFIX,
-        PLUGIN_CATEGORY.FILTER
-      );
-      debug('filters available %o', this.filters.length);
+      this.filters = await loadFilterPlugins(this.config, this.logger);
     }
     return;
   }
@@ -740,8 +725,9 @@ class Storage {
       try {
         for (const searchItem of items) {
           const manifest = await this.getPackageLocalMetadata(searchItem.package.name);
-          if (_.isEmpty(manifest?.versions) === false) {
-            const searchPackage = mapManifestToSearchPackageBody(manifest, searchItem);
+          const [filteredManifest] = await this.applyFilters(manifest);
+          if (_.isEmpty(filteredManifest?.versions) === false) {
+            const searchPackage = mapManifestToSearchPackageBody(filteredManifest, searchItem);
             debug('search local stream found %o', searchPackage.name);
             const searchPackageItem: searchUtils.SearchPackageItem = {
               package: searchPackage,
@@ -1674,7 +1660,8 @@ class Storage {
       // if the remote manifest is empty, we return local data
     } else if (!remoteManifest && !_.isNull(data)) {
       // no data on uplinks
-      return [data as Manifest, upLinksErrors];
+      const [filteredData, filtersErrors] = await this.applyFilters(data);
+      return [filteredData, [...upLinksErrors, ...filtersErrors]];
     }
 
     // if we have local data, we try to update it with the upstream registry
@@ -1731,7 +1718,11 @@ class Storage {
     //  if no uplinks match we return the local manifest
     if (upLinks.length === 0) {
       debug('no uplinks found for %o, upstream update aborted', name);
-      return [localManifest, []];
+      if (_.isNil(localManifest)) {
+        return [null, []];
+      }
+
+      return await this.applyFilters(localManifest);
     }
 
     const uplinksErrors: any[] = [];
@@ -1764,14 +1755,11 @@ class Storage {
       const updatedCacheManifest = await this.updateVersionsNext(name, syncManifest);
       // plugin filter applied to the manifest
       const [filteredManifest, filtersErrors] = await this.applyFilters(updatedCacheManifest);
-      return [
-        { ...updatedCacheManifest, ...filteredManifest },
-        [...uplinksErrors, ...filtersErrors],
-      ];
+      return [filteredManifest, [...uplinksErrors, ...filtersErrors]];
     } else if (found && _.isNil(localManifest) === false) {
       // apply filter to local manifest (it is cached in unfiltered state)
       const [filteredManifest, filtersErrors] = await this.applyFilters(localManifest);
-      return [{ ...localManifest, ...filteredManifest }, [...uplinksErrors, ...filtersErrors]];
+      return [filteredManifest, [...uplinksErrors, ...filtersErrors]];
     } else {
       // if is not found, calculate the right error to return
       debug('uplinks sync failed with %o errors', uplinksErrors.length);
@@ -1862,24 +1850,7 @@ class Storage {
    * @returns
    */
   public async applyFilters(manifest: Manifest): Promise<[Manifest, any]> {
-    if (this.filters === null || this.filters.length === 0) {
-      return [manifest, []];
-    }
-
-    const filterPluginErrors: any[] = [];
-    let filteredManifest = { ...manifest };
-    for (const filter of this.filters) {
-      // These filters can assume it's save to modify packageJsonLocal
-      // and return it directly for
-      // performance (i.e. need not be pure)
-      try {
-        filteredManifest = await filter.filter_metadata(manifest);
-      } catch (err: any) {
-        this.logger.error({ err }, 'filter has failed: @{err.message}');
-        filterPluginErrors.push(err);
-      }
-    }
-    return [filteredManifest, filterPluginErrors];
+    return applyManifestFilters(manifest, this.filters ?? [], this.logger);
   }
 
   private _createNewPackage(name: string): Manifest {
