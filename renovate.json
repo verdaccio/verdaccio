@@ -55,7 +55,18 @@
       "allowedVersions": "8.0.0-next-8.30"
     },
     {
+      "description": "Group all Docker GitHub Actions",
+      "matchManagers": ["github-actions"],
+      "matchPackageNames": ["docker/*"],
+      "groupName": "docker actions",
+      "groupSlug": "docker-actions",
+      "pinDigests": false
+    },
+    {
+      "description": "Docker image updates",
       "matchDatasources": ["docker"],
+      "groupName": "all docker images",
+      "groupSlug": "docker-images",
       "labels": ["bot: docker-update"]
     },
     {
@@ -124,6 +135,68 @@
       "groupName": "all test dependencies",
       "groupSlug": "all-test",
       "matchBaseBranches": ["master", "7.x"]
+    },
+    {
+      "description": "Group all UI dependencies",
+      "matchPackageNames": [
+        "@emotion/*",
+        "@hookform/*",
+        "@microlink/*",
+        "@mui/*",
+        "country-flag-icons",
+        "dayjs",
+        "dompurify",
+        "highlight.js",
+        "i18next",
+        "js-base64",
+        "localstorage-memory",
+        "lodash",
+        "marked",
+        "marked-highlight",
+        "normalize.css",
+        "react",
+        "react-*",
+        "semver",
+        "swr",
+        "validator",
+        "yup"
+      ],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "ui dependencies",
+      "groupSlug": "all-ui",
+      "matchBaseBranches": ["master"],
+      "schedule": ["every 3 weeks"]
+    },
+    {
+      "description": "Group major UI dependency updates separately",
+      "matchPackageNames": [
+        "@emotion/*",
+        "@hookform/*",
+        "@microlink/*",
+        "@mui/*",
+        "country-flag-icons",
+        "dayjs",
+        "dompurify",
+        "highlight.js",
+        "i18next",
+        "js-base64",
+        "localstorage-memory",
+        "lodash",
+        "marked",
+        "marked-highlight",
+        "normalize.css",
+        "react",
+        "react-*",
+        "semver",
+        "swr",
+        "validator",
+        "yup"
+      ],
+      "matchUpdateTypes": ["major"],
+      "groupName": "ui dependencies (major)",
+      "groupSlug": "all-ui-major",
+      "matchBaseBranches": ["master"],
+      "schedule": ["every 2 months"]
     },
     {
       "matchPackageNames": ["@types/*", "typescript"],
