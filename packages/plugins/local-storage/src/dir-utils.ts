@@ -28,7 +28,12 @@ export async function getFolders(storagePath: string, pattern = '*'): Promise<st
     // don't include scoped folders.
     // ignore: [`@*`],
   });
-  return files;
+
+  // Remove trailing slashes to remain compatible with globby
+  const globFiles = files.map((file) =>
+    typeof file === 'string' && file.endsWith('/') ? file.replace(/\/+$/, '') : file
+  );
+  return globFiles;
 }
 
 /**
