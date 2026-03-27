@@ -307,7 +307,7 @@
       "groupName": "ui dependencies",
       "groupSlug": "all-ui",
       "matchBaseBranches": ["master"],
-      "schedule": ["every 3 weeks"]
+      "schedule": ["every 1 month"]
     },
     {
       "description": "Group major UI dependency updates",
