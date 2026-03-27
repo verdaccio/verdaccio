@@ -44,7 +44,7 @@
     "@verdaccio/web": "workspace:9.0.0-next-9.6",
     "verdaccio-audit": "workspace:14.0.0-next-9.6",
     "compression": "1.8.1",
-    "cors": "2.8.5",
+    "cors": "2.8.6",
     "debug": "4.4.3",
     "express": "5.2.1",
     "lodash": "4.17.23"
