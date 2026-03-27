@@ -13,7 +13,6 @@
 '@verdaccio/signature': patch
 '@verdaccio/store': patch
 '@verdaccio/ui-components': patch
-'@verdaccio/utils': patch
 'verdaccio': patch
 '@verdaccio/web': patch
 ---

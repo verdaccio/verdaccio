@@ -32,7 +32,6 @@
     "@verdaccio/test-helper": "4.0.0",
     "customprefix-auth": "3.0.0",
     "@verdaccio/ui-components": "4.0.0",
-    "@verdaccio/utils": "8.0.0",
     "verdaccio": "8.0.0",
     "@verdaccio/web": "8.0.0",
     "@verdaccio/local-publish": "1.0.0",

@@ -812,9 +812,6 @@ importers:
       '@verdaccio/file-locking':
         specifier: workspace:14.0.0-next-9.2
         version: link:../../core/file-locking
-      '@verdaccio/utils':
-        specifier: workspace:9.0.0-next-9.6
-        version: link:../../utils
       debug:
         specifier: 4.4.3
         version: 4.4.3(supports-color@5.5.0)
@@ -1420,25 +1417,6 @@ importers:
         specifier: 3.6.20
         version: 3.6.20
 
-  packages/utils:
-    dependencies:
-      '@verdaccio/core':
-        specifier: workspace:9.0.0-next-9.6
-        version: link:../core/core
-      lodash:
-        specifier: 4.17.23
-        version: 4.17.23
-      minimatch:
-        specifier: 7.4.9
-        version: 7.4.9
-    devDependencies:
-      '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.3
-        version: link:../core/types
-      vitest:
-        specifier: 4.1.0
-        version: 4.1.0(@types/node@24.10.13)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.10.13)(typescript@5.9.3))(vite@8.0.0(@types/node@24.10.13)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1))
-
   packages/verdaccio:
     dependencies:
       '@verdaccio/cli':
@@ -1453,6 +1431,9 @@ importers:
       '@verdaccio/node-api':
         specifier: workspace:9.0.0-next-9.6
         version: link:../node-api
+      '@verdaccio/package-filter':
+        specifier: workspace:14.0.0-next-9.30
+        version: link:../plugins/package-filter
       '@verdaccio/ui-theme':
         specifier: workspace:9.0.0-next-9.6
         version: link:../plugins/ui-theme
