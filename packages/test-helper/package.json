@@ -17,7 +17,7 @@
     "body-parser": "1.20.4",
     "debug": "4.4.3",
     "express": "4.22.1",
-    "fs-extra": "11.2.0",
+    "fs-extra": "11.3.4",
     "supertest": "7.1.4"
   },
   "scripts": {
