@@ -45,7 +45,7 @@
     "@verdaccio/test-helper": "workspace:5.0.0-next-9.6",
     "@verdaccio/types": "workspace:14.0.0-next-9.3",
     "jsdom": "28.1.0",
-    "supertest": "7.1.4",
+    "supertest": "7.2.2",
     "vitest": "4.1.0"
   },
   "scripts": {

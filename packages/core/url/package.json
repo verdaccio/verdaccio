@@ -38,7 +38,7 @@
     "validator": "13.15.26"
   },
   "devDependencies": {
-    "node-mocks-http": "1.14.1",
+    "node-mocks-http": "1.17.2",
     "vitest": "4.1.0"
   },
   "scripts": {

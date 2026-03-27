@@ -127,7 +127,7 @@ importers:
         version: 2.3.0
       '@verdaccio/eslint-config':
         specifier: 13.0.0
-        version: 13.0.0(@typescript-eslint/utils@8.57.0(eslint@10.0.3)(typescript@5.9.3))(@vitest/eslint-plugin@1.6.9(eslint@10.0.3)(typescript@5.9.3)(vitest@4.1.0(@types/node@20.19.33)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@20.19.33)(typescript@5.9.3))(vite@8.0.0(@types/node@20.19.33)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1))))(eslint-import-resolver-node@0.3.9)(eslint-plugin-cypress@6.1.0(eslint@10.0.3))(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.57.0(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3))(eslint-plugin-jest@29.15.0(@typescript-eslint/eslint-plugin@8.57.0(@typescript-eslint/parser@8.57.0(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3)(typescript@5.9.3))(eslint-plugin-react-hooks@7.0.1(eslint@10.0.3))(eslint-plugin-react@7.37.5(eslint@10.0.3))(eslint-plugin-verdaccio@10.1.0(eslint@10.0.3))(eslint@10.0.3)(typescript@5.9.3)
+        version: 13.0.0(@typescript-eslint/utils@8.57.0(eslint@10.0.3)(typescript@5.9.3))(@vitest/eslint-plugin@1.6.11(eslint@10.0.3)(typescript@5.9.3)(vitest@4.1.0(@types/node@20.19.33)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@20.19.33)(typescript@5.9.3))(vite@8.0.0(@types/node@20.19.33)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1))))(eslint-import-resolver-node@0.3.9)(eslint-plugin-cypress@6.1.0(eslint@10.0.3))(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.57.0(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3))(eslint-plugin-jest@29.15.0(@typescript-eslint/eslint-plugin@8.57.0(@typescript-eslint/parser@8.57.0(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3)(typescript@5.9.3))(eslint-plugin-react-hooks@7.0.1(eslint@10.0.3))(eslint-plugin-react@7.37.5(eslint@10.0.3))(eslint-plugin-verdaccio@10.1.0(eslint@10.0.3))(eslint@10.0.3)(typescript@5.9.3)
       '@verdaccio/package-filter':
         specifier: workspace:*
         version: link:packages/plugins/package-filter
@@ -141,8 +141,8 @@ importers:
         specifier: 4.1.0
         version: 4.1.0(vitest@4.1.0(@types/node@20.19.33)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@20.19.33)(typescript@5.9.3))(vite@8.0.0(@types/node@20.19.33)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1)))
       '@vitest/eslint-plugin':
-        specifier: 1.6.9
-        version: 1.6.9(eslint@10.0.3)(typescript@5.9.3)(vitest@4.1.0(@types/node@20.19.33)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@20.19.33)(typescript@5.9.3))(vite@8.0.0(@types/node@20.19.33)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1)))
+        specifier: 1.6.11
+        version: 1.6.11(eslint@10.0.3)(typescript@5.9.3)(vitest@4.1.0(@types/node@20.19.33)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@20.19.33)(typescript@5.9.3))(vite@8.0.0(@types/node@20.19.33)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1)))
       aria-query:
         specifier: 5.1.3
         version: 5.1.3
@@ -210,8 +210,8 @@ importers:
         specifier: 7.7.4
         version: 7.7.4
       supertest:
-        specifier: 7.1.4
-        version: 7.1.4
+        specifier: 7.2.2
+        version: 7.2.2
       ts-node:
         specifier: 10.9.2
         version: 10.9.2(@types/node@20.19.33)(typescript@5.9.3)
@@ -316,8 +316,8 @@ importers:
         specifier: 13.5.6
         version: 13.5.6
       supertest:
-        specifier: 7.1.4
-        version: 7.1.4
+        specifier: 7.2.2
+        version: 7.2.2
       vitest:
         specifier: 4.1.0
         version: 4.1.0(@types/node@24.10.13)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.10.13)(typescript@5.9.3))(vite@8.0.0(@types/node@24.10.13)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1))
@@ -359,8 +359,8 @@ importers:
         specifier: 5.2.1
         version: 5.2.1
       supertest:
-        specifier: 7.1.4
-        version: 7.1.4
+        specifier: 7.2.2
+        version: 7.2.2
       vitest:
         specifier: 4.1.0
         version: 4.1.0(@types/node@24.10.13)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.10.13)(typescript@5.9.3))(vite@8.0.0(@types/node@24.10.13)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1))
@@ -492,8 +492,8 @@ importers:
         specifier: workspace:14.0.0-next-9.3
         version: link:../types
       node-mocks-http:
-        specifier: 1.14.1
-        version: 1.14.1
+        specifier: 1.17.2
+        version: 1.17.2(@types/express@4.17.25)(@types/node@24.10.13)
       vitest:
         specifier: 4.1.0
         version: 4.1.0(@types/node@24.10.13)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.10.13)(typescript@5.9.3))(vite@8.0.0(@types/node@24.10.13)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1))
@@ -520,8 +520,8 @@ importers:
         version: 13.15.26
     devDependencies:
       node-mocks-http:
-        specifier: 1.14.1
-        version: 1.14.1
+        specifier: 1.17.2
+        version: 1.17.2(@types/express@4.17.25)(@types/node@24.10.13)
       vitest:
         specifier: 4.1.0
         version: 4.1.0(@types/node@24.10.13)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.10.13)(typescript@5.9.3))(vite@8.0.0(@types/node@24.10.13)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1))
@@ -662,8 +662,8 @@ importers:
         specifier: 2.0.1
         version: 2.0.1
       supertest:
-        specifier: 7.1.4
-        version: 7.1.4
+        specifier: 7.2.2
+        version: 7.2.2
       vitest:
         specifier: 4.1.0
         version: 4.1.0(@types/node@24.10.13)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.10.13)(typescript@5.9.3))(vite@8.0.0(@types/node@24.10.13)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1))
@@ -690,8 +690,8 @@ importers:
         specifier: workspace:14.0.0-next-9.3
         version: link:../core/types
       supertest:
-        specifier: 7.1.4
-        version: 7.1.4
+        specifier: 7.2.2
+        version: 7.2.2
       vitest:
         specifier: 4.1.0
         version: 4.1.0(@types/node@24.10.13)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.10.13)(typescript@5.9.3))(vite@8.0.0(@types/node@24.10.13)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1))
@@ -730,8 +730,8 @@ importers:
         specifier: 13.5.6
         version: 13.5.6
       supertest:
-        specifier: 7.1.4
-        version: 7.1.4
+        specifier: 7.2.2
+        version: 7.2.2
       vitest:
         specifier: 4.1.0
         version: 4.1.0(@types/node@24.10.13)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.10.13)(typescript@5.9.3))(vite@8.0.0(@types/node@24.10.13)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1))
@@ -1098,8 +1098,8 @@ importers:
         specifier: workspace:14.0.0-next-9.3
         version: link:../../core/types
       supertest:
-        specifier: 7.1.4
-        version: 7.1.4
+        specifier: 7.2.2
+        version: 7.2.2
       vitest:
         specifier: 4.1.0
         version: 4.1.0(@types/node@24.10.13)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.10.13)(typescript@5.9.3))(vite@8.0.0(@types/node@24.10.13)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1))
@@ -1178,8 +1178,8 @@ importers:
         specifier: 13.5.6
         version: 13.5.6
       node-mocks-http:
-        specifier: 1.14.1
-        version: 1.14.1
+        specifier: 1.17.2
+        version: 1.17.2(@types/express@4.17.25)(@types/node@24.10.13)
       vitest:
         specifier: 4.1.0
         version: 4.1.0(@types/node@24.10.13)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.10.13)(typescript@5.9.3))(vite@8.0.0(@types/node@24.10.13)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1))
@@ -1208,8 +1208,8 @@ importers:
         specifier: 5.2.1
         version: 5.2.1
       supertest:
-        specifier: 7.1.4
-        version: 7.1.4
+        specifier: 7.2.2
+        version: 7.2.2
     devDependencies:
       '@verdaccio/types':
         specifier: workspace:14.0.0-next-9.3
@@ -1475,8 +1475,8 @@ importers:
         specifier: 13.5.6
         version: 13.5.6
       supertest:
-        specifier: 7.1.4
-        version: 7.1.4
+        specifier: 7.2.2
+        version: 7.2.2
       vitest:
         specifier: 4.1.0
         version: 4.1.0(@types/node@24.10.13)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.10.13)(typescript@5.9.3))(vite@8.0.0(@types/node@24.10.13)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1))
@@ -1530,8 +1530,8 @@ importers:
         specifier: 28.1.0
         version: 28.1.0(@noble/hashes@1.8.0)
       supertest:
-        specifier: 7.1.4
-        version: 7.1.4
+        specifier: 7.2.2
+        version: 7.2.2
       vitest:
         specifier: 4.1.0
         version: 4.1.0(@types/node@24.10.13)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.10.13)(typescript@5.9.3))(vite@8.0.0(@types/node@24.10.13)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1))
@@ -3148,9 +3148,6 @@ packages:
   '@types/express-serve-static-core@4.19.8':
     resolution: {integrity: sha512-02S5fmqeoKzVZCHPZid4b8JH2eM5HzQLZWN2FohQEy/0eXTq8VXZfSN6Pcr3F6N9R/vNrj7cpgbhjie6m/1tCA==}
 
-  '@types/express@4.17.21':
-    resolution: {integrity: sha512-ejlPM315qwLpaQlQDTjPdsUFSc6ZsP4AN6AlWnogPjQ7CVi7PYF3YVz+CY3jE2pwYf7E/7HlDAN0rV2GxTG0HQ==}
-
   '@types/express@4.17.25':
     resolution: {integrity: sha512-dVd04UKsfpINUnK0yBoYHDF3xu7xVH4BuDotC/xGuycx4CgbP48X/KF/586bcObxT0HENHXEU8Nqtu6NR+eKhw==}
 
@@ -3222,9 +3219,6 @@ packages:
 
   '@types/node@12.20.55':
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
-
-  '@types/node@20.11.7':
-    resolution: {integrity: sha512-GPmeN1C3XAyV5uybAf4cMLWT9fDWcmQhZVtMFu7OR32WjrqGG+Wnk2V1d0bmtUyE/Zy1QJ9BxyiTih9z8Oks8A==}
 
   '@types/node@20.19.33':
     resolution: {integrity: sha512-Rs1bVAIdBs5gbTIKza/tgpMuG1k3U/UMJLWecIMxNdJFDMzcM5LOiLVRYh3PilWEYDIeUDv7bpiHPLPsbydGcw==}
@@ -3542,8 +3536,8 @@ packages:
       '@vitest/browser':
         optional: true
 
-  '@vitest/eslint-plugin@1.6.9':
-    resolution: {integrity: sha512-9WfPx1OwJ19QLCSRLkqVO7//1WcWnK3fE/3fJhKMAmDe8+9G4rB47xCNIIeCq3FdEzkIoLTfDlwDlPBaUTMhow==}
+  '@vitest/eslint-plugin@1.6.11':
+    resolution: {integrity: sha512-/m7cyD2x/TMJt6SmW6X9ZQWThCROa3AgBXJKVzTDG6MIRQkxBGLlwi4Vi+F5bcKnRKI17b3aeUzOhqBwnsjiHg==}
     engines: {node: '>=18'}
     peerDependencies:
       eslint: '>=8.57.0'
@@ -5033,6 +5027,10 @@ packages:
     resolution: {integrity: sha512-KrGhL9Q4zjj0kiUt5OO4Mr/A/jlI2jDYs5eHBpYHPcBEVSiipAvn2Ko2HnPe20rmcuuvMHNdZFp+4IlGTMF0Ow==}
     engines: {node: '>= 6'}
 
+  form-data@4.0.5:
+    resolution: {integrity: sha512-8RipRLol37bNs2bhoV67fiTEvdTrbMUYcFTiy3+wuuOnUog2QBHCZWXDRijWQfAkhBj2Uf5UnVaiWwA5vdd82w==}
+    engines: {node: '>= 6'}
+
   formidable@3.5.4:
     resolution: {integrity: sha512-YikH+7CUTOtP44ZTnUhR7Ic2UASBPOqmaRkRKxRbywPTe5VxF7RRCck4af9wutiZ/QKM5nME9Bie2fFaPz5Gug==}
     engines: {node: '>=14.0.0'}
@@ -6429,9 +6427,17 @@ packages:
     resolution: {integrity: sha512-dPEtOeMvF9VMcYV/1Wb8CPoVAXtp6MKMlcbAt4ddqmGqUJ6fQZFXkNZNkNlfevtNkGtaSoXf/vNNNSvgrdXwtA==}
     engines: {node: '>= 6.13.0'}
 
-  node-mocks-http@1.14.1:
-    resolution: {integrity: sha512-mfXuCGonz0A7uG1FEjnypjm34xegeN5+HI6xeGhYKecfgaZhjsmYoLE9LEFmT+53G1n8IuagPZmVnEL/xNsFaA==}
+  node-mocks-http@1.17.2:
+    resolution: {integrity: sha512-HVxSnjNzE9NzoWMx9T9z4MLqwMpLwVvA0oVZ+L+gXskYXEJ6tFn3Kx4LargoB6ie7ZlCLplv7QbWO6N+MysWGA==}
     engines: {node: '>=14'}
+    peerDependencies:
+      '@types/express': ^4.17.21 || ^5.0.0
+      '@types/node': '*'
+    peerDependenciesMeta:
+      '@types/express':
+        optional: true
+      '@types/node':
+        optional: true
 
   node-releases@2.0.27:
     resolution: {integrity: sha512-nmh3lCkYZ3grZvqcCH+fjmQ7X+H0OeZgP40OierEaAptX4XofMh5kwNbWh7lBduUzCcV/8kZ+NDLCwm2iorIlA==}
@@ -7408,12 +7414,12 @@ packages:
   stylis@4.2.0:
     resolution: {integrity: sha512-Orov6g6BB1sDfYgzWfTHDOxamtX1bE/zo104Dh9e6fqJ3PooipYyfJ0pUmrZO2wAvO8YbEyeFrkV91XTsGMSrw==}
 
-  superagent@10.2.3:
-    resolution: {integrity: sha512-y/hkYGeXAj7wUMjxRbB21g/l6aAEituGXM9Rwl4o20+SX3e8YOSV6BxFXl+dL3Uk0mjSL3kCbNkwURm8/gEDig==}
+  superagent@10.3.0:
+    resolution: {integrity: sha512-B+4Ik7ROgVKrQsXTV0Jwp2u+PXYLSlqtDAhYnkkD+zn3yg8s/zjA2MeGayPoY/KICrbitwneDHrjSotxKL+0XQ==}
     engines: {node: '>=14.18.0'}
 
-  supertest@7.1.4:
-    resolution: {integrity: sha512-tjLPs7dVyqgItVFirHYqe2T+MfWc2VOBQ8QFKKbWTA3PU7liZR8zoSpAi/C1k1ilm9RsXIKYf197oap9wXGVYg==}
+  supertest@7.2.2:
+    resolution: {integrity: sha512-oK8WG9diS3DlhdUkcFn4tkNIiIbBx9lI2ClF8K+b2/m8Eyv47LSawxUzZQSNKUrVb2KsqeTDCcjAAVPYaSLVTA==}
     engines: {node: '>=14.18.0'}
 
   supports-color@5.5.0:
@@ -7766,9 +7772,6 @@ packages:
 
   undefsafe@2.0.5:
     resolution: {integrity: sha512-WxONCrssBM8TSPRqN5EmsjVrsv4A8X12J4ArBiiayv3DyyG3ZlIg6yysuuSYdZsVz3TKcTg2fd//Ujd4CHV1iA==}
-
-  undici-types@5.26.5:
-    resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
 
   undici-types@6.21.0:
     resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
@@ -9868,13 +9871,6 @@ snapshots:
       '@types/range-parser': 1.2.7
       '@types/send': 0.17.6
 
-  '@types/express@4.17.21':
-    dependencies:
-      '@types/body-parser': 1.19.6
-      '@types/express-serve-static-core': 4.19.8
-      '@types/qs': 6.14.0
-      '@types/serve-static': 1.15.10
-
   '@types/express@4.17.25':
     dependencies:
       '@types/body-parser': 1.19.6
@@ -9951,10 +9947,6 @@ snapshots:
       '@types/node': 24.10.13
 
   '@types/node@12.20.55': {}
-
-  '@types/node@20.11.7':
-    dependencies:
-      undici-types: 5.26.5
 
   '@types/node@20.19.33':
     dependencies:
@@ -10231,7 +10223,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@verdaccio/eslint-config@13.0.0(@typescript-eslint/utils@8.57.0(eslint@10.0.3)(typescript@5.9.3))(@vitest/eslint-plugin@1.6.9(eslint@10.0.3)(typescript@5.9.3)(vitest@4.1.0(@types/node@20.19.33)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@20.19.33)(typescript@5.9.3))(vite@8.0.0(@types/node@20.19.33)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1))))(eslint-import-resolver-node@0.3.9)(eslint-plugin-cypress@6.1.0(eslint@10.0.3))(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.57.0(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3))(eslint-plugin-jest@29.15.0(@typescript-eslint/eslint-plugin@8.57.0(@typescript-eslint/parser@8.57.0(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3)(typescript@5.9.3))(eslint-plugin-react-hooks@7.0.1(eslint@10.0.3))(eslint-plugin-react@7.37.5(eslint@10.0.3))(eslint-plugin-verdaccio@10.1.0(eslint@10.0.3))(eslint@10.0.3)(typescript@5.9.3)':
+  '@verdaccio/eslint-config@13.0.0(@typescript-eslint/utils@8.57.0(eslint@10.0.3)(typescript@5.9.3))(@vitest/eslint-plugin@1.6.11(eslint@10.0.3)(typescript@5.9.3)(vitest@4.1.0(@types/node@20.19.33)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@20.19.33)(typescript@5.9.3))(vite@8.0.0(@types/node@20.19.33)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1))))(eslint-import-resolver-node@0.3.9)(eslint-plugin-cypress@6.1.0(eslint@10.0.3))(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.57.0(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3))(eslint-plugin-jest@29.15.0(@typescript-eslint/eslint-plugin@8.57.0(@typescript-eslint/parser@8.57.0(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3)(typescript@5.9.3))(eslint-plugin-react-hooks@7.0.1(eslint@10.0.3))(eslint-plugin-react@7.37.5(eslint@10.0.3))(eslint-plugin-verdaccio@10.1.0(eslint@10.0.3))(eslint@10.0.3)(typescript@5.9.3)':
     dependencies:
       '@eslint/js': 10.0.1(eslint@10.0.3)
       eslint: 10.0.3
@@ -10241,7 +10233,7 @@ snapshots:
       globals: 17.4.0
       typescript-eslint: 8.57.0(eslint@10.0.3)(typescript@5.9.3)
     optionalDependencies:
-      '@vitest/eslint-plugin': 1.6.9(eslint@10.0.3)(typescript@5.9.3)(vitest@4.1.0(@types/node@20.19.33)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@20.19.33)(typescript@5.9.3))(vite@8.0.0(@types/node@20.19.33)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1)))
+      '@vitest/eslint-plugin': 1.6.11(eslint@10.0.3)(typescript@5.9.3)(vitest@4.1.0(@types/node@20.19.33)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@20.19.33)(typescript@5.9.3))(vite@8.0.0(@types/node@20.19.33)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1)))
       eslint-plugin-cypress: 6.1.0(eslint@10.0.3)
       eslint-plugin-jest: 29.15.0(@typescript-eslint/eslint-plugin@8.57.0(@typescript-eslint/parser@8.57.0(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3)(typescript@5.9.3)
       eslint-plugin-react: 7.37.5(eslint@10.0.3)
@@ -10273,7 +10265,7 @@ snapshots:
       tinyrainbow: 3.1.0
       vitest: 4.1.0(@types/node@20.19.33)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@20.19.33)(typescript@5.9.3))(vite@8.0.0(@types/node@20.19.33)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1))
 
-  '@vitest/eslint-plugin@1.6.9(eslint@10.0.3)(typescript@5.9.3)(vitest@4.1.0(@types/node@20.19.33)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@20.19.33)(typescript@5.9.3))(vite@8.0.0(@types/node@20.19.33)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1)))':
+  '@vitest/eslint-plugin@1.6.11(eslint@10.0.3)(typescript@5.9.3)(vitest@4.1.0(@types/node@20.19.33)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@20.19.33)(typescript@5.9.3))(vite@8.0.0(@types/node@20.19.33)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1)))':
     dependencies:
       '@typescript-eslint/scope-manager': 8.57.0
       '@typescript-eslint/utils': 8.57.0(eslint@10.0.3)(typescript@5.9.3)
@@ -12229,6 +12221,14 @@ snapshots:
       hasown: 2.0.2
       mime-types: 2.1.35
 
+  form-data@4.0.5:
+    dependencies:
+      asynckit: 0.4.0
+      combined-stream: 1.0.8
+      es-set-tostringtag: 2.1.0
+      hasown: 2.0.2
+      mime-types: 2.1.35
+
   formidable@3.5.4:
     dependencies:
       '@paralleldrive/cuid2': 2.2.2
@@ -13837,10 +13837,8 @@ snapshots:
 
   node-forge@1.3.1: {}
 
-  node-mocks-http@1.14.1:
+  node-mocks-http@1.17.2(@types/express@4.17.25)(@types/node@24.10.13):
     dependencies:
-      '@types/express': 4.17.21
-      '@types/node': 20.11.7
       accepts: 1.3.8
       content-disposition: 0.5.4
       depd: 1.1.2
@@ -13851,6 +13849,9 @@ snapshots:
       parseurl: 1.3.3
       range-parser: 1.2.1
       type-is: 1.6.18
+    optionalDependencies:
+      '@types/express': 4.17.25
+      '@types/node': 24.10.13
 
   node-releases@2.0.27: {}
 
@@ -15016,24 +15017,25 @@ snapshots:
 
   stylis@4.2.0: {}
 
-  superagent@10.2.3:
+  superagent@10.3.0:
     dependencies:
       component-emitter: 1.3.1
       cookiejar: 2.1.4
       debug: 4.4.3(supports-color@5.5.0)
       fast-safe-stringify: 2.1.1
-      form-data: 4.0.4
+      form-data: 4.0.5
       formidable: 3.5.4
       methods: 1.1.2
       mime: 2.6.0
-      qs: 6.14.0
+      qs: 6.14.2
     transitivePeerDependencies:
       - supports-color
 
-  supertest@7.1.4:
+  supertest@7.2.2:
     dependencies:
+      cookie-signature: 1.2.2
       methods: 1.1.2
-      superagent: 10.2.3
+      superagent: 10.3.0
     transitivePeerDependencies:
       - supports-color
 
@@ -15417,8 +15419,6 @@ snapshots:
     optional: true
 
   undefsafe@2.0.5: {}
-
-  undici-types@5.26.5: {}
 
   undici-types@6.21.0: {}
 

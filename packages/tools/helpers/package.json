@@ -15,7 +15,7 @@
     "@verdaccio/middleware": "workspace:9.0.0-next-9.6",
     "debug": "4.4.3",
     "express": "5.2.1",
-    "supertest": "7.1.4"
+    "supertest": "7.2.2"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:14.0.0-next-9.3",

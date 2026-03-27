@@ -56,7 +56,7 @@
     "@verdaccio/logger": "workspace:9.0.0-next-9.6",
     "@verdaccio/types": "workspace:14.0.0-next-9.3",
     "http-errors": "2.0.1",
-    "supertest": "7.1.4",
+    "supertest": "7.2.2",
     "vitest": "4.1.0"
   },
   "module": "./build/index.mjs",
