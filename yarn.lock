@@ -8767,12 +8767,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.6.2":
-  version: 3.6.2
-  resolution: "prettier@npm:3.6.2"
+"prettier@npm:3.8.1":
+  version: 3.8.1
+  resolution: "prettier@npm:3.8.1"
   bin:
     prettier: bin/prettier.cjs
-  checksum: 10c0/488cb2f2b99ec13da1e50074912870217c11edaddedeadc649b1244c749d15ba94e846423d062e2c4c9ae683e2d65f754de28889ba06e697ac4f988d44f45812
+  checksum: 10c0/33169b594009e48f570471271be7eac7cdcf88a209eed39ac3b8d6d78984039bfa9132f82b7e6ba3b06711f3bfe0222a62a1bfb87c43f50c25a83df1b78a2c42
   languageName: node
   linkType: hard
 
@@ -10945,7 +10945,7 @@ __metadata:
     lodash: "npm:4.17.23"
     nock: "npm:13.5.6"
     node-mocks-http: "npm:^1.17.2"
-    prettier: "npm:3.6.2"
+    prettier: "npm:3.8.1"
     selfsigned: "npm:5.5.0"
     semver: "npm:7.7.4"
     standard-version: "npm:9.5.0"
