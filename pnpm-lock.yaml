@@ -551,8 +551,8 @@ importers:
         specifier: 2.0.20
         version: 2.0.20
       dayjs:
-        specifier: 1.11.18
-        version: 1.11.18
+        specifier: 1.11.20
+        version: 1.11.20
       lodash:
         specifier: 4.17.23
         version: 4.17.23
@@ -3491,8 +3491,8 @@ packages:
     resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
     engines: {node: '>=0.11'}
 
-  dayjs@1.11.18:
-    resolution: {integrity: sha512-zFBQ7WFRvVRhKcWoUh+ZA1g2HVgUbsZm9sbddh8EC5iv93sui8DVVz1Npvz+r6meo9VKfa8NyLWBsQK1VvIKPA==}
+  dayjs@1.11.20:
+    resolution: {integrity: sha512-YbwwqR/uYpeoP4pu043q+LTDLFBLApUP6VxRihdfNTqu4ubqMlGDLd6ErXhEgsyvY0K6nCs7nggYumAN+9uEuQ==}
 
   debug@2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
@@ -8792,7 +8792,7 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.28.4
 
-  dayjs@1.11.18: {}
+  dayjs@1.11.20: {}
 
   debug@2.6.9:
     dependencies:
