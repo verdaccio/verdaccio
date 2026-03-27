@@ -56,7 +56,7 @@
     "@verdaccio/test-helper": "workspace:5.0.0-next-9.6",
     "@verdaccio/types": "workspace:14.0.0-next-9.3",
     "mockdate": "3.0.5",
-    "nock": "13.5.6",
+    "nock": "14.0.11",
     "node-mocks-http": "1.14.1",
     "vitest": "4.1.0"
   },

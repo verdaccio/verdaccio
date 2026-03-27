@@ -189,8 +189,8 @@ importers:
         specifier: 11.2.6
         version: 11.2.6
       nock:
-        specifier: 13.5.6
-        version: 13.5.6
+        specifier: 14.0.11
+        version: 14.0.11
       nodemon:
         specifier: 3.1.10
         version: 3.1.10
@@ -313,8 +313,8 @@ importers:
         specifier: 3.0.5
         version: 3.0.5
       nock:
-        specifier: 13.5.6
-        version: 13.5.6
+        specifier: 14.0.11
+        version: 14.0.11
       supertest:
         specifier: 7.1.4
         version: 7.1.4
@@ -554,8 +554,8 @@ importers:
         specifier: workspace:14.0.0-next-9.3
         version: link:../core/types
       nock:
-        specifier: 13.5.6
-        version: 13.5.6
+        specifier: 14.0.11
+        version: 14.0.11
       vitest:
         specifier: 4.1.0
         version: 4.1.0(@types/node@24.10.13)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.10.13)(typescript@5.9.3))(vite@8.0.0(@types/node@24.10.13)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1))
@@ -727,8 +727,8 @@ importers:
         specifier: workspace:14.0.0-next-9.3
         version: link:../../core/types
       nock:
-        specifier: 13.5.6
-        version: 13.5.6
+        specifier: 14.0.11
+        version: 14.0.11
       supertest:
         specifier: 7.1.4
         version: 7.1.4
@@ -994,8 +994,8 @@ importers:
         specifier: 6.0.1
         version: 6.0.1
       nock:
-        specifier: 13.5.6
-        version: 13.5.6
+        specifier: 14.0.11
+        version: 14.0.11
       vitest:
         specifier: 4.1.0
         version: 4.1.0(@types/node@24.10.13)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.10.13)(typescript@5.9.3))(vite@8.0.0(@types/node@24.10.13)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1))
@@ -1025,8 +1025,8 @@ importers:
         specifier: workspace:14.0.0-next-9.3
         version: link:../core/types
       nock:
-        specifier: 13.5.6
-        version: 13.5.6
+        specifier: 14.0.11
+        version: 14.0.11
       vitest:
         specifier: 4.1.0
         version: 4.1.0(@types/node@24.10.13)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.10.13)(typescript@5.9.3))(vite@8.0.0(@types/node@24.10.13)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.1))
@@ -1175,8 +1175,8 @@ importers:
         specifier: 3.0.5
         version: 3.0.5
       nock:
-        specifier: 13.5.6
-        version: 13.5.6
+        specifier: 14.0.11
+        version: 14.0.11
       node-mocks-http:
         specifier: 1.14.1
         version: 1.14.1
@@ -1472,8 +1472,8 @@ importers:
         specifier: 4.17.23
         version: 4.17.23
       nock:
-        specifier: 13.5.6
-        version: 13.5.6
+        specifier: 14.0.11
+        version: 14.0.11
       supertest:
         specifier: 7.1.4
         version: 7.1.4
@@ -6400,9 +6400,9 @@ packages:
   neo-async@2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
 
-  nock@13.5.6:
-    resolution: {integrity: sha512-o2zOYiCpzRqSzPj0Zt/dQ/DqZeYoaQ7TUonc/xUPjCGl9WeHpNbxgVvOquXYAaJzI0M9BXV3HTzG0p8IUAbBTQ==}
-    engines: {node: '>= 10.13'}
+  nock@14.0.11:
+    resolution: {integrity: sha512-u5xUnYE+UOOBA6SpELJheMCtj2Laqx15Vl70QxKo43Wz/6nMHXS7PrEioXLjXAwhmawdEMNImwKCcPhBJWbKVw==}
+    engines: {node: '>=18.20.0 <20 || >=20.12.1'}
 
   node-addon-api@7.1.1:
     resolution: {integrity: sha512-5m3bsyrjFWE1xf7nz7YXdN4udnVtXK6/Yfgn5qnahL6bCkf2yKt4k3nuTKAtT4r3IG8JNR2ncsIMdZuAzJjHQQ==}
@@ -13812,13 +13812,11 @@ snapshots:
 
   neo-async@2.6.2: {}
 
-  nock@13.5.6:
+  nock@14.0.11:
     dependencies:
-      debug: 4.4.3(supports-color@5.5.0)
+      '@mswjs/interceptors': 0.41.3
       json-stringify-safe: 5.0.1
       propagate: 2.0.1
-    transitivePeerDependencies:
-      - supports-color
 
   node-addon-api@7.1.1:
     optional: true
