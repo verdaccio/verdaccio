@@ -26,9 +26,7 @@
     {
       "description": "Only allow @verdaccio/* and verdaccio-* versions 9+ on 7.x branch",
       "matchBaseBranches": ["7.x"],
-      "matchPackageNames": ["@verdaccio/*", "verdaccio-*"],
-      "allowedVersions": ">= 9.0.0",
-      "ignoreUnstable": false
+      "matchPackageNames": ["@verdaccio/*", "verdaccio-*"]
     },
     {
       "description": "Forbid major updates on 6.x branch",
@@ -113,7 +111,6 @@
       ],
       "minimumReleaseAge": "0 days",
       "matchUpdateTypes": ["minor", "patch"],
-      "ignoreUnstable": false,
       "groupName": "core verdaccio dependencies",
       "groupSlug": "all-verdaccio",
       "matchBaseBranches": ["6.x", "7.x"]
