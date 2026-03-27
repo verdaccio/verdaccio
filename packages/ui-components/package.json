@@ -36,7 +36,7 @@
     "@emotion/react": "11.11.4",
     "@emotion/styled": "11.11.5",
     "@hookform/resolvers": "5.2.2",
-    "@microlink/react-json-view": "1.31.12",
+    "@microlink/react-json-view": "1.31.15",
     "@mui/icons-material": "7.3.4",
     "@mui/material": "7.3.7",
     "@verdaccio/ui-i18n": "workspace:10.0.0-next-9.2",

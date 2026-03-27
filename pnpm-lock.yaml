@@ -1275,8 +1275,8 @@ importers:
         specifier: 5.2.2
         version: 5.2.2(react-hook-form@7.71.1(react@19.2.3))
       '@microlink/react-json-view':
-        specifier: 1.31.12
-        version: 1.31.12(@types/react@18.3.28)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+        specifier: 1.31.15
+        version: 1.31.15(@types/react@18.3.28)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       '@mui/icons-material':
         specifier: 7.3.4
         version: 7.3.4(@mui/material@7.3.7(@emotion/react@11.11.4(@types/react@18.3.28)(react@19.2.3))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@18.3.28)(react@19.2.3))(@types/react@18.3.28)(react@19.2.3))(@types/react@18.3.28)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(@types/react@18.3.28)(react@19.2.3)
@@ -2388,8 +2388,8 @@ packages:
       '@types/react': '>=16'
       react: '>=16'
 
-  '@microlink/react-json-view@1.31.12':
-    resolution: {integrity: sha512-mSyByaU+ohcPdGtax9XP6byEqxl0AwxVBMokNdE6wz/Ycteaa4Srv9kEG8z58PTJ1kKz4b5BaYjLcF0JrWBJVw==}
+  '@microlink/react-json-view@1.31.15':
+    resolution: {integrity: sha512-HSgO8uzwPICgQuU5C9/pV8hhKa4EeQCOlSOWnICR9t1WlJpFXvOiJfWZljbZQvWsTYZdhbHbnkRySMNLXuT0Lg==}
     engines: {node: '>=17'}
     peerDependencies:
       react: '>= 15'
@@ -9147,7 +9147,7 @@ snapshots:
       '@types/react': 18.3.28
       react: 19.2.3
 
-  '@microlink/react-json-view@1.31.12(@types/react@18.3.28)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)':
+  '@microlink/react-json-view@1.31.15(@types/react@18.3.28)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)':
     dependencies:
       react: 19.2.3
       react-base16-styling: 0.10.0
