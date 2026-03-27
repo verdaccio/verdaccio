@@ -39,9 +39,9 @@
     "@verdaccio/core": "workspace:9.0.0-next-9.6",
     "@verdaccio/file-locking": "workspace:14.0.0-next-9.2",
     "debug": "4.4.3",
-    "globby": "11.1.0",
+    "globby": "16.1.1",
     "lodash": "4.17.23",
-    "lowdb": "1.0.0",
+    "lowdb": "7.0.1",
     "sanitize-filename": "1.6.3"
   },
   "devDependencies": {

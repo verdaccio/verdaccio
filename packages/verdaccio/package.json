@@ -55,7 +55,7 @@
     "@verdaccio/store": "workspace:9.0.0-next-9.6",
     "@verdaccio/test-helper": "workspace:5.0.0-next-9.6",
     "@verdaccio/types": "workspace:14.0.0-next-9.3",
-    "get-port": "5.1.1",
+    "get-port": "7.1.0",
     "got": "11.8.6",
     "lodash": "4.17.23",
     "nock": "13.5.6",
