@@ -115,5 +115,5 @@
     "*.{js,jsx,ts,tsx,json,yml,yaml,md}": "prettier --write",
     "*.{js,jsx,ts,tsx}": "eslint --fix"
   },
-  "packageManager": "pnpm@10.5.2"
+  "packageManager": "pnpm@10.32.1"
 }
