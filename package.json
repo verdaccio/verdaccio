@@ -70,7 +70,7 @@
     "eslint-plugin-react-x": "2.13.0",
     "eslint-plugin-verdaccio": "10.1.0",
     "fs-extra": "11.2.0",
-    "got": "11.8.6",
+    "got": "14.6.6",
     "husky": "8.0.3",
     "in-publish": "2.0.1",
     "kleur": "4.1.5",
