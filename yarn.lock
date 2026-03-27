@@ -2340,10 +2340,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/minimatch@npm:5.1.2":
-  version: 5.1.2
-  resolution: "@types/minimatch@npm:5.1.2"
-  checksum: 10c0/83cf1c11748891b714e129de0585af4c55dd4c2cafb1f1d5233d79246e5e1e19d1b5ad9e8db449667b3ffa2b6c80125c429dbee1054e9efb45758dbc4e118562
+"@types/minimatch@npm:6.0.0":
+  version: 6.0.0
+  resolution: "@types/minimatch@npm:6.0.0"
+  dependencies:
+    minimatch: "npm:*"
+  checksum: 10c0/901fc4208cf6f5ab0e86bf86504055fb387f76092e06e604a3f2403db1c20e613c42104b235fde05552e0632d8f82e4ceacb83351d8700c7ffc5c31010a80804
   languageName: node
   linkType: hard
 
@@ -2370,12 +2372,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:20.19.33":
-  version: 20.19.33
-  resolution: "@types/node@npm:20.19.33"
+"@types/node@npm:24.12.0":
+  version: 24.12.0
+  resolution: "@types/node@npm:24.12.0"
   dependencies:
-    undici-types: "npm:~6.21.0"
-  checksum: 10c0/a1a6234a2b6fa577fbb1ccc471e5e54a79c6e1a51be10a67b034461b752a50017854810e943494f20b3c3c6d14df84c93757e0a2ec57aa81c830d6faeab72cf2
+    undici-types: "npm:~7.16.0"
+  checksum: 10c0/8b31c0af5b5474f13048a4e77c57f22cd4f8fe6e58c4b6fde9456b0c13f46a5bfaf5744ff88fd089581de9f0d6e99c584e022681de7acb26a58d258c654c4843
   languageName: node
   linkType: hard
 
@@ -2477,13 +2479,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/supertest@npm:6.0.3":
-  version: 6.0.3
-  resolution: "@types/supertest@npm:6.0.3"
+"@types/supertest@npm:7.2.0":
+  version: 7.2.0
+  resolution: "@types/supertest@npm:7.2.0"
   dependencies:
     "@types/methods": "npm:^1.1.4"
     "@types/superagent": "npm:^8.1.0"
-  checksum: 10c0/a2080f870154b09db123864a484fb633bc9e2a0f7294a194388df4c7effe5af9de36d5a5ebf819f72b404fa47b5e813c47d5a3a51354251fd2fa8589bfb64f2c
+  checksum: 10c0/78c33e968acd45207acdd965ccbd5eb7a279813ff68fab1acc438937ed017698102cc077cef8aa60ec6caefff2fa61171e902eab40607fd7ce82ead3a82b766e
   languageName: node
   linkType: hard
 
@@ -7828,6 +7830,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"minimatch@npm:*, minimatch@npm:^10.2.2, minimatch@npm:^10.2.4, minimatch@npm:^9.0.3 || ^10.1.2":
+  version: 10.2.4
+  resolution: "minimatch@npm:10.2.4"
+  dependencies:
+    brace-expansion: "npm:^5.0.2"
+  checksum: 10c0/35f3dfb7b99b51efd46afd378486889f590e7efb10e0f6a10ba6800428cf65c9a8dedb74427d0570b318d749b543dc4e85f06d46d2858bc8cac7e1eb49a95945
+  languageName: node
+  linkType: hard
+
 "minimatch@npm:7.4.6":
   version: 7.4.6
   resolution: "minimatch@npm:7.4.6"
@@ -7843,15 +7854,6 @@ __metadata:
   dependencies:
     brace-expansion: "npm:^2.0.2"
   checksum: 10c0/8d5406a9697edb9b7ea02697d58cabcb3d3a9a4a02caa1cf57b9ab5ae22c78b2945600661a78f91d1545f77521f97f3cb5f8cb066e58356a121b50e4e60ccdbe
-  languageName: node
-  linkType: hard
-
-"minimatch@npm:^10.2.2, minimatch@npm:^10.2.4, minimatch@npm:^9.0.3 || ^10.1.2":
-  version: 10.2.4
-  resolution: "minimatch@npm:10.2.4"
-  dependencies:
-    brace-expansion: "npm:^5.0.2"
-  checksum: 10c0/35f3dfb7b99b51efd46afd378486889f590e7efb10e0f6a10ba6800428cf65c9a8dedb74427d0570b318d749b543dc4e85f06d46d2858bc8cac7e1eb49a95945
   languageName: node
   linkType: hard
 
@@ -10596,10 +10598,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici-types@npm:~6.21.0":
-  version: 6.21.0
-  resolution: "undici-types@npm:6.21.0"
-  checksum: 10c0/c01ed51829b10aa72fc3ce64b747f8e74ae9b60eafa19a7b46ef624403508a54c526ffab06a14a26b3120d055e1104d7abe7c9017e83ced038ea5cf52f8d5e04
+"undici-types@npm:~7.16.0":
+  version: 7.16.0
+  resolution: "undici-types@npm:7.16.0"
+  checksum: 10c0/3033e2f2b5c9f1504bdc5934646cb54e37ecaca0f9249c983f7b1fc2e87c6d18399ebb05dc7fd5419e02b2e915f734d872a65da2e3eeed1813951c427d33cc9a
   languageName: node
   linkType: hard
 
@@ -10893,12 +10895,12 @@ __metadata:
     "@types/express": "npm:5.0.6"
     "@types/http-errors": "npm:2.0.5"
     "@types/lodash": "npm:4.17.23"
-    "@types/minimatch": "npm:5.1.2"
-    "@types/node": "npm:20.19.33"
+    "@types/minimatch": "npm:6.0.0"
+    "@types/node": "npm:24.12.0"
     "@types/pino": "npm:7.0.5"
     "@types/request": "npm:2.48.13"
     "@types/semver": "npm:7.7.1"
-    "@types/supertest": "npm:6.0.3"
+    "@types/supertest": "npm:7.2.0"
     "@verdaccio-scope/verdaccio-auth-foo": "npm:0.0.2"
     "@verdaccio/auth": "npm:9.0.0-next-9.1"
     "@verdaccio/config": "npm:9.0.0-next-9.1"
