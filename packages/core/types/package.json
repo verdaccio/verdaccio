@@ -40,7 +40,7 @@
     "build": "echo 0"
   },
   "devDependencies": {
-    "@types/jsonwebtoken": "9.0.7",
+    "@types/jsonwebtoken": "9.0.10",
     "typedoc": "0.28.14"
   },
   "typedoc": {
