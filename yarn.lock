@@ -3159,9 +3159,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitest/eslint-plugin@npm:1.6.9":
-  version: 1.6.9
-  resolution: "@vitest/eslint-plugin@npm:1.6.9"
+"@vitest/eslint-plugin@npm:1.6.11":
+  version: 1.6.11
+  resolution: "@vitest/eslint-plugin@npm:1.6.11"
   dependencies:
     "@typescript-eslint/scope-manager": "npm:^8.55.0"
     "@typescript-eslint/utils": "npm:^8.55.0"
@@ -3174,7 +3174,7 @@ __metadata:
       optional: true
     vitest:
       optional: true
-  checksum: 10c0/37325e6e50c812fba52477683a8c46fe5a98d2ef441d108736309236889850af466e56af0ec625af0df036cb841005cc5c916266319453c316e661b3ce539a10
+  checksum: 10c0/fba8459a2702f85f128bf663a9d7ab70660c66a0d5299be1f12b871e317638f7831140d9d284efd46c8de06ed8fe602e777f8a3326498b6976cde958b0e20a35
   languageName: node
   linkType: hard
 
@@ -10921,7 +10921,7 @@ __metadata:
     "@verdaccio/url": "npm:14.0.0-next-9.1"
     "@verdaccio/utils": "npm:9.0.0-next-9.1"
     "@vitest/coverage-v8": "npm:3.2.4"
-    "@vitest/eslint-plugin": "npm:1.6.9"
+    "@vitest/eslint-plugin": "npm:1.6.11"
     JSONStream: "npm:1.3.5"
     async: "npm:3.2.6"
     babel-plugin-add-import-extension: "npm:1.6.0"
