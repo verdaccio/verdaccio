@@ -2326,10 +2326,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash@npm:4.17.23":
-  version: 4.17.23
-  resolution: "@types/lodash@npm:4.17.23"
-  checksum: 10c0/9d9cbfb684e064a2b78aab9e220d398c9c2a7d36bc51a07b184ff382fa043a99b3d00c16c7f109b4eb8614118f4869678dbae7d5c6700ed16fb9340e26cc0bf6
+"@types/lodash@npm:4.17.24":
+  version: 4.17.24
+  resolution: "@types/lodash@npm:4.17.24"
+  checksum: 10c0/b72f60d4daacdad1fa643edb3faba204c02a01eb1ac00a83ff73496a6d236fc55e459c06106e8ced42277dba932d087d8fc090f8de4ef590d3f91e6d6f7ce85a
   languageName: node
   linkType: hard
 
@@ -2370,12 +2370,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:20.19.33":
-  version: 20.19.33
-  resolution: "@types/node@npm:20.19.33"
+"@types/node@npm:20.19.37":
+  version: 20.19.37
+  resolution: "@types/node@npm:20.19.37"
   dependencies:
     undici-types: "npm:~6.21.0"
-  checksum: 10c0/a1a6234a2b6fa577fbb1ccc471e5e54a79c6e1a51be10a67b034461b752a50017854810e943494f20b3c3c6d14df84c93757e0a2ec57aa81c830d6faeab72cf2
+  checksum: 10c0/8420353aee776ae5c1e9720058949909a0e908fa2af85501e9db2645bb9f9acd7d767890f8aaee34d375e6f8b5f550a9a169e908d2d8cf7d5daf63dce64092a0
   languageName: node
   linkType: hard
 
@@ -10892,9 +10892,9 @@ __metadata:
     "@types/debug": "npm:4.1.12"
     "@types/express": "npm:5.0.6"
     "@types/http-errors": "npm:2.0.5"
-    "@types/lodash": "npm:4.17.23"
+    "@types/lodash": "npm:4.17.24"
     "@types/minimatch": "npm:5.1.2"
-    "@types/node": "npm:20.19.33"
+    "@types/node": "npm:20.19.37"
     "@types/pino": "npm:7.0.5"
     "@types/request": "npm:2.48.13"
     "@types/semver": "npm:7.7.1"
