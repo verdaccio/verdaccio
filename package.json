@@ -70,7 +70,7 @@
     "@babel/preset-typescript": "7.28.5",
     "@babel/register": "7.28.6",
     "@babel/runtime": "7.28.6",
-    "@trivago/prettier-plugin-sort-imports": "5.2.2",
+    "@trivago/prettier-plugin-sort-imports": "6.0.2",
     "@types/async": "3.2.25",
     "@types/debug": "4.1.12",
     "@types/express": "5.0.6",
