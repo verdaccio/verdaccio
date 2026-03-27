@@ -30,7 +30,6 @@
 '@verdaccio/local-publish': major
 'customprefix-auth': major
 '@verdaccio/ui-components': major
-'@verdaccio/utils': major
 'verdaccio': major
 '@verdaccio/web': major
 ---
