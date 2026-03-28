@@ -82,6 +82,17 @@ jobs:
         uses: ./.github/actions/build-app
         with:
           node-version: ${{ matrix.node_version }}
+      - name: Cache build artifacts
+        if: matrix.node_version == 24
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            packages/*/build
+            packages/*/dist
+            packages/*/*/build
+            packages/*/*/dist
+            packages/plugins/ui-theme/static
+          key: ci-build-${{ github.sha }}
       - name: Test (Node 25)
         if: matrix.node_version == 25
         run: pnpm test
@@ -92,6 +103,58 @@ jobs:
       - name: Test (Other Node)
         if: matrix.node_version != 25
         run: pnpm test
+  e2e-cli:
+    needs: [test]
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    name: E2E CLI (${{ matrix.pm }})
+    strategy:
+      fail-fast: false
+      matrix:
+        pm:
+          - npm@7
+          - npm@8
+          - npm@9
+          - npm@10
+          - npm@11
+          - yarn-classic
+          - yarn-modern@2
+          - yarn-modern@3
+          - yarn-modern@4
+          - pnpm@9
+          - pnpm@10
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Read Node version from .nvmrc
+        id: nvmrc
+        run: echo "node-version=$(cat .nvmrc)" >> "$GITHUB_OUTPUT"
+      - name: Install dependencies
+        uses: ./.github/actions/install-app-node
+        with:
+          node-version: ${{ steps.nvmrc.outputs.node-version }}
+      - name: Restore build artifacts
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            packages/*/build
+            packages/*/dist
+            packages/*/*/build
+            packages/*/*/dist
+            packages/plugins/ui-theme/static
+          key: ci-build-${{ github.sha }}
+          fail-on-cache-miss: true
+      - name: Start Verdaccio
+        run: |
+          node packages/verdaccio/bin/verdaccio &
+          for i in $(seq 1 30); do
+            curl -s http://localhost:4873/-/ping && break
+            sleep 1
+          done
+      - name: Run E2E CLI tests
+        run: pnpm verdaccio-e2e --registry http://localhost:4873 --pm ${{ matrix.pm }} -v
+      - name: Show Verdaccio logs
+        if: always()
+        run: cat ~/.config/verdaccio/verdaccio.log 2>/dev/null || echo "No log file found"
   sync-translations:
     needs: [test]
     runs-on: ubuntu-latest
