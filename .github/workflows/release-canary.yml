@@ -77,7 +77,7 @@ jobs:
       - name: Replace README for canary publish
         run: |
           cat > README.md << 'CANARY_README'
-          # !! CANARY BUILD — DO NOT USE IN PRODUCTION !!
+          # !!! CANARY BUILD — DO NOT USE IN PRODUCTION !!!
 
           > **WARNING: This is an unstable canary release of [Verdaccio](https://github.com/verdaccio/verdaccio).**
           > It is automatically published from the `7.x` branch for early testing only.
