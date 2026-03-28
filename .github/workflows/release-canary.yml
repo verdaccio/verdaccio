@@ -2,6 +2,9 @@ name: Release Canary 7.x
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - 7.x  
 
 permissions:
   contents: read
