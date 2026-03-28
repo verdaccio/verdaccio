@@ -73,7 +73,20 @@ describe('proxy', () => {
       ).rejects.toThrow('bad status code 409 from uplink');
     });
 
-    // test.todo('abort search from endpoint');
+    test('abort search from endpoint', async () => {
+      nock(domain)
+        .get('/-/v1/search?maintenance=1&popularity=1&quality=1&size=10&text=verdaccio')
+        .delay(5000)
+        .reply(200, require('./partials/search-v1.json'));
+      const abort = new AbortController();
+      const prox1 = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
+      const searchPromise = prox1.search({
+        abort,
+        url: queryUrl,
+      });
+      abort.abort();
+      await expect(searchPromise).rejects.toThrow();
+    });
 
     // // TODO: we should test the gzip deflate here, but is hard to test
     // // fix me if you can deal with Incorrect Header Check issue

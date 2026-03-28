@@ -47,11 +47,15 @@ export default class ProxyAudit
         const auditEndpoint = `${REGISTRY_DOMAIN}${req.baseUrl}${req.route.path}`;
         this.logger.debug('fetching audit from ' + auditEndpoint);
 
+        const controller = new AbortController();
+        req.on('close', () => controller.abort());
+
         const response = await got(auditEndpoint, {
           method: req.method as 'GET' | 'POST',
           headers: headers as Record<string, string | string[] | undefined>,
           body: JSON.stringify(req.body),
           agent,
+          signal: controller.signal,
           timeout: { request: this.timeout },
           retry: { limit: 0 },
           throwHttpErrors: false,
