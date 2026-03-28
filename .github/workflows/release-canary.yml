@@ -70,6 +70,7 @@ jobs:
             const pkg = require('./package.json');
             pkg.name = '@verdaccio-canary/verdaccio';
             pkg.version = '${CANARY_VERSION}';
+            pkg.bin = { 'verdaccio-canary': './bin/verdaccio' };
             require('fs').writeFileSync('./package.json', JSON.stringify(pkg, null, 2) + '\n');
           "
           echo "Publishing @verdaccio-canary/verdaccio@${CANARY_VERSION}"
@@ -101,7 +102,8 @@ jobs:
           This package (`@verdaccio-canary/verdaccio`) is a pre-release snapshot published under a separate scope to avoid conflicts with the stable `verdaccio` package.
 
           ```bash
-          npm install @verdaccio-canary/verdaccio@latest
+          npm install -g @verdaccio-canary/verdaccio@latest
+          verdaccio-canary
           ```
 
           ## Links
@@ -135,7 +137,8 @@ jobs:
           A canary version was published from this PR for early testing:
 
           ```bash
-          npm install @verdaccio-canary/verdaccio@${{ steps.version.outputs.canary_version }}
+          npm install -g @verdaccio-canary/verdaccio@${{ steps.version.outputs.canary_version }}
+          verdaccio-canary
           ```
 
           > **Warning:** This is an unstable pre-release build. Do not use in production.
