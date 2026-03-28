@@ -7,7 +7,7 @@ import packageApi from './package';
 import search from './search';
 import user from './user';
 
-export default (auth, storage, config) => {
+export default (auth, storage, config): Router => {
   const router = Router();
   router.use(
     rateLimit({

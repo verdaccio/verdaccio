@@ -82,7 +82,7 @@ export function webMiddleware(config, middlewares, pluginOptions): any {
   return router;
 }
 
-export default async (config, auth, storage, logger) => {
+export default async (config, auth, storage, logger): Promise<Router> => {
   let pluginOptions = await loadTheme(config);
   if (!pluginOptions) {
     debug('no theme plugin found, using default theme');
