@@ -11,18 +11,18 @@
     "url": "git://github.com/verdaccio/verdaccio"
   },
   "homepage": "https://verdaccio.org",
-  "main": "build/cjs/index.js",
-  "module": "build/esm/index.js",
+  "main": "build/cjs/index.cjs",
+  "module": "build/esm/index.mjs",
   "types": "build/index.d.ts",
   "exports": {
     ".": {
       "import": {
         "types": "./build/index.d.ts",
-        "default": "./build/esm/index.js"
+        "default": "./build/esm/index.mjs"
       },
       "require": {
         "types": "./build/index.d.ts",
-        "default": "./build/cjs/index.js"
+        "default": "./build/cjs/index.cjs"
       }
     }
   },
@@ -62,13 +62,6 @@
     "verdaccio-htpasswd": "14.0.0-next-9.1"
   },
   "devDependencies": {
-    "@babel/cli": "7.28.6",
-    "@babel/core": "7.29.0",
-    "@babel/node": "7.29.0",
-    "@babel/preset-env": "7.29.0",
-    "@babel/preset-typescript": "7.28.5",
-    "@babel/register": "7.28.6",
-    "@babel/runtime": "7.28.6",
     "@trivago/prettier-plugin-sort-imports": "5.2.2",
     "@types/async": "3.2.25",
     "@types/debug": "4.1.12",
@@ -86,8 +79,6 @@
     "@verdaccio/types": "14.0.0-next-9.0",
     "@vitest/coverage-v8": "3.2.4",
     "@vitest/eslint-plugin": "1.6.9",
-    "babel-plugin-add-import-extension": "1.6.0",
-    "babel-plugin-transform-inline-environment-variables": "0.4.4",
     "cross-env": "10.1.0",
     "eslint": "10.0.3",
     "eslint-plugin-cypress": "6.1.0",
@@ -104,8 +95,9 @@
     "selfsigned": "5.5.0",
     "standard-version": "9.5.0",
     "supertest": "7.2.2",
-    "ts-node": "10.9.2",
+    "tsx": "4.19.4",
     "typescript": "5.9.3",
+    "vite": "8.0.3",
     "verdaccio-auth-memory": "10.3.1",
     "verdaccio-memory": "10.4.1",
     "vitest": "3.2.4"
@@ -133,17 +125,11 @@
     "lint:ts": "pnpm run type-check",
     "lint": "eslint \"**/*.{js,jsx,ts}\"",
     "lint:lockfile": "echo 'No lockfile linting available'",
-    "start": "pnpm babel-node --extensions \".ts,.tsx\" src/lib/cli --inspect",
-    "start:brk": "pnpm babel-node --extensions \".ts,.tsx\" src/lib/cli --inspect-brk",
-    "start:debug": "node debug/bootstrap.js",
-    "start:run-server": "node debug/bootstrap-runserver.js",
-    "build": "rm -Rf build && pnpm build:cjs && pnpm build:esm && pnpm build:types && pnpm build:markers",
-    "build:markers": "echo '{\"type\":\"commonjs\"}' > build/cjs/package.json && echo '{\"type\":\"module\"}' > build/esm/package.json",
-    "build:cjs": "PACKAGE_VERSION=$(node -p \"require('./package.json').version\") pnpm babel src/ --out-dir build/cjs/ --copy-files --extensions \".ts,.tsx\" --source-maps inline",
-    "build:esm": "PACKAGE_VERSION=$(node -p \"require('./package.json').version\") BABEL_MODULE=esm pnpm babel src/ --out-dir build/esm/ --copy-files --extensions \".ts,.tsx\" --source-maps inline",
-    "build:types": "tsc --emitDeclarationOnly -p tsconfig.json",
-    "code:types": "tsc --emitDeclarationOnly -p tsconfig.json",
-    "code:docker-build": "pnpm babel src/ --out-dir build/cjs/ --copy-files --extensions \".ts,.tsx\"",
+    "start": "tsx src/lib/cli --inspect",
+    "start:brk": "tsx src/lib/cli --inspect-brk",
+    "start:debug": "tsx --inspect debug/run-server.ts",
+    "start:run-server": "tsx debug/run-server.ts",
+    "build": "rm -Rf build && vite build && tsc --emitDeclarationOnly -p tsconfig.json",
     "docker": "docker build -t verdaccio/verdaccio:local . --no-cache",
     "docker:run": "docker run -it --rm -p 4873:4873 -e \"DEBUG=verdaccio*\" verdaccio/verdaccio:local"
   },
@@ -157,5 +143,8 @@
     "url": "https://opencollective.com/verdaccio",
     "logo": "https://opencollective.com/verdaccio/logo.txt"
   },
-  "packageManager": "pnpm@10.33.0+sha512.10568bb4a6afb58c9eb3630da90cc9516417abebd3fabbe6739f0ae795728da1491e9db5a544c76ad8eb7570f5c4bb3d6c637b2cb41bfdcdb47fa823c8649319"
+  "packageManager": "pnpm@10.33.0+sha512.10568bb4a6afb58c9eb3630da90cc9516417abebd3fabbe6739f0ae795728da1491e9db5a544c76ad8eb7570f5c4bb3d6c637b2cb41bfdcdb47fa823c8649319",
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild", "unrs-resolver"]
+  }
 }

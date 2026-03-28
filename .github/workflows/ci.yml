@@ -24,10 +24,37 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  changeset-check:
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.draft == false &&
+      github.actor != 'renovate[bot]' &&
+      github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    name: Changeset file check
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+          repository: verdaccio/verdaccio
+          ref: master
+          path: master-actions
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+      - name: Copy changeset-check action from master
+        run: cp -r master-actions/.github/actions .github/actions
+      - name: Check changeset
+        uses: ./.github/actions/changeset-check
+
   lint-and-format:
+    needs: [changeset-check]
+    if: ${{ always() && !failure() && !cancelled() && github.event.pull_request.draft == false }}
     runs-on: ubuntu-latest
     name: Lint & Format
-    if: github.event.pull_request.draft == false
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
