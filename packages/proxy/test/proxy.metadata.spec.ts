@@ -235,7 +235,7 @@ describe('proxy', () => {
         expect(mockInfo).toHaveBeenCalledTimes(2);
         expect(mockInfo).toHaveBeenLastCalledWith(
           {
-            error: 'Response code 500 (Internal Server Error)',
+            error: `Request failed with status code 500 (Internal Server Error): GET ${domain}/jquery`,
             request: { method: 'GET', url: `${domain}/jquery` },
             retryCount: 2,
           },

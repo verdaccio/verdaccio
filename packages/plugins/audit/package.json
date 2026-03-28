@@ -33,8 +33,8 @@
     "@verdaccio/config": "workspace:9.0.0-next-9.6",
     "@verdaccio/core": "workspace:9.0.0-next-9.6",
     "express": "5.2.1",
-    "https-proxy-agent": "5.0.1",
-    "node-fetch": "cjs"
+    "got": "14.6.6",
+    "hpagent": "1.2.0"
   },
   "devDependencies": {
     "@verdaccio/auth": "workspace:9.0.0-next-9.6",
