@@ -86,7 +86,7 @@ jobs:
           This package (`@verdaccio-canary/verdaccio`) is a pre-release snapshot published under a separate scope to avoid conflicts with the stable `verdaccio` package.
 
           ```bash
-          npm install @verdaccio-canary/verdaccio@canary
+          npm install @verdaccio-canary/verdaccio@latest
           ```
 
           ## Links
@@ -105,7 +105,7 @@ jobs:
       - name: Publish canary
         run: |
           npm config set "//registry.npmjs.org/:_authToken" "${REGISTRY_AUTH_TOKEN}"
-          npm publish --tag canary --access public
+          npm publish --tag latest --access public
         env:
           REGISTRY_AUTH_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
 
