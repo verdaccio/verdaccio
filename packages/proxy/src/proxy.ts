@@ -1,7 +1,7 @@
 import JSONStream from 'JSONStream';
 import buildDebug from 'debug';
-import type { Agents, Delays, RequestError, RetryOptions, Headers as gotHeaders } from 'got-cjs';
-import got, { Options } from 'got-cjs';
+import type { Agents, Delays, RequestError, RetryOptions, Headers as gotHeaders } from 'got';
+import got, { Options } from 'got';
 import _ from 'lodash';
 import type Stream from 'node:stream';
 import { PassThrough, Readable } from 'node:stream';
