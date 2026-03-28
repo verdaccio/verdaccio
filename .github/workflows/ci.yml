@@ -256,7 +256,7 @@ jobs:
           path: /home/runner/work/verdaccio/verdaccio/e2e/ui/cypress/videos
   changeset-validation:
     needs: [test, e2e-cli, e2e-ui]
-    if: ${{ github.event_name == 'pull_request' && always() && !failure() && !cancelled() }}
+    if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && always() && !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     name: Changeset validation
     steps:
@@ -272,7 +272,7 @@ jobs:
         run: pnpm ci:version:changeset
   codeql:
     needs: [test, e2e-cli, e2e-ui]
-    if: ${{ github.event_name == 'pull_request' && always() && !failure() && !cancelled() }}
+    if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && always() && !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     name: CodeQL Analysis
     steps:
