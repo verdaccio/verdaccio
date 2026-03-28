@@ -1,6 +1,6 @@
 import buildDebug from 'debug';
 import { escapeRegExp, isNil } from 'lodash-es';
-import { Low, Memory  } from 'lowdb';
+import { Low, Memory } from 'lowdb';
 import { JSONFile } from 'lowdb/node';
 import path from 'node:path';
 
