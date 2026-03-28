@@ -2,7 +2,7 @@ import buildDebug from 'debug';
 import _ from 'lodash';
 import { HTPasswd } from 'verdaccio-htpasswd';
 
-import { TOKEN_VALID_LENGTH, createAnonymousRemoteUser, createRemoteUser } from '@verdaccio/config';
+import { createAnonymousRemoteUser, createRemoteUser } from '@verdaccio/config';
 import type { VerdaccioError, pluginUtils } from '@verdaccio/core';
 import {
   API_ERROR,
@@ -17,12 +17,7 @@ import {
   warningUtils,
 } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
-import {
-  aesEncrypt,
-  aesEncryptDeprecated,
-  parseBasicPayload,
-  signPayload,
-} from '@verdaccio/signature';
+import { aesEncrypt, parseBasicPayload, signPayload } from '@verdaccio/signature';
 import type {
   AllowAccess,
   Callback,
@@ -646,16 +641,9 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
    * Encrypt a string.
    */
   public aesEncrypt(value: string): string | void {
-    if (this.secret.length === TOKEN_VALID_LENGTH) {
-      debug('signing with enhanced aes legacy');
-      const token = aesEncrypt(value, this.secret);
-      return token;
-    } else {
-      debug('signing with enhanced aes deprecated legacy');
-      // deprecated aes (legacy) signature, only must be used for legacy version
-      const token = aesEncryptDeprecated(Buffer.from(value), this.secret).toString('base64');
-      return token;
-    }
+    debug('signing with aes encryption');
+    const token = aesEncrypt(value, this.secret);
+    return token;
   }
 }
 
