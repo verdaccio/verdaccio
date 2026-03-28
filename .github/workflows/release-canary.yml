@@ -154,5 +154,6 @@ jobs:
           echo "**Version:** \`${{ steps.version.outputs.canary_version }}\`" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
-          echo "npm install @verdaccio-canary/verdaccio@${{ steps.version.outputs.canary_version }}" >> $GITHUB_STEP_SUMMARY
+          echo "npm install -g @verdaccio-canary/verdaccio@${{ steps.version.outputs.canary_version }}" >> $GITHUB_STEP_SUMMARY
+          echo "verdaccio-canary" >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
