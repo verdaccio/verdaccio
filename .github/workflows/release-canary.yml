@@ -73,10 +73,12 @@ jobs:
           CANARY_VERSION="${CURRENT_VERSION}-canary.${SHORT_SHA}"
           echo "canary_version=${CANARY_VERSION}" >> "$GITHUB_OUTPUT"
           # Temporarily rename package for canary publish (not committed)
+          cp bin/verdaccio bin/verdaccio-canary
           node -e "
             const pkg = require('./package.json');
             pkg.name = '@verdaccio-canary/verdaccio';
             pkg.version = '${CANARY_VERSION}';
+            pkg.bin = { 'verdaccio-canary': './bin/verdaccio-canary' };
             require('fs').writeFileSync('./package.json', JSON.stringify(pkg, null, 2) + '\n');
           "
           echo "Publishing @verdaccio-canary/verdaccio@${CANARY_VERSION}"
