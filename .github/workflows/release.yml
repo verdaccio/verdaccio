@@ -5,7 +5,25 @@ on:
     tags:
       - '*'
 jobs:
-  snapshot:
-    secrets: inherit
-    uses: verdaccio/verdaccio/.github/workflows/x-release.yml@master
-
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+    - name: Use Node (latest)
+      uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+      with:
+        node-version-file: '.nvmrc'
+    - name: Install
+      run: pnpm install --frozen-lockfile
+    - name: Build
+      run: pnpm build
+    - name: Publish
+      run: sh scripts/publish.sh
+      env:
+        REGISTRY_AUTH_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
+        REGISTRY_URL: registry.npmjs.org
+    - name: Create release notes
+      run: sh scripts/github-release.sh
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
