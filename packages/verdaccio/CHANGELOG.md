@@ -1,5 +1,25 @@
 # verdaccio
 
+## 9.0.0-next-9.7
+
+### Minor Changes
+
+- b8595a6: Add @verdaccio/package-filter as a dependency
+
+### Patch Changes
+
+- de2a000: test: no changes
+- Updated dependencies [d0405c9]
+- Updated dependencies [d148dc2]
+  - verdaccio-audit@14.0.0-next-9.7
+  - @verdaccio/ui-theme@9.0.0-next-9.7
+  - @verdaccio/cli@9.0.0-next-9.7
+  - @verdaccio/hooks@9.0.0-next-9.7
+  - @verdaccio/node-api@9.0.0-next-9.7
+  - verdaccio-htpasswd@14.0.0-next-9.7
+  - @verdaccio/package-filter@14.0.0-next-9.31
+  - @verdaccio/logger@9.0.0-next-9.7
+
 ## 9.0.0-next-9.6
 
 ### Patch Changes

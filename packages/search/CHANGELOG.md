@@ -1,5 +1,16 @@
 # @verdaccio/search
 
+## 9.0.0-next-9.7
+
+### Patch Changes
+
+- Updated dependencies [f2e488d]
+- Updated dependencies [d0405c9]
+  - @verdaccio/config@9.0.0-next-9.7
+  - @verdaccio/proxy@9.0.0-next-9.7
+  - @verdaccio/core@9.0.0-next-9.7
+  - @verdaccio/logger@9.0.0-next-9.7
+
 ## 9.0.0-next-9.6
 
 ### Patch Changes

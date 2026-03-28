@@ -40,6 +40,8 @@
     "@verdaccio/package-filter": "14.0.0-next-8.29"
   },
   "changesets": [
+    "add-package-filter-dep",
+    "brown-kings-end",
     "chatty-cats-relate",
     "combine-logger-packages",
     "curly-stingrays-fly",
@@ -54,10 +56,14 @@
     "olive-lobsters-protect",
     "plugin-verifier-tool",
     "quick-experts-knock",
+    "remove-deprecated-aes-encryption",
+    "replace-got-cjs-node-fetch",
     "rotten-walls-happen",
     "shy-moons-retire",
+    "silent-flowers-perform",
     "soft-cats-sip",
     "sour-ravens-compete",
+    "stale-geckos-jam",
     "stale-poets-sit",
     "ten-cougars-flash",
     "thick-pigs-arrive",
@@ -65,6 +71,7 @@
     "unlucky-chefs-impress",
     "update-vitest-4",
     "vite-build-migration",
-    "warm-pandas-glow"
+    "warm-pandas-glow",
+    "witty-apes-try"
   ]
 }
