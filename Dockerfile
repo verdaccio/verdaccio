@@ -17,23 +17,21 @@ RUN apk add --no-cache \
 
 WORKDIR /opt/verdaccio-build
 
-# Copy dependency manifests first for better layer caching
-COPY package.json yarn.lock .yarnrc.yml ./
-COPY .yarn/ .yarn/
+# Enable corepack for pnpm
+RUN corepack enable pnpm
 
-RUN yarn config set npmRegistryServer $VERDACCIO_BUILD_REGISTRY && \
-    yarn config set enableProgressBars true && \
-    yarn config set enableScripts false && \
-    yarn install --immutable
+# Copy dependency manifests first for better layer caching
+COPY package.json pnpm-lock.yaml ./
+
+RUN pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
+    pnpm install --frozen-lockfile
 
 # Copy source and build
 COPY . .
-RUN yarn build
+RUN pnpm build
 
 # Pack and stage the tarball
-RUN yarn pack --out verdaccio.tgz \
-    && mkdir -p /opt/tarball \
-    && mv /opt/verdaccio-build/verdaccio.tgz /opt/tarball
+RUN pnpm pack --pack-destination /opt/tarball
 
 FROM --platform=${BUILDPLATFORM:-linux/amd64} node:24.14.0-alpine
 
@@ -64,12 +62,10 @@ RUN apk --no-cache add openssl dumb-init \
 COPY --from=builder /opt/tarball .
 
 # Install verdaccio globally, copy default config, and clean up in a single layer
-RUN npm install -g $VERDACCIO_APPDIR/verdaccio.tgz \
+RUN npm install -g $VERDACCIO_APPDIR/verdaccio-*.tgz \
     && cp /usr/local/lib/node_modules/verdaccio/node_modules/@verdaccio/config/build/conf/docker.yaml /verdaccio/conf/config.yaml \
     && npm cache clean --force \
-    && rm -Rf .npm/ $VERDACCIO_APPDIR/verdaccio.tgz \
-    # Remove yarn — not needed at runtime
-    && rm -Rf /opt/yarn-v*/  /usr/local/bin/yarn /usr/local/bin/yarnpkg
+    && rm -Rf .npm/ $VERDACCIO_APPDIR/verdaccio-*.tgz
 
 COPY docker-bin $VERDACCIO_APPDIR/docker-bin
 

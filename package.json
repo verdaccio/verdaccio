@@ -11,18 +11,18 @@
     "url": "git://github.com/verdaccio/verdaccio"
   },
   "homepage": "https://verdaccio.org",
-  "main": "build/cjs/index.js",
-  "module": "build/esm/index.js",
+  "main": "build/cjs/index.cjs",
+  "module": "build/esm/index.mjs",
   "types": "build/index.d.ts",
   "exports": {
     ".": {
       "import": {
         "types": "./build/index.d.ts",
-        "default": "./build/esm/index.js"
+        "default": "./build/esm/index.mjs"
       },
       "require": {
         "types": "./build/index.d.ts",
-        "default": "./build/cjs/index.js"
+        "default": "./build/cjs/index.cjs"
       }
     }
   },
@@ -49,7 +49,6 @@
     "@verdaccio/ui-theme": "9.0.0-next-9.1",
     "@verdaccio/url": "14.0.0-next-9.1",
     "@verdaccio/utils": "9.0.0-next-9.1",
-    "JSONStream": "1.3.5",
     "async": "3.2.6",
     "clipanion": "4.0.0-rc.4",
     "compression": "1.8.1",
@@ -63,13 +62,6 @@
     "verdaccio-htpasswd": "14.0.0-next-9.1"
   },
   "devDependencies": {
-    "@babel/cli": "7.28.6",
-    "@babel/core": "7.29.0",
-    "@babel/node": "7.29.0",
-    "@babel/preset-env": "7.29.0",
-    "@babel/preset-typescript": "7.28.5",
-    "@babel/register": "7.28.6",
-    "@babel/runtime": "7.28.6",
     "@trivago/prettier-plugin-sort-imports": "5.2.2",
     "@types/async": "3.2.25",
     "@types/debug": "4.1.12",
@@ -77,20 +69,16 @@
     "@types/http-errors": "2.0.5",
     "@types/lodash": "4.17.23",
     "@types/minimatch": "5.1.2",
-    "@types/node": "20.19.33",
-    "@types/pino": "7.0.5",
-    "@types/request": "2.48.13",
+    "@types/node": "25.5.0",
     "@types/semver": "7.7.1",
     "@types/supertest": "6.0.3",
     "@verdaccio-scope/verdaccio-auth-foo": "0.0.2",
-    "@verdaccio/e2e-cli": "2.3.0",
+    "@verdaccio/e2e-cli": "2.4.0",
     "@verdaccio/eslint-config": "13.0.0",
     "@verdaccio/test-helper": "5.0.0-next-9.1",
     "@verdaccio/types": "14.0.0-next-9.0",
     "@vitest/coverage-v8": "3.2.4",
     "@vitest/eslint-plugin": "1.6.9",
-    "babel-plugin-add-import-extension": "1.6.0",
-    "babel-plugin-transform-inline-environment-variables": "0.4.4",
     "cross-env": "10.1.0",
     "eslint": "10.0.3",
     "eslint-plugin-cypress": "6.1.0",
@@ -107,10 +95,12 @@
     "selfsigned": "5.5.0",
     "standard-version": "9.5.0",
     "supertest": "7.2.2",
-    "ts-node": "10.9.2",
+    "tsx": "4.19.4",
     "typescript": "5.9.3",
     "verdaccio-auth-memory": "10.3.1",
     "verdaccio-memory": "10.4.1",
+    "vite": "8.0.3",
+    "vite-plugin-dts": "4.5.4",
     "vitest": "3.2.4"
   },
   "keywords": [
@@ -127,26 +117,20 @@
   "scripts": {
     "release": "standard-version -a -s",
     "type-check": "tsc --noEmit",
-    "cache:clean": "yarn cache clean --mirror && yarn cache clean --all",
-    "type-check:watch": "yarn run type-check -- --watch",
+    "cache:clean": "pnpm store prune",
+    "type-check:watch": "pnpm run type-check -- --watch",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,yml,yaml,md}\"",
     "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,yml,yaml,md}\"",
     "test": "cross-env NODE_ENV=test TZ=UTC FORCE_COLOR=1 vitest run",
-    "pre:ci": "yarn run lint",
-    "lint:ts": "yarn run type-check",
+    "pre:ci": "pnpm run lint",
+    "lint:ts": "pnpm run type-check",
     "lint": "eslint \"**/*.{js,jsx,ts}\"",
     "lint:lockfile": "echo 'No lockfile linting available'",
-    "start": "yarn babel-node --extensions \".ts,.tsx\" src/lib/cli --inspect",
-    "start:brk": "yarn babel-node --extensions \".ts,.tsx\" src/lib/cli --inspect-brk",
-    "start:debug": "yarn node debug/bootstrap.js",
-    "start:run-server": "yarn node debug/bootstrap-runserver.js",
-    "build": "rm -Rf build && yarn build:cjs && yarn build:esm && yarn build:types && yarn build:markers",
-    "build:markers": "echo '{\"type\":\"commonjs\"}' > build/cjs/package.json && echo '{\"type\":\"module\"}' > build/esm/package.json",
-    "build:cjs": "PACKAGE_VERSION=$(node -p \"require('./package.json').version\") yarn babel src/ --out-dir build/cjs/ --copy-files --extensions \".ts,.tsx\" --source-maps inline",
-    "build:esm": "PACKAGE_VERSION=$(node -p \"require('./package.json').version\") BABEL_MODULE=esm yarn babel src/ --out-dir build/esm/ --copy-files --extensions \".ts,.tsx\" --source-maps inline",
-    "build:types": "tsc --emitDeclarationOnly -p tsconfig.json",
-    "code:types": "tsc --emitDeclarationOnly -p tsconfig.json",
-    "code:docker-build": "yarn babel src/ --out-dir build/cjs/ --copy-files --extensions \".ts,.tsx\"",
+    "start": "tsx src/lib/cli --inspect",
+    "start:brk": "tsx src/lib/cli --inspect-brk",
+    "start:debug": "tsx --inspect debug/run-server.ts",
+    "start:run-server": "tsx debug/run-server.ts",
+    "build": "rm -Rf build && vite build",
     "docker": "docker build -t verdaccio/verdaccio:local . --no-cache",
     "docker:run": "docker run -it --rm -p 4873:4873 -e \"DEBUG=verdaccio*\" verdaccio/verdaccio:local"
   },
@@ -160,5 +144,11 @@
     "url": "https://opencollective.com/verdaccio",
     "logo": "https://opencollective.com/verdaccio/logo.txt"
   },
-  "packageManager": "yarn@4.9.2"
+  "packageManager": "pnpm@10.33.0+sha512.10568bb4a6afb58c9eb3630da90cc9516417abebd3fabbe6739f0ae795728da1491e9db5a544c76ad8eb7570f5c4bb3d6c637b2cb41bfdcdb47fa823c8649319",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "unrs-resolver"
+    ]
+  }
 }

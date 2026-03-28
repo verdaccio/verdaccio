@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module": "commonjs",
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "declaration": true,
     "declarationDir": "./build",
     "emitDeclarationOnly": true,
@@ -13,7 +14,8 @@
     "rootDir": "./src",
     "outDir": "./build",
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "isolatedModules": true
   },
   "exclude": ["node_modules", "**/*.spec.ts"],
   "include": ["src/**/*.ts", "types/*.d.ts"]
