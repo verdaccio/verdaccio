@@ -1,6 +1,5 @@
 
 ## npm
-yarn-error.log
 node_modules
 verdaccio-*.tgz
 docker-compose.yaml
@@ -9,19 +8,9 @@ scripts/
 src/
 /.*
 .vscode/
-.circleci/
-docker-examples/
 reports/
 ## assets and website
 assets/
-
-## docs
-docs/
-wiki/
-
-## flow
-flow-typed/
-types/
 
 # jest
 coverage/
@@ -45,4 +34,9 @@ babel.config.js
 debug/*
 tsconfig*
 vitest.config.mjs
-
+vite.config.mjs
+*.log
+*.tsbuildinfo
+*.tgz
+*.zip
+*.tar.gz

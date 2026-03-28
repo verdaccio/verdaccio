@@ -60,10 +60,6 @@ jobs:
         if: steps.pr.outputs.should_publish != 'false'
         run: pnpm install --frozen-lockfile
 
-      - name: Build
-        if: steps.pr.outputs.should_publish != 'false'
-        run: pnpm build
-
       - name: Set canary version and scope
         if: steps.pr.outputs.should_publish != 'false'
         id: version
@@ -82,6 +78,10 @@ jobs:
             require('fs').writeFileSync('./package.json', JSON.stringify(pkg, null, 2) + '\n');
           "
           echo "Publishing @verdaccio-canary/verdaccio@${CANARY_VERSION}"
+
+      - name: Build
+        if: steps.pr.outputs.should_publish != 'false'
+        run: pnpm build
 
       - name: Replace README for canary publish
         if: steps.pr.outputs.should_publish != 'false'
