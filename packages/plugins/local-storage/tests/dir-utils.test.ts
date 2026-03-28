@@ -3,7 +3,7 @@ import { describe, expect, test } from 'vitest';
 
 import { getFolders, searchOnStorage } from '../src/dir-utils';
 
-const mockFolder = join(__dirname, 'mockStorage');
+const mockFolder = join(import.meta.dirname, 'mockStorage');
 
 const pathStorage1 = join(mockFolder, 'storage1');
 const pathStorage2 = join(mockFolder, 'storage2');

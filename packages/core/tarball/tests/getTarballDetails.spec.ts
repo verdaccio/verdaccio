@@ -5,7 +5,7 @@ import { describe, expect, test } from 'vitest';
 import { getTarballDetails } from '../src/getTarballDetails.ts';
 
 const getFilePath = (filename: string): string => {
-  return path.resolve(__dirname, `assets/${filename}`);
+  return path.resolve(import.meta.dirname, `assets/${filename}`);
 };
 
 const getFileBuffer = async (filename: string): Promise<Buffer> => {

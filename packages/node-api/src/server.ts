@@ -1,6 +1,6 @@
 /* eslint-disable */
 import buildDebug from 'debug';
-import { assign, isFunction } from 'lodash';
+import { assign } from 'lodash-es';
 import constants from 'node:constants';
 import fs from 'node:fs';
 import http from 'node:http';
@@ -115,7 +115,7 @@ export async function initServer(
     serverFactory
       .listen(addr.port || addr.path, addr.host, (): void => {
         // send a message for test
-        if (isFunction(process.send)) {
+        if (typeof process.send === 'function') {
           process.send({
             verdaccio_started: true,
           });

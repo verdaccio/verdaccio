@@ -5,7 +5,7 @@ import { PLUGIN_CATEGORY } from '@verdaccio/core';
 
 import { resolveEntryPoint, runDiagnostics } from '../src/diagnostics';
 
-const fixturesPath = join(__dirname, 'fixtures');
+const fixturesPath = join(import.meta.dirname, 'fixtures');
 
 describe('runDiagnostics', () => {
   describe('resolve phase', () => {

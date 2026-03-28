@@ -12,7 +12,7 @@ beforeAll(async () => {
   await setup({});
 });
 
-const getConf = (name) => path.join(__dirname, '/conf', name);
+const getConf = (name) => path.join(import.meta.dirname, '/conf', name);
 
 // // mock to get the headers fixed value
 vi.mock('crypto', () => {
@@ -48,7 +48,7 @@ describe('tarball proxy', () => {
       new Promise((done) => {
         nock('https://registry.verdaccio.org')
           .get('/jquery/-/jquery-0.0.1.tgz')
-          .replyWithFile(201, path.join(__dirname, 'partials/jquery-0.0.1.tgz'));
+          .replyWithFile(201, path.join(import.meta.dirname, 'partials/jquery-0.0.1.tgz'));
         const prox1: IProxy = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
         const stream = prox1.fetchTarball(
           'https://registry.verdaccio.org/jquery/-/jquery-0.0.1.tgz',
@@ -70,7 +70,7 @@ describe('tarball proxy', () => {
           .get('/jquery/-/jquery-0.0.1.tgz')
           .reply(500, 'Internal Server Error')
           .get('/jquery/-/jquery-0.0.1.tgz')
-          .replyWithFile(201, path.join(__dirname, 'partials/jquery-0.0.1.tgz'));
+          .replyWithFile(201, path.join(import.meta.dirname, 'partials/jquery-0.0.1.tgz'));
         const prox1: IProxy = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
         const stream = prox1.fetchTarball(
           'https://registry.verdaccio.org/jquery/-/jquery-0.0.1.tgz',

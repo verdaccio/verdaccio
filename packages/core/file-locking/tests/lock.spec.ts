@@ -6,7 +6,7 @@ import { lockFileNext, readFileNext, unlockFileNext } from '../src/index';
 import { statDir, statFile } from '../src/utils';
 
 const getFilePath = (filename: string): string => {
-  return path.resolve(__dirname, `assets/${filename}`);
+  return path.resolve(import.meta.dirname, `assets/${filename}`);
 };
 
 const removeTempFile = (filename: string): void => {

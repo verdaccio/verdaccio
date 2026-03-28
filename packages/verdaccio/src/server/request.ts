@@ -1,7 +1,7 @@
 import buildDebug from 'debug';
 import type { HTTPAlias, Response, Headers as gotHeaders } from 'got';
 import got from 'got';
-import { isNil, isObject, isRegExp } from 'lodash';
+import { isNil, isObject, isRegExp } from 'lodash-es';
 import assert from 'node:assert';
 
 import { API_MESSAGE, HEADERS, HTTP_STATUS } from '@verdaccio/core';

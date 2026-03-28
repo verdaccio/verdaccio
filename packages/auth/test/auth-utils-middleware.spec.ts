@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { merge } from 'lodash-es';
 import path from 'node:path';
 import { beforeAll, describe, expect, test, vi } from 'vitest';
 
@@ -29,7 +29,7 @@ const parseConfigurationFile = (conf) => {
   const { name, ext } = path.parse(conf);
   const format = ext.startsWith('.') ? ext.substring(1) : 'yaml';
 
-  return path.join(__dirname, `./partials/config/${format}/security/${name}.${format}`);
+  return path.join(import.meta.dirname, `./partials/config/${format}/security/${name}.${format}`);
 };
 
 describe('Auth utilities', () => {
@@ -42,7 +42,7 @@ describe('Auth utilities', () => {
   function getConfig(configFileName: string, secret: string) {
     const conf = parseConfigFile(parseConfigurationSecurityFile(configFileName));
     // @ts-ignore
-    const secConf = _.merge(getDefaultConfig(), conf);
+    const secConf = merge(getDefaultConfig(), conf);
     // @ts-expect-error
     secConf.secret = secret;
     const config: Config = new AppConfig(secConf);

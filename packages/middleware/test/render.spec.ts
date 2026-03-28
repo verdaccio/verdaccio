@@ -13,7 +13,7 @@ const pluginOptions = {
   manifestFiles: {
     js: ['runtime.js', 'vendors.js', 'main.js'],
   },
-  staticPath: path.join(__dirname, 'static'),
+  staticPath: path.join(import.meta.dirname, 'static'),
   manifest: require('./partials/manifest/manifest.json'),
 };
 

@@ -49,12 +49,13 @@
     "@verdaccio/tarball": "workspace:14.0.0-next-9.7",
     "@verdaccio/url": "workspace:14.0.0-next-9.7",
     "debug": "4.4.3",
-    "lodash": "4.17.23",
+    "lodash-es": "4.17.23",
     "semver": "7.7.4"
   },
   "devDependencies": {
     "@verdaccio/test-helper": "workspace:5.0.0-next-9.7",
     "@verdaccio/types": "workspace:14.0.0-next-9.4",
+    "@types/lodash-es": "4.17.12",
     "mockdate": "3.0.5",
     "nock": "13.5.6",
     "node-mocks-http": "1.14.1",

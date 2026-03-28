@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import _ from 'lodash';
+import { isNil } from 'lodash-es';
 
 import { createAnonymousRemoteUser } from '@verdaccio/config';
 import type { pluginUtils } from '@verdaccio/core';
@@ -72,7 +72,7 @@ export function getMiddlewareCredentials(
   const { scheme, token } = parseAuthTokenHeader(authorizationHeader);
 
   debug('is jwt');
-  if (_.isString(token) && scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
+  if (typeof token === 'string' && scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
     return verifyJWTPayload(token, secretKey, security);
   }
 }
@@ -80,7 +80,7 @@ export function getMiddlewareCredentials(
 export function isAESLegacy(security: Security): boolean {
   const { legacy, jwt } = security.api;
 
-  return _.isNil(legacy) === false && _.isNil(jwt) && legacy === true;
+  return isNil(legacy) === false && isNil(jwt) && legacy === true;
 }
 
 export async function getApiToken(

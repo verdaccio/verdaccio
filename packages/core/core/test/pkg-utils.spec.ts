@@ -37,13 +37,13 @@ describe('pkg-utils', () => {
 
 describe('getPackageJson', () => {
   test('@verdaccio/core', () => {
-    const packageJson = pkgUtils.getPackageJson(__dirname, '..');
+    const packageJson = pkgUtils.getPackageJson(import.meta.dirname, '..');
     expect(packageJson).toBeDefined();
     expect(packageJson.name).toBe('@verdaccio/core');
   });
 
   test('@verdaccio/test', () => {
-    const packageJson = pkgUtils.getPackageJson(__dirname, '__partials__');
+    const packageJson = pkgUtils.getPackageJson(import.meta.dirname, '__partials__');
     expect(packageJson).toBeDefined();
     expect(packageJson.name).toBe('@verdaccio/test');
     expect(packageJson.version).toBe('8.0.0');

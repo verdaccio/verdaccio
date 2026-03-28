@@ -12,10 +12,11 @@
     "@verdaccio/types": "workspace:14.0.0-next-9.4",
     "@verdaccio/core": "workspace:9.0.0-next-9.7",
     "@verdaccio/config": "workspace:9.0.0-next-9.7",
-    "verdaccio": "workspace:9.0.0-next-9.7"
+    "verdaccio": "workspace:9.0.0-next-9.7",
+    "tsx": "^4.21.0"
   },
   "scripts": {
-    "start": "ts-node src/index.ts",
+    "start": "tsx src/index.ts",
     "build": "echo 0"
   }
 }

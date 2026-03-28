@@ -1,6 +1,6 @@
 import buildDebug from 'debug';
 import { Router } from 'express';
-import _ from 'lodash';
+import { isNil } from 'lodash-es';
 
 import type { Auth } from '@verdaccio/auth';
 import { createAnonymousRemoteUser } from '@verdaccio/config';
@@ -69,7 +69,7 @@ function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router 
           }
           // convert any remote dist to a local reference
           // eg: if the dist points to npmjs, switch to localhost:4873/prefix/etc.tar.gz
-          if (!_.isNil(pkgCopy.dist) && !_.isNull(pkgCopy.dist.tarball)) {
+          if (!isNil(pkgCopy.dist) && pkgCopy.dist.tarball !== null) {
             pkgCopy.dist.tarball = getLocalRegistryTarballUri(
               pkgCopy.dist.tarball,
               pkg.name,

@@ -1,9 +1,8 @@
 import { Base64 } from 'js-base64';
-import isNumber from 'lodash/isNumber';
-import isString from 'lodash/isString';
+import { isNumber } from 'lodash-es';
 
 export function isTokenExpire(token: string | null): boolean {
-  if (!isString(token)) {
+  if (typeof token !== 'string') {
     return true;
   }
 

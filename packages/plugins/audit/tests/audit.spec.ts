@@ -23,7 +23,7 @@ describe('Audit plugin', () => {
   test('should test audit', () => {
     const audit = new ProxyAudit(auditConfig, {
       logger,
-      config: new Config(parseConfigFile(join(__dirname, 'config.yaml'))),
+      config: new Config(parseConfigFile(join(import.meta.dirname, 'config.yaml'))),
     });
     expect(audit).toBeDefined();
   });
