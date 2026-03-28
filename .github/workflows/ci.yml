@@ -24,9 +24,27 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  changeset-check:
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.draft == false &&
+      github.actor != 'renovate[bot]' &&
+      github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    name: Changeset file check
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+      - name: Check changeset
+        uses: ./.github/actions/changeset-check        
   prepare:
+    needs: [changeset-check]
     # Avoid running on draft PRs
-    if: github.event.pull_request.draft == false
+    if: ${{ always() && !failure() && !cancelled() && github.event.pull_request.draft == false }}
     runs-on: ubuntu-latest
     name: setup
     services:
@@ -237,7 +255,7 @@ jobs:
           path: /home/runner/work/verdaccio/verdaccio/e2e/ui/cypress/videos
   changeset-validation:
     needs: [test, e2e-cli, e2e-ui]
-    if: ${{ github.event_name == 'pull_request' && always() && !failure() && !cancelled() }}
+    if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && always() && !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     name: Changeset validation
     steps:
@@ -253,7 +271,7 @@ jobs:
         run: pnpm ci:version:changeset
   codeql:
     needs: [test, e2e-cli, e2e-ui]
-    if: ${{ github.event_name == 'pull_request' && always() && !failure() && !cancelled() }}
+    if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && always() && !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     name: CodeQL Analysis
     steps:
