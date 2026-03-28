@@ -1,5 +1,13 @@
 # Change Log
 
+## 14.0.0-next-9.7
+
+### Patch Changes
+
+- e500b84: chore: remove unused @verdaccio/utils
+  - @verdaccio/core@9.0.0-next-9.7
+  - @verdaccio/file-locking@14.0.0-next-9.2
+
 ## 14.0.0-next-9.6
 
 ### Patch Changes

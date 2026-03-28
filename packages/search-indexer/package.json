@@ -51,7 +51,7 @@
     "build": "vite build"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:14.0.0-next-9.3",
+    "@verdaccio/types": "workspace:14.0.0-next-9.4",
     "@orama/orama": "1.2.11",
     "debug": "4.4.3",
     "vitest": "4.1.0"

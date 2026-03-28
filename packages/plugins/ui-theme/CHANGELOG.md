@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 9.0.0-next-9.7
+
+### Patch Changes
+
+- d148dc2: chore(ui-theme): reduce package size
+
 ## 9.0.0-next-9.6
 
 ### Patch Changes

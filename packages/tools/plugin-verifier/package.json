@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/plugin-verifier",
-  "version": "1.0.0-next-9.2",
+  "version": "1.0.0-next-9.3",
   "description": "Tool to verify that a Verdaccio plugin can be loaded and passes sanity checks",
   "type": "module",
   "main": "./build/index.js",
@@ -33,15 +33,15 @@
     "node": ">=24"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:9.0.0-next-9.6",
-    "@verdaccio/loaders": "workspace:9.0.0-next-9.6",
-    "@verdaccio/logger": "workspace:9.0.0-next-9.6",
+    "@verdaccio/core": "workspace:9.0.0-next-9.7",
+    "@verdaccio/loaders": "workspace:9.0.0-next-9.7",
+    "@verdaccio/logger": "workspace:9.0.0-next-9.7",
     "clipanion": "4.0.0-rc.4",
     "debug": "4.4.3"
   },
   "devDependencies": {
-    "@verdaccio/config": "workspace:9.0.0-next-9.6",
-    "@verdaccio/types": "workspace:14.0.0-next-9.3",
+    "@verdaccio/config": "workspace:9.0.0-next-9.7",
+    "@verdaccio/types": "workspace:14.0.0-next-9.4",
     "vitest": "4.1.0"
   },
   "scripts": {
