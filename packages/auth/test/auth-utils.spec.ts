@@ -19,6 +19,9 @@ import type { Config, RemoteUser } from '@verdaccio/types';
 import type { ActionsAllowed, AllowActionCallbackResponse } from '../src';
 import { Auth, allow_action, getApiToken, getDefaultPluginMethods } from '../src';
 
+// valid 32-character secret for AES-256 encryption tests
+const TEST_SECRET = 'b2df428b9929d3ace7c598bbf4e496b2';
+
 beforeAll(async () => {
   await setup({});
 });
@@ -52,7 +55,7 @@ describe('Auth utilities', () => {
     configFileName: string,
     username: string,
     password: string,
-    secret = '12345',
+    secret = TEST_SECRET,
     methodToSpy: string,
     methodNotBeenCalled: string
   ): Promise<string> {
