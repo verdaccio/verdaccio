@@ -31,15 +31,11 @@ beforeAll(async () => {
 
 const buildToken = authUtils.buildToken;
 
-// to avoid flaky test generate same ramdom key
+// to avoid flaky test generate same random key
 vi.mock('@verdaccio/core', async (importOriginal) => {
   return {
     ...(await importOriginal<typeof import('@verdaccio/core')>()),
-    // used by enhanced legacy aes signature (minimum 32 characters)
     generateRandomSecretKey: () => 'GCYW/3IJzQI6GvPmy9sbMkFoiL7QLVw',
-    // used by legacy aes signature
-    generateRandomHexString: () =>
-      'ff065fcf7a8330ae37d3ea116328852f387ad7aa6defbe47fb68b1ea25f97446',
   };
 });
 
