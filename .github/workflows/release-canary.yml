@@ -125,7 +125,7 @@ jobs:
           REGISTRY_AUTH_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
 
       - name: Comment on PR
-        if: steps.pr.outputs.pr_number
+        if: steps.pr.outputs.pr_number && github.actor != 'renovate[bot]' && github.actor != 'dependabot[bot]'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
