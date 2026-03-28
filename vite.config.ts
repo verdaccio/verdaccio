@@ -1,6 +1,5 @@
 import { readFileSync, readdirSync, statSync } from 'fs';
 import { join, resolve } from 'path';
-
 import { defineConfig } from 'vite';
 
 const pkg = JSON.parse(readFileSync('./package.json', 'utf-8'));
