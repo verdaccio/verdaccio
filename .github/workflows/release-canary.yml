@@ -1,10 +1,10 @@
-name: Release Canary 7.x
+name: Release Canary
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:  
   push:
     branches:
-      - 7.x  
+      - 7.x
 
 permissions:
   contents: read
@@ -13,6 +13,20 @@ jobs:
   canary:
     name: Publish Canary
     runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'workflow_dispatch' || (
+        startsWith(github.event.head_commit.message, 'feat') ||
+        startsWith(github.event.head_commit.message, 'fix') ||
+        startsWith(github.event.head_commit.message, 'chore') ||
+        startsWith(github.event.head_commit.message, 'refactor') ||
+        startsWith(github.event.head_commit.message, 'perf') ||
+        startsWith(github.event.head_commit.message, 'docs') ||
+        startsWith(github.event.head_commit.message, 'style') ||
+        startsWith(github.event.head_commit.message, 'test') ||
+        startsWith(github.event.head_commit.message, 'build') ||
+        startsWith(github.event.head_commit.message, 'ci') ||
+        startsWith(github.event.head_commit.message, 'revert')
+      )
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
@@ -34,8 +48,7 @@ jobs:
         run: |
           CURRENT_VERSION=$(node -p "require('./package.json').version")
           SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
-          BRANCH=$(echo "${{ github.ref_name }}" | sed 's/[^a-zA-Z0-9]/-/g')
-          CANARY_VERSION="${CURRENT_VERSION}-canary.${SHORT_SHA}.${BRANCH}"
+          CANARY_VERSION="${CURRENT_VERSION}-canary.${SHORT_SHA}"
           echo "canary_version=${CANARY_VERSION}" >> "$GITHUB_OUTPUT"
           # Temporarily rename package for canary publish (not committed)
           node -e "
@@ -48,7 +61,8 @@ jobs:
 
       - name: Publish canary
         run: |
-          npm config set "//registry.npmjs.org/:_authToken" "${REGISTRY_AUTH_TOKEN}"          
+          npm config set "//registry.npmjs.org/:_authToken" "${REGISTRY_AUTH_TOKEN}"
+          npm publish --tag canary --access public
         env:
           REGISTRY_AUTH_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
 
