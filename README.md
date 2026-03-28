@@ -6,7 +6,7 @@
 
 [Verdaccio](https://verdaccio.org/) is a simple, **zero-configuration-required local private npm registry**.
 Verdaccio doesn't require a full-fledged database to get started. It comes out of the box with **its own tiny database** and the ability to proxy other registries (e.g., npmjs.org), caching downloaded modules along the way.
-For those looking to extend storage capabilities, Verdaccio **supports various community-made plugins that integrate with services such as Amazon S3, Google Cloud Storage, or custom solutions**
+For those looking to extend storage capabilities, Verdaccio **supports various community-made plugins that integrate with services such as Amazon S3, Google Cloud Storage, or custom solutions.**
 
 [![verdaccio (latest)](https://img.shields.io/npm/v/verdaccio/latest.svg)](https://www.npmjs.com/package/verdaccio)
 [![verdaccio (downloads)](https://img.shields.io/npm/dy/verdaccio.svg)](https://www.npmjs.com/package/verdaccio)
