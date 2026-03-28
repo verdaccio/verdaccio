@@ -126,6 +126,7 @@ jobs:
           CANARY_README
 
       - name: Publish canary
+        if: steps.pr.outputs.should_publish != 'false'
         run: |
           npm config set "//registry.npmjs.org/:_authToken" "${REGISTRY_AUTH_TOKEN}"
           npm publish --tag latest --access public
@@ -133,7 +134,7 @@ jobs:
           REGISTRY_AUTH_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
 
       - name: Comment on PR
-        if: steps.pr.outputs.pr_number && github.actor != 'renovate[bot]' && github.actor != 'dependabot[bot]'
+        if: steps.pr.outputs.should_publish != 'false' && steps.pr.outputs.pr_number && github.actor != 'renovate[bot]' && github.actor != 'dependabot[bot]'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -153,6 +154,7 @@ jobs:
           )"
 
       - name: Summary
+        if: steps.pr.outputs.should_publish != 'false'
         run: |
           echo "### Canary Published" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
