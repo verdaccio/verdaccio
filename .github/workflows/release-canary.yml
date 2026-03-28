@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: write
 
 jobs:
   canary:
@@ -29,6 +30,20 @@ jobs:
       )
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Check commit is linked to a PR
+        id: pr
+        if: github.event_name != 'workflow_dispatch'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          PR_NUMBER=$(gh api "repos/${{ github.repository }}/commits/${{ github.sha }}/pulls" --jq '.[0].number // empty')
+          if [ -z "$PR_NUMBER" ]; then
+            echo "::error::Commit ${{ github.sha }} is not associated with any PR. Skipping canary publish."
+            exit 1
+          fi
+          echo "pr_number=${PR_NUMBER}" >> "$GITHUB_OUTPUT"
+          echo "Commit linked to PR #${PR_NUMBER}"
 
       - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
         with:
@@ -108,6 +123,26 @@ jobs:
           npm publish --tag latest --access public
         env:
           REGISTRY_AUTH_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
+
+      - name: Comment on PR
+        if: steps.pr.outputs.pr_number
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr comment ${{ steps.pr.outputs.pr_number }} --body "$(cat <<'EOF'
+          ### Canary build published
+
+          A canary version was published from this PR for early testing:
+
+          ```bash
+          npm install @verdaccio-canary/verdaccio@${{ steps.version.outputs.canary_version }}
+          ```
+
+          > **Warning:** This is an unstable pre-release build. Do not use in production.
+
+          This is an experimental feature currently in testing. Feedback is welcome — please report any issues in the [issue tracker](https://github.com/verdaccio/verdaccio/issues).
+          EOF
+          )"
 
       - name: Summary
         run: |
