@@ -42,10 +42,11 @@ jobs:
       - name: Check changeset
         uses: ./.github/actions/changeset-check
         with:
-          token: ${{ secrets.VERDACCIOBOT_TOKEN }}
+          token: ${{ secrets.TOKEN_VERDACCIOBOT_V2 || github.token }}
   prepare:
+    needs: [changeset-check]
     # Avoid running on draft PRs
-    if: github.event.pull_request.draft == false
+    if: ${{ always() && !failure() && !cancelled() && github.event.pull_request.draft == false }}
     runs-on: ubuntu-latest
     name: setup
     services:
