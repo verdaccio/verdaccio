@@ -34,10 +34,22 @@ export default class ProxyAudit
       req: Request,
       res: Response & { report_error?: Function }
     ): Promise<void> => {
-      const headers = req.headers;
-
+      const headers: Record<string, string | string[] | undefined> = {};
+      for (const [key, value] of Object.entries(req.headers)) {
+        if (
+          key === 'host' ||
+          key === 'content-encoding' ||
+          key === 'content-length' ||
+          key === 'content-type' ||
+          key === 'connection' ||
+          key === 'transfer-encoding'
+        ) {
+          continue;
+        }
+        headers[key] = value;
+      }
       headers['host'] = 'registry.npmjs.org';
-      headers['content-encoding'] = 'gzip,deflate,br';
+      headers['accept-encoding'] = 'gzip,deflate,br';
 
       const agent = auth?.config?.https_proxy
         ? { https: new HttpsProxyAgent({ proxy: auth.config.https_proxy }) }
@@ -48,12 +60,16 @@ export default class ProxyAudit
         this.logger.debug('fetching audit from ' + auditEndpoint);
 
         const controller = new AbortController();
-        req.on('close', () => controller.abort());
+        res.on('close', () => {
+          if (!res.writableFinished) {
+            controller.abort();
+          }
+        });
 
         const response = await got(auditEndpoint, {
           method: req.method as 'GET' | 'POST',
-          headers: headers as Record<string, string | string[] | undefined>,
-          body: JSON.stringify(req.body),
+          headers,
+          json: req.body,
           agent,
           signal: controller.signal,
           timeout: { request: this.timeout },
