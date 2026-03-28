@@ -9,8 +9,20 @@ jobs:
   docker-nightly:
     runs-on: ubuntu-latest
     if: |
-      github.repository == 'verdaccio/verdaccio' && 
-      github.ref_type != 'tag'    
+      github.repository == 'verdaccio/verdaccio' &&
+      github.ref_type != 'tag' && (
+        startsWith(github.event.head_commit.message, 'feat') ||
+        startsWith(github.event.head_commit.message, 'fix') ||
+        startsWith(github.event.head_commit.message, 'chore') ||
+        startsWith(github.event.head_commit.message, 'refactor') ||
+        startsWith(github.event.head_commit.message, 'perf') ||
+        startsWith(github.event.head_commit.message, 'docs') ||
+        startsWith(github.event.head_commit.message, 'style') ||
+        startsWith(github.event.head_commit.message, 'test') ||
+        startsWith(github.event.head_commit.message, 'build') ||
+        startsWith(github.event.head_commit.message, 'ci') ||
+        startsWith(github.event.head_commit.message, 'revert')
+      )
     steps:
       - uses: actions/checkout@v4
       - uses: docker/setup-qemu-action@c7c53464625b32c7a7e944ae62b3e17d2b600130 # v3
