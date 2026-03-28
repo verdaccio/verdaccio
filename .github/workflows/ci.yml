@@ -16,7 +16,9 @@ on:
       - 'package.json'
       - 'pnpm-workspace.yaml'
 permissions:
+  actions: read
   contents: read
+  security-events: write
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
@@ -68,7 +70,7 @@ jobs:
       - name: Lint
         run: pnpm format:check
   test:
-    needs: [prepare]
+    needs: [prepare, lint, format]
     strategy:
       fail-fast: true
       matrix:
@@ -155,6 +157,66 @@ jobs:
       - name: Show Verdaccio logs
         if: always()
         run: cat ~/.config/verdaccio/verdaccio.log 2>/dev/null || echo "No log file found"
+  e2e-ui:
+    needs: [test]
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    name: E2E UI
+    services:
+      verdaccio:
+        image: verdaccio/verdaccio:6
+        ports:
+          - 4873:4873
+        env:
+          NODE_ENV: production
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Read Node version from .nvmrc
+        id: nvmrc
+        run: echo "node-version=$(cat .nvmrc)" >> "$GITHUB_OUTPUT"
+      - name: Install dependencies
+        uses: ./.github/actions/install-app-node
+        with:
+          node-version: ${{ steps.nvmrc.outputs.node-version }}
+      - name: Restore build artifacts
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            packages/*/build
+            packages/*/dist
+            packages/*/*/build
+            packages/*/*/dist
+            packages/plugins/ui-theme/static
+          key: ci-build-${{ github.sha }}
+          fail-on-cache-miss: true
+      - name: Test UI
+        run: pnpm test:e2e:ui
+      - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        if: always()
+        with:
+          name: videos
+          path: /home/runner/work/verdaccio/verdaccio/e2e/ui/cypress/videos
+  codeql:
+    needs: [e2e-cli, e2e-ui]
+    if: ${{ always() && !failure() && !cancelled() }}
+    runs-on: ubuntu-latest
+    name: CodeQL Analysis
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 2
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@51f77329afa6477de8c49fc9c7046c15b9a4e79d # v3.29.5
+        with:
+          config: |
+            paths-ignore:
+              - packages/config/test/partials/config/js/invalid.js
+              - packages/middleware/test/static/js
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@51f77329afa6477de8c49fc9c7046c15b9a4e79d # v3.29.5
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@51f77329afa6477de8c49fc9c7046c15b9a4e79d # v3.29.5
   sync-translations:
     needs: [test]
     runs-on: ubuntu-latest
