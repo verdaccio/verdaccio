@@ -303,3 +303,18 @@ jobs:
           CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
           CONTEXT: production
         run: pnpm crowdin:sync
+  cleanup:
+    needs: [test, e2e-cli, e2e-ui, codeql, changeset-validation]
+    if: always()
+    runs-on: ubuntu-latest
+    name: Cleanup caches
+    permissions:
+      actions: write
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Delete build artifact caches
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh cache delete "ci-build-${{ github.sha }}-node-24" --repo ${{ github.repository }} || true
+          gh cache delete "ci-build-${{ github.sha }}-node-25" --repo ${{ github.repository }} || true
