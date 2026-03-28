@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import supertest from 'supertest';
 import { describe, expect, test } from 'vitest';
 
@@ -53,7 +52,7 @@ describe('token', () => {
       expect(tokenGenerated.user).toEqual(credentials.name);
       expect(tokenGenerated.readonly).toBeFalsy();
       expect(tokenGenerated.token).toMatch(/.../);
-      expect(_.isString(tokenGenerated.created)).toBeTruthy();
+      expect(typeof tokenGenerated.created === 'string').toBeTruthy();
 
       // we don't support pagination yet
       expect(urls.next).toEqual('');

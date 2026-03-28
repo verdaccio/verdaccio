@@ -9,7 +9,7 @@ import type { Logger } from '@verdaccio/types';
 
 import { ProxyStorage } from '../src';
 
-const getConf = (name) => path.join(__dirname, '/conf', name);
+const getConf = (name) => path.join(import.meta.dirname, '/conf', name);
 
 const mockDebug = vi.fn();
 const mockInfo = vi.fn();

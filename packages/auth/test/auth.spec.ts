@@ -202,7 +202,7 @@ describe('AuthTest', () => {
     test('should success first plugin, ignore subsequent plugins', async () => {
       const config: Config = new AppConfig({
         ...getDefaultConfig(),
-        plugins: path.join(__dirname, './partials/plugin'),
+        plugins: path.join(import.meta.dirname, './partials/plugin'),
         auth: {
           success: {},
           'no-access': {},
@@ -227,7 +227,7 @@ describe('AuthTest', () => {
     test('should fail first plugin, success second plugin', async () => {
       const config: Config = new AppConfig({
         ...getDefaultConfig(),
-        plugins: path.join(__dirname, './partials/plugin'),
+        plugins: path.join(import.meta.dirname, './partials/plugin'),
         auth: {
           'no-access': {},
           success: {},
@@ -493,7 +493,7 @@ describe('AuthTest', () => {
       test('should fail if adduser fails internally (exception)', async () => {
         const config: Config = new AppConfig({
           ...getDefaultConfig(),
-          plugins: path.join(__dirname, './partials/plugin'),
+          plugins: path.join(import.meta.dirname, './partials/plugin'),
           auth: {
             adduser: {},
           },
@@ -515,7 +515,7 @@ describe('AuthTest', () => {
       test('should skip to the next plugin and fail', async () => {
         const config: Config = new AppConfig({
           ...getDefaultConfig(),
-          plugins: path.join(__dirname, './partials/plugin'),
+          plugins: path.join(import.meta.dirname, './partials/plugin'),
           auth: {
             adduser: {},
             // plugin implement adduser with fail auth
@@ -550,7 +550,7 @@ describe('AuthTest', () => {
     test('should success if adduser', async () => {
       const config: Config = new AppConfig({
         ...getDefaultConfig(),
-        plugins: path.join(__dirname, './partials/plugin'),
+        plugins: path.join(import.meta.dirname, './partials/plugin'),
         auth: {
           adduser: {},
         },
@@ -574,7 +574,7 @@ describe('AuthTest', () => {
     test('should handle legacy add_user method', async () => {
       const config: Config = new AppConfig({
         ...getDefaultConfig(),
-        plugins: path.join(__dirname, './partials/plugin'),
+        plugins: path.join(import.meta.dirname, './partials/plugin'),
         auth: {
           'adduser-legacy': {},
         },

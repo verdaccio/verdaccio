@@ -4,7 +4,7 @@ import { describe, expect, test } from 'vitest';
 import { getConfigParsed, parseConfigFile } from '../src';
 
 describe('getConfigParsed', () => {
-  const partialsDir = path.join(__dirname, './partials/config/yaml');
+  const partialsDir = path.join(import.meta.dirname, './partials/config/yaml');
 
   test('parses config from a YAML file path', () => {
     const yamlFile = path.join(partialsDir, 'config-getMatchedPackagesSpec.yaml');

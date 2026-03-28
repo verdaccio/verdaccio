@@ -2,18 +2,18 @@
   "name": "@verdaccio/search-indexer",
   "version": "9.0.0-next-9.3",
   "description": "Verdaccio Search Indexer",
-  "main": "./build/dist.js",
-  "module": "./build/dist.mjs",
+  "main": "./build/index.js",
+  "module": "./build/index.mjs",
   "types": "build/index.d.ts",
   "exports": {
     ".": {
       "import": {
         "types": "./build/index.d.ts",
-        "default": "./build/dist.mjs"
+        "default": "./build/index.mjs"
       },
       "require": {
         "types": "./build/index.d.ts",
-        "default": "./build/dist.js"
+        "default": "./build/index.js"
       }
     }
   },
@@ -49,6 +49,10 @@
     "clean": "rimraf ./build",
     "test": "vitest run",
     "build": "vite build"
+  },
+  "dependencies": {
+    "@orama/orama": "1.2.11",
+    "debug": "4.4.3"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:14.0.0-next-9.4",

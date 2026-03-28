@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import _ from 'lodash';
+import { isEmpty, merge } from 'lodash-es';
 import assert from 'node:assert';
 
 import { APP_ERROR, authUtils, cryptoUtils, validationUtils } from '@verdaccio/core';
@@ -76,7 +76,7 @@ class Config implements AppConfig {
     this.self_path = this.configPath;
     debug('config path: %s', this.configPath);
     this.plugins = config.plugins;
-    this.security = _.merge(defaultSecurity, config.security);
+    this.security = merge(defaultSecurity, config.security);
     this.server = { ...defaultServerSettings, ...config.server };
     this.flags = {
       searchRemote: config.flags?.searchRemote ?? true,
@@ -152,7 +152,7 @@ class Config implements AppConfig {
    */
   public checkSecretKey(secret?: string): string {
     debug('checking secret key init');
-    if (typeof secret === 'string' && _.isEmpty(secret) === false) {
+    if (typeof secret === 'string' && isEmpty(secret) === false) {
       debug('checking secret key length %s', secret.length);
       if (secret.length !== TOKEN_VALID_LENGTH) {
         throw new Error(

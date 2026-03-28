@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { merge } from 'lodash-es';
 import React from 'react';
 
 import { render } from '../../test/test-react-testing-library';
@@ -29,7 +29,7 @@ describe('test FundButton', () => {
   });
 
   test('should not display the button if url is missing', () => {
-    const value = _.merge(pkgMeta, {
+    const value = merge(pkgMeta, {
       latest: {
         funding: {},
       },
@@ -41,7 +41,7 @@ describe('test FundButton', () => {
   });
 
   test('should not display the button if url is not a string', () => {
-    const value = _.merge(pkgMeta, {
+    const value = merge(pkgMeta, {
       latest: {
         funding: {
           url: null,
@@ -55,7 +55,7 @@ describe('test FundButton', () => {
   });
 
   test('should not display the button if url is not an url', () => {
-    const value = _.merge(pkgMeta, {
+    const value = merge(pkgMeta, {
       latest: {
         funding: {
           url: 'something different as url',
@@ -69,7 +69,7 @@ describe('test FundButton', () => {
   });
 
   test('should display the button if url is a valid url', () => {
-    const value = _.merge(pkgMeta, {
+    const value = merge(pkgMeta, {
       latest: {
         funding: {
           url: 'https://opencollective.com/verdaccio',

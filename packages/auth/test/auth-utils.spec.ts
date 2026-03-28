@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { merge } from 'lodash-es';
 import path from 'node:path';
 import { beforeAll, describe, expect, test, vi } from 'vitest';
 
@@ -30,7 +30,7 @@ const parseConfigurationFile = (conf: string) => {
   const { name, ext } = path.parse(conf);
   const format = ext.startsWith('.') ? ext.substring(1) : 'yaml';
 
-  return path.join(__dirname, `./partials/config/${format}/security/${name}.${format}`);
+  return path.join(import.meta.dirname, `./partials/config/${format}/security/${name}.${format}`);
 };
 
 describe('Auth utilities', () => {
@@ -43,7 +43,7 @@ describe('Auth utilities', () => {
   function getConfig(configFileName: string, secret: string) {
     const conf = parseConfigFile(parseConfigurationSecurityFile(configFileName));
     // @ts-ignore
-    const secConf = _.merge(getDefaultConfig(), conf);
+    const secConf = merge(getDefaultConfig(), conf);
     // @ts-expect-error
     secConf.secret = secret;
     const config: Config = new AppConfig(secConf);
@@ -265,7 +265,7 @@ describe('Auth utilities', () => {
       );
 
       verifyAES(token, 'test', 'test', 'b2df428b9929d3ace7c598bbf4e496b2');
-      expect(_.isString(token)).toBeTruthy();
+      expect(typeof token === 'string').toBeTruthy();
     });
 
     test('should sign token with aes and security empty', async () => {
@@ -279,7 +279,7 @@ describe('Auth utilities', () => {
       );
 
       verifyAES(token, 'test', 'test', 'b2df428b9929d3ace7c598bbf4e496b2');
-      expect(_.isString(token)).toBeTruthy();
+      expect(typeof token === 'string').toBeTruthy();
     });
 
     test('should sign token with aes', async () => {
@@ -293,7 +293,7 @@ describe('Auth utilities', () => {
       );
 
       verifyAES(token, 'test', 'test', 'b2df428b9929d3ace7c598bbf4e496b2');
-      expect(_.isString(token)).toBeTruthy();
+      expect(typeof token === 'string').toBeTruthy();
     });
 
     test('should sign token with legacy and jwt disabled', async () => {
@@ -306,7 +306,7 @@ describe('Auth utilities', () => {
         'jwtEncrypt'
       );
 
-      expect(_.isString(token)).toBeTruthy();
+      expect(typeof token === 'string').toBeTruthy();
       verifyAES(token, 'test', 'test', 'b2df428b9929d3ace7c598bbf4e496b2');
     });
 
@@ -321,7 +321,7 @@ describe('Auth utilities', () => {
       );
 
       verifyJWT(token, 'test', 'test', 'b2df428b9929d3ace7c598bbf4e496b2');
-      expect(_.isString(token)).toBeTruthy();
+      expect(typeof token === 'string').toBeTruthy();
     });
 
     test('should sign token with jwt enabled', async () => {
@@ -334,7 +334,7 @@ describe('Auth utilities', () => {
         'aesEncrypt'
       );
 
-      expect(_.isString(token)).toBeTruthy();
+      expect(typeof token === 'string').toBeTruthy();
       verifyJWT(token, 'test', 'test', 'b2df428b9929d3ace7c598bbf4e496b2');
     });
 
@@ -348,7 +348,7 @@ describe('Auth utilities', () => {
         'aesEncrypt'
       );
 
-      expect(_.isString(token)).toBeTruthy();
+      expect(typeof token === 'string').toBeTruthy();
       verifyJWT(token, 'test', 'test', 'b2df428b9929d3ace7c598bbf4e496b2');
     });
   });

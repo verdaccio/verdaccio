@@ -16,7 +16,7 @@ const PKG_GH131 = 'pkg-gh131';
 const PKG_GH1312 = 'pkg-gh1312';
 
 function isCached(pkgName, tarballName) {
-  const pathCached = path.join(__dirname, STORAGE, pkgName, tarballName);
+  const pathCached = path.join(import.meta.dirname, STORAGE, pkgName, tarballName);
   return fs.existsSync(pathCached);
 }
 

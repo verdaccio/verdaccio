@@ -66,7 +66,7 @@ const getConfig = (file, override: Partial<ConfigYaml> = {}): Config => {
         ...override,
       },
       `./fixtures/config/${file}`,
-      __dirname
+      import.meta.dirname
     )
   );
   return config;
@@ -153,7 +153,7 @@ describe('storage', () => {
               storage: generateRandomStorage(),
             },
             './fixtures/config/updateManifest-1.yaml',
-            __dirname
+            import.meta.dirname
           )
         );
         const storage = new Storage(config, logger);
@@ -198,7 +198,7 @@ describe('storage', () => {
               storage: generateRandomStorage(),
             },
             './fixtures/config/updateManifest-1.yaml',
-            __dirname
+            import.meta.dirname
           )
         );
         const storage = new Storage(config, logger);
@@ -243,7 +243,7 @@ describe('storage', () => {
               storage: await fileUtils.createTempStorageFolder('storage-test'),
             },
             './fixtures/config/updateManifest-1.yaml',
-            __dirname
+            import.meta.dirname
           )
         );
         const storage = new Storage(config, logger);
@@ -332,7 +332,7 @@ describe('storage', () => {
               storage: generateRandomStorage(),
             },
             './fixtures/config/getTarball-getupstream.yaml',
-            __dirname
+            import.meta.dirname
           )
         );
         const storage = new Storage(config, logger);
@@ -369,7 +369,7 @@ describe('storage', () => {
               storage: generateRandomStorage(),
             },
             './fixtures/config/updateManifest-1.yaml',
-            __dirname
+            import.meta.dirname
           )
         );
         const storage = new Storage(config, logger);
@@ -414,7 +414,7 @@ describe('storage', () => {
               storage: generateRandomStorage(),
             },
             './fixtures/config/unpublishPackage.yaml',
-            __dirname
+            import.meta.dirname
           )
         );
         const storage = new Storage(config, logger);
@@ -1064,7 +1064,7 @@ describe('storage', () => {
           .get(`/${pkgName}/-/${pkgName}-1.0.0.tgz`)
           // types does not match here with documentation
           // @ts-expect-error
-          .replyWithFile(201, path.join(__dirname, 'fixtures/tarball.tgz'), {
+          .replyWithFile(201, path.join(import.meta.dirname, 'fixtures/tarball.tgz'), {
             [HEADER_TYPE.CONTENT_LENGTH]: 277,
           });
         const config = new Config(
@@ -1073,7 +1073,7 @@ describe('storage', () => {
               storage: generateRandomStorage(),
             },
             './fixtures/config/getTarball-getupstream.yaml',
-            __dirname
+            import.meta.dirname
           )
         );
         const storage = new Storage(config, logger);
@@ -1110,7 +1110,7 @@ describe('storage', () => {
           .get(`/${pkgName}/-/${pkgName}-1.0.1.tgz`)
           // types does not match here with documentation
           // @ts-expect-error
-          .replyWithFile(201, path.join(__dirname, 'fixtures/tarball.tgz'), {
+          .replyWithFile(201, path.join(import.meta.dirname, 'fixtures/tarball.tgz'), {
             [HEADER_TYPE.CONTENT_LENGTH]: 277,
           });
         const config = new Config(
@@ -1119,7 +1119,7 @@ describe('storage', () => {
               storage: generateRandomStorage(),
             },
             './fixtures/config/getTarball-getupstream.yaml',
-            __dirname
+            import.meta.dirname
           )
         );
         const storage = new Storage(config, logger);
@@ -1175,7 +1175,7 @@ describe('storage', () => {
           .get(`/${pkgName}/-/${pkgName}-1.0.0.tgz`)
           // types does not match here with documentation
           // @ts-expect-error
-          .replyWithFile(201, path.join(__dirname, 'fixtures/tarball.tgz'), {
+          .replyWithFile(201, path.join(import.meta.dirname, 'fixtures/tarball.tgz'), {
             [HEADER_TYPE.CONTENT_LENGTH]: 277,
           });
         const storagePath = generateRandomStorage();
@@ -1185,7 +1185,7 @@ describe('storage', () => {
               storage: storagePath,
             },
             './fixtures/config/getTarball-getupstream.yaml',
-            __dirname
+            import.meta.dirname
           )
         );
         const storage = new Storage(config, logger);
@@ -1240,7 +1240,7 @@ describe('storage', () => {
               storage: generateRandomStorage(),
             },
             './fixtures/config/getTarball-getupstream.yaml',
-            __dirname
+            import.meta.dirname
           )
         );
         const storage = new Storage(config, logger);
@@ -1297,7 +1297,7 @@ describe('storage', () => {
               storage: generateRandomStorage(),
             },
             './fixtures/config/syncDoubleUplinksMetadata.yaml',
-            __dirname
+            import.meta.dirname
           )
         );
 
@@ -1322,7 +1322,7 @@ describe('storage', () => {
               storage: generateRandomStorage(),
             },
             './fixtures/config/syncSingleUplinksMetadata.yaml',
-            __dirname
+            import.meta.dirname
           )
         );
         const storage = new Storage(config, logger);
@@ -1343,7 +1343,7 @@ describe('storage', () => {
               storage: generateRandomStorage(),
             },
             './fixtures/config/syncSingleUplinksMetadata.yaml',
-            __dirname
+            import.meta.dirname
           )
         );
         const storage = new Storage(config, logger);
@@ -1365,7 +1365,7 @@ describe('storage', () => {
               storage: generateRandomStorage(),
             },
             './fixtures/config/syncSingleUplinksMetadata.yaml',
-            __dirname
+            import.meta.dirname
           )
         );
         const storage = new Storage(config, logger);
@@ -1406,7 +1406,7 @@ describe('storage', () => {
               storage: generateRandomStorage(),
             },
             './fixtures/config/syncSingleUplinksMetadata.yaml',
-            __dirname
+            import.meta.dirname
           )
         );
         const storage = new Storage(config, logger);
@@ -1428,7 +1428,7 @@ describe('storage', () => {
               storage: generateRandomStorage(),
             },
             './fixtures/config/syncNoUplinksMetadata.yaml',
-            __dirname
+            import.meta.dirname
           )
         );
         const storage = new Storage(config, logger);
@@ -1452,7 +1452,7 @@ describe('storage', () => {
               storage: generateRandomStorage(),
             },
             './fixtures/config/syncSingleUplinksMetadata.yaml',
-            __dirname
+            import.meta.dirname
           )
         );
         const storage = new Storage(config, logger);
@@ -1481,7 +1481,7 @@ describe('storage', () => {
               storage: generateRandomStorage(),
             },
             './fixtures/config/syncSingleUplinksMetadata.yaml',
-            __dirname
+            import.meta.dirname
           )
         );
         const storage = new Storage(config, logger);

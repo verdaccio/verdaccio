@@ -2,7 +2,7 @@ import JSONStream from 'JSONStream';
 import buildDebug from 'debug';
 import type { Agents, Delays, RequestError, RetryOptions, Headers as gotHeaders } from 'got';
 import got, { Options } from 'got';
-import _ from 'lodash';
+import { isNil, isObject } from 'lodash-es';
 import type Stream from 'node:stream';
 import { PassThrough, Readable } from 'node:stream';
 import { URL } from 'node:url';
@@ -36,7 +36,7 @@ const contentTypeAccept = `${jsonContentType};`;
  * Just a helper (`config[key] || default` doesn't work because of zeroes)
  */
 const setConfig = (config: UpLinkConfLocal, key: string, def): string => {
-  return _.isNil(config[key]) === false ? config[key] : def;
+  return isNil(config[key]) === false ? config[key] : def;
 };
 
 export type UpLinkConfLocal = UpLinkConf & {
@@ -195,7 +195,7 @@ class ProxyStorage implements IProxy {
       return headers;
     }
 
-    if (_.isObject(auth) === false && _.isObject((auth as any).token) === false) {
+    if (isObject(auth) === false && isObject((auth as any).token) === false) {
       this._throwErrorAuth('Auth invalid');
     }
 
@@ -204,10 +204,10 @@ class ProxyStorage implements IProxy {
     // https://github.com/verdaccio/verdaccio/releases/tag/v2.5.0
     let token: any;
     const tokenConf: any = auth;
-    if (_.isNil(tokenConf.token) === false && _.isString(tokenConf.token)) {
+    if (isNil(tokenConf.token) === false && typeof tokenConf.token === 'string') {
       debug('use token from config');
       token = tokenConf.token;
-    } else if (_.isNil(tokenConf.token_env) === false) {
+    } else if (isNil(tokenConf.token_env) === false) {
       if (typeof tokenConf.token_env === 'string') {
         debug('use token from env %o', tokenConf.token_env);
         token = process.env[tokenConf.token_env];
@@ -308,7 +308,7 @@ class ProxyStorage implements IProxy {
     headers = this.addProxyHeaders(headers, options.remoteAddress);
     headers = this.applyUplinkHeaders(headers);
     // the following headers cannot be overwritten
-    if (_.isNil(options.etag) === false) {
+    if (isNil(options.etag) === false) {
       headers[HEADERS.NONE_MATCH] = options.etag;
       headers[HEADERS.ACCEPT] = contentTypeAccept;
     }
@@ -385,7 +385,7 @@ class ProxyStorage implements IProxy {
                 method: method,
                 url: uri,
               },
-              status: _.isNull(eventResponse) === false ? eventResponse.statusCode : 'ERR',
+              status: eventResponse !== null ? eventResponse.statusCode : 'ERR',
             },
             message
           );
@@ -456,7 +456,7 @@ class ProxyStorage implements IProxy {
     headers = this.addProxyHeaders(headers, options.remoteAddress);
     headers = this.applyUplinkHeaders(headers);
     // the following headers cannot be overwritten
-    if (_.isNil(options.etag) === false) {
+    if (isNil(options.etag) === false) {
       headers[HEADERS.NONE_MATCH] = options.etag;
       headers[HEADERS.ACCEPT] = contentTypeAccept;
     }
@@ -605,11 +605,11 @@ class ProxyStorage implements IProxy {
       hostname = '.' + hostname;
     }
 
-    if (_.isString(noProxyList) && noProxyList.length) {
+    if (typeof noProxyList === 'string' && noProxyList.length) {
       noProxyList = noProxyList.split(',');
     }
 
-    if (_.isArray(noProxyList)) {
+    if (Array.isArray(noProxyList)) {
       for (let i = 0; i < noProxyList.length; i++) {
         let noProxyItem = noProxyList[i];
         if (noProxyItem[0] !== '.') {

@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { isObject } from 'lodash-es';
 import path from 'node:path';
 import { describe, expect, test } from 'vitest';
 
@@ -19,28 +19,31 @@ import { parseConfigurationFile } from './utils';
 const resolveConf = (conf) => {
   const { name, ext } = path.parse(conf);
 
-  return path.join(__dirname, `../src/conf/${name}${ext.startsWith('.') ? ext : '.yaml'}`);
+  return path.join(
+    import.meta.dirname,
+    `../src/conf/${name}${ext.startsWith('.') ? ext : '.yaml'}`
+  );
 };
 
 const checkDefaultUplink = (config) => {
-  expect(_.isObject(config.uplinks[DEFAULT_UPLINK])).toBeTruthy();
+  expect(isObject(config.uplinks[DEFAULT_UPLINK])).toBeTruthy();
   expect(config.uplinks[DEFAULT_UPLINK].url).toMatch(DEFAULT_REGISTRY);
 };
 
 describe('check basic content parsed file', () => {
   const checkDefaultConfPackages = (config) => {
     // auth
-    expect(_.isObject(config.auth)).toBeTruthy();
-    expect(_.isObject(config.auth.htpasswd)).toBeTruthy();
+    expect(isObject(config.auth)).toBeTruthy();
+    expect(isObject(config.auth.htpasswd)).toBeTruthy();
     expect(config.auth.htpasswd.file).toMatch(/htpasswd/);
 
     // web
-    expect(_.isObject(config.web)).toBeTruthy();
+    expect(isObject(config.web)).toBeTruthy();
     expect(config.web.title).toBe(WEB_TITLE);
     expect(config.web.enable).toBeUndefined();
 
     // packages
-    expect(_.isObject(config.packages)).toBeTruthy();
+    expect(isObject(config.packages)).toBeTruthy();
     expect(Object.keys(config.packages).join('|')).toBe('@*/*|**');
     expect(config.packages['@*/*'].access).toBeDefined();
     expect(config.packages['@*/*'].access).toContainEqual(ROLES.$ALL);
@@ -193,7 +196,7 @@ describe('configPath', () => {
   test('should set configPath in config', () => {
     const defaultConfig = parseConfigFile(resolveConf('default'));
     const config = new Config(defaultConfig);
-    expect(config.getConfigPath()).toBe(path.join(__dirname, '../src/conf/default.yaml'));
+    expect(config.getConfigPath()).toBe(path.join(import.meta.dirname, '../src/conf/default.yaml'));
   });
 
   test('should throw an error if configPath is not provided', () => {

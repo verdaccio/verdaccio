@@ -18,7 +18,7 @@ let pluginOptions: { logger: any; config: Config };
 beforeAll(async () => {
   await setup({});
   const verdaccioConfig = new Config(
-    parseConfigFile(path.join(__dirname, '__fixtures__', 'config.yaml'))
+    parseConfigFile(path.join(import.meta.dirname, '__fixtures__', 'config.yaml'))
   );
   pluginOptions = { logger, config: verdaccioConfig };
 });

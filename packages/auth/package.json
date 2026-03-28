@@ -44,13 +44,15 @@
     "@verdaccio/loaders": "workspace:9.0.0-next-9.7",
     "@verdaccio/signature": "workspace:9.0.0-next-9.7",
     "debug": "4.4.3",
-    "lodash": "4.17.23",
+    "lodash-es": "4.17.23",
     "verdaccio-htpasswd": "workspace:14.0.0-next-9.7"
   },
   "devDependencies": {
     "@verdaccio/middleware": "workspace:9.0.0-next-9.7",
     "@verdaccio/types": "workspace:14.0.0-next-9.4",
     "@verdaccio/logger": "workspace:9.0.0-next-9.7",
+    "verdaccio-htpasswd": "workspace:14.0.0-next-9.6",
+    "@types/lodash-es": "4.17.12",
     "express": "5.2.1",
     "supertest": "7.1.4",
     "vitest": "4.1.0"

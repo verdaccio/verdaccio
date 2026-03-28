@@ -62,7 +62,8 @@ export class InitCommand extends Command {
 
       process.title = web?.title || DEFAULT_PROCESS_NAME;
 
-      const { version, name } = pkgUtils.getPackageJson(__dirname, '../..');
+      const currentDir = typeof __dirname !== 'undefined' ? __dirname : import.meta.dirname;
+      const { version, name } = pkgUtils.getPackageJson(currentDir, '../..');
 
       await initServer(configParsed, this.port as string, version as string, name as string);
 

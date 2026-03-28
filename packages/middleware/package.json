@@ -45,7 +45,7 @@
     "debug": "4.4.3",
     "express": "5.2.1",
     "express-rate-limit": "8.2.1",
-    "lodash": "4.17.23",
+    "lodash-es": "4.17.23",
     "lru-cache": "11.2.6"
   },
   "funding": {
@@ -55,6 +55,7 @@
   "devDependencies": {
     "@verdaccio/logger": "workspace:9.0.0-next-9.7",
     "@verdaccio/types": "workspace:14.0.0-next-9.4",
+    "@types/lodash-es": "4.17.12",
     "http-errors": "2.0.1",
     "supertest": "7.1.4",
     "vitest": "4.1.0"
