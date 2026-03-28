@@ -20,7 +20,6 @@ node_modules
 package-lock.json
 npm_test-fails-add-tarball*
 yarn-error.log
-.yarn/cache
 ./conf/*.yaml
 
 # coverage
@@ -33,11 +32,8 @@ coverage/
 # Compiled script
 static/*
 
-# This is the Yarn build state; it's local to each clone
-/.yarn/build-state.yml
-
-# This is the Yarn install state cache, it can be rebuilt anytime
-/.yarn/install-state.gz
+# pnpm store
+.pnpm-store/
 .history
 CLAUDE.md
 .claude/settings.json

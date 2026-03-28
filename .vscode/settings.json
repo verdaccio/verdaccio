@@ -7,7 +7,6 @@
   },
   "editor.formatOnSave": true,
   "search.exclude": {
-    "**/.yarn": true ,
     "**/node_modules": true,
     "**/build": true,
   },
