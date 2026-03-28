@@ -46,7 +46,7 @@ runs:
           pnpm changeset
           ```
 
-          Please read the [contribution guidelines](https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md) for more details.
+          Please read the [contribution guidelines](https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md#adding-a-changeset-changeset) for more details.
 
     - name: Remove comment when changeset is added
       if: steps.check.outputs.found == 'true' && steps.find-comment.outputs.comment-id != ''
