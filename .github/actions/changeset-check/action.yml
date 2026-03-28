@@ -1,0 +1,72 @@
+name: 'Changeset check'
+description: 'Verify a changeset file is included in the PR. Posts a comment if missing, removes it when resolved.'
+
+inputs:
+  token:
+    description: 'GitHub token to post/remove comments'
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Check for changeset files
+      id: check
+      shell: bash
+      run: |
+        CHANGED=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }}...HEAD -- '.changeset/*.md' | grep -v 'README.md' || true)
+        if [ -z "$CHANGED" ]; then
+          echo "found=false" >> "$GITHUB_OUTPUT"
+        else
+          echo "found=true" >> "$GITHUB_OUTPUT"
+          echo "Changeset file(s) found:"
+          echo "$CHANGED"
+        fi
+
+    - name: Find existing comment
+      id: find-comment
+      if: always()
+      uses: peter-evans/find-comment@3eae4d37986fb5a8592848f6a574fdf654e61f9e # v3.1.0
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        comment-author: verdacciobot
+        body-includes: '<!-- changeset-check -->'
+        token: ${{ inputs.token }}
+
+    - name: Post missing changeset comment
+      if: steps.check.outputs.found == 'false' && steps.find-comment.outputs.comment-id == ''
+      uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043 # v4.0.0
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        token: ${{ inputs.token }}
+        body: |
+          <!-- changeset-check -->
+          ## Changeset missing
+
+          This PR does not include a changeset file. All PRs that change packages need a changeset so that versioning and changelogs are updated correctly.
+
+          **How to fix:**
+          ```bash
+          pnpm changeset
+          ```
+
+          Please read the [contribution guidelines](https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md) for more details.
+
+    - name: Remove comment when changeset is added
+      if: steps.check.outputs.found == 'true' && steps.find-comment.outputs.comment-id != ''
+      uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043 # v4.0.0
+      with:
+        comment-id: ${{ steps.find-comment.outputs.comment-id }}
+        token: ${{ inputs.token }}
+        edit-mode: replace
+        body: |
+          <!-- changeset-check -->
+          ## Changeset found
+
+          Thank you for including a changeset!
+
+    - name: Fail if changeset is missing
+      if: steps.check.outputs.found == 'false'
+      shell: bash
+      run: |
+        echo "::error::No changeset file found. Please run 'pnpm changeset' to add one."
+        exit 1

@@ -24,6 +24,25 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  changeset-check:
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.draft == false &&
+      github.actor != 'renovate[bot]' &&
+      github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    name: Changeset file check
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+      - name: Check changeset
+        uses: ./.github/actions/changeset-check
+        with:
+          token: ${{ secrets.VERDACCIOBOT_TOKEN }}
   prepare:
     # Avoid running on draft PRs
     if: github.event.pull_request.draft == false
