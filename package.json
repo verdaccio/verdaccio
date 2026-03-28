@@ -97,9 +97,10 @@
     "supertest": "7.2.2",
     "tsx": "4.19.4",
     "typescript": "5.9.3",
-    "vite": "8.0.3",
     "verdaccio-auth-memory": "10.3.1",
     "verdaccio-memory": "10.4.1",
+    "vite": "8.0.3",
+    "vite-plugin-dts": "4.5.4",
     "vitest": "3.2.4"
   },
   "keywords": [
@@ -129,7 +130,7 @@
     "start:brk": "tsx src/lib/cli --inspect-brk",
     "start:debug": "tsx --inspect debug/run-server.ts",
     "start:run-server": "tsx debug/run-server.ts",
-    "build": "rm -Rf build && vite build && tsc --emitDeclarationOnly -p tsconfig.json",
+    "build": "rm -Rf build && vite build",
     "docker": "docker build -t verdaccio/verdaccio:local . --no-cache",
     "docker:run": "docker run -it --rm -p 4873:4873 -e \"DEBUG=verdaccio*\" verdaccio/verdaccio:local"
   },

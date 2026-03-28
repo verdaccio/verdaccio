@@ -1,6 +1,7 @@
 import { readFileSync, readdirSync, statSync } from 'fs';
 import { join, resolve } from 'path';
 import { defineConfig } from 'vite';
+import dts from 'vite-plugin-dts';
 
 const pkg = JSON.parse(readFileSync('./package.json', 'utf-8'));
 
@@ -33,6 +34,7 @@ const preserveModules = {
 };
 
 export default defineConfig({
+  plugins: [dts({ outDir: 'build', tsconfigPath: './tsconfig.json' })],
   build: {
     target: 'node24',
     outDir: 'build',
