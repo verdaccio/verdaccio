@@ -59,6 +59,49 @@ jobs:
           "
           echo "Publishing @verdaccio-canary/verdaccio@${CANARY_VERSION}"
 
+      - name: Replace README for canary publish
+        run: |
+          cat > README.md << 'CANARY_README'
+          # !! CANARY BUILD — DO NOT USE IN PRODUCTION !!
+
+          > **WARNING: This is an unstable canary release of [Verdaccio](https://github.com/verdaccio/verdaccio).**
+          > It is automatically published from the `7.x` branch for early testing only.
+          > It may contain breaking changes, incomplete features, or bugs.
+          > **Do not use this in production environments.**
+
+          ## Stable Version
+
+          For production use, install the stable release:
+
+          ```bash
+          npm install --global verdaccio
+          ```
+
+          - **Stable releases**: [verdaccio on npm](https://www.npmjs.com/package/verdaccio)
+          - **Repository**: [github.com/verdaccio/verdaccio](https://github.com/verdaccio/verdaccio)
+          - **Documentation**: [verdaccio.org](https://verdaccio.org/)
+
+          ## About this canary build
+
+          This package (`@verdaccio-canary/verdaccio`) is a pre-release snapshot published under a separate scope to avoid conflicts with the stable `verdaccio` package.
+
+          ```bash
+          npm install @verdaccio-canary/verdaccio@canary
+          ```
+
+          ## Links
+
+          - [Main repository](https://github.com/verdaccio/verdaccio)
+          - [7.x branch](https://github.com/verdaccio/verdaccio/tree/7.x)
+          - [Documentation](https://verdaccio.org/)
+          - [Discord](https://discord.gg/7qWJxBf)
+          - [Report an issue](https://github.com/verdaccio/verdaccio/issues/new/choose)
+
+          ## License
+
+          MIT
+          CANARY_README
+
       - name: Publish canary
         run: |
           npm config set "//registry.npmjs.org/:_authToken" "${REGISTRY_AUTH_TOKEN}"
