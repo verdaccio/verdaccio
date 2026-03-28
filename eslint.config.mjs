@@ -5,6 +5,8 @@ const ignores = [
     ignores: [
       '**/debug/**',
       '**/build/**',
+      'vite.config.ts',
+      'vitest.config.mjs',
       '**/test/types-test/**/*.ts',
       '**/test/types-test/plugins/**/*.ts',
     ],
