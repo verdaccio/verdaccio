@@ -28,7 +28,7 @@ jobs:
     # Avoid running on draft PRs
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
-    name: setup verdaccio
+    name: setup
     services:
       verdaccio:
         image: verdaccio/verdaccio:6
@@ -38,45 +38,35 @@ jobs:
           NODE_ENV: production
           options: >-
             --health-cmd="curl -f http://0.0.0.0:4873/-/ping || exit 1"
-            --health-interval=10s   
-            --health-timeout=20s    
+            --health-interval=10s
+            --health-timeout=20s
             --health-retries=6
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Install dependencies with a custom registry
+      - name: Install dependencies via Verdaccio registry
         uses: ./.github/actions/install-app
-  lint:
+  lint-and-format:
     runs-on: ubuntu-latest
-    name: Lint
+    name: Lint & Format
     needs: prepare
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Install dependencies with a custom registry
-        uses: ./.github/actions/install-app
-        with:
-            reporter: 'default'
-      - name: Lint
-        run: pnpm lint
-  format:
-    runs-on: ubuntu-latest
-    name: Format
-    needs: prepare
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Install dependencies with a custom registry
+      - name: Install dependencies
         uses: ./.github/actions/install-app
         with:
           reporter: 'default'
       - name: Lint
+        run: pnpm lint
+      - name: Format
         run: pnpm format:check
-  test:
-    needs: [prepare, lint, format]
+  build:
+    needs: [lint-and-format]
     strategy:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
         node_version: [24, 25]
-    name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
+    name: Build / ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -85,7 +75,6 @@ jobs:
         with:
           node-version: ${{ matrix.node_version }}
       - name: Cache build artifacts
-        if: matrix.node_version == 24
         uses: actions/cache/save@v4
         with:
           path: |
@@ -94,19 +83,43 @@ jobs:
             packages/*/*/build
             packages/*/*/dist
             packages/plugins/ui-theme/static
-          key: ci-build-${{ github.sha }}
+          key: ci-build-${{ github.sha }}-node-${{ matrix.node_version }}
+  test:
+    needs: [build]
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-latest]
+        node_version: [24, 25]
+    name: Test / ${{ matrix.os }} / Node ${{ matrix.node_version }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Install dependencies
+        uses: ./.github/actions/install-app-node
+        with:
+          node-version: ${{ matrix.node_version }}
+      - name: Restore build artifacts
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            packages/*/build
+            packages/*/dist
+            packages/*/*/build
+            packages/*/*/dist
+            packages/plugins/ui-theme/static
+          key: ci-build-${{ github.sha }}-node-${{ matrix.node_version }}
+          fail-on-cache-miss: true
       - name: Test (Node 25)
         if: matrix.node_version == 25
         run: pnpm test
         env:
           NODE_OPTIONS: --no-webstorage
-
-      # Test for all other Node versions
       - name: Test (Other Node)
         if: matrix.node_version != 25
         run: pnpm test
   e2e-cli:
-    needs: [test]
+    needs: [build]
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     name: E2E CLI (${{ matrix.pm }})
@@ -143,7 +156,7 @@ jobs:
             packages/*/*/build
             packages/*/*/dist
             packages/plugins/ui-theme/static
-          key: ci-build-${{ github.sha }}
+          key: ci-build-${{ github.sha }}-node-24
           fail-on-cache-miss: true
       - name: Start Verdaccio
         run: |
@@ -158,7 +171,7 @@ jobs:
         if: always()
         run: cat ~/.config/verdaccio/verdaccio.log 2>/dev/null || echo "No log file found"
   e2e-ui:
-    needs: [test]
+    needs: [build]
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     name: E2E UI
@@ -187,7 +200,7 @@ jobs:
             packages/*/*/build
             packages/*/*/dist
             packages/plugins/ui-theme/static
-          key: ci-build-${{ github.sha }}
+          key: ci-build-${{ github.sha }}-node-24
           fail-on-cache-miss: true
       - name: Test UI
         run: pnpm test:e2e:ui
@@ -197,8 +210,8 @@ jobs:
           name: videos
           path: /home/runner/work/verdaccio/verdaccio/e2e/ui/cypress/videos
   codeql:
-    needs: [e2e-cli, e2e-ui]
-    if: ${{ always() && !failure() && !cancelled() }}
+    needs: [test, e2e-cli, e2e-ui]
+    if: ${{ github.event_name == 'pull_request' && always() && !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     name: CodeQL Analysis
     steps:
