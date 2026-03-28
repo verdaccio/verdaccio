@@ -84,6 +84,31 @@ jobs:
             packages/*/*/dist
             packages/plugins/ui-theme/static
           key: ci-build-${{ github.sha }}-node-${{ matrix.node_version }}
+  test-docker:
+    needs: [build]
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    name: Test Docker Build
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Build Docker image
+        run: docker build -t verdaccio-test .
+        env:
+          VERDACCIO_BUILD_REGISTRY: https://registry.npmjs.org
+      - name: Run Verdaccio in background
+        run: |
+          docker run -d --name verdaccio-test -p 4873:4873 verdaccio-test
+          sleep 10
+      - name: Test npm install from local Verdaccio
+        run: |
+          npm set registry http://localhost:4873
+          npm install -g verdaccio
+      - name: Show Verdaccio logs
+        if: always()
+        run: docker logs verdaccio-test
+      - name: Stop Verdaccio
+        if: always()
+        run: docker stop verdaccio-test
   test:
     needs: [build]
     strategy:
@@ -209,6 +234,22 @@ jobs:
         with:
           name: videos
           path: /home/runner/work/verdaccio/verdaccio/e2e/ui/cypress/videos
+  changeset-validation:
+    needs: [test, e2e-cli, e2e-ui]
+    if: ${{ github.event_name == 'pull_request' && always() && !failure() && !cancelled() }}
+    runs-on: ubuntu-latest
+    name: Changeset validation
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Read Node version from .nvmrc
+        id: nvmrc
+        run: echo "node-version=$(cat .nvmrc)" >> "$GITHUB_OUTPUT"
+      - name: Install dependencies
+        uses: ./.github/actions/install-app-node
+        with:
+          node-version: ${{ steps.nvmrc.outputs.node-version }}
+      - name: Run changeset version
+        run: pnpm ci:version:changeset
   codeql:
     needs: [test, e2e-cli, e2e-ui]
     if: ${{ github.event_name == 'pull_request' && always() && !failure() && !cancelled() }}
