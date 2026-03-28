@@ -4,7 +4,7 @@ description: 'Verify a changeset file is included in the PR. Posts a comment if 
 inputs:
   token:
     description: 'GitHub token to post/remove comments'
-    required: true
+    required: false
 
 runs:
   using: composite
@@ -27,17 +27,14 @@ runs:
       if: always()
       uses: peter-evans/find-comment@3eae4d37986fb5a8592848f6a574fdf654e61f9e # v3.1.0
       with:
-        issue-number: ${{ github.event.pull_request.number }}
-        comment-author: verdacciobot
+        issue-number: ${{ github.event.pull_request.number }}        
         body-includes: '<!-- changeset-check -->'
-        token: ${{ inputs.token }}
 
     - name: Post missing changeset comment
       if: steps.check.outputs.found == 'false' && steps.find-comment.outputs.comment-id == ''
       uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043 # v4.0.0
       with:
         issue-number: ${{ github.event.pull_request.number }}
-        token: ${{ inputs.token }}
         body: |
           <!-- changeset-check -->
           ## Changeset missing
@@ -55,8 +52,7 @@ runs:
       if: steps.check.outputs.found == 'true' && steps.find-comment.outputs.comment-id != ''
       uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043 # v4.0.0
       with:
-        comment-id: ${{ steps.find-comment.outputs.comment-id }}
-        token: ${{ inputs.token }}
+        comment-id: ${{ steps.find-comment.outputs.comment-id }}        
         edit-mode: replace
         body: |
           <!-- changeset-check -->

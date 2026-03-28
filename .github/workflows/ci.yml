@@ -40,9 +40,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Check changeset
-        uses: ./.github/actions/changeset-check
-        with:
-          token: ${{ secrets.TOKEN_VERDACCIOBOT_V2 || github.token }}
+        uses: ./.github/actions/changeset-check        
   prepare:
     needs: [changeset-check]
     # Avoid running on draft PRs
