@@ -2,6 +2,7 @@ import buildDebug from 'debug';
 import fs from 'fs';
 import * as _ from 'lodash-es';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
 import type { Config } from '@verdaccio/types';
 import { isURL } from '@verdaccio/url';
@@ -10,6 +11,22 @@ import { HTTP_STATUS } from '../lib/constants';
 import type { $RequestExtend, $ResponseExtend } from '../types';
 
 const debug = buildDebug('verdaccio:middleware:favicon');
+
+function getCurrentDir(): string {
+  // ESM: import.meta.url is available
+  if (typeof import.meta?.url === 'string') {
+    return path.dirname(fileURLToPath(import.meta.url));
+  }
+  // CJS: __dirname is available (injected by Node.js)
+  // @ts-ignore - __dirname exists in CJS context
+  if (typeof __dirname === 'string') {
+    // @ts-ignore
+    return __dirname;
+  }
+  return process.cwd();
+}
+
+const currentDir = getCurrentDir();
 
 export function serveFavicon(config: Config) {
   return function (_req: $RequestExtend, res: $ResponseExtend) {
@@ -45,7 +62,7 @@ export function serveFavicon(config: Config) {
         }
       } else {
         res.setHeader('content-type', 'image/x-icon');
-        fs.createReadStream(path.posix.join(__dirname, './web/html/favicon.ico')).pipe(res);
+        fs.createReadStream(path.join(currentDir, 'web', 'html', 'favicon.ico')).pipe(res);
         debug('rendered ico');
       }
     } catch (err: any) {
