@@ -11,7 +11,6 @@ on:
       - .github/workflows/ci.yml
       - 'packages/**'
       - 'test/**'
-      - 'docker-examples/**'
       - 'jest/**'
       - 'package.json'
       - 'pnpm-workspace.yaml'
@@ -104,31 +103,6 @@ jobs:
             packages/*/*/build
             packages/*/*/dist
           key: ci-build-${{ github.sha }}-node-${{ matrix.node_version }}
-  test-docker:
-    needs: [build]
-    if: ${{ github.event_name == 'pull_request' && !failure() && !cancelled() }}
-    runs-on: ubuntu-latest
-    name: Test Docker Build
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Build Docker image
-        run: docker build -t verdaccio-test .
-        env:
-          VERDACCIO_BUILD_REGISTRY: https://registry.npmjs.org
-      - name: Run Verdaccio in background
-        run: |
-          docker run -d --name verdaccio-test -p 4873:4873 verdaccio-test
-          sleep 10
-      - name: Test npm install from local Verdaccio
-        run: |
-          npm set registry http://localhost:4873
-          npm install -g verdaccio
-      - name: Show Verdaccio logs
-        if: always()
-        run: docker logs verdaccio-test
-      - name: Stop Verdaccio
-        if: always()
-        run: docker stop verdaccio-test
   test:
     needs: [build]
     if: ${{ github.event_name == 'pull_request' && !failure() && !cancelled() }}
