@@ -515,24 +515,20 @@ describe('StorageTest', () => {
       };
 
       await new Promise<void>((resolve, reject) => {
-        storage.localStorage.updateVersions(
-          'mixed-pkg',
-          packageInfo,
-          (err: any, result: any) => {
-            try {
-              expect(err).toBeNull();
-              expect(result._distfiles).toBeDefined();
-              // Only v1.0.0 and v3.0.0 should be accepted; v2.0.0 is off-origin
-              expect(Object.keys(result._distfiles).length).toBe(2);
-              expect(result._distfiles['mixed-pkg-1.0.0.tgz']).toBeDefined();
-              expect(result._distfiles['mixed-pkg-2.0.0.tgz']).toBeUndefined();
-              expect(result._distfiles['mixed-pkg-3.0.0.tgz']).toBeDefined();
-              resolve();
-            } catch (e) {
-              reject(e);
-            }
+        storage.localStorage.updateVersions('mixed-pkg', packageInfo, (err: any, result: any) => {
+          try {
+            expect(err).toBeNull();
+            expect(result._distfiles).toBeDefined();
+            // Only v1.0.0 and v3.0.0 should be accepted; v2.0.0 is off-origin
+            expect(Object.keys(result._distfiles).length).toBe(2);
+            expect(result._distfiles['mixed-pkg-1.0.0.tgz']).toBeDefined();
+            expect(result._distfiles['mixed-pkg-2.0.0.tgz']).toBeUndefined();
+            expect(result._distfiles['mixed-pkg-3.0.0.tgz']).toBeDefined();
+            resolve();
+          } catch (e) {
+            reject(e);
           }
-        );
+        });
       });
     });
   });
