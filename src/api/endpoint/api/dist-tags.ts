@@ -1,5 +1,5 @@
 import type { Router } from 'express';
-import _ from 'lodash';
+import * as _ from 'lodash-es';
 
 import { DIST_TAGS_API_ENDPOINTS, allow, media } from '@verdaccio/middleware';
 import type { Package } from '@verdaccio/types';

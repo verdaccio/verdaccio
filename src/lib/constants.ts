@@ -1,3 +1,5 @@
+import { constants as coreConstants } from '@verdaccio/core';
+
 export {
   API_ERROR,
   API_MESSAGE,
@@ -12,7 +14,7 @@ export {
   DEFAULT_PROTOCOL,
   DEFAULT_DOMAIN,
 } from '@verdaccio/core';
-import { constants as coreConstants } from '@verdaccio/core';
+
 export const ROLES = coreConstants.ROLES;
 export const PACKAGE_ACCESS = coreConstants.PACKAGE_ACCESS;
 

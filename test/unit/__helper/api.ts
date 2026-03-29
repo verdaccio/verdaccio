@@ -2,8 +2,8 @@ import createDebug from 'debug';
 import request from 'supertest';
 import { expect } from 'vitest';
 
-import type { Manifest } from '@verdaccio/types';
 import { cryptoUtils } from '@verdaccio/core';
+import type { Manifest } from '@verdaccio/types';
 
 import { HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '../../../src/lib/constants';
 import { buildToken, encodeScopedUri } from '../../../src/lib/utils';

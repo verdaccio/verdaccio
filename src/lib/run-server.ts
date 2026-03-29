@@ -3,7 +3,7 @@ import buildDebug from 'debug';
 import fs from 'fs';
 import http from 'http';
 import https from 'https';
-import _ from 'lodash';
+import * as _ from 'lodash-es';
 
 import { getConfigParsed, getListenAddress } from '@verdaccio/config';
 import { ConfigYaml, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';

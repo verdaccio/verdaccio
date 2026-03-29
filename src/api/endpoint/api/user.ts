@@ -1,13 +1,13 @@
 import type { Response, Router } from 'express';
 import express from 'express';
-import _ from 'lodash';
+import * as _ from 'lodash-es';
 
 import { getApiToken } from '@verdaccio/auth';
 import { createRemoteUser } from '@verdaccio/config';
 import { validationUtils } from '@verdaccio/core';
+import { authUtils } from '@verdaccio/core';
 import { rateLimit } from '@verdaccio/middleware';
 import type { Config, RemoteUser } from '@verdaccio/types';
-import { authUtils } from '@verdaccio/core';
 
 import type Auth from '../../../lib/auth';
 import { API_ERROR, API_MESSAGE, HEADERS, HTTP_STATUS } from '../../../lib/constants';

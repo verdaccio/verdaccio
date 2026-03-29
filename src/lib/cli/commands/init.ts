@@ -1,5 +1,5 @@
 import { Command, Option } from 'clipanion';
-import _ from 'lodash';
+import * as _ from 'lodash-es';
 import path from 'path';
 import URL from 'url';
 

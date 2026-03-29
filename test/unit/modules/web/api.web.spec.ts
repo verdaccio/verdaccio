@@ -11,8 +11,8 @@ import {
   TOKEN_BEARER,
   fileUtils,
 } from '@verdaccio/core';
-import { generatePackageMetadata } from '@verdaccio/test-helper';
 import { authUtils } from '@verdaccio/core';
+import { generatePackageMetadata } from '@verdaccio/test-helper';
 
 import endPointAPI from '../../../../src/api';
 import { setup } from '../../../../src/lib/logger';

@@ -6,8 +6,8 @@ export default defineConfig({
     exclude: ['**/node_modules/**', '**/build/**', 'scripts/**'],
     server: {
       deps: {
-        // Pre-transform CJS deps so named imports work in ESM context
-        inline: [/lodash/, /@verdaccio\//],
+        // Pre-transform @verdaccio/* deps for ESM interop
+        inline: [/@verdaccio\//],
       },
     },
     coverage: {

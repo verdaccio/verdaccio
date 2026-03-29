@@ -1,6 +1,6 @@
 import buildDebug from 'debug';
 import type { Router } from 'express';
-import _ from 'lodash';
+import * as _ from 'lodash-es';
 import Path from 'path';
 
 import { validationUtils } from '@verdaccio/core';

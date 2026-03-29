@@ -86,7 +86,7 @@ importers:
       got:
         specifier: 14.6.6
         version: 14.6.6
-      lodash:
+      lodash-es:
         specifier: 4.17.23
         version: 4.17.23
       semver:
@@ -117,9 +117,6 @@ importers:
       '@types/http-errors':
         specifier: 2.0.5
         version: 2.0.5
-      '@types/lodash':
-        specifier: 4.17.23
-        version: 4.17.23
       '@types/lodash-es':
         specifier: ^4
         version: 4.17.12
@@ -186,9 +183,6 @@ importers:
       kleur:
         specifier: 4.1.5
         version: 4.1.5
-      lodash-es:
-        specifier: 4.17.23
-        version: 4.17.23
       nock:
         specifier: 13.5.6
         version: 13.5.6

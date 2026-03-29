@@ -1,5 +1,5 @@
 import { Application } from 'express';
-import _ from 'lodash';
+import * as _ from 'lodash-es';
 
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../../types';
 

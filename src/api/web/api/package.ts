@@ -1,14 +1,14 @@
 import { Router } from 'express';
-import _ from 'lodash';
+import * as _ from 'lodash-es';
 
 import { createAnonymousRemoteUser } from '@verdaccio/config';
+import { cryptoUtils } from '@verdaccio/core';
 import { WebUrls, allow } from '@verdaccio/middleware';
 import {
   convertDistRemoteToLocalTarballUrls,
   getLocalRegistryTarballUri,
 } from '@verdaccio/tarball';
 import type { Config, Manifest, RemoteUser } from '@verdaccio/types';
-import { cryptoUtils } from '@verdaccio/core';
 
 import type Auth from '../../../lib/auth';
 import { DIST_TAGS, HEADERS, HEADER_TYPE, HTTP_STATUS } from '../../../lib/constants';

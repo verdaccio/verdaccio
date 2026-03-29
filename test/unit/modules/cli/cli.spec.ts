@@ -49,9 +49,9 @@ describe('startServer via API', () => {
       });
 
       const conf = config({ https: {} }, undefined, true);
-      await expect(
-        runServer(conf, { listenArg: 'https://www.domain.com:443' })
-      ).rejects.toThrow('process.exit called');
+      await expect(runServer(conf, { listenArg: 'https://www.domain.com:443' })).rejects.toThrow(
+        'process.exit called'
+      );
       expect(process.exit).toHaveBeenCalledWith(2);
       vi.restoreAllMocks();
     });

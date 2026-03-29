@@ -1,10 +1,10 @@
 import createDebug from 'debug';
-import _ from 'lodash';
+import * as _ from 'lodash-es';
 
 import { pkgUtils } from '@verdaccio/core';
+import { cryptoUtils } from '@verdaccio/core';
 import { SearchMemoryIndexer } from '@verdaccio/search-indexer';
 import { AbbreviatedManifest, AbbreviatedVersions, Manifest, Version } from '@verdaccio/types';
-import { cryptoUtils } from '@verdaccio/core';
 
 import { API_ERROR, DIST_TAGS, HTTP_STATUS, STORAGE, USERS } from './constants';
 import LocalStorage from './local-storage';

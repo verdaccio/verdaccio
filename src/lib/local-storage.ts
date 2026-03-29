@@ -1,7 +1,8 @@
 import assert from 'assert';
 import builDebug from 'debug';
-import _ from 'lodash';
+import * as _ from 'lodash-es';
 
+import { cryptoUtils, validationUtils } from '@verdaccio/core';
 import { ReadTarball, UploadTarball } from '@verdaccio/streams';
 import {
   Author,
@@ -18,7 +19,6 @@ import {
   onEndSearchPackage,
   onSearchPackage,
 } from '@verdaccio/types';
-import { cryptoUtils, validationUtils } from '@verdaccio/core';
 
 import { StoragePluginLegacy } from '../../types/custom';
 import { StringValue } from '../types';

@@ -99,7 +99,9 @@ describe('endpoint user auth JWT unit test', () => {
     await addUser(request(app), credentials.name, credentials, HTTP_STATUS.CONFLICT);
 
     // npm will try to sign in sending credentials via basic auth header
-    const token = authUtils.buildUserBuffer(credentials.name, credentials.password).toString('base64');
+    const token = authUtils
+      .buildUserBuffer(credentials.name, credentials.password)
+      .toString('base64');
     // put should exist in request
     // @ts-ignore
     const res = await request(app)

@@ -28,7 +28,8 @@ describe('endpoint user profile', () => {
     const mockServerPort = await getPort();
 
     const parsedConfig = parseConfigFile(parseConfigurationProfile());
-    const configForTest = { ...structuredClone(parsedConfig),
+    const configForTest = {
+      ...structuredClone(parsedConfig),
       storage: store,
       auth: {
         htpasswd: {

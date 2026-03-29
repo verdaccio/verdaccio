@@ -1,13 +1,13 @@
 import createDebug from 'debug';
-import _ from 'lodash';
+import * as _ from 'lodash-es';
 import path from 'node:path';
 import semver from 'semver';
 
 import { parseConfigFile } from '@verdaccio/config';
 import { errorUtils, pkgUtils, validationUtils, warningUtils } from '@verdaccio/core';
+import { authUtils } from '@verdaccio/core';
 import { ConfigYaml, LoggerConfigItem, StringValue } from '@verdaccio/types';
 import { Config, Manifest, Version } from '@verdaccio/types';
-import { authUtils } from '@verdaccio/core';
 
 import { DIST_TAGS, certPem, csrPem, keyPem } from './constants';
 import { logger, setup } from './logger';

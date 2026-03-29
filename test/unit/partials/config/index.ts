@@ -1,5 +1,5 @@
 import createDebug from 'debug';
-import _ from 'lodash';
+import * as _ from 'lodash-es';
 import path from 'node:path';
 
 import { getDefaultConfig, parseConfigFile } from '@verdaccio/config';

@@ -1,6 +1,6 @@
 import buildDebug from 'debug';
 import type { Response } from 'express';
-import _ from 'lodash';
+import * as _ from 'lodash-es';
 
 import { HTTP_STATUS, USERS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
