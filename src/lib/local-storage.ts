@@ -161,37 +161,12 @@ class LocalStorage {
 
             // we do NOT overwrite any existing records
             if (_.isNil(packageLocalJson._distfiles[filename])) {
-              /* eslint spaced-comment: 0 */
-              const upLink: string | undefined = version[Symbol.for('__verdaccio_uplink')];
-
-              // Ensure the tarball URL matches at least one configured uplink origin.
-              // Some registries (e.g. yarn) return tarball URLs pointing to a
-              // different host (e.g. npmjs), so we check all configured uplinks.
-              if (upLink && this.config.uplinks) {
-                const tarballUrl = new URL(version.dist.tarball);
-                const matchesAnyUplink = Object.values(this.config.uplinks).some(
-                  (uplinkConf: any) => {
-                    const uplinkUrl = new URL(uplinkConf.url);
-                    return tarballUrl.host === uplinkUrl.host;
-                  }
-                );
-                if (!matchesAnyUplink) {
-                  this.logger.warn(
-                    {
-                      tarball: version.dist.tarball,
-                      package: name,
-                      version: versionId,
-                    },
-                    'rejecting off-origin tarball @{tarball} for @{package}@@{version}'
-                  );
-                  continue;
-                }
-              }
-
               const hash: DistFile = (packageLocalJson._distfiles[filename] = {
                 url: version.dist.tarball,
                 sha: version.dist.shasum,
               });
+              /* eslint spaced-comment: 0 */
+              const upLink: string = version[Symbol.for('__verdaccio_uplink')];
 
               if (_.isNil(upLink) === false) {
                 this._updateUplinkToRemoteProtocol(hash, upLink);
