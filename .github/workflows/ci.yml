@@ -6,15 +6,6 @@ on:
       - 'master'
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
-    paths:
-      - .changeset/**
-      - .github/workflows/ci.yml
-      - 'packages/**'
-      - 'test/**'
-      - 'docker-examples/**'
-      - 'jest/**'
-      - 'package.json'
-      - 'pnpm-workspace.yaml'
 permissions:
   actions: read
   contents: read
