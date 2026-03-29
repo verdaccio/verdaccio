@@ -6,14 +6,187 @@ permissions:
   contents: read
 concurrency:
   group: ci-${{ github.ref }}-6.x
-  cancel-in-progress: true  
+  cancel-in-progress: true
 
 jobs:
-  build: 
+  prepare:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    name: setup verdaccio
+    services:
+      verdaccio:
+        image: verdaccio/verdaccio:6
+        ports:
+          - 4873:4873
+        env:
+          NODE_ENV: production
+        options: >-
+          --health-cmd="curl -f http://0.0.0.0:4873/-/ping || exit 1"
+          --health-interval=10s
+          --health-timeout=20s
+          --health-retries=6
+    steps:
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+    - name: Use Node
+      uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+      with:
+        node-version-file: '.nvmrc'
+    - name: Restore yarn cache
+      id: yarn-cache
+      uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+      with:
+        path: |
+          .yarn/cache
+          .yarn/install-state.gz
+        key: yarn-${{ hashFiles('yarn.lock') }}-${{ runner.os }}
+        restore-keys: |
+          yarn-
+    - name: Install via Verdaccio
+      run: yarn install --immutable --registry http://localhost:4873
+    - name: Save yarn cache
+      if: steps.yarn-cache.outputs.cache-hit != 'true'
+      uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+      with:
+        path: |
+          .yarn/cache
+          .yarn/install-state.gz
+        key: yarn-${{ hashFiles('yarn.lock') }}-${{ runner.os }}
+
+  ci-lint:
+    needs: [prepare]
+    name: Node Lint
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+    - name: Use Node
+      uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+      with:
+        node-version-file: '.nvmrc'
+    - name: Restore yarn cache
+      uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+      with:
+        path: |
+          .yarn/cache
+          .yarn/install-state.gz
+        key: yarn-${{ hashFiles('yarn.lock') }}-${{ runner.os }}
+        restore-keys: |
+          yarn-
+    - name: Install
+      run: yarn install --immutable
+    - name: Format
+      run: yarn format:check
+    - name: Lint
+      run: yarn lint
+    - name: Lint Lockfile
+      run: yarn lint:lockfile
+
+  build:
+    needs: [ci-lint]
+    name: Build (Node ${{ matrix.node_version }})
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        node_version: [18, 20, 22, 24]    
-    uses: verdaccio/verdaccio/.github/workflows/yarn-ci.yml@master
-    with:
-      node_version: ${{ matrix.node_version }}
+        node_version: [18, 20, 22, 24]
+    steps:
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+    - name: Use Node ${{ matrix.node_version }}
+      uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+      with:
+        node-version: ${{ matrix.node_version }}
+    - name: Restore yarn cache
+      uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+      with:
+        path: |
+          .yarn/cache
+          .yarn/install-state.gz
+        key: yarn-${{ hashFiles('yarn.lock') }}-${{ runner.os }}
+        restore-keys: |
+          yarn-
+    - name: Install
+      run: yarn install --immutable
+    - name: Build
+      run: yarn build
+    - name: Cache build artifacts
+      uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+      with:
+        path: |
+          build/
+          node_modules/
+        key: ci-build-${{ github.sha }}-node-${{ matrix.node_version }}
+
+  test:
+    needs: [build]
+    name: Test (Node ${{ matrix.node_version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node_version: [18, 20, 22, 24]
+    steps:
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+    - name: Use Node ${{ matrix.node_version }}
+      uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+      with:
+        node-version: ${{ matrix.node_version }}
+    - name: Restore build artifacts
+      uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+      with:
+        path: |
+          build/
+          node_modules/
+        key: ci-build-${{ github.sha }}-node-${{ matrix.node_version }}
+    - name: Test
+      run: yarn test
+
+  e2e-cli:
+    needs: [build]
+    name: E2E CLI (${{ matrix.pm }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        pm: [npm, pnpm, yarn-classic, yarn-modern@4]
+    steps:
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+    - name: Use Node
+      uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+      with:
+        node-version-file: '.nvmrc'
+    - name: Restore build artifacts
+      uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+      with:
+        path: |
+          build/
+          node_modules/
+        key: ci-build-${{ github.sha }}-node-22
+    - name: Start Verdaccio
+      run: |
+        node bin/verdaccio &
+        for i in $(seq 1 30); do
+          curl -s http://localhost:4873/-/ping && break
+          sleep 1
+        done
+    - name: Run E2E CLI tests
+      run: yarn verdaccio-e2e --registry http://localhost:4873 --pm ${{ matrix.pm }} -v
+    - name: Show Verdaccio logs
+      if: always()
+      run: cat ~/.config/verdaccio/verdaccio.log 2>/dev/null || echo "No log file found"
+
+  cleanup:
+    needs: [test, e2e-cli, ci-lint]
+    if: always()
+    runs-on: ubuntu-latest
+    name: Cleanup caches
+    permissions:
+      actions: write
+    steps:
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+    - name: Delete build artifact caches
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        gh cache delete "ci-build-${{ github.sha }}-node-18" --repo ${{ github.repository }} || true
+        gh cache delete "ci-build-${{ github.sha }}-node-20" --repo ${{ github.repository }} || true
+        gh cache delete "ci-build-${{ github.sha }}-node-22" --repo ${{ github.repository }} || true
+        gh cache delete "ci-build-${{ github.sha }}-node-24" --repo ${{ github.repository }} || true
