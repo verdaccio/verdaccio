@@ -3,7 +3,6 @@ import { describe, expect, test, vi } from 'vitest';
 import { getDefaultConfig } from '@verdaccio/config';
 
 import { runServer } from '../../../../src';
-import { DEFAULT_DOMAIN, DEFAULT_PROTOCOL } from '../../../../src/lib/constants';
 import config from '../../partials/config';
 
 vi.setConfig({ testTimeout: 20000 });

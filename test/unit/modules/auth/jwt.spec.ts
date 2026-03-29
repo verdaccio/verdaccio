@@ -9,9 +9,9 @@ import {
   HTTP_STATUS,
   TOKEN_BASIC,
   TOKEN_BEARER,
+  authUtils,
   fileUtils,
 } from '@verdaccio/core';
-import { authUtils } from '@verdaccio/core';
 
 import endPointAPI from '../../../../src/api';
 import { setup } from '../../../../src/lib/logger';

@@ -4,8 +4,7 @@ import * as _ from 'lodash-es';
 
 import { getApiToken } from '@verdaccio/auth';
 import { createRemoteUser } from '@verdaccio/config';
-import { validationUtils } from '@verdaccio/core';
-import { authUtils } from '@verdaccio/core';
+import { validationUtils, authUtils  } from '@verdaccio/core';
 import { rateLimit } from '@verdaccio/middleware';
 import type { Config, RemoteUser } from '@verdaccio/types';
 

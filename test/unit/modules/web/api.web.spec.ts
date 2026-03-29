@@ -9,9 +9,9 @@ import {
   HEADER_TYPE,
   HTTP_STATUS,
   TOKEN_BEARER,
+  authUtils,
   fileUtils,
 } from '@verdaccio/core';
-import { authUtils } from '@verdaccio/core';
 import { generatePackageMetadata } from '@verdaccio/test-helper';
 
 import endPointAPI from '../../../../src/api';
