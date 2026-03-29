@@ -42,6 +42,7 @@
     "@verdaccio/hooks": "workspace:9.0.0-next-9.8",
     "@verdaccio/logger": "workspace:9.0.0-next-9.8",
     "@verdaccio/node-api": "workspace:9.0.0-next-9.8",
+    "@verdaccio/server": "workspace:9.0.0-next-9.8",
     "@verdaccio/ui-theme": "workspace:9.0.0-next-9.8",
     "verdaccio-audit": "workspace:14.0.0-next-9.8",
     "verdaccio-htpasswd": "workspace:14.0.0-next-9.8",

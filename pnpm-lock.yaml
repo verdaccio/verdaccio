@@ -385,6 +385,9 @@ importers:
       '@verdaccio/node-api':
         specifier: workspace:9.0.0-next-9.8
         version: link:../node-api
+      '@verdaccio/server':
+        specifier: workspace:9.0.0-next-9.8
+        version: link:../server/express
       clipanion:
         specifier: 4.0.0-rc.4
         version: 4.0.0-rc.4(typanion@3.14.0)
@@ -691,9 +694,6 @@ importers:
       '@verdaccio/logger':
         specifier: workspace:9.0.0-next-9.8
         version: link:../logger
-      '@verdaccio/server':
-        specifier: workspace:9.0.0-next-9.8
-        version: link:../server/express
       debug:
         specifier: 4.4.3
         version: 4.4.3(supports-color@5.5.0)
@@ -1471,6 +1471,9 @@ importers:
       '@verdaccio/package-filter':
         specifier: workspace:14.0.0-next-9.32
         version: link:../plugins/package-filter
+      '@verdaccio/server':
+        specifier: workspace:9.0.0-next-9.8
+        version: link:../server/express
       '@verdaccio/ui-theme':
         specifier: workspace:9.0.0-next-9.8
         version: link:../plugins/ui-theme
