@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.0.0-beta.5](https://github.com/verdaccio/verdaccio/compare/v7.0.0-beta.4...v7.0.0-beta.5) (2026-03-29)
+
+
+### Features
+
+* migrate to pnpm and vite ([#5748](https://github.com/verdaccio/verdaccio/issues/5748)) ([379b622](https://github.com/verdaccio/verdaccio/commit/379b622764e1d6a0edbf41f8af9f1d108af547b0))
+* migrate to verdaccio/proxy ([#5646](https://github.com/verdaccio/verdaccio/issues/5646)) ([a1fd32d](https://github.com/verdaccio/verdaccio/commit/a1fd32d807645a54e11d81b81a73c52823aaabf1))
+
+
+### Bug Fixes
+
+* **deps:** update core verdaccio dependencies (7.x) ([#5742](https://github.com/verdaccio/verdaccio/issues/5742)) ([a825f95](https://github.com/verdaccio/verdaccio/commit/a825f95604efbfe732ab33df9b205426bd802acf))
+* **deps:** update dependency lru-cache to v11 (7.x) ([#5624](https://github.com/verdaccio/verdaccio/issues/5624)) ([1e9bdc8](https://github.com/verdaccio/verdaccio/commit/1e9bdc895c81acb229ad5a76256be004b95da1ba))
+* **deps:** update dependency mime to v4 (7.x) ([#5625](https://github.com/verdaccio/verdaccio/issues/5625)) ([a480708](https://github.com/verdaccio/verdaccio/commit/a480708a3b6729cabc2599b713d95bbb2681b0e5))
+
 ## [7.0.0-beta.4](https://github.com/verdaccio/verdaccio/compare/v7.0.0-beta.3...v7.0.0-beta.4) (2026-03-10)
 
 
