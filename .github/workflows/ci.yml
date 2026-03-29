@@ -41,7 +41,7 @@ jobs:
     name: Build (Node ${{ matrix.node_version }})
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         node_version: [18, 20, 22, 24]
     steps:
@@ -76,7 +76,7 @@ jobs:
     name: Test (Node ${{ matrix.node_version }})
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         node_version: [20, 24]
     steps:
@@ -100,7 +100,7 @@ jobs:
     name: E2E CLI (${{ matrix.pm }})
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         pm: [npm, pnpm, yarn-classic, yarn-modern@4]
     steps:
