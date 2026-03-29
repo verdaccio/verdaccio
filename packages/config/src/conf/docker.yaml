@@ -201,6 +201,22 @@ server:
 #   endpoint: 'https://usagge.hipchat.com/v2/room/3729485/notification?auth_token=mySecretToken'
 #   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 
+# Settings for filter plugins
+# https://verdaccio.org/docs/plugin-filter
+# filters:
+#   '@verdaccio/package-filter':
+#     # Block versions published less than N days ago
+#     # minAgeDays: 7
+#     # Only serve versions published before a specific date
+#     # dateThreshold: '2025-01-01'
+#     # block:
+#     #   - scope: '@malicious'
+#     #   - package: 'typosquat-pkg'
+#     #   - package: 'compromised-lib'
+#     #     versions: '>=3.0.0'
+#     # allow:
+#     #   - scope: '@my-org'
+
 # Settings for middleware plugins
 # https://verdaccio.org/docs/plugins#middleware-configuration
 middlewares:

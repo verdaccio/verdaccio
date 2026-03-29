@@ -5,3 +5,4 @@ packages:
   - packages/plugins/audit
   - packages/plugins/auth-memory
   - packages/plugins/htpasswd
+  - packages/plugins/package-filter
