@@ -48,6 +48,7 @@
     "@verdaccio/core": "workspace:9.0.0-next-9.8",
     "@verdaccio/logger": "workspace:9.0.0-next-9.8",
     "@verdaccio/node-api": "workspace:9.0.0-next-9.8",
+    "@verdaccio/server": "workspace:9.0.0-next-9.8",
     "clipanion": "4.0.0-rc.4",
     "envinfo": "7.19.0",
     "semver": "7.7.4"
