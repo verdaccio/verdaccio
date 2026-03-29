@@ -657,6 +657,37 @@ importers:
         specifier: 3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.10.0)(jsdom@26.1.0)(msw@2.12.10(@types/node@24.10.0)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)(yaml@2.8.1)
 
+  packages/plugins/package-filter:
+    dependencies:
+      '@verdaccio/core':
+        specifier: workspace:8.0.0-next-8.34
+        version: link:../../core/core
+      debug:
+        specifier: 4.4.3
+        version: 4.4.3(supports-color@8.1.1)
+      semver:
+        specifier: 7.7.4
+        version: 7.7.4
+    devDependencies:
+      '@types/debug':
+        specifier: 4.1.12
+        version: 4.1.12
+      '@verdaccio/config':
+        specifier: workspace:8.0.0-next-8.34
+        version: link:../../config
+      '@verdaccio/logger':
+        specifier: workspace:8.0.0-next-8.34
+        version: link:../../logger/logger
+      '@verdaccio/types':
+        specifier: workspace:13.0.0-next-8.11
+        version: link:../../core/types
+      vite:
+        specifier: 7.3.1
+        version: 7.3.1(@types/node@24.10.0)(sass@1.93.2)(terser@5.31.3)(yaml@2.8.1)
+      vitest:
+        specifier: 3.2.4
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.10.0)(jsdom@26.1.0)(msw@2.12.10(@types/node@24.10.0)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)(yaml@2.8.1)
+
   packages/search-indexer:
     devDependencies:
       '@orama/orama':
