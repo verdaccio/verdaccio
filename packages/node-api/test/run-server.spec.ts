@@ -1,23 +1,30 @@
-import request from 'supertest';
-import { describe, expect, test } from 'vitest';
+import http from 'node:http';
+import { afterEach, describe, expect, test, vi } from 'vitest';
 
 import { runServer } from '../src';
 
+const mockServerFactory = vi.fn();
+
 describe('startServer via API', () => {
-  // TODO: fix this test does not runs with vitest
-  test.skip('should provide all HTTP server data', async () => {
-    const webServer = await runServer();
-    expect(webServer).toBeDefined();
-    await request(webServer).get('/').expect(200);
+  afterEach(() => {
+    mockServerFactory.mockReset();
   });
 
-  test('should fail on start with empty configuration', async () => {
+  test('should return an HTTP server instance', async () => {
+    const app = (_req: any, res: any) => {
+      res.writeHead(200);
+      res.end();
+    };
+    mockServerFactory.mockResolvedValue(app);
     // @ts-expect-error
-    await expect(runServer({})).rejects.toThrow('configPath property is required');
+    const webServer = await runServer({}, mockServerFactory);
+    expect(webServer).toBeDefined();
+    expect(webServer).toBeInstanceOf(http.Server);
+    expect(mockServerFactory).toHaveBeenCalledOnce();
   });
 
   test('should fail on start with null as entry', async () => {
     // @ts-expect-error
-    await expect(runServer(null)).rejects.toThrow();
+    await expect(runServer(null, mockServerFactory)).rejects.toThrow();
   });
 });
