@@ -1,5 +1,16 @@
 # Change Log
 
+## 4.0.0-next-8.19
+
+### Patch Changes
+
+- Updated dependencies [641b38c]
+  - @verdaccio/config@8.0.0-next-8.35
+  - @verdaccio/auth@8.0.0-next-8.35
+  - @verdaccio/middleware@8.0.0-next-8.35
+  - @verdaccio/core@8.0.0-next-8.35
+  - @verdaccio/logger@8.0.0-next-8.35
+
 ## 4.0.0-next-8.18
 
 ### Patch Changes
