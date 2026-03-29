@@ -11,7 +11,7 @@ import {
   TOKEN_BEARER,
   fileUtils,
 } from '@verdaccio/core';
-import { buildToken, buildUserBuffer } from '@verdaccio/utils';
+import { authUtils } from '@verdaccio/core';
 
 import endPointAPI from '../../../../src/api';
 import { setup } from '../../../../src/lib/logger';
@@ -29,7 +29,7 @@ describe('endpoint user auth JWT unit test', () => {
   vi.setConfig({ testTimeout: 20000 });
   let app;
   let mockRegistry;
-  const FAKE_TOKEN: string = buildToken(TOKEN_BEARER, 'fake');
+  const FAKE_TOKEN: string = authUtils.buildToken(TOKEN_BEARER, 'fake');
 
   beforeAll(async function () {
     const store = await fileUtils.createTempStorageFolder('test-jwt-storage');
@@ -99,13 +99,13 @@ describe('endpoint user auth JWT unit test', () => {
     await addUser(request(app), credentials.name, credentials, HTTP_STATUS.CONFLICT);
 
     // npm will try to sign in sending credentials via basic auth header
-    const token = buildUserBuffer(credentials.name, credentials.password).toString('base64');
+    const token = authUtils.buildUserBuffer(credentials.name, credentials.password).toString('base64');
     // put should exist in request
     // @ts-ignore
     const res = await request(app)
       .put(`/-/user/org.couchdb.user:${credentials.name}/-rev/undefined`)
       .send(credentials)
-      .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BASIC, token))
+      .set(HEADERS.AUTHORIZATION, authUtils.buildToken(TOKEN_BASIC, token))
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
       .expect(HTTP_STATUS.CREATED);
 

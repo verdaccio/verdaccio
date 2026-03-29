@@ -7,7 +7,7 @@ import { createRemoteUser } from '@verdaccio/config';
 import { validationUtils } from '@verdaccio/core';
 import { rateLimit } from '@verdaccio/middleware';
 import type { Config, RemoteUser } from '@verdaccio/types';
-import { getAuthenticatedMessage } from '@verdaccio/utils';
+import { authUtils } from '@verdaccio/core';
 
 import type Auth from '../../../lib/auth';
 import { API_ERROR, API_MESSAGE, HEADERS, HTTP_STATUS } from '../../../lib/constants';
@@ -25,7 +25,7 @@ export default function (route: Router, auth: Auth, config: Config): void {
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       res.status(HTTP_STATUS.OK);
       next({
-        ok: getAuthenticatedMessage(req.remote_user.name),
+        ok: authUtils.getAuthenticatedMessage(req.remote_user.name),
       });
     }
   );
@@ -58,7 +58,7 @@ export default function (route: Router, auth: Auth, config: Config): void {
             res.status(HTTP_STATUS.CREATED);
             res.set(HEADERS.CACHE_CONTROL, 'no-cache, no-store');
             return next({
-              ok: getAuthenticatedMessage(req.remote_user.name),
+              ok: authUtils.getAuthenticatedMessage(req.remote_user.name),
               token,
             });
           }

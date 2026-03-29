@@ -1,6 +1,5 @@
 import request from '@cypress/request';
 import assert from 'assert';
-import _ from 'lodash';
 
 import { IRequestPromise } from '../types';
 
@@ -35,7 +34,7 @@ export class PromiseAssert extends Promise<any> implements IRequestPromise {
       this,
       this.then(function (body) {
         try {
-          if (_.isRegExp(expected)) {
+          if (expected instanceof RegExp) {
             assert(body.ok.match(expected), "'" + body.ok + "' doesn't match " + expected);
           } else {
             assert.equal(body.ok, expected);
@@ -58,7 +57,7 @@ export class PromiseAssert extends Promise<any> implements IRequestPromise {
       this,
       this.then(function (body) {
         try {
-          if (_.isRegExp(expected)) {
+          if (expected instanceof RegExp) {
             assert(body.error.match(expected), body.error + " doesn't match " + expected);
           } else {
             assert.equal(body.error, expected);

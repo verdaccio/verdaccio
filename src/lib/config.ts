@@ -1,13 +1,13 @@
 import { Config as ConfigCore } from '@verdaccio/config';
-import { getMatchedPackagesSpec } from '@verdaccio/utils';
+import { authUtils } from '@verdaccio/core';
 
 class Config extends ConfigCore {
   public constructor(config: any) {
     config.configPath = config.self_path;
-    super(config, { forceMigrateToSecureLegacySignature: false });
+    super(config);
     // Temporary solution for plugins that depends on legacy configuration files
     this.getMatchedPackagesSpec = (pkgName) => {
-      return getMatchedPackagesSpec(pkgName, this.packages);
+      return authUtils.getMatchedPackagesSpec(pkgName, this.packages);
     };
   }
 }

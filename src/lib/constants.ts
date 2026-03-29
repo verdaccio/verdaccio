@@ -12,7 +12,9 @@ export {
   DEFAULT_PROTOCOL,
   DEFAULT_DOMAIN,
 } from '@verdaccio/core';
-export { ROLES, PACKAGE_ACCESS } from '@verdaccio/utils';
+import { constants as coreConstants } from '@verdaccio/core';
+export const ROLES = coreConstants.ROLES;
+export const PACKAGE_ACCESS = coreConstants.PACKAGE_ACCESS;
 
 export const TIME_EXPIRATION_24H = '24h';
 export const TIME_EXPIRATION_1H = '1h';

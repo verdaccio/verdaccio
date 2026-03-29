@@ -8,7 +8,7 @@ import {
   getLocalRegistryTarballUri,
 } from '@verdaccio/tarball';
 import type { Config, Manifest, RemoteUser } from '@verdaccio/types';
-import { addGravatarSupport, formatAuthor, generateGravatarUrl } from '@verdaccio/utils';
+import { cryptoUtils } from '@verdaccio/core';
 
 import type Auth from '../../../lib/auth';
 import { DIST_TAGS, HEADERS, HEADER_TYPE, HTTP_STATUS } from '../../../lib/constants';
@@ -29,6 +29,68 @@ import type {
   $SidebarPackage,
 } from '../../../types';
 import { wrapPath } from './utils';
+
+const AVATAR_PROVIDER = 'https://www.gravatar.com/avatar/';
+const GENERIC_AVATAR =
+  'data:image/svg+xml;utf8,' +
+  encodeURIComponent(
+    '<svg height="100" viewBox="-27 24 100 100" width="100" xmlns="http://www.w3.org/2000/svg"><circle cx="23" cy="74" r="50" fill="#F5EEE5"/></svg>'
+  );
+
+const DEFAULT_USER = 'Anonymous';
+
+function formatAuthor(author: any): any {
+  let authorDetails = { name: DEFAULT_USER, email: '', url: '' };
+  if (author == null) return authorDetails;
+  if (typeof author === 'string') authorDetails = { ...authorDetails, name: author };
+  if (typeof author === 'object') authorDetails = { ...authorDetails, ...author };
+  return authorDetails;
+}
+
+function generateGravatarUrl(email?: string | void, online = true): string {
+  if (online && typeof email === 'string' && email.length > 0) {
+    return `${AVATAR_PROVIDER}${cryptoUtils.stringToMD5(email.trim().toLocaleLowerCase())}`;
+  }
+  return GENERIC_AVATAR;
+}
+
+function normalizeContributors(contributors: any): any[] {
+  if (contributors == null) return [];
+  if (!Array.isArray(contributors)) return [contributors];
+  if (typeof contributors === 'string') return [{ name: contributors }];
+  return contributors;
+}
+
+function addGravatarSupport(pkgInfo: any, online = true): any {
+  const pkgInfoCopy = { ...pkgInfo };
+  const author = pkgInfo?.latest?.author ?? null;
+  const contributors = normalizeContributors(pkgInfo?.latest?.contributors ?? []);
+  const maintainers = pkgInfo?.latest?.maintainers ?? [];
+
+  if (author && typeof author === 'object') {
+    pkgInfoCopy.latest.author.avatar = generateGravatarUrl(author.email, online);
+  }
+  if (author && typeof author === 'string') {
+    pkgInfoCopy.latest.author = { avatar: GENERIC_AVATAR, email: '', author };
+  }
+  if (contributors.length > 0) {
+    pkgInfoCopy.latest.contributors = contributors.map((contributor: any) => {
+      if (typeof contributor === 'object') {
+        contributor.avatar = generateGravatarUrl(contributor.email, online);
+      } else if (typeof contributor === 'string') {
+        contributor = { avatar: GENERIC_AVATAR, email: contributor, name: contributor };
+      }
+      return contributor;
+    });
+  }
+  if (maintainers.length > 0) {
+    pkgInfoCopy.latest.maintainers = maintainers.map((maintainer: any) => {
+      maintainer.avatar = generateGravatarUrl(maintainer.email, online);
+      return maintainer;
+    });
+  }
+  return pkgInfoCopy;
+}
 
 const getOrder = (order = 'asc') => {
   return order === 'asc';

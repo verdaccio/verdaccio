@@ -12,6 +12,7 @@ import { setup } from '../../../../src/lib/logger';
 import Storage from '../../../../src/lib/storage';
 import { mockServer } from '../../__helper/mock';
 import configExample from '../../partials/config';
+import FilterPlugin from '../api/partials/plugin/verdaccio-filter.js';
 
 setup({});
 
@@ -62,9 +63,9 @@ const generateStorage = async function (port = mockServerPort, opts: GenerateSto
 
   const config: Config = new AppConfig(storageConfig);
   const store: any = new Storage(config);
-  // If filters are enabled, let Storage auto-load them from config by NOT passing []
   if (enableFilters) {
-    await store.init(config);
+    const filterInstance = new FilterPlugin({ pkg: filterPkg, version: filterVersion });
+    await store.init(config, [filterInstance]);
   } else {
     await store.init(config, []);
   }

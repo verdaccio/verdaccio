@@ -1,12 +1,26 @@
 import { describe, expect, test, vi } from 'vitest';
 
-import { GENERIC_AVATAR, generateGravatarUrl } from '@verdaccio/utils';
+import { cryptoUtils } from '@verdaccio/core';
 
 import { DIST_TAGS } from '../../../../src/lib/constants';
 import { logger, setup } from '../../../../src/lib/logger';
 import { getVersion, normalizeDistTags, parseReadme, sortByName } from '../../../../src/lib/utils';
 
 setup({});
+
+const AVATAR_PROVIDER = 'https://www.gravatar.com/avatar/';
+const GENERIC_AVATAR =
+  'data:image/svg+xml;utf8,' +
+  encodeURIComponent(
+    '<svg height="100" viewBox="-27 24 100 100" width="100" xmlns="http://www.w3.org/2000/svg"><circle cx="23" cy="74" r="50" fill="#F5EEE5"/></svg>'
+  );
+
+function generateGravatarUrl(email?: string, online = true): string {
+  if (online && typeof email === 'string' && email.length > 0) {
+    return `${AVATAR_PROVIDER}${cryptoUtils.stringToMD5(email.trim().toLocaleLowerCase())}`;
+  }
+  return GENERIC_AVATAR;
+}
 
 describe('Utilities', () => {
   const metadata: any = {

@@ -2,7 +2,7 @@ import supertest from 'supertest';
 import { describe, expect, test } from 'vitest';
 
 import { HEADERS, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core';
-import { buildToken } from '@verdaccio/utils';
+import { authUtils } from '@verdaccio/core';
 
 import { createUser, initializeServer } from './_helper';
 
@@ -14,7 +14,7 @@ describe('whoami', () => {
     return supertest(app)
       .get('/-/whoami')
       .set('Accept', HEADERS.JSON)
-      .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, _body.token))
+      .set(HEADERS.AUTHORIZATION, authUtils.buildToken(TOKEN_BEARER, _body.token))
       .expect('Content-Type', HEADERS.JSON_CHARSET)
       .expect(HTTP_STATUS.OK)
       .then((response) => {
@@ -29,7 +29,7 @@ describe('whoami', () => {
     return supertest(app)
       .get('/-/whoami')
       .set('Accept', HEADERS.JSON)
-      .set(HEADERS.AUTHORIZATION, buildToken('invalid-token', _body.token))
+      .set(HEADERS.AUTHORIZATION, authUtils.buildToken('invalid-token', _body.token))
       .expect('Content-Type', HEADERS.JSON_CHARSET)
       .expect(HTTP_STATUS.UNAUTHORIZED);
   });

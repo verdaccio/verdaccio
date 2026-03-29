@@ -12,7 +12,7 @@ import {
   fileUtils,
 } from '@verdaccio/core';
 import { generatePackageMetadata } from '@verdaccio/test-helper';
-import { buildToken } from '@verdaccio/utils';
+import { authUtils } from '@verdaccio/core';
 
 import endPointAPI from '../../../../src/api';
 import { setup } from '../../../../src/lib/logger';
@@ -91,7 +91,7 @@ describe('endpoint web unit test', () => {
         // this packages is protected at the yaml file
         const res = await request(app)
           .get('/-/verdaccio/data/packages')
-          .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+          .set(HEADERS.AUTHORIZATION, authUtils.buildToken(TOKEN_BEARER, token))
           .expect(HTTP_STATUS.OK);
         expect(res.body).toHaveLength(2);
       });

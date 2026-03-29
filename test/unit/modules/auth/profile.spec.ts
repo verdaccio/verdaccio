@@ -1,5 +1,4 @@
 import getPort from 'get-port';
-import _ from 'lodash';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest';
 
@@ -29,7 +28,7 @@ describe('endpoint user profile', () => {
     const mockServerPort = await getPort();
 
     const parsedConfig = parseConfigFile(parseConfigurationProfile());
-    const configForTest = _.assign({}, _.cloneDeep(parsedConfig), {
+    const configForTest = { ...structuredClone(parsedConfig),
       storage: store,
       auth: {
         htpasswd: {
@@ -37,7 +36,7 @@ describe('endpoint user profile', () => {
         },
       },
       self_path: store,
-    });
+    };
     app = await endPointAPI(configForTest);
     mockRegistry = await mockServer(mockServerPort).init();
   });

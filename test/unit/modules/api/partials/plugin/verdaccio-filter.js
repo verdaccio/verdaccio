@@ -21,4 +21,4 @@ class FilterPlugin {
   }
 }
 
-exports.default = FilterPlugin;
+export default FilterPlugin;

@@ -1,10 +1,9 @@
 import createDebug from 'debug';
-import _ from 'lodash';
 import request from 'supertest';
 import { expect } from 'vitest';
 
 import type { Manifest } from '@verdaccio/types';
-import { generateRandomHexString } from '@verdaccio/utils';
+import { cryptoUtils } from '@verdaccio/core';
 
 import { HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '../../../src/lib/constants';
 import { buildToken, encodeScopedUri } from '../../../src/lib/utils';
@@ -33,7 +32,7 @@ export function putPackage(
       .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
       .send(JSON.stringify(publishMetadata));
 
-    if (_.isEmpty(token) === false) {
+    if (token && token.length > 0) {
       expect(token).toBeDefined();
       put.set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token as string));
     }
@@ -52,10 +51,10 @@ export function deletePackage(request: any, pkgName: string, token?: string): Pr
   debug('deletePackage', pkgName);
   return new Promise((resolve) => {
     let del = request
-      .put(`/${encodeScopedUri(pkgName)}/-rev/${generateRandomHexString(8)}`)
+      .put(`/${encodeScopedUri(pkgName)}/-rev/${cryptoUtils.generateRandomHexString(8)}`)
       .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON);
 
-    if (_.isNil(token) === false) {
+    if (token != null) {
       del.set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token as string));
     }
 
@@ -211,7 +210,7 @@ export async function isExistPackage(app, packageName) {
   debug('isExistPackage', packageName);
   const [err] = await getPackage(request(app), '', encodeScopedUri(packageName), HTTP_STATUS.OK);
   debug('isExistPackage response', err);
-  return _.isNull(err);
+  return err === null;
 }
 
 export async function verifyPackageVersionDoesExist(app, packageName, version, token?: string) {
@@ -231,5 +230,5 @@ export async function verifyPackageVersionDoesExist(app, packageName, version, t
 
 export function generateUnPublishURI(pkgName) {
   debug('generateUnPublishURI', pkgName);
-  return `/${encodeScopedUri(pkgName)}/-rev/${generateRandomHexString(8)}`;
+  return `/${encodeScopedUri(pkgName)}/-rev/${cryptoUtils.generateRandomHexString(8)}`;
 }

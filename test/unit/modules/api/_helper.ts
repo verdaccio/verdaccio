@@ -1,5 +1,4 @@
 import type { Application } from 'express';
-import _ from 'lodash';
 import path from 'path';
 import supertest from 'supertest';
 import type { App } from 'supertest/types';
@@ -12,7 +11,7 @@ import {
   initializeServer as initializeServerHelper,
 } from '@verdaccio/test-helper';
 import type { GenericBody, PackageUsers } from '@verdaccio/types';
-import { buildToken, generateRandomHexString } from '@verdaccio/utils';
+import { authUtils, cryptoUtils } from '@verdaccio/core';
 
 import apiMiddleware from '../../../../src/api/endpoint';
 import { setup } from '../../../../src/lib/logger';
@@ -24,7 +23,7 @@ export const getConf = (conf: string) => {
   const configPath = path.join(__dirname, 'config', conf);
   const config = parseConfigFile(configPath);
   // custom config to avoid conflict with other tests
-  config.auth.htpasswd.file = `${config.auth.htpasswd.file}-${generateRandomHexString()}`;
+  config.auth.htpasswd.file = `${config.auth.htpasswd.file}-${cryptoUtils.generateRandomHexString()}`;
   return config;
 };
 
@@ -59,7 +58,7 @@ export async function generateTokenCLI(app: App, token: string, payload: any): P
     .post('/-/npm/v1/tokens')
     .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
     .send(JSON.stringify(payload))
-    .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+    .set(HEADERS.AUTHORIZATION, authUtils.buildToken(TOKEN_BEARER, token))
     .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET);
 }
 
@@ -67,7 +66,7 @@ export async function deleteTokenCLI(app: App, token: string, tokenToDelete: str
   return supertest(app)
     .delete(`/-/npm/v1/tokens/token/${tokenToDelete}`)
     .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-    .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+    .set(HEADERS.AUTHORIZATION, authUtils.buildToken(TOKEN_BEARER, token))
     .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
     .expect(HTTP_STATUS.OK);
 }
@@ -84,7 +83,7 @@ export function publishVersionWithToken(
   return supertest(app)
     .put(`/${encodeURIComponent(pkgName)}`)
     .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-    .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+    .set(HEADERS.AUTHORIZATION, authUtils.buildToken(TOKEN_BEARER, token))
     .send(JSON.stringify(pkgMetadata))
     .set('accept', HEADERS.GZIP)
     .set(HEADER_TYPE.ACCEPT_ENCODING, HEADERS.JSON);
@@ -107,7 +106,7 @@ export function publishVersion(
     .set(HEADER_TYPE.ACCEPT_ENCODING, HEADERS.JSON);
 
   if (typeof token === 'string') {
-    test.set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token));
+    test.set(HEADERS.AUTHORIZATION, authUtils.buildToken(TOKEN_BEARER, token));
   }
 
   return test;
@@ -138,7 +137,7 @@ export function starPackage(
     .set(HEADER_TYPE.ACCEPT_ENCODING, HEADERS.JSON);
 
   if (typeof token === 'string') {
-    test.set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token));
+    test.set(HEADERS.AUTHORIZATION, authUtils.buildToken(TOKEN_BEARER, token));
   }
 
   return test;
@@ -160,8 +159,8 @@ export function getPackage(
 ): supertest.Test {
   const test = supertest(app).get(`/${pkgName}`);
 
-  if (_.isNil(token) === false || _.isEmpty(token) === false) {
-    test.set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token));
+  if (token != null && token !== '') {
+    test.set(HEADERS.AUTHORIZATION, authUtils.buildToken(TOKEN_BEARER, token));
   }
 
   return test.expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET).expect(statusCode);

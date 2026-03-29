@@ -32,7 +32,7 @@ export async function runServer(
 ): Promise<any> {
   const configurationParsed = getConfigParsed(config);
 
-  initLogger(configurationParsed);
+  await initLogger(configurationParsed);
   // merge flags and experiments for backward compatibility
   const flags = {
     ...(configurationParsed?.flags || {}),
