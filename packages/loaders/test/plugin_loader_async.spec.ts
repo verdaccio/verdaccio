@@ -155,19 +155,6 @@ describe('plugin loader', () => {
       expect(plugins).toHaveLength(0);
     });
 
-    test('testing load auth npm package custom prefix', async () => {
-      const config = getConfig('custom-prefix-auth.yaml');
-      const plugins = await asyncLoadPlugin(
-        config.auth,
-        { config, logger },
-        authSanitize,
-        false,
-        'customprefix' // FIXME: should be config.server.pluginPrefix from yaml
-      );
-
-      expect(plugins).toHaveLength(1);
-    });
-
     test('testing load auth scope npm package', async () => {
       const config = getConfig('npm-plugin-scope-auth.yaml');
       const plugins = await asyncLoadPlugin(config.auth, { config, logger }, authSanitize);

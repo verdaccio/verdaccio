@@ -83,7 +83,6 @@
     "verdaccio-audit": "workspace:*",
     "verdaccio-auth-memory": "workspace:*",
     "verdaccio-htpasswd": "workspace:*",
-    "verdaccio-memory": "workspace:*",
     "vitest": "3.2.4"
   },
   "scripts": {
