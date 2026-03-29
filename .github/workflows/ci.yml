@@ -43,7 +43,7 @@ jobs:
         uses: ./.github/actions/changeset-check        
   prepare:
     needs: [changeset-check]
-    # Avoid running on draft PRs
+    # Avoid running on draft PRs; always() allows this to proceed when changeset-check is skipped (Renovate)
     if: ${{ always() && !failure() && !cancelled() && github.event.pull_request.draft == false }}
     runs-on: ubuntu-latest
     name: setup
@@ -67,6 +67,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Lint & Format
     needs: prepare
+    if: ${{ always() && !failure() && !cancelled() }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies
@@ -79,6 +80,7 @@ jobs:
         run: pnpm format:check
   build:
     needs: [lint-and-format]
+    if: ${{ always() && !failure() && !cancelled() }}
     strategy:
       fail-fast: true
       matrix:
@@ -104,7 +106,7 @@ jobs:
           key: ci-build-${{ github.sha }}-node-${{ matrix.node_version }}
   test-docker:
     needs: [build]
-    if: github.event_name == 'pull_request'
+    if: ${{ github.event_name == 'pull_request' && !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     name: Test Docker Build
     steps:
@@ -129,7 +131,7 @@ jobs:
         run: docker stop verdaccio-test
   test:
     needs: [build]
-    if: github.event_name == 'pull_request'
+    if: ${{ github.event_name == 'pull_request' && !failure() && !cancelled() }}
     strategy:
       fail-fast: true
       matrix:
@@ -164,7 +166,7 @@ jobs:
         run: pnpm test
   e2e-cli:
     needs: [build]
-    if: github.event_name == 'pull_request'
+    if: ${{ github.event_name == 'pull_request' && !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     name: E2E CLI (${{ matrix.pm }})
     strategy:
@@ -216,7 +218,7 @@ jobs:
         run: cat ~/.config/verdaccio/verdaccio.log 2>/dev/null || echo "No log file found"
   e2e-ui:
     needs: [build]
-    if: github.event_name == 'pull_request'
+    if: ${{ github.event_name == 'pull_request' && !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     name: E2E UI
     services:
