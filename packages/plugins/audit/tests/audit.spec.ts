@@ -5,9 +5,9 @@ import supertest from 'supertest';
 import { describe, expect, test } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
+import { HTTP_STATUS } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 
-import { HTTP_STATUS } from '../../local-storage/node_modules/@verdaccio/core/build';
 import type { ConfigAudit } from '../src/index';
 import ProxyAudit from '../src/index';
 
