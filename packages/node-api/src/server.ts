@@ -87,7 +87,7 @@ export function createServerFactory(config: ConfigYaml, addr, app) {
     // library definition for node is not up to date (doesn't contain recent 8.0 changes)
     serverFactory.keepAliveTimeout = config.server.keepAliveTimeout * 1000;
   }
-  // FIXE: I could not find the reason of this code.
+  // Remove stale Unix socket file from a previous run to avoid EADDRINUSE
   unlinkAddressPath(addr);
 
   return serverFactory;
@@ -107,13 +107,14 @@ export async function initServer(
   pkgName: string,
   serverFactory: ServerFactory
 ): Promise<void> {
-  return new Promise(async (resolve, reject) => {
-    const logger = await setup(config?.log as any);
-    const addr = getListenAddress(port ?? config?.listen, logger);
-    displayExperimentsInfoBox(config.flags);
+  const logger = await setup(config?.log as any);
+  const addr = getListenAddress(port ?? config?.listen, logger);
+  displayExperimentsInfoBox(config.flags);
 
-    let app = await serverFactory(config);
-    const httpServer = createServerFactory(config, addr, app);
+  const app = await serverFactory(config);
+  const httpServer = createServerFactory(config, addr, app);
+
+  return new Promise<void>((resolve, reject) => {
     httpServer
       .listen(addr.port || addr.path, addr.host, (): void => {
         // send a message for test
