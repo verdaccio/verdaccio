@@ -7,7 +7,8 @@ import {
   HEADER_TYPE,
   HTTP_STATUS,
   SUPPORT_ERRORS,
-  TOKEN_BEARER, authUtils 
+  TOKEN_BEARER,
+  authUtils,
 } from '@verdaccio/core';
 
 import { deleteTokenCLI, generateTokenCLI, getNewToken, initializeServer } from './_helper';

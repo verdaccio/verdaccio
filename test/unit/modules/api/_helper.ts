@@ -5,7 +5,14 @@ import type { App } from 'supertest/types';
 import { expect } from 'vitest';
 
 import { parseConfigFile } from '@verdaccio/config';
-import { HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER, authUtils, cryptoUtils  } from '@verdaccio/core';
+import {
+  HEADERS,
+  HEADER_TYPE,
+  HTTP_STATUS,
+  TOKEN_BEARER,
+  authUtils,
+  cryptoUtils,
+} from '@verdaccio/core';
 import {
   generatePackageMetadata,
   initializeServer as initializeServerHelper,

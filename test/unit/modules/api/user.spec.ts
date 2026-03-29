@@ -2,7 +2,14 @@ import nock from 'nock';
 import supertest from 'supertest';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
-import { API_ERROR, HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER, authUtils } from '@verdaccio/core';
+import {
+  API_ERROR,
+  HEADERS,
+  HEADER_TYPE,
+  HTTP_STATUS,
+  TOKEN_BEARER,
+  authUtils,
+} from '@verdaccio/core';
 
 import { createUser, getPackage, initializeServer } from './_helper';
 
