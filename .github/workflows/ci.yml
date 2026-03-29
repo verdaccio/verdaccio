@@ -11,22 +11,43 @@ on:
       - .github/workflows/ci.yml
       - 'packages/**'
       - 'test/**'
-
+      - 'docker-examples/**'
       - 'jest/**'
       - 'package.json'
       - 'pnpm-workspace.yaml'
 permissions:
+  actions: read
   contents: read
+  security-events: write
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  prepare:
-    # Avoid running on draft PRs
-    if: github.event.pull_request.draft == false
+  changeset-check:
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.draft == false &&
+      github.actor != 'renovate[bot]' &&
+      github.actor != 'dependabot[bot]' &&
+      github.head_ref != 'changeset-release/8.x'
     runs-on: ubuntu-latest
-    name: setup verdaccio
+    name: Changeset file check
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+      - name: Check changeset
+        uses: ./.github/actions/changeset-check
+  prepare:
+    needs: [changeset-check]
+    # Avoid running on draft PRs; always() allows this to proceed when changeset-check is skipped (Renovate)
+    if: ${{ always() && !failure() && !cancelled() && github.event.pull_request.draft == false }}
+    runs-on: ubuntu-latest
+    name: setup
     services:
       verdaccio:
         image: verdaccio/verdaccio:6
@@ -36,45 +57,37 @@ jobs:
           NODE_ENV: production
           options: >-
             --health-cmd="curl -f http://0.0.0.0:4873/-/ping || exit 1"
-            --health-interval=10s   
-            --health-timeout=20s    
+            --health-interval=10s
+            --health-timeout=20s
             --health-retries=6
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Install dependencies with a custom registry
+      - name: Install dependencies via Verdaccio registry
         uses: ./.github/actions/install-app
-  lint:
+  lint-and-format:
     runs-on: ubuntu-latest
-    name: Lint
+    name: Lint & Format
     needs: prepare
+    if: ${{ always() && !failure() && !cancelled() }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Install dependencies with a custom registry
-        uses: ./.github/actions/install-app
-        with:
-            reporter: 'default'
-      - name: Lint
-        run: pnpm lint
-  format:
-    runs-on: ubuntu-latest
-    name: Format
-    needs: prepare
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Install dependencies with a custom registry
+      - name: Install dependencies
         uses: ./.github/actions/install-app
         with:
           reporter: 'default'
       - name: Lint
+        run: pnpm lint
+      - name: Format
         run: pnpm format:check
-  test:
-    needs: [prepare]
+  build:
+    needs: [lint-and-format]
+    if: ${{ always() && !failure() && !cancelled() }}
     strategy:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
-        node_version: [18]
-    name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
+        node_version: [24, 25]
+    name: Build / ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -82,6 +95,102 @@ jobs:
         uses: ./.github/actions/build-app
         with:
           node-version: ${{ matrix.node_version }}
-      # Test for all other Node versions
-      - name: Test
+      - name: Cache build artifacts
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            packages/*/build
+            packages/*/dist
+            packages/*/*/build
+            packages/*/*/dist
+          key: ci-build-${{ github.sha }}-node-${{ matrix.node_version }}
+  test-docker:
+    needs: [build]
+    if: ${{ github.event_name == 'pull_request' && !failure() && !cancelled() }}
+    runs-on: ubuntu-latest
+    name: Test Docker Build
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Build Docker image
+        run: docker build -t verdaccio-test .
+        env:
+          VERDACCIO_BUILD_REGISTRY: https://registry.npmjs.org
+      - name: Run Verdaccio in background
+        run: |
+          docker run -d --name verdaccio-test -p 4873:4873 verdaccio-test
+          sleep 10
+      - name: Test npm install from local Verdaccio
+        run: |
+          npm set registry http://localhost:4873
+          npm install -g verdaccio
+      - name: Show Verdaccio logs
+        if: always()
+        run: docker logs verdaccio-test
+      - name: Stop Verdaccio
+        if: always()
+        run: docker stop verdaccio-test
+  test:
+    needs: [build]
+    if: ${{ github.event_name == 'pull_request' && !failure() && !cancelled() }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-latest]
+        node_version: [24, 25]
+    name: Test / ${{ matrix.os }} / Node ${{ matrix.node_version }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Install dependencies
+        uses: ./.github/actions/install-app-node
+        with:
+          node-version: ${{ matrix.node_version }}
+      - name: Restore build artifacts
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            packages/*/build
+            packages/*/dist
+            packages/*/*/build
+            packages/*/*/dist
+          key: ci-build-${{ github.sha }}-node-${{ matrix.node_version }}
+          fail-on-cache-miss: true
+      - name: Test (Node 25)
+        if: matrix.node_version == 25
         run: pnpm test
+        env:
+          NODE_OPTIONS: --no-webstorage
+      - name: Test (Other Node)
+        if: matrix.node_version != 25
+        run: pnpm test
+  changeset-validation:
+    needs: [test]
+    if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && always() && !failure() && !cancelled() }}
+    runs-on: ubuntu-latest
+    name: Changeset validation
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Read Node version from .nvmrc
+        id: nvmrc
+        run: echo "node-version=$(cat .nvmrc)" >> "$GITHUB_OUTPUT"
+      - name: Install dependencies
+        uses: ./.github/actions/install-app-node
+        with:
+          node-version: ${{ steps.nvmrc.outputs.node-version }}
+      - name: Run changeset version
+        run: pnpm ci:version:changeset
+  cleanup:
+    needs: [test, changeset-validation]
+    if: always()
+    runs-on: ubuntu-latest
+    name: Cleanup caches
+    permissions:
+      actions: write
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Delete build artifact caches
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh cache delete "ci-build-${{ github.sha }}-node-24" --repo ${{ github.repository }} || true
+          gh cache delete "ci-build-${{ github.sha }}-node-25" --repo ${{ github.repository }} || true
