@@ -328,9 +328,14 @@ class Storage {
     function serveFile(file: DistFile): void {
       let uplink: any = null;
 
+      // Find an uplink whose origin matches the tarball URL.
+      // Some registries (e.g. yarn) return tarball URLs pointing to a different
+      // host (e.g. npmjs), so we check all configured uplinks, not just the one
+      // that served the metadata.
       for (const uplinkId in self.uplinks) {
-        if (hasProxyTo(name, uplinkId, self.config.packages)) {
+        if (self.uplinks[uplinkId].isUplinkValid(file.url)) {
           uplink = self.uplinks[uplinkId];
+          break;
         }
       }
 
@@ -341,19 +346,9 @@ class Storage {
         );
         readStream.emit(
           'error',
-          ErrorCode.getNotFound('tarball not found: no valid uplink for this package')
-        );
-        return;
-      }
-
-      if (!uplink.isUplinkValid(file.url)) {
-        self.logger.warn(
-          { url: file.url, uplink: uplink.config.url, name, filename },
-          'rejecting off-origin tarball URL @{url} for @{name}/@{filename} (uplink: @{uplink})'
-        );
-        readStream.emit(
-          'error',
-          ErrorCode.getForbidden('tarball URL origin does not match the configured uplink')
+          ErrorCode.getForbidden(
+            'tarball URL origin does not match any configured uplink'
+          )
         );
         return;
       }

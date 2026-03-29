@@ -31,6 +31,7 @@ type GenerateStorageOptions = {
   filterPkg?: string;
   filterVersion?: string;
   storagePath?: string;
+  uplinks?: Record<string, { url: string }>;
 };
 
 const generateStorage = async function (port = mockServerPort, opts: GenerateStorageOptions = {}) {
@@ -39,12 +40,13 @@ const generateStorage = async function (port = mockServerPort, opts: GenerateSto
     filterPkg = 'jquery',
     filterVersion = '1.5.1',
     storagePath: customStoragePath,
+    uplinks: customUplinks,
   } = opts;
 
   const baseConfig: any = {
     self_path: __dirname,
     storage: customStoragePath || storagePath,
-    uplinks: {
+    uplinks: customUplinks || {
       npmjs: {
         url: `http://localhost:${port}`,
       },
@@ -197,7 +199,7 @@ describe('StorageTest', () => {
         const stream = storage.getTarball('jquery', 'jquery-1.5.1.tgz');
         stream.on('error', (err: any) => {
           expect(err).toBeDefined();
-          expect(err.message).toMatch(/tarball URL origin does not match/);
+          expect(err.message).toMatch(/tarball URL origin does not match any configured uplink/);
           expect(err.statusCode).toBe(HTTP_STATUS.FORBIDDEN);
           resolve();
         });
@@ -329,6 +331,202 @@ describe('StorageTest', () => {
               expect(result._distfiles).toBeDefined();
               expect(Object.keys(result._distfiles).length).toBe(1);
               expect(result._distfiles['test-pkg-allow-1.0.0.tgz']).toBeDefined();
+              resolve();
+            } catch (e) {
+              reject(e);
+            }
+          }
+        );
+      });
+    });
+
+    test('should accept tarball URL that matches a different configured uplink (cross-uplink)', async () => {
+      // Simulates the yarn registry case: metadata comes from one uplink but
+      // tarball URL points to another configured uplink (e.g. npmjs).
+      const crossPort = await getPort();
+      const crossStoragePath = await fileUtils.createTempStorageFolder('cross-uplink-test');
+      const storage: any = await generateStorage(mockServerPort, {
+        storagePath: crossStoragePath,
+        uplinks: {
+          npmjs: {
+            url: `http://localhost:${mockServerPort}`,
+          },
+          yarn: {
+            url: `http://localhost:${crossPort}`,
+          },
+        },
+      });
+
+      // Metadata served by 'yarn' uplink, but tarball URL points to 'npmjs' host
+      const packageInfo: any = {
+        name: 'cross-uplink-pkg',
+        versions: {
+          '1.0.0': {
+            name: 'cross-uplink-pkg',
+            version: '1.0.0',
+            dist: {
+              shasum: 'abc123',
+              tarball: `http://localhost:${mockServerPort}/cross-uplink-pkg/-/cross-uplink-pkg-1.0.0.tgz`,
+            },
+            [Symbol.for('__verdaccio_uplink')]: 'yarn',
+          },
+        },
+        'dist-tags': { latest: '1.0.0' },
+        _uplinks: {},
+      };
+
+      await new Promise<void>((resolve, reject) => {
+        storage.localStorage.updateVersions(
+          'cross-uplink-pkg',
+          packageInfo,
+          (err: any, result: any) => {
+            try {
+              expect(err).toBeNull();
+              expect(result._distfiles).toBeDefined();
+              expect(Object.keys(result._distfiles).length).toBe(1);
+              expect(result._distfiles['cross-uplink-pkg-1.0.0.tgz']).toBeDefined();
+              resolve();
+            } catch (e) {
+              reject(e);
+            }
+          }
+        );
+      });
+    });
+
+    test('should accept _distfiles when version has no uplink marker (local publish)', async () => {
+      const localPubPath = await fileUtils.createTempStorageFolder('local-publish-test');
+      const storage: any = await generateStorage(mockServerPort, {
+        storagePath: localPubPath,
+      });
+
+      // Locally published packages have no __verdaccio_uplink symbol
+      const packageInfo: any = {
+        name: 'local-pkg',
+        versions: {
+          '1.0.0': {
+            name: 'local-pkg',
+            version: '1.0.0',
+            dist: {
+              shasum: 'abc123',
+              tarball: 'http://localhost:4873/local-pkg/-/local-pkg-1.0.0.tgz',
+            },
+          },
+        },
+        'dist-tags': { latest: '1.0.0' },
+        _uplinks: {},
+      };
+
+      await new Promise<void>((resolve, reject) => {
+        storage.localStorage.updateVersions('local-pkg', packageInfo, (err: any, result: any) => {
+          try {
+            expect(err).toBeNull();
+            expect(result._distfiles).toBeDefined();
+            // No uplink marker means no origin check — should be accepted
+            expect(Object.keys(result._distfiles).length).toBe(1);
+            resolve();
+          } catch (e) {
+            reject(e);
+          }
+        });
+      });
+    });
+
+    test('should reject tarball pointing to internal IP when no uplink matches', async () => {
+      const internalPath = await fileUtils.createTempStorageFolder('internal-ip-test');
+      const storage: any = await generateStorage(mockServerPort, {
+        storagePath: internalPath,
+      });
+
+      const packageInfo: any = {
+        name: 'internal-pkg',
+        versions: {
+          '1.0.0': {
+            name: 'internal-pkg',
+            version: '1.0.0',
+            dist: {
+              shasum: 'abc123',
+              tarball: 'http://169.254.169.254/latest/meta-data/',
+            },
+            [Symbol.for('__verdaccio_uplink')]: 'npmjs',
+          },
+        },
+        'dist-tags': { latest: '1.0.0' },
+        _uplinks: {},
+      };
+
+      await new Promise<void>((resolve, reject) => {
+        storage.localStorage.updateVersions(
+          'internal-pkg',
+          packageInfo,
+          (err: any, result: any) => {
+            try {
+              expect(err).toBeNull();
+              expect(result._distfiles).toBeDefined();
+              expect(Object.keys(result._distfiles).length).toBe(0);
+              resolve();
+            } catch (e) {
+              reject(e);
+            }
+          }
+        );
+      });
+    });
+
+    test('should only accept valid versions and skip off-origin ones in mixed metadata', async () => {
+      const mixedPath = await fileUtils.createTempStorageFolder('mixed-versions-test');
+      const storage: any = await generateStorage(mockServerPort, {
+        storagePath: mixedPath,
+      });
+
+      const packageInfo: any = {
+        name: 'mixed-pkg',
+        versions: {
+          '1.0.0': {
+            name: 'mixed-pkg',
+            version: '1.0.0',
+            dist: {
+              shasum: 'abc123',
+              tarball: `http://localhost:${mockServerPort}/mixed-pkg/-/mixed-pkg-1.0.0.tgz`,
+            },
+            [Symbol.for('__verdaccio_uplink')]: 'npmjs',
+          },
+          '2.0.0': {
+            name: 'mixed-pkg',
+            version: '2.0.0',
+            dist: {
+              shasum: 'def456',
+              tarball: 'http://attacker.example.com/mixed-pkg-2.0.0.tgz',
+            },
+            [Symbol.for('__verdaccio_uplink')]: 'npmjs',
+          },
+          '3.0.0': {
+            name: 'mixed-pkg',
+            version: '3.0.0',
+            dist: {
+              shasum: 'ghi789',
+              tarball: `http://localhost:${mockServerPort}/mixed-pkg/-/mixed-pkg-3.0.0.tgz`,
+            },
+            [Symbol.for('__verdaccio_uplink')]: 'npmjs',
+          },
+        },
+        'dist-tags': { latest: '3.0.0' },
+        _uplinks: {},
+      };
+
+      await new Promise<void>((resolve, reject) => {
+        storage.localStorage.updateVersions(
+          'mixed-pkg',
+          packageInfo,
+          (err: any, result: any) => {
+            try {
+              expect(err).toBeNull();
+              expect(result._distfiles).toBeDefined();
+              // Only v1.0.0 and v3.0.0 should be accepted; v2.0.0 is off-origin
+              expect(Object.keys(result._distfiles).length).toBe(2);
+              expect(result._distfiles['mixed-pkg-1.0.0.tgz']).toBeDefined();
+              expect(result._distfiles['mixed-pkg-2.0.0.tgz']).toBeUndefined();
+              expect(result._distfiles['mixed-pkg-3.0.0.tgz']).toBeDefined();
               resolve();
             } catch (e) {
               reject(e);

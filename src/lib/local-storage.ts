@@ -163,31 +163,29 @@ class LocalStorage {
             if (_.isNil(packageLocalJson._distfiles[filename])) {
               /* eslint spaced-comment: 0 */
               const upLink: string | undefined = version[Symbol.for('__verdaccio_uplink')];
-              const uplinkConfig = upLink ? this.config.uplinks[upLink] : undefined;
 
-              // Ensure the tarball URL matches the configured uplink origin.
-              if (uplinkConfig) {
+              // Ensure the tarball URL matches at least one configured uplink origin.
+              // Some registries (e.g. yarn) return tarball URLs pointing to a
+              // different host (e.g. npmjs), so we check all configured uplinks.
+              if (upLink && this.config.uplinks) {
                 const tarballUrl = new URL(version.dist.tarball);
-                const uplinkUrl = new URL(uplinkConfig.url);
-                if (tarballUrl.host !== uplinkUrl.host) {
+                const matchesAnyUplink = Object.values(this.config.uplinks).some(
+                  (uplinkConf: any) => {
+                    const uplinkUrl = new URL(uplinkConf.url);
+                    return tarballUrl.host === uplinkUrl.host;
+                  }
+                );
+                if (!matchesAnyUplink) {
                   this.logger.warn(
                     {
                       tarball: version.dist.tarball,
-                      uplink: uplinkConfig.url,
                       package: name,
                       version: versionId,
                     },
-                    'rejecting off-origin tarball @{tarball} from uplink @{uplink} for @{package}@@{version}'
+                    'rejecting off-origin tarball @{tarball} for @{package}@@{version}'
                   );
                   continue;
                 }
-              } else if (upLink) {
-                // uplink marker present but not found in config — skip
-                this.logger.warn(
-                  { tarball: version.dist.tarball, uplink: upLink, package: name },
-                  'skipping tarball @{tarball} for @{package}: unknown uplink @{uplink}'
-                );
-                continue;
               }
 
               const hash: DistFile = (packageLocalJson._distfiles[filename] = {
