@@ -1,5 +1,17 @@
 # Change Log
 
+## 13.0.0-next-8.2
+
+### Minor Changes
+
+- 641b38c: feat: add package-filter plugin
+
+  Backport the package-filter plugin from next-9 to the 8.x branch. This plugin implements the ManifestFilter interface to control which package versions are visible to consumers, supporting block/allow rules by scope, package name, version range, publish date, and minimum age.
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.35
+
 ## 14.0.0-next-9.32
 
 ### Patch Changes

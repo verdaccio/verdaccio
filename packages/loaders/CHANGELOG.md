@@ -1,5 +1,12 @@
 # @verdaccio/loaders
 
+## 8.0.0-next-8.25
+
+### Patch Changes
+
+- 1c293ef: chore: remove unused packages (api, web, store, server, proxy, search, local-storage, memory, verdaccio-prefix-fake-plugin)
+  - @verdaccio/core@8.0.0-next-8.35
+
 ## 8.0.0-next-8.24
 
 ### Patch Changes

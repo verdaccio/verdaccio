@@ -1,5 +1,14 @@
 # @verdaccio/middleware
 
+## 8.0.0-next-8.35
+
+### Patch Changes
+
+- Updated dependencies [641b38c]
+  - @verdaccio/config@8.0.0-next-8.35
+  - @verdaccio/core@8.0.0-next-8.35
+  - @verdaccio/url@13.0.0-next-8.35
+
 ## 8.0.0-next-8.34
 
 ### Patch Changes
