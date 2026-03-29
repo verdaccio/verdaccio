@@ -327,26 +327,38 @@ class Storage {
      */
     function serveFile(file: DistFile): void {
       let uplink: any = null;
+      let hasProxyAccess = false;
 
-      // Find an uplink whose origin matches the tarball URL.
-      // Some registries (e.g. yarn) return tarball URLs pointing to a different
-      // host (e.g. npmjs), so we check all configured uplinks, not just the one
-      // that served the metadata.
       for (const uplinkId in self.uplinks) {
-        if (self.uplinks[uplinkId].isUplinkValid(file.url)) {
-          uplink = self.uplinks[uplinkId];
-          break;
+        if (hasProxyTo(name, uplinkId, self.config.packages)) {
+          hasProxyAccess = true;
+          if (self.uplinks[uplinkId].isUplinkValid(file.url)) {
+            uplink = self.uplinks[uplinkId];
+            break;
+          }
         }
+      }
+
+      if (!hasProxyAccess) {
+        self.logger.warn(
+          { url: file.url, name, filename },
+          'rejecting tarball fetch for @{name}/@{filename}: no configured uplink for package'
+        );
+        readStream.emit(
+          'error',
+          ErrorCode.getNotFound('tarball not found: no valid uplink for this package')
+        );
+        return;
       }
 
       if (uplink == null) {
         self.logger.warn(
           { url: file.url, name, filename },
-          'rejecting tarball fetch for @{name}/@{filename}: no configured uplink matches URL @{url}'
+          'rejecting tarball URL @{url} for @{name}/@{filename}: origin does not match any authorized uplink'
         );
         readStream.emit(
           'error',
-          ErrorCode.getForbidden('tarball URL origin does not match any configured uplink')
+          ErrorCode.getForbidden('tarball URL origin does not match the configured uplink')
         );
         return;
       }
