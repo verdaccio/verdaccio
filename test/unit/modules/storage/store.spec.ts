@@ -319,7 +319,12 @@ describe('StorageTest', () => {
         .get('/jquery')
         .reply(
           200,
-          JSON.parse(fs.readFileSync(path.join(__dirname, '../../partials/mock-store/jquery/package.json'), 'utf8'))
+          JSON.parse(
+            fs.readFileSync(
+              path.join(__dirname, '../../partials/mock-store/jquery/package.json'),
+              'utf8'
+            )
+          )
         );
 
       await new Promise<void>((resolve) => {
