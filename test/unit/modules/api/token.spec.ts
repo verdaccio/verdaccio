@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import supertest from 'supertest';
 import { describe, expect, test } from 'vitest';
 
@@ -9,8 +8,8 @@ import {
   HTTP_STATUS,
   SUPPORT_ERRORS,
   TOKEN_BEARER,
+  authUtils,
 } from '@verdaccio/core';
-import { buildToken } from '@verdaccio/utils';
 
 import { deleteTokenCLI, generateTokenCLI, getNewToken, initializeServer } from './_helper';
 
@@ -21,7 +20,7 @@ describe('token', () => {
       const token = await getNewToken(app, { name: 'jota_token', password: 'secretPass' });
       const response = await supertest(app)
         .get('/-/npm/v1/tokens')
-        .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+        .set(HEADERS.AUTHORIZATION, authUtils.buildToken(TOKEN_BEARER, token))
         .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HTTP_STATUS.OK);
       expect(response.body.objects).toHaveLength(0);
@@ -38,7 +37,7 @@ describe('token', () => {
       });
       const response = await supertest(app)
         .get('/-/npm/v1/tokens')
-        .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+        .set(HEADERS.AUTHORIZATION, authUtils.buildToken(TOKEN_BEARER, token))
         .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HTTP_STATUS.OK);
       const { objects, urls } = response.body;
@@ -48,7 +47,7 @@ describe('token', () => {
       expect(tokenGenerated.user).toEqual(credentials.name);
       expect(tokenGenerated.readonly).toBeFalsy();
       expect(tokenGenerated.token).toMatch(/.../);
-      expect(_.isString(tokenGenerated.created)).toBeTruthy();
+      expect(typeof tokenGenerated.created === 'string').toBeTruthy();
 
       // we don't support pagination yet
       expect(urls.next).toEqual('');
@@ -68,7 +67,7 @@ describe('token', () => {
       await deleteTokenCLI(app, token, key);
       const response2 = await supertest(app)
         .get('/-/npm/v1/tokens')
-        .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+        .set(HEADERS.AUTHORIZATION, authUtils.buildToken(TOKEN_BEARER, token))
         .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HTTP_STATUS.OK);
       const { objects } = response2.body;

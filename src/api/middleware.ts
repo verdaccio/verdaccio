@@ -1,6 +1,6 @@
 import buildDebug from 'debug';
 import fs from 'fs';
-import _ from 'lodash';
+import * as _ from 'lodash-es';
 import path from 'path';
 
 import type { Config } from '@verdaccio/types';

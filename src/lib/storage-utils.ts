@@ -1,10 +1,10 @@
 import createDebug from 'debug';
-import _ from 'lodash';
+import * as _ from 'lodash-es';
 
 import { pkgUtils } from '@verdaccio/core';
+import { cryptoUtils } from '@verdaccio/core';
 import { SearchMemoryIndexer } from '@verdaccio/search-indexer';
 import { AbbreviatedManifest, AbbreviatedVersions, Manifest, Version } from '@verdaccio/types';
-import { generateRandomHexString } from '@verdaccio/utils';
 
 import { API_ERROR, DIST_TAGS, HTTP_STATUS, STORAGE, USERS } from './constants';
 import LocalStorage from './local-storage';
@@ -60,7 +60,7 @@ export function normalizePackage(pkg: Manifest): Manifest {
 export function generateRevision(rev: string): string {
   const _rev = rev.split('-');
 
-  return (+_rev[0] || 0) + 1 + '-' + generateRandomHexString();
+  return (+_rev[0] || 0) + 1 + '-' + cryptoUtils.generateRandomHexString();
 }
 
 export function getLatestReadme(pkg: Manifest): string {

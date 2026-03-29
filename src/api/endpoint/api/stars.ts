@@ -1,6 +1,6 @@
 import createDebug from 'debug';
 import type { Response, Router } from 'express';
-import _ from 'lodash';
+import * as _ from 'lodash-es';
 
 import { errorUtils } from '@verdaccio/core';
 import { STARS_API_ENDPOINTS } from '@verdaccio/middleware';

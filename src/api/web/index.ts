@@ -1,7 +1,7 @@
 import buildDebug from 'debug';
 import type { RequestHandler } from 'express';
 import express, { Router } from 'express';
-import _ from 'lodash';
+import * as _ from 'lodash-es';
 
 import { PLUGIN_CATEGORY } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';

@@ -2,7 +2,7 @@ import compression from 'compression';
 import cors from 'cors';
 import type { Application } from 'express';
 import express from 'express';
-import _ from 'lodash';
+import * as _ from 'lodash-es';
 
 import { Auth } from '@verdaccio/auth';
 import { getUserAgent } from '@verdaccio/config';

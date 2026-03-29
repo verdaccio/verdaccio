@@ -1,5 +1,4 @@
 import getPort from 'get-port';
-import _ from 'lodash';
 import nock from 'nock';
 import { statSync } from 'node:fs';
 import { join } from 'node:path';
@@ -79,7 +78,7 @@ describe('UpStorage', () => {
       const proxy = generateProxy();
 
       const [data, etag] = await proxy.getRemoteMetadata('jquery', {});
-      expect(_.isString(etag)).toBeTruthy();
+      expect(typeof etag === 'string').toBeTruthy();
       expect(data.name).toBe('jquery');
     });
 
@@ -111,7 +110,7 @@ describe('UpStorage', () => {
       const proxy = generateProxy();
 
       const [data, etag] = await proxy.getRemoteMetadata('jquery', { etag: '123456' });
-      expect(_.isString(etag)).toBeTruthy();
+      expect(typeof etag === 'string').toBeTruthy();
       expect(data.name).toBe('jquery');
     });
 
@@ -153,7 +152,7 @@ describe('UpStorage', () => {
       });
 
       const [data, etag] = await proxy.getRemoteMetadata('jquery', {});
-      expect(_.isString(etag)).toBeTruthy();
+      expect(typeof etag === 'string').toBeTruthy();
       expect(etag).toBe('123456');
       expect(data.name).toBe('jquery');
     });
@@ -175,7 +174,7 @@ describe('UpStorage', () => {
       });
 
       const [data, etag] = await proxy.getRemoteMetadata('jquery', {});
-      expect(_.isString(etag)).toBeTruthy();
+      expect(typeof etag === 'string').toBeTruthy();
       expect(data.name).toBe('jquery');
     });
 
@@ -196,7 +195,7 @@ describe('UpStorage', () => {
       });
 
       const [data, etag] = await proxy.getRemoteMetadata('jquery', {});
-      expect(_.isString(etag)).toBeTruthy();
+      expect(typeof etag === 'string').toBeTruthy();
       expect(data.name).toBe('jquery');
     });
 
@@ -218,7 +217,7 @@ describe('UpStorage', () => {
 
       const [data, etag] = await proxy.getRemoteMetadata('jquery', {});
       expect(etag).toBe('123456');
-      expect(_.isString(etag)).toBeTruthy();
+      expect(typeof etag === 'string').toBeTruthy();
       expect(data.name).toBe('jquery');
     });
   });

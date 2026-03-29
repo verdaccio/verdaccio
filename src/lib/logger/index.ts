@@ -9,11 +9,11 @@ const debug = createDebug('verdaccio:logger');
 
 type SetupModuleOptions = Parameters<typeof setupModule>[0];
 
-export function setup(options: SetupModuleOptions): void {
+export async function setup(options: SetupModuleOptions): Promise<void> {
   debug('setup logger with options %o', options);
   if (!logger) {
     debug('logger not initialized, setting up');
-    logger = setupModule(options);
+    logger = await setupModule(options);
     debug('logger initialized');
   }
 }

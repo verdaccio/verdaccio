@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
 import { Router } from 'express';
-import _ from 'lodash';
+import * as _ from 'lodash-es';
 
 import { validationUtils } from '@verdaccio/core';
 import { WebUrls, rateLimit } from '@verdaccio/middleware';

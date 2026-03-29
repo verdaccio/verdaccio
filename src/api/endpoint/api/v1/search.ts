@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import * as _ from 'lodash-es';
 import semver from 'semver';
 
 import { SEARCH_API_ENDPOINTS } from '@verdaccio/middleware';

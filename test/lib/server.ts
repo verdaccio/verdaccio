@@ -1,5 +1,4 @@
 import assert from 'assert';
-import _ from 'lodash';
 
 import { API_MESSAGE, HEADERS, HTTP_STATUS, TOKEN_BASIC } from '../../src/lib/constants';
 import { buildToken } from '../../src/lib/utils';
@@ -54,7 +53,7 @@ export default class Server implements IServerBridge {
       method: options.method || 'GET',
       headers: headers,
       encoding: options.encoding,
-      json: _.isNil(options.json) === false ? options.json : true,
+      json: options.json != null ? options.json : true,
     });
   }
 
@@ -90,7 +89,7 @@ export default class Server implements IServerBridge {
   }
 
   public putPackage(name: string, data) {
-    if (_.isObject(data) && !Buffer.isBuffer(data)) {
+    if (typeof data === 'object' && data !== null && !Buffer.isBuffer(data)) {
       data = JSON.stringify(data);
     }
 
@@ -104,7 +103,7 @@ export default class Server implements IServerBridge {
   }
 
   public putVersion(name: string, version: string, data: any) {
-    if (_.isObject(data) && !Buffer.isBuffer(data)) {
+    if (typeof data === 'object' && data !== null && !Buffer.isBuffer(data)) {
       data = JSON.stringify(data);
     }
 

@@ -1,8 +1,8 @@
 import assert from 'assert';
 import builDebug from 'debug';
-import _ from 'lodash';
-import UrlNode from 'url';
+import * as _ from 'lodash-es';
 
+import { cryptoUtils, validationUtils } from '@verdaccio/core';
 import { ReadTarball, UploadTarball } from '@verdaccio/streams';
 import {
   Author,
@@ -19,12 +19,6 @@ import {
   onEndSearchPackage,
   onSearchPackage,
 } from '@verdaccio/types';
-import {
-  createTarballHash,
-  getLatestVersion,
-  normalizeContributors,
-  validateName,
-} from '@verdaccio/utils';
 
 import { StoragePluginLegacy } from '../../types/custom';
 import { StringValue } from '../types';
@@ -40,6 +34,13 @@ import { prepareSearchPackage } from './storage-utils';
 import { ErrorCode, isObject, tagVersion } from './utils';
 
 const debug = builDebug('verdaccio:local-storage');
+
+function normalizeContributors(contributors: any): Author[] {
+  if (contributors == null) return [];
+  if (!Array.isArray(contributors)) return [contributors];
+  if (typeof contributors === 'string') return [{ name: contributors }];
+  return contributors;
+}
 export type StoragePlugin = StoragePluginLegacy<Config> | any;
 /**
  * Implements Storage interface (same for storage.js, local-storage.js, up-storage.js).
@@ -72,7 +73,7 @@ class LocalStorage {
         return callback(ErrorCode.getConflict());
       }
 
-      const latest = getLatestVersion(pkg);
+      const latest = pkg[DIST_TAGS]?.latest;
       if (_.isNil(latest) === false && pkg.versions[latest]) {
         return callback(null, pkg.versions[latest]);
       }
@@ -150,13 +151,13 @@ class LocalStorage {
           // we don't keep readme for package versions,
           // only one readme per package
           version = cleanUpReadme(version);
-          version.contributors = normalizeContributors(version.contributors as Author[]);
+          version.contributors = normalizeContributors(version.contributors);
 
           change = true;
           packageLocalJson.versions[versionId] = version;
 
           if (version.dist && version.dist.tarball) {
-            const urlObject: any = UrlNode.parse(version.dist.tarball);
+            const urlObject = new URL(version.dist.tarball);
             const filename = urlObject.pathname.replace(/^.*\//, '');
 
             // we do NOT overwrite any existing records
@@ -239,7 +240,7 @@ class LocalStorage {
 
         // TODO: lodash remove
         metadata = cleanUpReadme(metadata);
-        metadata.contributors = normalizeContributors(metadata.contributors as Author[]);
+        metadata.contributors = normalizeContributors(metadata.contributors);
 
         const hasVersion = data.versions[version] != null;
         if (hasVersion) {
@@ -420,7 +421,7 @@ class LocalStorage {
    * @param {*} callback
    */
   public removeTarball(name: string, filename: string, revision: string, callback: Callback): void {
-    assert(validateName(filename));
+    assert(validationUtils.validateName(filename));
 
     this._updatePackage(
       name,
@@ -452,10 +453,10 @@ class LocalStorage {
    * @return {Stream}
    */
   public addTarball(name: string, filename: string) {
-    assert(validateName(filename));
+    assert(validationUtils.validateName(filename));
 
     let length = 0;
-    const shaOneHash = createTarballHash();
+    const shaOneHash = cryptoUtils.createTarballHash();
     const uploadStream = new UploadTarball({});
     const _transform = uploadStream._transform;
     const storage = this._getLocalStorage(name);
@@ -556,7 +557,7 @@ class LocalStorage {
    * @return {ReadTarball}
    */
   public getTarball(name: string, filename: string) {
-    assert(validateName(filename));
+    assert(validationUtils.validateName(filename));
 
     const storage = this._getLocalStorage(name);
 
@@ -716,7 +717,7 @@ class LocalStorage {
       this.logger.warn('plugin search not implemented yet');
       onEnd();
     } else {
-      this.storagePlugin.search(onPackage, onEnd, validateName);
+      this.storagePlugin.search(onPackage, onEnd, validationUtils.validateName);
     }
   }
 
@@ -851,13 +852,13 @@ class LocalStorage {
     // use the same protocol for the tarball
     //
     // see https://github.com/rlidwka/sinopia/issues/166
-    const tarballUrl: any = UrlNode.parse(hash.url);
-    const uplinkUrl: any = UrlNode.parse(this.config.uplinks[upLinkKey].url);
+    const tarballUrl = new URL(hash.url);
+    const uplinkUrl = new URL(this.config.uplinks[upLinkKey].url);
 
     if (uplinkUrl.host === tarballUrl.host) {
       tarballUrl.protocol = uplinkUrl.protocol;
       hash.registry = upLinkKey;
-      hash.url = UrlNode.format(tarballUrl);
+      hash.url = tarballUrl.toString();
     }
   }
 

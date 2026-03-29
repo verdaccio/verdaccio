@@ -1,7 +1,7 @@
 import assert from 'assert';
 import async, { AsyncResultArrayCallback } from 'async';
 import buildDebug from 'debug';
-import _ from 'lodash';
+import * as _ from 'lodash-es';
 import Stream from 'stream';
 
 import { hasProxyTo } from '@verdaccio/config';

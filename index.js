@@ -1,1 +1,1 @@
-export { default as startVerdaccio } from './build/cjs/index';
+export { default as runServer } from './build/cjs/index';

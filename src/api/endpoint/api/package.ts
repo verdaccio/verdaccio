@@ -1,5 +1,5 @@
 import type { Router } from 'express';
-import _ from 'lodash';
+import * as _ from 'lodash-es';
 
 import { stringUtils } from '@verdaccio/core';
 import { PACKAGE_API_ENDPOINTS, allow } from '@verdaccio/middleware';

@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import path from 'path';
 import { describe, expect, test } from 'vitest';
 
@@ -11,23 +10,23 @@ import { setup } from '../../../../src/lib/logger';
 setup({});
 
 const checkDefaultUplink = (config) => {
-  expect(_.isObject(config.uplinks[DEFAULT_UPLINK])).toBeTruthy();
+  expect(config.uplinks[DEFAULT_UPLINK]).toBeTypeOf('object');
   expect(config.uplinks[DEFAULT_UPLINK].url).toMatch(DEFAULT_REGISTRY);
 };
 
 const checkDefaultConfPackages = (config) => {
   // auth
-  expect(_.isObject(config.auth)).toBeTruthy();
-  expect(_.isObject(config.auth.htpasswd)).toBeTruthy();
+  expect(config.auth).toBeTypeOf('object');
+  expect(config.auth.htpasswd).toBeTypeOf('object');
   expect(config.auth.htpasswd.file).toMatch(/htpasswd/);
 
   // web
-  expect(_.isObject(config.web)).toBeTruthy();
+  expect(config.web).toBeTypeOf('object');
   expect(config.web.title).toBe(WEB_TITLE);
   expect(config.web.enable).toBeUndefined();
 
   // packages
-  expect(_.isObject(config.packages)).toBeTruthy();
+  expect(config.packages).toBeTypeOf('object');
   expect(Object.keys(config.packages).join('|')).toBe('@*/*|**');
   expect(config.packages['@*/*'].access).toBeDefined();
   expect(config.packages['@*/*'].access).toContainEqual(ROLES.$ALL);
@@ -59,7 +58,7 @@ const checkDefaultConfPackages = (config) => {
   expect(config.url_prefix).toBeUndefined();
   expect(config.url_prefix).toBeUndefined();
   expect(config.security).toEqual({
-    api: { legacy: true, migrateToSecureLegacySignature: false },
+    api: { legacy: true },
     web: { sign: { expiresIn: '1h' }, verify: {} },
   });
 };

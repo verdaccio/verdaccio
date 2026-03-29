@@ -1,6 +1,6 @@
 import buildDebug from 'debug';
 import type { Response, Router } from 'express';
-import _ from 'lodash';
+import * as _ from 'lodash-es';
 
 import { getApiToken } from '@verdaccio/auth';
 import { cryptoUtils } from '@verdaccio/core';

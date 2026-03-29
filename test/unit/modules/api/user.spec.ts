@@ -2,8 +2,14 @@ import nock from 'nock';
 import supertest from 'supertest';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
-import { API_ERROR, HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core';
-import { buildToken } from '@verdaccio/utils';
+import {
+  API_ERROR,
+  HEADERS,
+  HEADER_TYPE,
+  HTTP_STATUS,
+  TOKEN_BEARER,
+  authUtils,
+} from '@verdaccio/core';
 
 import { createUser, getPackage, initializeServer } from './_helper';
 
@@ -17,7 +23,7 @@ describe('token', () => {
   });
 
   describe('basics', () => {
-    const FAKE_TOKEN: string = buildToken(TOKEN_BEARER, 'fake');
+    const FAKE_TOKEN: string = authUtils.buildToken(TOKEN_BEARER, 'fake');
     test.each([['user.yaml'], ['user.jwt.yaml']])(
       'should test add a new user for %s',
       async (conf) => {
@@ -48,7 +54,7 @@ describe('token', () => {
           name: credentials.name,
           password: credentials.password,
         })
-        .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, response.body.token))
+        .set(HEADERS.AUTHORIZATION, authUtils.buildToken(TOKEN_BEARER, response.body.token))
         .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HTTP_STATUS.CREATED);
     });
@@ -67,7 +73,7 @@ describe('token', () => {
             name: credentials.name,
             password: 'failPassword',
           })
-          .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, response.body.token))
+          .set(HEADERS.AUTHORIZATION, authUtils.buildToken(TOKEN_BEARER, response.body.token))
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.UNAUTHORIZED);
       }
@@ -154,7 +160,7 @@ describe('token', () => {
         expect(response.body.ok).toMatch(`user '${credentials.name}' created`);
         const response2 = await supertest(app)
           .get(`/-/user/org.couchdb.user:${credentials.name}`)
-          .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, response.body.token))
+          .set(HEADERS.AUTHORIZATION, authUtils.buildToken(TOKEN_BEARER, response.body.token))
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.OK);
         expect(response2.body.ok).toBe(`you are authenticated as '${credentials.name}'`);
@@ -167,7 +173,7 @@ describe('token', () => {
       const response = await createUser(app, credentials.name, credentials.password);
       await supertest(app)
         .get(`/-/user/org.couchdb.user:${credentials.name}`)
-        .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, response.body.token))
+        .set(HEADERS.AUTHORIZATION, authUtils.buildToken(TOKEN_BEARER, response.body.token))
         .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HTTP_STATUS.OK);
       await supertest(app)
