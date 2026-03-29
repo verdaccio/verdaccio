@@ -205,11 +205,7 @@ describe('StorageTest', () => {
     });
 
     test('should allow tarball fetch when URL matches configured uplink origin', async () => {
-      const tarballPath = path.join(
-        __dirname,
-        '../uplinks/__fixtures__',
-        'jquery-1.5.1.tgz'
-      );
+      const tarballPath = path.join(__dirname, '../uplinks/__fixtures__', 'jquery-1.5.1.tgz');
       const tarballSize = fs.statSync(tarballPath).size;
 
       const allowStoragePath = await fileUtils.createTempStorageFolder('tarball-allow-test');

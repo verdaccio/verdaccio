@@ -409,8 +409,7 @@ class ProxyStorage {
   public isUplinkValid(url: string): boolean {
     const urlParsed = new URL(url);
     const isHTTPS = (urlDomainParsed: URL): boolean =>
-      urlDomainParsed.protocol === 'https:' &&
-      (urlParsed.port === '' || urlParsed.port === '443');
+      urlDomainParsed.protocol === 'https:' && (urlParsed.port === '' || urlParsed.port === '443');
     const getHost = (urlDomainParsed: URL): string =>
       isHTTPS(urlDomainParsed) ? urlDomainParsed.hostname : urlDomainParsed.host;
     const isMatchProtocol: boolean = urlParsed.protocol === this.url.protocol;

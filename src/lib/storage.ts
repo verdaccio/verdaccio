@@ -353,9 +353,7 @@ class Storage {
         );
         readStream.emit(
           'error',
-          ErrorCode.getForbidden(
-            'tarball URL origin does not match the configured uplink'
-          )
+          ErrorCode.getForbidden('tarball URL origin does not match the configured uplink')
         );
         return;
       }
@@ -731,7 +729,6 @@ class Storage {
       }
     );
   }
-
 }
 
 export default Storage;
