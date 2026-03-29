@@ -1,5 +1,11 @@
 # @verdaccio/ui-components
 
+## 5.0.0-next-9.7
+
+### Patch Changes
+
+- d68a86d: refactor: migrate from lodash to lodash-es and replace simple utilities with native JS
+
 ## 5.0.0-next-9.6
 
 ### Patch Changes

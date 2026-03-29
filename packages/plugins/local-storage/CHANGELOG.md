@@ -1,5 +1,12 @@
 # Change Log
 
+## 14.0.0-next-9.8
+
+### Patch Changes
+
+- d68a86d: refactor: migrate from lodash to lodash-es and replace simple utilities with native JS
+  - @verdaccio/core@9.0.0-next-9.8
+
 ## 14.0.0-next-9.7
 
 ### Patch Changes

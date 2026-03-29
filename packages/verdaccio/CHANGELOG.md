@@ -1,5 +1,21 @@
 # verdaccio
 
+## 9.0.0-next-9.8
+
+### Patch Changes
+
+- d68a86d: refactor: migrate from lodash to lodash-es and replace simple utilities with native JS
+- dc35b5e: renovate
+- Updated dependencies [d68a86d]
+  - @verdaccio/node-api@9.0.0-next-9.8
+  - @verdaccio/cli@9.0.0-next-9.8
+  - @verdaccio/hooks@9.0.0-next-9.8
+  - verdaccio-audit@14.0.0-next-9.8
+  - verdaccio-htpasswd@14.0.0-next-9.8
+  - @verdaccio/package-filter@14.0.0-next-9.32
+  - @verdaccio/ui-theme@9.0.0-next-9.8
+  - @verdaccio/logger@9.0.0-next-9.8
+
 ## 9.0.0-next-9.7
 
 ### Minor Changes
