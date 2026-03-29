@@ -312,7 +312,11 @@ describe('StorageTest', () => {
           _uplinks: {},
         };
         storage.localStorage.updateVersions('npm_test', packageInfo, (err: any) => {
-          err ? reject(err) : resolve();
+          if (err) {
+            reject(err);
+          } else {
+            resolve();
+          }
         });
       });
 
