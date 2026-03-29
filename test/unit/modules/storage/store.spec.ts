@@ -1,7 +1,8 @@
 import fs from 'fs';
 import getPort from 'get-port';
+import nock from 'nock';
 import path from 'path';
-import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest';
+import { afterAll, afterEach, beforeAll, describe, expect, test, vi } from 'vitest';
 
 import { fileUtils } from '@verdaccio/core';
 import type { Config } from '@verdaccio/types';
@@ -29,14 +30,20 @@ type GenerateStorageOptions = {
   enableFilters?: boolean;
   filterPkg?: string;
   filterVersion?: string;
+  storagePath?: string;
 };
 
 const generateStorage = async function (port = mockServerPort, opts: GenerateStorageOptions = {}) {
-  const { enableFilters = false, filterPkg = 'jquery', filterVersion = '1.5.1' } = opts;
+  const {
+    enableFilters = false,
+    filterPkg = 'jquery',
+    filterVersion = '1.5.1',
+    storagePath: customStoragePath,
+  } = opts;
 
   const baseConfig: any = {
     self_path: __dirname,
-    storage: storagePath,
+    storage: customStoragePath || storagePath,
     uplinks: {
       npmjs: {
         url: `http://localhost:${port}`,
@@ -151,6 +158,187 @@ describe('StorageTest', () => {
           expect(storage.localStorage.updateVersions).not.toHaveBeenCalled();
           resolve(true);
         });
+      });
+    });
+  });
+
+  describe('getTarball uplink validation', () => {
+    afterEach(() => {
+      nock.cleanAll();
+    });
+
+    test('should reject tarball fetch when tarball URL does not match uplink origin', async () => {
+      const rejectStoragePath = await fileUtils.createTempStorageFolder('tarball-reject-test');
+      const storage: any = await generateStorage(mockServerPort, {
+        storagePath: rejectStoragePath,
+      });
+
+      // First sync metadata so the package exists locally
+      await new Promise<void>((resolve) => {
+        storage._syncUplinksMetadata('jquery', null, {}, (err: any) => {
+          expect(err).toBeNull();
+          resolve();
+        });
+      });
+
+      // Inject a distfile pointing to a different host
+      await new Promise<void>((resolve) => {
+        storage.localStorage.getPackageMetadata('jquery', (err: any, info: any) => {
+          expect(err).toBeNull();
+          info._distfiles['jquery-1.5.1.tgz'] = {
+            url: 'http://other-host.example.com/jquery-1.5.1.tgz',
+            sha: 'fake-sha',
+          };
+          storage.localStorage._writePackage('jquery', info, () => resolve());
+        });
+      });
+
+      return new Promise<void>((resolve) => {
+        const stream = storage.getTarball('jquery', 'jquery-1.5.1.tgz');
+        stream.on('error', (err: any) => {
+          expect(err).toBeDefined();
+          expect(err.message).toMatch(/tarball URL origin does not match/);
+          expect(err.statusCode).toBe(HTTP_STATUS.FORBIDDEN);
+          resolve();
+        });
+      });
+    });
+
+    test('should allow tarball fetch when URL matches configured uplink origin', async () => {
+      const tarballPath = path.join(
+        __dirname,
+        '../uplinks/__fixtures__',
+        'jquery-1.5.1.tgz'
+      );
+      const tarballSize = fs.statSync(tarballPath).size;
+
+      const allowStoragePath = await fileUtils.createTempStorageFolder('tarball-allow-test');
+      const storage: any = await generateStorage(mockServerPort, {
+        storagePath: allowStoragePath,
+      });
+
+      // Sync metadata
+      await new Promise<void>((resolve) => {
+        storage._syncUplinksMetadata('jquery', null, {}, (err: any) => {
+          expect(err).toBeNull();
+          resolve();
+        });
+      });
+
+      nock(`http://localhost:${mockServerPort}`)
+        .get('/jquery/-/jquery-1.5.1.tgz')
+        .replyWithFile(200, tarballPath, {
+          'Content-Type': 'application/octet-stream',
+          'Content-Length': tarballSize.toString(),
+        });
+
+      // Inject a same-origin distfile (matching the uplink)
+      await new Promise<void>((resolve) => {
+        storage.localStorage.getPackageMetadata('jquery', (err: any, info: any) => {
+          expect(err).toBeNull();
+          info._distfiles['jquery-1.5.1.tgz'] = {
+            url: `http://localhost:${mockServerPort}/jquery/-/jquery-1.5.1.tgz`,
+            sha: '2ae2d661e906c1a01e044a71bb5b2743942183e5',
+          };
+          storage.localStorage._writePackage('jquery', info, () => resolve());
+        });
+      });
+
+      return new Promise<void>((resolve, reject) => {
+        const stream = storage.getTarball('jquery', 'jquery-1.5.1.tgz');
+        stream.on('error', (err: any) => {
+          reject(err);
+        });
+        stream.on('content-length', () => {
+          resolve();
+        });
+      });
+    });
+  });
+
+  describe('updateVersions tarball origin validation', () => {
+    test('should skip _distfiles entry when tarball host differs from uplink', async () => {
+      const distStoragePath = await fileUtils.createTempStorageFolder('distfiles-reject-test');
+      const storage: any = await generateStorage(mockServerPort, {
+        storagePath: distStoragePath,
+      });
+
+      const packageInfo: any = {
+        name: 'test-pkg-reject',
+        versions: {
+          '1.0.0': {
+            name: 'test-pkg-reject',
+            version: '1.0.0',
+            dist: {
+              shasum: 'abc123',
+              tarball: 'http://other-host.example.com/test-pkg-reject-1.0.0.tgz',
+            },
+            [Symbol.for('__verdaccio_uplink')]: 'npmjs',
+          },
+        },
+        'dist-tags': { latest: '1.0.0' },
+        _uplinks: {},
+      };
+
+      await new Promise<void>((resolve, reject) => {
+        storage.localStorage.updateVersions(
+          'test-pkg-reject',
+          packageInfo,
+          (err: any, result: any) => {
+            try {
+              expect(err).toBeNull();
+              expect(result).toBeDefined();
+              expect(result._distfiles).toBeDefined();
+              expect(Object.keys(result._distfiles).length).toBe(0);
+              resolve();
+            } catch (e) {
+              reject(e);
+            }
+          }
+        );
+      });
+    });
+
+    test('should accept _distfiles entry when tarball host matches uplink', async () => {
+      const distStoragePath2 = await fileUtils.createTempStorageFolder('distfiles-allow-test');
+      const storage: any = await generateStorage(mockServerPort, {
+        storagePath: distStoragePath2,
+      });
+
+      const packageInfo: any = {
+        name: 'test-pkg-allow',
+        versions: {
+          '1.0.0': {
+            name: 'test-pkg-allow',
+            version: '1.0.0',
+            dist: {
+              shasum: 'abc123',
+              tarball: `http://localhost:${mockServerPort}/test-pkg-allow/-/test-pkg-allow-1.0.0.tgz`,
+            },
+            [Symbol.for('__verdaccio_uplink')]: 'npmjs',
+          },
+        },
+        'dist-tags': { latest: '1.0.0' },
+        _uplinks: {},
+      };
+
+      await new Promise<void>((resolve, reject) => {
+        storage.localStorage.updateVersions(
+          'test-pkg-allow',
+          packageInfo,
+          (err: any, result: any) => {
+            try {
+              expect(err).toBeNull();
+              expect(result).toBeDefined();
+              expect(result._distfiles).toBeDefined();
+              expect(Object.keys(result._distfiles).length).toBe(1);
+              expect(result._distfiles['test-pkg-allow-1.0.0.tgz']).toBeDefined();
+              resolve();
+            } catch (e) {
+              reject(e);
+            }
+          }
+        );
       });
     });
   });

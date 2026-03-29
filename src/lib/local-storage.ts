@@ -161,12 +161,39 @@ class LocalStorage {
 
             // we do NOT overwrite any existing records
             if (_.isNil(packageLocalJson._distfiles[filename])) {
+              /* eslint spaced-comment: 0 */
+              const upLink: string | undefined = version[Symbol.for('__verdaccio_uplink')];
+              const uplinkConfig = upLink ? this.config.uplinks[upLink] : undefined;
+
+              // Ensure the tarball URL matches the configured uplink origin.
+              if (uplinkConfig) {
+                const tarballUrl = new URL(version.dist.tarball);
+                const uplinkUrl = new URL(uplinkConfig.url);
+                if (tarballUrl.host !== uplinkUrl.host) {
+                  this.logger.warn(
+                    {
+                      tarball: version.dist.tarball,
+                      uplink: uplinkConfig.url,
+                      package: name,
+                      version: versionId,
+                    },
+                    'rejecting off-origin tarball @{tarball} from uplink @{uplink} for @{package}@@{version}'
+                  );
+                  continue;
+                }
+              } else if (upLink) {
+                // uplink marker present but not found in config — skip
+                this.logger.warn(
+                  { tarball: version.dist.tarball, uplink: upLink, package: name },
+                  'skipping tarball @{tarball} for @{package}: unknown uplink @{uplink}'
+                );
+                continue;
+              }
+
               const hash: DistFile = (packageLocalJson._distfiles[filename] = {
                 url: version.dist.tarball,
                 sha: version.dist.shasum,
               });
-              /* eslint spaced-comment: 0 */
-              const upLink: string = version[Symbol.for('__verdaccio_uplink')];
 
               if (_.isNil(upLink) === false) {
                 this._updateUplinkToRemoteProtocol(hash, upLink);
