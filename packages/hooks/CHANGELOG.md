@@ -1,5 +1,12 @@
 # @verdaccio/hooks
 
+## 9.0.0-next-9.8
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.8
+- @verdaccio/logger@9.0.0-next-9.8
+
 ## 9.0.0-next-9.7
 
 ### Patch Changes

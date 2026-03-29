@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/config",
-  "version": "9.0.0-next-9.7",
+  "version": "9.0.0-next-9.8",
   "description": "Verdaccio Configuration",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -39,7 +39,7 @@
     "build": "vite build"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:9.0.0-next-9.7",
+    "@verdaccio/core": "workspace:9.0.0-next-9.8",
     "debug": "4.4.3",
     "js-yaml": "4.1.1",
     "lodash-es": "4.17.23"
