@@ -120,7 +120,6 @@ export function createLibConfig(dirname, options = {}) {
             {
               format: 'cjs',
               entryFileNames: '[name].js',
-              interop: 'auto',
               esModule: true,
               exports: 'named',
               ...sharedOutput,
