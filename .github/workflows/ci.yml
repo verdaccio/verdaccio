@@ -283,16 +283,16 @@ jobs:
         with:
           fetch-depth: 2
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@51f77329afa6477de8c49fc9c7046c15b9a4e79d # v3.29.5
+        uses: github/codeql-action/init@c10b8064de6f491fea524254123dbe5e09572f13 # v4.35.1
         with:
           config: |
             paths-ignore:
               - packages/config/test/partials/config/js/invalid.js
               - packages/middleware/test/static/js
       - name: Autobuild
-        uses: github/codeql-action/autobuild@51f77329afa6477de8c49fc9c7046c15b9a4e79d # v3.29.5
+        uses: github/codeql-action/autobuild@c10b8064de6f491fea524254123dbe5e09572f13 # v4.35.1
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@51f77329afa6477de8c49fc9c7046c15b9a4e79d # v3.29.5
+        uses: github/codeql-action/analyze@c10b8064de6f491fea524254123dbe5e09572f13 # v4.35.1
   sync-translations:
     needs: [build]
     runs-on: ubuntu-latest
