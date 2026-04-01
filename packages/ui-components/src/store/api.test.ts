@@ -83,6 +83,7 @@ describe('API Module', () => {
       expect(url).toBe('/api/packages');
       expect(headers.get('Authorization')).toBe('Bearer valid-jwt-token');
       expect(headers.get('x-client')).toBe('verdaccio-ui');
+      expect(init?.credentials).toBe('include');
     });
 
     it('should reject when the fetch call fails (network error)', async () => {
