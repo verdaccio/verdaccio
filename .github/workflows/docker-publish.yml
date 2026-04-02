@@ -46,7 +46,7 @@ jobs:
             org.opencontainers.image.version=${{ steps.docker_meta.outputs.version }}
 
       - name: Build & Push
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: ./Dockerfile
