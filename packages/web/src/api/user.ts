@@ -1,7 +1,7 @@
 import buildDebug from 'debug';
 import type { Request, Response } from 'express';
 import { Router } from 'express';
-import _ from 'lodash';
+import { isNil } from 'lodash-es';
 
 import { type Auth, getApiToken } from '@verdaccio/auth';
 import type { VerdaccioError } from '@verdaccio/core';
@@ -136,7 +136,7 @@ function addUserAuthApi(auth: Auth, config: Config, storage: Storage): Router {
       WebUrls.reset_password,
       rateLimit(config?.userRateLimit),
       function (req: Request, res: Response, next: $NextFunctionVer): void {
-        if (_.isNil(req.remote_user.name)) {
+        if (isNil(req.remote_user.name)) {
           res.status(HTTP_STATUS.UNAUTHORIZED);
           return next({
             // FUTURE: update to a more meaningful message
@@ -157,7 +157,7 @@ function addUserAuthApi(auth: Auth, config: Config, storage: Storage): Router {
         }
 
         auth.changePassword(name as string, password.old, password.new, (err, isUpdated): void => {
-          if (_.isNil(err) && isUpdated) {
+          if (isNil(err) && isUpdated) {
             next({
               ok: true,
             });

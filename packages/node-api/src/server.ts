@@ -1,6 +1,6 @@
 /* eslint-disable */
 import buildDebug from 'debug';
-import { assign, isFunction } from 'lodash';
+import { assign } from 'lodash-es';
 import constants from 'node:constants';
 import fs from 'node:fs';
 import http from 'node:http';
@@ -9,10 +9,11 @@ import url from 'node:url';
 
 import { getConfigParsed, getListenAddress } from '@verdaccio/config';
 import { logger, setup } from '@verdaccio/logger';
-import expressServer from '@verdaccio/server';
 import { ConfigYaml, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 
 import { displayExperimentsInfoBox } from './experiments';
+
+export type ServerFactory = (config: ConfigYaml) => Promise<any>;
 
 const debug = buildDebug('verdaccio:node-api');
 
@@ -86,7 +87,7 @@ export function createServerFactory(config: ConfigYaml, addr, app) {
     // library definition for node is not up to date (doesn't contain recent 8.0 changes)
     serverFactory.keepAliveTimeout = config.server.keepAliveTimeout * 1000;
   }
-  // FIXE: I could not find the reason of this code.
+  // Remove stale Unix socket file from a previous run to avoid EADDRINUSE
   unlinkAddressPath(addr);
 
   return serverFactory;
@@ -103,19 +104,21 @@ export async function initServer(
   config: ConfigYaml,
   port: string | void,
   version: string,
-  pkgName: string
+  pkgName: string,
+  serverFactory: ServerFactory
 ): Promise<void> {
-  return new Promise(async (resolve, reject) => {
-    const logger = await setup(config?.log as any);
-    const addr = getListenAddress(port ?? config?.listen, logger);
-    displayExperimentsInfoBox(config.flags);
+  const logger = await setup(config?.log as any);
+  const addr = getListenAddress(port ?? config?.listen, logger);
+  displayExperimentsInfoBox(config.flags);
 
-    let app = await expressServer(config);
-    const serverFactory = createServerFactory(config, addr, app);
-    serverFactory
+  const app = await serverFactory(config);
+  const httpServer = createServerFactory(config, addr, app);
+
+  return new Promise<void>((resolve, reject) => {
+    httpServer
       .listen(addr.port || addr.path, addr.host, (): void => {
         // send a message for test
-        if (isFunction(process.send)) {
+        if (typeof process.send === 'function') {
           process.send({
             verdaccio_started: true,
           });
@@ -143,7 +146,7 @@ export async function initServer(
       });
     function handleShutdownGracefully() {
       logger.info('received shutdown signal - closing server gracefully...');
-      serverFactory.close(() => {
+      httpServer.close(() => {
         logger.info('server closed.');
         process.exit(0);
       });
@@ -169,11 +172,14 @@ export async function initServer(
     ```
  * @param config
  */
-export async function runServer(config?: string | ConfigYaml): Promise<any> {
+export async function runServer(
+  config: string | ConfigYaml | undefined,
+  serverFactory: ServerFactory
+): Promise<any> {
   const configurationParsed = getConfigParsed(config);
   await setup(configurationParsed.log as any);
   displayExperimentsInfoBox(configurationParsed.flags);
   const addr = getListenAddress(configurationParsed.listen, logger);
-  const app = await expressServer(configurationParsed);
+  const app = await serverFactory(configurationParsed);
   return createServerFactory(configurationParsed, addr, app);
 }

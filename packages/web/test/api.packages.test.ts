@@ -23,7 +23,7 @@ describe('test web server', () => {
 
   test('should OK to package api', async () => {
     mockManifest.mockReturnValue(() => ({
-      staticPath: path.join(__dirname, 'static'),
+      staticPath: path.join(import.meta.dirname, 'static'),
       manifestFiles: {
         js: ['runtime.js', 'vendors.js', 'main.js'],
       },
@@ -39,7 +39,7 @@ describe('test web server', () => {
 
   test('should allow anonymous user to access package api when login is disabled', async () => {
     mockManifest.mockReturnValue(() => ({
-      staticPath: path.join(__dirname, 'static'),
+      staticPath: path.join(import.meta.dirname, 'static'),
       manifestFiles: {
         js: ['runtime.js', 'vendors.js', 'main.js'],
       },
@@ -57,7 +57,7 @@ describe('test web server', () => {
 
   test('should allow authenticated user to access package api', async () => {
     mockManifest.mockReturnValue(() => ({
-      staticPath: path.join(__dirname, 'static'),
+      staticPath: path.join(import.meta.dirname, 'static'),
       manifestFiles: {
         js: ['runtime.js', 'vendors.js', 'main.js'],
       },
@@ -97,7 +97,7 @@ describe('test web server', () => {
 
   test('should not display package foo if user is logged out', async () => {
     mockManifest.mockReturnValue(() => ({
-      staticPath: path.join(__dirname, 'static'),
+      staticPath: path.join(import.meta.dirname, 'static'),
       manifestFiles: {
         js: ['runtime.js', 'vendors.js', 'main.js'],
       },
@@ -123,7 +123,7 @@ describe('test web server', () => {
 
   test('should sort packages by name in ascending order', async () => {
     mockManifest.mockReturnValue(() => ({
-      staticPath: path.join(__dirname, 'static'),
+      staticPath: path.join(import.meta.dirname, 'static'),
       manifestFiles: {
         js: ['runtime.js', 'vendors.js', 'main.js'],
       },
@@ -152,7 +152,7 @@ describe('test web server', () => {
 
   test('should sort packages by time in descending order', async () => {
     mockManifest.mockReturnValue(() => ({
-      staticPath: path.join(__dirname, 'static'),
+      staticPath: path.join(import.meta.dirname, 'static'),
       manifestFiles: {
         js: ['runtime.js', 'vendors.js', 'main.js'],
       },

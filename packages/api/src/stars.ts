@@ -1,5 +1,5 @@
 import type { Response, Router } from 'express';
-import _ from 'lodash';
+import { keys } from 'lodash-es';
 
 import { HTTP_STATUS, USERS, errorUtils } from '@verdaccio/core';
 import { STARS_API_ENDPOINTS } from '@verdaccio/middleware';
@@ -20,7 +20,7 @@ export default function (route: Router, storage: Storage): void {
       try {
         const localPackages: Version[] = await storage.getLocalDatabase();
         const filteredPackages: Version[] = localPackages.filter((localPackage: Version) =>
-          _.keys(localPackage[USERS]).includes(query?.key.toString().replace(/['"]+/g, ''))
+          keys(localPackage[USERS]).includes(query?.key.toString().replace(/['"]+/g, ''))
         );
 
         res.status(HTTP_STATUS.OK);

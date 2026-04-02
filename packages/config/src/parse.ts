@@ -1,6 +1,6 @@
 import buildDebug from 'debug';
 import YAML from 'js-yaml';
-import { isObject } from 'lodash';
+import { isObject } from 'lodash-es';
 import fs from 'node:fs';
 import path from 'node:path';
 

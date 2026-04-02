@@ -1,5 +1,28 @@
 # @verdaccio/proxy
 
+## 9.0.0-next-9.8
+
+### Patch Changes
+
+- d68a86d: refactor: migrate from lodash to lodash-es and replace simple utilities with native JS
+- Updated dependencies [d68a86d]
+  - @verdaccio/config@9.0.0-next-9.8
+  - @verdaccio/core@9.0.0-next-9.8
+
+## 9.0.0-next-9.7
+
+### Minor Changes
+
+- d0405c9: feat: replace got-cjs and node-fetch with got v14
+
+  Replace `got-cjs` and `node-fetch` with the official `got` v14 package in `verdaccio-audit` and `@verdaccio/proxy`. This removes two legacy HTTP client dependencies in favor of a single, actively maintained one. Also replaces `https-proxy-agent` with `hpagent` in the audit plugin for consistency with the proxy package.
+
+### Patch Changes
+
+- Updated dependencies [f2e488d]
+  - @verdaccio/config@9.0.0-next-9.7
+  - @verdaccio/core@9.0.0-next-9.7
+
 ## 9.0.0-next-9.6
 
 ### Patch Changes

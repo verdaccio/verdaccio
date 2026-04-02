@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import _ from 'lodash';
+import { isNil, isObject } from 'lodash-es';
 
 import { HEADERS, HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER, cryptoUtils } from '@verdaccio/core';
 import type { Manifest } from '@verdaccio/types';
@@ -24,13 +24,13 @@ export function final(
   }
 
   try {
-    if (_.isString(body) || _.isObject(body)) {
+    if (typeof body === 'string' || isObject(body)) {
       if (!res.get(HEADERS.CONTENT_TYPE)) {
         debug('set json type header support');
         res.header(HEADERS.CONTENT_TYPE, HEADERS.JSON);
       }
 
-      if (typeof body === 'object' && _.isNil(body) === false) {
+      if (typeof body === 'object' && isNil(body) === false) {
         if (typeof (body as MiddlewareError).error === 'string') {
           debug('set verdaccio_error method');
           res.locals._verdaccio_error = (body as MiddlewareError).error;
@@ -57,7 +57,7 @@ export function final(
     // and should just close socket
     if (err.message.match(/set headers after they are sent/)) {
       debug('set headers after they are sent');
-      if (_.isNil(res.socket) === false) {
+      if (isNil(res.socket) === false) {
         debug('force destroy socket');
         res.socket?.destroy();
       }

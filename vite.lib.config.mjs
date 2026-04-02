@@ -56,7 +56,7 @@ function copyDir(src, dest) {
  * @param {boolean} [options.esmOnly] - When true, output only ESM with .js extensions (for pure ESM packages with "type": "module")
  */
 export function createLibConfig(dirname, options = {}) {
-  const { entry = 'src/index.ts', outDir = 'build', esmOnly = false } = options;
+  const { entry = 'src/index.ts', outDir = 'build', esmOnly = false, bundleDeps = [] } = options;
   const entries = Array.isArray(entry)
     ? entry.map((e) => path.resolve(dirname, e))
     : path.resolve(dirname, entry);
@@ -65,11 +65,12 @@ export function createLibConfig(dirname, options = {}) {
   const pkg = require('./package.json');
 
   // Externalize all declared dependencies so they are not bundled.
+  const bundleSet = new Set(bundleDeps);
   const externalDeps = new Set([
     ...Object.keys(pkg.dependencies ?? {}),
     ...Object.keys(pkg.devDependencies ?? {}),
     ...Object.keys(pkg.peerDependencies ?? {}),
-  ]);
+  ].filter((dep) => !bundleSet.has(dep)));
 
   const isExternal = (id) => {
     if (nodeBuiltins.has(id)) return true;

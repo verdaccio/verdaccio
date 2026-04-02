@@ -1,7 +1,7 @@
 import express, { type Express, type Request, type Response } from 'express';
-import createHttpsProxyAgent from 'https-proxy-agent';
-import fetch from 'node-fetch';
-import https from 'node:https';
+import got from 'got';
+import { HttpsProxyAgent } from 'hpagent';
+import { Agent as HttpsAgent } from 'node:https';
 
 import type { Auth } from '@verdaccio/auth';
 import { pluginUtils } from '@verdaccio/core';
@@ -34,48 +34,55 @@ export default class ProxyAudit
       req: Request,
       res: Response & { report_error?: Function }
     ): Promise<void> => {
-      const headers = req.headers;
-
-      headers['host'] = 'registry.npmjs.org';
-      headers['content-encoding'] = 'gzip,deflate,br';
-
-      let requestOptions: any = {
-        agent: new https.Agent({ rejectUnauthorized: this.strict_ssl }),
-        body: JSON.stringify(req.body),
-        headers,
-        method: req.method,
-      };
-
-      if (auth?.config?.https_proxy) {
-        // we should check whether this works fine after this migration
-        // please notify if anyone is having issues
-        const agent = createHttpsProxyAgent(auth?.config?.https_proxy);
-        requestOptions = Object.assign({}, requestOptions, {
-          agent,
-        });
+      const headers: Record<string, string | string[] | undefined> = {};
+      for (const [key, value] of Object.entries(req.headers)) {
+        if (
+          key === 'host' ||
+          key === 'content-encoding' ||
+          key === 'content-length' ||
+          key === 'content-type' ||
+          key === 'connection' ||
+          key === 'transfer-encoding'
+        ) {
+          continue;
+        }
+        headers[key] = value;
       }
+      headers['host'] = 'registry.npmjs.org';
+      headers['accept-encoding'] = 'gzip,deflate,br';
+
+      const agent = auth?.config?.https_proxy
+        ? { https: new HttpsProxyAgent({ proxy: auth.config.https_proxy }) }
+        : { https: new HttpsAgent({ rejectUnauthorized: this.strict_ssl }) };
 
       try {
         const auditEndpoint = `${REGISTRY_DOMAIN}${req.baseUrl}${req.route.path}`;
         this.logger.debug('fetching audit from ' + auditEndpoint);
 
         const controller = new AbortController();
-
-        setTimeout(
-          () => controller.abort(`Fetch ${auditEndpoint} timeout ${this.timeout}ms`),
-          this.timeout
-        );
-
-        const response = await fetch(auditEndpoint, {
-          ...requestOptions,
-          signal: controller.signal,
+        res.on('close', () => {
+          if (!res.writableFinished) {
+            controller.abort();
+          }
         });
 
-        if (response.ok) {
-          res.status(response.status).send(await response.json());
+        const response = await got(auditEndpoint, {
+          method: req.method as 'GET' | 'POST',
+          headers,
+          json: req.body,
+          agent,
+          signal: controller.signal,
+          timeout: { request: this.timeout },
+          retry: { limit: 0 },
+          throwHttpErrors: false,
+          responseType: 'json',
+        });
+
+        if (response.statusCode >= 200 && response.statusCode < 300) {
+          res.status(response.statusCode).send(response.body);
         } else {
-          this.logger.warn('could not fetch audit: ' + JSON.stringify(await response.json()));
-          res.status(response.status).end();
+          this.logger.warn('could not fetch audit: ' + JSON.stringify(response.body));
+          res.status(response.statusCode).end();
         }
       } catch (error) {
         this.logger.warn('could not fetch audit: ' + error);

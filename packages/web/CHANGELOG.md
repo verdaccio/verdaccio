@@ -1,5 +1,34 @@
 # @verdaccio/web
 
+## 9.0.0-next-9.8
+
+### Patch Changes
+
+- d68a86d: refactor: migrate from lodash to lodash-es and replace simple utilities with native JS
+- Updated dependencies [d68a86d]
+  - @verdaccio/config@9.0.0-next-9.8
+  - @verdaccio/auth@9.0.0-next-9.8
+  - @verdaccio/store@9.0.0-next-9.8
+  - @verdaccio/loaders@9.0.0-next-9.8
+  - @verdaccio/middleware@9.0.0-next-9.8
+  - @verdaccio/core@9.0.0-next-9.8
+  - @verdaccio/tarball@14.0.0-next-9.8
+  - @verdaccio/logger@9.0.0-next-9.8
+
+## 9.0.0-next-9.7
+
+### Patch Changes
+
+- Updated dependencies [f2e488d]
+  - @verdaccio/auth@9.0.0-next-9.7
+  - @verdaccio/config@9.0.0-next-9.7
+  - @verdaccio/loaders@9.0.0-next-9.7
+  - @verdaccio/middleware@9.0.0-next-9.7
+  - @verdaccio/store@9.0.0-next-9.7
+  - @verdaccio/core@9.0.0-next-9.7
+  - @verdaccio/tarball@14.0.0-next-9.7
+  - @verdaccio/logger@9.0.0-next-9.7
+
 ## 9.0.0-next-9.6
 
 ### Patch Changes

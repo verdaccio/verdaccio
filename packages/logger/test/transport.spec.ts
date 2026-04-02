@@ -22,7 +22,7 @@ describe('isPrettyFormat', () => {
 });
 
 describe('createPrettyTransport', () => {
-  const expectedPath = join(__dirname, '..', 'build', 'prettify.js');
+  const expectedPath = join(import.meta.dirname, '..', 'build', 'prettify.js');
 
   test('should call pino.transport with correct target path', () => {
     const mockTransport = {};

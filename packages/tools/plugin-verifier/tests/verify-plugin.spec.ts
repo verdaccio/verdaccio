@@ -5,7 +5,7 @@ import { PLUGIN_CATEGORY } from '@verdaccio/core';
 
 import { verifyPlugin } from '../src/verify-plugin';
 
-const fixturesPath = join(__dirname, 'fixtures');
+const fixturesPath = join(import.meta.dirname, 'fixtures');
 
 describe('verifyPlugin', () => {
   describe('authentication plugins', () => {

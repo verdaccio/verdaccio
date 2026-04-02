@@ -6,13 +6,13 @@ import { generateRemotePackageMetadata } from '@verdaccio/test-helper';
 
 import { Registry, ServerQuery } from '../src/server';
 
-const configFile = path.join(__dirname, './config.yaml');
+const configFile = path.join(import.meta.dirname, './config.yaml');
 
 describe('server query', () => {
   test('server run', async () => {
     const port = await getPort({ port: 4001 });
     const registry = new Registry(configFile, { port });
-    const vPath = path.join(__dirname, '../bin/verdaccio');
+    const vPath = path.join(import.meta.dirname, '../bin/verdaccio');
     const d = await registry.init(vPath);
     expect(d.pid).toBeDefined();
     expect(registry.getPort()).toBeDefined();
@@ -24,7 +24,7 @@ describe('server query', () => {
   test('server create user', async () => {
     const port = await getPort({ port: 4002 });
     const registry = new Registry(configFile, { createUser: true, port });
-    const vPath = path.join(__dirname, '../bin/verdaccio');
+    const vPath = path.join(import.meta.dirname, '../bin/verdaccio');
     const d = await registry.init(vPath);
     expect(d.pid).toBeDefined();
     registry.stop();

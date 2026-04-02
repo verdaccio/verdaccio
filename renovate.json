@@ -1,11 +1,11 @@
 {
   "extends": ["config:base"],
   "prConcurrentLimit": 2,
-  "minimumReleaseAge": "30 days",
+  "minimumReleaseAge": "15 days",
   "internalChecksFilter": "strict",
   "ignorePaths": ["docker-examples/**"],
   "schedule": ["on the 1,11,21 day of the month"],
-  "ignoreDeps": ["customprefix-auth", "eslint-plugin-verdaccio"],
+  "ignoreDeps": ["customprefix-auth", "eslint-plugin-verdaccio", "@orama/orama"],
   "baseBranches": ["master", "8.x", "6.x", "7.x"],
   "semanticCommitType": "fix",
   "major": true,
@@ -26,8 +26,7 @@
     {
       "description": "Only allow @verdaccio/* and verdaccio-* versions 9+ on 7.x branch",
       "matchBaseBranches": ["7.x"],
-      "matchPackageNames": ["@verdaccio/*", "verdaccio-*"],
-      "allowedVersions": ">= 9.0.0"
+      "matchPackageNames": ["@verdaccio/*", "verdaccio-*"]
     },
     {
       "description": "Forbid major updates on 6.x branch",
@@ -39,6 +38,18 @@
       "description": "Disable devDependencies updates on 6.x branch",
       "matchBaseBranches": ["6.x"],
       "matchDepTypes": ["devDependencies"],
+      "enabled": false
+    },
+    {
+      "description": "Disable GitHub Actions updates on 6.x branch",
+      "matchBaseBranches": ["6.x"],
+      "matchManagers": ["github-actions"],
+      "enabled": false
+    },
+    {
+      "description": "Disable Docker updates on 6.x branch",
+      "matchBaseBranches": ["6.x"],
+      "matchDatasources": ["docker"],
       "enabled": false
     },
     {
@@ -55,7 +66,18 @@
       "allowedVersions": "8.0.0-next-8.30"
     },
     {
+      "description": "Group all Docker GitHub Actions",
+      "matchManagers": ["github-actions"],
+      "matchPackageNames": ["docker/*"],
+      "groupName": "docker actions",
+      "groupSlug": "docker-actions",
+      "pinDigests": false
+    },
+    {
+      "description": "Docker image updates",
       "matchDatasources": ["docker"],
+      "groupName": "all docker images",
+      "groupSlug": "docker-images",
       "labels": ["bot: docker-update"]
     },
     {
@@ -88,7 +110,7 @@
         "verdaccio-memory"
       ],
       "minimumReleaseAge": "0 days",
-      "matchUpdateTypes": ["minor", "patch", "major"],
+      "matchUpdateTypes": ["minor", "patch"],
       "groupName": "core verdaccio dependencies",
       "groupSlug": "all-verdaccio",
       "matchBaseBranches": ["6.x", "7.x"]
@@ -101,36 +123,257 @@
         "eslint",
         "stylelint",
         "@typescript-eslint/*",
-        "vitest",
-        "@vitest/*",
         "eslint-plugin-react-x"
       ],
-      "matchUpdateTypes": ["minor", "patch", "major"],
+      "matchUpdateTypes": ["minor", "patch"],
       "minimumReleaseAge": "60 days",
       "groupName": "all linting dependencies",
       "groupSlug": "all-linting",
       "matchBaseBranches": ["master", "7.x"]
     },
     {
-      "matchPackageNames": ["vite", "vite-*", "@vitejs/*", "@storybook/*", "storybook"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "groupName": "all build dependencies",
-      "groupSlug": "all-build",
-      "matchBaseBranches": ["master"]
+      "description": "Group major linting dependency updates",
+      "matchPackageNames": [
+        "@trivago/*",
+        "prettier",
+        "eslint-*",
+        "eslint",
+        "stylelint",
+        "@typescript-eslint/*",
+        "eslint-plugin-react-x"
+      ],
+      "matchUpdateTypes": ["major"],
+      "groupName": "all linting dependencies (major)",
+      "groupSlug": "all-linting-major",
+      "matchBaseBranches": ["master", "7.x"],
+      "schedule": ["every 2 months"]
     },
     {
-      "matchPackageNames": ["supertest", "nock"],
-      "matchUpdateTypes": ["minor", "patch", "major"],
+      "description": "Group all test dependencies",
+      "matchPackageNames": ["supertest", "nock", "node-mocks-http", "vitest", "@vitest/*"],
+      "matchUpdateTypes": ["minor", "patch"],
       "groupName": "all test dependencies",
       "groupSlug": "all-test",
       "matchBaseBranches": ["master", "7.x"]
     },
     {
+      "description": "Group major test dependency updates",
+      "matchPackageNames": ["supertest", "nock", "node-mocks-http", "vitest", "@vitest/*"],
+      "matchUpdateTypes": ["major"],
+      "groupName": "all test dependencies (major)",
+      "groupSlug": "all-test-major",
+      "matchBaseBranches": ["master", "7.x"],
+      "schedule": ["every 2 months"]
+    },
+    {
+      "description": "Group monorepo and infra tooling",
+      "matchPackageNames": [
+        "@changesets/cli",
+        "@crowdin/cli",
+        "@storybook/*",
+        "@vitejs/*",
+        "concurrently",
+        "husky",
+        "lint-staged",
+        "storybook",
+        "update-ts-references",
+        "vite",
+        "vite-*"
+      ],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "infra tooling",
+      "groupSlug": "all-infra",
+      "matchBaseBranches": ["master"]
+    },
+    {
+      "description": "Group major infra tooling updates",
+      "matchPackageNames": [
+        "@changesets/cli",
+        "@crowdin/cli",
+        "@storybook/*",
+        "@vitejs/*",
+        "concurrently",
+        "husky",
+        "lint-staged",
+        "storybook",
+        "update-ts-references",
+        "vite",
+        "vite-*"
+      ],
+      "matchUpdateTypes": ["major"],
+      "groupName": "infra tooling (major)",
+      "groupSlug": "all-infra-major",
+      "matchBaseBranches": ["master"],
+      "schedule": ["every 2 months"]
+    },
+    {
+      "description": "Group security-related dependencies",
+      "matchPackageNames": ["bcryptjs", "cors", "jsonwebtoken", "selfsigned", "https-proxy-agent"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "security dependencies",
+      "groupSlug": "all-security",
+      "matchBaseBranches": ["master"]
+    },
+    {
+      "description": "Group major security dependency updates",
+      "matchPackageNames": ["bcryptjs", "cors", "jsonwebtoken", "selfsigned", "https-proxy-agent"],
+      "matchUpdateTypes": ["major"],
+      "groupName": "security dependencies (major)",
+      "groupSlug": "all-security-major",
+      "matchBaseBranches": ["master"],
+      "schedule": ["every 2 months"]
+    },
+    {
+      "description": "Group HTTP fetcher libraries",
+      "matchPackageNames": ["got", "node-fetch"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "fetchers",
+      "groupSlug": "all-fetchers",
+      "matchBaseBranches": ["master"]
+    },
+    {
+      "description": "Group major HTTP fetcher updates",
+      "matchPackageNames": ["got", "node-fetch"],
+      "matchUpdateTypes": ["major"],
+      "groupName": "fetchers (major)",
+      "groupSlug": "all-fetchers-major",
+      "matchBaseBranches": ["master"],
+      "schedule": ["every 2 months"]
+    },
+    {
+      "description": "Group Node runtime utilities",
+      "matchPackageNames": [
+        "envinfo",
+        "fs-extra",
+        "get-port",
+        "get-stream",
+        "globby",
+        "lowdb",
+        "memfs",
+        "undici-types"
+      ],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "node utilities",
+      "groupSlug": "all-node-utils",
+      "matchBaseBranches": ["master"]
+    },
+    {
+      "description": "Group major Node runtime utility updates",
+      "matchPackageNames": [
+        "envinfo",
+        "fs-extra",
+        "get-port",
+        "get-stream",
+        "globby",
+        "lowdb",
+        "memfs",
+        "undici-types"
+      ],
+      "matchUpdateTypes": ["major"],
+      "groupName": "node utilities (major)",
+      "groupSlug": "all-node-utils-major",
+      "matchBaseBranches": ["master"],
+      "schedule": ["every 2 months"]
+    },
+    {
+      "description": "Group all UI dependencies",
+      "matchPackageNames": [
+        "@emotion/*",
+        "@hookform/*",
+        "@microlink/*",
+        "@mui/*",
+        "@testing-library/*",
+        "aria-query",
+        "country-flag-icons",
+        "dayjs",
+        "dompurify",
+        "highlight.js",
+        "i18next",
+        "js-base64",
+        "localstorage-memory",
+        "lodash",
+        "marked",
+        "marked-highlight",
+        "normalize.css",
+        "react",
+        "react-*",
+        "semver",
+        "swr",
+        "validator",
+        "yup"
+      ],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "ui dependencies",
+      "groupSlug": "all-ui",
+      "matchBaseBranches": ["master"],
+      "schedule": ["every 1 month"]
+    },
+    {
+      "description": "Group major UI dependency updates",
+      "matchPackageNames": [
+        "@emotion/*",
+        "@hookform/*",
+        "@microlink/*",
+        "@mui/*",
+        "@testing-library/*",
+        "aria-query",
+        "country-flag-icons",
+        "dayjs",
+        "dompurify",
+        "highlight.js",
+        "i18next",
+        "js-base64",
+        "localstorage-memory",
+        "lodash",
+        "marked",
+        "marked-highlight",
+        "normalize.css",
+        "react",
+        "react-*",
+        "semver",
+        "swr",
+        "validator",
+        "yup"
+      ],
+      "matchUpdateTypes": ["major"],
+      "groupName": "ui dependencies (major)",
+      "groupSlug": "all-ui-major",
+      "matchBaseBranches": ["master"],
+      "schedule": ["every 2 months"]
+    },
+    {
       "matchPackageNames": ["@types/*", "typescript"],
-      "matchUpdateTypes": ["minor", "patch", "major"],
+      "matchUpdateTypes": ["minor", "patch"],
       "groupName": "typescript dependencies",
       "groupSlug": "all-types",
       "matchBaseBranches": ["master", "7.x"]
+    },
+    {
+      "description": "Group major typescript dependency updates",
+      "matchPackageNames": ["@types/*", "typescript"],
+      "matchUpdateTypes": ["major"],
+      "groupName": "typescript dependencies (major)",
+      "groupSlug": "all-types-major",
+      "matchBaseBranches": ["master", "7.x"],
+      "schedule": ["every 2 months"]
+    },
+    {
+      "description": "Group express and related dependencies",
+      "matchPackageNames": [
+        "express",
+        "@types/express",
+        "@types/express-serve-static-core",
+        "body-parser",
+        "cookie-parser",
+        "compression",
+        "@types/send",
+        "@types/serve-static",
+        "@types/mime"
+      ],
+      "matchUpdateTypes": ["minor", "patch", "major"],
+      "groupName": "express dependencies",
+      "groupSlug": "all-express",
+      "matchBaseBranches": ["master"]
     }
   ],
   "pinVersions": false
