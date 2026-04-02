@@ -1,9 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`<Label /> component > should render the component in default state 1`] = `
-<div
-  class="makeStyles-Wrapper erabg9d0"
->
-  test
-</div>
-`;

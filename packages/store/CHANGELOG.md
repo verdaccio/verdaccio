@@ -1,5 +1,57 @@
 # @verdaccio/store
 
+## 9.0.0-next-9.8
+
+### Patch Changes
+
+- d68a86d: refactor: migrate from lodash to lodash-es and replace simple utilities with native JS
+- Updated dependencies [d68a86d]
+  - @verdaccio/config@9.0.0-next-9.8
+  - @verdaccio/search@9.0.0-next-9.8
+  - @verdaccio/proxy@9.0.0-next-9.8
+  - @verdaccio/loaders@9.0.0-next-9.8
+  - @verdaccio/local-storage@14.0.0-next-9.8
+  - @verdaccio/core@9.0.0-next-9.8
+  - @verdaccio/tarball@14.0.0-next-9.8
+  - @verdaccio/url@14.0.0-next-9.8
+  - @verdaccio/logger@9.0.0-next-9.8
+
+## 9.0.0-next-9.7
+
+### Patch Changes
+
+- Updated dependencies [f2e488d]
+- Updated dependencies [d0405c9]
+- Updated dependencies [e500b84]
+  - @verdaccio/config@9.0.0-next-9.7
+  - @verdaccio/proxy@9.0.0-next-9.7
+  - @verdaccio/local-storage@14.0.0-next-9.7
+  - @verdaccio/loaders@9.0.0-next-9.7
+  - @verdaccio/search@9.0.0-next-9.7
+  - @verdaccio/core@9.0.0-next-9.7
+  - @verdaccio/tarball@14.0.0-next-9.7
+  - @verdaccio/logger@9.0.0-next-9.7
+  - @verdaccio/url@14.0.0-next-9.7
+
+## 9.0.0-next-9.6
+
+### Patch Changes
+
+- 8fb8763: - Add @verdaccio/package-filter plugin.
+  - Fix filter plugin invocations in Storage.
+    - Fix local manifest not filtered when no uplinks configured (e.g. they were removed at some point).
+    - Fix only one filter plugin is applied (last).
+- Updated dependencies [1905990]
+  - @verdaccio/core@9.0.0-next-9.6
+  - @verdaccio/config@9.0.0-next-9.6
+  - @verdaccio/tarball@14.0.0-next-9.6
+  - @verdaccio/logger@9.0.0-next-9.6
+  - @verdaccio/local-storage@14.0.0-next-9.6
+  - @verdaccio/proxy@9.0.0-next-9.6
+  - @verdaccio/search@9.0.0-next-9.6
+  - @verdaccio/url@14.0.0-next-9.6
+  - @verdaccio/loaders@9.0.0-next-9.6
+
 ## 9.0.0-next-9.5
 
 ### Patch Changes

@@ -1,5 +1,20 @@
 # @verdaccio/ui-theme
 
+## 9.0.0-next-9.8
+
+## 9.0.0-next-9.7
+
+### Patch Changes
+
+- d148dc2: chore(ui-theme): reduce package size
+
+## 9.0.0-next-9.6
+
+### Patch Changes
+
+- 80ddcda: chore(ui): remove babel dependency
+- 9d5360b: chore: vite replace rollupOptions with rolldownOptions
+
 ## 9.0.0-next-9.5
 
 ### Patch Changes

@@ -19,7 +19,7 @@ const validSessionId = '12345678-1234-1234-1234-123456789012';
 describe('test web server', () => {
   beforeAll(() => {
     mockManifest.mockReturnValue(() => ({
-      staticPath: path.join(__dirname, 'static'),
+      staticPath: path.join(import.meta.dirname, 'static'),
       manifestFiles: {
         js: ['runtime.js', 'vendors.js', 'main.js'],
       },
@@ -60,7 +60,7 @@ describe('test web server', () => {
       )
       .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-      .expect(HEADERS.CACHE_CONTROL, 'no-cache, no-store')
+      .expect(HEADERS.CACHE_CONTROL, HEADERS.NO_CACHE)
       .expect(HTTP_STATUS.OK)
       .then((res) => {
         expect(res.body.error).toBeUndefined();

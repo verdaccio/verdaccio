@@ -1,5 +1,34 @@
 # @verdaccio/middleware
 
+## 9.0.0-next-9.8
+
+### Patch Changes
+
+- d68a86d: refactor: migrate from lodash to lodash-es and replace simple utilities with native JS
+- Updated dependencies [d68a86d]
+  - @verdaccio/config@9.0.0-next-9.8
+  - @verdaccio/core@9.0.0-next-9.8
+  - @verdaccio/url@14.0.0-next-9.8
+
+## 9.0.0-next-9.7
+
+### Patch Changes
+
+- Updated dependencies [f2e488d]
+  - @verdaccio/config@9.0.0-next-9.7
+  - @verdaccio/core@9.0.0-next-9.7
+  - @verdaccio/url@14.0.0-next-9.7
+
+## 9.0.0-next-9.6
+
+### Patch Changes
+
+- 1905990: chore(middleware): move ui-options to external script
+- Updated dependencies [1905990]
+  - @verdaccio/core@9.0.0-next-9.6
+  - @verdaccio/config@9.0.0-next-9.6
+  - @verdaccio/url@14.0.0-next-9.6
+
 ## 9.0.0-next-9.5
 
 ### Patch Changes

@@ -53,34 +53,35 @@ export const NavBar = styled(AppBar)<{ theme?: Theme }>(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   [`@media (max-width: ${theme.breakPoints.xsmall}px)`]: css`
-    ${InfoButton} {
+    [data-testid='header--tooltip-info'] {
       display: none;
     }
-    ${SwitchThemeButton} {
+    [data-testid='header--button--dark'],
+    [data-testid='header--button--light'] {
       display: none;
     }
-    ${SettingsButtom} {
+    [data-testid='header--tooltip-settings'] {
       display: none;
     }
   `,
   [`@media (min-width: ${theme.breakPoints.medium}px)`]: css`
-    ${SearchWrapper} {
+    [data-testid='search-container'] {
       display: flex;
     }
-    ${IconSearchButton} {
+    [data-testid='header--tooltip-search'] {
       display: none;
     }
-    ${MobileNavBar} {
+    [data-testid='mobile-nav-bar'] {
       display: none;
     }
   `,
   [`@media (min-width: ${theme.breakPoints.large}px)`]: css`
-    ${InnerNavBar} {
+    [data-testid='inner-nav-bar'] {
       padding: 0 16px;
     }
   `,
   [`@media (min-width: ${theme.breakPoints.xlarge}px)`]: css`
-    ${InnerNavBar} {
+    [data-testid='inner-nav-bar'] {
       max-width: 1240px;
       width: 100%;
       margin: 0 auto;

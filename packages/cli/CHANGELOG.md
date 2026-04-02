@@ -1,5 +1,35 @@
 # @verdaccio/cli
 
+## 9.0.0-next-9.8
+
+### Patch Changes
+
+- Updated dependencies [d68a86d]
+  - @verdaccio/config@9.0.0-next-9.8
+  - @verdaccio/node-api@9.0.0-next-9.8
+  - @verdaccio/core@9.0.0-next-9.8
+  - @verdaccio/logger@9.0.0-next-9.8
+
+## 9.0.0-next-9.7
+
+### Patch Changes
+
+- Updated dependencies [f2e488d]
+  - @verdaccio/config@9.0.0-next-9.7
+  - @verdaccio/node-api@9.0.0-next-9.7
+  - @verdaccio/core@9.0.0-next-9.7
+  - @verdaccio/logger@9.0.0-next-9.7
+
+## 9.0.0-next-9.6
+
+### Patch Changes
+
+- Updated dependencies [1905990]
+  - @verdaccio/core@9.0.0-next-9.6
+  - @verdaccio/config@9.0.0-next-9.6
+  - @verdaccio/logger@9.0.0-next-9.6
+  - @verdaccio/node-api@9.0.0-next-9.6
+
 ## 9.0.0-next-9.5
 
 ### Patch Changes

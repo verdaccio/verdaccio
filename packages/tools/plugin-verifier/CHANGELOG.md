@@ -1,5 +1,32 @@
 # @verdaccio/plugin-verifier
 
+## 1.0.0-next-9.4
+
+### Patch Changes
+
+- Updated dependencies [d68a86d]
+  - @verdaccio/loaders@9.0.0-next-9.8
+  - @verdaccio/core@9.0.0-next-9.8
+  - @verdaccio/logger@9.0.0-next-9.8
+
+## 1.0.0-next-9.3
+
+### Patch Changes
+
+- @verdaccio/loaders@9.0.0-next-9.7
+- @verdaccio/core@9.0.0-next-9.7
+- @verdaccio/logger@9.0.0-next-9.7
+
+## 1.0.0-next-9.2
+
+### Patch Changes
+
+- 9d5360b: chore: vite replace rollupOptions with rolldownOptions
+- Updated dependencies [1905990]
+  - @verdaccio/core@9.0.0-next-9.6
+  - @verdaccio/logger@9.0.0-next-9.6
+  - @verdaccio/loaders@9.0.0-next-9.6
+
 ## 1.0.0-next-9.1
 
 ### Minor Changes

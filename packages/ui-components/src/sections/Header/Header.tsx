@@ -54,7 +54,7 @@ const Header: React.FC<Props> = ({
   if (isPlainHeader) {
     return (
       <NavBar data-testid="header" position="static">
-        <InnerNavBar>
+        <InnerNavBar data-testid="inner-nav-bar">
           <HeaderLeft showSearch={false} />
           <HeaderRight
             hasLogin={false}
@@ -77,7 +77,7 @@ const Header: React.FC<Props> = ({
   return (
     <>
       <NavBar data-testid="header" position="static">
-        <InnerNavBar>
+        <InnerNavBar data-testid="inner-nav-bar">
           <HeaderLeft showSearch={configOptions.showSearch} />
           <HeaderRight
             hasLogin={configOptions?.login}
@@ -106,7 +106,7 @@ const Header: React.FC<Props> = ({
         ) : null}
       </NavBar>
       {showMobileNavBar && (
-        <MobileNavBar>
+        <MobileNavBar data-testid="mobile-nav-bar">
           <InnerMobileNavBar>
             <Search />
           </InnerMobileNavBar>

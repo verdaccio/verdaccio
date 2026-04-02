@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '../../test/test-react-testing-library';
+import { render, screen } from '../../test/test-react-testing-library';
 import NoItems from './NoItems';
 
 describe('<NoItem /> component', () => {
@@ -9,7 +9,8 @@ describe('<NoItem /> component', () => {
   };
 
   test('should load the component in default state', () => {
-    const { container } = render(<NoItems text={props.text} />);
-    expect(container.firstChild).toMatchSnapshot();
+    render(<NoItems text={props.text} />);
+    expect(screen.getByText('test')).toBeTruthy();
+    expect(screen.getByRole('alert')).toBeTruthy();
   });
 });

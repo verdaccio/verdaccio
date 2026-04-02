@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import _ from 'lodash';
+import { isNil } from 'lodash-es';
 
 const debug = buildDebug('verdaccio:web:middlwares');
 
@@ -14,5 +14,5 @@ export function validatePrimaryColor(primaryColor) {
 }
 
 export function hasLogin(config: any) {
-  return _.isNil(config?.web?.login) || config?.web?.login === true;
+  return isNil(config?.web?.login) || config?.web?.login === true;
 }

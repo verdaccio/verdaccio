@@ -207,10 +207,6 @@ export interface JWTVerifyOptions extends VerifyOptions {}
 
 export interface APITokenOptions {
   legacy: boolean;
-  /**
-   * Temporary flag to allow migration to the new legacy signature
-   */
-  migrateToSecureLegacySignature: boolean;
   jwt?: JWTOptions;
 }
 

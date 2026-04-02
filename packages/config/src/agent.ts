@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { isEmpty } from 'lodash-es';
 
 export function getUserAgent(
   customUserAgent?: boolean | string,
@@ -7,7 +7,7 @@ export function getUserAgent(
 ): string {
   if (customUserAgent === true) {
     return `${name}/${version}`;
-  } else if (_.isString(customUserAgent) && _.isEmpty(customUserAgent) === false) {
+  } else if (typeof customUserAgent === 'string' && isEmpty(customUserAgent) === false) {
     return customUserAgent;
   } else if (customUserAgent === false) {
     return 'hidden';

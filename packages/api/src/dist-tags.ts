@@ -1,5 +1,4 @@
 import type { Router } from 'express';
-import _ from 'lodash';
 
 import type { Auth } from '@verdaccio/auth';
 import { HEADERS, constants, errorUtils } from '@verdaccio/core';
@@ -19,7 +18,7 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
     res: $ResponseExtend,
     next: $NextFunctionVer
   ): Promise<$NextFunctionVer> {
-    if (_.isString(req.body) === false) {
+    if (typeof req.body !== 'string') {
       return next(errorUtils.getBadRequest('version is missing'));
     }
 

@@ -9,7 +9,7 @@ import { logger, setup } from '@verdaccio/logger';
 import type { IProxy } from '../src';
 import { ProxyStorage } from '../src';
 
-const getConf = (name) => path.join(__dirname, '/conf', name);
+const getConf = (name) => path.join(import.meta.dirname, '/conf', name);
 
 beforeAll(async () => {
   await setup({});
@@ -118,7 +118,7 @@ describe('proxy', () => {
     test('content length header mismatch', async () => {
       nock(domain)
         .get('/jquery/-/jquery-0.0.1.tgz')
-        .replyWithFile(201, path.join(__dirname, 'partials/jquery-0.0.1.tgz'), {
+        .replyWithFile(201, path.join(import.meta.dirname, 'partials/jquery-0.0.1.tgz'), {
           [HEADER_TYPE.CONTENT_LENGTH]: '0',
         });
       const prox1: IProxy = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);

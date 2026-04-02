@@ -1,5 +1,4 @@
 import buildDebug from 'debug';
-import _ from 'lodash';
 
 import type { Auth } from '@verdaccio/auth';
 import type { searchUtils } from '@verdaccio/core';
@@ -65,7 +64,7 @@ export default function (route, auth: Auth, storage: Storage, logger: Logger): v
       );
 
       const final: searchUtils.SearchItemPkg[] = checkAccessPromises
-        .filter((i) => !_.isNull(i))
+        .filter((i) => i !== null)
         .slice(from, size);
       logger.debug(`search results ${final?.length}`);
 

@@ -1,5 +1,63 @@
 # @verdaccio/auth
 
+## 9.0.0-next-9.8
+
+### Patch Changes
+
+- d68a86d: refactor: migrate from lodash to lodash-es and replace simple utilities with native JS
+- Updated dependencies [d68a86d]
+  - @verdaccio/config@9.0.0-next-9.8
+  - @verdaccio/loaders@9.0.0-next-9.8
+  - verdaccio-htpasswd@14.0.0-next-9.8
+  - @verdaccio/signature@9.0.0-next-9.8
+  - @verdaccio/core@9.0.0-next-9.8
+
+## 9.0.0-next-9.7
+
+### Major Changes
+
+- f2e488d: feat!: remove deprecated AES encryption (aesEncryptDeprecated/aesDecryptDeprecated)
+
+  ## Breaking Changes
+
+  ### Removed deprecated AES encryption functions
+
+  The legacy `aesEncryptDeprecated` and `aesDecryptDeprecated` functions (based on the deprecated Node.js `createCipher`/`createDecipher` APIs) have been removed. All encryption now uses the modern `aesEncrypt`/`aesDecrypt` functions based on `aes-256-ctr` with `createCipheriv`/`createDecipheriv`.
+
+  **What changed:**
+
+  - `aesEncryptDeprecated`, `aesDecryptDeprecated`, and `generateRandomSecretKeyDeprecated` are no longer exported from `@verdaccio/signature`.
+  - The `packages/signature/src/legacy-signature` module has been deleted.
+  - `@verdaccio/auth` no longer falls back to deprecated encryption for secrets longer than 32 characters.
+  - `@verdaccio/config`: the `checkSecretKey()` method now **throws an error** if the secret is not exactly 32 characters long, instead of accepting longer keys with a deprecation warning.
+  - The `Config` constructor no longer accepts a `configOverrideOptions` parameter (`forceMigrateToSecureLegacySignature`).
+  - The `migrateToSecureLegacySignature` property has been removed from the `APITokenOptions` type and the default security configuration.
+  - The `isNodeVersionGreaterThan21()` helper has been removed from `@verdaccio/config`.
+
+  **Migration guide:**
+
+  If your `.verdaccio-db.json` contains a secret key that is not exactly 32 characters long, you must generate a new one. Delete the `secret` field from `.verdaccio-db.json` and Verdaccio will auto-generate a valid 32-character key on next startup. Note that existing tokens encrypted with the old deprecated method will no longer be decryptable — users will need to re-authenticate.
+
+### Patch Changes
+
+- Updated dependencies [f2e488d]
+  - @verdaccio/signature@9.0.0-next-9.7
+  - @verdaccio/config@9.0.0-next-9.7
+  - @verdaccio/loaders@9.0.0-next-9.7
+  - verdaccio-htpasswd@14.0.0-next-9.7
+  - @verdaccio/core@9.0.0-next-9.7
+
+## 9.0.0-next-9.6
+
+### Patch Changes
+
+- Updated dependencies [1905990]
+  - @verdaccio/core@9.0.0-next-9.6
+  - @verdaccio/config@9.0.0-next-9.6
+  - verdaccio-htpasswd@14.0.0-next-9.6
+  - @verdaccio/signature@9.0.0-next-9.6
+  - @verdaccio/loaders@9.0.0-next-9.6
+
 ## 9.0.0-next-9.5
 
 ### Patch Changes

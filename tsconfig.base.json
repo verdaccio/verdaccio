@@ -2,7 +2,8 @@
   "compileOnSave": false,
   "compilerOptions": {
     "target": "esnext",
-    "module": "commonjs",
+    "module": "preserve",
+    "moduleResolution": "bundler",
     "noImplicitAny": false,
     "strict": true,
     "declaration": true,
@@ -69,9 +70,6 @@
       "path": "packages/ui-components"
     },
     {
-      "path": "packages/utils"
-    },
-    {
       "path": "packages/verdaccio"
     },
     {
@@ -124,6 +122,57 @@
     },
     {
       "path": "packages/plugins/local-storage"
+    },
+    {
+      "path": "packages/plugins/package-filter"
+    },
+    {
+      "path": "e2e/cli/cli-commons"
+    },
+    {
+      "path": "e2e/cli/e2e-npm-commons"
+    },
+    {
+      "path": "e2e/cli/e2e-npm10"
+    },
+    {
+      "path": "e2e/cli/e2e-npm11"
+    },
+    {
+      "path": "e2e/cli/e2e-npm6"
+    },
+    {
+      "path": "e2e/cli/e2e-npm7"
+    },
+    {
+      "path": "e2e/cli/e2e-npm8"
+    },
+    {
+      "path": "e2e/cli/e2e-npm9"
+    },
+    {
+      "path": "e2e/cli/e2e-pnpm-commons"
+    },
+    {
+      "path": "e2e/cli/e2e-pnpm10"
+    },
+    {
+      "path": "e2e/cli/e2e-pnpm8"
+    },
+    {
+      "path": "e2e/cli/e2e-pnpm9"
+    },
+    {
+      "path": "e2e/cli/e2e-yarn1"
+    },
+    {
+      "path": "e2e/cli/e2e-yarn2"
+    },
+    {
+      "path": "e2e/cli/e2e-yarn3"
+    },
+    {
+      "path": "e2e/cli/e2e-yarn4"
     },
     {
       "path": "e2e/ui"
