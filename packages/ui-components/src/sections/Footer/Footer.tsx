@@ -22,7 +22,7 @@ const Footer = () => {
           <Trans components={[<Love key="love" />]} i18nKey="footer.made-with-love-on" />
           <ToolTip>
             <StyledEarth />
-            <Flags>
+            <Flags data-flags="true">
               <Icon>
                 <FlagsIcon.ES title={t('flag.spain')} />
               </Icon>
@@ -116,7 +116,7 @@ const ToolTip = styled('span')({
   position: 'relative',
   height: '18px',
   ':hover': {
-    [`${Flags}`]: {
+    '& [data-flags="true"]': {
       visibility: 'visible',
     },
   },

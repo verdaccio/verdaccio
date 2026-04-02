@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import _ from 'lodash';
+import { isNil } from 'lodash-es';
 
 import { HEADERS, constants } from '@verdaccio/core';
 
@@ -25,12 +25,12 @@ export const log = (logger, options: LogOptions = {}) => {
     req.log = logger.child({ sub: 'in' });
 
     const _auth = req.headers.authorization;
-    if (_.isNil(_auth) === false) {
+    if (isNil(_auth) === false) {
       req.headers.authorization = '<Classified>';
     }
 
     const _cookie = req.get('cookie');
-    if (_.isNil(_cookie) === false) {
+    if (isNil(_cookie) === false) {
       req.headers.cookie = '<Classified>';
     }
 
@@ -43,11 +43,11 @@ export const log = (logger, options: LogOptions = {}) => {
     }
     req.originalUrl = req.url;
 
-    if (_.isNil(_auth) === false) {
+    if (isNil(_auth) === false) {
       req.headers.authorization = _auth;
     }
 
-    if (_.isNil(_cookie) === false) {
+    if (isNil(_cookie) === false) {
       req.headers.cookie = _cookie;
     }
 

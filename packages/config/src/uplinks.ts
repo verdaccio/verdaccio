@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { clone, isNil } from 'lodash-es';
 import assert from 'node:assert';
 
 import { authUtils } from '@verdaccio/core';
@@ -19,8 +19,8 @@ export function uplinkSanityCheck(
   uplinks: UpLinksConfList,
   users: any = BLACKLIST
 ): UpLinksConfList {
-  const newUplinks = _.clone(uplinks);
-  let newUsers = _.clone(users);
+  const newUplinks = clone(uplinks);
+  let newUsers = clone(users);
 
   for (const uplink in newUplinks) {
     if (Object.prototype.hasOwnProperty.call(newUplinks, uplink)) {
@@ -35,12 +35,15 @@ export function uplinkSanityCheck(
 }
 
 export function sanityCheckUplinksProps(configUpLinks: UpLinksConfList): UpLinksConfList {
-  const uplinks = _.clone(configUpLinks);
+  const uplinks = clone(configUpLinks);
 
   for (const uplink in uplinks) {
     if (Object.prototype.hasOwnProperty.call(uplinks, uplink)) {
       assert(uplinks[uplink].url, 'CONFIG: no url for uplink: ' + uplink);
-      assert(_.isString(uplinks[uplink].url), 'CONFIG: wrong url format for uplink: ' + uplink);
+      assert(
+        typeof uplinks[uplink].url === 'string',
+        'CONFIG: wrong url format for uplink: ' + uplink
+      );
       uplinks[uplink].url = uplinks[uplink].url.replace(/\/$/, '');
     }
   }
@@ -72,7 +75,7 @@ export function sanityCheckNames(item: string, users: any): any {
     'CONFIG: reserved uplink name: ' + item
   );
   assert(!item.match(/\s/), 'CONFIG: invalid uplink name: ' + item);
-  assert(_.isNil(users[item]), 'CONFIG: duplicate uplink name: ' + item);
+  assert(isNil(users[item]), 'CONFIG: duplicate uplink name: ' + item);
   users[item] = true;
 
   return users;

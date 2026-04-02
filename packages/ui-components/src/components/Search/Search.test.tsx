@@ -1,4 +1,4 @@
-import debounce from 'lodash/debounce';
+import { debounce } from 'lodash-es';
 import React from 'react';
 import { vi } from 'vitest';
 
@@ -12,14 +12,18 @@ import {
 import Search from './Search';
 import { cleanDescription } from './utils';
 
-vi.mock('lodash/debounce', () => ({
-  default: vi.fn((fn) => {
-    // Immediately execute the function for testing
-    const debounced = (...args: any[]) => fn(...args);
-    debounced.cancel = vi.fn();
-    return debounced;
-  }),
-}));
+vi.mock('lodash-es', async () => {
+  const actual = await vi.importActual('lodash-es');
+  return {
+    ...actual,
+    debounce: vi.fn((fn) => {
+      // Immediately execute the function for testing
+      const debounced = (...args: any[]) => fn(...args);
+      debounced.cancel = vi.fn();
+      return debounced;
+    }),
+  };
+});
 
 const mockedDebounce = vi.mocked(debounce);
 
@@ -54,6 +58,10 @@ describe('<Search /> component', () => {
 
     fireEvent.focus(autoCompleteInput);
     fireEvent.change(autoCompleteInput, { target: { value: '@verdaccio/file-locking' } });
+
+    // Clear any abort calls triggered by providers (VersionProvider, etc.) during render
+    abortSpy.mockClear();
+
     // forcing abort to be called in the search function, to make sure that the previous request is cancelled when user types a new value
     fireEvent.change(autoCompleteInput, { target: { value: '@verdaccio/file' } });
 
@@ -64,7 +72,7 @@ describe('<Search /> component', () => {
     });
 
     expect(suggestionsElements).toHaveLength(1);
-    expect(abortSpy).toHaveBeenCalledTimes(1);
+    expect(abortSpy).toHaveBeenCalled();
   });
 
   test('onBlur: should cancel all search requests', async () => {

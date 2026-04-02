@@ -39,6 +39,7 @@ export const HEADERS = {
   TEXT_HTML: 'text/html',
   AUTHORIZATION: 'authorization',
   CACHE_CONTROL: 'Cache-Control',
+  NO_CACHE: 'no-cache, no-store',
   RETRY_AFTER: 'Retry-After',
   // only set with proxy that setup HTTPS
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Proto
@@ -58,6 +59,7 @@ export const HEADERS = {
   JSON_INSTALL_CHARSET: 'application/vnd.npm.install-v1+json; charset=utf-8',
   OCTET_STREAM: 'application/octet-stream; charset=utf-8',
   TEXT_CHARSET: 'text/plain; charset=utf-8',
+  JAVASCRIPT_CHARSET: 'application/javascript; charset=utf-8',
   WWW_AUTH: 'WWW-Authenticate',
   GZIP: 'gzip',
   HOST: 'host',

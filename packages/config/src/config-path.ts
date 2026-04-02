@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import _ from 'lodash';
+import { find } from 'lodash-es';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -41,7 +41,7 @@ function findConfigFile(configPath?: string): string {
   }
 
   // find the first location that already exist
-  const primaryConf: SetupDirectory | void = _.find(configPaths, (configLocation: SetupDirectory) =>
+  const primaryConf: SetupDirectory | void = find(configPaths, (configLocation: SetupDirectory) =>
     fileExists(configLocation.path)
   );
 
@@ -65,7 +65,8 @@ function createConfigFile(configLocation: SetupDirectory): SetupDirectory {
 }
 
 export function readDefaultConfig(): string {
-  const pathDefaultConf: string = path.resolve(__dirname, 'conf/default.yaml');
+  const currentDir = typeof __dirname !== 'undefined' ? __dirname : import.meta.dirname;
+  const pathDefaultConf: string = path.resolve(currentDir, 'conf/default.yaml');
   try {
     debug('the path of default config used from %s', pathDefaultConf);
     fs.accessSync(pathDefaultConf, fs.constants.R_OK);

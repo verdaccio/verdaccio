@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { isObject } from 'lodash-es';
 import path from 'node:path';
 import { describe, expect, test } from 'vitest';
 
@@ -12,7 +12,6 @@ import {
   defaultSecurity,
   generateRandomSecretKey,
   getDefaultConfig,
-  isNodeVersionGreaterThan21,
   parseConfigFile,
 } from '../src';
 import { parseConfigurationFile } from './utils';
@@ -20,30 +19,31 @@ import { parseConfigurationFile } from './utils';
 const resolveConf = (conf) => {
   const { name, ext } = path.parse(conf);
 
-  return path.join(__dirname, `../src/conf/${name}${ext.startsWith('.') ? ext : '.yaml'}`);
+  return path.join(
+    import.meta.dirname,
+    `../src/conf/${name}${ext.startsWith('.') ? ext : '.yaml'}`
+  );
 };
 
-const itif = (condition) => (condition ? test : test.skip);
-
 const checkDefaultUplink = (config) => {
-  expect(_.isObject(config.uplinks[DEFAULT_UPLINK])).toBeTruthy();
+  expect(isObject(config.uplinks[DEFAULT_UPLINK])).toBeTruthy();
   expect(config.uplinks[DEFAULT_UPLINK].url).toMatch(DEFAULT_REGISTRY);
 };
 
 describe('check basic content parsed file', () => {
   const checkDefaultConfPackages = (config) => {
     // auth
-    expect(_.isObject(config.auth)).toBeTruthy();
-    expect(_.isObject(config.auth.htpasswd)).toBeTruthy();
+    expect(isObject(config.auth)).toBeTruthy();
+    expect(isObject(config.auth.htpasswd)).toBeTruthy();
     expect(config.auth.htpasswd.file).toMatch(/htpasswd/);
 
     // web
-    expect(_.isObject(config.web)).toBeTruthy();
+    expect(isObject(config.web)).toBeTruthy();
     expect(config.web.title).toBe(WEB_TITLE);
     expect(config.web.enable).toBeUndefined();
 
     // packages
-    expect(_.isObject(config.packages)).toBeTruthy();
+    expect(isObject(config.packages)).toBeTruthy();
     expect(Object.keys(config.packages).join('|')).toBe('@*/*|**');
     expect(config.packages['@*/*'].access).toBeDefined();
     expect(config.packages['@*/*'].access).toContainEqual(ROLES.$ALL);
@@ -127,59 +127,17 @@ describe('checkSecretKey', () => {
     expect(typeof config.checkSecretKey(generateRandomSecretKey()) === 'string').toBeTruthy();
   });
 
-  test('with default.yaml migrate a valid string secret length', () => {
-    const config = new Config(parseConfigFile(resolveConf('default')), {
-      forceMigrateToSecureLegacySignature: true,
-    });
-    expect(
-      // 64 characters secret long
-      config.checkSecretKey('b4982dbb0108531fafb552374d7e83724b6458a2b3ffa97ad0edb899bdaefc4a')
-    ).toHaveLength(TOKEN_VALID_LENGTH);
-  });
-
-  // only runs on Node.js 22 or higher
-  itif(isNodeVersionGreaterThan21())('with enhanced legacy signature Node 22 or higher', () => {
-    const config = new Config(parseConfigFile(resolveConf('default')), {
-      forceMigrateToSecureLegacySignature: false,
-    });
-    expect(() =>
-      // 64 characters secret long
-      config.checkSecretKey('b4982dbb0108531fafb552374d7e83724b6458a2b3ffa97ad0edb899bdaefc4a')
-    ).toThrow();
-  });
-
-  itif(isNodeVersionGreaterThan21())('with enhanced legacy signature Node 22 or higher', () => {
-    const config = new Config(parseConfigFile(resolveConf('default')), {
-      forceMigrateToSecureLegacySignature: false,
-    });
-    config.security.api.migrateToSecureLegacySignature = true;
-    expect(
-      config.checkSecretKey('b4982dbb0108531fafb552374d7e83724b6458a2b3ffa97ad0edb899bdaefc4a')
-    ).toHaveLength(TOKEN_VALID_LENGTH);
-  });
-
-  itif(isNodeVersionGreaterThan21() === false)(
-    'with old unsecure legacy signature Node 21 or lower',
-    () => {
-      const config = new Config(parseConfigFile(resolveConf('default')));
-      config.security.api.migrateToSecureLegacySignature = false;
-      // 64 characters secret long
-      expect(
-        config.checkSecretKey('b4982dbb0108531fafb552374d7e83724b6458a2b3ffa97ad0edb899bdaefc4a')
-      ).toHaveLength(64);
-    }
-  );
-
-  test('with migration to new legacy signature Node 21 or lower', () => {
+  test('should throw with invalid secret key length', () => {
     const config = new Config(parseConfigFile(resolveConf('default')));
-    config.security.api.migrateToSecureLegacySignature = true;
-    // 64 characters secret long
-    expect(
+    expect(() =>
       config.checkSecretKey('b4982dbb0108531fafb552374d7e83724b6458a2b3ffa97ad0edb899bdaefc4a')
-    ).toHaveLength(TOKEN_VALID_LENGTH);
+    ).toThrow('Invalid storage secret key length');
   });
 
-  test.todo('emit warning with secret key');
+  test('should throw with short secret key length', () => {
+    const config = new Config(parseConfigFile(resolveConf('default')));
+    expect(() => config.checkSecretKey('tooshort')).toThrow('Invalid storage secret key length');
+  });
 });
 
 describe('getMatchedPackagesSpec', () => {
@@ -238,7 +196,7 @@ describe('configPath', () => {
   test('should set configPath in config', () => {
     const defaultConfig = parseConfigFile(resolveConf('default'));
     const config = new Config(defaultConfig);
-    expect(config.getConfigPath()).toBe(path.join(__dirname, '../src/conf/default.yaml'));
+    expect(config.getConfigPath()).toBe(path.join(import.meta.dirname, '../src/conf/default.yaml'));
   });
 
   test('should throw an error if configPath is not provided', () => {

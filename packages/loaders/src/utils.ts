@@ -1,5 +1,4 @@
 import buildDebug from 'debug';
-import _ from 'lodash';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -14,7 +13,7 @@ export type PluginType<T> = T extends pluginUtils.Plugin<T> ? T : never;
 
 export function isValid<T>(plugin: PluginType<T>): boolean {
   // @ts-expect-error default not relevant
-  return _.isFunction(plugin) || _.isFunction(plugin.default);
+  return typeof plugin === 'function' || typeof plugin.default === 'function';
 }
 
 export function isES6<T>(plugin: PluginType<T>): boolean {

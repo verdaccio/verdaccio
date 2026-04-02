@@ -189,7 +189,7 @@ describe('logger test', () => {
       // on-exit-leak-free but was never opened before the process exited.
       const script = `
         const pino = require('pino');
-        const { prepareSetup } = require('${join(__dirname, '..', 'build')}');
+        const { prepareSetup } = require('${join(import.meta.dirname, '..', 'build')}');
         const result = prepareSetup({ type: 'file', path: '${file}', level: 'info', format: 'pretty', colors: false }, pino);
         if (result instanceof Promise) { result.then(() => process.exit(0)); } else { process.exit(0); }
       `;

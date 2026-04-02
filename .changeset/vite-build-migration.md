@@ -22,7 +22,6 @@
 '@verdaccio/ui-components': major
 '@verdaccio/ui-i18n': major
 '@verdaccio/url': major
-'@verdaccio/utils': major
 '@verdaccio/web': major
 'verdaccio': major
 'verdaccio-audit': major
