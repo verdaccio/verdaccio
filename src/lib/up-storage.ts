@@ -3,7 +3,6 @@ import JSONStream from 'JSONStream';
 import buildDebug from 'debug';
 import _ from 'lodash';
 import Stream from 'stream';
-import URL, { UrlWithStringQuery } from 'url';
 import zlib from 'zlib';
 
 import { ReadTarball } from '@verdaccio/streams';
@@ -50,7 +49,7 @@ class ProxyStorage {
   public ca: string | void;
   public logger: Logger;
   public server_id: string;
-  public url: any;
+  public url: URL;
   public maxage: number;
   public timeout: number;
   public max_fails: number;
@@ -80,7 +79,7 @@ class ProxyStorage {
     this.logger = logger;
     this.server_id = mainConfig.server_id;
 
-    this.url = URL.parse(this.config.url);
+    this.url = new URL(this.config.url);
 
     this._setupProxy(this.url.hostname, config, mainConfig, this.url.protocol === 'https:');
 
@@ -408,16 +407,14 @@ class ProxyStorage {
    * @return {Boolean}
    */
   public isUplinkValid(url: string): boolean {
-    const urlParsed: UrlWithStringQuery = URL.parse(url);
+    const urlParsed = new URL(url);
     const isHTTPS = (urlDomainParsed: URL): boolean =>
-      urlDomainParsed.protocol === 'https:' &&
-      (urlParsed.port === null || urlParsed.port === '443');
-    const getHost = (urlDomainParsed): boolean =>
+      urlDomainParsed.protocol === 'https:' && (urlParsed.port === '' || urlParsed.port === '443');
+    const getHost = (urlDomainParsed: URL): string =>
       isHTTPS(urlDomainParsed) ? urlDomainParsed.hostname : urlDomainParsed.host;
     const isMatchProtocol: boolean = urlParsed.protocol === this.url.protocol;
     const isMatchHost: boolean = getHost(urlParsed) === getHost(this.url);
-    // @ts-ignore
-    const isMatchPath: boolean = urlParsed.path.indexOf(this.url.path) === 0;
+    const isMatchPath: boolean = urlParsed.pathname.indexOf(this.url.pathname) === 0;
 
     return isMatchProtocol && isMatchHost && isMatchPath;
   }

@@ -1,7 +1,8 @@
 import fs from 'fs';
 import getPort from 'get-port';
+import nock from 'nock';
 import path from 'path';
-import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest';
+import { afterAll, afterEach, beforeAll, describe, expect, test, vi } from 'vitest';
 
 import { fileUtils } from '@verdaccio/core';
 import type { Config } from '@verdaccio/types';
@@ -29,19 +30,30 @@ type GenerateStorageOptions = {
   enableFilters?: boolean;
   filterPkg?: string;
   filterVersion?: string;
+  storagePath?: string;
+  uplinks?: Record<string, { url: string }>;
+  packages?: Record<string, any>;
 };
 
 const generateStorage = async function (port = mockServerPort, opts: GenerateStorageOptions = {}) {
-  const { enableFilters = false, filterPkg = 'jquery', filterVersion = '1.5.1' } = opts;
+  const {
+    enableFilters = false,
+    filterPkg = 'jquery',
+    filterVersion = '1.5.1',
+    storagePath: customStoragePath,
+    uplinks: customUplinks,
+    packages: customPackages,
+  } = opts;
 
   const baseConfig: any = {
     self_path: __dirname,
-    storage: storagePath,
-    uplinks: {
+    storage: customStoragePath || storagePath,
+    uplinks: customUplinks || {
       npmjs: {
         url: `http://localhost:${port}`,
       },
     },
+    ...(customPackages ? { packages: customPackages } : {}),
   };
 
   const storageConfig = configExample(
@@ -150,6 +162,366 @@ describe('StorageTest', () => {
           // @ts-ignore
           expect(storage.localStorage.updateVersions).not.toHaveBeenCalled();
           resolve(true);
+        });
+      });
+    });
+  });
+
+  describe('getTarball uplink validation', () => {
+    afterEach(() => {
+      nock.cleanAll();
+    });
+
+    test('should reject tarball when URL origin does not match authorized uplink', async () => {
+      const rejectStoragePath = await fileUtils.createTempStorageFolder('tarball-reject-test');
+      const storage: any = await generateStorage(mockServerPort, {
+        storagePath: rejectStoragePath,
+      });
+
+      await new Promise<void>((resolve) => {
+        storage._syncUplinksMetadata('jquery', null, {}, (err: any) => {
+          expect(err).toBeNull();
+          resolve();
+        });
+      });
+
+      // Inject a distfile pointing to a host not matching any uplink
+      await new Promise<void>((resolve) => {
+        storage.localStorage.getPackageMetadata('jquery', (err: any, info: any) => {
+          expect(err).toBeNull();
+          info._distfiles['jquery-1.5.1.tgz'] = {
+            url: 'http://other-host.example.com/jquery-1.5.1.tgz',
+            sha: 'fake-sha',
+          };
+          storage.localStorage._writePackage('jquery', info, () => resolve());
+        });
+      });
+
+      return new Promise<void>((resolve) => {
+        const stream = storage.getTarball('jquery', 'jquery-1.5.1.tgz');
+        stream.on('error', (err: any) => {
+          expect(err).toBeDefined();
+          expect(err.message).toMatch(/tarball URL origin does not match the configured uplink/);
+          expect(err.statusCode).toBe(HTTP_STATUS.FORBIDDEN);
+          resolve();
+        });
+      });
+    });
+
+    test('should allow tarball when URL matches the authorized uplink origin', async () => {
+      const tarballPath = path.join(__dirname, '../uplinks/__fixtures__', 'jquery-1.5.1.tgz');
+      const tarballSize = fs.statSync(tarballPath).size;
+
+      const allowStoragePath = await fileUtils.createTempStorageFolder('tarball-allow-test');
+      const storage: any = await generateStorage(mockServerPort, {
+        storagePath: allowStoragePath,
+      });
+
+      await new Promise<void>((resolve) => {
+        storage._syncUplinksMetadata('jquery', null, {}, (err: any) => {
+          expect(err).toBeNull();
+          resolve();
+        });
+      });
+
+      nock(`http://localhost:${mockServerPort}`)
+        .get('/jquery/-/jquery-1.5.1.tgz')
+        .replyWithFile(200, tarballPath, {
+          'Content-Type': 'application/octet-stream',
+          'Content-Length': tarballSize.toString(),
+        });
+
+      await new Promise<void>((resolve) => {
+        storage.localStorage.getPackageMetadata('jquery', (err: any, info: any) => {
+          expect(err).toBeNull();
+          info._distfiles['jquery-1.5.1.tgz'] = {
+            url: `http://localhost:${mockServerPort}/jquery/-/jquery-1.5.1.tgz`,
+            sha: '2ae2d661e906c1a01e044a71bb5b2743942183e5',
+          };
+          storage.localStorage._writePackage('jquery', info, () => resolve());
+        });
+      });
+
+      return new Promise<void>((resolve, reject) => {
+        const stream = storage.getTarball('jquery', 'jquery-1.5.1.tgz');
+        stream.on('error', (err: any) => {
+          reject(err);
+        });
+        stream.on('content-length', () => {
+          resolve();
+        });
+      });
+    });
+
+    test('should reject tarball pointing to internal IP', async () => {
+      const internalPath = await fileUtils.createTempStorageFolder('internal-ip-test');
+      const storage: any = await generateStorage(mockServerPort, {
+        storagePath: internalPath,
+      });
+
+      await new Promise<void>((resolve) => {
+        storage._syncUplinksMetadata('jquery', null, {}, (err: any) => {
+          expect(err).toBeNull();
+          resolve();
+        });
+      });
+
+      await new Promise<void>((resolve) => {
+        storage.localStorage.getPackageMetadata('jquery', (err: any, info: any) => {
+          expect(err).toBeNull();
+          info._distfiles['jquery-1.5.1.tgz'] = {
+            url: 'http://169.254.169.254/latest/meta-data/',
+            sha: 'fake-sha',
+          };
+          storage.localStorage._writePackage('jquery', info, () => resolve());
+        });
+      });
+
+      return new Promise<void>((resolve) => {
+        const stream = storage.getTarball('jquery', 'jquery-1.5.1.tgz');
+        stream.on('error', (err: any) => {
+          expect(err).toBeDefined();
+          expect(err.statusCode).toBe(HTTP_STATUS.FORBIDDEN);
+          resolve();
+        });
+      });
+    });
+
+    test('should return 404 when package has no proxy access configured', async () => {
+      // npm_test in store.spec.yaml has no proxy setting
+      const noProxyPath = await fileUtils.createTempStorageFolder('no-proxy-test');
+      const storage: any = await generateStorage(mockServerPort, {
+        storagePath: noProxyPath,
+      });
+
+      // Create a local package with a distfile
+      await new Promise<void>((resolve, reject) => {
+        const packageInfo: any = {
+          name: 'npm_test',
+          versions: {
+            '1.0.0': {
+              name: 'npm_test',
+              version: '1.0.0',
+              dist: {
+                shasum: 'abc123',
+                tarball: `http://localhost:${mockServerPort}/npm_test/-/npm_test-1.0.0.tgz`,
+              },
+            },
+          },
+          'dist-tags': { latest: '1.0.0' },
+          _uplinks: {},
+        };
+        storage.localStorage.updateVersions('npm_test', packageInfo, (err: any) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve();
+          }
+        });
+      });
+
+      return new Promise<void>((resolve) => {
+        const stream = storage.getTarball('npm_test', 'npm_test-1.0.0.tgz');
+        stream.on('error', (err: any) => {
+          expect(err).toBeDefined();
+          // No proxy configured for npm_test → 404
+          expect(err.statusCode).toBe(HTTP_STATUS.NOT_FOUND);
+          resolve();
+        });
+      });
+    });
+  });
+
+  describe('getTarball package access and proxy rules', () => {
+    afterEach(() => {
+      nock.cleanAll();
+    });
+
+    test('should allow tarball when URL matches one of multiple proxy uplinks', async () => {
+      // Simulates: packages.proxy lists both npmjs and yarn,
+      // tarball URL points to npmjs
+      const tarballPath = path.join(__dirname, '../uplinks/__fixtures__', 'jquery-1.5.1.tgz');
+      const tarballSize = fs.statSync(tarballPath).size;
+      const yarnPort = await getPort();
+
+      const crossStoragePath = await fileUtils.createTempStorageFolder('cross-uplink-test');
+      const storage: any = await generateStorage(mockServerPort, {
+        storagePath: crossStoragePath,
+        uplinks: {
+          npmjs: {
+            url: `http://localhost:${mockServerPort}`,
+          },
+          yarn: {
+            url: `http://localhost:${yarnPort}`,
+          },
+        },
+        packages: {
+          jquery: {
+            access: '$all',
+            publish: '$all',
+            proxy: 'yarn npmjs',
+          },
+        },
+      });
+
+      // Mock yarn uplink serving metadata
+      nock(`http://localhost:${yarnPort}`)
+        .get('/jquery')
+        .reply(
+          200,
+          JSON.parse(
+            fs.readFileSync(
+              path.join(__dirname, '../../partials/mock-store/jquery/package.json'),
+              'utf8'
+            )
+          )
+        );
+
+      await new Promise<void>((resolve) => {
+        storage._syncUplinksMetadata('jquery', null, {}, (err: any) => {
+          expect(err).toBeNull();
+          resolve();
+        });
+      });
+
+      // Tarball URL points to npmjs, which is an authorized proxy for jquery
+      nock(`http://localhost:${mockServerPort}`)
+        .get('/jquery/-/jquery-1.5.1.tgz')
+        .replyWithFile(200, tarballPath, {
+          'Content-Type': 'application/octet-stream',
+          'Content-Length': tarballSize.toString(),
+        });
+
+      await new Promise<void>((resolve) => {
+        storage.localStorage.getPackageMetadata('jquery', (err: any, info: any) => {
+          expect(err).toBeNull();
+          info._distfiles['jquery-1.5.1.tgz'] = {
+            url: `http://localhost:${mockServerPort}/jquery/-/jquery-1.5.1.tgz`,
+            sha: '2ae2d661e906c1a01e044a71bb5b2743942183e5',
+          };
+          storage.localStorage._writePackage('jquery', info, () => resolve());
+        });
+      });
+
+      return new Promise<void>((resolve, reject) => {
+        const stream = storage.getTarball('jquery', 'jquery-1.5.1.tgz');
+        stream.on('error', (err: any) => {
+          reject(err);
+        });
+        stream.on('content-length', () => {
+          resolve();
+        });
+      });
+    });
+
+    test('should reject tarball when URL matches uplink that is NOT in proxy list for this package', async () => {
+      // Simulates: packages.proxy only lists yarn for jquery,
+      // but tarball URL points to npmjs — should be rejected even though
+      // npmjs is a configured uplink
+      const yarnPort = await getPort();
+
+      const noAccessPath = await fileUtils.createTempStorageFolder('no-access-uplink-test');
+      const storage: any = await generateStorage(mockServerPort, {
+        storagePath: noAccessPath,
+        uplinks: {
+          npmjs: {
+            url: `http://localhost:${mockServerPort}`,
+          },
+          yarn: {
+            url: `http://localhost:${yarnPort}`,
+          },
+        },
+        packages: {
+          jquery: {
+            access: '$all',
+            publish: '$all',
+            proxy: 'yarn',
+          },
+        },
+      });
+
+      // Mock yarn serving metadata
+      nock(`http://localhost:${yarnPort}`)
+        .get('/jquery')
+        .reply(
+          200,
+          JSON.parse(
+            fs.readFileSync(
+              path.join(__dirname, '../../partials/mock-store/jquery/package.json'),
+              'utf8'
+            )
+          )
+        );
+
+      await new Promise<void>((resolve) => {
+        storage._syncUplinksMetadata('jquery', null, {}, (err: any) => {
+          expect(err).toBeNull();
+          resolve();
+        });
+      });
+
+      // Tarball URL points to npmjs, but only yarn has proxy access for jquery
+      await new Promise<void>((resolve) => {
+        storage.localStorage.getPackageMetadata('jquery', (err: any, info: any) => {
+          expect(err).toBeNull();
+          info._distfiles['jquery-1.5.1.tgz'] = {
+            url: `http://localhost:${mockServerPort}/jquery/-/jquery-1.5.1.tgz`,
+            sha: '2ae2d661e906c1a01e044a71bb5b2743942183e5',
+          };
+          storage.localStorage._writePackage('jquery', info, () => resolve());
+        });
+      });
+
+      return new Promise<void>((resolve) => {
+        const stream = storage.getTarball('jquery', 'jquery-1.5.1.tgz');
+        stream.on('error', (err: any) => {
+          expect(err).toBeDefined();
+          expect(err.statusCode).toBe(HTTP_STATUS.FORBIDDEN);
+          resolve();
+        });
+      });
+    });
+
+    test('should reject tarball when URL does not match any authorized uplink among multiple', async () => {
+      const yarnPort = await getPort();
+      const multiPath = await fileUtils.createTempStorageFolder('multi-uplink-reject-test');
+      const storage: any = await generateStorage(mockServerPort, {
+        storagePath: multiPath,
+        uplinks: {
+          npmjs: {
+            url: `http://localhost:${mockServerPort}`,
+          },
+          yarn: {
+            url: `http://localhost:${yarnPort}`,
+          },
+        },
+      });
+
+      await new Promise<void>((resolve) => {
+        storage._syncUplinksMetadata('jquery', null, {}, (err: any) => {
+          expect(err).toBeNull();
+          resolve();
+        });
+      });
+
+      // Inject a distfile pointing to a host that matches no uplink at all
+      await new Promise<void>((resolve) => {
+        storage.localStorage.getPackageMetadata('jquery', (err: any, info: any) => {
+          expect(err).toBeNull();
+          info._distfiles['jquery-1.5.1.tgz'] = {
+            url: 'http://unknown-registry.example.com/jquery-1.5.1.tgz',
+            sha: 'fake-sha',
+          };
+          storage.localStorage._writePackage('jquery', info, () => resolve());
+        });
+      });
+
+      return new Promise<void>((resolve) => {
+        const stream = storage.getTarball('jquery', 'jquery-1.5.1.tgz');
+        stream.on('error', (err: any) => {
+          expect(err).toBeDefined();
+          expect(err.statusCode).toBe(HTTP_STATUS.FORBIDDEN);
+          resolve();
         });
       });
     });
