@@ -19,7 +19,7 @@ const validSessionId = '12345678-1234-1234-1234-123456789012';
 describe('test web server', () => {
   beforeAll(() => {
     mockManifest.mockReturnValue(() => ({
-      staticPath: path.join(__dirname, 'static'),
+      staticPath: path.join(import.meta.dirname, 'static'),
       manifestFiles: {
         js: ['runtime.js', 'vendors.js', 'main.js'],
       },

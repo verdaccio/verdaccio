@@ -4,7 +4,7 @@ import { getDefaultConfig } from '@verdaccio/config';
 
 export const authProfileConf = {
   ...getDefaultConfig(),
-  plugins: path.join(__dirname, '../partials/plugin'),
+  plugins: path.join(import.meta.dirname, '../partials/plugin'),
   auth: {
     success: {},
   },
@@ -12,7 +12,7 @@ export const authProfileConf = {
 
 export const authChangePasswordConf = {
   ...getDefaultConfig(),
-  plugins: path.join(__dirname, '../partials/plugin'),
+  plugins: path.join(import.meta.dirname, '../partials/plugin'),
   auth: {
     'change-password': {},
   },
@@ -20,7 +20,7 @@ export const authChangePasswordConf = {
 
 export const authPluginFailureConf = {
   ...getDefaultConfig(),
-  plugins: path.join(__dirname, '../partials/plugin'),
+  plugins: path.join(import.meta.dirname, '../partials/plugin'),
   auth: {
     fail: {},
   },
@@ -28,7 +28,7 @@ export const authPluginFailureConf = {
 
 export const authPluginPassThrougConf = {
   ...getDefaultConfig(),
-  plugins: path.join(__dirname, '../partials/plugin'),
+  plugins: path.join(import.meta.dirname, '../partials/plugin'),
   auth: {
     passthroug: {},
   },
@@ -36,7 +36,7 @@ export const authPluginPassThrougConf = {
 
 export const authFailInvalidMethod = {
   ...getDefaultConfig(),
-  plugins: path.join(__dirname, '../partials/plugin'),
+  plugins: path.join(import.meta.dirname, '../partials/plugin'),
   auth: {
     'fail-invalid-method': {},
   },

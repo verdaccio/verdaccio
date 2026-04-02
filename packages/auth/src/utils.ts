@@ -1,15 +1,10 @@
 import buildDebug from 'debug';
-import _ from 'lodash';
+import { isNil } from 'lodash-es';
 
 import { createAnonymousRemoteUser } from '@verdaccio/config';
 import type { pluginUtils } from '@verdaccio/core';
 import { API_ERROR, HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER, errorUtils } from '@verdaccio/core';
-import {
-  aesDecrypt,
-  aesDecryptDeprecated,
-  parseBasicPayload,
-  verifyPayload,
-} from '@verdaccio/signature';
+import { aesDecrypt, parseBasicPayload, verifyPayload } from '@verdaccio/signature';
 import type { AuthPackageAllow, Config, Logger, RemoteUser, Security } from '@verdaccio/types';
 
 import type {
@@ -47,16 +42,7 @@ export function parseAESCredentials(authorizationHeader: string, secret: string)
     return credentials;
   } else if (scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
     debug('legacy header bearer');
-    debug('secret length %o', secret.length);
-    const isLegacyUnsecure = secret.length > 32;
-    debug('is legacy unsecure %o', isLegacyUnsecure);
-    if (isLegacyUnsecure) {
-      debug('legacy unsecure enabled');
-      return aesDecryptDeprecated(convertPayloadToBase64(token), secret).toString('utf-8');
-    } else {
-      debug('legacy secure enabled');
-      return aesDecrypt(token.toString(), secret);
-    }
+    return aesDecrypt(token.toString(), secret);
   }
 }
 
@@ -86,7 +72,7 @@ export function getMiddlewareCredentials(
   const { scheme, token } = parseAuthTokenHeader(authorizationHeader);
 
   debug('is jwt');
-  if (_.isString(token) && scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
+  if (typeof token === 'string' && scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
     return verifyJWTPayload(token, secretKey, security);
   }
 }
@@ -94,7 +80,7 @@ export function getMiddlewareCredentials(
 export function isAESLegacy(security: Security): boolean {
   const { legacy, jwt } = security.api;
 
-  return _.isNil(legacy) === false && _.isNil(jwt) && legacy === true;
+  return isNil(legacy) === false && isNil(jwt) && legacy === true;
 }
 
 export async function getApiToken(

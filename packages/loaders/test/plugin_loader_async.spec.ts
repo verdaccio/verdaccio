@@ -8,7 +8,7 @@ import { logger, setup } from '@verdaccio/logger';
 import { asyncLoadPlugin } from '../src/index';
 
 function getConfig(file: string): Config {
-  const conPath = path.join(__dirname, './partials/config', file);
+  const conPath = path.join(import.meta.dirname, './partials/config', file);
   return new Config(parseConfigFile(conPath));
 }
 
@@ -19,7 +19,7 @@ const storeSanitize = function (plugin) {
   return typeof plugin.getPackageStorage !== 'undefined';
 };
 
-const pluginsPartialsFolder = path.join(__dirname, './partials/test-plugin-storage');
+const pluginsPartialsFolder = path.join(import.meta.dirname, './partials/test-plugin-storage');
 
 beforeAll(async () => {
   await setup({});
@@ -75,7 +75,7 @@ describe('plugin loader', () => {
       test('should fails if plugins folder is not a directory', async () => {
         const config = getConfig('plugins-folder-fake.yaml');
         // force file instead a folder.
-        config.plugins = path.join(__dirname, 'just-a-file.js');
+        config.plugins = path.join(import.meta.dirname, 'just-a-file.js');
         const plugins = await asyncLoadPlugin(config.auth, { config, logger }, authSanitize);
 
         expect(plugins).toHaveLength(0);

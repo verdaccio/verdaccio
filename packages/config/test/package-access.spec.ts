@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { describe, expect, test } from 'vitest';
 
 import { parseConfigFile } from '../src';
@@ -138,9 +137,9 @@ describe('Package access utilities', () => {
       expect(all).toBeDefined();
 
       expect(all.access).toBeDefined();
-      expect(_.isArray(all.access)).toBeTruthy();
+      expect(Array.isArray(all.access)).toBeTruthy();
       expect(all.publish).toBeDefined();
-      expect(_.isArray(all.publish)).toBeTruthy();
+      expect(Array.isArray(all.publish)).toBeTruthy();
     });
   });
   describe('normaliseUserList', () => {

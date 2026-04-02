@@ -1,5 +1,5 @@
 import SearchMui from '@mui/icons-material/Search';
-import debounce from 'lodash/debounce';
+import { debounce } from 'lodash-es';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';

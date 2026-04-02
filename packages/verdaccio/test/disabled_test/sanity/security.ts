@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { isNil, isObject } from 'lodash-es';
 
 import { HTTP_STATUS } from '@verdaccio/core';
 
@@ -25,7 +25,7 @@ export default function (server) {
     test('should do not fails on __proto__, connect stuff', () => {
       return server.request({ uri: '/testpkg-sec?__proto__=1' }).then(function (body) {
         // test for NOT outputting stack trace
-        expect(_.isNil(body) || _.isObject(body) || body.indexOf('node_modules')).toBeTruthy();
+        expect(isNil(body) || isObject(body) || body.indexOf('node_modules')).toBeTruthy();
 
         // test for NOT crashing
         return server.request({ uri: '/testpkg-sec' }).status(HTTP_STATUS.OK);

@@ -13,8 +13,8 @@ export default defineConfig({
     runMode: 1,
     openMode: 0,
   },
-  screenshotOnRunFailure: true,
-  video: true,
+  screenshotOnRunFailure: false,
+  video: false,
   e2e: {
     setupNodeEvents(on) {
       async function ensureRegistryStarted() {

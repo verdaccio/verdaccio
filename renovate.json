@@ -26,8 +26,7 @@
     {
       "description": "Only allow @verdaccio/* and verdaccio-* versions 9+ on 7.x branch",
       "matchBaseBranches": ["7.x"],
-      "matchPackageNames": ["@verdaccio/*", "verdaccio-*"],
-      "allowedVersions": ">= 9.0.0"
+      "matchPackageNames": ["@verdaccio/*", "verdaccio-*"]
     },
     {
       "description": "Forbid major updates on 6.x branch",
