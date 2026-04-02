@@ -136,7 +136,7 @@ describe('buildPretty', () => {
 });
 
 describe('prettify default transport (buildSafeSonicBoom)', () => {
-  const prettifyTarget = path.resolve(__dirname, '..', 'build', 'prettify.js');
+  const prettifyTarget = path.resolve(import.meta.dirname, '..', 'build', 'prettify.js');
 
   async function createTempFile(): Promise<string> {
     const dir = await fileUtils.createTempFolder('prettify');

@@ -1,3 +1,5 @@
+name: Smoke Test
+
 on:
   workflow_call:
   pull_request:
@@ -64,12 +66,21 @@ jobs:
             cat /tmp/verdaccio-web.html
             exit 1
           fi
-          # Verify HTML contains expected verdaccio UI markers
-          if grep -q '__VERDACCIO_BASENAME_UI_OPTIONS' /tmp/verdaccio-web.html; then
+      - name: Verify web UI options are loaded
+        run: |
+          HTTP_CODE=$(curl -s -o /tmp/verdaccio-ui-options.js -w '%{http_code}' -H 'Accept: application/javascript' http://localhost:4873/-/static/ui-options.js)
+          echo "Web UI options HTTP status: $HTTP_CODE"
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "::error::Web UI options returned HTTP $HTTP_CODE"
+            cat /tmp/verdaccio-ui-options.js
+            exit 1
+          fi
+          # Verify JS contains expected verdaccio UI markers
+          if grep -q '__VERDACCIO_BASENAME_UI_OPTIONS' /tmp/verdaccio-ui-options.js; then
             echo "Web UI contains expected UI options"
           else
-            echo "::error::Web UI HTML missing __VERDACCIO_BASENAME_UI_OPTIONS"
-            cat /tmp/verdaccio-web.html
+            echo "::error::Web UI options missing __VERDACCIO_BASENAME_UI_OPTIONS"
+            cat /tmp/verdaccio-ui-options.js
             exit 1
           fi
       - name: Verify static assets load

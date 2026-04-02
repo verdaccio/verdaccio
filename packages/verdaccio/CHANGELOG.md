@@ -1,5 +1,55 @@
 # verdaccio
 
+## 9.0.0-next-9.8
+
+### Patch Changes
+
+- d68a86d: refactor: migrate from lodash to lodash-es and replace simple utilities with native JS
+- dc35b5e: renovate
+- Updated dependencies [d68a86d]
+  - @verdaccio/node-api@9.0.0-next-9.8
+  - @verdaccio/cli@9.0.0-next-9.8
+  - @verdaccio/hooks@9.0.0-next-9.8
+  - verdaccio-audit@14.0.0-next-9.8
+  - verdaccio-htpasswd@14.0.0-next-9.8
+  - @verdaccio/package-filter@14.0.0-next-9.32
+  - @verdaccio/ui-theme@9.0.0-next-9.8
+  - @verdaccio/logger@9.0.0-next-9.8
+
+## 9.0.0-next-9.7
+
+### Minor Changes
+
+- b8595a6: Add @verdaccio/package-filter as a dependency
+
+### Patch Changes
+
+- de2a000: test: no changes
+- Updated dependencies [d0405c9]
+- Updated dependencies [d148dc2]
+  - verdaccio-audit@14.0.0-next-9.7
+  - @verdaccio/ui-theme@9.0.0-next-9.7
+  - @verdaccio/cli@9.0.0-next-9.7
+  - @verdaccio/hooks@9.0.0-next-9.7
+  - @verdaccio/node-api@9.0.0-next-9.7
+  - verdaccio-htpasswd@14.0.0-next-9.7
+  - @verdaccio/package-filter@14.0.0-next-9.31
+  - @verdaccio/logger@9.0.0-next-9.7
+
+## 9.0.0-next-9.6
+
+### Patch Changes
+
+- Updated dependencies [80ddcda]
+- Updated dependencies [9d5360b]
+  - @verdaccio/ui-theme@9.0.0-next-9.6
+  - @verdaccio/cli@9.0.0-next-9.6
+  - @verdaccio/hooks@9.0.0-next-9.6
+  - @verdaccio/logger@9.0.0-next-9.6
+  - @verdaccio/node-api@9.0.0-next-9.6
+  - verdaccio-audit@14.0.0-next-9.6
+  - verdaccio-htpasswd@14.0.0-next-9.6
+
 ## 9.0.0-next-9.5
 
 ### Patch Changes

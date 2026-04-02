@@ -1,9 +1,7 @@
-// import LRU from 'lru-cache';
 import buildDebug from 'debug';
-import _ from 'lodash';
-import low from 'lowdb';
-import FileAsync from 'lowdb/adapters/FileAsync';
-import FileMemory from 'lowdb/adapters/Memory';
+import { escapeRegExp, isNil } from 'lodash-es';
+import { Low, Memory } from 'lowdb';
+import { JSONFile } from 'lowdb/node';
 import path from 'node:path';
 
 import type { searchUtils } from '@verdaccio/core';
@@ -34,7 +32,7 @@ class LocalDatabase extends pluginUtils.Plugin<{}> implements Storage {
   public readonly storages: Map<string, string>;
   public data: LocalStorage | undefined;
   public locked: boolean;
-  public tokenDb: low.LowdbAsync<any> | null;
+  public tokenDb: Low<Record<string, Token[]>> | null;
 
   public constructor(config: Config, logger: Logger) {
     // TODO: fix double config
@@ -120,7 +118,7 @@ class LocalDatabase extends pluginUtils.Plugin<{}> implements Storage {
     // FUTURE: apply new filters, keyword, version, ...
     return results.filter((item: searchUtils.SearchItemPkg) => {
       // Sanitize user input
-      const safeText = _.escapeRegExp(query.text);
+      const safeText = escapeRegExp(query.text);
       return item?.name?.match(safeText) !== null;
     }) as searchUtils.SearchItemPkg[];
   }
@@ -202,7 +200,7 @@ class LocalDatabase extends pluginUtils.Plugin<{}> implements Storage {
       packageAccess ? packageAccess.storage : undefined
     );
     debug('storage path selected %o', packagePath);
-    if (_.isString(packagePath) === false) {
+    if (typeof packagePath !== 'string') {
       debug('the package %o has no storage defined ', packageName);
       throw errorUtils.getInternalError('storage not found or implemented');
     }
@@ -282,7 +280,7 @@ class LocalDatabase extends pluginUtils.Plugin<{}> implements Storage {
 
   private _getLocalStoragePath(storage: string | void): string {
     const globalConfigStorage = this.getStoragePath();
-    if (_.isNil(globalConfigStorage)) {
+    if (isNil(globalConfigStorage)) {
       this.logger.error('property storage in config.yaml is required for using this plugin');
       throw new Error('property storage in config.yaml is required for using this plugin');
     } else {
@@ -316,20 +314,21 @@ class LocalDatabase extends pluginUtils.Plugin<{}> implements Storage {
     }
   }
 
-  private async getTokenDb(): Promise<low.LowdbAsync<any>> {
+  private async getTokenDb(): Promise<Low<Record<string, Token[]>>> {
     if (!this.tokenDb) {
       debug('token database is not defined');
       let adapter;
       if (process.env.NODE_ENV === 'test') {
         debug('token memory adapter');
-        adapter = new FileMemory('');
+        adapter = new Memory<Record<string, Token[]>>();
       } else {
         debug('token async adapter');
         const pathDb = _dbGenPath(TOKEN_DB_NAME, this.config);
-        adapter = new FileAsync(pathDb);
+        adapter = new JSONFile<Record<string, Token[]>>(pathDb);
       }
-      debug('token bd generated');
-      this.tokenDb = await low(adapter);
+      debug('token db generated');
+      this.tokenDb = new Low<Record<string, Token[]>>(adapter, {});
+      await this.tokenDb.read();
     }
 
     return this.tokenDb;
@@ -338,32 +337,31 @@ class LocalDatabase extends pluginUtils.Plugin<{}> implements Storage {
   public async saveToken(token: Token): Promise<void> {
     debug('token key %o', token.key);
     const db = await this.getTokenDb();
-    const userData = await db.get(token.user).value();
+    const userData = db.data[token.user];
     debug('user data %o', userData);
-    if (_.isNil(userData)) {
-      await db.set(token.user, [token]).write();
+    if (isNil(userData)) {
+      db.data[token.user] = [token];
       debug('token user %o new database', token.user);
     } else {
-      // types does not match with valid implementation
-      // @ts-ignore
-      await db.get(token.user).push(token).write();
+      db.data[token.user].push(token);
     }
-    debug('data %o', await db.getState());
+    await db.write();
+    debug('data %o', db.data);
     debug('token saved %o', token.user);
   }
 
   public async deleteToken(user: string, tokenKey: string): Promise<void> {
     const db = await this.getTokenDb();
-    const userTokens = await db.get(user).value();
-    if (_.isNil(userTokens)) {
+    const userTokens = db.data[user];
+    if (isNil(userTokens)) {
       throw new Error('user not found');
     }
     debug('tokens %o - %o', userTokens, userTokens.length);
-    const remainingTokens = userTokens.filter(({ key }) => {
+    db.data[user] = userTokens.filter(({ key }) => {
       debug('key %o', key);
       return key !== tokenKey;
     });
-    await db.set(user, remainingTokens).write();
+    await db.write();
     debug('removed tokens key %o', tokenKey);
   }
 
@@ -371,7 +369,7 @@ class LocalDatabase extends pluginUtils.Plugin<{}> implements Storage {
     const { user } = filter;
     debug('read tokens with %o', user);
     const db = await this.getTokenDb();
-    const tokens = await db.get(user).value();
+    const tokens = db.data[user];
     return tokens || [];
   }
 }

@@ -3,7 +3,7 @@ import cors from 'cors';
 import buildDebug from 'debug';
 import type { Express } from 'express';
 import express from 'express';
-import _ from 'lodash';
+import { get } from 'lodash-es';
 import AuditMiddleware from 'verdaccio-audit';
 
 import apiEndpoint from '@verdaccio/api';
@@ -38,7 +38,8 @@ import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types
 import hookDebug from './debug';
 
 const debug = buildDebug('verdaccio:server');
-const { version } = pkgUtils.getPackageJson(__dirname, '..');
+const currentDir = typeof __dirname !== 'undefined' ? __dirname : import.meta.dirname;
+const { version } = pkgUtils.getPackageJson(currentDir, '..');
 
 const defineAPI = async function (config: IConfig, storage: Storage): Promise<Express> {
   const auth = new Auth(config, logger);
@@ -105,15 +106,16 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<Ex
     plugins.push(auditPlugin);
   }
 
-  plugins.forEach((plugin: pluginUtils.ExpressMiddleware<IConfig, {}, Auth>) => {
+  // Ensure sequential execution in order, and that each registration completes before the next one starts
+  for (const plugin of plugins) {
     plugin.register_middlewares(app, auth, storage);
-  });
+  }
 
   // For package manager requests
   app.use(apiEndpoint(config, auth, storage, logger));
 
   // For WebUI & WebUI API
-  if (_.get(config, 'web.enabled', _.get(config, 'web.enable', true))) {
+  if (get(config, 'web.enabled', get(config, 'web.enable', true))) {
     app.use((_req, res, next) => {
       res.locals.app_version = version ?? '';
       next();

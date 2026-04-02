@@ -12,7 +12,7 @@ import routes from '../src';
 await setup({});
 
 export const getConf = (configName: string) => {
-  const configPath = path.join(__dirname, 'config', configName);
+  const configPath = path.join(import.meta.dirname, 'config', configName);
   return parseConfigFile(configPath);
 };
 

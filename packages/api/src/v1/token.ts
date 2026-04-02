@@ -1,5 +1,5 @@
 import type { Response, Router } from 'express';
-import _ from 'lodash';
+import { isBoolean, isNil } from 'lodash-es';
 
 import type { Auth } from '@verdaccio/auth';
 import { getApiToken } from '@verdaccio/auth';
@@ -38,7 +38,7 @@ export default function (
     async function (req: $RequestExtend, res: Response, next: $NextFunctionVer) {
       const { name } = req.remote_user;
 
-      if (_.isNil(name) === false) {
+      if (isNil(name) === false) {
         try {
           const tokens = await storage.readTokens({ user: name });
           const totalTokens = tokens.length;
@@ -67,7 +67,7 @@ export default function (
       const { password, readonly, cidr_whitelist } = req.body;
       const { name } = req.remote_user;
 
-      if (!_.isBoolean(readonly) || !_.isArray(cidr_whitelist)) {
+      if (!isBoolean(readonly) || !Array.isArray(cidr_whitelist)) {
         return next(errorUtils.getCode(HTTP_STATUS.BAD_DATA, SUPPORT_ERRORS.PARAMETERS_NOT_VALID));
       }
 
@@ -79,7 +79,7 @@ export default function (
 
         req.remote_user = user;
 
-        if (!_.isFunction(storage.saveToken)) {
+        if (typeof storage.saveToken !== 'function') {
           return next(
             errorUtils.getCode(HTTP_STATUS.NOT_IMPLEMENTED, SUPPORT_ERRORS.STORAGE_NOT_IMPLEMENT)
           );
@@ -112,7 +112,7 @@ export default function (
 
           await storage.saveToken(saveToken);
           logger.debug({ key, name }, 'token @{key} was created for user @{name}');
-          res.set(HEADERS.CACHE_CONTROL, 'no-cache, no-store');
+          res.set(HEADERS.CACHE_CONTROL, HEADERS.NO_CACHE);
           return next(
             normalizeToken({
               token,
@@ -140,7 +140,7 @@ export default function (
       } = req;
       const { name } = req.remote_user;
 
-      if (_.isNil(name) === false) {
+      if (isNil(name) === false) {
         logger.debug({ name }, '@{name} has requested remove a token');
         try {
           await storage.deleteToken(name, tokenKey);

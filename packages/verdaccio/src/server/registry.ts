@@ -93,7 +93,10 @@ export class Registry {
   }
 
   private _start(
-    verdaccioPath: string = path.join(__dirname, '../../bin/verdaccio')
+    verdaccioPath: string = path.join(
+      typeof __dirname !== 'undefined' ? __dirname : import.meta.dirname,
+      '../../bin/verdaccio'
+    )
   ): Promise<ChildProcess> {
     debug('_start %o', verdaccioPath);
     debug('port %o', this.port);

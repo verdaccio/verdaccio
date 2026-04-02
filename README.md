@@ -8,7 +8,7 @@
 
 # Version Next (Development Branch)
 
-> Version 6 requires Node.js 18 or higher and is maintained in the `6.x` branch.
+> Version 6 requires Node.js 18 or higher and is maintained in the `6.x` branch
 > Note that contributing guidelines might be different based on the branch.
 
 [Verdaccio](https://verdaccio.org/) is a simple, **zero-config-required local private npm registry**.

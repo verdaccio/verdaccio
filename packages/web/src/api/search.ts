@@ -1,6 +1,5 @@
 import buildDebug from 'debug';
 import { Router } from 'express';
-import _ from 'lodash';
 import { URLSearchParams } from 'node:url';
 
 import type { Auth } from '@verdaccio/auth';
@@ -76,7 +75,7 @@ function addSearchWebApi(storage: Storage, auth: Auth): Router {
         );
 
         const final = checkAccessPromises
-          .filter((i): i is Manifest => !_.isNull(i))
+          .filter((i): i is Manifest => i !== null)
           .slice(from, size);
 
         next(final);

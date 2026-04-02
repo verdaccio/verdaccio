@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import _, { isEmpty, isNil } from 'lodash';
+import { isEmpty, isEqual, isNil, reduce } from 'lodash-es';
 import assert from 'node:assert';
 import { basename } from 'node:path';
 import { PassThrough, Readable, Transform } from 'node:stream';
@@ -16,17 +16,13 @@ import {
   HEADER_TYPE,
   HTTP_STATUS,
   MAINTAINERS,
-  PLUGIN_CATEGORY,
-  PLUGIN_PREFIX,
   SUPPORT_ERRORS,
   USERS,
   cryptoUtils,
   errorUtils,
-  pluginUtils as pluginSanity,
   tarballUtils,
   validationUtils,
 } from '@verdaccio/core';
-import { asyncLoadPlugin } from '@verdaccio/loaders';
 import type {
   IProxy,
   ISyncUplinksOptions,
@@ -61,6 +57,7 @@ import type {
 
 import type { PublishOptions, UpdateManifestOptions } from '.';
 import { cleanUpReadme, isDeprecatedManifest, tagVersion, tagVersionNext } from '.';
+import { type Filters, applyManifestFilters, loadFilterPlugins } from './filter-pipeline';
 import { isExecutingStarCommand, isPublishablePackage } from './lib/star-utils';
 import {
   STORAGE,
@@ -82,7 +79,6 @@ import type { IGetPackageOptionsNext, OwnerManifestBody, StarManifestBody } from
 
 const debug = buildDebug('verdaccio:storage');
 
-export type Filters = pluginUtils.ManifestFilter<Config>[];
 export const noSuchFile = 'ENOENT';
 export const resourceNotAvailable = 'EAGAIN';
 export const PROTO_NAME = '__proto__';
@@ -128,7 +124,7 @@ class Storage {
       // eslint-disable-next-line guard-for-in
       for (const version in localData.versions) {
         const incomingVersion = metadata.versions[version];
-        if (_.isNil(incomingVersion)) {
+        if (isNil(incomingVersion)) {
           this.logger.info({ name: name, version: version }, 'unpublishing @{name}@@{version}');
 
           // FIXME: I prefer return a new object rather mutate the metadata
@@ -257,6 +253,7 @@ class Storage {
     let cachedManifest: Manifest | null = null;
     try {
       cachedManifest = await this.getPackageLocalMetadata(name);
+      [cachedManifest] = await this.applyFilters(cachedManifest);
     } catch (err) {
       debug('error on get package local metadata %o', err);
     }
@@ -372,6 +369,8 @@ class Storage {
 
       if (updatedManifest === null || !distFile) {
         debug('remote tarball not found');
+        // TODO: review the error message, it causes unnecessary
+        // error on console
         throw errorUtils.getNotFound(API_ERROR.NO_SUCH_FILE);
       }
 
@@ -447,7 +446,7 @@ class Storage {
 
   public async getPackageByVersion(options: IGetPackageOptionsNext): Promise<Version> {
     const queryVersion = options.version as string;
-    if (_.isNil(queryVersion)) {
+    if (isNil(queryVersion)) {
       throw errorUtils.getNotFound(`${API_ERROR.VERSION_NOT_EXIST}: ${queryVersion}`);
     }
 
@@ -469,8 +468,8 @@ class Storage {
 
     // the version could be a dist-tag eg: beta, alpha, so we find the matched version
     // on disg-tag list
-    if (_.isNil(convertedManifest[DIST_TAGS]) === false) {
-      if (_.isNil(convertedManifest[DIST_TAGS][queryVersion]) === false) {
+    if (isNil(convertedManifest[DIST_TAGS]) === false) {
+      if (isNil(convertedManifest[DIST_TAGS][queryVersion]) === false) {
         // the version found as a distag
         const matchedDisTagVersion: string = convertedManifest[DIST_TAGS][queryVersion];
         debug('dist-tag version found %o', matchedDisTagVersion);
@@ -579,7 +578,7 @@ class Storage {
     options: IGetPackageOptionsNext
   ): Promise<Manifest | AbbreviatedManifest | Version> {
     // if no version we return the whole manifest
-    if (_.isNil(options.version) === false) {
+    if (isNil(options.version) === false) {
       debug('get package by version %o', options.version);
       return this.getPackageByVersion(options);
     } else {
@@ -601,19 +600,18 @@ class Storage {
     for (const pkg of database) {
       debug('get local database %o', pkg);
       const manifest = await this.getPackageLocalMetadata(pkg);
-      const latest = manifest[DIST_TAGS].latest;
-      if (latest && manifest.versions[latest]) {
-        const version: Version = manifest.versions[latest];
-        const timeList = manifest.time as GenericBody;
+      const [filteredManifest] = await this.applyFilters(manifest);
+      const latest = filteredManifest[DIST_TAGS].latest;
+      if (latest && filteredManifest.versions[latest]) {
+        const version: Version = filteredManifest.versions[latest];
+        const timeList = filteredManifest.time as GenericBody;
         const time = timeList[latest];
         // @ts-ignore
         version.time = time;
 
         // Add for stars api
         // @ts-ignore
-        version.users = manifest.users;
-        // Remove readmes for packages list (which might exist with keep_readmes config)
-        version.readme = '';
+        version.users = filteredManifest.users;
 
         packages.push(version);
       } else {
@@ -624,7 +622,7 @@ class Storage {
   }
 
   public saveToken(token: Token): Promise<any> {
-    if (_.isFunction(this.localStorage.getStoragePlugin().saveToken) === false) {
+    if (typeof this.localStorage.getStoragePlugin().saveToken !== 'function') {
       return Promise.reject(
         errorUtils.getCode(HTTP_STATUS.SERVICE_UNAVAILABLE, SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE)
       );
@@ -634,7 +632,7 @@ class Storage {
   }
 
   public deleteToken(user: string, tokenKey: string): Promise<any> {
-    if (_.isFunction(this.localStorage.getStoragePlugin().deleteToken) === false) {
+    if (typeof this.localStorage.getStoragePlugin().deleteToken !== 'function') {
       return Promise.reject(
         errorUtils.getCode(HTTP_STATUS.SERVICE_UNAVAILABLE, SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE)
       );
@@ -644,7 +642,7 @@ class Storage {
   }
 
   public readTokens(filter: TokenFilter): Promise<Token[]> {
-    if (_.isFunction(this.localStorage.getStoragePlugin().readTokens) === false) {
+    if (typeof this.localStorage.getStoragePlugin().readTokens !== 'function') {
       return Promise.reject(
         errorUtils.getCode(HTTP_STATUS.SERVICE_UNAVAILABLE, SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE)
       );
@@ -670,18 +668,7 @@ class Storage {
       debug('storage has been already initialized');
     }
     if (!this.filters) {
-      this.filters = await asyncLoadPlugin<pluginUtils.ManifestFilter<unknown>>(
-        this.config.filters,
-        {
-          config: this.config,
-          logger: this.logger,
-        },
-        pluginSanity.filterSanityCheck,
-        false,
-        this.config.server?.pluginPrefix ?? PLUGIN_PREFIX,
-        PLUGIN_CATEGORY.FILTER
-      );
-      debug('filters available %o', this.filters.length);
+      this.filters = await loadFilterPlugins(this.config, this.logger);
     }
     return;
   }
@@ -740,8 +727,9 @@ class Storage {
       try {
         for (const searchItem of items) {
           const manifest = await this.getPackageLocalMetadata(searchItem.package.name);
-          if (_.isEmpty(manifest?.versions) === false) {
-            const searchPackage = mapManifestToSearchPackageBody(manifest, searchItem);
+          const [filteredManifest] = await this.applyFilters(manifest);
+          if (isEmpty(filteredManifest?.versions) === false) {
+            const searchPackage = mapManifestToSearchPackageBody(filteredManifest, searchItem);
             debug('search local stream found %o', searchPackage.name);
             const searchPackageItem: searchUtils.SearchPackageItem = {
               package: searchPackage,
@@ -880,12 +868,12 @@ class Storage {
       let newData: Manifest = { ...data };
       for (const tag of Object.keys(tags)) {
         // this handle dist-tag rm command
-        if (_.isNull(tags[tag])) {
+        if (tags[tag] === null) {
           delete newData[DIST_TAGS][tag];
           continue;
         }
 
-        if (_.isNil(newData.versions[tags[tag]])) {
+        if (isNil(newData.versions[tags[tag]])) {
           throw errorUtils.getNotFound(API_ERROR.VERSION_NOT_EXIST);
         }
         const version: string = tags[tag];
@@ -1020,7 +1008,7 @@ class Storage {
           ...localStarUsers,
           [username]: true,
         }
-      : _.reduce(
+      : reduce(
           localStarUsers,
           (users, value, key) => {
             if (key !== username) {
@@ -1199,9 +1187,9 @@ class Storage {
     try {
       const tarballStats = await this.getTarballStats(versions[versionToPublish], buffer);
       // Older package managers like npm6 do not send readme content as part of version but include it on root level
-      if (_.isEmpty(versions[versionToPublish].readme)) {
+      if (isEmpty(versions[versionToPublish].readme)) {
         versions[versionToPublish].readme =
-          _.isNil(manifest.readme) === false ? String(manifest.readme) : '';
+          isNil(manifest.readme) === false ? String(manifest.readme) : '';
       }
       // addVersion will move the readme from the the published version to the root level
       await this.addVersion(name, versionToPublish, versions[versionToPublish], null, tarballStats);
@@ -1424,12 +1412,12 @@ class Storage {
 
       // if uploaded tarball has a different shasum, it's very likely that we
       // have some kind of error
-      if (validationUtils.isObject(metadata.dist) && _.isString(metadata.dist.tarball)) {
+      if (validationUtils.isObject(metadata.dist) && typeof metadata.dist.tarball === 'string') {
         const tarball = tarballUtils.extractTarballFromUrl(metadata.dist.tarball);
         if (validationUtils.isObject(data._attachments[tarball])) {
           if (
-            _.isNil(data._attachments[tarball].shasum) === false &&
-            _.isNil(metadata.dist.shasum) === false
+            isNil(data._attachments[tarball].shasum) === false &&
+            isNil(metadata.dist.shasum) === false
           ) {
             if (data._attachments[tarball].shasum != metadata.dist.shasum) {
               const errorMessage =
@@ -1447,7 +1435,7 @@ class Storage {
         // if the time field doesn't exist, we create it, some old storage
         // might not have it
         // https://github.com/verdaccio/verdaccio/issues/740
-        if (_.isNil(data.time)) {
+        if (isNil(data.time)) {
           this.logger.warn(
             { name },
             'time field could not be found, it has been recreated for @{name}'
@@ -1529,7 +1517,7 @@ class Storage {
       return;
     } catch (err: any) {
       if (
-        _.isNull(err) === false &&
+        err !== null &&
         (err.code === STORAGE.FILE_EXIST_ERROR || err.code === HTTP_STATUS.CONFLICT)
       ) {
         debug(`error on creating a package for %o with error %o`, name, err.message);
@@ -1581,12 +1569,12 @@ class Storage {
 
   private setDefaultRevision(json: Manifest): Manifest {
     // calculate revision from couch db
-    if (_.isString(json._rev) === false) {
+    if (typeof json._rev !== 'string') {
       json._rev = STORAGE.DEFAULT_REVISION;
     }
 
     // this is intended in debug mode we do not want modify the store revision
-    if (_.isNil(this.config._debug)) {
+    if (isNil(this.config._debug)) {
       const prev = json._rev;
       json._rev = generateRevision(json._rev);
       debug('revision metadata for %s updated from %s to %s', json.name, prev, json._rev);
@@ -1597,7 +1585,7 @@ class Storage {
 
   private async writePackage(name: string, json: Manifest): Promise<void> {
     const storage: any = this.getPrivatePackageStorage(name);
-    if (_.isNil(storage)) {
+    if (isNil(storage)) {
       // TODO: replace here 500 error
       throw errorUtils.getBadData();
     }
@@ -1669,12 +1657,13 @@ class Storage {
     });
 
     // if both local data and upstream data are empty, we throw an error
-    if (!remoteManifest && _.isNull(data)) {
+    if (!remoteManifest && data === null) {
       throw errorUtils.getNotFound(`${API_ERROR.NOT_PACKAGE_UPLINK}: ${name}`);
       // if the remote manifest is empty, we return local data
-    } else if (!remoteManifest && !_.isNull(data)) {
+    } else if (!remoteManifest && data !== null) {
       // no data on uplinks
-      return [data as Manifest, upLinksErrors];
+      const [filteredData, filtersErrors] = await this.applyFilters(data);
+      return [filteredData, [...upLinksErrors, ...filtersErrors]];
     }
 
     // if we have local data, we try to update it with the upstream registry
@@ -1720,7 +1709,7 @@ class Storage {
     let found = localManifest !== null;
     let syncManifest: Manifest | null = null;
     let upLinks: string[] = [];
-    const hasToLookIntoUplinks = _.isNil(options.uplinksLook) || options.uplinksLook;
+    const hasToLookIntoUplinks = isNil(options.uplinksLook) || options.uplinksLook;
     debug('is sync uplink enabled %o', hasToLookIntoUplinks);
 
     if (hasToLookIntoUplinks) {
@@ -1731,14 +1720,18 @@ class Storage {
     //  if no uplinks match we return the local manifest
     if (upLinks.length === 0) {
       debug('no uplinks found for %o, upstream update aborted', name);
-      return [localManifest, []];
+      if (isNil(localManifest)) {
+        return [null, []];
+      }
+
+      return await this.applyFilters(localManifest);
     }
 
     const uplinksErrors: any[] = [];
     // we resolve uplinks async in series, first come first serve
     for (const uplink of upLinks) {
       try {
-        const tempManifest = _.isNil(localManifest)
+        const tempManifest = isNil(localManifest)
           ? generatePackageTemplate(name)
           : { ...localManifest };
         syncManifest = await this.mergeCacheRemoteMetadata(
@@ -1747,7 +1740,7 @@ class Storage {
           options
         );
         debug('syncing on uplink %o', syncManifest.name);
-        if (_.isNil(syncManifest) === false) {
+        if (isNil(syncManifest) === false) {
           found = true;
           break;
         }
@@ -1764,14 +1757,11 @@ class Storage {
       const updatedCacheManifest = await this.updateVersionsNext(name, syncManifest);
       // plugin filter applied to the manifest
       const [filteredManifest, filtersErrors] = await this.applyFilters(updatedCacheManifest);
-      return [
-        { ...updatedCacheManifest, ...filteredManifest },
-        [...uplinksErrors, ...filtersErrors],
-      ];
-    } else if (found && _.isNil(localManifest) === false) {
+      return [filteredManifest, [...uplinksErrors, ...filtersErrors]];
+    } else if (found && isNil(localManifest) === false) {
       // apply filter to local manifest (it is cached in unfiltered state)
       const [filteredManifest, filtersErrors] = await this.applyFilters(localManifest);
-      return [{ ...localManifest, ...filteredManifest }, [...uplinksErrors, ...filtersErrors]];
+      return [filteredManifest, [...uplinksErrors, ...filtersErrors]];
     } else {
       // if is not found, calculate the right error to return
       debug('uplinks sync failed with %o errors', uplinksErrors.length);
@@ -1862,24 +1852,7 @@ class Storage {
    * @returns
    */
   public async applyFilters(manifest: Manifest): Promise<[Manifest, any]> {
-    if (this.filters === null || this.filters.length === 0) {
-      return [manifest, []];
-    }
-
-    const filterPluginErrors: any[] = [];
-    let filteredManifest = { ...manifest };
-    for (const filter of this.filters) {
-      // These filters can assume it's save to modify packageJsonLocal
-      // and return it directly for
-      // performance (i.e. need not be pure)
-      try {
-        filteredManifest = await filter.filter_metadata(manifest);
-      } catch (err: any) {
-        this.logger.error({ err }, 'filter has failed: @{err.message}');
-        filterPluginErrors.push(err);
-      }
-    }
-    return [filteredManifest, filterPluginErrors];
+    return applyManifestFilters(manifest, this.filters ?? [], this.logger);
   }
 
   private _createNewPackage(name: string): Manifest {
@@ -1919,7 +1892,7 @@ class Storage {
    */
   private async readCreatePackage(pkgName: string): Promise<Manifest> {
     const storage: any = this.getPrivatePackageStorage(pkgName);
-    if (_.isNil(storage)) {
+    if (isNil(storage)) {
       throw errorUtils.getInternalError('storage could not be found');
     }
 
@@ -1965,7 +1938,7 @@ class Storage {
     debug('updating new remote versions');
     for (const versionId in remoteManifest.versions) {
       // if detect a new remote version does not exist cache
-      if (_.isNil(cacheManifest.versions[versionId])) {
+      if (isNil(cacheManifest.versions[versionId])) {
         debug('new version from upstream %o', versionId);
         let version = remoteManifest.versions[versionId];
 
@@ -1985,14 +1958,14 @@ class Storage {
           const filename = tarballUtils.extractTarballFromUrl(version.dist.tarball);
           // store a fast access to the dist file by tarball name
           // it does NOT overwrite any existing records
-          if (_.isNil(cacheManifest?._distfiles[filename])) {
+          if (isNil(cacheManifest?._distfiles[filename])) {
             const hash: DistFile = (cacheManifest._distfiles[filename] = {
               url: version.dist.tarball,
               sha: version.dist.shasum,
             });
             // store cache metadata this the manifest
             const upLink: string = version[Symbol.for('__verdaccio_uplink')];
-            if (_.isNil(upLink) === false) {
+            if (isNil(upLink) === false) {
               this.updateUplinkToRemoteProtocol(hash, upLink);
             }
           }
@@ -2028,7 +2001,7 @@ class Storage {
     }
 
     debug('update time');
-    if ('time' in remoteManifest && !_.isEqual(cacheManifest.time, remoteManifest.time)) {
+    if ('time' in remoteManifest && !isEqual(cacheManifest.time, remoteManifest.time)) {
       cacheManifest.time = remoteManifest.time;
       change = true;
     }

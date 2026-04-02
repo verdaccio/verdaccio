@@ -76,7 +76,7 @@ export const mockReadme = (packageName: string, content?: string) =>
 
 export const mockTarball = (fileName = 'verdaccio-1.0.0.tgz') =>
   http.get(`${BASE_URL}/verdaccio/-/${fileName}`, (() => {
-    const filePath = path.resolve(__dirname, `./api/${fileName}`);
+    const filePath = path.resolve(import.meta.dirname, `./api/${fileName}`);
     const fileContent = fs.readFileSync(filePath);
     return new HttpResponse(fileContent, {
       status: 200,

@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { isEmpty, isNil } from 'lodash-es';
 import request from 'supertest';
 
 import {
@@ -35,7 +35,7 @@ export function putPackage(
       .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
       .send(JSON.stringify(publishMetadata));
 
-    if (_.isEmpty(token) === false) {
+    if (isEmpty(token) === false) {
       expect(token).toBeDefined();
       put.set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token as string));
     }
@@ -56,7 +56,7 @@ export function deletePackage(request: any, pkgName: string, token?: string): Pr
       .put(`/${pkgName}/-rev/${cryptoUtils.generateRandomHexString(8)}`)
       .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON);
 
-    if (_.isNil(token) === false) {
+    if (isNil(token) === false) {
       del.set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token as string));
     }
 
@@ -202,7 +202,7 @@ export async function fetchPackageByVersionAndTag(
 export async function isExistPackage(app, packageName) {
   const [err] = await getPackage(request(app), '', packageName, HTTP_STATUS.OK);
 
-  return _.isNull(err);
+  return err === null;
 }
 
 export async function verifyPackageVersionDoesExist(app, packageName, version, token?: string) {
