@@ -2,7 +2,8 @@
   "compileOnSave": false,
   "compilerOptions": {
     "target": "esnext",
-    "module": "commonjs",
+    "module": "preserve",
+    "moduleResolution": "bundler",
     "noImplicitAny": false,
     "strict": true,
     "declaration": true,
@@ -67,9 +68,6 @@
     },
     {
       "path": "packages/ui-components"
-    },
-    {
-      "path": "packages/utils"
     },
     {
       "path": "packages/verdaccio"

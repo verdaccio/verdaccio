@@ -1,5 +1,5 @@
 import type { Response, Router } from 'express';
-import _ from 'lodash';
+import { isEmpty, isNil } from 'lodash-es';
 
 import type { Auth } from '@verdaccio/auth';
 import {
@@ -44,7 +44,7 @@ export default function (route: Router, auth: Auth, config: Config): void {
     PROFILE_API_ENDPOINTS.get_profile,
     rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
-      if (_.isNil(req.remote_user.name) === false) {
+      if (isNil(req.remote_user.name) === false) {
         return next(buildProfile(req.remote_user.name));
       }
 
@@ -59,7 +59,7 @@ export default function (route: Router, auth: Auth, config: Config): void {
     PROFILE_API_ENDPOINTS.get_profile,
     rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
-      if (_.isNil(req.remote_user.name)) {
+      if (isNil(req.remote_user.name)) {
         res.status(HTTP_STATUS.UNAUTHORIZED);
         return next({
           message: API_ERROR.MUST_BE_LOGGED,
@@ -69,7 +69,7 @@ export default function (route: Router, auth: Auth, config: Config): void {
       const { password, tfa } = req.body;
       const { name } = req.remote_user;
 
-      if (_.isNil(password) === false) {
+      if (isNil(password) === false) {
         if (
           validationUtils.validatePassword(
             password.new,
@@ -80,7 +80,7 @@ export default function (route: Router, auth: Auth, config: Config): void {
           return next(errorUtils.getCode(HTTP_STATUS.UNAUTHORIZED, API_ERROR.PASSWORD_SHORT));
         }
 
-        if (_.isEmpty(password.old)) {
+        if (isEmpty(password.old)) {
           return next(errorUtils.getBadRequest('old password is required'));
         }
 
@@ -89,7 +89,7 @@ export default function (route: Router, auth: Auth, config: Config): void {
           password.old,
           password.new,
           (err, isUpdated): $NextFunctionVer => {
-            if (_.isNull(err) === false) {
+            if (err !== null) {
               return next(errorUtils.getForbidden(err.message));
             }
 
@@ -99,7 +99,7 @@ export default function (route: Router, auth: Auth, config: Config): void {
             return next(errorUtils.getInternalError(API_ERROR.INTERNAL_SERVER_ERROR));
           }
         );
-      } else if (_.isNil(tfa) === false) {
+      } else if (isNil(tfa) === false) {
         return next(
           errorUtils.getCode(HTTP_STATUS.SERVICE_UNAVAILABLE, SUPPORT_ERRORS.TFA_DISABLED)
         );

@@ -1,5 +1,5 @@
 import express from 'express';
-import _ from 'lodash';
+import { head, isNil } from 'lodash-es';
 
 import { PLUGIN_CATEGORY, PLUGIN_UI_PREFIX } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
@@ -11,7 +11,7 @@ import webEndpointsApi from './api';
 export const DEFAULT_PLUGIN_UI_THEME = '@verdaccio/ui-theme';
 
 export async function loadTheme(config: any) {
-  if (_.isNil(config.theme) === false) {
+  if (isNil(config.theme) === false) {
     const plugin = await asyncLoadPlugin(
       config.theme,
       { config, logger },
@@ -33,7 +33,7 @@ export async function loadTheme(config: any) {
       logger.warn('multiple ui themes are not supported; only the first plugin is used');
     }
 
-    return _.head(plugin);
+    return head(plugin);
   }
 }
 

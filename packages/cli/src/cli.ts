@@ -23,7 +23,10 @@ const [node, app, ...args] = process.argv;
 const cli = new Cli({
   binaryLabel: `verdaccio`,
   binaryName: `${node} ${app}`,
-  binaryVersion: pkgUtils.getPackageJson(__dirname, '..').version as string,
+  binaryVersion: pkgUtils.getPackageJson(
+    typeof __dirname !== 'undefined' ? __dirname : import.meta.dirname,
+    '..'
+  ).version as string,
 });
 
 cli.register(InfoCommand);

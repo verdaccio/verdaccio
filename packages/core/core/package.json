@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/core",
-  "version": "9.0.0-next-9.6",
+  "version": "9.0.0-next-9.8",
   "description": "Verdaccio Core Components",
   "keywords": [
     "private",
@@ -41,7 +41,7 @@
     "semver": "7.7.4"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:14.0.0-next-9.3",
+    "@verdaccio/types": "workspace:14.0.0-next-9.4",
     "express": "5.2.1",
     "typedoc": "0.28.14",
     "vitest": "4.1.0"

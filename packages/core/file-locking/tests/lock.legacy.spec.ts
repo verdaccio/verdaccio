@@ -9,7 +9,7 @@ interface Error {
 }
 
 const getFilePath = (filename: string): string => {
-  return path.resolve(__dirname, `assets/legacy/${filename}`);
+  return path.resolve(import.meta.dirname, `assets/legacy/${filename}`);
 };
 
 const removeTempFile = (filename: string): void => {

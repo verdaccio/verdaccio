@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/url",
-  "version": "14.0.0-next-9.6",
+  "version": "14.0.0-next-9.8",
   "description": "Verdaccio URL Utilities",
   "keywords": [
     "private",
@@ -33,7 +33,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:9.0.0-next-9.6",
+    "@verdaccio/core": "workspace:9.0.0-next-9.8",
     "debug": "4.4.3",
     "validator": "13.15.26"
   },

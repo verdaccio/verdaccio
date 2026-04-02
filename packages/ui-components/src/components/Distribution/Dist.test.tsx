@@ -4,7 +4,7 @@ import { cleanup, render } from '../../test/test-react-testing-library';
 import type { PackageMetaInterface } from '../../types/packageMeta';
 import Dist from './Dist';
 
-const withDistComponent = (packageMeta: PackageMetaInterface): JSX.Element => (
+const withDistComponent = (packageMeta: PackageMetaInterface): React.JSX.Element => (
   <Dist packageMeta={packageMeta} />
 );
 
