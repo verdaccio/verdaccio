@@ -611,6 +611,8 @@ class Storage {
         // Add for stars api
         // @ts-ignore
         version.users = filteredManifest.users;
+        // Remove readmes for packages list (which might exist with keep_readmes config)
+        version.readme = '';
 
         packages.push(version);
       } else {
