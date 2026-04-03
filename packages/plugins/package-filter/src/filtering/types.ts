@@ -1,4 +1,4 @@
-import { PackageScopeLevel, ParsedConfigRule } from '../config/types';
+import type { PackageScopeLevel, ParsedConfigRule } from '../config/types';
 
 export enum MatchType {
   SCOPE = 'scope',

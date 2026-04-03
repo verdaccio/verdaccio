@@ -62,7 +62,7 @@ export default function renderHTML(
       debug('reuse template cache');
     }
   } catch (error: any) {
-    throw new Error(`theme could not be load, stack ${error.stack}`);
+    throw new Error(`theme could not be load, stack ${error.stack}`, { cause: error });
   }
   res.setHeader('Content-Type', HEADERS.TEXT_HTML);
   res.send(webPage);
