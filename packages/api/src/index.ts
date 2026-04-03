@@ -48,7 +48,15 @@ export default function (config: Config, auth: Auth, storage: Storage, logger: L
   // Body parser must be registered before JWT middleware which pauses/resumes the stream
   registerBodyParser(app, config);
 
-  app.use(auth.apiJWTmiddleware());
+  // Avoid executing JWT twice when the parent app already registered the JWT middleware
+  const apiJwtMiddleware = auth.apiJWTmiddleware();
+  app.use((req, res, next) => {
+    const remoteUser = (req as any).remote_user ?? (res.locals as any).remote_user;
+    if (remoteUser) {
+      return next();
+    }
+    return apiJwtMiddleware(req, res, next);
+  });
 
   app.use(antiLoop(config));
   app.use(makeURLrelative);
