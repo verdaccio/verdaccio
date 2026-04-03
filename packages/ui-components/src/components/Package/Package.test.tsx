@@ -1,8 +1,18 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router';
 
-import { cleanupDownloadMocks, setupDownloadMocks } from '../../../vitest/vitestHelpers';
-import { cleanup, fireEvent, renderWith, screen } from '../../test/test-react-testing-library';
+import {
+  cleanupDownloadMocks,
+  mockCreateObjectURL,
+  setupDownloadMocks,
+} from '../../../vitest/vitestHelpers';
+import {
+  cleanup,
+  fireEvent,
+  renderWith,
+  screen,
+  waitFor,
+} from '../../test/test-react-testing-library';
 import Package from './Package';
 
 /**
@@ -39,6 +49,7 @@ afterAll(() => {
 describe('<Package /> component', () => {
   afterEach(() => {
     cleanup();
+    mockCreateObjectURL.mockReset();
   });
 
   test('should load the component', () => {
@@ -82,7 +93,6 @@ describe('<Package /> component', () => {
     );
 
     fireEvent.click(screen.getByTestId('download-tarball'));
-    // TODO: juan
-    // await waitFor(() => expect(store.getState().loading.models.download).toBe(true));
+    await waitFor(() => expect(mockCreateObjectURL).toHaveBeenCalledTimes(1));
   });
 });

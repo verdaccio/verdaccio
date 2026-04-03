@@ -8,6 +8,9 @@ import { useTranslation } from 'react-i18next';
 import { MenuItem } from '../../';
 import HeaderGreetings from './HeaderGreetings';
 
+// Workaround: MUI v7 MenuProps type resolution breaks inherited PopoverProps.
+const TypedMenu = Menu as React.FC<any>;
+
 interface Props {
   username: string;
   isMenuOpen: boolean;
@@ -37,21 +40,17 @@ const HeaderMenu: React.FC<Props> = ({
       >
         <AccountCircle />
       </IconButton>
-      <Menu
+      <TypedMenu
         anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
         onClose={onLoggedInMenuClose}
         open={isMenuOpen}
-        slotProps={{
-          root: {
-            anchorOrigin: {
-              vertical: 'bottom',
-              horizontal: 'right',
-            },
-            transformOrigin: {
-              vertical: 'top',
-              horizontal: 'right',
-            },
-          } as any,
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
         }}
       >
         <MenuItem>
@@ -60,7 +59,7 @@ const HeaderMenu: React.FC<Props> = ({
         <MenuItem data-testid="logOutDialogIcon" id="logOutDialogIcon" onClick={onLogout}>
           {t('button.logout')}
         </MenuItem>
-      </Menu>
+      </TypedMenu>
     </>
   );
 };

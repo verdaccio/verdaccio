@@ -155,7 +155,7 @@ export const mockCliLogin = (status = 200, customResponse?: object) =>
  * @param customResponse - Override the default JSON body
  */
 export const mockAddUser = (status = 201, customResponse?: object) =>
-  http.put(`${BASE_URL}/-/web/add-user:*`, (async ({ request }) => {
+  http.put(`${BASE_URL}/-/web/add-user:username`, (async ({ request }) => {
     debug('Received add user request', request.method, request.url);
     const body = (await request.json()) as { name: string; password: string; email?: string };
 

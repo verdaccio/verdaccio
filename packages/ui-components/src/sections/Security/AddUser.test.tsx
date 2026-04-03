@@ -2,6 +2,7 @@ import React from 'react';
 import { vi } from 'vitest';
 
 import { mockAddUser } from '../../../vitest/msw-utils';
+import { server } from '../../../vitest/server';
 import {
   act,
   cleanup,
@@ -13,10 +14,21 @@ import {
 import { Route } from '../../utils';
 import AddUser from './AddUser';
 
+const mockNavigate = vi.fn();
+
+vi.mock('react-router', async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    ...actual,
+    useNavigate: () => mockNavigate,
+  };
+});
+
 describe('<AddUser /> component', () => {
   beforeEach(() => {
     vi.resetModules();
     vi.resetAllMocks();
+    mockNavigate.mockClear();
     cleanup();
   });
 
@@ -35,6 +47,7 @@ describe('<AddUser /> component', () => {
       renderWithRouter(<AddUser />, Route.ADD_USER, [Route.ADD_USER]);
     });
 
+    expect(mockNavigate).toHaveBeenCalledWith('/');
     expect(screen.queryByText('security.addUser.title')).not.toBeInTheDocument();
   });
 
@@ -121,7 +134,6 @@ describe('<AddUser /> component', () => {
 
   test('should show error message on failed submission', async () => {
     // Override the default handler with a 409 error response
-    const { server } = await import('../../../vitest/server');
     server.use(mockAddUser(409, { error: 'user already exists' }));
 
     window.__VERDACCIO_BASENAME_UI_OPTIONS = {
