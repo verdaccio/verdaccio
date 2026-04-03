@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 8.0.0-next-8.36
+
+### Patch Changes
+
+- 4296efb: fix: update dependencies
+
 ## 8.0.0-next-8.35
 
 ## 8.0.0-next-8.34
