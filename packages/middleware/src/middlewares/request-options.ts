@@ -25,7 +25,17 @@ export function getRequestOptions(req: $RequestExtend): RequestOptions {
     username: req.remote_user?.name ?? undefined,
   };
 
-  debug('request options: %o', requestOptions);
+  // Mask sensitive headers before debug output
+  const maskedRequestOptions = {
+    ...requestOptions,
+    headers: {
+      ...requestOptions.headers,
+      cookie: '<classified>',
+      authorization: '<classified>',
+    },
+  };
+
+  debug('request options: %o', maskedRequestOptions);
 
   return requestOptions;
 }

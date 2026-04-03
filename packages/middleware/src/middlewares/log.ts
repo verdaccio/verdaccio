@@ -1,21 +1,20 @@
 import buildDebug from 'debug';
 import { isNil } from 'lodash-es';
 
-import { HEADERS } from '@verdaccio/core';
+import { HEADERS, constants } from '@verdaccio/core';
 
 import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
 
 const debug = buildDebug('verdaccio:middleware:log');
 
 function isStaticRequest(url: string): boolean {
-  return url.startsWith('/-/static/');
+  return url.startsWith('/-/static/') || url.startsWith('/favicon');
 }
 
-// FIXME: deprecated, moved to @verdaccio/dev-commons
-export const LOG_STATUS_MESSAGE =
-  "@{status}, user: @{user}(@{remoteIP}), req: '@{request.method} @{request.url}'";
-export const LOG_VERDACCIO_ERROR = `${LOG_STATUS_MESSAGE}, error: @{!error}`;
-export const LOG_VERDACCIO_BYTES = `${LOG_STATUS_MESSAGE}, bytes: @{bytes.in}/@{bytes.out}`;
+// Converts all @{...} to %o for debug compatibility
+function convertToDebugString(template: string): string {
+  return template.replace(/@\{[^}]+\}/g, '%o');
+}
 
 export type LogOptions = {
   // When true, static file requests (/-/static/*) are hidden from pino logs
@@ -43,9 +42,9 @@ export const log = (logger, options: LogOptions = {}) => {
     req.url = req.originalUrl;
     const _skipLog = hideStaticLogs && isStaticRequest(req.url);
     if (_skipLog) {
-      debug("@{ip} requested '@{req.method} @{req.url}'", { ip: req.ip, req });
+      debug(convertToDebugString(constants.LOG_REQUEST_MESSAGE), req.ip, req.method, req.url);
     } else {
-      req.log.info({ req: req, ip: req.ip }, "@{ip} requested '@{req.method} @{req.url}'");
+      req.log.info({ req }, constants.LOG_REQUEST_MESSAGE);
     }
     req.originalUrl = req.url;
 
@@ -64,59 +63,103 @@ export const log = (logger, options: LogOptions = {}) => {
 
     let bytesout = 0;
     const _write = res.write;
-    // @ts-ignore
     res.write = function (...args): boolean {
       bytesout += args[0]?.length || 0;
       // @ts-ignore
       return _write.apply(res, args);
     };
 
-    const log = function (): void {
+    // Track if the request completed normally
+    let requestCompleted = false;
+    let abortLogged = false;
+
+    const getRequestContext = () => {
       const forwardedFor = req.get(HEADERS.FORWARDED_FOR);
       const remoteAddress = req.socket.remoteAddress;
       const remoteIP = forwardedFor ? `${forwardedFor} via ${remoteAddress}` : remoteAddress;
-      let message;
-      if (res.locals._verdaccio_error) {
-        message = LOG_VERDACCIO_ERROR;
-      } else {
-        message = LOG_VERDACCIO_BYTES;
-      }
-
-      req.url = req.originalUrl;
-      if (_skipLog) {
-        debug(message, {
-          request: { method: req.method, url: req.url },
-          user: req.remote_user?.name || null,
-          remoteIP,
-          status: res.statusCode,
-          error: res.locals._verdaccio_error,
-          bytes: { in: bytesin, out: bytesout },
-        });
-      } else {
-        req.log.http(
-          {
-            request: {
-              method: req.method,
-              url: req.url,
-            },
-            user: req.remote_user?.name || null,
-            remoteIP,
-            status: res.statusCode,
-            error: res.locals._verdaccio_error,
-            bytes: {
-              in: bytesin,
-              out: bytesout,
-            },
-          },
-          message
-        );
-      }
-      req.originalUrl = req.url;
+      return {
+        request: {
+          method: req.method,
+          url: req.originalUrl,
+        },
+        user: req.remote_user?.name || null,
+        remoteIP,
+        status: res.statusCode,
+        error: res.locals._verdaccio_error,
+        bytes: {
+          in: bytesin,
+          out: bytesout,
+        },
+      };
     };
 
-    req.on('close', function (): void {
-      log();
-    });
+    const logAbortedRequest = () => {
+      if (abortLogged || requestCompleted) return;
+      abortLogged = true;
+
+      req.log.info(
+        {
+          ...getRequestContext(),
+          status: constants.HTTP_STATUS.CLIENT_CLOSED_REQUEST,
+        },
+        constants.LOG_VERDACCIO_ABORT
+      );
+    };
+
+    const cleanupSocketListeners = () => {
+      req.socket.removeListener('close', onClose);
+      req.socket.removeListener('error', onError);
+    };
+
+    const onClose = () => {
+      if (!requestCompleted) {
+        logAbortedRequest();
+      }
+      cleanupSocketListeners();
+    };
+
+    const onError = () => {
+      if (!requestCompleted) {
+        logAbortedRequest();
+      }
+      cleanupSocketListeners();
+    };
+
+    const logCompletedRequest = () => {
+      requestCompleted = true;
+
+      const context = getRequestContext();
+      const message = context.error ? constants.LOG_VERDACCIO_ERROR : constants.LOG_VERDACCIO_BYTES;
+
+      if (_skipLog) {
+        if (context.error) {
+          debug(
+            convertToDebugString(message),
+            context.status,
+            context.user,
+            context.remoteIP,
+            context.request.method,
+            context.request.url,
+            context.error
+          );
+        } else {
+          debug(
+            convertToDebugString(message),
+            context.status,
+            context.user,
+            context.remoteIP,
+            context.request.method,
+            context.request.url,
+            context.bytes.in,
+            context.bytes.out
+          );
+        }
+      } else {
+        req.log.http(context, message);
+      }
+
+      cleanupSocketListeners();
+    };
 
     const _end = res.end;
     // @ts-ignore
@@ -126,8 +169,12 @@ export const log = (logger, options: LogOptions = {}) => {
       }
       // @ts-ignore
       _end.apply(res, args);
-      log();
+      logCompletedRequest();
     };
+
+    req.socket.on('close', onClose);
+    req.socket.on('error', onError);
+
     next();
   };
 };
