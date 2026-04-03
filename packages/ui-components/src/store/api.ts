@@ -52,15 +52,15 @@ class API {
 
     if (token && headers.has(AuthHeader) === false) {
       headers.set(AuthHeader, `Bearer ${token}`);
-      options.headers = headers;
     }
 
     headers.set('x-client', 'verdaccio-ui');
+    options.headers = headers;
 
     return new Promise((resolve, reject) => {
       fetch(url, {
         method,
-        credentials: 'same-origin',
+        credentials: token ? 'include' : 'same-origin',
         signal: options.signal,
         ...options,
       })

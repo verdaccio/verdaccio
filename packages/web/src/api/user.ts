@@ -15,7 +15,7 @@ import {
   validationUtils,
 } from '@verdaccio/core';
 import { WebUrls, rateLimit } from '@verdaccio/middleware';
-import type { Config, JWTSignOptions, RemoteUser } from '@verdaccio/types';
+import type { Config, RemoteUser } from '@verdaccio/types';
 
 import type { $NextFunctionVer } from './package';
 
@@ -41,10 +41,13 @@ function addUserAuthApi(auth: Auth, config: Config, storage: Storage): Router {
             next(errorUtils.getCode(errorCode, err.message));
           } else {
             req.remote_user = user as RemoteUser;
-            const jWTSignOptions: JWTSignOptions = config.security.web.sign;
             res.set(HEADERS.CACHE_CONTROL, HEADERS.NO_CACHE);
+            const token = await getApiToken(auth, config, user as RemoteUser, password);
+            if (!token) {
+              return next(errorUtils.getUnauthorized());
+            }
             next({
-              token: await auth.jwtEncrypt(user as RemoteUser, jWTSignOptions),
+              token,
               username: req.remote_user.name,
             });
           }
