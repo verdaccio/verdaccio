@@ -1,5 +1,18 @@
 # Change Log
 
+## 4.0.0-next-8.20
+
+### Patch Changes
+
+- 4296efb: fix: update dependencies
+- Updated dependencies [4296efb]
+  - @verdaccio/auth@8.0.0-next-8.36
+  - @verdaccio/config@8.0.0-next-8.36
+  - @verdaccio/core@8.0.0-next-8.36
+  - @verdaccio/types@13.0.0-next-8.12
+  - @verdaccio/logger@8.0.0-next-8.36
+  - @verdaccio/middleware@8.0.0-next-8.36
+
 ## 4.0.0-next-8.19
 
 ### Patch Changes

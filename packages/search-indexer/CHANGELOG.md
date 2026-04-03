@@ -1,5 +1,11 @@
 # @verdaccio/search-indexer
 
+## 8.0.0-next-8.6
+
+### Patch Changes
+
+- 4296efb: fix: update dependencies
+
 ## 8.0.0-next-8.5
 
 ### Patch Changes

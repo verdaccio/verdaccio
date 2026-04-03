@@ -1,5 +1,14 @@
 # @verdaccio/hooks
 
+## 8.0.0-next-8.36
+
+### Patch Changes
+
+- 4296efb: fix: update dependencies
+- Updated dependencies [4296efb]
+  - @verdaccio/core@8.0.0-next-8.36
+  - @verdaccio/logger@8.0.0-next-8.36
+
 ## 8.0.0-next-8.35
 
 ### Patch Changes

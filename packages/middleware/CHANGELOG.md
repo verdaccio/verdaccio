@@ -1,5 +1,15 @@
 # @verdaccio/middleware
 
+## 8.0.0-next-8.36
+
+### Patch Changes
+
+- 4296efb: fix: update dependencies
+- Updated dependencies [4296efb]
+  - @verdaccio/config@8.0.0-next-8.36
+  - @verdaccio/core@8.0.0-next-8.36
+  - @verdaccio/url@13.0.0-next-8.36
+
 ## 8.0.0-next-8.35
 
 ### Patch Changes
