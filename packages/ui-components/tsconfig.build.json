@@ -14,7 +14,7 @@
     "types": ["node", "@testing-library/jest-dom"]
   },
   "include": ["src/**/*"],
-  "exclude": ["src/**/*.stories.tsx", "src/**/*.test.tsx", "src/**/*.test.ts"],
+  "exclude": ["src/**/*.stories.tsx", "src/**/*.test.tsx", "src/**/*.test.ts", "src/test/**"],
   "typedocOptions": {
     "categoryOrder": ["Model", "Component", "Provider", "*"],
     "defaultCategory": "Component",

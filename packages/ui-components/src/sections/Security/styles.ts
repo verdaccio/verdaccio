@@ -11,7 +11,7 @@ export const SecurityContainer = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
 }));
 
-export const SecurityForm = styled(Box)(({ theme }) => ({
+export const SecurityForm = styled('form')(({ theme }) => ({
   width: '100%',
   maxWidth: 420,
   padding: theme.spacing(4),

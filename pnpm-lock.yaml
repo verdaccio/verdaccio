@@ -913,6 +913,10 @@ importers:
         version: link:../../core/types
 
   packages/plugins/ui-theme:
+    dependencies:
+      debug:
+        specifier: 4.4.3
+        version: 4.4.3(supports-color@5.5.0)
     devDependencies:
       '@mui/material':
         specifier: 7.3.9
@@ -1320,6 +1324,9 @@ importers:
       '@mui/material':
         specifier: 7.3.9
         version: 7.3.9(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@mui/system':
+        specifier: 7.3.9
+        version: 7.3.9(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react@19.2.4)
       '@verdaccio/ui-i18n':
         specifier: workspace:10.0.0-next-9.2
         version: link:../core/i18n
@@ -1329,6 +1336,9 @@ importers:
       dayjs:
         specifier: 1.11.20
         version: 1.11.20
+      debug:
+        specifier: 4.4.3
+        version: 4.4.3(supports-color@5.5.0)
       dompurify:
         specifier: 3.3.3
         version: 3.3.3

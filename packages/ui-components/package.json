@@ -25,10 +25,8 @@
     "test": "cross-env TZ=UTC vitest run",
     "clean": "rimraf ./build",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
-    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
-    "build:js": "vite build",
     "watch": "vite build --watch",
-    "build": "pnpm run build:js && pnpm run build:types",
+    "build": "vite build",
     "start": "cross-env BROWSER=none storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -39,9 +37,11 @@
     "@microlink/react-json-view": "1.31.12",
     "@mui/icons-material": "7.3.9",
     "@mui/material": "7.3.9",
+    "@mui/system": "7.3.9",
     "@verdaccio/ui-i18n": "workspace:10.0.0-next-9.2",
     "country-flag-icons": "1.6.15",
     "dayjs": "1.11.20",
+    "debug": "4.4.3",
     "dompurify": "3.3.3",
     "highlight.js": "11.11.1",
     "i18next": "25.8.18",
@@ -85,9 +85,6 @@
     "vite": "^8.0.0",
     "vitest": "4.1.0",
     "whatwg-fetch": "3.6.20"
-  },
-  "resolutions": {
-    "msw": "2.12.10"
   },
   "msw": {
     "workerDirectory": [
