@@ -136,6 +136,7 @@ export const LOG_STATUS_MESSAGE =
 export const LOG_VERDACCIO_ERROR = `${LOG_STATUS_MESSAGE}, error: @{!error}`;
 export const LOG_VERDACCIO_BYTES = `${LOG_STATUS_MESSAGE}, bytes: @{bytes.in}/@{bytes.out}`;
 export const LOG_VERDACCIO_ABORT = `${LOG_STATUS_MESSAGE}, request aborted by client`;
+export const LOG_REQUEST_MESSAGE = "@{req.ip} requested '@{req.method} @{req.url}'";
 
 export const ROLES = {
   $ALL: '$all',

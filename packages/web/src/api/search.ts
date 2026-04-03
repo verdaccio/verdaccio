@@ -43,13 +43,9 @@ function addSearchWebApi(storage: Storage, auth: Auth): Router {
     ): Promise<void> {
       try {
         const abort = new AbortController();
-        const onClose = () => {
+        req.socket.on('close', function () {
           debug('search web aborted');
           abort.abort();
-        };
-        req.socket.on('close', onClose);
-        _res.on('finish', () => {
-          req.socket.removeListener('close', onClose);
         });
         const text: string = (req.params.anything as string) ?? '';
         // These values are declared as optimal by npm cli

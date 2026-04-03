@@ -8,7 +8,12 @@ import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types
 const debug = buildDebug('verdaccio:middleware:log');
 
 function isStaticRequest(url: string): boolean {
-  return url.startsWith('/-/static/');
+  return url.startsWith('/-/static/') || url.startsWith('/favicon');
+}
+
+// Converts all @{...} to %o for debug compatibility
+function convertToDebugString(template: string): string {
+  return template.replace(/@\{[^}]+\}/g, '%o');
 }
 
 export type LogOptions = {
@@ -37,9 +42,9 @@ export const log = (logger, options: LogOptions = {}) => {
     req.url = req.originalUrl;
     const _skipLog = hideStaticLogs && isStaticRequest(req.url);
     if (_skipLog) {
-      debug("@{ip} requested '@{req.method} @{req.url}'", { ip: req.ip, req });
+      debug(convertToDebugString(constants.LOG_REQUEST_MESSAGE), req.ip, req.method, req.url);
     } else {
-      req.log.info({ req: req, ip: req.ip }, "@{ip} requested '@{req.method} @{req.url}'");
+      req.log.info({ req }, constants.LOG_REQUEST_MESSAGE);
     }
     req.originalUrl = req.url;
 
@@ -123,16 +128,34 @@ export const log = (logger, options: LogOptions = {}) => {
     const logCompletedRequest = () => {
       requestCompleted = true;
 
-      const message = res.locals._verdaccio_error
-        ? constants.LOG_VERDACCIO_ERROR
-        : constants.LOG_VERDACCIO_BYTES;
+      const context = getRequestContext();
+      const message = context.error ? constants.LOG_VERDACCIO_ERROR : constants.LOG_VERDACCIO_BYTES;
 
       if (_skipLog) {
-        debug(message, getRequestContext());
+        if (context.error) {
+          debug(
+            convertToDebugString(message),
+            context.status,
+            context.user,
+            context.remoteIP,
+            context.request.method,
+            context.request.url,
+            context.error
+          );
+        } else {
+          debug(
+            convertToDebugString(message),
+            context.status,
+            context.user,
+            context.remoteIP,
+            context.request.method,
+            context.request.url,
+            context.bytes.in,
+            context.bytes.out
+          );
+        }
       } else {
-        req.url = req.originalUrl;
-        req.log.http(getRequestContext(), message);
-        req.originalUrl = req.url;
+        req.log.http(context, message);
       }
 
       cleanupSocketListeners();
