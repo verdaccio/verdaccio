@@ -1,5 +1,11 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+echo "Checking pnpm lockfile is up-to-date..."
+if ! pnpm install --frozen-lockfile --lockfile-only 2>/dev/null; then
+  echo "ERROR: pnpm lockfile is out of date. Run 'pnpm install' and commit the updated lockfile."
+  exit 1
+fi
+
 #./node_modules/.bin/lint-staged
 npm run husky:pre-commit
