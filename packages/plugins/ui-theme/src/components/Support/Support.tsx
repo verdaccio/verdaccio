@@ -44,12 +44,12 @@ const Support = () => {
   return (
     <>
       <Grid container={true} spacing={2}>
-        <Grid item={true} xs={12}>
+        <Grid size={{ xs: 12 }}>
           <Typography component="h2" variant="h6">
             {title}
           </Typography>
         </Grid>
-        <Grid item={true} lg={12} xs={12}>
+        <Grid size={{ lg: 12, xs: 12 }}>
           <span style={{ fontStyle: 'italic', fontSize: '0.75rem' }}>
             <Typography>
               {`Hi, this is a message that I've composed to call your attention to ask 
