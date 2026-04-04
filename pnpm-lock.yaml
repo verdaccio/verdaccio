@@ -1578,6 +1578,9 @@ importers:
       jsdom:
         specifier: 28.1.0
         version: 28.1.0(@noble/hashes@1.8.0)
+      nock:
+        specifier: 13.5.6
+        version: 13.5.6
       supertest:
         specifier: 7.1.4
         version: 7.1.4

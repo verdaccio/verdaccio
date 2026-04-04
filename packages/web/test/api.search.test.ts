@@ -1,3 +1,4 @@
+import nock from 'nock';
 import path from 'node:path';
 import supertest from 'supertest';
 import { afterEach, beforeAll, describe, expect, test, vi } from 'vitest';
@@ -27,6 +28,7 @@ describe('test web server', () => {
   });
 
   afterEach(() => {
+    nock.cleanAll();
     Date.now = vi.fn(() => new Date(Date.UTC(2017, 1, 14)).valueOf());
     vi.clearAllMocks();
     mockManifest.mockClear();
@@ -63,7 +65,23 @@ describe('test web server', () => {
     expect(response.body).toHaveLength(3);
   });
 
-  test.todo('search abort request');
+  test('should abort search when the client disconnects', async () => {
+    nock('https://registry.npmjs.org')
+      .get(/\/-\/v1\/search/)
+      .delay(5000)
+      .reply(200, { objects: [], total: 0, time: '' });
+
+    const app = await initializeServer('search-abort.yaml');
+    const req = supertest(app)
+      .get('/-/verdaccio/data/search/abort-integration')
+      .set('Accept', HEADERS.JSON_CHARSET);
+
+    setImmediate(() => {
+      req.abort();
+    });
+
+    await expect(req).rejects.toThrow();
+  });
   // maybe these could be done in storage package to avoid have specifics on this level
   test.todo('search allow request permissions');
   test.todo('search query params, pagination etc');
