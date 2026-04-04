@@ -1,6 +1,7 @@
 import MockDate from 'mockdate';
+import nock from 'nock';
 import supertest from 'supertest';
-import { beforeEach, describe, expect, test } from 'vitest';
+import { afterEach, beforeEach, describe, expect, test } from 'vitest';
 
 import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 
@@ -134,6 +135,29 @@ describe('search', () => {
     });
   });
   describe('error handling', () => {
-    test.todo('should able to abort the request');
+    afterEach(() => {
+      nock.cleanAll();
+    });
+
+    test('should abort the request when the client disconnects', async () => {
+      nock('https://registry.npmjs.org')
+        .get(/\/-\/v1\/search/)
+        .delay(5000)
+        .reply(200, { objects: [], total: 0, time: '' });
+
+      const app = await initializeServer('search-abort.yaml');
+      const searchUrl =
+        '/-/v1/search?text=abort-integration&size=20&from=0&quality=0.65&popularity=0.98&maintenance=0.5';
+      const req = supertest(app)
+        .get(searchUrl)
+        .set(HEADERS.ACCEPT, HEADERS.JSON)
+        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON);
+
+      setImmediate(() => {
+        req.abort();
+      });
+
+      await expect(req).rejects.toThrow();
+    });
   });
 });

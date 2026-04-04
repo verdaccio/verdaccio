@@ -23,7 +23,6 @@ export default function (route, auth: Auth, storage: Storage, logger: Logger): v
           if (err.status && String(err.status).match(/^4\d\d$/)) {
             // auth plugin returns 4xx user error,
             // that's equivalent of !allowed basically
-            allowed = false;
             return resolve(null);
           } else {
             reject(err);
@@ -40,16 +39,16 @@ export default function (route, auth: Auth, storage: Storage, logger: Logger): v
     let [size, from] = ['size', 'from'].map((k) => query[k]);
     let data;
     const abort = new AbortController();
-
-    req.socket.on('close', function () {
+    const onClientClose = (): void => {
       debug('search web aborted');
       abort.abort();
-    });
-
-    size = parseInt(size, 10) || 20;
-    from = parseInt(from, 10) || 0;
+    };
+    req.socket.on('close', onClientClose);
 
     try {
+      size = parseInt(size ?? '20', 10);
+      from = parseInt(from ?? '0', 10);
+
       debug('storage search initiated');
       data = await storage.search({
         query,
@@ -65,7 +64,7 @@ export default function (route, auth: Auth, storage: Storage, logger: Logger): v
 
       const final: searchUtils.SearchItemPkg[] = checkAccessPromises
         .filter((i) => i !== null)
-        .slice(from, size);
+        .slice(from, from + size);
       logger.debug(`search results ${final?.length}`);
 
       const response: searchUtils.SearchResults = {
@@ -77,8 +76,10 @@ export default function (route, auth: Auth, storage: Storage, logger: Logger): v
       res.status(HTTP_STATUS.OK).json(response);
     } catch (error) {
       logger.error({ error }, 'search endpoint has failed @{error.message}');
-      next(next);
+      next(error);
       return;
+    } finally {
+      req.socket.off('close', onClientClose);
     }
   });
 }
