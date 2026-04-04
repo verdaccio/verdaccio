@@ -56,7 +56,7 @@ function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router 
   async function processPackages(packages: Version[] = [], req): Promise<Version[]> {
     const permissions: Version[] = [];
     const packagesToProcess = packages.slice();
-    debug('process packages %o', packagesToProcess);
+    debug('process packages %o', packagesToProcess.length);
     const requestOptions = getRequestOptions(req);
     for (const pkg of packagesToProcess) {
       const pkgCopy = { ...pkg };

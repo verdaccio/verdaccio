@@ -4,7 +4,7 @@ import assert from 'node:assert';
 import { basename } from 'node:path';
 import { PassThrough, Readable, Transform } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
-import { default as URL } from 'node:url';
+import { URL } from 'node:url';
 
 import { getProxiesForPackage, hasProxyTo } from '@verdaccio/config';
 import type { pluginUtils, searchUtils } from '@verdaccio/core';
@@ -455,9 +455,8 @@ class Storage {
 
     const version: Version | undefined = getVersion(convertedManifest.versions, queryVersion);
 
-    debug('query by latest version %o and result %o', queryVersion, version);
+    debug('query by latest version %o and result %o', queryVersion, version?.version);
     if (typeof version !== 'undefined') {
-      debug('latest version found %o', version);
       return convertDistVersionToLocalTarballsUrl(
         convertedManifest.name,
         version,
@@ -478,7 +477,7 @@ class Storage {
           matchedDisTagVersion
         );
         if (typeof disTagVersion !== 'undefined') {
-          debug('dist-tag found %o', disTagVersion);
+          debug('dist-tag found %o', disTagVersion?.version);
           return convertDistVersionToLocalTarballsUrl(
             convertedManifest.name,
             disTagVersion,
@@ -1577,7 +1576,7 @@ class Storage {
     if (isNil(this.config._debug)) {
       const prev = json._rev;
       json._rev = generateRevision(json._rev);
-      debug('revision metadata for %s updated from %s to %s', json.name, prev, json._rev);
+      debug('revision metadata for %o updated from %o to %o', json.name, prev, json._rev);
     }
 
     return json;
@@ -1673,7 +1672,7 @@ class Storage {
       _attachments: {},
     });
 
-    debug('no sync uplinks errors %o for %s', upLinksErrors?.length, name);
+    debug('no sync uplinks errors %o for %o', upLinksErrors?.length, name);
     return [normalizedPkg, upLinksErrors];
   }
 
@@ -1864,18 +1863,21 @@ class Storage {
    * @param {Object} hash metadata
    * @param {String} upLinkKey registry key
    * @private
-   * @deprecated use _updateUplinkToRemoteProtocolNext (???)
    */
   private updateUplinkToRemoteProtocol(hash: DistFile, upLinkKey: string): void {
     // if we got this information from a known registry,
     // use the same protocol for the tarball
-    const tarballUrl: any = URL.parse(hash.url);
-    const uplinkUrl: any = URL.parse(this.config.uplinks[upLinkKey].url);
+    try {
+      const tarballUrl = new URL(hash.url);
+      const uplinkUrl = new URL(this.config.uplinks[upLinkKey].url);
 
-    if (uplinkUrl.host === tarballUrl.host) {
-      tarballUrl.protocol = uplinkUrl.protocol;
-      hash.registry = upLinkKey;
-      hash.url = URL.format(tarballUrl);
+      if (uplinkUrl.host === tarballUrl.host) {
+        tarballUrl.protocol = uplinkUrl.protocol;
+        hash.registry = upLinkKey;
+        hash.url = tarballUrl.href;
+      }
+    } catch {
+      // ignore invalid URL or uplink config
     }
   }
 
@@ -1936,9 +1938,11 @@ class Storage {
     }
 
     debug('updating new remote versions');
+    let newVersions = 0;
     for (const versionId in remoteManifest.versions) {
       // if detect a new remote version does not exist cache
       if (isNil(cacheManifest.versions[versionId])) {
+        newVersions++;
         debug('new version from upstream %o', versionId);
         let version = remoteManifest.versions[versionId];
 
@@ -1948,7 +1952,6 @@ class Storage {
           remoteManifest[DIST_TAGS],
           this.config?.publish?.keep_readmes
         );
-        debug('clean up readme for %o', versionId);
         version.contributors = normalizeContributors(version.contributors as Author[]);
 
         change = true;
@@ -1970,9 +1973,12 @@ class Storage {
             }
           }
         }
-      } else {
-        debug('no new versions from upstream %s', name);
       }
+    }
+    if (newVersions > 0) {
+      debug('new versions from upstream: %o', newVersions);
+    } else {
+      debug('no new versions from upstream');
     }
 
     debug('update dist-tags');
