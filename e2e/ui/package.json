@@ -9,7 +9,7 @@
     "@verdaccio/test-helper": "workspace:*",
     "debug": "4.4.3",
     "cypress": "15.10.0",
-    "get-port": "5.1.1"
+    "get-port": "7.1.0"
   },
   "scripts": {
     "cypress:open": "cypress open",
