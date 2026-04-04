@@ -1,6 +1,6 @@
 uplinks:
   timeout:
-    url: https://registry.domain1.com/
+    url: https://registry.timeout.com/
     timeout: 2s
 packages:
   'timeout':
