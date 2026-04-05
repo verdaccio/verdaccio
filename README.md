@@ -349,6 +349,6 @@ If you encounter any issues, consider the following options. Don't hesitate to a
 
 ### License
 
-Verdaccio is [MIT licensed](https://github.com/verdaccio/verdaccio/blob/master/LICENSE)
+Verdaccio is [MIT licensed](https://github.com/verdaccio/verdaccio/blob/master/LICENSE).
 
 The Verdaccio documentation and logos (excluding `/assets/thanks` files such as `.md`, `.png`, and `.sketch`) are [Creative Commons licensed](https://creativecommons.org/licenses/by/4.0/).
