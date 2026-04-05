@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import _ from 'lodash';
 
+import type { Auth } from '@verdaccio/auth';
 import { createAnonymousRemoteUser } from '@verdaccio/config';
 import { WebUrls, allow } from '@verdaccio/middleware';
 import {
@@ -10,7 +11,6 @@ import {
 import type { Config, Manifest, RemoteUser } from '@verdaccio/types';
 import { addGravatarSupport, formatAuthor, generateGravatarUrl } from '@verdaccio/utils';
 
-import type Auth from '../../../lib/auth';
 import { DIST_TAGS, HEADERS, HEADER_TYPE, HTTP_STATUS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
 import type Storage from '../../../lib/storage';

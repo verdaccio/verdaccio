@@ -67,7 +67,134 @@ Verdaccio can be used as a module to launch a server programmatically. You can f
  });
 ```
 
+## Get Started
+
+To get started, run Verdaccio in your terminal:
+
+```bash
+verdaccio
+```
+
+Optionally, you can set some npm configuration:
+
+```bash
+$ npm set registry http://localhost:4873/
+```
+
+For one-off commands or to avoid setting the registry globally, use:
+
+```bash
+NPM_CONFIG_REGISTRY=http://localhost:4873 npm i
+```
+
+You can now navigate to [http://localhost:4873/](http://localhost:4873/) where your local packages will be listed and searchable.
+
+> Warning: Verdaccio [does not currently support PM2's cluster mode](https://github.com/verdaccio/verdaccio/issues/1301#issuecomment-489302298). Running it with cluster mode may lead to unknown behavior.
+
 ## Plugins
+
+Verdaccio ships with a set of built-in plugins so it works out of the box with zero configuration. You can replace or extend any of them with community plugins.
+
+### Bundled plugins
+
+| Plugin                       | Category   | Enabled by default | Description                                                                      |
+| ---------------------------- | ---------- | ------------------ | -------------------------------------------------------------------------------- |
+| `verdaccio-htpasswd`         | auth       | Yes                | Default authentication backend using an `htpasswd` file to store users.          |
+| `verdaccio-audit`            | middleware | Yes                | Implements the `npm audit` endpoint by proxying requests to a configured uplink. |
+| `@verdaccio/local-storage`   | storage    | Yes                | Default filesystem storage backend for packages and metadata.                    |
+| `@verdaccio/ui-theme`        | theme      | Yes                | Default web UI theme shipped with Verdaccio.                                     |
+| `@verdaccio/package-filter`  | filter     | No                 | Filters package metadata from uplinks (block versions, quarantine, whitelist).   |
+
+### Package Filter
+
+`@verdaccio/package-filter` is a built-in plugin that intercepts package metadata from uplinks and removes versions matching configurable rules. With no rules configured, it acts as a no-op passthrough.
+
+#### Block a compromised package version
+
+```yaml
+filters:
+  '@verdaccio/package-filter':
+    block:
+      - package: 'event-stream'
+        versions: '3.3.6'
+```
+
+#### Block an entire malicious scope
+
+```yaml
+filters:
+  '@verdaccio/package-filter':
+    block:
+      - scope: '@malicious'
+```
+
+#### Quarantine recently published versions
+
+Hide versions published less than 7 days ago, giving time for review before adoption:
+
+```yaml
+filters:
+  '@verdaccio/package-filter':
+    minAgeDays: 7
+```
+
+#### Freeze registry to a point in time
+
+Only serve versions published before a specific date:
+
+```yaml
+filters:
+  '@verdaccio/package-filter':
+    dateThreshold: '2025-01-01'
+```
+
+#### Whitelist trusted packages within blocked rules
+
+```yaml
+filters:
+  '@verdaccio/package-filter':
+    minAgeDays: 30
+    allow:
+      - scope: '@my-company'
+      - package: 'trusted-pkg'
+```
+
+#### Replace instead of remove
+
+Substitute a blocked version with the nearest older safe version, useful when removing it would break transitive dependencies:
+
+```yaml
+filters:
+  '@verdaccio/package-filter':
+    block:
+      - package: 'compromised-lib'
+        versions: '>=3.0.0'
+        strategy: replace
+```
+
+#### Full example
+
+```yaml
+filters:
+  '@verdaccio/package-filter':
+    minAgeDays: 7
+    block:
+      - scope: '@malicious'
+      - package: 'typosquat-pkg'
+      - package: 'compromised-lib'
+        versions: '>=3.0.0'
+        strategy: replace
+    allow:
+      - scope: '@my-org'
+      - package: 'compromised-lib'
+        versions: '3.0.1'
+```
+
+If a filter rejects a package entirely, Verdaccio returns a 404 to the client.
+
+Learn more at the [`@verdaccio/package-filter` documentation](https://github.com/verdaccio/verdaccio/blob/8.x/packages/plugins/package-filter/README.md) and the [filter plugins documentation](https://verdaccio.org/docs/plugin-filter).
+
+### Custom plugins
 
 You can develop your own [plugins](https://verdaccio.org/docs/plugins) using the [verdaccio generator](https://github.com/verdaccio/generator-verdaccio-plugin). [Yeoman](https://yeoman.io/) installation is required.
 
@@ -107,39 +234,10 @@ Here are a few examples to get started:
 
 - [e2e-ci-example-gh-actions](https://github.com/juanpicado/e2e-ci-example-gh-actions)
 - [verdaccio-end-to-end-tests](https://github.com/juanpicado/verdaccio-end-to-end-tests)
-- [verdaccio-fork](https://github.com/juanpicado/verdaccio-fork)
 
 ## Talks
 
-- [**NodeTLV 2022** - Deep Dive into Verdaccio, a Lightweight Node.js Registry - Juan Picado](https://portal.gitnation.org/contents/five-ways-of-taking-advantage-of-verdaccio-your-private-and-proxy-nodejs-registry)
-- [Five Ways of Taking Advantage of Verdaccio, Your Private and Proxy Node.js Registry - **Node Congress 2022** - Juan Picado](https://portal.gitnation.org/contents/five-ways-of-taking-advantage-of-verdaccio-your-private-and-proxy-nodejs-registry)
-- [Using Docker and Verdaccio to Make Integration Testing Easy - **Docker All Hands #4 December 2021** - Juan Picado](https://www.youtube.com/watch?v=zRI0skF1f8I)
-
-[View more on the YouTube channel](https://www.youtube.com/channel/UC5i20v6o7lSjXzAHOvatt0w).
-
-## Get Started
-
-To get started, run Verdaccio in your terminal:
-
-```bash
-verdaccio
-```
-
-Optionally, you can set some npm configuration:
-
-```bash
-$ npm set registry http://localhost:4873/
-```
-
-For one-off commands or to avoid setting the registry globally, use:
-
-```bash
-NPM_CONFIG_REGISTRY=http://localhost:4873 npm i
-```
-
-You can now navigate to [http://localhost:4873/](http://localhost:4873/) where your local packages will be listed and searchable.
-
-> Warning: Verdaccio [does not currently support PM2's cluster mode](https://github.com/verdaccio/verdaccio/issues/1301#issuecomment-489302298). Running it with cluster mode may lead to unknown behavior.
+See the list of Verdaccio talks at [verdaccio.org/talks](https://www.verdaccio.org/talks).
 
 ## Publishing
 
@@ -177,6 +275,8 @@ Available as [tags](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
 docker pull verdaccio/verdaccio:6.x-next
 ```
 
+> The `6.x-next` tag tracks the latest changes from the `6.x` branch. It is useful for previewing upcoming fixes and features, but it is **not recommended for production use**.
+
 ### Running Verdaccio using Docker
 
 To run the Docker container:
@@ -191,37 +291,27 @@ Docker examples are available [in this repository](https://github.com/verdaccio/
 
 Verdaccio aims to support all relevant features of a standard npm client for private repositories. However, full compatibility isn't always possible.
 
-### Basic features
-
-- Installing packages (`npm install`, `npm upgrade`, etc.) - **supported**
-- Publishing packages (`npm publish`) - **supported**
-
-### Advanced package control
-
-- Unpublishing packages (`npm unpublish`) - **supported**
-- Tagging (`npm tag`) - **supported**
-- Deprecation (`npm deprecate`) - **supported**
-
-### User management
-
-- Registering new users (`npm adduser {newuser}`) - **supported**
-- Change password (`npm profile set password`) - **supported**
-- Transferring ownership (`npm owner add {user} {pkg}`) - not supported, _PRs welcome_
-- Token (`npm token`) - **supported** (under flag)
-
-### Miscellany
-
-- Search (`npm search`) - **supported** (cli (`/-/all` and `v1`) / browser)
-- Ping (`npm ping`) - **supported**
-- Starring (`npm star`, `npm unstar`, `npm stars`) - **supported**
-
-### Security
-
-- npm/yarn audit - **supported**
+| Category                 | Feature                | Command                                 | Status                    |
+| ------------------------ | ---------------------- | --------------------------------------- | ------------------------- |
+| Basic features           | Installing packages    | `npm install`, `npm upgrade`, etc.      | Supported                 |
+| Basic features           | Publishing packages    | `npm publish`                           | Supported                 |
+| Advanced package control | Unpublishing packages  | `npm unpublish`                         | Supported                 |
+| Advanced package control | Tagging                | `npm tag`                               | Supported                 |
+| Advanced package control | Deprecation            | `npm deprecate`                         | Supported                 |
+| User management          | Registering new users  | `npm adduser {newuser}`                 | Supported                 |
+| User management          | Change password        | `npm profile set password`              | Supported                 |
+| User management          | Transferring ownership | `npm owner add {user} {pkg}`            | Not supported, PRs welcome |
+| User management          | Token                  | `npm token`                             | Supported (under flag)    |
+| Miscellany               | Search                 | `npm search`                            | Supported (cli `/-/all` and `v1`, browser) |
+| Miscellany               | Ping                   | `npm ping`                              | Supported                 |
+| Miscellany               | Starring               | `npm star`, `npm unstar`, `npm stars`   | Supported                 |
+| Security                 | Audit                  | `npm audit`, `yarn audit`               | Supported                 |
 
 ## Report a vulnerability
 
 To report a security vulnerability, please follow the steps outlined in our [security policy](https://github.com/verdaccio/verdaccio/policy).
+
+> **Note:** There is currently **no funding available for security research or bounty rewards**.
 
 
 

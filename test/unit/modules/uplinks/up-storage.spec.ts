@@ -1,7 +1,6 @@
-import getPort from 'get-port';
 import _ from 'lodash';
 import nock from 'nock';
-import { statSync } from 'node:fs';
+import { readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, test } from 'vitest';
 
@@ -17,35 +16,41 @@ import {
 } from '../../../../src/lib/constants';
 import { setup } from '../../../../src/lib/logger';
 import ProxyStorage from '../../../../src/lib/up-storage';
-import { mockServer } from '../../__helper/mock';
 import configExample from '../../partials/config';
 
 setup({});
 
-describe('UpStorage', () => {
-  let mockRegistry;
-  let generateProxy;
-  let mockServerPort;
-  beforeAll(async () => {
-    mockServerPort = await getPort();
+const UPLINK_URL = 'http://localhost:55551';
 
-    const uplinkDefault = {
-      url: `http://localhost:${mockServerPort}`,
+// Mock data loaded from disk
+const MOCK_STORE = join(__dirname, '../../partials/mock-store');
+const jqueryMetadata = JSON.parse(readFileSync(join(MOCK_STORE, 'jquery/package.json')).toString());
+const tarballFixture = join(__dirname, '__fixtures__', 'jquery-1.5.1.tgz');
+const tarballSize = statSync(tarballFixture).size;
+
+describe('UpStorage', () => {
+  let generateProxy: (config?: UpLinkConf) => ProxyStorage;
+
+  beforeAll(() => {
+    nock.disableNetConnect();
+
+    const uplinkDefault: UpLinkConf = {
+      url: UPLINK_URL,
     };
     generateProxy = (config: UpLinkConf = uplinkDefault) => {
       const appConfig: Config = new AppConfig(configExample());
 
       return new ProxyStorage(config, appConfig);
     };
-    mockRegistry = await mockServer(mockServerPort).init();
   });
 
   beforeEach(() => {
     nock.cleanAll();
   });
 
-  afterAll(function () {
-    mockRegistry[0].stop();
+  afterAll(() => {
+    nock.cleanAll();
+    nock.enableNetConnect();
   });
 
   test('should be defined', () => {
@@ -68,6 +73,7 @@ describe('UpStorage', () => {
     });
 
     test('should be get remote metadata', () => {
+      nock(UPLINK_URL).get('/jquery').reply(200, jqueryMetadata, { etag: '"abc123"' });
       const proxy = generateProxy();
 
       return new Promise((done) => {
@@ -82,10 +88,7 @@ describe('UpStorage', () => {
 
     test('should handle 404 on be get remote metadata', () => {
       return new Promise((done) => {
-        nock(`http://localhost:${mockServerPort}`)
-          .get(`/jquery`)
-          .once()
-          .reply(404, { name: 'jquery' });
+        nock(UPLINK_URL).get('/jquery').once().reply(404, { name: 'jquery' });
         const proxy = generateProxy();
 
         proxy.getRemoteMetadata('jquery', {}, (err) => {
@@ -97,10 +100,7 @@ describe('UpStorage', () => {
     });
 
     test('should handle 500 on be get remote metadata', () => {
-      nock(`http://localhost:${mockServerPort}`)
-        .get(`/jquery`)
-        .once()
-        .reply(500, { name: 'jquery' });
+      nock(UPLINK_URL).get('/jquery').once().reply(500, { name: 'jquery' });
       const proxy = generateProxy();
       return new Promise((done) => {
         proxy.getRemoteMetadata('jquery', {}, (err) => {
@@ -112,6 +112,7 @@ describe('UpStorage', () => {
     });
 
     test('should be get remote metadata with etag', () => {
+      nock(UPLINK_URL).get('/jquery').reply(200, jqueryMetadata, { etag: '"abc123"' });
       const proxy = generateProxy();
       return new Promise((done) => {
         proxy.getRemoteMetadata('jquery', { etag: '123456' }, (err, data, etag) => {
@@ -124,6 +125,7 @@ describe('UpStorage', () => {
     });
 
     test('should be get remote metadata package does not exist', () => {
+      nock(UPLINK_URL).get('/@verdaccio%2Ffake-package').reply(404, {});
       const proxy = generateProxy();
       return new Promise((done) => {
         proxy.getRemoteMetadata('@verdaccio/fake-package', { etag: '123456' }, (err) => {
@@ -136,7 +138,7 @@ describe('UpStorage', () => {
     });
 
     test('should be get remote metadata with json when uplink is npmmirror', () => {
-      nock('https://registry.npmmirror.com').get(`/jquery`).reply(200, { name: 'jquery' });
+      nock('https://registry.npmmirror.com').get('/jquery').reply(200, { name: 'jquery' });
       const proxy = generateProxy({ url: 'https://registry.npmmirror.com' });
       return new Promise((done) => {
         proxy.getRemoteMetadata('jquery', { json: true }, (err, data) => {
@@ -153,7 +155,7 @@ describe('UpStorage', () => {
           authorization: 'Bearer foo',
         },
       })
-        .get(`/jquery`)
+        .get('/jquery')
         .reply(200, { name: 'jquery' }, { etag: '123456' });
       const proxy = generateProxy({
         url: 'https://registry.npmmirror.com',
@@ -179,7 +181,7 @@ describe('UpStorage', () => {
           authorization: 'Bearer foo',
         },
       })
-        .get(`/jquery`)
+        .get('/jquery')
         .reply(200, { name: 'jquery' }, { etag: '123456' });
       const proxy = generateProxy({
         url: 'https://registry.npmmirror.com',
@@ -204,7 +206,7 @@ describe('UpStorage', () => {
           authorization: 'Bearer foo',
         },
       })
-        .get(`/jquery`)
+        .get('/jquery')
         .reply(200, { name: 'jquery' }, { etag: '123456' });
       const proxy = generateProxy({
         url: 'https://registry.npmmirror.com',
@@ -230,7 +232,7 @@ describe('UpStorage', () => {
           authorization: 'Basic foo',
         },
       })
-        .get(`/jquery`)
+        .get('/jquery')
 
         .reply(200, { name: 'jquery' }, { etag: '123456' });
       const proxy = generateProxy({
@@ -313,18 +315,12 @@ describe('UpStorage', () => {
 
   describe('fetchTarball', () => {
     test('should fetch a tarball from uplink', () => {
-      const tarballPath = join(__dirname, '__fixtures__', 'jquery-1.5.1.tgz');
-      const tarballSize = statSync(tarballPath).size;
-
-      nock(`http://localhost:${mockServerPort}`)
-        .get('/jquery/-/jquery-1.5.1.tgz')
-        .replyWithFile(200, tarballPath, {
-          'Content-Type': 'application/octet-stream',
-          'Content-Length': tarballSize.toString(),
-        })
-        .persist(); // optional: keep the interceptor alive for several calls
+      nock(UPLINK_URL).get('/jquery/-/jquery-1.5.1.tgz').replyWithFile(200, tarballFixture, {
+        'Content-Type': 'application/octet-stream',
+        'Content-Length': tarballSize.toString(),
+      });
       const proxy = generateProxy();
-      const tarball = `http://localhost:${mockServerPort}/jquery/-/jquery-1.5.1.tgz`;
+      const tarball = `${UPLINK_URL}/jquery/-/jquery-1.5.1.tgz`;
       const stream = proxy.fetchTarball(tarball);
       return new Promise((done) => {
         stream.on('error', function (err) {
@@ -340,8 +336,9 @@ describe('UpStorage', () => {
     });
 
     test('should throw a 404 on fetch a tarball from uplink', () => {
+      nock(UPLINK_URL).get('/jquery/-/no-exist-1.5.1.tgz').reply(404);
       const proxy = generateProxy();
-      const tarball = `http://localhost:${mockServerPort}/jquery/-/no-exist-1.5.1.tgz`;
+      const tarball = `${UPLINK_URL}/jquery/-/no-exist-1.5.1.tgz`;
       const stream = proxy.fetchTarball(tarball);
       return new Promise((done) => {
         stream.on('error', function (err: any) {
@@ -359,27 +356,23 @@ describe('UpStorage', () => {
     });
 
     test('should be offline uplink', () => {
-      const proxy = generateProxy();
-      const tarball = 'http://404.verdaccioo.com';
-      const stream = proxy.fetchTarball(tarball);
+      // Use nock to simulate a connection error for the offline uplink
+      const offlineUrl = 'http://offline.verdaccio.test';
+      nock(offlineUrl).get('/').replyWithError({ code: 'ENOTFOUND' }).persist();
+
+      const proxy = generateProxy({ url: offlineUrl });
+      const tarball = offlineUrl;
       expect(proxy.failed_requests).toBe(0);
       return new Promise((done) => {
-        // to test a uplink is offline we have to be try 3 times
-        // the default failed request are set to 2
         process.nextTick(function () {
+          const stream = proxy.fetchTarball(tarball);
           stream.on('error', function (err) {
             expect(err).not.toBeNull();
-            // expect(err.statusCode).toBe(404);
             expect(proxy.failed_requests).toBe(1);
 
             const streamSecondTry = proxy.fetchTarball(tarball);
             streamSecondTry.on('error', function (err) {
               expect(err).not.toBeNull();
-              /*
-                  code: 'ENOTFOUND',
-                  errno: 'ENOTFOUND',
-                 */
-              // expect(err.statusCode).toBe(404);
               expect(proxy.failed_requests).toBe(2);
               const streamThirdTry = proxy.fetchTarball(tarball);
               streamThirdTry.on('error', function (err: any) {

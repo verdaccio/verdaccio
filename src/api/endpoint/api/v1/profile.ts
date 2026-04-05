@@ -1,11 +1,11 @@
 import type { Response, Router } from 'express';
 import _ from 'lodash';
 
+import type { Auth } from '@verdaccio/auth';
 import { validationUtils } from '@verdaccio/core';
 import { rateLimit } from '@verdaccio/middleware';
 import type { ConfigYaml } from '@verdaccio/types';
 
-import type Auth from '../../../../lib/auth';
 import { API_ERROR, APP_ERROR, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../lib/constants';
 import { ErrorCode } from '../../../../lib/utils';
 import type { $NextFunctionVer, $RequestExtend } from '../../../../types';
