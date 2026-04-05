@@ -3,7 +3,7 @@ name: Docker Nightly Build
 on:
   push:
     branches:
-      - 6.x
+      - 6.xx
 
 jobs:
   docker-nightly:

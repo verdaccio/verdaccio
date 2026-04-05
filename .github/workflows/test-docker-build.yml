@@ -1,6 +1,6 @@
 name: Test Docker Build
 
-on: [push, pull_request]
+on: [pull_request]
 
 concurrency:
   group: ci-${{ github.ref }}-docker-build-test

@@ -1,6 +1,5 @@
 on:
   pull_request:
-  push:
 
 concurrency:
   group: e2e-audit-${{ github.ref }}-6.x

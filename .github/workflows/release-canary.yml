@@ -45,26 +45,26 @@ jobs:
             echo "should_skip=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Check commit is from a merged PR
-        id: pr-check
-        if: steps.tag-check.outputs.should_skip != 'true' && github.event_name != 'workflow_dispatch'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          # Wait for GitHub to index the merge commit
-          sleep 10
-          # Search for merged PRs whose merge commit matches this SHA
-          PR_NUMBER=$(gh pr list --state merged --base 6.x --json number,mergeCommit \
-            --jq ".[] | select(.mergeCommit.oid == \"${{ github.sha }}\") | .number" \
-            --limit 50)
-          if [ -z "$PR_NUMBER" ]; then
-            echo "::warning::Commit ${{ github.sha }} is not from a merged PR. Skipping canary publish."
-            echo "should_skip=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "should_skip=false" >> "$GITHUB_OUTPUT"
-            echo "pr_number=${PR_NUMBER}" >> "$GITHUB_OUTPUT"
-            echo "Commit is from merged PR #${PR_NUMBER}"
-          fi
+        # - name: Check commit is from a merged PR
+        #   id: pr-check
+        #   if: steps.tag-check.outputs.should_skip != 'true' && github.event_name != 'workflow_dispatch'
+        #   env:
+        #     GH_TOKEN: ${{ github.token }}
+        #   run: |
+        #     # Wait for GitHub to index the merge commit
+        #     sleep 10
+        #     # Search for merged PRs whose merge commit matches this SHA
+        #     PR_NUMBER=$(gh pr list --state merged --base 6.x --json number,mergeCommit \
+        #       --jq ".[] | select(.mergeCommit.oid == \"${{ github.sha }}\") | .number" \
+        #       --limit 50)
+        #     if [ -z "$PR_NUMBER" ]; then
+        #       echo "::warning::Commit ${{ github.sha }} is not from a merged PR. Skipping canary publish."
+        #       echo "should_skip=true" >> "$GITHUB_OUTPUT"
+        #     else
+        #       echo "should_skip=false" >> "$GITHUB_OUTPUT"
+        #       echo "pr_number=${PR_NUMBER}" >> "$GITHUB_OUTPUT"
+        #       echo "Commit is from merged PR #${PR_NUMBER}"
+        #     fi
 
       - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
         if: steps.tag-check.outputs.should_skip != 'true' && steps.pr-check.outputs.should_skip != 'true'
@@ -79,7 +79,7 @@ jobs:
         if: steps.tag-check.outputs.should_skip != 'true' && steps.pr-check.outputs.should_skip != 'true'
         run: yarn install --immutable
 
-      - name: Set canary version and scope
+      - name: Compute canary version
         if: steps.tag-check.outputs.should_skip != 'true' && steps.pr-check.outputs.should_skip != 'true'
         id: version
         run: |
@@ -87,20 +87,27 @@ jobs:
           SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
           CANARY_VERSION="${CURRENT_VERSION}-canary.${SHORT_SHA}"
           echo "canary_version=${CANARY_VERSION}" >> "$GITHUB_OUTPUT"
-          # Temporarily rename package for canary publish (not committed)
-          cp bin/verdaccio bin/verdaccio-canary
-          node -e "
-            const pkg = require('./package.json');
-            pkg.name = '@verdaccio/canary';
-            pkg.version = '${CANARY_VERSION}';
-            pkg.bin = { 'verdaccio-canary': './bin/verdaccio-canary' };
-            require('fs').writeFileSync('./package.json', JSON.stringify(pkg, null, 2) + '\n');
-          "
           echo "Publishing @verdaccio/canary@${CANARY_VERSION}"
 
       - name: Build
         if: steps.tag-check.outputs.should_skip != 'true' && steps.pr-check.outputs.should_skip != 'true'
         run: yarn build
+
+      - name: Rename package for canary publish
+        if: steps.tag-check.outputs.should_skip != 'true' && steps.pr-check.outputs.should_skip != 'true'
+        env:
+          CANARY_VERSION: ${{ steps.version.outputs.canary_version }}
+        run: |
+          # Rename after build so yarn workspace resolution isn't affected.
+          # These changes are not committed.
+          cp bin/verdaccio bin/verdaccio-canary
+          node -e "
+            const pkg = require('./package.json');
+            pkg.name = '@verdaccio/canary';
+            pkg.version = process.env.CANARY_VERSION;
+            pkg.bin = { 'verdaccio-canary': './bin/verdaccio-canary' };
+            require('fs').writeFileSync('./package.json', JSON.stringify(pkg, null, 2) + '\n');
+          "
 
       - name: Replace README for canary publish
         if: steps.tag-check.outputs.should_skip != 'true' && steps.pr-check.outputs.should_skip != 'true'

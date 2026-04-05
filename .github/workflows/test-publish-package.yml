@@ -1,6 +1,6 @@
 name: Test Publish Package
 
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
   testVerdaccio:

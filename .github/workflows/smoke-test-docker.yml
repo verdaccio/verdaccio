@@ -1,7 +1,7 @@
 name: Docker Smoke Test
 on:
   workflow_dispatch:
-  push:
+  
 permissions:
   contents: read
 
