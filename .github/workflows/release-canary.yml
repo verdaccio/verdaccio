@@ -1,0 +1,194 @@
+name: Release Canary
+
+on:
+  workflow_dispatch:  
+  push:
+    branches:
+      - 6.x
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  canary:
+    name: Publish Canary
+    runs-on: ubuntu-latest
+    if: |
+      github.actor != 'renovate[bot]' && github.actor != 'dependabot[bot]' && (
+        github.event_name == 'workflow_dispatch' || (
+          startsWith(github.event.head_commit.message, 'feat') ||
+          startsWith(github.event.head_commit.message, 'fix') ||
+          startsWith(github.event.head_commit.message, 'chore') ||
+          startsWith(github.event.head_commit.message, 'refactor') ||
+          startsWith(github.event.head_commit.message, 'perf') ||
+          startsWith(github.event.head_commit.message, 'docs') ||
+          startsWith(github.event.head_commit.message, 'style') ||
+          startsWith(github.event.head_commit.message, 'test') ||
+          startsWith(github.event.head_commit.message, 'build') ||
+          startsWith(github.event.head_commit.message, 'ci') ||
+          startsWith(github.event.head_commit.message, 'revert')
+        )
+      )
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-tags: true
+
+      - name: Skip if commit has a tag
+        id: tag-check
+        run: |
+          if git tag --points-at ${{ github.sha }} | grep -q .; then
+            echo "::warning::Commit ${{ github.sha }} has an associated tag. Skipping canary publish."
+            echo "should_skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "should_skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Check commit is from a merged PR
+        id: pr-check
+        if: steps.tag-check.outputs.should_skip != 'true' && github.event_name != 'workflow_dispatch'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Wait for GitHub to index the merge commit
+          sleep 10
+          # Search for merged PRs whose merge commit matches this SHA
+          PR_NUMBER=$(gh pr list --state merged --base 6.x --json number,mergeCommit \
+            --jq ".[] | select(.mergeCommit.oid == \"${{ github.sha }}\") | .number" \
+            --limit 50)
+          if [ -z "$PR_NUMBER" ]; then
+            echo "::warning::Commit ${{ github.sha }} is not from a merged PR. Skipping canary publish."
+            echo "should_skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "should_skip=false" >> "$GITHUB_OUTPUT"
+            echo "pr_number=${PR_NUMBER}" >> "$GITHUB_OUTPUT"
+            echo "Commit is from merged PR #${PR_NUMBER}"
+          fi
+
+      - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+        if: steps.tag-check.outputs.should_skip != 'true' && steps.pr-check.outputs.should_skip != 'true'
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Enable corepack
+        if: steps.tag-check.outputs.should_skip != 'true' && steps.pr-check.outputs.should_skip != 'true'
+        run: corepack enable
+
+      - name: Install dependencies
+        if: steps.tag-check.outputs.should_skip != 'true' && steps.pr-check.outputs.should_skip != 'true'
+        run: yarn install --immutable
+
+      - name: Set canary version and scope
+        if: steps.tag-check.outputs.should_skip != 'true' && steps.pr-check.outputs.should_skip != 'true'
+        id: version
+        run: |
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
+          SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
+          CANARY_VERSION="${CURRENT_VERSION}-canary.${SHORT_SHA}"
+          echo "canary_version=${CANARY_VERSION}" >> "$GITHUB_OUTPUT"
+          # Temporarily rename package for canary publish (not committed)
+          cp bin/verdaccio bin/verdaccio-canary
+          node -e "
+            const pkg = require('./package.json');
+            pkg.name = '@verdaccio/canary';
+            pkg.version = '${CANARY_VERSION}';
+            pkg.bin = { 'verdaccio-canary': './bin/verdaccio-canary' };
+            require('fs').writeFileSync('./package.json', JSON.stringify(pkg, null, 2) + '\n');
+          "
+          echo "Publishing @verdaccio/canary@${CANARY_VERSION}"
+
+      - name: Build
+        if: steps.tag-check.outputs.should_skip != 'true' && steps.pr-check.outputs.should_skip != 'true'
+        run: yarn build
+
+      - name: Replace README for canary publish
+        if: steps.tag-check.outputs.should_skip != 'true' && steps.pr-check.outputs.should_skip != 'true'
+        run: |
+          cat > README.md << 'CANARY_README'
+          # !!! CANARY BUILD — DO NOT USE IN PRODUCTION !!!
+
+          > **WARNING: This is an unstable canary release of [Verdaccio](https://github.com/verdaccio/verdaccio).**
+          > It is automatically published from the `6.x` branch for early testing only.
+          > It may contain breaking changes, incomplete features, or bugs.
+          > **Do not use this in production environments.**
+
+          ## Stable Version
+
+          For production use, install the stable release:
+
+          ```bash
+          npm install --global verdaccio
+          ```
+
+          - **Stable releases**: [verdaccio on npm](https://www.npmjs.com/package/verdaccio)
+          - **Repository**: [github.com/verdaccio/verdaccio](https://github.com/verdaccio/verdaccio)
+          - **Documentation**: [verdaccio.org](https://verdaccio.org/)
+
+          ## About this canary build
+
+          This package (`@verdaccio/canary`) is a pre-release snapshot published under a separate scope to avoid conflicts with the stable `verdaccio` package.
+
+          ```bash
+          npm install @verdaccio/canary@6.x
+          ```
+
+          ## Links
+
+          - [Main repository](https://github.com/verdaccio/verdaccio)
+          - [6.x branch](https://github.com/verdaccio/verdaccio/tree/6.x)
+          - [Documentation](https://verdaccio.org/)
+          - [Discord](https://discord.gg/7qWJxBf)
+          - [Report an issue](https://github.com/verdaccio/verdaccio/issues/new/choose)
+
+          ## License
+
+          MIT
+          CANARY_README
+
+      - name: Publish canary
+        if: steps.tag-check.outputs.should_skip != 'true' && steps.pr-check.outputs.should_skip != 'true'
+        run: |
+          npm config set "//registry.npmjs.org/:_authToken" "${REGISTRY_AUTH_TOKEN}"
+          npm publish --tag 6.x --access public
+          npm dist-tag add "@verdaccio/canary@${{ steps.version.outputs.canary_version }}" latest
+        env:
+          REGISTRY_AUTH_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
+
+      # - name: Comment on PR
+      #   if: >-
+      #     steps.tag-check.outputs.should_skip != 'true' &&
+      #     steps.pr-check.outputs.should_skip != 'true' &&
+      #     steps.pr-check.outputs.pr_number &&
+      #     github.actor != 'renovate[bot]' &&
+      #     github.actor != 'dependabot[bot]'
+      #   env:
+      #     GH_TOKEN: ${{ github.token }}
+      #   run: |
+      #     gh pr comment ${{ steps.pr-check.outputs.pr_number }} --body "$(cat <<'EOF'
+      #     ### Canary build published
+
+      #     A canary version was published from this PR for early testing:
+
+      #     ```bash
+      #     npm install -g @verdaccio/canary@${{ steps.version.outputs.canary_version }}
+      #     verdaccio-canary
+      #     ```
+
+      #     > **Warning:** This is an unstable pre-release build. Do not use in production.
+
+      #     This is an experimental feature currently in testing. Feedback is welcome — please report any issues in the [issue tracker](https://github.com/verdaccio/verdaccio/issues).
+      #     EOF
+      #     )"
+
+      # - name: Summary
+      #   if: steps.tag-check.outputs.should_skip != 'true' && steps.pr-check.outputs.should_skip != 'true'
+      #   run: |
+      #     echo "### Canary Published" >> $GITHUB_STEP_SUMMARY
+      #     echo "" >> $GITHUB_STEP_SUMMARY
+      #     echo "**Version:** \`${{ steps.version.outputs.canary_version }}\`" >> $GITHUB_STEP_SUMMARY
+      #     echo "" >> $GITHUB_STEP_SUMMARY
+      #     echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
+      #     echo "npm install -g @verdaccio/canary@${{ steps.version.outputs.canary_version }}" >> $GITHUB_STEP_SUMMARY
+      #     echo "verdaccio-canary" >> $GITHUB_STEP_SUMMARY
+      #     echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
