@@ -157,7 +157,7 @@ jobs:
         if: steps.tag-check.outputs.should_skip != 'true' && steps.pr-check.outputs.should_skip != 'true'
         run: |
           npm config set "//registry.npmjs.org/:_authToken" "${REGISTRY_AUTH_TOKEN}"
-          npm publish --tag 6.x --access public
+          npm publish --tag canary-6 --access public
           npm dist-tag add "@verdaccio/canary@${{ steps.version.outputs.canary_version }}" latest
         env:
           REGISTRY_AUTH_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
