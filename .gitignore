@@ -41,3 +41,4 @@ static/*
 .history
 CLAUDE.md
 .claude/settings.json
+.github/*.md
