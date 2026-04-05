@@ -1,6 +1,5 @@
 import assert from 'assert';
 import async, { AsyncResultArrayCallback } from 'async';
-import { log } from 'console';
 import buildDebug from 'debug';
 import _ from 'lodash';
 import Stream from 'stream';
@@ -291,7 +290,7 @@ class Storage {
       // trying local first
       let localStream: any = self.localStorage.getTarball(name, filename);
       let isOpen = false;
-      localStream.on('error', async (err): Promise<any> => {
+      localStream.on('error', (err): any => {
         if (isOpen || err.status !== HTTP_STATUS.NOT_FOUND) {
           return readStream.emit('error', err);
         }
@@ -300,40 +299,39 @@ class Storage {
         const err404 = err;
         localStream.abort();
         localStream = null; // we force for garbage collector
-        try {
-          const info = await self.localStorage.getPackageMetadataAsync(name);
-          if (info._distfiles && _.isNil(info._distfiles[filename]) === false) {
-            // information about this file exists locally
-            serveFile(info._distfiles[filename]);
-          } else {
-            // we know nothing about this file, trying to get information elsewhere
-            self._syncUplinksMetadata(name, info, {}, (err, info: Manifest): any => {
-              if (_.isNil(err) === false) {
-                return readStream.emit('error', err);
-              }
-              if (_.isNil(info._distfiles) || _.isNil(info._distfiles[filename])) {
-                return readStream.emit('error', err404);
-              }
-              serveFile(info._distfiles[filename]);
-            });
-          }
-        } catch {
-          // we know nothing about this file, trying to get information elsewhere
+
+        const lookupFromUplinks = (info: Manifest | null): void => {
           self._syncUplinksMetadata(
             name,
-            null as unknown as Manifest,
+            info as Manifest,
             {},
-            (err, info: Manifest): any => {
-              if (_.isNil(err) === false) {
-                return readStream.emit('error', err);
+            (syncErr, syncInfo: Manifest): any => {
+              if (_.isNil(syncErr) === false) {
+                return readStream.emit('error', syncErr);
               }
-              if (_.isNil(info._distfiles) || _.isNil(info._distfiles[filename])) {
+              if (_.isNil(syncInfo._distfiles) || _.isNil(syncInfo._distfiles[filename])) {
                 return readStream.emit('error', err404);
               }
-              serveFile(info._distfiles[filename]);
+              serveFile(syncInfo._distfiles[filename]);
             }
           );
-        }
+        };
+
+        self.localStorage.getPackageMetadataAsync(name).then(
+          (info) => {
+            if (info._distfiles && _.isNil(info._distfiles[filename]) === false) {
+              // information about this file exists locally
+              serveFile(info._distfiles[filename]);
+            } else {
+              // we know nothing about this file, trying to get information elsewhere
+              lookupFromUplinks(info);
+            }
+          },
+          () => {
+            // we know nothing about this file, trying to get information elsewhere
+            lookupFromUplinks(null);
+          }
+        );
       });
       localStream.on('content-length', function (v): void {
         readStream.emit('content-length', v);
