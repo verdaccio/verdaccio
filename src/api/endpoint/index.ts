@@ -1,5 +1,6 @@
 import express from 'express';
 
+import type { Auth } from '@verdaccio/auth';
 import {
   antiLoop,
   encodeScopePackage,
@@ -9,7 +10,6 @@ import {
 } from '@verdaccio/middleware';
 import type { Config } from '@verdaccio/types';
 
-import type { Auth } from '@verdaccio/auth';
 import type Storage from '../../lib/storage';
 import distTags from './api/dist-tags';
 import pkg from './api/package';

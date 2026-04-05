@@ -130,9 +130,7 @@ describe('InfoCommand', () => {
   test('should write envinfo output to stdout', async () => {
     vi.spyOn(process, 'exit').mockImplementation((() => {}) as any);
     const envinfo = await import('envinfo');
-    vi.mocked(envinfo.default.run).mockResolvedValue(
-      '\n  OS: macOS 14.0\n  CPU: Apple M1\n'
-    );
+    vi.mocked(envinfo.default.run).mockResolvedValue('\n  OS: macOS 14.0\n  CPU: Apple M1\n');
     const cli = new Cli();
     cli.register(InfoCommand);
     const output: string[] = [];
@@ -382,9 +380,7 @@ describe('InitCommand', () => {
     cli.register(InitCommand);
     await cli.run([], Cli.defaultContext);
 
-    expect(consoleSpy).toHaveBeenCalledWith(
-      expect.stringContaining('cannot open config file')
-    );
+    expect(consoleSpy).toHaveBeenCalledWith(expect.stringContaining('cannot open config file'));
   });
 });
 

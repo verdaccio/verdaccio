@@ -1,12 +1,12 @@
 import type { Router } from 'express';
 import _ from 'lodash';
 
+import type { Auth } from '@verdaccio/auth';
 import { stringUtils } from '@verdaccio/core';
 import { PACKAGE_API_ENDPOINTS, allow } from '@verdaccio/middleware';
 import { convertDistRemoteToLocalTarballUrls } from '@verdaccio/tarball';
 import type { Config, Manifest } from '@verdaccio/types';
 
-import type { Auth } from '@verdaccio/auth';
 import { API_ERROR, DIST_TAGS, HEADERS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
 import type Storage from '../../../lib/storage';

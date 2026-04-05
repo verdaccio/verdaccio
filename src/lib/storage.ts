@@ -575,10 +575,7 @@ class Storage {
 
           packages.push(version);
         } else {
-          this.logger.warn(
-            { package: name },
-            'package @{package} does not have a "latest" tag?'
-          );
+          this.logger.warn({ package: name }, 'package @{package} does not have a "latest" tag?');
         }
       } catch (err) {
         this.logger.error({ err, package: name }, 'error reading package @{package}');

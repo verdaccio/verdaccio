@@ -1,15 +1,15 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
+import { logger } from '@verdaccio/logger';
+
+import { displayExperimentsInfoBox } from '../../../../src/lib/experiments';
+
 vi.mock('@verdaccio/logger', () => ({
   logger: {
     warn: vi.fn(),
     info: vi.fn(),
   },
 }));
-
-import { logger } from '@verdaccio/logger';
-
-import { displayExperimentsInfoBox } from '../../../../src/lib/experiments';
 
 describe('displayExperimentsInfoBox', () => {
   beforeEach(() => {
@@ -50,17 +50,13 @@ describe('displayExperimentsInfoBox', () => {
   test('should log warning when experiments are present', () => {
     displayExperimentsInfoBox({ changePassword: true });
     expect(logger.warn).toHaveBeenCalledTimes(1);
-    expect(logger.warn).toHaveBeenCalledWith(
-      expect.stringContaining('experiments are enabled')
-    );
+    expect(logger.warn).toHaveBeenCalledWith(expect.stringContaining('experiments are enabled'));
   });
 
   test('should log info for each enabled experiment', () => {
     displayExperimentsInfoBox({ changePassword: true });
     expect(logger.info).toHaveBeenCalledTimes(1);
-    expect(logger.info).toHaveBeenCalledWith(
-      expect.stringContaining('changePassword')
-    );
+    expect(logger.info).toHaveBeenCalledWith(expect.stringContaining('changePassword'));
     expect(logger.info).toHaveBeenCalledWith(expect.stringContaining('is enabled'));
   });
 

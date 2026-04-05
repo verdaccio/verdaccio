@@ -1,11 +1,11 @@
 // this file is not aim to be tested, just to check typescript definitions
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { Auth } from '@verdaccio/auth';
 import { pluginUtils } from '@verdaccio/core';
 import { IReadTarball, IUploadTarball } from '@verdaccio/streams';
 import { Manifest } from '@verdaccio/types';
 import { Config as AppConfig, RemoteUser } from '@verdaccio/types';
 
-import { Auth } from '@verdaccio/auth';
 import Config from '../../../../src/lib/config';
 import Storage from '../../../../src/lib/storage';
 import { generatePackageTemplate } from '../../../../src/lib/storage-utils';

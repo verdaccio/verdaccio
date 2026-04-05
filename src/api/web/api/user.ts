@@ -2,11 +2,11 @@ import type { Request, Response } from 'express';
 import { Router } from 'express';
 import _ from 'lodash';
 
+import type { Auth } from '@verdaccio/auth';
 import { validationUtils } from '@verdaccio/core';
 import { WebUrls, rateLimit } from '@verdaccio/middleware';
 import type { Config, JWTSignOptions, RemoteUser } from '@verdaccio/types';
 
-import type { Auth } from '@verdaccio/auth';
 import { getSecurity } from '../../../lib/auth-utils';
 import { API_ERROR, APP_ERROR, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { ErrorCode } from '../../../lib/utils';

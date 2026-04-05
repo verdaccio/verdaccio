@@ -2,6 +2,12 @@ import fs from 'fs';
 import https from 'https';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
+import { getListenAddress } from '@verdaccio/config';
+
+import { startVerdaccio } from '../../../../src/lib/bootstrap';
+import { logger } from '../../../../src/lib/logger';
+import { logHTTPSWarning } from '../../../../src/lib/utils';
+
 // Mock dependencies to isolate bootstrap logic
 const mockEndPointAPI = vi.fn().mockResolvedValue({} as any);
 vi.mock('../../../../src/api/index', () => ({
@@ -29,12 +35,6 @@ vi.mock('../../../../src/lib/utils', () => ({
 vi.mock('@verdaccio/config', () => ({
   getListenAddress: vi.fn(),
 }));
-
-import { getListenAddress } from '@verdaccio/config';
-
-import { startVerdaccio } from '../../../../src/lib/bootstrap';
-import { logger } from '../../../../src/lib/logger';
-import { logHTTPSWarning } from '../../../../src/lib/utils';
 
 describe('bootstrap handleHTTPS (via startVerdaccio)', () => {
   const mockCallback = vi.fn();
@@ -72,10 +72,17 @@ describe('bootstrap handleHTTPS (via startVerdaccio)', () => {
       };
 
       await new Promise<void>((resolve) => {
-        startVerdaccio(config as any, 'https://localhost:4873', '/config.yaml', '1.0.0', 'verdaccio', (...args) => {
-          mockCallback(...args);
-          resolve();
-        });
+        startVerdaccio(
+          config as any,
+          'https://localhost:4873',
+          '/config.yaml',
+          '1.0.0',
+          'verdaccio',
+          (...args) => {
+            mockCallback(...args);
+            resolve();
+          }
+        );
       });
 
       expect(createServerSpy).toHaveBeenCalledTimes(1);
@@ -104,10 +111,17 @@ describe('bootstrap handleHTTPS (via startVerdaccio)', () => {
       };
 
       await new Promise<void>((resolve) => {
-        startVerdaccio(config as any, 'https://localhost:4873', '/config.yaml', '1.0.0', 'verdaccio', (...args) => {
-          mockCallback(...args);
-          resolve();
-        });
+        startVerdaccio(
+          config as any,
+          'https://localhost:4873',
+          '/config.yaml',
+          '1.0.0',
+          'verdaccio',
+          (...args) => {
+            mockCallback(...args);
+            resolve();
+          }
+        );
       });
 
       const httpsOptions = createServerSpy.mock.calls[0][0] as any;
@@ -128,9 +142,16 @@ describe('bootstrap handleHTTPS (via startVerdaccio)', () => {
       };
 
       await new Promise<void>((resolve) => {
-        startVerdaccio(config as any, 'https://localhost:4873', '/config.yaml', '1.0.0', 'verdaccio', () => {
-          resolve();
-        });
+        startVerdaccio(
+          config as any,
+          'https://localhost:4873',
+          '/config.yaml',
+          '1.0.0',
+          'verdaccio',
+          () => {
+            resolve();
+          }
+        );
       });
 
       expect(readFileSpy).toHaveBeenCalledWith('/custom/path/server.pfx');
@@ -165,9 +186,16 @@ describe('bootstrap handleHTTPS (via startVerdaccio)', () => {
       };
 
       await new Promise<void>((resolve) => {
-        startVerdaccio(config as any, 'https://localhost:4873', '/config.yaml', '1.0.0', 'verdaccio', () => {
-          resolve();
-        });
+        startVerdaccio(
+          config as any,
+          'https://localhost:4873',
+          '/config.yaml',
+          '1.0.0',
+          'verdaccio',
+          () => {
+            resolve();
+          }
+        );
       });
 
       const httpsOptions = createServerSpy.mock.calls[0][0] as any;
@@ -194,9 +222,16 @@ describe('bootstrap handleHTTPS (via startVerdaccio)', () => {
       };
 
       await new Promise<void>((resolve) => {
-        startVerdaccio(config as any, 'https://localhost:4873', '/config.yaml', '1.0.0', 'verdaccio', () => {
-          resolve();
-        });
+        startVerdaccio(
+          config as any,
+          'https://localhost:4873',
+          '/config.yaml',
+          '1.0.0',
+          'verdaccio',
+          () => {
+            resolve();
+          }
+        );
       });
 
       const httpsOptions = createServerSpy.mock.calls[0][0] as any;
@@ -221,9 +256,16 @@ describe('bootstrap handleHTTPS (via startVerdaccio)', () => {
       };
 
       await new Promise<void>((resolve) => {
-        startVerdaccio(config as any, 'https://localhost:4873', '/config.yaml', '1.0.0', 'verdaccio', () => {
-          resolve();
-        });
+        startVerdaccio(
+          config as any,
+          'https://localhost:4873',
+          '/config.yaml',
+          '1.0.0',
+          'verdaccio',
+          () => {
+            resolve();
+          }
+        );
         // callback won't be called since handleHTTPS fails, resolve after tick
         setTimeout(resolve, 50);
       });
@@ -250,9 +292,16 @@ describe('bootstrap handleHTTPS (via startVerdaccio)', () => {
       };
 
       await new Promise<void>((resolve) => {
-        startVerdaccio(config as any, 'https://localhost:4873', '/config.yaml', '1.0.0', 'verdaccio', () => {
-          resolve();
-        });
+        startVerdaccio(
+          config as any,
+          'https://localhost:4873',
+          '/config.yaml',
+          '1.0.0',
+          'verdaccio',
+          () => {
+            resolve();
+          }
+        );
         setTimeout(resolve, 50);
       });
 
@@ -277,9 +326,16 @@ describe('bootstrap handleHTTPS (via startVerdaccio)', () => {
       };
 
       await new Promise<void>((resolve) => {
-        startVerdaccio(config as any, 'https://localhost:4873', '/config.yaml', '1.0.0', 'verdaccio', () => {
-          resolve();
-        });
+        startVerdaccio(
+          config as any,
+          'https://localhost:4873',
+          '/config.yaml',
+          '1.0.0',
+          'verdaccio',
+          () => {
+            resolve();
+          }
+        );
         setTimeout(resolve, 50);
       });
 
@@ -310,9 +366,16 @@ describe('bootstrap handleHTTPS (via startVerdaccio)', () => {
       };
 
       await new Promise<void>((resolve) => {
-        startVerdaccio(config as any, 'https://localhost:4873', '/config.yaml', '1.0.0', 'verdaccio', () => {
-          resolve();
-        });
+        startVerdaccio(
+          config as any,
+          'https://localhost:4873',
+          '/config.yaml',
+          '1.0.0',
+          'verdaccio',
+          () => {
+            resolve();
+          }
+        );
       });
 
       const httpsOptions = createServerSpy.mock.calls[0][0] as any;

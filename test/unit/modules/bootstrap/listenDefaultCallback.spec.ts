@@ -1,5 +1,8 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
+import { listenDefaultCallback } from '../../../../src/lib/bootstrap';
+import { logger } from '../../../../src/lib/logger';
+
 vi.mock('../../../../src/lib/logger', () => ({
   logger: {
     warn: vi.fn(),
@@ -7,9 +10,6 @@ vi.mock('../../../../src/lib/logger', () => ({
     fatal: vi.fn(),
   },
 }));
-
-import { listenDefaultCallback } from '../../../../src/lib/bootstrap';
-import { logger } from '../../../../src/lib/logger';
 
 function createMockServer() {
   let listenCallback: (() => void) | undefined;
@@ -74,7 +74,11 @@ describe('listenDefaultCallback', () => {
 
     listenDefaultCallback(server, addr, 'verdaccio', '1.0.0');
 
-    expect(server.listen).toHaveBeenCalledWith('/var/run/verdaccio.sock', undefined, expect.any(Function));
+    expect(server.listen).toHaveBeenCalledWith(
+      '/var/run/verdaccio.sock',
+      undefined,
+      expect.any(Function)
+    );
   });
 
   test('should call process.send when listen callback fires and process.send is available', () => {
