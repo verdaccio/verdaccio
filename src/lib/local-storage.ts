@@ -635,6 +635,28 @@ class LocalStorage {
     this._readPackage(name, storage, callback);
   }
 
+  public getPackageMetadataAsync(name: string): Promise<Manifest> {
+    return new Promise<Manifest>((resolve, reject) => {
+      this.getPackageMetadata(name, (err: any, metadata: Manifest) => {
+        if (err) {
+          return reject(err);
+        }
+        resolve(metadata);
+      });
+    });
+  }
+
+  public updateVersionsAsync(name: string, packageInfo: Manifest): Promise<Manifest> {
+    return new Promise<Manifest>((resolve, reject) => {
+      this.updateVersions(name, packageInfo, (err: any, result: Manifest) => {
+        if (err) {
+          return reject(err);
+        }
+        resolve(result);
+      });
+    });
+  }
+
   /**
    * Search a local package.
    * @param {*} startKey

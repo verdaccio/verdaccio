@@ -9,7 +9,7 @@ import { rateLimit } from '@verdaccio/middleware';
 import type { Config, RemoteUser } from '@verdaccio/types';
 import { getAuthenticatedMessage } from '@verdaccio/utils';
 
-import type Auth from '../../../lib/auth';
+import type { Auth } from '@verdaccio/auth';
 import { API_ERROR, API_MESSAGE, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
 import { ErrorCode } from '../../../lib/utils';

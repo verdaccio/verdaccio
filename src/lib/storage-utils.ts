@@ -126,18 +126,18 @@ export function cleanUpLinksRef(keepUpLinkData: boolean, result: Manifest): Mani
  * @param {*} name
  * @param {*} localStorage
  */
-export function checkPackageLocal(name: string, localStorage: LocalStorage): Promise<void> {
-  return new Promise((resolve, reject): void => {
-    localStorage.getPackageMetadata(name, (err, results): void => {
-      if (!_.isNil(err) && err.status !== HTTP_STATUS.NOT_FOUND) {
-        return reject(err);
-      }
-      if (results) {
-        return reject(ErrorCode.getConflict(API_ERROR.PACKAGE_EXIST));
-      }
-      return resolve();
-    });
-  });
+export async function checkPackageLocal(name: string, localStorage: LocalStorage): Promise<void> {
+  try {
+    const results = await localStorage.getPackageMetadataAsync(name);
+    if (results) {
+      throw ErrorCode.getConflict(API_ERROR.PACKAGE_EXIST);
+    }
+  } catch (err: any) {
+    if (err.status === HTTP_STATUS.NOT_FOUND) {
+      return;
+    }
+    throw err;
+  }
 }
 
 export function publishPackage(

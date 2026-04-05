@@ -9,7 +9,7 @@ import {
 } from '@verdaccio/middleware';
 import type { Config } from '@verdaccio/types';
 
-import type Auth from '../../lib/auth';
+import type { Auth } from '@verdaccio/auth';
 import type Storage from '../../lib/storage';
 import distTags from './api/dist-tags';
 import pkg from './api/package';

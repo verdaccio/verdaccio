@@ -5,7 +5,7 @@ import { IReadTarball, IUploadTarball } from '@verdaccio/streams';
 import { Manifest } from '@verdaccio/types';
 import { Config as AppConfig, RemoteUser } from '@verdaccio/types';
 
-import Auth from '../../../../src/lib/auth';
+import { Auth } from '@verdaccio/auth';
 import Config from '../../../../src/lib/config';
 import Storage from '../../../../src/lib/storage';
 import { generatePackageTemplate } from '../../../../src/lib/storage-utils';

@@ -9,7 +9,7 @@ import { notify } from '@verdaccio/hooks';
 import { allow, expectJson, media } from '@verdaccio/middleware';
 import type { Callback, Config, MergeTags, Package, Version } from '@verdaccio/types';
 
-import type Auth from '../../../lib/auth';
+import type { Auth } from '@verdaccio/auth';
 import { API_ERROR, API_MESSAGE, DIST_TAGS, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
 import type Storage from '../../../lib/storage';

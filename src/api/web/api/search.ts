@@ -4,7 +4,7 @@ import { WebUrls } from '@verdaccio/middleware';
 import { SearchMemoryIndexer } from '@verdaccio/search-indexer';
 import type { Manifest } from '@verdaccio/types';
 
-import type Auth from '../../../lib/auth';
+import type { Auth } from '@verdaccio/auth';
 import { DIST_TAGS } from '../../../lib/constants';
 import type Storage from '../../../lib/storage';
 import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../../../types';

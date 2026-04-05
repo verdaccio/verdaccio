@@ -5,7 +5,7 @@ import mime from 'mime';
 import { DIST_TAGS_API_ENDPOINTS, allow, media } from '@verdaccio/middleware';
 import type { Package } from '@verdaccio/types';
 
-import type Auth from '../../../lib/auth';
+import type { Auth } from '@verdaccio/auth';
 import { API_MESSAGE, DIST_TAGS, HTTP_STATUS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
 import type Storage from '../../../lib/storage';

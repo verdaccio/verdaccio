@@ -7,7 +7,7 @@ import { cryptoUtils } from '@verdaccio/core';
 import { rateLimit } from '@verdaccio/middleware';
 import type { Config, RemoteUser, Token } from '@verdaccio/types';
 
-import type Auth from '../../../../lib/auth';
+import type { Auth } from '@verdaccio/auth';
 import { HEADERS, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../lib/constants';
 import { logger } from '../../../../lib/logger';
 import type Storage from '../../../../lib/storage';

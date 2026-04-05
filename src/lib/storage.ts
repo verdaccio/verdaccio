@@ -1,5 +1,6 @@
 import assert from 'assert';
 import async, { AsyncResultArrayCallback } from 'async';
+import { log } from 'console';
 import buildDebug from 'debug';
 import _ from 'lodash';
 import Stream from 'stream';
@@ -17,7 +18,6 @@ import {
   Logger,
   Manifest,
   MergeTags,
-  Package,
   Version,
   Versions,
 } from '@verdaccio/types';
@@ -200,7 +200,7 @@ class Storage {
    */
   public changePackage(
     name: string,
-    metadata: Package,
+    metadata: Manifest,
     revision: string,
     callback: Callback
   ): void {
@@ -279,47 +279,71 @@ class Storage {
 
     const self = this;
 
-    // if someone requesting tarball, it means that we should already have some
-    // information about it, so fetching package info is unnecessary
-
-    // trying local first
-    // flow: should be IReadTarball
-    let localStream: any = self.localStorage.getTarball(name, filename);
-    let isOpen = false;
-    localStream.on('error', (err): any => {
-      if (isOpen || err.status !== HTTP_STATUS.NOT_FOUND) {
-        return readStream.emit('error', err);
+    // Check if the tarball is allowed by filter plugins before serving.
+    // Filters may block specific versions, so we verify the tarball's version
+    // still exists in the filtered metadata.
+    this._isTarballAllowedByFilters(name, filename).then(async (allowed) => {
+      if (!allowed) {
+        readStream.emit('error', ErrorCode.getNotFound(API_ERROR.NO_PACKAGE));
+        return;
       }
 
-      // local reported 404
-      const err404 = err;
-      localStream.abort();
-      localStream = null; // we force for garbage collector
-      self.localStorage.getPackageMetadata(name, (err, info: Package): void => {
-        if (_.isNil(err) && info._distfiles && _.isNil(info._distfiles[filename]) === false) {
-          // information about this file exists locally
-          serveFile(info._distfiles[filename]);
-        } else {
-          // we know nothing about this file, trying to get information elsewhere
-          self._syncUplinksMetadata(name, info, {}, (err, info: Package): any => {
-            if (_.isNil(err) === false) {
-              return readStream.emit('error', err);
-            }
-            if (_.isNil(info._distfiles) || _.isNil(info._distfiles[filename])) {
-              return readStream.emit('error', err404);
-            }
+      // trying local first
+      let localStream: any = self.localStorage.getTarball(name, filename);
+      let isOpen = false;
+      localStream.on('error', async (err): Promise<any> => {
+        if (isOpen || err.status !== HTTP_STATUS.NOT_FOUND) {
+          return readStream.emit('error', err);
+        }
+
+        // local reported 404
+        const err404 = err;
+        localStream.abort();
+        localStream = null; // we force for garbage collector
+        try {
+          const info = await self.localStorage.getPackageMetadataAsync(name);
+          if (info._distfiles && _.isNil(info._distfiles[filename]) === false) {
+            // information about this file exists locally
             serveFile(info._distfiles[filename]);
-          });
+          } else {
+            // we know nothing about this file, trying to get information elsewhere
+            self._syncUplinksMetadata(name, info, {}, (err, info: Manifest): any => {
+              if (_.isNil(err) === false) {
+                return readStream.emit('error', err);
+              }
+              if (_.isNil(info._distfiles) || _.isNil(info._distfiles[filename])) {
+                return readStream.emit('error', err404);
+              }
+              serveFile(info._distfiles[filename]);
+            });
+          }
+        } catch {
+          // we know nothing about this file, trying to get information elsewhere
+          self._syncUplinksMetadata(
+            name,
+            null as unknown as Manifest,
+            {},
+            (err, info: Manifest): any => {
+              if (_.isNil(err) === false) {
+                return readStream.emit('error', err);
+              }
+              if (_.isNil(info._distfiles) || _.isNil(info._distfiles[filename])) {
+                return readStream.emit('error', err404);
+              }
+              serveFile(info._distfiles[filename]);
+            }
+          );
         }
       });
+      localStream.on('content-length', function (v): void {
+        readStream.emit('content-length', v);
+      });
+      localStream.on('open', function (): void {
+        isOpen = true;
+        localStream.pipe(readStream);
+      });
     });
-    localStream.on('content-length', function (v): void {
-      readStream.emit('content-length', v);
-    });
-    localStream.on('open', function (): void {
-      isOpen = true;
-      localStream.pipe(readStream);
-    });
+
     return readStream;
 
     /**
@@ -426,7 +450,7 @@ class Storage {
         options.name,
         data,
         { req: options.req, uplinksLook: options.uplinksLook },
-        function getPackageSynUpLinksCallback(err, result: Package, uplinkErrors): void {
+        function getPackageSynUpLinksCallback(err, result: Manifest, uplinkErrors): void {
           if (err) {
             return options.callback(err);
           }
@@ -516,54 +540,51 @@ class Storage {
    * @param {*} callback
    */
   public getLocalDatabase(callback: Callback): void {
-    const self = this;
     this.localStorage.storagePlugin.get((err, locals): void => {
       if (err) {
-        callback(err);
+        return callback(err);
       }
 
-      const packages: Version[] = [];
-      const getPackage = function (itemPkg): void {
-        self.localStorage.getPackageMetadata(
-          locals[itemPkg],
-          function (err, pkgMetadata: Package): void {
-            if (_.isNil(err)) {
-              const latest = pkgMetadata[DIST_TAGS].latest;
-              if (latest && pkgMetadata.versions[latest]) {
-                const version: Version = pkgMetadata.versions[latest];
-                const timeList = pkgMetadata.time as GenericBody;
-                const time = timeList[latest];
-                // @ts-ignore
-                version.time = time;
-
-                // Add for stars api
-                // @ts-ignore
-                version.users = pkgMetadata.users;
-
-                packages.push(version);
-              } else {
-                self.logger.warn(
-                  { package: locals[itemPkg] },
-                  'package @{package} does not have a "latest" tag?'
-                );
-              }
-            }
-
-            if (itemPkg >= locals.length - 1) {
-              callback(null, packages);
-            } else {
-              getPackage(itemPkg + 1);
-            }
-          }
-        );
-      };
-
-      if (locals.length) {
-        getPackage(0);
-      } else {
-        callback(null, []);
-      }
+      this._collectLocalPackages(locals).then(
+        (packages) => callback(null, packages),
+        (err) => callback(err)
+      );
     });
+  }
+
+  /**
+   * Read each local package name, apply filters, and collect the latest version.
+   */
+  private async _collectLocalPackages(locals: string[]): Promise<Version[]> {
+    const packages: Version[] = [];
+    for (const name of locals) {
+      try {
+        const pkgMetadata = await this.localStorage.getPackageMetadataAsync(name);
+        const { filteredPackage } = await this._applyFilters(pkgMetadata);
+        const latest = filteredPackage[DIST_TAGS]?.latest;
+        if (latest && filteredPackage.versions[latest]) {
+          const version: Version = filteredPackage.versions[latest];
+          const timeList = filteredPackage.time as GenericBody;
+          const time = timeList[latest];
+          // @ts-ignore
+          version.time = time;
+
+          // Add for stars api
+          // @ts-ignore
+          version.users = filteredPackage.users;
+
+          packages.push(version);
+        } else {
+          this.logger.warn(
+            { package: name },
+            'package @{package} does not have a "latest" tag?'
+          );
+        }
+      } catch (err) {
+        this.logger.error({ err, package: name }, 'error reading package @{package}');
+      }
+    }
+    return packages;
   }
 
   /**
@@ -660,7 +681,7 @@ class Storage {
         });
       },
       // @ts-ignore
-      (err: Error, upLinksErrors: any): AsyncResultArrayCallback<unknown, Error> => {
+      async (err: Error, upLinksErrors: any): Promise<AsyncResultArrayCallback<unknown, Error>> => {
         assert(!err && Array.isArray(upLinksErrors));
 
         // Check for connection timeout or reset errors with uplink(s)
@@ -688,34 +709,67 @@ class Storage {
         }
 
         if (upLinks.length === 0) {
-          return callback(null, packageInfo);
+          const { filteredPackage, filterErrors } = await self._applyFilters(
+            packageInfo as Manifest
+          );
+          return callback(null, filteredPackage, filterErrors);
         }
 
-        self.localStorage.updateVersions(
-          name,
-          packageInfo,
-          async (err, packageJsonLocal: Package): Promise<any> => {
-            if (err) {
-              return callback(err);
-            }
-            // Any error here will cause a 404, like an uplink error. This is likely the right thing to do
-            // as a broken filter is a security risk.
-            const filterErrors: Error[] = [];
-            // This MUST be done serially and not in parallel as they modify packageJsonLocal
-            for (const filter of self.filters ?? []) {
-              try {
-                // These filters can assume it's save to modify packageJsonLocal and return it directly for
-                // performance (i.e. need not be pure)
-                packageJsonLocal = await filter.filter_metadata(packageJsonLocal);
-              } catch (err: any) {
-                filterErrors.push(err);
-              }
-            }
-            callback(null, packageJsonLocal, _.concat(upLinksErrors, filterErrors));
-          }
-        );
+        try {
+          const packageJsonLocal = await self.localStorage.updateVersionsAsync(name, packageInfo);
+          const { filteredPackage, filterErrors } = await self._applyFilters(packageJsonLocal);
+          callback(null, filteredPackage, _.concat(upLinksErrors, filterErrors));
+        } catch (err) {
+          callback(err);
+        }
       }
     );
+  }
+
+  /**
+   * Apply all configured filter plugins to a package manifest sequentially.
+   * Each filter's output is passed as input to the next filter.
+   * Returns the filtered manifest and any errors that occurred.
+   */
+  private async _applyFilters(
+    packageInfo: Manifest
+  ): Promise<{ filteredPackage: Manifest; filterErrors: Error[] }> {
+    const filterErrors: Error[] = [];
+    let filteredPackage = packageInfo;
+    for (const filter of this.filters ?? []) {
+      try {
+        filteredPackage = await filter.filter_metadata(filteredPackage);
+      } catch (err: any) {
+        filterErrors.push(err);
+      }
+    }
+    return { filteredPackage, filterErrors };
+  }
+
+  /**
+   * Check if a tarball should be served based on filter plugins.
+   * Looks up package metadata, applies filters, and verifies the tarball
+   * still belongs to an allowed version.
+   */
+  private async _isTarballAllowedByFilters(name: string, filename: string): Promise<boolean> {
+    if (!this.filters?.length) {
+      return true;
+    }
+
+    try {
+      const pkgMetadata = await this.localStorage.getPackageMetadataAsync(name);
+      const { filteredPackage } = await this._applyFilters(pkgMetadata);
+      return Object.values(filteredPackage.versions || {}).some((version) =>
+        (version as Version).dist?.tarball?.endsWith('/' + filename)
+      );
+    } catch {
+      logger.error(
+        { package: name, fileName: filename },
+        'error checking filters for tarball @{fileName} of package @{package}'
+      );
+      debug('error checking filters for tarball %o of package %o', filename, name);
+      return true;
+    }
   }
 
   /**
