@@ -24,9 +24,7 @@ const UPLINK_URL = 'http://localhost:55551';
 
 // Mock data loaded from disk
 const MOCK_STORE = join(__dirname, '../../partials/mock-store');
-const jqueryMetadata = JSON.parse(
-  readFileSync(join(MOCK_STORE, 'jquery/package.json')).toString()
-);
+const jqueryMetadata = JSON.parse(readFileSync(join(MOCK_STORE, 'jquery/package.json')).toString());
 const tarballFixture = join(__dirname, '__fixtures__', 'jquery-1.5.1.tgz');
 const tarballSize = statSync(tarballFixture).size;
 
@@ -317,12 +315,10 @@ describe('UpStorage', () => {
 
   describe('fetchTarball', () => {
     test('should fetch a tarball from uplink', () => {
-      nock(UPLINK_URL)
-        .get('/jquery/-/jquery-1.5.1.tgz')
-        .replyWithFile(200, tarballFixture, {
-          'Content-Type': 'application/octet-stream',
-          'Content-Length': tarballSize.toString(),
-        });
+      nock(UPLINK_URL).get('/jquery/-/jquery-1.5.1.tgz').replyWithFile(200, tarballFixture, {
+        'Content-Type': 'application/octet-stream',
+        'Content-Length': tarballSize.toString(),
+      });
       const proxy = generateProxy();
       const tarball = `${UPLINK_URL}/jquery/-/jquery-1.5.1.tgz`;
       const stream = proxy.fetchTarball(tarball);
