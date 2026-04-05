@@ -45,26 +45,26 @@ jobs:
             echo "should_skip=false" >> "$GITHUB_OUTPUT"
           fi
 
-        # - name: Check commit is from a merged PR
-        #   id: pr-check
-        #   if: steps.tag-check.outputs.should_skip != 'true' && github.event_name != 'workflow_dispatch'
-        #   env:
-        #     GH_TOKEN: ${{ github.token }}
-        #   run: |
-        #     # Wait for GitHub to index the merge commit
-        #     sleep 10
-        #     # Search for merged PRs whose merge commit matches this SHA
-        #     PR_NUMBER=$(gh pr list --state merged --base 6.x --json number,mergeCommit \
-        #       --jq ".[] | select(.mergeCommit.oid == \"${{ github.sha }}\") | .number" \
-        #       --limit 50)
-        #     if [ -z "$PR_NUMBER" ]; then
-        #       echo "::warning::Commit ${{ github.sha }} is not from a merged PR. Skipping canary publish."
-        #       echo "should_skip=true" >> "$GITHUB_OUTPUT"
-        #     else
-        #       echo "should_skip=false" >> "$GITHUB_OUTPUT"
-        #       echo "pr_number=${PR_NUMBER}" >> "$GITHUB_OUTPUT"
-        #       echo "Commit is from merged PR #${PR_NUMBER}"
-        #     fi
+      - name: Check commit is from a merged PR
+        id: pr-check
+        if: steps.tag-check.outputs.should_skip != 'true' && github.event_name != 'workflow_dispatch'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Wait for GitHub to index the merge commit
+          sleep 10
+          # Search for merged PRs whose merge commit matches this SHA
+          PR_NUMBER=$(gh pr list --state merged --base 6.x --json number,mergeCommit \
+            --jq ".[] | select(.mergeCommit.oid == \"${{ github.sha }}\") | .number" \
+            --limit 50)
+          if [ -z "$PR_NUMBER" ]; then
+            echo "::warning::Commit ${{ github.sha }} is not from a merged PR. Skipping canary publish."
+            echo "should_skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "should_skip=false" >> "$GITHUB_OUTPUT"
+            echo "pr_number=${PR_NUMBER}" >> "$GITHUB_OUTPUT"
+            echo "Commit is from merged PR #${PR_NUMBER}"
+          fi
 
       - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
         if: steps.tag-check.outputs.should_skip != 'true' && steps.pr-check.outputs.should_skip != 'true'
@@ -137,7 +137,7 @@ jobs:
           This package (`@verdaccio/canary`) is a pre-release snapshot published under a separate scope to avoid conflicts with the stable `verdaccio` package.
 
           ```bash
-          npm install @verdaccio/canary@6.x
+          npm install --global @verdaccio/canary@canary-6
           ```
 
           ## Links
@@ -162,40 +162,40 @@ jobs:
         env:
           REGISTRY_AUTH_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
 
-      # - name: Comment on PR
-      #   if: >-
-      #     steps.tag-check.outputs.should_skip != 'true' &&
-      #     steps.pr-check.outputs.should_skip != 'true' &&
-      #     steps.pr-check.outputs.pr_number &&
-      #     github.actor != 'renovate[bot]' &&
-      #     github.actor != 'dependabot[bot]'
-      #   env:
-      #     GH_TOKEN: ${{ github.token }}
-      #   run: |
-      #     gh pr comment ${{ steps.pr-check.outputs.pr_number }} --body "$(cat <<'EOF'
-      #     ### Canary build published
+      - name: Comment on PR
+        if: >-
+          steps.tag-check.outputs.should_skip != 'true' &&
+          steps.pr-check.outputs.should_skip != 'true' &&
+          steps.pr-check.outputs.pr_number &&
+          github.actor != 'renovate[bot]' &&
+          github.actor != 'dependabot[bot]'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr comment ${{ steps.pr-check.outputs.pr_number }} --body "$(cat <<'EOF'
+          ### Canary build published
 
-      #     A canary version was published from this PR for early testing:
+          A canary version was published from this PR for early testing:
 
-      #     ```bash
-      #     npm install -g @verdaccio/canary@${{ steps.version.outputs.canary_version }}
-      #     verdaccio-canary
-      #     ```
+          ```bash
+          npm install -g @verdaccio/canary@${{ steps.version.outputs.canary_version }}
+          verdaccio-canary
+          ```
 
-      #     > **Warning:** This is an unstable pre-release build. Do not use in production.
+          > **Warning:** This is an unstable pre-release build. Do not use in production.
 
-      #     This is an experimental feature currently in testing. Feedback is welcome — please report any issues in the [issue tracker](https://github.com/verdaccio/verdaccio/issues).
-      #     EOF
-      #     )"
+          This is an experimental feature currently in testing. Feedback is welcome — please report any issues in the [issue tracker](https://github.com/verdaccio/verdaccio/issues).
+          EOF
+          )"
 
-      # - name: Summary
-      #   if: steps.tag-check.outputs.should_skip != 'true' && steps.pr-check.outputs.should_skip != 'true'
-      #   run: |
-      #     echo "### Canary Published" >> $GITHUB_STEP_SUMMARY
-      #     echo "" >> $GITHUB_STEP_SUMMARY
-      #     echo "**Version:** \`${{ steps.version.outputs.canary_version }}\`" >> $GITHUB_STEP_SUMMARY
-      #     echo "" >> $GITHUB_STEP_SUMMARY
-      #     echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
-      #     echo "npm install -g @verdaccio/canary@${{ steps.version.outputs.canary_version }}" >> $GITHUB_STEP_SUMMARY
-      #     echo "verdaccio-canary" >> $GITHUB_STEP_SUMMARY
-      #     echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+      - name: Summary
+        if: steps.tag-check.outputs.should_skip != 'true' && steps.pr-check.outputs.should_skip != 'true'
+        run: |
+          echo "### Canary Published" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Version:** \`${{ steps.version.outputs.canary_version }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
+          echo "npm install -g @verdaccio/canary@${{ steps.version.outputs.canary_version }}" >> $GITHUB_STEP_SUMMARY
+          echo "verdaccio-canary" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
