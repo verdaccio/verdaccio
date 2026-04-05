@@ -15,18 +15,20 @@ jobs:
     name: Publish Canary
     runs-on: ubuntu-latest
     if: |
-      github.event_name == 'workflow_dispatch' || (
-        startsWith(github.event.head_commit.message, 'feat') ||
-        startsWith(github.event.head_commit.message, 'fix') ||
-        startsWith(github.event.head_commit.message, 'chore') ||
-        startsWith(github.event.head_commit.message, 'refactor') ||
-        startsWith(github.event.head_commit.message, 'perf') ||
-        startsWith(github.event.head_commit.message, 'docs') ||
-        startsWith(github.event.head_commit.message, 'style') ||
-        startsWith(github.event.head_commit.message, 'test') ||
-        startsWith(github.event.head_commit.message, 'build') ||
-        startsWith(github.event.head_commit.message, 'ci') ||
-        startsWith(github.event.head_commit.message, 'revert')
+      github.actor != 'renovate[bot]' && github.actor != 'dependabot[bot]' && (
+        github.event_name == 'workflow_dispatch' || (
+          startsWith(github.event.head_commit.message, 'feat') ||
+          startsWith(github.event.head_commit.message, 'fix') ||
+          startsWith(github.event.head_commit.message, 'chore') ||
+          startsWith(github.event.head_commit.message, 'refactor') ||
+          startsWith(github.event.head_commit.message, 'perf') ||
+          startsWith(github.event.head_commit.message, 'docs') ||
+          startsWith(github.event.head_commit.message, 'style') ||
+          startsWith(github.event.head_commit.message, 'test') ||
+          startsWith(github.event.head_commit.message, 'build') ||
+          startsWith(github.event.head_commit.message, 'ci') ||
+          startsWith(github.event.head_commit.message, 'revert')
+        )
       )
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2

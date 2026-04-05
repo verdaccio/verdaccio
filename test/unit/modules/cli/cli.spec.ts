@@ -42,17 +42,9 @@ describe('startServer via API', () => {
     });
 
     test('should fail with bad HTTPS config', async () => {
-      // @ts-expect-error
-      vi.spyOn(process, 'exit').mockImplementation(() => {
-        throw new Error('process.exit called');
-      });
-
       const conf = config({ https: {} }, undefined, true);
-      await expect(runServer(conf, { listenArg: 'https://www.domain.com:443' })).rejects.toThrow(
-        'process.exit called'
-      );
-      expect(process.exit).toHaveBeenCalledWith(2);
-      vi.restoreAllMocks();
+      conf.listen = 'https://www.domain.com:443';
+      await expect(runServer(conf)).rejects.toThrow('bad format https configuration');
     });
 
     test('should fail if config is missing', async () => {
