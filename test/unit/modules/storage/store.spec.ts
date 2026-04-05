@@ -905,10 +905,24 @@ describe('StorageTest', () => {
       expect(result).toBe(true);
     });
 
-    test('should return true when metadata cannot be retrieved', async () => {
+    test('should return true (silently) when package is not cached locally (404)', async () => {
       const storage: any = await generateStorage();
       storage.filters = [{ filter_metadata: vi.fn(async (p: any) => p) }];
-      storage.localStorage.getPackageMetadata = vi.fn((_n, cb) => cb(new Error('not found')));
+      const notFoundErr = Object.assign(new Error('no such package'), {
+        status: HTTP_STATUS.NOT_FOUND,
+      });
+      storage.localStorage.getPackageMetadata = vi.fn((_n, cb) => cb(notFoundErr));
+      const result = await storage._isTarballAllowedByFilters(
+        'nonexistent',
+        'nonexistent-1.0.0.tgz'
+      );
+      expect(result).toBe(true);
+    });
+
+    test('should return true when metadata retrieval fails with an unexpected error', async () => {
+      const storage: any = await generateStorage();
+      storage.filters = [{ filter_metadata: vi.fn(async (p: any) => p) }];
+      storage.localStorage.getPackageMetadata = vi.fn((_n, cb) => cb(new Error('disk error')));
       const result = await storage._isTarballAllowedByFilters(
         'nonexistent',
         'nonexistent-1.0.0.tgz'

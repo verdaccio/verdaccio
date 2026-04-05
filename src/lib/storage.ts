@@ -1,5 +1,5 @@
 import assert from 'assert';
-import async, { AsyncResultArrayCallback } from 'async';
+import async from 'async';
 import buildDebug from 'debug';
 import _ from 'lodash';
 import Stream from 'stream';
@@ -676,7 +676,7 @@ class Storage {
         });
       },
       // @ts-ignore
-      async (err: Error, upLinksErrors: any): Promise<AsyncResultArrayCallback<unknown, Error>> => {
+      async (err: Error, upLinksErrors: any): Promise<void> => {
         assert(!err && Array.isArray(upLinksErrors));
 
         // Check for connection timeout or reset errors with uplink(s)
@@ -757,12 +757,16 @@ class Storage {
       return Object.values(filteredPackage.versions || {}).some((version) =>
         (version as Version).dist?.tarball?.endsWith('/' + filename)
       );
-    } catch {
-      logger.error(
-        { package: name, fileName: filename },
-        'error checking filters for tarball @{fileName} of package @{package}'
-      );
-      debug('error checking filters for tarball %o of package %o', filename, name);
+    } catch (err: any) {
+      if (err?.status === HTTP_STATUS.NOT_FOUND) {
+        // Package not yet cached locally — the request will fall through to uplinks.
+        debug('package %o not cached locally, skipping tarball filter check', name);
+      } else {
+        this.logger.error(
+          { package: name, fileName: filename, err },
+          'error checking filters for tarball @{fileName} of package @{package}: @{err.message}'
+        );
+      }
       return true;
     }
   }
