@@ -1,5 +1,12 @@
 # @verdaccio/config
 
+## 8.0.0-next-8.37
+
+### Patch Changes
+
+- Updated dependencies [df612fa]
+  - @verdaccio/core@8.0.0-next-8.37
+
 ## 8.0.0-next-8.36
 
 ### Patch Changes

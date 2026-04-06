@@ -1,5 +1,12 @@
 # Change Log
 
+## 13.0.0-next-8.4
+
+### Patch Changes
+
+- Updated dependencies [df612fa]
+  - @verdaccio/core@8.0.0-next-8.37
+
 ## 13.0.0-next-8.3
 
 ### Patch Changes

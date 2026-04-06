@@ -1,5 +1,15 @@
 # @verdaccio/middleware
 
+## 8.0.0-next-8.37
+
+### Patch Changes
+
+- df612fa: chore(middleware): move ui-options to external script
+- Updated dependencies [df612fa]
+  - @verdaccio/core@8.0.0-next-8.37
+  - @verdaccio/config@8.0.0-next-8.37
+  - @verdaccio/url@13.0.0-next-8.37
+
 ## 8.0.0-next-8.36
 
 ### Patch Changes
