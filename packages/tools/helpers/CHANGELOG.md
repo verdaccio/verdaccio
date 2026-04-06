@@ -1,5 +1,15 @@
 # Change Log
 
+## 5.0.0-next-9.9
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.9
+- @verdaccio/config@9.0.0-next-9.9
+- @verdaccio/auth@9.0.0-next-9.9
+- @verdaccio/logger@9.0.0-next-9.9
+- @verdaccio/middleware@9.0.0-next-9.9
+
 ## 5.0.0-next-9.8
 
 ### Patch Changes
