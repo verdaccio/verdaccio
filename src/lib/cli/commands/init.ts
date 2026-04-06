@@ -1,12 +1,9 @@
 import { Command, Option } from 'clipanion';
-import * as _ from 'lodash-es';
 import path from 'path';
-import URL from 'url';
 
-import { findConfigFile, getListenAddress } from '@verdaccio/config';
+import { findConfigFile } from '@verdaccio/config';
 
-import { logger } from '../../logger';
-import { runServer } from '../../run-server';
+import { initServer } from '../../run-server';
 import { parseConfigFile } from '../../utils';
 
 const pkgVersion = process.env.PACKAGE_VERSION || 'dev';
@@ -66,68 +63,9 @@ export class InitCommand extends Command {
 
       process.title = (configParsed.web && configParsed.web.title) || 'verdaccio';
 
-      const serverFactory = await runServer(configParsed, {
-        listenArg: this.listen as string,
-      });
-
-      const listen = this.listen ?? configParsed?.listen;
-      const addr = getListenAddress(listen, logger);
-
-      const server = serverFactory
-        .listen(addr.port || addr.path, addr.host, (): void => {
-          if (_.isFunction(process.send)) {
-            process.send({
-              verdaccio_started: true,
-            });
-          }
-        })
-        .on('error', function (err): void {
-          logger.fatal({ err: err }, 'cannot create http server: @{err.message}');
-          process.exit(2);
-        });
-
-      function handleShutdownGracefully() {
-        logger.fatal('received shutdown signal - closing server gracefully...');
-        server.close(() => {
-          logger.info('server closed.');
-          process.exit(0);
-        });
-      }
-
-      process.on('SIGINT', handleShutdownGracefully);
-      process.on('SIGTERM', handleShutdownGracefully);
-      process.on('SIGHUP', handleShutdownGracefully);
-
-      logger.warn(
-        {
-          addr: addr.path
-            ? URL.format({
-                protocol: 'unix',
-                pathname: addr.path,
-              })
-            : URL.format({
-                protocol: addr.proto,
-                hostname: addr.host,
-                port: addr.port,
-                pathname: '/',
-              }),
-          version: pkgName + '/' + pkgVersion,
-        },
-        'http address - @{addr} - @{version}'
-      );
-
-      logger.info({ file: configPathLocation }, 'config file  - @{file}');
+      await initServer(configParsed, this.listen as string, pkgVersion, pkgName);
     } catch (err: any) {
       console.error(`cannot open config file ${configPathLocation}: ${err.stack}`);
-      // @ts-expect-error
-      if (typeof logger?.logger?.fatal === 'function') {
-        logger.fatal(
-          { file: configPathLocation, err: err },
-          'cannot open config file @{file}: @{!err.message}'
-        );
-      } else {
-        console.error(`cannot open config file ${configPathLocation}: ${!err.message}`);
-      }
       process.exit(1);
     }
   }
