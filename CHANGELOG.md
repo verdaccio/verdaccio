@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.4.0](https://github.com/verdaccio/verdaccio/compare/v6.3.2...v6.4.0) (2026-04-06)
+
+
+### Features
+
+* add package filter ([#5786](https://github.com/verdaccio/verdaccio/issues/5786)) ([458a9f2](https://github.com/verdaccio/verdaccio/commit/458a9f2973ff018f2151386725ee36b4b012a69f))
+
+
+### Bug Fixes
+
+* **deps:** update core verdaccio dependencies ([#5674](https://github.com/verdaccio/verdaccio/issues/5674)) ([4d65507](https://github.com/verdaccio/verdaccio/commit/4d655079eac09cb32d0f3b072a829e7c24945117))
+* **deps:** update core verdaccio dependencies ([#5780](https://github.com/verdaccio/verdaccio/issues/5780)) ([b58287b](https://github.com/verdaccio/verdaccio/commit/b58287b1416291b34f1330fe0fd4653ae3f35c99))
+* **deps:** update dependency lodash to v4.18.1 ([#5777](https://github.com/verdaccio/verdaccio/issues/5777)) ([797ae53](https://github.com/verdaccio/verdaccio/commit/797ae530d33a565948166cfd1f45f27ddb33d4ba))
+
 ### [6.3.2](https://github.com/verdaccio/verdaccio/compare/v6.3.1...v6.3.2) (2026-03-14)
 
 
