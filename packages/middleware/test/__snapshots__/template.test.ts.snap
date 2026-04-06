@@ -10,16 +10,15 @@ exports[`template > custom body after 1`] = `
         <title></title>
         <link rel="icon" href="http://domain.com/-/static/favicon.ico">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script>
-            window.__VERDACCIO_BASENAME_UI_OPTIONS={"base":"http://domain.com/"}
-        </script>
+        <script src="http://domain.com/-/static/ui-options.js"></script>
+        <link rel="stylesheet" href="http://domain.com/-/static/main.6f2f2cccce0c813b509f.css">
         
       </head>
       <body class="body">
         
         <div id="root"></div>
-        <script defer="defer" src="http://domain.com/-/static/runtime.6126058572f989c948b1.js"></script>
-        <script defer="defer" src="http://domain.com/-/static/main.6126058572f989c948b1.js"></script>
+        <script type="module" src="http://domain.com/-/static/runtime.6126058572f989c948b1.js"></script>
+        <script type="module" src="http://domain.com/-/static/main.6126058572f989c948b1.js"></script>
         <script src="foo"/>
       </body>
     </html>
@@ -36,16 +35,15 @@ exports[`template > custom body before 1`] = `
         <title></title>
         <link rel="icon" href="http://domain.com/-/static/favicon.ico">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script>
-            window.__VERDACCIO_BASENAME_UI_OPTIONS={"base":"http://domain.com/"}
-        </script>
+        <script src="http://domain.com/-/static/ui-options.js"></script>
+        <link rel="stylesheet" href="http://domain.com/-/static/main.6f2f2cccce0c813b509f.css">
         
       </head>
       <body class="body">
         <script src="fooBefore"/><script src="barBefore"/>
         <div id="root"></div>
-        <script defer="defer" src="http://domain.com/-/static/runtime.6126058572f989c948b1.js"></script>
-        <script defer="defer" src="http://domain.com/-/static/main.6126058572f989c948b1.js"></script>
+        <script type="module" src="http://domain.com/-/static/runtime.6126058572f989c948b1.js"></script>
+        <script type="module" src="http://domain.com/-/static/main.6126058572f989c948b1.js"></script>
         
       </body>
     </html>
@@ -62,16 +60,15 @@ exports[`template > custom render 1`] = `
         <title></title>
         <link rel="icon" href="http://domain.com/-/static/favicon.ico">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script>
-            window.__VERDACCIO_BASENAME_UI_OPTIONS={"base":"http://domain.com/"}
-        </script>
+        <script src="http://domain.com/-/static/ui-options.js"></script>
+        <link rel="stylesheet" href="http://domain.com/-/static/main.6f2f2cccce0c813b509f.css">
         
       </head>
       <body class="body">
         
         <div id="root"></div>
-        <script defer="defer" src="http://domain.com/-/static/runtime.6126058572f989c948b1.js"></script>
-        <script defer="defer" src="http://domain.com/-/static/main.6126058572f989c948b1.js"></script>
+        <script type="module" src="http://domain.com/-/static/runtime.6126058572f989c948b1.js"></script>
+        <script type="module" src="http://domain.com/-/static/main.6126058572f989c948b1.js"></script>
         
       </body>
     </html>
@@ -88,16 +85,15 @@ exports[`template > custom title 1`] = `
         <title>foo title</title>
         <link rel="icon" href="http://domain.com/-/static/favicon.ico">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script>
-            window.__VERDACCIO_BASENAME_UI_OPTIONS={"base":"http://domain.com/","title":"foo title"}
-        </script>
+        <script src="http://domain.com/-/static/ui-options.js"></script>
+        <link rel="stylesheet" href="http://domain.com/-/static/main.6f2f2cccce0c813b509f.css">
         
       </head>
       <body class="body">
         
         <div id="root"></div>
-        <script defer="defer" src="http://domain.com/-/static/runtime.6126058572f989c948b1.js"></script>
-        <script defer="defer" src="http://domain.com/-/static/main.6126058572f989c948b1.js"></script>
+        <script type="module" src="http://domain.com/-/static/runtime.6126058572f989c948b1.js"></script>
+        <script type="module" src="http://domain.com/-/static/main.6126058572f989c948b1.js"></script>
         
       </body>
     </html>
@@ -114,16 +110,15 @@ exports[`template > meta scripts 1`] = `
         <title></title>
         <link rel="icon" href="http://domain.com/-/static/favicon.ico">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script>
-            window.__VERDACCIO_BASENAME_UI_OPTIONS={"base":"http://domain.com/"}
-        </script>
+        <script src="http://domain.com/-/static/ui-options.js"></script>
+        <link rel="stylesheet" href="http://domain.com/-/static/main.6f2f2cccce0c813b509f.css">
         <style>.someclass{font-size:10px;}</style>
       </head>
       <body class="body">
         
         <div id="root"></div>
-        <script defer="defer" src="http://domain.com/-/static/runtime.6126058572f989c948b1.js"></script>
-        <script defer="defer" src="http://domain.com/-/static/main.6126058572f989c948b1.js"></script>
+        <script type="module" src="http://domain.com/-/static/runtime.6126058572f989c948b1.js"></script>
+        <script type="module" src="http://domain.com/-/static/main.6126058572f989c948b1.js"></script>
         
       </body>
     </html>
