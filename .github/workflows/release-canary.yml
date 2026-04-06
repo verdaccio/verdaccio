@@ -91,12 +91,12 @@ jobs:
           cp bin/verdaccio bin/verdaccio-canary
           node -e "
             const pkg = require('./package.json');
-            pkg.name = '@verdaccio-canary/verdaccio';
+            pkg.name = '@verdaccio/canary';
             pkg.version = '${CANARY_VERSION}';
             pkg.bin = { 'verdaccio-canary': './bin/verdaccio-canary' };
             require('fs').writeFileSync('./package.json', JSON.stringify(pkg, null, 2) + '\n');
           "
-          echo "Publishing @verdaccio-canary/verdaccio@${CANARY_VERSION}"
+          echo "Publishing @verdaccio/canary@${CANARY_VERSION}"
 
       - name: Build
         if: steps.tag-check.outputs.should_skip != 'true' && steps.pr-check.outputs.should_skip != 'true'
@@ -127,10 +127,10 @@ jobs:
 
           ## About this canary build
 
-          This package (`@verdaccio-canary/verdaccio`) is a pre-release snapshot published under a separate scope to avoid conflicts with the stable `verdaccio` package.
+          This package (`@verdaccio/canary`) is a pre-release snapshot published under a separate scope to avoid conflicts with the stable `verdaccio` package.
 
           ```bash
-          npm install @verdaccio-canary/verdaccio@latest
+          npm install --global @verdaccio/canary@canary-7
           ```
 
           ## Links
@@ -150,7 +150,7 @@ jobs:
         if: steps.tag-check.outputs.should_skip != 'true' && steps.pr-check.outputs.should_skip != 'true'
         run: |
           npm config set "//registry.npmjs.org/:_authToken" "${REGISTRY_AUTH_TOKEN}"
-          npm publish --tag latest --access public
+          npm publish --tag canary-7 --access public
         env:
           REGISTRY_AUTH_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
 
@@ -170,7 +170,7 @@ jobs:
           A canary version was published from this PR for early testing:
 
           ```bash
-          npm install -g @verdaccio-canary/verdaccio@${{ steps.version.outputs.canary_version }}
+          npm install -g @verdaccio/canary@${{ steps.version.outputs.canary_version }}
           verdaccio-canary
           ```
 
@@ -188,6 +188,6 @@ jobs:
           echo "**Version:** \`${{ steps.version.outputs.canary_version }}\`" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`bash" >> $GITHUB_STEP_SUMMARY
-          echo "npm install -g @verdaccio-canary/verdaccio@${{ steps.version.outputs.canary_version }}" >> $GITHUB_STEP_SUMMARY
+          echo "npm install -g @verdaccio/canary@${{ steps.version.outputs.canary_version }}" >> $GITHUB_STEP_SUMMARY
           echo "verdaccio-canary" >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
