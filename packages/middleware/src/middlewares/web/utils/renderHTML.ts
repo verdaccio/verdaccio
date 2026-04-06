@@ -1,6 +1,6 @@
 import buildDebug from 'debug';
 import type { Response } from 'express';
-import { LRUCache } from 'lru-cache';
+import LRUCache from 'lru-cache';
 
 import { HEADERS } from '@verdaccio/core';
 import type { ConfigYaml, TemplateUIOptions } from '@verdaccio/types';

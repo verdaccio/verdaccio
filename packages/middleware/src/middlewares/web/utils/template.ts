@@ -46,7 +46,7 @@ export default function renderTemplate(template: Template, manifest: AssetManife
         ${template?.scriptsBodyBefore ? template.scriptsBodyBefore.join('') : ''}
         <div id="root"></div>
         ${getManifestValue(template.manifest.js, manifest, template?.options.base)
-          .map((item) => `<script defer="defer" src="${item}"></script>`)
+          .map((item) => `<script type="module" src="${item}"></script>`)
           .join(`\n        `)}
         ${template?.scriptsBodyAfter ? template.scriptsBodyAfter.join('') : ''}
       </body>
