@@ -132,7 +132,9 @@ export function cleanupDistFiles(manifest: Manifest): void {
   const distFiles = manifest._distfiles;
   // Build a Set of active tarball URLs in one pass — O(n) instead of O(n²)
   const activeTarballs = new Set(
-    Object.values(manifest.versions).map((v) => (v as { dist?: { tarball?: string } }).dist?.tarball)
+    Object.values(manifest.versions)
+      .map((v) => v.dist?.tarball)
+      .filter((tarball): tarball is string => typeof tarball === 'string')
   );
   Object.keys(distFiles).forEach((key) => {
     if (!activeTarballs.has(distFiles[key].url)) {
