@@ -52,7 +52,6 @@ export const HeaderAll: Story = {
     </MemoryRouter>
   ),
   parameters: {
-    searchRemote: false,
     msw: {
       handlers: [
         http.get('https://my-registry.org/-/verdaccio/data/sidebar/storybook', () => {

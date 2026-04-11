@@ -264,7 +264,6 @@ log:
 # Renamed from "experiments" to "flags" in next major release
 # flags:
 #  changePassword: true
-#  searchRemote: true
 
 # Translate your registry, API and web UI
 # List of the available translations https://github.com/verdaccio/verdaccio/blob/master/packages/plugins/ui-theme/src/i18n/ABOUT_TRANSLATIONS.md

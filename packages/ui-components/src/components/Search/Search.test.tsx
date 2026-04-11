@@ -46,11 +46,6 @@ describe('<Search /> component', () => {
     expect(screen.getByPlaceholderText('search.packages')).toBeInTheDocument();
   });
 
-  test('should load the component in default state with remote search', () => {
-    renderWithRouteDetail(<ComponentToBeRendered />, 'jquery', { flags: { searchRemote: true } });
-    expect(screen.getByPlaceholderText('search.packages')).toBeInTheDocument();
-  });
-
   test('handleSearch: when user type package name in search component, show suggestions', async () => {
     renderWithRouteDetail(<ComponentToBeRendered />);
 

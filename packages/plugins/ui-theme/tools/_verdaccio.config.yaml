@@ -11,7 +11,6 @@ web:
     - pnpm
 
 flags:
-  searchRemote: true
   webLogin: true
   createUser: true
   changePassword: true

@@ -4,13 +4,12 @@ import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import type { SearchResultWeb } from '@verdaccio/types';
-
-import { useConfig, useSearch } from '../../';
+import { useSearch } from '../../';
 import { Route } from '../../utils';
 import AutoComplete from './AutoComplete';
 import SearchItem from './SearchItem';
 import { StyledInputAdornment, StyledTextField } from './styles';
+import { normalizeSearchOption } from './utils';
 
 const CONSTANTS = {
   API_DELAY: 300,
@@ -21,10 +20,6 @@ const Search: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { searchResults, isLoading, doSearch } = useSearch();
-  const {
-    configOptions: { flags },
-  } = useConfig();
-  const searchRemote = flags?.searchRemote ?? false;
 
   const abortControllerRef = useRef<AbortController | null>(null);
 
@@ -44,14 +39,16 @@ const Search: React.FC = () => {
   );
 
   const handleClickSearch = useCallback(
-    (event: React.SyntheticEvent, value: SearchResultWeb, reason: string): void => {
+    (event: React.SyntheticEvent, value: any, reason: string): void => {
       event.stopPropagation();
       if (reason === 'selectOption') {
-        const pkgName = value['package']?.name ?? value.name;
-        navigate(`${Route.DETAIL}${pkgName}`);
+        const { name } = normalizeSearchOption(value);
+        if (name) {
+          navigate(`${Route.DETAIL}${name}`);
+        }
       }
     },
-    [navigate, searchRemote]
+    [navigate]
   );
 
   // Use a ref to always access the latest doSearch without re-creating the debounced function
@@ -105,36 +102,20 @@ const Search: React.FC = () => {
 
   const renderOption = (props, option) => {
     const { key, ...otherProps } = props;
-
-    if (searchRemote) {
-      const item: SearchResultWeb = option.package;
-      const isPrivate = option?.verdaccioPrivate;
-      const isCached = option?.verdaccioPkgCached;
-      const isRemote = !isCached && !isPrivate;
-      return (
-        <SearchItem
-          key={key}
-          {...otherProps}
-          description={item?.description}
-          isCached={isCached}
-          isPrivate={isPrivate}
-          isRemote={isRemote}
-          name={item?.name}
-          version={item?.version}
-        />
-      );
-    } else {
-      const item: SearchResultWeb = option.package;
-      return (
-        <SearchItem
-          key={key}
-          {...otherProps}
-          description={item?.description}
-          name={item?.name}
-          version={item?.version}
-        />
-      );
-    }
+    const { name, version, description, isPrivate, isCached, isRemote } =
+      normalizeSearchOption(option);
+    return (
+      <SearchItem
+        key={key}
+        {...otherProps}
+        description={description}
+        isCached={isCached}
+        isPrivate={isPrivate}
+        isRemote={isRemote}
+        name={name}
+        version={version}
+      />
+    );
   };
 
   const renderInput = (params) => {
@@ -157,7 +138,7 @@ const Search: React.FC = () => {
   };
 
   const getOptionLabel = (option) => {
-    return option?.package?.name;
+    return normalizeSearchOption(option).name;
   };
 
   return (

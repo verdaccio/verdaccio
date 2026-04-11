@@ -90,14 +90,6 @@ export type RateLimit = {
  */
 export type FlagsConfig = {
   /**
-   * Enables searching for packages in remote registries.
-   * If `false`, only the local registry will be queried.
-   *
-   * @default false
-   */
-  searchRemote?: boolean;
-
-  /**
    * Enables user password change functionality.
    *
    * @default false

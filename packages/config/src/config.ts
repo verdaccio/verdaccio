@@ -79,7 +79,6 @@ class Config implements AppConfig {
     this.security = merge(defaultSecurity, config.security);
     this.server = { ...defaultServerSettings, ...config.server };
     this.flags = {
-      searchRemote: config.flags?.searchRemote ?? true,
       changePassword: config.flags?.changePassword ?? false,
       webLogin: config.flags?.webLogin ?? false,
       createUser: config.flags?.createUser ?? false,
