@@ -30,7 +30,8 @@ jobs:
       github.event.pull_request.draft == false &&
       github.actor != 'renovate[bot]' &&
       github.actor != 'dependabot[bot]' &&
-      github.head_ref != 'changeset-release/master'
+      github.head_ref != 'changeset-release/master' &&
+      !contains(github.event.pull_request.labels.*.name, 'skip changeset')
     runs-on: ubuntu-latest
     name: Changeset file check
     permissions:
