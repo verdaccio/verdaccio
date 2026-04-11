@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/package-filter",
-  "version": "13.0.0-next-8.4",
+  "version": "13.0.0-next-8.5",
   "description": "Package filter plugin for Verdaccio that allows blocking packages by name, scope, version or date",
   "keywords": [
     "private",
