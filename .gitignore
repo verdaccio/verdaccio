@@ -52,6 +52,7 @@ packages/plugins/ui-theme/static
 # cypress
 e2e/ui/cypress/videos/**/*
 e2e/ui/cypress/screenshots/**/*
+e2e/ui/cypress/downloads/**/*
 
 # storybook
 packages/ui-components/storybook-static
@@ -60,3 +61,4 @@ packages/ui-components/storybook-static
 AGENTS.md
 CLAUDE.md
 /.claude
+
