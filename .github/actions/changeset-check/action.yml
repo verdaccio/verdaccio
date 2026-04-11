@@ -22,16 +22,22 @@ runs:
           echo "$CHANGED"
         fi
 
+    # Forked PRs run with a read-only GITHUB_TOKEN, so the comment steps below
+    # would 403. Skip them entirely when the PR head is a fork — the final
+    # "Fail if changeset is missing" step still enforces the check.
     - name: Find existing comment
       id: find-comment
-      if: always()
+      if: always() && github.event.pull_request.head.repo.full_name == github.repository
       uses: peter-evans/find-comment@3eae4d37986fb5a8592848f6a574fdf654e61f9e # v3.1.0
       with:
-        issue-number: ${{ github.event.pull_request.number }}        
+        issue-number: ${{ github.event.pull_request.number }}
         body-includes: '<!-- changeset-check -->'
 
     - name: Post missing changeset comment
-      if: steps.check.outputs.found == 'false' && steps.find-comment.outputs.comment-id == ''
+      if: >-
+        github.event.pull_request.head.repo.full_name == github.repository &&
+        steps.check.outputs.found == 'false' &&
+        steps.find-comment.outputs.comment-id == ''
       uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043 # v4.0.0
       with:
         issue-number: ${{ github.event.pull_request.number }}
@@ -49,10 +55,13 @@ runs:
           Please read the [contribution guidelines](https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md#adding-a-changeset-changeset) for more details.
 
     - name: Remove comment when changeset is added
-      if: steps.check.outputs.found == 'true' && steps.find-comment.outputs.comment-id != ''
+      if: >-
+        github.event.pull_request.head.repo.full_name == github.repository &&
+        steps.check.outputs.found == 'true' &&
+        steps.find-comment.outputs.comment-id != ''
       uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043 # v4.0.0
       with:
-        comment-id: ${{ steps.find-comment.outputs.comment-id }}        
+        comment-id: ${{ steps.find-comment.outputs.comment-id }}
         edit-mode: replace
         body: |
           <!-- changeset-check -->

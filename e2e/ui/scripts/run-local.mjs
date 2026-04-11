@@ -12,7 +12,6 @@
 //   6. Spawn cypress (run or open, controlled by --open).
 //   7. Tear down: kill verdaccio, remove the temp dir, propagate cypress's
 //      exit code.
-
 import { spawn } from 'node:child_process';
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -58,7 +57,9 @@ function cleanup(exitCode) {
   if (verdaccioProc && verdaccioProc.exitCode === null) {
     try {
       verdaccioProc.kill('SIGTERM');
-    } catch {}
+    } catch {
+      console.warn('[e2e-ui] failed to kill verdaccio process');
+    }
   }
   try {
     rmSync(tempDir, { recursive: true, force: true });
@@ -77,7 +78,11 @@ async function waitForPing(url, attempts = 60) {
     try {
       const res = await fetch(`${url}/-/ping`);
       if (res.ok) return;
-    } catch {}
+    } catch {
+      console.log(
+        `[e2e-ui] waiting for verdaccio to respond at ${url}/-/ping… (${i + 1}/${attempts})`
+      );
+    }
     await new Promise((r) => setTimeout(r, 500));
   }
   throw new Error(`Verdaccio did not respond at ${url}/-/ping`);
