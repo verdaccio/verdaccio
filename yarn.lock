@@ -3389,14 +3389,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/package-filter@npm:13.0.0-next-8.4":
-  version: 13.0.0-next-8.4
-  resolution: "@verdaccio/package-filter@npm:13.0.0-next-8.4"
+"@verdaccio/package-filter@npm:13.0.0-next-8.5":
+  version: 13.0.0-next-8.5
+  resolution: "@verdaccio/package-filter@npm:13.0.0-next-8.5"
   dependencies:
     "@verdaccio/core": "npm:8.0.0-next-8.37"
     debug: "npm:4.4.3"
     semver: "npm:7.7.4"
-  checksum: 10c0/de0f23cf7c450a1f017a7e59e7354e8df17fbb20ed1932e9ecd0e7996acc49f323fd0218b2eff2b7bb21b10d3ace6fcd997adf23dc876ef3990b5d2e521dd104
+  checksum: 10c0/5a4bfec01dba4b55c00d0f686ff379d0fc22cccb8f8f2a4a2c68352a9a80d19f6f647d448b5dab210ffe4b68468eafd4c0c33a8ea88c4c558e921bd0aed40d52
   languageName: node
   linkType: hard
 
@@ -12072,7 +12072,7 @@ __metadata:
     "@verdaccio/local-storage-legacy": "npm:11.1.1"
     "@verdaccio/logger": "npm:8.0.0-next-8.37"
     "@verdaccio/middleware": "npm:8.0.0-next-8.37"
-    "@verdaccio/package-filter": "npm:13.0.0-next-8.4"
+    "@verdaccio/package-filter": "npm:13.0.0-next-8.5"
     "@verdaccio/search-indexer": "npm:8.0.0-next-8.6"
     "@verdaccio/signature": "npm:8.0.0-next-8.29"
     "@verdaccio/streams": "npm:10.2.1"
