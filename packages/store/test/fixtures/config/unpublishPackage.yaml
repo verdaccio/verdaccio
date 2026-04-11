@@ -1,11 +1,14 @@
 uplinks:
   ver:
-    url: https://registry.verdaccio.org/
+    url: https://fake.domain.org/
 packages:
   '@*/*':
     access: $all
     publish: $all
     proxy: ver
+  'upstream':
+    access: $all
+    publish: $all
   '*':
     access: $all
     publish: $all
