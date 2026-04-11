@@ -1,5 +1,11 @@
 # Change Log
 
+## 13.0.0-next-8.5
+
+### Patch Changes
+
+- f44ddfc: fix(package-filter): fix O(n²) complexity in cleanupDistFiles
+
 ## 13.0.0-next-8.4
 
 ### Patch Changes
