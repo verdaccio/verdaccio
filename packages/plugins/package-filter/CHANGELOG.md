@@ -1,5 +1,12 @@
 # Change Log
 
+## 14.0.0-next-9.34
+
+### Patch Changes
+
+- f777142: fix(package-filter): fix O(n²) complexity in cleanupDistFiles
+  - @verdaccio/core@9.0.0-next-9.10
+
 ## 14.0.0-next-9.33
 
 ### Patch Changes

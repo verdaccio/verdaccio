@@ -1,5 +1,19 @@
 # @verdaccio/api
 
+## 9.0.0-next-9.10
+
+### Patch Changes
+
+- ba70ae0: fix: memory leak in search
+- Updated dependencies [747d6ab]
+- Updated dependencies [7590fb5]
+  - @verdaccio/config@9.0.0-next-9.10
+  - @verdaccio/store@9.0.0-next-9.10
+  - @verdaccio/auth@9.0.0-next-9.10
+  - @verdaccio/middleware@9.0.0-next-9.10
+  - @verdaccio/core@9.0.0-next-9.10
+  - @verdaccio/logger@9.0.0-next-9.10
+
 ## 9.0.0-next-9.9
 
 ### Patch Changes

@@ -1,5 +1,21 @@
 # @verdaccio/store
 
+## 9.0.0-next-9.10
+
+### Patch Changes
+
+- 7590fb5: fix(storage): url.parse deprecation warning
+- Updated dependencies [747d6ab]
+  - @verdaccio/config@9.0.0-next-9.10
+  - @verdaccio/loaders@9.0.0-next-9.10
+  - @verdaccio/proxy@9.0.0-next-9.10
+  - @verdaccio/search@9.0.0-next-9.10
+  - @verdaccio/core@9.0.0-next-9.10
+  - @verdaccio/tarball@14.0.0-next-9.10
+  - @verdaccio/logger@9.0.0-next-9.10
+  - @verdaccio/local-storage@14.0.0-next-9.10
+  - @verdaccio/url@14.0.0-next-9.10
+
 ## 9.0.0-next-9.9
 
 ### Patch Changes

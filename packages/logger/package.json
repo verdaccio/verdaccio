@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/logger",
-  "version": "9.0.0-next-9.9",
+  "version": "9.0.0-next-9.10",
   "description": "Verdaccio Logger",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
@@ -39,7 +39,7 @@
     "build": "vite build"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:9.0.0-next-9.9",
+    "@verdaccio/core": "workspace:9.0.0-next-9.10",
     "colorette": "2.0.20",
     "dayjs": "1.11.20",
     "debug": "4.4.3",
@@ -49,7 +49,7 @@
     "sonic-boom": "4.2.1"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:14.0.0-next-9.4",
+    "@verdaccio/types": "workspace:14.0.0-next-9.5",
     "pino": "10.3.1",
     "vitest": "4.1.0"
   },

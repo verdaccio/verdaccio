@@ -1,5 +1,20 @@
 # verdaccio
 
+## 9.0.0-next-9.10
+
+### Patch Changes
+
+- Updated dependencies [f777142]
+  - @verdaccio/package-filter@14.0.0-next-9.34
+  - @verdaccio/ui-theme@9.0.0-next-9.10
+  - @verdaccio/cli@9.0.0-next-9.10
+  - @verdaccio/hooks@9.0.0-next-9.10
+  - @verdaccio/node-api@9.0.0-next-9.10
+  - verdaccio-audit@14.0.0-next-9.10
+  - verdaccio-htpasswd@14.0.0-next-9.10
+  - @verdaccio/server@9.0.0-next-9.10
+  - @verdaccio/logger@9.0.0-next-9.10
+
 ## 9.0.0-next-9.9
 
 ### Minor Changes
