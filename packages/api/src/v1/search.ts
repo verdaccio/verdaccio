@@ -46,8 +46,8 @@ export default function (route, auth: Auth, storage: Storage, logger: Logger): v
     req.socket.on('close', onClientClose);
 
     try {
-      size = parseInt(size ?? '20', 10);
-      from = parseInt(from ?? '0', 10);
+      size = parseInt(Number.isFinite(size) ? size : '20', 10);
+      from = parseInt(Number.isFinite(from) ? from : '0', 10);
 
       debug('storage search initiated');
       data = await storage.search({
