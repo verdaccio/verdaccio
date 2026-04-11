@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.5.0](https://github.com/verdaccio/verdaccio/compare/v6.4.0...v6.5.0) (2026-04-11)
+
+
+### Features
+
+* update ui to major ([#5794](https://github.com/verdaccio/verdaccio/issues/5794)) ([b957c6f](https://github.com/verdaccio/verdaccio/commit/b957c6f0edd909d2c04ba4643d224ef0022c6416))
+
+
+### Bug Fixes
+
+* **package-filter:** fix O(n²) complexity in cleanupDistFiles ([b15f622](https://github.com/verdaccio/verdaccio/commit/b15f62279d86f16a916f4de849cc9376327849f1))
+* ui search returns no output [#5798](https://github.com/verdaccio/verdaccio/issues/5798) ([3edd3ee](https://github.com/verdaccio/verdaccio/commit/3edd3ee8fab6e75c0ee4f3be5ae812dc8893459b))
+
 ## [6.4.0](https://github.com/verdaccio/verdaccio/compare/v6.3.2...v6.4.0) (2026-04-06)
 
 
