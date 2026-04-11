@@ -1,0 +1,44 @@
+storage: ./storage
+plugins: ./plugins
+
+web:
+  title: Verdaccio e2e
+  enable: true
+  login: true
+  showSettings: true
+
+auth:
+  htpasswd:
+    file: ./htpasswd
+    max_users: 1000
+
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
+
+packages:
+  '@*/*':
+    access: $all
+    publish: $anonymous $authenticated
+    unpublish: $anonymous $authenticated
+    proxy: npmjs
+
+  '**':
+    access: $all
+    publish: $anonymous $authenticated
+    unpublish: $anonymous $authenticated
+    proxy: npmjs
+
+server:
+  keepAliveTimeout: 60
+
+middlewares:
+  audit:
+    enabled: true
+
+# Bump from the default 1000/15min so a full Cypress run doesn't 429.
+userRateLimit:
+  windowMs: 1000
+  max: 10000
+
+log: { type: stdout, format: json, level: warn }

@@ -244,31 +244,35 @@ jobs:
           fail-on-cache-miss: true
       - name: Start Verdaccio
         run: |
-          node packages/verdaccio/bin/verdaccio --config ./e2e/ui/config/config.yaml > verdaccio.log 2>&1 &
+          nohup node packages/verdaccio/bin/verdaccio --config ./scripts/e2e-ui-config.yaml > verdaccio.log 2>&1 &
           for i in $(seq 1 30); do
             curl -s http://localhost:4873/-/ping && break
             sleep 1
           done
-      - name: Create signin test user
+      - name: Create test user (for signin suite)
         run: |
           curl -s -X PUT -H "Content-Type: application/json" \
             -d '{"name":"test","password":"test","_id":"org.couchdb.user:test","type":"user","roles":[]}' \
             http://localhost:4873/-/user/org.couchdb.user:test
-      - name: Run UI E2E tests
-        run: pnpm test:e2e:ui
+      - name: Run Cypress
+        run: pnpm e2e:ui:run
+        env:
+          VERDACCIO_URL: http://localhost:4873
       - name: Show Verdaccio logs
         if: always()
         run: cat verdaccio.log 2>/dev/null || echo "No log file found"
       - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
-        if: always()
+        if: failure()
         with:
-          name: videos
-          path: /home/runner/work/verdaccio/verdaccio/e2e/ui/cypress/videos
+          name: cypress-screenshots
+          path: cypress/screenshots
+          if-no-files-found: ignore
       - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         if: always()
         with:
-          name: screenshots
-          path: /home/runner/work/verdaccio/verdaccio/e2e/ui/cypress/screenshots
+          name: cypress-videos
+          path: cypress/videos
+          if-no-files-found: ignore
   changeset-validation:
     needs: [test, e2e-cli, e2e-ui]
     if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && always() && !failure() && !cancelled() }}
