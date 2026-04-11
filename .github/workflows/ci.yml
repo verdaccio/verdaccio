@@ -242,6 +242,23 @@ jobs:
             packages/plugins/ui-theme/static
           key: ci-build-${{ github.sha }}-node-24
           fail-on-cache-miss: true
+      # The shared install-app-node action runs `pnpm install --ignore-scripts`,
+      # so cypress's postinstall (which downloads the test runner binary) is
+      # suppressed. Cache the binary across runs and only invoke `cypress
+      # install` on a cache miss — the version is pinned by the cypress entry
+      # in pnpm-lock.yaml, so this never pulls anything that isn't already
+      # locked.
+      - name: Cache Cypress binary
+        id: cypress-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            cypress-${{ runner.os }}-
+      - name: Install Cypress binary
+        if: steps.cypress-cache.outputs.cache-hit != 'true'
+        run: pnpm exec cypress install
       - name: Start Verdaccio
         run: |
           nohup node packages/verdaccio/bin/verdaccio --config ./scripts/e2e-ui-config.yaml > verdaccio.log 2>&1 &
