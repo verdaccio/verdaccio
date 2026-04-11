@@ -1,19 +1,17 @@
 {
   "private": true,
-  "name": "@verdaccio/e2e-ui",
-  "version": "2.1.0-next-8.1",
+  "name": "verdaccio-e2e-ui-tests",
+  "version": "0.0.0",
+  "description": "Cypress UI E2E tests for Verdaccio (powered by @verdaccio/e2e-ui)",
   "devDependencies": {
-    "verdaccio": "workspace:*",
-    "@verdaccio/core": "workspace:*",
-    "@verdaccio/config": "workspace:*",
-    "@verdaccio/test-helper": "workspace:*",
-    "debug": "4.4.3",
-    "cypress": "15.10.0",
-    "get-port": "5.1.1"
+    "@verdaccio/e2e-ui": "2.3.0",
+    "cypress": "15.10.0"
   },
   "scripts": {
-    "cypress:open": "cypress open",
     "cypress:install": "cypress install",
-    "test": "cypress install && cypress run"
+    "cypress:open": "cypress open",
+    "test": "cypress install && cypress run",
+    "test:local": "node ./scripts/run-local.mjs",
+    "test:local:open": "node ./scripts/run-local.mjs --open"
   }
 }

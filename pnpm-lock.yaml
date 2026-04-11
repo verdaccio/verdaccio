@@ -251,27 +251,12 @@ importers:
 
   e2e/ui:
     devDependencies:
-      '@verdaccio/config':
-        specifier: workspace:*
-        version: link:../../packages/config
-      '@verdaccio/core':
-        specifier: workspace:*
-        version: link:../../packages/core/core
-      '@verdaccio/test-helper':
-        specifier: workspace:*
-        version: link:../../packages/tools/helpers
+      '@verdaccio/e2e-ui':
+        specifier: 2.3.0
+        version: 2.3.0(cypress@15.10.0)
       cypress:
         specifier: 15.10.0
         version: 15.10.0
-      debug:
-        specifier: 4.4.3
-        version: 4.4.3(supports-color@5.5.0)
-      get-port:
-        specifier: 5.1.1
-        version: 5.1.1
-      verdaccio:
-        specifier: workspace:*
-        version: link:../../packages/verdaccio
 
   packages/api:
     dependencies:
@@ -3548,6 +3533,11 @@ packages:
   '@verdaccio/e2e-cli@2.3.0':
     resolution: {integrity: sha512-rk5cZtn0KW3ai5KfB4cqbU18A9OEYoobV8eOUnXZy752xcQ7wsdONAflW++BiqqcRXArwAyPZW9oIoS66bupsg==}
     hasBin: true
+
+  '@verdaccio/e2e-ui@2.3.0':
+    resolution: {integrity: sha512-uLVvG9YnNOR9qPdE1xa7+EkBGr28baIU7/Rpo7jy7YE0gTdPoLpAPQNxzOZq688DDOD7sjveU64dMMj2ofFN7A==}
+    peerDependencies:
+      cypress: '>=12.0.0'
 
   '@verdaccio/eslint-config@13.0.0':
     resolution: {integrity: sha512-c+5RWlpbErNgNt3HjZ1SaJH79/J/0334fDh/iWJ9vaJp+i6m+VkSiY30DEKg9lJJyGTM/2nfWqaoYtbEg6kDLQ==}
@@ -10362,6 +10352,10 @@ snapshots:
       js-yaml: 4.1.0
     transitivePeerDependencies:
       - supports-color
+
+  '@verdaccio/e2e-ui@2.3.0(cypress@15.10.0)':
+    dependencies:
+      cypress: 15.10.0
 
   '@verdaccio/eslint-config@13.0.0(@typescript-eslint/utils@8.57.0(eslint@10.0.3)(typescript@5.9.3))(@vitest/eslint-plugin@1.6.9(eslint@10.0.3)(typescript@5.9.3)(vitest@4.1.0(@types/node@24.12.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.0(@types/node@24.12.0)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.3))))(eslint-import-resolver-node@0.3.9)(eslint-plugin-cypress@6.1.0(eslint@10.0.3))(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.57.0(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3))(eslint-plugin-jest@29.15.0(@typescript-eslint/eslint-plugin@8.57.0(@typescript-eslint/parser@8.57.0(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3)(typescript@5.9.3))(eslint-plugin-react-hooks@7.0.1(eslint@10.0.3))(eslint-plugin-react@7.37.5(eslint@10.0.3))(eslint-plugin-verdaccio@10.1.0(eslint@10.0.3))(eslint@10.0.3)(typescript@5.9.3)':
     dependencies:
