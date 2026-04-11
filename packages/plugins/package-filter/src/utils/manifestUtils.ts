@@ -130,13 +130,14 @@ export function setupCreatedAndModified(manifest: Manifest): void {
  */
 export function cleanupDistFiles(manifest: Manifest): void {
   const distFiles = manifest._distfiles;
-  Object.entries(distFiles).forEach(([key, file]) => {
-    const fileUrl = file.url;
-    const versionPointingToFile = Object.values(manifest.versions).find(
-      (v) => v.dist?.tarball === fileUrl
-    );
-
-    if (!versionPointingToFile) {
+  // Build a Set of active tarball URLs in one pass — O(n) instead of O(n²)
+  const activeTarballs = new Set(
+    Object.values(manifest.versions)
+      .map((v) => v.dist?.tarball)
+      .filter((tarball): tarball is string => typeof tarball === 'string')
+  );
+  Object.keys(distFiles).forEach((key) => {
+    if (!activeTarballs.has(distFiles[key].url)) {
       delete distFiles[key];
     }
   });
