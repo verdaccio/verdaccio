@@ -13,8 +13,8 @@ export default defineConfig({
       setupVerdaccioTasks(on, { registryUrl });
     },
   },
-  video: true,
-  screenshotOnRunFailure: true,
+  video: false,
+  screenshotOnRunFailure: false,
   env: {
     VERDACCIO_URL: registryUrl,
   },
