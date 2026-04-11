@@ -1,0 +1,71 @@
+name: E2E UI Tests
+
+on: [pull_request]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: e2e-ui-${{ github.ref }}-6x
+  cancel-in-progress: true
+
+jobs:
+  e2e-ui:
+    name: E2E UI (Node ${{ matrix.node_version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node_version: [24]
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
+
+      - name: Use Node ${{ matrix.node_version }}
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: ${{ matrix.node_version }}
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build Verdaccio
+        run: yarn build
+
+      - name: Start Verdaccio
+        run: |
+          nohup node bin/verdaccio --config ./scripts/e2e-ui-config.yaml > verdaccio.log 2>&1 &
+          for i in $(seq 1 30); do
+            curl -s http://localhost:4873/-/ping && break
+            sleep 1
+          done
+
+      - name: Create test user (for signin suite)
+        run: |
+          curl -s -X PUT -H "Content-Type: application/json" \
+            -d '{"name":"test","password":"test","_id":"org.couchdb.user:test","type":"user","roles":[]}' \
+            http://localhost:4873/-/user/org.couchdb.user:test
+
+      - name: Run Cypress
+        run: yarn cypress run
+        env:
+          VERDACCIO_URL: http://localhost:4873
+
+      - name: Upload Cypress screenshots
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+          if-no-files-found: ignore
+
+      - name: Upload Cypress videos
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: cypress-videos
+          path: cypress/videos
+          if-no-files-found: ignore
+
+      - name: Show Verdaccio logs
+        if: always()
+        run: cat verdaccio.log 2>/dev/null || echo "No log file found"

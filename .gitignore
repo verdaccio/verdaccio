@@ -27,6 +27,11 @@ yarn-error.log
 reports/
 coverage/
 
+# Cypress
+cypress/videos/
+cypress/screenshots/
+cypress/downloads/
+
 # IDE
 .idea/
 

@@ -75,6 +75,7 @@
     "@types/supertest": "6.0.3",
     "@verdaccio-scope/verdaccio-auth-foo": "0.0.2",
     "@verdaccio/e2e-cli": "2.4.0",
+    "@verdaccio/e2e-ui": "2.3.0",
     "@verdaccio/eslint-config": "13.0.0",
     "@verdaccio/test-helper": "4.0.0-next-8.21",
     "@verdaccio/types": "13.0.0-next-8.12",
@@ -82,6 +83,7 @@
     "@vitest/eslint-plugin": "1.6.9",
     "babel-plugin-transform-inline-environment-variables": "0.4.4",
     "cross-env": "10.1.0",
+    "cypress": "15",
     "eslint": "10.0.3",
     "eslint-plugin-cypress": "6.1.0",
     "eslint-plugin-jest": "29.15.0",
@@ -134,7 +136,12 @@
     "code:types": "tsc --emitDeclarationOnly -p tsconfig.json",
     "code:docker-build": "yarn babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\"",
     "docker": "docker build -t verdaccio/verdaccio:local . --no-cache",
-    "docker:run": "docker run -it --rm -p 4873:4873 -e \"DEBUG=verdaccio*\" verdaccio/verdaccio:local"
+    "docker:run": "docker run -it --rm -p 4873:4873 -e \"DEBUG=verdaccio*\" verdaccio/verdaccio:local",
+    "e2e:ui:start": "node bin/verdaccio --config ./scripts/e2e-ui-config.yaml",
+    "e2e:ui:run": "cypress run",
+    "e2e:ui:open": "cypress open",
+    "e2e:ui:local": "./scripts/e2e-ui-local.sh",
+    "e2e:ui:local:open": "./scripts/e2e-ui-local.sh --open"
   },
   "engines": {
     "node": ">=18"
