@@ -5,4 +5,3 @@ import type { ConfigYaml } from '@verdaccio/types';
 export async function runServer(config?: string | ConfigYaml): Promise<any> {
   return _runServer(config, startServer);
 }
-export { Registry, type ResponseAssert, ServerQuery } from './server';

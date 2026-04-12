@@ -96,6 +96,12 @@ export function getConfigParsed(config?: string | ConfigYaml): ConfigYaml {
   } else if (typeof config === 'object' && config !== null) {
     configurationParsed = config;
 
+    // When config is provided as an object (programmatic API), ensure configPath
+    // is set so the Config constructor does not throw.
+    if (!configurationParsed.configPath) {
+      configurationParsed.configPath = process.cwd();
+    }
+
     // @ts-expect-error
     if (!configurationParsed.self_path) {
       debug('self_path not defined, using config path location');
