@@ -1,5 +1,21 @@
 # @verdaccio/store
 
+## 9.0.0-next-9.11
+
+### Patch Changes
+
+- 877329a: fix(storage): flaky timeout test
+- Updated dependencies [96cb0c4]
+  - @verdaccio/config@9.0.0-next-9.11
+  - @verdaccio/loaders@9.0.0-next-9.11
+  - @verdaccio/proxy@9.0.0-next-9.11
+  - @verdaccio/search@9.0.0-next-9.11
+  - @verdaccio/core@9.0.0-next-9.11
+  - @verdaccio/tarball@14.0.0-next-9.11
+  - @verdaccio/url@14.0.0-next-9.11
+  - @verdaccio/logger@9.0.0-next-9.11
+  - @verdaccio/local-storage@14.0.0-next-9.11
+
 ## 9.0.0-next-9.10
 
 ### Patch Changes

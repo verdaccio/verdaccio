@@ -1,5 +1,11 @@
 # @verdaccio/logger
 
+## 9.0.0-next-9.11
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.11
+
 ## 9.0.0-next-9.10
 
 ### Patch Changes

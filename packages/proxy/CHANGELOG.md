@@ -1,5 +1,13 @@
 # @verdaccio/proxy
 
+## 9.0.0-next-9.11
+
+### Patch Changes
+
+- Updated dependencies [96cb0c4]
+  - @verdaccio/config@9.0.0-next-9.11
+  - @verdaccio/core@9.0.0-next-9.11
+
 ## 9.0.0-next-9.10
 
 ### Patch Changes
