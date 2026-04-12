@@ -135,6 +135,36 @@ export default class ConfigBuilder {
     return this;
   }
 
+  public addUserAgent(userAgent: string) {
+    this.config.user_agent = userAgent;
+    return this;
+  }
+
+  public addHttpProxy(httpProxy: string) {
+    this.config.http_proxy = httpProxy;
+    return this;
+  }
+
+  public addHttpsProxy(httpsProxy: string) {
+    this.config.https_proxy = httpsProxy;
+    return this;
+  }
+
+  public addNoProxy(noProxy: string) {
+    this.config.no_proxy = noProxy;
+    return this;
+  }
+
+  public addPlugins(plugins: string) {
+    this.config.plugins = plugins;
+    return this;
+  }
+
+  public addNotifications(notifications: Notifications) {
+    this.config.notifications = notifications;
+    return this;
+  }
+
   public getConfig(): ConfigYaml {
     return this.config;
   }

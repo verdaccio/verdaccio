@@ -100,6 +100,12 @@ const config = ConfigBuilder.build({ security: { api: { legacy: false } } });
 - `addUserRateLimit(rateLimit: RateLimit)`: Merges user rate limit settings.
 - `addUrlPrefix(urlPrefix: string)`: Sets URL prefix.
 - `addI18n(i18n: ConfigYaml['i18n'])`: Sets i18n configuration.
+- `addUserAgent(userAgent: string)`: Sets the user agent string.
+- `addHttpProxy(httpProxy: string)`: Sets the HTTP proxy.
+- `addHttpsProxy(httpsProxy: string)`: Sets the HTTPS proxy.
+- `addNoProxy(noProxy: string)`: Sets the no-proxy exclusion list.
+- `addPlugins(plugins: string)`: Sets the plugins directory path.
+- `addNotifications(notifications: Notifications)`: Sets notifications configuration.
 - `getConfig(): ConfigYaml`: Retrieves the configuration object.
 - `getAsYaml(): string`: Retrieves the configuration as YAML format.
 

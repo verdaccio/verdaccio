@@ -245,6 +245,42 @@ describe('Config builder', () => {
     expect(config.getConfig().i18n).toEqual({ web: 'en-US' });
   });
 
+  test('should add user agent', () => {
+    const config = ConfigBuilder.build().addUserAgent('verdaccio/6.0.0');
+    expect(config.getConfig().user_agent).toBe('verdaccio/6.0.0');
+  });
+
+  test('should add http proxy', () => {
+    const config = ConfigBuilder.build().addHttpProxy('http://proxy.example.com:8080');
+    expect(config.getConfig().http_proxy).toBe('http://proxy.example.com:8080');
+  });
+
+  test('should add https proxy', () => {
+    const config = ConfigBuilder.build().addHttpsProxy('https://proxy.example.com:8443');
+    expect(config.getConfig().https_proxy).toBe('https://proxy.example.com:8443');
+  });
+
+  test('should add no proxy', () => {
+    const config = ConfigBuilder.build().addNoProxy('localhost,127.0.0.1');
+    expect(config.getConfig().no_proxy).toBe('localhost,127.0.0.1');
+  });
+
+  test('should add plugins directory', () => {
+    const config = ConfigBuilder.build().addPlugins('/opt/verdaccio/plugins');
+    expect(config.getConfig().plugins).toBe('/opt/verdaccio/plugins');
+  });
+
+  test('should add notifications configuration', () => {
+    const config = ConfigBuilder.build().addNotifications({
+      endpoint: 'https://notify.example.com',
+      content: '{"msg": "package published"}',
+    });
+    expect(config.getConfig().notifications).toEqual({
+      endpoint: 'https://notify.example.com',
+      content: '{"msg": "package published"}',
+    });
+  });
+
   test('should chain all new methods together', () => {
     const config = ConfigBuilder.build()
       .addStorage('/tmp/verdaccio')
