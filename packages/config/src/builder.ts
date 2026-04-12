@@ -3,11 +3,18 @@ import { merge } from 'lodash-es';
 import type {
   AuthConf,
   ConfigYaml,
+  FlagsConfig,
+  HttpsConf,
+  ListenAddress,
   LoggerConfigItem,
+  Notifications,
   PackageAccessYaml,
+  PublishOptions,
+  RateLimit,
   Security,
   ServerSettingsConf,
   UpLinkConf,
+  WebConf,
 } from '@verdaccio/types';
 
 import { fromJStoYAML } from '.';
@@ -20,7 +27,7 @@ export default class ConfigBuilder {
   private config: ConfigYaml;
 
   public constructor(config?: Partial<ConfigYaml>) {
-    this.config = merge(config, { uplinks: {}, packages: {}, security: {} });
+    this.config = merge({ uplinks: {}, packages: {}, security: {} }, config);
   }
 
   public static build(config?: Partial<ConfigYaml>): ConfigBuilder {
@@ -28,8 +35,9 @@ export default class ConfigBuilder {
   }
 
   public addPackageAccess(pattern: string, pkgAccess: PackageAccessYaml) {
-    // @ts-ignore
-    this.config.packages[pattern] = pkgAccess;
+    // PackageAccessYaml uses string for publish/access while PackageAccess uses string[]
+    // The config parser normalizes these later, so the cast is safe here
+    (this.config.packages as Record<string, PackageAccessYaml>)[pattern] = pkgAccess;
     return this;
   }
 
@@ -64,6 +72,66 @@ export default class ConfigBuilder {
     } else {
       this.config.store = storage;
     }
+    return this;
+  }
+
+  public addWeb(web: Partial<WebConf>) {
+    this.config.web = merge(this.config.web, web);
+    return this;
+  }
+
+  public addListen(listen: ListenAddress) {
+    this.config.listen = listen;
+    return this;
+  }
+
+  public addHttps(https: HttpsConf) {
+    this.config.https = https;
+    return this;
+  }
+
+  public addPublish(publish: Partial<PublishOptions>) {
+    this.config.publish = merge(this.config.publish, publish);
+    return this;
+  }
+
+  public addFlags(flags: Partial<FlagsConfig>) {
+    this.config.flags = merge(this.config.flags, flags);
+    return this;
+  }
+
+  public addNotify(notify: Notifications | Notifications[]) {
+    this.config.notify = notify;
+    return this;
+  }
+
+  public addMiddlewares(middlewares: any) {
+    this.config.middlewares = merge(this.config.middlewares, middlewares);
+    return this;
+  }
+
+  public addFilters(filters: any) {
+    this.config.filters = merge(this.config.filters, filters);
+    return this;
+  }
+
+  public addMaxBodySize(maxBodySize: string) {
+    this.config.max_body_size = maxBodySize;
+    return this;
+  }
+
+  public addUserRateLimit(rateLimit: RateLimit) {
+    this.config.userRateLimit = merge(this.config.userRateLimit, rateLimit);
+    return this;
+  }
+
+  public addUrlPrefix(urlPrefix: string) {
+    this.config.url_prefix = urlPrefix;
+    return this;
+  }
+
+  public addI18n(i18n: ConfigYaml['i18n']) {
+    this.config.i18n = i18n;
     return this;
   }
 
