@@ -1,5 +1,20 @@
 # verdaccio
 
+## 9.0.0-next-9.12
+
+### Patch Changes
+
+- 64c904a: fix: remove @verdaccio/test-helper from production build
+  - @verdaccio/cli@9.0.0-next-9.12
+  - @verdaccio/hooks@9.0.0-next-9.12
+  - @verdaccio/node-api@9.0.0-next-9.12
+  - verdaccio-audit@14.0.0-next-9.12
+  - verdaccio-htpasswd@14.0.0-next-9.12
+  - @verdaccio/package-filter@14.0.0-next-9.36
+  - @verdaccio/server@9.0.0-next-9.12
+  - @verdaccio/ui-theme@9.0.0-next-9.12
+  - @verdaccio/logger@9.0.0-next-9.12
+
 ## 9.0.0-next-9.11
 
 ### Patch Changes

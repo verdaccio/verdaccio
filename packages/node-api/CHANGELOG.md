@@ -1,5 +1,13 @@
 # @verdaccio/node-api
 
+## 9.0.0-next-9.12
+
+### Patch Changes
+
+- Updated dependencies [64c904a]
+  - @verdaccio/config@9.0.0-next-9.12
+  - @verdaccio/logger@9.0.0-next-9.12
+
 ## 9.0.0-next-9.11
 
 ### Patch Changes

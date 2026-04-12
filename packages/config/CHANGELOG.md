@@ -1,5 +1,12 @@
 # @verdaccio/config
 
+## 9.0.0-next-9.12
+
+### Patch Changes
+
+- 64c904a: fix: default configPath to process.cwd() when using programmatic API with config object
+  - @verdaccio/core@9.0.0-next-9.12
+
 ## 9.0.0-next-9.11
 
 ### Minor Changes

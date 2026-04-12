@@ -1,5 +1,11 @@
 # Change Log
 
+## 14.0.0-next-9.12
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.12
+
 ## 14.0.0-next-9.11
 
 ### Patch Changes
