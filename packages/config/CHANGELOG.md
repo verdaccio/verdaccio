@@ -1,5 +1,15 @@
 # @verdaccio/config
 
+## 8.0.0-next-8.38
+
+### Minor Changes
+
+- 1ee9cae: feat(config): extend ConfigBuilder with methods for web, listen, https, publish, flags, notify, middlewares, filters, maxBodySize, userRateLimit, urlPrefix, and i18n
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.38
+
 ## 8.0.0-next-8.37
 
 ### Patch Changes
