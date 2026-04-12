@@ -18,7 +18,6 @@
   "scripts": {
     "clean": "rimraf ./build",
     "lint": "eslint . --ext .js,.ts",
-    "test": "vitest run --testTimeout 50000 --hookTimeout 20000",
     "ge:docs": "typedoc src/index.ts --tsconfig tsconfig.build.json --plugin typedoc-plugin-markdown",
     "build": "vite build",
     "code:docker-build": "vite build",
@@ -48,9 +47,6 @@
     "verdaccio-htpasswd": "workspace:14.0.0-next-9.11",
     "@verdaccio/package-filter": "workspace:14.0.0-next-9.35",
     "debug": "4.4.3"
-  },
-  "devDependencies": {
-    "vitest": "4.1.0"
   },
   "keywords": [
     "private",

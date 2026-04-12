@@ -1468,10 +1468,6 @@ importers:
       verdaccio-htpasswd:
         specifier: workspace:14.0.0-next-9.11
         version: link:../plugins/htpasswd
-    devDependencies:
-      vitest:
-        specifier: 4.1.0
-        version: 4.1.0(@types/node@24.12.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.0(@types/node@24.12.0)(esbuild@0.27.4)(sass@1.93.2)(terser@5.31.3)(tsx@4.21.0)(yaml@2.8.3))
 
   packages/web:
     dependencies:
