@@ -1543,6 +1543,43 @@ describe('storage', () => {
       expect(response).toHaveLength(1);
       expect(response[0]).toEqual(expect.objectContaining({ name: 'foo', version: '1.0.0' }));
     });
+
+    test('should strip readme from package list to reduce memory consumption', async () => {
+      const config = new Config(
+        configExample({
+          ...getDefaultConfig(),
+          storage: generateRandomStorage(),
+        })
+      );
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        connection: { remoteAddress: fakeHost },
+        headers: {
+          host: 'host',
+        },
+        url: '/',
+      });
+      const storage = new Storage(config, logger);
+      await storage.init(config);
+      const manifest = generatePackageMetadata('foo');
+      // Verify the source metadata has a readme
+      expect(manifest.readme).toEqual('# test');
+      const ac = new AbortController();
+      await storage.updateManifest(manifest, {
+        signal: ac.signal,
+        name: 'foo',
+        uplinksLook: false,
+        requestOptions: {
+          headers: req.headers as any,
+          protocol: req.protocol,
+          host: req.get('host') as string,
+        },
+      });
+      const response = await storage.getLocalDatabase();
+      expect(response).toHaveLength(1);
+      // readme should be stripped from package list results
+      expect(response[0].readme).toEqual('');
+    });
   });
 
   describe('tokens', () => {
