@@ -47,3 +47,4 @@ static/*
 CLAUDE.md
 .claude/settings.json
 .github/*.md
+/.claude

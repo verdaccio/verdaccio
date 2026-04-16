@@ -19,7 +19,7 @@ export default (auth, storage, config) => {
   router.use(packageApi(storage, auth, config));
   router.use(search(storage, auth));
   if (hasLogin(config)) {
-    router.use(user(auth, storage));
+    router.use(user(auth, config));
   }
   return router;
 };
