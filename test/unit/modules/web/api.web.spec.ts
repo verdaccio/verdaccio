@@ -48,6 +48,9 @@ describe('endpoint web unit test', () => {
             url: `http://localhost:${mockServerPort}`,
           },
         },
+        flags: {
+          changePassword: true,
+        },
         self_path: store,
       },
       'api.web.spec.yaml'
@@ -303,5 +306,51 @@ describe('endpoint web unit test', () => {
         });
       });
     });
+  });
+});
+
+describe('reset_password endpoint with flag disabled', () => {
+  let app;
+  let mockRegistry;
+  vi.setConfig({ testTimeout: 10000 });
+
+  beforeAll(async function () {
+    const store = await fileUtils.createTempStorageFolder('htpasswd-web-api-flag-off');
+    const mockServerPort = await getPort();
+    const configForTest = configDefault(
+      {
+        auth: {
+          htpasswd: {
+            file: './htpasswd-web-api-flag-off',
+          },
+        },
+        storage: store,
+        uplinks: {
+          npmjs: {
+            url: `http://localhost:${mockServerPort}`,
+          },
+        },
+        self_path: store,
+      },
+      'api.web.spec.yaml'
+    );
+    app = await endPointAPI(configForTest);
+    mockRegistry = await mockServer(mockServerPort).init();
+  });
+
+  afterAll(function () {
+    mockRegistry[0].stop();
+  });
+
+  test('should return 404 when flags.changePassword is not enabled', async () => {
+    const user = { name: 'web-reset-flag-off', password: 'secretPass000' };
+    const addRes = await addUser(request(app), user.name, user);
+    const token = addRes[1].body.token;
+
+    await request(app)
+      .put('/-/verdaccio/sec/reset_password')
+      .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+      .send({ password: { old: user.password, new: 'newSecret123' } })
+      .expect(HTTP_STATUS.NOT_FOUND);
   });
 });
