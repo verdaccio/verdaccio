@@ -4,6 +4,7 @@ import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest';
 
 import {
   API_ERROR,
+  APP_ERROR,
   DIST_TAGS,
   HEADERS,
   HEADER_TYPE,
@@ -260,6 +261,45 @@ describe('endpoint web unit test', () => {
                 done(true);
               });
           });
+        });
+      });
+
+      describe('reset password webui', () => {
+        async function loginWebUI(name: string, password: string): Promise<string> {
+          const res = await request(app)
+            .post('/-/verdaccio/sec/login')
+            .send({ username: name, password })
+            .expect(HTTP_STATUS.OK);
+          expect(res.body.token).toBeTruthy();
+          return res.body.token;
+        }
+
+        test('should change password successfully when new password is valid', async () => {
+          const user = { name: 'web-reset-ok', password: 'secretPass000' };
+          await addUser(request(app), user.name, user);
+          const token = await loginWebUI(user.name, user.password);
+
+          const res = await request(app)
+            .put('/-/verdaccio/sec/reset_password')
+            .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+            .send({ password: { old: user.password, new: 'newSecret123' } })
+            .expect(HTTP_STATUS.OK);
+
+          expect(res.body.ok).toBe(true);
+        });
+
+        test('should fail with 400 when new password does not pass validation', async () => {
+          const user = { name: 'web-reset-short', password: 'secretPass001' };
+          await addUser(request(app), user.name, user);
+          const token = await loginWebUI(user.name, user.password);
+
+          const res = await request(app)
+            .put('/-/verdaccio/sec/reset_password')
+            .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+            .send({ password: { old: user.password, new: 'ab' } })
+            .expect(HTTP_STATUS.BAD_REQUEST);
+
+          expect(res.body.error).toMatch(APP_ERROR.PASSWORD_VALIDATION);
         });
       });
     });
