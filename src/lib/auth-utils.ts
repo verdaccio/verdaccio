@@ -5,8 +5,8 @@ import { Config, Security } from '@verdaccio/types';
 
 export function getSecurity(config: Config): Security {
   if (_.isNil(config.security) === false) {
-    return _.merge(defaultSecurity, config.security);
+    return _.merge({}, defaultSecurity, config.security);
   }
 
-  return defaultSecurity;
+  return _.merge({}, defaultSecurity);
 }
