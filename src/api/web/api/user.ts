@@ -62,6 +62,13 @@ function addUserAuthApi(auth: Auth, config: Config): Router {
           next({
             ok: true,
           });
+        } else if (!_.isNil(err)) {
+          return next(
+            ErrorCode.getCode(
+              _.isNil(err.status) ? HTTP_STATUS.CONFLICT : err.status,
+              err.message
+            )
+          );
         } else {
           return next(ErrorCode.getInternalError(API_ERROR.INTERNAL_SERVER_ERROR));
         }
