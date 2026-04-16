@@ -82,6 +82,11 @@ userRateLimit:
   windowMs: 1000
   max: 10000
 
+# Expose the Change Password page (/-/web/change-password) so the
+# 07-change-password cypress spec has a form to drive.
+flags:
+  changePassword: true
+
 listen: 0.0.0.0:${PORT}
 
 log: { type: stdout, format: json, level: warn }
