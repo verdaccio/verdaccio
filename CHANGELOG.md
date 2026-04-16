@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.5.1](https://github.com/verdaccio/verdaccio/compare/v6.5.0...v6.5.1) (2026-04-16)
+
+
+### Bug Fixes
+
+* web validate password issue ([#5811](https://github.com/verdaccio/verdaccio/issues/5811)) ([b66c872](https://github.com/verdaccio/verdaccio/commit/b66c872d2f1367fc204e96343747ff7a6d8ae601))
+
 ## [6.5.0](https://github.com/verdaccio/verdaccio/compare/v6.4.0...v6.5.0) (2026-04-11)
 
 
