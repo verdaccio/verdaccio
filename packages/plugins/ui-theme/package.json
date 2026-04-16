@@ -16,6 +16,9 @@
   },
   "homepage": "https://verdaccio.org",
   "main": "index.js",
+  "dependencies": {
+    "debug": "4.4.3"
+  },
   "devDependencies": {
     "@mui/material": "7.3.9",
     "@testing-library/dom": "10.4.1",
