@@ -13,4 +13,20 @@ const config = createRegistryConfig({
   credentials: { user: 'test', password: 'test' },
 });
 
+// The published `@verdaccio/e2e-ui@2.4.0` change-password suite ends its
+// happy-path test on `/-/web/success` with a valid JWT still in
+// localStorage. Its `after()` hook then does `cy.visit('/')` + `cy.login`
+// to restore the original password, but the home page renders the
+// logged-in menu (no `header--button-login`) so `cy.login` times out.
+//
+// Mocha runs outer `afterEach` hooks *before* inner `after` hooks, so
+// dropping the session here clears the way for the suite's restore step
+// to find the Login button. Remove this block once the e2e-ui release
+// that ships the equivalent cleanup inside the suite lands in
+// `package.json`.
+afterEach(() => {
+  cy.clearLocalStorage();
+  cy.clearCookies();
+});
+
 changePasswordTests(config);
