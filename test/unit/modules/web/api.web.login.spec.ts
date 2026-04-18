@@ -57,6 +57,7 @@ describe('web endpoint: login', () => {
         .expect(HTTP_STATUS.OK)
         .end(function (err, res) {
           expect(res.body.error).toMatch(/bad username\/password, access denied/);
+          expect(res.get('www-authenticate')).toBe('Bearer');
           done(true);
         });
     });

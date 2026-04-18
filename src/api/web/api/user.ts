@@ -8,7 +8,7 @@ import { WebUrls, rateLimit } from '@verdaccio/middleware';
 import type { Config, JWTSignOptions, RemoteUser } from '@verdaccio/types';
 
 import { getSecurity } from '../../../lib/auth-utils';
-import { API_ERROR, APP_ERROR, HEADERS, HTTP_STATUS } from '../../../lib/constants';
+import { API_ERROR, APP_ERROR, HEADERS, HTTP_STATUS, TOKEN_BEARER } from '../../../lib/constants';
 import { ErrorCode } from '../../../lib/utils';
 import type { $NextFunctionVer } from '../../../types';
 import { wrapSecPath } from './utils';
@@ -25,12 +25,15 @@ function addUserAuthApi(auth: Auth, config: Config): Router {
       auth.authenticate(username, password, async (err, user?: RemoteUser): Promise<void> => {
         if (err) {
           const errorCode = err.message ? HTTP_STATUS.UNAUTHORIZED : HTTP_STATUS.INTERNAL_ERROR;
-          next(ErrorCode.getCode(errorCode, err.message));
+          if (errorCode === HTTP_STATUS.UNAUTHORIZED) {
+            res.set(HEADERS.WWW_AUTH, TOKEN_BEARER);
+          }
+          return next(ErrorCode.getCode(errorCode, err.message));
         } else {
           req.remote_user = user as RemoteUser;
           const jWTSignOptions: JWTSignOptions = getSecurity(config).web.sign;
           res.set(HEADERS.CACHE_CONTROL, 'no-cache, no-store');
-          next({
+          return next({
             token: await auth.jwtEncrypt(user as RemoteUser, jWTSignOptions),
             username: req.remote_user.name,
           });
