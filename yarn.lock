@@ -3270,25 +3270,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/e2e-cli@npm:2.4.0":
-  version: 2.4.0
-  resolution: "@verdaccio/e2e-cli@npm:2.4.0"
+"@verdaccio/e2e-cli@npm:2.6.0":
+  version: 2.6.0
+  resolution: "@verdaccio/e2e-cli@npm:2.6.0"
   dependencies:
+    "@verdaccio/registry-cli": "npm:^1.1.0"
     debug: "npm:4.4.0"
     get-port: "npm:5.1.1"
     js-yaml: "npm:4.1.0"
   bin:
     verdaccio-e2e: bin/e2e-cli.js
-  checksum: 10c0/07e30223b27b1871029a3421de1e54e6588e81b36f7d5f297a9614b92eb4d0cb398adbad9adba045eeacae1c3f400f404195887e8b13b4d75affd1be8cc97677
+  checksum: 10c0/9d5816f4d1a9697d77ba930c52d5336986e7ce5b288ff762932a2b099ad6f26c50df9950e800a81ebac6cbb6af85ef62228374b0c8fe9f8bf3ba141e00db2d3e
   languageName: node
   linkType: hard
 
-"@verdaccio/e2e-ui@npm:2.4.0":
-  version: 2.4.0
-  resolution: "@verdaccio/e2e-ui@npm:2.4.0"
+"@verdaccio/e2e-ui@npm:2.4.1":
+  version: 2.4.1
+  resolution: "@verdaccio/e2e-ui@npm:2.4.1"
   peerDependencies:
     cypress: ">=12.0.0"
-  checksum: 10c0/4dd355dff23963f016134cb5cc81efd3c65d79d552502a4d6d0f99eb9ca63240f4691d9b454fd349429e2e5d3806911f9604e397d3773eecd6608aae24e69310
+  checksum: 10c0/81c89eefcb30f2688065b9ed10477ffe344d0cb215b096ff83186f1250ac9bfd965a7ed8100f526078fde6d1ae06880a4e73149257638a09493354841dfaec83
   languageName: node
   linkType: hard
 
@@ -3446,6 +3447,15 @@ __metadata:
     debug: "npm:4.4.3"
     semver: "npm:7.7.4"
   checksum: 10c0/5a4bfec01dba4b55c00d0f686ff379d0fc22cccb8f8f2a4a2c68352a9a80d19f6f647d448b5dab210ffe4b68468eafd4c0c33a8ea88c4c558e921bd0aed40d52
+  languageName: node
+  linkType: hard
+
+"@verdaccio/registry-cli@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@verdaccio/registry-cli@npm:1.1.0"
+  bin:
+    verdaccioctl: lib/cli.js
+  checksum: 10c0/e4c5623c77d79d74fa4c77923b9a6a462f528842c8309e833dd6fb91b95adf9c2977fc224d4b3cb47c66e19823ff59d79b1bcac0cd2cecc70029491ff18ec535
   languageName: node
   linkType: hard
 
@@ -12691,8 +12701,8 @@ __metadata:
     "@verdaccio/auth": "npm:8.0.0-next-8.37"
     "@verdaccio/config": "npm:8.0.0-next-8.37"
     "@verdaccio/core": "npm:8.0.0-next-8.37"
-    "@verdaccio/e2e-cli": "npm:2.4.0"
-    "@verdaccio/e2e-ui": "npm:2.4.0"
+    "@verdaccio/e2e-cli": "npm:2.6.0"
+    "@verdaccio/e2e-ui": "npm:2.4.1"
     "@verdaccio/eslint-config": "npm:13.0.0"
     "@verdaccio/hooks": "npm:8.0.0-next-8.37"
     "@verdaccio/loaders": "npm:8.0.0-next-8.27"
