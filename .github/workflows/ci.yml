@@ -291,7 +291,7 @@ jobs:
           path: cypress/videos
           if-no-files-found: ignore
   changeset-validation:
-    needs: [test, e2e-cli, e2e-ui]
+    needs: prepare
     if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && always() && !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     name: Changeset validation
@@ -307,7 +307,7 @@ jobs:
       - name: Run changeset version
         run: pnpm ci:version:changeset
   codeql:
-    needs: [test, e2e-cli, e2e-ui]
+    needs: prepare
     if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && always() && !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     name: CodeQL Analysis
@@ -360,7 +360,7 @@ jobs:
           CONTEXT: production
         run: pnpm crowdin:sync
   cleanup:
-    needs: [test, e2e-cli, e2e-ui, codeql, changeset-validation]
+    needs: [test, e2e-cli, e2e-ui]
     if: always()
     runs-on: ubuntu-latest
     name: Cleanup caches
