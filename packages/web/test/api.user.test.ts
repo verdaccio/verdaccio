@@ -46,6 +46,9 @@ describe('test web server', () => {
       .expect(HTTP_STATUS.UNAUTHORIZED)
       .then((response) => {
         expect(response.body.error).toEqual(API_ERROR.BAD_USERNAME_PASSWORD);
+        // WWW-Authenticate must not include Basic, otherwise browsers
+        // show a native auth popup instead of letting the WebUI handle the error
+        expect(response.headers['www-authenticate']).toBe('Bearer');
       });
   });
 

@@ -10,6 +10,7 @@ import {
   APP_ERROR,
   HEADERS,
   HTTP_STATUS,
+  TOKEN_BEARER,
   cryptoUtils,
   errorUtils,
   validationUtils,
@@ -38,12 +39,18 @@ function addUserAuthApi(auth: Auth, config: Config, storage: Storage): Router {
           if (err) {
             const errorCode = err.message ? HTTP_STATUS.UNAUTHORIZED : HTTP_STATUS.INTERNAL_ERROR;
             debug('error authenticate %o', errorCode);
-            next(errorUtils.getCode(errorCode, err.message));
+            // Prevent the final middleware from adding WWW-Authenticate header,
+            // which triggers the browser's native basic auth popup instead of
+            // letting the WebUI handle the error in JavaScript.
+            if (errorCode === HTTP_STATUS.UNAUTHORIZED) {
+              res.set(HEADERS.WWW_AUTH, TOKEN_BEARER);
+            }
+            return next(errorUtils.getCode(errorCode, err.message));
           } else {
             req.remote_user = user as RemoteUser;
             const jWTSignOptions: JWTSignOptions = config.security.web.sign;
             res.set(HEADERS.CACHE_CONTROL, HEADERS.NO_CACHE);
-            next({
+            return next({
               token: await auth.jwtEncrypt(user as RemoteUser, jWTSignOptions),
               username: req.remote_user.name,
             });
