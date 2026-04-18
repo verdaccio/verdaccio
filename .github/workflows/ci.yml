@@ -181,7 +181,6 @@ jobs:
           - npm@10
           - npm@11
           - yarn-classic
-          - yarn-modern@2
           - yarn-modern@3
           - yarn-modern@4
           - pnpm@9
