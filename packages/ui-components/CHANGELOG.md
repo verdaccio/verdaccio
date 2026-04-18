@@ -1,5 +1,13 @@
 # @verdaccio/ui-components
 
+## 5.0.0-next-9.9
+
+### Patch Changes
+
+- e8292fb: fix(ui-components): search tests
+- 2512f09: chore(ui-components): stderr during tests
+- f19a638: chore: fix vite build warnings and errors
+
 ## 5.0.0-next-9.8
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/core",
-  "version": "9.0.0-next-9.12",
+  "version": "9.0.0-next-9.13",
   "description": "Verdaccio Core Components",
   "keywords": [
     "private",

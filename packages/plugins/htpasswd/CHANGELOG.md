@@ -1,5 +1,13 @@
 # Change Log
 
+## 14.0.0-next-9.13
+
+### Patch Changes
+
+- 784736f: fix: update dependencies
+- Updated dependencies [39c369e]
+  - @verdaccio/core@9.0.0-next-9.13
+
 ## 14.0.0-next-9.12
 
 ### Patch Changes
