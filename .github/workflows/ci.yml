@@ -291,7 +291,7 @@ jobs:
           path: cypress/videos
           if-no-files-found: ignore
   changeset-validation:
-    needs: prepare
+    needs: [build]
     if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && always() && !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     name: Changeset validation
@@ -307,7 +307,7 @@ jobs:
       - name: Run changeset version
         run: pnpm ci:version:changeset
   codeql:
-    needs: prepare
+    needs: [build]
     if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && always() && !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     name: CodeQL Analysis
