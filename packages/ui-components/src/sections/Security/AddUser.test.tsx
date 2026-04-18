@@ -2,7 +2,7 @@ import React from 'react';
 import { vi } from 'vitest';
 
 import { mockAddUser } from '../../../vitest/msw-utils';
-import { server } from '../../../vitest/setup';
+import { server } from '../../../vitest/server';
 import {
   act,
   cleanup,
