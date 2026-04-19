@@ -5,7 +5,7 @@ inputs:
   registry-url:
     description: 'Registry URL for pnpm'
     required: false
-    default: 'http://localhost:4873'
+    default: 'https://registry.npmjs.org'
   node-version:
     description: 'Node.js version to use'
     required: true

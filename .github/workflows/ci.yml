@@ -43,33 +43,11 @@ jobs:
           fetch-depth: 0
       - name: Check changeset
         uses: ./.github/actions/changeset-check        
-  prepare:
-    needs: [changeset-check]
-    # Avoid running on draft PRs; always() allows this to proceed when changeset-check is skipped (Renovate)
-    if: ${{ always() && !failure() && !cancelled() && github.event.pull_request.draft == false }}
-    runs-on: ubuntu-latest
-    name: setup
-    services:
-      verdaccio:
-        image: verdaccio/verdaccio:6
-        ports:
-          - 4873:4873
-        env:
-          NODE_ENV: production
-          options: >-
-            --health-cmd="curl -f http://0.0.0.0:4873/-/ping || exit 1"
-            --health-interval=10s
-            --health-timeout=20s
-            --health-retries=6
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Install dependencies via Verdaccio registry
-        uses: ./.github/actions/install-app
   lint-and-format:
     runs-on: ubuntu-latest
     name: Lint & Format
-    needs: prepare
-    if: ${{ always() && !failure() && !cancelled() }}
+    needs: [changeset-check]
+    if: ${{ always() && !failure() && !cancelled() && github.event.pull_request.draft == false }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies
@@ -351,7 +329,7 @@ jobs:
           pnpm config set store-dir ~/.pnpm-store
       - name: Install
         ## we need scripts, pupetter downloads aditional content
-        run: pnpm install --registry http://localhost:4873
+        run: pnpm install --registry https://registry.npmjs.org
       - name: build
         run: pnpm build
       - name: sync

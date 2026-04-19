@@ -5,7 +5,7 @@ inputs:
   registry-url:
     description: 'Registry URL for pnpm'
     required: false
-    default: 'http://localhost:4873'
+    default: 'https://registry.npmjs.org'
   reporter:
     description: 'Reporter for pnpm'
     required: false
@@ -14,27 +14,17 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Use Node
-      uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
-      with:
-        node-version-file: '.nvmrc'
     - name: Install pnpm
       run: |
         npm install --global corepack@latest
         corepack enable
         corepack prepare
       shell: bash
-    - name: set store
-      run: |
-        mkdir ~/.pnpm-store
-        pnpm config set store-dir ~/.pnpm-store
-      shell: bash
-    - name: Restore cache pnpm store
-      uses: ./.github/actions/cache-store
+    - name: Use Node
+      uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+      with:
+        node-version-file: '.nvmrc'
+        cache: 'pnpm'
     - name: Install
       run: pnpm install --reporter=${{inputs.reporter}} --ignore-scripts --registry ${{ inputs.registry-url }}
       shell: bash
-    - name: Save cache pnpm store
-      if: steps.cache-npm.outputs.cache-hit == 'false'
-      uses: ./.github/actions/cache-store
-
