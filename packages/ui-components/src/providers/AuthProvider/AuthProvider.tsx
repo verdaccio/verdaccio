@@ -1,5 +1,6 @@
 import type { ReactElement } from 'react';
-import React, { createContext, useContext, useEffect } from 'react';
+import React, { createContext, use } from 'react';
+import { useSWRConfig } from 'swr';
 
 import { useDataMutation } from '../../api/use-data-mutation';
 import { getConfiguration } from '../../configuration';
@@ -28,14 +29,17 @@ const basePath = stripTrailingSlash(configuration.base);
 
 const AuthProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
   const [userState, setUserState] = React.useState<LoginBody>(getDefaultUserState());
-  const { data, isMutating, trigger } = useDataMutation<LoginBody>(
-    basePath,
-    APIRoute.LOGIN,
-    'POST'
-  );
+  const { trigger } = useDataMutation<LoginBody>(basePath, APIRoute.LOGIN, 'POST');
+  const { mutate } = useSWRConfig();
 
   const handleLogin = async (body: { username: string; password: string }) => {
-    await trigger(body);
+    const result = await trigger(body);
+    if (result && result.username && result.token) {
+      saveAuth(result.username, result.token);
+      setUserState(result as LoginBody);
+      // Revalidate the packages list so it reflects authenticated access
+      mutate(`${basePath}${APIRoute.PACKAGES}`);
+    }
   };
 
   const logOutUser = () => {
@@ -44,17 +48,8 @@ const AuthProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
     window.location?.reload();
   };
 
-  useEffect(() => {
-    if (data && !isMutating) {
-      setUserState(data as LoginBody);
-      if (data.username && data.token) {
-        saveAuth(data.username, data.token);
-      }
-    }
-  }, [data, isMutating]);
-
   return (
-    <AuthContext.Provider
+    <AuthContext
       value={{
         handleLogin,
         userState,
@@ -63,10 +58,10 @@ const AuthProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
       }}
     >
       {children}
-    </AuthContext.Provider>
+    </AuthContext>
   );
 };
 
 export { AuthProvider };
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => use(AuthContext);
