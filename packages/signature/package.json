@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/signature",
-  "version": "9.0.0-next-9.13",
+  "version": "9.0.0-next-9.14",
   "description": "Verdaccio Signature Utilities",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -39,8 +39,8 @@
     "build": "vite build"
   },
   "dependencies": {
-    "@verdaccio/config": "workspace:9.0.0-next-9.13",
-    "@verdaccio/core": "workspace:9.0.0-next-9.13",
+    "@verdaccio/config": "workspace:9.0.0-next-9.14",
+    "@verdaccio/core": "workspace:9.0.0-next-9.14",
     "jsonwebtoken": "9.0.3",
     "debug": "4.4.3"
   },

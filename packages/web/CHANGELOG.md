@@ -1,5 +1,27 @@
 # @verdaccio/web
 
+## 9.0.0-next-9.14
+
+### Patch Changes
+
+- 3258feb: fix: prevent browser basic auth popup on WebUI login failure
+
+  Set WWW-Authenticate header to Bearer only (excluding Basic) on 401 responses
+  from the WebUI login endpoint, so browsers do not show a native authentication
+  popup when credentials are invalid.
+
+  Closes #5814
+
+  - @verdaccio/ui-theme@9.0.0-next-9.14
+  - @verdaccio/core@9.0.0-next-9.14
+  - @verdaccio/config@9.0.0-next-9.14
+  - @verdaccio/auth@9.0.0-next-9.14
+  - @verdaccio/tarball@14.0.0-next-9.14
+  - @verdaccio/loaders@9.0.0-next-9.14
+  - @verdaccio/logger@9.0.0-next-9.14
+  - @verdaccio/middleware@9.0.0-next-9.14
+  - @verdaccio/store@9.0.0-next-9.14
+
 ## 9.0.0-next-9.13
 
 ### Patch Changes

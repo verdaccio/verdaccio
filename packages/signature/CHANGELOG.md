@@ -1,5 +1,12 @@
 # @verdaccio/signature
 
+## 9.0.0-next-9.14
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.14
+- @verdaccio/config@9.0.0-next-9.14
+
 ## 9.0.0-next-9.13
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @verdaccio/ui-components
 
+## 5.0.0-next-9.10
+
+### Patch Changes
+
+- 446346b: fix: save auth token synchronously before navigation on login to ensure package list refreshes with authenticated access
+
+  Disable SWR revalidateOnFocus and revalidateOnReconnect to prevent unnecessary repeated API calls
+
+  Closes #5813
+
 ## 5.0.0-next-9.9
 
 ### Patch Changes

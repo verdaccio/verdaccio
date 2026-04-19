@@ -1,5 +1,13 @@
 # @verdaccio/plugin-verifier
 
+## 1.0.0-next-9.10
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.14
+- @verdaccio/loaders@9.0.0-next-9.14
+- @verdaccio/logger@9.0.0-next-9.14
+
 ## 1.0.0-next-9.9
 
 ### Patch Changes
