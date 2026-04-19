@@ -285,6 +285,8 @@ export type ServerSettingsConf = {
   passwordValidationRegex?: RegExp;
   // docs on `trustProxy` can be found at: https://expressjs.com/en/guide/behind-proxies.html
   trustProxy?: string;
+  // Enable remote search on uplinks for the web UI search endpoint
+  searchRemote?: boolean;
 };
 
 /**
