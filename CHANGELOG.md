@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.5.2](https://github.com/verdaccio/verdaccio/compare/v6.5.1...v6.5.2) (2026-04-19)
+
+
+### Bug Fixes
+
+* avoid sharing default security object across configs ([#5812](https://github.com/verdaccio/verdaccio/issues/5812)) ([9cca86e](https://github.com/verdaccio/verdaccio/commit/9cca86ee8ac7b64f9011cdc6ac44b995ae025fc8))
+* Missing package refresh after logging into WebUI ([#5825](https://github.com/verdaccio/verdaccio/issues/5825)) ([e6bbea4](https://github.com/verdaccio/verdaccio/commit/e6bbea44c56f904e850b883394ef4ffca6c93439)), closes [#5814](https://github.com/verdaccio/verdaccio/issues/5814)
+* remove basic header on login error 401 ([#5821](https://github.com/verdaccio/verdaccio/issues/5821)) ([1c1723d](https://github.com/verdaccio/verdaccio/commit/1c1723dcbe2fcb1fd64d070d6d357ab7e24ece0a))
+* update ui-theme dependency ([#5822](https://github.com/verdaccio/verdaccio/issues/5822)) ([c4f2cd9](https://github.com/verdaccio/verdaccio/commit/c4f2cd99d57672792cda175b4674a1310e18fa38))
+
 ### [6.5.1](https://github.com/verdaccio/verdaccio/compare/v6.5.0...v6.5.1) (2026-04-16)
 
 
