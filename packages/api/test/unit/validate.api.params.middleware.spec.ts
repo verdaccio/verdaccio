@@ -14,7 +14,7 @@ import { describe, expect, test } from 'vitest';
  */
 describe('api endpoint app.param()', () => {
   let m;
-  const requirePath = path.normalize(path.join(__dirname, '../../src/index.ts'));
+  const requirePath = path.normalize(path.join(import.meta.dirname, '../../src/index.ts'));
   const source = fs.readFileSync(requirePath, 'utf8');
   const very_scary_regexp = /\n\s*app\.(\w+)\s*\(\s*(("[^"]*")|('[^']*'))\s*,/g;
   const appParams = {};

@@ -1,5 +1,13 @@
 # Verdaccio - A lightweight private npm proxy registry
 
+> **Experimental**: This is the Verdaccio 9.x pre-release version. It is published under the `next-9` tag and is not recommended for production use. APIs and features may change without notice.
+>
+> ```bash
+> npm install verdaccio@next-9
+> ```
+>
+> For the stable version, use `npm install verdaccio` instead.
+
 [![Verdaccio Home](https://img.shields.io/badge/Homepage-Verdaccio-405236?style=flat)](https://verdaccio.org)
 [![MIT License](https://img.shields.io/github/license/verdaccio/verdaccio?label=License&color=405236)](https://github.com/verdaccio/verdaccio/blob/master/LICENSE)
 [![Verdaccio Latest](https://img.shields.io/npm/v/verdaccio?label=Latest%20Version&color=405236)](https://github.com/verdaccio/verdaccio)
@@ -13,6 +21,27 @@
 [![Verdaccio Downloads](https://img.shields.io/npm/dm/verdaccio?style=flat&logo=npm&label=Npm%20Downloads&color=lightgrey)](https://www.npmjs.com/package/verdaccio)
 [![Docker Pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio?style=flat&logo=docker&label=Docker%20Pulls&color=lightgrey)](https://hub.docker.com/r/verdaccio/verdaccio)
 [![GitHub Stars](https://img.shields.io/github/stars/verdaccio?style=flat&logo=github&label=GitHub%20Stars%20%E2%AD%90&color=lightgrey)](https://github.com/verdaccio/verdaccio/stargazers)
+
+## Programmatic API
+
+```ts
+import { runServer } from 'verdaccio';
+
+import { ConfigBuilder } from '@verdaccio/config';
+
+const config = ConfigBuilder.build()
+  .addStorage('./storage')
+  .addUplink('npmjs', { url: 'https://registry.npmjs.org/' })
+  .addPackageAccess('**', { access: '$all', publish: '$authenticated', proxy: 'npmjs' })
+  .addAuth({ htpasswd: { file: './htpasswd' } })
+  .addLogger({ level: 'info', type: 'stdout', format: 'pretty' })
+  .getConfig();
+
+const app = await runServer(config);
+app.listen(4873, () => {
+  console.log('Verdaccio is running on http://localhost:4873');
+});
+```
 
 ## Donations
 

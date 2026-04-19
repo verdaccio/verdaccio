@@ -1,5 +1,139 @@
 # @verdaccio/server
 
+## 9.0.0-next-9.14
+
+### Patch Changes
+
+- Updated dependencies [3258feb]
+  - @verdaccio/web@9.0.0-next-9.14
+  - @verdaccio/core@9.0.0-next-9.14
+  - @verdaccio/config@9.0.0-next-9.14
+  - @verdaccio/api@9.0.0-next-9.14
+  - @verdaccio/auth@9.0.0-next-9.14
+  - @verdaccio/loaders@9.0.0-next-9.14
+  - @verdaccio/logger@9.0.0-next-9.14
+  - @verdaccio/middleware@9.0.0-next-9.14
+  - verdaccio-audit@14.0.0-next-9.14
+  - @verdaccio/store@9.0.0-next-9.14
+
+## 9.0.0-next-9.13
+
+### Patch Changes
+
+- Updated dependencies [8feba94]
+- Updated dependencies [39c369e]
+  - @verdaccio/store@9.0.0-next-9.13
+  - @verdaccio/core@9.0.0-next-9.13
+  - @verdaccio/web@9.0.0-next-9.13
+  - @verdaccio/api@9.0.0-next-9.13
+  - @verdaccio/auth@9.0.0-next-9.13
+  - @verdaccio/config@9.0.0-next-9.13
+  - @verdaccio/loaders@9.0.0-next-9.13
+  - @verdaccio/logger@9.0.0-next-9.13
+  - @verdaccio/middleware@9.0.0-next-9.13
+  - verdaccio-audit@14.0.0-next-9.13
+
+## 9.0.0-next-9.12
+
+### Patch Changes
+
+- Updated dependencies [64c904a]
+  - @verdaccio/config@9.0.0-next-9.12
+  - @verdaccio/api@9.0.0-next-9.12
+  - @verdaccio/auth@9.0.0-next-9.12
+  - @verdaccio/loaders@9.0.0-next-9.12
+  - @verdaccio/middleware@9.0.0-next-9.12
+  - verdaccio-audit@14.0.0-next-9.12
+  - @verdaccio/store@9.0.0-next-9.12
+  - @verdaccio/web@9.0.0-next-9.12
+  - @verdaccio/core@9.0.0-next-9.12
+  - @verdaccio/logger@9.0.0-next-9.12
+
+## 9.0.0-next-9.11
+
+### Patch Changes
+
+- Updated dependencies [96cb0c4]
+- Updated dependencies [442281a]
+- Updated dependencies [877329a]
+  - @verdaccio/config@9.0.0-next-9.11
+  - @verdaccio/web@9.0.0-next-9.11
+  - @verdaccio/store@9.0.0-next-9.11
+  - @verdaccio/api@9.0.0-next-9.11
+  - @verdaccio/auth@9.0.0-next-9.11
+  - @verdaccio/loaders@9.0.0-next-9.11
+  - @verdaccio/middleware@9.0.0-next-9.11
+  - verdaccio-audit@14.0.0-next-9.11
+  - @verdaccio/core@9.0.0-next-9.11
+  - @verdaccio/logger@9.0.0-next-9.11
+
+## 9.0.0-next-9.10
+
+### Patch Changes
+
+- Updated dependencies [747d6ab]
+- Updated dependencies [7590fb5]
+- Updated dependencies [ba70ae0]
+  - @verdaccio/config@9.0.0-next-9.10
+  - @verdaccio/store@9.0.0-next-9.10
+  - @verdaccio/web@9.0.0-next-9.10
+  - @verdaccio/api@9.0.0-next-9.10
+  - @verdaccio/auth@9.0.0-next-9.10
+  - @verdaccio/loaders@9.0.0-next-9.10
+  - @verdaccio/middleware@9.0.0-next-9.10
+  - verdaccio-audit@14.0.0-next-9.10
+  - @verdaccio/core@9.0.0-next-9.10
+  - @verdaccio/logger@9.0.0-next-9.10
+
+## 9.0.0-next-9.9
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.9
+- @verdaccio/config@9.0.0-next-9.9
+- @verdaccio/api@9.0.0-next-9.9
+- @verdaccio/auth@9.0.0-next-9.9
+- @verdaccio/loaders@9.0.0-next-9.9
+- @verdaccio/logger@9.0.0-next-9.9
+- @verdaccio/middleware@9.0.0-next-9.9
+- verdaccio-audit@14.0.0-next-9.9
+- @verdaccio/store@9.0.0-next-9.9
+- @verdaccio/web@9.0.0-next-9.9
+
+## 9.0.0-next-9.8
+
+### Patch Changes
+
+- d68a86d: refactor: migrate from lodash to lodash-es and replace simple utilities with native JS
+- Updated dependencies [d68a86d]
+  - @verdaccio/config@9.0.0-next-9.8
+  - @verdaccio/api@9.0.0-next-9.8
+  - @verdaccio/auth@9.0.0-next-9.8
+  - @verdaccio/store@9.0.0-next-9.8
+  - @verdaccio/loaders@9.0.0-next-9.8
+  - @verdaccio/web@9.0.0-next-9.8
+  - @verdaccio/middleware@9.0.0-next-9.8
+  - verdaccio-audit@14.0.0-next-9.8
+  - @verdaccio/core@9.0.0-next-9.8
+  - @verdaccio/logger@9.0.0-next-9.8
+
+## 9.0.0-next-9.7
+
+### Patch Changes
+
+- Updated dependencies [f2e488d]
+- Updated dependencies [d0405c9]
+  - @verdaccio/auth@9.0.0-next-9.7
+  - @verdaccio/config@9.0.0-next-9.7
+  - verdaccio-audit@14.0.0-next-9.7
+  - @verdaccio/api@9.0.0-next-9.7
+  - @verdaccio/web@9.0.0-next-9.7
+  - @verdaccio/loaders@9.0.0-next-9.7
+  - @verdaccio/middleware@9.0.0-next-9.7
+  - @verdaccio/store@9.0.0-next-9.7
+  - @verdaccio/core@9.0.0-next-9.7
+  - @verdaccio/logger@9.0.0-next-9.7
+
 ## 9.0.0-next-9.6
 
 ### Patch Changes

@@ -1,5 +1,126 @@
 # @verdaccio/config
 
+## 9.0.0-next-9.14
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.14
+
+## 9.0.0-next-9.13
+
+### Patch Changes
+
+- Updated dependencies [39c369e]
+  - @verdaccio/core@9.0.0-next-9.13
+
+## 9.0.0-next-9.12
+
+### Patch Changes
+
+- 64c904a: fix: default configPath to process.cwd() when using programmatic API with config object
+  - @verdaccio/core@9.0.0-next-9.12
+
+## 9.0.0-next-9.11
+
+### Minor Changes
+
+- 96cb0c4: feat(config): extend ConfigBuilder with methods for web, listen, https, publish, flags, notify, middlewares, filters, maxBodySize, userRateLimit, urlPrefix, and i18n
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.11
+
+## 9.0.0-next-9.10
+
+### Major Changes
+
+- 747d6ab: feat: auto-detect search response shape in the Web UI and remove the `searchRemote` flag
+
+  ## Breaking Changes
+
+  ### Removed the `searchRemote` feature flag
+
+  The `flags.searchRemote` configuration option has been removed. The Web UI now
+  auto-detects the shape of the `/-/verdaccio/data/search/*` response at render
+  time, so no flag is required to toggle between local-only and remote-augmented
+  results.
+
+  **What changed:**
+
+  - `FlagsConfig.searchRemote` has been removed from `@verdaccio/types`.
+  - `@verdaccio/config` no longer reads or defaults `flags.searchRemote`.
+  - The sample `# searchRemote: true` lines in `default.yaml` / `docker.yaml`
+    have been removed.
+  - The search UI (`@verdaccio/ui-components`) no longer consults the flag.
+
+  **Migration guide:**
+
+  Remove `flags.searchRemote` from your `config.yaml` if it is set. No other
+  change is required — the Web UI will render both response shapes transparently.
+
+  ## UI changes
+
+  The `Search` component now consumes two response shapes without configuration:
+
+  1. **npm-style "search objects"** — entries wrapped in a `package` envelope
+     with `verdaccioPkgCached` / `verdaccioPrivate` metadata. Private / cached /
+     remote chips are rendered as before.
+  2. **Flat packument-style** — entries with `name`, `version`, `description`,
+     `dist`, etc. at the top level. Chips are omitted because the shape carries
+     no uplink metadata.
+
+  A new `normalizeSearchOption()` helper centralizes the shape detection and is
+  covered by unit tests. The `SearchResultWeb` type in `@verdaccio/types` is now
+  a union (`SearchResultWebFlat | SearchResultWebWrapped`) that documents both
+  shapes.
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.10
+
+## 9.0.0-next-9.9
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.9
+
+## 9.0.0-next-9.8
+
+### Patch Changes
+
+- d68a86d: refactor: migrate from lodash to lodash-es and replace simple utilities with native JS
+  - @verdaccio/core@9.0.0-next-9.8
+
+## 9.0.0-next-9.7
+
+### Major Changes
+
+- f2e488d: feat!: remove deprecated AES encryption (aesEncryptDeprecated/aesDecryptDeprecated)
+
+  ## Breaking Changes
+
+  ### Removed deprecated AES encryption functions
+
+  The legacy `aesEncryptDeprecated` and `aesDecryptDeprecated` functions (based on the deprecated Node.js `createCipher`/`createDecipher` APIs) have been removed. All encryption now uses the modern `aesEncrypt`/`aesDecrypt` functions based on `aes-256-ctr` with `createCipheriv`/`createDecipheriv`.
+
+  **What changed:**
+
+  - `aesEncryptDeprecated`, `aesDecryptDeprecated`, and `generateRandomSecretKeyDeprecated` are no longer exported from `@verdaccio/signature`.
+  - The `packages/signature/src/legacy-signature` module has been deleted.
+  - `@verdaccio/auth` no longer falls back to deprecated encryption for secrets longer than 32 characters.
+  - `@verdaccio/config`: the `checkSecretKey()` method now **throws an error** if the secret is not exactly 32 characters long, instead of accepting longer keys with a deprecation warning.
+  - The `Config` constructor no longer accepts a `configOverrideOptions` parameter (`forceMigrateToSecureLegacySignature`).
+  - The `migrateToSecureLegacySignature` property has been removed from the `APITokenOptions` type and the default security configuration.
+  - The `isNodeVersionGreaterThan21()` helper has been removed from `@verdaccio/config`.
+
+  **Migration guide:**
+
+  If your `.verdaccio-db.json` contains a secret key that is not exactly 32 characters long, you must generate a new one. Delete the `secret` field from `.verdaccio-db.json` and Verdaccio will auto-generate a valid 32-character key on next startup. Note that existing tokens encrypted with the old deprecated method will no longer be decryptable — users will need to re-authenticate.
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.7
+
 ## 9.0.0-next-9.6
 
 ### Patch Changes

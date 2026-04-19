@@ -1,5 +1,74 @@
 # @verdaccio/node-api
 
+## 9.0.0-next-9.14
+
+### Patch Changes
+
+- @verdaccio/config@9.0.0-next-9.14
+- @verdaccio/logger@9.0.0-next-9.14
+
+## 9.0.0-next-9.13
+
+### Patch Changes
+
+- @verdaccio/config@9.0.0-next-9.13
+- @verdaccio/logger@9.0.0-next-9.13
+
+## 9.0.0-next-9.12
+
+### Patch Changes
+
+- Updated dependencies [64c904a]
+  - @verdaccio/config@9.0.0-next-9.12
+  - @verdaccio/logger@9.0.0-next-9.12
+
+## 9.0.0-next-9.11
+
+### Patch Changes
+
+- Updated dependencies [96cb0c4]
+  - @verdaccio/config@9.0.0-next-9.11
+  - @verdaccio/logger@9.0.0-next-9.11
+
+## 9.0.0-next-9.10
+
+### Patch Changes
+
+- Updated dependencies [747d6ab]
+  - @verdaccio/config@9.0.0-next-9.10
+  - @verdaccio/logger@9.0.0-next-9.10
+
+## 9.0.0-next-9.9
+
+### Minor Changes
+
+- 241f622: refactor: node-api no longer depends on @verdaccio/server directly, expects server factory from caller
+- 834be12: refactor: node-api no longer depends on @verdaccio/server directly
+
+### Patch Changes
+
+- @verdaccio/config@9.0.0-next-9.9
+- @verdaccio/logger@9.0.0-next-9.9
+
+## 9.0.0-next-9.8
+
+### Patch Changes
+
+- d68a86d: refactor: migrate from lodash to lodash-es and replace simple utilities with native JS
+- Updated dependencies [d68a86d]
+  - @verdaccio/config@9.0.0-next-9.8
+  - @verdaccio/server@9.0.0-next-9.8
+  - @verdaccio/logger@9.0.0-next-9.8
+
+## 9.0.0-next-9.7
+
+### Patch Changes
+
+- Updated dependencies [f2e488d]
+  - @verdaccio/config@9.0.0-next-9.7
+  - @verdaccio/server@9.0.0-next-9.7
+  - @verdaccio/logger@9.0.0-next-9.7
+
 ## 9.0.0-next-9.6
 
 ### Patch Changes

@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { isEmpty, isNil } from 'lodash-es';
 
 import type { Logger, StorageList } from '@verdaccio/types';
 
@@ -13,7 +13,7 @@ export async function loadPrivatePackages(path: string, logger: Logger): Promise
   const list: StorageList = [];
   const emptyDatabase = { list, secret: '' };
   const data = await readFilePromise(path);
-  if (_.isNil(data)) {
+  if (isNil(data)) {
     // readFilePromise is platform specific, FreeBSD might return null
     return emptyDatabase;
   }
@@ -32,7 +32,7 @@ export async function loadPrivatePackages(path: string, logger: Logger): Promise
     throw Error('Package database file corrupted (invalid JSON)');
   }
 
-  if (_.isEmpty(db)) {
+  if (isEmpty(db)) {
     return emptyDatabase;
   }
 

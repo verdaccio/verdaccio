@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { isNil } from 'lodash-es';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -7,7 +7,7 @@ import type { Config } from '@verdaccio/types';
 export function getFileStats(packagePath: string): Promise<fs.Stats> {
   return new Promise((resolve, reject): void => {
     fs.stat(packagePath, (err, stats) => {
-      if (_.isNil(err) === false) {
+      if (isNil(err) === false) {
         return reject(err);
       }
       resolve(stats);
@@ -18,7 +18,7 @@ export function getFileStats(packagePath: string): Promise<fs.Stats> {
 export function readDirectory(packagePath: string): Promise<string[]> {
   return new Promise((resolve, reject): void => {
     fs.readdir(packagePath, (err, scopedPackages) => {
-      if (_.isNil(err) === false) {
+      if (isNil(err) === false) {
         return reject(err);
       }
 

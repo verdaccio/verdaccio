@@ -2,7 +2,6 @@ import dayjs from 'dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import i18next from 'i18next';
-import isString from 'lodash/isString';
 
 import type { UpLinks } from '@verdaccio/types';
 
@@ -18,7 +17,7 @@ dayjs.extend(localizedFormat);
  * @see https://docs.npmjs.com/files/package.json#license
  */
 export function formatLicense(license: string | { type?: string } | unknown): string | undefined {
-  if (isString(license)) {
+  if (typeof license === 'string') {
     return license;
   }
 
@@ -44,7 +43,7 @@ export interface Repository {
  * @see https://docs.npmjs.com/files/package.json#repository
  */
 export function formatRepository(repository: string | { url?: string } | unknown): string | null {
-  if (isString(repository)) {
+  if (typeof repository === 'string') {
     return repository;
   }
 

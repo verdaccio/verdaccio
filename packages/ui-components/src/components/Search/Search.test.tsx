@@ -1,4 +1,4 @@
-import debounce from 'lodash/debounce';
+import { debounce } from 'lodash-es';
 import React from 'react';
 import { vi } from 'vitest';
 
@@ -12,14 +12,18 @@ import {
 import Search from './Search';
 import { cleanDescription } from './utils';
 
-vi.mock('lodash/debounce', () => ({
-  default: vi.fn((fn) => {
-    // Immediately execute the function for testing
-    const debounced = (...args: any[]) => fn(...args);
-    debounced.cancel = vi.fn();
-    return debounced;
-  }),
-}));
+vi.mock('lodash-es', async () => {
+  const actual = await vi.importActual('lodash-es');
+  return {
+    ...actual,
+    debounce: vi.fn((fn) => {
+      // Immediately execute the function for testing
+      const debounced = (...args: any[]) => fn(...args);
+      debounced.cancel = vi.fn();
+      return debounced;
+    }),
+  };
+});
 
 const mockedDebounce = vi.mocked(debounce);
 
@@ -39,11 +43,6 @@ describe('<Search /> component', () => {
 
   test('should load the component in default state', () => {
     renderWithRouteDetail(<ComponentToBeRendered />);
-    expect(screen.getByPlaceholderText('search.packages')).toBeInTheDocument();
-  });
-
-  test('should load the component in default state with remote search', () => {
-    renderWithRouteDetail(<ComponentToBeRendered />, 'jquery', { flags: { searchRemote: true } });
     expect(screen.getByPlaceholderText('search.packages')).toBeInTheDocument();
   });
 

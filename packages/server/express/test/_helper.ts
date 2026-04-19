@@ -8,7 +8,7 @@ import { setup } from '@verdaccio/logger';
 import apiMiddleware from '../src';
 
 export const getConf = async (conf) => {
-  const configPath = path.join(__dirname, 'config', conf);
+  const configPath = path.join(import.meta.dirname, 'config', conf);
   const config = parseConfigFile(configPath);
   // generate and create storage folder
   const storage = await fileUtils.createTempFolder('config');

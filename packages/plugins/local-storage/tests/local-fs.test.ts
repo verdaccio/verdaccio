@@ -113,7 +113,7 @@ describe('Local FS test', () => {
       new Promise((done) => {
         const abort = new AbortController();
         const localFs = new LocalDriver(
-          path.join(__dirname, '__fixtures__/readme-test-next'),
+          path.join(import.meta.dirname, '__fixtures__/readme-test-next'),
           logger
         );
         localFs.readTarball('test-readme-0.0.1.tgz', { signal: abort.signal }).then((stream) => {
@@ -130,7 +130,7 @@ describe('Local FS test', () => {
       new Promise((done) => {
         const abort = new AbortController();
         const localFs = new LocalDriver(
-          path.join(__dirname, '__fixtures__/readme-test-next'),
+          path.join(import.meta.dirname, '__fixtures__/readme-test-next'),
           logger
         );
         localFs.readTarball('test-readme-0.0.3.tgz', { signal: abort.signal }).then((stream) => {
@@ -149,7 +149,7 @@ describe('Local FS test', () => {
         const abort = new AbortController();
 
         const localFs = new LocalDriver(
-          path.join(__dirname, '__fixtures__/readme-test-next'),
+          path.join(import.meta.dirname, '__fixtures__/readme-test-next'),
           logger
         );
         localFs.readTarball('does-not-exist-0.0.0.tgz', { signal: abort.signal }).then((stream) => {
@@ -163,7 +163,7 @@ describe('Local FS test', () => {
     test('should return content-length', () =>
       new Promise((done) => {
         const localFs = new LocalDriver(
-          path.join(__dirname, '__fixtures__/readme-test-next'),
+          path.join(import.meta.dirname, '__fixtures__/readme-test-next'),
           logger
         );
         const abort = new AbortController();

@@ -1,5 +1,96 @@
 # @verdaccio/cli
 
+## 9.0.0-next-9.14
+
+### Patch Changes
+
+- @verdaccio/server@9.0.0-next-9.14
+- @verdaccio/core@9.0.0-next-9.14
+- @verdaccio/config@9.0.0-next-9.14
+- @verdaccio/node-api@9.0.0-next-9.14
+- @verdaccio/logger@9.0.0-next-9.14
+
+## 9.0.0-next-9.13
+
+### Patch Changes
+
+- Updated dependencies [39c369e]
+  - @verdaccio/core@9.0.0-next-9.13
+  - @verdaccio/server@9.0.0-next-9.13
+  - @verdaccio/config@9.0.0-next-9.13
+  - @verdaccio/logger@9.0.0-next-9.13
+  - @verdaccio/node-api@9.0.0-next-9.13
+
+## 9.0.0-next-9.12
+
+### Patch Changes
+
+- Updated dependencies [64c904a]
+  - @verdaccio/config@9.0.0-next-9.12
+  - @verdaccio/node-api@9.0.0-next-9.12
+  - @verdaccio/server@9.0.0-next-9.12
+  - @verdaccio/core@9.0.0-next-9.12
+  - @verdaccio/logger@9.0.0-next-9.12
+
+## 9.0.0-next-9.11
+
+### Patch Changes
+
+- Updated dependencies [96cb0c4]
+  - @verdaccio/config@9.0.0-next-9.11
+  - @verdaccio/node-api@9.0.0-next-9.11
+  - @verdaccio/server@9.0.0-next-9.11
+  - @verdaccio/core@9.0.0-next-9.11
+  - @verdaccio/logger@9.0.0-next-9.11
+
+## 9.0.0-next-9.10
+
+### Patch Changes
+
+- Updated dependencies [747d6ab]
+  - @verdaccio/config@9.0.0-next-9.10
+  - @verdaccio/node-api@9.0.0-next-9.10
+  - @verdaccio/server@9.0.0-next-9.10
+  - @verdaccio/core@9.0.0-next-9.10
+  - @verdaccio/logger@9.0.0-next-9.10
+
+## 9.0.0-next-9.9
+
+### Minor Changes
+
+- 241f622: refactor: node-api no longer depends on @verdaccio/server directly, expects server factory from caller
+- 834be12: refactor: node-api no longer depends on @verdaccio/server directly
+
+### Patch Changes
+
+- Updated dependencies [241f622]
+- Updated dependencies [834be12]
+  - @verdaccio/node-api@9.0.0-next-9.9
+  - @verdaccio/core@9.0.0-next-9.9
+  - @verdaccio/config@9.0.0-next-9.9
+  - @verdaccio/logger@9.0.0-next-9.9
+  - @verdaccio/server@9.0.0-next-9.9
+
+## 9.0.0-next-9.8
+
+### Patch Changes
+
+- Updated dependencies [d68a86d]
+  - @verdaccio/config@9.0.0-next-9.8
+  - @verdaccio/node-api@9.0.0-next-9.8
+  - @verdaccio/core@9.0.0-next-9.8
+  - @verdaccio/logger@9.0.0-next-9.8
+
+## 9.0.0-next-9.7
+
+### Patch Changes
+
+- Updated dependencies [f2e488d]
+  - @verdaccio/config@9.0.0-next-9.7
+  - @verdaccio/node-api@9.0.0-next-9.7
+  - @verdaccio/core@9.0.0-next-9.7
+  - @verdaccio/logger@9.0.0-next-9.7
+
 ## 9.0.0-next-9.6
 
 ### Patch Changes

@@ -20,8 +20,8 @@ class FunctionalEnvironment extends NodeEnvironment {
     //        process.env.VERDACCIO_DEBUG_INJECT : false;
     const forkList: any = [];
     const serverList: any = [];
-    const pathStore = path.join(__dirname, '../store');
-    const binPath = path.join(__dirname, '../../../bin/verdaccio');
+    const pathStore = path.join(import.meta.dirname, '../store');
+    const binPath = path.join(import.meta.dirname, '../../../bin/verdaccio');
     const listServers = [
       {
         port: PORT_SERVER_1,

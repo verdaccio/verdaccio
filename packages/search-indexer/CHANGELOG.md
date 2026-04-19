@@ -1,5 +1,11 @@
 # @verdaccio/search-indexer
 
+## 9.0.0-next-9.4
+
+### Patch Changes
+
+- 4b20c61: fix: package import wrong references
+
 ## 9.0.0-next-9.3
 
 ### Patch Changes

@@ -1,5 +1,57 @@
 # Change Log
 
+## 14.0.0-next-9.14
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.14
+
+## 14.0.0-next-9.13
+
+### Patch Changes
+
+- 784736f: fix: update dependencies
+- Updated dependencies [39c369e]
+  - @verdaccio/core@9.0.0-next-9.13
+
+## 14.0.0-next-9.12
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.12
+
+## 14.0.0-next-9.11
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.11
+
+## 14.0.0-next-9.10
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.10
+- @verdaccio/file-locking@14.0.0-next-9.2
+
+## 14.0.0-next-9.9
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.9
+
+## 14.0.0-next-9.8
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.8
+
+## 14.0.0-next-9.7
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.7
+- @verdaccio/file-locking@14.0.0-next-9.2
+
 ## 14.0.0-next-9.6
 
 ### Patch Changes

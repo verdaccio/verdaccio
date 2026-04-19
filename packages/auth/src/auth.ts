@@ -1,8 +1,8 @@
 import buildDebug from 'debug';
-import _ from 'lodash';
+import { filter, isEmpty, isNil, isUndefined } from 'lodash-es';
 import { HTPasswd } from 'verdaccio-htpasswd';
 
-import { TOKEN_VALID_LENGTH, createAnonymousRemoteUser, createRemoteUser } from '@verdaccio/config';
+import { createAnonymousRemoteUser, createRemoteUser } from '@verdaccio/config';
 import type { VerdaccioError, pluginUtils } from '@verdaccio/core';
 import {
   API_ERROR,
@@ -17,12 +17,7 @@ import {
   warningUtils,
 } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
-import {
-  aesEncrypt,
-  aesEncryptDeprecated,
-  parseBasicPayload,
-  signPayload,
-} from '@verdaccio/signature';
+import { aesEncrypt, parseBasicPayload, signPayload } from '@verdaccio/signature';
 import type {
   AllowAccess,
   Callback,
@@ -134,14 +129,17 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     newPassword: string,
     cb: Callback
   ): void {
-    const validPlugins = _.filter(this.plugins, (plugin) => _.isFunction(plugin.changePassword));
+    const validPlugins = filter(
+      this.plugins,
+      (plugin) => typeof plugin.changePassword === 'function'
+    );
 
-    if (_.isEmpty(validPlugins)) {
+    if (isEmpty(validPlugins)) {
       return cb(errorUtils.getInternalError(SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE));
     }
 
     for (const plugin of validPlugins) {
-      if (_.isNil(plugin) || _.isFunction(plugin.changePassword) === false) {
+      if (isNil(plugin) || typeof plugin.changePassword !== 'function') {
         debug('auth plugin does not implement changePassword, trying next one');
         continue;
       } else {
@@ -198,10 +196,10 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
         // Info: Cannot use `== false to check falsey values`
         if (!!groups && groups.length !== 0) {
           // TODO: create a better understanding of expectations
-          if (_.isString(groups)) {
+          if (typeof groups === 'string') {
             throw new TypeError('plugin group error: invalid type for function');
           }
-          const isGroupValid: boolean = _.isArray(groups);
+          const isGroupValid: boolean = Array.isArray(groups);
           if (!isGroupValid) {
             throw new TypeError(API_ERROR.BAD_FORMAT_USER_GROUP);
           }
@@ -342,7 +340,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
         // If the packages config is missing an entry for "unpublish", the built-in default method
         // (or a plugin) will return undefined, which will trigger the allow_publish fallback.
         // (see utils.ts, handleSpecialUnpublish, callback(null, undefined))
-        if (_.isNil(ok) === true) {
+        if (isNil(ok) === true) {
           debug('bypass unpublish for %o, publish will handle the access', packageName);
           this.logger.trace(
             { user: user.name, name: pkg.name },
@@ -463,7 +461,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
       res.locals.remote_user = remoteUser;
 
       const { authorization } = req.headers;
-      if (_.isNil(authorization)) {
+      if (isNil(authorization)) {
         debug('jwt, authentication header is missing');
         return next();
       }
@@ -566,7 +564,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
   }
 
   private _isRemoteUserValid(remote_user?: RemoteUser): boolean {
-    return _.isUndefined(remote_user) === false && _.isUndefined(remote_user?.name) === false;
+    return isUndefined(remote_user) === false && isUndefined(remote_user?.name) === false;
   }
 
   /**
@@ -590,7 +588,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
       };
 
       const { authorization } = req.headers;
-      if (_.isNil(authorization)) {
+      if (isNil(authorization)) {
         return next();
       }
 
@@ -624,8 +622,8 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
   public async jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions): Promise<string> {
     const { real_groups, name, groups } = user;
     debug('jwt encrypt %o', name);
-    const realGroupsValidated = _.isNil(real_groups) ? [] : real_groups;
-    const groupedGroups = _.isNil(groups)
+    const realGroupsValidated = isNil(real_groups) ? [] : real_groups;
+    const groupedGroups = isNil(groups)
       ? real_groups
       : Array.from(new Set([...groups.concat(realGroupsValidated)]));
     const payload: RemoteUser = {
@@ -646,16 +644,9 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
    * Encrypt a string.
    */
   public aesEncrypt(value: string): string | void {
-    if (this.secret.length === TOKEN_VALID_LENGTH) {
-      debug('signing with enhanced aes legacy');
-      const token = aesEncrypt(value, this.secret);
-      return token;
-    } else {
-      debug('signing with enhanced aes deprecated legacy');
-      // deprecated aes (legacy) signature, only must be used for legacy version
-      const token = aesEncryptDeprecated(Buffer.from(value), this.secret).toString('base64');
-      return token;
-    }
+    debug('signing with aes encryption');
+    const token = aesEncrypt(value, this.secret);
+    return token;
   }
 }
 

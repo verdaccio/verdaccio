@@ -11,7 +11,7 @@ import HTPasswd from '../src/htpasswd';
 
 const options = {
   logger: { warn: vi.fn(), info: vi.fn() },
-  config: new Config(parseConfigFile(path.join(__dirname, './__fixtures__/config.yaml'))),
+  config: new Config(parseConfigFile(path.join(import.meta.dirname, './__fixtures__/config.yaml'))),
 } as any as pluginUtils.PluginOptions;
 
 const config = {

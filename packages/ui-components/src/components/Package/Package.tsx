@@ -240,18 +240,18 @@ const iconStyle = ({ theme }: { theme: Theme }) => css`
   fill: ${theme.palette.mode === 'light' ? grey[900] : common.white};
 `;
 
-const StyledVersion = styled(Version)`
+const StyledVersion = styled(Version)<{ theme?: Theme }>`
   ${iconStyle};
 `;
 
-const StyledFileBinary = styled(FileBinary)`
+const StyledFileBinary = styled(FileBinary)<{ theme?: Theme }>`
   ${iconStyle};
 `;
 
-const StyledLaw = styled(Law)`
+const StyledLaw = styled(Law)<{ theme?: Theme }>`
   ${iconStyle};
 `;
 
-const StyledTime = styled(Time)`
+const StyledTime = styled(Time)<{ theme?: Theme }>`
   ${iconStyle};
 `;

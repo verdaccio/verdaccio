@@ -10,12 +10,16 @@ import dataUnsorted from './__partials__/unsorted-versions.json';
 
 const VersionsComponent: React.FC<Props> = (props) => <Versions {...props} />;
 
-vi.mock('lodash/debounce', () => ({
-  default: vi.fn((fn) => {
-    // Immediately execute the function for testing
-    return (...args: any[]) => fn(...args);
-  }),
-}));
+vi.mock('lodash-es', async () => {
+  const actual = await vi.importActual('lodash-es');
+  return {
+    ...actual,
+    debounce: vi.fn((fn) => {
+      // Immediately execute the function for testing
+      return (...args: any[]) => fn(...args);
+    }),
+  };
+});
 
 const renderVersions = (props: Props) => {
   return renderWithRouteDetail(<VersionsComponent {...props} />);

@@ -1,9 +1,9 @@
-import _ from 'lodash';
+import { forEach, isNil } from 'lodash-es';
 
 import type { ConfigYaml, Manifest } from '@verdaccio/types';
 
 export function hasLogin(config: ConfigYaml) {
-  return _.isNil(config?.web?.login) || config?.web?.login === true;
+  return isNil(config?.web?.login) || config?.web?.login === true;
 }
 
 export function sortByName(packages: any[], orderAscending: boolean | void = true): string[] {
@@ -25,7 +25,7 @@ export function addScope(scope: string, packageName: string): string {
 }
 
 export function deleteProperties(propertiesToDelete: string[], objectItem: any): any {
-  _.forEach(propertiesToDelete, (property): any => {
+  forEach(propertiesToDelete, (property): any => {
     delete objectItem[property];
   });
 

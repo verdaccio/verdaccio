@@ -11,7 +11,7 @@ import { getApp } from './helper';
 beforeAll(async () => {
   await setup({
     type: 'file',
-    path: path.join(__dirname, './verdaccio.log'),
+    path: path.join(import.meta.dirname, './verdaccio.log'),
     level: 'trace',
     format: 'json',
   });

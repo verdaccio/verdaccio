@@ -90,14 +90,6 @@ export type RateLimit = {
  */
 export type FlagsConfig = {
   /**
-   * Enables searching for packages in remote registries.
-   * If `false`, only the local registry will be queried.
-   *
-   * @default false
-   */
-  searchRemote?: boolean;
-
-  /**
    * Enables user password change functionality.
    *
    * @default false
@@ -207,10 +199,6 @@ export interface JWTVerifyOptions extends VerifyOptions {}
 
 export interface APITokenOptions {
   legacy: boolean;
-  /**
-   * Temporary flag to allow migration to the new legacy signature
-   */
-  migrateToSecureLegacySignature: boolean;
   jwt?: JWTOptions;
 }
 

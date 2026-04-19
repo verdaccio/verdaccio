@@ -33,41 +33,125 @@ To start using `@verdaccio/config`, import the `ConfigBuilder` class and begin c
 
 ## `ConfigBuilder` constructor
 
-The `ConfigBuilder` class is a helper configuration builder constructor used to programmatically create configuration objects for testing or other purposes.
+The `ConfigBuilder` class is a helper configuration builder constructor used to programmatically create configuration objects for testing or other purposes. All setter methods return `this` for fluent chaining.
 
 ```typescript
-
 import { ConfigBuilder } from '@verdaccio/config';
+import { constants } from '@verdaccio/core';
 
-// Create a new configuration builder instance
-const config = ConfigBuilder.build({ security: { api: { legacy: false } } });
-
-// Add package access configuration
-configBuilder.addPackageAccess('@scope/*', { access: 'read', publish: 'write' });
-
-// Add an uplink configuration
-configBuilder.addUplink('npmjs', { url: 'https://registry.npmjs.org/' });
-
-// Add security configuration
-configBuilder.addSecurity({ allow_offline: true });
+const config = ConfigBuilder.build()
+  .addStorage('./storage')
+  .addSecurity({
+    api: {
+      jwt: { sign: { expiresIn: '7d' }, verify: {} },
+      legacy: false,
+    },
+    web: {
+      sign: { expiresIn: '1h' },
+      verify: {},
+    },
+  })
+  .addAuth({
+    htpasswd: { file: '.htpasswd' },
+  })
+  .addUplink('npmjs', { url: 'https://registry.npmjs.org/' })
+  .addPackageAccess('@scope/*', {
+    access: constants.ROLES.$AUTH,
+    publish: constants.ROLES.$AUTH,
+    proxy: 'npmjs',
+  })
+  .addWeb({ title: 'My Registry', darkMode: true, primaryColor: '#4b5e40' })
+  .addLogger({ type: 'stdout', format: 'pretty', level: 'info' })
+  .addMiddlewares({ audit: { enabled: true } })
+  .addFlags({ changePassword: true })
+  .addI18n({ web: 'en-US' });
 
 // Get the configuration object
-const config = configBuilder.getConfig();
+const configObj = config.getConfig();
 
-// Get the configuration yaml text
-const config = configBuilder.getAsYaml();
+// Get the configuration as YAML text
+const configYaml = config.getAsYaml();
+```
+
+You can also pass an initial partial configuration to `ConfigBuilder.build()`:
+
+```typescript
+const config = ConfigBuilder.build({ security: { api: { legacy: false } } });
 ```
 
 ### Methods
 
-- `addPackageAccess(pattern: string, pkgAccess: PackageAccessYaml)`: Adds package access configuration.
+- `addPackageAccess(pattern: string, pkgAccess: PackageAccessYaml)`: Adds package access configuration for a pattern.
 - `addUplink(id: string, uplink: UpLinkConf)`: Adds an uplink configuration.
-- `addSecurity(security: Partial<Security>)`: Adds security configuration.
-- `addAuth(auth: Partial<AuthConf>)`: Adds authentication configuration.
-- `addLogger(log: LoggerConfItem)`: Adds logger configuration.
-- `addStorage(storage: string | object)`: Adds storage configuration.
+- `addSecurity(security: Partial<Security>)`: Merges security configuration.
+- `addAuth(auth: Partial<AuthConf>)`: Merges authentication configuration.
+- `addLogger(log: LoggerConfigItem)`: Sets logger configuration.
+- `addServer(server: Partial<ServerSettingsConf>)`: Merges server settings.
+- `addStorage(storage: string | object)`: Sets storage path (string) or store plugin configuration (object).
+- `addWeb(web: Partial<WebConf>)`: Merges web UI configuration.
+- `addListen(listen: ListenAddress)`: Sets listen address.
+- `addHttps(https: HttpsConf)`: Sets HTTPS configuration.
+- `addPublish(publish: Partial<PublishOptions>)`: Merges publish options.
+- `addFlags(flags: Partial<FlagsConfig>)`: Merges feature flags.
+- `addNotify(notify: Notifications | Notifications[])`: Sets notification hooks.
+- `addMiddlewares(middlewares: any)`: Merges middlewares configuration.
+- `addFilters(filters: any)`: Merges filters configuration.
+- `addMaxBodySize(maxBodySize: string)`: Sets the max body size (e.g., `'50mb'`).
+- `addUserRateLimit(rateLimit: RateLimit)`: Merges user rate limit settings.
+- `addUrlPrefix(urlPrefix: string)`: Sets URL prefix.
+- `addI18n(i18n: ConfigYaml['i18n'])`: Sets i18n configuration.
+- `addUserAgent(userAgent: string)`: Sets the user agent string.
+- `addHttpProxy(httpProxy: string)`: Sets the HTTP proxy.
+- `addHttpsProxy(httpsProxy: string)`: Sets the HTTPS proxy.
+- `addNoProxy(noProxy: string)`: Sets the no-proxy exclusion list.
+- `addPlugins(plugins: string)`: Sets the plugins directory path.
+- `addNotifications(notifications: Notifications)`: Sets notifications configuration.
 - `getConfig(): ConfigYaml`: Retrieves the configuration object.
-- `getAsYaml(): string`: Retrieves the configuration object as YAML format.
+- `getAsYaml(): string`: Retrieves the configuration as YAML format.
+
+## Using `ConfigBuilder` with `runServer`
+
+The `ConfigBuilder` pairs with `runServer` from the `verdaccio` package to start a registry programmatically:
+
+```typescript
+import { runServer } from 'verdaccio';
+
+import { ConfigBuilder } from '@verdaccio/config';
+import { constants } from '@verdaccio/core';
+
+const config = ConfigBuilder.build()
+  .addStorage('./storage')
+  .addAuth({ htpasswd: { file: '.htpasswd' } })
+  .addUplink('npmjs', { url: 'https://registry.npmjs.org/' })
+  .addPackageAccess(constants.PACKAGE_ACCESS.SCOPE, {
+    access: constants.ROLES.$AUTH,
+    publish: constants.ROLES.$AUTH,
+    proxy: 'npmjs',
+  })
+  .addPackageAccess(constants.PACKAGE_ACCESS.ALL, {
+    access: constants.ROLES.$ALL,
+    publish: constants.ROLES.$AUTH,
+    proxy: 'npmjs',
+  })
+  .addWeb({ title: 'My Registry', darkMode: true })
+  .addMiddlewares({ audit: { enabled: true } })
+  .addLogger({ type: 'stdout', format: 'pretty', level: 'info' })
+  .addSecurity({
+    api: { jwt: { sign: { expiresIn: '7d' }, verify: {} }, legacy: false },
+    web: { sign: { expiresIn: '1h' }, verify: {} },
+  })
+  .addI18n({ web: 'en-US' });
+
+runServer(config.getConfig())
+  .then((app) => {
+    app.listen(4873, () => {
+      console.log('verdaccio running on port 4873');
+    });
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+```
 
 ## `getDefaultConfig`
 

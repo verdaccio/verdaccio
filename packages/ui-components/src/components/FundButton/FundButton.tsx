@@ -16,7 +16,7 @@ const StyledLink = styled(LinkExternal)<{ theme?: Theme }>(({ theme }) => ({
 }));
 
 const StyledFavoriteIcon = styled(Favorite)<{ theme?: Theme }>(({ theme }) => ({
-  color: theme.palette.orange,
+  color: theme.palette.love,
 }));
 
 const StyledFundStrong = styled('strong')({

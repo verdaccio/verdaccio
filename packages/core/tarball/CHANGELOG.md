@@ -1,5 +1,62 @@
 # Change Log
 
+## 14.0.0-next-9.14
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.14
+- @verdaccio/url@14.0.0-next-9.14
+
+## 14.0.0-next-9.13
+
+### Patch Changes
+
+- Updated dependencies [39c369e]
+  - @verdaccio/core@9.0.0-next-9.13
+  - @verdaccio/url@14.0.0-next-9.13
+
+## 14.0.0-next-9.12
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.12
+- @verdaccio/url@14.0.0-next-9.12
+
+## 14.0.0-next-9.11
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.11
+- @verdaccio/url@14.0.0-next-9.11
+
+## 14.0.0-next-9.10
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.10
+- @verdaccio/url@14.0.0-next-9.10
+
+## 14.0.0-next-9.9
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.9
+- @verdaccio/url@14.0.0-next-9.9
+
+## 14.0.0-next-9.8
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.8
+- @verdaccio/url@14.0.0-next-9.8
+
+## 14.0.0-next-9.7
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.7
+- @verdaccio/url@14.0.0-next-9.7
+
 ## 14.0.0-next-9.6
 
 ### Patch Changes

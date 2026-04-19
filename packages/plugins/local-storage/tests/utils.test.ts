@@ -20,7 +20,8 @@ const logger: Logger = {
 };
 
 describe('Utitlies', () => {
-  const loadDb = (name): string => path.join(__dirname, '__fixtures__/databases', `${name}.json`);
+  const loadDb = (name): string =>
+    path.join(import.meta.dirname, '__fixtures__/databases', `${name}.json`);
 
   beforeEach(() => {
     vi.resetModules();
@@ -70,7 +71,7 @@ describe('Utitlies', () => {
     });
 
     test('should fetch all packages from valid storage', async () => {
-      const storage = path.join(__dirname, '__fixtures__/findPackages');
+      const storage = path.join(import.meta.dirname, '__fixtures__/findPackages');
       const validator = vi.fn((file) => file.indexOf('.') === -1);
       const pkgs = await findPackages(storage, validator);
       // the result is 7 due number of packages on "findPackages" directory

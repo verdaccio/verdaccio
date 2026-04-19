@@ -1,5 +1,55 @@
 # @verdaccio/loaders
 
+## 9.0.0-next-9.14
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.14
+
+## 9.0.0-next-9.13
+
+### Patch Changes
+
+- Updated dependencies [39c369e]
+  - @verdaccio/core@9.0.0-next-9.13
+
+## 9.0.0-next-9.12
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.12
+
+## 9.0.0-next-9.11
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.11
+
+## 9.0.0-next-9.10
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.10
+
+## 9.0.0-next-9.9
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.9
+
+## 9.0.0-next-9.8
+
+### Patch Changes
+
+- d68a86d: refactor: migrate from lodash to lodash-es and replace simple utilities with native JS
+  - @verdaccio/core@9.0.0-next-9.8
+
+## 9.0.0-next-9.7
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.7
+
 ## 9.0.0-next-9.6
 
 ### Patch Changes

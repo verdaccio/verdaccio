@@ -1,6 +1,6 @@
 import buildDebug from 'debug';
 import YAML from 'js-yaml';
-import { isObject } from 'lodash';
+import { isObject } from 'lodash-es';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -95,6 +95,12 @@ export function getConfigParsed(config?: string | ConfigYaml): ConfigYaml {
     }
   } else if (typeof config === 'object' && config !== null) {
     configurationParsed = config;
+
+    // When config is provided as an object (programmatic API), ensure configPath
+    // is set so the Config constructor does not throw.
+    if (!configurationParsed.configPath) {
+      configurationParsed.configPath = process.cwd();
+    }
 
     // @ts-expect-error
     if (!configurationParsed.self_path) {

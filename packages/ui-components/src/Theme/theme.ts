@@ -11,7 +11,32 @@ export type Theme = MuiTheme & CustomizedTheme;
 declare module '@mui/material/styles' {
   interface Theme extends CustomTheme {}
   interface ThemeOptions extends CustomTheme {}
+  interface Palette {
+    black: string;
+    cyanBlue: string;
+    greyLight: string;
+    greyLight2: string;
+    greyDark2: string;
+    greyGainsboro: string;
+    greyAthens: string;
+    snow: string;
+    love: string;
+    nobel01: string;
+  }
+  interface PaletteOptions {
+    black?: string;
+    cyanBlue?: string;
+    greyLight?: string;
+    greyLight2?: string;
+    greyDark2?: string;
+    greyGainsboro?: string;
+    greyAthens?: string;
+    snow?: string;
+    love?: string;
+    nobel01?: string;
+  }
 }
+
 declare module '@mui/material/styles/createTheme' {
   interface Theme extends CustomizedTheme {}
 

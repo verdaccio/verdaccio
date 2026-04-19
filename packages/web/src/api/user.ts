@@ -1,7 +1,7 @@
 import buildDebug from 'debug';
 import type { Request, Response } from 'express';
 import { Router } from 'express';
-import _ from 'lodash';
+import { isNil } from 'lodash-es';
 
 import { type Auth, getApiToken } from '@verdaccio/auth';
 import type { VerdaccioError } from '@verdaccio/core';
@@ -10,6 +10,7 @@ import {
   APP_ERROR,
   HEADERS,
   HTTP_STATUS,
+  TOKEN_BEARER,
   cryptoUtils,
   errorUtils,
   validationUtils,
@@ -38,12 +39,18 @@ function addUserAuthApi(auth: Auth, config: Config, storage: Storage): Router {
           if (err) {
             const errorCode = err.message ? HTTP_STATUS.UNAUTHORIZED : HTTP_STATUS.INTERNAL_ERROR;
             debug('error authenticate %o', errorCode);
-            next(errorUtils.getCode(errorCode, err.message));
+            // Prevent the final middleware from adding WWW-Authenticate header,
+            // which triggers the browser's native basic auth popup instead of
+            // letting the WebUI handle the error in JavaScript.
+            if (errorCode === HTTP_STATUS.UNAUTHORIZED) {
+              res.set(HEADERS.WWW_AUTH, TOKEN_BEARER);
+            }
+            return next(errorUtils.getCode(errorCode, err.message));
           } else {
             req.remote_user = user as RemoteUser;
             const jWTSignOptions: JWTSignOptions = config.security.web.sign;
             res.set(HEADERS.CACHE_CONTROL, HEADERS.NO_CACHE);
-            next({
+            return next({
               token: await auth.jwtEncrypt(user as RemoteUser, jWTSignOptions),
               username: req.remote_user.name,
             });
@@ -136,7 +143,7 @@ function addUserAuthApi(auth: Auth, config: Config, storage: Storage): Router {
       WebUrls.reset_password,
       rateLimit(config?.userRateLimit),
       function (req: Request, res: Response, next: $NextFunctionVer): void {
-        if (_.isNil(req.remote_user.name)) {
+        if (isNil(req.remote_user.name)) {
           res.status(HTTP_STATUS.UNAUTHORIZED);
           return next({
             // FUTURE: update to a more meaningful message
@@ -157,7 +164,7 @@ function addUserAuthApi(auth: Auth, config: Config, storage: Storage): Router {
         }
 
         auth.changePassword(name as string, password.old, password.new, (err, isUpdated): void => {
-          if (_.isNil(err) && isUpdated) {
+          if (isNil(err) && isUpdated) {
             next({
               ok: true,
             });

@@ -45,11 +45,6 @@ export { default as Success } from './sections/Security/Success';
 export { default as AddUser } from './sections/Security/AddUser';
 export { default as ChangePassword } from './sections/Security/ChangePassword';
 
-// pages
-export { default as FrontPage } from './pages/Front';
-export { default as VersionPage } from './pages/Version';
-export * from './pages/Security';
-
 // layout
 export { VersionLayout } from './layouts/Version';
 

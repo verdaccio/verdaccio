@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import _ from 'lodash';
+import { flatten, isEmpty, isNil, isObject, isUndefined } from 'lodash-es';
 import assert from 'node:assert';
 
 import { errorUtils } from '@verdaccio/core';
@@ -30,12 +30,12 @@ export const PACKAGE_ACCESS = {
 
 export function normalizeUserList(groupsList: any): any {
   const result: any[] = [];
-  if (_.isNil(groupsList) || _.isEmpty(groupsList)) {
+  if (isNil(groupsList) || isEmpty(groupsList)) {
     return result;
   }
 
   // if it's a string, split it to array
-  if (_.isString(groupsList)) {
+  if (typeof groupsList === 'string') {
     const groupsArray = groupsList.split(/\s+/);
 
     result.push(groupsArray);
@@ -47,12 +47,12 @@ export function normalizeUserList(groupsList: any): any {
     );
   }
 
-  return _.flatten(result);
+  return flatten(result);
 }
 
 export function normalisePackageAccess(packages: LegacyPackageList): LegacyPackageList {
   const normalizedPkgs: LegacyPackageList = { ...packages };
-  if (_.isNil(normalizedPkgs['**'])) {
+  if (isNil(normalizedPkgs['**'])) {
     normalizedPkgs['**'] = {
       access: [],
       publish: [],
@@ -65,14 +65,14 @@ export function normalisePackageAccess(packages: LegacyPackageList): LegacyPacka
     if (Object.prototype.hasOwnProperty.call(packages, pkg)) {
       const packageAccess = packages[pkg];
       debug('package access %s for %s ', packageAccess, pkg);
-      const isInvalid = _.isObject(packageAccess) && _.isArray(packageAccess) === false;
+      const isInvalid = isObject(packageAccess) && !Array.isArray(packageAccess);
       assert(isInvalid, `CONFIG: bad "'${pkg}'" package description (object expected)`);
 
       normalizedPkgs[pkg].access = normalizeUserList(packageAccess.access);
       normalizedPkgs[pkg].publish = normalizeUserList(packageAccess.publish);
       normalizedPkgs[pkg].proxy = normalizeUserList(packageAccess.proxy);
       // if unpublish is not defined, we set to false to fallback in publish access
-      normalizedPkgs[pkg].unpublish = _.isUndefined(packageAccess.unpublish)
+      normalizedPkgs[pkg].unpublish = isUndefined(packageAccess.unpublish)
         ? false
         : normalizeUserList(packageAccess.unpublish);
     }

@@ -8,7 +8,7 @@ import { logger, setup } from '@verdaccio/logger';
 import type { IProxy } from '../src/index';
 import { setupUpLinks } from '../src/uplink-util';
 
-const getConf = (name) => path.join(__dirname, '/conf', name);
+const getConf = (name) => path.join(import.meta.dirname, '/conf', name);
 
 beforeAll(async () => {
   await setup({});

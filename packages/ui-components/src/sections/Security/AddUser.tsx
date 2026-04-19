@@ -99,7 +99,7 @@ const AddUser: React.FC = () => {
   return createUserEnabled ? (
     <SecurityLayout>
       <SecurityContainer>
-        <SecurityForm component="form" onSubmit={handleSubmit(onSubmit)}>
+        <SecurityForm onSubmit={handleSubmit(onSubmit)}>
           <Typography align="center" component="h1" gutterBottom={true} variant="h4">
             {t('security.addUser.title')}
           </Typography>

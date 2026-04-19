@@ -5,7 +5,7 @@ on:
     branches:
       - 'master'
   pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
+    types: [opened, synchronize, reopened, ready_for_review, labeled]
     paths:
       - .changeset/**
       - .github/workflows/ci.yml
@@ -16,65 +16,57 @@ on:
       - 'package.json'
       - 'pnpm-workspace.yaml'
 permissions:
+  actions: read
   contents: read
+  security-events: write
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  prepare:
-    # Avoid running on draft PRs
-    if: github.event.pull_request.draft == false
+  changeset-check:
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.draft == false &&
+      github.actor != 'renovate[bot]' &&
+      github.actor != 'dependabot[bot]' &&
+      github.head_ref != 'changeset-release/master' &&
+      !contains(github.event.pull_request.labels.*.name, 'skip changeset')
     runs-on: ubuntu-latest
-    name: setup verdaccio
-    services:
-      verdaccio:
-        image: verdaccio/verdaccio:6
-        ports:
-          - 4873:4873
-        env:
-          NODE_ENV: production
-          options: >-
-            --health-cmd="curl -f http://0.0.0.0:4873/-/ping || exit 1"
-            --health-interval=10s   
-            --health-timeout=20s    
-            --health-retries=6
+    name: Changeset file check
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Install dependencies with a custom registry
-        uses: ./.github/actions/install-app
-  lint:
-    runs-on: ubuntu-latest
-    name: Lint
-    needs: prepare
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Install dependencies with a custom registry
-        uses: ./.github/actions/install-app
         with:
-            reporter: 'default'
-      - name: Lint
-        run: pnpm lint
-  format:
+          fetch-depth: 0
+      - name: Check changeset
+        uses: ./.github/actions/changeset-check        
+  lint-and-format:
     runs-on: ubuntu-latest
-    name: Format
-    needs: prepare
+    name: Lint & Format
+    needs: [changeset-check]
+    if: ${{ always() && !failure() && !cancelled() && github.event.pull_request.draft == false }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Install dependencies with a custom registry
+      - name: Install dependencies
         uses: ./.github/actions/install-app
         with:
           reporter: 'default'
       - name: Lint
+        run: pnpm lint
+      - name: Format
         run: pnpm format:check
-  test:
-    needs: [prepare]
+  build:
+    needs: [lint-and-format]
+    if: ${{ always() && !failure() && !cancelled() }}
     strategy:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
         node_version: [24, 25]
-    name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
+    name: Build / ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -82,24 +74,245 @@ jobs:
         uses: ./.github/actions/build-app
         with:
           node-version: ${{ matrix.node_version }}
+      - name: Cache build artifacts
+        uses: actions/cache/save@v5
+        with:
+          path: |
+            packages/*/build
+            packages/*/dist
+            packages/*/*/build
+            packages/*/*/dist
+            packages/plugins/ui-theme/static
+          key: ci-build-${{ github.sha }}-node-${{ matrix.node_version }}
+  test-docker:
+    needs: [build]
+    if: ${{ github.event_name == 'pull_request' && !failure() && !cancelled() }}
+    runs-on: ubuntu-latest
+    name: Test Docker Build
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Build Docker image
+        run: docker build -t verdaccio-test .
+        env:
+          VERDACCIO_BUILD_REGISTRY: https://registry.npmjs.org
+      - name: Run Verdaccio in background
+        run: |
+          docker run -d --name verdaccio-test -p 4873:4873 verdaccio-test
+          sleep 10
+      - name: Test npm install from local Verdaccio
+        run: |
+          npm set registry http://localhost:4873
+          npm install -g verdaccio
+      - name: Show Verdaccio logs
+        if: always()
+        run: docker logs verdaccio-test
+      - name: Stop Verdaccio
+        if: always()
+        run: docker stop verdaccio-test
+  test:
+    needs: [build]
+    if: ${{ github.event_name == 'pull_request' && !failure() && !cancelled() }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-latest]
+        node_version: [24, 25]
+    name: Test / ${{ matrix.os }} / Node ${{ matrix.node_version }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Install dependencies
+        uses: ./.github/actions/install-app-node
+        with:
+          node-version: ${{ matrix.node_version }}
+      - name: Restore build artifacts
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            packages/*/build
+            packages/*/dist
+            packages/*/*/build
+            packages/*/*/dist
+            packages/plugins/ui-theme/static
+          key: ci-build-${{ github.sha }}-node-${{ matrix.node_version }}
+          fail-on-cache-miss: true
       - name: Test (Node 25)
         if: matrix.node_version == 25
         run: pnpm test
         env:
           NODE_OPTIONS: --no-webstorage
-
-      # Test for all other Node versions
       - name: Test (Other Node)
         if: matrix.node_version != 25
         run: pnpm test
+  e2e-cli:
+    needs: [build]
+    if: ${{ github.event_name == 'pull_request' && !failure() && !cancelled() }}
+    runs-on: ubuntu-latest
+    name: E2E CLI (${{ matrix.pm }})
+    strategy:
+      fail-fast: false
+      matrix:
+        pm:
+          - npm@7
+          - npm@8
+          - npm@9
+          - npm@10
+          - npm@11
+          - yarn-classic
+          - yarn-modern@3
+          - yarn-modern@4
+          - pnpm@9
+          - pnpm@10
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Read Node version from .nvmrc
+        id: nvmrc
+        run: echo "node-version=$(cat .nvmrc)" >> "$GITHUB_OUTPUT"
+      - name: Install dependencies
+        uses: ./.github/actions/install-app-node
+        with:
+          node-version: ${{ steps.nvmrc.outputs.node-version }}
+      - name: Restore build artifacts
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            packages/*/build
+            packages/*/dist
+            packages/*/*/build
+            packages/*/*/dist
+            packages/plugins/ui-theme/static
+          key: ci-build-${{ github.sha }}-node-24
+          fail-on-cache-miss: true
+      - name: Start Verdaccio
+        run: |
+          node packages/verdaccio/bin/verdaccio &
+          for i in $(seq 1 30); do
+            curl -s http://localhost:4873/-/ping && break
+            sleep 1
+          done
+      - name: Run E2E CLI tests
+        run: pnpm verdaccio-e2e --registry http://localhost:4873 --pm ${{ matrix.pm }} -v
+      - name: Show Verdaccio logs
+        if: always()
+        run: cat ~/.config/verdaccio/verdaccio.log 2>/dev/null || echo "No log file found"
+  e2e-ui:
+    needs: [build]
+    if: ${{ github.event_name == 'pull_request' && !failure() && !cancelled() }}
+    runs-on: ubuntu-latest
+    name: E2E UI
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Read Node version from .nvmrc
+        id: nvmrc
+        run: echo "node-version=$(cat .nvmrc)" >> "$GITHUB_OUTPUT"
+      - name: Install dependencies
+        uses: ./.github/actions/install-app-node
+        with:
+          node-version: ${{ steps.nvmrc.outputs.node-version }}
+      - name: Restore build artifacts
+        uses: actions/cache/restore@v5
+        with:
+          path: |
+            packages/*/build
+            packages/*/dist
+            packages/*/*/build
+            packages/*/*/dist
+            packages/plugins/ui-theme/static
+          key: ci-build-${{ github.sha }}-node-24
+          fail-on-cache-miss: true
+      # The shared install-app-node action runs `pnpm install --ignore-scripts`,
+      # so cypress's postinstall (which downloads the test runner binary) is
+      # suppressed. Cache the binary across runs and only invoke `cypress
+      # install` on a cache miss — the version is pinned by the cypress entry
+      # in pnpm-lock.yaml, so this never pulls anything that isn't already
+      # locked.
+      - name: Cache Cypress binary
+        id: cypress-cache
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            cypress-${{ runner.os }}-
+      - name: Install Cypress binary
+        if: steps.cypress-cache.outputs.cache-hit != 'true'
+        run: pnpm exec cypress install
+      - name: Start Verdaccio
+        run: |
+          nohup node packages/verdaccio/bin/verdaccio --config ./scripts/e2e-ui-config.yaml > verdaccio.log 2>&1 &
+          for i in $(seq 1 30); do
+            curl -s http://localhost:4873/-/ping && break
+            sleep 1
+          done
+      - name: Create test user (for signin suite)
+        run: |
+          curl -s -X PUT -H "Content-Type: application/json" \
+            -d '{"name":"test","password":"test","_id":"org.couchdb.user:test","type":"user","roles":[]}' \
+            http://localhost:4873/-/user/org.couchdb.user:test
+      - name: Run Cypress
+        run: pnpm e2e:ui:run
+        env:
+          VERDACCIO_URL: http://localhost:4873
+      - name: Show Verdaccio logs
+        if: always()
+        run: cat verdaccio.log 2>/dev/null || echo "No log file found"
+      - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+          if-no-files-found: ignore
+      - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        if: always()
+        with:
+          name: cypress-videos
+          path: cypress/videos
+          if-no-files-found: ignore
+  changeset-validation:
+    needs: [build]
+    if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && always() && !failure() && !cancelled() }}
+    runs-on: ubuntu-latest
+    name: Changeset validation
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Read Node version from .nvmrc
+        id: nvmrc
+        run: echo "node-version=$(cat .nvmrc)" >> "$GITHUB_OUTPUT"
+      - name: Install dependencies
+        uses: ./.github/actions/install-app-node
+        with:
+          node-version: ${{ steps.nvmrc.outputs.node-version }}
+      - name: Run changeset version
+        run: pnpm ci:version:changeset
+  codeql:
+    needs: [build]
+    if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && always() && !failure() && !cancelled() }}
+    runs-on: ubuntu-latest
+    name: CodeQL Analysis
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 2
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@c10b8064de6f491fea524254123dbe5e09572f13 # v4.35.1
+        with:
+          config: |
+            paths-ignore:
+              - packages/config/test/partials/config/js/invalid.js
+              - packages/middleware/test/static/js
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@c10b8064de6f491fea524254123dbe5e09572f13 # v4.35.1
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@c10b8064de6f491fea524254123dbe5e09572f13 # v4.35.1
   sync-translations:
-    needs: [test]
+    needs: [build]
     runs-on: ubuntu-latest
     name: synchronize translations
     if: (github.event_name == 'push' && github.ref == 'refs/heads/master' && github.repository == 'verdaccio/verdaccio') || github.event_name == 'workflow_dispatch'
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version-file: '.nvmrc'
       - name: Install pnpm
@@ -107,7 +320,7 @@ jobs:
           npm install --global corepack@latest
           corepack enable
           corepack install
-      - uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
+      - uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -116,7 +329,7 @@ jobs:
           pnpm config set store-dir ~/.pnpm-store
       - name: Install
         ## we need scripts, pupetter downloads aditional content
-        run: pnpm install --registry http://localhost:4873
+        run: pnpm install --registry https://registry.npmjs.org
       - name: build
         run: pnpm build
       - name: sync
@@ -124,3 +337,18 @@ jobs:
           CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
           CONTEXT: production
         run: pnpm crowdin:sync
+  cleanup:
+    needs: [test, e2e-cli, e2e-ui]
+    if: always()
+    runs-on: ubuntu-latest
+    name: Cleanup caches
+    permissions:
+      actions: write
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Delete build artifact caches
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh cache delete "ci-build-${{ github.sha }}-node-24" --repo ${{ github.repository }} || true
+          gh cache delete "ci-build-${{ github.sha }}-node-25" --repo ${{ github.repository }} || true

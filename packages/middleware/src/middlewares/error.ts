@@ -1,6 +1,6 @@
 import buildDebug from 'debug';
 import type { HttpError } from 'http-errors';
-import _ from 'lodash';
+import { isError, isNil, noop } from 'lodash-es';
 
 import type { VerdaccioError } from '@verdaccio/core';
 import { API_ERROR, HTTP_STATUS } from '@verdaccio/core';
@@ -18,16 +18,16 @@ export const handleError = (logger: Logger) =>
     next: $NextFunctionVer
   ) {
     debug('error handler init');
-    if (_.isError(err)) {
+    if (isError(err)) {
       debug('is native error');
       if (err.code === 'ECONNABORT' && res.statusCode === HTTP_STATUS.NOT_MODIFIED) {
         return next();
       }
-      if (_.isFunction(res.locals.report_error) === false) {
+      if (typeof res.locals.report_error !== 'function') {
         debug('is locals error report ref');
         // in case of very early error this middleware may not be loaded before error is generated
         // fixing that
-        errorReportingMiddleware(logger)(req, res, _.noop);
+        errorReportingMiddleware(logger)(req, res, noop);
       }
       debug('set locals error report ref');
       res.locals.report_error(err);
@@ -51,7 +51,7 @@ export const errorReportingMiddleware = (logger: Logger) =>
       function (err: VerdaccioError): void {
         if (err.status && err.status >= HTTP_STATUS.BAD_REQUEST && err.status < 600) {
           debug('is error > 409 %o', err?.status);
-          if (_.isNil(res.headersSent) === false) {
+          if (isNil(res.headersSent) === false) {
             debug('send status %o', err?.status);
             res.status(err.status);
             debug('next layer %o', err?.message);

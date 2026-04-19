@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { isObject } from 'lodash-es';
 
 import { HTTP_STATUS } from '@verdaccio/core';
 
@@ -27,7 +27,7 @@ export default function (server) {
         .getPackage('testexp_tags')
         .status(200)
         .then(function (body) {
-          expect(_.isObject(body.versions['1.1.0'])).toBe(true);
+          expect(isObject(body.versions['1.1.0'])).toBe(true);
           // note: 5.4.3 is invalid tag, 0.1.3alpha is highest semver
           expect(body['dist-tags'].latest).toEqual('1.1.0');
           expect(body['dist-tags'].bad).toEqual(undefined);

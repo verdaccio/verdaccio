@@ -85,7 +85,7 @@ const ChangePassword: React.FC = () => {
   return changePasswordEnabled ? (
     <SecurityLayout>
       <SecurityContainer>
-        <SecurityForm component="form" onSubmit={handleSubmit(onSubmit)}>
+        <SecurityForm onSubmit={handleSubmit(onSubmit)}>
           <Typography align="center" component="h1" gutterBottom={true} variant="h4">
             {t('security.changePassword.title')}
           </Typography>

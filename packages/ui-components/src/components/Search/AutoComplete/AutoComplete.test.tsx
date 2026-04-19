@@ -23,7 +23,14 @@ const defaultProps = () => ({
   renderInput: (params: any) => (
     <TextField {...params} placeholder="Search packages" variant="standard" />
   ),
-  renderOption: (props: any, option: any) => <li {...props}>{option.package.name}</li>,
+  renderOption: (props: any, option: any) => {
+    const { key, ...rest } = props;
+    return (
+      <li key={key} {...rest}>
+        {option.package.name}
+      </li>
+    );
+  },
 });
 
 const makeSuggestion = (name: string) => ({

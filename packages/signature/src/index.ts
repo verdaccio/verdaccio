@@ -1,9 +1,3 @@
-export {
-  aesDecryptDeprecated,
-  aesEncryptDeprecated,
-  generateRandomSecretKeyDeprecated,
-} from './legacy-signature';
-
 export { aesDecrypt, aesEncrypt } from './signature';
 export {
   signPayload,

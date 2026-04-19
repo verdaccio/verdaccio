@@ -26,6 +26,15 @@ describe('pkg-utils', () => {
     ).toBe('1.0.0');
   });
 
+  test('semverSort', () => {
+    expect(pkgUtils.semverSort(['1.2.3', '1.2', '1.2.3a', '1.2.3c', '1.2.3-b'])).toStrictEqual([
+      '1.2.3a',
+      '1.2.3-b',
+      '1.2.3c',
+      '1.2.3',
+    ]);
+  });
+
   test('semverSanitize', () => {
     expect(pkgUtils.semverSanitize('1.0.0')).toBe('1.0.0');
     expect(pkgUtils.semverSanitize('1.0.0-beta.1')).toBe('1.0.0-beta.1');
@@ -37,13 +46,13 @@ describe('pkg-utils', () => {
 
 describe('getPackageJson', () => {
   test('@verdaccio/core', () => {
-    const packageJson = pkgUtils.getPackageJson(__dirname, '..');
+    const packageJson = pkgUtils.getPackageJson(import.meta.dirname, '..');
     expect(packageJson).toBeDefined();
     expect(packageJson.name).toBe('@verdaccio/core');
   });
 
   test('@verdaccio/test', () => {
-    const packageJson = pkgUtils.getPackageJson(__dirname, '__partials__');
+    const packageJson = pkgUtils.getPackageJson(import.meta.dirname, '__partials__');
     expect(packageJson).toBeDefined();
     expect(packageJson.name).toBe('@verdaccio/test');
     expect(packageJson.version).toBe('8.0.0');

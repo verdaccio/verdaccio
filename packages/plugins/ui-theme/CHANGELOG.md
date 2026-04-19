@@ -1,5 +1,31 @@
 # @verdaccio/ui-theme
 
+## 9.0.0-next-9.14
+
+## 9.0.0-next-9.13
+
+### Patch Changes
+
+- 9006b9d: Add debug dependency to ui-theme
+- f19a638: chore: fix vite build warnings and errors
+- 0ae9e93: chore(ui-theme): stderr during tests
+
+## 9.0.0-next-9.12
+
+## 9.0.0-next-9.11
+
+## 9.0.0-next-9.10
+
+## 9.0.0-next-9.9
+
+## 9.0.0-next-9.8
+
+## 9.0.0-next-9.7
+
+### Patch Changes
+
+- d148dc2: chore(ui-theme): reduce package size
+
 ## 9.0.0-next-9.6
 
 ### Patch Changes

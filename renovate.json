@@ -3,6 +3,7 @@
   "prConcurrentLimit": 2,
   "minimumReleaseAge": "15 days",
   "internalChecksFilter": "strict",
+  "dependencyDashboard": false,
   "ignorePaths": ["docker-examples/**"],
   "schedule": ["on the 1,11,21 day of the month"],
   "ignoreDeps": ["customprefix-auth", "eslint-plugin-verdaccio", "@orama/orama"],
@@ -26,8 +27,7 @@
     {
       "description": "Only allow @verdaccio/* and verdaccio-* versions 9+ on 7.x branch",
       "matchBaseBranches": ["7.x"],
-      "matchPackageNames": ["@verdaccio/*", "verdaccio-*"],
-      "allowedVersions": ">= 9.0.0"
+      "matchPackageNames": ["@verdaccio/*", "verdaccio-*"]
     },
     {
       "description": "Forbid major updates on 6.x branch",
@@ -59,12 +59,6 @@
       "groupName": "all actions",
       "groupSlug": "github-actions",
       "schedule": ["every 3 month"]
-    },
-    {
-      "description": "Latest ui-theme version available for 6.x branch",
-      "matchPackageNames": ["@verdaccio/ui-theme"],
-      "matchBaseBranches": ["6.x"],
-      "allowedVersions": "8.0.0-next-8.30"
     },
     {
       "description": "Group all Docker GitHub Actions",
@@ -357,6 +351,12 @@
       "groupSlug": "all-types-major",
       "matchBaseBranches": ["master", "7.x"],
       "schedule": ["every 2 months"]
+    },
+    {
+      "description": "Allow ui-theme 9.x prereleases on 6.x branch",
+      "matchPackageNames": ["@verdaccio/ui-theme"],
+      "matchBaseBranches": ["6.x"],
+      "allowedVersions": "<= 9.0.0-next-9"
     },
     {
       "description": "Group express and related dependencies",

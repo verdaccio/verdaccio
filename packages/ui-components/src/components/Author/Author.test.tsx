@@ -5,7 +5,7 @@ import { cleanup, renderWith, screen } from '../../test/test-react-testing-libra
 import type { PackageMetaInterface } from '../../types/packageMeta';
 import Authors from './Author';
 
-const withAuthorComponent = (packageMeta: PackageMetaInterface): JSX.Element => (
+const withAuthorComponent = (packageMeta: PackageMetaInterface): React.JSX.Element => (
   <Authors packageMeta={packageMeta} />
 );
 

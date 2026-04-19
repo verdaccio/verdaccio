@@ -1,5 +1,5 @@
 import type { Application } from 'express';
-import _ from 'lodash';
+import { isEmpty, isNil } from 'lodash-es';
 import path from 'node:path';
 import supertest from 'supertest';
 import { expect } from 'vitest';
@@ -25,7 +25,7 @@ import apiMiddleware from '../../src';
 export const buildToken = authUtils.buildToken;
 
 export const getConf = (conf: string) => {
-  const configPath = path.join(__dirname, 'config', conf);
+  const configPath = path.join(import.meta.dirname, 'config', conf);
   const config = parseConfigFile(configPath);
   // custom config to avoid conflict with other tests
   config.auth.htpasswd.file = `${config.auth.htpasswd.file}-${cryptoUtils.generateRandomHexString()}`;
@@ -195,7 +195,7 @@ export function getPackage(
 ): supertest.Test {
   const test = supertest(app).get(`/${pkgName}`);
 
-  if (_.isNil(token) === false || _.isEmpty(token) === false) {
+  if (isNil(token) === false || isEmpty(token) === false) {
     test.set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token));
   }
 

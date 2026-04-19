@@ -5,16 +5,11 @@ import type { LoggerConfigItem, LoggerFormat } from '@verdaccio/types';
 
 import { hasColors } from './colors';
 
-// Pino transports run in a worker thread and require an absolute path to a built JS file.
-// __dirname works in CJS; import.meta.url works in ESM (Node 20+).
-function getCurrentDir(): string {
-  if (typeof __dirname !== 'undefined') {
-    return __dirname;
-  }
-  // @ts-ignore -- import.meta.url requires module: es2020+ but vite preserves it for ESM output
-  return dirname(fileURLToPath(import.meta.url));
-}
-const prettifyPath = join(getCurrentDir(), '..', 'build', 'prettify.js');
+// Pino transports run in a worker thread via require(), so CJS output must work.
+// import.meta.dirname works in ESM; __dirname works in CJS.
+const currentDir =
+  typeof __dirname !== 'undefined' ? __dirname : dirname(fileURLToPath(import.meta.url));
+const prettifyPath = join(currentDir, '..', 'build', 'prettify.js');
 
 export function isPrettyFormat(format: LoggerFormat | undefined): boolean {
   return ['pretty-timestamped', 'pretty'].includes(format ?? 'pretty');

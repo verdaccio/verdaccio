@@ -42,8 +42,8 @@ const StyledAvatar = styled(Avatar)<{ theme?: Theme }>(({ theme }) => ({
 
 const StyledIconButton = styled(IconButton)<{ theme?: Theme }>(({ theme }) => ({
   position: 'absolute',
-  right: theme.spacing() / 2,
-  top: theme.spacing() / 2,
+  right: theme.spacing(0.5),
+  top: theme.spacing(0.5),
   color: theme.palette.grey[500],
 }));
 

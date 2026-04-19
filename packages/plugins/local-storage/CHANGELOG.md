@@ -1,5 +1,58 @@
 # Change Log
 
+## 14.0.0-next-9.14
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.14
+
+## 14.0.0-next-9.13
+
+### Patch Changes
+
+- Updated dependencies [39c369e]
+  - @verdaccio/core@9.0.0-next-9.13
+
+## 14.0.0-next-9.12
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.12
+
+## 14.0.0-next-9.11
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.11
+
+## 14.0.0-next-9.10
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.10
+- @verdaccio/file-locking@14.0.0-next-9.2
+
+## 14.0.0-next-9.9
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.9
+
+## 14.0.0-next-9.8
+
+### Patch Changes
+
+- d68a86d: refactor: migrate from lodash to lodash-es and replace simple utilities with native JS
+  - @verdaccio/core@9.0.0-next-9.8
+
+## 14.0.0-next-9.7
+
+### Patch Changes
+
+- e500b84: chore: remove unused @verdaccio/utils
+  - @verdaccio/core@9.0.0-next-9.7
+  - @verdaccio/file-locking@14.0.0-next-9.2
+
 ## 14.0.0-next-9.6
 
 ### Patch Changes

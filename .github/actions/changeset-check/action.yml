@@ -1,0 +1,77 @@
+name: 'Changeset check'
+description: 'Verify a changeset file is included in the PR. Posts a comment if missing, removes it when resolved.'
+
+inputs:
+  token:
+    description: 'GitHub token to post/remove comments'
+    required: false
+
+runs:
+  using: composite
+  steps:
+    - name: Check for changeset files
+      id: check
+      shell: bash
+      run: |
+        CHANGED=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }}...HEAD -- '.changeset/*.md' | grep -v 'README.md' || true)
+        if [ -z "$CHANGED" ]; then
+          echo "found=false" >> "$GITHUB_OUTPUT"
+        else
+          echo "found=true" >> "$GITHUB_OUTPUT"
+          echo "Changeset file(s) found:"
+          echo "$CHANGED"
+        fi
+
+    # Forked PRs run with a read-only GITHUB_TOKEN, so the comment steps below
+    # would 403. Skip them entirely when the PR head is a fork — the final
+    # "Fail if changeset is missing" step still enforces the check.
+    - name: Find existing comment
+      id: find-comment
+      if: always() && github.event.pull_request.head.repo.full_name == github.repository
+      uses: peter-evans/find-comment@b30e6a3c0ed37e7c023ccd3f1db5c6c0b0c23aad # v4.0.0
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        body-includes: '<!-- changeset-check -->'
+
+    - name: Post missing changeset comment
+      if: >-
+        github.event.pull_request.head.repo.full_name == github.repository &&
+        steps.check.outputs.found == 'false' &&
+        steps.find-comment.outputs.comment-id == ''
+      uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5.0.0
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        body: |
+          <!-- changeset-check -->
+          ## Changeset missing
+
+          This PR does not include a changeset file. All PRs that change packages need a changeset so that versioning and changelogs are updated correctly.
+
+          **How to fix:**
+          ```bash
+          pnpm changeset
+          ```
+
+          Please read the [contribution guidelines](https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md#adding-a-changeset-changeset) for more details.
+
+    - name: Remove comment when changeset is added
+      if: >-
+        github.event.pull_request.head.repo.full_name == github.repository &&
+        steps.check.outputs.found == 'true' &&
+        steps.find-comment.outputs.comment-id != ''
+      uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5.0.0
+      with:
+        comment-id: ${{ steps.find-comment.outputs.comment-id }}
+        edit-mode: replace
+        body: |
+          <!-- changeset-check -->
+          ## Changeset found
+
+          Thank you for including a changeset!
+
+    - name: Fail if changeset is missing
+      if: steps.check.outputs.found == 'false'
+      shell: bash
+      run: |
+        echo "::error::No changeset file found. Please run 'pnpm changeset' to add one."
+        exit 1

@@ -5,6 +5,19 @@ import { baseColors } from './colors';
 
 export type ThemeMode = 'light' | 'dark';
 
+export const customPaletteColors = {
+  black: '#000',
+  cyanBlue: '#253341',
+  greyLight: '#d3d3d3',
+  greyLight2: '#908ba1',
+  greyDark2: '#586069',
+  greyGainsboro: '#e3e3e3',
+  greyAthens: '#d3dddd',
+  snow: '#f9f9f9',
+  love: '#e25555',
+  nobel01: '#999999',
+} as const;
+
 const DARK_MODE_PRIMARY = common.white;
 
 export const getModePalette = (mode: ThemeMode, primaryColor?: string): PaletteOptions => {
@@ -20,6 +33,7 @@ export const getModePalette = (mode: ThemeMode, primaryColor?: string): PaletteO
         default: '#1a202c',
         paper: '#2d3748',
       },
+      ...customPaletteColors,
     };
   }
 
@@ -31,5 +45,6 @@ export const getModePalette = (mode: ThemeMode, primaryColor?: string): PaletteO
       default: '#f4f4f4',
       paper: '#ffffff',
     },
+    ...customPaletteColors,
   };
 };

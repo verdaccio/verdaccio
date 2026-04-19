@@ -12,10 +12,21 @@ import {
 import { Route } from '../../utils';
 import ChangePassword from './ChangePassword';
 
+const mockNavigate = vi.fn();
+
+vi.mock('react-router', async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    ...actual,
+    useNavigate: () => mockNavigate,
+  };
+});
+
 describe('<ChangePassword /> component', () => {
   beforeEach(() => {
     vi.resetModules();
     vi.resetAllMocks();
+    mockNavigate.mockClear();
     cleanup();
   });
 
@@ -34,6 +45,7 @@ describe('<ChangePassword /> component', () => {
       renderWithRouter(<ChangePassword />, Route.CHANGE_PASSWORD, [Route.CHANGE_PASSWORD]);
     });
 
+    expect(mockNavigate).toHaveBeenCalledWith('/');
     expect(screen.queryByText('security.changePassword.title')).not.toBeInTheDocument();
   });
 

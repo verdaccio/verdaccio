@@ -5,7 +5,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import debounce from 'lodash/debounce';
+import { debounce } from 'lodash-es';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import semver from 'semver';

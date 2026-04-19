@@ -4,6 +4,7 @@ import { DIST_TAGS } from '@verdaccio/core';
 import type { Manifest } from '@verdaccio/types';
 
 import {
+  cleanupDistFiles,
   cleanupTime,
   getLatestVersion,
   setupCreatedAndModified,
@@ -23,6 +24,61 @@ function createManifest(overrides: Partial<Manifest> = {}): Manifest {
     ...overrides,
   } as unknown as Manifest;
 }
+
+describe('cleanupDistFiles', () => {
+  test('removes _distfiles entries not referenced by any version', () => {
+    const manifest = createManifest({
+      versions: {
+        '1.0.0': { dist: { tarball: 'https://registry.npmjs.org/test-pkg/-/test-pkg-1.0.0.tgz' } },
+      } as any,
+      _distfiles: {
+        'test-pkg-1.0.0.tgz': {
+          url: 'https://registry.npmjs.org/test-pkg/-/test-pkg-1.0.0.tgz',
+          sha: '',
+        },
+        'test-pkg-0.9.0.tgz': {
+          url: 'https://registry.npmjs.org/test-pkg/-/test-pkg-0.9.0.tgz',
+          sha: '',
+        },
+      } as any,
+    });
+    cleanupDistFiles(manifest);
+    expect(Object.keys(manifest._distfiles)).toEqual(['test-pkg-1.0.0.tgz']);
+  });
+
+  test('retains _distfiles entries referenced by a version', () => {
+    const url = 'https://registry.npmjs.org/test-pkg/-/test-pkg-2.0.0.tgz';
+    const manifest = createManifest({
+      versions: {
+        '2.0.0': { dist: { tarball: url } },
+      } as any,
+      _distfiles: {
+        'test-pkg-2.0.0.tgz': { url, sha: '' },
+      } as any,
+    });
+    cleanupDistFiles(manifest);
+    expect(manifest._distfiles['test-pkg-2.0.0.tgz'].url).toBe(url);
+  });
+
+  test('handles multiple versions sharing the same tarball URL', () => {
+    const sharedUrl = 'https://registry.npmjs.org/test-pkg/-/test-pkg-1.0.0.tgz';
+    const manifest = createManifest({
+      versions: {
+        '1.0.0': { dist: { tarball: sharedUrl } },
+        '1.0.0-alias': { dist: { tarball: sharedUrl } },
+      } as any,
+      _distfiles: {
+        'test-pkg-1.0.0.tgz': { url: sharedUrl, sha: '' },
+        'test-pkg-orphan.tgz': {
+          url: 'https://registry.npmjs.org/test-pkg/-/test-pkg-orphan.tgz',
+          sha: '',
+        },
+      } as any,
+    });
+    cleanupDistFiles(manifest);
+    expect(Object.keys(manifest._distfiles)).toEqual(['test-pkg-1.0.0.tgz']);
+  });
+});
 
 describe('cleanupTime', () => {
   test('handles manifest without time property', () => {

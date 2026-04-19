@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { isNil, trim } from 'lodash-es';
 import semver from 'semver';
 
 import {
@@ -55,7 +55,7 @@ export function normalizePackage(pkg: Manifest): Manifest {
   pkgProperties.forEach((key): void => {
     const pkgProp = pkg[key];
 
-    if (_.isNil(pkgProp) || validationUtils.isObject(pkgProp) === false) {
+    if (isNil(pkgProp) || validationUtils.isObject(pkgProp) === false) {
       pkg[key] = {};
     }
   });
@@ -83,7 +83,7 @@ export function getLatestReadme(pkg: Manifest): string {
   const distTags = pkg[DIST_TAGS] || {};
   // FIXME: here is a bit tricky add the types
   const latestVersion: Version | any = distTags['latest'] ? versions[distTags['latest']] || {} : {};
-  let readme = _.trim(pkg.readme || latestVersion.readme || '');
+  let readme = trim(pkg.readme || latestVersion.readme || '');
   if (readme) {
     return readme;
   }
@@ -96,7 +96,7 @@ export function getLatestReadme(pkg: Manifest): string {
       return readme;
     }
     const version: Version | any = distTags[tag] ? versions[distTags[tag]] || {} : {};
-    readme = _.trim(version.readme || readme);
+    readme = trim(version.readme || readme);
   });
   return readme;
 }
@@ -121,7 +121,7 @@ export function cleanUpReadme(
     }
   }
 
-  if (_.isNil(version) === false) {
+  if (isNil(version) === false) {
     version.readme = '';
   }
 
@@ -171,14 +171,14 @@ export function checkPackageRemote(
       }
 
       // checking package exist already
-      if (_.isNil(packageJsonLocal) === false) {
+      if (isNil(packageJsonLocal) === false) {
         return reject(errorUtils.getConflict(API_ERROR.PACKAGE_EXIST));
       }
 
       for (let errorItem = 0; errorItem < upLinksErrors.length; errorItem++) {
         // checking error
         // if uplink fails with a status other than 404, we report failure
-        if (_.isNil(upLinksErrors[errorItem][0]) === false) {
+        if (isNil(upLinksErrors[errorItem][0]) === false) {
           if (upLinksErrors[errorItem][0].status !== HTTP_STATUS.NOT_FOUND) {
             if (isAllowPublishOffline) {
               return resolve();
@@ -334,7 +334,7 @@ export function normalizeDistTags(manifest: Manifest): Manifest {
   for (const tag in manifest[DIST_TAGS]) {
     // deprecated (will be removed un future majors)
     // this should not happen, tags should be plain strings, legacy fallback
-    if (_.isArray(manifest[DIST_TAGS][tag])) {
+    if (Array.isArray(manifest[DIST_TAGS][tag])) {
       if (manifest[DIST_TAGS][tag].length) {
         // sort array
         // FIXME: this is clearly wrong, we need to research why this is like this.
@@ -347,7 +347,7 @@ export function normalizeDistTags(manifest: Manifest): Manifest {
       } else {
         delete manifest[DIST_TAGS][tag];
       }
-    } else if (_.isString(manifest[DIST_TAGS][tag])) {
+    } else if (typeof manifest[DIST_TAGS][tag] === 'string') {
       if (!semver.parse(manifest[DIST_TAGS][tag], true)) {
         // if the version is invalid, delete the dist-tag entry
         delete manifest[DIST_TAGS][tag];
@@ -411,11 +411,11 @@ export function mapManifestToSearchPackageBody(
 }
 
 export function normalizeContributors(contributors: Author[]): Author[] {
-  if (_.isNil(contributors)) {
+  if (isNil(contributors)) {
     return [];
-  } else if (contributors && _.isArray(contributors) === false) {
+  } else if (contributors && !Array.isArray(contributors)) {
     return [contributors];
-  } else if (_.isString(contributors)) {
+  } else if (typeof contributors === 'string') {
     return [
       {
         name: contributors,

@@ -23,7 +23,7 @@ describe('Audit plugin', () => {
   test('should test audit', () => {
     const audit = new ProxyAudit(auditConfig, {
       logger,
-      config: new Config(parseConfigFile(join(__dirname, 'config.yaml'))),
+      config: new Config(parseConfigFile(join(import.meta.dirname, 'config.yaml'))),
     });
     expect(audit).toBeDefined();
   });
@@ -36,12 +36,17 @@ describe('Audit plugin', () => {
   });
 
   test('should handle /-/npm/v1/security/audits/quick', async () => {
+    const auditPayload = { webpack: ['5.88.2'], lodash: ['4.17.21'] };
     nock('https://registry.npmjs.org')
-      .post('/-/npm/v1/security/audits/quick')
+      .post('/-/npm/v1/security/audits/quick', (body) => {
+        expect(body).toEqual(auditPayload);
+        return true;
+      })
       .reply(200, { foo: 'someData' });
     const config = { strict_ssl: false } as ConfigAudit;
     const audit = new ProxyAudit(auditConfig, { logger, config: config });
     const app = express();
+    app.use(express.json({ limit: '10mb' }));
     audit.register_middlewares(app, {
       // @ts-ignore
       config: {
@@ -49,16 +54,25 @@ describe('Audit plugin', () => {
         http_proxy: '',
       },
     });
-    await supertest(app).post('/-/npm/v1/security/audits/quick').expect(HTTP_STATUS.OK);
+    await supertest(app)
+      .post('/-/npm/v1/security/audits/quick')
+      .send(auditPayload)
+      .set('content-type', 'application/json')
+      .expect(HTTP_STATUS.OK);
   });
 
   test('should handle /-/npm/v1/security/audits/bulk', async () => {
+    const auditPayload = { jquery: ['3.7.1'], react: ['18.2.0'] };
     nock('https://registry.npmjs.org')
-      .post('/-/npm/v1/security/advisories/bulk')
+      .post('/-/npm/v1/security/advisories/bulk', (body) => {
+        expect(body).toEqual(auditPayload);
+        return true;
+      })
       .reply(200, { foo: 'someData' });
     const config = { strict_ssl: false } as ConfigAudit;
     const audit = new ProxyAudit(auditConfig, { logger, config: config });
     const app = express();
+    app.use(express.json({ limit: '10mb' }));
     audit.register_middlewares(app, {
       // @ts-ignore
       config: {
@@ -66,16 +80,25 @@ describe('Audit plugin', () => {
         http_proxy: '',
       },
     });
-    await supertest(app).post('/-/npm/v1/security/advisories/bulk').expect(HTTP_STATUS.OK);
+    await supertest(app)
+      .post('/-/npm/v1/security/advisories/bulk')
+      .send(auditPayload)
+      .set('content-type', 'application/json')
+      .expect(HTTP_STATUS.OK);
   });
 
   test('should handle /-/npm/v1/security/audits', async () => {
+    const auditPayload = { acorn: ['8.10.0'] };
     nock('https://registry.npmjs.org')
-      .post('/-/npm/v1/security/audits')
+      .post('/-/npm/v1/security/audits', (body) => {
+        expect(body).toEqual(auditPayload);
+        return true;
+      })
       .reply(200, { foo: 'someData' });
     const config = { strict_ssl: false } as ConfigAudit;
     const audit = new ProxyAudit(auditConfig, { logger, config: config });
     const app = express();
+    app.use(express.json({ limit: '10mb' }));
     audit.register_middlewares(app, {
       // @ts-ignore
       config: {
@@ -83,7 +106,11 @@ describe('Audit plugin', () => {
         http_proxy: '',
       },
     });
-    await supertest(app).post('/-/npm/v1/security/audits').expect(HTTP_STATUS.OK);
+    await supertest(app)
+      .post('/-/npm/v1/security/audits')
+      .send(auditPayload)
+      .set('content-type', 'application/json')
+      .expect(HTTP_STATUS.OK);
   });
 
   test('should handle proxy', async () => {
@@ -93,6 +120,7 @@ describe('Audit plugin', () => {
     const config = { strict_ssl: false } as ConfigAudit;
     const audit = new ProxyAudit(auditConfig, { logger, config: config });
     const app = express();
+    app.use(express.json({ limit: '10mb' }));
     audit.register_middlewares(app, {
       // @ts-ignore
       config: {
@@ -100,6 +128,10 @@ describe('Audit plugin', () => {
         http_proxy: '',
       },
     });
-    await supertest(app).post('/-/npm/v1/security/audits/quick').expect(HTTP_STATUS.OK);
+    await supertest(app)
+      .post('/-/npm/v1/security/audits/quick')
+      .send({ webpack: ['5.88.2'] })
+      .set('content-type', 'application/json')
+      .expect(HTTP_STATUS.OK);
   });
 });

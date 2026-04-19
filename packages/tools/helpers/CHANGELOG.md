@@ -1,5 +1,91 @@
 # Change Log
 
+## 5.0.0-next-9.14
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.14
+- @verdaccio/config@9.0.0-next-9.14
+- @verdaccio/auth@9.0.0-next-9.14
+- @verdaccio/logger@9.0.0-next-9.14
+- @verdaccio/middleware@9.0.0-next-9.14
+
+## 5.0.0-next-9.13
+
+### Patch Changes
+
+- Updated dependencies [39c369e]
+  - @verdaccio/core@9.0.0-next-9.13
+  - @verdaccio/auth@9.0.0-next-9.13
+  - @verdaccio/config@9.0.0-next-9.13
+  - @verdaccio/logger@9.0.0-next-9.13
+  - @verdaccio/middleware@9.0.0-next-9.13
+
+## 5.0.0-next-9.12
+
+### Patch Changes
+
+- Updated dependencies [64c904a]
+  - @verdaccio/config@9.0.0-next-9.12
+  - @verdaccio/auth@9.0.0-next-9.12
+  - @verdaccio/middleware@9.0.0-next-9.12
+  - @verdaccio/core@9.0.0-next-9.12
+  - @verdaccio/logger@9.0.0-next-9.12
+
+## 5.0.0-next-9.11
+
+### Patch Changes
+
+- Updated dependencies [96cb0c4]
+  - @verdaccio/config@9.0.0-next-9.11
+  - @verdaccio/auth@9.0.0-next-9.11
+  - @verdaccio/middleware@9.0.0-next-9.11
+  - @verdaccio/core@9.0.0-next-9.11
+  - @verdaccio/logger@9.0.0-next-9.11
+
+## 5.0.0-next-9.10
+
+### Patch Changes
+
+- Updated dependencies [747d6ab]
+  - @verdaccio/config@9.0.0-next-9.10
+  - @verdaccio/auth@9.0.0-next-9.10
+  - @verdaccio/middleware@9.0.0-next-9.10
+  - @verdaccio/core@9.0.0-next-9.10
+  - @verdaccio/logger@9.0.0-next-9.10
+
+## 5.0.0-next-9.9
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.9
+- @verdaccio/config@9.0.0-next-9.9
+- @verdaccio/auth@9.0.0-next-9.9
+- @verdaccio/logger@9.0.0-next-9.9
+- @verdaccio/middleware@9.0.0-next-9.9
+
+## 5.0.0-next-9.8
+
+### Patch Changes
+
+- Updated dependencies [d68a86d]
+  - @verdaccio/config@9.0.0-next-9.8
+  - @verdaccio/auth@9.0.0-next-9.8
+  - @verdaccio/middleware@9.0.0-next-9.8
+  - @verdaccio/core@9.0.0-next-9.8
+  - @verdaccio/logger@9.0.0-next-9.8
+
+## 5.0.0-next-9.7
+
+### Patch Changes
+
+- Updated dependencies [f2e488d]
+  - @verdaccio/auth@9.0.0-next-9.7
+  - @verdaccio/config@9.0.0-next-9.7
+  - @verdaccio/middleware@9.0.0-next-9.7
+  - @verdaccio/core@9.0.0-next-9.7
+  - @verdaccio/logger@9.0.0-next-9.7
+
 ## 5.0.0-next-9.6
 
 ### Patch Changes

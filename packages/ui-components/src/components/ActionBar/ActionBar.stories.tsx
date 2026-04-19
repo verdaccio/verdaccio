@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { clone, merge } from 'lodash';
+import { clone, merge } from 'lodash-es';
 import React from 'react';
 import { MemoryRouter, Route, Routes } from 'react-router';
 

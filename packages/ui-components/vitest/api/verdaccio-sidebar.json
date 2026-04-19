@@ -1,0 +1,155 @@
+{
+  "versions": {
+    "6.3.2": {
+      "name": "verdaccio",
+      "version": "6.3.2",
+      "description": "A lightweight private npm proxy registry",
+      "main": "build/index.js",
+      "types": "build/index.d.ts",
+      "author": {
+        "name": "Verdaccio Maintainers",
+        "email": "verdaccio@pm.me"
+      },
+      "license": "MIT",
+      "_id": "verdaccio@6.3.2",
+      "_npmVersion": "10.9.4",
+      "_nodeVersion": "22.22.0",
+      "_npmUser": {
+        "name": "verdaccio.npm",
+        "email": "verdaccio@pm.me"
+      },
+      "dist": {
+        "shasum": "3e3c1461e3f36a0c14989bd8852ddf6ae827bf5a",
+        "tarball": "http://localhost:4873/verdaccio/-/verdaccio-6.3.2.tgz",
+        "integrity": "sha512-abc123==",
+        "fileCount": 97,
+        "unpackedSize": 747075
+      },
+      "engines": {
+        "node": ">=18"
+      },
+      "maintainers": [
+        {
+          "name": "verdaccio",
+          "email": "verdaccio@pm.me"
+        }
+      ],
+      "directories": {},
+      "contributors": []
+    },
+    "9.0.0-next-9.4": {
+      "name": "verdaccio",
+      "version": "9.0.0-next-9.4",
+      "description": "A lightweight private npm proxy registry",
+      "main": "build/index.js",
+      "types": "build/index.d.ts",
+      "author": {
+        "name": "Verdaccio Maintainers",
+        "email": "verdaccio@pm.me"
+      },
+      "_id": "verdaccio@9.0.0-next-9.4",
+      "_npmVersion": "11.9.0",
+      "_nodeVersion": "24.14.0",
+      "_npmUser": {
+        "name": "verdaccio.npm",
+        "email": "verdaccio@pm.me"
+      },
+      "dist": {
+        "shasum": "1bde61e3a7779b273f0d5353100054f4c7683058",
+        "tarball": "http://localhost:4873/verdaccio/-/verdaccio-9.0.0-next-9.4.tgz",
+        "integrity": "sha512-def456==",
+        "fileCount": 24,
+        "unpackedSize": 74624
+      },
+      "engines": {
+        "node": ">=24"
+      },
+      "maintainers": [
+        {
+          "name": "verdaccio",
+          "email": "verdaccio@pm.me"
+        }
+      ],
+      "directories": {},
+      "contributors": []
+    }
+  },
+  "time": {
+    "created": "2016-07-28T12:48:43.536Z",
+    "modified": "2026-03-16T21:58:18.228Z",
+    "6.3.2": "2026-03-14T17:05:25.592Z",
+    "9.0.0-next-9.4": "2026-03-16T21:58:18.228Z"
+  },
+  "dist-tags": {
+    "latest": "6.3.2",
+    "next-9": "9.0.0-next-9.4"
+  },
+  "_uplinks": {
+    "npmjs": {
+      "etag": "W/\"6a19c7348a9de009f17b6aac64338674\"",
+      "fetched": 1774373096358
+    }
+  },
+  "_id": "verdaccio",
+  "latest": {
+    "name": "verdaccio",
+    "version": "6.3.2",
+    "description": "A lightweight private npm proxy registry",
+    "main": "build/index.js",
+    "types": "build/index.d.ts",
+    "keywords": [
+      "private",
+      "package",
+      "repository",
+      "registry",
+      "enterprise",
+      "modules",
+      "proxy",
+      "server",
+      "verdaccio"
+    ],
+    "author": {
+      "name": "Verdaccio Maintainers",
+      "email": "verdaccio@pm.me",
+      "url": "https://verdaccio.org",
+      "avatar": "https://www.gravatar.com/avatar/00000000000000000000000000000000"
+    },
+    "license": "MIT",
+    "_id": "verdaccio@6.3.2",
+    "homepage": "https://verdaccio.org",
+    "bugs": {
+      "url": "https://github.com/verdaccio/verdaccio/issues"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/verdaccio/verdaccio.git"
+    },
+    "engines": {
+      "node": ">=18"
+    },
+    "funding": {
+      "url": "https://opencollective.com/verdaccio",
+      "type": "opencollective"
+    },
+    "dist": {
+      "shasum": "3e3c1461e3f36a0c14989bd8852ddf6ae827bf5a",
+      "tarball": "http://localhost:4873/verdaccio/-/verdaccio-6.3.2.tgz",
+      "integrity": "sha512-abc123==",
+      "fileCount": 97,
+      "unpackedSize": 747075
+    },
+    "_npmUser": {
+      "name": "verdaccio.npm",
+      "email": "verdaccio@pm.me"
+    },
+    "maintainers": [
+      {
+        "name": "verdaccio",
+        "email": "verdaccio@pm.me",
+        "avatar": "https://www.gravatar.com/avatar/00000000000000000000000000000000"
+      }
+    ],
+    "directories": {},
+    "contributors": []
+  }
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { vi } from 'vitest';
 
+import storage from '../../store/storage';
 import {
   act,
   cleanup,
@@ -21,6 +22,8 @@ describe('<Login /> component', () => {
     vi.resetModules();
     vi.resetAllMocks();
     cleanup();
+    storage.removeItem('token');
+    storage.removeItem('username');
   });
 
   afterEach(() => {
@@ -92,6 +95,34 @@ describe('<Login /> component', () => {
     });
 
     expect(screen.queryByText('security.login.createUser')).not.toBeInTheDocument();
+  });
+
+  test('should save auth token before navigating on successful login', async () => {
+    await act(async () => {
+      renderWithRouter(<Login />, Route.LOGIN, [LOGIN_URL_WITH_NEXT]);
+    });
+
+    const usernameInput = screen.getByPlaceholderText('form-placeholder.username');
+    const passwordInput = screen.getByPlaceholderText('form-placeholder.password');
+
+    await act(async () => {
+      fireEvent.change(usernameInput, { target: { value: 'testuser' } });
+      fireEvent.change(passwordInput, { target: { value: 'testpass' } });
+    });
+
+    await waitFor(() => {
+      expect(screen.getByTestId('login-dialog-form-login-button')).not.toBeDisabled();
+    });
+
+    const submitButton = screen.getByTestId('login-dialog-form-login-button');
+    await act(async () => {
+      fireEvent.click(submitButton);
+    });
+
+    await waitFor(() => {
+      expect(storage.getItem('token')).toBe('valid-mock-token');
+      expect(storage.getItem('username')).toBe('testuser');
+    });
   });
 
   test('should show error message on failed login', async () => {

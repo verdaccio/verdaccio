@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import _ from 'lodash';
+import { merge } from 'lodash-es';
 import { lstat } from 'node:fs/promises';
 import { dirname, isAbsolute, join, resolve } from 'node:path';
 
@@ -17,7 +17,7 @@ async function isDirectory(pathFolder: string) {
 }
 
 function mergeConfig(appConfig: unknown, pluginConfig: unknown) {
-  return _.merge({}, appConfig, pluginConfig);
+  return merge({}, appConfig, pluginConfig);
 }
 
 // type Plugins<T> =

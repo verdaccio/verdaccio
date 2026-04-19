@@ -1,6 +1,7 @@
 import React from 'react';
 import { vi } from 'vitest';
 
+import storage from '../../store/storage';
 import {
   act,
   cleanup,
@@ -16,6 +17,8 @@ describe('<LoginDialog /> component', () => {
     vi.resetModules();
     vi.resetAllMocks();
     cleanup();
+    storage.removeItem('token');
+    storage.removeItem('username');
   });
 
   test('should render the component in default state', () => {
@@ -100,6 +103,37 @@ describe('<LoginDialog /> component', () => {
       fireEvent.click(signInButton);
     });
     expect(props.onClose).toHaveBeenCalledTimes(1);
+  });
+
+  test('should save auth token after successful login', async () => {
+    const props = {
+      open: true,
+      onClose: vi.fn(),
+    };
+
+    await act(async () => {
+      renderWithRouter(<LoginDialog onClose={props.onClose} open={props.open} />, '/login', [
+        '/login',
+      ]);
+    });
+
+    const usernameInput = screen.getByPlaceholderText('form-placeholder.username');
+    const passwordInput = screen.getByPlaceholderText('form-placeholder.password');
+
+    await act(async () => {
+      fireEvent.change(usernameInput, { target: { value: 'testuser' } });
+      fireEvent.change(passwordInput, { target: { value: 'testpass' } });
+    });
+
+    const signInButton = screen.getByTestId('login-dialog-form-login-button');
+    await act(async () => {
+      fireEvent.click(signInButton);
+    });
+
+    await waitFor(() => {
+      expect(storage.getItem('token')).toBe('valid-mock-token');
+      expect(storage.getItem('username')).toBe('testuser');
+    });
   });
 
   test.todo('validateCredentials: should validate credentials');

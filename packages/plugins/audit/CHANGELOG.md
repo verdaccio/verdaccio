@@ -1,5 +1,73 @@
 # Change Log
 
+## 14.0.0-next-9.14
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.14
+- @verdaccio/config@9.0.0-next-9.14
+
+## 14.0.0-next-9.13
+
+### Patch Changes
+
+- Updated dependencies [39c369e]
+  - @verdaccio/core@9.0.0-next-9.13
+  - @verdaccio/config@9.0.0-next-9.13
+
+## 14.0.0-next-9.12
+
+### Patch Changes
+
+- Updated dependencies [64c904a]
+  - @verdaccio/config@9.0.0-next-9.12
+  - @verdaccio/core@9.0.0-next-9.12
+
+## 14.0.0-next-9.11
+
+### Patch Changes
+
+- Updated dependencies [96cb0c4]
+  - @verdaccio/config@9.0.0-next-9.11
+  - @verdaccio/core@9.0.0-next-9.11
+
+## 14.0.0-next-9.10
+
+### Patch Changes
+
+- Updated dependencies [747d6ab]
+  - @verdaccio/config@9.0.0-next-9.10
+  - @verdaccio/core@9.0.0-next-9.10
+
+## 14.0.0-next-9.9
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.9
+- @verdaccio/config@9.0.0-next-9.9
+
+## 14.0.0-next-9.8
+
+### Patch Changes
+
+- Updated dependencies [d68a86d]
+  - @verdaccio/config@9.0.0-next-9.8
+  - @verdaccio/core@9.0.0-next-9.8
+
+## 14.0.0-next-9.7
+
+### Minor Changes
+
+- d0405c9: feat: replace got-cjs and node-fetch with got v14
+
+  Replace `got-cjs` and `node-fetch` with the official `got` v14 package in `verdaccio-audit` and `@verdaccio/proxy`. This removes two legacy HTTP client dependencies in favor of a single, actively maintained one. Also replaces `https-proxy-agent` with `hpagent` in the audit plugin for consistency with the proxy package.
+
+### Patch Changes
+
+- Updated dependencies [f2e488d]
+  - @verdaccio/config@9.0.0-next-9.7
+  - @verdaccio/core@9.0.0-next-9.7
+
 ## 14.0.0-next-9.6
 
 ### Patch Changes

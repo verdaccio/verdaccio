@@ -1,5 +1,55 @@
 # Change Log
 
+## 14.0.0-next-9.38
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.14
+
+## 14.0.0-next-9.37
+
+### Patch Changes
+
+- Updated dependencies [39c369e]
+  - @verdaccio/core@9.0.0-next-9.13
+
+## 14.0.0-next-9.36
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.12
+
+## 14.0.0-next-9.35
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.11
+
+## 14.0.0-next-9.34
+
+### Patch Changes
+
+- f777142: fix(package-filter): fix O(n²) complexity in cleanupDistFiles
+  - @verdaccio/core@9.0.0-next-9.10
+
+## 14.0.0-next-9.33
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.9
+
+## 14.0.0-next-9.32
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.8
+
+## 14.0.0-next-9.31
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.7
+
 ## 14.0.0-next-9.30
 
 ### Patch Changes

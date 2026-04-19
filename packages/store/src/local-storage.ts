@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import _ from 'lodash';
+import { head, isNil } from 'lodash-es';
 import assert from 'node:assert';
 
 import type { pluginUtils } from '@verdaccio/core';
@@ -63,7 +63,7 @@ class LocalStorage {
 
   private async loadStorage(config: Config, logger: Logger): Promise<PluginStorage> {
     const Storage = await this.loadStorePlugin();
-    if (_.isNil(Storage)) {
+    if (isNil(Storage)) {
       assert(this.config.storage, 'CONFIG: storage path not defined');
       debug('no custom storage found, loading default storage @verdaccio/local-storage');
       const localStorage = new LocalDatabase(config, logger);
@@ -95,7 +95,7 @@ class LocalStorage {
       );
     }
 
-    return _.head(plugins);
+    return head(plugins);
   }
 }
 

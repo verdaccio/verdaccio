@@ -15,6 +15,36 @@ fileUtils
       configPath: folderPath,
     })
       .addUplink('npmjs', { url: 'https://registry.npmjs.org' })
+      .addPackageAccess('@verdaccio/eslint-config', {
+        access: constants.ROLES.$ANONYMOUS,
+        publish: constants.ROLES.$ANONYMOUS,
+        proxy: 'npmjs',
+      })
+      .addPackageAccess('@verdaccio/local-storage-legacy', {
+        access: constants.ROLES.$ANONYMOUS,
+        publish: constants.ROLES.$ANONYMOUS,
+        proxy: 'npmjs',
+      })
+      .addPackageAccess('@verdaccio/e2e-cli', {
+        access: constants.ROLES.$ANONYMOUS,
+        publish: constants.ROLES.$ANONYMOUS,
+        proxy: 'npmjs',
+      })
+      .addPackageAccess('@verdaccio/commons-api', {
+        access: constants.ROLES.$ANONYMOUS,
+        publish: constants.ROLES.$ANONYMOUS,
+        proxy: 'npmjs',
+      })
+      .addPackageAccess('@verdaccio/streams', {
+        access: constants.ROLES.$ANONYMOUS,
+        publish: constants.ROLES.$ANONYMOUS,
+        proxy: 'npmjs',
+      })
+      .addPackageAccess('@verdaccio/file-locking', {
+        access: constants.ROLES.$ANONYMOUS,
+        publish: constants.ROLES.$ANONYMOUS,
+        proxy: 'npmjs',
+      })
       .addPackageAccess('@verdaccio/*', {
         access: constants.ROLES.$ANONYMOUS,
         publish: constants.ROLES.$ANONYMOUS,

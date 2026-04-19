@@ -13,7 +13,7 @@ beforeAll(async () => {
   await setup({});
 });
 
-const config = new Config(parseConfigFile(join(__dirname, 'config.yaml')));
+const config = new Config(parseConfigFile(join(import.meta.dirname, 'config.yaml')));
 
 const getDefaultConfig = () => ({ logger, config });
 const memoryConfig = { limit: 10 };

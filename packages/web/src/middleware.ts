@@ -1,17 +1,21 @@
+import buildDebug from 'debug';
 import express from 'express';
-import _ from 'lodash';
+import { head, isNil } from 'lodash-es';
 
 import { PLUGIN_CATEGORY, PLUGIN_UI_PREFIX } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { logger } from '@verdaccio/logger';
 import { webMiddleware } from '@verdaccio/middleware';
+import defaultTheme from '@verdaccio/ui-theme';
 
 import webEndpointsApi from './api';
+
+const debug = buildDebug('verdaccio:web:middleware');
 
 export const DEFAULT_PLUGIN_UI_THEME = '@verdaccio/ui-theme';
 
 export async function loadTheme(config: any) {
-  if (_.isNil(config.theme) === false) {
+  if (isNil(config.theme) === false) {
     const plugin = await asyncLoadPlugin(
       config.theme,
       { config, logger },
@@ -33,14 +37,15 @@ export async function loadTheme(config: any) {
       logger.warn('multiple ui themes are not supported; only the first plugin is used');
     }
 
-    return _.head(plugin);
+    return head(plugin);
   }
 }
 
 export default async (config, auth, storage, logger) => {
   let pluginOptions = await loadTheme(config);
   if (!pluginOptions) {
-    pluginOptions = require(DEFAULT_PLUGIN_UI_THEME)(config.web);
+    debug('no theme plugin found, using default theme');
+    pluginOptions = defaultTheme(config.web);
     logger.info(
       { name: DEFAULT_PLUGIN_UI_THEME, pluginCategory: PLUGIN_CATEGORY.THEME },
       'plugin @{name} successfully loaded (@{pluginCategory})'

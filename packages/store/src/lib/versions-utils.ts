@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import _ from 'lodash';
+import { isNil } from 'lodash-es';
 import semver, { SemVer } from 'semver';
 
 import { DIST_TAGS, searchUtils } from '@verdaccio/core';
@@ -17,7 +17,7 @@ export function getVersion(versions: Versions, version: string): Version | undef
   }
 
   // this condition must allow cast
-  if (_.isNil(versions[version]) === false) {
+  if (isNil(versions[version]) === false) {
     return versions[version];
   }
 

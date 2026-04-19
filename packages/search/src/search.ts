@@ -1,5 +1,4 @@
 import buildDebug from 'debug';
-import _ from 'lodash';
 import { PassThrough } from 'node:stream';
 
 import type { searchUtils } from '@verdaccio/core';
@@ -54,7 +53,7 @@ class Search {
       streamPassThrough.end();
 
       for await (const chunk of streamPassThrough) {
-        if (_.isArray(chunk)) {
+        if (Array.isArray(chunk)) {
           (chunk as searchUtils.SearchItem[])
             .filter((pkgItem) => {
               debug(`streaming remote pkg name ${pkgItem?.package?.name}`);
