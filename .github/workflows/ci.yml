@@ -75,7 +75,7 @@ jobs:
         with:
           node-version: ${{ matrix.node_version }}
       - name: Cache build artifacts
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         with:
           path: |
             packages/*/build
@@ -126,7 +126,7 @@ jobs:
         with:
           node-version: ${{ matrix.node_version }}
       - name: Restore build artifacts
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: |
             packages/*/build
@@ -173,7 +173,7 @@ jobs:
         with:
           node-version: ${{ steps.nvmrc.outputs.node-version }}
       - name: Restore build artifacts
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: |
             packages/*/build
@@ -210,7 +210,7 @@ jobs:
         with:
           node-version: ${{ steps.nvmrc.outputs.node-version }}
       - name: Restore build artifacts
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: |
             packages/*/build
@@ -228,7 +228,7 @@ jobs:
       # locked.
       - name: Cache Cypress binary
         id: cypress-cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.cache/Cypress
           key: cypress-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
