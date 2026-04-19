@@ -1418,6 +1418,9 @@ importers:
       eslint-plugin-verdaccio:
         specifier: 10.0.0
         version: 10.0.0
+      generate-github-markdown-css:
+        specifier: ^6.6.0
+        version: 6.6.0
       jsdom:
         specifier: 28.1.0
         version: 28.1.0(@noble/hashes@1.8.0)
@@ -5168,6 +5171,11 @@ packages:
   functions-have-names@1.2.3:
     resolution: {integrity: sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==}
 
+  generate-github-markdown-css@6.6.0:
+    resolution: {integrity: sha512-w5mLLHA/EkcYh4flSsfPs/uFZdpEAMZK4dHXgPBFJmf8IOIv++1qPy1KiqwL8/eepB4Oomhf1CsLJS7UMheGoQ==}
+    engines: {node: '>=18'}
+    hasBin: true
+
   gensync@1.0.0-beta.2:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}
     engines: {node: '>=6.9.0'}
@@ -6246,6 +6254,10 @@ packages:
   memorystream@0.3.1:
     resolution: {integrity: sha512-S3UwM3yj5mtUSEfP41UZmt/0SCoVYUcU1rkXv+BQ5Ig8ndL4sPoJNBUJERafdPb5jjHJGuMgytgKvKIf58XNBw==}
     engines: {node: '>= 0.10.0'}
+
+  meow@12.1.1:
+    resolution: {integrity: sha512-BhXM0Au22RwUneMPwSCnyhTOizdWoIEPU9sp0Aqa1PnDMR5Wv2FGXYDjuzJEIX+Eo2Rb8xuYe5jrnm5QowQFkw==}
+    engines: {node: '>=16.10'}
 
   merge-descriptors@1.0.1:
     resolution: {integrity: sha512-cCi6g3/Zr1iqQi6ySbseM1Xvooa98N0w31jzUYrXPX2xqObmFGHJ0tQ5u74H3mVh7wLouTseZyYIq39g8cNp1w==}
@@ -12535,6 +12547,11 @@ snapshots:
 
   functions-have-names@1.2.3: {}
 
+  generate-github-markdown-css@6.6.0:
+    dependencies:
+      meow: 12.1.1
+      postcss: 8.5.8
+
   gensync@1.0.0-beta.2: {}
 
   get-caller-file@2.0.5: {}
@@ -13745,6 +13762,8 @@ snapshots:
       tslib: 2.6.3
 
   memorystream@0.3.1: {}
+
+  meow@12.1.1: {}
 
   merge-descriptors@1.0.1: {}
 

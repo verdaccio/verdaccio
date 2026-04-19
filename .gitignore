@@ -38,6 +38,7 @@ packages/standalone/dist/
 
 ## ui
 packages/plugins/ui-theme/static
+packages/ui-components/src/components/Readme/github-markdown.css
 /packages/plugins/ui-theme/src/i18n/download_translations/
 !/packages/plugins/ui-theme/src/i18n/crowdin/ui.json
 /packages/core/**/download_translations/

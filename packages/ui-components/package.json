@@ -26,9 +26,10 @@
     "clean": "rimraf ./build",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "watch": "vite build --watch",
-    "build": "vite build",
+    "build": "node tools/generate-github-markdown.mjs && vite build",
     "start": "cross-env BROWSER=none storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "generate:github-markdown-css": "node tools/generate-github-markdown.mjs"
   },
   "dependencies": {
     "@emotion/react": "11.14.0",
@@ -76,6 +77,7 @@
     "@vitejs/plugin-react": "6.0.1",
     "eslint-plugin-storybook": "10.2.17",
     "eslint-plugin-verdaccio": "10.0.0",
+    "generate-github-markdown-css": "^6.6.0",
     "jsdom": "28.1.0",
     "mockdate": "3.0.5",
     "msw": "2.12.10",

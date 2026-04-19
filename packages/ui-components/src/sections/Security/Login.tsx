@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link, Typography } from '@mui/material';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router';
@@ -33,7 +33,7 @@ const Login: React.FC = () => {
   const createUserEnabled = configuration?.flags?.createUser;
   const addUserLink = Route.ADD_USER + (next ? '?next=' + next : '');
 
-  const { data, isMutating, trigger } = useDataMutation<LoginBody>(basePath, next, 'POST');
+  const { trigger } = useDataMutation<LoginBody>(basePath, next, 'POST');
 
   const form = useForm<LoginFormValues>({
     mode: 'onChange',
@@ -49,7 +49,7 @@ const Login: React.FC = () => {
 
   const handleLogin = async (body: { username: string; password: string }) => {
     try {
-      await trigger(body);
+      return await trigger(body);
     } catch (err) {
       throw normalizeAuthError(err);
     }
@@ -62,7 +62,10 @@ const Login: React.FC = () => {
   const onSubmit = useCallback(
     async (data: LoginFormValues) => {
       try {
-        await handleLogin?.(data);
+        const result = await handleLogin?.(data);
+        if (result && result.username && result.token) {
+          saveAuth(result.username, result.token);
+        }
         onSuccess();
       } catch {
         setError('root', {
@@ -74,12 +77,6 @@ const Login: React.FC = () => {
     },
     [handleLogin, setError, onSuccess]
   );
-
-  useEffect(() => {
-    if (data && !isMutating && data.username && data.token) {
-      saveAuth(data.username, data.token);
-    }
-  }, [data, isMutating]);
 
   return !next ? (
     <NotFound />
