@@ -1,5 +1,28 @@
 # @verdaccio/logger-commons
 
+## 8.0.0
+
+### Patch Changes
+
+- 15dddbe: chore(logger): avoid message if level remains the same
+- a1a73e9: feat(logger): support redacting sensitive data
+- 4296efb: fix: update dependencies
+- 95e6c8f: chore(deps): hooks, loaders, logger
+- Updated dependencies [64a7fc0]
+- Updated dependencies [184632c]
+- Updated dependencies [6a4d6dd]
+- Updated dependencies [9509b63]
+- Updated dependencies [f8a321f]
+- Updated dependencies [13ff0d4]
+- Updated dependencies [9350431]
+- Updated dependencies [4296efb]
+- Updated dependencies [95e6c8f]
+- Updated dependencies [df612fa]
+- Updated dependencies [acb8a99]
+- Updated dependencies [96d2f0f]
+  - @verdaccio/core@8.0.0
+  - @verdaccio/logger-prettify@8.0.0
+
 ## 8.0.0-next-8.38
 
 ### Patch Changes

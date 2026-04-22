@@ -1,5 +1,34 @@
 # @verdaccio/loaders
 
+## 8.0.0
+
+### Minor Changes
+
+- 6add153: feat(loader): support scoped plugins in plugin folder
+- 4afca90: chore: remove logger as dependency
+
+### Patch Changes
+
+- ba71932: chore(loader): fix types for plugin options
+- 23296a2: add `@verdaccio/core` as a dependency
+- 50f20aa: chore: debug messages in loader
+- 1c293ef: chore: remove unused packages (api, web, store, server, proxy, search, local-storage, memory, verdaccio-prefix-fake-plugin)
+- 4296efb: fix: update dependencies
+- 95e6c8f: chore(deps): hooks, loaders, logger
+- d028ce1: fix: running without auth plugin
+- Updated dependencies [64a7fc0]
+- Updated dependencies [184632c]
+- Updated dependencies [6a4d6dd]
+- Updated dependencies [9509b63]
+- Updated dependencies [f8a321f]
+- Updated dependencies [13ff0d4]
+- Updated dependencies [9350431]
+- Updated dependencies [4296efb]
+- Updated dependencies [df612fa]
+- Updated dependencies [acb8a99]
+- Updated dependencies [96d2f0f]
+  - @verdaccio/core@8.0.0
+
 ## 8.0.0-next-8.28
 
 ### Patch Changes

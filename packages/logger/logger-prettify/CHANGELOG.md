@@ -1,5 +1,12 @@
 # @verdaccio/logger-prettify
 
+## 8.0.0
+
+### Patch Changes
+
+- 4296efb: fix: update dependencies
+- 95e6c8f: chore(deps): hooks, loaders, logger
+
 ## 8.0.0-next-8.5
 
 ### Patch Changes

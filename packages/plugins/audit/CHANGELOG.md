@@ -1,5 +1,37 @@
 # Change Log
 
+## 13.0.0
+
+### Patch Changes
+
+- 4296efb: fix: update dependencies
+- Updated dependencies [641b38c]
+- Updated dependencies [0588605]
+- Updated dependencies [ba71932]
+- Updated dependencies [a1a73e9]
+- Updated dependencies [05f03b3]
+- Updated dependencies [64a7fc0]
+- Updated dependencies [184632c]
+- Updated dependencies [bb478f2]
+- Updated dependencies [b671a38]
+- Updated dependencies [6a4d6dd]
+- Updated dependencies [4adaa83]
+- Updated dependencies [9509b63]
+- Updated dependencies [1ee9cae]
+- Updated dependencies [bf0e09a]
+- Updated dependencies [2fef671]
+- Updated dependencies [f8a321f]
+- Updated dependencies [13ff0d4]
+- Updated dependencies [3dd1959]
+- Updated dependencies [ca91b9a]
+- Updated dependencies [9350431]
+- Updated dependencies [4296efb]
+- Updated dependencies [df612fa]
+- Updated dependencies [acb8a99]
+- Updated dependencies [96d2f0f]
+  - @verdaccio/config@8.0.0
+  - @verdaccio/core@8.0.0
+
 ## 13.0.0-next-8.38
 
 ### Patch Changes

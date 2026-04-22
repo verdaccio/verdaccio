@@ -1,5 +1,64 @@
 # @verdaccio/auth
 
+## 8.0.0
+
+### Major Changes
+
+- e5cc01e: chore: move v7 next to v8 next
+
+### Patch Changes
+
+- 17842bd: chore(auth): remove unsued file
+- ab8fccd: chore(auth): rename applyFallbackPluginMethods
+- 0a6c53c: fix: handle malformed Basic auth credentials nicely
+- 1f25d5f: feat: add legacyMergeConfigs as option
+- dabb1d5: fix(auth): processing allow_unpublish
+- 73c0194: chore(auth): typings
+- 5fef0b6: chore(auth): multiple plugins test
+- 4296efb: fix: update dependencies
+- 0321120: chore(auth): package access unpublish
+- d028ce1: fix: running without auth plugin
+- 3ef4a49: fix: support JWT sign and verify options
+- Updated dependencies [641b38c]
+- Updated dependencies [6add153]
+- Updated dependencies [0588605]
+- Updated dependencies [ba71932]
+- Updated dependencies [a1a73e9]
+- Updated dependencies [05f03b3]
+- Updated dependencies [64a7fc0]
+- Updated dependencies [184632c]
+- Updated dependencies [4e14aff]
+- Updated dependencies [bb478f2]
+- Updated dependencies [b671a38]
+- Updated dependencies [23296a2]
+- Updated dependencies [6a4d6dd]
+- Updated dependencies [4adaa83]
+- Updated dependencies [9509b63]
+- Updated dependencies [124e5f2]
+- Updated dependencies [1ee9cae]
+- Updated dependencies [bf0e09a]
+- Updated dependencies [2fef671]
+- Updated dependencies [f8a321f]
+- Updated dependencies [4afca90]
+- Updated dependencies [50f20aa]
+- Updated dependencies [1c293ef]
+- Updated dependencies [13ff0d4]
+- Updated dependencies [3dd1959]
+- Updated dependencies [ca91b9a]
+- Updated dependencies [9350431]
+- Updated dependencies [4296efb]
+- Updated dependencies [95e6c8f]
+- Updated dependencies [df612fa]
+- Updated dependencies [acb8a99]
+- Updated dependencies [96d2f0f]
+- Updated dependencies [d028ce1]
+- Updated dependencies [3ef4a49]
+  - @verdaccio/config@8.0.0
+  - @verdaccio/loaders@8.0.0
+  - @verdaccio/core@8.0.0
+  - @verdaccio/signature@8.0.0
+  - verdaccio-htpasswd@13.0.0
+
 ## 8.0.0-next-8.38
 
 ### Patch Changes
