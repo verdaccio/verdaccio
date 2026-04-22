@@ -15,6 +15,35 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio?style=flat&logo=docker&label=Docker%20Pulls&color=lightgrey)](https://hub.docker.com/r/verdaccio/verdaccio)
 [![GitHub Stars](https://img.shields.io/github/stars/verdaccio?style=flat&logo=github&label=GitHub%20Stars%20%E2%AD%90&color=lightgrey)](https://github.com/verdaccio/verdaccio/stargazers)
 
+> **Note:** This package is mostly for internal use by Verdaccio and is only intended to be used with Verdaccio 6.x.
+
+## Overview
+
+The `@verdaccio/logger-prettify` package provides a pretty-printing log formatter for Verdaccio. It transforms structured JSON log output into human-readable, colorized console output with timestamp formatting.
+
+## Installation
+
+```bash
+npm install @verdaccio/logger-prettify
+```
+
+## Usage
+
+```typescript
+import buildPretty, { fillInMsgTemplate } from '@verdaccio/logger-prettify';
+
+// Build a pretty formatter for Pino
+const pretty = buildPretty();
+
+// Fill in a message template with context
+const message = fillInMsgTemplate('Package {{name}} published', { name: 'my-package' });
+```
+
+### API
+
+- **`buildPretty()`** - Builds a pretty-printed log formatter compatible with Pino transport
+- **`fillInMsgTemplate(template, context)`** - Fills Handlebars-style templates with context variables for log messages
+
 ## Donations
 
 Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider making a donation - **your logo might end up in this readme.** 😉

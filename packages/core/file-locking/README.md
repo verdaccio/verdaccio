@@ -15,6 +15,43 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio?style=flat&logo=docker&label=Docker%20Pulls&color=lightgrey)](https://hub.docker.com/r/verdaccio/verdaccio)
 [![GitHub Stars](https://img.shields.io/github/stars/verdaccio?style=flat&logo=github&label=GitHub%20Stars%20%E2%AD%90&color=lightgrey)](https://github.com/verdaccio/verdaccio/stargazers)
 
+> **Note:** This package is mostly for internal use by Verdaccio and is only intended to be used with Verdaccio 6.x.
+
+## Overview
+
+The `@verdaccio/file-locking` package provides file locking mechanisms for safe concurrent access to storage files. It includes both a legacy callback-based API and a modern Promise-based API.
+
+## Installation
+
+```bash
+npm install @verdaccio/file-locking
+```
+
+## Usage
+
+```typescript
+import { lockFileNext, readFileNext, unlockFileNext } from '@verdaccio/file-locking';
+
+// Promise-based API
+await lockFileNext(filePath);
+const content = await readFileNext(filePath);
+await unlockFileNext(filePath);
+```
+
+### API
+
+#### Promise-based API
+
+- **`lockFileNext(filePath)`** - Acquires a lock on a file
+- **`readFileNext(filePath)`** - Reads a file with locking
+- **`unlockFileNext(filePath)`** - Releases a lock on a file
+
+#### Legacy Callback API
+
+- **`lockFile(filePath, callback)`** - Locks a file (callback-based)
+- **`readFile(filePath, callback)`** - Reads a file with lock (callback-based)
+- **`unlockFile(filePath, callback)`** - Unlocks a file (callback-based)
+
 ## Donations
 
 Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider making a donation - **your logo might end up in this readme.** 😉

@@ -15,6 +15,42 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio?style=flat&logo=docker&label=Docker%20Pulls&color=lightgrey)](https://hub.docker.com/r/verdaccio/verdaccio)
 [![GitHub Stars](https://img.shields.io/github/stars/verdaccio?style=flat&logo=github&label=GitHub%20Stars%20%E2%AD%90&color=lightgrey)](https://github.com/verdaccio/verdaccio/stargazers)
 
+> **Note:** This package is mostly for internal use by Verdaccio and is only intended to be used with Verdaccio 6.x.
+
+## Overview
+
+The `@verdaccio/signature` package handles cryptographic signing and verification of JWT tokens, as well as legacy AES encryption/decryption for Verdaccio authentication tokens.
+
+## Installation
+
+```bash
+npm install @verdaccio/signature
+```
+
+## Usage
+
+```typescript
+import { aesDecrypt, aesEncrypt, signPayload, verifyPayload } from '@verdaccio/signature';
+
+// Sign a JWT token
+const token = await signPayload(remoteUser, secret, { expiresIn: '7d' });
+
+// Verify a JWT token
+const payload = verifyPayload(token, secret);
+
+// AES encryption/decryption
+const encrypted = aesEncrypt(Buffer.from('value'), 'secret-key');
+const decrypted = aesDecrypt(encrypted, 'secret-key');
+```
+
+### API
+
+- **`signPayload(payload, secret, options)`** - Signs a `RemoteUser` payload into a JWT token
+- **`verifyPayload(token, secret)`** - Verifies and decodes a JWT token
+- **`aesEncrypt(value, key)`** - Encrypts strings using AES-256-CTR
+- **`aesDecrypt(value, key)`** - Decrypts AES-encrypted strings
+- **`parseBasicPayload(credentials)`** - Parses basic auth credentials
+
 ## Donations
 
 Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider making a donation - **your logo might end up in this readme.** 😉

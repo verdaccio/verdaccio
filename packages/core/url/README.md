@@ -15,6 +15,51 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio?style=flat&logo=docker&label=Docker%20Pulls&color=lightgrey)](https://hub.docker.com/r/verdaccio/verdaccio)
 [![GitHub Stars](https://img.shields.io/github/stars/verdaccio?style=flat&logo=github&label=GitHub%20Stars%20%E2%AD%90&color=lightgrey)](https://github.com/verdaccio/verdaccio/stargazers)
 
+> **Note:** This package is mostly for internal use by Verdaccio and is only intended to be used with Verdaccio 6.x.
+
+## Overview
+
+The `@verdaccio/url` package provides URL validation, manipulation, and protocol detection utilities for the Verdaccio registry. It handles public URL generation, proxy header parsing, and URL prefix normalization.
+
+## Installation
+
+```bash
+npm install @verdaccio/url
+```
+
+## Usage
+
+```typescript
+import {
+  combineBaseUrl,
+  getPublicUrl,
+  getWebProtocol,
+  isHost,
+  isURLhasValidProtocol,
+  validateURL,
+  wrapPrefix,
+} from '@verdaccio/url';
+
+// Get the public URL for the registry
+const publicUrl = getPublicUrl('/verdaccio/', requestOptions);
+
+// Validate URL protocol
+isURLhasValidProtocol('https://registry.npmjs.org/'); // true
+
+// Combine base URL components
+const baseUrl = combineBaseUrl('https', 'localhost:4873', '/prefix/');
+```
+
+### API
+
+- **`getPublicUrl(urlPrefix, requestOptions)`** - Gets public URL from environment variable `VERDACCIO_PUBLIC_URL` or request headers
+- **`isURLhasValidProtocol(uri)`** - Checks if URL starts with `http://`, `https://`, or `//`
+- **`isHost(url, options)`** - Validates if a string is a valid host
+- **`getWebProtocol(headerProtocol, protocol)`** - Detects running protocol from headers (supports HAProxy)
+- **`wrapPrefix(prefix)`** - Normalizes URL prefix to `/prefix/` format
+- **`combineBaseUrl(protocol, host, prefix)`** - Creates full base registry URL
+- **`validateURL(publicUrl)`** - Validates a full URL with protocol
+
 ## Donations
 
 Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider making a donation - **your logo might end up in this readme.** 😉

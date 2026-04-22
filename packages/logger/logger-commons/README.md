@@ -15,6 +15,36 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio?style=flat&logo=docker&label=Docker%20Pulls&color=lightgrey)](https://hub.docker.com/r/verdaccio/verdaccio)
 [![GitHub Stars](https://img.shields.io/github/stars/verdaccio?style=flat&logo=github&label=GitHub%20Stars%20%E2%AD%90&color=lightgrey)](https://github.com/verdaccio/verdaccio/stargazers)
 
+> **Note:** This package is mostly for internal use by Verdaccio and is only intended to be used with Verdaccio 6.x.
+
+## Overview
+
+The `@verdaccio/logger-commons` package provides the common logger setup logic shared across different Verdaccio logger implementations. It handles logger creation, format configuration, and destination setup.
+
+## Installation
+
+```bash
+npm install @verdaccio/logger-commons
+```
+
+## Usage
+
+```typescript
+import { setup, createLogger, prepareSetup } from '@verdaccio/logger-commons';
+
+// Common setup with a Pino instance
+const logger = setup(options, pinoInstance);
+
+// Create a configured logger with custom format
+const logger = createLogger(options, destination, format, pino);
+```
+
+### API
+
+- **`setup(options, pinoInstance)`** - Common setup logic for logger initialization
+- **`createLogger(options, destination, format, pino)`** - Creates a configured logger instance with custom format support (pretty or JSON)
+- **`prepareSetup(options, pino)`** - Prepares logger configuration for initialization
+
 ## Donations
 
 Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider making a donation - **your logo might end up in this readme.** 😉

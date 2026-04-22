@@ -15,6 +15,38 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio?style=flat&logo=docker&label=Docker%20Pulls&color=lightgrey)](https://hub.docker.com/r/verdaccio/verdaccio)
 [![GitHub Stars](https://img.shields.io/github/stars/verdaccio?style=flat&logo=github&label=GitHub%20Stars%20%E2%AD%90&color=lightgrey)](https://github.com/verdaccio/verdaccio/stargazers)
 
+> **Note:** This package is mostly for internal use by Verdaccio and is only intended to be used with Verdaccio 6.x.
+
+## Overview
+
+The `@verdaccio/loaders` package provides the plugin discovery and loading mechanism for Verdaccio. It searches for plugins across multiple locations including configured plugin paths, `node_modules`, and global installations, supporting both scoped (`@scope/name`) and unscoped packages.
+
+## Installation
+
+```bash
+npm install @verdaccio/loaders
+```
+
+## Usage
+
+```typescript
+import { asyncLoadPlugin } from '@verdaccio/loaders';
+
+// Load authentication plugins
+const plugins = await asyncLoadPlugin(
+  pluginConfigs,
+  pluginOptions,
+  sanityCheck,
+  legacyMergeConfigs,
+  'verdaccio',
+  'auth'
+);
+```
+
+### API
+
+- **`asyncLoadPlugin<T>(pluginConfigs, pluginOptions, sanityCheck, legacyMergeConfigs, prefix, pluginCategory)`** - Asynchronously discovers and loads Verdaccio plugins. Searches config.plugins paths, `node_modules`, and global locations. Validates each plugin with the provided sanity check function and returns an array of loaded plugin instances.
+
 ## Donations
 
 Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider making a donation - **your logo might end up in this readme.** 😉

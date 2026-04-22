@@ -15,6 +15,68 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio?style=flat&logo=docker&label=Docker%20Pulls&color=lightgrey)](https://hub.docker.com/r/verdaccio/verdaccio)
 [![GitHub Stars](https://img.shields.io/github/stars/verdaccio?style=flat&logo=github&label=GitHub%20Stars%20%E2%AD%90&color=lightgrey)](https://github.com/verdaccio/verdaccio/stargazers)
 
+> **Note:** This package is mostly for internal use by Verdaccio and is only intended to be used with Verdaccio 6.x.
+
+## Overview
+
+The `@verdaccio/middleware` package provides Express middleware functions for the Verdaccio registry server. It includes request validation, logging, error handling, rate limiting, security headers, and web UI rendering.
+
+## Installation
+
+```bash
+npm install @verdaccio/middleware
+```
+
+## Usage
+
+```typescript
+import {
+  allow,
+  antiLoop,
+  encodeScopePackage,
+  errorReportingMiddleware,
+  expectJson,
+  handleError,
+  log,
+  match,
+  media,
+  rateLimit,
+  registerBodyParser,
+  validateName,
+  validatePackage,
+  webMiddleware,
+} from '@verdaccio/middleware';
+```
+
+### API
+
+#### Validation & Processing
+
+- **`validateName`** - Validates package names in route parameters
+- **`validatePackage`** - Validates package identifiers
+- **`media`** - Content-type media handler
+- **`expectJson`** - Ensures request content-type is JSON
+- **`encodeScopePackage`** - Encodes scoped package names
+
+#### Request Control
+
+- **`match(regexp)`** - Route matching middleware
+- **`antiLoop`** - Prevents circular proxy requests
+- **`allow`** - Authorization middleware
+- **`rateLimit`** - Rate limiting middleware
+- **`registerBodyParser(app)`** - Registers JSON body parser
+
+#### Web UI
+
+- **`webMiddleware()`** - Web UI Express middleware
+- **`setSecurityWebHeaders(res)`** - Sets security headers for the web UI
+
+#### Logging & Error Handling
+
+- **`log()`** - Request logging middleware
+- **`errorReportingMiddleware(logger)`** - Error reporting middleware
+- **`handleError(err, req, res, next)`** - Error handler
+
 ## Donations
 
 Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider making a donation - **your logo might end up in this readme.** 😉

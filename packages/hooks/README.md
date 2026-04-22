@@ -15,6 +15,45 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio?style=flat&logo=docker&label=Docker%20Pulls&color=lightgrey)](https://hub.docker.com/r/verdaccio/verdaccio)
 [![GitHub Stars](https://img.shields.io/github/stars/verdaccio?style=flat&logo=github&label=GitHub%20Stars%20%E2%AD%90&color=lightgrey)](https://github.com/verdaccio/verdaccio/stargazers)
 
+> **Note:** This package is mostly for internal use by Verdaccio and is only intended to be used with Verdaccio 6.x.
+
+## Overview
+
+The `@verdaccio/hooks` package provides webhook notification capabilities for Verdaccio. It sends HTTP notifications to configured endpoints when packages are published, using Handlebars templates for message formatting.
+
+## Installation
+
+```bash
+npm install @verdaccio/hooks
+```
+
+## Usage
+
+```typescript
+import { notify } from '@verdaccio/hooks';
+
+// Send notifications for a package publish event
+await notify(packageMetadata, config, remoteUser, publishedPackage);
+```
+
+### API
+
+- **`notify(metadata, config, remoteUser, publishedPackage)`** - Sends notifications to all configured endpoints for a package event
+- **`sendNotification(metadata, notify, remoteUser, publishedPackage)`** - Sends a single notification to a specific endpoint
+- **`handleNotify(metadata, notifyEntry, remoteUser, publishedPackage)`** - Core handler that processes notification patterns, compiles Handlebars templates, and sends HTTP requests
+
+### Configuration
+
+Notifications are configured in the Verdaccio `config.yaml`:
+
+```yaml
+notify:
+  method: POST
+  headers: [{ 'Content-Type': 'application/json' }]
+  endpoint: https://hooks.example.com/webhook
+  content: '{"name": "{{name}}", "versions": "{{versions}}"}'
+```
+
 ## Donations
 
 Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider making a donation - **your logo might end up in this readme.** 😉

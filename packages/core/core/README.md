@@ -15,6 +15,59 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio?style=flat&logo=docker&label=Docker%20Pulls&color=lightgrey)](https://hub.docker.com/r/verdaccio/verdaccio)
 [![GitHub Stars](https://img.shields.io/github/stars/verdaccio?style=flat&logo=github&label=GitHub%20Stars%20%E2%AD%90&color=lightgrey)](https://github.com/verdaccio/verdaccio/stargazers)
 
+> **Note:** This package is mostly for internal use by Verdaccio and is only intended to be used with Verdaccio 6.x.
+
+## Overview
+
+The `@verdaccio/core` package provides the foundational constants, error utilities, and shared modules used throughout the Verdaccio ecosystem. It serves as the base dependency for most other Verdaccio packages.
+
+## Installation
+
+```bash
+npm install @verdaccio/core
+```
+
+## Usage
+
+```typescript
+import {
+  API_ERROR,
+  DIST_TAGS,
+  HEADERS,
+  HTTP_STATUS,
+  constants,
+  errorUtils,
+  validationUtils,
+} from '@verdaccio/core';
+```
+
+### Constants
+
+- **`HTTP_STATUS`** - HTTP status code constants
+- **`API_ERROR`** - API error message constants
+- **`API_MESSAGE`** - API response message constants
+- **`HEADERS`** - HTTP header constants
+- **`DIST_TAGS`** - Distribution tag constants (`latest`, etc.)
+- **`TOKEN_BASIC`**, **`TOKEN_BEARER`** - Authentication token types
+- **`PLUGIN_CATEGORY`**, **`PLUGIN_PREFIX`** - Plugin system constants
+- **`DEFAULT_USER`**, **`ANONYMOUS_USER`** - Default user constants
+- **`HtpasswdHashAlgorithm`** - Supported hash algorithms for htpasswd
+
+### Utility Modules
+
+- **`errorUtils`** - Error creation and handling utilities
+- **`validationUtils`** - Package name and manifest validation
+- **`cryptoUtils`** - Hashing and random generation
+- **`fileUtils`** - Temporary folder and storage creation
+- **`pkgUtils`** - Package operations
+- **`searchUtils`** - Search indexing utilities
+- **`streamUtils`** - Stream handling utilities
+- **`stringUtils`** - String manipulation utilities
+- **`authUtils`** - Package access matching, token creation
+- **`pluginUtils`** - Plugin types and interfaces
+- **`tarballUtils`** - Tarball operations
+- **`warningUtils`** - Warning emission
+
 ## Donations
 
 Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider making a donation - **your logo might end up in this readme.** 😉

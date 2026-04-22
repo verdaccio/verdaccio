@@ -15,6 +15,45 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio?style=flat&logo=docker&label=Docker%20Pulls&color=lightgrey)](https://hub.docker.com/r/verdaccio/verdaccio)
 [![GitHub Stars](https://img.shields.io/github/stars/verdaccio?style=flat&logo=github&label=GitHub%20Stars%20%E2%AD%90&color=lightgrey)](https://github.com/verdaccio/verdaccio/stargazers)
 
+> **Note:** This package is mostly for internal use by Verdaccio and is only intended to be used with Verdaccio 6.x.
+
+## Overview
+
+The `@verdaccio/tarball` package provides utilities for converting tarball URLs between remote and local registry formats, and for extracting metadata from tarball archives.
+
+## Installation
+
+```bash
+npm install @verdaccio/tarball
+```
+
+## Usage
+
+```typescript
+import {
+  convertDistRemoteToLocalTarballUrls,
+  convertDistVersionToLocalTarballsUrl,
+  getTarballDetails,
+} from '@verdaccio/tarball';
+
+// Convert all remote tarball URLs in a package manifest to local URLs
+const localPkg = convertDistRemoteToLocalTarballUrls(pkg, request, urlPrefix);
+
+// Convert a single version's tarball URL
+const localVersion = convertDistVersionToLocalTarballsUrl(name, version, request, urlPrefix);
+
+// Extract tarball metadata
+const details = await getTarballDetails(tarballBuffer);
+// { fileCount: 42, unpackedSize: 102400 }
+```
+
+### API
+
+- **`convertDistRemoteToLocalTarballUrls(pkg, request, urlPrefix)`** - Converts all remote tarball URLs in a package manifest to local registry URLs
+- **`convertDistVersionToLocalTarballsUrl(name, version, request, urlPrefix)`** - Converts the tarball URL for a single version
+- **`getLocalRegistryTarballUri(tarballUrl, name, request, urlPrefix)`** - Gets the local tarball URI for a given remote tarball URL
+- **`getTarballDetails(buffer)`** - Extracts file count and unpacked size from a tarball buffer
+
 ## Donations
 
 Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider making a donation - **your logo might end up in this readme.** 😉

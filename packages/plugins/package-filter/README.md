@@ -7,6 +7,8 @@
 [![Documentation](https://img.shields.io/badge/Help-Verdaccio?style=flat&logo=Verdaccio&label=Verdaccio&color=cd4000)](https://verdaccio.org/docs)
 [![Discord](https://img.shields.io/badge/Chat-Discord?style=flat&logo=Discord&label=Discord&color=cd4000)](https://discord.com/channels/388674437219745793)
 
+> **Note:** This package is only intended to be used with Verdaccio 6.x.
+
 A built-in Verdaccio filter plugin for controlling which package versions are visible to consumers. It intercepts every manifest response and removes or replaces versions that match configurable rules.
 
 ## Use Cases

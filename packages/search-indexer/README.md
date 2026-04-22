@@ -15,6 +15,54 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio?style=flat&logo=docker&label=Docker%20Pulls&color=lightgrey)](https://hub.docker.com/r/verdaccio/verdaccio)
 [![GitHub Stars](https://img.shields.io/github/stars/verdaccio?style=flat&logo=github&label=GitHub%20Stars%20%E2%AD%90&color=lightgrey)](https://github.com/verdaccio/verdaccio/stargazers)
 
+> **Note:** This package is mostly for internal use by Verdaccio and is only intended to be used with Verdaccio 6.x.
+
+## Overview
+
+The `@verdaccio/search-indexer` package provides an in-memory full-text search index for packages using the [Orama](https://orama.com/) search engine. It indexes package name, description, version, keywords, and author for fast search queries.
+
+## Installation
+
+```bash
+npm install @verdaccio/search-indexer
+```
+
+## Usage
+
+```typescript
+import { SearchMemoryIndexer } from '@verdaccio/search-indexer';
+
+const indexer = new SearchMemoryIndexer();
+
+// Configure storage reference
+indexer.configureStorage(storage);
+
+// Index a package
+await indexer.add(packageMetadata);
+
+// Search for packages
+const results = await indexer.query('express');
+
+// Search all packages
+const all = await indexer.query('*');
+
+// Remove a package from the index
+await indexer.remove('my-package');
+
+// Reindex all packages from storage
+await indexer.reindex();
+```
+
+### API
+
+The `SearchMemoryIndexer` class provides:
+
+- **`configureStorage(storage)`** - Sets the storage reference for reindexing
+- **`query(term)`** - Searches the index by keyword. Use `'*'` to return all indexed packages
+- **`add(pkg)`** - Indexes a package with its name, description, version, keywords, and author
+- **`remove(name)`** - Removes a package from the index
+- **`reindex()`** - Forces a full reindex of all packages from storage
+
 ## Donations
 
 Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider making a donation - **your logo might end up in this readme.** 😉

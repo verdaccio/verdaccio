@@ -15,6 +15,66 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio?style=flat&logo=docker&label=Docker%20Pulls&color=lightgrey)](https://hub.docker.com/r/verdaccio/verdaccio)
 [![GitHub Stars](https://img.shields.io/github/stars/verdaccio?style=flat&logo=github&label=GitHub%20Stars%20%E2%AD%90&color=lightgrey)](https://github.com/verdaccio/verdaccio/stargazers)
 
+> **Note:** This package is mostly for internal use by Verdaccio and is only intended to be used with Verdaccio 6.x.
+
+## Overview
+
+The `@verdaccio/types` package provides all TypeScript type definitions used throughout the Verdaccio ecosystem. It serves as the single entry point for types related to plugins, manifests, configuration, search, and common interfaces.
+
+## Installation
+
+```bash
+npm install @verdaccio/types
+```
+
+## Usage
+
+```typescript
+import type {
+  Config,
+  JWTSignOptions,
+  Logger,
+  Manifest,
+  Package,
+  PackageAccess,
+  RemoteUser,
+  SearchQuery,
+  SearchResults,
+  Version,
+} from '@verdaccio/types';
+```
+
+### Type Categories
+
+#### Plugin Types
+
+- **`Auth`** - Authentication plugin interface
+- **`Storage`** - Storage plugin interface
+- **`ExpressMiddleware`** - Middleware plugin interface
+
+#### Manifest Types
+
+- **`Manifest`** - Package manifest definition
+- **`Version`** - Package version metadata
+- **`Package`** - Package information
+
+#### Configuration Types
+
+- **`Config`** - Verdaccio configuration object
+- **`PackageAccess`** - Package access rules
+- **`AuthPackageAllow`** - Auth-level package permissions
+
+#### Common Types
+
+- **`RemoteUser`** - Authenticated user information
+- **`Logger`** - Logger interface
+- **`JWTSignOptions`** - JWT signing options
+
+#### Search Types
+
+- **`SearchQuery`** - Search query parameters
+- **`SearchResults`** - Search result format
+
 ## Donations
 
 Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider making a donation - **your logo might end up in this readme.** 😉

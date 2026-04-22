@@ -15,6 +15,8 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio?style=flat&logo=docker&label=Docker%20Pulls&color=lightgrey)](https://hub.docker.com/r/verdaccio/verdaccio)
 [![GitHub Stars](https://img.shields.io/github/stars/verdaccio?style=flat&logo=github&label=GitHub%20Stars%20%E2%AD%90&color=lightgrey)](https://github.com/verdaccio/verdaccio/stargazers)
 
+> **Note:** This package is mostly for internal use by Verdaccio and is only intended to be used with Verdaccio 6.x.
+
 ## Overview
 
 The `@verdaccio/config` package provides a powerful configuration builder constructor for programmatically creating configuration objects for Verdaccio, a lightweight private npm proxy registry. With this package, users can easily manage various configuration aspects such as package access, uplinks, security settings, authentication, logging, and storage options.

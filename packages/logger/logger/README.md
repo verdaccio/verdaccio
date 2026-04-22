@@ -15,6 +15,43 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio?style=flat&logo=docker&label=Docker%20Pulls&color=lightgrey)](https://hub.docker.com/r/verdaccio/verdaccio)
 [![GitHub Stars](https://img.shields.io/github/stars/verdaccio?style=flat&logo=github&label=GitHub%20Stars%20%E2%AD%90&color=lightgrey)](https://github.com/verdaccio/verdaccio/stargazers)
 
+> **Note:** This package is mostly for internal use by Verdaccio and is only intended to be used with Verdaccio 6.x.
+
+## Overview
+
+The `@verdaccio/logger` package provides the main logger initialization for Verdaccio, built on top of [Pino](https://getpino.io/). It creates a singleton logger instance configured through Verdaccio's configuration.
+
+## Installation
+
+```bash
+npm install @verdaccio/logger
+```
+
+## Usage
+
+```typescript
+import { logger, setup } from '@verdaccio/logger';
+
+// Initialize the logger with configuration
+setup({ type: 'stdout', format: 'pretty', level: 'info' });
+
+// Use the logger instance
+logger.info({ pkg: 'my-package' }, 'package published');
+logger.warn('something went wrong');
+logger.error({ err }, 'fatal error');
+```
+
+### API
+
+- **`setup(options)`** - Initializes the Pino logger with Verdaccio configuration options. Returns the singleton logger instance.
+- **`logger`** - The initialized Logger instance, available after calling `setup()`.
+
+### Configuration Options
+
+- **`type`** - Output destination (`'stdout'`, `'stderr'`, or a file path)
+- **`format`** - Log format (`'pretty'` for human-readable, `'json'` for structured)
+- **`level`** - Log level (`'trace'`, `'debug'`, `'info'`, `'warn'`, `'error'`, `'fatal'`)
+
 ## Donations
 
 Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider making a donation - **your logo might end up in this readme.** 😉

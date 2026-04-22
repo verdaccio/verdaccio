@@ -15,6 +15,50 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio?style=flat&logo=docker&label=Docker%20Pulls&color=lightgrey)](https://hub.docker.com/r/verdaccio/verdaccio)
 [![GitHub Stars](https://img.shields.io/github/stars/verdaccio?style=flat&logo=github&label=GitHub%20Stars%20%E2%AD%90&color=lightgrey)](https://github.com/verdaccio/verdaccio/stargazers)
 
+> **Note:** This package is mostly for internal use by Verdaccio and is only intended to be used with Verdaccio 6.x.
+
+## Overview
+
+The `@verdaccio/utils` package provides common utility functions used across Verdaccio for authentication, cryptography, string manipulation, and package pattern matching.
+
+## Installation
+
+```bash
+npm install @verdaccio/utils
+```
+
+## Usage
+
+```typescript
+import {
+  buildUserBuffer,
+  createSessionToken,
+  createTarballHash,
+  generateRandomHexString,
+  getAuthenticatedMessage,
+  getMatchedPackagesSpec,
+  stringToMD5,
+} from '@verdaccio/utils';
+```
+
+### API
+
+#### Authentication Utilities
+
+- **`createSessionToken()`** - Creates a session token with a 10-hour expiration
+- **`getAuthenticatedMessage(user)`** - Returns an authentication success message
+- **`buildUserBuffer(name, password)`** - Creates a Buffer from user credentials
+
+#### Crypto Utilities
+
+- **`stringToMD5(data)`** - Generates an MD5 hash from a string
+- **`generateRandomHexString(length)`** - Generates a random hex string
+- **`createTarballHash()`** - Creates a tarball hash object
+
+#### Package Matching
+
+- **`getMatchedPackagesSpec(pkgName, packages)`** - Matches a package name against configured access patterns
+
 ## Donations
 
 Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider making a donation - **your logo might end up in this readme.** 😉

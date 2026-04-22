@@ -15,6 +15,54 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio?style=flat&logo=docker&label=Docker%20Pulls&color=lightgrey)](https://hub.docker.com/r/verdaccio/verdaccio)
 [![GitHub Stars](https://img.shields.io/github/stars/verdaccio?style=flat&logo=github&label=GitHub%20Stars%20%E2%AD%90&color=lightgrey)](https://github.com/verdaccio/verdaccio/stargazers)
 
+> **Note:** This package is mostly for internal use by Verdaccio and is only intended to be used with Verdaccio 6.x.
+
+## Overview
+
+The `@verdaccio/test-helper` package provides test utilities for generating mock package metadata and initializing test servers. It is used internally for unit and integration testing across the Verdaccio monorepo.
+
+## Installation
+
+```bash
+npm install @verdaccio/test-helper
+```
+
+## Usage
+
+```typescript
+import {
+  generateLocalPackageMetadata,
+  generatePackageMetadata,
+  initializeServer,
+} from '@verdaccio/test-helper';
+
+// Generate mock package metadata
+const metadata = generatePackageMetadata('my-package', '1.0.0');
+
+// Generate metadata with local tarball URLs
+const localMetadata = generateLocalPackageMetadata('my-package', '1.0.0', 'http://localhost:4873');
+
+// Initialize a test server
+const app = await initializeServer(configObject, routesMiddleware, Storage);
+```
+
+### API
+
+#### Package Metadata Generators
+
+- **`generatePackageMetadata(pkgName, version, distTags)`** - Creates mock package manifest with default npm-like metadata
+- **`generateLocalPackageMetadata(pkgName, version, domain, time)`** - Creates package manifest with local tarball URLs
+- **`generateRemotePackageMetadata(pkgName, version)`** - Creates remote package metadata
+- **`getDeprecatedPackageMetadata(pkgName)`** - Creates deprecated package metadata
+- **`generateUnPublishPackageMetadata(pkgName, version, time)`** - Creates unpublish metadata
+- **`generatePublishNewVersionManifest(pkgName, version)`** - Creates publish manifest
+- **`addNewVersion(current, metadata, version)`** - Adds a new version to existing package metadata
+
+#### Server Utilities
+
+- **`initializeServer(configObject, routesMiddleware, Storage)`** - Initializes an Express app with Verdaccio middleware, auth, and storage for testing
+- **`publishVersion(config, data)`** - Publishes a package version to a test server
+
 ## Donations
 
 Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider making a donation - **your logo might end up in this readme.** 😉
