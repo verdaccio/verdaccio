@@ -1,5 +1,26 @@
 # @verdaccio/utils
 
+## 8.1.0
+
+### Patch Changes
+
+- 4e14aff: chore(deps): signature, utils
+- 13ff0d4: replace deprecated `pseudoRandomBytes` with `randomBytes` from `node:crypto`
+- 4296efb: fix: update dependencies
+- acb8a99: chore(core): move more utils to core
+- Updated dependencies [64a7fc0]
+- Updated dependencies [184632c]
+- Updated dependencies [6a4d6dd]
+- Updated dependencies [9509b63]
+- Updated dependencies [f8a321f]
+- Updated dependencies [13ff0d4]
+- Updated dependencies [9350431]
+- Updated dependencies [4296efb]
+- Updated dependencies [df612fa]
+- Updated dependencies [acb8a99]
+- Updated dependencies [96d2f0f]
+  - @verdaccio/core@8.0.0
+
 ## 8.1.0-next-8.38
 
 ### Patch Changes

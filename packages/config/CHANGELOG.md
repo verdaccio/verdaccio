@@ -1,5 +1,43 @@
 # @verdaccio/config
 
+## 8.0.0
+
+### Minor Changes
+
+- 6a4d6dd: feat: getListenAddress getConfigParsed methods
+- 1ee9cae: feat(config): extend ConfigBuilder with methods for web, listen, https, publish, flags, notify, middlewares, filters, maxBodySize, userRateLimit, urlPrefix, and i18n
+
+### Patch Changes
+
+- 641b38c: feat: add package-filter plugin
+
+  Backport the package-filter plugin from next-9 to the 8.x branch. This plugin implements the ManifestFilter interface to control which package versions are visible to consumers, supporting block/allow rules by scope, package name, version range, publish date, and minimum age.
+
+- 0588605: chore: `keep_readmes` docs
+- ba71932: chore(loader): fix types for plugin options
+- a1a73e9: feat(logger): support redacting sensitive data
+- 05f03b3: fix(config): avoid warning for multiple addresses
+- bb478f2: chore: expose config utils
+- b671a38: chore: add types for createConfigFolder
+- 4adaa83: chore: fix typedocs warnings
+- bf0e09a: fix: runtime dependency missing as explicit dependency
+- 2fef671: chore(signature): remove duplicate code
+- 3dd1959: fix: restore docker.yaml configuration file
+- ca91b9a: fix: config builder `addLogger`
+- 4296efb: fix: update dependencies
+- Updated dependencies [64a7fc0]
+- Updated dependencies [184632c]
+- Updated dependencies [6a4d6dd]
+- Updated dependencies [9509b63]
+- Updated dependencies [f8a321f]
+- Updated dependencies [13ff0d4]
+- Updated dependencies [9350431]
+- Updated dependencies [4296efb]
+- Updated dependencies [df612fa]
+- Updated dependencies [acb8a99]
+- Updated dependencies [96d2f0f]
+  - @verdaccio/core@8.0.0
+
 ## 8.0.0-next-8.38
 
 ### Minor Changes

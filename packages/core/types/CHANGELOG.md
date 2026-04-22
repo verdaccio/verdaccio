@@ -1,5 +1,24 @@
 # Change Log
 
+## 13.0.0
+
+### Minor Changes
+
+- a7f1509: feat(types): add `searchRemote` option to server configuration
+
+### Patch Changes
+
+- 0588605: chore: `keep_readmes` docs
+- a1a73e9: feat(logger): support redacting sensitive data
+- ab8fccd: chore(auth): rename applyFallbackPluginMethods
+- b6ea32c: chore: add `error` to log level enum
+- 4adaa83: chore: fix typedocs warnings
+- a02514b: fix: minor logger missing type
+- ca91b9a: fix: config builder `addLogger`
+- 4296efb: fix: update dependencies
+- 0321120: chore(auth): package access unpublish
+- 3ef4a49: fix: support JWT sign and verify options
+
 ## 13.0.0-next-8.12
 
 ### Patch Changes

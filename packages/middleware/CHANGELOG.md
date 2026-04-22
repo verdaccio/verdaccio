@@ -1,5 +1,59 @@
 # @verdaccio/middleware
 
+## 8.0.0
+
+### Minor Changes
+
+- 3243194: refactor: make asset manifest bundler-agnostic
+
+### Patch Changes
+
+- e850690: fix(middleware): pass version to allow check
+- 626ae6a: feat: web v1 login frontend (experimental)
+- f200baa: chore(middleware): allow security headers for plugin
+- 4110873: chore(middleware): improve loop detection
+- 8995041: fix(middleware): allow content-type with charset
+- 5d6bad3: chore(middleware): fix some types, tests
+- 5bb81eb: fix(middleware): encoding of scope package name
+- da1650c: fix(middleware): scoped package for allow checks
+- 1076a89: chore(middleware): fix syntax of test files
+- 4296efb: fix: update dependencies
+- df612fa: chore(middleware): move ui-options to external script
+- da0692f: chore(deps): middleware
+- 5efe84f: chore(middleware): update logo tests
+- fdf44a6: fix(middleware): properly derive the html cache key
+- eabde8c: fix: handle missing host header in URL basename resolution
+
+  Use `URL.canParse()` before constructing a `new URL()` for basename extraction in `renderHTML`, falling back to the raw base string when the URL is not parseable (e.g., when the request has no host header).
+
+- Updated dependencies [641b38c]
+- Updated dependencies [0588605]
+- Updated dependencies [ba71932]
+- Updated dependencies [a1a73e9]
+- Updated dependencies [05f03b3]
+- Updated dependencies [64a7fc0]
+- Updated dependencies [184632c]
+- Updated dependencies [bb478f2]
+- Updated dependencies [b671a38]
+- Updated dependencies [6a4d6dd]
+- Updated dependencies [4adaa83]
+- Updated dependencies [9509b63]
+- Updated dependencies [1ee9cae]
+- Updated dependencies [bf0e09a]
+- Updated dependencies [2fef671]
+- Updated dependencies [f8a321f]
+- Updated dependencies [13ff0d4]
+- Updated dependencies [3dd1959]
+- Updated dependencies [ca91b9a]
+- Updated dependencies [9350431]
+- Updated dependencies [4296efb]
+- Updated dependencies [df612fa]
+- Updated dependencies [acb8a99]
+- Updated dependencies [96d2f0f]
+  - @verdaccio/config@8.0.0
+  - @verdaccio/core@8.0.0
+  - @verdaccio/url@13.0.0
+
 ## 8.0.0-next-8.38
 
 ### Patch Changes

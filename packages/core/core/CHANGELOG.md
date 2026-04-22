@@ -1,5 +1,24 @@
 # @verdaccio/core
 
+## 8.0.0
+
+### Minor Changes
+
+- 6a4d6dd: feat: getListenAddress getConfigParsed methods
+
+### Patch Changes
+
+- 64a7fc0: chore(core): typing, naming, and docs of parameters
+- 184632c: chore: fix links to docs
+- 9509b63: chore(core): http status codes
+- f8a321f: fix: restore minimatch major version
+- 13ff0d4: replace deprecated `pseudoRandomBytes` with `randomBytes` from `node:crypto`
+- 9350431: chore(deps): clean up core modules
+- 4296efb: fix: update dependencies
+- df612fa: chore(middleware): move ui-options to external script
+- acb8a99: chore(core): move more utils to core
+- 96d2f0f: fix(core): remove `lodash` from a dependency
+
 ## 8.0.0-next-8.38
 
 ## 8.0.0-next-8.37

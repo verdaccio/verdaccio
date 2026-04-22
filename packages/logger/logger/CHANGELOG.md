@@ -1,5 +1,16 @@
 # @verdaccio/logger
 
+## 8.0.0
+
+### Patch Changes
+
+- 4296efb: fix: update dependencies
+- Updated dependencies [15dddbe]
+- Updated dependencies [a1a73e9]
+- Updated dependencies [4296efb]
+- Updated dependencies [95e6c8f]
+  - @verdaccio/logger-commons@8.0.0
+
 ## 8.0.0-next-8.38
 
 ### Patch Changes
