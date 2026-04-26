@@ -46,7 +46,9 @@ export function tryLoad<T>(path: string, onError: any): PluginType<T> | null {
       debug('"require" failed for ESM plugin %s, will try dynamic import', path);
       return null;
     }
-    onError({ err: err.msg }, 'error loading plugin @{err}');
+    // Do not log here: tryLoadAsync() may fall back to import() and succeed.
+    // Final error reporting happens in tryLoadAsync() when both strategies fail.
+    debug('"require" failed for plugin %s: %s', path, err.message);
     throw err;
   }
 }
