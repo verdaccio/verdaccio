@@ -123,8 +123,8 @@ importers:
         specifier: 13.15.10
         version: 13.15.10
       '@verdaccio/e2e-cli':
-        specifier: 2.5.0
-        version: 2.5.0
+        specifier: 2.7.0
+        version: 2.7.0
       '@verdaccio/e2e-ui':
         specifier: 2.4.1
         version: 2.4.1(cypress@15.10.0)
@@ -3536,8 +3536,8 @@ packages:
     resolution: {integrity: sha512-F/YZANu4DmpcEV0jronzI7v2fGVWkQ5Mwi+bVmV+ACJ+EzR0c9Jbhtbe5QyLUuzR97t8R5E/Xe53O0cc2LukdQ==}
     engines: {node: '>=8'}
 
-  '@verdaccio/e2e-cli@2.5.0':
-    resolution: {integrity: sha512-qkUu6daEr4v7WT814Ke3TG+rVjHjjVdA4vliZWryYwrP40boKShFP5XZsjMFA93CX324BuwmryLADiU5D86SLQ==}
+  '@verdaccio/e2e-cli@2.7.0':
+    resolution: {integrity: sha512-YsBEIW6h4rPa1GImkc01aCbKE1Sc1SWGoVh7M1RBmp8WmkMFN9VuJXOOZMzGQWJbTmNkW5hrnpMqX2syQ2r+zA==}
     hasBin: true
 
   '@verdaccio/e2e-ui@2.4.1':
@@ -10451,7 +10451,7 @@ snapshots:
       http-errors: 2.0.0
       http-status-codes: 2.2.0
 
-  '@verdaccio/e2e-cli@2.5.0':
+  '@verdaccio/e2e-cli@2.7.0':
     dependencies:
       '@verdaccio/registry-cli': 1.1.0
       debug: 4.4.0
