@@ -109,7 +109,6 @@
     "lint": "eslint --max-warnings 90 .",
     "lint:fix": "eslint --fix .",
     "test": "pnpm --filter \"./packages/**\" test",
-    "test:loaders": "pnpm --filter @verdaccio/loaders test",
     "e2e:ui:start": "node packages/verdaccio/bin/verdaccio --config ./scripts/e2e-ui-config.yaml",
     "e2e:ui:run": "cypress run",
     "e2e:ui:open": "cypress open",
