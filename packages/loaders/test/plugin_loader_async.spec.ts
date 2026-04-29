@@ -125,6 +125,51 @@ describe('plugin loader', () => {
     });
   });
 
+  describe('ESM plugins (require ERR_REQUIRE_ESM → dynamic import)', () => {
+    test('loads pure ESM auth plugin from plugins folder', async () => {
+      const config = getConfig('esm-plugin-auth.yaml');
+      config.plugins = pluginsPartialsFolder;
+      const plugins = await asyncLoadPlugin(config.auth, { config, logger }, authSanitize);
+
+      expect(plugins).toHaveLength(1);
+      expect(plugins[0]).toHaveProperty('authenticate');
+    });
+
+    test('loads scoped pure ESM auth plugin from plugins folder', async () => {
+      const config = getConfig('esm-plugin-scope-auth.yaml');
+      config.plugins = pluginsPartialsFolder;
+      const plugins = await asyncLoadPlugin(config.auth, { config, logger }, authSanitize);
+
+      expect(plugins).toHaveLength(1);
+      expect(plugins[0]).toHaveProperty('authenticate');
+    });
+
+    test('loads pure ESM storage plugin from plugins folder', async () => {
+      const config = getConfig('esm-plugin-store.yaml');
+      config.plugins = pluginsPartialsFolder;
+      const plugins = await asyncLoadPlugin(config.store, { config, logger }, storeSanitize);
+
+      expect(plugins).toHaveLength(1);
+      expect(plugins[0]).toHaveProperty('getPackageStorage');
+    });
+
+    test('merges app config into pure ESM plugin when legacyMergeConfigs is true', async () => {
+      const config = getConfig('esm-plugin-auth.yaml');
+      config.plugins = pluginsPartialsFolder;
+      const plugins = await asyncLoadPlugin(config.auth, { config, logger }, authSanitize, true);
+
+      expect(plugins).toHaveLength(1);
+      expect(plugins[0].config).toHaveProperty('self_path');
+      expect(plugins[0].config).toHaveProperty('storage');
+      expect(plugins[0].config).toHaveProperty('auth');
+      expect(plugins[0].config.auth).toEqual({
+        esmplugin: {
+          enabled: true,
+        },
+      });
+    });
+  });
+
   describe('npm plugins', () => {
     test('testing load auth npm package', async () => {
       const config = getConfig('npm-plugin-auth.yaml');
