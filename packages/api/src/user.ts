@@ -34,6 +34,25 @@ export default function (route: Router, auth: Auth, config: Config, logger: Logg
         typeof req.remote_user.name !== 'string' ||
         req.remote_user.name === ''
       ) {
+        if (req.remote_user?.error) {
+          debug('user authentication failed: %o', req.remote_user.error);
+          // a malformed Authorization header is a client error, not a credential failure
+          if (req.remote_user.error === API_ERROR.BAD_AUTH_HEADER) {
+            return next(errorUtils.getBadRequest(API_ERROR.BAD_AUTH_HEADER));
+          }
+          return next(
+            errorUtils.getCode(HTTP_STATUS.UNAUTHORIZED, API_ERROR.BAD_USERNAME_PASSWORD)
+          );
+        }
+        // When Bearer token verification fails the auth middleware intentionally keeps an
+        // anonymous user (without recording an error) to stay compatible with npm clients.
+        // If credentials were provided but the user is still anonymous they were rejected.
+        if (req.headers.authorization) {
+          debug('credentials were provided but rejected');
+          return next(
+            errorUtils.getCode(HTTP_STATUS.UNAUTHORIZED, API_ERROR.BAD_USERNAME_PASSWORD)
+          );
+        }
         debug('user not logged in');
         res.status(HTTP_STATUS.OK);
         return next({ ok: false });
