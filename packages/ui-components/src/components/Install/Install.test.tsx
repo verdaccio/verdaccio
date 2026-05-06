@@ -2,11 +2,11 @@ import React from 'react';
 
 import type { PackageManagers } from '@verdaccio/types';
 
+import data from '../../../vitest/components/Install/data.json';
 import { useConfig } from '../../providers';
 import { render, screen } from '../../test/test-react-testing-library';
 import Install from './Install';
 import InstallListItem, { DependencyManager, getGlobalInstall } from './InstallListItem';
-import data from './__partials__/data.json';
 
 const ComponentToBeRendered: React.FC<{ name?: string; pkgManagers?: PackageManagers[] }> = ({
   name = 'foo',

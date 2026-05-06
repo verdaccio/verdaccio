@@ -1,12 +1,12 @@
 import React from 'react';
 import { vi } from 'vitest';
 
+import data from '../../../vitest/components/Versions/data.json';
+import dataDeprecated from '../../../vitest/components/Versions/deprecated-versions.json';
+import dataUnsorted from '../../../vitest/components/Versions/unsorted-versions.json';
 import { fireEvent, renderWithRouteDetail, screen } from '../../test/test-react-testing-library';
 import type { Props } from './Versions';
 import Versions from './Versions';
-import data from './__partials__/data.json';
-import dataDeprecated from './__partials__/deprecated-versions.json';
-import dataUnsorted from './__partials__/unsorted-versions.json';
 
 const VersionsComponent: React.FC<Props> = (props) => <Versions {...props} />;
 

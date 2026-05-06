@@ -1,8 +1,8 @@
 import React from 'react';
 
+import data from '../../../vitest/components/Repository/data.json';
 import { render, screen } from '../../test/test-react-testing-library';
 import Repository from './Repository';
-import data from './__partials__/data.json';
 
 describe('<Repository /> component', () => {
   test('should load the component in default state', () => {
