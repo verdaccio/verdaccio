@@ -495,13 +495,13 @@ class ProxyStorage implements IProxy {
       );
       debug('searching on %o', uri);
       const response = got(uri, {
-        signal: abort ? abort.signal : {},
+        signal: abort ? abort.signal : undefined,
         agent: this.agent,
         timeout: this.timeout,
         retry: retry ?? this.retry,
       });
 
-      const res = await response.text();
+      const res = await (response.text() as unknown as Promise<string>);
       const total = JSON.parse(res).total;
       debug('number of packages found: %o', total);
       const streamSearch = new PassThrough({ objectMode: true });
