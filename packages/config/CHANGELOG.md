@@ -1,5 +1,15 @@
 # @verdaccio/config
 
+## 8.1.0
+
+### Minor Changes
+
+- a7bd788: Deprecate JavaScript config files. Loading a `.js` config now emits a `DeprecationWarning` — JS config support will be removed in the next major version. Migrate to YAML or use the `ConfigBuilder`.
+
+### Patch Changes
+
+- @verdaccio/core@8.1.0
+
 ## 8.0.0
 
 ### Minor Changes
