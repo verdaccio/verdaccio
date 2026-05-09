@@ -44,7 +44,7 @@
     "@verdaccio/url": "workspace:14.0.0-next-9.14",
     "debug": "4.4.3",
     "express": "5.2.1",
-    "express-rate-limit": "8.2.1",
+    "express-rate-limit": "8.2.2",
     "lodash-es": "4.18.1",
     "lru-cache": "11.2.6"
   },
