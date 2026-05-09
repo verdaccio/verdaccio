@@ -9,42 +9,22 @@ import { parseConfigurationFile } from './utils';
 
 describe('parse', () => {
   describe('parseConfigFile', () => {
-    describe('JSON format', () => {
-      test('parse default.json', () => {
-        const config = parseConfigFile(parseConfigurationFile('default.json'));
-
-        expect(config.storage).toBeDefined();
-      });
-
-      test('parse invalid.json', () => {
+    describe('non-YAML formats are rejected', () => {
+      test('throws for .json file', () => {
         expect(function () {
-          parseConfigFile(parseConfigurationFile('invalid.json'));
-        }).toThrow(new RegExp(/CONFIG: it does not look like a valid config file/));
+          parseConfigFile(parseConfigurationFile('default.json'));
+        }).toThrow(/config file must be a YAML file/);
       });
 
-      test('parse not-exists.json', () => {
+      test('throws for .js file', () => {
+        expect(function () {
+          parseConfigFile(parseConfigurationFile('default.js'));
+        }).toThrow(/config file must be a YAML file/);
+      });
+
+      test('throws when the file does not exist regardless of extension', () => {
         expect(function () {
           parseConfigFile(parseConfigurationFile('not-exists.json'));
-        }).toThrow(/config file does not exist or not reachable/);
-      });
-    });
-
-    describe('JavaScript format', () => {
-      test('parse default.js', () => {
-        const config = parseConfigFile(parseConfigurationFile('default.js'));
-
-        expect(config.storage).toBeDefined();
-      });
-
-      test('parse invalid.js', () => {
-        expect(function () {
-          parseConfigFile(parseConfigurationFile('invalid.js'));
-        }).toThrow(new RegExp(/CONFIG: it does not look like a valid config file/));
-      });
-
-      test('parse not-exists.js', () => {
-        expect(function () {
-          parseConfigFile(parseConfigurationFile('not-exists.js'));
         }).toThrow(/config file does not exist or not reachable/);
       });
     });

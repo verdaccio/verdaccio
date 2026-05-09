@@ -12,8 +12,8 @@ import { fileExists } from './config-utils';
 const debug = buildDebug('verdaccio:config:parse');
 
 /**
- * Parse a config file from yaml to JSON.
- * @param configPath the absolute path of the configuration file
+ * Parse a YAML config file.
+ * @param configPath the absolute path of the configuration file (must end in .yaml or .yml)
  */
 export function parseConfigFile(configPath: string): ConfigYaml & {
   // @deprecated use configPath instead
@@ -24,33 +24,21 @@ export function parseConfigFile(configPath: string): ConfigYaml & {
   if (!fileExists(configPath)) {
     throw new Error(`config file does not exist or not reachable`);
   }
+  if (!/\.ya?ml$/i.test(configPath)) {
+    throw new Error(`config file must be a YAML file (.yaml or .yml)`);
+  }
   debug('parsing config file: %o', configPath);
   try {
-    if (/\.ya?ml$/i.test(configPath)) {
-      const yamlConfig = YAML.load(fs.readFileSync(configPath, 'utf8'), {
-        strict: false,
-      }) as ConfigYaml;
+    const yamlConfig = YAML.load(fs.readFileSync(configPath, 'utf8')) as ConfigYaml;
 
-      return Object.assign({}, yamlConfig, {
-        configPath,
-        // @deprecated use configPath instead
-        config_path: configPath,
-      });
-    }
-
-    const jsonConfig = require(configPath) as ConfigYaml;
-    return Object.assign({}, jsonConfig, {
+    return Object.assign({}, yamlConfig, {
       configPath,
       // @deprecated use configPath instead
       config_path: configPath,
     });
   } catch (e: any) {
-    if (e.code !== 'MODULE_NOT_FOUND') {
-      debug('config module not found %o error: %o', configPath, e.message);
-      throw Error(APP_ERROR.CONFIG_NOT_VALID);
-    }
-
-    throw e;
+    debug('failed to parse config %o error: %o', configPath, e.message);
+    throw new Error(APP_ERROR.CONFIG_NOT_VALID, { cause: e });
   }
 }
 
