@@ -21,7 +21,7 @@ WORKDIR /opt/verdaccio-build
 RUN corepack enable pnpm
 
 # Copy dependency manifests first for better layer caching
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 
 RUN pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
     pnpm install --frozen-lockfile

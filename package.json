@@ -32,22 +32,22 @@
     "url": "https://opencollective.com/verdaccio"
   },
   "dependencies": {
-    "@verdaccio/auth": "9.0.0-next-9.9",
-    "@verdaccio/config": "9.0.0-next-9.9",
-    "@verdaccio/core": "9.0.0-next-9.9",
-    "@verdaccio/hooks": "9.0.0-next-9.9",
-    "@verdaccio/loaders": "9.0.0-next-9.9",
-    "@verdaccio/local-storage-legacy": "11.1.1",
-    "@verdaccio/logger": "9.0.0-next-9.9",
-    "@verdaccio/middleware": "9.0.0-next-9.9",
-    "@verdaccio/package-filter": "14.0.0-next-9.33",
-    "@verdaccio/proxy": "9.0.0-next-9.9",
+    "@verdaccio/auth": "9.0.0-next-9.14",
+    "@verdaccio/config": "9.0.0-next-9.14",
+    "@verdaccio/core": "9.0.0-next-9.14",
+    "@verdaccio/hooks": "9.0.0-next-9.14",
+    "@verdaccio/loaders": "9.0.0-next-9.14",
+    "@verdaccio/local-storage-legacy": "11.3.1",
+    "@verdaccio/logger": "9.0.0-next-9.14",
+    "@verdaccio/middleware": "9.0.0-next-9.14",
+    "@verdaccio/package-filter": "14.0.0-next-9.38",
+    "@verdaccio/proxy": "9.0.0-next-9.14",
     "@verdaccio/search-indexer": "9.0.0-next-9.4",
-    "@verdaccio/signature": "9.0.0-next-9.9",
-    "@verdaccio/streams": "10.2.1",
-    "@verdaccio/tarball": "14.0.0-next-9.8",
-    "@verdaccio/ui-theme": "9.0.0-next-9.9",
-    "@verdaccio/url": "14.0.0-next-9.8",
+    "@verdaccio/signature": "9.0.0-next-9.14",
+    "@verdaccio/streams": "10.2.3",
+    "@verdaccio/tarball": "14.0.0-next-9.14",
+    "@verdaccio/ui-theme": "9.0.0-next-9.14",
+    "@verdaccio/url": "14.0.0-next-9.14",
     "async": "3.2.6",
     "clipanion": "4.0.0-rc.4",
     "compression": "1.8.1",
@@ -58,8 +58,8 @@
     "got": "14.6.6",
     "lodash-es": "4.18.1",
     "semver": "7.7.4",
-    "verdaccio-audit": "14.0.0-next-9.8",
-    "verdaccio-htpasswd": "14.0.0-next-9.8"
+    "verdaccio-audit": "14.0.0-next-9.14",
+    "verdaccio-htpasswd": "14.0.0-next-9.14"
   },
   "devDependencies": {
     "@cypress/request": "3.0.10",
@@ -75,11 +75,11 @@
     "@types/semver": "7.7.1",
     "@types/supertest": "6.0.3",
     "@verdaccio-scope/verdaccio-auth-foo": "0.0.2",
-    "@verdaccio/e2e-cli": "2.4.0",
+    "@verdaccio/e2e-cli": "2.8.0",
     "@verdaccio/eslint-config": "13.0.0",
-    "@verdaccio/test-helper": "5.0.0-next-9.8",
-    "@verdaccio/node-api": "9.0.0-next-9.9",
-    "@verdaccio/types": "14.0.0-next-9.4",
+    "@verdaccio/test-helper": "5.0.0-next-9.14",
+    "@verdaccio/node-api": "9.0.0-next-9.14",
+    "@verdaccio/types": "14.0.0-next-9.5",
     "@vitest/coverage-v8": "4.1.2",
     "@vitest/eslint-plugin": "1.6.13",
     "cross-env": "10.1.0",
@@ -100,8 +100,8 @@
     "supertest": "7.2.2",
     "tsx": "4.19.4",
     "typescript": "5.9.3",
-    "verdaccio-auth-memory": "14.0.0-next-9.8",
-    "verdaccio-memory": "14.0.0-next-9.8",
+    "verdaccio-auth-memory": "14.0.0-next-9.14",
+    "verdaccio-memory": "14.0.0-next-9.14",
     "vite": "8.0.5",
     "vite-plugin-dts": "4.5.4",
     "vite-plugin-static-copy": "^4.0.0",
@@ -148,11 +148,5 @@
     "url": "https://opencollective.com/verdaccio",
     "logo": "https://opencollective.com/verdaccio/logo.txt"
   },
-  "packageManager": "pnpm@10.33.0+sha512.10568bb4a6afb58c9eb3630da90cc9516417abebd3fabbe6739f0ae795728da1491e9db5a544c76ad8eb7570f5c4bb3d6c637b2cb41bfdcdb47fa823c8649319",
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild",
-      "unrs-resolver"
-    ]
-  }
+  "packageManager": "pnpm@11.0.9+sha512.34ce82e6780233cf9cad8685029a8f81d2e06196c5a9bad98879f7424940c6817c4e4524fb7d38b8553ceed48b9758b8ebaf1abd3600c232c4c8cf7366086f38"
 }
