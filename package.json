@@ -59,16 +59,14 @@
     "@types/superagent": "4.1.24",
     "@types/supertest": "2.0.16",
     "@types/validator": "13.12.0",
-    "@verdaccio/eslint-config": "13.0.0",
+    "@verdaccio/eslint-config": "13.1.0",
     "@verdaccio/types": "workspace:*",
-    "@vitest/coverage-v8": "3.2.4",
-    "@vitest/eslint-plugin": "1.6.9",
+    "@vitest/coverage-v8": "4.1.2",
+    "@vitest/eslint-plugin": "1.6.13",
     "concurrently": "8.2.2",
     "cross-env": "7.0.3",
     "debug": "4.4.3",
     "eslint": "10.0.3",
-    "eslint-plugin-react-x": "^2.13.0",
-    "eslint-plugin-verdaccio": "10.1.0",
     "husky": "8.0.3",
     "lint-staged": "11.2.6",
     "nock": "13.5.6",
@@ -83,7 +81,8 @@
     "verdaccio-audit": "workspace:*",
     "verdaccio-auth-memory": "workspace:*",
     "verdaccio-htpasswd": "workspace:*",
-    "vitest": "3.2.4"
+    "vite": "8.0.5",
+    "vitest": "4.1.2"
   },
   "scripts": {
     "prepare": "husky install",
@@ -114,5 +113,5 @@
     "*.{js,jsx,ts,tsx,json,yml,yaml,md}": "prettier --write",
     "*.{js,jsx,ts,tsx}": "eslint --fix"
   },
-  "packageManager": "pnpm@10.5.2"
+  "packageManager": "pnpm@11.0.9+sha512.34ce82e6780233cf9cad8685029a8f81d2e06196c5a9bad98879f7424940c6817c4e4524fb7d38b8553ceed48b9758b8ebaf1abd3600c232c4c8cf7366086f38"
 }
