@@ -1,7 +1,7 @@
 allowBuilds:
   esbuild: true
   unrs-resolver: true
-minimumReleaseAge: 120
+minimumReleaseAge: 1440
 minimumReleaseAgeExclude:
   - '@verdaccio/*'
   - '@verdaccio-scope/*'
