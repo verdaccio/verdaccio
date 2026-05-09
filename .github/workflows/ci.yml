@@ -175,6 +175,12 @@ jobs:
         uses: ./.github/actions/install-app-node
         with:
           node-version: ${{ steps.nvmrc.outputs.node-version }}
+      - name: Setup Bun
+        if: startsWith(matrix.pm, 'bun')
+        uses: oven-sh/setup-bun@v2
+      - name: Setup Deno
+        if: startsWith(matrix.pm, 'deno')
+        uses: denoland/setup-deno@v2
       - name: Restore build artifacts
         uses: actions/cache/restore@v5
         with:
