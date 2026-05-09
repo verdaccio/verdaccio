@@ -1,5 +1,14 @@
 # @verdaccio/middleware
 
+## 8.0.1
+
+### Patch Changes
+
+- Updated dependencies [a7bd788]
+  - @verdaccio/config@8.1.0
+  - @verdaccio/core@8.1.0
+  - @verdaccio/url@13.0.1
+
 ## 8.0.0
 
 ### Minor Changes
