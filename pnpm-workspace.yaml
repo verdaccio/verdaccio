@@ -14,4 +14,3 @@ minimumReleaseAgeExclude:
   - '@verdaccio/*'
   - '@verdaccio-scope/*'
   - 'verdaccio-*'
-  - '@typescript-eslint/*'
