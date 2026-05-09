@@ -282,8 +282,8 @@ importers:
         specifier: 5.2.1
         version: 5.2.1
       lodash-es:
-        specifier: 4.17.23
-        version: 4.17.23
+        specifier: 4.18.1
+        version: 4.18.1
     devDependencies:
       '@types/lodash-es':
         specifier: 4.17.12
@@ -325,8 +325,8 @@ importers:
         specifier: 4.4.3
         version: 4.4.3(supports-color@5.5.0)
       lodash-es:
-        specifier: 4.17.23
-        version: 4.17.23
+        specifier: 4.18.1
+        version: 4.18.1
       verdaccio-htpasswd:
         specifier: workspace:14.0.0-next-9.14
         version: link:../plugins/htpasswd
@@ -402,8 +402,8 @@ importers:
         specifier: 4.1.1
         version: 4.1.1
       lodash-es:
-        specifier: 4.17.23
-        version: 4.17.23
+        specifier: 4.18.1
+        version: 4.18.1
     devDependencies:
       '@types/lodash-es':
         specifier: 4.17.12
@@ -563,8 +563,8 @@ importers:
         specifier: 4.4.3
         version: 4.4.3(supports-color@5.5.0)
       lodash-es:
-        specifier: 4.17.23
-        version: 4.17.23
+        specifier: 4.18.1
+        version: 4.18.1
     devDependencies:
       '@types/lodash-es':
         specifier: 4.17.12
@@ -643,8 +643,8 @@ importers:
         specifier: 8.2.1
         version: 8.2.1(express@5.2.1)
       lodash-es:
-        specifier: 4.17.23
-        version: 4.17.23
+        specifier: 4.18.1
+        version: 4.18.1
       lru-cache:
         specifier: 11.2.6
         version: 11.2.6
@@ -680,8 +680,8 @@ importers:
         specifier: 4.4.3
         version: 4.4.3(supports-color@5.5.0)
       lodash-es:
-        specifier: 4.17.23
-        version: 4.17.23
+        specifier: 4.18.1
+        version: 4.18.1
     devDependencies:
       '@types/lodash-es':
         specifier: 4.17.12
@@ -816,8 +816,8 @@ importers:
         specifier: 11.1.0
         version: 11.1.0
       lodash-es:
-        specifier: 4.17.23
-        version: 4.17.23
+        specifier: 4.18.1
+        version: 4.18.1
       lowdb:
         specifier: 7.0.1
         version: 7.0.1
@@ -988,8 +988,8 @@ importers:
         specifier: 1.2.0
         version: 1.2.0
       lodash-es:
-        specifier: 4.17.23
-        version: 4.17.23
+        specifier: 4.18.1
+        version: 4.18.1
     devDependencies:
       '@types/lodash-es':
         specifier: 4.17.12
@@ -1028,8 +1028,8 @@ importers:
         specifier: 4.4.3
         version: 4.4.3(supports-color@5.5.0)
       lodash-es:
-        specifier: 4.17.23
-        version: 4.17.23
+        specifier: 4.18.1
+        version: 4.18.1
     devDependencies:
       '@types/lodash-es':
         specifier: 4.17.12
@@ -1102,8 +1102,8 @@ importers:
         specifier: 5.2.1
         version: 5.2.1
       lodash-es:
-        specifier: 4.17.23
-        version: 4.17.23
+        specifier: 4.18.1
+        version: 4.18.1
       verdaccio-audit:
         specifier: workspace:14.0.0-next-9.14
         version: link:../../plugins/audit
@@ -1176,8 +1176,8 @@ importers:
         specifier: 4.4.3
         version: 4.4.3(supports-color@5.5.0)
       lodash-es:
-        specifier: 4.17.23
-        version: 4.17.23
+        specifier: 4.18.1
+        version: 4.18.1
       semver:
         specifier: 7.7.4
         version: 7.7.4
@@ -1337,8 +1337,8 @@ importers:
         specifier: 1.0.3
         version: 1.0.3
       lodash-es:
-        specifier: 4.17.23
-        version: 4.17.23
+        specifier: 4.18.1
+        version: 4.18.1
       marked:
         specifier: 17.0.5
         version: 17.0.5
@@ -1518,8 +1518,8 @@ importers:
         specifier: 5.2.1
         version: 5.2.1
       lodash-es:
-        specifier: 4.17.23
-        version: 4.17.23
+        specifier: 4.18.1
+        version: 4.18.1
     devDependencies:
       '@types/lodash-es':
         specifier: 4.17.12
@@ -6092,8 +6092,8 @@ packages:
   lockfile@1.0.4:
     resolution: {integrity: sha512-cvbTwETRfsFh4nHsL1eGWapU1XFi5Ot9E85sWAwia7Y7EgB7vfqcZhTKZ+l7hCGxSPoushMv5GKhT5PdLv03WA==}
 
-  lodash-es@4.17.23:
-    resolution: {integrity: sha512-kVI48u3PZr38HdYz98UmfPnXl2DXrpdctLrFLCd3kOx1xUkOmpFPx7gCWWM5MPkL/fD8zb+Ph0QzjGFs4+hHWg==}
+  lodash-es@4.18.1:
+    resolution: {integrity: sha512-J8xewKD/Gk22OZbhpOVSwcs60zhd95ESDwezOFuA3/099925PdHJ7OFHNTGtajL3AlZkykD32HykiMo+BIBI8A==}
 
   lodash.includes@4.3.0:
     resolution: {integrity: sha512-W3Bx6mdkRTGtlJISOvVD/lbqjTlPPUDTMnlXZFnVwi9NKJ6tiAk6LVdlhZMm17VZisqhKcgzpO5Wz91PCt5b0w==}
@@ -9986,7 +9986,7 @@ snapshots:
       '@babel/traverse': 7.28.4
       '@babel/types': 7.28.4
       javascript-natural-sort: 0.7.1
-      lodash-es: 4.17.23
+      lodash-es: 4.18.1
       minimatch: 9.0.7
       parse-imports-exports: 0.2.4
       prettier: 3.4.2
@@ -13541,7 +13541,7 @@ snapshots:
     dependencies:
       signal-exit: 3.0.7
 
-  lodash-es@4.17.23: {}
+  lodash-es@4.18.1: {}
 
   lodash.includes@4.3.0: {}
 
@@ -14517,7 +14517,7 @@ snapshots:
       '@types/lodash': 4.17.23
       color: 4.2.3
       csstype: 3.2.3
-      lodash-es: 4.17.23
+      lodash-es: 4.18.1
 
   react-docgen-typescript@2.2.2(typescript@5.9.3):
     dependencies:

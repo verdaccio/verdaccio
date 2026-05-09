@@ -44,7 +44,7 @@
     "@verdaccio/loaders": "workspace:9.0.0-next-9.14",
     "@verdaccio/signature": "workspace:9.0.0-next-9.14",
     "debug": "4.4.3",
-    "lodash-es": "4.17.23",
+    "lodash-es": "4.18.1",
     "verdaccio-htpasswd": "workspace:14.0.0-next-9.14"
   },
   "devDependencies": {
