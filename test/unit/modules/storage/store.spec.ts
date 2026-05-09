@@ -73,15 +73,35 @@ const generateStorage = async function (port = mockServerPort, opts: GenerateSto
   return store;
 };
 
+// Written to disk at suite setup so the file isn't committed — its malformed
+// JSON tripped tools that scan every package.json (e.g. Renovate).
+const CORRUPTED_PKG_DIR = path.join(__dirname, '../../partials/mock-store/corrupted-package');
+const CORRUPTED_PKG_CONTENT = `{
+\t"name": "corrupted-package"
+\t"version": {},
+\t"dist-tags": {},
+\t"_distfiles": {},
+\t"_attachments": {},
+\t"_uplinks": {},
+\t"time": {},
+\t"_rev": "0-0000000000000000",
+\t"readme": "",
+\t"versions": {}
+}
+`;
+
 describe('StorageTest', () => {
   let mockRegistry: any;
 
   beforeAll(async () => {
+    fs.mkdirSync(CORRUPTED_PKG_DIR, { recursive: true });
+    fs.writeFileSync(path.join(CORRUPTED_PKG_DIR, 'package.json'), CORRUPTED_PKG_CONTENT);
     mockRegistry = await mockServer(mockServerPort).init();
   });
 
   afterAll(function () {
     mockRegistry[0].stop();
+    fs.rmSync(CORRUPTED_PKG_DIR, { recursive: true, force: true });
   });
 
   test('should be defined', async () => {
