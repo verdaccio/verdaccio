@@ -20,11 +20,6 @@
       "publish": "$all",
       "proxy": "npmjs"
     },
-    "corrupted-package": {
-      "access": "$all",
-      "publish": "$all",
-      "proxy": "npmjs"
-    },
     "jquery": {
       "access": "$all",
       "publish": "$all",

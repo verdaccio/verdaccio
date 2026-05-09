@@ -61,27 +61,22 @@ function addUserAuthApi(auth: Auth, config: Config): Router {
           return next(ErrorCode.getCode(HTTP_STATUS.BAD_REQUEST, APP_ERROR.PASSWORD_VALIDATION));
         }
 
-        auth.changePassword(
-          name as string,
-          password.old,
-          password.new,
-          (err, isUpdated): void => {
-            if (_.isNil(err) && isUpdated) {
-              next({
-                ok: true,
-              });
-            } else if (!_.isNil(err)) {
-              return next(
-                ErrorCode.getCode(
-                  _.isNil(err.status) ? HTTP_STATUS.CONFLICT : err.status,
-                  err.message
-                )
-              );
-            } else {
-              return next(ErrorCode.getInternalError(API_ERROR.INTERNAL_SERVER_ERROR));
-            }
+        auth.changePassword(name as string, password.old, password.new, (err, isUpdated): void => {
+          if (_.isNil(err) && isUpdated) {
+            next({
+              ok: true,
+            });
+          } else if (!_.isNil(err)) {
+            return next(
+              ErrorCode.getCode(
+                _.isNil(err.status) ? HTTP_STATUS.CONFLICT : err.status,
+                err.message
+              )
+            );
+          } else {
+            return next(ErrorCode.getInternalError(API_ERROR.INTERNAL_SERVER_ERROR));
           }
-        );
+        });
       }
     );
   }
