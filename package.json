@@ -56,7 +56,7 @@
     "envinfo": "7.21.0",
     "express": "5.2.1",
     "got": "14.6.6",
-    "lodash-es": "4.17.23",
+    "lodash-es": "4.18.1",
     "semver": "7.7.4",
     "verdaccio-audit": "14.0.0-next-9.8",
     "verdaccio-htpasswd": "14.0.0-next-9.8"
