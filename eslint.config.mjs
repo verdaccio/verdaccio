@@ -1,15 +1,9 @@
-import verdaccio, {
-  cypressConfig,
-  vitestConfig,
-} from '@verdaccio/eslint-config';
+import verdaccio, { vitestConfig } from '@verdaccio/eslint-config';
 import vitest from '@vitest/eslint-plugin';
-import reactX from 'eslint-plugin-react-x';
-import verdaccioPlugin from 'eslint-plugin-verdaccio';
 
 export default [
   ...verdaccio,
   ...vitestConfig,
-  ...cypressConfig,
 
   // -----------------------------------------------
   // Disable type-checked rules for monorepo performance
@@ -40,32 +34,6 @@ export default [
       'preserve-caught-error': 'warn',
       'no-unassigned-vars': 'warn',
       'no-useless-assignment': 'warn',
-    },
-  },
-
-  // -----------------------------------------------
-  // React config (using eslint-plugin-react-x for ESLint 10 compat)
-  // -----------------------------------------------
-  {
-    files: ['**/*.{jsx,tsx}'],
-    plugins: {
-      'react-x': reactX,
-    },
-    rules: {
-      ...reactX.configs['recommended-typescript'].rules,
-    },
-  },
-
-  // -----------------------------------------------
-  // Verdaccio custom rules
-  // -----------------------------------------------
-  {
-    files: ['**/*.{jsx,tsx}'],
-    plugins: {
-      verdaccio: verdaccioPlugin,
-    },
-    rules: {
-      ...verdaccioPlugin.configs.recommended.rules,
     },
   },
 

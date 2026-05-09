@@ -39,6 +39,10 @@ export function parseConfigFile(configPath: string): ConfigYaml & {
       });
     }
 
+    process.emitWarning(
+      'Using JavaScript config files is deprecated and will be removed in the next major version. Please migrate to YAML or use the ConfigBuilder.',
+      'DeprecationWarning'
+    );
     const jsonConfig = require(configPath) as ConfigYaml;
     return Object.assign({}, jsonConfig, {
       configPath,
