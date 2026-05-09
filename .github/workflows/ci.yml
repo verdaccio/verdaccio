@@ -60,7 +60,7 @@ jobs:
         run: pnpm format:check
   build:
     needs: [lint-and-format]
-    if: ${{ always() && !failure() && !cancelled() }}
+    if: ${{ always() && !failure() && !cancelled() && github.event.pull_request.draft == false }}
     strategy:
       fail-fast: true
       matrix:
@@ -86,7 +86,7 @@ jobs:
           key: ci-build-${{ github.sha }}-node-${{ matrix.node_version }}
   test-docker:
     needs: [build]
-    if: ${{ github.event_name == 'pull_request' && !failure() && !cancelled() }}
+    if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     name: Test Docker Build
     steps:
@@ -111,7 +111,7 @@ jobs:
         run: docker stop verdaccio-test
   test:
     needs: [build]
-    if: ${{ github.event_name == 'pull_request' && !failure() && !cancelled() }}
+    if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && !failure() && !cancelled() }}
     strategy:
       fail-fast: true
       matrix:
@@ -146,7 +146,7 @@ jobs:
         run: pnpm test
   e2e-cli:
     needs: [build]
-    if: ${{ github.event_name == 'pull_request' && !failure() && !cancelled() }}
+    if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     name: E2E CLI (${{ matrix.pm }})
     strategy:
@@ -206,7 +206,7 @@ jobs:
         run: cat ~/.config/verdaccio/verdaccio.log 2>/dev/null || echo "No log file found"
   e2e-ui:
     needs: [build]
-    if: ${{ github.event_name == 'pull_request' && !failure() && !cancelled() }}
+    if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     name: E2E UI
     steps:
