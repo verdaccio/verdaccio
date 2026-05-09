@@ -214,7 +214,7 @@ describe('plugin loader', () => {
       expect(plugins).toHaveLength(1);
       const plugin = plugins[0];
       // just check if the plugin has the main config
-      expect(plugin.config).toHaveProperty('self_path');
+      expect(plugin.config).toHaveProperty('configPath');
       expect(plugin.config).toHaveProperty('storage');
       // assume all config props are merged
       // check if the plugin has the auth config

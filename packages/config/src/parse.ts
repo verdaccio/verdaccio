@@ -2,7 +2,6 @@ import buildDebug from 'debug';
 import YAML from 'js-yaml';
 import { isObject } from 'lodash-es';
 import fs from 'node:fs';
-import path from 'node:path';
 
 import { API_ERROR, APP_ERROR } from '@verdaccio/core';
 import type { ConfigYaml } from '@verdaccio/types';
@@ -70,12 +69,10 @@ export function fromJStoYAML(config: Partial<ConfigYaml>): string | null {
  * If a string or `undefined` is provided, it is interpreted as a path to a config file
  * (or uses a default location). The config file is then loaded and parsed.
  * If an object is provided, it is assumed to be a pre-parsed configuration.
- * Backward compability: ensures the returned configuration object has a `self_path` property set,
- * either to the config file path or to a property within the object.
  *
  * @param {string | ConfigYaml} [config] - Optional. A path to the configuration file (string),
  *                                         a pre-parsed config object, or `undefined`.
- * @returns {ConfigYaml} The parsed configuration object with a guaranteed `self_path` property.
+ * @returns {ConfigYaml} The parsed configuration object.
  * @throws {Error} If the provided config is neither a string, undefined, nor an object.
  */
 export function getConfigParsed(config?: string | ConfigYaml): ConfigYaml {
@@ -85,14 +82,6 @@ export function getConfigParsed(config?: string | ConfigYaml): ConfigYaml {
     debug('using default configuration');
     const configPathLocation = findConfigFile(config);
     configurationParsed = parseConfigFile(configPathLocation);
-
-    // @ts-expect-error
-    if (!configurationParsed.self_path) {
-      debug('self_path not defined, using config path location');
-
-      // @ts-expect-error
-      configurationParsed.self_path = path.resolve(configPathLocation);
-    }
   } else if (typeof config === 'object' && config !== null) {
     configurationParsed = config;
 
@@ -100,14 +89,6 @@ export function getConfigParsed(config?: string | ConfigYaml): ConfigYaml {
     // is set so the Config constructor does not throw.
     if (!configurationParsed.configPath) {
       configurationParsed.configPath = process.cwd();
-    }
-
-    // @ts-expect-error
-    if (!configurationParsed.self_path) {
-      debug('self_path not defined, using config path location');
-
-      // @ts-expect-error
-      configurationParsed.self_path = configurationParsed.configPath;
     }
   } else {
     throw new Error(API_ERROR.CONFIG_BAD_FORMAT);

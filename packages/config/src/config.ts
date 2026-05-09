@@ -48,10 +48,6 @@ class Config implements AppConfig {
   public store: any;
   public server_id: string;
   public configPath: string;
-  /**
-   * @deprecated use configPath or config.getConfigPath();
-   */
-  public self_path: string;
   public storage: string | void;
 
   public plugins: string | void | null;
@@ -65,15 +61,12 @@ class Config implements AppConfig {
     const self = this;
     this.storage = process.env.VERDACCIO_STORAGE_PATH || config.storage;
     if (!config.configPath) {
-      // backport self_path for previous to version 6
-      // @ts-expect-error
-      config.configPath = config.config_path ?? config.self_path;
+      config.configPath = config.config_path;
       if (!config.configPath) {
         throw new Error('configPath property is required');
       }
     }
     this.configPath = config.configPath;
-    this.self_path = this.configPath;
     debug('config path: %s', this.configPath);
     this.plugins = config.plugins;
     this.security = merge(defaultSecurity, config.security);
