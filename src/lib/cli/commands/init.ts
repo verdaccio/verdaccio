@@ -1,11 +1,12 @@
 import { Command, Option } from 'clipanion';
 import path from 'path';
 
-import { findConfigFile } from '@verdaccio/config';
+import { findConfigFile, getListenAddress } from '@verdaccio/config';
 
-import { listenDefaultCallback, startVerdaccio } from '../../bootstrap';
+import { listenDefaultCallback } from '../../bootstrap';
 import { logger } from '../../logger';
-import { parseConfigFile } from '../../utils';
+import { runServer } from '../../run-server';
+import { initLogger, parseConfigFile } from '../../utils';
 
 const pkgVersion = process.env.PACKAGE_VERSION || 'dev';
 const pkgName = 'verdaccio';
@@ -64,15 +65,12 @@ export class InitCommand extends Command {
 
       process.title = (configParsed.web && configParsed.web.title) || 'verdaccio';
 
-      startVerdaccio(
-        configParsed,
-        this.listen as string,
-        configPathLocation,
-        pkgVersion,
-        pkgName,
-        listenDefaultCallback
-      );
+      initLogger(configParsed);
       logger.info({ file: configPathLocation }, 'config file  - @{file}');
+      const webServer = await runServer(configParsed, { listenArg: this.listen as string });
+      const listen = (this.listen as string) ?? configParsed.listen;
+      const addr = getListenAddress(listen, logger);
+      listenDefaultCallback(webServer, addr, pkgName, pkgVersion);
     } catch (err: any) {
       console.error(`cannot open config file ${configPathLocation}: ${err.stack}`);
       // @ts-expect-error
