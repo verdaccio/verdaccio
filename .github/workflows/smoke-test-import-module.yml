@@ -25,7 +25,14 @@ jobs:
         run: |
             docker run -d -it --rm --name verdaccio -p 4873:4873 -e "DEBUG=verdaccio*" verdaccio/verdaccio:6
       - name: login
-        run: yarn dlx @verdaccio/registry-cli login -u test -p 1234 -e test@domain.test -r http://localhost:4873
+        run: |
+          token=$(curl -fsS -X PUT \
+            -H "Content-Type: application/json" \
+            -d '{"name":"test","password":"1234","email":"test@domain.test"}' \
+            http://localhost:4873/-/user/org.couchdb.user:test \
+            | jq -r .token)
+          test -n "$token" && test "$token" != "null"
+          echo "//localhost:4873/:_authToken=$token" >> ~/.npmrc
       - name: Install dependencies
         run: yarn
       - name: Bump up package and save version
