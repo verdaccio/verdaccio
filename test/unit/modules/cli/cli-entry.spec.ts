@@ -5,10 +5,10 @@ const mockRegister = vi.fn();
 const mockRunExit = vi.fn();
 vi.mock('clipanion', () => {
   return {
-    Cli: vi.fn().mockImplementation(() => ({
-      register: mockRegister,
-      runExit: mockRunExit,
-    })),
+    Cli: vi.fn(function (this: any) {
+      this.register = mockRegister;
+      this.runExit = mockRunExit;
+    }),
   };
 });
 

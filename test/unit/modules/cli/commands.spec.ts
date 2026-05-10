@@ -176,7 +176,7 @@ describe('InitCommand', () => {
   let DEFAULT_PROCESS_NAME: string;
 
   beforeEach(async () => {
-    vi.restoreAllMocks();
+    vi.resetAllMocks();
     const configMod = await import('@verdaccio/config');
     findConfigFile = vi.mocked(configMod.findConfigFile);
     const utilsMod = await import('../../../../src/lib/utils');
@@ -190,7 +190,7 @@ describe('InitCommand', () => {
   });
 
   afterEach(() => {
-    vi.restoreAllMocks();
+    vi.resetAllMocks();
   });
 
   test('should be the default command', () => {
