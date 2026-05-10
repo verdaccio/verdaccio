@@ -34,8 +34,10 @@ describe('basic system test', () => {
     });
   });
 
-  afterAll((done) => {
-    server.close(done);
+  afterAll(() => {
+    return new Promise<void>((resolve, reject) => {
+      server.close((err?: Error) => (err ? reject(err) : resolve()));
+    });
   });
 
   // TODO: recieve aborted call  [Error: aborted], please review
