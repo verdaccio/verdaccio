@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.6.0](https://github.com/verdaccio/verdaccio/compare/v6.5.2...v6.6.0) (2026-05-10)
+
+
+### Features
+
+* update core dependencies ([#5832](https://github.com/verdaccio/verdaccio/issues/5832)) ([5539c1a](https://github.com/verdaccio/verdaccio/commit/5539c1a2a48ff6c188d9ad53bd5b33368c389ccb))
+
+
+### Bug Fixes
+
+* **deps:** update core verdaccio dependencies ([#5865](https://github.com/verdaccio/verdaccio/issues/5865)) ([e6b1483](https://github.com/verdaccio/verdaccio/commit/e6b148391cbab461258aaf7e3de5fb4b6df75725))
+* **deps:** update dependency semver to v7.8.0 ([#5867](https://github.com/verdaccio/verdaccio/issues/5867)) ([889e8de](https://github.com/verdaccio/verdaccio/commit/889e8de6e634151aaec9ba752f8e0ecda74d9830))
+* migrate to run server internally ([#5868](https://github.com/verdaccio/verdaccio/issues/5868)) ([17362ad](https://github.com/verdaccio/verdaccio/commit/17362adfc6c9ca8191e18387ecff655a60e399cc))
+* tarball might fail [#5829](https://github.com/verdaccio/verdaccio/issues/5829) ([#5869](https://github.com/verdaccio/verdaccio/issues/5869)) ([3737566](https://github.com/verdaccio/verdaccio/commit/37375660d2dfaeab1836421be8b9f9dfacbba8e8))
+
 ### [6.5.2](https://github.com/verdaccio/verdaccio/compare/v6.5.1...v6.5.2) (2026-04-19)
 
 
