@@ -3,9 +3,34 @@ on:
 
 concurrency:
   group: e2e-audit-${{ github.ref }}-6.x
-  cancel-in-progress: true  
+  cancel-in-progress: true
 
 name: 'Plugin Audit E2E'
 jobs:
-  e2e:  
-    uses: verdaccio/verdaccio/.github/workflows/x-e2e-audit-workflow.yml@master
+  e2e:
+    name: 'npm10:audit example'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: 'Use Node.js'
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        with:
+          node-version-file: '.nvmrc'
+      - name: 'install latest npm 10'
+        run: npm i -g npm@next-10
+      - name: Install Dependencies
+        run: yarn install
+      - name: 'Run verdaccio in the background'
+        run: |
+          nohup yarn node ./scripts/run-verdaccio.js  --config ./scripts/e2e-config.yaml  &
+      - name: 'Ping to verdaccio'
+        run: |
+          npm ping --registry http://localhost:4873
+      - name: 'Running the integration test'
+        run: |
+          source scripts/e2e-setup-ci.sh
+          npm init --yes
+          npm install next@latest --registry http://localhost:4873  --loglevel info
+          npm audit
