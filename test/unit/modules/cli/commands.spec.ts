@@ -12,11 +12,15 @@ vi.mock('envinfo', () => ({
 
 vi.mock('@verdaccio/config', () => ({
   findConfigFile: vi.fn(),
+  getListenAddress: vi.fn(() => ({ proto: 'http', host: 'localhost', port: 4873 })),
 }));
 
 vi.mock('../../../../src/lib/bootstrap', () => ({
-  startVerdaccio: vi.fn(),
   listenDefaultCallback: vi.fn(),
+}));
+
+vi.mock('../../../../src/lib/run-server', () => ({
+  runServer: vi.fn(),
 }));
 
 vi.mock('../../../../src/lib/logger', () => ({
@@ -28,6 +32,7 @@ vi.mock('../../../../src/lib/logger', () => ({
 }));
 
 vi.mock('../../../../src/lib/utils', () => ({
+  initLogger: vi.fn(),
   parseConfigFile: vi.fn(),
 }));
 
@@ -169,8 +174,9 @@ describe('InfoCommand', () => {
 
 describe('InitCommand', () => {
   let findConfigFile: any;
+  let getListenAddress: any;
   let parseConfigFile: any;
-  let startVerdaccio: any;
+  let runServer: any;
   let listenDefaultCallback: any;
   let InitCommand: any;
   let DEFAULT_PROCESS_NAME: string;
@@ -179,11 +185,15 @@ describe('InitCommand', () => {
     vi.resetAllMocks();
     const configMod = await import('@verdaccio/config');
     findConfigFile = vi.mocked(configMod.findConfigFile);
+    getListenAddress = vi.mocked(configMod.getListenAddress);
+    getListenAddress.mockReturnValue({ proto: 'http', host: 'localhost', port: 4873 });
     const utilsMod = await import('../../../../src/lib/utils');
     parseConfigFile = vi.mocked(utilsMod.parseConfigFile);
+    const runServerMod = await import('../../../../src/lib/run-server');
+    runServer = vi.mocked(runServerMod.runServer);
+    runServer.mockResolvedValue({} as any);
     const bootstrapMod = await import('../../../../src/lib/bootstrap');
-    startVerdaccio = vi.mocked(bootstrapMod.startVerdaccio);
-    listenDefaultCallback = bootstrapMod.listenDefaultCallback;
+    listenDefaultCallback = vi.mocked(bootstrapMod.listenDefaultCallback);
     const initMod = await import('../../../../src/lib/cli/commands/init');
     InitCommand = initMod.InitCommand;
     DEFAULT_PROCESS_NAME = initMod.DEFAULT_PROCESS_NAME;
@@ -215,11 +225,13 @@ describe('InitCommand', () => {
 
   test('should find config, parse it, and start verdaccio', async () => {
     const configPath = '/home/user/.config/verdaccio/config.yaml';
+    const webServer = { listen: vi.fn() };
     findConfigFile.mockReturnValue(configPath);
     parseConfigFile.mockReturnValue({
       self_path: configPath,
       https: { enable: false },
     });
+    runServer.mockResolvedValue(webServer as any);
 
     const cli = new Cli();
     cli.register(InitCommand);
@@ -227,13 +239,15 @@ describe('InitCommand', () => {
 
     expect(findConfigFile).toHaveBeenCalled();
     expect(parseConfigFile).toHaveBeenCalledWith(configPath);
-    expect(startVerdaccio).toHaveBeenCalledWith(
+    expect(runServer).toHaveBeenCalledWith(
       expect.objectContaining({ self_path: configPath }),
-      undefined,
-      configPath,
-      'dev',
+      { listenArg: undefined }
+    );
+    expect(listenDefaultCallback).toHaveBeenCalledWith(
+      webServer,
+      expect.objectContaining({ proto: 'http' }),
       'verdaccio',
-      listenDefaultCallback
+      'dev'
     );
   });
 
@@ -246,7 +260,7 @@ describe('InitCommand', () => {
     cli.register(InitCommand);
     await cli.run([], Cli.defaultContext);
 
-    const parsedConfig = startVerdaccio.mock.calls[0][0];
+    const parsedConfig = runServer.mock.calls[0][0];
     expect(parsedConfig.self_path).toBeDefined();
     expect(parsedConfig.configPath).toBe(parsedConfig.self_path);
   });
@@ -259,7 +273,7 @@ describe('InitCommand', () => {
     cli.register(InitCommand);
     await cli.run([], Cli.defaultContext);
 
-    const parsedConfig = startVerdaccio.mock.calls[0][0];
+    const parsedConfig = runServer.mock.calls[0][0];
     expect(parsedConfig.https).toEqual({ enable: false });
   });
 
@@ -274,7 +288,7 @@ describe('InitCommand', () => {
     cli.register(InitCommand);
     await cli.run([], Cli.defaultContext);
 
-    const parsedConfig = startVerdaccio.mock.calls[0][0];
+    const parsedConfig = runServer.mock.calls[0][0];
     expect(parsedConfig.https).toEqual({
       enable: true,
       key: '/key.pem',
@@ -311,7 +325,7 @@ describe('InitCommand', () => {
     expect(process.title).toBe('verdaccio');
   });
 
-  test('should pass --listen value to startVerdaccio', async () => {
+  test('should pass --listen value to runServer', async () => {
     findConfigFile.mockReturnValue('/config.yaml');
     parseConfigFile.mockReturnValue({
       self_path: '/config.yaml',
@@ -322,7 +336,7 @@ describe('InitCommand', () => {
     cli.register(InitCommand);
     await cli.run(['--listen', '5000'], Cli.defaultContext);
 
-    expect(startVerdaccio.mock.calls[0][1]).toBe('5000');
+    expect(runServer.mock.calls[0][1]).toEqual({ listenArg: '5000' });
   });
 
   test('should pass --config value to findConfigFile', async () => {

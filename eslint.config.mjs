@@ -4,6 +4,8 @@ const ignores = [
   {
     ignores: [
       '**/debug/**',
+      '**/cypress/**',
+      'cypress.config.ts',
       '**/build/**',
       '**/test/types-test/**/*.ts',
       '**/test/types-test/plugins/**/*.ts',
