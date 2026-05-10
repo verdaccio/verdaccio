@@ -239,10 +239,9 @@ describe('InitCommand', () => {
 
     expect(findConfigFile).toHaveBeenCalled();
     expect(parseConfigFile).toHaveBeenCalledWith(configPath);
-    expect(runServer).toHaveBeenCalledWith(
-      expect.objectContaining({ self_path: configPath }),
-      { listenArg: undefined }
-    );
+    expect(runServer).toHaveBeenCalledWith(expect.objectContaining({ self_path: configPath }), {
+      listenArg: undefined,
+    });
     expect(listenDefaultCallback).toHaveBeenCalledWith(
       webServer,
       expect.objectContaining({ proto: 'http' }),
