@@ -18,8 +18,8 @@ jobs:
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
         with:
           node-version-file: '.nvmrc'
-      - name: 'install latest npm 10'
-        run: npm i -g npm@next-10
+      - name: 'install latest npm'
+        run: npm i -g npm
       - name: Install Dependencies
         run: yarn install
       - name: 'Run verdaccio in the background'
@@ -32,5 +32,5 @@ jobs:
         run: |
           source scripts/e2e-setup-ci.sh
           npm init --yes
-          npm install next@latest --registry http://localhost:4873  --loglevel info
+          npm install react@latest --registry http://localhost:4873  --loglevel info
           npm audit
