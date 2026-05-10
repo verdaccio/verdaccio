@@ -18,6 +18,10 @@ jobs:
       matrix:
         node_version: [18, 22, 24, 26]
         pm: [npm@10, npm@11, pnpm@11, pnpm@10, yarn-classic, yarn-modern@4]
+        exclude:
+          # pnpm@11 requires Node 20+
+          - node_version: 18
+            pm: pnpm@11
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
 
