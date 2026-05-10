@@ -11037,6 +11037,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"semver@npm:7.8.0":
+  version: 7.8.0
+  resolution: "semver@npm:7.8.0"
+  bin:
+    semver: bin/semver.js
+  checksum: 10c0/8f096ca9b80ffd47b308d03f9ce8c873e27e2983f36023c559cdc92c51e8433fc23ebbfe57ec9623fc155636a6961ee989501099841ae4bb1babc8d2b3f048cd
+  languageName: node
+  linkType: hard
+
 "semver@npm:^6.0.0, semver@npm:^6.3.1":
   version: 6.3.1
   resolution: "semver@npm:6.3.1"
@@ -12767,7 +12776,7 @@ __metadata:
     node-mocks-http: "npm:^1.17.2"
     prettier: "npm:3.6.2"
     selfsigned: "npm:5.5.0"
-    semver: "npm:7.7.4"
+    semver: "npm:7.8.0"
     standard-version: "npm:9.5.0"
     supertest: "npm:7.2.2"
     ts-node: "npm:10.9.2"
