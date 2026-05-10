@@ -144,7 +144,7 @@
     "e2e:ui:local:open": "./scripts/e2e-ui-local.sh --open"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "preferGlobal": true,
   "license": "MIT",
