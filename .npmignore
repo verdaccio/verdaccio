@@ -27,6 +27,7 @@ types/
 coverage/
 test-storage*
 test/
+cypress/
 __mocks__/
 jestEnvironment.js
 test/jest.e2e.config.js
@@ -45,4 +46,4 @@ babel.config.js
 debug/*
 tsconfig*
 vitest.config.mjs
-
+cypress.config.ts

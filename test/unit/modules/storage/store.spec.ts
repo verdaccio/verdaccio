@@ -946,10 +946,7 @@ describe('StorageTest', () => {
       ensureLocalMetadata('npm_test');
       // Version 2.0.0 isn't cached locally — defer to the uplink-sync path
       // (handled in getTarball). The filter should not run here.
-      const result = await storage._isTarballAllowedByFilters(
-        'npm_test',
-        'npm_test-2.0.0.tgz'
-      );
+      const result = await storage._isTarballAllowedByFilters('npm_test', 'npm_test-2.0.0.tgz');
       expect(result).toBe(true);
       expect(filterSpy).not.toHaveBeenCalled();
     });
