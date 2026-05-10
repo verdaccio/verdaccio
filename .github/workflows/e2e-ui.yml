@@ -28,6 +28,9 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Install Cypress binary
+        run: yarn cypress install
+
       - name: Build Verdaccio
         run: yarn build
 
