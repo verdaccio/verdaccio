@@ -275,4 +275,14 @@ export function hasLogin(config: Config) {
   return _.isNil(config?.web?.login) || config?.web?.login === true;
 }
 
+/**
+ * Check whether any version in a package manifest has a tarball URL
+ * that matches the given filename.
+ */
+export function hasTarball(pkg: Manifest, filename: string): boolean {
+  return Object.values(pkg.versions || {}).some((version) =>
+    (version as Version).dist?.tarball?.endsWith('/' + filename)
+  );
+}
+
 export { buildTokenUtil as buildToken, parseConfigFile };

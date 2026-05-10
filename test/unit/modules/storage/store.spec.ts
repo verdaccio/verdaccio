@@ -939,6 +939,21 @@ describe('StorageTest', () => {
       expect(result).toBe(true);
     });
 
+    test('should defer (return true) when version is not in local metadata', async () => {
+      const storage: any = await generateStorage();
+      const filterSpy = vi.fn(async (p: any) => p);
+      storage.filters = [{ filter_metadata: filterSpy }];
+      ensureLocalMetadata('npm_test');
+      // Version 2.0.0 isn't cached locally — defer to the uplink-sync path
+      // (handled in getTarball). The filter should not run here.
+      const result = await storage._isTarballAllowedByFilters(
+        'npm_test',
+        'npm_test-2.0.0.tgz'
+      );
+      expect(result).toBe(true);
+      expect(filterSpy).not.toHaveBeenCalled();
+    });
+
     test('should return false when tarball version is filtered out', async () => {
       const storage: any = await generateStorage();
       storage.filters = [
@@ -1104,6 +1119,49 @@ describe('StorageTest', () => {
         stream.on('error', (err: any) => {
           try {
             // Should get a 404 because version 1.0.0 is filtered out
+            expect(err.status).toBe(HTTP_STATUS.NOT_FOUND);
+            resolve();
+          } catch (error) {
+            reject(error);
+          }
+        });
+        stream.on('open', () => {
+          reject(new Error('Expected tarball to be blocked but stream opened'));
+        });
+      });
+    });
+
+    test('should block tarball after uplink sync when filter rejects version', async () => {
+      const storage: any = await generateStorage();
+      storage.filters = [
+        {
+          filter_metadata: vi.fn(async (pkg: any) => {
+            const clone = { ...pkg, versions: { ...pkg.versions } };
+            delete clone.versions['1.5.1'];
+            return clone;
+          }),
+        },
+      ];
+
+      // Force the local tarball + metadata to look absent so the request flows
+      // through lookupFromUplinks. The uplink (nocked) returns jquery metadata
+      // with 1.5.1, but the filter removes it — the post-sync check must 404.
+      const notFoundErr = Object.assign(new Error('no such package'), {
+        status: HTTP_STATUS.NOT_FOUND,
+      });
+      storage.localStorage.getPackageMetadata = vi.fn((_n, cb) => cb(notFoundErr));
+      storage.localStorage.getTarball = vi.fn(() => {
+        const { ReadTarball } = require('@verdaccio/streams');
+        const stream: any = new ReadTarball({});
+        stream.abort = () => {};
+        process.nextTick(() => stream.emit('error', notFoundErr));
+        return stream;
+      });
+
+      return new Promise<void>((resolve, reject) => {
+        const stream = storage.getTarball('jquery', 'jquery-1.5.1.tgz');
+        stream.on('error', (err: any) => {
+          try {
             expect(err.status).toBe(HTTP_STATUS.NOT_FOUND);
             resolve();
           } catch (error) {

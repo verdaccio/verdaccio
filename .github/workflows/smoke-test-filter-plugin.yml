@@ -1,0 +1,95 @@
+name: Filter Plugin Smoke Test
+
+on: [pull_request]
+
+permissions:
+  contents: read
+concurrency:
+  group: smoke-test-filter-plugin-${{ github.ref }}-6x
+  cancel-in-progress: true
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        node_version: [18, 20, 22, 24]
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - name: Use Node ${{ matrix.node_version }}
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: ${{ matrix.node_version }}
+      - name: Install dependencies
+        run: yarn
+      - name: Build
+        run: yarn build
+      - name: Setup verdaccio + @verdaccio/package-filter
+        run: |
+          mkdir -p /tmp/v-filter/plugins /tmp/v-filter/storage
+          cd /tmp/v-filter/plugins
+          npm init -y >/dev/null
+          npm install @verdaccio/package-filter@13 --no-audit --no-fund
+          cd /tmp/v-filter
+          cat > config.yaml <<'EOF'
+          storage: ./storage
+          plugins: ./plugins/node_modules
+          uplinks:
+            npmjs:
+              url: https://registry.npmjs.org/
+          packages:
+            '@*/*':
+              access: $all
+              publish: $authenticated
+              proxy: npmjs
+            '**':
+              access: $all
+              publish: $authenticated
+              proxy: npmjs
+          filters:
+            '@verdaccio/package-filter':
+              block:
+                - package: jquery
+                  versions: '=1.5.1'
+          log:
+            type: stdout
+            format: pretty
+            level: http
+          EOF
+      - name: Start verdaccio
+        run: |
+          nohup "$GITHUB_WORKSPACE/bin/verdaccio" --config /tmp/v-filter/config.yaml --listen 4873 > /tmp/verdaccio.log 2>&1 &
+          for i in {1..20}; do
+            if curl -fsS http://localhost:4873/-/ping >/dev/null 2>&1; then
+              echo "verdaccio is up"
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "verdaccio failed to start"
+          cat /tmp/verdaccio.log
+          exit 1
+      - name: Regression 5829 — non-filtered tarball on cold cache must succeed
+        run: |
+          # Direct tarball request without pre-fetching metadata. Before #5829
+          # was fixed, the filter gate would 404 because the version wasn't in
+          # local metadata yet. Now it must defer to the uplink sync and serve.
+          curl -fsS -o /tmp/jquery-1.6.2.tgz http://localhost:4873/jquery/-/jquery-1.6.2.tgz
+          test -s /tmp/jquery-1.6.2.tgz
+          file /tmp/jquery-1.6.2.tgz | grep -i gzip
+      - name: Filter must block the configured version
+        run: |
+          status=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:4873/jquery/-/jquery-1.5.1.tgz)
+          echo "tarball status: $status"
+          test "$status" = "404"
+      - name: Sanity install of a non-filtered package
+        run: |
+          mkdir -p /tmp/test-install && cd /tmp/test-install
+          npm init -y >/dev/null
+          npm install lodash@4.17.21 --registry http://localhost:4873 --no-audit --no-fund --loglevel info
+          test -d node_modules/lodash
+      - name: Show verdaccio log on failure
+        if: failure()
+        run: cat /tmp/verdaccio.log
