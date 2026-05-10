@@ -4,7 +4,13 @@ import { GENERIC_AVATAR, generateGravatarUrl } from '@verdaccio/utils';
 
 import { DIST_TAGS } from '../../../../src/lib/constants';
 import { logger, setup } from '../../../../src/lib/logger';
-import { getVersion, normalizeDistTags, parseReadme, sortByName } from '../../../../src/lib/utils';
+import {
+  getVersion,
+  hasTarball,
+  normalizeDistTags,
+  parseReadme,
+  sortByName,
+} from '../../../../src/lib/utils';
 
 setup({});
 
@@ -154,6 +160,33 @@ describe('Utilities', () => {
         { packageName: 'testPackage' },
         '@{packageName}: No readme found'
       );
+    });
+  });
+
+  describe('hasTarball', () => {
+    test('should return true when tarball filename matches a version', () => {
+      expect(hasTarball(metadata, 'npm_test-1.0.0.tgz')).toBe(true);
+    });
+
+    test('should return false when tarball filename does not match', () => {
+      expect(hasTarball(metadata, 'npm_test-2.0.0.tgz')).toBe(false);
+    });
+
+    test('should return false for empty versions', () => {
+      expect(hasTarball({ versions: {} } as any, 'npm_test-1.0.0.tgz')).toBe(false);
+    });
+
+    test('should return false when versions is undefined', () => {
+      expect(hasTarball({} as any, 'npm_test-1.0.0.tgz')).toBe(false);
+    });
+
+    test('should return false when dist is missing', () => {
+      const pkg = { versions: { '1.0.0': {} } } as any;
+      expect(hasTarball(pkg, 'pkg-1.0.0.tgz')).toBe(false);
+    });
+
+    test('should not match partial filenames', () => {
+      expect(hasTarball(metadata, 'test-1.0.0.tgz')).toBe(false);
     });
   });
 });

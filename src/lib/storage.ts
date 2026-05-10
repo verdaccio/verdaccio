@@ -39,7 +39,7 @@ import {
 } from './storage-utils';
 import ProxyStorage from './up-storage';
 import { setupUpLinks, updateVersionsHiddenUpLink } from './uplink-util';
-import { ErrorCode, isObject, normalizeDistTags } from './utils';
+import { ErrorCode, hasTarball, isObject, normalizeDistTags } from './utils';
 
 const debug = buildDebug('verdaccio:storage');
 
@@ -308,6 +308,11 @@ class Storage {
             (syncErr, syncInfo: Manifest): any => {
               if (_.isNil(syncErr) === false) {
                 return readStream.emit('error', syncErr);
+              }
+              // _syncUplinksMetadata returns filter-applied metadata; if the
+              // version was removed by a filter, surface a 404 like a missing tarball.
+              if (self.filters?.length && !hasTarball(syncInfo, filename)) {
+                return readStream.emit('error', err404);
               }
               if (_.isNil(syncInfo._distfiles) || _.isNil(syncInfo._distfiles[filename])) {
                 return readStream.emit('error', err404);
@@ -742,9 +747,10 @@ class Storage {
   }
 
   /**
-   * Check if a tarball should be served based on filter plugins.
-   * Looks up package metadata, applies filters, and verifies the tarball
-   * still belongs to an allowed version.
+   * Check if a tarball should be served based on filter plugins, using only
+   * local metadata. Returns true (defer) when the version isn't cached locally
+   * — the uplink-sync path in getTarball re-checks filters after sync, which
+   * avoids a redundant uplink round-trip and double filter application.
    */
   private async _isTarballAllowedByFilters(name: string, filename: string): Promise<boolean> {
     if (!this.filters?.length) {
@@ -753,20 +759,19 @@ class Storage {
 
     try {
       const pkgMetadata = await this.localStorage.getPackageMetadataAsync(name);
+      if (!hasTarball(pkgMetadata, filename)) {
+        return true;
+      }
       const { filteredPackage } = await this._applyFilters(pkgMetadata);
-      return Object.values(filteredPackage.versions || {}).some((version) =>
-        (version as Version).dist?.tarball?.endsWith('/' + filename)
-      );
+      return hasTarball(filteredPackage, filename);
     } catch (err: any) {
       if (err?.status === HTTP_STATUS.NOT_FOUND) {
-        // Package not yet cached locally — the request will fall through to uplinks.
-        debug('package %o not cached locally, skipping tarball filter check', name);
-      } else {
-        this.logger.error(
-          { package: name, fileName: filename, err },
-          'error checking filters for tarball @{fileName} of package @{package}: @{err.message}'
-        );
+        return true;
       }
+      this.logger.error(
+        { package: name, fileName: filename, err },
+        'error checking filters for tarball @{fileName} of package @{package}: @{err.message}'
+      );
       return true;
     }
   }

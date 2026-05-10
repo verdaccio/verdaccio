@@ -24,8 +24,30 @@ jobs:
       - name: Docker test
         run: |
             docker run -d -it --rm --name verdaccio -p 4873:4873 -e "DEBUG=verdaccio*" verdaccio/verdaccio:6
-      - name: login    
-        run: npx npm-cli-login -u test -p 1234 -e test@domain.test -r http://localhost:4873                 
+      - name: wait for verdaccio
+        run: |
+          for i in $(seq 1 30); do
+            if npx --yes @verdaccio/registry-cli ping -r http://localhost:4873 >/dev/null 2>&1; then
+              echo "verdaccio is up"; exit 0
+            fi
+            sleep 1
+          done
+          echo "verdaccio did not become ready"
+          docker logs verdaccio || true
+          exit 1
+      - name: login
+        run: |
+          set -euo pipefail
+          response=$(curl -fsS -X PUT \
+            -H "Content-Type: application/json" \
+            -d '{"name":"test","password":"1234","email":"test@domain.test"}' \
+            http://localhost:4873/-/user/org.couchdb.user:test)
+          token=$(printf '%s' "$response" | jq -r .token)
+          if [ -z "$token" ] || [ "$token" = "null" ]; then
+            echo "no token in response: $response"
+            exit 1
+          fi
+          echo "//localhost:4873/:_authToken=$token" >> ~/.npmrc
       - name: Install dependencies
         run: yarn
       - name: Bump up package and save version
