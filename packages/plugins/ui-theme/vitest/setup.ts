@@ -1,8 +1,8 @@
 /**
- * Setup configuration for Jest
- * This file includes global settings for the JEST environment.
+ * Setup configuration for Vitest
+ * This file includes global settings for the test environment.
  */
-import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/vitest';
 import 'mutationobserver-shim';
 import { vi } from 'vitest';
 import { Headers, Request, Response, fetch } from 'whatwg-fetch';

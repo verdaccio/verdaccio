@@ -99,7 +99,7 @@
   "scripts": {
     "prepare": "husky",
     "husky:pre-commit": "lint-staged",
-    "clean": "pnpm --filter \"./packages/**\" clean",
+    "clean": "pnpm --filter \"./packages/**\" run clean",
     "build": "pnpm --filter \"./packages/**\" build",
     "docker": "docker build -t verdaccio/verdaccio:local . --no-cache",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,yml,yaml,md}\"",

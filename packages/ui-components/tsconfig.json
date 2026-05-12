@@ -10,7 +10,7 @@
     "preserveSymlinks": true,
     "jsx": "react",
     "allowJs": true,
-    "types": ["node", "@testing-library/jest-dom"]
+    "types": ["node"]
   },
   "include": ["src/**/*", "vitest/**/*"],
   "exclude": [
