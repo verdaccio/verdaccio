@@ -19,7 +19,7 @@ allowBuilds:
   esbuild: true
   msw: true
   unrs-resolver: true
-minimumReleaseAge: 4320
+minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
   - '@verdaccio/*'
   - '@verdaccio-scope/*'
