@@ -10,9 +10,8 @@ on:
       - .changeset/**
       - .github/workflows/ci.yml
       - 'packages/**'
-      - 'test/**'
+      - 'tests/**'
       - 'docker-examples/**'
-      - 'jest/**'
       - 'package.json'
       - 'pnpm-workspace.yaml'
 permissions:
