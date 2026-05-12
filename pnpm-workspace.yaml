@@ -13,3 +13,14 @@ packages:
   - packages/plugins/local-storage
   - packages/plugins/package-filter
   - e2e/cli/*
+allowBuilds:
+  '@parcel/watcher': true
+  cypress: true
+  esbuild: true
+  msw: true
+  unrs-resolver: true
+minimumReleaseAge: 4320
+minimumReleaseAgeExclude:
+  - '@verdaccio/*'
+  - '@verdaccio-scope/*'
+  - 'verdaccio-*'
