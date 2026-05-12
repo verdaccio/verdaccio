@@ -27,7 +27,7 @@ jobs:
       - name: build
         run: pnpm build
       - name: create versions
-        uses: changesets/action@master
+        uses: changesets/action@63a615b9cd06ba9a3e6d13796c7fbcb080a60a0b
         with:
           version: pnpm ci:version
           commit: 'chore: update versions'
