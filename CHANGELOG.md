@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.6.2
+
+### Patch Changes
+
+- 7f7bbde: chore: bump up package test
+
 ## 6.6.1
 
 ### Patch Changes
