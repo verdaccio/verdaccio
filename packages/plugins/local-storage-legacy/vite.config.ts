@@ -9,6 +9,12 @@ export default defineConfig({
       configFile: resolve(__dirname, 'tsconfig.build.json'),
     },
   },
+  resolve: {
+    alias: {
+      '@verdaccio/streams': resolve(__dirname, '../../core/streams/src/index.ts'),
+      '@verdaccio/file-locking': resolve(__dirname, '../../core/file-locking/src/index.ts'),
+    },
+  },
   test: {
     include: ['tests/**/*.test.ts'],
     globals: false,
