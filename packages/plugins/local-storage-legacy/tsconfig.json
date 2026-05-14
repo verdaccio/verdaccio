@@ -1,0 +1,23 @@
+{
+  "extends": "../../../tsconfig.reference.json",
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "declaration": true,
+    "noImplicitAny": false,
+    "strict": true,
+    "outDir": "lib",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "typeRoots": ["./node_modules/@types"]
+  },
+  "include": ["src/*.ts", "tests/**/*.ts", "types/*.d.ts"],
+  "references": [
+    {
+      "path": "../../core/file-locking"
+    },
+    {
+      "path": "../../core/streams"
+    }
+  ]
+}

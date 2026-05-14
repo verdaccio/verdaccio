@@ -1,0 +1,47 @@
+{
+  "name": "@verdaccio/streams",
+  "version": "10.2.3",
+  "description": "Stream extension for Verdaccio",
+  "keywords": [
+    "verdaccio",
+    "streams"
+  ],
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio",
+    "directory": "packages/core/streams"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "engines": {
+    "node": ">=12",
+    "npm": ">=5"
+  },
+  "devDependencies": {
+    "@verdaccio/legacy-types": "workspace:*",
+    "vite": "8.0.8",
+    "vite-plugin-dts": "4.5.4",
+    "vitest": "4.1.4"
+  },
+  "scripts": {
+    "clean": "rimraf ./lib",
+    "test": "vitest run",
+    "build": "vite build"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  }
+}

@@ -2,8 +2,8 @@
   "name": "@verdaccio/search-indexer",
   "version": "8.0.0",
   "description": "Verdaccio Search Indexer",
-  "main": "./build/dist.js",
-  "types": "build/index.d.ts",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
   "author": {
     "name": "Juan Picado",
     "email": "juanpicado19@gmail.com"
@@ -36,15 +36,16 @@
     "clean": "rimraf ./build",
     "test": "vitest run",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
-    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
-    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
-    "build": "esbuild src/index.ts --bundle --outfile=build/dist.js --platform=node --target=node18  && pnpm run build:types"
+    "build": "vite build"
+  },
+  "dependencies": {
+    "debug": "4.4.3",
+    "fuse.js": "7.3.0"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:13.0.0",
-    "@orama/orama": "1.2.11",
-    "debug": "4.4.3",
-    "esbuild": "0.25.10",
+    "vite": "8.0.11",
+    "vite-plugin-dts": "5.0.0",
     "vitest": "4.1.2"
   },
   "funding": {

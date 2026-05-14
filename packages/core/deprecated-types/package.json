@@ -1,0 +1,40 @@
+{
+  "name": "@verdaccio/legacy-types",
+  "version": "1.0.3",
+  "description": "verdaccio legacy types definitions",
+  "deprecated": "this is a legacy package for types should be not longer used",
+  "keywords": [
+    "verdaccio",
+    "typescript",
+    "types"
+  ],
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio",
+    "directory": "packages/core/deprecated-types"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "build/types.d.ts",
+  "types": "build/types.d.ts",
+  "scripts": {
+    "clean": "rimraf ./build",
+    "test": "exit 0",
+    "build": "tsc --emitDeclarationOnly -p tsconfig.json"
+  },
+  "devDependencies": {
+    "typescript": "4.7.3",
+    "@types/node": "14.18.0"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  }
+}

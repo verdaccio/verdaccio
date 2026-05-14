@@ -1,0 +1,50 @@
+{
+  "name": "verdaccio-memory",
+  "version": "10.4.3",
+  "description": "Storage implementation in memory",
+  "keywords": [
+    "verdaccio",
+    "plugin",
+    "storage",
+    "memory"
+  ],
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio",
+    "directory": "packages/plugins/memory"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@verdaccio/core": "workspace:*",
+    "@verdaccio/streams": "workspace:*",
+    "memory-fs": "0.5.0"
+  },
+  "devDependencies": {
+    "@verdaccio/legacy-types": "workspace:*",
+    "vite": "8.0.8",
+    "vite-plugin-dts": "4.5.4",
+    "vitest": "4.1.4"
+  },
+  "scripts": {
+    "clean": "rimraf ./lib",
+    "test": "vitest run",
+    "build": "vite build"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  }
+}

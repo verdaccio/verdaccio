@@ -1,0 +1,23 @@
+{
+  "extends": "../../../tsconfig.reference.json",
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "declaration": true,
+    "noImplicitAny": true,
+    "strict": true,
+    "outDir": "lib",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "typeRoots": [
+      "../../node_modules/@verdaccio/legacy-types/lib/verdaccio",
+      "../../node_modules/@types"
+    ]
+  },
+  "include": ["src/*.ts", "test/**/*.ts", "types/*.d.ts"],
+  "references": [
+    {
+      "path": "../../core/streams"
+    }
+  ]
+}
