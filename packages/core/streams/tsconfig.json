@@ -1,0 +1,13 @@
+{
+  "extends": "../../../tsconfig.reference.json",
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "declaration": true,
+    "strict": true,
+    "outDir": "lib",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
+  },
+  "include": ["src/*.ts", "test/**/*.ts", "types/*.d.ts"]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "@verdaccio/e2e-auth-memory",
+  "version": "1.0.0",
+  "private": true,
+  "description": "E2E tests for verdaccio-auth-memory plugin",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@verdaccio/core": "workspace:*",
+    "@verdaccio/e2e-cli": "^2.6.0",
+    "@verdaccio/e2e-shared": "workspace:*",
+    "verdaccio": "6.5.2",
+    "verdaccio-auth-memory": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.8",
+    "vitest": "^4.1.4"
+  }
+}

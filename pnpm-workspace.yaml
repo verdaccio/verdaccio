@@ -5,10 +5,16 @@ packages:
   - packages/plugins/audit
   - packages/plugins/auth-memory
   - packages/plugins/htpasswd
+  - packages/plugins/local-storage-legacy
+  - packages/plugins/memory
   - packages/plugins/package-filter
+  - packages/tools/*
+  - packages/e2e/*
 allowBuilds:
   esbuild: true
   unrs-resolver: true
+overrides:
+  typescript: 5.3.3
 minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
   - '@verdaccio/*'

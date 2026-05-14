@@ -1,0 +1,64 @@
+{
+  "name": "@verdaccio/local-storage-legacy",
+  "version": "11.3.1",
+  "description": "Local storage implementation",
+  "keywords": [
+    "plugin",
+    "verdaccio",
+    "storage",
+    "local-storage"
+  ],
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio",
+    "directory": "packages/plugins/local-storage-legacy"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@verdaccio/core": "workspace:*",
+    "@verdaccio/file-locking": "workspace:*",
+    "@verdaccio/streams": "workspace:*",
+    "debug": "4.4.3",
+    "globby": "11.1.0",
+    "lodash": "4.18.1",
+    "lowdb": "1.0.0",
+    "mkdirp": "1.0.4",
+    "sanitize-filename": "1.6.4"
+  },
+  "devDependencies": {
+    "@types/minimatch": "3.0.5",
+    "@types/node": "20.5.8",
+    "@verdaccio/types": "workspace:*",
+    "minimatch": "4.2.5",
+    "rmdir-sync": "1.0.1",
+    "vite": "8.0.8",
+    "vite-plugin-dts": "4.5.4",
+    "vitest": "4.1.4"
+  },
+  "scripts": {
+    "clean": "rimraf ./lib",
+    "test": "vitest run --reporter=verbose",
+    "type-check": "tsc --noEmit -p tsconfig.build.json",
+    "build": "vite build"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  }
+}

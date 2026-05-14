@@ -1,5 +1,4 @@
 import verdaccio, { vitestConfig } from '@verdaccio/eslint-config';
-import vitest from '@vitest/eslint-plugin';
 
 export default [
   ...verdaccio,
@@ -30,6 +29,7 @@ export default [
       '@typescript-eslint/no-require-imports': 'off',
       '@typescript-eslint/no-empty-object-type': 'off',
       '@typescript-eslint/no-unsafe-function-type': 'off',
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
       // New ESLint 10 rules - warn for gradual adoption
       'preserve-caught-error': 'warn',
       'no-unassigned-vars': 'warn',
@@ -107,13 +107,7 @@ export default [
     },
   },
   {
-    files: [
-      '**/*.{test,spec}.{ts,tsx,js,jsx}',
-      '**/test/**/*.{ts,tsx,js,jsx}',
-      '**/tests/**/*.{ts,tsx,js,jsx}',
-      '**/__tests__/**/*.{ts,tsx,js,jsx}',
-    ],
-    plugins: { vitest },
+    files: ['**/*.{test,spec}.{ts,tsx,js,jsx}'],
     rules: {
       'vitest/expect-expect': 'off',
       'vitest/no-conditional-expect': 'off',

@@ -1,0 +1,17 @@
+{
+  "name": "@verdaccio/e2e-shared",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Shared utilities for Verdaccio E2E tests",
+  "main": "src/index.ts",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@verdaccio/config": "workspace:*",
+    "@verdaccio/core": "workspace:*",
+    "@verdaccio/registry-cli": "^1.1.0",
+    "get-port": "5.1.1",
+    "verdaccio": "6.5.2"
+  }
+}
