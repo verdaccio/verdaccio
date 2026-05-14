@@ -1,5 +1,17 @@
 # @verdaccio/config
 
+## 9.0.0-next-9.15
+
+### Major Changes
+
+- 3299cc7: chore!: remove deprecated `self_path` config property in favor of `configPath`
+- ea8beb2: chore!: only accept YAML config files (`.yaml` / `.yml`); JSON and JavaScript config files are no longer supported and will throw an error
+
+### Patch Changes
+
+- 75caa33: chore: test release
+  - @verdaccio/core@9.0.0-next-9.15
+
 ## 9.0.0-next-9.14
 
 ### Patch Changes

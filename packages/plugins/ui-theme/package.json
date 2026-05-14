@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/ui-theme",
-  "version": "9.0.0-next-9.14",
+  "version": "9.0.0-next-9.15",
   "description": "Verdaccio User Interface (Theme)",
   "author": {
     "name": "Verdaccio Contributors",
@@ -24,8 +24,8 @@
     "@testing-library/dom": "10.4.1",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.2",
-    "@verdaccio/types": "workspace:14.0.0-next-9.5",
-    "@verdaccio/ui-components": "workspace:5.0.0-next-9.10",
+    "@verdaccio/types": "workspace:14.0.0-next-9.6",
+    "@verdaccio/ui-components": "workspace:5.0.0-next-9.11",
     "@verdaccio/ui-i18n": "workspace:10.0.0-next-9.2",
     "@vitejs/plugin-react": "6.0.1",
     "country-flag-icons": "1.6.15",
