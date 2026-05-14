@@ -1,5 +1,13 @@
 # Change Log
 
+## 11.3.2
+
+### Patch Changes
+
+- 5553b43: chore: migrate packages
+- Updated dependencies [5553b43]
+  - @verdaccio/streams@10.2.4
+
 ## 11.3.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/legacy-types",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "verdaccio legacy types definitions",
   "deprecated": "this is a legacy package for types should be not longer used",
   "keywords": [

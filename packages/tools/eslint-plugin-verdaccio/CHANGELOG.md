@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.1.1
+
+### Patch Changes
+
+- 5553b43: chore: migrate packages
+
 ## 10.1.0
 
 ### Minor Changes
