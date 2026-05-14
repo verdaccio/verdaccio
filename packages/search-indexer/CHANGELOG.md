@@ -1,5 +1,11 @@
 # @verdaccio/search-indexer
 
+## 8.0.1
+
+### Patch Changes
+
+- 5553b43: chore: migrate packages
+
 ## 8.0.0
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # Change Log
 
+## 10.4.4
+
+### Patch Changes
+
+- 5553b43: chore: migrate packages
+- Updated dependencies [5553b43]
+  - @verdaccio/streams@10.2.4
+
 ## 10.4.3
 
 ### Patch Changes
@@ -13,6 +21,7 @@
 ### Patch Changes
 
 - 74de3b2: feat: add promise-based search API with optional remote uplink search
+
   - Added `searchAsync(query)` method returning `Promise<SearchItem[]>` for modern search consumers
   - Added `searchWithUplinks(query)` that merges local and remote registry results via `/-/v1/search`
   - Remote search is opt-in via `remoteSearch: true` plugin configuration
@@ -85,6 +94,7 @@
 - 4e9a3d0: feat: remove core-js from bundle
 
   By using babel.js core-js injects some requires that are not necessarily dependencies and fails on pnpm and yarn 2 due are strict. No need to add this feature so is removed.
+
   - https://babeljs.io/docs/en/babel-preset-env#usebuiltins
 
 ### Patch Changes

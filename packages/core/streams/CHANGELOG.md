@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.2.4
+
+### Patch Changes
+
+- 5553b43: chore: migrate packages
+
 ## 10.2.3
 
 ### Patch Changes
@@ -37,6 +43,7 @@
 - 4e9a3d0: feat: remove core-js from bundle
 
   By using babel.js core-js injects some requires that are not necessarily dependencies and fails on pnpm and yarn 2 due are strict. No need to add this feature so is removed.
+
   - https://babeljs.io/docs/en/babel-preset-env#usebuiltins
 
 ## 10.0.1
