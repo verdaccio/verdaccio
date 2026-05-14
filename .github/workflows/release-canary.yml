@@ -72,11 +72,6 @@ jobs:
         if: steps.tag-check.outputs.should_skip != 'true' && steps.pr-check.outputs.should_skip != 'true'
         with:
           node-version-file: '.nvmrc'
-          registry-url: 'https://registry.npmjs.org'
-
-      - name: Ensure npm supports trusted publishing (>=11.5.1)
-        if: steps.tag-check.outputs.should_skip != 'true' && steps.pr-check.outputs.should_skip != 'true'
-        run: npm install -g npm@latest
 
       - name: Enable corepack
         if: steps.tag-check.outputs.should_skip != 'true' && steps.pr-check.outputs.should_skip != 'true'
@@ -162,7 +157,7 @@ jobs:
 
       - name: Publish canary
         if: steps.tag-check.outputs.should_skip != 'true' && steps.pr-check.outputs.should_skip != 'true'
-        run: npm publish --tag canary-6 --access public --provenance
+        run: yarn npm publish --tag canary-6 --access public --provenance
 
       - name: Comment on PR
         if: >-
