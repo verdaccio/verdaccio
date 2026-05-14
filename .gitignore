@@ -14,6 +14,10 @@ node_modules
 test-storage*
 .verdaccio_test_env
 
+# Allow committed fixtures (negate the patterns above)
+!packages/plugins/local-storage-legacy/tests/__fixtures__/test-storage/
+!packages/plugins/local-storage-legacy/tests/__fixtures__/test-storage/**
+
 # docker examples
 docker-examples/v5/reverse_proxy/nginx/relative_path/storage/*
 docker-examples/v5/**/storage/*
