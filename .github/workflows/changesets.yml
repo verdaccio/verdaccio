@@ -33,8 +33,8 @@ jobs:
         uses: changesets/action@63a615b9cd06ba9a3e6d13796c7fbcb080a60a0b
         with:
           version: yarn ci:version
-          commit: 'chore: update versions'
-          title: 'chore: update versions'
+          commit: 'chore: update versions 6.x'
+          title: 'chore: update versions 6.x'
           createGithubReleases: false
           setupGitUser: true
         env:
