@@ -48,8 +48,7 @@ jobs:
 
       - name: Check commit is from a merged PR
         id: pr-check
-        # TODO: re-enable after testing the canary pipeline on master
-        if: false
+        if: steps.tag-check.outputs.should_skip != 'true' && github.event_name != 'workflow_dispatch'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
