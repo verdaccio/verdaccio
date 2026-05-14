@@ -30,12 +30,15 @@ jobs:
         run: corepack enable
       - name: Install dependencies
         run: yarn install --immutable
-      - name: create versions
+      - name: Build
+        run: yarn build
+      - name: create versions or publish
         uses: changesets/action@63a615b9cd06ba9a3e6d13796c7fbcb080a60a0b
         with:
           version: yarn ci:version
           commit: 'chore: release 6.x'
           title: 'chore: release 6.x'
+          publish: yarn ci:publish
           createGithubReleases: false
           setupGitUser: true
         env:

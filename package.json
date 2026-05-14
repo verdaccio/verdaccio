@@ -119,6 +119,7 @@
     "changeset:check": "changeset status --since=origin/6.x",
     "ci:version": "yarn ci:version:changeset && yarn install --no-immutable",
     "ci:version:changeset": "changeset version",
+    "ci:publish": "yarn npm publish --access public --provenance",
     "type-check": "tsc --noEmit",
     "cache:clean": "yarn cache clean --mirror && yarn cache clean --all",
     "type-check:watch": "yarn run type-check -- --watch",
