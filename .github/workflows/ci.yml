@@ -64,7 +64,7 @@ jobs:
       - name: Build
         run: pnpm build
       - name: Cache build artifacts
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         with:
           path: build/
           key: ci-build-${{ github.sha }}-node-${{ matrix.node_version }}
@@ -89,7 +89,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Restore build artifacts
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         with:
           path: build/
           key: ci-build-${{ github.sha }}-node-${{ matrix.node_version }}
@@ -159,12 +159,12 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Setup Bun
         if: startsWith(matrix.pm, 'bun')
-        uses: oven-sh/setup-bun@v2
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
       - name: Setup Deno
         if: startsWith(matrix.pm, 'deno')
-        uses: denoland/setup-deno@v2
+        uses: denoland/setup-deno@667a34cdef165d8d2b2e98dde39547c9daac7282 # v2.0.4
       - name: Restore build artifacts
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         with:
           path: build/
           key: ci-build-${{ github.sha }}-node-24
