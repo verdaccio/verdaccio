@@ -34,7 +34,7 @@ jobs:
           title: 'chore: update versions'
           publish: pnpm ci:publish
           createGithubReleases: false
-          setupGitUser: false
+          setupGitUser: true
         env:
           GITHUB_TOKEN: ${{ secrets.CHANGESET_RELEASE_TOKEN }}
           NPM_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
