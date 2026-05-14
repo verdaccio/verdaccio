@@ -9,7 +9,25 @@ concurrency:
   cancel-in-progress: true  
 
 jobs:
-  build: 
+  changeset-check:
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.draft == false &&
+      github.actor != 'renovate[bot]' &&
+      github.actor != 'dependabot[bot]' &&
+      github.head_ref != 'changeset-release/6.x'
+    runs-on: ubuntu-latest
+    name: Changeset file check
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+      - name: Check changeset
+        uses: ./.github/actions/changeset-check
+  build:
     strategy:
       fail-fast: false
       matrix:
@@ -17,3 +35,21 @@ jobs:
     uses: verdaccio/verdaccio/.github/workflows/yarn-ci.yml@master
     with:
       node_version: ${{ matrix.node_version }}
+  changeset-validation:
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.draft == false &&
+      github.head_ref != 'changeset-release/6.x'
+    runs-on: ubuntu-latest
+    name: Changeset validation
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+        with:
+          node-version-file: '.nvmrc'
+      - name: Enable corepack
+        run: corepack enable
+      - name: Install dependencies
+        run: yarn install --immutable
+      - name: Run changeset version
+        run: yarn ci:version:changeset

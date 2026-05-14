@@ -1,0 +1,43 @@
+name: Changesets
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 6.x
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  CI: true
+
+jobs:
+  version:
+    timeout-minutes: 14
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/6.x' && github.repository == 'verdaccio/verdaccio'
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+        with:
+          node-version-file: '.nvmrc'
+      - name: Enable corepack
+        run: corepack enable
+      - name: Install dependencies
+        run: yarn install --immutable
+      - name: Create version PR
+        uses: changesets/action@63a615b9cd06ba9a3e6d13796c7fbcb080a60a0b
+        with:
+          version: yarn ci:version
+          commit: 'chore: update versions'
+          title: 'chore: update versions'
+          createGithubReleases: false
+          setupGitUser: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.CHANGESET_RELEASE_TOKEN }}
+          NPM_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
