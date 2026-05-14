@@ -9,6 +9,11 @@ export default defineConfig({
       configFile: resolve(__dirname, 'tsconfig.build.json'),
     },
   },
+  resolve: {
+    alias: {
+      '@verdaccio/streams': resolve(__dirname, '../../core/streams/src/index.ts'),
+    },
+  },
   test: {
     include: ['test/**/*.spec.ts'],
     globals: false,
