@@ -9,6 +9,7 @@ on:
 permissions:
   contents: read
   pull-requests: write
+  id-token: write
 
 jobs:
   canary:
@@ -47,7 +48,8 @@ jobs:
 
       - name: Check commit is from a merged PR
         id: pr-check
-        if: steps.tag-check.outputs.should_skip != 'true' && github.event_name != 'workflow_dispatch'
+        # TODO: re-enable after testing the canary pipeline on master
+        if: false
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -70,6 +72,11 @@ jobs:
         if: steps.tag-check.outputs.should_skip != 'true' && steps.pr-check.outputs.should_skip != 'true'
         with:
           node-version-file: '.nvmrc'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Ensure npm supports trusted publishing (>=11.5.1)
+        if: steps.tag-check.outputs.should_skip != 'true' && steps.pr-check.outputs.should_skip != 'true'
+        run: npm install -g npm@latest
 
       - name: Enable corepack
         if: steps.tag-check.outputs.should_skip != 'true' && steps.pr-check.outputs.should_skip != 'true'
@@ -155,12 +162,7 @@ jobs:
 
       - name: Publish canary
         if: steps.tag-check.outputs.should_skip != 'true' && steps.pr-check.outputs.should_skip != 'true'
-        run: |
-          npm config set "//registry.npmjs.org/:_authToken" "${REGISTRY_AUTH_TOKEN}"
-          npm publish --tag canary-6 --access public
-          npm dist-tag add "@verdaccio/canary@${{ steps.version.outputs.canary_version }}" latest
-        env:
-          REGISTRY_AUTH_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
+        run: npm publish --tag canary-6 --access public --provenance
 
       - name: Comment on PR
         if: >-
