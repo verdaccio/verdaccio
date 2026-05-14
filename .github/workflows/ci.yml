@@ -46,21 +46,9 @@ jobs:
     if: ${{ always() && !failure() && !cancelled() && github.event.pull_request.draft == false }}
     runs-on: ubuntu-latest
     name: setup
-    services:
-      verdaccio:
-        image: verdaccio/verdaccio:6
-        ports:
-          - 4873:4873
-        env:
-          NODE_ENV: production
-          options: >-
-            --health-cmd="curl -f http://0.0.0.0:4873/-/ping || exit 1"
-            --health-interval=10s
-            --health-timeout=20s
-            --health-retries=6
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Install dependencies via Verdaccio registry
+      - name: Install dependencies
         uses: ./.github/actions/install-app
   lint-and-format:
     runs-on: ubuntu-latest
@@ -115,7 +103,7 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies
-        uses: ./.github/actions/install-app-node
+        uses: ./.github/actions/install-app
         with:
           node-version: ${{ matrix.node_version }}
       - name: Restore build artifacts
@@ -169,13 +157,8 @@ jobs:
     name: Changeset validation
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Read Node version from .nvmrc
-        id: nvmrc
-        run: echo "node-version=$(cat .nvmrc)" >> "$GITHUB_OUTPUT"
       - name: Install dependencies
-        uses: ./.github/actions/install-app-node
-        with:
-          node-version: ${{ steps.nvmrc.outputs.node-version }}
+        uses: ./.github/actions/install-app
       - name: Run changeset version
         run: pnpm ci:version:changeset
   cleanup:
