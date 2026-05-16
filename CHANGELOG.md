@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.7.1
+
+### Patch Changes
+
+- a75f9bb: chore: refactor docker publish pipeline
+
 ## 6.7.0
 
 ### Minor Changes
