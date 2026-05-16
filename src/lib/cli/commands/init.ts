@@ -7,6 +7,7 @@ import { listenDefaultCallback } from '../../bootstrap';
 import { logger } from '../../logger';
 import { runServer } from '../../run-server';
 import { initLogger, parseConfigFile } from '../../utils';
+import { RECOMMENDED_NODE_VERSION, isVersionRecommended } from '../utils';
 
 const pkgVersion = process.env.PACKAGE_VERSION || 'dev';
 const pkgName = 'verdaccio';
@@ -66,6 +67,12 @@ export class InitCommand extends Command {
       process.title = (configParsed.web && configParsed.web.title) || 'verdaccio';
 
       initLogger(configParsed);
+      if (!isVersionRecommended(process.version)) {
+        logger.warn(
+          { current: process.version, recommended: RECOMMENDED_NODE_VERSION },
+          'you are using Node.js @{current}, Verdaccio recommends Node.js v@{recommended} or higher, please consider upgrading your Node.js distribution'
+        );
+      }
       logger.info({ file: configPathLocation }, 'config file  - @{file}');
       const webServer = await runServer(configParsed, { listenArg: this.listen as string });
       const listen = (this.listen as string) ?? configParsed.listen;

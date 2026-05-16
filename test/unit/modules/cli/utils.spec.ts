@@ -1,6 +1,11 @@
 import { describe, expect, test } from 'vitest';
 
-import { MIN_NODE_VERSION, isVersionValid } from '../../../../src/lib/cli/utils';
+import {
+  MIN_NODE_VERSION,
+  RECOMMENDED_NODE_VERSION,
+  isVersionRecommended,
+  isVersionValid,
+} from '../../../../src/lib/cli/utils';
 
 describe('CLI utils', () => {
   describe('MIN_NODE_VERSION', () => {
@@ -33,6 +38,25 @@ describe('CLI utils', () => {
 
     test('should return false for Node 17.x', () => {
       expect(isVersionValid('v17.9.0')).toBe(false);
+    });
+  });
+
+  describe('RECOMMENDED_NODE_VERSION', () => {
+    test('should be 22', () => {
+      expect(RECOMMENDED_NODE_VERSION).toBe('22');
+    });
+  });
+
+  describe('isVersionRecommended', () => {
+    test('should return true for Node 22.x and above', () => {
+      expect(isVersionRecommended('v22.0.0')).toBe(true);
+      expect(isVersionRecommended('v24.0.0')).toBe(true);
+    });
+
+    test('should return false for Node below 22.x', () => {
+      expect(isVersionRecommended('v18.19.1')).toBe(false);
+      expect(isVersionRecommended('v20.11.0')).toBe(false);
+      expect(isVersionRecommended('v21.7.0')).toBe(false);
     });
   });
 });
