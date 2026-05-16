@@ -1,8 +1,8 @@
 ---
-'verdaccio': patch
+'verdaccio': minor
 ---
 
-chore: update Node.js to 24
+feat: update Node.js to 24
 
 Bumps the project's Node.js baseline to 24 across runtime and container, and adds a startup warning for users still on an older (but supported) Node.
 
