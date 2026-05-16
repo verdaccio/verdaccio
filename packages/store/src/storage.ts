@@ -726,13 +726,18 @@ class Storage {
       debug('search on each package by plugin query');
       const items = await this.localStorage.getStoragePlugin().search(query);
       try {
-        for (const searchItem of items) {
-          const manifest = await this.getPackageLocalMetadata(searchItem.package.name);
-          const [filteredManifest] = await this.applyFilters(manifest);
-          if (isEmpty(filteredManifest?.versions) === false) {
+        const resolvedItems = await Promise.all(
+          items.map(async (searchItem): Promise<searchUtils.SearchPackageItem | null> => {
+            const manifest = await this.getPackageLocalMetadata(searchItem.package.name);
+            const [filteredManifest] = await this.applyFilters(manifest);
+            if (isEmpty(filteredManifest?.versions)) {
+              debug('local item without versions detected %s', searchItem.package.name);
+              return null;
+            }
+
             const searchPackage = mapManifestToSearchPackageBody(filteredManifest, searchItem);
             debug('search local stream found %o', searchPackage.name);
-            const searchPackageItem: searchUtils.SearchPackageItem = {
+            return {
               package: searchPackage,
               score: searchItem.score,
               verdaccioPkgCached: searchItem.verdaccioPkgCached,
@@ -741,11 +746,11 @@ class Storage {
               // FUTURE: find a better way to calculate the score
               searchScore: 1,
             };
-            results.push(searchPackageItem);
-          } else {
-            debug('local item without versions detected %s', searchItem.package.name);
-          }
-        }
+          })
+        );
+        results.push(
+          ...resolvedItems.filter((item): item is searchUtils.SearchPackageItem => item !== null)
+        );
         debug('search local stream end');
       } catch (err) {
         this.logger.error(
