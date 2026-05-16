@@ -16,7 +16,7 @@ env:
 
 jobs:
   version:
-    timeout-minutes: 14
+    timeout-minutes: 30
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/6.x' && github.repository == 'verdaccio/verdaccio'
     steps:
@@ -34,6 +34,7 @@ jobs:
       - name: Build
         run: yarn build
       - name: create versions or publish
+        id: changesets
         uses: changesets/action@63a615b9cd06ba9a3e6d13796c7fbcb080a60a0b
         with:
           version: yarn ci:version
@@ -46,3 +47,55 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.CHANGESET_RELEASE_TOKEN }}
           NPM_CONFIG_REGISTRY: https://registry.npmjs.org
           NPM_CONFIG_PROVENANCE: 'true'
+
+      - name: Read published verdaccio version
+        if: steps.changesets.outputs.published == 'true'
+        id: ver
+        run: |
+          version=$(node -p "require('./package.json').version")
+          major=${version%%.*}
+          rest=${version#*.}
+          minor=${rest%%.*}
+          {
+            echo "version=$version"
+            echo "major=$major"
+            echo "majorminor=${major}.${minor}"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Set up QEMU
+        if: steps.ver.outputs.version
+        uses: docker/setup-qemu-action@c7c53464625b32c7a7e944ae62b3e17d2b600130 # v3
+
+      - name: Set up Docker Buildx
+        if: steps.ver.outputs.version
+        uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4.0.0
+
+      - name: Log in to Docker Hub
+        if: steps.ver.outputs.version
+        uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 # v4.1.0
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Prepare Docker metadata
+        if: steps.ver.outputs.version
+        id: meta
+        uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5
+        with:
+          images: verdaccio/verdaccio
+          flavor: |
+            latest=true
+          tags: |
+            type=raw,value=${{ steps.ver.outputs.version }}
+            type=raw,value=${{ steps.ver.outputs.major }}
+            type=raw,value=${{ steps.ver.outputs.majorminor }}
+
+      - name: Build & push Docker image
+        if: steps.ver.outputs.version
+        uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f # v7.1.0
+        with:
+          context: .
+          push: true
+          platforms: linux/amd64,linux/arm64
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
