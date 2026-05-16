@@ -38,13 +38,24 @@ jobs:
       - name: login
         run: |
           set -euo pipefail
-          response=$(curl -fsS -X PUT \
-            -H "Content-Type: application/json" \
-            -d '{"name":"test","password":"1234","email":"test@domain.test"}' \
-            http://localhost:4873/-/user/org.couchdb.user:test)
-          token=$(printf '%s' "$response" | jq -r .token)
+          token=""
+          response=""
+          for i in $(seq 1 10); do
+            if response=$(curl -fsS -X PUT \
+              -H "Content-Type: application/json" \
+              -d '{"name":"test","password":"1234","email":"test@domain.test"}' \
+              http://localhost:4873/-/user/org.couchdb.user:test); then
+              token=$(printf '%s' "$response" | jq -r .token)
+              if [ -n "$token" ] && [ "$token" != "null" ]; then
+                break
+              fi
+            fi
+            echo "login attempt $i failed, retrying..."
+            sleep 2
+          done
           if [ -z "$token" ] || [ "$token" = "null" ]; then
             echo "no token in response: $response"
+            docker logs verdaccio || true
             exit 1
           fi
           echo "//localhost:4873/:_authToken=$token" >> ~/.npmrc

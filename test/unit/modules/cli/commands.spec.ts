@@ -26,6 +26,7 @@ vi.mock('../../../../src/lib/run-server', () => ({
 vi.mock('../../../../src/lib/logger', () => ({
   logger: {
     info: vi.fn(),
+    warn: vi.fn(),
     fatal: vi.fn(),
     logger: { fatal: vi.fn() },
   },
