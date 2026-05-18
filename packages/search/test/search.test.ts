@@ -1,5 +1,5 @@
 import nock from 'nock';
-import { beforeAll, describe, expect, test } from 'vitest';
+import { beforeAll, beforeEach, describe, expect, test } from 'vitest';
 
 import { Config, getDefaultConfig } from '@verdaccio/config';
 import { logger, setup } from '@verdaccio/logger';
@@ -8,6 +8,11 @@ import { Search } from '../src/search';
 
 beforeAll(async () => {
   await setup({});
+});
+
+beforeEach(() => {
+  nock.cleanAll();
+  nock.abortPendingRequests();
 });
 
 const domain = 'https://registry.npmjs.org';

@@ -10,7 +10,7 @@ import {
 
 describe('versions-utils', () => {
   const dist = (version) => ({
-    tarball: `http://registry.org/npm_test/-/npm_test-${version}.tgz`,
+    tarball: `http://fake.verdaccio.org/npm_test/-/npm_test-${version}.tgz`,
     shasum: `sha1-${version}`,
   });
 

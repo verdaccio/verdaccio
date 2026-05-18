@@ -81,10 +81,10 @@ describe('address parsing', () => {
       expect(warn).not.toHaveBeenCalled();
     });
 
-    test('https://example.org:4873 (TLS)', () => {
-      const addr = getListenAddress('https://example.org:4873', logger);
+    test('https://fake.verdaccio.org:4873 (TLS)', () => {
+      const addr = getListenAddress('https://fake.verdaccio.org:4873', logger);
 
-      expect(addr).toEqual({ proto: 'https', host: 'example.org', port: '4873' });
+      expect(addr).toEqual({ proto: 'https', host: 'fake.verdaccio.org', port: '4873' });
       expect(warn).not.toHaveBeenCalled();
     });
 
@@ -174,10 +174,10 @@ describe('address parsing', () => {
       });
     });
 
-    test('https://example.org:4873  (HTTPS)', () => {
-      expect(parseAddress('https://example.org:4873')).toEqual({
+    test('https://fake.verdaccio.org:4873  (HTTPS)', () => {
+      expect(parseAddress('https://fake.verdaccio.org:4873')).toEqual({
         proto: 'https',
-        host: 'example.org',
+        host: 'fake.verdaccio.org',
         port: '4873',
       });
     });

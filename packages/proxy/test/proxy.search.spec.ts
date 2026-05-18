@@ -2,7 +2,7 @@
 import getStream from 'get-stream';
 import nock from 'nock';
 import path from 'node:path';
-import { beforeAll, describe, expect, test } from 'vitest';
+import { beforeAll, beforeEach, describe, expect, test } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
 import { streamUtils } from '@verdaccio/core';
@@ -14,6 +14,11 @@ const getConf = (name) => path.join(import.meta.dirname, '/conf', name);
 
 beforeAll(async () => {
   await setup({});
+});
+
+beforeEach(() => {
+  nock.cleanAll();
+  nock.abortPendingRequests();
 });
 
 const domain = 'https://registry.npmjs.org';

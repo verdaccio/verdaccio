@@ -88,18 +88,18 @@ describe('formatter', () => {
         sub: 'out',
         err: {
           type: 'Error',
-          message: 'getaddrinfo ENOTFOUND registry.fake.org',
+          message: 'getaddrinfo ENOTFOUND fake.verdaccio.org',
           stack:
-            'Error: getaddrinfo ENOTFOUND registry.fake.org\n' +
+            'Error: getaddrinfo ENOTFOUND fake.verdaccio.org\n' +
             '    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:60:26)',
           errno: -3008,
           code: 'ENOTFOUND',
           syscall: 'getaddrinfo',
-          hostname: 'registry.fake.org',
+          hostname: 'fake.verdaccio.org',
         },
-        request: { method: 'GET', url: 'https://registry.fake.org/aaa' },
+        request: { method: 'GET', url: 'https://fake.verdaccio.org/aaa' },
         status: 'ERR',
-        error: 'getaddrinfo ENOTFOUND registry.fake.org',
+        error: 'getaddrinfo ENOTFOUND fake.verdaccio.org',
         bytes: { in: 0, out: 0 },
         msg: "@{!status}, req: '@{request.method} @{request.url}', error: @{!error}",
       };
@@ -122,7 +122,7 @@ describe('formatter', () => {
           errno: -3008,
           code: 'ENOTFOUND',
         },
-        request: { method: 'GET', url: 'https://registry.fake.org/aaa' },
+        request: { method: 'GET', url: 'https://fake.verdaccio.org/aaa' },
         status: 'ERR',
         error: 'fatal error',
         bytes: { in: 0, out: 0 },

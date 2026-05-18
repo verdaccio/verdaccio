@@ -63,3 +63,6 @@ AGENTS.md
 CLAUDE.md
 /.claude
 
+# devcontainer
+/.devcontainer
+
