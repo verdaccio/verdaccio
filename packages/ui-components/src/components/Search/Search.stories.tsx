@@ -50,7 +50,7 @@ export const SearchByQuery: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get('https://my-registry.org/-/verdaccio/data/search/*', ({ request }) => {
+        http.get('https://fake.verdaccio.org/-/verdaccio/data/search/*', ({ request }) => {
           const url = new URL(request.url);
           const rawQuery = url.pathname.split('/-/verdaccio/data/search/')[1] || '';
           const query = decodeURIComponent(rawQuery);

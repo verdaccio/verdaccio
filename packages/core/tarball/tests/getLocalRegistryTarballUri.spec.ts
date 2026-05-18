@@ -4,7 +4,7 @@ import { getLocalRegistryTarballUri } from '../src/getLocalRegistryTarballUri';
 
 describe('getLocalRegistryTarballUri', () => {
   test('should return the right tarball uri', () => {
-    const uri = 'http://registry.org/npm_test/-/npm_test-1.0.0.tgz';
+    const uri = 'http://fake.verdaccio.org/npm_test/-/npm_test-1.0.0.tgz';
     const pkgName = 'npm_test';
     const requestOptions = {
       host: 'localhost:4873',
@@ -20,7 +20,7 @@ describe('getLocalRegistryTarballUri', () => {
   });
 
   test('should return the right tarball uri with prefix', () => {
-    const uri = 'http://registry.org/npm_test/-/npm_test-1.0.0.tgz';
+    const uri = 'http://fake.verdaccio.org/npm_test/-/npm_test-1.0.0.tgz';
     const pkgName = 'npm_test';
     const requestOptions = {
       host: 'localhost:4873',
@@ -36,7 +36,7 @@ describe('getLocalRegistryTarballUri', () => {
   });
 
   test('should return the right tarball uri without prefix', () => {
-    const uri = 'http://registry.org/npm_test/-/npm_test-1.0.0.tgz';
+    const uri = 'http://fake.verdaccio.org/npm_test/-/npm_test-1.0.0.tgz';
     const pkgName = 'npm_test';
     const requestOptions = {
       host: 'localhost:4873',

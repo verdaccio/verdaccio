@@ -6,8 +6,8 @@ describe('Config builder', () => {
   test('should create a configuration file as object', () => {
     const config = ConfigBuilder.build();
     config
-      .addUplink('upstream', { url: 'https://registry.verdaccio.org' })
-      .addUplink('upstream2', { url: 'https://registry.verdaccio.org' })
+      .addUplink('upstream', { url: 'https://fake.verdaccio.org' })
+      .addUplink('upstream2', { url: 'https://fake.verdaccio.org' })
       .addPackageAccess('upstream/*', {
         access: 'public',
         publish: 'foo, bar',
@@ -40,10 +40,10 @@ describe('Config builder', () => {
       },
       uplinks: {
         upstream: {
-          url: 'https://registry.verdaccio.org',
+          url: 'https://fake.verdaccio.org',
         },
         upstream2: {
-          url: 'https://registry.verdaccio.org',
+          url: 'https://fake.verdaccio.org',
         },
       },
       log: {
@@ -57,8 +57,8 @@ describe('Config builder', () => {
   test('should create a configuration file as yaml', () => {
     const config = ConfigBuilder.build();
     config
-      .addUplink('upstream', { url: 'https://registry.verdaccio.org' })
-      .addUplink('upstream2', { url: 'https://registry.verdaccio.org' })
+      .addUplink('upstream', { url: 'https://fake.verdaccio.org' })
+      .addUplink('upstream2', { url: 'https://fake.verdaccio.org' })
       .addPackageAccess('upstream/*', {
         access: 'public',
         publish: 'foo, bar',
@@ -73,10 +73,10 @@ describe('Config builder', () => {
     expect(config.getConfig()).toEqual({
       uplinks: {
         upstream: {
-          url: 'https://registry.verdaccio.org',
+          url: 'https://fake.verdaccio.org',
         },
         upstream2: {
-          url: 'https://registry.verdaccio.org',
+          url: 'https://fake.verdaccio.org',
         },
       },
       packages: {

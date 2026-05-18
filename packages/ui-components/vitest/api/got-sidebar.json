@@ -43,7 +43,7 @@
       "_id": "got@0.1.0",
       "dist": {
         "shasum": "a014ed629a57d9cf6fc28716ba091d102a48713d",
-        "tarball": "https://registry.verdaccio.org/got/-/got-0.1.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-0.1.0.tgz",
         "integrity": "sha512-aXSTlW3fzRtYnaiL35BuAftRpnoWk+cFdXKo7VO8x+aVR+WBOtqMgMEBMWijvjdCn1MXPgk+l2UuQmHOuo12Jg==",
         "signatures": [
           {
@@ -110,7 +110,7 @@
       "_id": "got@0.1.1",
       "dist": {
         "shasum": "9e85cb9fb7054e73af744c1f49d5509b95cdfb71",
-        "tarball": "https://registry.verdaccio.org/got/-/got-0.1.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-0.1.1.tgz",
         "integrity": "sha512-Sfr+KA/M62sPsQYxZ+Ro1sHwa/iwDwMJzFB6kNx0Kmp40mDWLh2POA5AlO+AIulxRruS7Nzwy8WovYMmQvl5qw==",
         "signatures": [
           {
@@ -180,7 +180,7 @@
       "_id": "got@0.2.0",
       "dist": {
         "shasum": "d00c248b29fdccaea940df9ca0995ebff31b51a5",
-        "tarball": "https://registry.verdaccio.org/got/-/got-0.2.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-0.2.0.tgz",
         "integrity": "sha512-YTZ1W2+KYNuBSR2icdJIU4EXddb6NsjXcZN/e1ggfkdniQk1mrVaxyyRJL0Mi+HggW3+Ld2vH3dDl/tI2LKmag==",
         "signatures": [
           {
@@ -263,7 +263,7 @@
       ],
       "dist": {
         "shasum": "888ec66ca4bc735ab089dbe959496d0f79485493",
-        "tarball": "https://registry.verdaccio.org/got/-/got-0.3.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-0.3.0.tgz",
         "integrity": "sha512-6DJBU8c+pWPYdajwiqhe22oPkq8FYr6xIPPcoJLfnQZbvrcOBJhoVmvNBxfqfDrJ3EXrd3pXpyVvPRPLv4K+PQ==",
         "signatures": [
           {
@@ -335,7 +335,7 @@
       ],
       "dist": {
         "shasum": "792b340223b8df77d6e2c1090dc54341fc42df11",
-        "tarball": "https://registry.verdaccio.org/got/-/got-1.0.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-1.0.0.tgz",
         "integrity": "sha512-gfGYcuzFrCQbeNGybQkJ/VSMSz+b3M6v8/Z3hFw9NmTW8qKN3oepaLOa6pIQNIEnDgYkgMcJOVUcBzjF2Wz9Uw==",
         "signatures": [
           {
@@ -407,7 +407,7 @@
       ],
       "dist": {
         "shasum": "ac662d4912a9d0d5611a2b395e2a0116340a56a0",
-        "tarball": "https://registry.verdaccio.org/got/-/got-1.0.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-1.0.1.tgz",
         "integrity": "sha512-e6V1bpH0IUPtO/KUI1rbU/e7WsStEgkYBONonJkatqNZEktDClHWHMrooJWxKfncyx0FUXzaw1EvYNyxzxIeQw==",
         "signatures": [
           {
@@ -479,7 +479,7 @@
       ],
       "dist": {
         "shasum": "82788a0a573a60a8f18b9901236d43c91fcd664b",
-        "tarball": "https://registry.verdaccio.org/got/-/got-1.1.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-1.1.0.tgz",
         "integrity": "sha512-FASD691tDUFk+jyccbY5RRuLZ0GmAYK2Hvnlk8HlUlDDfDYjDnxeqDRTz7nS3h9Rx0s9lYfkX6X7+6S+cO1UOA==",
         "signatures": [
           {
@@ -551,7 +551,7 @@
       ],
       "dist": {
         "shasum": "11407f478e2ec1355a25427fba2e7563cbe8e732",
-        "tarball": "https://registry.verdaccio.org/got/-/got-1.2.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-1.2.0.tgz",
         "integrity": "sha512-m6a15KjaEb7u0hnyxfygT2bN0HunGCLQha/kohmsQA/bamlmogQyWgtIRf6rkGGRYO7hQuOuprVF0Pkq+8QbUw==",
         "signatures": [
           {
@@ -623,7 +623,7 @@
       ],
       "dist": {
         "shasum": "5878b85de16034b74d947ad41f729d41534fe6e2",
-        "tarball": "https://registry.verdaccio.org/got/-/got-1.2.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-1.2.1.tgz",
         "integrity": "sha512-ZQEvXTtw5r/m2tHt3k0XJYHa6PW3FEwVhyZasdq7DjfOdEXYQ6LRD1PaSIg2Wt7clea4lF8L/hYZOAbwG/SfuA==",
         "signatures": [
           {
@@ -696,7 +696,7 @@
       ],
       "dist": {
         "shasum": "d9430ba32f6a30218243884418767340aafc0400",
-        "tarball": "https://registry.verdaccio.org/got/-/got-1.2.2.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-1.2.2.tgz",
         "integrity": "sha512-xrS9ZF6L3KCEonUoee6R++sYogHXf1uKWrsVziQowGJ4QMYkvUDhr+o1xgnhF2IaYQnvngGk/CNPsM+zuZwzTg==",
         "signatures": [
           {
@@ -775,7 +775,7 @@
       ],
       "dist": {
         "shasum": "8a21692827888114c498aa9b81171d0c86fd5a72",
-        "tarball": "https://registry.verdaccio.org/got/-/got-2.0.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-2.0.0.tgz",
         "integrity": "sha512-/gM5ifgH9Bpj5EK5oXLewsP3jpqU7p68cWm+UlZCO/jIiNLgKvho4IcgibCtmgiIvdcv/mvqR5Oyfi/qZIb60A==",
         "signatures": [
           {
@@ -854,7 +854,7 @@
       ],
       "dist": {
         "shasum": "6bc9c28ffdcd3c530c607f736692355b6939acb7",
-        "tarball": "https://registry.verdaccio.org/got/-/got-2.1.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-2.1.0.tgz",
         "integrity": "sha512-EuGCAvIXXOsAuJNjLOGM8+DFFYQy2qZj5w2AAXS2ZZA9HGXnnKJ5n2hXvttsGyOOIvXBFdQVrZaf6p0MmsmK7g==",
         "signatures": [
           {
@@ -934,7 +934,7 @@
       ],
       "dist": {
         "shasum": "e5c0a24870aaefb36eda8b7195736e61810477ea",
-        "tarball": "https://registry.verdaccio.org/got/-/got-2.2.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-2.2.0.tgz",
         "integrity": "sha512-k+xvSCUQ9LLuVX8U2LtJLZjtuvEeWkLqJWz8tydpfBBssnhlc5OaYPNwYoV6yx81gQOAe1qZfnRuOC0pftDdNQ==",
         "signatures": [
           {
@@ -1015,7 +1015,7 @@
       },
       "dist": {
         "shasum": "460f95732e09b1adf96f6c7aeaee6240e5085ee1",
-        "tarball": "https://registry.verdaccio.org/got/-/got-2.3.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-2.3.0.tgz",
         "integrity": "sha512-7XryEEWa4eOCpfxwZzSYfrqEroNK6Chf5JVFRDKRuM/XkEt0EpqzK2B1Sj6gKn4bgFI0ieWg+6pJEzi8l1Gq2w==",
         "signatures": [
           {
@@ -1095,7 +1095,7 @@
       },
       "dist": {
         "shasum": "f644b11ee85c67577e017bfec2a7a234557e1759",
-        "tarball": "https://registry.verdaccio.org/got/-/got-2.3.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-2.3.1.tgz",
         "integrity": "sha512-b8UgqlLW2TJq5v8Wasbp2U5cZg0zO8x0VALP8bRIzCtcVDQ3achquT9GIom9AfG+5H1PWDUJiyBhzWpQV655sw==",
         "signatures": [
           {
@@ -1176,7 +1176,7 @@
       },
       "dist": {
         "shasum": "2dc21af7012f7c4ef33edfb62a2a7faa69548c5e",
-        "tarball": "https://registry.verdaccio.org/got/-/got-2.3.2.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-2.3.2.tgz",
         "integrity": "sha512-77gW0Zu5aFpTbcPfWnD3fekoBIU8Rq/xPcug71az+LIbYg0o6rmcKldIwbp6ak6DSfhBYeG5c6u7wHWyineuzw==",
         "signatures": [
           {
@@ -1258,7 +1258,7 @@
       },
       "dist": {
         "shasum": "e4087a2cd59b5d20f2d169dc85d2169ed9e89f56",
-        "tarball": "https://registry.verdaccio.org/got/-/got-2.4.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-2.4.0.tgz",
         "integrity": "sha512-FZ9t9NbPnhVEVPxjoRJuZUi6qmVlzBfSqS+FCU7npZLrTllzFeUAT1D79oz2n44qYM/Moz6eBFB9yzyKgZmHXg==",
         "signatures": [
           {
@@ -1340,7 +1340,7 @@
       },
       "dist": {
         "shasum": "44d917c8bb481c00721832fd80c4481e9af3df5e",
-        "tarball": "https://registry.verdaccio.org/got/-/got-2.5.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-2.5.0.tgz",
         "integrity": "sha512-6T4OWm3NYoHj1zRcev1z7aiv9tTVlIWBqf5qkbq7g3vbv2IrjuqMnJC822G+WHz5+3aHssgujnmdAoV+5GMcmg==",
         "signatures": [
           {
@@ -1425,7 +1425,7 @@
       },
       "dist": {
         "shasum": "a6c752e289d6f3326aaebd0d86a24b3ec0616d91",
-        "tarball": "https://registry.verdaccio.org/got/-/got-2.6.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-2.6.0.tgz",
         "integrity": "sha512-Y0yW4xmkdn7PjCGXdlWTigo4T2NTbQsDpJDviGp7RHdkm88GY6udqGVagWpjaF8K4fd7BGUW90IAHUDZo5h76A==",
         "signatures": [
           {
@@ -1510,7 +1510,7 @@
       },
       "dist": {
         "shasum": "c4bd3a4fcc3c8501d1891c0fae4ef5648ff372da",
-        "tarball": "https://registry.verdaccio.org/got/-/got-2.7.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-2.7.0.tgz",
         "integrity": "sha512-v/9c1k0rRyonhv28KgUBwp2id7zwZM+wTZHNLH4eBtUmUqZLz0q5Nm9uPlOzWwL81yRD2U45aApkPH6PwsQ99Q==",
         "signatures": [
           {
@@ -1595,7 +1595,7 @@
       },
       "dist": {
         "shasum": "4c82c8a8be7f3e79384ec94b736fe07081c4064c",
-        "tarball": "https://registry.verdaccio.org/got/-/got-2.7.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-2.7.1.tgz",
         "integrity": "sha512-+IVOzBAdTS/OERqN0OwThZRG6KqRp/LhhwTl0TsXpcPAwYubn18stu9wRIlBH45/2/rf6QpwRCSkDh8iuVEKhQ==",
         "signatures": [
           {
@@ -1680,7 +1680,7 @@
       },
       "dist": {
         "shasum": "089cfe07c37590d6ab59ced31d5ff5b09f05145d",
-        "tarball": "https://registry.verdaccio.org/got/-/got-2.7.2.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-2.7.2.tgz",
         "integrity": "sha512-LRBTaTGh0PrPftdUrLEW5pT5Q1br7FS5IEDheiIHFad07Xg2f+9tXpIu5SlgUehzjOXTBKHFnrmW4KUdnEm0iw==",
         "signatures": [
           {
@@ -1765,7 +1765,7 @@
       },
       "dist": {
         "shasum": "98ed3b127fede9f667a1c292afd58f563e01b30e",
-        "tarball": "https://registry.verdaccio.org/got/-/got-2.8.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-2.8.0.tgz",
         "integrity": "sha512-zVPaokDGJkssGVoDdcoQRib+ri7mgFQZ3uNJybyuSznzgR0Zf6GS8Qmj//aGAK1Yd4LCm98gE1aOJXsFKU2mKw==",
         "signatures": [
           {
@@ -1851,7 +1851,7 @@
       },
       "dist": {
         "shasum": "72247785828e96df4872d99674f2a6196926d361",
-        "tarball": "https://registry.verdaccio.org/got/-/got-2.8.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-2.8.1.tgz",
         "integrity": "sha512-brCc/rImW7aldlk4nhg7W/CZK324vz/IteglL/Oh2UCCv1zyjRdoTgqPdoiODVEo0xY7F/hgSwrt5dh0d+gBfQ==",
         "signatures": [
           {
@@ -1939,7 +1939,7 @@
       },
       "dist": {
         "shasum": "ad2c3f9264271edabf5479f29f69606643dab4ce",
-        "tarball": "https://registry.verdaccio.org/got/-/got-2.9.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-2.9.0.tgz",
         "integrity": "sha512-JZROxKRD2tRiMAyNAkXWNlv5e2RiQCt7PJnTcYFQrq2jMhfMsFQbvOUx6F+eiYo8rEymbGOxW78qJCDPy6tgkg==",
         "signatures": [
           {
@@ -2027,7 +2027,7 @@
       },
       "dist": {
         "shasum": "8661f8a3302d774186e01dd86ea00ee99b00ac82",
-        "tarball": "https://registry.verdaccio.org/got/-/got-2.9.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-2.9.1.tgz",
         "integrity": "sha512-BWXlFrxP2lHMpWyvQqO/v/9v1peKAUD2z4JJ6B+fp64USbaZP3JtZu7lr1m4+bi7CcgEcroQHQihsiUrziMrxw==",
         "signatures": [
           {
@@ -2115,7 +2115,7 @@
       },
       "dist": {
         "shasum": "2e1ee58ea1e8d201e25ae580b96e63c15fefd4ee",
-        "tarball": "https://registry.verdaccio.org/got/-/got-2.9.2.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-2.9.2.tgz",
         "integrity": "sha512-Pejk/grjYhoAT4MiiWpg4/tXpzEjoY684TTDVMQigjidJUSIcsqDVlNmJ+uEZyq8aMfHzJmc0JkZ66FqiI6lLw==",
         "signatures": [
           {
@@ -2207,7 +2207,7 @@
       },
       "dist": {
         "shasum": "62c20f39fc5c48b32bd4da16041f96b897a1f903",
-        "tarball": "https://registry.verdaccio.org/got/-/got-3.0.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-3.0.0.tgz",
         "integrity": "sha512-Axb9actw3YURZmYbEPgE3RUkdfgKaPgn4RJovaSXqoIYLzmAt8rSgIVx2aXVsGRX56dCSpFyAZ3DDXMIsTkO4w==",
         "signatures": [
           {
@@ -2299,7 +2299,7 @@
       },
       "dist": {
         "shasum": "a9ffd775c1cf098a7fc91eb71a176a63379f0e28",
-        "tarball": "https://registry.verdaccio.org/got/-/got-3.1.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-3.1.0.tgz",
         "integrity": "sha512-awZE8o6ewmvF4/CEwwTWkPHhPPh3SU6/HPuTqmDAi+D71afmc8uwlf7WIhFKEk9cIC8TJ2V3Yc+cKSTZf77CQg==",
         "signatures": [
           {
@@ -2391,7 +2391,7 @@
       },
       "dist": {
         "shasum": "3182273b695da605c50003dc2d708217cf8156e9",
-        "tarball": "https://registry.verdaccio.org/got/-/got-3.2.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-3.2.0.tgz",
         "integrity": "sha512-OsrMR3SGt8gtsset/WTyWq28aflNvJIVPojuzj9NJBM5S40ZLJO/4pkyTUnwuL80pay1+DTj1wF0nmkypFVx9w==",
         "signatures": [
           {
@@ -2484,7 +2484,7 @@
       },
       "dist": {
         "shasum": "6b1cb3d1f576c2491536f0d28b6cdd23aa4de3e9",
-        "tarball": "https://registry.verdaccio.org/got/-/got-3.3.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-3.3.0.tgz",
         "integrity": "sha512-V1v3iiTQE/FazZ76DS/x5oy1GIB/6v9LjbF/C0XXUuTIMHAnSZX/+1hQPX60IMY3o0Ldre6HaHyFYtTCvGZldg==",
         "signatures": [
           {
@@ -2575,7 +2575,7 @@
       },
       "dist": {
         "shasum": "e5d0ed4af55fc3eef4d56007769d98192bcb2eca",
-        "tarball": "https://registry.verdaccio.org/got/-/got-3.3.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-3.3.1.tgz",
         "integrity": "sha512-7chPlc0pWHjvq7B6dEEXz4GphoDupOvBSSl6AwRsAJX7GPTZ+bturaZiIigX4Dp6KrAP67nvzuKkNc0SLA0DKg==",
         "signatures": [
           {
@@ -2666,7 +2666,7 @@
       },
       "dist": {
         "shasum": "9ea4de4f4c38e7893c145a82dedd231a56c111f4",
-        "tarball": "https://registry.verdaccio.org/got/-/got-4.0.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-4.0.0.tgz",
         "integrity": "sha512-Z+slHjzRkE41V1HwdBzt2Q1Kn1g3KzE6c3bfHIytbdXfpCXQ7+5AofDywcnQC1DGJP0nxDHSBaMeaTU/mz2JPw==",
         "signatures": [
           {
@@ -2759,7 +2759,7 @@
       },
       "dist": {
         "shasum": "96deff3edf46c93a19b7c180409ed73bebd24977",
-        "tarball": "https://registry.verdaccio.org/got/-/got-4.1.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-4.1.0.tgz",
         "integrity": "sha512-HGxpVizz5bFereRZyAMc3E5KbSrh56oRWDcfNrs0Z1nsNMBBxq7P1d/WvbW6rpct047nGe90Tior1HhPaCNEqA==",
         "signatures": [
           {
@@ -2852,7 +2852,7 @@
       },
       "dist": {
         "shasum": "52125e24d488fbfe42ec2ebf84ec9f37b4e3ff44",
-        "tarball": "https://registry.verdaccio.org/got/-/got-4.1.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-4.1.1.tgz",
         "integrity": "sha512-vpv4x6Z6RZtG1jWQkg+pvrT2rgPg7m45dvcQtpMiLz7xtTfINE4tNi3rBLvK3kyuiniDqqZuJ/KjPxUy908Wfg==",
         "signatures": [
           {
@@ -2949,7 +2949,7 @@
       },
       "dist": {
         "shasum": "af59f461834bfafd722cba01acf4c14a9dd5da06",
-        "tarball": "https://registry.verdaccio.org/got/-/got-4.2.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-4.2.0.tgz",
         "integrity": "sha512-aYd0MJ6WqVAvu9eTWPkMyJVgD2cQajQf3LqLJ9hkjJkK8vK4zcTB2VQ8lLWKJtNjllhOI1F0CCTaIwbdLrWtqg==",
         "signatures": [
           {
@@ -3056,7 +3056,7 @@
       },
       "dist": {
         "shasum": "e1e5b551b09ff02c58b0d0bc77a9028d23299474",
-        "tarball": "https://registry.verdaccio.org/got/-/got-5.0.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-5.0.0.tgz",
         "integrity": "sha512-sM4dgV75om5o+ht337jWBUSEV0S1aIYyu1jDtyxxDLKvD52qTiU0BvZ+VelJsE44iqJL7FJkxlWtzv0YYKbKjg==",
         "signatures": [
           {
@@ -3163,7 +3163,7 @@
       },
       "dist": {
         "shasum": "4735a4184dc3d248cae5105ca692372d0194242a",
-        "tarball": "https://registry.verdaccio.org/got/-/got-5.1.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-5.1.0.tgz",
         "integrity": "sha512-H2tlVQYCqb2kNZdcBwXqL/YRAKc7kR3fcLTOAQG6pHzV/JlZv//uZQ7S/wq9PbT6Z8DvrZuab9DnCzQX0eTWJw==",
         "signatures": [
           {
@@ -3270,7 +3270,7 @@
       },
       "dist": {
         "shasum": "35d15a3da4806470b674664823e9c3bb7924347e",
-        "tarball": "https://registry.verdaccio.org/got/-/got-5.2.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-5.2.0.tgz",
         "integrity": "sha512-b7YCi1lLdHFsVhXQv2SVjnzMwGbmAAcNdGJFzvJLfxLcSkUiogZ0By6hgAx/A4EvQnMk3GAcxzXRgnC4TAfCgQ==",
         "signatures": [
           {
@@ -3378,7 +3378,7 @@
       },
       "dist": {
         "shasum": "20830b1d5f6c5efa3601ed64d2ba07398c6415af",
-        "tarball": "https://registry.verdaccio.org/got/-/got-6.0.0-rc1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-6.0.0-rc1.tgz",
         "integrity": "sha512-trtYDhc4vNQ+E0mxK170vlNfkIVKVGhzh4DsyahI/w5+K5mHmss87DIoYJt8fI6xqXOevjpGm2UrvO4UhzYlJw==",
         "signatures": [
           {
@@ -3485,7 +3485,7 @@
       },
       "dist": {
         "shasum": "6619b24b185eec92fd420c1203dca1b224925845",
-        "tarball": "https://registry.verdaccio.org/got/-/got-5.2.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-5.2.1.tgz",
         "integrity": "sha512-EBGs9gmMc40nrCeJFypxNXrPA38H7Sg14qKwfB4u5VMiss+ymG7iRfinUfzwbiZlSXXWW2mZpharvhSydJEOHg==",
         "signatures": [
           {
@@ -3592,7 +3592,7 @@
       },
       "dist": {
         "shasum": "e1ca75936e6512ca7bd23632667aa320dac6e51f",
-        "tarball": "https://registry.verdaccio.org/got/-/got-5.3.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-5.3.0.tgz",
         "integrity": "sha512-NSLdTE1FGvfezxpsvivakCb5BUDp1pHUIgt/uSB6MD6kUOR6mKxAG+x+gklccSDtJqHNsLGYjYmoll/Ss45l8w==",
         "signatures": [
           {
@@ -3696,7 +3696,7 @@
       },
       "dist": {
         "shasum": "0800d65a33a255e1fce7de1dd46e1e0b8c62c875",
-        "tarball": "https://registry.verdaccio.org/got/-/got-6.0.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-6.0.0.tgz",
         "integrity": "sha512-1OrPVaKqLNvg4TkijmJ/jQs17pYdpuoXrRzohhngxEWnSzj8dPArxnqMdeLXrwJvuaqbBPyaAKbnOgAu3x6p4w==",
         "signatures": [
           {
@@ -3800,7 +3800,7 @@
       },
       "dist": {
         "shasum": "460455fdf793866a70c08e4d1f135e733256f528",
-        "tarball": "https://registry.verdaccio.org/got/-/got-6.0.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-6.0.1.tgz",
         "integrity": "sha512-5UyVDABlQkjTsxLum+bJrqwGDRaATl3j3a0Kk4xAeu8PpjGh5vz8ydNhwRNJZnVjtYXUWgm91QGkbdZM9JlrPw==",
         "signatures": [
           {
@@ -3908,7 +3908,7 @@
       },
       "dist": {
         "shasum": "75eb796aeb597726afdda572134cb02ad96f5d8b",
-        "tarball": "https://registry.verdaccio.org/got/-/got-5.3.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-5.3.1.tgz",
         "integrity": "sha512-kzwFcgOOOzS35ue3aE8soTWPSsV0DWXswTw7PAClFBhvCdz59HYZK2PHXmoSfKw8lCcXfBdDIjw6CmNpS+/SEQ==",
         "signatures": [
           {
@@ -4016,7 +4016,7 @@
       },
       "dist": {
         "shasum": "b1cac877522dfb262b4b666f0646d40b7b8bca14",
-        "tarball": "https://registry.verdaccio.org/got/-/got-5.3.2.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-5.3.2.tgz",
         "integrity": "sha512-Ki2O98pB/CZNjMipbxHZXlmcC8fMMX0T70NVw6oO6rIPXHR83JUdViaTdAktWaBM8UJ8cpV57/c525XY/Tjmtw==",
         "signatures": [
           {
@@ -4120,7 +4120,7 @@
       },
       "dist": {
         "shasum": "34ba1bbb8ba17c30f02bc78e9c7f013de730601f",
-        "tarball": "https://registry.verdaccio.org/got/-/got-6.0.2.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-6.0.2.tgz",
         "integrity": "sha512-pJhpokuuMkumFzdQgILD2iPXt873UaAyDkkSTrxGLMaA180xSFE6J2DGzZvoFvWH3Iu9kkQipk27T3Ag45ca4A==",
         "signatures": [
           {
@@ -4229,7 +4229,7 @@
       },
       "dist": {
         "shasum": "680e26c2f56450b9ddc4a295a1262eb96a65055d",
-        "tarball": "https://registry.verdaccio.org/got/-/got-5.4.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-5.4.0.tgz",
         "integrity": "sha512-ApoiNv2u4XLCdHfULkGL+TPjU9aAve5S1zeLvdt3ijA9copSeGiy+fzXJFZZEL6R0m3Mxmz0BwqnpLtLJYvwDA==",
         "signatures": [
           {
@@ -4334,7 +4334,7 @@
       },
       "dist": {
         "shasum": "8fd2c0f17e7a95753b0688ae5bcc86f41c7d5a93",
-        "tarball": "https://registry.verdaccio.org/got/-/got-6.1.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-6.1.0.tgz",
         "integrity": "sha512-tIKdxs+EuHBlRRUutLwE4BogylJpH5PXOD7tmeLisTbIRQv7SWEfYHYFyE2TqqneC9KzFokvSbf5XAjvX68Q1Q==",
         "signatures": [
           {
@@ -4443,7 +4443,7 @@
       },
       "dist": {
         "shasum": "d36ced55ff37cbf0541f687cfeb1c6e15f59e374",
-        "tarball": "https://registry.verdaccio.org/got/-/got-5.4.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-5.4.1.tgz",
         "integrity": "sha512-u383T8+Zg2lL2o32FNyIVSZ0Jn2/E6iY3dWX2Mit83HZvdbwruCitX4Vcka9zYj+UZm1Q9TJf9zn3bfD3OAgpw==",
         "signatures": [
           {
@@ -4548,7 +4548,7 @@
       },
       "dist": {
         "shasum": "d7fdeeade40b82b4e583d1c626f64ff5dcba1980",
-        "tarball": "https://registry.verdaccio.org/got/-/got-6.1.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-6.1.1.tgz",
         "integrity": "sha512-GhTOYXfxityDk1Z2jIFK8MeP0qw2gQCM8AVZrSeHD08+ExE7L0XJ3JSTZGDXE42zD+Csj1RJOt2yifUK6c/C6A==",
         "signatures": [
           {
@@ -4653,7 +4653,7 @@
       },
       "dist": {
         "shasum": "4043ab0571216c0a86758151b6ab407e92b4d1a7",
-        "tarball": "https://registry.verdaccio.org/got/-/got-6.1.2.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-6.1.2.tgz",
         "integrity": "sha512-mVEO2b3MNwX4HjyyUJK95cej8Ts5HeHdpM176wXuibkEHW/OyoFeJxdYNULgn0Hg65KzI8YTSYtI0xKqxJNXYg==",
         "signatures": [
           {
@@ -4766,7 +4766,7 @@
       },
       "dist": {
         "shasum": "e1ee8338823f06a488b092ac9489d7100e932df5",
-        "tarball": "https://registry.verdaccio.org/got/-/got-5.4.2.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-5.4.2.tgz",
         "integrity": "sha512-maPOYrshAq2rvnGNO7HSsu0aOZQMpgc4K973GT5HXqRhlMZ3pWfrJ0/HQux8jYCyOLVGYrb0BEcCH4s6ywyQ0w==",
         "signatures": [
           {
@@ -4875,7 +4875,7 @@
       },
       "dist": {
         "shasum": "eab52adb8b44fad77430ed828d0d531264afb2d7",
-        "tarball": "https://registry.verdaccio.org/got/-/got-6.2.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-6.2.0.tgz",
         "integrity": "sha512-Hxpia62tNRfwXyi2QKsIzAx6wE/LeL/1Q143RlJ7Xp8D8ed02XJN/8oIHft1tk2CerRy6SjtAoK1a4HB2w9Cxg==",
         "signatures": [
           {
@@ -4988,7 +4988,7 @@
       },
       "dist": {
         "shasum": "761cbbab3cda44e34123bf543d82c441b531f32d",
-        "tarball": "https://registry.verdaccio.org/got/-/got-5.5.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-5.5.0.tgz",
         "integrity": "sha512-zlycmLrxYE2ehvIZz6NMUazex9LIkNC78SgBW+WDdhEFT81/f2M4ypgF8gjfiZXn+ntnNVgmflyxU5/dSYeqFA==",
         "signatures": [
           {
@@ -5101,7 +5101,7 @@
       },
       "dist": {
         "shasum": "c7d0af2beb0c0e21a6cc2cf235c6591960118a11",
-        "tarball": "https://registry.verdaccio.org/got/-/got-5.5.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-5.5.1.tgz",
         "integrity": "sha512-Wjv7sefokCqfu0g5b8eqQpL9Zuy+s+fyWgxKb+oX8t5dM5cVgvr8aYjnz0RnPI0Dkk+1xn7qggntesIKdQkfvg==",
         "signatures": [
           {
@@ -5214,7 +5214,7 @@
       },
       "dist": {
         "shasum": "bb1d7ee163b78082bbc8eb836f3f395004ea6fbf",
-        "tarball": "https://registry.verdaccio.org/got/-/got-5.6.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-5.6.0.tgz",
         "integrity": "sha512-MnypzkaW8dldA8AbJFjMs7y14+ykd2V8JCLKSvX1Gmzx1alH3Y+3LArywHDoAF2wS3pnZp4gacoYtvqBeF6drQ==",
         "signatures": [
           {
@@ -5323,7 +5323,7 @@
       },
       "dist": {
         "shasum": "4699e801063f58052b6d66208dc9670c67c18883",
-        "tarball": "https://registry.verdaccio.org/got/-/got-6.3.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-6.3.0.tgz",
         "integrity": "sha512-ytNpmviWO2WRgXoQG+fOZs5SSCKTT5IPg7e67eroxS+r2sY4f5ePw7ZwSWXBqSLosaJjbZgDfyWa8tWCDFoQkQ==",
         "signatures": [
           {
@@ -5433,7 +5433,7 @@
       },
       "dist": {
         "shasum": "67dcc727db871c7b250320860180e24d2db18a04",
-        "tarball": "https://registry.verdaccio.org/got/-/got-6.5.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-6.5.0.tgz",
         "integrity": "sha512-cFQpjXGLXZWSbzQVd6KSh0QJfCHoFvCg+un318Vj1LLBnsipzg+WcU1GJaWJZXZluZnj+Q/deZezL4LzJnlHew==",
         "signatures": [
           {
@@ -5547,7 +5547,7 @@
       },
       "dist": {
         "shasum": "718879e60f824cc0f69721127b835379b056a3af",
-        "tarball": "https://registry.verdaccio.org/got/-/got-5.7.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-5.7.0.tgz",
         "integrity": "sha512-fpSKYC4+oQiC3t/bXjkWQbXvBceibzzpGMN2ndsBEiE9oBopm70zSMpQrotMfDs5UcEatBq8Tat2fLA3m3VWmA==",
         "signatures": [
           {
@@ -5657,7 +5657,7 @@
       },
       "dist": {
         "shasum": "8e9b2986e13c27bdea3b5f6707e11886131a452e",
-        "tarball": "https://registry.verdaccio.org/got/-/got-6.6.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-6.6.0.tgz",
         "integrity": "sha512-a8DE/d6Zl651ZIwMituuT3ET1bzje8nN8RJ/QQJ8rb2XTWusTaRNLXNKweqBQl79DEDvdJlseob6Z+At4uuh2Q==",
         "signatures": [
           {
@@ -5767,7 +5767,7 @@
       },
       "dist": {
         "shasum": "542d7a0e34676060e561b1b90d103876eefabed2",
-        "tarball": "https://registry.verdaccio.org/got/-/got-6.6.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-6.6.1.tgz",
         "integrity": "sha512-AMZNG/Hyjr+TlYsYltGDikBpvxM/AFD7bGy8krJS/m1y8HiLaHvYjd6Xsw97B/ESJTg2ZhXCgnCVRuXjlJVt8Q==",
         "signatures": [
           {
@@ -5881,7 +5881,7 @@
       },
       "dist": {
         "shasum": "5f81635a61e4a6589f180569ea4e381680a51f35",
-        "tarball": "https://registry.verdaccio.org/got/-/got-5.7.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-5.7.1.tgz",
         "integrity": "sha512-1qd54GLxvVgzuidFmw9ze9umxS3rzhdBH6Wt6BTYrTQUXTN01vGGYXwzLzYLowNx8HBH3/c7kRyvx90fh13i7Q==",
         "signatures": [
           {
@@ -5991,7 +5991,7 @@
       },
       "dist": {
         "shasum": "2419c558bd41eb601b29317cc0dc329c17076b05",
-        "tarball": "https://registry.verdaccio.org/got/-/got-6.6.2.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-6.6.2.tgz",
         "integrity": "sha512-FUaONtnNunfzigjJ9avMmze4Pdev0J/83/CnMK5/zCsH/6BFq1kKQIOicpdTyoZfJ8Nk1KUeDvCyjiiFB3l1pQ==",
         "signatures": [
           {
@@ -6101,7 +6101,7 @@
       },
       "dist": {
         "shasum": "ff72c56d7f040eb8918ffb80fb62bcaf489d4eec",
-        "tarball": "https://registry.verdaccio.org/got/-/got-6.6.3.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-6.6.3.tgz",
         "integrity": "sha512-/UAEexIJKE+4GnWBtx5xbtq1lKlMvscNOWxU9TakZ1DNp1boEo5Cyew1sFnoJaVhsLiR3YsoQufT1eQJOvtaEw==",
         "signatures": [
           {
@@ -6213,7 +6213,7 @@
       },
       "dist": {
         "shasum": "a3a7a4473f4f3118095b24567ec5c1b04c069d26",
-        "tarball": "https://registry.verdaccio.org/got/-/got-6.7.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-6.7.0.tgz",
         "integrity": "sha512-pkTSYj7Qmt5pcg2QVwo8JaglF76LbGNP+kcha1ELPZAo393vJNrWu7zsqz+bEVlhxqIxbMQjEsksDjPfnLK7jg==",
         "signatures": [
           {
@@ -6325,7 +6325,7 @@
       },
       "dist": {
         "shasum": "240cd05785a9a18e561dc1b44b41c763ef1e8db0",
-        "tarball": "https://registry.verdaccio.org/got/-/got-6.7.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-6.7.1.tgz",
         "integrity": "sha512-Y/K3EDuiQN9rTZhBvPRWMLXIKdeD1Rj0nzunfoi0Yyn5WBEbzxXKU9Ub2X41oZBagVWOBU3MuDonFMgPWQFnwg==",
         "signatures": [
           {
@@ -6445,7 +6445,7 @@
       },
       "dist": {
         "shasum": "82d439f6763cdb1c8821b7a3aae2784c88c3b8d3",
-        "tarball": "https://registry.verdaccio.org/got/-/got-7.0.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-7.0.0.tgz",
         "integrity": "sha512-cfR4V+UQSf+M0ADi4B/3mOCCZ8qTy4wdY5sMt+p3TXKxlGxv22WMWKQfYPD2KEjGqPJ+1W8xYvqqzwqOXAxnSg==",
         "signatures": [
           {
@@ -6565,7 +6565,7 @@
       "dist": {
         "integrity": "sha512-Y5WMo7xKKq1muPsxD+KmrR8DH5auG7fBdDVueZwETwV6VytKyU9OX/ddpq2/1hp1vIPvVb4T81dKQz3BivkNLw==",
         "shasum": "05450fd84094e6bbea56f451a43a9c289166385a",
-        "tarball": "https://registry.verdaccio.org/got/-/got-7.1.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-7.1.0.tgz",
         "signatures": [
           {
             "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
@@ -6690,7 +6690,7 @@
       "dist": {
         "integrity": "sha512-lqVA9ORcSGfJPHfMXh1RW451aYMP1NyXivpGqGggnfDqNz3QVfMl7MkuEz+dr70gK2X8dhLiS5YzHhCV3/3yOQ==",
         "shasum": "57a11f841edc58e3f3eba4b3ac220faf5133770f",
-        "tarball": "https://registry.verdaccio.org/got/-/got-8.0.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-8.0.0.tgz",
         "signatures": [
           {
             "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
@@ -6815,7 +6815,7 @@
       },
       "dist": {
         "shasum": "6d7f8bb3eb99e5af912efe26a104476441e08e7f",
-        "tarball": "https://registry.verdaccio.org/got/-/got-8.0.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-8.0.1.tgz",
         "integrity": "sha512-NQN8s8Nt6jEhf3Mu+vfCHf+kBNoVhQhPiNInTDtM98tXtgHfQcbptyRDl8JDdf9t49GyYyOajyaoR2KcBOrA5w==",
         "signatures": [
           {
@@ -6940,7 +6940,7 @@
       "dist": {
         "integrity": "sha512-6zqdrXga5IfVEgnOwVRcDeSBIRM6oFMcznmZs8iq4herWtVNRMWMSQS+qaBwzMuutuonWJEhGKmWMslvmWcFMw==",
         "shasum": "94d2054767875df4d5eb330f703c63881fc9cd64",
-        "tarball": "https://registry.verdaccio.org/got/-/got-8.0.2.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-8.0.2.tgz",
         "signatures": [
           {
             "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
@@ -7064,7 +7064,7 @@
       "dist": {
         "integrity": "sha512-U9GopEw0RLE8c3rbMmQ5/LtM2pLMopRxV7cVh6pNcX6ITLsH/iweqEn6GqoFxoGJHRbNZFvpFJ/knc+RITL6lg==",
         "shasum": "15d038e8101f89e93585d1639d9c49e8a55ae6bc",
-        "tarball": "https://registry.verdaccio.org/got/-/got-8.0.3.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-8.0.3.tgz",
         "signatures": [
           {
             "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
@@ -7188,7 +7188,7 @@
       "dist": {
         "integrity": "sha512-clILMRaLB1Ase3NWiSgTUrhpc951Z5V2IMtcFp8SKwu2aY+aeZZUuv/KKQmix+pz+Ov9SugLry6+JsBezHa9Vw==",
         "shasum": "353a8cdf85ef8f958a38de7729610c43c179141b",
-        "tarball": "https://registry.verdaccio.org/got/-/got-8.1.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-8.1.0.tgz",
         "fileCount": 5,
         "unpackedSize": 39785,
         "signatures": [
@@ -7315,7 +7315,7 @@
       "dist": {
         "integrity": "sha512-giadqJpXIwjY+ZsuWys8p2yjZGhOHiU4hiJHjS/oeCxw1u8vANQz3zPlrxW2Zw/siCXsSMI3hvzWGcnFyujyAg==",
         "shasum": "0d11a071d05046348a2f5c0a5fa047fb687fdfc6",
-        "tarball": "https://registry.verdaccio.org/got/-/got-8.2.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-8.2.0.tgz",
         "fileCount": 5,
         "unpackedSize": 39828,
         "signatures": [
@@ -7443,7 +7443,7 @@
       "dist": {
         "integrity": "sha512-kBNy/S2CGwrYgDSec5KTWGKUvupwkkTVAjIsVFF2shXO13xpZdFP4d4kxa//CLX2tN/rV0aYwK8vY6UKWGn2vQ==",
         "shasum": "6ba26e75f8a6cc4c6b3eb1fe7ce4fec7abac8533",
-        "tarball": "https://registry.verdaccio.org/got/-/got-8.3.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-8.3.0.tgz",
         "fileCount": 5,
         "unpackedSize": 41679,
         "signatures": [
@@ -7571,7 +7571,7 @@
       "dist": {
         "integrity": "sha512-tiLX+bnYm5A56T5N/n9Xo89vMaO1mrS9qoDqj3u/anVooqGozvY/HbXzEpDfbNeKsHCBpK40gSbz8wGYSp3i1w==",
         "shasum": "093324403d4d955f5a16a7a8d39955d055ae10ed",
-        "tarball": "https://registry.verdaccio.org/got/-/got-8.3.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-8.3.1.tgz",
         "fileCount": 5,
         "unpackedSize": 42079,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJa6BgNCRA9TVsSAnZWagAAeNwP/34bcjZvnu7Z8s0tCxru\nfRdWjUHrBk4nIdxII0cz9uthhCDkOv6CN6R4P01zkw3U9lI5yoDPebUlqXww\n7Wz5HcODeiAWtjD2OKwDDKdi1ShTdhXKd8mvz0/CgYgLjDwzhxqJwbmSGHZt\nXA1UJfQ2k4ttlpf/7fxe5YEUBQy+vwpMUS0VT7hNEiE8N8DJtg9nj6rXCQ1b\nBIEXQLinfQKtBx6W0I6tdfWDoIJCGjbKsDqsxjCOB2fnxC7K3IBkUahAxw9v\nlNMqOzXgCj8BUkkUaJt1IBmSMr2nzG6HQ6L4MvpkTK9Qeb3bFHD8EqYgCfUB\nsTNupR7W3cXY3H9R8b22BSq+91GS8m1AMFmfVIgxbYV+qv6dSUrqFrh0fUln\n2cnZ1XjWJVvtXBWW/4xceQA8s5SuNfyyrb0kEywj9YzhGG/XfeDyj1NiQJdT\nkKnfT2BIusYR+4ePrioWU1p2KlZbVXUbLGM8yPSl7uTTJS1j/TjOcYgYQqnV\npolyw9z3nOIJPCvjwdl7GV+ea96bBKhifVP1oxqESOvRQUwNWFnD3Ear2GXj\nOfFFJXRFDEPdg7+RvgLpn6HtiR//CGiwkXFjPuLKamlCH4lud90lkA++RdAD\nrByNrS7CLf5WsTl5c2eXNmgTviBxZ18Ej83sVGnAjn0LVbL9NC87vm8TGOkw\n/8Bd\r\n=kfsS\r\n-----END PGP SIGNATURE-----\r\n",
@@ -7700,7 +7700,7 @@
       "dist": {
         "integrity": "sha512-qjUJ5U/hawxosMryILofZCkm3C84PLJS/0grRIpjAwu+Lkxxj5cxeCU25BG0/3mDSpXKTyZr8oh8wIgLaH0QCw==",
         "shasum": "1d23f64390e97f776cac52e5b936e5f514d2e937",
-        "tarball": "https://registry.verdaccio.org/got/-/got-8.3.2.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-8.3.2.tgz",
         "fileCount": 5,
         "unpackedSize": 42097,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJbOztZCRA9TVsSAnZWagAAkHAP/0wgOosxGWAt+NpUaQNh\n+CccVWx2Kdbym5AvviSF4jzNp0TO+uorMLgE7mUk2fHkryJQjtmTEdSOV0AF\n4rETEIqvYv1kiGTaXYYAylWzWZR/Kh3L9fzMltEhamXKTSGsIVBMiJHEQeEU\nDE9v/iEPa/+WqjKYGypiUMH1BxtrRzoJn/kRqkPjOlgHloHBoEVAO7rz7V9N\nnprEt/4wDp0Hot+LT8caNRDvgjdk3RgHkrkKq3g/hQ662z1QVhZOWsw6ICNR\nXMbn7RhZAJOqO6QTSAVzO7ztaNeQPlDjU18ddTktn5y6N6tMhFju/A3HJ38n\nLaTv8D0ojMlXQaD1LBVvIa5IdGXVwaAi2GznHvjP2R3vB2SVw6GHODxzrO0p\ncQyc8sgN1QPznDAFBHCIZ8UrUqyMSBeJoJCGLn+ImPRUlL/++em96qa8oXDm\nN0eAUys7GVsbL8NrXP4JHyvccvytG+jvAQAzFnj1OHIdPkIy+fbuDX5ZWbjl\nW1hR55MxVBjFda2mj29jnvgtqt7AdFCL+vgEW8HiWQudjUJzbP8wQdtun3Fu\nY173NF4PUIxFDQedZQbPW59dasXdpEUaeEdoCN904cPYd0k6dNyWwBgclnqC\nEmWYzk8N7QsWAiy/BekK0D6tkVrCtZM46vYVqO4uIkT5VNd8ASmfSy54h/2L\nCTCj\r\n=8ZZL\r\n-----END PGP SIGNATURE-----\r\n",
@@ -7804,7 +7804,7 @@
       "dist": {
         "integrity": "sha512-TumaTIc9kYMFTkLwtvELc1IQYpQDqKqVuLx07I+kQmWHF6LELztdtHoy7w6UYkLfSkNnvzMRkasC/75aJMNiHw==",
         "shasum": "8673d2838adbac8a2e4a07e5772e238c701e9b7c",
-        "tarball": "https://registry.verdaccio.org/got/-/got-9.0.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-9.0.0.tgz",
         "fileCount": 19,
         "unpackedSize": 61968,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJbZUskCRA9TVsSAnZWagAAlgsQAIdbMp39An9WAovDBMSS\nVlux6ohlAe8xAY/8UnvVxbt4k0gI7AWRX0skFxfBGeizAboUhbGRFzRc6j/x\nHxEmgmx9btpi90DcpRWCNgYZHH2qhrD1nG1y/UhiNJ+9jInAOiOG2FWU+ATu\nqlrtYFO+/kxlvLG/TshzQBB1c2WCHiMjzDnzslKBY8qH6/DG+tG1z8CtW/so\nfVOOKMLojujoXaq9zZA17LwQ/Z6IiSbx8xbRPrCbLKP7jISnlHI/EG0LC0vk\n7jJKW4qSF9RbezC4Tav/uelMaSlD89Da/X/GE073y9lDh9U2tS6SwFArJgVu\n7ikMAIiv/77GdpOOIo0Pn3AZGOHXzKF3UXZ750naxQwgjtNLq1MPsUaJiIn8\nk/jjcXsobTFwX/LebQ1XXRebZiJt1PjKRabcYvS5gzk8szCNGcqa4uZMYPAp\nGoz3R793/tq15NiZQyWZ3owSyfJJ0mnDJsjsTxsWT00GgBD96d2Nl/EBjkx4\ns4iTFT6uZwwF7P3ipe81JTQIpqNjWBGbwsi9N9QazdNCydfC/KB2FCac6OaB\nL9fse9CRCsvQkF2sGKaUdfeaK5lsvNZ0gft82LnWJxpsrkQU9ZDw3kMXPHx4\nG3LQGuQI0F/+Le8yPJ8sXZ7+Rlt73VrgHzf9VelmM/CVOBJ40AEhkNKHXfdb\njcEi\r\n=EhYC\r\n-----END PGP SIGNATURE-----\r\n",
@@ -7930,7 +7930,7 @@
       "dist": {
         "integrity": "sha512-jAFv4Y23cGnIjQypO5NYuxw+UZDy6MdSX0mp8dMFb7niTQ+4xKhXIpE4tD/blMC/wxhDV1M13SdAPyheKwAeWQ==",
         "shasum": "e31aa530bf953ca51599c5722039f891e49cf2ca",
-        "tarball": "https://registry.verdaccio.org/got/-/got-9.1.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-9.1.0.tgz",
         "fileCount": 21,
         "unpackedSize": 69011,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJbfqDkCRA9TVsSAnZWagAAE0YP/RtD7TXKkC1xPiM8PCUE\nmp9BBs5K4KX9OcusEfvIHYLEzKaggJebnJKczrLieQcneFggp7dCUnqnZ6/S\n+DCVrXbM7nvvap8IDbRBrqZuEf2JF8meHuK2+XKDjJ6fQ6YldbMcPpWOwvJZ\n5QpYP6DMdvCIVCG7/5lewx4fsOe0cZstTLXS/CUgFHn4T5z2NrZIw+ilplgi\nIzw8pMxA+icYXsnxfCxv3SQen4ahaSvU7fYAUEdrmpIoqSiBPFIFLECGa0rG\n97xCXJgW93Brqhzcy6a2w9zBAlqjwq6Q853u1V4RECB4iSeC9WcLNwPFB5vc\n5ghq4qcaigx6C9zig0kVrMozBK41GU3jsk5F5yeqwU6FntZIocDCPLjN6c7f\nBa3dF0+foDFgOX77cMF234U10x/BP+RN2oy/XZd7UgEkIJwZGmJAHpG1TGMU\nZA4PZ4Ter6OVxUsSPmv2nEJtzvj+O4ZvHIN9cfuQScTR4vhgWu44EsN4JHU4\nlxmGU5n6W8rieOzUd1uaFKhRY0N+KsSEpzZmJjmT4D+1mYs0uX32cJzXRo5y\ntvvvnsON8YKL1ks6EaOAkZ0p4hlFRT1+bWE/LndArgJBOB3Zn2gJfa00JXtE\nfDI5cbeYR+xR8FZ3ZMewb5PZh+qspWlsoP+uSFXcYtNHsYMYtcYKUZ0LPhGp\nJJa/\r\n=w2gD\r\n-----END PGP SIGNATURE-----\r\n",
@@ -8057,7 +8057,7 @@
       "dist": {
         "integrity": "sha512-H6GUT6PMamiIm5pVufgmfmuk7Tl92Vr2RHf8n587SGs5HPiarOUVrmyL6bGIfX/mJ5IEUMpHEdGR03LSIHhZrQ==",
         "shasum": "f6aa4e26c984a3175f1073c421e2e40640f8295c",
-        "tarball": "https://registry.verdaccio.org/got/-/got-9.2.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-9.2.0.tgz",
         "fileCount": 21,
         "unpackedSize": 73350,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJbiSOXCRA9TVsSAnZWagAAXVgQAJJ5y1HPxKzm0pxihNWF\nvNmb2Lpm42MezqqGnSNJ7VerYKDIrlctskkJ9mNpPbe64mw23vIIpVBOHt2h\nY2puj2uLiQlIXg3YPoamotixyq45GsXrqMY+f59uVwJuWIREtL8+f1OXS0nX\nuOan1f9w4GbFcUklZhIc3hfH4Ds2Dr5PKlFlByCfOHKUxaD0ZQh5iVVkTRPg\no25kJLDbNTlbbhDaIv1Z0eUhruO3ZYaYRjS+niS+Bqn7ps32J97ZEHazLVXY\n5riFQMi7Hv9dRKTyCFPxHWDDMi0SVdehMSZQmVlrydt7HnANQMev+mq73NxF\nRf1iGnG5lp0jF4oFKyh22k5sCslVUl2UBBOKMrrKi7jgMWmwZQGDe/2VToSS\ncj15ZmbD7DqYJFzzsNrirdz1kzTjvAbKyXqQ2wHFR9J4aAWyo9anA7LfY7uH\nu2ZTVBtU2uEWIpfC7kO3VTrOoq5mp/4fv0L9TJ8sBAnd0AMUr5VozTPN7NAw\nD9OpUv9Wem/T60WeuRwldC5Z+dyjT1Kgyxj7eb9OIAP3CYq9XO4Fdxcr1/mb\nyu016z8NWo+BkZrJ2Fv4yp7rThQ6kh9kOkigbj96yGGNX9ZcU6xK/2tQxKkv\n2S2gWqaxuflYjDM4AVzq0PU6F9CrcZOakLFwKjQzvl7BAvzrmDzAod0mkZAb\n0n2K\r\n=5udz\r\n-----END PGP SIGNATURE-----\r\n",
@@ -8183,7 +8183,7 @@
       "dist": {
         "integrity": "sha512-NntrjQKYtdvTIXUiwPL9kc3gJeJS61UncPVsldGaN1t+k3RdXEUOQcd4zx+mMOnmuDqm2/Gd9PEFSvaQx/so7A==",
         "shasum": "dc2145dfa26ee8e33a9b22e0c54a630f1c2df0ae",
-        "tarball": "https://registry.verdaccio.org/got/-/got-9.2.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-9.2.1.tgz",
         "fileCount": 21,
         "unpackedSize": 73538,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJbkQKpCRA9TVsSAnZWagAAzFUP/1uqNqvaZJWEXmjgK40m\n10wYyPQPcAUItakWDss0Hz/PE7v09PyubV8eLF60eoqG5Wcg0h6mIlKj9WCS\nWIqtylGM4G/oHAoMk6C8h/EBTIYcTRU4SGAZen5qy76HI6Ju6s/xAQs4iK8P\nkksdugOl/afC9LHK4sEitPTRYcZ4AX72TD69o3UeIHb3qPOOdzBbgOhprr4g\nrc6OlwuWo9NSkoRQ+B2ZX0IkiN6mxj9HkbDR7s3zVfTFt7UNAFuGKa7eIbfH\nnd7VTxJ5M5IeNRVWr2a4dxIcd9bmksRxTKrTtrgY8JOOMS3CM0LMmXOzmFoY\nIo8u/Ekt0manfl4QG+DeRNJ5NNr7EjTOTnuUNDjty34JqdxrKQFd4jzwpR3w\nkFDBNklcw1InNry4WJEzUWDprYLbRNWpJtnVDWP63Xjyd+o7Kp1LdS32+ZPn\n7CL3K/YO1VV9tr7qRFiegQXMHDsGaMyh8rdaLZ8smOhV2JD55uKhFPV+Qux0\nhWd+i0CQEZyKsYfNu6ytCNNLgBa6do77rS/I6boK+jTTGvBGx30CJmrRt3qA\nBJWQESL8Gs2Q7JOhJq0gb56c7v3xmDVQT5KCFox2NuB1Ztcr7EJOS0lOkMKK\nOJ2clbcwp8qtEoZmFvkXomIJBPSYlHtKg8ldRi3slgJFe2l1ybd5x2Vry3pe\n429x\r\n=hJ8L\r\n-----END PGP SIGNATURE-----\r\n",
@@ -8309,7 +8309,7 @@
       "dist": {
         "integrity": "sha512-XLXmtO1QxLuzj6t4JBClWD1NI/bMvsR9utYl0yyPg49eUJjqU7HaQhPDvSVGwYoSbAqsRfe5aNZXHl1Zctzwmw==",
         "shasum": "d6cb73f40d4cb512864c2f66f275f258ab43aa25",
-        "tarball": "https://registry.verdaccio.org/got/-/got-9.2.2.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-9.2.2.tgz",
         "fileCount": 20,
         "unpackedSize": 73699,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJbnznkCRA9TVsSAnZWagAA2YkP/1GpaPLyaewPZn9M6jCq\nNcLzP/aG4dFS82ML1hlTawg3g4Yf2Umyxchb7C5TqTsw7HRWWrVfMl1Xqcca\nqKslpQxCOypPNrfnQd0EAdoE56d7IWoWIzV03UZo+8Dl9qgOOdp6d5yqM6Ty\n4TAru0RRdmp3QjBGND1EVeyccBaDgYbrFcMAt2H0OS3vkIG8cTFd5sh1k6WV\nZIUxoH3nvoj2ktY2BumWi+QHEqKGSMkHOuHof+K33IGSqMR+3PL7QaV3ef1G\nhINX3QGgI1zclIS0Rn82f1qD3TejpgNYH8zTyaT023hHAYOKhl/ZVVP4BYgV\nUx/e0eNCb7ZVPFngjJqtxKQGGSAFGDfFxsMWyjEANTVYoT0pu+yak6ZMkwou\nBp0Garp9Rx8fDzbchB+HbnewRLPg1meIyWWKy4EWoW2VO+SYpFp69C27ag+6\nS2Lg9UeF+Riome0zHoMTWGBukGj6NZ7r+kjNx/1DM1noTpqMNmJI0EtwIPt1\nP8EN7XHTTmILs19jkMx56gSFTLhgowIlBw4E7oVvFWrEdMfq4PZvNaWCOGkv\nyH2Lhn7ZdAL6xLk9idgRyghNlEISuzv0PZXf8r6iWWfq/fn/00JsyiRNmvgL\nq/cMP0E1XNe5vda5Fs7ITt5pNti9IGADiXy/MGxqNVRMaiSVssHWx+ejCu4x\n0Txm\r\n=odMv\r\n-----END PGP SIGNATURE-----\r\n",
@@ -8438,7 +8438,7 @@
       "dist": {
         "integrity": "sha512-4WTeObCRe7hatjQmeCwmkviu+ibyfeF5v6De+FeZdfsLEIe/7d9rl3VOzrknXveeQV/Pq/+f+KbscBQsP8ZxUg==",
         "shasum": "9187472a6e7c642264d041b0e670fd8bb1eebb67",
-        "tarball": "https://registry.verdaccio.org/got/-/got-9.3.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-9.3.0.tgz",
         "fileCount": 20,
         "unpackedSize": 78111,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJb2B4FCRA9TVsSAnZWagAAjQoQAIRujBCd0vssICbEtXsB\n6RnNXClXjEGkYwd2WbipnKggWc0O8mxoYjfotliGDa2ZGqkAzvgOSFcDBXTS\ntuRsKjGm5as1Am+7WzZvHMEUVoCsyBmItknWKc5zQWd02GM5PQKaoMInep3G\nhXP3t4u7H+HccHd66YjZG1XsWnHsXdttIxubcZUNCC83irHujPJxr7OFja+D\nTjZHM6QCY6cQW7yT9f1mALU2EI5Vy29tBc8/IAhsqLL8YBZMeLTrdwtA0Pl1\nfjSf72XLYYoB+pLdD6y0KppJ0+/rfq9xxVyThcbl0dIepf85jq2uZBriMB4t\nDppOyv3wSBrAf9vR5fE8ta0NoklAmstZLfmf5MrbAhV3wWRmKCQMaVn4ZgO1\nY4UJuXz3zcdxbZmtRcWWoUYwkTCEaVF0JDC8o56T3ZL250zkmqyN5e/+XJi6\nXTM5EJU3Wx/ykre7zitVrkOQJIHFYAAyrwgJO6/FBqnbStF7CEe7ihByT9Xf\nZ5kFtwqEe78Ubrr4lcS+hVvMpPw2bgvHnXMZBdvegLJONeyIPKr2wCSlKKDZ\nX2uH2ehNyHmbDgcweGiHxsepDH4Bho0Do4iEEX6nYQuG9EP7VlUV8VAB5HSM\nCHtkDsfuWEa3QNRz0dduwDJynPbXFnATFvhU6kW6FG3Q/+IloTnZXQtkPxWD\n1t+h\r\n=KLLk\r\n-----END PGP SIGNATURE-----\r\n",
@@ -8551,7 +8551,7 @@
       "dist": {
         "integrity": "sha512-lIVTDQipyF6uz7FpfHJ2Yd67tgb58C6eKAE46CYPqPj4BEkCT/HgdeRx8nF64BbVJWasEtlEJ3OBziuwl8tYrA==",
         "shasum": "f0e6d531e6ece50375de4f18a640b716862f102c",
-        "tarball": "https://registry.verdaccio.org/got/-/got-9.3.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-9.3.1.tgz",
         "fileCount": 20,
         "unpackedSize": 78282,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJb3ZKzCRA9TVsSAnZWagAAMXMP/irGKBjej70LFOWENauD\nSj6xgGcdoVFBGPdk0ES8Z75hHCEkBpYt2ARztCeZVQsi7MCOFLm/Ny09VeOD\nZJBRkBO73cA9R24e4PFTuG55yv0SaIwgqz5Qs4tzDhAzJW/hidyTS42VQNYn\nYpcGJw3w4Wl359+cIAX1Jt58u146/QErUAAzp9kg27Hb6pZKFZgvrgM/1OT9\nLNZvHxul042kx/icI+4cAWYTLCFQmKwzh3WKvjqrkGjvVPQOPaL7dRyhTyYy\nWB3H2DjRqdfG0znfw+upY7RKM8PkJacC/70/SrDkC1uWjBmZjNISv5ThgJrD\nWSCWWls3ciz7j9mzr7YQ9VZQ5soRipYhXr1w2OSxuy+HJjeQHCcIccuIxWwx\niqNTnybVj26SQaP+oWbtSg5ZhXCExEJZP86BaV8KirJiUPMoj2IM1asIeDJS\n9m6m9ujAKj92FXMs82n8w9zOzmnlPDpoaWfuckqKQt/EeGBqEmwpgO95ctvu\nxOq7UwPvy8XbaCHXnk26enFqv2TLCoBdRQL7atdRctp2pdQlBMs68whzAmGX\nI3cjc1I2dy4tOSB449Xl5wrP47UBCibudV9SheVZItAZeoAGbP+OMad0UhbF\naJWSWBnpymQ73QnP7JUahoyNlPFZM8xY+uYotgVoSQwIXz7b7x6BF2BVLoA2\nghX0\r\n=NAef\r\n-----END PGP SIGNATURE-----\r\n",
@@ -8664,7 +8664,7 @@
       "dist": {
         "integrity": "sha512-OyKOUg71IKvwb8Uj0KP6EN3+qVVvXmYsFznU1fnwUnKtDbZnwSlAi7muNlu4HhBfN9dImtlgg9e7H0g5qVdaeQ==",
         "shasum": "f6e3bd063aa8f461ccd924afa2ba2b61deab3989",
-        "tarball": "https://registry.verdaccio.org/got/-/got-9.3.2.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-9.3.2.tgz",
         "fileCount": 20,
         "unpackedSize": 78279,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJb5GHdCRA9TVsSAnZWagAAB3gP/jr+HqvMb1wOA6dWepkf\nxZJeDYK+ZsCpopn/tJy7Z7ub+QNj/cSCaiQkvJfPR8DF3bT/CnF85pIlGFy5\nmahdhMbzotS5T+JqKdqT2aaCOPOEKJ1YmTElqhfHRLDICSiiwYnlQq6PyMSy\n3ouzkvbd/yHlaHb8MpfRZuVqlmzpCtprzW+/vsocnKauTys6HM06Hs8gvRbG\nCcG8+nhBQTlb8Q/mEdI1KZSAjVPbplXCauGzJusrU+sFYhm1TIbZt11UHbGB\nqq3h6WQTvGGJ3utC/doVRo7ltxuii5lwDU1AJJZCfLo5CliP4dLJQOnJbsC4\n+H1vNQKkqEBnS/4NesfbwrwlkQt2IB2nWNWOIaCVziV/vBeFlPk+bztTUh9Y\nSsxLivU2exkxFHmB6b9K/nJ8xNak/SwgKTc3ny8UQaGe4pw8ODtdQIpK/lVM\nOMnBOxOSuvt+/XaCXkGCWPbpgbTQIEPoUoNnitnmdfd9wSlSSDuTDNUtiSCw\nh9mPwb5xkv4L4ilMgORjlU1Arn3d9RoU4wU6BsuesY1+B0JBmgLKdAAN8dpo\nA1Qdj5X9ZFvPHi5eIRq6zruW4c3KHS6f1yk9dKp6HjOSALshAfnwg4HWq4CR\nTY7PFz1r1kJek8rdKOdOjMldoDFjezEX1hAvz4YqV5ANHU0a6yKz8xEPNZUn\nOjop\r\n=x5o2\r\n-----END PGP SIGNATURE-----\r\n",
@@ -8777,7 +8777,7 @@
       "dist": {
         "integrity": "sha512-k15lhRXITxW0eURHfEGzV+8pBYBHtTrYterFlMzP5rXQcQMPikDC2wvZkgivcJwGH4bv1JzMUTPlHfYGhuXJnw==",
         "shasum": "3b52a54306514b0404b869e1ba572b594772f2b1",
-        "tarball": "https://registry.verdaccio.org/got/-/got-9.4.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-9.4.0.tgz",
         "fileCount": 19,
         "unpackedSize": 78958,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJcDtU1CRA9TVsSAnZWagAAR3oP+wZMXB6xaEZGEnfBEukz\nPnADzLPrvlYV5lacVoLjy286NuvITaRFw1OmnPI+3woETqGVwk5FDJiysZ5g\nhDDH2lyJRC74P+Crc7FveZuQ+HWXUSRNp0ysCp8ZoiTu0alsf3VuGOAfPJ+C\nkfAdabF7kQP9kTQYc1rrV+FxNizOINYwfKSVx1c9+vhZPTWF/vv+9VSBQQXk\nhXZer+NA+VAMffU53s1ai9Sb3wYdgWzF7ZO8vkUdL2d5Z1JaNQXqDPZ/S8IZ\nqa13nwyRBjx590uU0qdg4TEjzpg5rMwtlk6gxaUE2VHES4Cctj1YyO4uNBEi\nbpu0FzNYDfVJZCWBe7+1WCrTe1h+WMnxT98jG0ghMsPOEqRN+8+DHZgNE9tz\nHrwa95OR7pWQ6yl0ka08/9YRKWzgI0Lqg1ZMVzfmo74ol3SZvyAwGcrYHZc9\nFmfMD4iAvJxv1efqLhlrCiABaCTMP0rqT2ySjRwRG55O9JHzq191PN08oDQP\nMxw0677IZPywc7rg+OzLmUcuMUMI3Zj6F5iive4V3FMvbl4mYRz0vQIRBn8N\nUeeLvzBu2uKCsujt+OX8qOWWtrTXTDOFuhzx9SWZbb3Bj19Ar4zRQ9vfqyMx\n+L0Zz/Cj+ykfDf2ncfJw56PKlxIe9b5llpb33KjBe3NZXpaNDfWeY+9PT00c\nU1KF\r\n=006q\r\n-----END PGP SIGNATURE-----\r\n",
@@ -8890,7 +8890,7 @@
       "dist": {
         "integrity": "sha512-N+4kb6i9t1lauJ4NwLVVoFVLxZNa6i+iivtNzCSVw7+bVbTXoq0qXctdd8i9rj3lrI0zDk5NGzcO4bfpEP6Uuw==",
         "shasum": "6fd0312c6b694c0a11d9119d95fd7daed174eb49",
-        "tarball": "https://registry.verdaccio.org/got/-/got-9.5.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-9.5.0.tgz",
         "fileCount": 19,
         "unpackedSize": 78920,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJcGQ14CRA9TVsSAnZWagAADaIP/ikaJGjKPXnDcTabh1il\nr6VJTG9+m6i1KpW6p7UY1Q+/PVQjDx36oDOhjrymFHVS/E2fmG5J1gkwFNWi\nBJviGw8AnIDqX2CqMrJrtLmONrx5fbHWLOd/GmVRQasW07JC2bQbuFs7X5Qv\nECZfSZI6RDM2EOviEN83d8If53uYGkZ9NSN4F9iwDnRngxIoI1ooD+BxCCx9\nkpP1S0GA4UMUWPQ0IZcax7HIDzkgXl9OQMuyPgrWkGXS/aG1LX+BB51Y+HRi\nTN7nPMGT0yay7vMO8dAiMacnua28l4aeb5Ln5Q4KcUhuGh4wPoFzVHoBrR4m\nAPHMQNQNj8UZVMn6UmxpbR5fr8FW3Z3UyDb7EeJKo8INdqTB84Rd902amWux\nOZBw2eqSqWuFwKULkELdecF8kDd5if5C8np2xl6sGocvtBWjGF7SgUZZyLdS\n2wodfX6O290GtQmUfQbfn0B8LMI4G8pfQTzYm93KeL48dVSxG3uBZVKAZNDy\nqgqU0nwM5ZShdtS3kvqT3yUA4/TO/nxVx7x6h0NVGBZsDt54UuG4S/Ux9uzi\nrxcYD4pweTxDLUO+XZg1IJojSbg+i+kgHF74hvHFjHdLjRMkWtpFuvybfP+s\ntAJa3f/53TidoUN39vFuOWGY9pA3GTL5cYogOdLxPao8+peHUzOWezDa8W+y\nDxMH\r\n=9JRB\r\n-----END PGP SIGNATURE-----\r\n",
@@ -9003,7 +9003,7 @@
       "dist": {
         "integrity": "sha512-a6UC2YXj3UPQT3UOzCCovwna4WPpN/OBAiiPSUwQ9gFranGs8HQjidyRmen2esBVlauqLWDbMwSTFDtxYNUv+g==",
         "shasum": "9cd83c64978225790c5142fc4e492cdea01256ef",
-        "tarball": "https://registry.verdaccio.org/got/-/got-9.5.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-9.5.1.tgz",
         "fileCount": 19,
         "unpackedSize": 83728,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJcOtVjCRA9TVsSAnZWagAAEqIP/0S0fo6/D+MvgR18s+no\nieGTliPxUnUbKHqXMkz8O/xViOPZhe4WGy/gzeIDOHN7CfiZvA1vS8G+l9Ob\n7qyb56G7zqejzED1dNWEkitBQB/Kc5idQ8H5v5OKYn6jwe9gyI+7mriQ7Uk5\ngrUPpxrGtdoWXfiwSxaadez6a82xIYXrfKjdpwtEMuyFH7rG9pLMYt7w2t7J\naI/VrtxcdhBkMkwXCtt9JK2kgC0FU1Bh7HlbTEsSKZJRjMhtls5rmuWTZC8p\nGZ9NgkArY3ts1vrx1kTclfu2Dt90uZ7IXrs5YHn8lr2QU59BJwT7L9iQcRvF\nN07I1Fx1L18W8w3X0BZKNPX2ll9dJJBBxboN8cnGGax/b+pY/GmxgtUuF9YO\nfD2KInQ5AIRfP5TBgIiled2VYBqGc1dR0QThDRKLnNaIH/MIq8mCkSASECz5\nV+otKMgjj3FIWdL4AJecI0ALWMKzN0rJRAwJZ1XqHyD2eqmPxrglghoAqM6R\nvPmbc453P6+5T6il31I3seTjxbDVa08y7MkeXZiixWf4HOqglVpY3Ns0wgRV\nrWlt7VIcg+jgEULeHC7mErBR2TjMu07OB4N8oTslGi83n79C6F1YJlnw8J4W\nEgOhppb97SCs+fd75+tREX0vrAQngID7IvX3aw75Z9O2pCamKqzlJJcG5S5F\nF/2b\r\n=Gi3L\r\n-----END PGP SIGNATURE-----\r\n",
@@ -9116,7 +9116,7 @@
       "dist": {
         "integrity": "sha512-R7eWptXuGYxwijs0eV+v3o6+XH1IqVK8dJOEecQfTmkncw9AV4dcw/Dhxi8MdlqPthxxpZyizMzyg8RTmEsG+Q==",
         "shasum": "edf45e7d67f99545705de1f7bbeeeb121765ed85",
-        "tarball": "https://registry.verdaccio.org/got/-/got-9.6.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-9.6.0.tgz",
         "fileCount": 19,
         "unpackedSize": 85411,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJcQAzICRA9TVsSAnZWagAAZaIP+wQ2nqz3Di5LBw4A+tvk\nVcdvV+xkvu+ULzZbvPcGA2EuVXcY8MRWutgK1pGi8N4maAJi/KMDlZYL2zGh\nKYUzKeYDHjzS/MFgrUhU73eVnhWP3MPLQYXL30jFwW+czV04qaATaurQXqXB\nMl4gfiEfbKRU41NDPKsUtlZuiNDwRSll9AFpYqWqJ3eKZWFzKNRy1IbfzGg+\nP8DjJBBKyZTvi1MT9Q1mZUqphFkwkbJs5c5oJ6PzsdASzwybvK2pVi2vtCta\n0Xx9lQkfIDD88/xv6JSuPPLzJswWg4uJhnTGjEjeuP6RanIfIKv5QXdLWQc3\nNT5wXyXld9eBbWXMzmj7Ql2FuJYRfnsX2B7gbNH7shiVRoXLpxHKfilnZ78s\n+udT72DufofDYyTR+a46CPY/+hiM6wf9W+QCFEtJtDe4a1dMIkTbr8PNGwRM\nOsCurf3uMSJtBmI5cii7wOI/4hSCjm6AJu0BN9a+qrhwUHyRfk3oNJ49uckX\nV8/QoWHCGkBIVMkBLIaZlokh7mrChJHCG4bwnNXs6TuEDlccdtiVkP4pr+2r\nDLT4f2nbHpxU78hJaqfqRYj9daPFl2T5GBUPrzF4DVcAG+xwHOzpRyO/JZMx\n7Cr15r6aX0917muBnUcw8WUw7lnjy8Yrwf3Hgq7oNkolNaXwSpY/NtzfeHVj\nr3kt\r\n=NEVT\r\n-----END PGP SIGNATURE-----\r\n",
@@ -9274,7 +9274,7 @@
       "dist": {
         "integrity": "sha512-KUpcGTKvR7lK8L4wpeaDtAAVIi4c6lovglOiknjqY0ZZHuuKWPXdhrIeDoQvgFOEXDFGW13isGs6+zvs+1qJNw==",
         "shasum": "cb0c662b6ad63e506de9b447471d0d7fd7abf5dd",
-        "tarball": "https://registry.verdaccio.org/got/-/got-10.0.0-alpha.1.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-10.0.0-alpha.1.1.tgz",
         "fileCount": 70,
         "unpackedSize": 195632,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJdgLikCRA9TVsSAnZWagAAQrUP/itKnQ0ocZx5JTrqV59b\nlwhvVgF3IvCLQ0/CLgnESogIxRQq8C8fp3qS3G9WUxN0A/BkT1hXjLD1RbV2\nqutkHUL/KyXqjG3vYV0PqTrDpBYScRrKbblJZ01RZ20CEwqN546dNKHLus7M\nvx14U/ZQmMyY9l5HUrMu9j8B00HTPHm+d9LL2790tnSQGnIvlSlgd81FS03w\nHKeKQo3JlP8mLO8CBS69tet1e98790aKrA6QadC1tBcak6gJdXZ8Sf70bM2/\nl1wNXPCmam8gxBBQv19VX4TjIaoYWIzVL58rkYGv2NsvCSAOObNzHmpq8RzN\nUy0lRFExSNiRme4WJPd12MDeFNNhtf+wNZ/rDN7jg+96xPnnIMXpBZaC+YrS\njTWC4DmRaiA+es9GynvOBjFsecdXDTEZm0Dx/XgdYVpzdJU72r4ZYhjCyNcJ\ngdIbh53kt67LlF6YApJ8YtwmVIPsWMmm2tg7joSJNG777YXisWkmjm0xjNl6\nvokXkuoThtmGOMbvtUu+4WqMxtn+zgtQrkxOYZSAZHJErnLpaSQCAqbk2TZz\ne4mQ4yTq4lx1EdRJgB8Xj4boxYH8VbQkPYJ+FdnMsFAOFKekRIuN4CcoO8Rl\nVWByLGY5Jix3vQsy+VGyXX2aHalrVylu8eOVV+239QsT+wEEXV4Qp4uYTVqn\nrSQE\r\n=A49m\r\n-----END PGP SIGNATURE-----\r\n",
@@ -9437,7 +9437,7 @@
       "dist": {
         "integrity": "sha512-Wt2jybIH18XL46PL3Kc5UU+uAZxwJdPPbfGgsNYZl3tXe6/zfMrkLqOmf2bdWIgENYMXoWB5DQ5LMk3cKn2KEg==",
         "shasum": "4447edb8dd34b5fcacfa604520a99ceccb89d509",
-        "tarball": "https://registry.verdaccio.org/got/-/got-10.0.0-alpha.2.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-10.0.0-alpha.2.tgz",
         "fileCount": 4,
         "unpackedSize": 60071,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJdiLFkCRA9TVsSAnZWagAAD+kP/3HQEZzlxQBxIDwezYZq\nOlXw0urRlahTwagrprlhJbhckjs6JhQ3y+39WWBt4CEb+/jkuIYH7DZs0nMY\nlW6hrzmtd4QLlEM1gMxRPS/8G/lnVlOa6rgEcSH+gjyMzvnnUxrHoRbpZZ7Z\nYZ/iWfrqC3Lh8NsodaCUv2p4w11DrRxd2F4hqQbv5Yy0k3axD9VotgeGrD5L\nzWVCCvpD3IpTrfJZeDS9RnWviZgngmQ3exeJPo3xvp83vrQRRcwWJWzjRkGV\nceihNBwo8GPRK3dWWbq6Mnf1mrrnBQqrbIbu6zf/sN4SVsjg2XWzYpsl5BIh\nm1nNjPQHl09z8iycPYBeIGBzeKuJ/yKnh1T9UH3ntlP4/+X/SY5yaRg//xde\n51uLxNLjJ3SRoG8i/EhmjC5eMJmTmyNQxs8b/SZbXQvtFTcOTyvyuzf21Na8\nml5mC+0U2vhhwY9bEYq6oSsXvw5J9YoQpmCuRw5AyZKVRrvtGu4MlbmTS+P5\nk3YbPxw4CUflP/9+UWXcxjO9MicsXe0QbjQKua9+/xfHgS4NmaLfCZlFmRSP\nVyKbcDcYm7UPbM3iaSIjnchpCxOHMezz1LcaBgZiEhDhiNUupLygA2PT1U4c\ntc8KydnZtht/aG6BkkwAL2kEWLM04XFVPo1YHXn5CR2Q2u0/bcRPFMbhbRh9\nwJRl\r\n=ZtF6\r\n-----END PGP SIGNATURE-----\r\n",
@@ -9600,7 +9600,7 @@
       "dist": {
         "integrity": "sha512-xAiFuGzxUuJl84zESTi+MA/92Dn7tbN4CAsz2SUIwAVgLZ0SscS3Q72w0/Q1Qwy35guYd8utWel6ip4VUkx5Zg==",
         "shasum": "d047db7a2ef50f3f7a10c824b84c07f55b297cd6",
-        "tarball": "https://registry.verdaccio.org/got/-/got-10.0.0-alpha.2.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-10.0.0-alpha.2.1.tgz",
         "fileCount": 4,
         "unpackedSize": 60075,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJdiNpTCRA9TVsSAnZWagAAkb8P/RqEoV42GxBixeMs8iBH\nZCcE0DR/J03TgRBTS6b1Hvpjq/gon2yJQrP7OrNphlgeU9Z+0vOuhRqkW8CV\nATJ6m2wBxtxMUuQF3BegNQdEU+h47uI7HryL5hTJWZvXwYSXLM/095n7WStS\nwMwtjGhwuI10PBRViz5fHIQnfSyAZFuGauduiYhnxibw04F8NlfpUitNT+/Q\n3lJTbwF+UpOCVcRWrAqI4N5l3r6F2SQ9Pw3SlOOB+ZFWfba8OS+uFAX0Gwpj\nT0DqVjFvhDRhA6cxwRqkBqZR9YbY2SHWf1FIwv6HTr19+mHwmwf+NWgpgIpQ\nbgqx7ZQvWjuJz+XopeI4s5ckLEdiYZ2Rappz9x9dZUCuy5qjt2epta7fu0dR\n6RJG4xJCeXJ8HlCmue4nDR5ago/TiMZzKMSDlxHDc4OOEKvpYxSxnkMBW7mZ\n+tg8lmdOqWYihdVfBe77Kr+3XQYSsfuQ3JdCHHqS5h7ag0ewE4o+oov5KwVl\nsxIQ1UvSZMm/4Y7FRdZcLpU+DS1G/dBlIC9ulJpOQ9m4ak0gJ5g5vNLUN26u\nlWERvZCiNO7NfI10AOb6onkkt71MecewBj2kCSDOMUQxN9V/MTqirmih4dz9\nxhQkwkG2C8/eJGjSNrt485C/DAXJqg9CX2JFJJMNUBJ/xBVfiWJzeu+0d/h7\nE7b0\r\n=gpHJ\r\n-----END PGP SIGNATURE-----\r\n",
@@ -9762,7 +9762,7 @@
       "dist": {
         "integrity": "sha512-bJOQhLecSylUML9cRHHdVe7WqksurvX1srN/KGk/L9xBxwwwLVRLQXFUF49P9uhkUT4NQdvxSLBecIF+ehhWNg==",
         "shasum": "3e08ff79a9e714d8888137934a68e751c6adecc4",
-        "tarball": "https://registry.verdaccio.org/got/-/got-10.0.0-alpha.2.2.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-10.0.0-alpha.2.2.tgz",
         "fileCount": 70,
         "unpackedSize": 197045,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJdicKRCRA9TVsSAnZWagAAVOsP/imPE2B0IXz7J9hJUF1J\n2Y39r0L3puSG3kWZ9H5QAYf8B7jOA4u5Lf1NnDlDVXTR8xNgdpqNSnuJelaK\nGPudunSZlWEW+PbgAwrkKQXd6gb76ef4p5A+fkOmc0jvNLb3Jh8L15Hy3w45\nCv7tFxfBbQEYfGPjmD7HBdurK+o/MaSB2YXlqEPaydAAIS7CHBm8kVsP3SjF\nZblvX9xTxeA3XXsBf2cG1I92rLpAWtmv7ZnCdf1KV68/+KTXVz6mKc+mrA1o\nMAY1+FGs3jZZGbpCRdGDA2pn5sEKW2TSl2tZdViuN+QJjdLMAh4S4XCG2zGa\nIVUWy+vDqH03MPReF318R5bLULYgVBhv6AXS8a0OHPfpY44cRmXgIYVuKvrk\npzfyQENV9AdgkF4Ml237ovOPyZEZUj10FdRFqDDkNhNSRYmIKAENfLgGQDSS\n1M+3Rkz57pplgNXltOqoCqqgcmDJtHllRg14/ftFwseKoBnpTCB7EodpshkA\nbRBsZrKIKOvwLUngxPVLGggkp/0N+rJQGOj6YUshml/XGAvmyC/HVdAsM4Fw\nB7bH8X6AgzWz+vC2OWHsZzbui9jI/Us2b/IvP5GqxAhKndXXJCtRMRq1M8Rd\nsb4dfyPXlHzy+dSBuepSwi51RFCvSja1luEgmZ/SbjK94vrf4DomMO8U+VdO\n9MhJ\r\n=Aqg0\r\n-----END PGP SIGNATURE-----\r\n",
@@ -9919,7 +9919,7 @@
       "dist": {
         "integrity": "sha512-qVKGJ/r4j/+/O9h5Ys1cR1AWlamoeoPZzGcDAHJWez81uhHayFrjNxbVrxqFL1Vcaz3v9jl53tJ2HpM3QrxJeA==",
         "shasum": "a5100ab007389b2cf615e2723b4ffceaa8a4a6b7",
-        "tarball": "https://registry.verdaccio.org/got/-/got-10.0.0-alpha.3.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-10.0.0-alpha.3.1.tgz",
         "fileCount": 48,
         "unpackedSize": 146691,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJdvI97CRA9TVsSAnZWagAAec0P/0hI8Cbq+mDOdkzTa5yW\nVAGKV1up1g9VpS673t4g4dwGfPYkA0uzIVEZtm+NG7QYJFfZvgQ4fAL5UGHP\nq/Z7eBDxt9ThzwImcBdFmc4wa7V5XmTnUgQo0ljNyPqWiGvSaieCeotckYxa\n5sAP2GIFUmFl5ZXwqluxa64xoy6oxZ9ENNQqUpzZ2MJHvgINCL4YXNF+Zviw\nY4StWur7M5Y9Wj1NOrZDYeyLUxvO4i7VnjoY8k1Yf3KM4kJxoPpAREDRRzsp\n8ub1M8bR9ueDUayLD+2OUc0MVnjL8+/pSg7nmXff7jUgGzAgB17q9VO5cfg0\n4g23siI9b3T989d4luECrebk7HeSVV2ORAOnmVhjN8U+/OqWL3+T4HW3dnDQ\ntvsmJTv8AXrdksu+y+OjAZnW+ip1KtDPYLIN5CZFhDQm9BmPu/VAglGM6Tav\nNmyetQ7T1LmdrL4kxYTavoAD57giR+vkXE+M5s/u1yNgXHAPxqn8D5GB0ZPe\nA0/oNpSA+X5YVJnfgawxdw/uhmlCI+3XwoG3x3/m4jVC8F/+EC5tDWCu2zdf\n7x8xPMvTItL8FU02pQkad3zRKC+Iwy+sutiYnXgs4gbLsdnJjgd4wQ6cuz7c\nJuIgGG7FgxcVsEc0qfxAqiYaG9IkGhqmtPbjeLqKrzMGStlLBEfRJRDEnN/P\nEidi\r\n=Q/O2\r\n-----END PGP SIGNATURE-----\r\n",
@@ -10076,7 +10076,7 @@
       "dist": {
         "integrity": "sha512-8CpcAt6uomONUxQCXysMfFgZg5LIWmwK3d2PF8RZ4nGtwNjA1VjG4T9JGTzPTKVgavLolpztXOrgs366/z519w==",
         "shasum": "4099e4a68ecdb1c44fec9116018ff3dab118e86b",
-        "tarball": "https://registry.verdaccio.org/got/-/got-10.0.0-alpha.3.2.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-10.0.0-alpha.3.2.tgz",
         "fileCount": 48,
         "unpackedSize": 148745,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJdvJA5CRA9TVsSAnZWagAA4VQQAJ5dojbdDH+GdN30tEK1\nFnGeRoiEkaMlHIl1q5IUEOOxAJAwEcw0G2Rau/qpIivFS4V4tbLDQcJ51oBq\nDw/PhyjQI38iENuILFOJEL5MtpRawsdkI3jyq0H8xW116Kjn3eYhzBnmg82p\nsK2ESNHFf3rNJzI/Ly5aCMQHyLmzoPwlyqwP4tr2AX4Wls+igxsWx72bMKcJ\nSQnrOX99DRfkgxTDcJqKn2/zj1/oCsR7cSLXeJoMG9nVzcLVBEh0oxvCi0q5\n5w/fiVppTqbHSG+szoneASs6Hh09THI+reEZamfWe7xepfpp/siBM7+uU7Yw\nZvIu3F5rSL8OJd3BTPs+2JL2CfIXdOcVt7+LzLXB9R+rjYbeImuoO1fx7KlN\nlFSISH7l2Lm/i53cyLiLDmXY4u53SgwIOs0df78QJl+B9Mp1a8Lcz75p0TZU\nmkjATDFibr8I8DuX1ivcVlfJnT/pFQPskiL6nk8BjFkB0nMiCwZCeurRmlGi\nPm1q7m9hVYxFHBMUaIJ0SNzvKyiANXrgyq+erkJq8iD8R5OFkmCzI6qFwtua\nM+JaY/OycD1tdcbnDm1T/5QoOsbJ9S7LR9DQLvcBFNyqDgrY1mLH5euVE6Mm\nKFX07Q1yZjsllqfnIaui9zEPvzeF+ES2sac9LD/UDYTgawLWmasz41vZKSn8\nxA0d\r\n=N+ZZ\r\n-----END PGP SIGNATURE-----\r\n",
@@ -10232,7 +10232,7 @@
       "dist": {
         "integrity": "sha512-eZtkHTdzU4JUbj0UNTJfoNNn64+utYvjg+K8qd1rqiApskBiobbwX1nJ29jD7fobOe5KyR+9gBZCT1ExHXF8Eg==",
         "shasum": "a52e450d4b990d5ada13abb9205d6b327529f6a3",
-        "tarball": "https://registry.verdaccio.org/got/-/got-10.0.0-beta.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-10.0.0-beta.1.tgz",
         "fileCount": 47,
         "unpackedSize": 149298,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJd0k8dCRA9TVsSAnZWagAAGm4QAJ8xUPG/SAbWmjcSM+n0\nuNOc26Q1iBJHPvQUOwcDABpTe82Nydo6BNuAEPfmJ8rdRNBr7iwl5aDvGTXE\nNirF9TyqC13RUXTMaXvxzSaJsIFyyKus7fUTutNpVe6XmqezedRI4o5c6+GP\nzMwN3tjNhOJMnqFanG+gQCy0Se5RCPtKRw8llytnt/EcasMskvz8toY7tTBp\nQ4X8G/fHrQIDIba1JM5869grwweBG1I49XaE4gBKhzfMDJpcKQISsUIiRBWF\nn8AoIK6656bPXqSx3Os3zwP7ZAP169/bWvC3C26ymrDeJjJKu5E05P0KhIAT\naqg9u+inMHB2anyBQeTzV+x3rVytEGcGRl2uvYipYZiglnoLKWs4EdvXHBHh\nPf5JnBBDB0r2DFws5jC6vDiJVvzelTVpT6LlKcEX8o8Zr3JeDMbDdQAnMTUk\niAwBO+sCQ1tJSA9j/PgmA2llCW+ShTGD8WVAOJdYB9Tnz2k2cqv8EbXsjzjd\naO4VmKpa4C9sKhkYxk//+rlm6OgWI2mFZVRrK8KoLiEeea+dziTrlx1BaMSw\nSBWvWXGk5jGZakymzJXJoaJG01gSDLlrZTxl8vME08jtW66NVVQ15Mtv2JgP\nKpctrjBranq6Lnf782Jv0/RIfblstPyciWgRH1VcTmqIBzX2wxOVcBch5/ZS\nFO1m\r\n=92lR\r\n-----END PGP SIGNATURE-----\r\n",
@@ -10393,7 +10393,7 @@
       "dist": {
         "integrity": "sha512-WLEanbnLqRLxO2tN9NoPZ/ywnlRDMZ8R5aOz4ojnpr4eDFXTcLrzqOtZdJBa+I8RygOfKhbik5rmRwr6QiV45g==",
         "shasum": "7b7cacc04d59f801731846e66cc6e9ea0ec33f93",
-        "tarball": "https://registry.verdaccio.org/got/-/got-10.0.0-beta.2.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-10.0.0-beta.2.tgz",
         "fileCount": 47,
         "unpackedSize": 152425,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJd2145CRA9TVsSAnZWagAAMUIP/R3ls8KMJ/QlB9n4o8cP\nQ2cmNpjqFlK3k2ifb4NDSeIIV8x5Xra3qcgSHKEPCBMknoSUj9FGuoSR42s9\n86VGvlgn8MqT6qgXRMgiQkYaZKpFi9iG8dsOyyj7D91ANZ65w6iq393lI6Hr\ntExRDQZIZIyk+t32kDaSWK3A0teLY6Tb8IGYhGpBBGKotidoAFYWH+uk2/52\ncm+Xh79VvGBX3SvW9a7qWd8JsOpBKwzbWbDN5oD8TqwrSzocXhGqTUiuaRhr\n511CvS4VP4ZIDWGnIoQwmk9P9LiXIQuM9M1P90Z/3YtIvQa1Ru5LGlcoAd/K\nMNpeo4fp4olDqrSsep2C/XDoHPPIbohEuoYyobD1HZiCU+O5MlIagcQMurbE\nL9AU1fggGdbvRK7uEECM83gJ/5pyWA/yE+Y61HyEPNyUh+TXuofPcWqJZsKK\nDjXuxFJSvQ37xv7rjZTrIyC/Aq7Xvis4au+UYtvBiEzUyHlXaBvT5h6vvyg4\nqVbhcxc/8No9wVg0MXLZ9toIv9rcwf0AOROT5JSdAOdqI6XvcLVEseQCm7kN\nc1JaClRIFsP/ApWdiBWy5ZRaJ44450MroBJFPr2IYys4GEXahpgl8q88ot3n\nhr+XcEV1k1lxQa5ZiyedRGxXfZpEUwW7ioNDP/6vNFoYRZ+vkuccRKe0sLSY\naYpt\r\n=Q6w0\r\n-----END PGP SIGNATURE-----\r\n",
@@ -10550,7 +10550,7 @@
       "dist": {
         "integrity": "sha512-lq3TNHuat96CkPtz2DLH8rMFpS48nYHTgh+pqwqMcc+eN4XK0Qmuilr5I5bQqunkrISFondnOgPI7uPrK6yD7g==",
         "shasum": "f86a2b9c0a5bddd340c1dcc19cb831b819465cf8",
-        "tarball": "https://registry.verdaccio.org/got/-/got-10.0.0-beta.3.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-10.0.0-beta.3.tgz",
         "fileCount": 47,
         "unpackedSize": 154207,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJd42TzCRA9TVsSAnZWagAAKTkQAKHCvN5OzlfUpq2SoUcD\n57s9rgY0A1EXoaYDASM/pCSehx4Sys/GbBAI+XYuKretiuTXn3sw+hTGbw/g\nji8p2yogGfVZsmlo9qSGPpIbn+K7tuDaOXGQpn936JyZ6Kds3zVjqirJeVhY\nPZFWHW68tRSjn1ujPsgvfY5RAwd+LM35PKmCzF07jrAw14PQz0baQvWxdVcd\nFkBD0C/4KrpXJ4N4c3HuQjmocRrpGEdCAdiGKJ2U0qQFMu6nvbb3puHnq6EM\nlg4/kfARTAcpHSrwOrtOkK0IjTKH1vYCghg9goWvPSEbWTSvK32iGqd1jysN\nNgQ+CZvuW+EfHJ8+XlOkEOsCkg3YlEe7jZ3L36nwgJiR3LbfO62BHGQnx4qO\nnbYnw5BG+TbEWbyl5ttoZd5rGis4/Cb63G8Lmw//gtz7KfTSuCU+E5BG8syO\nm+QLEWVncjz8s+NOTtPMy4Z/oAK1AzHmnCFsD6flYGqHl2ogNofsS2VP1pew\nZYvSabaH0NcmNmwo4VvRnwJmhMSaXQ9aer6ZZ3MD6ICh9OC4xgy0C+3dRGVT\nvrn5xFnuzmJM2wuzq3FbjRrvkwaUDv25oJeMoDj1q0LdFWuGuEme3ZfF5sZu\n/hiskxaabHColBVaNyPRdzRIK7Jw6TW2wG+A5kas8Uy+QH4IkFyW9HQ4WOtf\n4B91\r\n=tRW5\r\n-----END PGP SIGNATURE-----\r\n",
@@ -10709,7 +10709,7 @@
       "dist": {
         "integrity": "sha512-WbswXguxMWIbHOPFN4T/6OV7xGSg8IVThXtvVzsrNUeJSfSF4xgpuQ4WsfqQ8dsEKPqJuCz0UTOlqUsRZIlMwA==",
         "shasum": "de5794240952e81784982a372d936d0be05998e5",
-        "tarball": "https://registry.verdaccio.org/got/-/got-10.0.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-10.0.0.tgz",
         "fileCount": 47,
         "unpackedSize": 153454,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJd43SGCRA9TVsSAnZWagAAn7EP/i1GEi9fvjDJ57/mhJHJ\n+a517OuDKaqKMYi9GQ9SvpYVN3VuZ18uITNB4q23cJ4vSYikR0tOfvPpNUXW\n2iKKF8CxYU2kPkyp2tOvO5hfPs73Y3h8GCGhmSVfIu2TyZIUjckf1WbWiBDW\nco89pKqK6TIq9HPQXDGPSAFvvS93W3d3N8+eO9TqSwRZWpw7f1LS8Le8M3DL\nlPW9zRa6eYZ8AUB/fJTELYkYULVfuzGoiI3FzUoWAkh2NaPfVws3tmcb10iB\neddXO8U2NpAPOgk/GMi+pkvDbbkOiSLR8951MBOQ6tCh97j54K2dajkVV+Xd\nG+4EK0mtjjKtzFtVbzTwdQwvhVPDgAqkACtaMeaGu2LCOEJ7h7nafPDvk7N1\naj2bzTa5JNImpWjQjP5FDm7ZTnYzf80Au+QBVE+dMbbuTHKVJ9h4OOhfxv6J\nQhW/nNOcGOERRQOq+PuFxG2wpnAWP8r+VYEtUIs43ly0HP+3fo6MRKE9Mlak\nLaUfHQQE+Ra5FXISO6pr75dqs8/WaknIOTufZdDetmPjY5uzaZIFtAhmUk7O\nF9j2hCQsJN9lrRaY1v/M3c5pcJkgWH9d5Ur8pePrVQ3L3CZsp7rBcWfiew4k\nSIx47OX1WXOb4mpSWmiRCRZlo0uZkKxjx0pMzJHiXyzPQb0XUQG+Fm7VDbYV\nv1wH\r\n=sPJw\r\n-----END PGP SIGNATURE-----\r\n",
@@ -10868,7 +10868,7 @@
       "dist": {
         "integrity": "sha512-lXOWDVJczIX4uOZG5CRSlIzNAGqft40Kj7/rLSccH8y9GKs1a86rO/+23CC4kF8OdHFazapX3mI6gZPqDrIAfA==",
         "shasum": "0c9eb81a7e5e3baca2dddd611a4bd7c054e31fdd",
-        "tarball": "https://registry.verdaccio.org/got/-/got-10.0.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-10.0.1.tgz",
         "fileCount": 47,
         "unpackedSize": 151359,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJd4+86CRA9TVsSAnZWagAABcIP/jQVDUr1FTPSxaMGL13C\nC+RAaK1vQDnwnVoDe8rNGzQyst07AlASP5zyz/cQc/ac8dy+Xx4WRCBgDhb+\nSen6PvO6gitJxPNcVqZeyTWR55PDSqjgbUC0IoOi7oE/VGRFRIGqZr2hDYIA\ntaL89CIOwoIFrt64owzGCHqkvCMxApNnmGQeyJCW6u7UfEl82L6jCTNUFpxy\nTds80sqDAcGAzLYpESLrHgV89UrO6KBhlZh/YMNVss8GawZGrqCuWb/odmud\n73MTa5hdHP72Y04R4x7PVwRtyK26tM7I0cLIoftalzskeQBgxvDWSCWceXOl\npZZ0shmWbRKdAV5lpIxW54KQ5QT2hsBKxoqb5vCcEhZIHKrBX+XUHVwBlclm\nFtgXI/NM97bb6SbHnseRmcWGIr6CeL0Z7+GfOBQUR/Dn9MrFvy1+LN2UHIZd\nVzEBI1AdOvwbms2EKrtjuxBujQ9lmV3LjqBvtW0YrL10W7KlZTxujnfzrJpo\nnfJehFCI6B2GpE7yyHffH4ljkQ+VXPyn+MD5g85bMiE14COIMae328uxX8gd\n9Hd/Qg3kBExrT8GlVdO+Hv7+fzLPPRgcjU4H3tll192T7MlHyXwQuiEZ+apH\nQ9lFEfFIOjMD1LAMhkaBtuk6bP8680y+CdJMFzuKa8rlA3cTecbeJZroMX+t\nWABc\r\n=D8wu\r\n-----END PGP SIGNATURE-----\r\n",
@@ -11030,7 +11030,7 @@
       "dist": {
         "integrity": "sha512-ojjUBCvrhkbEiQRAI8OIcSsCpM+EiVEX5xaoUAS6wFGlnoNa3KnDTiavRfAWXO9x29rA7sl2igh3E7z8glq9Gg==",
         "shasum": "f03040d966e0ff8da516d92e8689a3f9def44a3c",
-        "tarball": "https://registry.verdaccio.org/got/-/got-10.0.2.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-10.0.2.tgz",
         "fileCount": 47,
         "unpackedSize": 152116,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJd6/RSCRA9TVsSAnZWagAAQJMP/AsGQUO6mjmpKZhNuy8J\n4EBglY3M299ukUd5SLiv/oKOWr9TByP88AIZukK/ZfCkHL5aS0XavlgOCPoq\nWNlS9sSyaR6+JldQ2F5YzE80oR9KTSdBTmwsWqV4s63MEQsVYjInoLPeDuBK\nxoBfSuQ4ME5f/0ZRJWRScU+fB2nNkFq3Ouz65FlXN7XRc7+xYW0IDXK6inEw\nN5NWpFbk9fYJyVPORDsclcvgSgPUb3tixaCcr8e644hH+R+eb2LI12rERoT7\nHR1onA0nBXQJ9bvKN3DZlzYc8OLEs5QdXcFPUjh6ff9dXMlEeNiZErN+fQw8\nIDL9mJzAwVepZ81PnRjnAOFJnsZwa5VIu6gYGrBZ09ixoUCOmOyT4Yb6NDNd\n7qANpFel7jtWOIyQnmpsz8OkBdYey/NWB+GrFI1Pd+VWVMJfRcxmeBVNZ66W\nl4HW2zT3Wo1NqHjwc0/Qiyg+FbEnJMILbOwvJ1YPv93ofhFFKx46adeXoIj6\n15iRmbbyz6O1OBMxsWaNe0MakONjHy7S/bHFFaV9GPfVO85jFo8qfxl5AcMN\nuQL/+XVYkQrGF3z1LJpQNpab253aH11xc6jDEfiz2Wnky4L4/zvWCdWEyzKj\nPQGcjYBD31rPnF4+cIue3NyQb1KuAdgbZNKLeaqEZ00f11MV0RT/MjlnuhCM\nHl6P\r\n=az9B\r\n-----END PGP SIGNATURE-----\r\n",
@@ -11188,7 +11188,7 @@
       "dist": {
         "integrity": "sha512-5QBO/EhIq3nbt2madWsez9aTPc0k1oWBzXipfqLdb6JmnrWNxcHEvnxuWErec/PE67Jy/QAgacq6XzGbyzXCzg==",
         "shasum": "0bd93429fd2891de0026ed731a16143e6193e7ac",
-        "tarball": "https://registry.verdaccio.org/got/-/got-10.0.3.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-10.0.3.tgz",
         "fileCount": 47,
         "unpackedSize": 153169,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJd7paOCRA9TVsSAnZWagAAxt4P/R2KwVd8hNFIp771M+ET\nquTEiAHbvuWLQKhOomZZZdDPF34AObp3fjPWmEIaOCFkafQfIA0M2dXJagSU\nDBh8qsN206Ka1sYiMflSLP55dBG4cElwU7htBxKX+iS2qZ03tXaX4iLyjBuj\nUJK1uSm5cBNhgmn7U8QuB3zNQ2g0P3LCXHAYF7nnGJts1vnvfvUPsqyGWMOm\ncqqci5g3/Qzt2nNSLsrmHl4LjJ6KaCG7KcJYV+qmu1SBYcf0uTDHO+gy1yo7\n8aEoRROGfrZ1Em14DYUu9vX/4mjZDpZupXfrwf/py0fpruT7/Jyf8n7a/Bls\nx/moij4i3kfkqAeMqWDMWC5Ijywi+biSQkm1qZItCf1UCkVln7McRMPYpxxG\n/w26jV+hMaOTlqq+HIzm88cUaLMV/rDsXqYoM51WnV5KDfUXiw+TAC5bC3KV\nfn0NgX1x5JmVYCVHoMjPmt0FxO2u2DKts1RJS7arWdF3SyMzL+cJzKV0hMZ2\nPxPtrmHcL7Xf2GjVonRlgotJ1o2O78MrPJ2Co5pTZORyh4DXjiWWzrNoUbzy\nK5ab1YUhQSPRA3YgMYweeRRclfxInW4raTvIJkrQkWf0tQBVrnWgkGm3iRTd\n/EpHc4GKGa18G+YrTjnMOxiyHcZv3A5bMT3Tf8DTzf2OkZB5QzO1oBs/20b6\n6wAa\r\n=CsEI\r\n-----END PGP SIGNATURE-----\r\n",
@@ -11356,7 +11356,7 @@
       "dist": {
         "integrity": "sha512-yMaRLGZJ7iINsDcZ8hso+v44IXVOejz7xrqEabSvUewdHS3zOf57IqU3sWIBYwHlekSrk+CC2PCeLzabOBxnVA==",
         "shasum": "d3a5a6cafd2f6c342d562513cc2d2d7b6afdcbb4",
-        "tarball": "https://registry.verdaccio.org/got/-/got-10.0.4.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-10.0.4.tgz",
         "fileCount": 47,
         "unpackedSize": 152250,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJd8jzXCRA9TVsSAnZWagAAHtAQAKElBnEw5B7OACPC0LEg\nWh291L5Ztu9DmMpZkKEW0sqTwbh4i/hQW6fbr2hgTrB/TcKjN+Zn4oCu2nc8\nBfx/PbypSjZaJ+Fiuc+voL4S04KPq0Z0Acbino3OKbmMab3xD6E4xfs/Dv8A\nUtl2+KMmj0mrqIu1kmNx66U7MDoV78DC1LczvnIElaVeWcKQRthRLBEt/bQZ\nczYVSc+2GrBknTmi4WX3rU/LO2nu/mgFYFO7QBO4+mPXk+uOPNpKAeBUtaEM\n5KEZDkStWQVn7YFZ/CeO3FuqRVLtvR6t4yUQ+IivaJiorC2UghMePqMvvTJS\n+kQ+ucz+Uk2lQJjb6b5WJvIbwDD3GPepvEJ1HesssLYDvQvO5VTwv6jQ0IIv\nAWnqJJDA1qYfwswabU5xynu/rsUIrhbjdIYCWz132I/YdnksN5/H4l/74H5q\nmv+gRkCf9RZFOUNcd/Kc6JTIMnZxJB/x8n0NdDBzkpCG55R/rPjaaQTFjHLT\nHle8cCTrDRQwdk1Yu/qLXnGCGR0shB9+I3nilXfYtHgEtQJHy3u+vKLA4t33\nd3AOvjCRXJiFnIJ7TaVXtmYNFfpkPw+UiEec/GbyE5YRejxDC2g3onIEtkVb\nOgTOlSDCjXswgv9Oxv+g67HmZfuaWg1nhDi8UsAz/tZ1flQ4dBzZnlp+eY9Y\nTWGs\r\n=p2JJ\r\n-----END PGP SIGNATURE-----\r\n",
@@ -11520,7 +11520,7 @@
       "dist": {
         "integrity": "sha512-7tFtiOkTc47O9PyQ8or0urxjs8XF+4K7CfZMRM9RiZAm4kbllG3D8tGlA04PloiFDA2e178mS8yiLSZut1C6Zw==",
         "shasum": "f8437664bdc95a80638db9e101fa81d6e730b67a",
-        "tarball": "https://registry.verdaccio.org/got/-/got-10.1.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-10.1.0.tgz",
         "fileCount": 47,
         "unpackedSize": 152116,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJd+21pCRA9TVsSAnZWagAA/t4P/AkbJ2GtbG7JYHPc0+OJ\n+ZNEwrN8Kykf9//pju0qJSgOPwcYb+OJRu9NBk/kSPEs20fgmH5rsgAqjuD4\nspGYgMfuA1JO6mgma6N6i13XP5g5OxKu2ZvIZIfDF4kgE8cmh0sFWKGIzWhw\nQmJTD5XC/+05yC6TRLtZE7OcbFYA8Ech7rcOYfpbtYW1kkmGi668ZnVek1Hm\nFtFgFbotHEPB6mGI/7r5fOmkEIwshMg0Pwm/HAFZqSzhxFzC9jbx0MR4+Mar\nAWCWaUV8dD45qg/ycoaFuVeUKCsEfdEE46KuGgryaqXsAyyxn6u86N4JJJ3X\neZ0Wvsv3BvEFBJMmXgPpykchlxHLUTNgHi9+xkL+610GbonFSUtLLP4BQVcL\n3sVSCh6p9nFnqVKvjm98cdIDMay5pfm/4azNkRRFBHGyyua/Psn8ZP043GnP\npDrVUHnQR4u9Ejp6dYrVULyRKANjPx4T6aME8Gz2Rw96qHGzNx001OJ5DTNK\nzYkeoa5Sil8fIsnbB9QxCbN0f1PtpXCBmirKO3QOCa7BIy39yKCONNMtwLMB\n+5EEGm15TXJ7IyMBbH1OrA0n7zGsDUR0DhZi7yy22FVG+POfjw5h00zEcnDs\nc0xYrcGpXAIXbGu8saYPXk/8z6I9ZKBUeBn4WpQIhi/nh4h15Q//IB3JIser\nrACm\r\n=rnYU\r\n-----END PGP SIGNATURE-----\r\n",
@@ -11684,7 +11684,7 @@
       "dist": {
         "integrity": "sha512-X14b2uo+20s+HrJz9qyUmGNdIyYbRUZNE05fUz0aS4eXp1l82oUvsvFcMjwY3D25zgWwittqEQWEia0XqSlzzw==",
         "shasum": "c7d54e5b41881e5c64952a4013986af12dbab47f",
-        "tarball": "https://registry.verdaccio.org/got/-/got-10.2.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-10.2.0.tgz",
         "fileCount": 47,
         "unpackedSize": 151072,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJeASwxCRA9TVsSAnZWagAAlesP/AknQBqIuZztzjuoHvrG\nKsvEwSrGRkC6D/3WhMoD70k+qYDHtG0nrpOIXy+O/sDN/4Csf+c5dFPrQbZX\n2kcDVY8RvAvtMix2g04nVLg5GaDe8Og4s0ay0GnnBSOnjaE6y9nxWpzughhR\nXbEC9HCQ6mpXgbSCUtw1cQyBWQGAOg1073g72n5rdC/Yjy/G4DwcQdOQsvE/\n8gBjUnVZ1NpUt6y0eg+SQ+VzpBCDtKTdazCoZV/WzXFMXI5/D+cdLDcJfrOw\nDNupFN2f8AHfcPgpN/kG69jMv7sWd5AUjoLJeWys/yOZ6hbv6kkcHqpz8FSd\nwCLYzdts0hadn047oIE8ea9tnMBY9vhaBmnTrVFhpvGYxSew9ENUjY8oio+g\ntww3ZK+gWKn6MqCzhbzcobwWP/gwLIlBvMpKddlUAzRt8kbBZKe9b/prLlTl\nBxBXjsURyR/fk0+x5Kd+9gcwVXMmS8ViC3DG/vCLQNOqsVreMFOcp2M0oAgu\nSxD+8QeallqfbmgmpkFRwwa5jrvtzU1oshp2YmqvurGbNi9wXhDpNqKLz4rE\n6dqEdRfcy8yZVawtLRYFaE+c/sbpjp/pTy1e8V0GiP/9NAVmfhReMbzJDinV\nsgBOLTQl5KskUjcqRzrBbtbjkVGNzE22kDUPu6QIH/54ub8YEfaWyx73ZWY2\nN5XE\r\n=AVop\r\n-----END PGP SIGNATURE-----\r\n",
@@ -11848,7 +11848,7 @@
       "dist": {
         "integrity": "sha512-IQX//hGm5oLjUj743GJG30U2RzjS58ZlhQQjwQXjsyR50TTD+etVMHlMEbNxYJGWVFa0ASgDVhRkAvQPe6M9iQ==",
         "shasum": "7087485482fb31aa6e6399fd493dd04639da117b",
-        "tarball": "https://registry.verdaccio.org/got/-/got-10.2.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-10.2.1.tgz",
         "fileCount": 47,
         "unpackedSize": 152961,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJeDOV7CRA9TVsSAnZWagAAtk8P/1rsDRx8VFNA+i2zbk/i\n9THbIESPy9PjEb510Z+ou+w42vmgQEpE4hFfOcRXvo7Ft6dUAoa1+520MXVF\nsZ0WbtGNRUvhvPK1MqtqvLZOAAMG2NjkkAuMf/moPz//IWomrzkL5sR3Hy15\nSVwi+8d9JcsaPV9wuIyH0NaiIzyuGXA2znagEhvPhwRXuPTomDSgxq8VBuwk\nTVtRFJSMeUU/2z4XBVT4pNxSIdcorJ6c70HoxRd7EHhO1okYizTttQkOUeqa\nvvIXmA2G0XaRqbLwR14+kvFZlomrCO+7Xez30nV93GpmvreiGAdgvI/8EyPb\nNYdHzjFiAsNVbt4r38E8bIxvFNdRrTzVSSk6bOdYnMrwtFPd0GSiWN8H4o/x\noQBgA+RU86/7nuXY+WT2P4NOy7o34WyOF0GdZX76iZ4hN3wbWJzR5ovBGfGx\nB3OknDn7sNcBTujMDUX3YKov4dyqT/VFcOg6RfqkwvxQHYO/Ejy/MDmSTyjv\nBWrQt7ampOSIuckxM1iCvdtvkn3V22FkcSdF74+PXzgpX2a9c715cCIKT2ao\nMr1Z1HNdcVSxkR5i3A697Y8Gl9DJWuKnt89xOjdHg6+D+3JT+7cmjrPBDufO\nMIm9G4ruOkkHRbblZT2FTjqgjgwi+ES96+H9zzmST44etUVlKHQdCCgc5Eml\n58j3\r\n=hyo+\r\n-----END PGP SIGNATURE-----\r\n",
@@ -12013,7 +12013,7 @@
       "dist": {
         "integrity": "sha512-QibZN13xHH/mc7H5uuU2xq28xxs8moEPsJrW9AQQX0jAV4DkGdllHDVE9cxw1nntIPFk8xzzOrgJZBg194AWrg==",
         "shasum": "3cd61dc07db0533c6190a2889b78e0c39c0f52d6",
-        "tarball": "https://registry.verdaccio.org/got/-/got-10.2.2.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-10.2.2.tgz",
         "fileCount": 47,
         "unpackedSize": 153575,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJeGetoCRA9TVsSAnZWagAAJp4P/AxtNgYHMVuJnlRUYKhy\nFqLuw+/+fPKWOHd/egxzh2befbQM3UjX+AL7v4hxDW8c4z6VZWlzqvnJIqJz\n5goJtAwY5LDDjh9b4/3sx7rDO2cbnhSLgCTxxRa4YKgjmKFbZ/uxvHCrWsGJ\nMtsY3hR+GlPnD8UzCuTUXjJovlVg/UwegtYpqRwsdGs3PzqWvd1enjpscIyo\nX04WcsMC9/0OgLLr7oX1JlhjTmFizsfRVNKF3wuPgVe2jqAQz26cwMOyOEiG\nxXtn2awFkrscU8q6oT62x9napL4hzrx47Qv2WoVLN3GcIIoU+eYptOOrly53\ngTx1lCTjLsACoj/z4/yVo0BAroYUjiCwCLmnVBfnWglbW5JuGI/8hQJkFJQW\niVuzhZ7kYGcC6pHRkGkK2vkpn3lWq5gGP+hsRSymU4jiypHlF9+uuAM80JtT\nArekzoK49RJvspncnkwuLWLnAz7iVVAfRwr/3B+NQVvF5ScddSaPKJjrgt8h\nGuwZPOYgwqaQ+TFQUYL2uiC8YF/UtROUUmAIUNDQEP77lFo5XBeV/ZzLN6jh\ntPJskbD/yqJvS8c70KYeJAhaeS9OlCHDSf5GZxj3jnQVuofJUaSlDIXe1nQS\nQkqu2LOgDAWXFw00pQCx2kUarpY9f9GF9rj5Ddz/hunevP/biVqgwE+oPQxj\n48FA\r\n=BRyK\r\n-----END PGP SIGNATURE-----\r\n",
@@ -12178,7 +12178,7 @@
       "dist": {
         "integrity": "sha512-p7TGnZLgAMTDOwXQnNAF7nTVWmd9YWTvF+64JFKnyskLY0HXUcIyzSz2kfjHIyd8ysA8gr5EXNtOgloiY0Cjrw==",
         "shasum": "c67b26b48425d1609dda9004c4013cd379fd15d5",
-        "tarball": "https://registry.verdaccio.org/got/-/got-10.3.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-10.3.0.tgz",
         "fileCount": 47,
         "unpackedSize": 154957,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJeKwT/CRA9TVsSAnZWagAAP3EQAJBuZvbRq2uM0jwor0Oy\nC0RuWrhgTmEoGmwxUqlSxK3Q3EqxpzcNPLqjO+zRDqnOoDHKsCuk0itL9uaO\nf4IwT/WoI6Dnb4Nq5fUN5P2BtYsCHfTW5aAJ+cYcRFdUDsBksbKFXjzy5KB/\njLoOHd56yL4gl9trJQ9QJ7IvSL7cz6En75efCtwS8YoOQ1EmUv1PbtdyCnGo\nArGOTFtv3OYWwZnNh4ZyiAKXGRi6laLYoBWr95WF0iQuoKGeAly21N/WlAHK\nkfC/11AJT0cvHK8H/6FVAknd0w/HGCsJccgVOmOGaHRZjK5Ig2B3KRCZ76GI\n2y/NZ8zu5iH+M0dBLCeEiAQoYLis3/L54Nx+PjRw+w8IvXxQ8UusrVLSOyCs\n8sVO1OpZbWV9KGgenIchiSYNHiucaEL80KcRkTtRcxW0fVEYl7Xc/9t9keZM\nNhERIUAuzVf9VA6VNpnCfp+hX0kUT2t9/+pQ6X/+7tvuxRjzhtsWtGubdnsa\nyIWVOBpN9ojf04eP0SPTxDhGhgEdvDj4ad/vKqPtisigxIl7AdX/Y+5Td7jD\nvY0G1ZrPt1AABitXOlsu+dITBSp9yTfqscv7fycWScE8fmXbsmGGUUD465eb\nMLSg74jSdsFAxWJQD+/Gl5LMsiMndH2zEoedii2MupJlYTR3tEHweC0wv5RW\nvr8A\r\n=pD4X\r\n-----END PGP SIGNATURE-----\r\n",
@@ -12344,7 +12344,7 @@
       "dist": {
         "integrity": "sha512-yHxq0LgdLFmJcrl27wEOIvZaHbgtn1DYpYUUX/kovLZoQ8q+QwJH+i9zkldDxGUawu1cUsgNMp8Xxm5yKT2UyQ==",
         "shasum": "2bd869d3d965716a43bee89d6fc3d16b565109c4",
-        "tarball": "https://registry.verdaccio.org/got/-/got-10.4.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-10.4.0.tgz",
         "fileCount": 47,
         "unpackedSize": 154989,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJeM9kmCRA9TVsSAnZWagAAu9AP/iBG6+IWz2AXNdgQxhdz\nOONajzUT0uZqbkYCZnmHarwsAzP5gFiGjqFAEm4Ho1IBLLffWLHUrId7EzKX\nHnIQbyHhSdd7IyJWFn4cPpOufVq8kEiXGTyxzq0RpN/T9ia6mQUOqknmCFVe\n6EqQvVH9KDq8M7X8QPz9ACYTSVUXfrD9w14xkqIWwgqzw1v9+KchzukX+Tse\nMrPwN9TtbYM2fBb+FnlbilmdKCHAaYl7A+mAcNrgGwx/edUicYBmX+xSu0Dp\nJdhxwbLS5EDH/M/Yk7JHcBNsHIpxNnEbrwQBf1pAmLn943GuVRy/s39FRJBg\nu2PprdnVFv9fCuPGuUoioq3UnrNHkr9RV9vpa/a0y1xl3efd6eHuZ7F6bGs9\nnmlIShyiuOYoNs0IQeC+KTnTfLqj4XMyzWUJLyeHIXCPe9PgMbRLDHjT+Arx\nZL0kbT+CBCKxZgMYED0WIwsu40qj06OSeOu9Tm7I8HjLQVxCCvKUrboEYMtu\neosYF4mxr2Ob6Q28lXhUnrpvboovS8Nudo8aDgxWMS7Xml1YC67nEg6gb8vR\nrOvPOoIAZc2pda/OVHpLE40G33jIko9aCIqlsrdEP/i2LPVVq9FpH7YtqkVC\nIcZvnUYcEhgIY7FgkgHywEieTYT1T66WjiE81ahOcYeA0tUe6MPuB7pOSN5v\n6YzQ\r\n=M15D\r\n-----END PGP SIGNATURE-----\r\n",
@@ -12510,7 +12510,7 @@
       "dist": {
         "integrity": "sha512-khBPRcs/TspRdC7O7bEJdlIaEHhzhKr5kosYrDbKoLto+2goepOodis6JsVGBAIHo7ZNbarflf+/kH4ySJFrsA==",
         "shasum": "8335299ca0b69b8564971837a455c87ace4779a4",
-        "tarball": "https://registry.verdaccio.org/got/-/got-10.5.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-10.5.0.tgz",
         "fileCount": 47,
         "unpackedSize": 162125,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJePHITCRA9TVsSAnZWagAAygcP/jf2vDJw3SR6UuiwCAmo\n+6zM6lrSUVmpveE7qcZRueNiYy16Pr1i0wFxPUJwuKORkn6MyojalucBqUh7\nAej+brpccpYCPMAOqMtG4ajJRTsfrNyTxM17Weuh0Py+Lkgw4BAn1lpu0mqi\n9m1CYEybBoVGy71J0NyTSDtQAzrBUPRJOdkSEeB7UXobR+KakfWSJI+7QLk5\nrxL+3c4/WCfV0wSrUArKm4sPnNz5jl3ZnAvB8V5duizniNuGWGu1rDp4tAfP\nr7eFXABISRiUiWcDuhXfAs29OZCOSeN7BUQfNuBFNhW6Uhnq6W+SxApOpO3v\n1bJtGoOqkKYOfx6aWOJi1JT3E+i7MrL39lPs4RxHgh31MMXfmIe2t1wyuT5w\nB3F90zRyeRuYh3v0kPB4Nx0XePFH+ayrFukLi4P21r1GIokul2iLgglFl8LF\npqE5/53+MBDC/WMxobNrzU7cj6B/ZckoqfKLjlBvaHnbIDZcGvMlG4wgUTGo\nB6DyuGz0b+vQ9Yvl1uRj1Mxl5UbG/avO6N+qIPogVPWbSWnYd5Elpa54Cp2x\nEpZEVWzaDaCLhKaU2fuUsosu6r2fF7pKU1nCrCj2ikGlJQ0t3iiITOjqmlEj\nPpXvXDO3Ig3r6M42cwWHDXqRfUHHeQtA/wpa9SmDKWVI4yXMOG5z2xuBi/Ub\nFTDG\r\n=dZhW\r\n-----END PGP SIGNATURE-----\r\n",
@@ -12676,7 +12676,7 @@
       "dist": {
         "integrity": "sha512-Bxx/GV/6PKHj2YS4ksj37ku/FtwHypjmuCeFTQpEJSM1D36pVAijb2h0jOFVDh7q0sISoIOQE0OwnYfk5pWYhQ==",
         "shasum": "8680f6366db65b14ee41717d509dedc4d46f225d",
-        "tarball": "https://registry.verdaccio.org/got/-/got-10.5.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-10.5.1.tgz",
         "fileCount": 47,
         "unpackedSize": 162333,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJePQR4CRA9TVsSAnZWagAA+usP/AoW2wsSL+UNX+WZDllF\nn57f2FeB3g+RnwZpI8WmqGatYQqXc0GqnAJyezlGbeLvyE3aGOj7/sifRMFI\nfyro2W/ZkLBTZEj282QhdmA07/jdKtZN8z0vYU5UOAcgxdKC9+cAzzyIWUrW\nu5bBqemBu0xJ99MBRw3HTpegcaNn1HakrmSY9bNmDEaHi3jOPt7BQHI/jGuC\nzVHqXhPtJrDsIDzkDhy1svcx5LR+vTIAtoi5RIIeYVI8oLM/xOOUlTtaNqyL\nw8PaPfm/iO4PAe1MJEIvIuBNhTGQTA6kAI0ISypSH0pNzfT0dTSaeKs8wpSy\nsPcgBGf5GnBsXj7McrCAW0g2d4gF8rRY6VKX+cI38LoV50/5W627fZe4/a2H\n2e5MMuIvcgaXtGuitbU4J2uVYbJEMf1bVOGUcBtTFGLAE/qTFNQg7SN46Cen\n/MfpLWm0Q4seZeccKhUTU1abHEsCgL0GYEmLtmoFiZ9JjIMx29uxltHmebUY\nwBJMLaHkrFaq+AalR4lkxe30eaSQTsQpS/6XwUHjMivkonz9UdUxcrW+l/bI\nP2HkzJSAzMJNJyDCH+GYgFz7KNMLtadtz8CHdq3oc/zL96kTu33kF3wYsVvX\nLJfsnXc41HKR8LrTN/V9lkYo1WL+z7BREsefrzuD0NPIC4vZCeNagxekNSwX\nFcNw\r\n=0EPv\r\n-----END PGP SIGNATURE-----\r\n",
@@ -12842,7 +12842,7 @@
       "dist": {
         "integrity": "sha512-uN3A7WzRXLBDm/U1dlrQkyvnkWHk8KkVK8TEP4GohWQrit91MQ0/qAzQqB2ylFkNp5l3oKmWq+SNNxXqk2mYUg==",
         "shasum": "28a35ed7d6dac64fe58074965d9bb17c941b8fe0",
-        "tarball": "https://registry.verdaccio.org/got/-/got-10.5.2.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-10.5.2.tgz",
         "fileCount": 47,
         "unpackedSize": 162333,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJePQmkCRA9TVsSAnZWagAAhkgP/iyj7W2+K66QRpfxNi1h\nw2ax1zQUmcOAyeAO0qu6Jz03LmhlNDJdqJrGtceAlPyS9V7nuv2Jr3Glscho\ntB0twZ+IUAAqWpqbUcHzJa/o89eFF/+AVDjQtmHVH1tfiNIk7A79EFSQZuxJ\nfEknnZE3j7ppyYnMt3UrsMEg7z85HraXajGACeajlHqVYieraMbTnvy4gGX4\n8E7aaCZXvSS2CpU7i0rH2cStVNLe9388TtRgQTeikFbDU1hdlHzMOja1d3OZ\nbVo7CGvJKITv5b7sSQ+cpSiUxERPy0XjkgJcPhUZIdB0MLWD+dyzfqNKK9m0\nMTPe6MWIrfJej+Y0a1SW8FUkHltEQkIeuxK7X+Haz50aeUFRIbvTw5w0+AL1\nqITDUk6WMtRwJtysbrgrKjFqLc0qr/6iEYuFUYmzzco05pIq4/2fBac8VyLI\nPy8y1eDiDrXeK2pKOsIqILZUcuqqnvoI8p+HT2AROzDtJT6SaYFUuI79vw+H\n4VcXyPKmrVgEn/A0QV97F/Mp7dBuP4NBpVNNKn5BjAwLBUpo7732FwH2nJTw\nkxFfmJwe6XU3qmTOqA11CiirROxE3eVif3+xmfqcvx5PDIlab7COuXKM8dj/\nHDlP99Nb6Cll8gWYkTDAkDYz2Sx5KkKCHAf8swMA7sxaEVy2Y2zetOrH+aaR\nBS5c\r\n=B3ZI\r\n-----END PGP SIGNATURE-----\r\n",
@@ -13004,7 +13004,7 @@
       "dist": {
         "integrity": "sha512-PmA4BGUTptinJSDMOVz9FmOovKOAZDAEvmIrTX7Qg/kq6t99HP8LXBPbye3iWjAOngZ0cZ2AQpYQZb+ldU0lEA==",
         "shasum": "41112536ace735166a2c144fc31b96112d555120",
-        "tarball": "https://registry.verdaccio.org/got/-/got-10.5.3.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-10.5.3.tgz",
         "fileCount": 47,
         "unpackedSize": 162743,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJePt6NCRA9TVsSAnZWagAAxvsP/1IRFYio0fSs+LqmIZJR\nnOElczEGqoqBtGEMKMS5nb1D5jQFogewRPgvERU+wLFroIjMCARbk0Gvm81F\nWQWRoFfVQ3cwavT4g7pkMGEnnywKXnV0AaVMVty0eqWKf8aiarNwabUoYfNV\nZ8zgAu1gTY5lCgM2HTP3q/kmt+4aKP3GTphpmow0rImFF9G3rCrlrCIO3/G8\nbEEqH+dNVc9fykIamGKBOuCwu37Enopf4hHluy4fFTfVjBhpDSLJLvn7rnTq\nIDA6VWImy+9VeLOv/chSpVpPFLJOBrTGBvgFpIIpJR7huRiBEM+879SJoM5B\nlKlT6EzR54mnx5M309hHJ3GNXTaIVpKs3RtolZZ03vwuF48BrJv5EXRcIvPL\nqVRfvNn5c9ae1+wtO1ItRiGwx1UvpPyhO0U/eK90Fg/ften0ACvPFDSqbEzW\n4gwWnDBctbZMp25RGQfgSeRAsym9zbpmgtT39y7q/sMhr9LsfYKsndqjJuHG\nDC1pTwjDENB+Eqfe+FJEm17HGo/qZXS+trI3B0oJOz1Lgp6QrnjJ39MBL0nN\nVmipnGC7LiC98AJKvL3hDW75iFZmGDQYU9xsg93jaoN/U7uYTHZ7RNYKfu+X\nDU47P8AsHZHw4piiHQ+dSXU1IfQVYmXUKJ9OMQ78cn6yVbmK0Mdspj3zkbgv\nX/tg\r\n=cPdt\r\n-----END PGP SIGNATURE-----\r\n",
@@ -13170,7 +13170,7 @@
       "dist": {
         "integrity": "sha512-DiyqjDt0yvN3HoGALtOHBGkl6cEZX24DgSm51eDgUk0JvVQF4oqhjDbFnLm81G/pOEl1sn7W0V5tDWkBfBYf+A==",
         "shasum": "1cf7bee3436a80be48a314c197d22df3f7dee7e0",
-        "tarball": "https://registry.verdaccio.org/got/-/got-10.5.4.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-10.5.4.tgz",
         "fileCount": 47,
         "unpackedSize": 162744,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJePvTgCRA9TVsSAnZWagAAwT0P/0KSvNwXM9InNMbq8LsE\nf6u7zShF8sXXGVIVuYWHgbnCNq6p27dsn5QHJsB0W8hPErSs1PG+IJSCzwhd\nh2lxPT2EERy3Q5fmVnGH/SB4b+GCU57Td4qPcYw7jGLjApzoWTyN4ojdCKEA\n6Fnblc0E0nd/zJpkqivsdqWONj9nefPNb7WrsLi5F74RkcbC1Y7vAilcMnNE\nwm6v7mMVrzkGqdLSYSktMohTX2SROBPfWPhZMm1MdewUHmpkUSZeWqPY2gk+\nxLLHJW3bzUJPDvolc4S9w1b1wZN0IsxDpgfuEdNbOiBZd0vLh6j9jjiMoKks\nH5yfTHSMZusYxGkDULD69NtBuelDAfednST8/xmuIki4pTFUcvht4UDipGRb\n3faYuYVR52T0EfT4y75ec8hpLrBtf/rfrNCCpT4fsOjKPN5+zSdw1nolEfiK\ng4/z+lhJhGFAWJZTH/S3FYqbXq884Gy0ih/+yPp4G4CsFQKR99BeOfeQz0FU\nDIw+pJHG6tOtJIbFRWI43P/CQS3JliAUBaURlVh9wZ/quxd384ug0YCAs5jB\n4wUVyLLoCwgw6mQx7QX3utdRH6b5mYN7N14L+Gm108wsXIkNMhjnw1xsV5h/\nWwkKbcjRzQg9PuUAcxFzx6s/OczsBon3OnWrwEQuibkW93Xp/y7rxJVJgRF/\n3ZH3\r\n=yNTO\r\n-----END PGP SIGNATURE-----\r\n",
@@ -13336,7 +13336,7 @@
       "dist": {
         "integrity": "sha512-B13HHkCkTA7KxyxTrFoZfrurBX1fZxjMTKpmIfoVzh0Xfs9aZV7xEfI6EKuERQOIPbomh5LE4xDkfK6o2VXksw==",
         "shasum": "9ab2702c2a6b354ff95585144546d3e304a5022f",
-        "tarball": "https://registry.verdaccio.org/got/-/got-10.5.5.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-10.5.5.tgz",
         "fileCount": 47,
         "unpackedSize": 162512,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJePxTECRA9TVsSAnZWagAArpcP/1lKJUG2lG/onrPucNQE\nhVNTIhFXPQ1tQ9+SlFy5KlWc2nfMnRWygp0N196dGza+6g0oRS/boxt0EgC9\nrkljNAOL0PivrWyyBM5bhch0BhnhLM9fzrX3soFUs+wWJpY46XICfw29UoBI\nxWs49FaLvmGVKOgjY9i+G9O8kSNzdAKI+7q1oEhjjY9oVA5qJwFclIEZZ8ky\nEI8NLRXclW7YzAIo0dBmCkO0PUALKTo0YkDOs2Cd1QRTg4nX3NBs6sactCTs\nUgxLmHdr0gfLT9qsbNoFWFYnQpNzV6ecsySQQIMvcyEJPNk0ZT4ZvqRzXxdK\ntlQt9GtcwTPBGB6iLGb/vXODGz/p8AeRPY1Dw8nsvxOGEDfKmX3MBLwwoozY\nO7t8doJ3BKkX65YDKm8KG/SwFgd8IclVGf3lo5SiFFkp8tIVetApXXgL7leU\nPT+Nw/LLTL/6RnTeyF7lB/+zI4BnM0c5+mLOu1+GyT8dr5eyRxfTQrywOzAc\n/wHIqzQdLsaMmPR6amANcJ5643ke98wKJfmTrEVh4tFpjjdHBEZtzDIc3bHc\n0sRj3Icdorl91ZHNQIVNKeYHWYjP91TtvDc/YzK79H8b0rPD0nxw0QcGhY4/\nC5bv85ovRxIrLJGIz/DICg9273rbII8OuLmvsn9iJ7OOGvQJ/MZUKgcu+eEv\nVZ+o\r\n=UT3H\r\n-----END PGP SIGNATURE-----\r\n",
@@ -13502,7 +13502,7 @@
       "dist": {
         "integrity": "sha512-I6rsJJe98gZvmOpqtfU5dhqEjxY6gXrdAq0YfRUM1slGvJeJMlglWLACCwiUjZNZGvKUe4mAbTakRV4jPXO/bw==",
         "shasum": "fa9cbec9563ad27cff6008e8d48be04aa7788463",
-        "tarball": "https://registry.verdaccio.org/got/-/got-10.5.6.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-10.5.6.tgz",
         "fileCount": 47,
         "unpackedSize": 163035,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJeSZ3bCRA9TVsSAnZWagAA02UQAJXE6AAKlLWMgFKdNIxR\noHgF0KLi6uWYeEAYy1VtIJgqS46JOme3anFnFVEkgCUEMRBSJFw2SFfCdEas\n//dwqR2/mwzRHChSfsDicm7E6Dm23IBGBf6cLNrEARXiRfl8lXzK0MngRx6E\nNk4xU6QAFejW1TtN27HkU9ooOW1YCc3Ec0UFGjp45lI5SP3vDMnpzqyBIhXY\n5vc2cTbGbFvbRI+LxooHAVMOjpDWM6ooEISlelGPQjKFKdjsgiyS8xPhREoK\ngeIMNTxGVhzO2q6twcjQqlOSXoaaH3UuMZLUSk93kiGdnzdPKTPJrx6l8/4t\nanZwCSdxBcel27gMyzaWfztDkjo7j2geZqIIG48lM6IJhic3A+KEUhTyd4Gr\nU+YFjpqskv4OCROTOqNzJyUqoiOzKD5TjdeUr4m3kHsZV98omVioUcy3E1IO\nOASmrc9avPNbsyP/pKhy3p631fm1QSUk5Qpp01q9lmahS6TC0vnjM7H9HrDP\n06KbBg94iDkqcBEQohzllhpqGOFggGjV8A57coPZZDvBtBXjcT20ACpBJvLE\njMCVrF6FdK7qeQYoQ4Y7d/bC4in1zoTlZ1Xqi1Syq0GcQ8oPRliOPD/spQgk\nCETxQnq8x2JoMt/ad8vkIcms9nS1BiueLqz+IHYs2rFyX77rohymnB9hETll\nnCLn\r\n=QfJj\r\n-----END PGP SIGNATURE-----\r\n",
@@ -13668,7 +13668,7 @@
       "dist": {
         "integrity": "sha512-ZDu27XJw4XuOM3wOjOfHPLQiyE0h/+CqX5DkfptEJD2bnn2idqua6uQl9HUGwgQE3Ogv8uOvE2W8jUTrTVrRbw==",
         "shasum": "bd0ef35404345d31f1d6793ed8133896ea911a19",
-        "tarball": "https://registry.verdaccio.org/got/-/got-10.5.7.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-10.5.7.tgz",
         "fileCount": 47,
         "unpackedSize": 163538,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJeSaGKCRA9TVsSAnZWagAAbUQP/jRH1WtCm7+5HAR44cqT\nlH8BrgBDoJkWREpII3sjhnmWhwfbWlQhFY8HZhwejk+2qTv93fNNQHM4oryC\neQiptFlZSmKULyhJT0Y/EHmFn7DNTSzN49hxi9tv9Tgrt4NxshGNn3xvxGDt\nz0rWh5zx+vSyooqkFgVJ47LF1mVo5MBYpFrfAbghPcPp5sn9ag9qzOzqN4oX\nm9n1aqcnQchcawU3usfi3uKEermzS9sA7w5ViK3EplZ1ECDcI5jTKWxvNIfe\ndlbYTkZegq4w5C4Liv54VCITUpqqxKglWk81luFe9eJIcRAhLiOvjq8Ib6Jn\n0WmjHZJWcC64YOmb/K7WZxWYA4cJp2AUJDdVs4p6bfXy8a68MJpukm78cf3Z\nxhoDpplUvuVq+Oc4kcf8NAMmluDcpGzfTXNg5HxasJGvQRqKODFppDkuDZte\n2ohp6qp8a8sPRlHzHxiRykBvKRSfW2bo7QBt6ntSe27SOQzgOj3+QLCNZlSb\nk5Y+cM6AN2cjzoSkjUnNcpOBXTY81onMUfSQlgCZDmMWER+0mB1yWMIrXaA1\ncA/vRvK1gn5EX8GuhNcq1+exweuL7+ZiSlK1rgAU6c7aMBeZJNOW4VlO5oby\nejscZGHHcJIuU2YeyxSabiMGtjJK4XzCZAzR3RLQoTvN5YXlU8o0cT88QVfi\nqO/U\r\n=QogD\r\n-----END PGP SIGNATURE-----\r\n",
@@ -13838,7 +13838,7 @@
       "dist": {
         "integrity": "sha512-3LIdJNTdCFbbJc+h/EH0V5lpNpbJ6Bfwykk21lcQvQsEcrzdi/ltCyQehFHLzJ/ka0UMH4Slg0hkYvAZN9qUDg==",
         "shasum": "ac3876261a4d8e5fc4f81186f79955ce7b0501dc",
-        "tarball": "https://registry.verdaccio.org/got/-/got-10.6.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-10.6.0.tgz",
         "fileCount": 47,
         "unpackedSize": 164829,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJeTje8CRA9TVsSAnZWagAAG8EP/3YnSWe+wczh6vStiNFV\njjqjokH+0h8s1Zjt0lEgKXSXifRTkCnSlXYybuRDJYU05Sj4KdinfZirZzS9\nmKIeoQRwwyu8VJ0F4Q5TcDVSoeAtrHTFAwzoi4KuXBKAWFn1VR9YxRI6x7q/\nqMAsHCLKCQshIJkLD3PC3wfHLZaz3gSHvm7iHNQrA8GMUukT/szrqgt24Of/\nJDUP9xC8G2IC8RezSZr9JDDK0iUzdm1qgz7YXlSKedKlTxQExYshq7skaZKG\nNtV1MtfUW5kkrVjS+ZJOjQKKHVw2GMdAUO7FdcISF0r8DMknVnDEVhk5uX30\nGz5bR1hA/NzgADKnJyUcX74J4vDQFc7rA+xrKFtetAH5yRHtTircCFDFSNrv\n29f+BazgmF1auBbX5RnqZIDh0xkd+mAovDLgzeUwIQfYZI0WkzuKLtbPapWm\nhLvkeJMdNggEN50x3yARV/LlDVOGMUpp165ysMXujz/JVNuQ0igSRG7X/eBB\nm9+jSbZ/hfXvaj+rrhsSM9Bu1+zDMXuby1vkMEG13FMIqaSn3OycFbVVe9Mx\nUNh0vOgWCBBZZ2Gsh2QYSr9stVQ9QcZvRmjqLNhg42kFQMUomUgo/iDIwnil\n6mg8LdEElxTyMkIh5QVgk9M5t60fxxSoicEjjc+8cMTPHVKkNBDAzLEIuLdE\no0yC\r\n=PgLV\r\n-----END PGP SIGNATURE-----\r\n",
@@ -14003,7 +14003,7 @@
       "dist": {
         "integrity": "sha512-aWTDeNw9g+XqEZNcTjMMZSy7B7yE9toWOFYip7ofFTLleJhvZwUxxTxkTpKvF+p1SAA4VHmuEy7PiHTHyq8tJg==",
         "shasum": "62889dbcd6cca32cd6a154cc2d0c6895121d091f",
-        "tarball": "https://registry.verdaccio.org/got/-/got-10.7.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-10.7.0.tgz",
         "fileCount": 47,
         "unpackedSize": 167281,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJeelO/CRA9TVsSAnZWagAAhREP/2bzIb7/SG5JyxjxRiva\nW0ke7IOIQCUYMIa20NdnONHTNRYp50GXGovtY393YM3EZ+H3ou88GdWJCRtY\nZS4+ZeX8QVIOvT2TQFA9dWz3zAhRvz4BUMtovJy1v/QL6OMsm0ce4KQo3SYf\nWVSkcYzyWec2tIsgfkry5TtxzuTGuLSlMk3738HRQ24z03JO6BWOMaDnCrk0\nX+eT+U9KLPYqQNCoO+pf+xyGpWAcTp2CZXnUrsxo3XOMaXrk8Z5qyvDwyF1S\nDNiOkUqZcVyRBr88OANnTbJW1i0r5nCUi5+1EYG56XO54HV/Y+vmUQfkwUNC\nwOdzaV6Sh21jv5Pkc4/RJDTj3H6duigMr+/JhQyk527QPXj02NVGhPzrZ8vj\nrY2TJso/AKqZbS98uB389nh7p1yy40STqbml4I5c+x2/YXHOCzLP8KLRPIkD\n2ag1WtAHTLaAag3S1k/XagcGWK2hwkaTgtoNnzjerLAbHeqZu+NzS2hoKc/T\n85s9Gs8kA3hfcrDN9ohlbQpSIhh/HPPZ+KHTZgPdhMrtzriGJlw2QQr4LOmo\nLdlaaEtP0dfRx//4hwcIN/QxQ5+XHr9AS00xkuFhtKW2gbs/5SpDPbu97LAq\ngenk5to1XiZqt2VF6NydtXScZVdf5rc6ki8Fiw6uK7YrIkt7iWtX/I2cIFk7\n7lib\r\n=1dwT\r\n-----END PGP SIGNATURE-----\r\n",
@@ -14174,7 +14174,7 @@
       "dist": {
         "integrity": "sha512-9oH6JbsotGJ1p/llzFB5XYWaSBOchQvNCfvpcaD/xILnU49zt+F5sDMIBo5IiIx/q9qKlIvqbJet4QAbUEVt/Q==",
         "shasum": "96ffe9dabaf1a77128b17e83a52ab9bc0ae0e471",
-        "tarball": "https://registry.verdaccio.org/got/-/got-11.0.0-beta.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-11.0.0-beta.1.tgz",
         "fileCount": 37,
         "unpackedSize": 174102,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJekw4vCRA9TVsSAnZWagAAM4gP+wQeXLiKeRbd0tHci18l\nt+ba/jXXP5pXH1onVDhSUiXAxdhlVN5scIbVI6aO5/qqNE+e37MyREG7pkbe\nhfNaxZAEjFhkO7vSAoV4JhLGu+QIOtonAYxbQFTC07lo/ew3ftkDc4v2XzHd\nYTPc1MReNjpf4Lhuv43pwL3cQgOtsCGDXmVlO1ix56+Xmd4DlSVtMSlKArnn\nb0BQ0M+irZzifIf4okS+AzvYBxHi2y6GAZh6e8q4jcLr88e7S9UcoBogUIol\njJD41d0TvtzrJaIGBxSYO8KkREgMu+FSBm+0w50sFIIwf3zJr7Jl92xswEWW\nwGGSIWSt0CiEh1akpgY6Qi4+G0AM+6lXsrM7hQIwMG7ejMbg2k5s8TBCVLvJ\nOvoGugORKpLP20OFdKS75YK0lJxehNqg+CPTM8s8SKRsFVKa9Xkt2v8J2Yfo\nXKb/yLXZ/Vu1UNu5OneNFIab7wt1rMSuhBDOdrFfmU/bSDUKmXpmDH7M239J\nkbyJE0KvGGsousOjB6FIk27evTjuSfiVXc9mxm2NFj48YlRlaFRU5eCXjfhU\nZitlqVSOiIEAaDl7RCO6xOPXvRO6aSBPhYUtNTZp9XmfRBT0mTmnmhFIZEBj\nHL1Q0ekgD5buCMKatArrEdnvaGqtu5LE3xNIk37Q5onFalCThjpksthoxZF/\nLzFE\r\n=0SdO\r\n-----END PGP SIGNATURE-----\r\n",
@@ -14344,7 +14344,7 @@
       "dist": {
         "integrity": "sha512-6PjDdCa2yPMuxhoBp6TIdHUm5gv8rBEfr055vJG9CqznZBw4rFEwNifI5JxfLhu41xVHRrFsVtseFOjrcIy1/w==",
         "shasum": "a5a131a55752309157bb32e1365a6a7f2a8c15b8",
-        "tarball": "https://registry.verdaccio.org/got/-/got-11.0.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-11.0.0.tgz",
         "fileCount": 39,
         "unpackedSize": 176046,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJenY1aCRA9TVsSAnZWagAAkQgP/243D27dcS3h6mzxsYa9\nKyWUlAkISJdOxdY/dMET9+EO67qkpQBUcYBflTVUsccsabeA/2B+fO4sbszz\nPqBvA+F9zmJPUExz03GN4Ex68H4A/xpatnyuJlald+VL3SDSnVtTRCHC44oz\nUC0zuuiokrhmYH61jmujSJQ2+FP817iBdptE0e/mpNWBvypQa9Yl6+nuqb1i\nSGzin6EsITgS/beBvfJmzLOaEs/j10J9xixjOoZCMp6NHNvuj7oyijeddjet\nRBP34PtL+FZJoHA78HCliT85rXtWYZSIU2U6ija3rAL4Rm8BcHHruzykjtOy\ng32KfM3v3x+a27AxLLlQ+qCB6uBz4AZ/Jdkn7ex4cAxzlSViC7A5Ae9ql/X+\njh50qklVMhk0bNKlZ3uOkObFr2bSUmOvXSk2UQVQ8aCV9al4igEsL5cNb1WQ\nArQt5Oiz9MZbFoNbEjv3DtE5NxC3kpWdjv/j/68ts6lRMpR4fSnu68bJ1Nsk\nOPgAeKoSbaVhupmK/dbANG1pyYGZpORUNwjyuDkq3HEWVv4atihKYoxmGy5Z\nN3Y+tKr7jqRTwfaVHWaR0o+DE/MUFw1VWa9AFQIHiD7Nef8LTm3n39vIojJH\nj5tGJDintUWB02n3gLJNGrqXP2m3DUdDGve3sCKiEJwQbIHr6v8PHj5G44v3\nmh70\r\n=BkaH\r\n-----END PGP SIGNATURE-----\r\n",
@@ -14510,7 +14510,7 @@
       "dist": {
         "integrity": "sha512-yxoJ0Mo8IV0bcrDaT9OaQ3dB514e26r+0V16TK7cqbcotbAwuOq5IIr2WJl75CvZ3oIRtpHVftYAQLF1lqrC5A==",
         "shasum": "515ed43867a2b49d2dfa7b920092fd9299188f28",
-        "tarball": "https://registry.verdaccio.org/got/-/got-11.0.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-11.0.1.tgz",
         "fileCount": 39,
         "unpackedSize": 176987,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJend5sCRA9TVsSAnZWagAAeHgP/An+G2rbEK2WpFuS3dmj\nF6WLItZnSrhMIt69aNcnSNAuGuHZSJaGqzyBf4Qcy2QrjdVdTEJLY4CBuR4i\nXJIyDU+SRepYX7NSH/zX7Iyx/9vnXh1JU5+2l6wsGiCxVxi9dr750v4GVJmm\n+2X0ZtJAU5sirZvCbHZe87xZhIEVgUCaJdsG5Rw02RS7yODhD7ws1cGQZM96\nN5LZQ2NCleNJlLGOvRt6hISTQh1kNF/rbtZIxqkSRt0ehLJ/U7zMjEqnmUhA\nKuXuaVk6y/ZOMKfmUNAXIlBsRdFYUn5Do/7la7Xa+K0ag2KDWV/gz0TVfeON\nvRC1TrXVSvUd8WiFybREb8mafXiChhckXhNDFC0fqfAVSm4CLuikZHnCF/z2\n5tEmXm6HcMyOLWoQ8//Kic/nJ1u5288+kkeI++DK/E4WBxIdZdZl1OD+4zwB\nAyHSVhLpGkZFlcq53o7lX7JRnvIcDtXJeUtMvBA4jHQr1fTMBO9gwsC2tT70\nRb5og4LcpBwyZMIjlWCcY1GH7W+1mxBi7gT2ckkAd6k871/lqK6OV7cVIhdR\nT4OH5g2WNsbH4ngO9JSdtHYyaHwLa0uoDgB8e96jhrt1tzXXxXqAosK5BWNX\ngKuYfTwDitLMa54RoI++sXWih4gMJ4i7Ptc5XCcCYfi6S0TzuElbmoHhs27X\n5VAz\r\n=4FYf\r\n-----END PGP SIGNATURE-----\r\n",
@@ -14680,7 +14680,7 @@
       "dist": {
         "integrity": "sha512-zOanxiJs1LaBAiKsV43UUw/oRlyRNtJFeuATahfi4c3MTremj09eAeJBSJ7GR2oEMhrLLRSJpz8fQaojVDijjw==",
         "shasum": "55613d6a1b7040ff9c26cb075defea39eed58d7a",
-        "tarball": "https://registry.verdaccio.org/got/-/got-11.0.2.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-11.0.2.tgz",
         "fileCount": 39,
         "unpackedSize": 177919,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJeoAxdCRA9TVsSAnZWagAAdu8QAJ3Xuew8tuDO1yWsDX7p\nf++UnOzbp1LpHcgZb1DWcOMSHnTyki8T0JfRrjx0TDdBh77U6454eaa+Icbw\njO6loK3d4h+FUduZrUmAfrOfnSUDwTu00FcgwcD/0Q5WRWcoK/RtVxd03Gbc\n2+BnzDaM1TeDRJveFKCiNSw4mNN1Fo8V40K1FSquM0WEU38wz65uDqefgX51\n1FVrB/qcW/kE/xNhwmI0V7nhyWCZDZcxgDpXfTeQrCWMtCiWQdAcQ9rRBtY4\noqiAe5yZiTFHjlxSECNj1TcOV7PIeyuTLAk7Q3A8RA97OUcuPie6BLo0p1+J\nCyl0whuEcPLhn2LjbhBbHvsCGizZbheWDe+/L+zUapc749knjaumQLcY/rDQ\nGgewsxDprLWze8719fYwodpNG2vfedbYKvaICSGzf4BDkO89fnPR/BHq2jM9\nY3l1i+HHLdZuqNsZ6cO15AA7oTkWlbVK53uXqrULPSHb+vUV4yMmzzKjHD0u\nQtlcqKlB4O7wXLn6BspWJ+ihdkryITyGBbQL7t2177vXii4Kjk66Q6OSIOri\ntVhHyh9vx4dSTCQiWKrCrh9mzxy276FXYVNlZGGlynDsAc+PWIfXuM62oyT4\ni7P56fM0eAACZBqrxPDIN5mrL8SAp9fXY4JEmCyn3nXmBBZE9BT1eqPIQmlR\n5sSf\r\n=PWTH\r\n-----END PGP SIGNATURE-----\r\n",
@@ -14848,7 +14848,7 @@
       "dist": {
         "integrity": "sha512-VmU5xQ5tWIc2SudsZQ6ewOwPxXxJ4pMS3SJoqP5SK8oBKxnZ3OgAhLZcPMDYeOW0RKIL6HF/vHtibWDLSa3rvw==",
         "shasum": "1df7678f9768ad3991c03b3efc304795eb29fdad",
-        "tarball": "https://registry.verdaccio.org/got/-/got-11.0.3.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-11.0.3.tgz",
         "fileCount": 39,
         "unpackedSize": 179620,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJequLTCRA9TVsSAnZWagAAXEYP/RCUQrt3G/g6Al9w2Ld0\nokBI3ap2Wb4PIeK7YR+cRPaxw/mqInGihAW4MCrZ/a8e37XeHoZnK5Bl5j6b\noKp7qte4sJCJc3o0JTqkrsgSudVIEYuMzNUnh2G7cStYrX41woPj4c0ochMW\noOL1rTPxsDwWHoS5GowSD41p9Kn5RKMB/MRQgKyrZnJrfRMerHWsfDK4YZIa\nWkhOngiOb5k8ccT7eHVS5AiSfGpUhFUOTSCeEJCRnun2v1hftpjOqo5whbkA\nbHmCj4ZqaSzv7BT8URIjvMCaaS7hMLlRUHJMP3anut3KpZd0RyXQUiA49CPp\ncsuRc8KMYMKSQDqzhD7Jrw6LANAaRHqWACijgA86+RH3NwCJH1XAvw4ISkmD\nvAppgq7tqu+dyAfX9SyM7JxkL95Z1V+GYcxp1oqY9gUtlbho/rYUTlDp8PMv\nwrMX7rbRsUic9zhLXKTfZY3fEyoYfROrpEjnMIJjD2SY39XVmyI4LBi1S6LK\n7CWQ3QHMzaLcrulUe8kpUihSLLIOz3OUZAhrhN5/blg4pllf5lj86TYyEjH3\nLhJo1jl7B4rcxrgkPEAxRjIrvnyjGw+8TLQiFR/TbVduzVN4nUGWoa3dVwJt\n+K5xPAqDMu30OjOySvhCKspdb9LuLa2/NyrjXXEJfV6g9PZOXV8xU6/ALe/0\npS8j\r\n=6gIK\r\n-----END PGP SIGNATURE-----\r\n",
@@ -15012,7 +15012,7 @@
       "dist": {
         "integrity": "sha512-9lZDzFe43s6HH60tSurUk04kEtssfLiIfMiY5lSE0+vVaDCmT7+0xYzzlHY5VArSiz41mQQC38LefW2KoE9erw==",
         "shasum": "99c0c3404ee17592e553f9ed1c895f920f554ed8",
-        "tarball": "https://registry.verdaccio.org/got/-/got-11.1.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-11.1.0.tgz",
         "fileCount": 39,
         "unpackedSize": 180341,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJerV4ACRA9TVsSAnZWagAALWoP/0/+C1n4WR2hF7nPWUuT\nNkBI4NbAsfecKmy0Tp4h5TrPMJEsvZyFJfF6F7lTj3LQnhVpqH8zspRfInIP\ndN3fntfA2vfywjIrPrvH34eItHfPwHtp7eFcg9ztNLUzAe4nmdokbx9fwKCz\nG7XM4mmdS5pqJI9Mg1ElNldeT2YhgM8BCUY2xROLBkj8WY/rwPj1Y5H8Ii+d\nGnt2a7/7iSzw3wPia95qMDl9qtTgVg0A2c14GsRFSmaNt5tK5S/SY1h2datc\nydj2lkuqpDWTv9s6cERbQcr75nndt/0hMrDBF6uIdMmJL22sRbIG+RIUq1L6\nRjI5Tj00F+8Grzoa0dnX8X/d6GwjyJDxpvNpjxAeuJciHcTuRk9EBCpsRAvB\nLHR3Rggum1vD3Ln4JXEXnUvdi8PkbUf+FOSYOeRLtMWua6/o13qh7f72CJIB\nT2ngkd84nG1799Q4XB4xa3Eds212z9iBxbz9vk5HYk2OH89aNYWrkB5tlKVo\naSFdtcgniLTIXwyfTBOKvqBQsAIjmOkfCoUhVciWZCGPJlc4gg5S1ALA6/PV\n0KwRyO0BUTHvZ5P4KNL39urt3HM1RGu1OMo7vnlNj1iV30ZoNDTxPoqJ9HpV\nJ+kfbnH8b6jYDZcwAW8+vToMLOmwHDkvPJ+ygarXLxUuoMYGBBU92m85p7q7\nMGmI\r\n=OnBm\r\n-----END PGP SIGNATURE-----\r\n",
@@ -15176,7 +15176,7 @@
       "dist": {
         "integrity": "sha512-7WxfuTyT02hMZZdDvaAprEoxsU13boxI8rWMpqk/5Mq6t+YVbExVB2L6yRLh2Nw3TeJyFpanId41+ZyXGesmbw==",
         "shasum": "11f83049df8155b384413547fe163dd4b35b4240",
-        "tarball": "https://registry.verdaccio.org/got/-/got-11.1.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-11.1.1.tgz",
         "fileCount": 39,
         "unpackedSize": 179758,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJesobKCRA9TVsSAnZWagAAuCgP/1Wb68nlC5nTCdEJKqUg\nbky/W0Nf5t0mgmJp3IQD/azPYopiKdcBqVTSoXlPxUCgc6y3STPC4qBJeMRO\n3UUicygKEZ4+OydJsLyurv347ZBKc/pi153OLZ88yuP/b54rR4wv2mJ3bFgY\n6TTroZzW6MNVR3K5Zd6z6uXI2XU2G/T1LH5z6IZsuEjVAdVagg6H8rm/C4S2\n5FtgUbp69LYbgmeIlpG5IuCGCLUAjVVXEj1f5uOdUnmnYTccTeBmioZWLLbZ\nr1RiPaYz8xLyS99GkgR47qi6hlbkcSrHGbhCliBQ1cCtCmigBgl2CLRRpKIo\nMot9xwxs4GBlC8r9YtZAfbRBvdTwShIxq3ncPMPslpXfvXMO7u0lDTJlzX4u\nZ8S/dVJjE6g740wMuOXPcNZMQSq7mzDRq5VGe4rRfowkKpMUq0KqlZoIZvoI\n6ZfEhOZCJlFJ5y72WRVvUOppyKtvirir4k5aP4bElSmAL7QX09ocrFZ99ppL\nSUPqU6zS8nn0OWOxlA3YGPHhNHsHoJ1EtFRgCK7VvA5vFTipijDsZ/xFBJ3d\n9UsgXRMhI3WQB1XGOIJyhhtGFbQnqI0juXx9cMaN0zW0CCIHBnLt3bYiyoxd\nOs8WVYVTLZuSYUVX1IpYWL4TRyxKz4IUeWO4Eh31R74ebmGg4RBBmlV0rwa+\nlrCK\r\n=pqKH\r\n-----END PGP SIGNATURE-----\r\n",
@@ -15336,7 +15336,7 @@
       "dist": {
         "integrity": "sha512-ywWJU8STgxsWaPRC61HgqNYGboJFgkVNNbga+C4xJR67cySTskU8XehWWRMnWCtDmmaYU5SVoMAXP+SuY4pNsA==",
         "shasum": "bb38ed6277670fbd103a1b858cfff9581e62045e",
-        "tarball": "https://registry.verdaccio.org/got/-/got-11.1.2.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-11.1.2.tgz",
         "fileCount": 39,
         "unpackedSize": 180109,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJetT1eCRA9TVsSAnZWagAAPjEP/j4pv8zsF9sREX94nPI1\na9GawJwUQiFpMkhIJ/ZbpFEHvSjbl65sRD25SwM5iar0DxiErxVKNEBIniuP\nnm8hjMH9tqIuI1HZe9Y+M/5cSo+ONNtdekg5CBKXVPVd5KgfpvYQ84Uu4CrS\n/fXxqTsJsiy/+WWM9cNQAuyK7i1OOZDbc1eUoOWSdGxAnGFckbCy3FZ1StIO\nzP2nfQk3Z5ZNbig5Dc84fpRtUg78QqWE7tpMlimUGe3iUIn5bSEGDc4AONOx\nCzAaV1HSQ9GywKaf556gzqSVe/+pHuECxva7RG2QqhTfW5W2hLo6yXAfJGlJ\n0R1SRZlnUCt+UVrw+5JAf2RB/YYuojmttrwvv1Ytf1XbN/uP2VlCP9aw0ZxB\nzsvHRm45I2Y7qUgodRm9G1fdVTSLsm2Bz5koN37P3yblHhx48NtPw4QDyIxv\n5IPqDH/h+LdvCf3O7afBqdmRoOurrdVqyeygaieJJLhGhQ/2daQ8okhtQKKQ\nrUMjXCnV0wNpUcuSIPGRWO6VcHJdsh79RMp6mZoZr5COgFFKXpEgnmZ0pbXD\n1RVkknVcC6tpN5bD66Ul1PtpaklmgIGdyO0lf0qZqVWmJq9cxdE5Ch5Iz6tO\no16Md4d3yJcJJT92k9dDTwAn9X2ci0f0R7d8VEvI76WABjUqEVoaYxxE0Usq\nYY1G\r\n=6XiX\r\n-----END PGP SIGNATURE-----\r\n",
@@ -15500,7 +15500,7 @@
       "dist": {
         "integrity": "sha512-JnGxEHZiy0ZArb/zhfu1Gxoksy9PjhQ4GAk6N4UArV/m1JdE7cGNVXbUDnrQk+nU7UPMDX+BHQAP0daMjsnTtQ==",
         "shasum": "bcb624c636f9c4da5a82a7d7c9017fcad6e2905a",
-        "tarball": "https://registry.verdaccio.org/got/-/got-11.1.3.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-11.1.3.tgz",
         "fileCount": 39,
         "unpackedSize": 181786,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJet/qxCRA9TVsSAnZWagAApbEP/RXZwdqd2NUlwGTCr9Iv\nVLDOULwujL9bewqn+uN6xH36M7TficdEMp5H5yCEebXbgWAsH0gAa5sbtOJL\nA89qfKU8gmaukw3mo8KYaL1r2yvIWQDSbLTIOfAxpWJzZkugWBBAOmNjHR04\nKU1ysJDNVANY2AYshCbbEe9HpD9bPSLDrMMK/GKI59+Gc8nRK9mE8Y/je5Cj\nFowU5NbyZD5jC6npzBi4q/t38cZSzxE7dB2EZbHIhoMgS74Ym0eYxVOvFJpD\nSoP7XxSg5VWM/VETBmgkNgeYyZ7v/4yCsOz8B+IJXCcQRvZ/0IgQRs34tk4T\njZjzeKhHEHwprycfTzoovDvp9zLdxP/OhqsyFzpSK0B9pl4PoC1T+i37kL8E\nFFyxigLQ8lfq+dMoc5iwSLuPXDqvd7H38sBdVyTr0yVC/gYmYV6zbimraor3\nbCzuziOHm0w+AnurZb8gR50KBUkZGJRl0d3mIQ3bI2fup9VQaO9LfSe5GdHQ\nhfkUy9PJgRFJaPNj0CqkGGcK1+bN29eMcL8YVX7hPCUoDZSRS+PoeR3FGaaO\nAbtxMhi4fZQW3rMmFbHN3df/kNjGkIFQNylDYpw8uQQ4Ivd2CQApdznRCPgm\neLwfLxmdB8qNHhbcSDAXQEnBY8k0s2w6QWglGxqAo5OXIdpitXTQ++G3w057\nBqj1\r\n=2t8K\r\n-----END PGP SIGNATURE-----\r\n",
@@ -15664,7 +15664,7 @@
       "dist": {
         "integrity": "sha512-z94KIXHhFSpJONuY6C6w1wC+igE7P1d0b5h3H2CvrOXn0/tum/OgFblIGUAxI5PBXukGLvKb9MJXVHW8vsYaBA==",
         "shasum": "ecf0064aab26ae4b2989ab52aadd31a17e7bad63",
-        "tarball": "https://registry.verdaccio.org/got/-/got-11.1.4.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-11.1.4.tgz",
         "fileCount": 39,
         "unpackedSize": 184190,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJewBRfCRA9TVsSAnZWagAAbWwP/iTSQ5iOytkZ1oK7dWGm\nSw6u0LMGgrXLDBxtn57qiL3sLvJUSmSanmOAtq3McNdqd4WCEzR4rUifkaVa\nm434R7UDRibuytWOxdWDjlhpJn8xPKD7H52EC/jNbsKfu9VqP5qu+5h6BA2w\nsTvNqVk9SjHEsaItLu+32cAqg804BodHI8fNMzmhpjX03BK/wKrcdyUBwwPS\nmjP45gGpu0JwAXDrokiZjsN7doCHuOtXTeC+jsblHbyu8b67wcwfEDdmcuL/\nf7b5J6IOw7vp77Y+MMffEXGApl93w3viDf8IpCYng0a8kRFXIsn1TRSmBdr7\nf6kdzdvb3Zes3ttJbh18n/HSz14IkKcEqk9wDH34qmvuzZcu4vD9uPh+TS0C\ntZxFCBpYFumktwhZiYltIPTYrCVFameTio+0znSd4IUWxim0GIdKBdyk29Y8\n40D2wzhNWyI2VULLI74eggYjNl9F4wzbm3GFtYx4tj8U/V+hdsfLw16lWvyy\nCRfCQRWHsv+u0ZE3ZyEK4jiZQvJINRkhyMJeWLpZdo3bRn+Wq7it4gFs5dBA\nwSftTahpanJ5+WHppFqHWHi+uSmFec6X60IGwjSU6QQWjzD3El2D7JjCZGIC\nI8hWHvMXTHKU1iD1UKkoKanK19BbjVrOgaRM5dsf5pLzOmO53VmWWnTLoejj\nRWpn\r\n=/FEY\r\n-----END PGP SIGNATURE-----\r\n",
@@ -15832,7 +15832,7 @@
       "dist": {
         "integrity": "sha512-68pBow9XXXSdVRV5wSx0kWMCZsag4xE3Ru0URVe0PWsSYmU4SJrUmEO6EVYFlFHc9rq/6Yqn6o1GxIb9torQxg==",
         "shasum": "20f76c421378b28db773d6381a450fa1bea92d2b",
-        "tarball": "https://registry.verdaccio.org/got/-/got-11.2.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-11.2.0.tgz",
         "fileCount": 41,
         "unpackedSize": 192115,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJe1K/kCRA9TVsSAnZWagAAVN4P/Ah8AMe5IesX35n9wn5R\nHk5xOsRTra/2wy3pvFT44y4q0GYGDldz0KGWDGDgO4/NEQqC4KBVlnWzIyKK\ntllcujOYN6m6cOMS7hU0vuZUWvXd4e11Y0s8IrusFi7qqJJHNkv6i9SrI2iF\nIhJC7f1E0uIn1PU47qFNJgnZ4we3p+pDI6O0KFs/bYCMLISRmllQ9L6cH3gy\nylrLTlCsRt0hmn1OAbuCyNc0XNcZ27gxBqm0VsWy5SuM09EYsx/xhqBucG/+\nFKSNdFC5FOF64+xpm6rU41lHx3+HQmeUCXp/sfmpiCyZ2OVlrhdbQYnPGH6k\n9Fxndss9fMkBGZ9MCrJEZBZ691j0eLYyrnsZCar1rNXnEEuEChGnAk20k91X\noh1AgHFHu2uT1b+8k7bhBrhDGSwdI3Yn9gHVWwSUZIH4rZ9lHuMkFUlyL/7R\nsl3l/zfnloF4og7UKkALPoS5ojMz44nv6wFS1bzUtvz8vbPuSRWMaIFBcQb0\nUb8ypGl2QBC0NFJ5wQrZXZR5I3S4kttYAftKs6ftE/GSgsqrQYaGhENtR8fz\n1BpXH0FIx4TqlU95Eup4rvT9Ys7oZM/G4GVPJjj7elS7SVuNSdYSQNhASysS\nEqfVc+pnd6OlHaxczaV+Nqj8QQyEeXrzjAbwJ6UnVhEXjnaJUy4RqqH4DJBT\noEi5\r\n=XpRR\r\n-----END PGP SIGNATURE-----\r\n",
@@ -15996,7 +15996,7 @@
       "dist": {
         "integrity": "sha512-yi/kiZY2tNMtt5IfbfX8UL3hAZWb2gZruxYZ72AY28pU5p0TZjZdl0uRsuaFbnC0JopdUi3I+Mh1F3dPQ9Dh0Q==",
         "shasum": "25e8da8b0125b3b984613a6b719e678dd2e20406",
-        "tarball": "https://registry.verdaccio.org/got/-/got-11.3.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-11.3.0.tgz",
         "fileCount": 43,
         "unpackedSize": 196623,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJe2nNJCRA9TVsSAnZWagAAJw8P/jcUGOusRT+uEB92LKxG\nS33cK57ANg+lH9CHcNMIEsxbnDR5Y8sbqxfrzGtzIy3RbuZ4DSkLxN+0yPXE\nu78oQ+jmrb6afUVMhdemVs8pTqydaF/w2m6Fnns0wnr14KjLGQ+G+pDeXYm1\nWaPB2TCDH8fWa8WAK4E9k3IwPD2LG2yh/bE6vXqti5k8Xz8G11vcc64J0m7P\nUix4Dr6qAK7rAEYVEhfQklnGhb/VrBRmLMRkxwSYus3x+7KsSfo1tQoMZvUY\nU6X1UMgrG78H8dbLf7F63/w7hM92Yk4QVGcf+EbbUcTGfBLYCObd3Q1msVPR\nw6XS6rln7k4+mUzYHLTaboZryAy/1OC8iGmyq7tDC4GwF9Gnsx1QYpE5QXGC\nkhPtZO0jp3E3Tuagnjusfi2MBk77nee/2G1MDUzhXGeMoCmFyE4BX8qldZhB\nHtDIzgHQ559hvYSOsoZ/ATSHU8ilEx6X6lfSmDAkbBW23hmZd3K4IDlaUk8T\nA7ryURqJzC5jBvyEfILM/kETA7bDhpc6Mz68YUNjxts4oW8Wn0wPrt8WaojG\nOBlL1IeBqgmchkEo7XCpD7xWT9hDQH9f5TtVvyQIO0RIMPWjJ0xGbDWSDnh4\n8aKfDIIc6T1JIAzFIjPJOsh/TSHU33X+OaIS7YDiwz8W1WBGj0d4+fj9HkBX\nSoUQ\r\n=MpJx\r\n-----END PGP SIGNATURE-----\r\n",
@@ -16156,7 +16156,7 @@
       "dist": {
         "integrity": "sha512-XysJZuZNVpaQ37Oo2LV90MIkPeYITehyy1A0QzO1JwOXm8EWuEf9eeGk2XuHePvLEGnm9AVOI37bHwD6KYyBtg==",
         "shasum": "1f0910310572af4efcc6890e1dacd7affb710b39",
-        "tarball": "https://registry.verdaccio.org/got/-/got-11.4.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-11.4.0.tgz",
         "fileCount": 45,
         "unpackedSize": 199516,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfAG0YCRA9TVsSAnZWagAAOT0P/Aj7Z8xqgwHmr8p/oDNx\nviMKwPK1kkgOxzQiwR8lWW7fFrWdGEyL9+U7CInz/CG8zAllOsoXjW8+lkCa\n8edMjQIgfW9Qp72GX/ly/Wz/po/8G9U9QF1NjrnstcG7DpgHc9qdnRMCR2a+\nVezRGKCt2SPIDu/J4KpxVCfg9CLAAC2NS+0x7LIs8ZakK7fQ8rxIQGbu+wyO\n09318FzGfkdNNJvy0bwymbX+Y8j2KRVIq014JR78+jVuN6qU84b4ijpCESks\ndizprtOx0hRs5+Gdgr11YgUwbCLXXWlypUD5xhtqEqcHyMDnI4J4LeHZfiiV\nLNfIejB/Bh1sgUeV/AsFETbQDmrUW70+T2v7+iKBpx3XFxSbsicG2dJtj4+t\nmaiq5n1RuG1EeWQjTDKNEThUDrasr0yBoxq+q9Dl4Nbo7cvmuGZhJ7Eoz+Jl\ndM6Vv6e+qGw4nZev6KVGEqzr4RHIwZ0dQV2p/d8+v5YYfmMsG18GATVuvZol\nz5uKiByArmJGNum4gzDxFPRxa7nTx6CytLgiimeUba4I4Gn+fwSnmShddDm/\nV05ke2M19cGF0MLkxzfZnNl/QFprwKASqkH3SMLHkqqYZkTt7qkTYZrtupLs\nYK4iHEx78vPf66swJWCafKjaWbKWgyQOgIkDTV1p3dHY/lAR6pY0oDN6/e/q\nOc3m\r\n=+ad7\r\n-----END PGP SIGNATURE-----\r\n",
@@ -16321,7 +16321,7 @@
       "dist": {
         "integrity": "sha512-vOZEcEaK0b6x11uniY0HcblZObKPRO75Jvz53VKuqGSaKCM/zEt0sj2LGYVdqDYJzO3wYdG+FPQQ1hsgoXy7vQ==",
         "shasum": "55dd61050f666679f46c49c877e1b2e064a7a523",
-        "tarball": "https://registry.verdaccio.org/got/-/got-11.5.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-11.5.0.tgz",
         "fileCount": 45,
         "unpackedSize": 205621,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfBMWECRA9TVsSAnZWagAAPu0P/RUfhg00roiAkrGXiroe\nCgnhXDnxW7DTXm7zAB75ULwS0qF9xh9BRpD1POcL42Uv18S6FThNSbqjJp5u\nA1z5RnZiGFw6AdyYlc65elVYrfdA96SPIsohgxn38mrhVtI0gFpELr3hiz28\njKD5P03mXa/9FyXTaCsUiBbSOD2XBEVTGbncr1Uk5mTRA2PCNfloSU+d6pxA\nkuq9RCvb4/NA7gpj8kzVV+MKTohGEqYIH2Eyionavb8t6XdDokHy2KtbWKMx\n2Oujm9tWJU6MwMsMUWWQBH70/P4mrrFmtKeKB8X4SbX4PJoOOBTczt+BSIBj\ns3R/qCQrzC/pPeaSg4B5UhZ2LGdX/Wii/D7r6Kpni3qiwbEm2MGjFeVu5CIm\nDJ9INzHmvs3d+u5PVRv15Pg3Tgile4P19j6sp/a3tUgrboimpKSKWXwyF9Gv\nPcdSdgXqDkKoZjZMjImwK4uRofsRZ6NLL2NZWu7vCIJXbuP4ghBDjRfpr7Ps\nCaWhvt+3RPvZzaNGXcMq599AUm2K1kStFwoYFf1gyFnXaQxrpkViLTVfPwvV\nlq2T6Vd4Y1rqa5y/hKWcin5AtFW3bt1/WdhNnnDL955eHLKXTjybRAVg09y+\nOZ10KBJ8tUz1WcqUCYqfwefIBd1Ew7EMOQVoSf0AS/vm9ef37vu26MJYiIeV\nC4f4\r\n=xZbB\r\n-----END PGP SIGNATURE-----\r\n",
@@ -16478,7 +16478,7 @@
       "dist": {
         "integrity": "sha512-reQEZcEBMTGnujmQ+Wm97mJs/OK6INtO6HmLI+xt3+9CvnRwWjXutUvb2mqr+Ao4Lu05Rx6+udx9sOQAmExMxA==",
         "shasum": "bf098a270fe80b3fb88ffd5a043a59ebb0a391db",
-        "tarball": "https://registry.verdaccio.org/got/-/got-11.5.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-11.5.1.tgz",
         "fileCount": 45,
         "unpackedSize": 209080,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfEEQkCRA9TVsSAnZWagAAF30QAI7IxOuw7xChgmv+f4kX\nJWxjdjnRTiMDePl2YxsiKXBQnG8fvJQcmhl1amjkwQdqheddpOiFhIkAfqXa\nHdCpeMZ2TBz1Kyg20n018jc1Th6sAs06dWPz1y6Loqmkk49W4COlV41/cNlD\nf9/FCqcd3369i5YvVrDj+//kj6KUQ/efNoSY+EzUli1xtkkhp5jDQR3xl2Sd\nJLLLZFNVtv0VRaDEUrdJDsbbo1o8PLSANsZymwSYjtePP02VCUMNskFE+32q\nNYUhei0Ax2T3Heq2vRZv7ec/LbaTkLxh2Evw8G+IKDxH8jZQVfUS7V5+31T+\n6j5XEKnmdA9FEdt1v0Wxy5BIazWEWUNrB05BrxEX5I+QX+p7XkhVVJXYAdSk\n2PoDzVs4XN3A5QTDMsH1cj47qBpTA99tUl1tWG3nsdiDzCe79JqM4pzt1Jkd\nK7yCoJGV2PZ+kPMuv/nnplOn/Lx/wXIuS8DmbRnT4+HBX1MIh/gQ/5v7fxMv\nOGWGO/KEpiJaq3nEXTbGRqBSXf0spE5diOXfRohH/53pITNplZ7ozR7LlikY\ns3brqXN8DUkDek3OrMRi51suv0p3x8DADCWLDKu27MsHn47bJRglnYK2hPpo\nSDDu44scn7eAQH+nd7N8HqGSeUBdUPXqpVxJx4Eky0sOL1wCaH0BE+dW4rjB\nJ6Dd\r\n=WLiS\r\n-----END PGP SIGNATURE-----\r\n",
@@ -16643,7 +16643,7 @@
       "dist": {
         "integrity": "sha512-yUhpEDLeuGiGJjRSzEq3kvt4zJtAcjKmhIiwNp/eUs75tRlXfWcHo5tcBaMQtnjHWC7nQYT5HkY/l0QOQTkVww==",
         "shasum": "772e3f3a06d9c7589c7c94dc3c83cdb31ddbf742",
-        "tarball": "https://registry.verdaccio.org/got/-/got-11.5.2.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-11.5.2.tgz",
         "fileCount": 45,
         "unpackedSize": 210090,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfLTDgCRA9TVsSAnZWagAAvsYP/iIeX58BAm+qgCT/9kN7\nPtIn+i40hgHQiHaquYUQpO4BnEGIUjAaJ3xKqjmu2qOyomewT+d1aFMkTfJY\n6OloIyN3ACPYWyW4lpzmwyIJhcgCV1W7/IvJ49Af3FNXkweuuF/4CZw3+ZLc\nAIa5a9zLVtyFvD2CETxSRijsCaxwiG0uCjpbo2QGK/yCy5dA2wpUH7BTI9Ri\n2W9/XidtHK/ze8yjlO8KFoN9YUiWiktVuuqVGyfZBXDfwl0pxY4XXvqHru5G\nGgpmTx4ALKA83IhNbm0/+8sYMzPTUg5ri/08OSeEpeR45tfIVJQL1OeLnBYN\nPDvd+tyGqFpeY9XV6drUxHDc7gVQkZ7AqswOWV6Z+mD8nobTD5iZ2jKjQKq3\n+7JCYBvi3lR6IiFnvrWywyIoi3dYAXkOZnHog9EnyBqhIt9ueUKR3ShjJhXx\ntNsyW+mVqHkMBvOvGKadSn6I9LKpnrcNLdmthY477M3NhI8ou3n61dybxrwK\ngnlFZushUWldUqJfhSggdozwmm6zJ/pHpNNFlJdRMw/bgkRxCmX6vx3/ioLq\n15eabzZaq/jB7VAQpBK3lpocmwxx8Eh3VoqBhsnN5MHlAuQ+RWtvy/IvnWfN\n7N26BnZms3DywCwAZ0Qiu2rDVCFum7TXXsS6dpvYObXbPEHXWpKznDL1TVJC\naQKx\r\n=n5N5\r\n-----END PGP SIGNATURE-----\r\n",
@@ -16804,7 +16804,7 @@
       "dist": {
         "integrity": "sha512-ErhWb4IUjQzJ3vGs3+RR12NWlBDDkRciFpAkQ1LPUxi6OnwhGj07gQxjPsyIk69s7qMihwKrKquV6VQq7JNYLA==",
         "shasum": "4978c78f3cbc3a45ee95381f8bb6efd1db1f4638",
-        "tarball": "https://registry.verdaccio.org/got/-/got-11.6.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-11.6.0.tgz",
         "fileCount": 49,
         "unpackedSize": 257460,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfT6H4CRA9TVsSAnZWagAA0y4QAJz+szB8PP6RZS5hiffE\nk1tqNhVcR1xgw2FoI8bGkH4ybD/DwMG567FhIfqO/+rh5v3CVuk4Gacb/5oP\nq259nh61uZxmXO3zDZj31qxOwYpipmRdrdBM1ACDmNHgCewKJFyMVhQ9bftt\nEyyGytuWb7ajI07SW0G89B1UKbBbrr7EUBQpb0h+OjtdyQzf4N3lGhWEBLdp\nXzwvu9jYLNJg2BOBBGorPnnWLcnA6kk9m1+5JnktXCRgIKnmo2Bz00EOmXqN\nngDyUgVO/eZuUXFtB1lUUYN491G1Hmfff6cM6GyaJg5RQV/ZToj89o+GmQYo\nmuPw+AsZkzw3h3JDA4KP/zBmv+8K2cpf4RD8yTBaiXuM2Suzz7olvaDTCLiL\noeDfdnnaOkL1rCsQy2sZYpAcf+XduYGtd+JAPG1l6jThMSegxjq23h4bGzIJ\nuvdcvDV50gcDMAms4Ioy65H/aowWqjztNbxTJuFRv/XUbf86H67+oqjBJiMA\nB5LZIVRsFUReijktYk+BfPdYVMi7I0MGabUistF2MvrqcZHwDQT9Ut+Uii+i\nE0cDyf9Uaxd0JYGnhW2Z2UmMixzHz9cn+ZhHfF3vx1mRAQjqZUqwY/Fa2Pt2\n4kI6rBmRl+9dOpu0RdAmtv504ycL80esS83SCOhsoR9YYzMy6FwGffCZuRkv\nTm6/\r\n=Sssz\r\n-----END PGP SIGNATURE-----\r\n",
@@ -16973,7 +16973,7 @@
       "dist": {
         "integrity": "sha512-6izGvOsrd/4CsIdQMgweFOTCtS4sAwJTuCzIuVoTbCDzt3+wa3eGIHhSIMgEF6gfCDenslGlMUmAdPap5DkirQ==",
         "shasum": "a307122fc136c446f676f7b939d89dbc6ed6b909",
-        "tarball": "https://registry.verdaccio.org/got/-/got-11.6.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-11.6.1.tgz",
         "fileCount": 49,
         "unpackedSize": 262436,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfV8DUCRA9TVsSAnZWagAAWl8P+QF7T5mUB6WlJalCSdSe\nXrCJZ7AJJw3awLo/KtnrPF8VncC1HnMNfdX8nRrfWTADRh3L8T9A8t8qb3Mc\nUA3sepsG63xTFFZiEa/a18DC7ILeHyQR1OnX0tGYXrJGKPFyUrYA6dmOcqJF\nIYigg5GKKcJlXxzsu+dZfytqmmorr7DcyQcIcqhhoZxCj+6x6oHNn8iWTd4A\nZsy3SgEmdkCya2z/iOqMgevNqds9PZsA1OhKagU9uy8ZPvhhTDLwDMb6ZSsG\nNYSFy3Re5YlSGydmSLg6T5RfF9jYitxD42L5lOMoreld+D7TkB+SH363KR7N\nVAtM/bt4g7b3qvw448qK6kaJrJiVflCFcPZyEKP+a8MS991lWEwupdJSZgcT\nTThg8d3wN7V7K4hwP4YFDTIpbcldTFzwzTFLDDwx+PdbNaN6YmNYK82Y9RlK\nIKMYPxCApxN/H6FqLlMkiQQoSD10uY9wlf07mOzh0B8ZnL5G3hRybzkZ6krA\ncWY9pXb6IxoNoV09gnV/g9MMc+YFfplZvoZVaiFFuVY307XELbyoPAuKD84W\npbspEEubR8ZavkCRREqKLm9KGaVyjmdlwS4GN9Z/BkiikcyISMxvl7IFFrbT\nq0rmgdB1HpwamrpDnDqh5qhY44SRkZJF5+7NALN1K8pC9rSsRm4c10oHIU+1\n4ZES\r\n=eShF\r\n-----END PGP SIGNATURE-----\r\n",
@@ -17134,7 +17134,7 @@
       "dist": {
         "integrity": "sha512-/21qgUePCeus29Jk7MEti8cgQUNXFSWfIevNIk4H7u1wmXNDrGPKPY6YsPY+o9CIT/a2DjCjRz0x1nM9FtS2/A==",
         "shasum": "79d7bb8c11df212b97f25565407a1f4ae73210ec",
-        "tarball": "https://registry.verdaccio.org/got/-/got-11.6.2.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-11.6.2.tgz",
         "fileCount": 49,
         "unpackedSize": 262953,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfWjI+CRA9TVsSAnZWagAAppIQAJNdCecbP7DuAgg1kTGu\nfGMoMfjP/5ciHAL+rI8P4XEi9GcxrXCJXCRL0Ecm0ZQWYnrZIqUk9DSKHHO/\negz8U2XB4/sxFkpM3x9aJeZl7H+iuybY2KBQIhADEkJfQcXmQjSx+d7N9/ZK\nx0DPVz8Ldy2PAAIs4SEOfexAWoUIN8RhnwqhnuNX55mB6eeQi7BST67FXkjB\nNxQEOx483FQXiONctSDz5J3k7kLXEUj10dcQZ7FcVhkH7ynv+C8LGbDsruoc\nuQ5rDNPsO+A5g27tAUsNGqlRmOgQdUg/cBqeLL81vtqX6gb7OpE0a5xXxLaK\nGpwNuQqIqx3/fALOkgao0Dt+JxRrnDy27CLQLAdQkCIfnxdhF4XVVld1ZE2t\nH1eKTl47AiDvccSRCyZVtdZb7R4wyWQECrIUFzYf+zYcV+k53H8emnjLOJH4\nBsTmJvkFnJeV4nlYuF/fvSLQlWVH2uIBxwmPc3exqqZEAta5cZxpPILW0HQD\nNxila1xuCBzS886knyC3MSWoMGQbJaiYWEK2hUJTAnADO1oL50W9Lx0IgqLo\nW7gIXJBoDGK2IM9kQPhsdTSjoCqXLVEc2xmDLeIviDVAeF5z9ilgSvZ70AIk\nkQgtaFuEnpMlcR0Y/PuqPfJWFCYe5gJKVH2bZmWcsxe3FmppKMohgqtQw0HP\n8vsA\r\n=99Zc\r\n-----END PGP SIGNATURE-----\r\n",
@@ -17303,7 +17303,7 @@
       "dist": {
         "integrity": "sha512-7en2XwH2MEqOsrK0xaKhbWibBoZqy+f1RSUoIeF1BLcnf+pyQdDsljWMfmOh+QKJwuvDIiKx38GtPh5wFdGGjg==",
         "shasum": "a386360305571a74548872e674932b4ef70d3b24",
-        "tarball": "https://registry.verdaccio.org/got/-/got-11.7.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-11.7.0.tgz",
         "fileCount": 49,
         "unpackedSize": 266060,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfZSc7CRA9TVsSAnZWagAA964P/Rzj/0hSNDxuBUOcZnt7\nhh68v5ONuChogb2vbsuUluWOb4aJDqK8UPpTiTMnsDVPPQPblqmSaGffNxgR\nyVCfxAgWXgFXILSDWdoEYxlUx3iR5caDNUxoN4EcATmyIb2c69B0TwOxQzcH\n3kttgO7fkzreRJucbLBlm4EAHLQK6aIEb0FXiQA8VY3YfFJLGot0dTGNLaHY\nVMpIGlLvYNCq5FLt2iiNDpRZeDDaJMPIPs1pyZPSFFwP1V8DSm7vb/qBh3/K\npifNr4i1APHXIlVeaikmgHzsRTqQWNng2bIx5borq+GQna+qrp0SX8sRgHGb\nh6eb4KWxik413bIdYNvwF1sgzXQ4fDL8GaluISXnn93g1fmZQChpnOovSQoY\nM3ONT6hcTs6ZAjdwFreR2r5Oh5atgb8ss6MK3tIvbFTb/qSHAjLQD1prIzzf\nOxcofAFNPtR8Y3RPNWnMpFKNHFqqC37hYfMKTrq2PtBMUtny7osUQEGvcf+E\nsYo9B2+ukPl6Wq31pG6+Lt6j7tjbheGouLs6s/CNrhi9ZjfAvj6XrX+mGWyT\nmD6RfouuexWTj6CzTKLHhwH31R7Xll/9tSXOKQ56MbOAMKZFbRIM0FhyHxzh\nmkeb64By1r7aXsGgpLYmd4+iNyUFBPYH2TF7oNbzDIYiHQAEx3CjPxzaNfQm\nq/hq\r\n=NzBQ\r\n-----END PGP SIGNATURE-----\r\n",
@@ -17468,7 +17468,7 @@
       "dist": {
         "integrity": "sha512-k9noyoIIY9EejuhaBNLyZ31D5328LeqnyPNXJQb2XlJZcKakLqN5m6O/ikhq/0lw56kUYS54fVm+D1x57YC9oQ==",
         "shasum": "be0920c3586b07fd94add3b5b27cb28f49e6545f",
-        "tarball": "https://registry.verdaccio.org/got/-/got-11.8.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-11.8.0.tgz",
         "fileCount": 49,
         "unpackedSize": 266270,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.13\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJfjxqyCRA9TVsSAnZWagAAHK8P/0nh2iZ2mqqRHUFwmpEB\nLQlsJ1/XVn96t+33N24Ay/uRrpCgE7L4VQ2jJGAWoeReUaKivVrHedZiOQjr\nO+xGstIodxSuSZjEhW8GlVMB/0wJVQxqA0ARodZP8ykekhNaXKjwaZdp61y2\n/FKceEgTJlvDVW/ZGH5inpck5Ky1IhR4fOtrOngHuzEAuNe21V2xkvfbQDAR\n9fJrhOHX3bsGts9k6/PrPliakjhG4ktdNeVzsWlYo2H2pg7nMd6bU3b8DqJ0\nnWM7UOyxP4PlXbIaKrJRSvwTklCSHimQrAkopDl3O/vYyd5e9m6S93EtUshu\n4Pgc6gpIk8VdKVh1DwNj9YWzDdPNnvlywAwBzFd7WhH6kzGsEL2PhnPra0vB\n24oEx6wzJhuJ5qhCtikRYK2uu6pChiiGdhVZ+4rDPHDYtoPzJ2SJdty5mpgX\naW3rcS78lBKjJu+/x6ErGJWpk0Pl1WMfu6arGoN144Y9J3pfHsyqlRF6zsdX\nb8VeATpEV6zXdJSO5iG0zwc5Rh14RqJr1zhJt1jEHMUeh/SBT+2DP5D3LrSw\ncunnZbDb8BEOHE4gI6SK5J1Esf/lQ3PkSw0Xd1nH8WH5u41UrISfAwYel1Zk\neCicuHFTjCGoa7F4/eASa1kQTA56GGWiLN5mF5IRtnIj+NDNZsF/7MzqtYD5\nK2CI\r\n=reWb\r\n-----END PGP SIGNATURE-----\r\n",
@@ -17629,7 +17629,7 @@
       "dist": {
         "integrity": "sha512-9aYdZL+6nHmvJwHALLwKSUZ0hMwGaJGYv3hoPLPgnT8BoBXm1SjnZeky+91tfwJaDzun2s4RsBRy48IEYv2q2Q==",
         "shasum": "df04adfaf2e782babb3daabc79139feec2f7e85d",
-        "tarball": "https://registry.verdaccio.org/got/-/got-11.8.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-11.8.1.tgz",
         "fileCount": 49,
         "unpackedSize": 266301,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.13\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJf0gpeCRA9TVsSAnZWagAAT2QQAKPG21HfTMY6JUTg4oRi\nlIWMHMEMa2Nz6K3I6aidIJ0pRnvYKol/EaLplOq2Zxokrdz14vlr078ciPtb\nYvepn3EuyomZ8bwl/TRX0xVO4Y5Lv9TbdU1iQ5XZoTIp6EZdTZWkCdH7Y3Us\nuNWeq7ZviTamUceYZSHRyKkc8vsDZaAc11xVrwHh8+7Pm3GCmyA7YqQZIfT6\nZWhM70OLonW3sPEgauzACMrRRf28zF9N8JpC0zfZ9/3B5gKnDjZNSzUcq0Px\nIEmsqxewtFZk2h7pV7hvy1XjkFs/WkQwe8aznpGqUuigZnqRrCmcL8pHhlYd\nD/Yip9047T4SI4nGOvVH0oOfOVfjexZ27pt1hmcUIRkcFnGSn24MSUID9C6m\n11voKz2AgbZ50/agkTtjun15Y3+E/S7P6X1XoGq7+AyNGS23DfZn5XgV5N/O\n9qXGXXF3VZzkhYyzbnjPLtFYSPzTfD9l3P6T7n+Jl6usE+PrJ5z3H1T2hpWB\ndtAiwVVkNVA7Z5y3Bq0ymXVXEoZivEtwgcpiHMukU+r5vb+4JVkUarXa4aZu\nnBKY0atPzAujVv04IPVLcHRU4oMbvP+sl0CT4h/aspi0XfB1suxqBaaLtbvi\nYTdPxlyo5IZdlrjtY2RiOHkwxhvSonk1nEUrAm2G04Pnue7jqAEMUnW+y9Ne\nvAd5\r\n=j5+4\r\n-----END PGP SIGNATURE-----\r\n",
@@ -17798,7 +17798,7 @@
       "dist": {
         "integrity": "sha512-D0QywKgIe30ODs+fm8wMZiAcZjypcCodPNuMz5H9Mny7RJ+IjJ10BdmGW7OM7fHXP+O7r6ZwapQ/YQmMSvB0UQ==",
         "shasum": "7abb3959ea28c31f3576f1576c1effce23f33599",
-        "tarball": "https://registry.verdaccio.org/got/-/got-11.8.2.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-11.8.2.tgz",
         "fileCount": 49,
         "unpackedSize": 266380,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.13\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJgOMJkCRA9TVsSAnZWagAA3lQP/15Le8yajQuj6pU5i+CB\nKXoorHWveLD+gH0GDuTJI0cBt3UeTm6edXmb1LHnV/jlxh3wL/kIvZ2bJdQg\n2VTclV6qJ3Okl5KlO5cCntrckrQAec9VlpXFpSPAcG7A3Fx84ggJxiU6Kbli\nm1UjE6dSIbhn+dlv3boIAjJJ9Z1SQC1xLO2daZe0VYQUoWRbEzRqHl/IaBic\nMIpljXLx2H3WZNADI/i2U3e5QK5FDOPwnDfz/aYZ7AQPtKFecjxK+TnGw3ow\n+ML/ewXu7xST3nhdeZmhrdixsPz1QCfsKO4kTLirPl25bb5Z68BT3FTqbXiX\n57xVLoFIoHGVPLVo/i//fPD6BVER1d7NEfazYPOsc97DP8+K/AlqWdrl8ZUl\nWZeKNlP41gxBGH8I5PMm+dVZdphcmr8Cf1zFdifGaZ2NxE/OOVDtQdm3OBmN\nfGNbu4UOriBTdSy/0NAHq57q5XdalPCmbVPoQ3GlvwFzdToqmA65nc2UdswT\ns2+IhpTbhpjjx860IBz7PWXY8JnY579E3E8g3UD3P2rnSCe625L9oAKzpY2M\nivAY6xsWE/rOFm7K+SfQCuHybDvUT2FeNKbTqfRmsk8RN1XDes3z4Ao+IEwk\nFFaEQOTvE4UGIF9dxPXA9qRja4se41GX5QS1aPMk0dHX8+E5dsMtd4g70HDc\nOUTp\r\n=KX36\r\n-----END PGP SIGNATURE-----\r\n",
@@ -17976,7 +17976,7 @@
       "dist": {
         "integrity": "sha512-RzAncCWYNlDmtHYQE1WSs3lNxFySi0KzlMen7lJAjsTD0VgUsfXK0XbtR/TyG6o4wnoHOf6OgOa2hx8x/7FOsw==",
         "shasum": "de16aba6f75c1c8d1a611c8458f10cbfdec811e3",
-        "tarball": "https://registry.verdaccio.org/got/-/got-12.0.0-beta.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-12.0.0-beta.1.tgz",
         "fileCount": 43,
         "unpackedSize": 233986,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.13\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJg+XBxCRA9TVsSAnZWagAA26YQAIOPfr789Cw3Ot5WTrFT\nhZSx8fJ71QVyT4mITSKwdqgXchSIDvTGvPZxKtOL8QxTQ9JWwnJgI86u1Bra\nfXv1x1oXtBRpKVxkVCU/vl8zwfKaDXWtamt4xmXmesM7cnuEhYOHnpR4SFI+\nr6dxyGqF4VDCn3zyvONsRamH8y68O4MQF9seuy+hohiAR3z4U4J7CuvY6H2c\nvErW8VTql9r6+K09Xi2r62EVZixWUlqQxd0x7xd0bl+mJW20+zh6eXn3SjQ4\njKDVho5khvaO8B+EGFsoViA0tWMjSEBnYsrZhvauBGRymKgzNRu+syo1ZTfm\ns6MhZRO/2qtqJgcaYh58ZYsGzz0GB/70C5wkp/hoG67uV4ZmtU1wYRlKvjb2\n4KK0Wh6H3sKS2/K5yyT9wYOnwsS6uwWYtQMAWlrEeOKHStvIwskDZIMuZZBV\nAeiCJsrN6OQbbfZ/85nEBBvZkW+irskZfR0eoTiWI/6r5NusDiRL9moEi+Je\nfyTU98n0x6rqz/nMyT+cmSSXBKeKQiWn+b+6C6RNTpLpBAwp8+FwV/7tuMRZ\nshck9zNR5tULO6MCNs4dvgOgfKVEXO11xZJqYy4kq9cA/f4JiF+9xbWrMfT4\nLhX6feb6fu9e+hkz8Q0KvaQ8ShCQdnd4R/j5tnaTyi3D8AW4VajfYsMatn8q\neHE9\r\n=XsSl\r\n-----END PGP SIGNATURE-----\r\n",
@@ -18158,7 +18158,7 @@
       "dist": {
         "integrity": "sha512-rTp9WQVloGix+IY+KqFz2NAYXyzrnVhloAEwUlgKDdEYB2PGWQzy1xWP8QXTsk5K4fzq4Mau6dTpeLe6hWgl2Q==",
         "shasum": "0fc0ca13c56537a7cab0265ef0f87dae88cd69c9",
-        "tarball": "https://registry.verdaccio.org/got/-/got-12.0.0-beta.2.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-12.0.0-beta.2.tgz",
         "fileCount": 43,
         "unpackedSize": 233756,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.13\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJhCwnfCRA9TVsSAnZWagAAmC4P/0ceIXA6ZuPXKKVaAXEZ\n1Oezu+mEyFpUl/oZ7hmF+RLThAIaTqH47489H7Pb0NwiS2G9giy6x729EQJ+\n3aLQoeSLH84Oa2+0HBCAyXqQ6bDULpvCc0Cmjf5akHaCcuMEaaUXjts/O8BD\n/N2u/O2txf/5ttW4MXMfvSq7iRotpBWYr2pre3Pl5iJQ3esE5Ekpo2LG62G0\n27fpJ7wOKmB/3rfGQ6tsd4FhzL1m6Si/ojk/sTCgXhosJdEQ3AuCNxOBqMqw\nWBNM+SI+30B5qNOp3SUOahrGQdOQudc8SMCjXdpfEUauXLCtOmRGqgRk37pr\nec0MiZyOWANYkzeqSAB2GVYtyY3yhDCAYdgFgMXL1IsjDdO4HBQ2cvJwQ1af\natA6NxN2zG/Nue3guC5VsCgqs/2gBqGkBce6MCtImIeNEoDW8jXaSnKngOhe\nqj+OiisxVABz4dVdi0WE030mwmoS9sR1fWDw0yPiqBDvhUt4fbDM8Y0XDKrV\nWi3tZNZh+6oCVxdlTKrMwVtigcMxXuon+sdxwhUCSU5CN+fSpojvr1fJjuyD\ni2wS0EyKkUw4YTTKoz2QavrU+6KPRfP3alSrlDzeCaa1LBmFBuiSWcYU/UjK\nYDvQPAqq3Q/70AGWGKSMwEDNAf0DfNbd1YU9VELleC13DlmPdoS9BaJ6cm7w\n+79z\r\n=+vs+\r\n-----END PGP SIGNATURE-----\r\n",
@@ -18341,7 +18341,7 @@
       "dist": {
         "integrity": "sha512-X0rwrBFv3Ma6lEiJwUY5Eg4gI205/tFgtHu6Uf+P5zazuVzYG5fIGtEctcNW+yzGI10Pyywa8xxvupaijlxSPA==",
         "shasum": "e56014d64d66fb679bb4f676f6eccbd78681d25f",
-        "tarball": "https://registry.verdaccio.org/got/-/got-12.0.0-beta.3.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-12.0.0-beta.3.tgz",
         "fileCount": 43,
         "unpackedSize": 235577,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.13\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJhDPskCRA9TVsSAnZWagAAPSgP/3T+CRZg4biZfPwEuGlD\ni2zzIxd/rENxD8pGvXhBBuoQy57/IKu9SB0M/eS6AijV+rvphLYGfu04ZNUg\nkr/KtG3aZTGoJpGgGq2RAo5e0U2D7kV0dzD1Rt0zca0xp7XMAEqtapp9txNw\noU7eg+rI/y/mZUD0OM0aCjUXjGx8dYhkcaTITFsHBqj6rdBVdBAffWsE5OyI\nirDnuyMnh0DH9DtyajfnupFchnXCoNPa5J524TNcj2JyBvmruPzlTAsfEfii\ngQRYLdHk1Hou6CH1JjFR/0gwKU+qos9R+vH+FNgYA+18+Ax7qbTqYgsdsP3h\nGSC9ep/4jPCh5M3fP4PAS3YqJ7fE+tfusOvvo1oCADTb2KSxzZs24LSD61Gu\nSDIwWtoBPuTR8ysucH39REfb3wKc6V7bgXGn6OvXjaWrF5BCmdbBiaD9Q3Mr\nSlqUTbhBz7eabFA6hYvzBniwyfTMpqjMtYu6K8COLMXrqb72CvPcC0ONjfQP\nUgI/dFd1dbTkH6P8z4JLxZGLwFZJS7WUr9/FDGthb/+AHRlcyYlQtnRDMeHj\nZPcMa/d+373/IbchUX2+2VBHIjAXkwVxMQ2R2hMjfPsxDKdL1DfMuT7gNmd+\nV2xWfB4JntHOW76JYdCdAWDeGHw7xMqWsgGdteCCvF7C0xcVoO0QCryd8DWW\n6fgP\r\n=JM01\r\n-----END PGP SIGNATURE-----\r\n",
@@ -18524,7 +18524,7 @@
       "dist": {
         "integrity": "sha512-uiauH5Ocs/cgvpqpF62ApW8ZW6MQOBcb4Tea6JgYFsaUDbhNK5yez0W5brdyopUu4mdb85Bocoy6PpujyvJRDw==",
         "shasum": "e0c8a1ba7ad2bc9796c4f8368527207d3ae52f12",
-        "tarball": "https://registry.verdaccio.org/got/-/got-12.0.0-beta.4.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-12.0.0-beta.4.tgz",
         "fileCount": 43,
         "unpackedSize": 236698,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.13\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJhFMn9CRA9TVsSAnZWagAA74UP/ig8tbHfX793U/9i3/Cb\nVrS9cfxxTtIuZb2hKRfsngQcQ2tl3H/ImoVki99Xzi4IX5Id8eVkDVP++DMv\nxI9HVBTu04DGLj/6vgavK5Jb+FBCR1olH1JwZOWuVBBrNlEFQq2ocbzGk2Ri\nRz/UaiIUF2vuiretzlQD/HsTN7RIrt3MkK6Nk5qBw6piebytEhkVS5KmA7f4\nankcQo+dOGmDIN6s2cLElMfHcA+23f0BfaJ7YQgoWn3KkmtWOU+QvvNOK6YG\naQtRiPIS8wsoNQPmLwkUGgdRIMzie4w5wh6wPWHoVZdtbZM5IlDZYjhNqjRj\nldbkjUuW+HIhCcIM0OzsNsrWCqZJBYpzkWMOI6VQadm5CUOLTgedTt99PL/H\n1Rx7r9EVk8w79WSSKPoeZbO8TRs/Qy0yd2gd1EKD1DSyxjVuxao5aOBHT8rf\nvPBy5SGHJJW1Z2aC/9mQlXDMsSN5Qp3lalAPrFibprOY6o741sOeXM02igJj\nlYfLI54r18qLBcmZqgd1plQ7kfUWqN+ObpxPev3ljBErxjFQnSq5DZ7TgOSx\n/oaBn6UKq5o4JX3GoyWfFg9PbJsH8oZIXEDY+BIrkH35HKcBzM6hNaS4lnma\nEg6y66ZNScXlmPiwxivERJ2DAJPtJo6YKzNF3jX6s69SKNmylpQK/hIxOUWp\nFLU3\r\n=+j6Y\r\n-----END PGP SIGNATURE-----\r\n",
@@ -18689,7 +18689,7 @@
       "dist": {
         "integrity": "sha512-7gtQ5KiPh1RtGS9/Jbv1ofDpBFuq42gyfEib+ejaRBJuj/3tQFeR5+gw57e4ipaU8c/rCjvX6fkQz2lyDlGAOg==",
         "shasum": "f496c8fdda5d729a90b4905d2b07dbd148170770",
-        "tarball": "https://registry.verdaccio.org/got/-/got-11.8.3.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-11.8.3.tgz",
         "fileCount": 49,
         "unpackedSize": 268493,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.13\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJhld5dCRA9TVsSAnZWagAAAEwQAJGqZFAekjRD/vuCX2zo\nur+He0DvwIUe78SjBfMu4jyhSR3U8DWr4lpETrhGnCQ9OdcfKztqEs/LdRJ+\nudTgEWjDTH18fWg0fpUFJ5px9/ofRFUoO1L2s+3RlODizQa4Yd4XuYWTAiTD\nm26f6ny5IzTCQksjvr/MSVRtEw9gvLXKuqbiZtpad0xee/YwMHlgumsHprFD\nlM88WPaNOQYK9NcodJ59mTQv3noV9j8btuEEf8rs/g7mGIcB5tCMUi3ipTds\noQoVH+gWFkD4OFWJMlzgkgIBXR+lNbDT+nSwDLVUUl5ijtL74O16eC9SZg7b\ncgmpP4VYBIovZGf9DO0B2ZKkK/SYMzIswN26S9q8xZppwberVVOTM5SpZf4s\nyIl4tBKcGZj83XoJQ+suIubBu0FXa5D8dzArKkHF3t31KOJ0RiI+9YUNu813\ni1UtXEUPTB6jWdcIf6FPeAyAEzA3UDtMrACvsHCUQKNSZiAOV8Z9eKrCKXIl\n6Hsfd95gFXLEFZhs8dOsh9vxTW8f/UObC40/G0d45RqukM2rVC9X5q66lrl7\nToNg0m0jpIRvJDf6GhEGKYQToSqHDpWSJbA7V6yBjJbd0hYADwp+zSDKlNPk\nhEP1JqeROM/G479XGHQG6Wy/Sp3RO7m9UVfcu5KeMmYArw71BNHU6qXKDDxv\n985r\r\n=DPz6\r\n-----END PGP SIGNATURE-----\r\n",
@@ -18877,7 +18877,7 @@
       "dist": {
         "integrity": "sha512-gNNNghQ1yw0hyzie1FLK6gY90BQlXU9zSByyRygnbomHPruKQ6hAKKbpO1RfNZp8b+qNzNipGeRG3tUelKcVsA==",
         "shasum": "2ee3d5ff25eabc47dae975d376ddcee1d450bec1",
-        "tarball": "https://registry.verdaccio.org/got/-/got-12.0.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-12.0.0.tgz",
         "fileCount": 43,
         "unpackedSize": 243978,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.13\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJhs2XJCRA9TVsSAnZWagAAM+YP/0yZmgUmqKpEBn6nbU2p\n8iaAUgmJVegqmEFSYfOI2Urj6GmoeGOP/n3JbB8n5NVhLBqkBYQpNkyBKjQy\no2PDm94CJCKrTbdFTmDrU20IwGyvJ8HhB3JkpKtFgv/MFQv/EpfZ/Ex8e8VO\nUD1nqSQETmwtraGK9quKrHQb++rfgqq1UnWnOtYWxwEwgcsJ7bcZJ9hiGDkg\n0DJy1RahkFUn7/4D4iXnvPcE4I0nXPTHpUvNwUukhtMCSWLyriyRmYSNJjzj\n1ASCsHEBP3qZtlCYPsNaU4AwGKAWNjEfh+hXzJOFBbOZbR2OwN01q3b0G7Cr\nKs4kYWO+oQjX6shXjhpADDaGBDxKbZbbviokAjrvaZBgpRgIaZWVo2G0rxJP\ng8Jhy5owqv01CzDZj4GY//w3DKsdCKtEkDPLTE6j63rqufPR4ii8gTOzZ7qb\nam2BGrt7i4cIE0+LMWkuRMuslfayDVf1VDF9MKh6ZojjIbxw0lK+nvMnX+Li\nYik0YyRpqFl0HSK/qG3qdPDV+rjQ8xYLB5pxP0KkX0PMU9DRmq8XnsRvP2xL\n9jk/5dDt1VMLYW8hjGrvpu6M+H73vj0jli9r2wNfHrytCwP1fLClB2mOvXMC\nHJIiH7ZMsYv/dHBbkusIYlpm2pj1Ucyf03xie2JLQExGc3jPAZajTU2r/V0P\neOzu\r\n=F4Az\r\n-----END PGP SIGNATURE-----\r\n",
@@ -19065,7 +19065,7 @@
       "dist": {
         "integrity": "sha512-1Zhoh+lDej3t7Ks1BP/Jufn+rNqdiHQgUOcTxHzg2Dao1LQfp5S4Iq0T3iBxN4Zdo7QqCJL+WJUNzDX6rCP2Ew==",
         "shasum": "78747f1c5bc7069bbd739636ed8b70c7f2140a39",
-        "tarball": "https://registry.verdaccio.org/got/-/got-12.0.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-12.0.1.tgz",
         "fileCount": 43,
         "unpackedSize": 244110,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.13\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJh2ve0CRA9TVsSAnZWagAA6W0P/2O+h8KO6oYth8oqWNgr\naJ2cn0ObiN/jdTBIHtKODXXYd1a95K3IeF9UgdN4ZhwskvV5LZMTblKlj8Sa\nKN/7l3iqd/AxlxmJkm9M0W//gu+UjRrrMYE4jOnpZFSNA/fhMqmTv9XZutw3\nsoMZZn6l48nE35dsDsXyAJu+euSHupt1MaqaOqg7oZ7+VpwBgU0wzhmMPM2i\ntFxYbBOcoEExwYmOn3helzCwO4m/nDV4kEyZzDjtlDE8OiJoHhFxQ9D/3OVy\nEmqch0vvky/uun/5pmI3bfp6Xw8xWpLrnwcGCrNQnMTUwP2FV48SAoPecIlA\nQWPrujTo+N4fO1Z+r39/R9cw19zbaRS/BgStRSbSjuB6+ggiiZw1slsKTEP1\nxwpn0bfdny+9teUvwIfuQQUaJZ5o9zOA4m+qM3slSalVCW7Wt51fASJCktIv\n/MyxXAGwo7ItmQq1jMEfWz1dMQvKCRmdHeooWH1mnUd8pbLsF64RIZGxZ3U4\nj0YGQhIPr2UMs8028O2IGKL6s+mh75P0e17BKpKIr2LrWAbSoMLUU82OLIb2\neghTPa1ASCSYvfrEcgZ2RRYNzduI+Ijcl05jcaGDBpDWILi1LFO5sqTkpUtf\n1OQiAhdUnTSowVgJrOP/UGlFV/vM1cJdsdmkSm5MDEjwjlSdKZs/h+gfPmJu\nXeRW\r\n=wnNM\r\n-----END PGP SIGNATURE-----\r\n",
@@ -19253,7 +19253,7 @@
       "dist": {
         "integrity": "sha512-Zi4yHiqCgaorUbknr/RHFBsC3XqjSodaw0F3qxlqAqyj+OGYZl37/uy01R0qz++KANKQYdY5FHJ0okXZpEzwWQ==",
         "shasum": "8ce4c3baa50bb18a0858d2539caa0fac19e109bf",
-        "tarball": "https://registry.verdaccio.org/got/-/got-12.0.2.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-12.0.2.tgz",
         "fileCount": 43,
         "unpackedSize": 244657,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v4.10.10\r\nComment: https://openpgpjs.org\r\n\r\nwsFzBAEBCAAGBQJiMYg3ACEJED1NWxICdlZqFiEECWMYAoorWMhJKdjhPU1b\r\nEgJ2VmrURhAAmyEQ6G23UlHaxzS7n2qVCTNN4phpMfMx99pk/uq7Z60npzyV\r\nO1x2whi+eFzvdMKwBRX/bc1IW3IQf7GvSQxg53osqS3DlG6d18PEQXE2GP8W\r\nw++6wyp12xqFGsucZnXymOQaDyqThZ4JfFU7CRvvk9aIXLBnKjZOiXJ9sbU7\r\n/B+UERjPJhXajhlZIAdAzGa7PTbyKq5phhGUfS86+TAvL4fQ0hzS2rwIafVk\r\nXGM7STvNedl/BvuwNvLZYilv7CL40wxTxo4a5m3RG4BsUZPs8OfCr4uwCxj3\r\na9TL2U/GBATbYtNYJLxPTSv4g0OPqStda46T+65qVAoWlzQmkTiSODs+Sjwp\r\ns5BESdTNDuzo6OtQqXVGztszzwUf38khcBmGrlfB7KaGHk4jVpcm+ossm/4n\r\n4u49SWleeHbkh2FownbuiXzDo0Amhy8nevbsfKN48Or3GSVj6gESlwmJtdyx\r\nA/cdPUGzAjngZ/8MhvT8FQYjJiquWY3rnlx4WQ4mOTt7jN1eaHfSMLcSZLf+\r\n440OLmI7P+jyCEDjiqKWo/7wHerFK0Zd+0lwCeTLdUNnISD93P3Pg2FxsVZ8\r\nOssl7IpnMz2rF46i9cnBF1Z1GH7KtLKwO1coWM2EZPOFOW6uRQa5bDi10dzE\r\nj4ONGzPaxKw1HEfUMsgHBhYCqE99dXQiT7U=\r\n=p131\r\n-----END PGP SIGNATURE-----\r\n",
@@ -19441,7 +19441,7 @@
       "dist": {
         "integrity": "sha512-hmdcXi/S0gcAtDg4P8j/rM7+j3o1Aq6bXhjxkDhRY2ipe7PHpvx/14DgTY2czHOLaGeU8VRvRecidwfu9qdFug==",
         "shasum": "c7314daab26d42039e624adbf98f6d442e5de749",
-        "tarball": "https://registry.verdaccio.org/got/-/got-12.0.3.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-12.0.3.tgz",
         "fileCount": 43,
         "unpackedSize": 244540,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v4.10.10\r\nComment: https://openpgpjs.org\r\n\r\nwsFzBAEBCAAGBQJiPzd4ACEJED1NWxICdlZqFiEECWMYAoorWMhJKdjhPU1b\r\nEgJ2VmrvjA//a39PwSa8EZqzTjkB9uSjfgSjjYHPi48LT2CIi0zjytTfniVL\r\nX86+Uq/YgILAWJrE+ZSGx7/JgSaJq7wAV38ZZBenefXcjpqJ1Y7FqPl29u+v\r\nx8ALHYeqieVrm2Gd45NJlluSWUIFF3RsHfCLyuwBM1zBvnbQta2v+y07B7v/\r\n+yldr+kWPZyAzq15Ha+ZDtkiXL7H5FFpAKYBEjq7Hq7lwWC2VaWM9XhrqhgD\r\nDReT8X7u1J6+sXas7jtzrG1nwaIomv56ZcsYi3XG3DXfCmyUNXP+PbVKYcnP\r\n1VqVcrpC8J2Jgagldl+K4hyTjN5j4FElK9nAPuR8jrKJQnZzUstyilBgkTy1\r\nbgDXvTQ0RJ/avtMDn13EEI5kThZhv7WdQiHHXjQ0wUYCAsDrCVt+VaF42nep\r\na+QTd58kn03giVmUcMzW3kIxt45t4X05v+ureJsp0PO3ZLmwTXW0fqlly0g5\r\nuAVS+QkGGiaQWEmua/MArLarHe9JvI8fEPgNDmYmUaqdUqVxvpkTljyjjiRL\r\n+22lVQ4qUL93ne/934zXimUO1xR8+OWut9YnSSTglaXJWYTOHj32gX0IdOuH\r\nHID5p6c+BwSgMAWBmW1dKg017bQrW7CKuMMCtmJV6+HkqTTYbLOu3s3WDtC5\r\nlYNoNwa9QQ+LevMJ0D8ojdmV9PQtFBeOPio=\r\n=5+LI\r\n-----END PGP SIGNATURE-----\r\n",
@@ -19629,7 +19629,7 @@
       "dist": {
         "integrity": "sha512-2Eyz4iU/ktq7wtMFXxzK7g5p35uNYLLdiZarZ5/Yn3IJlNEpBd5+dCgcAyxN8/8guZLszffwe3wVyw+DEVrpBg==",
         "shasum": "e3b6bf6992425f904076fd71aac7030da5122de8",
-        "tarball": "https://registry.verdaccio.org/got/-/got-12.0.4.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-12.0.4.tgz",
         "fileCount": 43,
         "unpackedSize": 243179,
         "signatures": [
@@ -19795,7 +19795,7 @@
       "dist": {
         "integrity": "sha512-o0Je4NvQObAuZPHLFoRSkdG2lTgtcynqymzg2Vupdx6PorhaT5MCbIyXG6d4D94kk8ZG57QeosgdiqfJWhEhlQ==",
         "shasum": "ce77d045136de56e8f024bebb82ea349bc730046",
-        "tarball": "https://registry.verdaccio.org/got/-/got-11.8.5.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-11.8.5.tgz",
         "fileCount": 49,
         "unpackedSize": 268929,
         "signatures": [
@@ -19983,7 +19983,7 @@
       "dist": {
         "integrity": "sha512-hBv2ty9QN2RdbJJMK3hesmSkFTjVIHyIDDbssCKnSmq62edGgImJWD10Eb1k77TiV1bxloxqcFAVK8+9pkhOig==",
         "shasum": "099f3815305c682be4fd6b0ee0726d8e4c6b0af4",
-        "tarball": "https://registry.verdaccio.org/got/-/got-12.1.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-12.1.0.tgz",
         "fileCount": 45,
         "unpackedSize": 246258,
         "signatures": [
@@ -20172,7 +20172,7 @@
       "dist": {
         "integrity": "sha512-A81ll5Z8wzeCmSdIlWVMDWFKDo82v2nmOaMZDQNHKGInNqDBcle+CSb6BBiZcn/Aiefz/kSpo520WBKi9QAO/A==",
         "shasum": "0b5de8cd48d0a16cd44789fd5fdd071ba3ee1de5",
-        "tarball": "https://registry.verdaccio.org/got/-/got-12.2.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-12.2.0.tgz",
         "fileCount": 45,
         "unpackedSize": 249685,
         "signatures": [
@@ -20361,7 +20361,7 @@
       "dist": {
         "integrity": "sha512-7uK06aluHF0UibYFBX3lFUZ2FG/W0KS4O4EqAIrbWIdbPxIT33r6ZJy7Zy+pdh0CP/ZbF3zBa7Fd9dCn7vGPBg==",
         "shasum": "744625bcb072e7b1fd41a706e0af2bd1f73a2c64",
-        "tarball": "https://registry.verdaccio.org/got/-/got-12.3.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-12.3.0.tgz",
         "fileCount": 45,
         "unpackedSize": 248506,
         "signatures": [
@@ -20550,7 +20550,7 @@
       "dist": {
         "integrity": "sha512-tS6+JMhBh4iXMSXF6KkIsRxmloPln31QHDlcb6Ec3bzxjjFJFr/8aXdpyuLmVc9I4i2HyBHYw1QU5K1ruUdpkw==",
         "shasum": "79d6ebc0cb8358c424165698ddb828be56e74684",
-        "tarball": "https://registry.verdaccio.org/got/-/got-12.3.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-12.3.1.tgz",
         "fileCount": 45,
         "unpackedSize": 248597,
         "signatures": [
@@ -20738,7 +20738,7 @@
       "dist": {
         "integrity": "sha512-+vnievUvnfsm5mgW63N0CL2itjfqAnK8QoksJAmLXNdlJoWpHvrAf1l6GAZRjpD5Bt/tvAhgTgjSMxxFB0t0Eg==",
         "shasum": "abb75f2e56076a39e6e5a854ca6f35b24031a831",
-        "tarball": "https://registry.verdaccio.org/got/-/got-12.4.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-12.4.0.tgz",
         "fileCount": 45,
         "unpackedSize": 249674,
         "signatures": [
@@ -20926,7 +20926,7 @@
       "dist": {
         "integrity": "sha512-Sz1ojLt4zGNkcftIyJKnulZT/yEDvifhUjccHA8QzOuTgPs/+njXYNMFE3jR4/2OODQSSbH8SdnoLCkbh41ieA==",
         "shasum": "8598311b42591dfd2ed3ca4cdb9a591e2769a0bd",
-        "tarball": "https://registry.verdaccio.org/got/-/got-12.4.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-12.4.1.tgz",
         "fileCount": 45,
         "unpackedSize": 249912,
         "signatures": [
@@ -21110,7 +21110,7 @@
       "dist": {
         "integrity": "sha512-/Bneo/L6bLN1wDyJCeRZ3CLoixvwb9v3rE3IHulFSfTHwP85xSr4QatA8K0c6GlL5+mc4IZ57BzluNZJiXvHIg==",
         "shasum": "b31c556aa25a14ea06f173da888860984f323d3b",
-        "tarball": "https://registry.verdaccio.org/got/-/got-12.5.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-12.5.0.tgz",
         "fileCount": 45,
         "unpackedSize": 250576,
         "signatures": [
@@ -21294,7 +21294,7 @@
       "dist": {
         "integrity": "sha512-sD16AK8cCyUoPtKr/NMvLTFFa+T3i3S+zoiuvhq0HP2YiqBZA9AtlBjAdsQBsLBK7slPuvmfE0OxhGi7N5dD4w==",
         "shasum": "0796191c61478273f4cdbeb19d358a75a54a008d",
-        "tarball": "https://registry.verdaccio.org/got/-/got-12.5.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-12.5.1.tgz",
         "fileCount": 45,
         "unpackedSize": 251329,
         "signatures": [
@@ -21478,7 +21478,7 @@
       "dist": {
         "integrity": "sha512-guHGMSEcsA5m1oPRweXUJnug0vuvlkX9wx5hzOka+ZBrBUOJHU0Z1JcNu3QE5IPGnA5aXUsQHdWOD4eJg9/v3A==",
         "shasum": "2c1b390918961cf50e61cb02d2085ba203d0df45",
-        "tarball": "https://registry.verdaccio.org/got/-/got-12.5.2.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-12.5.2.tgz",
         "fileCount": 45,
         "unpackedSize": 251330,
         "signatures": [
@@ -21662,7 +21662,7 @@
       "dist": {
         "integrity": "sha512-8wKnb9MGU8IPGRIo+/ukTy9XLJBwDiCpIf5TVzQ9Cpol50eMTpBq2GAuDsuDIz7hTYmZgMgC1e9ydr6kSDWs3w==",
         "shasum": "82bdca2dd61258a02e24d668ea6e7abb70ac3598",
-        "tarball": "https://registry.verdaccio.org/got/-/got-12.5.3.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-12.5.3.tgz",
         "fileCount": 45,
         "unpackedSize": 251880,
         "signatures": [
@@ -21828,7 +21828,7 @@
       "dist": {
         "integrity": "sha512-6tfZ91bOr7bOXnK7PRDCGBLa1H4U080YHNaAQ2KsMGlLEzRbk44nsZF2E1IeRc3vtJHPVbKCYgdFbaGO2ljd8g==",
         "shasum": "276e827ead8772eddbcfc97170590b841823233a",
-        "tarball": "https://registry.verdaccio.org/got/-/got-11.8.6.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-11.8.6.tgz",
         "fileCount": 49,
         "unpackedSize": 269023,
         "signatures": [
@@ -22011,7 +22011,7 @@
       "dist": {
         "integrity": "sha512-WTcaQ963xV97MN3x0/CbAriXFZcXCfgxVp91I+Ze6pawQOa7SgzwSx2zIJJsX+kTajMnVs0xcFD1TxZKFqhdnQ==",
         "shasum": "8d382ee5de4432c086e83c133efdd474484f6ac7",
-        "tarball": "https://registry.verdaccio.org/got/-/got-12.6.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-12.6.0.tgz",
         "fileCount": 45,
         "unpackedSize": 248257,
         "signatures": [
@@ -22194,7 +22194,7 @@
       "dist": {
         "integrity": "sha512-mThBblvlAF1d4O5oqyvN+ZxLAYwIJK7bpMxgYqPD9okW0C3qm5FFn7k811QrcuEBwaogR3ngOFoCfs6mRv7teQ==",
         "shasum": "8869560d1383353204b5a9435f782df9c091f549",
-        "tarball": "https://registry.verdaccio.org/got/-/got-12.6.1.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-12.6.1.tgz",
         "fileCount": 45,
         "unpackedSize": 248377,
         "signatures": [
@@ -22377,7 +22377,7 @@
       "dist": {
         "integrity": "sha512-XfBk1CxOOScDcMr9O1yKkNaQyy865NbYs+F7dr4H0LZMVgCj2Le59k6PqbNHoL5ToeaEQUYh6c6yMfVcc6SJxA==",
         "shasum": "a2402862cef27a5d0d1b07c0fb25d12b58175422",
-        "tarball": "https://registry.verdaccio.org/got/-/got-13.0.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-13.0.0.tgz",
         "fileCount": 45,
         "unpackedSize": 248053,
         "signatures": [
@@ -22559,7 +22559,7 @@
       "dist": {
         "integrity": "sha512-X01vTgaX9SwaMq5DfImvS+3GMQFFs5HtrrlS9CuzUSzkxAf/tWGEyynuI+Qy7BjciMczZGjyVSmawYbP4eYhYA==",
         "shasum": "c95023942e4149cea46701adc7ed591eb9104d37",
-        "tarball": "https://registry.verdaccio.org/got/-/got-14.0.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-14.0.0.tgz",
         "fileCount": 45,
         "unpackedSize": 241490,
         "signatures": [
@@ -22741,7 +22741,7 @@
       "dist": {
         "integrity": "sha512-jGmSBfxa7jOGg464azcsf/cUlJBZldU8edFpiVebIJrVBE4vqVx0t3Z2f1kz1WrcMvLgQREoC/l2ttDmSHwyRg==",
         "shasum": "426718b9d2e539efa46c7b413e7659b40d38bb24",
-        "tarball": "https://registry.verdaccio.org/got/-/got-14.1.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-14.1.0.tgz",
         "fileCount": 45,
         "unpackedSize": 241383,
         "signatures": [
@@ -22923,7 +22923,7 @@
       "dist": {
         "integrity": "sha512-dBq2KkHcQl3AwPoIWsLsQScCPpUgRulz1qZVthjPYKYOPmYfBnekR3vxecjZbm91Vc3JUGnV9mqFX7B+Fe2quw==",
         "shasum": "59b453e379e81a6e9e6aa3b39ab3cbde47b1b150",
-        "tarball": "https://registry.verdaccio.org/got/-/got-14.2.0.tgz",
+        "tarball": "https://fake.verdaccio.org/got/-/got-14.2.0.tgz",
         "fileCount": 45,
         "unpackedSize": 241401,
         "signatures": [
@@ -23303,7 +23303,7 @@
     "dist": {
       "integrity": "sha512-dBq2KkHcQl3AwPoIWsLsQScCPpUgRulz1qZVthjPYKYOPmYfBnekR3vxecjZbm91Vc3JUGnV9mqFX7B+Fe2quw==",
       "shasum": "59b453e379e81a6e9e6aa3b39ab3cbde47b1b150",
-      "tarball": "https://registry.verdaccio.org/got/-/got-14.2.0.tgz",
+      "tarball": "https://fake.verdaccio.org/got/-/got-14.2.0.tgz",
       "fileCount": 45,
       "unpackedSize": 241401,
       "signatures": [
