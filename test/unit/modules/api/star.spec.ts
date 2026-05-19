@@ -1,12 +1,17 @@
 import nock from 'nock';
 import supertest from 'supertest';
-import { describe, expect, test } from 'vitest';
+import { beforeEach, describe, expect, test } from 'vitest';
 
 import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 
 import { getNewToken, getPackage, initializeServer, publishVersion, starPackage } from './_helper';
 
 describe('star', () => {
+  beforeEach(() => {
+    nock.cleanAll();
+    nock.abortPendingRequests();
+  });
+
   test.each([['foo', '@scope/foo']])('should list stared packages for an user', async (pkgName) => {
     const userLogged = 'jota_token';
     nock('https://registry.npmjs.org').get(`/${pkgName}`).reply(404);

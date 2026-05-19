@@ -21,7 +21,7 @@ describe('token', () => {
     test.each([['user.yaml'], ['user.jwt.yaml']])(
       'should test add a new user for %s',
       async (conf) => {
-        nock('https://registry.verdaccio.org/').get(`/vue`).once().reply(200, { name: 'vue' });
+        nock('https://fake.verdaccio.org/').get(`/vue`).once().reply(200, { name: 'vue' });
         const app = await initializeServer(conf);
         const credentials = { name: 'JotaJWT', password: 'secretPass' };
         const response = await createUser(app, credentials.name, credentials.password);

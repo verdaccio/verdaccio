@@ -8,5 +8,6 @@ export default defineConfig({
       include: ['src'],
       exclude: ['./build', 'test', 'src/api/debug'],
     },
+    setupFiles: ['./vitest.setup.mjs'],
   },
 });

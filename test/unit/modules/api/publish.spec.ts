@@ -1,7 +1,7 @@
 import nock from 'nock';
 import { basename } from 'path';
 import supertest from 'supertest';
-import { describe, expect, test } from 'vitest';
+import { beforeEach, describe, expect, test } from 'vitest';
 
 import { API_ERROR, API_MESSAGE, HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 import { generatePackageMetadata, generateRemotePackageMetadata } from '@verdaccio/test-helper';
@@ -9,6 +9,11 @@ import { generatePackageMetadata, generateRemotePackageMetadata } from '@verdacc
 import { getPackage, initializeServer, publishVersion } from './_helper';
 
 describe('publish', () => {
+  beforeEach(() => {
+    nock.cleanAll();
+    nock.abortPendingRequests();
+  });
+
   describe('handle errors', () => {
     const pkgName = 'test';
     const pkgMetadata = generatePackageMetadata(pkgName, '1.0.0');

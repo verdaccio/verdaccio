@@ -20,12 +20,12 @@ describe('Utilities', () => {
     versions: {
       '1.0.0': {
         dist: {
-          tarball: 'http://registry.org/npm_test/-/npm_test-1.0.0.tgz',
+          tarball: 'http://fake.verdaccio.org/npm_test/-/npm_test-1.0.0.tgz',
         },
       },
       '1.0.1': {
         dist: {
-          tarball: 'http://registry.org/npm_test/-/npm_test-1.0.1.tgz',
+          tarball: 'http://fake.verdaccio.org/npm_test/-/npm_test-1.0.1.tgz',
         },
       },
     },
