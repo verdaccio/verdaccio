@@ -2,7 +2,7 @@ import express from 'express';
 import nock from 'nock';
 import { join } from 'node:path';
 import supertest from 'supertest';
-import { describe, expect, test } from 'vitest';
+import { beforeEach, describe, expect, test } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
 import { HTTP_STATUS } from '@verdaccio/core';
@@ -18,6 +18,11 @@ const auditConfig: ConfigAudit = {
 } as ConfigAudit;
 
 describe('Audit plugin', () => {
+  beforeEach(() => {
+    nock.cleanAll();
+    nock.abortPendingRequests();
+  });
+
   test('should test audit', () => {
     const audit = new ProxyAudit(auditConfig, {
       logger,
@@ -94,7 +99,7 @@ describe('Audit plugin', () => {
     audit.register_middlewares(app, {
       // @ts-ignore
       config: {
-        https_proxy: 'https://registry.proxy.org',
+        https_proxy: 'https://fake.verdaccio.org',
         http_proxy: '',
       },
     });

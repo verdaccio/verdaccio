@@ -73,12 +73,12 @@ describe('Utilities', () => {
 
     test('author field is a string type', () => {
       const packageInfo = {
-        latest: { author: 'user@verdccio.org' },
+        latest: { author: 'user@fake.verdaccio.org' },
       };
       const result = {
         latest: {
           author: {
-            author: 'user@verdccio.org',
+            author: 'user@fake.verdaccio.org',
             avatar: GENERIC_AVATAR,
             email: '',
           },
@@ -91,13 +91,13 @@ describe('Utilities', () => {
 
     test('author field is an object type with author information', () => {
       const packageInfo = {
-        latest: { author: { name: 'verdaccio', email: 'user@verdccio.org' } },
+        latest: { author: { name: 'verdaccio', email: 'user@fake.verdaccio.org' } },
       };
       const result = {
         latest: {
           author: {
-            avatar: 'https://www.gravatar.com/avatar/794d7f6ef93d0689437de3c3e48fadc7',
-            email: 'user@verdccio.org',
+            avatar: 'https://www.gravatar.com/avatar/11b17b4f48ccd0870ab349fbea070d6a',
+            email: 'user@fake.verdaccio.org',
             name: 'verdaccio',
           },
         },
@@ -123,8 +123,8 @@ describe('Utilities', () => {
         const packageInfo = {
           latest: {
             contributors: [
-              { name: 'user', email: 'user@verdccio.org' },
-              { name: 'user1', email: 'user1@verdccio.org' },
+              { name: 'user', email: 'user@fake.verdaccio.org' },
+              { name: 'user1', email: 'user1@fake.verdaccio.org' },
             ],
           },
         };
@@ -133,13 +133,13 @@ describe('Utilities', () => {
           latest: {
             contributors: [
               {
-                avatar: 'https://www.gravatar.com/avatar/794d7f6ef93d0689437de3c3e48fadc7',
-                email: 'user@verdccio.org',
+                avatar: 'https://www.gravatar.com/avatar/11b17b4f48ccd0870ab349fbea070d6a',
+                email: 'user@fake.verdaccio.org',
                 name: 'user',
               },
               {
-                avatar: 'https://www.gravatar.com/avatar/51105a49ce4a9c2bfabf0f6a2cba3762',
-                email: 'user1@verdccio.org',
+                avatar: 'https://www.gravatar.com/avatar/952dcd0755f8f620945bc05c77e3b737',
+                email: 'user1@fake.verdaccio.org',
                 name: 'user1',
               },
             ],
@@ -153,7 +153,7 @@ describe('Utilities', () => {
       test('contributors field is an object', () => {
         const packageInfo = {
           latest: {
-            contributors: { name: 'user', email: 'user@verdccio.org' },
+            contributors: { name: 'user', email: 'user@fake.verdaccio.org' },
           },
         };
 
@@ -161,8 +161,8 @@ describe('Utilities', () => {
           latest: {
             contributors: [
               {
-                avatar: 'https://www.gravatar.com/avatar/794d7f6ef93d0689437de3c3e48fadc7',
-                email: 'user@verdccio.org',
+                avatar: 'https://www.gravatar.com/avatar/11b17b4f48ccd0870ab349fbea070d6a',
+                email: 'user@fake.verdaccio.org',
                 name: 'user',
               },
             ],
@@ -213,8 +213,8 @@ describe('Utilities', () => {
       const packageInfo = {
         latest: {
           maintainers: [
-            { name: 'user', email: 'user@verdccio.org' },
-            { name: 'user1', email: 'user1@verdccio.org' },
+            { name: 'user', email: 'user@fake.verdaccio.org' },
+            { name: 'user1', email: 'user1@fake.verdaccio.org' },
           ],
         },
       };
@@ -223,13 +223,13 @@ describe('Utilities', () => {
         latest: {
           maintainers: [
             {
-              avatar: 'https://www.gravatar.com/avatar/794d7f6ef93d0689437de3c3e48fadc7',
-              email: 'user@verdccio.org',
+              avatar: 'https://www.gravatar.com/avatar/11b17b4f48ccd0870ab349fbea070d6a',
+              email: 'user@fake.verdaccio.org',
               name: 'user',
             },
             {
-              avatar: 'https://www.gravatar.com/avatar/51105a49ce4a9c2bfabf0f6a2cba3762',
-              email: 'user1@verdccio.org',
+              avatar: 'https://www.gravatar.com/avatar/952dcd0755f8f620945bc05c77e3b737',
+              email: 'user1@fake.verdaccio.org',
               name: 'user1',
             },
           ],

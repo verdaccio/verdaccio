@@ -1,5 +1,8 @@
 // @ts-check
+import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vitest/config';
+
+const setupFile = fileURLToPath(new URL('./vitest.setup.mjs', import.meta.url));
 
 export default defineConfig({
   test: {
@@ -14,5 +17,6 @@ export default defineConfig({
       ],
     },
     globals: true,
+    setupFiles: [setupFile],
   },
 });

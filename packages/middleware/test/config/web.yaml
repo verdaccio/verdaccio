@@ -13,7 +13,7 @@ web:
   showDownloadTarball: true
   showRaw: true
   primary_color: '#ffffff'
-  logo: 'http://logo.org/logo.png'
+  logo: 'http://fake.verdaccio.org/logo.png'
   html_cache: false
 
 url_prefix: /prefix
