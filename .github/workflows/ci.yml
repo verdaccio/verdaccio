@@ -10,9 +10,8 @@ on:
       - .changeset/**
       - .github/workflows/ci.yml
       - 'packages/**'
-      - 'test/**'
+      - 'tests/**'
       - 'docker-examples/**'
-      - 'jest/**'
       - 'package.json'
       - 'pnpm-workspace.yaml'
 permissions:
@@ -75,7 +74,7 @@ jobs:
         with:
           node-version: ${{ matrix.node_version }}
       - name: Cache build artifacts
-        uses: actions/cache/save@v5
+        uses: actions/cache/save@27d5ce7f107fe9357f9df03efb73ab90386fccae
         with:
           path: |
             packages/*/build
@@ -122,11 +121,11 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies
-        uses: ./.github/actions/install-app-node
+        uses: ./.github/actions/install-app
         with:
           node-version: ${{ matrix.node_version }}
       - name: Restore build artifacts
-        uses: actions/cache/restore@v5
+        uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae
         with:
           path: |
             packages/*/build
@@ -168,21 +167,16 @@ jobs:
           - deno
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Read Node version from .nvmrc
-        id: nvmrc
-        run: echo "node-version=$(cat .nvmrc)" >> "$GITHUB_OUTPUT"
       - name: Install dependencies
-        uses: ./.github/actions/install-app-node
-        with:
-          node-version: ${{ steps.nvmrc.outputs.node-version }}
+        uses: ./.github/actions/install-app
       - name: Setup Bun
         if: startsWith(matrix.pm, 'bun')
-        uses: oven-sh/setup-bun@v2
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
       - name: Setup Deno
         if: startsWith(matrix.pm, 'deno')
-        uses: denoland/setup-deno@v2
+        uses: denoland/setup-deno@667a34cdef165d8d2b2e98dde39547c9daac7282
       - name: Restore build artifacts
-        uses: actions/cache/restore@v5
+        uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae
         with:
           path: |
             packages/*/build
@@ -211,15 +205,10 @@ jobs:
     name: E2E UI
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Read Node version from .nvmrc
-        id: nvmrc
-        run: echo "node-version=$(cat .nvmrc)" >> "$GITHUB_OUTPUT"
       - name: Install dependencies
-        uses: ./.github/actions/install-app-node
-        with:
-          node-version: ${{ steps.nvmrc.outputs.node-version }}
+        uses: ./.github/actions/install-app
       - name: Restore build artifacts
-        uses: actions/cache/restore@v5
+        uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae
         with:
           path: |
             packages/*/build
@@ -229,7 +218,7 @@ jobs:
             packages/plugins/ui-theme/static
           key: ci-build-${{ github.sha }}-node-24
           fail-on-cache-miss: true
-      # The shared install-app-node action runs `pnpm install --ignore-scripts`,
+      # The shared install-app action runs `pnpm install --ignore-scripts`,
       # so cypress's postinstall (which downloads the test runner binary) is
       # suppressed. Cache the binary across runs and only invoke `cypress
       # install` on a cache miss — the version is pinned by the cypress entry
@@ -237,12 +226,10 @@ jobs:
       # locked.
       - name: Cache Cypress binary
         id: cypress-cache
-        uses: actions/cache@v5
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae
         with:
           path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: |
-            cypress-${{ runner.os }}-
+          key: cypress-${{ runner.os }}-${{ github.head_ref || github.ref_name }}-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install Cypress binary
         if: steps.cypress-cache.outputs.cache-hit != 'true'
         run: pnpm exec cypress install
@@ -284,13 +271,8 @@ jobs:
     name: Changeset validation
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Read Node version from .nvmrc
-        id: nvmrc
-        run: echo "node-version=$(cat .nvmrc)" >> "$GITHUB_OUTPUT"
       - name: Install dependencies
-        uses: ./.github/actions/install-app-node
-        with:
-          node-version: ${{ steps.nvmrc.outputs.node-version }}
+        uses: ./.github/actions/install-app
       - name: Run changeset version
         run: pnpm ci:version:changeset
   codeql:
@@ -332,7 +314,7 @@ jobs:
       - uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
         with:
           path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          key: pnpm-${{ github.ref_name }}-${{ hashFiles('pnpm-lock.yaml') }}
       - name: set store
         run: |
           pnpm config set store-dir ~/.pnpm-store

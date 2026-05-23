@@ -54,13 +54,13 @@ export const HeaderAll: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get('https://my-registry.org/-/verdaccio/data/sidebar/storybook', () => {
+        http.get('https://fake.verdaccio.org/-/verdaccio/data/sidebar/storybook', () => {
           return HttpResponse.json(storybookSidebar);
         }),
-        http.get('https://my-registry.org/-/verdaccio/data/package/readme/storybook', () => {
+        http.get('https://fake.verdaccio.org/-/verdaccio/data/package/readme/storybook', () => {
           return HttpResponse.json(storybookReadme);
         }),
-        http.get('https://my-registry.org/-/verdaccio/data/search/*', async ({ request }) => {
+        http.get('https://fake.verdaccio.org/-/verdaccio/data/search/*', async ({ request }) => {
           const url = new URL(request.url);
           const rawQuery = url.pathname.split('/-/verdaccio/data/search/')[1] || '';
           const query = decodeURIComponent(rawQuery);
@@ -79,7 +79,7 @@ export const HeaderAll: Story = {
           });
           return HttpResponse.json(filteredPackages);
         }),
-        http.post('https://my-registry.org/-/verdaccio/sec/login', async ({ request }) => {
+        http.post('https://fake.verdaccio.org/-/verdaccio/sec/login', async ({ request }) => {
           const body = (await request.json()) as { username: string; password: string };
 
           if (body.username === 'fail') {

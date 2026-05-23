@@ -14,7 +14,7 @@ runs:
   using: composite
   steps:
     - name: Install dependencies with a custom registry version ${{ inputs.node-version }}
-      uses: ./.github/actions/install-app-node
+      uses: ./.github/actions/install-app
       with:
         node-version: ${{ inputs.node-version }}
     - name: build
