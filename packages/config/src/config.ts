@@ -139,7 +139,7 @@ class Config implements AppConfig {
   /**
    * Verify if the secret complies with the required structure.
    * The secret must be exactly 32 characters long for aes-256-ctr encryption.
-   * If no secret is provided, a new one will be generated.
+   * If no secret is provided, a new one will be generated..
    * @secret external secret key
    */
   public checkSecretKey(secret?: string): string {
