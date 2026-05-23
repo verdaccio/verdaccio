@@ -1,0 +1,60 @@
+name: Docker build test
+
+on:
+  pull_request:
+    paths:
+      - 'Dockerfile'
+      - '.dockerignore'
+      - 'docker-bin/**'
+      - 'packages/config/src/conf/docker.yaml'
+      - '.github/workflows/docker-build-test.yml'
+
+concurrency:
+  group: docker-build-test-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f
+
+      - name: Build image
+        uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64
+          push: false
+          load: true
+          tags: verdaccio/verdaccio:pr-${{ github.event.pull_request.number }}
+
+      - name: Run container
+        run: |
+          docker run -d --rm --name verdaccio \
+            verdaccio/verdaccio:pr-${{ github.event.pull_request.number }}
+
+      - name: Ping registry with verdaccioctl (inside container)
+        run: |
+          for i in $(seq 1 30); do
+            if docker exec -u 0 verdaccio npx -y @verdaccio/registry-cli ping -r http://localhost:4873; then
+              echo "Verdaccio responded after ${i} attempt(s)"
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "::error::Verdaccio did not respond within 30 attempts"
+          docker logs verdaccio
+          exit 1
+
+      - name: Stop container
+        if: always()
+        run: docker stop verdaccio || true
