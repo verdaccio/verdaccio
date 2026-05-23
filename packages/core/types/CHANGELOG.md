@@ -1,5 +1,11 @@
 # Change Log
 
+## 14.0.0-next-9.6
+
+### Major Changes
+
+- 3299cc7: chore!: remove deprecated `self_path` config property in favor of `configPath`
+
 ## 14.0.0-next-9.5
 
 ### Major Changes

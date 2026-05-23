@@ -1,6 +1,6 @@
 uplinks:
   ver:
-    url: https://registry.verdaccio.org/
+    url: https://fake.verdaccio.org/
 packages:
   '@*/*':
     access: $all

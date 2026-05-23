@@ -25,7 +25,7 @@
       },
       "dist": {
         "shasum": "d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3",
-        "tarball": "https://my-registry.org/@verdaccio/auth/-/auth-1.0.0.tgz",
+        "tarball": "https://fake.verdaccio.org/@verdaccio/auth/-/auth-1.0.0.tgz",
         "integrity": "sha512-Xz4J8K6m9F0nQa1cHw7YEv+U6pJ3j9K5F2A3m+r/0cWV5zQR1e/pLjkfKN0TxEHqxZh2VR/B9MK0zMn2iU+gA=="
       },
       "maintainers": [
@@ -70,7 +70,7 @@
       },
       "dist": {
         "shasum": "e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4",
-        "tarball": "https://my-registry.org/@verdaccio/auth/-/auth-2.0.0.tgz",
+        "tarball": "https://fake.verdaccio.org/@verdaccio/auth/-/auth-2.0.0.tgz",
         "integrity": "sha512-Yp5K8m6F0nQa1cHw7YEv+U6pJ3j9K5F2A3m+r/0cWV5zQR1e/pLjkfKN0TxEHqxZh2VR/B9MK0zMn2iU+abcd=="
       },
       "maintainers": [
@@ -123,7 +123,7 @@
       },
       "dist": {
         "shasum": "f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5",
-        "tarball": "https://my-registry.org/@verdaccio/auth/-/auth-3.0.0.tgz",
+        "tarball": "https://fake.verdaccio.org/@verdaccio/auth/-/auth-3.0.0.tgz",
         "integrity": "sha512-Zp5K8m6F0nQa1cHw7YEv+U6pJ3j9K5F2A3m+r/0cWV5zQR1e/pLjkfKN0TxEHqxZh2VR/B9MK0zMn2iU+efgh=="
       },
       "maintainers": [
@@ -195,7 +195,7 @@
     "dist": {
       "integrity": "sha512-Zp5K8m6F0nQa1cHw7YEv+U6pJ3j9K5F2A3m+r/0cWV5zQR1e/pLjkfKN0TxEHqxZh2VR/B9MK0zMn2iU+efgh==",
       "shasum": "f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5",
-      "tarball": "https://my-registry.org/@verdaccio/auth/-/auth-3.0.0.tgz"
+      "tarball": "https://fake.verdaccio.org/@verdaccio/auth/-/auth-3.0.0.tgz"
     },
     "_npmUser": {
       "name": "verdaccio",

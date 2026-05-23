@@ -6,9 +6,9 @@ exports[`formatter > printMessage > should display a resource request 1`] = `"in
 
 exports[`formatter > printMessage > should display a streaming request 1`] = `"fatal--> 304, req: 'GET https://registry.npmjs.org/verdaccio' (streaming)"`;
 
-exports[`formatter > printMessage > should display an error request 1`] = `"fatal--> ERR, req: 'GET https://registry.fake.org/aaa', error: getaddrinfo ENOTFOUND registry.fake.org"`;
+exports[`formatter > printMessage > should display an error request 1`] = `"fatal--> ERR, req: 'GET https://fake.verdaccio.org/aaa', error: getaddrinfo ENOTFOUND fake.verdaccio.org"`;
 
-exports[`formatter > printMessage > should display an fatal request 1`] = `"fatal--> ERR, req: 'GET https://registry.fake.org/aaa', error: fatal error"`;
+exports[`formatter > printMessage > should display an fatal request 1`] = `"fatal--> ERR, req: 'GET https://fake.verdaccio.org/aaa', error: fatal error"`;
 
 exports[`formatter > printMessage > should display config file 1`] = `"warn --- config file  - /Users/user/.config/verdaccio/config/config.yaml"`;
 

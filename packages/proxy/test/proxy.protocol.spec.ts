@@ -30,45 +30,43 @@ describe('Check protocol of proxy', () => {
   });
   test('main config - http registry, http proxy', () => {
     expect(
-      getProxyInstance('http://registry.domain.org', { http_proxy: 'http://proxy.local' }, {}).proxy
+      getProxyInstance('http://fake.verdaccio.org', { http_proxy: 'http://proxy.local' }, {}).proxy
     ).toEqual('http://proxy.local');
   });
   test('main config - http registry, https proxy', () => {
     expect(
-      getProxyInstance('http://registry.domain.org', { http_proxy: 'https://proxy.local' }, {})
-        .proxy
+      getProxyInstance('http://fake.verdaccio.org', { http_proxy: 'https://proxy.local' }, {}).proxy
     ).toEqual('https://proxy.local');
   });
   test('main config invalid config key - http registry', () => {
     expect(
-      getProxyInstance('http://registry.domain.org', { https_proxy: 'anything' }, {}).proxy
+      getProxyInstance('http://fake.verdaccio.org', { https_proxy: 'anything' }, {}).proxy
     ).toEqual(undefined);
   });
   test('main config invalid config key - https registry', () => {
     expect(
-      getProxyInstance('https://registry.domain.org', { http_proxy: 'anything' }, {}).proxy
+      getProxyInstance('https://fake.verdaccio.org', { http_proxy: 'anything' }, {}).proxy
     ).toEqual(undefined);
   });
 
   test('uplink config - http registry, http proxy', () => {
     expect(
-      getProxyInstance('http://registry.domain.org', {}, { http_proxy: 'http://proxy.local' }).proxy
+      getProxyInstance('http://fake.verdaccio.org', {}, { http_proxy: 'http://proxy.local' }).proxy
     ).toEqual('http://proxy.local');
   });
   test('uplink config - http registry, https proxy', () => {
     expect(
-      getProxyInstance('http://registry.domain.org', {}, { http_proxy: 'https://proxy.local' })
-        .proxy
+      getProxyInstance('http://fake.verdaccio.org', {}, { http_proxy: 'https://proxy.local' }).proxy
     ).toEqual('https://proxy.local');
   });
   test('uplink config invalid config key - http registry', () => {
     expect(
-      getProxyInstance('http://registry.domain.org', {}, { https_proxy: 'anything' }).proxy
+      getProxyInstance('http://fake.verdaccio.org', {}, { https_proxy: 'anything' }).proxy
     ).toEqual(undefined);
   });
   test('uplink config invalid config key - https registry', () => {
     expect(
-      getProxyInstance('https://registry.domain.org', {}, { http_proxy: 'anything' }).proxy
+      getProxyInstance('https://fake.verdaccio.org', {}, { http_proxy: 'anything' }).proxy
     ).toEqual(undefined);
   });
 });

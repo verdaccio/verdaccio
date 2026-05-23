@@ -20,8 +20,8 @@
   --borderRadius-medium: .375rem;
   --stack-padding-condensed: .5rem;
   --stack-padding-normal: 1rem;
-  --fontStack-monospace: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
-  --fontStack-sansSerif: "Mona Sans VF",-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --fontStack-sansSerif: "Mona Sans VF", -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   --text-body-size-small: var(--base-text-size-xs);
   --h6-size: .75rem;
   --fgColor-accent: Highlight;
@@ -100,8 +100,8 @@
   --borderRadius-medium: .375rem;
   --stack-padding-condensed: .5rem;
   --stack-padding-normal: 1rem;
-  --fontStack-monospace: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
-  --fontStack-sansSerif: "Mona Sans VF",-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  --fontStack-monospace: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  --fontStack-sansSerif: "Mona Sans VF", -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   --text-body-size-small: var(--base-text-size-xs);
   --h6-size: .75rem;
   --fgColor-accent: Highlight;
@@ -173,7 +173,7 @@
   font-weight: var(--base-text-weight-normal,400);
   color: var(--fgColor-default);
   background-color: var(--bgColor-default);
-  font-family: var(--fontStack-sansSerif,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji");
+  font-family: var(--fontStack-sansSerif,-apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji");
   overflow-wrap: break-word;
   font-size: 16px;
   line-height: 1.5;
@@ -293,7 +293,7 @@
   background: 0 0;
   overflow: hidden;
   height: .25em;
-  margin: var(--base-size-24)0;
+  margin: var(--base-size-24) 0;
   background-color: var(--borderColor-default);
   border: 0;
   padding: 0;
@@ -425,7 +425,7 @@
 
 .markdown-body kbd {
   padding: var(--base-size-4);
-  font: 11px var(--fontStack-monospace,ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace);
+  font: 11px var(--fontStack-monospace,ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace);
   color: var(--fgColor-default);
   vertical-align: middle;
   background-color: var(--bgColor-muted);
@@ -520,12 +520,12 @@
 .markdown-body tt,
 .markdown-body code,
 .markdown-body samp {
-  font-family: var(--fontStack-monospace,ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace);
+  font-family: var(--fontStack-monospace,ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace);
   font-size: 12px;
 }
 
 .markdown-body pre {
-  font-family: var(--fontStack-monospace,ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace);
+  font-family: var(--fontStack-monospace,ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace);
   margin-top: 0;
   margin-bottom: 0;
   font-size: 12px;
@@ -562,7 +562,7 @@
 }
 
 .markdown-body .border {
-  border: var(--borderWidth-thin,1px)solid var(--borderColor-default)!important;
+  border: var(--borderWidth-thin,1px) solid var(--borderColor-default)!important;
 }
 
 .markdown-body .border-0 {
@@ -1035,7 +1035,7 @@
 }
 
 .markdown-body .csv-data .blob-num {
-  padding: 10px var(--base-size-8)9px;
+  padding: 10px var(--base-size-8) 9px;
   text-align: right;
   background: var(--bgColor-default);
   border: 0;
@@ -1125,11 +1125,11 @@
 .markdown-body .Box--condensed .Box-body,
 .markdown-body .Box--condensed .Box-footer,
 .markdown-body .Box--condensed .Box-header {
-  padding: var(--stack-padding-condensed)var(--stack-padding-normal);
+  padding: var(--stack-padding-condensed) var(--stack-padding-normal);
 }
 
 .markdown-body .Box--condensed .Box-row {
-  padding: var(--stack-padding-condensed)var(--stack-padding-normal);
+  padding: var(--stack-padding-condensed) var(--stack-padding-normal);
 }
 
 .markdown-body .Box-header {
@@ -1139,12 +1139,12 @@
   border-top-right-radius: var(--borderRadius-medium);
   border-style: solid;
   border-width: var(--borderWidth-thin);
-  margin: calc(var(--borderWidth-thin)*-1)calc(var(--borderWidth-thin)*-1)0;
+  margin: calc(var(--borderWidth-thin)*-1) calc(var(--borderWidth-thin)*-1) 0;
   padding: var(--stack-padding-normal);
 }
 
 .markdown-body .Box-body {
-  border-bottom: var(--borderWidth-thin)solid var(--borderColor-default);
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
   padding: var(--stack-padding-normal);
 }
 
@@ -1465,7 +1465,7 @@
 }
 
 .markdown-body .markdown-alert {
-  padding: var(--base-size-8)var(--base-size-16);
+  padding: var(--base-size-8) var(--base-size-16);
   margin-bottom: var(--base-size-16);
   color: inherit;
   border-left: .25em solid var(--borderColor-default);
@@ -1528,6 +1528,48 @@
 
 .markdown-body>:first-child>.heading-element:first-child {
   margin-top: 0!important;
+}
+
+.markdown-body .markdown-heading {
+  position: relative;
+}
+
+.markdown-body .markdown-heading .heading-element:hover+.anchor {
+  opacity: 1;
+}
+
+.markdown-body .markdown-heading h1.heading-element+.anchor,
+.markdown-body .markdown-heading h2.heading-element+.anchor {
+  transform: translateY(calc(-50% - .3rem));
+}
+
+.markdown-body .markdown-heading .anchor {
+  border-radius: var(--borderRadius-medium);
+  opacity: 0;
+  justify-content: center;
+  align-items: center;
+  width: 28px;
+  height: 28px;
+  margin: auto;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: -28px;
+  transform: translateY(-50%);
+}
+
+.markdown-body .markdown-heading .anchor:hover {
+  opacity: 1;
+}
+
+.markdown-body .markdown-heading .anchor:focus {
+  outline: 2px solid var(--focus-outlineColor);
+  outline-offset: -2px;
+  opacity: 1;
+}
+
+.markdown-body .markdown-heading .anchor .octicon {
+  color: var(--fgColor-default);
 }
 
 .markdown-body .tab-size[data-tab-size="1"] {
