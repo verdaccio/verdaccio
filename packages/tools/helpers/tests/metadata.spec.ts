@@ -39,12 +39,12 @@ describe('generate metadata', () => {
   describe('generateRemotePackageMetadata', () => {
     test('should generate package metadata', () => {
       expect(
-        generateRemotePackageMetadata('foo', '1.0.0', 'https://registry.verdaccio.org')
+        generateRemotePackageMetadata('foo', '1.0.0', 'https://fake.verdaccio.org')
       ).toBeDefined();
     });
 
     test('should generate package metadata with multiple versions', () => {
-      const m = generateRemotePackageMetadata('foo', '1.0.0', 'https://registry.verdaccio.org', [
+      const m = generateRemotePackageMetadata('foo', '1.0.0', 'https://fake.verdaccio.org', [
         '1.0.1',
         '1.0.2',
         '3.0.0',
@@ -63,7 +63,7 @@ describe('generate metadata', () => {
   });
   describe('generateLocalPackageMetadata', () => {
     test('should generate local package metadata', () => {
-      const m = generateLocalPackageMetadata('foo', '1.0.0', 'https://registry.verdaccio.org');
+      const m = generateLocalPackageMetadata('foo', '1.0.0', 'https://fake.verdaccio.org');
       expect(m).toBeDefined();
       expect(m._attachments['foo-1.0.0.tgz']).toEqual({
         shasum: '2c03764f651a9f016ca0b7620421457b619151b9',

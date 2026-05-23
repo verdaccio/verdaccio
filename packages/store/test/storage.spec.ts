@@ -1057,10 +1057,10 @@ describe('storage', () => {
         const upstreamManifest = generateRemotePackageMetadata(
           pkgName,
           '1.0.0',
-          'https://registry.something.org'
+          'https://fake.verdaccio.org'
         );
-        nock('https://registry.verdaccio.org').get(`/${pkgName}`).reply(201, upstreamManifest);
-        nock('https://registry.something.org')
+        nock('https://fake.verdaccio.org').get(`/${pkgName}`).reply(201, upstreamManifest);
+        nock('https://fake.verdaccio.org')
           .get(`/${pkgName}/-/${pkgName}-1.0.0.tgz`)
           // types does not match here with documentation
           // @ts-expect-error
@@ -1105,7 +1105,7 @@ describe('storage', () => {
           generateRemotePackageMetadata(pkgName, '1.0.0') as Manifest,
           '1.0.1'
         );
-        nock('https://registry.verdaccio.org').get(`/${pkgName}`).reply(201, upstreamManifest);
+        nock('https://fake.verdaccio.org').get(`/${pkgName}`).reply(201, upstreamManifest);
         nock('http://localhost:5555')
           .get(`/${pkgName}/-/${pkgName}-1.0.1.tgz`)
           // types does not match here with documentation
@@ -1167,7 +1167,7 @@ describe('storage', () => {
           addNewVersion(generateRemotePackageMetadata(pkgName, '1.0.0') as Manifest, '1.0.1'),
           '1.0.2'
         );
-        nock('https://registry.verdaccio.org')
+        nock('https://fake.verdaccio.org')
           .get(`/${pkgName}`)
           .times(10)
           .reply(201, upstreamManifest);
@@ -1315,7 +1315,7 @@ describe('storage', () => {
 
       test('should handle one proxy fails', async () => {
         const fooManifest = generatePackageMetadata('foo', '8.0.0');
-        nock('https://registry.verdaccio.org').get('/foo').replyWithError('service in holidays');
+        nock('https://fake.verdaccio.org').get('/foo').replyWithError('service in holidays');
         const config = new Config(
           configExample(
             {
@@ -1336,7 +1336,7 @@ describe('storage', () => {
 
       test('should handle one proxy reply 304', async () => {
         const fooManifest = generatePackageMetadata('foo-no-data', '8.0.0');
-        nock('https://registry.verdaccio.org').get('/foo-no-data').reply(304);
+        nock('https://fake.verdaccio.org').get('/foo-no-data').reply(304);
         const config = new Config(
           configExample(
             {
@@ -1358,7 +1358,7 @@ describe('storage', () => {
     describe('success scenarios', () => {
       test('should handle one proxy success', async () => {
         const fooManifest = generateLocalPackageMetadata('foo', '8.0.0');
-        nock('https://registry.verdaccio.org').get('/foo').reply(201, manifestFooRemoteNpmjs);
+        nock('https://fake.verdaccio.org').get('/foo').reply(201, manifestFooRemoteNpmjs);
         const config = new Config(
           configExample(
             {
@@ -1399,7 +1399,7 @@ describe('storage', () => {
       });
 
       test('should handle one proxy success with no local cache manifest', async () => {
-        nock('https://registry.verdaccio.org').get('/foo').reply(201, manifestFooRemoteNpmjs);
+        nock('https://fake.verdaccio.org').get('/foo').reply(201, manifestFooRemoteNpmjs);
         const config = new Config(
           configExample(
             {
@@ -1421,7 +1421,7 @@ describe('storage', () => {
 
       test('should handle no proxy found with local cache manifest', async () => {
         const fooManifest = generatePackageMetadata('foo', '8.0.0');
-        nock('https://registry.verdaccio.org').get('/foo').reply(201, manifestFooRemoteNpmjs);
+        nock('https://fake.verdaccio.org').get('/foo').reply(201, manifestFooRemoteNpmjs);
         const config = new Config(
           configExample(
             {
@@ -1445,7 +1445,7 @@ describe('storage', () => {
     describe('options', () => {
       test('should handle disable uplinks via options.uplinksLook=false with cache', async () => {
         const fooManifest = generatePackageMetadata('foo', '8.0.0');
-        nock('https://registry.verdaccio.org').get('/foo').reply(201, manifestFooRemoteNpmjs);
+        nock('https://fake.verdaccio.org').get('/foo').reply(201, manifestFooRemoteNpmjs);
         const config = new Config(
           configExample(
             {
@@ -1470,10 +1470,10 @@ describe('storage', () => {
         const fooRemoteManifest = generateRemotePackageMetadata(
           'foo',
           '9.0.0',
-          'https://registry.verdaccio.org',
+          'https://fake.verdaccio.org',
           ['9.0.0', '9.0.1', '9.0.2', '9.0.3']
         );
-        nock('https://registry.verdaccio.org').get('/foo').reply(201, fooRemoteManifest);
+        nock('https://fake.verdaccio.org').get('/foo').reply(201, fooRemoteManifest);
         const config = new Config(
           configExample(
             {

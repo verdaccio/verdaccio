@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/cli",
-  "version": "9.0.0-next-9.14",
+  "version": "9.0.0-next-9.15",
   "author": {
     "name": "Juan Picado",
     "email": "juanpicado19@gmail.com"
@@ -44,17 +44,17 @@
     "start": "ts-node src/index.ts"
   },
   "dependencies": {
-    "@verdaccio/config": "workspace:9.0.0-next-9.14",
-    "@verdaccio/core": "workspace:9.0.0-next-9.14",
-    "@verdaccio/logger": "workspace:9.0.0-next-9.14",
-    "@verdaccio/node-api": "workspace:9.0.0-next-9.14",
-    "@verdaccio/server": "workspace:9.0.0-next-9.14",
+    "@verdaccio/config": "workspace:9.0.0-next-9.15",
+    "@verdaccio/core": "workspace:9.0.0-next-9.15",
+    "@verdaccio/logger": "workspace:9.0.0-next-9.15",
+    "@verdaccio/node-api": "workspace:9.0.0-next-9.15",
+    "@verdaccio/server": "workspace:9.0.0-next-9.15",
     "clipanion": "4.0.0-rc.4",
     "envinfo": "7.19.0",
     "semver": "7.7.4"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:14.0.0-next-9.5",
+    "@verdaccio/types": "workspace:14.0.0-next-9.6",
     "ts-node": "10.9.2",
     "vitest": "4.1.0"
   },

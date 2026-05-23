@@ -30,7 +30,7 @@ describe('extractTarballFromUrl', () => {
     versions: {
       '1.0.0': {
         dist: {
-          tarball: 'http://registry.org/npm_test/-/npm_test-1.0.0.tgz',
+          tarball: 'http://fake.verdaccio.org/npm_test/-/npm_test-1.0.0.tgz',
         },
       },
       '1.0.1': {
@@ -45,7 +45,7 @@ describe('extractTarballFromUrl', () => {
       },
       '1.0.3': {
         dist: {
-          tarball: 'http://registry.org/@org/npm_test/-/npm_test-1.0.3.tgz',
+          tarball: 'http://fake.verdaccio.org/@org/npm_test/-/npm_test-1.0.3.tgz',
         },
       },
     },
@@ -71,7 +71,7 @@ describe('extractTarballFromUrl', () => {
   });
 
   test('fails with incomplete URL', () => {
-    expect(() => extractTarballFromUrl('xxxxregistry.npmjs.org/test/-/test-0.0.2.tgz')).toThrow();
+    expect(() => extractTarballFromUrl('fake.verdaccio.org/test/-/test-0.0.2.tgz')).toThrow();
   });
 });
 

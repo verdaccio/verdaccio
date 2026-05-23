@@ -50,7 +50,7 @@ web:
   #  bodyBefore:
   #    - '<div id="myId">html before webpack scripts</div>'
   #  Public path for template manifest scripts (only manifest)
-  #  publicPath: http://somedomain.org/
+  #  publicPath: http://fake.verdaccio.org/
 
 # https://verdaccio.org/docs/configuration#authentication
 auth:
@@ -113,15 +113,15 @@ server:
 
 # https://verdaccio.org/docs/configuration#url-prefix
 # url_prefix: /verdaccio/
-# VERDACCIO_PUBLIC_URL='https://somedomain.org';
+# VERDACCIO_PUBLIC_URL='https://fake.verdaccio.org';
 # url_prefix: '/my_prefix'
-# // url -> https://somedomain.org/my_prefix/
-# VERDACCIO_PUBLIC_URL='https://somedomain.org';
+# // url -> https://fake.verdaccio.org/my_prefix/
+# VERDACCIO_PUBLIC_URL='https://fake.verdaccio.org';
 # url_prefix: '/'
-# // url -> https://somedomain.org/
-# VERDACCIO_PUBLIC_URL='https://somedomain.org/first_prefix';
+# // url -> https://fake.verdaccio.org/
+# VERDACCIO_PUBLIC_URL='https://fake.verdaccio.org/first_prefix';
 # url_prefix: '/second_prefix'
-# // url -> https://somedomain.org/second_prefix/'
+# // url -> https://fake.verdaccio.org/second_prefix/'
 
 # https://verdaccio.org/docs/configuration#security
 # security:
@@ -151,7 +151,7 @@ server:
 # - localhost:4873            # default value
 # - http://localhost:4873     # same thing
 # - 0.0.0.0:4873              # listen on all addresses (INADDR_ANY)
-# - https://example.org:4873  # if you want to use https
+# - https://fake.verdaccio.org:4873  # if you want to use https
 # - "[::1]:4873"                # ipv6
 # - unix:/tmp/verdaccio.sock    # unix socket
 

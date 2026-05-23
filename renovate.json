@@ -49,7 +49,7 @@
     },
     {
       "matchManagers": ["github-actions"],
-      "pinDigests": false,
+      "pinDigests": true,
       "groupName": "all actions",
       "groupSlug": "github-actions",
       "schedule": ["every 3 month"]
@@ -60,7 +60,7 @@
       "matchPackageNames": ["docker/*"],
       "groupName": "docker actions",
       "groupSlug": "docker-actions",
-      "pinDigests": false
+      "pinDigests": true
     },
     {
       "description": "Docker image updates",

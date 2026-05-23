@@ -33,7 +33,7 @@ export const HomeDefault: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get('https://my-registry.org/-/verdaccio/data/packages', async () => {
+        http.get('https://fake.verdaccio.org/-/verdaccio/data/packages', async () => {
           await delay(3000);
           return HttpResponse.json([...homeData]);
         }),

@@ -9,7 +9,7 @@
     "declaration": true,
     "jsx": "react",
     "strictNullChecks": true,
-    "types": ["node", "express", "@testing-library/jest-dom"],
+    "types": ["node", "express"],
     "resolveJsonModule": true,
     // "preserveSymlinks": true,
     "allowSyntheticDefaultImports": true,
