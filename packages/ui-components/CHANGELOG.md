@@ -1,5 +1,13 @@
 # @verdaccio/ui-components
 
+## 5.0.0-next-9.11
+
+### Patch Changes
+
+- 8793f4c: chore(ui-components): remove **partials** from build
+- 5e64d64: chore(ui-components): update json-viewer
+- 19471c8: chore(ui): pin vite and remove eslint plugin deps
+
 ## 5.0.0-next-9.10
 
 ### Patch Changes

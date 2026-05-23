@@ -31,7 +31,7 @@
       "_defaultsLoaded": true,
       "dist": {
         "shasum": "2ae2d661e906c1a01e044a71bb5b2743942183e5",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-1.5.1.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-1.5.1.tgz"
       },
       "deprecated": "Versions of the jquery npm package older than 1.9.0 are patched versions that don't work in web browsers. Please upgrade to >=1.11.0."
     },
@@ -69,7 +69,7 @@
       "_defaultsLoaded": true,
       "dist": {
         "shasum": "01757a4c5beea29e8ae697527c3131abbe997a28",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-1.6.2.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-1.6.2.tgz"
       },
       "scripts": {},
       "directories": {},
@@ -109,7 +109,7 @@
       "_defaultsLoaded": true,
       "dist": {
         "shasum": "e1f732fa7e718a6adb3ec20ae0eb2a64fd95ef01",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-1.6.3.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-1.6.3.tgz"
       },
       "scripts": {},
       "maintainers": [
@@ -173,7 +173,7 @@
       "_defaultsLoaded": true,
       "dist": {
         "shasum": "a93746763aca75a34df4c16395b0826310d0eaf2",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-1.7.2.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-1.7.2.tgz"
       },
       "maintainers": [
         {
@@ -234,7 +234,7 @@
       "_id": "jquery@1.7.3",
       "dist": {
         "shasum": "e3d00a71612ac7e9b554b438e0987d0272ddba94",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-1.7.3.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-1.7.3.tgz"
       },
       "maintainers": [
         {
@@ -295,7 +295,7 @@
       "_id": "jquery@1.8.2",
       "dist": {
         "shasum": "46790ae07c6de38124eda90bbf7336b43df93305",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-1.8.2.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-1.8.2.tgz"
       },
       "_npmVersion": "1.1.61",
       "_npmUser": {
@@ -362,7 +362,7 @@
       "_id": "jquery@1.8.3",
       "dist": {
         "shasum": "cfa2941c05a83d966f21347f759a6d15281c60cc",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-1.8.3.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-1.8.3.tgz"
       },
       "_npmVersion": "1.1.61",
       "_npmUser": {
@@ -429,7 +429,7 @@
       "_id": "jquery@2.1.0-beta2",
       "dist": {
         "shasum": "e0fbbe2beb45b4d8f808362c7c99ef5bfee7d8c6",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-2.1.0-beta2.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-2.1.0-beta2.tgz"
       },
       "_from": ".",
       "_npmVersion": "1.3.11",
@@ -502,7 +502,7 @@
       "_id": "jquery@2.1.0-beta3",
       "dist": {
         "shasum": "5a89b624d8fa625fe5fa83a12a9acb1ef8a11d02",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-2.1.0-beta3.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-2.1.0-beta3.tgz"
       },
       "_from": ".",
       "_npmVersion": "1.3.21",
@@ -571,7 +571,7 @@
       "_id": "jquery@1.11.0-beta3",
       "dist": {
         "shasum": "0464a6aba9f35f6c83a203caa23ab420909ce852",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-1.11.0-beta3.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-1.11.0-beta3.tgz"
       },
       "_from": ".",
       "_npmVersion": "1.3.21",
@@ -640,7 +640,7 @@
       "_id": "jquery@1.11.0-rc1",
       "dist": {
         "shasum": "c2f6a4877374647b20b080c478d8dbcdfb4960ee",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-1.11.0-rc1.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-1.11.0-rc1.tgz"
       },
       "_from": ".",
       "_npmVersion": "1.3.23",
@@ -709,7 +709,7 @@
       "_id": "jquery@2.1.0-rc1",
       "dist": {
         "shasum": "8c9f5d9a055c2fedb3f5269617ae649497d6a3b0",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-2.1.0-rc1.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-2.1.0-rc1.tgz"
       },
       "_from": ".",
       "_npmVersion": "1.3.14",
@@ -786,7 +786,7 @@
       "_id": "jquery@1.11.0",
       "dist": {
         "shasum": "c67ceee19b403650d682adcf39d5c9009814d949",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-1.11.0.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-1.11.0.tgz"
       },
       "_from": ".",
       "_npmVersion": "1.3.21",
@@ -855,7 +855,7 @@
       "_id": "jquery@2.1.0",
       "dist": {
         "shasum": "1c9a8c971d2b53dae10d72e16cbb5a1df16a4ace",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-2.1.0.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-2.1.0.tgz"
       },
       "_from": ".",
       "_npmVersion": "1.3.21",
@@ -923,7 +923,7 @@
       "_id": "jquery@2.1.1-beta1",
       "dist": {
         "shasum": "6306c8ea1d104775f3ef8f5c26f0a32acd710a11",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-2.1.1-beta1.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-2.1.1-beta1.tgz"
       },
       "_from": ".",
       "_npmVersion": "1.4.6",
@@ -1003,7 +1003,7 @@
       "_id": "jquery@1.11.1-beta1",
       "dist": {
         "shasum": "c7eacde5e1ae06e029f1cd1b2dd444953a33e843",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-1.11.1-beta1.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-1.11.1-beta1.tgz"
       },
       "_from": ".",
       "_npmVersion": "1.4.6",
@@ -1104,7 +1104,7 @@
       ],
       "dist": {
         "shasum": "95c494fdbbd0cefc305260e11ad46ae49a387c3d",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-2.1.1-rc1.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-2.1.1-rc1.tgz"
       },
       "directories": {},
       "contributors": []
@@ -1181,7 +1181,7 @@
       ],
       "dist": {
         "shasum": "666a7df02488b48732d96e8ab9bdd34f61dd4238",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-1.11.1-rc1.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-1.11.1-rc1.tgz"
       },
       "directories": {},
       "contributors": []
@@ -1237,7 +1237,7 @@
       "_id": "jquery@2.1.1-rc2",
       "dist": {
         "shasum": "99833e415efa7ac8a4efecc5df6894b2f938a598",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-2.1.1-rc2.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-2.1.1-rc2.tgz"
       },
       "_from": ".",
       "_npmVersion": "1.2.25",
@@ -1313,7 +1313,7 @@
       "_id": "jquery@1.11.1-rc2",
       "dist": {
         "shasum": "a4ef3edde0864d8524c5e72f59c459fd7a9ebd17",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-1.11.1-rc2.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-1.11.1-rc2.tgz"
       },
       "_from": ".",
       "_npmVersion": "1.2.25",
@@ -1389,7 +1389,7 @@
       "_id": "jquery@2.1.1",
       "dist": {
         "shasum": "828fc60f50f7ee5983363ef4eb01c5f70af4bd5b",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-2.1.1.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-2.1.1.tgz"
       },
       "_from": ".",
       "_npmVersion": "1.2.25",
@@ -1465,7 +1465,7 @@
       "_id": "jquery@1.11.1",
       "dist": {
         "shasum": "b6ec928590112ebed69e1e49cbfd0025ccd60ddb",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-1.11.1.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-1.11.1.tgz"
       },
       "_from": ".",
       "_npmVersion": "1.2.25",
@@ -1557,7 +1557,7 @@
       ],
       "dist": {
         "shasum": "e4cd4835faaefbade535857613c0fc3ff2adaf34",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-1.9.1.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-1.9.1.tgz"
       },
       "directories": {},
       "contributors": []
@@ -1639,7 +1639,7 @@
       ],
       "dist": {
         "shasum": "b68f154cb2ea4731924883e9fe20ec199d1dc1e2",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-2.1.2.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-2.1.2.tgz"
       },
       "directories": {},
       "contributors": []
@@ -1721,7 +1721,7 @@
       ],
       "dist": {
         "shasum": "30ab26857211c37caa83da0f6903155fe49bb72d",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-1.11.2.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-1.11.2.tgz"
       },
       "directories": {},
       "contributors": []
@@ -1805,7 +1805,7 @@
       ],
       "dist": {
         "shasum": "6ec55204673d505d39432c5bf5cfad10e1dbad2e",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-2.1.3.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-2.1.3.tgz"
       },
       "directories": {},
       "contributors": []
@@ -1889,7 +1889,7 @@
       ],
       "dist": {
         "shasum": "228bde698a0c61431dc2630a6a154f15890d2317",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-2.1.4.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-2.1.4.tgz"
       },
       "directories": {},
       "contributors": []
@@ -1972,7 +1972,7 @@
       ],
       "dist": {
         "shasum": "dd8b74278b27102d29df63eae28308a8cfa1b583",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-1.11.3.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-1.11.3.tgz"
       },
       "directories": {},
       "contributors": []
@@ -2088,7 +2088,7 @@
       ],
       "dist": {
         "shasum": "3493d672266e21c2dffb2714f935448edebe3c62",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-3.0.0-alpha1.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-3.0.0-alpha1.tgz"
       },
       "directories": {},
       "contributors": []
@@ -2202,7 +2202,7 @@
       ],
       "dist": {
         "shasum": "44653be4e3e4628b106bf2141dfd10fbca6021ef",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-1.12.0.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-1.12.0.tgz"
       },
       "directories": {},
       "contributors": []
@@ -2315,7 +2315,7 @@
       ],
       "dist": {
         "shasum": "d0e84ebbf199da51bf7ec39307f19b35754e9cba",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-2.2.0.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-2.2.0.tgz"
       },
       "directories": {},
       "contributors": []
@@ -2431,7 +2431,7 @@
       ],
       "dist": {
         "shasum": "d2a4e368e2eed7050bf66abbbb54db2ea345349d",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-3.0.0-beta1.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-3.0.0-beta1.tgz"
       },
       "directories": {},
       "contributors": []
@@ -2545,7 +2545,7 @@
       ],
       "dist": {
         "shasum": "9cc34ce4780d4ceb90c44328f071064f01960c18",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-1.12.1.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-1.12.1.tgz"
       },
       "_npmOperationalInternal": {
         "host": "packages-5-east.internal.npmjs.com",
@@ -2662,7 +2662,7 @@
       ],
       "dist": {
         "shasum": "3c3e16854ad3d2ac44ac65021b17426d22ad803f",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-2.2.1.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-2.2.1.tgz"
       },
       "_npmOperationalInternal": {
         "host": "packages-9-west.internal.npmjs.com",
@@ -2762,7 +2762,7 @@
       },
       "dist": {
         "shasum": "b8a8b45937312a19eebbcf5a0589b0311c8220bb",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-1.12.2.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-1.12.2.tgz"
       },
       "maintainers": [
         {
@@ -2879,7 +2879,7 @@
       },
       "dist": {
         "shasum": "3e302dc61eb329a21e9efac937d731f061134c59",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-2.2.2.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-2.2.2.tgz"
       },
       "maintainers": [
         {
@@ -2997,7 +2997,7 @@
       },
       "dist": {
         "shasum": "1298b88b908e7c7f7501eb8c1a61f1ac8337b531",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-1.12.3.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-1.12.3.tgz"
       },
       "maintainers": [
         {
@@ -3114,7 +3114,7 @@
       },
       "dist": {
         "shasum": "45e07e4190334de36c9e1a64b43b1f1373d91758",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-2.2.3.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-2.2.3.tgz"
       },
       "maintainers": [
         {
@@ -3232,7 +3232,7 @@
       },
       "dist": {
         "shasum": "01e1dfba290fe73deba77ceeacb0f9ba2fec9e0c",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-1.12.4.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-1.12.4.tgz"
       },
       "maintainers": [
         {
@@ -3349,7 +3349,7 @@
       },
       "dist": {
         "shasum": "2c89d6889b5eac522a7eea32c14521559c6cbf02",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-2.2.4.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-2.2.4.tgz"
       },
       "maintainers": [
         {
@@ -3475,7 +3475,7 @@
       },
       "dist": {
         "shasum": "d69fc540b0a56be13e8aecde5a8766ade7a44f8e",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-3.0.0-rc1.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-3.0.0-rc1.tgz"
       },
       "maintainers": [
         {
@@ -3601,7 +3601,7 @@
       },
       "dist": {
         "shasum": "95a2a9541291a9f819e016f85ba247116d03e4ab",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-3.0.0.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-3.0.0.tgz"
       },
       "maintainers": [
         {
@@ -3727,7 +3727,7 @@
       },
       "dist": {
         "shasum": "129f6f1ae94b18f09010b008d0d6011e40613d7f",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-3.1.0.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-3.1.0.tgz"
       },
       "maintainers": [
         {
@@ -3857,7 +3857,7 @@
       },
       "dist": {
         "shasum": "347c1c21c7e004115e0a4da32cece041fad3c8a3",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-3.1.1.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-3.1.1.tgz"
       },
       "maintainers": [
         {
@@ -3987,7 +3987,7 @@
       },
       "dist": {
         "shasum": "3bdbba66e1eee0785532dddadb0e0d2521ca584b",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-3.2.0.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-3.2.0.tgz"
       },
       "maintainers": [
         {
@@ -4117,7 +4117,7 @@
       },
       "dist": {
         "shasum": "5c4d9de652af6cd0a770154a631bba12b015c787",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-3.2.1.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-3.2.1.tgz"
       },
       "maintainers": [
         {
@@ -4262,7 +4262,7 @@
       "dist": {
         "integrity": "sha512-1SmQFTqu24RtvnvLN/D1RFIsOBGqLQYsGJgZxejd69Rw9ACBJvSgppA+A+wBcXgASwRSoX1aDN1I5ZNIrFC6Xw==",
         "shasum": "06004bc2d0204ce92822a794ee8efb50283bb9ff",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-3.3.0.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-3.3.0.tgz"
       },
       "maintainers": [
         {
@@ -4402,7 +4402,7 @@
       "dist": {
         "integrity": "sha512-Ubldcmxp5np52/ENotGxlLe6aGMvmF4R8S6tZjsP6Knsaxd/xp3Zrh50cG93lR6nPXyUFwzN3ZSOQI0wRJNdGg==",
         "shasum": "958ce29e81c9790f31be7792df5d4d95fc57fbca",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-3.3.1.tgz"
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-3.3.1.tgz"
       },
       "maintainers": [
         {
@@ -4547,7 +4547,7 @@
       "dist": {
         "integrity": "sha512-ggRCXln9zEqv6OqAGXFEcshF5dSBvCkzj6Gm2gzuR5fWawaX8t7cxKVkkygKODrDAzKdoYw3l/e3pm3vlT4IbQ==",
         "shasum": "8de513fa0fa4b2c7d2e48a530e26f0596936efdf",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-3.4.0.tgz",
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-3.4.0.tgz",
         "fileCount": 125,
         "unpackedSize": 1293692,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJcrkmiCRA9TVsSAnZWagAA0FYP/3PRUJ9bvMXsEo01m0m0\n4/24H91hGidu20i5V2JNBhtlNttTH3NLlPYKGHO3wHFEA8iAKuiYyo/V5UlQ\nv4jUKqcFCtaz2pgdBICbAt0cNc1ZbRxXTL1ZI1HublxTkyx/d0kP0l001vYA\nIeLarSNrx4749LDHOeprO6TPoFeB+aCusWbLexcNs/Tel9Frn0oufEiDTjCI\nHAJHfjGDW8IZBw0fQaem7CxaUPiVFRUZghxYpM5ThGbGtxIsAiN9EQDpDmVC\nq855FOu7FsLviN20mJpJmq9ZuiGF9DoUA5QJIQ9INZBfd/uQ6TWRcqBqVtwH\nIgdfAVAACPBF+Zax3dy4cAOU+UHGqs/nStZ7wmewexsDdXb3PzkDvUxluzmL\nocg6y7gpp39Ev7qV+SNg7ZccgW/2rWHfy/l/Aofb0TFV53FCc3DEc9avzUkS\nPZE2jCTu3mUR1vpqr31R+AVo2ZMhTfcrGw2WwP1IDqc+Nt+7ySBiWVQHnT4a\nIjHALqztNKEkqFvxgm4VUkPgqqpFF4msCg5a8jwjJPiGKJgllv1clVwlFk77\nKQHztESClmebfruOidrX0qmBpixrraC2T401gZT9bV4qfqu6Td3q00TBkZjI\nKsiBfs6hq3Py3MOJt3S2xwx8smuhB7Q05e5TMficC0QMURF14U4Yi6WGJ5or\nBJa5\r\n=w1RE\r\n-----END PGP SIGNATURE-----\r\n"
@@ -4696,7 +4696,7 @@
       "dist": {
         "integrity": "sha512-36+AdBzCL+y6qjw5Tx7HgzeGCzC81MDDgaUP8ld2zhx58HdqXGoBd+tHdrBMiyjGQs0Hxs/MLZTu/eHNJJuWPw==",
         "shasum": "714f1f8d9dde4bdfa55764ba37ef214630d80ef2",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-3.4.1.tgz",
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-3.4.1.tgz",
         "fileCount": 125,
         "unpackedSize": 1295318,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJcyg1rCRA9TVsSAnZWagAAeOEP/2+ykv0pLlPLU8YLeOoS\nUTBRx0TwY8fcGwZfsxB2JERZfrQQM7l1l3aS7Rb5XYmL4rlHrnGq571H2ogF\ntuEPsLjSGbM+3eM6Y1MRCTXn4cp3KXVKU+oBuFrA6gSQkhPB9nYjaf0jUl5L\nVYMjB6CiqB5Pxy0j3hCrT7iMkoxY6b+V/3rN7HqRj1pL1N71QLrVyYv9AiHU\nuXaKlsI4xWg1RDrt4+Ef8xe4n5bwfWxn8hNIBwlldvexknA+FGz/LY42FOl7\n9alWTyfJMmK15ggMD02W8iCLTaUxC4Hz16ZeoGnnOZkPaZCSZEpAHCJSh5BV\n9J7GGhpiEtlQRQQbhRYl2nAb5Z02APUIJ7tQt1JYAtb1WJNJgOjDITvFqpxj\nbOc47BP+7pcWF4rqWviIjWts4mU3w0Yl+ZUaTSB6lOjBSH/ONC4CspyfKlQg\nu1Kcrk8skTT4fDNQcXLTDdXXCssqrU8nRtzKarLjuBvd0Cs0ZPSZqEJQG6OA\nJ7zdqnqwzfRrfbQwWi7OozkjSrnS2mLwFTxiuAsO86AgzwKYZQrMwEV89LXQ\n8cRPhH1jvPgh2RcLraKTuQsSZ2o/h+mrq8lhIDNBVJXmUZKNRSW9GNoD8QEY\na52Ygcu8lCFbtJ1gUvHwOzHaRmNqZb7dwMGV5zbTMSFViGSN1qabM8jNOwl4\nCp1s\r\n=n88a\r\n-----END PGP SIGNATURE-----\r\n"
@@ -4845,7 +4845,7 @@
       "dist": {
         "integrity": "sha512-Xb7SVYMvygPxbFMpTFQiHh1J7HClEaThguL15N/Gg37Lri/qKyhRGZYzHRyLH8Stq3Aow0LsHO2O2ci86fCrNQ==",
         "shasum": "9980b97d9e4194611c36530e7dc46a58d7340fc9",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-3.5.0.tgz",
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-3.5.0.tgz",
         "fileCount": 123,
         "unpackedSize": 1315634,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJekJO8CRA9TVsSAnZWagAA1VwP+gPgHR/8IXclArWJPyPw\nI44aJFffRpyaddibT6bkwAyqELi/oZiso5hmW7QaJv9S1Moq7m1c1aIcMCDi\nPbEJ6jop+F3eNgtULVIwk6OzF1DlC9AkRW/j0LQUlgun1kmlID2ToRPVt8sL\noO/B3Bcm0Qw6E6qPS8kIfxQJ+7b+cTr02BFX9nTm3JgXz/bNJIAYUbnQEt8l\nQPIosesCk1cYr8RxY31dNUAn80g9mpOTmTcV1ZhKqMwsMu7YVfOVUOH0rcWb\nu+AkZ+VgXTvjWE6rHpUwePU0xny/Ssf2RkklHTa4ljQXCp1wWNkRbNK4bZkb\nbCJlYZU1bcxfHUYXm/n1X8HmG+ZO/ZCd55A9/URm+Pd7PdZVxgj/lHGDDvV6\nadjrlgTPjT+qGqVDJBXfEQfzliDbleMG5/dm2go3wGUIvJphJAFyVd7aZPaL\n9WKxwh7Ul2vceZNCpZ8W3x3dXZ203OkX1s8Qk9F8j2eZcsmK6QtFyWVupNUK\nRw/1jNiHkcM0Ugr0jro+04WuU6nocad6Yex8Yih0pMkS1XnM0SSZ+pNr0SxF\nk37NffltL0RgfwMKEHBeTW6LJ1m9ty8Xpja1PxQTU1Qt821y1mzqExq9Arvk\n5sPiXVtu9sP5E7RRqDnA1vGutvDG7r+awFDcAM8upINhzDiWFittI9FUFJgz\no/vp\r\n=n9GM\r\n-----END PGP SIGNATURE-----\r\n"
@@ -4998,7 +4998,7 @@
       "dist": {
         "integrity": "sha512-XwIBPqcMn57FxfT+Go5pzySnm4KWkT1Tv7gjrpT1srtf8Weynl6R273VJ5GjkRb51IzMp5nbaPjJXMWeju2MKg==",
         "shasum": "d7b4d08e1bfdb86ad2f1a3d039ea17304717abb5",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-3.5.1.tgz",
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-3.5.1.tgz",
         "fileCount": 123,
         "unpackedSize": 1315593,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJesJwhCRA9TVsSAnZWagAA+SIQAI9RCw96kNZnbA/ONf5x\n9JqCbsyBPH8ZV76Q/lq/OOJgTQqSWirb2iK2BCrPbcEdzQ9WUKrmmiFSGOLH\ne1yQW4gi4+MzL+prjipb/GKZJINgr0I4/Rd0TAMuVapqNFWc01phXOWH9zk6\n9t0lYWlpa9RA07Dn+2lTvU3sGkzEfAoamBhRIL3L9LVMTDXFyQXU2FqNKqCG\nLyEyomvO7juax8kQaRsl6pWZ9VAkXIvRMNI3fvWqFaGMaShK0hP0woymcZER\nlk6mW+TsYeU4cEBYWLNo2ei+NkLYAT7mo4Yt6PudZ7hCWLZV0OHHs5K9m5m5\nS6ppOPUCPAGi0G2ubxi8fw6vbhlLD7JWmzWksF0dE6+qQv+e9VHEhwchjUXR\n+RFLqZOEjevhf/RE0wbmjYurw8QIxgnUjXzKbgHdcTrOutBcW5Kv3xavq0v2\nJNnnuvDolqAbWBBUg0vNKsedduudLgzXXS2OnpLNGn3ctKoEIVV79G6OWBJB\noX1lFAimK9uT/CF4YSeUMY7ghZR4RRLrY0XcNRCLAMh17NThNpIyZk+hCEbQ\nHO9FOD+yhtz4sF5tz/RrSdHkt5hl5J/g9H6eTiPmbKydchdKd/V8RpAObVs/\nTg2LEk7UHh/l5UXK2IJfk+WLwd86g1rwxsJ48MLoGutTroR8MRrQ/78Htoij\nk+WY\r\n=XCQe\r\n-----END PGP SIGNATURE-----\r\n"
@@ -5150,7 +5150,7 @@
       "dist": {
         "integrity": "sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==",
         "shasum": "c72a09f15c1bdce142f49dbf1170bdf8adac2470",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-3.6.0.tgz",
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-3.6.0.tgz",
         "fileCount": 123,
         "unpackedSize": 1318507,
         "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.13\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJgPnHsCRA9TVsSAnZWagAA3tQP/i738n4AHT4QJxYnLamb\nvQEB9yjcsipiGgV2nY/eNbXtljhGZ+vARJk1Sa4j3vGWmGSKgMRW+k2chtsZ\nnDJ91MXzjP4uJwgTTTn+bWWWmINwYqnLIxbYEpsBt1ugmFcv1AsyZQUCTu/G\naPzwsJWdxzDCRige0PC3NTT8ImeUonXnM6OBZ65ICXfi+BzZMWm50DSzzkA2\n/jdURwOiLNHtrJgilWfLqVVW6WWxfCOXcaTPD4K8J+1twLdrTAaA9/ECsX/c\nrb+pp7JLbqdAHFIHjl5R4nlsF2CsJmLI+dYSDCPql9ivkWcWXX+b0EHUOtBZ\nHDP4NjtYCIP11xdtmKqhTkC0JkOvUUI+nhCOOLWitH9W5AhJQAWrbroOptuv\nEKzc4Cvh2yEZvGX92zcFnbZlGDw7jRNgME8xyxbgK/zOPyoKBciqT2aFn9xI\nuDKj6hDonMSwqhoOuYcAFY2YfbR45uuJLKBC04oxjbrIF7o+WxbmAehjFxDH\nfiECruH9aCr7loRHOKcoo9Xp1y90B1JXiSJBARI/Jfq+6g2crZFvlBvFIX5P\nhSxvTdlb1/kBjxjcRtfgSmaUBUBQqKJEkB5YCh6FZ9XoGHRdcc0PocXFbXHh\nvyE63iiqk1rQYnDf/lPAp+Om8RSzyUCGCajGrCWsSzpt3EHapnqVY8OfT90p\nofL1\r\n=b8nm\r\n-----END PGP SIGNATURE-----\r\n"
@@ -5303,7 +5303,7 @@
       "dist": {
         "integrity": "sha512-opJeO4nCucVnsjiXOE+/PcCgYw9Gwpvs/a6B1LL/lQhwWwpbVEVYDZ1FokFr8PRc7ghYlrFPuyHuiiDNTQxmcw==",
         "shasum": "fab0408f8b45fc19f956205773b62b292c147a16",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-3.6.1.tgz",
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-3.6.1.tgz",
         "fileCount": 126,
         "unpackedSize": 1323376,
         "signatures": [
@@ -5462,7 +5462,7 @@
       "dist": {
         "integrity": "sha512-/e7ulNIEEYk1Z/l4X0vpxGt+B/dNsV8ghOPAWZaJs8pkGvsSC0tm33aMGylXcj/U7y4IcvwtMXPMyBFZn/gK9A==",
         "shasum": "8302bbc9160646f507bdf59d136a478b312783c4",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-3.6.2.tgz",
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-3.6.2.tgz",
         "fileCount": 126,
         "unpackedSize": 1336641,
         "signatures": [
@@ -5622,7 +5622,7 @@
       "dist": {
         "integrity": "sha512-bZ5Sy3YzKo9Fyc8wH2iIQK4JImJ6R0GWI9kL1/k7Z91ZBNgkRXE6U0JfHIizZbort8ZunhSI3jw9I6253ahKfg==",
         "shasum": "23ed2ffed8a19e048814f13391a19afcdba160e6",
-        "tarball": "https://registry.verdaccio.org/jquery/-/jquery-3.6.3.tgz",
+        "tarball": "https://fake.verdaccio.org/jquery/-/jquery-3.6.3.tgz",
         "fileCount": 126,
         "unpackedSize": 1336532,
         "signatures": [
@@ -5860,7 +5860,7 @@
     "dist": {
       "integrity": "sha512-bZ5Sy3YzKo9Fyc8wH2iIQK4JImJ6R0GWI9kL1/k7Z91ZBNgkRXE6U0JfHIizZbort8ZunhSI3jw9I6253ahKfg==",
       "shasum": "23ed2ffed8a19e048814f13391a19afcdba160e6",
-      "tarball": "https://registry.verdaccio.org/jquery/-/jquery-3.6.3.tgz",
+      "tarball": "https://fake.verdaccio.org/jquery/-/jquery-3.6.3.tgz",
       "fileCount": 126,
       "unpackedSize": 1336532,
       "signatures": [

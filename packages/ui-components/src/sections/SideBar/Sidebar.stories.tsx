@@ -18,13 +18,13 @@ export default meta;
 type Story = StoryObj<typeof DetailSidebar>;
 
 const handlers = [
-  http.get('https://my-registry.org/-/verdaccio/data/sidebar/storybook', () => {
+  http.get('https://fake.verdaccio.org/-/verdaccio/data/sidebar/storybook', () => {
     return HttpResponse.json(storybookSidebar);
   }),
-  http.get('https://my-registry.org/-/verdaccio/data/package/readme/storybook', () => {
+  http.get('https://fake.verdaccio.org/-/verdaccio/data/package/readme/storybook', () => {
     return HttpResponse.json(storybookReadme);
   }),
-  http.get('https://my-registry.org/storybook/-/storybook-6.5.15.tgz', () => {
+  http.get('https://fake.verdaccio.org/storybook/-/storybook-6.5.15.tgz', () => {
     const content = 'fake tarball content';
 
     const blob = new Blob([content], {

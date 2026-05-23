@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 9.0.0-next-9.15
+
+### Patch Changes
+
+- 19471c8: chore(ui): pin vite and remove eslint plugin deps
+
 ## 9.0.0-next-9.14
 
 ## 9.0.0-next-9.13
