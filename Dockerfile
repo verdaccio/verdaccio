@@ -16,7 +16,7 @@ RUN npm -g i corepack && \
     pnpm --filter verdaccio --prod --legacy deploy /opt/verdaccio-deploy
 
 FROM node:24-alpine
-LABEL maintainer="https://github.com/verdaccio/verdaccio"
+LABEL maintainer="https://github.com/verdaccio"
 
 ENV VERDACCIO_APPDIR=/opt/verdaccio \
     VERDACCIO_USER_NAME=verdaccio \
