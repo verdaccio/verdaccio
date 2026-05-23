@@ -36,6 +36,7 @@ COPY --from=builder /opt/verdaccio-deploy ./
 COPY docker-bin ./docker-bin
 COPY packages/config/src/conf/docker.yaml /verdaccio/conf/config.yaml
 
+
 RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APPDIR -g "$VERDACCIO_USER_NAME user" -s /sbin/nologin $VERDACCIO_USER_NAME && \
     chmod -R +x $VERDACCIO_APPDIR/bin $VERDACCIO_APPDIR/docker-bin && \
     chown -R $VERDACCIO_USER_UID:root /verdaccio/storage /verdaccio/conf && \
