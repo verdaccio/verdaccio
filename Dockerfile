@@ -3,23 +3,17 @@ FROM --platform=${BUILDPLATFORM:-linux/amd64} node:24-alpine AS builder
 ENV NODE_ENV=development \
     VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org
 
-RUN apk --no-cache add openssl ca-certificates wget && \
-    apk --no-cache add g++ gcc libgcc libstdc++ linux-headers make python3 && \
-    wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub && \
-    wget -q https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r0/glibc-2.35-r0.apk && \
-    apk add --force-overwrite glibc-2.35-r0.apk
+RUN apk --no-cache add ca-certificates g++ gcc libgcc libstdc++ linux-headers make python3
 
 WORKDIR /opt/verdaccio-build
 COPY . .
+
 RUN npm -g i corepack && \
     corepack install && \
     pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
     pnpm install --frozen-lockfile --ignore-scripts && \
-    rm -Rf test && \
-    pnpm run build
-# FIXME: need to remove devDependencies from the build
-# NODE_ENV=production pnpm install --frozen-lockfile --ignore-scripts
-# RUN pnpm install --prod --ignore-scripts
+    pnpm run build && \
+    pnpm --filter verdaccio --prod --legacy deploy /opt/verdaccio-deploy
 
 FROM node:24-alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
@@ -35,17 +29,15 @@ ENV PATH=$VERDACCIO_APPDIR/docker-bin:$PATH \
 
 WORKDIR $VERDACCIO_APPDIR
 
-RUN apk --no-cache add openssl dumb-init
+RUN apk --no-cache add openssl dumb-init && \
+    mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
 
-RUN mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
-
-COPY --from=builder /opt/verdaccio-build .
-
-RUN ls packages/config/src/conf
-ADD packages/config/src/conf/docker.yaml /verdaccio/conf/config.yaml
+COPY --from=builder /opt/verdaccio-deploy ./
+COPY docker-bin ./docker-bin
+COPY packages/config/src/conf/docker.yaml /verdaccio/conf/config.yaml
 
 RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APPDIR -g "$VERDACCIO_USER_NAME user" -s /sbin/nologin $VERDACCIO_USER_NAME && \
-    chmod -R +x $VERDACCIO_APPDIR/packages/verdaccio/bin $VERDACCIO_APPDIR/docker-bin && \
+    chmod -R +x $VERDACCIO_APPDIR/bin $VERDACCIO_APPDIR/docker-bin && \
     chown -R $VERDACCIO_USER_UID:root /verdaccio/storage /verdaccio/conf && \
     chmod -R g=u /verdaccio/storage /verdaccio/conf /etc/passwd
 
@@ -57,4 +49,4 @@ VOLUME /verdaccio/storage
 
 ENTRYPOINT ["uid_entrypoint"]
 
-CMD $VERDACCIO_APPDIR/packages/verdaccio/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://$VERDACCIO_ADDRESS:$VERDACCIO_PORT
+CMD $VERDACCIO_APPDIR/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://$VERDACCIO_ADDRESS:$VERDACCIO_PORT
