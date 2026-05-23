@@ -1,5 +1,16 @@
 # @verdaccio/proxy
 
+## 9.0.0-next-9.15
+
+### Patch Changes
+
+- 6338cb6: fix(proxy): vite:dts build error
+- Updated dependencies [75caa33]
+- Updated dependencies [3299cc7]
+- Updated dependencies [ea8beb2]
+  - @verdaccio/config@9.0.0-next-9.15
+  - @verdaccio/core@9.0.0-next-9.15
+
 ## 9.0.0-next-9.14
 
 ### Patch Changes

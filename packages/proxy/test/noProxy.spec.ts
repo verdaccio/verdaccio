@@ -17,7 +17,7 @@ function getProxyInstance(host, uplinkConf, appConfig) {
 describe('Use proxy', () => {
   describe('basic tets', () => {
     test('should do not define proxy', () => {
-      const x = getProxyInstance('http://registry.domain.org', {}, {});
+      const x = getProxyInstance('http://fake.verdaccio.org', {}, {});
 
       expect(x.proxy).toEqual(undefined);
     });
@@ -25,21 +25,21 @@ describe('Use proxy', () => {
     test('uplink configuration should take priority', () => {
       expect(
         getProxyInstance(
-          'http://registry.domain.org',
-          { http_proxy: 'http:\\registry.local.org' },
-          { http_proxy: 'registry.domain.org' }
+          'http://fake.verdaccio.org',
+          { http_proxy: 'http:\\fake.verdaccio.org' },
+          { http_proxy: 'fake.verdaccio.org' }
         ).proxy
-      ).toEqual('http:\\registry.local.org');
+      ).toEqual('http:\\fake.verdaccio.org');
     });
 
     test('global configuration should be used', () => {
       expect(
         getProxyInstance(
-          'http://registry.some.org',
+          'http://fake.verdaccio.org',
           {},
-          { http_proxy: 'http://registry.domain.org' }
+          { http_proxy: 'http://fake.verdaccio.org' }
         ).proxy
-      ).toEqual('http://registry.domain.org');
+      ).toEqual('http://fake.verdaccio.org');
     });
   });
 
@@ -47,34 +47,34 @@ describe('Use proxy', () => {
     test('no_proxy is null', () => {
       const x = getProxyInstance(
         'http://x/x',
-        { http_proxy: 'http:\\registry.local.org', no_proxy: null },
+        { http_proxy: 'http:\\fake.verdaccio.org', no_proxy: null },
         {}
       );
-      expect(x.proxy).toEqual('http:\\registry.local.org');
+      expect(x.proxy).toEqual('http:\\fake.verdaccio.org');
     });
 
     test('no_proxy is empty array', () => {
       const x = getProxyInstance(
         'http://x/x',
-        { http_proxy: 'http:\\registry.local.org', no_proxy: [] },
+        { http_proxy: 'http:\\fake.verdaccio.org', no_proxy: [] },
         {}
       );
-      expect(x.proxy).toEqual('http:\\registry.local.org');
+      expect(x.proxy).toEqual('http:\\fake.verdaccio.org');
     });
 
     test('no_proxy is empty object', () => {
       const x = getProxyInstance(
         'http://x/x',
-        { http_proxy: 'http:\\registry.local.org', no_proxy: '' },
+        { http_proxy: 'http:\\fake.verdaccio.org', no_proxy: '' },
         {}
       );
-      expect(x.proxy).toEqual('http:\\registry.local.org');
+      expect(x.proxy).toEqual('http:\\fake.verdaccio.org');
     });
 
     test('no_proxy - simple/include', () => {
       const x = getProxyInstance(
         'http://localhost',
-        { http_proxy: 'http:\\registry.local.org' },
+        { http_proxy: 'http:\\fake.verdaccio.org' },
         { no_proxy: 'localhost' }
       );
 
@@ -84,20 +84,20 @@ describe('Use proxy', () => {
     test('no_proxy - simple/not', () => {
       const x = getProxyInstance(
         'http://localhost',
-        { http_proxy: 'http:\\registry.local.org' },
+        { http_proxy: 'http:\\fake.verdaccio.org' },
         { no_proxy: 'blah' }
       );
 
-      expect(x.proxy).toEqual('http:\\registry.local.org');
+      expect(x.proxy).toEqual('http:\\fake.verdaccio.org');
     });
 
     test('no_proxy is boolean', () => {
       const x = getProxyInstance(
         'http://registry.some.domain',
-        { http_proxy: 'http:\\registry.local.org', no_proxy: false },
+        { http_proxy: 'http:\\fake.verdaccio.org', no_proxy: false },
         {}
       );
-      expect(x.proxy).toEqual('http:\\registry.local.org');
+      expect(x.proxy).toEqual('http:\\fake.verdaccio.org');
     });
   });
 
@@ -105,17 +105,17 @@ describe('Use proxy', () => {
     test('no_proxy - various, single string', () => {
       const x = getProxyInstance(
         'http://blahblah',
-        { http_proxy: 'http:\\registry.local.org' },
+        { http_proxy: 'http:\\fake.verdaccio.org' },
         { no_proxy: 'blah' }
       );
 
-      expect(x.proxy).toEqual('http:\\registry.local.org');
+      expect(x.proxy).toEqual('http:\\fake.verdaccio.org');
     });
     test('should disable proxy if match hostname', () => {
       const x = getProxyInstance(
-        'http://registry.local.org',
+        'http://fake.verdaccio.org',
         {},
-        { http_proxy: 'http:\\registry.local.org', no_proxy: 'registry.local.org' }
+        { http_proxy: 'http:\\fake.verdaccio.org', no_proxy: 'fake.verdaccio.org' }
       );
       expect(x.proxy).toEqual(undefined);
     });
@@ -123,9 +123,9 @@ describe('Use proxy', () => {
       const x = getProxyInstance(
         'http://blahblah',
         {},
-        { http_proxy: 'http://registry.local.org', no_proxy: '.blah' }
+        { http_proxy: 'http://fake.verdaccio.org', no_proxy: '.blah' }
       );
-      expect(x.proxy).toEqual('http://registry.local.org');
+      expect(x.proxy).toEqual('http://fake.verdaccio.org');
     });
     test('should override http_proxy if match domain no_proxy', () => {
       const x = getProxyInstance('http://blah.blah', { http_proxy: '123', no_proxy: '.blah' }, {});
@@ -138,26 +138,26 @@ describe('Use proxy', () => {
     test('should not override http_proxy if no_proxy does not match', () => {
       const x = getProxyInstance(
         'http://blahh',
-        { http_proxy: 'http://registry.local.org', no_proxy: 'blah' },
+        { http_proxy: 'http://fake.verdaccio.org', no_proxy: 'blah' },
         {}
       );
-      expect(x.proxy).toEqual('http://registry.local.org');
+      expect(x.proxy).toEqual('http://fake.verdaccio.org');
     });
   });
   describe('no_proxy as array of domains', () => {
     test('should not override http_proxy if not match domain', () => {
       const x = getProxyInstance(
         'http://blahblah',
-        { http_proxy: 'http:\\registry.local.org' },
+        { http_proxy: 'http:\\fake.verdaccio.org' },
         { no_proxy: 'foo,bar,blah' }
       );
 
-      expect(x.proxy).toEqual('http:\\registry.local.org');
+      expect(x.proxy).toEqual('http:\\fake.verdaccio.org');
     });
     test('should disable proxy if match domain', () => {
       const x = getProxyInstance(
         'http://blah.blah',
-        { http_proxy: 'http:\\registry.local.org' },
+        { http_proxy: 'http:\\fake.verdaccio.org' },
         { no_proxy: 'foo,bar,blah' }
       );
       expect(x.proxy).toEqual(undefined);
@@ -166,7 +166,7 @@ describe('Use proxy', () => {
     test('disable proxy if match domain .foo', () => {
       const x = getProxyInstance(
         'http://blah.foo',
-        { http_proxy: 'http:\\registry.local.org' },
+        { http_proxy: 'http:\\fake.verdaccio.org' },
         { no_proxy: 'foo,bar,blah' }
       );
       expect(x.proxy).toEqual(undefined);
@@ -174,23 +174,23 @@ describe('Use proxy', () => {
     test('should not disable http_proxy if not match domain', () => {
       const x = getProxyInstance(
         'http://foo.baz',
-        { http_proxy: 'http:\\registry.local.org' },
+        { http_proxy: 'http:\\fake.verdaccio.org' },
         { no_proxy: 'foo,bar,blah' }
       );
-      expect(x.proxy).toEqual('http:\\registry.local.org');
+      expect(x.proxy).toEqual('http:\\fake.verdaccio.org');
     });
     test('no_proxy should not find match no_proxy as array invalid domains', () => {
       const x = getProxyInstance(
         'http://blahblah',
-        { http_proxy: 'http:\\registry.local.org' },
+        { http_proxy: 'http:\\fake.verdaccio.org' },
         { no_proxy: ['foo', 'bar', 'blah'] }
       );
-      expect(x.proxy).toEqual('http:\\registry.local.org');
+      expect(x.proxy).toEqual('http:\\fake.verdaccio.org');
     });
     test('no_proxy should find match no_proxy as array valid domains', () => {
       const x = getProxyInstance(
         'http://blah.blah',
-        { http_proxy: 'http:\\registry.local.org' },
+        { http_proxy: 'http:\\fake.verdaccio.org' },
         { no_proxy: ['foo', 'bar', 'blah'] }
       );
       expect(x.proxy).toEqual(undefined);
@@ -224,18 +224,18 @@ describe('Use proxy', () => {
     test('should define proxy if https_proxy match', () => {
       const x = getProxyInstance(
         'https://something',
-        { https_proxy: 'https://registry.local.org' },
+        { https_proxy: 'https://fake.verdaccio.org' },
         {}
       );
-      expect(x.proxy).toEqual('https://registry.local.org');
+      expect(x.proxy).toEqual('https://fake.verdaccio.org');
     });
     test('should match https_proxy if https protocol match', () => {
       const x = getProxyInstance(
         'https://something',
-        { http_proxy: 'http://registry.local.org', https_proxy: 'https://registry.local.org' },
+        { http_proxy: 'http://fake.verdaccio.org', https_proxy: 'https://fake.verdaccio.org' },
         {}
       );
-      expect(x.proxy).toEqual('https://registry.local.org');
+      expect(x.proxy).toEqual('https://fake.verdaccio.org');
     });
   });
 });

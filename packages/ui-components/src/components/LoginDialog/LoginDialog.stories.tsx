@@ -23,7 +23,7 @@ export const OpenLoginDialog: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.post('https://my-registry.org/-/verdaccio/sec/login', async ({ request }) => {
+        http.post('https://fake.verdaccio.org/-/verdaccio/sec/login', async ({ request }) => {
           const body = (await request.json()) as { username: string; password: string };
 
           if (body.username === 'fail') {

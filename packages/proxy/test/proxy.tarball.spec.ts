@@ -37,7 +37,7 @@ describe('tarball proxy', () => {
     vi.clearAllMocks();
   });
   const defaultRequestOptions = {
-    url: 'https://registry.verdaccio.org',
+    url: 'https://fake.verdaccio.org',
   };
 
   const proxyPath = getConf('proxy1.yaml');
@@ -46,12 +46,12 @@ describe('tarball proxy', () => {
   describe('fetchTarball', () => {
     test('get file tarball fetch', () =>
       new Promise((done) => {
-        nock('https://registry.verdaccio.org')
+        nock('https://fake.verdaccio.org')
           .get('/jquery/-/jquery-0.0.1.tgz')
           .replyWithFile(201, path.join(import.meta.dirname, 'partials/jquery-0.0.1.tgz'));
         const prox1: IProxy = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
         const stream = prox1.fetchTarball(
-          'https://registry.verdaccio.org/jquery/-/jquery-0.0.1.tgz',
+          'https://fake.verdaccio.org/jquery/-/jquery-0.0.1.tgz',
           {}
         );
         stream.on('response', () => {
@@ -64,7 +64,7 @@ describe('tarball proxy', () => {
 
     test('get file tarball handle retries', () =>
       new Promise((done) => {
-        nock('https://registry.verdaccio.org')
+        nock('https://fake.verdaccio.org')
           .get('/jquery/-/jquery-0.0.1.tgz')
           .reply(500, 'Internal Server Error')
           .get('/jquery/-/jquery-0.0.1.tgz')
@@ -72,10 +72,9 @@ describe('tarball proxy', () => {
           .get('/jquery/-/jquery-0.0.1.tgz')
           .replyWithFile(201, path.join(import.meta.dirname, 'partials/jquery-0.0.1.tgz'));
         const prox1: IProxy = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
-        const stream = prox1.fetchTarball(
-          'https://registry.verdaccio.org/jquery/-/jquery-0.0.1.tgz',
-          { retry: { limit: 2 } }
-        );
+        const stream = prox1.fetchTarball('https://fake.verdaccio.org/jquery/-/jquery-0.0.1.tgz', {
+          retry: { limit: 2 },
+        });
         stream.on('response', () => {
           // Should succeed after 2 retries
           done(true);

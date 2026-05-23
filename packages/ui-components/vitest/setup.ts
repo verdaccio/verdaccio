@@ -1,9 +1,8 @@
-// / <reference path="./testing-library.d.ts" />
 /**
  * Setup configuration for Vitest
  * This file includes global settings for the test environment.
  */
-import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/vitest';
 import createDebugger from 'debug';
 import 'mutationobserver-shim';
 import { vi } from 'vitest';

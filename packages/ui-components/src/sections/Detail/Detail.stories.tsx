@@ -38,10 +38,10 @@ export const DetailStorybook: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get('https://my-registry.org/-/verdaccio/data/sidebar/storybook', () => {
+        http.get('https://fake.verdaccio.org/-/verdaccio/data/sidebar/storybook', () => {
           return HttpResponse.json(storybookSidebar);
         }),
-        http.get('https://my-registry.org/-/verdaccio/data/package/readme/storybook', () => {
+        http.get('https://fake.verdaccio.org/-/verdaccio/data/package/readme/storybook', () => {
           return HttpResponse.json(storybookReadme);
         }),
       ],
@@ -54,10 +54,10 @@ export const DetailJquery: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get('https://my-registry.org/-/verdaccio/data/sidebar/jquery', () => {
+        http.get('https://fake.verdaccio.org/-/verdaccio/data/sidebar/jquery', () => {
           return HttpResponse.json(jquerySidebar);
         }),
-        http.get('https://my-registry.org/-/verdaccio/data/package/readme/jquery', () => {
+        http.get('https://fake.verdaccio.org/-/verdaccio/data/package/readme/jquery', () => {
           return HttpResponse.json(jqueryReadme);
         }),
       ],
@@ -70,7 +70,7 @@ export const DetailForbidden: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get('https://my-registry.org/-/verdaccio/data/sidebar/JSONStream', () => {
+        http.get('https://fake.verdaccio.org/-/verdaccio/data/sidebar/JSONStream', () => {
           return new HttpResponse('unauthorized', { status: 401 });
         }),
       ],
