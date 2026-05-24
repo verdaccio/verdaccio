@@ -138,6 +138,7 @@ export type CommonWebConf = {
   hideDeprecatedVersions?: boolean;
   primaryColor?: string;
   showRaw?: boolean;
+  assetFolder?: string;
 };
 
 /**

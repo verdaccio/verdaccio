@@ -185,6 +185,73 @@ describe('test web server', () => {
           .get('/-/static/runtime.js')
           .expect(HTTP_STATUS.OK);
       });
+
+      test('should reject URL-encoded traversal on the static route', async () => {
+        // sendFileSafe replaced the original `res.sendFile(..., { root })`,
+        // so the static route must keep rejecting traversal attempts.
+        return supertest(await initializeServer('default-test.yaml'))
+          .get('/-/static/%2E%2E%2Fpartials%2Fsecret.txt')
+          .expect(HTTP_STATUS.NOT_FOUND);
+      });
+    });
+
+    describe('assetFolder', () => {
+      test('should serve a file from the asset folder', async () => {
+        const response = await supertest(initializeServer('web-assets.yaml'))
+          .get('/-/assets/sample.txt')
+          .expect(HTTP_STATUS.OK);
+        expect(response.text).toContain('verdaccio-asset-fixture');
+      });
+
+      test('should serve a file from an asset subfolder', async () => {
+        const response = await supertest(initializeServer('web-assets.yaml'))
+          .get('/-/assets/logos/nested.txt')
+          .expect(HTTP_STATUS.OK);
+        expect(response.text).toContain('verdaccio-nested-asset');
+      });
+
+      test('should 404 when the file does not exist', async () => {
+        return supertest(initializeServer('web-assets.yaml'))
+          .get('/-/assets/does-not-exist.txt')
+          .expect(HTTP_STATUS.NOT_FOUND);
+      });
+
+      test('should reject URL-encoded dot-dot traversal', async () => {
+        // Using the encoded form because supertest normalizes raw `..` segments
+        // away on the client side before the request reaches the server.
+        const response = await supertest(initializeServer('web-assets.yaml')).get(
+          '/-/assets/%2E%2E%2Fsecret.txt'
+        );
+        expect(response.status).toBe(HTTP_STATUS.NOT_FOUND);
+        expect(response.text).not.toContain('verdaccio-secret-should-not-be-served');
+      });
+
+      test('should reject mixed-segment traversal (subdir/%2E%2E%2F..)', async () => {
+        const response = await supertest(initializeServer('web-assets.yaml')).get(
+          '/-/assets/logos/%2E%2E%2F%2E%2E%2Fsecret.txt'
+        );
+        expect(response.status).toBe(HTTP_STATUS.NOT_FOUND);
+        expect(response.text).not.toContain('verdaccio-secret-should-not-be-served');
+      });
+
+      test('should reject absolute paths (URL-encoded leading slash)', async () => {
+        return supertest(initializeServer('web-assets.yaml'))
+          .get('/-/assets/%2Fetc%2Fpasswd')
+          .expect(HTTP_STATUS.NOT_FOUND);
+      });
+
+      test('should not register the asset route when assetFolder is unset', async () => {
+        return supertest(initializeServer('default-test.yaml'))
+          .get('/-/assets/sample.txt')
+          .expect(HTTP_STATUS.NOT_FOUND);
+      });
+
+      test('should not serve the asset folder itself as a file', async () => {
+        // `.` resolves to the base directory; sendFileSafe must refuse to
+        // hand back a directory listing or 200 the directory.
+        const response = await supertest(initializeServer('web-assets.yaml')).get('/-/assets/%2E');
+        expect(response.status).toBe(HTTP_STATUS.NOT_FOUND);
+      });
     });
   });
 });
