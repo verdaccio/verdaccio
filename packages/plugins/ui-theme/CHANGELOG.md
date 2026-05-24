@@ -1,5 +1,7 @@
 # @verdaccio/ui-theme
 
+## 9.0.0-next-9.16
+
 ## 9.0.0-next-9.15
 
 ### Patch Changes

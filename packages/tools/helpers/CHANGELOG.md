@@ -1,5 +1,18 @@
 # Change Log
 
+## 5.0.0-next-9.16
+
+### Patch Changes
+
+- cdf3150: fix: refactor unit test
+- Updated dependencies [66f7e61]
+- Updated dependencies [cdf3150]
+  - @verdaccio/middleware@9.0.0-next-9.16
+  - @verdaccio/core@9.0.0-next-9.16
+  - @verdaccio/config@9.0.0-next-9.16
+  - @verdaccio/logger@9.0.0-next-9.16
+  - @verdaccio/auth@9.0.0-next-9.16
+
 ## 5.0.0-next-9.15
 
 ### Patch Changes
