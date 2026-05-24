@@ -83,6 +83,15 @@ export function resolveSafePath(basePath: string, requestPath?: string): string 
  * subfolders (e.g. `logos/verdaccio.svg`). We sanitize each path segment
  * independently so `/` remains a real directory boundary.
  *
+ * TODO: `sanitize-filename` silently rewrites segments instead of rejecting
+ * them (`file\0.txt` -> `file.txt`, `CON.svg` -> `.svg`, oversized segments
+ * truncated). Not exploitable today, but surprising; prefer 404 on destructive
+ * rewrite.
+ * TODO: `=== '..'` check is whitespace-strict — ` ..` / `..  ` slips past it.
+ * Use `path.normalize` before splitting, or `segment.trim() === '..'`.
+ * TODO: largely redundant with `resolveSafePath` on POSIX; the dep mainly earns
+ * its keep on Windows. Consider an inline `[<>:"|?*\0]` regex to drop the dep.
+ *
  * @param filename The user-provided filename/path to sanitize.
  * @returns The sanitized filename/path.
  */
