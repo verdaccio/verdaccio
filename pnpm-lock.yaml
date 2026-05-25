@@ -65,15 +65,9 @@ importers:
       '@types/jsonwebtoken':
         specifier: 9.0.10
         version: 9.0.10
-      '@types/lodash':
-        specifier: 4.17.23
-        version: 4.17.23
       '@types/lodash-es':
         specifier: 4.17.12
         version: 4.17.12
-      '@types/minimatch':
-        specifier: 6.0.0
-        version: 6.0.0
       '@types/ms':
         specifier: 2.1.0
         version: 2.1.0
@@ -779,9 +773,6 @@ importers:
         specifier: 1.1.4
         version: 1.1.4
     devDependencies:
-      '@types/bcryptjs':
-        specifier: 3.0.0
-        version: 3.0.0
       '@verdaccio/config':
         specifier: workspace:9.0.0-next-9.15
         version: link:../../config
@@ -2904,10 +2895,6 @@ packages:
   '@types/babel__traverse@7.28.0':
     resolution: {integrity: sha512-8PvcXf70gTDZBgt9ptxJ8elBeBjcLOAcOtoO/mPJjtji1+CdGbHgm77om1GrsPxsiE+uXIpNSK64UYaIwQXd4Q==}
 
-  '@types/bcryptjs@3.0.0':
-    resolution: {integrity: sha512-WRZOuCuaz8UcZZE4R5HXTco2goQSI2XxjGY3hbM/xDvwmqFWd4ivooImsMx65OKM6CtNKbnZ5YL+YwAwK7c1dg==}
-    deprecated: This is a stub types definition. bcryptjs provides its own type definitions, so you do not need this installed.
-
   '@types/body-parser@1.19.6':
     resolution: {integrity: sha512-HLFeCYgz89uk22N5Qg3dvGvsv46B8GLvKKo1zKG4NybA8U2DiEO3w9lqGg29t/tfLRJpJ6iQxnVw4OnB7MoM9g==}
 
@@ -2985,10 +2972,6 @@ packages:
 
   '@types/methods@1.1.4':
     resolution: {integrity: sha512-ymXWVrDiCxTBE3+RIrrP533E70eA+9qu7zdWoHuOmGujkYtzf4HQF96b8nwHLqhuf4ykX61IGRIB38CC6/sImQ==}
-
-  '@types/minimatch@6.0.0':
-    resolution: {integrity: sha512-zmPitbQ8+6zNutpwgcQuLcsEpn/Cj54Kbn7L5pX0Os5kdWplB7xPgEh/g+SWOB/qmows2gpuCaPyduq8ZZRnxA==}
-    deprecated: This is a stub types definition. minimatch provides its own type definitions, so you do not need this installed.
 
   '@types/ms@2.1.0':
     resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
@@ -8874,10 +8857,6 @@ snapshots:
     dependencies:
       '@babel/types': 7.28.4
 
-  '@types/bcryptjs@3.0.0':
-    dependencies:
-      bcryptjs: 3.0.3
-
   '@types/body-parser@1.19.6':
     dependencies:
       '@types/connect': 3.4.38
@@ -8970,10 +8949,6 @@ snapshots:
   '@types/mdx@2.0.13': {}
 
   '@types/methods@1.1.4': {}
-
-  '@types/minimatch@6.0.0':
-    dependencies:
-      minimatch: 9.0.7
 
   '@types/ms@2.1.0': {}
 
