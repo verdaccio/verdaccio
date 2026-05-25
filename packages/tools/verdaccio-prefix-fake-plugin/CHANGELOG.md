@@ -1,5 +1,11 @@
 # customprefix-auth
 
+## 4.0.0-next-9.1
+
+### Patch Changes
+
+- 6408a85: chore: force release
+
 ## 4.0.0-next-9.0
 
 ### Major Changes

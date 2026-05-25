@@ -1,5 +1,21 @@
 # verdaccio
 
+## 9.0.0-next-9.17
+
+### Patch Changes
+
+- 6408a85: chore: force release
+- Updated dependencies [6408a85]
+  - @verdaccio/cli@9.0.0-next-9.17
+  - @verdaccio/hooks@9.0.0-next-9.17
+  - @verdaccio/logger@9.0.0-next-9.17
+  - @verdaccio/node-api@9.0.0-next-9.17
+  - verdaccio-audit@14.0.0-next-9.17
+  - verdaccio-htpasswd@14.0.0-next-9.17
+  - @verdaccio/package-filter@14.0.0-next-9.41
+  - @verdaccio/ui-theme@9.0.0-next-9.17
+  - @verdaccio/server@9.0.0-next-9.17
+
 ## 9.0.0-next-9.16
 
 ### Patch Changes
