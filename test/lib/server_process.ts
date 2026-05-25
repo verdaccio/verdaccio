@@ -42,7 +42,7 @@ export default class VerdaccioProcess implements IServerProcess {
       };
 
       log('forking Verdaccio CLI from: %s', cliPath);
-      this.childFork = fork(cliPath, ['-c', configPath, '-l', String(port)], options);
+      this.childFork = fork(cliPath, ['-c', configPath, '-l', `127.0.0.1:${port}`], options);
 
       const handleError = (err: unknown) => {
         log('process error: %O', err);
