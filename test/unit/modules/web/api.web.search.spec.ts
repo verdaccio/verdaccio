@@ -35,7 +35,9 @@ describe('web endpoint: search', () => {
   });
 
   test('should search with 404', async () => {
-    const res = await request(app).get('/-/verdaccio/data/search/%40').expect(HTTP_STATUS.OK);
+    const res = await request(app)
+      .get('/-/verdaccio/data/search/nonexistent-package-xyz')
+      .expect(HTTP_STATUS.OK);
     expect(res.body).toEqual([]);
   });
 
