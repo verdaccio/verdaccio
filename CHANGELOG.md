@@ -1,5 +1,12 @@
 # Changelog
 
+## 6.7.2
+
+### Patch Changes
+
+- a89aca1: chore: fix unit test
+- a28cf71: chore: add missing types #5889
+
 ## 6.7.1
 
 ### Patch Changes
