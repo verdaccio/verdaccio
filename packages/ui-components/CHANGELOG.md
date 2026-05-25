@@ -1,5 +1,17 @@
 # @verdaccio/ui-components
 
+## 5.0.0-next-9.13
+
+### Patch Changes
+
+- cb359b9: chore: force release
+
+## 5.0.0-next-9.12
+
+### Patch Changes
+
+- cdf3150: fix: refactor unit test
+
 ## 5.0.0-next-9.11
 
 ### Patch Changes

@@ -1,10 +1,22 @@
 {
   "name": "@verdaccio/ui-components",
-  "version": "5.0.0-next-9.11",
+  "version": "5.0.0-next-9.13",
   "description": "Verdaccio UI Components",
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
   "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio",
+    "directory": "packages/ui-components"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  },
   "main": "./build/index.js",
   "module": "./build/index.mjs",
   "types": "build/index.d.ts",
@@ -73,7 +85,7 @@
     "@testing-library/react": "16.3.2",
     "@types/lodash-es": "4.17.12",
     "@types/node": "24.10.13",
-    "@verdaccio/types": "workspace:14.0.0-next-9.6",
+    "@verdaccio/types": "workspace:14.0.0-next-9.7",
     "@vitejs/plugin-react": "6.0.1",
     "generate-github-markdown-css": "6.6.0",
     "jsdom": "28.1.0",
