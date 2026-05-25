@@ -121,6 +121,11 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
       WebUrlsNamespace.assets,
       function (req: express.Request<{ all: string | string[] }>, res, next) {
         const filename = Array.isArray(req.params.all) ? req.params.all.join('/') : req.params.all;
+        // Express normalizes `.`/`%2E` segments out of the URL, leaving the
+        // wildcard param undefined; treat that as a 404.
+        if (!filename) {
+          return next();
+        }
         sendFileSafe(config.web.assetFolder, filename, res, next);
       }
     );
