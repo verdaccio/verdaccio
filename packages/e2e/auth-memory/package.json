@@ -3,6 +3,18 @@
   "version": "1.0.1",
   "private": true,
   "description": "E2E tests for verdaccio-auth-memory plugin",
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio",
+    "directory": "packages/e2e/auth-memory"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  },
   "engines": {
     "node": ">=18"
   },

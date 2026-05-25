@@ -1,0 +1,22 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", "helpers:pinGitHubActionDigests"],
+  "baseBranches": ["8.x"],
+  "prConcurrentLimit": 1,
+  "labels": ["bot: dependencies"],
+  "minimumReleaseAge": "15 days",
+  "semanticCommitType": "fix",
+  "packageRules": [
+    {
+      "description": "Verdaccio packages — update immediately, no age gate",
+      "matchPackagePatterns": ["^@verdaccio/", "^verdaccio-"],
+      "minimumReleaseAge": "0 days",
+      "groupName": "verdaccio"
+    },
+    {
+      "matchPackageNames": ["actions/*", "github/codeql-action/*"],
+      "groupName": "all actions",
+      "groupSlug": "github-actions"
+    }
+  ]
+}
