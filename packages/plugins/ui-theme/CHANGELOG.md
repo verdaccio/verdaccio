@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 9.0.0-next-9.17
+
+### Patch Changes
+
+- 6408a85: chore: force release
+
 ## 9.0.0-next-9.16
 
 ## 9.0.0-next-9.15

@@ -1,5 +1,13 @@
 # @verdaccio/ui-components
 
+## 5.0.0-next-9.14
+
+### Patch Changes
+
+- 6408a85: chore: force release
+- Updated dependencies [6408a85]
+  - @verdaccio/ui-i18n@10.0.0-next-9.3
+
 ## 5.0.0-next-9.13
 
 ### Patch Changes

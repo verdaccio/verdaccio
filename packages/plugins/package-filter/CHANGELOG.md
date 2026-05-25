@@ -1,5 +1,13 @@
 # Change Log
 
+## 14.0.0-next-9.41
+
+### Patch Changes
+
+- 6408a85: chore: force release
+- Updated dependencies [6408a85]
+  - @verdaccio/core@9.0.0-next-9.17
+
 ## 14.0.0-next-9.40
 
 ### Patch Changes
