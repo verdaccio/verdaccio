@@ -33,6 +33,8 @@ jobs:
         run: yarn install --immutable
       - name: Build
         run: yarn build
+      - name: Types
+        run: yarn code:types    
       - name: create versions or publish
         id: changesets
         uses: changesets/action@63a615b9cd06ba9a3e6d13796c7fbcb080a60a0b
