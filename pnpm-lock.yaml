@@ -283,7 +283,7 @@ importers:
         specifier: 4.17.12
         version: 4.17.12
       '@verdaccio/test-helper':
-        specifier: workspace:5.0.0-next-9.16
+        specifier: workspace:5.0.0-next-9.17
         version: link:../tools/helpers
       '@verdaccio/types':
         specifier: workspace:14.0.0-next-9.7
@@ -539,7 +539,7 @@ importers:
         specifier: workspace:9.0.0-next-9.16
         version: link:../config
       '@verdaccio/test-helper':
-        specifier: workspace:5.0.0-next-9.16
+        specifier: workspace:5.0.0-next-9.17
         version: link:../tools/helpers
       '@verdaccio/types':
         specifier: workspace:14.0.0-next-9.7
@@ -913,7 +913,7 @@ importers:
         specifier: workspace:14.0.0-next-9.7
         version: link:../../core/types
       '@verdaccio/ui-components':
-        specifier: workspace:5.0.0-next-9.12
+        specifier: workspace:5.0.0-next-9.13
         version: link:../../ui-components
       '@verdaccio/ui-i18n':
         specifier: workspace:10.0.0-next-9.2
@@ -1180,7 +1180,7 @@ importers:
         specifier: 4.17.12
         version: 4.17.12
       '@verdaccio/test-helper':
-        specifier: workspace:5.0.0-next-9.16
+        specifier: workspace:5.0.0-next-9.17
         version: link:../tools/helpers
       '@verdaccio/types':
         specifier: workspace:14.0.0-next-9.7
@@ -1516,7 +1516,7 @@ importers:
         specifier: workspace:9.0.0-next-9.16
         version: link:../api
       '@verdaccio/test-helper':
-        specifier: workspace:5.0.0-next-9.16
+        specifier: workspace:5.0.0-next-9.17
         version: link:../tools/helpers
       '@verdaccio/types':
         specifier: workspace:14.0.0-next-9.7
@@ -3263,6 +3263,7 @@ packages:
   '@verdaccio/commons-api@10.2.0':
     resolution: {integrity: sha512-F/YZANu4DmpcEV0jronzI7v2fGVWkQ5Mwi+bVmV+ACJ+EzR0c9Jbhtbe5QyLUuzR97t8R5E/Xe53O0cc2LukdQ==}
     engines: {node: '>=8'}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@verdaccio/e2e-cli@2.9.0':
     resolution: {integrity: sha512-rPw+fjQfFFNrgZWBVlyGbbjHnBULoX0HNPchviCqzLeSyS84fhwzfubMbCGV6D84fBaPLBLnpXdMT8fcorJhLA==}
