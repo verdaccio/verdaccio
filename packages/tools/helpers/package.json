@@ -7,6 +7,18 @@
   "homepage": "https://verdaccio.org",
   "main": "build/index.js",
   "types": "build/index.d.ts",
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio",
+    "directory": "packages/tools/helpers"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  },
   "dependencies": {
     "@verdaccio/auth": "workspace:9.0.0-next-9.16",
     "@verdaccio/config": "workspace:9.0.0-next-9.16",
