@@ -1,5 +1,21 @@
 # verdaccio
 
+## 9.0.0-next-9.16
+
+### Patch Changes
+
+- cdf3150: fix: refactor unit test
+- Updated dependencies [cdf3150]
+  - verdaccio-audit@14.0.0-next-9.16
+  - @verdaccio/logger@9.0.0-next-9.16
+  - @verdaccio/cli@9.0.0-next-9.16
+  - @verdaccio/hooks@9.0.0-next-9.16
+  - @verdaccio/node-api@9.0.0-next-9.16
+  - verdaccio-htpasswd@14.0.0-next-9.16
+  - @verdaccio/package-filter@14.0.0-next-9.40
+  - @verdaccio/ui-theme@9.0.0-next-9.16
+  - @verdaccio/server@9.0.0-next-9.16
+
 ## 9.0.0-next-9.15
 
 ### Patch Changes
