@@ -1,5 +1,11 @@
 # Change Log
 
+## 13.0.1
+
+### Patch Changes
+
+- f33d1d6: chore: trusted publisher release
+
 ## 13.0.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/streams",
-  "version": "10.2.4",
+  "version": "10.2.5",
   "description": "Stream extension for Verdaccio",
   "keywords": [
     "verdaccio",

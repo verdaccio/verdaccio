@@ -219,16 +219,16 @@ importers:
   packages/auth:
     dependencies:
       '@verdaccio/config':
-        specifier: workspace:8.1.0
+        specifier: workspace:8.1.1
         version: link:../config
       '@verdaccio/core':
-        specifier: workspace:8.1.0
+        specifier: workspace:8.1.1
         version: link:../core/core
       '@verdaccio/loaders':
-        specifier: workspace:8.0.1
+        specifier: workspace:8.0.2
         version: link:../loaders
       '@verdaccio/signature':
-        specifier: workspace:8.0.1
+        specifier: workspace:8.0.2
         version: link:../signature
       debug:
         specifier: 4.4.3
@@ -237,17 +237,17 @@ importers:
         specifier: 4.18.1
         version: 4.18.1
       verdaccio-htpasswd:
-        specifier: workspace:13.0.1
+        specifier: workspace:13.0.2
         version: link:../plugins/htpasswd
     devDependencies:
       '@verdaccio/logger':
-        specifier: workspace:8.0.1
+        specifier: workspace:8.0.2
         version: link:../logger/logger
       '@verdaccio/middleware':
-        specifier: workspace:8.0.1
+        specifier: workspace:8.0.2
         version: link:../middleware
       '@verdaccio/types':
-        specifier: workspace:13.0.0
+        specifier: workspace:13.0.1
         version: link:../core/types
       express:
         specifier: 4.22.1
@@ -257,12 +257,12 @@ importers:
         version: 7.1.4
       vitest:
         specifier: 4.1.2
-        version: 4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.11(@types/node@20.14.12)(yaml@2.8.4))
+        version: 4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))
 
   packages/config:
     dependencies:
       '@verdaccio/core':
-        specifier: workspace:8.1.0
+        specifier: workspace:8.1.1
         version: link:../core/core
       debug:
         specifier: 4.4.3
@@ -275,11 +275,11 @@ importers:
         version: 4.18.1
     devDependencies:
       '@verdaccio/types':
-        specifier: workspace:13.0.0
+        specifier: workspace:13.0.1
         version: link:../core/types
       vitest:
         specifier: 4.1.2
-        version: 4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.11(@types/node@20.14.12)(yaml@2.8.4))
+        version: 4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))
 
   packages/core/core:
     dependencies:
@@ -303,7 +303,7 @@ importers:
         version: 7.7.4
     devDependencies:
       '@verdaccio/types':
-        specifier: workspace:13.0.0
+        specifier: workspace:13.0.1
         version: link:../types
       express:
         specifier: 4.22.1
@@ -313,7 +313,7 @@ importers:
         version: 0.28.14(typescript@5.3.3)
       vitest:
         specifier: 4.1.2
-        version: 4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.11(@types/node@20.14.12)(yaml@2.8.4))
+        version: 4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))
 
   packages/core/deprecated-types:
     devDependencies:
@@ -331,11 +331,11 @@ importers:
         version: 1.0.4
     devDependencies:
       '@verdaccio/types':
-        specifier: workspace:13.0.0
+        specifier: workspace:13.0.1
         version: link:../types
       vitest:
         specifier: 4.1.2
-        version: 4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.11(@types/node@20.14.12)(yaml@2.8.4))
+        version: 4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))
 
   packages/core/streams:
     devDependencies:
@@ -355,10 +355,10 @@ importers:
   packages/core/tarball:
     dependencies:
       '@verdaccio/core':
-        specifier: workspace:8.1.0
+        specifier: workspace:8.1.1
         version: link:../core
       '@verdaccio/url':
-        specifier: workspace:13.0.1
+        specifier: workspace:13.0.2
         version: link:../url
       debug:
         specifier: 4.4.3
@@ -371,14 +371,14 @@ importers:
         version: 3.1.7
     devDependencies:
       '@verdaccio/types':
-        specifier: workspace:13.0.0
+        specifier: workspace:13.0.1
         version: link:../types
       node-mocks-http:
         specifier: 1.14.1
         version: 1.14.1
       vitest:
         specifier: 4.1.2
-        version: 4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.11(@types/node@20.14.12)(yaml@2.8.4))
+        version: 4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))
 
   packages/core/types:
     devDependencies:
@@ -395,7 +395,7 @@ importers:
   packages/core/url:
     dependencies:
       '@verdaccio/core':
-        specifier: workspace:8.1.0
+        specifier: workspace:8.1.1
         version: link:../core
       debug:
         specifier: 4.4.3
@@ -409,7 +409,7 @@ importers:
         version: 1.14.1
       vitest:
         specifier: 4.1.2
-        version: 4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.11(@types/node@20.14.12)(yaml@2.8.4))
+        version: 4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))
 
   packages/e2e/auth-memory:
     dependencies:
@@ -434,7 +434,7 @@ importers:
         version: 20.14.12
       vitest:
         specifier: ^4.1.4
-        version: 4.1.4(@types/node@20.14.12)(@vitest/coverage-v8@4.1.2(vitest@4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))))(jsdom@26.1.0)(vite@8.0.11(@types/node@20.14.12)(yaml@2.8.4))
+        version: 4.1.4(@types/node@20.14.12)(@vitest/coverage-v8@4.1.2(vitest@4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))))(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))
 
   packages/e2e/local-storage-legacy:
     dependencies:
@@ -453,7 +453,7 @@ importers:
         version: 20.14.12
       vitest:
         specifier: ^4.1.4
-        version: 4.1.4(@types/node@20.14.12)(@vitest/coverage-v8@4.1.2(vitest@4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))))(jsdom@26.1.0)(vite@8.0.11(@types/node@20.14.12)(yaml@2.8.4))
+        version: 4.1.4(@types/node@20.14.12)(@vitest/coverage-v8@4.1.2(vitest@4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))))(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))
 
   packages/e2e/shared:
     dependencies:
@@ -476,10 +476,10 @@ importers:
   packages/hooks:
     dependencies:
       '@verdaccio/core':
-        specifier: workspace:8.1.0
+        specifier: workspace:8.1.1
         version: link:../core/core
       '@verdaccio/logger':
-        specifier: workspace:8.0.1
+        specifier: workspace:8.0.2
         version: link:../logger/logger
       debug:
         specifier: 4.4.3
@@ -492,25 +492,25 @@ importers:
         version: 4.7.9
     devDependencies:
       '@verdaccio/config':
-        specifier: workspace:8.1.0
+        specifier: workspace:8.1.1
         version: link:../config
       '@verdaccio/test-helper':
         specifier: workspace:*
         version: link:../test-helper
       '@verdaccio/types':
-        specifier: workspace:13.0.0
+        specifier: workspace:13.0.1
         version: link:../core/types
       nock:
         specifier: 13.5.6
         version: 13.5.6
       vitest:
         specifier: 4.1.2
-        version: 4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.11(@types/node@20.14.12)(yaml@2.8.4))
+        version: 4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))
 
   packages/loaders:
     dependencies:
       '@verdaccio/core':
-        specifier: workspace:8.1.0
+        specifier: workspace:8.1.1
         version: link:../core/core
       debug:
         specifier: 4.4.3
@@ -523,38 +523,38 @@ importers:
         specifier: 0.0.2
         version: 0.0.2
       '@verdaccio/config':
-        specifier: workspace:8.1.0
+        specifier: workspace:8.1.1
         version: link:../config
       '@verdaccio/logger':
-        specifier: workspace:8.0.1
+        specifier: workspace:8.0.2
         version: link:../logger/logger
       verdaccio-auth-memory:
         specifier: workspace:*
         version: link:../plugins/auth-memory
       vitest:
         specifier: 4.1.2
-        version: 4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.11(@types/node@20.14.12)(yaml@2.8.4))
+        version: 4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))
 
   packages/logger/logger:
     dependencies:
       '@verdaccio/logger-commons':
-        specifier: workspace:8.0.1
+        specifier: workspace:8.0.2
         version: link:../logger-commons
       pino:
         specifier: 9.14.0
         version: 9.14.0
     devDependencies:
       '@verdaccio/types':
-        specifier: workspace:13.0.0
+        specifier: workspace:13.0.1
         version: link:../../core/types
 
   packages/logger/logger-commons:
     dependencies:
       '@verdaccio/core':
-        specifier: workspace:8.1.0
+        specifier: workspace:8.1.1
         version: link:../../core/core
       '@verdaccio/logger-prettify':
-        specifier: workspace:8.0.0
+        specifier: workspace:8.0.1
         version: link:../logger-prettify
       colorette:
         specifier: 2.0.20
@@ -564,14 +564,14 @@ importers:
         version: 4.4.3(supports-color@8.1.1)
     devDependencies:
       '@verdaccio/types':
-        specifier: workspace:13.0.0
+        specifier: workspace:13.0.1
         version: link:../../core/types
       pino:
         specifier: 9.14.0
         version: 9.14.0
       vitest:
         specifier: 4.1.2
-        version: 4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.11(@types/node@20.14.12)(yaml@2.8.4))
+        version: 4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))
 
   packages/logger/logger-prettify:
     dependencies:
@@ -599,18 +599,18 @@ importers:
         version: 9.14.0
       vitest:
         specifier: 4.1.2
-        version: 4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.11(@types/node@20.14.12)(yaml@2.8.4))
+        version: 4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))
 
   packages/middleware:
     dependencies:
       '@verdaccio/config':
-        specifier: workspace:8.1.0
+        specifier: workspace:8.1.1
         version: link:../config
       '@verdaccio/core':
-        specifier: workspace:8.1.0
+        specifier: workspace:8.1.1
         version: link:../core/core
       '@verdaccio/url':
-        specifier: workspace:13.0.1
+        specifier: workspace:13.0.2
         version: link:../core/url
       debug:
         specifier: 4.4.3
@@ -629,10 +629,10 @@ importers:
         version: 7.18.3
     devDependencies:
       '@verdaccio/logger':
-        specifier: workspace:8.0.1
+        specifier: workspace:8.0.2
         version: link:../logger/logger
       '@verdaccio/types':
-        specifier: workspace:13.0.0
+        specifier: workspace:13.0.1
         version: link:../core/types
       http-errors:
         specifier: 2.0.1
@@ -645,15 +645,15 @@ importers:
         version: 7.1.4
       vitest:
         specifier: 4.1.2
-        version: 4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.11(@types/node@20.14.12)(yaml@2.8.4))
+        version: 4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))
 
   packages/plugins/audit:
     dependencies:
       '@verdaccio/config':
-        specifier: workspace:8.1.0
+        specifier: workspace:8.1.1
         version: link:../../config
       '@verdaccio/core':
-        specifier: workspace:8.1.0
+        specifier: workspace:8.1.1
         version: link:../../core/core
       express:
         specifier: 4.22.1
@@ -666,13 +666,13 @@ importers:
         version: 2.6.7
     devDependencies:
       '@verdaccio/auth':
-        specifier: workspace:8.0.1
+        specifier: workspace:8.0.2
         version: link:../../auth
       '@verdaccio/logger':
-        specifier: workspace:8.0.1
+        specifier: workspace:8.0.2
         version: link:../../logger/logger
       '@verdaccio/types':
-        specifier: workspace:13.0.0
+        specifier: workspace:13.0.1
         version: link:../../core/types
       nock:
         specifier: 13.5.6
@@ -682,12 +682,12 @@ importers:
         version: 7.1.4
       vitest:
         specifier: 4.1.2
-        version: 4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.11(@types/node@20.14.12)(yaml@2.8.4))
+        version: 4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))
 
   packages/plugins/auth-memory:
     dependencies:
       '@verdaccio/core':
-        specifier: workspace:8.1.0
+        specifier: workspace:8.1.1
         version: link:../../core/core
       debug:
         specifier: 4.4.3
@@ -697,19 +697,19 @@ importers:
         specifier: 4.1.12
         version: 4.1.12
       '@verdaccio/config':
-        specifier: workspace:8.1.0
+        specifier: workspace:8.1.1
         version: link:../../config
       '@verdaccio/types':
-        specifier: workspace:13.0.0
+        specifier: workspace:13.0.1
         version: link:../../core/types
 
   packages/plugins/htpasswd:
     dependencies:
       '@verdaccio/core':
-        specifier: workspace:8.1.0
+        specifier: workspace:8.1.1
         version: link:../../core/core
       '@verdaccio/file-locking':
-        specifier: workspace:13.0.0
+        specifier: workspace:13.0.1
         version: link:../../core/file-locking
       apache-md5:
         specifier: 1.1.8
@@ -731,17 +731,17 @@ importers:
         specifier: 2.4.6
         version: 2.4.6
       '@verdaccio/config':
-        specifier: workspace:8.1.0
+        specifier: workspace:8.1.1
         version: link:../../config
       '@verdaccio/types':
-        specifier: workspace:13.0.0
+        specifier: workspace:13.0.1
         version: link:../../core/types
       mockdate:
         specifier: 3.0.5
         version: 3.0.5
       vitest:
         specifier: 4.1.2
-        version: 4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.11(@types/node@20.14.12)(yaml@2.8.4))
+        version: 4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))
 
   packages/plugins/local-storage-legacy:
     dependencies:
@@ -826,7 +826,7 @@ importers:
   packages/plugins/package-filter:
     dependencies:
       '@verdaccio/core':
-        specifier: workspace:8.1.0
+        specifier: workspace:8.1.1
         version: link:../../core/core
       debug:
         specifier: 4.4.3
@@ -839,13 +839,13 @@ importers:
         specifier: 4.1.12
         version: 4.1.12
       '@verdaccio/config':
-        specifier: workspace:8.1.0
+        specifier: workspace:8.1.1
         version: link:../../config
       '@verdaccio/logger':
-        specifier: workspace:8.0.1
+        specifier: workspace:8.0.2
         version: link:../../logger/logger
       '@verdaccio/types':
-        specifier: workspace:13.0.0
+        specifier: workspace:13.0.1
         version: link:../../core/types
       vite:
         specifier: 8.0.5
@@ -864,7 +864,7 @@ importers:
         version: 7.3.0
     devDependencies:
       '@verdaccio/types':
-        specifier: workspace:13.0.0
+        specifier: workspace:13.0.1
         version: link:../core/types
       vite:
         specifier: 8.0.11
@@ -879,10 +879,10 @@ importers:
   packages/signature:
     dependencies:
       '@verdaccio/config':
-        specifier: workspace:8.1.0
+        specifier: workspace:8.1.1
         version: link:../config
       '@verdaccio/core':
-        specifier: workspace:8.1.0
+        specifier: workspace:8.1.1
         version: link:../core/core
       debug:
         specifier: 4.4.3
@@ -892,31 +892,31 @@ importers:
         version: 9.0.3
     devDependencies:
       '@verdaccio/types':
-        specifier: workspace:13.0.0
+        specifier: workspace:13.0.1
         version: link:../core/types
       vitest:
         specifier: 4.1.2
-        version: 4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.11(@types/node@20.14.12)(yaml@2.8.4))
+        version: 4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))
 
   packages/test-helper:
     dependencies:
       '@verdaccio/auth':
-        specifier: workspace:8.0.1
+        specifier: workspace:8.0.2
         version: link:../auth
       '@verdaccio/config':
-        specifier: workspace:8.1.0
+        specifier: workspace:8.1.1
         version: link:../config
       '@verdaccio/core':
-        specifier: workspace:8.1.0
+        specifier: workspace:8.1.1
         version: link:../core/core
       '@verdaccio/logger':
-        specifier: workspace:8.0.1
+        specifier: workspace:8.0.2
         version: link:../logger/logger
       '@verdaccio/middleware':
-        specifier: workspace:8.0.1
+        specifier: workspace:8.0.2
         version: link:../middleware
       '@verdaccio/types':
-        specifier: workspace:13.0.0
+        specifier: workspace:13.0.1
         version: link:../core/types
       body-parser:
         specifier: 1.20.4
@@ -941,7 +941,7 @@ importers:
         version: 10.0.1(eslint@10.0.3)
       '@vitest/eslint-plugin':
         specifier: ^1.6.9
-        version: 1.6.13(@typescript-eslint/eslint-plugin@8.59.2(@typescript-eslint/parser@8.59.2(eslint@10.0.3)(typescript@5.3.3))(eslint@10.0.3)(typescript@5.3.3))(eslint@10.0.3)(typescript@5.3.3)(vitest@4.1.4(@types/node@20.14.12)(@vitest/coverage-v8@4.1.2(vitest@4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))))(jsdom@26.1.0)(vite@8.0.11(@types/node@20.14.12)(yaml@2.8.4)))
+        version: 1.6.13(@typescript-eslint/eslint-plugin@8.59.2(@typescript-eslint/parser@8.59.2(eslint@10.0.3)(typescript@5.3.3))(eslint@10.0.3)(typescript@5.3.3))(eslint@10.0.3)(typescript@5.3.3)(vitest@4.1.4(@types/node@20.14.12)(@vitest/coverage-v8@4.1.2(vitest@4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))))(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4)))
       eslint:
         specifier: ^10.0.2
         version: 10.0.3
@@ -983,7 +983,7 @@ importers:
   packages/utils:
     dependencies:
       '@verdaccio/core':
-        specifier: workspace:8.1.0
+        specifier: workspace:8.1.1
         version: link:../core/core
       lodash:
         specifier: 4.18.1
@@ -993,11 +993,11 @@ importers:
         version: 7.4.9
     devDependencies:
       '@verdaccio/types':
-        specifier: workspace:13.0.0
+        specifier: workspace:13.0.1
         version: link:../core/types
       vitest:
         specifier: 4.1.2
-        version: 4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.11(@types/node@20.14.12)(yaml@2.8.4))
+        version: 4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))
 
 packages:
 
@@ -2496,6 +2496,7 @@ packages:
   '@verdaccio/commons-api@10.2.0':
     resolution: {integrity: sha512-F/YZANu4DmpcEV0jronzI7v2fGVWkQ5Mwi+bVmV+ACJ+EzR0c9Jbhtbe5QyLUuzR97t8R5E/Xe53O0cc2LukdQ==}
     engines: {node: '>=8'}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   '@verdaccio/config@8.0.0-next-8.37':
     resolution: {integrity: sha512-SbmDMJpora293B+TDYfxJL5LEaFh7gdh0MmkPJCBkmGlRPmynTfHcQzVzAll3+IMYFkrf1zZtq/qlgorjaoFoQ==}
@@ -8002,7 +8003,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vitest/eslint-plugin@1.6.13(@typescript-eslint/eslint-plugin@8.59.2(@typescript-eslint/parser@8.59.2(eslint@10.0.3)(typescript@5.3.3))(eslint@10.0.3)(typescript@5.3.3))(eslint@10.0.3)(typescript@5.3.3)(vitest@4.1.4(@types/node@20.14.12)(@vitest/coverage-v8@4.1.2(vitest@4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))))(jsdom@26.1.0)(vite@8.0.11(@types/node@20.14.12)(yaml@2.8.4)))':
+  '@vitest/eslint-plugin@1.6.13(@typescript-eslint/eslint-plugin@8.59.2(@typescript-eslint/parser@8.59.2(eslint@10.0.3)(typescript@5.3.3))(eslint@10.0.3)(typescript@5.3.3))(eslint@10.0.3)(typescript@5.3.3)(vitest@4.1.4(@types/node@20.14.12)(@vitest/coverage-v8@4.1.2(vitest@4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))))(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4)))':
     dependencies:
       '@typescript-eslint/scope-manager': 8.59.2
       '@typescript-eslint/utils': 8.59.2(eslint@10.0.3)(typescript@5.3.3)
@@ -8010,7 +8011,7 @@ snapshots:
     optionalDependencies:
       '@typescript-eslint/eslint-plugin': 8.59.2(@typescript-eslint/parser@8.59.2(eslint@10.0.3)(typescript@5.3.3))(eslint@10.0.3)(typescript@5.3.3)
       typescript: 5.3.3
-      vitest: 4.1.4(@types/node@20.14.12)(@vitest/coverage-v8@4.1.2(vitest@4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))))(jsdom@26.1.0)(vite@8.0.11(@types/node@20.14.12)(yaml@2.8.4))
+      vitest: 4.1.4(@types/node@20.14.12)(@vitest/coverage-v8@4.1.2(vitest@4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))))(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))
     transitivePeerDependencies:
       - supports-color
 
@@ -8048,13 +8049,13 @@ snapshots:
     optionalDependencies:
       vite: 8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4)
 
-  '@vitest/mocker@4.1.4(vite@8.0.11(@types/node@20.14.12)(yaml@2.8.4))':
+  '@vitest/mocker@4.1.4(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))':
     dependencies:
       '@vitest/spy': 4.1.4
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
-      vite: 8.0.11(@types/node@20.14.12)(yaml@2.8.4)
+      vite: 8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4)
 
   '@vitest/mocker@4.1.4(vite@8.0.8(@types/node@20.14.12)(yaml@2.8.4))':
     dependencies:
@@ -11620,10 +11621,10 @@ snapshots:
     transitivePeerDependencies:
       - msw
 
-  vitest@4.1.4(@types/node@20.14.12)(@vitest/coverage-v8@4.1.2(vitest@4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))))(jsdom@26.1.0)(vite@8.0.11(@types/node@20.14.12)(yaml@2.8.4)):
+  vitest@4.1.4(@types/node@20.14.12)(@vitest/coverage-v8@4.1.2(vitest@4.1.2(@types/node@20.14.12)(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))))(jsdom@26.1.0)(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4)):
     dependencies:
       '@vitest/expect': 4.1.4
-      '@vitest/mocker': 4.1.4(vite@8.0.11(@types/node@20.14.12)(yaml@2.8.4))
+      '@vitest/mocker': 4.1.4(vite@8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4))
       '@vitest/pretty-format': 4.1.4
       '@vitest/runner': 4.1.4
       '@vitest/snapshot': 4.1.4
@@ -11640,7 +11641,7 @@ snapshots:
       tinyexec: 1.1.2
       tinyglobby: 0.2.16
       tinyrainbow: 3.1.0
-      vite: 8.0.11(@types/node@20.14.12)(yaml@2.8.4)
+      vite: 8.0.5(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@20.14.12)(yaml@2.8.4)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 20.14.12

@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-verdaccio",
-  "version": "10.1.1",
+  "version": "10.1.2",
   "description": "Verdaccio code guidelines",
   "keywords": [
     "verdaccio",

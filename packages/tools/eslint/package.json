@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/eslint-config",
-  "version": "13.1.1",
+  "version": "13.1.2",
   "description": "Verdaccio ESLint Configuration",
   "main": "src/index.js",
   "type": "module",
@@ -29,7 +29,7 @@
     "eslint-plugin-cypress": "^6.1.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.1.1",
-    "eslint-plugin-verdaccio": "^10.1.1"
+    "eslint-plugin-verdaccio": "^10.1.2"
   },
   "peerDependenciesMeta": {
     "@vitest/eslint-plugin": {

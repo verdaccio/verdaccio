@@ -1,5 +1,14 @@
 # @verdaccio/signature
 
+## 8.0.2
+
+### Patch Changes
+
+- f33d1d6: chore: trusted publisher release
+- Updated dependencies [f33d1d6]
+  - @verdaccio/config@8.1.1
+  - @verdaccio/core@8.1.1
+
 ## 8.0.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.0.5
+
+### Patch Changes
+
+- f33d1d6: chore: trusted publisher release
+
 ## 1.0.4
 
 ### Patch Changes

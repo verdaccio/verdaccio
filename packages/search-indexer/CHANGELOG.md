@@ -1,5 +1,11 @@
 # @verdaccio/search-indexer
 
+## 8.0.2
+
+### Patch Changes
+
+- f33d1d6: chore: trusted publisher release
+
 ## 8.0.1
 
 ### Patch Changes
