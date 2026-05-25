@@ -1,5 +1,15 @@
 # @verdaccio/plugin-verifier
 
+## 1.0.0-next-9.13
+
+### Patch Changes
+
+- 6408a85: chore: force release
+- Updated dependencies [6408a85]
+  - @verdaccio/core@9.0.0-next-9.17
+  - @verdaccio/loaders@9.0.0-next-9.17
+  - @verdaccio/logger@9.0.0-next-9.17
+
 ## 1.0.0-next-9.12
 
 ### Patch Changes
