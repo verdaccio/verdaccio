@@ -1,5 +1,15 @@
 # Change Log
 
+## 11.3.3
+
+### Patch Changes
+
+- f33d1d6: chore: trusted publisher release
+- Updated dependencies [f33d1d6]
+  - @verdaccio/core@8.1.1
+  - @verdaccio/file-locking@13.0.1
+  - @verdaccio/streams@10.2.5
+
 ## 11.3.2
 
 ### Patch Changes

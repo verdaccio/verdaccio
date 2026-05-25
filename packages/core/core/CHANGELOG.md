@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 8.1.1
+
+### Patch Changes
+
+- f33d1d6: chore: trusted publisher release
+
 ## 8.1.0
 
 ## 8.0.0

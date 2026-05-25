@@ -1,5 +1,11 @@
 # @verdaccio/logger-prettify
 
+## 8.0.1
+
+### Patch Changes
+
+- f33d1d6: chore: trusted publisher release
+
 ## 8.0.0
 
 ### Patch Changes

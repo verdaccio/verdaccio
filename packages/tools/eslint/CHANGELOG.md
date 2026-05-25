@@ -1,5 +1,13 @@
 # @verdaccio/eslint-config
 
+## 13.1.2
+
+### Patch Changes
+
+- f33d1d6: chore: trusted publisher release
+- Updated dependencies [f33d1d6]
+  - eslint-plugin-verdaccio@10.1.2
+
 ## 13.1.1
 
 ### Patch Changes

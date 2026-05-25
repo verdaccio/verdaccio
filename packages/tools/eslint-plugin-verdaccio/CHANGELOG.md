@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.1.2
+
+### Patch Changes
+
+- f33d1d6: chore: trusted publisher release
+
 ## 10.1.1
 
 ### Patch Changes

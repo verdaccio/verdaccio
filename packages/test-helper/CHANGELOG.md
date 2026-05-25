@@ -1,5 +1,18 @@
 # Change Log
 
+## 4.0.2
+
+### Patch Changes
+
+- f33d1d6: chore: trusted publisher release
+- Updated dependencies [f33d1d6]
+  - @verdaccio/auth@8.0.2
+  - @verdaccio/config@8.1.1
+  - @verdaccio/core@8.1.1
+  - @verdaccio/types@13.0.1
+  - @verdaccio/logger@8.0.2
+  - @verdaccio/middleware@8.0.2
+
 ## 4.0.1
 
 ### Patch Changes
