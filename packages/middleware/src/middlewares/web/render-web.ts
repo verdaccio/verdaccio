@@ -31,7 +31,6 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
     WebUrlsNamespace.static,
     function (req: express.Request<{ all: string | string[] }>, res, next) {
       const filename = Array.isArray(req.params.all) ? req.params.all.join('/') : req.params.all;
-      debug('render static file request %o', filename);
       if (filename === 'favicon.ico' && config?.web?.favicon) {
         const file = config?.web?.favicon;
         if (isURLhasValidProtocol(file)) {
