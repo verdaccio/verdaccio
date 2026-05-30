@@ -44,8 +44,8 @@ export function sendFileSafe(baseDir: string, filename: string, res, next) {
   debug('serve file %o', safe);
   // `dotfiles: 'allow'` is required because the absolute path may legitimately
   // contain dot-prefixed ancestor directories (e.g. pnpm's `node_modules/.pnpm/...`
-  // content-addressable store). Path safety is already enforced by
-  // `resolveSafePath` above and the `dotfiles` URL middleware filters
-  // dot-prefixed request segments at the URL layer.
+  // content-addressable store). Path traversal is already enforced by
+  // `resolveSafePath` above.
+  // Requests for dot-prefixed URL segments are handled separately by the global `dotfiles` middleware.
   res.sendFile(safe, { dotfiles: 'allow' }, sendFileCallback(next));
 }
