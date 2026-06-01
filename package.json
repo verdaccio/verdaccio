@@ -102,6 +102,7 @@
     "clean": "pnpm --filter \"./packages/**\" run clean",
     "build": "pnpm --filter \"./packages/**\" build",
     "docker": "docker build -t verdaccio/verdaccio:local . --no-cache",
+    "docker:test": "docker build -f packages/tools/Dockerfile -t verdaccio/ci-test:local . --no-cache",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,yml,yaml,md}\"",
     "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,yml,yaml,md}\"",
     "lint": "eslint --max-warnings 90 .",
