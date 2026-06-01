@@ -9,11 +9,10 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "devDependencies": {
-    "@verdaccio/types": "workspace:14.0.0-next-9.8",
     "@verdaccio/core": "workspace:9.0.0-next-9.17",
     "@verdaccio/config": "workspace:9.0.0-next-9.17",
     "verdaccio": "workspace:9.0.0-next-9.17",
-    "tsx": "^4.21.0"
+    "tsx": "4.21.0"
   },
   "scripts": {
     "start": "tsx src/index.ts",

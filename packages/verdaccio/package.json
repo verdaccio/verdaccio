@@ -48,6 +48,10 @@
     "@verdaccio/package-filter": "workspace:14.0.0-next-9.41",
     "debug": "4.4.3"
   },
+  "devDependencies": {
+    "rimraf": "6.1.3",
+    "vite": "8.0.5"
+  },
   "keywords": [
     "private",
     "package",

@@ -37,7 +37,10 @@
     "@types/debug": "4.1.12",
     "@verdaccio/config": "workspace:9.0.0-next-9.17",
     "@verdaccio/plugin-verifier": "workspace:1.0.0-next-9.13",
-    "@verdaccio/types": "workspace:14.0.0-next-9.8"
+    "@verdaccio/types": "workspace:14.0.0-next-9.8",
+    "rimraf": "6.1.3",
+    "vite": "8.0.5",
+    "vitest": "4.1.0"
   },
   "scripts": {
     "clean": "rimraf ./build",
