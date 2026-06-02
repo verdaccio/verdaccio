@@ -64,14 +64,14 @@
     "marked": "17.0.5",
     "marked-highlight": "2.2.3",
     "normalize.css": "8.0.1",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
     "react-hook-form": "7.72.1",
     "react-i18next": "16.6.6",
     "react-markdown": "10.1.0",
     "react-router": "7.14.0",
     "react-virtualized": "9.22.6",
-    "semver": "7.7.4",
+    "semver": "7.8.1",
     "swr": "2.4.1",
     "validator": "13.15.35",
     "yup": "1.7.1"
@@ -94,8 +94,8 @@
     "msw-storybook-addon": "2.0.6",
     "mutationobserver-shim": "0.3.7",
     "storybook": "10.2.17",
-    "vite": "8.0.5",
-    "vitest": "4.1.0",
+    "vite": "8.0.14",
+    "vitest": "4.1.7",
     "whatwg-fetch": "3.6.20"
   },
   "msw": {

@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "node-mocks-http": "1.14.1",
-    "vitest": "4.1.0"
+    "vitest": "4.1.7"
   },
   "scripts": {
     "clean": "rimraf ./build",

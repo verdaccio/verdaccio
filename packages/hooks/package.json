@@ -41,10 +41,10 @@
   },
   "devDependencies": {
     "@verdaccio/config": "workspace:9.0.0-next-9.17",
-    "@verdaccio/types": "workspace:14.0.0-next-9.8",
     "@verdaccio/test-helper": "workspace:5.0.0-next-9.18",
+    "@verdaccio/types": "workspace:14.0.0-next-9.8",
     "nock": "13.5.6",
-    "vitest": "4.1.0"
+    "vitest": "4.1.7"
   },
   "scripts": {
     "clean": "rimraf ./build",

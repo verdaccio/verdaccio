@@ -45,10 +45,10 @@
     "lodash-es": "4.18.1"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:14.0.0-next-9.8",
     "@types/lodash-es": "4.17.12",
+    "@verdaccio/types": "workspace:14.0.0-next-9.8",
     "supertest": "7.1.4",
-    "vitest": "4.1.0"
+    "vitest": "4.1.7"
   },
   "publishConfig": {
     "access": "public"
