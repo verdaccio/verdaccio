@@ -10,7 +10,7 @@ import { notify } from '../src';
 import { parseConfigurationFile } from './__helper';
 
 const parseConfigurationNotifyFile = (name: string) => {
-  return parseConfigurationFile(`notify/${name}`);
+  return parseConfigurationFile(name);
 };
 
 beforeAll(async () => {
@@ -228,9 +228,7 @@ describe('Notifications', () => {
         return true;
       })
       .reply(400, { error: 'bad request local server' });
-    const config = parseConfigFile(
-      parseConfigurationNotifyFile('single.header.post.notify')
-    ) as Partial<Config>;
+    const config = parseConfigFile(parseConfigurationNotifyFile('single.header.post.notify'));
     const notificationResponse = await notify(
       generatePackageMetadata('bar', '1.0.0'),
       // @ts-expect-error notify expects Config but we are testing partial config
@@ -239,6 +237,29 @@ describe('Notifications', () => {
       'bar'
     );
     expect(notificationResponse).toEqual([false]);
+  });
+
+  test('when publisher metadata is missing, publish fields are filled from fallback metadata', async () => {
+    nock(domain)
+      .post(options.path, (body) => {
+        expect(body).toHaveProperty('publisher', 'foo');
+        expect(body).toHaveProperty('publishedPackage', 'bar');
+        expect(body).toHaveProperty('publishType', 'publish');
+        return true;
+      })
+      .reply(200);
+
+    const config = parseConfigFile(parseConfigurationNotifyFile('single.notify.publisher'));
+    const notificationResponse = await notify(
+      generatePackageMetadata('bar', '1.0.0'),
+      // @ts-expect-error notify expects Config but we are testing partial config
+      config,
+      createRemoteUser('foo', []),
+      'bar',
+      'publish'
+    );
+
+    expect(notificationResponse).toEqual([true]);
   });
 
   test('when notification endpoint is missing', async () => {

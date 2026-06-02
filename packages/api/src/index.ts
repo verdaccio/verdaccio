@@ -68,7 +68,7 @@ export default function (config: Config, auth: Auth, storage: Storage, logger: L
   search(app, logger);
   user(app, auth, config, logger);
   distTags(app, auth, storage, logger);
-  publish(app, auth, storage, logger);
+  publish(app, auth, storage, config, logger);
   ping(app);
   stars(app, storage);
   v1Search(app, auth, storage, logger);
