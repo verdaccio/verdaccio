@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/core",
-  "version": "9.0.0-next-9.15",
+  "version": "9.0.0-next-9.17",
   "description": "Verdaccio Core Components",
   "keywords": [
     "private",
@@ -33,19 +33,19 @@
     "access": "public"
   },
   "dependencies": {
-    "ajv": "8.18.0",
+    "ajv": "8.20.0",
     "http-errors": "2.0.1",
     "http-status-codes": "2.3.0",
-    "minimatch": "9.0.7",
+    "minimatch": "10.2.5",
     "process-warning": "5.0.0",
     "sanitize-filename": "1.6.3",
-    "semver": "7.7.4"
+    "semver": "7.8.1"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:14.0.0-next-9.6",
+    "@verdaccio/types": "workspace:14.0.0-next-9.8",
     "express": "5.2.1",
     "typedoc": "0.28.14",
-    "vitest": "4.1.0"
+    "vitest": "4.1.7"
   },
   "scripts": {
     "clean": "rimraf ./build",

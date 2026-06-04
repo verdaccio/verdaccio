@@ -1,5 +1,18 @@
 # @verdaccio/core
 
+## 9.0.0-next-9.17
+
+### Patch Changes
+
+- 6408a85: chore: force release
+
+## 9.0.0-next-9.16
+
+### Patch Changes
+
+- 66f7e61: feat(web): add config for asset folder
+- cdf3150: fix: refactor unit test
+
 ## 9.0.0-next-9.15
 
 ## 9.0.0-next-9.14

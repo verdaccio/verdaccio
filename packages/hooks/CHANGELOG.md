@@ -1,5 +1,23 @@
 # @verdaccio/hooks
 
+## 9.0.0-next-9.17
+
+### Patch Changes
+
+- 6408a85: chore: force release
+- Updated dependencies [6408a85]
+  - @verdaccio/core@9.0.0-next-9.17
+  - @verdaccio/logger@9.0.0-next-9.17
+
+## 9.0.0-next-9.16
+
+### Patch Changes
+
+- Updated dependencies [66f7e61]
+- Updated dependencies [cdf3150]
+  - @verdaccio/core@9.0.0-next-9.16
+  - @verdaccio/logger@9.0.0-next-9.16
+
 ## 9.0.0-next-9.15
 
 ### Patch Changes

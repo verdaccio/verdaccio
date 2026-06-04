@@ -24,6 +24,13 @@ export const sendFileCallback = (next) => (err) => {
  * @param next Express next function
  */
 export function sendFileSafe(baseDir: string, filename: string, res, next) {
+  // The splat may match nothing (e.g. "/-/assets/." collapses to no segment),
+  // leaving filename undefined/empty. Nothing to serve, fall through to 404.
+  if (!filename) {
+    debug('empty filename requested');
+    return next();
+  }
+
   // First validation layer: check filename for basic validity
   const safeFilename = fileUtils.sanitizeFilename(filename);
 
