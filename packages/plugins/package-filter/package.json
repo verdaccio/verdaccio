@@ -37,7 +37,7 @@
   "dependencies": {
     "@verdaccio/core": "workspace:9.0.0-next-9.17",
     "debug": "4.4.3",
-    "semver": "7.7.4"
+    "semver": "7.8.1"
   },
   "devDependencies": {
     "@types/debug": "4.1.12",
@@ -46,8 +46,8 @@
     "@verdaccio/plugin-verifier": "workspace:1.0.0-next-9.13",
     "@verdaccio/types": "workspace:14.0.0-next-9.8",
     "rimraf": "6.1.3",
-    "vite": "8.0.5",
-    "vitest": "4.1.0"
+    "vite": "8.0.14",
+    "vitest": "4.1.7"
   },
   "scripts": {
     "clean": "rimraf ./build",

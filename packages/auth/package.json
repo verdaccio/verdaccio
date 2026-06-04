@@ -48,16 +48,15 @@
     "verdaccio-htpasswd": "workspace:14.0.0-next-9.17"
   },
   "devDependencies": {
+    "@types/lodash-es": "4.17.12",
+    "@verdaccio/logger": "workspace:9.0.0-next-9.17",
     "@verdaccio/middleware": "workspace:9.0.0-next-9.17",
     "@verdaccio/types": "workspace:14.0.0-next-9.8",
-    "@verdaccio/logger": "workspace:9.0.0-next-9.17",
-    "verdaccio-htpasswd": "workspace:14.0.0-next-9.17",
-    "@types/lodash-es": "4.17.12",
     "express": "5.2.1",
     "rimraf": "6.1.3",
     "supertest": "7.1.4",
-    "vite": "8.0.5",
-    "vitest": "4.1.0"
+    "vite": "8.0.14",
+    "vitest": "4.1.7"
   },
   "funding": {
     "type": "opencollective",

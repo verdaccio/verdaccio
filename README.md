@@ -99,7 +99,7 @@ E2E CLI tests run in CI via the `verdaccio-e2e` tool on Node.js 24 against the f
 | npm             | 7, 8, 9, 10, 11 |
 | yarn classic    | 1               |
 | yarn modern     | 2, 3, 4         |
-| pnpm            | 9, 10           |
+| pnpm            | 9, 10, 11       |
 
 ## Donations
 
@@ -130,8 +130,7 @@ If you want to use a modified version of some 3rd-party package (for example, yo
 
 ### E2E Testing
 
-Verdaccio has proved to be a lightweight registry that can be
-booted in a couple of seconds, fast enough for any CI. Many open source projects use Verdaccio for end to end testing, to mention some examples, **create-react-app**, **mozilla neutrino**, **pnpm**, **storybook**, **babel.js**, **angular-cli** or **docusaurus**. You can read more in [here](https://verdaccio.org/docs/e2e).
+Verdaccio has proved to be a lightweight registry that can be booted in a couple of seconds, fast enough for any CI. Many open source projects use Verdaccio for end to end testing, to mention some examples, **create-react-app**, **mozilla neutrino**, **pnpm**, **storybook**, **babel.js**, **angular-cli** or **docusaurus**. You can read more in [here](https://verdaccio.org/docs/e2e).
 
 Furthermore, here few examples how to start:
 
@@ -212,7 +211,7 @@ This will prompt you for user credentials which will be saved on the `verdaccio`
 Below are the most commonly needed information,
 every aspect of Docker and verdaccio is [documented separately](https://www.verdaccio.org/docs/docker)
 
-```
+```bash
 docker pull verdaccio/verdaccio:nightly-master
 ```
 
@@ -290,24 +289,34 @@ You can find and chat with them over Discord, click [here](http://chat.verdaccio
 
 ## Who is using Verdaccio?
 
-- [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#customizing-e2e-registry-configuration) _(+86.2k ⭐️)_
-- [Grafana](https://github.com/grafana/grafana/search?q=verdaccio) _(+54.9k ⭐️)_
-- [Gatsby](https://github.com/gatsbyjs/gatsby) _(+49.2k ⭐️)_
-- [Babel.js](https://github.com/babel/babel) _(+38.5k ⭐️)_
-- [Docusaurus](https://github.com/facebook/docusaurus) _(+34k ⭐️)_
-- [Vue CLI](https://github.com/vuejs/vue-cli) _(+27.4k ⭐️)_
-- [Angular CLI](https://github.com/angular/angular-cli) _(+24.3k ⭐️)_
-- [Uppy](https://github.com/transloadit/uppy) _(+23.8k ⭐️)_
-- [bit](https://github.com/teambit/bit) _(+13k ⭐️)_
-- [Aurelia Framework](https://github.com/aurelia/framework) _(+11.6k ⭐️)_
-- [pnpm](https://github.com/pnpm/pnpm) _(+10.1k ⭐️)_
-- [ethereum/web3.js](https://github.com/ethereum/web3.js) _(+9.8k ⭐️)_
-- [Webiny CMS](https://github.com/webiny/webiny-js) _(+6.6k ⭐️)_
-- [NX](https://github.com/nrwl/nx) _(+6.1k ⭐️)_
-- [Mozilla Neutrino](https://github.com/neutrinojs/neutrino) _(+3.7k ⭐️)_
-- [workshopper how to npm](https://github.com/workshopper/how-to-npm) _(+1k ⭐️)_
-- [Amazon SDK for JavaScript (v3)](https://github.com/aws/aws-sdk-js-v3)
-- [Amazon Encryption SDK for Javascript](https://github.com/aws/aws-encryption-sdk-javascript)
+- [create-react-app](https://github.com/facebook/create-react-app) _(+103.4k ⭐️)_
+- [Grafana](https://github.com/grafana/grafana/search?q=verdaccio) _(+74.1k ⭐️)_
+- [Docusaurus](https://github.com/facebook/docusaurus) _(+65.1k ⭐️)_
+- [Gatsby](https://github.com/gatsbyjs/gatsby) _(+56k ⭐️)_
+- [Babel.js](https://github.com/babel/babel) _(+43.9k ⭐️)_
+- [pnpm](https://github.com/pnpm/pnpm) _(+35.3k ⭐️)_
+- [Uppy](https://github.com/transloadit/uppy) _(+30.8k ⭐️)_
+- [Vue CLI](https://github.com/vuejs/vue-cli) _(+29.6k ⭐️)_
+- [NX](https://github.com/nrwl/nx) _(+28.8k ⭐️)_
+- [Angular CLI](https://github.com/angular/angular-cli) _(+27k ⭐️)_
+- [NocoBase](https://github.com/nocobase/nocobase) _(+22.6k ⭐️)_
+- [ethereum/web3.js](https://github.com/ethereum/web3.js) _(+19.9k ⭐️)_
+- [bit](https://github.com/teambit/bit) _(+18.4k ⭐️)_
+- [React Spectrum](https://github.com/adobe/react-spectrum) _(+15.3k ⭐️)_
+- [iCloud Photos Downloader](https://github.com/icloud-photos-downloader/icloud_photos_downloader) _(+12k ⭐️)_
+- [Aurelia Framework](https://github.com/aurelia/framework) _(+11.7k ⭐️)_
+- [npm-check-updates](https://github.com/raineorshine/npm-check-updates) _(+10.3k ⭐️)_
+- [AWS Amplify](https://github.com/aws-amplify/amplify-js) _(+9.6k ⭐️)_
+- [Sentry JavaScript SDK](https://github.com/getsentry/sentry-javascript) _(+8.7k ⭐️)_
+- [Webiny CMS](https://github.com/webiny/webiny-js) _(+8k ⭐️)_
+- [Mozilla Neutrino](https://github.com/neutrinojs/neutrino) _(+3.9k ⭐️)_
+- [Amazon SDK for JavaScript (v3)](https://github.com/aws/aws-sdk-js-v3) _(+3.6k ⭐️)_
+- [AWS Amplify CLI](https://github.com/aws-amplify/amplify-cli) _(+2.9k ⭐️)_
+- [workshopper how to npm](https://github.com/workshopper/how-to-npm) _(+1.2k ⭐️)_
+- [Beachball](https://github.com/microsoft/beachball) _(+814 ⭐️)_
+- [Agoric SDK](https://github.com/Agoric/agoric-sdk) _(+354 ⭐️)_
+- [Amazon Encryption SDK for Javascript](https://github.com/aws/aws-encryption-sdk-javascript) _(+259 ⭐️)_
+- [VA.gov Component Library](https://github.com/department-of-veterans-affairs/component-library) _(+58 ⭐️)_
 
 🤓 Don't be shy, add yourself to this readme.
 
