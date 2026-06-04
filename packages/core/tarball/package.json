@@ -42,7 +42,7 @@
   "devDependencies": {
     "@verdaccio/types": "workspace:14.0.0-next-9.8",
     "node-mocks-http": "1.14.1",
-    "vitest": "4.1.0"
+    "vitest": "4.1.7"
   },
   "scripts": {
     "clean": "rimraf ./build",

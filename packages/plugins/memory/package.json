@@ -35,11 +35,11 @@
     "memfs": "4.17.2"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:14.0.0-next-9.8",
     "@verdaccio/config": "workspace:9.0.0-next-9.17",
     "@verdaccio/logger": "workspace:9.0.0-next-9.17",
     "@verdaccio/plugin-verifier": "workspace:1.0.0-next-9.13",
-    "vitest": "4.1.0"
+    "@verdaccio/types": "workspace:14.0.0-next-9.8",
+    "vitest": "4.1.7"
   },
   "scripts": {
     "clean": "rimraf ./build",
