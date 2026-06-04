@@ -45,10 +45,10 @@
     "sanitize-filename": "1.6.3"
   },
   "devDependencies": {
+    "@types/lodash-es": "4.17.12",
     "@verdaccio/logger": "workspace:9.0.0-next-9.17",
     "@verdaccio/types": "workspace:14.0.0-next-9.8",
-    "@types/lodash-es": "4.17.12",
-    "vitest": "4.1.0"
+    "vitest": "4.1.7"
   },
   "scripts": {
     "clean": "rimraf ./build",

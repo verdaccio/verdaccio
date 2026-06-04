@@ -39,11 +39,11 @@
   "devDependencies": {
     "@verdaccio/auth": "workspace:9.0.0-next-9.17",
     "@verdaccio/logger": "workspace:9.0.0-next-9.17",
-    "@verdaccio/types": "workspace:14.0.0-next-9.8",
     "@verdaccio/plugin-verifier": "workspace:1.0.0-next-9.13",
+    "@verdaccio/types": "workspace:14.0.0-next-9.8",
     "nock": "13.5.6",
     "supertest": "7.1.4",
-    "vitest": "4.1.0"
+    "vitest": "4.1.7"
   },
   "scripts": {
     "clean": "rimraf ./build",
