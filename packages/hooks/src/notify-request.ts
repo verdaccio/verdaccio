@@ -1,6 +1,6 @@
 import buildDebug from 'debug';
-import type { Method } from 'got-cjs';
-import got from 'got-cjs';
+import type { Method } from 'got';
+import got from 'got';
 
 import { HTTP_STATUS } from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';

@@ -106,6 +106,9 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<Ex
     plugins.push(auditPlugin);
   }
 
+  // Register JWT middleware so middleware plugins can access req.remote_user
+  app.use(auth.apiJWTmiddleware());
+
   // Ensure sequential execution in order, and that each registration completes before the next one starts
   for (const plugin of plugins) {
     plugin.register_middlewares(app, auth, storage);

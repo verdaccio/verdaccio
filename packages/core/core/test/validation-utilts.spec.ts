@@ -165,6 +165,36 @@ describe('validatePassword', () => {
   test('should validate password according the length and default config', () => {
     expect(validatePassword('1235678910')).toBeTruthy();
   });
+
+  test('should accept regex provided as string (YAML config case)', () => {
+    expect(validatePassword('12345', '.{3}$')).toBeTruthy();
+  });
+
+  test('should fail when password does not match string regex', () => {
+    expect(validatePassword('12', '.{3}$')).toBeFalsy();
+  });
+
+  test('should handle complex password validation provided as string', () => {
+    expect(
+      validatePassword(
+        'XYabc67test!',
+        '^(?=.{8,64}$)(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z0-9\\s])(?=\\S+$).+$'
+      )
+    ).toBeTruthy();
+  });
+
+  test('should fail complex password validation provided as string', () => {
+    expect(
+      validatePassword(
+        'weakpass',
+        '^(?=.{8,64}$)(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^A-Za-z0-9\\s])(?=\\S+$).+$'
+      )
+    ).toBeFalsy();
+  });
+
+  test('should fail safely when string regex is invalid', () => {
+    expect(validatePassword('whatever', '[invalid(regex')).toBeFalsy();
+  });
 });
 
 describe('validateUserName', () => {
