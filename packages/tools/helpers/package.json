@@ -1,25 +1,37 @@
 {
   "name": "@verdaccio/test-helper",
-  "version": "5.0.0-next-9.15",
+  "version": "5.0.0-next-9.18",
   "description": "Verdaccio Test Helpers",
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
   "homepage": "https://verdaccio.org",
   "main": "build/index.js",
   "types": "build/index.d.ts",
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio",
+    "directory": "packages/tools/helpers"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  },
   "dependencies": {
-    "@verdaccio/auth": "workspace:9.0.0-next-9.15",
-    "@verdaccio/config": "workspace:9.0.0-next-9.15",
-    "@verdaccio/core": "workspace:9.0.0-next-9.15",
-    "@verdaccio/logger": "workspace:9.0.0-next-9.15",
-    "@verdaccio/middleware": "workspace:9.0.0-next-9.15",
+    "@verdaccio/auth": "workspace:9.0.0-next-9.17",
+    "@verdaccio/config": "workspace:9.0.0-next-9.17",
+    "@verdaccio/core": "workspace:9.0.0-next-9.17",
+    "@verdaccio/logger": "workspace:9.0.0-next-9.17",
+    "@verdaccio/middleware": "workspace:9.0.0-next-9.17",
     "debug": "4.4.3",
     "express": "5.2.1",
     "supertest": "7.1.4"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:14.0.0-next-9.6",
-    "vitest": "4.1.0"
+    "@verdaccio/types": "workspace:14.0.0-next-9.8",
+    "vitest": "4.1.7"
   },
   "scripts": {
     "test": "vitest run",
