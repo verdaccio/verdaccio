@@ -273,7 +273,7 @@ export type ServerSettingsConf = {
    * acme-XXXXXX
    */
   pluginPrefix?: string;
-  passwordValidationRegex?: RegExp;
+  passwordValidationRegex?: RegExp | string;
   // docs on `trustProxy` can be found at: https://expressjs.com/en/guide/behind-proxies.html
   trustProxy?: string;
   // Controls how requests with dotfile path segments (e.g. /.env, /.well-known/) are handled.
