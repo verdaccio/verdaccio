@@ -1,5 +1,17 @@
 # Change Log
 
+## 14.0.0-next-9.8
+
+### Patch Changes
+
+- 6408a85: chore: force release
+
+## 14.0.0-next-9.7
+
+### Patch Changes
+
+- 66f7e61: feat(web): add config for asset folder
+
 ## 14.0.0-next-9.6
 
 ### Major Changes

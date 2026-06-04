@@ -1,5 +1,11 @@
 # @verdaccio/ui-i18n
 
+## 10.0.0-next-9.3
+
+### Patch Changes
+
+- 6408a85: chore: force release
+
 ## 10.0.0-next-9.2
 
 ### Major Changes
