@@ -27,3 +27,10 @@ minimumReleaseAgeExclude:
 saveExact: true
 ignoreScripts: true
 preferFrozenLockfile: true
+
+auditConfig:
+  ignoreGhsas:
+    # Express.js unreleased
+    - GHSA-j3q9-mxjg-w52f
+    # Express.js unreleased
+    - GHSA-w7fw-mjwx-w883
