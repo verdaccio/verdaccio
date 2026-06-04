@@ -1,5 +1,38 @@
 # @verdaccio/store
 
+## 9.0.0-next-9.17
+
+### Patch Changes
+
+- 6408a85: chore: force release
+- Updated dependencies [6408a85]
+  - @verdaccio/config@9.0.0-next-9.17
+  - @verdaccio/core@9.0.0-next-9.17
+  - @verdaccio/tarball@14.0.0-next-9.17
+  - @verdaccio/url@14.0.0-next-9.17
+  - @verdaccio/loaders@9.0.0-next-9.17
+  - @verdaccio/logger@9.0.0-next-9.17
+  - @verdaccio/local-storage@14.0.0-next-9.17
+  - @verdaccio/proxy@9.0.0-next-9.17
+  - @verdaccio/search@9.0.0-next-9.17
+
+## 9.0.0-next-9.16
+
+### Patch Changes
+
+- cdf3150: fix: refactor unit test
+- Updated dependencies [66f7e61]
+- Updated dependencies [cdf3150]
+  - @verdaccio/core@9.0.0-next-9.16
+  - @verdaccio/config@9.0.0-next-9.16
+  - @verdaccio/tarball@14.0.0-next-9.16
+  - @verdaccio/logger@9.0.0-next-9.16
+  - @verdaccio/search@9.0.0-next-9.16
+  - @verdaccio/proxy@9.0.0-next-9.16
+  - @verdaccio/local-storage@14.0.0-next-9.16
+  - @verdaccio/url@14.0.0-next-9.16
+  - @verdaccio/loaders@9.0.0-next-9.16
+
 ## 9.0.0-next-9.15
 
 ### Patch Changes
