@@ -3,7 +3,7 @@ import path from 'node:path';
 
 import { parseConfigFile } from '@verdaccio/config';
 
-const debug = buildDebug('verdaccio:mock:config');
+const debug = buildDebug('verdaccio:storage:mock:config');
 
 /**
  * Override the default.yaml configuration file with any new config provided.
