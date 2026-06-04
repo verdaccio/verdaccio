@@ -1,0 +1,3 @@
+web:
+  title: verdaccio
+  assetFolder: ./test/partials/assets
