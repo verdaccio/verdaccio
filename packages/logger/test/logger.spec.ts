@@ -1,6 +1,6 @@
 import { execFileSync } from 'node:child_process';
 import { readFile } from 'node:fs/promises';
-import { join } from 'node:path';
+import { join, posix, win32 } from 'node:path';
 import { setTimeout } from 'node:timers/promises';
 import pino from 'pino';
 import { describe, expect, test } from 'vitest';
@@ -18,6 +18,11 @@ async function createLogFile() {
   const folder = await fileUtils.createTempFolder('logger');
   const file = join(folder, 'logger.log');
   return file;
+}
+
+/** POSIX paths are safe to embed in inline `node -e` scripts (no backslash escapes). */
+function toPosixPath(path: string): string {
+  return path.split(win32.sep).join(posix.sep);
 }
 
 const defaultOptions = {
@@ -187,10 +192,12 @@ describe('logger test', () => {
       // Before the fix, this would crash with "sonic boom is not ready yet" because
       // prepareSetup created an unused pino.destination(path) that registered with
       // on-exit-leak-free but was never opened before the process exited.
+      const buildPath = toPosixPath(join(import.meta.dirname, '..', 'build'));
+      const logPath = toPosixPath(file);
       const script = `
         const pino = require('pino');
-        const { prepareSetup } = require('${join(import.meta.dirname, '..', 'build')}');
-        const result = prepareSetup({ type: 'file', path: '${file}', level: 'info', format: 'pretty', colors: false }, pino);
+        const { prepareSetup } = require('${buildPath}');
+        const result = prepareSetup({ type: 'file', path: '${logPath}', level: 'info', format: 'pretty', colors: false }, pino);
         if (result instanceof Promise) { result.then(() => process.exit(0)); } else { process.exit(0); }
       `;
       expect(() => {
