@@ -112,11 +112,28 @@ export function isObject(obj: any): boolean {
 
 export function validatePassword(
   password: string,
-  validation: RegExp = DEFAULT_PASSWORD_VALIDATION
+  validation: RegExp | string = DEFAULT_PASSWORD_VALIDATION
 ): boolean {
-  return typeof password === 'string' && validation instanceof RegExp
-    ? password.match(validation) !== null
-    : false;
+  if (typeof password !== 'string') {
+    return false;
+  }
+
+  let regex: RegExp;
+  if (validation instanceof RegExp) {
+    regex = validation;
+  } else if (typeof validation === 'string') {
+    // YAML config loads `passwordValidationRegex` as a plain string,
+    // so coerce it into a RegExp here. Invalid patterns fall back to false.
+    try {
+      regex = new RegExp(validation);
+    } catch {
+      return false;
+    }
+  } else {
+    return false;
+  }
+
+  return password.match(regex) !== null;
 }
 
 export function validateUserName(userName: any, expectedName: string): boolean {

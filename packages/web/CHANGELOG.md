@@ -1,5 +1,38 @@
 # @verdaccio/web
 
+## 9.0.0-next-9.17
+
+### Patch Changes
+
+- 6408a85: chore: force release
+- Updated dependencies [6408a85]
+  - @verdaccio/auth@9.0.0-next-9.17
+  - @verdaccio/config@9.0.0-next-9.17
+  - @verdaccio/core@9.0.0-next-9.17
+  - @verdaccio/tarball@14.0.0-next-9.17
+  - @verdaccio/loaders@9.0.0-next-9.17
+  - @verdaccio/logger@9.0.0-next-9.17
+  - @verdaccio/middleware@9.0.0-next-9.17
+  - @verdaccio/ui-theme@9.0.0-next-9.17
+  - @verdaccio/store@9.0.0-next-9.17
+
+## 9.0.0-next-9.16
+
+### Patch Changes
+
+- 66f7e61: feat(web): add config for asset folder
+- Updated dependencies [66f7e61]
+- Updated dependencies [cdf3150]
+  - @verdaccio/middleware@9.0.0-next-9.16
+  - @verdaccio/core@9.0.0-next-9.16
+  - @verdaccio/config@9.0.0-next-9.16
+  - @verdaccio/tarball@14.0.0-next-9.16
+  - @verdaccio/logger@9.0.0-next-9.16
+  - @verdaccio/store@9.0.0-next-9.16
+  - @verdaccio/auth@9.0.0-next-9.16
+  - @verdaccio/ui-theme@9.0.0-next-9.16
+  - @verdaccio/loaders@9.0.0-next-9.16
+
 ## 9.0.0-next-9.15
 
 ### Patch Changes

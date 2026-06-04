@@ -127,3 +127,18 @@ describe('server api', () => {
     expect(res.body.mem).toBeDefined();
   });
 });
+
+describe('middleware plugins jwt order', () => {
+  test('should expose anonymous remote_user to middleware plugins', async () => {
+    const app = await initializeServer('middleware-plugin.yaml');
+    const response = await supertest(app)
+      .get('/-/remote-user-probe')
+      .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+      .expect(HTTP_STATUS.OK);
+    expect(response.body.hasRemoteUser).toBe(true);
+    // anonymous request: no username but the default anonymous groups are present
+    expect(response.body.name).toBeNull();
+    expect(response.body.groups).toContain('$all');
+    expect(response.body.groups).toContain('$anonymous');
+  });
+});
