@@ -5,7 +5,7 @@ import { PLUGIN_CATEGORY, PLUGIN_PREFIX, pluginUtils as pluginSanity } from '@ve
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import type { Config, Logger, Manifest } from '@verdaccio/types';
 
-const debug = buildDebug('verdaccio:filter-pipeline');
+const debug = buildDebug('verdaccio:storage:filter-pipeline');
 
 export type Filters = pluginUtils.ManifestFilter<Config>[];
 
