@@ -43,12 +43,7 @@ export function isIPv4InCIDR(address: string, range: string, prefix: number): bo
   const addressNumber = parseIPv4(address);
   const rangeNumber = parseIPv4(range);
 
-  if (
-    addressNumber === undefined ||
-    rangeNumber === undefined ||
-    prefix < 0 ||
-    prefix > 32
-  ) {
+  if (addressNumber === undefined || rangeNumber === undefined || prefix < 0 || prefix > 32) {
     return false;
   }
 
@@ -61,10 +56,7 @@ export function isIPv4InCIDR(address: string, range: string, prefix: number): bo
  * Whether `address` is allowed by the provided `cidr` whitelist. An empty or
  * missing whitelist allows every address; an unparseable address is rejected.
  */
-export function isAddressAllowed(
-  address: string | undefined,
-  cidr: string[] | undefined
-): boolean {
+export function isAddressAllowed(address: string | undefined, cidr: string[] | undefined): boolean {
   if (!cidr || cidr.length === 0) {
     return true;
   }

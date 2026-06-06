@@ -50,7 +50,7 @@ function buildApp(
   app.use((_req: Request, res: Response) => {
     res.status(HTTP_STATUS.OK).json({ ok: true });
   });
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+   
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     res.status(err.statusCode || HTTP_STATUS.INTERNAL_ERROR).json({ error: err.message });
   });
@@ -106,7 +106,10 @@ describe('enforceGeneratedTokenMetadata', () => {
     readTokens.mockResolvedValue([buildToken({ cidr: ['203.0.113.0/24'] })]);
     const app = buildApp(storage, logger, buildRemoteUser({ tokenKey: 'abc123' }));
 
-    await request(app).put('/').set('x-forwarded-for', '198.51.100.5').expect(HTTP_STATUS.FORBIDDEN);
+    await request(app)
+      .put('/')
+      .set('x-forwarded-for', '198.51.100.5')
+      .expect(HTTP_STATUS.FORBIDDEN);
 
     expect(logger.warn).toHaveBeenCalled();
   });
