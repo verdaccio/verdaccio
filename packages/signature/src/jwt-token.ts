@@ -7,7 +7,7 @@ import type { RemoteUser } from '@verdaccio/types';
 export type SignOptionsSignature = SignOptions;
 export type VerifyOptionsSignature = VerifyOptions;
 
-const debug = buildDebug('verdaccio:auth:token:jwt');
+const debug = buildDebug('verdaccio:signature:jwt-token');
 /**
  * Sign the payload and return JWT
  * https://github.com/auth0/node-jsonwebtoken#jwtsignpayload-secretorprivatekey-options-callback
