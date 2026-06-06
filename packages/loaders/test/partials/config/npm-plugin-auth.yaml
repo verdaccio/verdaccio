@@ -1,8 +1,8 @@
-# require('verdaccio-auth-memory') as dependency
+# require('verdaccio-auth-fake-plugin') as dependency
 #
 # "devDependencies": {
-#   "verdaccio-auth-memory": "workspace:*"
+#   "verdaccio-auth-fake-plugin": "1.0.0-next-9.0"
 # }
 auth:
-  auth-memory:
+  auth-fake-plugin:
     enabled: true
