@@ -4,7 +4,7 @@ import { createCipheriv, createDecipheriv, randomBytes } from 'node:crypto';
 
 import { TOKEN_VALID_LENGTH } from '@verdaccio/config';
 
-const debug = buildDebug('verdaccio:auth:token:legacy');
+const debug = buildDebug('verdaccio:signature:legacy');
 
 export const defaultAlgorithm = process.env.VERDACCIO_LEGACY_ALGORITHM || 'aes-256-ctr';
 const inputEncoding: CharacterEncoding = 'utf8';
