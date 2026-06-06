@@ -9,10 +9,13 @@ updates:
   - package-ecosystem: 'github-actions'
     directory: '/'
     open-pull-requests-limit: 1
-    prefix: "[github-actions] "
     assignees:
-      - 'verdacciobot'    
+      - 'verdacciobot'
     schedule:
       interval: 'monthly'
     labels:
       - 'bot: dependencies'
+    commit-message:
+      prefix: '[github-actions]'
+    cooldown:
+      default-days: 15
