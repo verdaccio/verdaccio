@@ -1,5 +1,15 @@
 # @verdaccio/logger
 
+## 9.0.0-next-9.18
+
+### Patch Changes
+
+- 73c78e3: fix(logger): tests on windows
+- Updated dependencies [62ebd31]
+- Updated dependencies [e8421bd]
+- Updated dependencies [d9203d0]
+  - @verdaccio/core@9.0.0-next-9.18
+
 ## 9.0.0-next-9.17
 
 ### Patch Changes

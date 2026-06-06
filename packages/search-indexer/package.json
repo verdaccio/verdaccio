@@ -56,7 +56,7 @@
   },
   "devDependencies": {
     "@orama/orama": "1.2.11",
-    "@verdaccio/types": "workspace:14.0.0-next-9.8",
+    "@verdaccio/types": "workspace:14.0.0-next-9.9",
     "debug": "4.4.3",
     "vitest": "4.1.7"
   },
