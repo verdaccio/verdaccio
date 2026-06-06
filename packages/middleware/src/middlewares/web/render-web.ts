@@ -12,7 +12,7 @@ import renderHTML from './utils/renderHTML';
 import { getUIOptions } from './utils/ui-options';
 import { WebUrlsNamespace } from './web-urls';
 
-const debug = buildDebug('verdaccio:web:render');
+const debug = buildDebug('verdaccio:middleware:web:render');
 
 export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
   const { staticPath, manifest, manifestFiles } = pluginOptions;
