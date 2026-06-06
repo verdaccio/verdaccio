@@ -12,7 +12,7 @@ import type { AssetManifest } from './template';
 // Cache for rendered HTML templates: max 500 entries, 1 hour TTL
 const cache = new LRUCache({ max: 500, ttl: 1000 * 60 * 60 });
 
-const debug = buildDebug('verdaccio:web:render');
+const debug = buildDebug('verdaccio:middleware:web:render:html');
 
 const defaultManifestFiles: Manifest = {
   js: ['vendors.js', 'main.js'],

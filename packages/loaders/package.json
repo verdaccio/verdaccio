@@ -23,11 +23,11 @@
   },
   "devDependencies": {
     "@types/lodash-es": "4.17.12",
-    "@verdaccio-scope/verdaccio-auth-foo": "0.0.2",
+    "@verdaccio-scope/verdaccio-fake-plugin": "workspace:1.0.0-next-9.0",
     "@verdaccio/config": "workspace:9.0.0-next-9.17",
     "customprefix-auth": "workspace:4.0.0-next-9.1",
-    "verdaccio-auth-memory": "workspace:14.0.0-next-9.17",
     "rimraf": "6.1.3",
+    "verdaccio-auth-fake-plugin": "workspace:1.0.0-next-9.0",
     "vite": "8.0.14",
     "vitest": "4.1.7"
   },
