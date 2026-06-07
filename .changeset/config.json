@@ -1,0 +1,9 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@1.3.0/schema.json",
+  "changelog": "@changesets/cli/changelog",
+  "commit": false,
+  "fixed": [],
+  "access": "public",
+  "baseBranch": "7.x",
+  "updateInternalDependencies": "patch"
+}

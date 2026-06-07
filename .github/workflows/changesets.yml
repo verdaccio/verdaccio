@@ -1,0 +1,135 @@
+name: Changesets
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 7.x
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
+env:
+  CI: true
+  PNPM_CACHE_FOLDER: .pnpm-store
+
+jobs:
+  # Open/refresh the "chore: release 7.x" version PR from changesets.
+  # Runs freely (no env gate, no publish).
+  version:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/7.x' && github.repository == 'verdaccio/verdaccio'
+    outputs:
+      hasChangesets: ${{ steps.changesets.outputs.hasChangesets }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+        with:
+          node-version-file: '.nvmrc'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Enable corepack
+        run: corepack enable
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build
+        run: pnpm build
+      - name: create versions
+        id: changesets
+        uses: changesets/action@63a615b9cd06ba9a3e6d13796c7fbcb080a60a0b
+        with:
+          version: pnpm ci:version
+          commit: 'chore: release 7.x'
+          title: 'chore: release 7.x'
+          setupGitUser: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.CHANGESET_RELEASE_TOKEN }}
+
+  # Publish to npm + Docker once the version PR is merged (no changesets left).
+  # Gated by the `npm` environment, which requires manual approval.
+  publish:
+    needs: version
+    if: needs.version.outputs.hasChangesets == 'false'
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    environment: npm
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+        with:
+          node-version-file: '.nvmrc'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Enable corepack
+        run: corepack enable
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build
+        run: pnpm build
+      - name: publish
+        id: changesets
+        uses: changesets/action@63a615b9cd06ba9a3e6d13796c7fbcb080a60a0b
+        with:
+          publish: pnpm ci:publish
+          createGithubReleases: true
+          setupGitUser: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.CHANGESET_RELEASE_TOKEN }}
+          NPM_CONFIG_REGISTRY: https://registry.npmjs.org
+          NPM_CONFIG_PROVENANCE: 'true'
+
+      - name: Read published verdaccio version
+        if: steps.changesets.outputs.published == 'true'
+        id: ver
+        run: |
+          version=$(node -p "require('./package.json').version")
+          major=${version%%.*}
+          rest=${version#*.}
+          minor=${rest%%.*}
+          {
+            echo "version=$version"
+            echo "major=$major"
+            echo "majorminor=${major}.${minor}"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Set up QEMU
+        if: steps.ver.outputs.version
+        uses: docker/setup-qemu-action@c7c53464625b32c7a7e944ae62b3e17d2b600130 # v3
+
+      - name: Set up Docker Buildx
+        if: steps.ver.outputs.version
+        uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4.0.0
+
+      - name: Log in to Docker Hub
+        if: steps.ver.outputs.version
+        uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 # v4.1.0
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Prepare Docker metadata
+        if: steps.ver.outputs.version
+        id: meta
+        uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5
+        with:
+          images: verdaccio/verdaccio
+          # 7.x is the "next-7" line — NOT latest, so no latest tag here.
+          tags: |
+            type=raw,value=${{ steps.ver.outputs.version }}
+            type=raw,value=7.x-next
+
+      - name: Build & push Docker image
+        if: steps.ver.outputs.version
+        uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f # v7.1.0
+        with:
+          context: .
+          push: true
+          commitMode: github-api
+          platforms: linux/amd64,linux/arm64
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
