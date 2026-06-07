@@ -627,6 +627,9 @@ importers:
       '@verdaccio/config':
         specifier: workspace:9.0.0-next-9.17
         version: link:../config
+      '@verdaccio/logger':
+        specifier: workspace:9.0.0-next-9.17
+        version: link:../logger
       customprefix-auth:
         specifier: workspace:4.0.0-next-9.1
         version: link:../tools/verdaccio-prefix-fake-plugin
