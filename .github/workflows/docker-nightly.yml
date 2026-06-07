@@ -3,11 +3,14 @@ name: Docker Nightly Build
 on:
   push:
     branches:
-      - 7.xx
+      - 7.x
 
 jobs:
   docker-nightly:
     runs-on: ubuntu-latest
+    # Requires manual approval (verdacciobot) via the `docker7x` environment
+    # before the nightly image is pushed.
+    environment: docker7x
     if: |
       github.repository == 'verdaccio/verdaccio' &&
       github.ref_type != 'tag' && (
