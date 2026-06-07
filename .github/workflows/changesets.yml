@@ -15,10 +15,14 @@ env:
   CI: true
 
 jobs:
+  # Open/refresh the "chore: release 6.x" version PR from changesets.
+  # Runs freely (no env gate, no publish).
   version:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/6.x' && github.repository == 'verdaccio/verdaccio'
+    outputs:
+      hasChangesets: ${{ steps.changesets.outputs.hasChangesets }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
@@ -34,14 +38,46 @@ jobs:
       - name: Build
         run: yarn build
       - name: Types
-        run: yarn code:types    
-      - name: create versions or publish
+        run: yarn code:types
+      - name: create versions
         id: changesets
         uses: changesets/action@63a615b9cd06ba9a3e6d13796c7fbcb080a60a0b
         with:
           version: yarn ci:version
           commit: 'chore: release 6.x'
           title: 'chore: release 6.x'
+          setupGitUser: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.CHANGESET_RELEASE_TOKEN }}
+
+  # Publish to npm + Docker once the version PR is merged (no changesets left).
+  # Gated by the `npm` environment, which requires manual approval.
+  publish:
+    needs: version
+    if: needs.version.outputs.hasChangesets == 'false'
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    environment: npm
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+        with:
+          node-version-file: '.nvmrc'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Enable corepack
+        run: corepack enable
+      - name: Install dependencies
+        run: yarn install --immutable
+      - name: Build
+        run: yarn build
+      - name: Types
+        run: yarn code:types
+      - name: publish
+        id: changesets
+        uses: changesets/action@63a615b9cd06ba9a3e6d13796c7fbcb080a60a0b
+        with:
           publish: yarn ci:publish
           createGithubReleases: true
           setupGitUser: true

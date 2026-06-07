@@ -5,23 +5,17 @@
 
 version: 2
 updates:
-
   # Maintain dependencies for GitHub Actions
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-
-  # Maintain dependencies for npm
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
-      interval: "daily"
-    allow:   
-      - dependency-name: "@verdaccio/*"
-      - dependency-name: "verdaccio-*"
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    open-pull-requests-limit: 5
     assignees:
-      - "verdacciobot"
+      - 'verdacciopack'
+    schedule:
+      interval: 'weekly'
     labels:
-      - "bot: dependencies"
-      
+      - 'bot: dependencies'
+    commit-message:
+      prefix: '[github-actions]'
+    cooldown:
+      default-days: 15
