@@ -8,9 +8,12 @@ on:
 jobs:
   docker-nightly:
     runs-on: ubuntu-latest
+    # Requires manual approval (verdacciobot) via the `docker6x` environment
+    # before the nightly image is pushed.
+    environment: docker6x
     if: |
-      github.repository == 'verdaccio/verdaccio' && 
-      github.ref_type != 'tag'    
+      github.repository == 'verdaccio/verdaccio' &&
+      github.ref_type != 'tag'
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - uses: docker/setup-qemu-action@c7c53464625b32c7a7e944ae62b3e17d2b600130 # v3
