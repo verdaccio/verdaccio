@@ -1,5 +1,76 @@
 # @verdaccio/web
 
+## 9.0.0-next-9.18
+
+### Patch Changes
+
+- Updated dependencies [62ebd31]
+- Updated dependencies [e8421bd]
+- Updated dependencies [d9203d0]
+- Updated dependencies [24c86d6]
+- Updated dependencies [95c4441]
+- Updated dependencies [73c78e3]
+  - @verdaccio/middleware@9.0.0-next-9.18
+  - @verdaccio/auth@9.0.0-next-9.18
+  - @verdaccio/core@9.0.0-next-9.18
+  - @verdaccio/store@9.0.0-next-9.18
+  - @verdaccio/loaders@9.0.0-next-9.18
+  - @verdaccio/logger@9.0.0-next-9.18
+  - @verdaccio/config@9.0.0-next-9.18
+  - @verdaccio/tarball@14.0.0-next-9.18
+  - @verdaccio/ui-theme@9.0.0-next-9.18
+
+## 9.0.0-next-9.17
+
+### Patch Changes
+
+- 6408a85: chore: force release
+- Updated dependencies [6408a85]
+  - @verdaccio/auth@9.0.0-next-9.17
+  - @verdaccio/config@9.0.0-next-9.17
+  - @verdaccio/core@9.0.0-next-9.17
+  - @verdaccio/tarball@14.0.0-next-9.17
+  - @verdaccio/loaders@9.0.0-next-9.17
+  - @verdaccio/logger@9.0.0-next-9.17
+  - @verdaccio/middleware@9.0.0-next-9.17
+  - @verdaccio/ui-theme@9.0.0-next-9.17
+  - @verdaccio/store@9.0.0-next-9.17
+
+## 9.0.0-next-9.16
+
+### Patch Changes
+
+- 66f7e61: feat(web): add config for asset folder
+- Updated dependencies [66f7e61]
+- Updated dependencies [cdf3150]
+  - @verdaccio/middleware@9.0.0-next-9.16
+  - @verdaccio/core@9.0.0-next-9.16
+  - @verdaccio/config@9.0.0-next-9.16
+  - @verdaccio/tarball@14.0.0-next-9.16
+  - @verdaccio/logger@9.0.0-next-9.16
+  - @verdaccio/store@9.0.0-next-9.16
+  - @verdaccio/auth@9.0.0-next-9.16
+  - @verdaccio/ui-theme@9.0.0-next-9.16
+  - @verdaccio/loaders@9.0.0-next-9.16
+
+## 9.0.0-next-9.15
+
+### Patch Changes
+
+- Updated dependencies [75caa33]
+- Updated dependencies [19471c8]
+- Updated dependencies [3299cc7]
+- Updated dependencies [ea8beb2]
+  - @verdaccio/config@9.0.0-next-9.15
+  - @verdaccio/ui-theme@9.0.0-next-9.15
+  - @verdaccio/auth@9.0.0-next-9.15
+  - @verdaccio/loaders@9.0.0-next-9.15
+  - @verdaccio/middleware@9.0.0-next-9.15
+  - @verdaccio/store@9.0.0-next-9.15
+  - @verdaccio/core@9.0.0-next-9.15
+  - @verdaccio/tarball@14.0.0-next-9.15
+  - @verdaccio/logger@9.0.0-next-9.15
+
 ## 9.0.0-next-9.14
 
 ### Patch Changes

@@ -13,3 +13,24 @@ packages:
   - packages/plugins/local-storage
   - packages/plugins/package-filter
   - e2e/cli/*
+allowBuilds:
+  '@parcel/watcher': true
+  cypress: true
+  esbuild: true
+  msw: true
+  unrs-resolver: true
+minimumReleaseAge: 10080
+minimumReleaseAgeExclude:
+  - '@verdaccio/*'
+  - '@verdaccio-scope/*'
+  - 'verdaccio-*'
+saveExact: true
+ignoreScripts: true
+preferFrozenLockfile: true
+
+auditConfig:
+  ignoreGhsas:
+    # Express.js unreleased
+    - GHSA-j3q9-mxjg-w52f
+    # Express.js unreleased
+    - GHSA-w7fw-mjwx-w883

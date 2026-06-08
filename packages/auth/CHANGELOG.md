@@ -1,5 +1,75 @@
 # @verdaccio/auth
 
+## 9.0.0-next-9.18
+
+### Patch Changes
+
+- 62ebd31: fix: enforce generated npm token metadata
+
+  Generated npm tokens (`POST /-/npm/v1/tokens`) stored their `readonly` and
+  `cidr_whitelist` restrictions but never enforced them, and deleting a token did
+  not revoke it for the package APIs. A token marked read-only or pinned to a CIDR
+  range could still publish packages and change dist-tags, and a deleted token
+  remained usable.
+
+  Generated tokens now embed a server-issued key (in the JWT claim, or in the
+  encrypted legacy AES payload), and a new `enforceGeneratedTokenMetadata`
+  middleware looks that key up on each request and rejects the token when it is
+  missing/revoked, used outside its CIDR whitelist, or used for a write while
+  read-only. Enforcement applies to both AES and JWT API-token modes.
+
+  Note: tokens issued before upgrading carry no key and are not retroactively
+  constrained — regenerate them to apply the restrictions. Web UI enforcement of
+  generated-token metadata is tracked as a follow-up.
+
+- Updated dependencies [62ebd31]
+- Updated dependencies [e8421bd]
+- Updated dependencies [d9203d0]
+- Updated dependencies [24c86d6]
+- Updated dependencies [95c4441]
+  - @verdaccio/signature@9.0.0-next-9.18
+  - @verdaccio/core@9.0.0-next-9.18
+  - @verdaccio/loaders@9.0.0-next-9.18
+  - @verdaccio/config@9.0.0-next-9.18
+  - verdaccio-htpasswd@14.0.0-next-9.18
+
+## 9.0.0-next-9.17
+
+### Patch Changes
+
+- 6408a85: chore: force release
+- Updated dependencies [6408a85]
+  - @verdaccio/config@9.0.0-next-9.17
+  - @verdaccio/core@9.0.0-next-9.17
+  - @verdaccio/loaders@9.0.0-next-9.17
+  - verdaccio-htpasswd@14.0.0-next-9.17
+  - @verdaccio/signature@9.0.0-next-9.17
+
+## 9.0.0-next-9.16
+
+### Patch Changes
+
+- Updated dependencies [66f7e61]
+- Updated dependencies [cdf3150]
+  - @verdaccio/core@9.0.0-next-9.16
+  - @verdaccio/config@9.0.0-next-9.16
+  - verdaccio-htpasswd@14.0.0-next-9.16
+  - @verdaccio/signature@9.0.0-next-9.16
+  - @verdaccio/loaders@9.0.0-next-9.16
+
+## 9.0.0-next-9.15
+
+### Patch Changes
+
+- Updated dependencies [75caa33]
+- Updated dependencies [3299cc7]
+- Updated dependencies [ea8beb2]
+  - @verdaccio/config@9.0.0-next-9.15
+  - @verdaccio/loaders@9.0.0-next-9.15
+  - verdaccio-htpasswd@14.0.0-next-9.15
+  - @verdaccio/signature@9.0.0-next-9.15
+  - @verdaccio/core@9.0.0-next-9.15
+
 ## 9.0.0-next-9.14
 
 ### Patch Changes

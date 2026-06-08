@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-htpasswd",
-  "version": "14.0.0-next-9.14",
+  "version": "14.0.0-next-9.18",
   "description": "Htpasswd Authentication Plugin for Verdaccio",
   "keywords": [
     "private",
@@ -33,21 +33,21 @@
     "node": ">=24"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:9.0.0-next-9.14",
-    "@verdaccio/file-locking": "workspace:14.0.0-next-9.2",
+    "@verdaccio/core": "workspace:9.0.0-next-9.18",
+    "@verdaccio/file-locking": "workspace:14.0.0-next-9.3",
     "apache-md5": "1.1.8",
     "bcryptjs": "3.0.3",
-    "http-errors": "2.0.1",
     "debug": "4.4.3",
+    "http-errors": "2.0.1",
     "unix-crypt-td-js": "1.1.4"
   },
   "devDependencies": {
     "@types/bcryptjs": "3.0.0",
-    "@verdaccio/types": "workspace:14.0.0-next-9.5",
-    "@verdaccio/config": "workspace:9.0.0-next-9.14",
-    "@verdaccio/plugin-verifier": "workspace:1.0.0-next-9.10",
+    "@verdaccio/config": "workspace:9.0.0-next-9.18",
+    "@verdaccio/plugin-verifier": "workspace:1.0.0-next-9.14",
+    "@verdaccio/types": "workspace:14.0.0-next-9.9",
     "mockdate": "3.0.5",
-    "vitest": "4.1.0"
+    "vitest": "4.1.7"
   },
   "scripts": {
     "clean": "rimraf ./build",

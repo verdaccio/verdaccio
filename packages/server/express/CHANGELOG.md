@@ -1,5 +1,80 @@
 # @verdaccio/server
 
+## 9.0.0-next-9.18
+
+### Patch Changes
+
+- 80b8fa4: fix: run jwt middleware before middleware plugins
+- Updated dependencies [62ebd31]
+- Updated dependencies [e8421bd]
+- Updated dependencies [80b8fa4]
+- Updated dependencies [d9203d0]
+- Updated dependencies [24c86d6]
+- Updated dependencies [95c4441]
+- Updated dependencies [73c78e3]
+  - @verdaccio/middleware@9.0.0-next-9.18
+  - @verdaccio/auth@9.0.0-next-9.18
+  - @verdaccio/core@9.0.0-next-9.18
+  - @verdaccio/api@9.0.0-next-9.18
+  - @verdaccio/store@9.0.0-next-9.18
+  - @verdaccio/loaders@9.0.0-next-9.18
+  - @verdaccio/logger@9.0.0-next-9.18
+  - @verdaccio/web@9.0.0-next-9.18
+  - verdaccio-audit@14.0.0-next-9.18
+  - @verdaccio/config@9.0.0-next-9.18
+
+## 9.0.0-next-9.17
+
+### Patch Changes
+
+- 6408a85: chore: force release
+- Updated dependencies [6408a85]
+  - @verdaccio/api@9.0.0-next-9.17
+  - @verdaccio/auth@9.0.0-next-9.17
+  - @verdaccio/config@9.0.0-next-9.17
+  - @verdaccio/core@9.0.0-next-9.17
+  - @verdaccio/loaders@9.0.0-next-9.17
+  - @verdaccio/logger@9.0.0-next-9.17
+  - @verdaccio/middleware@9.0.0-next-9.17
+  - verdaccio-audit@14.0.0-next-9.17
+  - @verdaccio/store@9.0.0-next-9.17
+  - @verdaccio/web@9.0.0-next-9.17
+
+## 9.0.0-next-9.16
+
+### Patch Changes
+
+- Updated dependencies [66f7e61]
+- Updated dependencies [cdf3150]
+  - @verdaccio/middleware@9.0.0-next-9.16
+  - @verdaccio/core@9.0.0-next-9.16
+  - @verdaccio/config@9.0.0-next-9.16
+  - @verdaccio/web@9.0.0-next-9.16
+  - verdaccio-audit@14.0.0-next-9.16
+  - @verdaccio/logger@9.0.0-next-9.16
+  - @verdaccio/store@9.0.0-next-9.16
+  - @verdaccio/api@9.0.0-next-9.16
+  - @verdaccio/auth@9.0.0-next-9.16
+  - @verdaccio/loaders@9.0.0-next-9.16
+
+## 9.0.0-next-9.15
+
+### Patch Changes
+
+- Updated dependencies [75caa33]
+- Updated dependencies [3299cc7]
+- Updated dependencies [ea8beb2]
+  - @verdaccio/config@9.0.0-next-9.15
+  - @verdaccio/api@9.0.0-next-9.15
+  - @verdaccio/auth@9.0.0-next-9.15
+  - @verdaccio/loaders@9.0.0-next-9.15
+  - @verdaccio/middleware@9.0.0-next-9.15
+  - verdaccio-audit@14.0.0-next-9.15
+  - @verdaccio/store@9.0.0-next-9.15
+  - @verdaccio/web@9.0.0-next-9.15
+  - @verdaccio/core@9.0.0-next-9.15
+  - @verdaccio/logger@9.0.0-next-9.15
+
 ## 9.0.0-next-9.14
 
 ### Patch Changes

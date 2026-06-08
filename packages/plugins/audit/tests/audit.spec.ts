@@ -124,7 +124,7 @@ describe('Audit plugin', () => {
     audit.register_middlewares(app, {
       // @ts-ignore
       config: {
-        https_proxy: 'https://registry.proxy.org',
+        https_proxy: 'https://fake.verdaccio.org',
         http_proxy: '',
       },
     });

@@ -10,6 +10,14 @@ inputs:
     description: 'Reporter for pnpm'
     required: false
     default: 'silent'
+  loglevel:
+    description: 'Log level for pnpm'
+    required: false
+    default: 'error'
+  node-version:
+    description: 'Node.js version to use. When empty, falls back to .nvmrc.'
+    required: false
+    default: ''
 
 runs:
   using: composite
@@ -20,11 +28,16 @@ runs:
         corepack enable
         corepack prepare
       shell: bash
-    - name: Use Node
+    - name: Use Node (explicit version)
+      if: inputs.node-version != ''
+      uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+      with:
+        node-version: ${{ inputs.node-version }}
+    - name: Use Node (from .nvmrc)
+      if: inputs.node-version == ''
       uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
       with:
         node-version-file: '.nvmrc'
-        cache: 'pnpm'
     - name: Install
-      run: pnpm install --reporter=${{inputs.reporter}} --ignore-scripts --registry ${{ inputs.registry-url }}
+      run: pnpm install --reporter=${{ inputs.reporter }} --ignore-scripts --registry ${{ inputs.registry-url }} --loglevel=${{ inputs.loglevel }}
       shell: bash

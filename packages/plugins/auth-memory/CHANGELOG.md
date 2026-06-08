@@ -1,5 +1,36 @@
 # Change Log
 
+## 14.0.0-next-9.18
+
+### Patch Changes
+
+- Updated dependencies [62ebd31]
+- Updated dependencies [e8421bd]
+- Updated dependencies [d9203d0]
+  - @verdaccio/core@9.0.0-next-9.18
+
+## 14.0.0-next-9.17
+
+### Patch Changes
+
+- 6408a85: chore: force release
+- Updated dependencies [6408a85]
+  - @verdaccio/core@9.0.0-next-9.17
+
+## 14.0.0-next-9.16
+
+### Patch Changes
+
+- Updated dependencies [66f7e61]
+- Updated dependencies [cdf3150]
+  - @verdaccio/core@9.0.0-next-9.16
+
+## 14.0.0-next-9.15
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.15
+
 ## 14.0.0-next-9.14
 
 ### Patch Changes

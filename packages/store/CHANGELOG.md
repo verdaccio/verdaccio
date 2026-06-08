@@ -1,5 +1,77 @@
 # @verdaccio/store
 
+## 9.0.0-next-9.18
+
+### Patch Changes
+
+- 24c86d6: chore: align debug tags with package names
+- Updated dependencies [16f7b18]
+- Updated dependencies [62ebd31]
+- Updated dependencies [e8421bd]
+- Updated dependencies [d9203d0]
+- Updated dependencies [95c4441]
+- Updated dependencies [73c78e3]
+  - @verdaccio/proxy@9.0.0-next-9.18
+  - @verdaccio/core@9.0.0-next-9.18
+  - @verdaccio/loaders@9.0.0-next-9.18
+  - @verdaccio/logger@9.0.0-next-9.18
+  - @verdaccio/search@9.0.0-next-9.18
+  - @verdaccio/config@9.0.0-next-9.18
+  - @verdaccio/tarball@14.0.0-next-9.18
+  - @verdaccio/url@14.0.0-next-9.18
+  - @verdaccio/local-storage@14.0.0-next-9.18
+
+## 9.0.0-next-9.17
+
+### Patch Changes
+
+- 6408a85: chore: force release
+- Updated dependencies [6408a85]
+  - @verdaccio/config@9.0.0-next-9.17
+  - @verdaccio/core@9.0.0-next-9.17
+  - @verdaccio/tarball@14.0.0-next-9.17
+  - @verdaccio/url@14.0.0-next-9.17
+  - @verdaccio/loaders@9.0.0-next-9.17
+  - @verdaccio/logger@9.0.0-next-9.17
+  - @verdaccio/local-storage@14.0.0-next-9.17
+  - @verdaccio/proxy@9.0.0-next-9.17
+  - @verdaccio/search@9.0.0-next-9.17
+
+## 9.0.0-next-9.16
+
+### Patch Changes
+
+- cdf3150: fix: refactor unit test
+- Updated dependencies [66f7e61]
+- Updated dependencies [cdf3150]
+  - @verdaccio/core@9.0.0-next-9.16
+  - @verdaccio/config@9.0.0-next-9.16
+  - @verdaccio/tarball@14.0.0-next-9.16
+  - @verdaccio/logger@9.0.0-next-9.16
+  - @verdaccio/search@9.0.0-next-9.16
+  - @verdaccio/proxy@9.0.0-next-9.16
+  - @verdaccio/local-storage@14.0.0-next-9.16
+  - @verdaccio/url@14.0.0-next-9.16
+  - @verdaccio/loaders@9.0.0-next-9.16
+
+## 9.0.0-next-9.15
+
+### Patch Changes
+
+- Updated dependencies [75caa33]
+- Updated dependencies [3299cc7]
+- Updated dependencies [6338cb6]
+- Updated dependencies [ea8beb2]
+  - @verdaccio/config@9.0.0-next-9.15
+  - @verdaccio/proxy@9.0.0-next-9.15
+  - @verdaccio/loaders@9.0.0-next-9.15
+  - @verdaccio/search@9.0.0-next-9.15
+  - @verdaccio/core@9.0.0-next-9.15
+  - @verdaccio/tarball@14.0.0-next-9.15
+  - @verdaccio/logger@9.0.0-next-9.15
+  - @verdaccio/local-storage@14.0.0-next-9.15
+  - @verdaccio/url@14.0.0-next-9.15
+
 ## 9.0.0-next-9.14
 
 ### Patch Changes

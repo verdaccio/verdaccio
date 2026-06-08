@@ -1,5 +1,33 @@
 # @verdaccio/ui-components
 
+## 5.0.0-next-9.14
+
+### Patch Changes
+
+- 6408a85: chore: force release
+- Updated dependencies [6408a85]
+  - @verdaccio/ui-i18n@10.0.0-next-9.3
+
+## 5.0.0-next-9.13
+
+### Patch Changes
+
+- cb359b9: chore: force release
+
+## 5.0.0-next-9.12
+
+### Patch Changes
+
+- cdf3150: fix: refactor unit test
+
+## 5.0.0-next-9.11
+
+### Patch Changes
+
+- 8793f4c: chore(ui-components): remove **partials** from build
+- 5e64d64: chore(ui-components): update json-viewer
+- 19471c8: chore(ui): pin vite and remove eslint plugin deps
+
 ## 5.0.0-next-9.10
 
 ### Patch Changes

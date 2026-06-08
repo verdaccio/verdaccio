@@ -1,5 +1,46 @@
 # @verdaccio/plugin-verifier
 
+## 1.0.0-next-9.14
+
+### Patch Changes
+
+- Updated dependencies [62ebd31]
+- Updated dependencies [e8421bd]
+- Updated dependencies [d9203d0]
+- Updated dependencies [95c4441]
+- Updated dependencies [73c78e3]
+  - @verdaccio/core@9.0.0-next-9.18
+  - @verdaccio/loaders@9.0.0-next-9.18
+  - @verdaccio/logger@9.0.0-next-9.18
+
+## 1.0.0-next-9.13
+
+### Patch Changes
+
+- 6408a85: chore: force release
+- Updated dependencies [6408a85]
+  - @verdaccio/core@9.0.0-next-9.17
+  - @verdaccio/loaders@9.0.0-next-9.17
+  - @verdaccio/logger@9.0.0-next-9.17
+
+## 1.0.0-next-9.12
+
+### Patch Changes
+
+- Updated dependencies [66f7e61]
+- Updated dependencies [cdf3150]
+  - @verdaccio/core@9.0.0-next-9.16
+  - @verdaccio/logger@9.0.0-next-9.16
+  - @verdaccio/loaders@9.0.0-next-9.16
+
+## 1.0.0-next-9.11
+
+### Patch Changes
+
+- @verdaccio/loaders@9.0.0-next-9.15
+- @verdaccio/core@9.0.0-next-9.15
+- @verdaccio/logger@9.0.0-next-9.15
+
 ## 1.0.0-next-9.10
 
 ### Patch Changes

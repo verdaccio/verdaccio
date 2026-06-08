@@ -1,5 +1,64 @@
 # Change Log
 
+## 5.0.0-next-9.19
+
+### Patch Changes
+
+- Updated dependencies [62ebd31]
+- Updated dependencies [e8421bd]
+- Updated dependencies [d9203d0]
+- Updated dependencies [24c86d6]
+- Updated dependencies [73c78e3]
+  - @verdaccio/middleware@9.0.0-next-9.18
+  - @verdaccio/auth@9.0.0-next-9.18
+  - @verdaccio/core@9.0.0-next-9.18
+  - @verdaccio/logger@9.0.0-next-9.18
+  - @verdaccio/config@9.0.0-next-9.18
+
+## 5.0.0-next-9.18
+
+### Patch Changes
+
+- 6408a85: chore: force release
+- Updated dependencies [6408a85]
+  - @verdaccio/auth@9.0.0-next-9.17
+  - @verdaccio/config@9.0.0-next-9.17
+  - @verdaccio/core@9.0.0-next-9.17
+  - @verdaccio/logger@9.0.0-next-9.17
+  - @verdaccio/middleware@9.0.0-next-9.17
+
+## 5.0.0-next-9.17
+
+### Patch Changes
+
+- cb359b9: chore: force release
+
+## 5.0.0-next-9.16
+
+### Patch Changes
+
+- cdf3150: fix: refactor unit test
+- Updated dependencies [66f7e61]
+- Updated dependencies [cdf3150]
+  - @verdaccio/middleware@9.0.0-next-9.16
+  - @verdaccio/core@9.0.0-next-9.16
+  - @verdaccio/config@9.0.0-next-9.16
+  - @verdaccio/logger@9.0.0-next-9.16
+  - @verdaccio/auth@9.0.0-next-9.16
+
+## 5.0.0-next-9.15
+
+### Patch Changes
+
+- Updated dependencies [75caa33]
+- Updated dependencies [3299cc7]
+- Updated dependencies [ea8beb2]
+  - @verdaccio/config@9.0.0-next-9.15
+  - @verdaccio/auth@9.0.0-next-9.15
+  - @verdaccio/middleware@9.0.0-next-9.15
+  - @verdaccio/core@9.0.0-next-9.15
+  - @verdaccio/logger@9.0.0-next-9.15
+
 ## 5.0.0-next-9.14
 
 ### Patch Changes

@@ -14,6 +14,11 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     if: github.repository == 'verdaccio/verdaccio'
+    # Gate the master-branch (nightly) publish behind the `docker` environment,
+    # which requires manual approval. Tag-triggered (v*) releases get an empty
+    # environment, so they run without the gate (and aren't blocked by the
+    # master-only branch policy).
+    environment: ${{ github.ref == 'refs/heads/master' && 'docker' || '' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
@@ -22,19 +27,19 @@ jobs:
         uses: docker/setup-qemu-action@ce360397dd3f832beb865e1373c09c0e9f86d70a # v4.0.0
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@d7f5e7f509e45cec5c76c4d5afdd7de93d0b3df5
         with:
           driver-opts: network=host
 
       - name: Log in to Docker Hub
-        uses: docker/login-action@v3
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Prepare Docker image tags
         id: docker_meta
-        uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5
+        uses: docker/metadata-action@80c7e94dd9b9319bd5eb7a0e0fe9291e23a2a2e9 # v6.1.0
         with:
           images: ${{ github.repository }}
           tags: |
@@ -46,7 +51,7 @@ jobs:
             org.opencontainers.image.version=${{ steps.docker_meta.outputs.version }}
 
       - name: Build & Push
-        uses: docker/build-push-action@v7
+        uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f
         with:
           context: .
           file: ./Dockerfile
@@ -54,3 +59,5 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
+          provenance: mode=max
+          sbom: true

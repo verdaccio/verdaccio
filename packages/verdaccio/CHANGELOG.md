@@ -1,5 +1,70 @@
 # verdaccio
 
+## 9.0.0-next-9.18
+
+### Patch Changes
+
+- Updated dependencies [80b8fa4]
+- Updated dependencies [1698451]
+- Updated dependencies [73c78e3]
+  - @verdaccio/server@9.0.0-next-9.18
+  - @verdaccio/hooks@9.0.0-next-9.18
+  - @verdaccio/logger@9.0.0-next-9.18
+  - verdaccio-audit@14.0.0-next-9.18
+  - @verdaccio/cli@9.0.0-next-9.18
+  - verdaccio-htpasswd@14.0.0-next-9.18
+  - @verdaccio/package-filter@14.0.0-next-9.42
+  - @verdaccio/node-api@9.0.0-next-9.18
+  - @verdaccio/ui-theme@9.0.0-next-9.18
+
+## 9.0.0-next-9.17
+
+### Patch Changes
+
+- 6408a85: chore: force release
+- Updated dependencies [6408a85]
+  - @verdaccio/cli@9.0.0-next-9.17
+  - @verdaccio/hooks@9.0.0-next-9.17
+  - @verdaccio/logger@9.0.0-next-9.17
+  - @verdaccio/node-api@9.0.0-next-9.17
+  - verdaccio-audit@14.0.0-next-9.17
+  - verdaccio-htpasswd@14.0.0-next-9.17
+  - @verdaccio/package-filter@14.0.0-next-9.41
+  - @verdaccio/ui-theme@9.0.0-next-9.17
+  - @verdaccio/server@9.0.0-next-9.17
+
+## 9.0.0-next-9.16
+
+### Patch Changes
+
+- cdf3150: fix: refactor unit test
+- Updated dependencies [cdf3150]
+  - verdaccio-audit@14.0.0-next-9.16
+  - @verdaccio/logger@9.0.0-next-9.16
+  - @verdaccio/cli@9.0.0-next-9.16
+  - @verdaccio/hooks@9.0.0-next-9.16
+  - @verdaccio/node-api@9.0.0-next-9.16
+  - verdaccio-htpasswd@14.0.0-next-9.16
+  - @verdaccio/package-filter@14.0.0-next-9.40
+  - @verdaccio/ui-theme@9.0.0-next-9.16
+  - @verdaccio/server@9.0.0-next-9.16
+
+## 9.0.0-next-9.15
+
+### Patch Changes
+
+- 19471c8: chore: upgrade to pnpm 11.1.1 via corepack; enable `minimumReleaseAge` (7 days) with exclusions for `@verdaccio/*`, `@verdaccio-scope/*`, and `verdaccio-*` packages
+- Updated dependencies [19471c8]
+  - @verdaccio/ui-theme@9.0.0-next-9.15
+  - @verdaccio/cli@9.0.0-next-9.15
+  - @verdaccio/hooks@9.0.0-next-9.15
+  - @verdaccio/node-api@9.0.0-next-9.15
+  - verdaccio-audit@14.0.0-next-9.15
+  - verdaccio-htpasswd@14.0.0-next-9.15
+  - @verdaccio/package-filter@14.0.0-next-9.39
+  - @verdaccio/server@9.0.0-next-9.15
+  - @verdaccio/logger@9.0.0-next-9.15
+
 ## 9.0.0-next-9.14
 
 ### Patch Changes

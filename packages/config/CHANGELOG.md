@@ -1,5 +1,44 @@
 # @verdaccio/config
 
+## 9.0.0-next-9.18
+
+### Patch Changes
+
+- Updated dependencies [62ebd31]
+- Updated dependencies [e8421bd]
+- Updated dependencies [d9203d0]
+  - @verdaccio/core@9.0.0-next-9.18
+
+## 9.0.0-next-9.17
+
+### Patch Changes
+
+- 6408a85: chore: force release
+- Updated dependencies [6408a85]
+  - @verdaccio/core@9.0.0-next-9.17
+
+## 9.0.0-next-9.16
+
+### Patch Changes
+
+- 66f7e61: feat(web): add config for asset folder
+- cdf3150: fix: refactor unit test
+- Updated dependencies [66f7e61]
+- Updated dependencies [cdf3150]
+  - @verdaccio/core@9.0.0-next-9.16
+
+## 9.0.0-next-9.15
+
+### Major Changes
+
+- 3299cc7: chore!: remove deprecated `self_path` config property in favor of `configPath`
+- ea8beb2: chore!: only accept YAML config files (`.yaml` / `.yml`); JSON and JavaScript config files are no longer supported and will throw an error
+
+### Patch Changes
+
+- 75caa33: chore: test release
+  - @verdaccio/core@9.0.0-next-9.15
+
 ## 9.0.0-next-9.14
 
 ### Patch Changes

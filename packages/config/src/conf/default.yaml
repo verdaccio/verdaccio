@@ -46,6 +46,7 @@ web:
   # showRaw: true
   # showDownloadTarball: true
   # showUplinks: true
+  # assetFolder: ./storage/assets
   #
   # HTML tags injected before ends </head>
   # metaScripts:
