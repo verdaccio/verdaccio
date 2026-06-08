@@ -87,25 +87,29 @@ export async function getApiToken(
   auth: TokenEncryption,
   config: Config,
   remoteUser: RemoteUser,
-  aesPassword: string
+  aesPassword: string,
+  options: { tokenKey?: string } = {}
 ): Promise<string | void> {
   debug('get api token');
   const { security } = config;
+  const tokenUser: RemoteUser = options.tokenKey
+    ? { ...remoteUser, token: { key: options.tokenKey } }
+    : remoteUser;
 
   if (isAESLegacy(security)) {
     debug('security legacy enabled');
     // fallback all goes to AES encryption
     return await new Promise((resolve): void => {
-      resolve(auth.aesEncrypt(buildUser(remoteUser.name as string, aesPassword)));
+      resolve(auth.aesEncrypt(buildUser(remoteUser.name as string, aesPassword, options.tokenKey)));
     });
   }
   const { jwt } = security.api;
 
   if (jwt?.sign) {
-    return await auth.jwtEncrypt(remoteUser, jwt.sign);
+    return await auth.jwtEncrypt(tokenUser, jwt.sign);
   }
   return await new Promise((resolve): void => {
-    resolve(auth.aesEncrypt(buildUser(remoteUser.name as string, aesPassword)));
+    resolve(auth.aesEncrypt(buildUser(remoteUser.name as string, aesPassword, options.tokenKey)));
   });
 }
 
@@ -227,7 +231,11 @@ export function handleSpecialUnpublish(logger: Logger): any {
   };
 }
 
-export function buildUser(name: string, password: string): string {
+export function buildUser(name: string, password: string, tokenKey?: string): string {
+  if (tokenKey) {
+    return JSON.stringify({ user: name, password, tokenKey });
+  }
+
   return String(`${name}:${password}`);
 }
 

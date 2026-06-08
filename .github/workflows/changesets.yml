@@ -16,11 +16,13 @@ env:
   PNPM_CACHE_FOLDER: .pnpm-store
 
 jobs:
-  # Update package versions from changesets.
+  # Open/refresh the version PR from changesets. Runs freely (no env gate, no publish).
   version:
     timeout-minutes: 14
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master' && github.repository == 'verdaccio/verdaccio'
+    outputs:
+      hasChangesets: ${{ steps.changesets.outputs.hasChangesets }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies with a custom registry
@@ -33,11 +35,38 @@ jobs:
       - name: build
         run: pnpm build
       - name: create versions
+        id: changesets
         uses: changesets/action@63a615b9cd06ba9a3e6d13796c7fbcb080a60a0b
         with:
           version: pnpm ci:version
           commit: 'chore: update versions'
           title: 'chore: update versions'
+          setupGitUser: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.CHANGESET_RELEASE_TOKEN }}
+
+  # Publish to npm once the version PR is merged (no changesets left).
+  # Gated by the `npm` environment, which requires manual approval.
+  publish:
+    needs: version
+    if: needs.version.outputs.hasChangesets == 'false'
+    timeout-minutes: 14
+    runs-on: ubuntu-latest
+    environment: npm
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Install dependencies with a custom registry
+        uses: ./.github/actions/install-app
+      - name: crowdin download
+        env:
+          CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
+          CONTEXT: production
+        run: pnpm crowdin:download
+      - name: build
+        run: pnpm build
+      - name: publish
+        uses: changesets/action@63a615b9cd06ba9a3e6d13796c7fbcb080a60a0b
+        with:
           publish: pnpm ci:publish
           createGithubReleases: false
           setupGitUser: true
