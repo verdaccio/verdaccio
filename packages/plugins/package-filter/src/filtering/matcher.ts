@@ -35,15 +35,15 @@ function findScopeRule(
 function findPackageRule(
   packageName: string,
   rules: Map<string, ParsedRule>
-): { packageName: string; rule: ParsedRule } | undefined {
+): { pattern: string; rule: ParsedRule } | undefined {
   const exactRule = rules.get(packageName);
   if (exactRule) {
-    return { packageName, rule: exactRule };
+    return { pattern: packageName, rule: exactRule };
   }
 
-  for (const [rulePackage, rule] of rules) {
-    if (rule !== 'scope' && minimatch(packageName, rulePackage)) {
-      return { packageName: rulePackage, rule };
+  for (const [pattern, rule] of rules) {
+    if (rule !== 'scope' && minimatch(packageName, pattern)) {
+      return { pattern, rule };
     }
   }
 
@@ -80,7 +80,11 @@ export function matchRules(
   manifest: Manifest,
   rules: Map<string, ParsedRule>
 ): MatchResult | undefined {
-  const packageName = manifest.name || '';
+  const packageName = manifest.name;
+  if (!packageName) {
+    return undefined;
+  }
+
   const { scope } = splitName(packageName);
   const scopeMatch = findScopeRule(scope, rules);
   if (scopeMatch) {
@@ -101,21 +105,17 @@ export function matchRules(
   const { rule } = packageMatch;
 
   if (rule === 'package') {
-    debug('package match: %s matched rule for %s', packageName, packageMatch.packageName);
+    debug('package match: %s matched rule for %s', packageName, packageMatch.pattern);
     return {
       type: MatchType.PACKAGE,
       rule,
-      package: packageMatch.packageName,
+      package: packageMatch.pattern,
       versions: Object.keys(manifest.versions),
     };
   }
 
   if (rule === 'scope') {
     throw new Error('Unexpected case - rule for package should never be "scope"');
-  }
-
-  if (!rule) {
-    return undefined;
   }
 
   const versionRanges = rule.versions;

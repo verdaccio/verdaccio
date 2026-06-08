@@ -70,6 +70,7 @@ When both `minAgeDays` and `dateThreshold` are set, the **earlier** cutoff wins 
 ### Block by Scope
 
 Block all packages under a scope. Scope values can be exact names or glob patterns.
+Scope globs are matched against only the extracted scope name, for example `@babel`, so use patterns like `@babel*` or `@my-org-*` instead of `@babel/*`.
 
 ```yaml
 filters:
