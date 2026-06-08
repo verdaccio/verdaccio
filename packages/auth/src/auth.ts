@@ -547,7 +547,9 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
       debug('authenticating %o', user);
       this.authenticate(user, password, (err, user): void => {
         if (!err) {
-          req.remote_user = user;
+          req.remote_user = credentials.tokenKey
+            ? { ...user, token: { key: credentials.tokenKey } }
+            : user;
           debug('generating a remote user');
           next();
         } else {
@@ -620,7 +622,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
   }
 
   public async jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions): Promise<string> {
-    const { real_groups, name, groups } = user;
+    const { real_groups, name, groups, token: tokenMetadata } = user;
     debug('jwt encrypt %o', name);
     const realGroupsValidated = isNil(real_groups) ? [] : real_groups;
     const groupedGroups = isNil(groups)
@@ -631,13 +633,16 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
       name,
       groups: groupedGroups,
     };
-    const token: string = await signPayload(
+    if (tokenMetadata?.key) {
+      payload.token = { key: tokenMetadata.key };
+    }
+    const signedToken: string = await signPayload(
       payload,
       this.secret,
       signOptions as Parameters<typeof signPayload>[2]
     );
 
-    return token;
+    return signedToken;
   }
 
   /**
