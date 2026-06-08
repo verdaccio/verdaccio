@@ -262,6 +262,31 @@ describe('Notifications', () => {
     expect(notificationResponse).toEqual([true]);
   });
 
+  test('when publisher metadata is present, template is still compiled', async () => {
+    nock(domain)
+      .post(options.path, (body) => {
+        expect(body).toHaveProperty('publisher', 'existing-publisher');
+        return true;
+      })
+      .reply(200);
+
+    const config = parseConfigFile(parseConfigurationNotifyFile('single.notify.publisher'));
+    const metadata = {
+      ...generatePackageMetadata('bar', '1.0.0'),
+      publisher: { name: 'existing-publisher' },
+    };
+    const notificationResponse = await notify(
+      metadata,
+      // @ts-expect-error notify expects Config but we are testing partial config
+      config,
+      createRemoteUser('foo', []),
+      'bar',
+      'publish'
+    );
+
+    expect(notificationResponse).toEqual([true]);
+  });
+
   test('when notification endpoint is missing', async () => {
     nock(domain).post(options.path).reply(200);
     const config: Partial<Config> = {

@@ -55,17 +55,16 @@ export async function handleNotify(
     return false;
   }
 
-  let content;
-  if (typeof metadata.publisher === 'undefined' || metadata.publisher === null) {
-    const publishMetadata = {
-      ...metadata,
-      publisher: { ...remoteUser },
-      publishedPackage,
-      publishType,
-    };
-    debug('template metadata %o', publishMetadata);
-    content = await compileTemplate(notifyEntry.content, publishMetadata);
-  }
+  const publishMetadata = {
+    ...metadata,
+    ...(typeof metadata.publisher === 'undefined' || metadata.publisher === null
+      ? { publisher: { ...remoteUser } }
+      : {}),
+    publishedPackage,
+    publishType,
+  };
+  debug('template metadata %o', publishMetadata);
+  const content = (await compileTemplate(notifyEntry.content, publishMetadata)) as string;
 
   const options: FetchOptions = {
     body: content,

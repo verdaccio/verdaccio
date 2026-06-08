@@ -173,12 +173,13 @@ export default function publish(
         res.status(HTTP_STATUS.CREATED);
 
         // send notification of package removal
-        try {
-          const metadata: Partial<Manifest> = { name: packageName, _rev: rev };
-          await notify(metadata, config, req.remote_user, packageName, 'unpublish');
-        } catch (error: any) {
-          logger.error({ error }, 'notify batch service has failed: @{error}');
-        }
+        const metadata: Partial<Manifest> = { name: packageName, _rev: rev };
+
+        void notify(metadata, config, req.remote_user, packageName, 'unpublish').catch(
+          (error: any) => {
+            logger.error({ error: error?.message }, 'notify batch service has failed: @{error}');
+          }
+        );
 
         return next({ ok: API_MESSAGE.PKG_REMOVED });
       } catch (err) {
@@ -217,13 +218,18 @@ export default function publish(
         );
 
         // send notification of version removal
-        try {
-          const version = tarballUtils.getVersionFromTarball(filename);
-          const metadata: Partial<Manifest> = { name: packageName, version, _rev: revision };
-          await notify(metadata, config, req.remote_user, `${packageName}@${version}`, 'unpublish');
-        } catch (error: any) {
-          logger.error({ error }, 'notify batch service has failed: @{error}');
-        }
+        const version = tarballUtils.getVersionFromTarball(filename);
+        const metadata: Partial<Manifest> = { name: packageName, version, _rev: revision };
+
+        void notify(
+          metadata,
+          config,
+          req.remote_user,
+          `${packageName}@${version}`,
+          'unpublish'
+        ).catch((error: any) => {
+          logger.error({ error: error?.message }, 'notify batch service has failed: @{error}');
+        });
 
         return next({ ok: API_MESSAGE.TARBALL_REMOVED });
       } catch (err) {
@@ -271,17 +277,15 @@ export function publishPackage(
       res.status(HTTP_STATUS.CREATED);
 
       // send notification of publication (notification step, non transactional)
-      try {
-        await notify(
-          metadata,
-          config,
-          req.remote_user,
-          `${metadata.name}@${metadata.version}`,
-          'publish'
-        );
-      } catch (error: any) {
-        logger.error({ error }, 'notify batch service has failed: @{error}');
-      }
+      void notify(
+        metadata,
+        config,
+        req.remote_user,
+        `${metadata.name}@${metadata.version}`,
+        'publish'
+      ).catch((error: any) => {
+        logger.error({ error: error?.message }, 'notify batch service has failed: @{error}');
+      });
 
       return next({
         success: true,
