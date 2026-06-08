@@ -5,6 +5,7 @@ import type { Auth } from '@verdaccio/auth';
 import {
   antiLoop,
   encodeScopePackage,
+  enforceGeneratedTokenMetadata,
   makeURLrelative,
   match,
   registerBodyParser,
@@ -58,6 +59,7 @@ export default function (config: Config, auth: Auth, storage: Storage, logger: L
     return apiJwtMiddleware(req, res, next);
   });
 
+  app.use(enforceGeneratedTokenMetadata(storage, logger));
   app.use(antiLoop(config));
   app.use(makeURLrelative);
   // encode / in a scoped package name to be matched as a single parameter in routes

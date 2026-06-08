@@ -86,12 +86,14 @@ export default function (
         }
 
         try {
-          const token = await getApiToken(auth, config, user as RemoteUser, password);
+          const key = cryptoUtils.generateRandomHexString(16);
+          const token = await getApiToken(auth, config, user as RemoteUser, password, {
+            tokenKey: key,
+          });
           if (!token) {
             throw errorUtils.getInternalError();
           }
 
-          const key = cryptoUtils.stringToMD5(token);
           // TODO: use a utility here
           const maskedToken = cryptoUtils.mask(token, 5);
           const created = new Date().getTime();
