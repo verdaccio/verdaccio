@@ -10,6 +10,9 @@ export interface RemoteUser {
   groups: string[];
   name: string | void;
   error?: string;
+  token?: {
+    key: string;
+  };
 }
 
 export type StringValue = string | void | null;
