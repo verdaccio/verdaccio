@@ -14,6 +14,11 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     if: github.repository == 'verdaccio/verdaccio'
+    # Gate the master-branch (nightly) publish behind the `docker` environment,
+    # which requires manual approval. Tag-triggered (v*) releases get an empty
+    # environment, so they run without the gate (and aren't blocked by the
+    # master-only branch policy).
+    environment: ${{ github.ref == 'refs/heads/master' && 'docker' || '' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
