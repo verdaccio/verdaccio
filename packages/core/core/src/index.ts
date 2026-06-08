@@ -3,6 +3,7 @@ import * as constants from './constants';
 import * as cryptoUtils from './crypto-utils';
 import * as errorUtils from './error-utils';
 import * as fileUtils from './file-utils';
+import * as ipUtils from './ip-utils';
 import * as pkgUtils from './pkg-utils';
 import * as pluginUtils from './plugin-utils';
 import * as reqUtils from './req-utils';
@@ -42,6 +43,7 @@ export {
   authUtils,
   cryptoUtils,
   fileUtils,
+  ipUtils,
   pkgUtils,
   searchUtils,
   streamUtils,
