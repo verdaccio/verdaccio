@@ -65,15 +65,9 @@ importers:
       '@types/jsonwebtoken':
         specifier: 9.0.10
         version: 9.0.10
-      '@types/lodash':
-        specifier: 4.17.23
-        version: 4.17.23
       '@types/lodash-es':
         specifier: 4.17.12
         version: 4.17.12
-      '@types/minimatch':
-        specifier: 6.0.0
-        version: 6.0.0
       '@types/ms':
         specifier: 2.1.0
         version: 2.1.0
@@ -216,7 +210,7 @@ importers:
         specifier: 10.9.2
         version: 10.9.2(@types/node@24.12.0)(typescript@5.9.3)
       tsx:
-        specifier: ^4.21.0
+        specifier: 4.21.0
         version: 4.21.0
       typescript:
         specifier: 5.9.3
@@ -294,9 +288,15 @@ importers:
       nock:
         specifier: 13.5.6
         version: 13.5.6
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
       supertest:
         specifier: 7.1.4
         version: 7.1.4
+      vite:
+        specifier: 8.0.14
+        version: 8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3)
       vitest:
         specifier: 4.1.7
         version: 4.1.7(@types/node@24.12.0)(@vitest/coverage-v8@4.1.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3))
@@ -340,9 +340,15 @@ importers:
       express:
         specifier: 5.2.1
         version: 5.2.1
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
       supertest:
         specifier: 7.1.4
         version: 7.1.4
+      vite:
+        specifier: 8.0.14
+        version: 8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3)
       vitest:
         specifier: 4.1.7
         version: 4.1.7(@types/node@24.12.0)(@vitest/coverage-v8@4.1.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3))
@@ -373,13 +379,19 @@ importers:
       semver:
         specifier: 7.8.1
         version: 7.8.1
+      tsx:
+        specifier: 4.21.0
+        version: 4.21.0
     devDependencies:
       '@verdaccio/types':
         specifier: workspace:14.0.0-next-9.9
         version: link:../core/types
-      ts-node:
-        specifier: 10.9.2
-        version: 10.9.2(@types/node@24.12.0)(typescript@5.9.3)
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
+      vite:
+        specifier: 8.0.14
+        version: 8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3)
       vitest:
         specifier: 4.1.7
         version: 4.1.7(@types/node@24.12.0)(@vitest/coverage-v8@4.1.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3))
@@ -402,9 +414,12 @@ importers:
       '@types/lodash-es':
         specifier: 4.17.12
         version: 4.17.12
-      '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.9
-        version: link:../core/types
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
+      vite:
+        specifier: 8.0.14
+        version: 8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3)
       vitest:
         specifier: 4.1.7
         version: 4.1.7(@types/node@24.12.0)(@vitest/coverage-v8@4.1.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3))
@@ -439,9 +454,15 @@ importers:
       express:
         specifier: 5.2.1
         version: 5.2.1
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
       typedoc:
         specifier: 0.28.14
         version: 0.28.14(typescript@5.9.3)
+      vite:
+        specifier: 8.0.14
+        version: 8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3)
       vitest:
         specifier: 4.1.7
         version: 4.1.7(@types/node@24.12.0)(@vitest/coverage-v8@4.1.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3))
@@ -455,11 +476,24 @@ importers:
       '@verdaccio/types':
         specifier: workspace:14.0.0-next-9.9
         version: link:../types
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
+      vite:
+        specifier: 8.0.14
+        version: 8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3)
       vitest:
         specifier: 4.1.7
         version: 4.1.7(@types/node@24.12.0)(@vitest/coverage-v8@4.1.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3))
 
-  packages/core/i18n: {}
+  packages/core/i18n:
+    devDependencies:
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
+      vite:
+        specifier: 8.0.14
+        version: 8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3)
 
   packages/core/tarball:
     dependencies:
@@ -485,6 +519,12 @@ importers:
       node-mocks-http:
         specifier: 1.14.1
         version: 1.14.1
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
+      vite:
+        specifier: 8.0.14
+        version: 8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3)
       vitest:
         specifier: 4.1.7
         version: 4.1.7(@types/node@24.12.0)(@vitest/coverage-v8@4.1.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3))
@@ -494,6 +534,9 @@ importers:
       '@types/jsonwebtoken':
         specifier: 9.0.7
         version: 9.0.7
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
       typedoc:
         specifier: 0.28.14
         version: 0.28.14(typescript@5.9.3)
@@ -513,6 +556,12 @@ importers:
       node-mocks-http:
         specifier: 1.14.1
         version: 1.14.1
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
+      vite:
+        specifier: 8.0.14
+        version: 8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3)
       vitest:
         specifier: 4.1.7
         version: 4.1.7(@types/node@24.12.0)(@vitest/coverage-v8@4.1.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3))
@@ -547,6 +596,12 @@ importers:
       nock:
         specifier: 13.5.6
         version: 13.5.6
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
+      vite:
+        specifier: 8.0.14
+        version: 8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3)
       vitest:
         specifier: 4.1.7
         version: 4.1.7(@types/node@24.12.0)(@vitest/coverage-v8@4.1.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3))
@@ -578,9 +633,15 @@ importers:
       customprefix-auth:
         specifier: workspace:4.0.0-next-9.1
         version: link:../tools/verdaccio-prefix-fake-plugin
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
       verdaccio-auth-fake-plugin:
         specifier: workspace:1.0.0-next-9.0
         version: link:../tools/verdaccio-auth-fake-plugin
+      vite:
+        specifier: 8.0.14
+        version: 8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3)
       vitest:
         specifier: 4.1.7
         version: 4.1.7(@types/node@24.12.0)(@vitest/coverage-v8@4.1.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3))
@@ -615,6 +676,15 @@ importers:
       '@verdaccio/types':
         specifier: workspace:14.0.0-next-9.9
         version: link:../core/types
+      cross-env:
+        specifier: 10.1.0
+        version: 10.1.0
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
+      vite:
+        specifier: 8.0.14
+        version: 8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3)
       vitest:
         specifier: 4.1.7
         version: 4.1.7(@types/node@24.12.0)(@vitest/coverage-v8@4.1.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3))
@@ -658,9 +728,15 @@ importers:
       http-errors:
         specifier: 2.0.1
         version: 2.0.1
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
       supertest:
         specifier: 7.1.4
         version: 7.1.4
+      vite:
+        specifier: 8.0.14
+        version: 8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3)
       vitest:
         specifier: 4.1.7
         version: 4.1.7(@types/node@24.12.0)(@vitest/coverage-v8@4.1.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3))
@@ -683,12 +759,12 @@ importers:
       '@types/lodash-es':
         specifier: 4.17.12
         version: 4.17.12
-      '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.9
-        version: link:../core/types
-      supertest:
-        specifier: 7.1.4
-        version: 7.1.4
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
+      vite:
+        specifier: 8.0.14
+        version: 8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3)
       vitest:
         specifier: 4.1.7
         version: 4.1.7(@types/node@24.12.0)(@vitest/coverage-v8@4.1.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3))
@@ -726,9 +802,15 @@ importers:
       nock:
         specifier: 13.5.6
         version: 13.5.6
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
       supertest:
         specifier: 7.1.4
         version: 7.1.4
+      vite:
+        specifier: 8.0.14
+        version: 8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3)
       vitest:
         specifier: 4.1.7
         version: 4.1.7(@types/node@24.12.0)(@vitest/coverage-v8@4.1.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3))
@@ -754,6 +836,15 @@ importers:
       '@verdaccio/types':
         specifier: workspace:14.0.0-next-9.9
         version: link:../../core/types
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
+      vite:
+        specifier: 8.0.14
+        version: 8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3)
+      vitest:
+        specifier: 4.1.7
+        version: 4.1.7(@types/node@24.12.0)(@vitest/coverage-v8@4.1.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3))
 
   packages/plugins/htpasswd:
     dependencies:
@@ -779,9 +870,6 @@ importers:
         specifier: 1.1.4
         version: 1.1.4
     devDependencies:
-      '@types/bcryptjs':
-        specifier: 3.0.0
-        version: 3.0.0
       '@verdaccio/config':
         specifier: workspace:9.0.0-next-9.18
         version: link:../../config
@@ -794,6 +882,12 @@ importers:
       mockdate:
         specifier: 3.0.5
         version: 3.0.5
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
+      vite:
+        specifier: 8.0.14
+        version: 8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3)
       vitest:
         specifier: 4.1.7
         version: 4.1.7(@types/node@24.12.0)(@vitest/coverage-v8@4.1.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3))
@@ -831,6 +925,12 @@ importers:
       '@verdaccio/types':
         specifier: workspace:14.0.0-next-9.9
         version: link:../../core/types
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
+      vite:
+        specifier: 8.0.14
+        version: 8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3)
       vitest:
         specifier: 4.1.7
         version: 4.1.7(@types/node@24.12.0)(@vitest/coverage-v8@4.1.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3))
@@ -856,9 +956,15 @@ importers:
       '@verdaccio/plugin-verifier':
         specifier: workspace:1.0.0-next-9.14
         version: link:../../tools/plugin-verifier
-      '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.9
-        version: link:../../core/types
+      cross-env:
+        specifier: 10.1.0
+        version: 10.1.0
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
+      vite:
+        specifier: 8.0.14
+        version: 8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3)
       vitest:
         specifier: 4.1.7
         version: 4.1.7(@types/node@24.12.0)(@vitest/coverage-v8@4.1.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3))
@@ -890,6 +996,15 @@ importers:
       '@verdaccio/types':
         specifier: workspace:14.0.0-next-9.9
         version: link:../../core/types
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
+      vite:
+        specifier: 8.0.14
+        version: 8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3)
+      vitest:
+        specifier: 4.1.7
+        version: 4.1.7(@types/node@24.12.0)(@vitest/coverage-v8@4.1.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3))
 
   packages/plugins/ui-theme:
     dependencies:
@@ -909,9 +1024,6 @@ importers:
       '@testing-library/react':
         specifier: 16.3.2
         version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.9
-        version: link:../../core/types
       '@verdaccio/ui-components':
         specifier: workspace:5.0.0-next-9.14
         version: link:../../ui-components
@@ -924,6 +1036,9 @@ importers:
       country-flag-icons:
         specifier: 1.6.15
         version: 1.6.15
+      cross-env:
+        specifier: 10.1.0
+        version: 10.1.0
       dayjs:
         specifier: 1.11.20
         version: 1.11.20
@@ -1000,6 +1115,12 @@ importers:
       nock:
         specifier: 13.5.6
         version: 13.5.6
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
+      vite:
+        specifier: 8.0.14
+        version: 8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3)
       vitest:
         specifier: 4.1.7
         version: 4.1.7(@types/node@24.12.0)(@vitest/coverage-v8@4.1.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3))
@@ -1034,6 +1155,12 @@ importers:
       nock:
         specifier: 13.5.6
         version: 13.5.6
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
+      vite:
+        specifier: 8.0.14
+        version: 8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3)
       vitest:
         specifier: 4.1.7
         version: 4.1.7(@types/node@24.12.0)(@vitest/coverage-v8@4.1.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3))
@@ -1050,6 +1177,12 @@ importers:
       '@verdaccio/types':
         specifier: workspace:14.0.0-next-9.9
         version: link:../core/types
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
+      vite:
+        specifier: 8.0.14
+        version: 8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3)
       vitest:
         specifier: 4.1.7
         version: 4.1.7(@types/node@24.12.0)(@vitest/coverage-v8@4.1.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3))
@@ -1108,9 +1241,15 @@ importers:
       '@verdaccio/types':
         specifier: workspace:14.0.0-next-9.9
         version: link:../../core/types
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
       supertest:
         specifier: 7.1.4
         version: 7.1.4
+      vite:
+        specifier: 8.0.14
+        version: 8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3)
       vitest:
         specifier: 4.1.7
         version: 4.1.7(@types/node@24.12.0)(@vitest/coverage-v8@4.1.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3))
@@ -1133,6 +1272,12 @@ importers:
       '@verdaccio/types':
         specifier: workspace:14.0.0-next-9.9
         version: link:../core/types
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
+      vite:
+        specifier: 8.0.14
+        version: 8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3)
       vitest:
         specifier: 4.1.7
         version: 4.1.7(@types/node@24.12.0)(@vitest/coverage-v8@4.1.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3))
@@ -1194,6 +1339,12 @@ importers:
       node-mocks-http:
         specifier: 1.14.1
         version: 1.14.1
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
+      vite:
+        specifier: 8.0.14
+        version: 8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3)
       vitest:
         specifier: 4.1.7
         version: 4.1.7(@types/node@24.12.0)(@vitest/coverage-v8@4.1.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3))
@@ -1228,6 +1379,12 @@ importers:
       '@verdaccio/types':
         specifier: workspace:14.0.0-next-9.9
         version: link:../../core/types
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
+      vite:
+        specifier: 8.0.14
+        version: 8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3)
       vitest:
         specifier: 4.1.7
         version: 4.1.7(@types/node@24.12.0)(@vitest/coverage-v8@4.1.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3))
@@ -1240,11 +1397,8 @@ importers:
       '@verdaccio/core':
         specifier: workspace:9.0.0-next-9.18
         version: link:../../core/core
-      '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.9
-        version: link:../../core/types
       tsx:
-        specifier: ^4.21.0
+        specifier: 4.21.0
         version: 4.21.0
       verdaccio:
         specifier: workspace:9.0.0-next-9.18
@@ -1268,12 +1422,15 @@ importers:
         specifier: 4.4.3
         version: 4.4.3(supports-color@5.5.0)
     devDependencies:
-      '@verdaccio/config':
-        specifier: workspace:9.0.0-next-9.18
-        version: link:../../config
-      '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.9
-        version: link:../../core/types
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
+      vite:
+        specifier: 8.0.14
+        version: 8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3)
+      vite-plugin-dts:
+        specifier: 5.0.1
+        version: 5.0.1(esbuild@0.27.4)(rolldown@1.0.2)(typescript@5.9.3)(vite@8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3))
       vitest:
         specifier: 4.1.7
         version: 4.1.7(@types/node@24.12.0)(@vitest/coverage-v8@4.1.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3))
@@ -1304,9 +1461,6 @@ importers:
       '@mui/material':
         specifier: 7.3.9
         version: 7.3.9(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.6))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.6))(@types/react@19.2.14)(react@19.2.6))(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      '@mui/system':
-        specifier: 7.3.9
-        version: 7.3.9(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.6))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.6))(@types/react@19.2.14)(react@19.2.6))(@types/react@19.2.14)(react@19.2.6)
       '@verdaccio/ui-i18n':
         specifier: workspace:10.0.0-next-9.3
         version: link:../core/i18n
@@ -1410,6 +1564,9 @@ importers:
       '@vitejs/plugin-react':
         specifier: 6.0.1
         version: 6.0.1(vite@8.0.14(@types/node@24.10.13)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3))
+      cross-env:
+        specifier: 10.1.0
+        version: 10.1.0
       generate-github-markdown-css:
         specifier: 6.6.0
         version: 6.6.0
@@ -1428,6 +1585,9 @@ importers:
       mutationobserver-shim:
         specifier: 0.3.7
         version: 0.3.7
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
       storybook:
         specifier: 10.2.17
         version: 10.2.17(@testing-library/dom@10.4.1)(prettier@3.4.2)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
@@ -1446,12 +1606,6 @@ importers:
       '@verdaccio/cli':
         specifier: workspace:9.0.0-next-9.18
         version: link:../cli
-      '@verdaccio/hooks':
-        specifier: workspace:9.0.0-next-9.18
-        version: link:../hooks
-      '@verdaccio/logger':
-        specifier: workspace:9.0.0-next-9.18
-        version: link:../logger
       '@verdaccio/node-api':
         specifier: workspace:9.0.0-next-9.18
         version: link:../node-api
@@ -1464,15 +1618,22 @@ importers:
       '@verdaccio/ui-theme':
         specifier: workspace:9.0.0-next-9.18
         version: link:../plugins/ui-theme
-      debug:
-        specifier: 4.4.3
-        version: 4.4.3(supports-color@5.5.0)
       verdaccio-audit:
         specifier: workspace:14.0.0-next-9.18
         version: link:../plugins/audit
       verdaccio-htpasswd:
         specifier: workspace:14.0.0-next-9.18
         version: link:../plugins/htpasswd
+    devDependencies:
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
+      typedoc:
+        specifier: 0.28.14
+        version: 0.28.14(typescript@5.9.3)
+      vite:
+        specifier: 8.0.14
+        version: 8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3)
 
   packages/web:
     dependencies:
@@ -1531,9 +1692,15 @@ importers:
       nock:
         specifier: 13.5.6
         version: 13.5.6
+      rimraf:
+        specifier: 6.1.3
+        version: 6.1.3
       supertest:
         specifier: 7.1.4
         version: 7.1.4
+      vite:
+        specifier: 8.0.14
+        version: 8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3)
       vitest:
         specifier: 4.1.7
         version: 4.1.7(@types/node@24.12.0)(@vitest/coverage-v8@4.1.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.14(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(yaml@2.8.3))
@@ -2864,10 +3031,6 @@ packages:
   '@types/babel__traverse@7.28.0':
     resolution: {integrity: sha512-8PvcXf70gTDZBgt9ptxJ8elBeBjcLOAcOtoO/mPJjtji1+CdGbHgm77om1GrsPxsiE+uXIpNSK64UYaIwQXd4Q==}
 
-  '@types/bcryptjs@3.0.0':
-    resolution: {integrity: sha512-WRZOuCuaz8UcZZE4R5HXTco2goQSI2XxjGY3hbM/xDvwmqFWd4ivooImsMx65OKM6CtNKbnZ5YL+YwAwK7c1dg==}
-    deprecated: This is a stub types definition. bcryptjs provides its own type definitions, so you do not need this installed.
-
   '@types/body-parser@1.19.6':
     resolution: {integrity: sha512-HLFeCYgz89uk22N5Qg3dvGvsv46B8GLvKKo1zKG4NybA8U2DiEO3w9lqGg29t/tfLRJpJ6iQxnVw4OnB7MoM9g==}
 
@@ -2948,10 +3111,6 @@ packages:
 
   '@types/methods@1.1.4':
     resolution: {integrity: sha512-ymXWVrDiCxTBE3+RIrrP533E70eA+9qu7zdWoHuOmGujkYtzf4HQF96b8nwHLqhuf4ykX61IGRIB38CC6/sImQ==}
-
-  '@types/minimatch@6.0.0':
-    resolution: {integrity: sha512-zmPitbQ8+6zNutpwgcQuLcsEpn/Cj54Kbn7L5pX0Os5kdWplB7xPgEh/g+SWOB/qmows2gpuCaPyduq8ZZRnxA==}
-    deprecated: This is a stub types definition. minimatch provides its own type definitions, so you do not need this installed.
 
   '@types/ms@2.1.0':
     resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
@@ -8606,10 +8765,6 @@ snapshots:
     dependencies:
       '@babel/types': 7.28.4
 
-  '@types/bcryptjs@3.0.0':
-    dependencies:
-      bcryptjs: 3.0.3
-
   '@types/body-parser@1.19.6':
     dependencies:
       '@types/connect': 3.4.38
@@ -8707,10 +8862,6 @@ snapshots:
   '@types/mdx@2.0.13': {}
 
   '@types/methods@1.1.4': {}
-
-  '@types/minimatch@6.0.0':
-    dependencies:
-      minimatch: 9.0.7
 
   '@types/ms@2.1.0': {}
 

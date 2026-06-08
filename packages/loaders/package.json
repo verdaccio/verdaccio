@@ -25,10 +25,11 @@
     "@types/lodash-es": "4.17.12",
     "@verdaccio-scope/verdaccio-fake-plugin": "workspace:1.0.0-next-9.0",
     "@verdaccio/config": "workspace:9.0.0-next-9.18",
-    "@verdaccio/core": "workspace:9.0.0-next-9.18",
     "@verdaccio/logger": "workspace:9.0.0-next-9.18",
     "customprefix-auth": "workspace:4.0.0-next-9.1",
+    "rimraf": "6.1.3",
     "verdaccio-auth-fake-plugin": "workspace:1.0.0-next-9.0",
+    "vite": "8.0.14",
     "vitest": "4.1.7"
   },
   "homepage": "https://verdaccio.org",

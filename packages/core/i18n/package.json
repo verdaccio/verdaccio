@@ -54,5 +54,9 @@
     "type": "opencollective",
     "url": "https://opencollective.com/verdaccio"
   },
+  "devDependencies": {
+    "rimraf": "6.1.3",
+    "vite": "8.0.14"
+  },
   "module": "./build/index.mjs"
 }
