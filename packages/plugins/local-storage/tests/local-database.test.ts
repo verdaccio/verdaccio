@@ -139,6 +139,20 @@ describe('Local Database', () => {
       );
     });
 
+    test('should get scoped package storage', () => {
+      const pkgName = '@scope/foo';
+      const storage = locaDatabase.getPackageStorage(pkgName);
+      expect(storage).toBeDefined();
+
+      const storagePath = path
+        .normalize((storage as ILocalFSPackageManager).path)
+        .toLowerCase()
+        .replace(/\\/g, '/');
+      expect(storagePath).toMatch(
+        new RegExp(`\/verdaccio-${TEMP_FOLDER}-.*\/${STORAGE_FOLDER}\/@scope\/foo`)
+      );
+    });
+
     test('should use custom storage', () => {
       const pkgName = 'local-private-package';
       const storage = locaDatabase.getPackageStorage(pkgName);
