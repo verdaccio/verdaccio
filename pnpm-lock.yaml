@@ -114,8 +114,8 @@ importers:
         specifier: 13.15.10
         version: 13.15.10
       '@verdaccio/e2e-cli':
-        specifier: 2.9.0
-        version: 2.9.0
+        specifier: 2.10.1
+        version: 2.10.1
       '@verdaccio/e2e-ui':
         specifier: 2.4.1
         version: 2.4.1(cypress@15.10.0)
@@ -3375,8 +3375,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@verdaccio/e2e-cli@2.9.0':
-    resolution: {integrity: sha512-rPw+fjQfFFNrgZWBVlyGbbjHnBULoX0HNPchviCqzLeSyS84fhwzfubMbCGV6D84fBaPLBLnpXdMT8fcorJhLA==}
+  '@verdaccio/e2e-cli@2.10.1':
+    resolution: {integrity: sha512-rvbKSp2dpSR6cK9lxTsCzfRocz77SesL1Mu5AI9EZ1BsbuZGwkqTyl5BRWZ5fUVhd4ABkD7WdAAIYLNuT5B1NQ==}
     hasBin: true
 
   '@verdaccio/e2e-ui@2.4.1':
@@ -5125,10 +5125,6 @@ packages:
 
   js-yaml@3.14.2:
     resolution: {integrity: sha512-PMSmkqxr106Xa156c2M265Z+FTrPl+oxd/rgOQy2tijQeK5TxQ43psO1ZCwhVOSdnn+RzkzlRz/eY4BgJBYVpg==}
-    hasBin: true
-
-  js-yaml@4.1.0:
-    resolution: {integrity: sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==}
     hasBin: true
 
   js-yaml@4.1.1:
@@ -9119,12 +9115,12 @@ snapshots:
   '@unrs/resolver-binding-win32-x64-msvc@1.11.1':
     optional: true
 
-  '@verdaccio/e2e-cli@2.9.0':
+  '@verdaccio/e2e-cli@2.10.1':
     dependencies:
       '@verdaccio/registry-cli': 1.1.0
       debug: 4.4.0
       get-port: 5.1.1
-      js-yaml: 4.1.0
+      js-yaml: 4.1.1
     transitivePeerDependencies:
       - supports-color
 
@@ -11020,10 +11016,6 @@ snapshots:
     dependencies:
       argparse: 1.0.10
       esprima: 4.0.1
-
-  js-yaml@4.1.0:
-    dependencies:
-      argparse: 2.0.1
 
   js-yaml@4.1.1:
     dependencies:
