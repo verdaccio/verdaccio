@@ -1,4 +1,4 @@
-import { Manifest } from '@verdaccio/types';
+import type { Manifest } from '@verdaccio/types';
 
 /**
  * Check whether the package metadata has enough data to be published
