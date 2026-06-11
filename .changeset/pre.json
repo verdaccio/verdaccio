@@ -4,5 +4,7 @@
   "initialVersions": {
     "verdaccio": "7.0.0-next-7.20"
   },
-  "changesets": []
+  "changesets": [
+    "adopt-verdaccio-server"
+  ]
 }
