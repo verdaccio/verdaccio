@@ -12,7 +12,7 @@ notify:
   method: POST
   headers: { 'Content-Type': 'application/json' }
   endpoint: http://slack-service/foo?auth_token=mySecretToken
-  content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
+  content: '{"color":"green","message":"New package published: * {{ name }}*","publishedPackage":"{{ publishedPackage }}","publishType":"{{ publishType }}","notify":true,"message_format":"text"}'
 
 uplinks:
 

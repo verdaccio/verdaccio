@@ -233,6 +233,17 @@ describe('publish', () => {
     const notifyDomain = 'http://slack-service';
     const notifyPath = '/foo?auth_token=mySecretToken';
 
+    // notifications are fired in a non-blocking way (the publish/unpublish
+    // response does not wait for them), so the assertion cannot rely on the
+    // request having completed by the time the HTTP response resolves. Poll the
+    // nock scope until the interceptor has been consumed (or time out).
+    const waitForScopeDone = async (scope: nock.Scope, timeout = 3000): Promise<void> => {
+      const start = Date.now();
+      while (!scope.isDone() && Date.now() - start < timeout) {
+        await new Promise((resolve) => setTimeout(resolve, 10));
+      }
+    };
+
     beforeEach(() => {
       nock.cleanAll();
     });
@@ -245,6 +256,8 @@ describe('publish', () => {
             expect(body).toEqual({
               color: 'green',
               message: `New package published: * ${pkgName}*`,
+              publishedPackage: `${pkgName}@1.0.0`,
+              publishType: 'publish',
               message_format: 'text',
               notify: true,
             });
@@ -254,6 +267,7 @@ describe('publish', () => {
 
         const app = await initializeServer('publish-notify.yaml');
         await publishVersion(app, pkgName, '1.0.0').expect(HTTP_STATUS.CREATED);
+        await waitForScopeDone(notifyScope);
         expect(notifyScope.isDone()).toBe(true);
       }
     );
@@ -270,6 +284,8 @@ describe('publish', () => {
             expect(body).toEqual({
               color: 'green',
               message: `New package published: * ${pkgName}*`,
+              publishedPackage: pkgName,
+              publishType: 'unpublish',
               message_format: 'text',
               notify: true,
             });
@@ -282,6 +298,7 @@ describe('publish', () => {
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
           .expect(HTTP_STATUS.CREATED);
 
+        await waitForScopeDone(notifyScope);
         expect(notifyScope.isDone()).toBe(true);
       }
     );
@@ -298,6 +315,8 @@ describe('publish', () => {
             expect(body).toEqual({
               color: 'green',
               message: `New package published: * ${pkgName}*`,
+              publishedPackage: `${pkgName}@1.0.0`,
+              publishType: 'unpublish',
               message_format: 'text',
               notify: true,
             });
@@ -310,6 +329,7 @@ describe('publish', () => {
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
           .expect(HTTP_STATUS.CREATED);
 
+        await waitForScopeDone(notifyScope);
         expect(notifyScope.isDone()).toBe(true);
       }
     );

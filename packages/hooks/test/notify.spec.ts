@@ -287,6 +287,45 @@ describe('Notifications', () => {
     expect(notificationResponse).toEqual([true]);
   });
 
+  test('does not leak the remote user auth token to the notification endpoint', async () => {
+    nock(domain)
+      .post(options.path, (body) => {
+        // token must be empty (the field is not exposed on the publisher object)
+        expect(body).toEqual({ name: 'foo', token: '', group: 'rg1' });
+        return true;
+      })
+      .reply(200);
+
+    const config = {
+      notify: {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        endpoint: `${domain}${options.path}`,
+        content:
+          '{"name":"{{publisher.name}}","token":"{{publisher.token.key}}","group":"{{publisher.real_groups.[0]}}"}',
+      },
+    };
+
+    const remoteUser = {
+      name: 'foo',
+      groups: ['g1'],
+      real_groups: ['rg1'],
+      token: { key: 'super-secret' },
+    };
+
+    const notificationResponse = await notify(
+      generatePackageMetadata('bar', '1.0.0'),
+      // @ts-expect-error notify expects Config but we are testing partial config
+      config,
+      // @ts-expect-error verifying the token field is never forwarded
+      remoteUser,
+      'bar',
+      'publish'
+    );
+
+    expect(notificationResponse).toEqual([true]);
+  });
+
   test('when notification endpoint is missing', async () => {
     nock(domain).post(options.path).reply(200);
     const config: Partial<Config> = {

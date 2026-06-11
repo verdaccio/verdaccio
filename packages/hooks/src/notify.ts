@@ -58,7 +58,16 @@ export async function handleNotify(
   const publishMetadata = {
     ...metadata,
     ...(typeof metadata.publisher === 'undefined' || metadata.publisher === null
-      ? { publisher: { ...remoteUser } }
+      ? {
+          // only expose the documented publisher fields, never the full remote
+          // user object (it may carry the auth token, which must not leak to the
+          // notification endpoint)
+          publisher: {
+            name: remoteUser.name,
+            groups: remoteUser.groups,
+            real_groups: remoteUser.real_groups,
+          },
+        }
       : {}),
     publishedPackage,
     publishType,

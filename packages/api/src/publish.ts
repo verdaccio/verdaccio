@@ -218,18 +218,17 @@ export default function publish(
         );
 
         // send notification of version removal
+        // getVersionFromTarball returns undefined when the filename is not parseable;
+        // fall back to the package name so we never report `name@undefined`
         const version = tarballUtils.getVersionFromTarball(filename);
         const metadata: Partial<Manifest> = { name: packageName, version, _rev: revision };
+        const publishedPackage = version ? `${packageName}@${version}` : packageName;
 
-        void notify(
-          metadata,
-          config,
-          req.remote_user,
-          `${packageName}@${version}`,
-          'unpublish'
-        ).catch((error: any) => {
-          logger.error({ error: error?.message }, 'notify batch service has failed: @{error}');
-        });
+        void notify(metadata, config, req.remote_user, publishedPackage, 'unpublish').catch(
+          (error: any) => {
+            logger.error({ error: error?.message }, 'notify batch service has failed: @{error}');
+          }
+        );
 
         return next({ ok: API_MESSAGE.TARBALL_REMOVED });
       } catch (err) {
@@ -277,11 +276,14 @@ export function publishPackage(
       res.status(HTTP_STATUS.CREATED);
 
       // send notification of publication (notification step, non transactional)
+      // a publish body is a packument; the published version is the single entry
+      // under `versions` (see storage.updateManifest), not a top-level field
+      const [version] = Object.keys(metadata.versions ?? {});
       void notify(
         metadata,
         config,
         req.remote_user,
-        `${metadata.name}@${metadata.version}`,
+        `${metadata.name}@${version}`,
         'publish'
       ).catch((error: any) => {
         logger.error({ error: error?.message }, 'notify batch service has failed: @{error}');
