@@ -41,7 +41,7 @@ const debug = buildDebug('verdaccio:server');
 const currentDir = typeof __dirname !== 'undefined' ? __dirname : import.meta.dirname;
 const { version } = pkgUtils.getPackageJson(currentDir, '..');
 
-const defineAPI = async function (config: IConfig, storage: Storage): Promise<Express> {
+export const defineAPI = async function (config: IConfig, storage: Storage): Promise<Express> {
   const auth = new Auth(config, logger);
   await auth.init();
   const app = express();
