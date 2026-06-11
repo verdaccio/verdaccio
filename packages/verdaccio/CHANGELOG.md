@@ -1,5 +1,20 @@
 # verdaccio
 
+## 9.0.0-next-9.19
+
+### Patch Changes
+
+- 47f122f: chore(deps): clean-up unused and duplicates
+- Updated dependencies [41e3cd8]
+- Updated dependencies [47f122f]
+  - @verdaccio/server@9.0.0-next-9.19
+  - @verdaccio/cli@9.0.0-next-9.19
+  - @verdaccio/package-filter@14.0.0-next-9.43
+  - verdaccio-htpasswd@14.0.0-next-9.19
+  - @verdaccio/ui-theme@9.0.0-next-9.19
+  - verdaccio-audit@14.0.0-next-9.19
+  - @verdaccio/node-api@9.0.0-next-9.19
+
 ## 9.0.0-next-9.18
 
 ### Patch Changes

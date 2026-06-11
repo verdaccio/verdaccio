@@ -1,5 +1,25 @@
 # @verdaccio/middleware
 
+## 9.0.0-next-9.19
+
+### Major Changes
+
+- 5215c94: Remove star/unstar support
+
+  The `npm star`/`npm unstar` feature has been removed. This drops the
+  `/-/_view/starredByUser` listing endpoint, the metadata-based star/unstar
+  handling in the publish flow (`storage.star()` and the `users` payload
+  branch in `updateManifest`), the `StarManifestBody` type, and the
+  `STARS_API_ENDPOINTS` middleware constant.
+
+### Patch Changes
+
+- 47f122f: chore(deps): clean-up unused and duplicates
+- Updated dependencies [47f122f]
+  - @verdaccio/core@9.0.0-next-9.19
+  - @verdaccio/url@14.0.0-next-9.19
+  - @verdaccio/config@9.0.0-next-9.19
+
 ## 9.0.0-next-9.18
 
 ### Patch Changes

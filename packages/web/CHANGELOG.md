@@ -1,5 +1,22 @@
 # @verdaccio/web
 
+## 9.0.0-next-9.19
+
+### Patch Changes
+
+- 47f122f: chore(deps): clean-up unused and duplicates
+- Updated dependencies [47f122f]
+- Updated dependencies [5215c94]
+  - @verdaccio/ui-theme@9.0.0-next-9.19
+  - @verdaccio/tarball@14.0.0-next-9.19
+  - @verdaccio/middleware@9.0.0-next-9.19
+  - @verdaccio/core@9.0.0-next-9.19
+  - @verdaccio/loaders@9.0.0-next-9.19
+  - @verdaccio/config@9.0.0-next-9.19
+  - @verdaccio/logger@9.0.0-next-9.19
+  - @verdaccio/store@9.0.0-next-9.19
+  - @verdaccio/auth@9.0.0-next-9.19
+
 ## 9.0.0-next-9.18
 
 ### Patch Changes
