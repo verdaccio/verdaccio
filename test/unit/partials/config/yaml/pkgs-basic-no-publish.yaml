@@ -1,7 +1,0 @@
-packages:
-  '@*/*':
-    access: $all
-    proxy: npmjs
-  '**':
-    access: $all
-    proxy: npmjs

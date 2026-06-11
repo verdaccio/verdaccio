@@ -2,14 +2,19 @@ import createDebug from 'debug';
 import request from 'supertest';
 import { expect } from 'vitest';
 
-import { cryptoUtils } from '@verdaccio/core';
+import { authUtils, cryptoUtils } from '@verdaccio/core';
 import type { Manifest } from '@verdaccio/types';
 
 import { HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '../../../src/lib/constants';
-import { buildToken, encodeScopedUri } from '../../../src/lib/utils';
 import { getTaggedVersionFromPackage } from './expects';
 
 const debug = createDebug('verdaccio:test:unit:api');
+
+const buildToken = authUtils.buildToken;
+
+function encodeScopedUri(packageName: string): string {
+  return packageName.replace(/\//g, '%2f');
+}
 
 // API Helpers
 

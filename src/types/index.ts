@@ -45,7 +45,6 @@ export interface Utils {
   isObject: (value: any) => boolean;
   validate_name: (value: any) => boolean;
   tag_version: (value: any, version: string, tag: string) => void;
-  normalizeDistTags: (pkg: Manifest) => void;
   semverSort: (keys: string[]) => string[];
 }
 

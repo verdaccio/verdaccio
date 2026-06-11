@@ -2,7 +2,6 @@ import { readFileSync, readdirSync, statSync } from 'fs';
 import { join, resolve } from 'path';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
-import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 const pkg = JSON.parse(readFileSync('./package.json', 'utf-8'));
 
@@ -35,15 +34,7 @@ const preserveModules = {
 };
 
 export default defineConfig({
-  plugins: [
-    dts({ outDir: 'build', tsconfigPath: './tsconfig.json' }),
-    viteStaticCopy({
-      targets: [
-        { src: 'src/api/web/html/*.ico', dest: 'esm/api/web/html', rename: { stripBase: true } },
-        { src: 'src/api/web/html/*.ico', dest: 'cjs/api/web/html', rename: { stripBase: true } },
-      ],
-    }),
-  ],
+  plugins: [dts({ outDir: 'build', tsconfigPath: './tsconfig.json' })],
   build: {
     target: 'node24',
     outDir: 'build',
