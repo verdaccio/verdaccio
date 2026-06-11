@@ -11,7 +11,6 @@ import {
   getRequestOptions,
   media,
 } from '@verdaccio/middleware';
-// import star from './star';
 import type { Storage } from '@verdaccio/store';
 import type { Config, Logger, Manifest } from '@verdaccio/types';
 
@@ -20,7 +19,7 @@ import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types
 const debug = buildDebug('verdaccio:api:publish');
 
 /**
-   * Publish a package / update package / un/start a package
+   * Publish a package / update package
    *
    * There are multiples scenarios here to be considered:
    *
@@ -79,27 +78,9 @@ const debug = buildDebug('verdaccio:api:publish');
    * Remove the tarball
    * npm http fetch DELETE 201 http://localhost:4873/custom-name/-/test1-1.0.3.tgz/-rev/16-e11c8db282b2d992 19ms
    *
-   * 3. Star a package
+   * 3. Change owners of a package
    *
-   * Permissions: staring a package depends of the publish and unpublish permissions, there is no
-   * specific flag for star or unstar.
-   * The URL for star is similar to the unpublish (change package format)
-   *
-   * npm has no endpoint for staring a package, rather mutate the metadata and acts as, the difference
-   * is the users property which is part of the payload and the body only includes
-   *
-   * {
-      "_id": pkgName,
-      "_rev": "3-b0cdaefc9bdb77c8",
-      "users": {
-        [username]: boolean value (true, false)
-      }
-     }
-   *
-   * 4. Change owners of a package
-   *
-   * Similar to staring a package, changing owners (maintainers) of a package uses the publish
-   * endpoint.
+   * Changing owners (maintainers) of a package uses the publish endpoint.
    *
    * The body includes a list of the new owners with the following format
    *
