@@ -1,8 +1,8 @@
 {
   "mode": "pre",
-  "tag": "beta",
+  "tag": "next-7",
   "initialVersions": {
-    "verdaccio": "7.0.0-beta.6"
+    "verdaccio": "7.0.0-next-7.20"
   },
-  "changesets": ["adopt-verdaccio-server"]
+  "changesets": []
 }

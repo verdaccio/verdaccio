@@ -1,4 +1,5 @@
 .cache/
+.changeset/pre.json
 **/corrupted-package/package.json
 **/corrupted.json
 **/invalid.js
