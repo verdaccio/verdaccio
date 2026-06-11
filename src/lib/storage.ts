@@ -17,7 +17,8 @@ const LocalDatabase = (LocalDatabaseModule as any).default || LocalDatabaseModul
 
 // `storageSanityCheck` only verifies `getPackageStorage` exists, which both the
 // legacy and promise contracts satisfy.
-const storageSanityCheck = (plugin: any): boolean => typeof plugin?.getPackageStorage !== 'undefined';
+const storageSanityCheck = (plugin: any): boolean =>
+  typeof plugin?.getPackageStorage !== 'undefined';
 
 /**
  * Drop-in replacement for `@verdaccio/store`'s internal `LocalStorage` that

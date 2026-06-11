@@ -13,8 +13,8 @@ import {
 } from '@verdaccio/core';
 import { generatePackageMetadata } from '@verdaccio/test-helper';
 
-import { endPointAPI } from '../../../../src/lib/run-server';
 import { setup } from '../../../../src/lib/logger';
+import { endPointAPI } from '../../../../src/lib/run-server';
 import { addUser, getNewToken } from '../../__helper/api';
 import { mockServer } from '../../__helper/mock';
 import configDefault from '../../partials/config';

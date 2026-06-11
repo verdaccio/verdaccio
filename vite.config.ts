@@ -34,9 +34,7 @@ const preserveModules = {
 };
 
 export default defineConfig({
-  plugins: [
-    dts({ outDir: 'build', tsconfigPath: './tsconfig.json' }),
-  ],
+  plugins: [dts({ outDir: 'build', tsconfigPath: './tsconfig.json' })],
   build: {
     target: 'node24',
     outDir: 'build',

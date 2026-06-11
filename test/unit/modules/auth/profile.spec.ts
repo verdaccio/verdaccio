@@ -5,9 +5,9 @@ import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest';
 import { parseConfigFile } from '@verdaccio/config';
 import { fileUtils } from '@verdaccio/core';
 
-import { endPointAPI } from '../../../../src/lib/run-server';
 import { API_ERROR, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../src/lib/constants';
 import { setup } from '../../../../src/lib/logger';
+import { endPointAPI } from '../../../../src/lib/run-server';
 import { parseConfigurationFile } from '../../__helper';
 import { getNewToken, getProfile, postProfile } from '../../__helper/api';
 import { mockServer } from '../../__helper/mock';

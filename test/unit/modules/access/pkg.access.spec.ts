@@ -4,9 +4,9 @@ import { afterAll, beforeAll, describe, test, vi } from 'vitest';
 
 import { fileUtils } from '@verdaccio/core';
 
-import { endPointAPI } from '../../../../src/lib/run-server';
 import { HEADERS, HTTP_STATUS } from '../../../../src/lib/constants';
 import { setup } from '../../../../src/lib/logger';
+import { endPointAPI } from '../../../../src/lib/run-server';
 import { mockServer } from '../../__helper/mock';
 import configDefault from '../../partials/config';
 
