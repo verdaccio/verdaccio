@@ -52,7 +52,7 @@ describe('UpStorage', () => {
   });
 
   afterAll(function () {
-    mockRegistry[0].stop();
+    mockRegistry?.[0]?.stop();
   });
 
   test('should be defined', () => {

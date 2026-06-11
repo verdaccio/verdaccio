@@ -1,13 +1,14 @@
 import assert from 'assert';
 
+import { authUtils } from '@verdaccio/core';
+
 import { API_MESSAGE, HEADERS, HTTP_STATUS, TOKEN_BASIC } from '../../src/lib/constants';
-import { buildToken } from '../../src/lib/utils';
 import { IServerBridge } from '../types';
 import { CREDENTIALS } from './credentials';
 import smartRequest from './request';
 
 const buildAuthHeader = (user, pass): string => {
-  return buildToken(TOKEN_BASIC, Buffer.from(`${user}:${pass}`).toString('base64'));
+  return authUtils.buildToken(TOKEN_BASIC, Buffer.from(`${user}:${pass}`).toString('base64'));
 };
 
 function getPackage(

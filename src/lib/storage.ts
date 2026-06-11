@@ -1,740 +1,129 @@
-import assert from 'assert';
-import async, { AsyncResultArrayCallback } from 'async';
 import buildDebug from 'debug';
-import * as _ from 'lodash-es';
-import Stream from 'stream';
+import { head, isNil } from 'lodash-es';
+import assert from 'node:assert';
 
-import { hasProxyTo } from '@verdaccio/config';
-import { PLUGIN_CATEGORY, pluginUtils, validationUtils } from '@verdaccio/core';
+import { PLUGIN_CATEGORY, PLUGIN_PREFIX, errorUtils } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
-import LocalDatabasePluginModule from '@verdaccio/local-storage-legacy';
-import { ProxyStorage } from '@verdaccio/proxy';
-import type { IProxy } from '@verdaccio/proxy';
-import { SearchMemoryIndexer } from '@verdaccio/search-indexer';
-import { ReadTarball } from '@verdaccio/streams';
-import {
-  Callback,
-  Config,
-  DistFile,
-  Logger,
-  Manifest,
-  MergeTags,
-  Package,
-  Version,
-} from '@verdaccio/types';
-import { GenericBody, Token, TokenFilter } from '@verdaccio/types';
+import LocalDatabaseModule from '@verdaccio/local-storage';
+import { Storage as BaseStorage } from '@verdaccio/store';
+import { Config, Logger } from '@verdaccio/types';
 
-import { StoragePluginLegacy } from '../../types/custom';
-import { logger } from '../lib/logger';
-import { IPluginFilters, ISyncUplinks, StringValue } from '../types';
-import { API_ERROR, DIST_TAGS, HTTP_STATUS } from './constants';
-import LocalStorage, { StoragePlugin } from './local-storage';
-import { mergeVersions } from './metadata-utils';
-import {
-  checkPackageLocal,
-  checkPackageRemote,
-  cleanUpLinksRef,
-  convertAbbreviatedManifest,
-  generatePackageTemplate,
-  mergeUplinkTimeIntoLocal,
-  publishPackage,
-} from './storage-utils';
-import { setupUpLinks, updateVersionsHiddenUpLinkNext } from './uplink-util';
-import { ErrorCode, isObject, normalizeDistTags } from './utils';
-
-// Handle CJS/ESM interop: the module may expose the class as .default or directly
-const LocalDatabasePlugin = (LocalDatabasePluginModule as any).default || LocalDatabasePluginModule;
+import { isLegacyStoragePlugin, wrapLegacyStoragePlugin } from './legacy-storage-adapter';
 
 const debug = buildDebug('verdaccio:storage');
 
-class Storage {
-  public localStorage: LocalStorage;
-  public config: Config;
-  public logger: Logger;
-  public uplinks: Record<string, IProxy>;
-  public filters: IPluginFilters | undefined;
+// CJS/ESM interop for the default storage plugin
+const LocalDatabase = (LocalDatabaseModule as any).default || LocalDatabaseModule;
 
-  public constructor(config: Config) {
+// `storageSanityCheck` only verifies `getPackageStorage` exists, which both the
+// legacy and promise contracts satisfy.
+const storageSanityCheck = (plugin: any): boolean => typeof plugin?.getPackageStorage !== 'undefined';
+
+/**
+ * Drop-in replacement for `@verdaccio/store`'s internal `LocalStorage` that
+ * loads the configured storage plugin exactly like upstream, but wraps a
+ * legacy callback-based plugin in a promisifying adapter so it satisfies the
+ * promise contract the rest of `@verdaccio/store` relies on.
+ *
+ * `@verdaccio/store` only ever calls `init()`, `getSecret()` and
+ * `getStoragePlugin()` on this object, so that is the entire surface we mirror.
+ */
+class CompatLocalStorage {
+  public storagePlugin: any = null;
+  private readonly config: Config;
+  private readonly logger: Logger;
+
+  public constructor(config: Config, logger: Logger) {
     this.config = config;
-    this.uplinks = setupUpLinks(config, logger);
-    this.logger = logger;
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    this.localStorage = null;
+    this.logger = logger.child({ sub: 'fs' });
   }
 
-  public async init(config: Config, filters?: IPluginFilters): Promise<void> {
-    if (this.localStorage === null) {
-      this.filters = filters;
-      const storageInstance = await this.loadStorage(config, this.logger);
-      this.localStorage = new LocalStorage(this.config, logger, storageInstance);
-      await this.localStorage.getSecret(config);
-      debug('initialization completed');
+  public async init(): Promise<void> {
+    if (this.storagePlugin === null) {
+      const loaded = await this.loadStorage();
+      this.storagePlugin = isLegacyStoragePlugin(loaded)
+        ? wrapLegacyStoragePlugin(loaded, this.logger)
+        : loaded;
+      debug('storage plugin init');
+      await this.storagePlugin.init();
+      debug('storage plugin initialized');
     } else {
-      debug('storage has been already initialized');
-    }
-
-    if (!this.filters) {
-      this.filters = await asyncLoadPlugin<pluginUtils.ManifestFilter<unknown>>(
-        this.config.filters,
-        {
-          config: this.config,
-          logger: this.logger,
-        },
-        (plugin: pluginUtils.ManifestFilter<Config>) => {
-          return typeof plugin.filter_metadata !== 'undefined';
-        },
-        true,
-        this.config?.serverSettings?.pluginPrefix,
-        PLUGIN_CATEGORY.FILTER
-      );
-      debug('filters available %o', this.filters.length);
+      this.logger.warn('storage plugin has been already initialized');
     }
   }
 
-  private async loadStorage(config: Config, logger: Logger): Promise<StoragePlugin> {
+  public getStoragePlugin(): any {
+    if (this.storagePlugin === null) {
+      throw errorUtils.getInternalError('storage plugin is not initialized');
+    }
+    return this.storagePlugin;
+  }
+
+  public async getSecret(config: Config): Promise<void> {
+    const secretKey = await this.storagePlugin.getSecret();
+    return this.storagePlugin.setSecret(config.checkSecretKey(secretKey));
+  }
+
+  private async loadStorage(): Promise<any> {
     const Storage = await this.loadStorePlugin();
-    if (_.isNil(Storage)) {
+    if (isNil(Storage)) {
       assert(this.config.storage, 'CONFIG: storage path not defined');
       debug('no custom storage found, loading default storage @verdaccio/local-storage');
-      const localStorage = new LocalDatabasePlugin(config, logger);
-      logger.info(
+      const localStorage = new LocalDatabase(this.config, this.logger);
+      this.logger.info(
         { name: '@verdaccio/local-storage', pluginCategory: PLUGIN_CATEGORY.STORAGE },
         'plugin @{name} successfully loaded (@{pluginCategory})'
       );
       return localStorage;
     }
-    return Storage as StoragePlugin;
+    return Storage;
   }
 
-  private async loadStorePlugin(): Promise<StoragePluginLegacy<Config> | undefined> {
-    const plugins: StoragePluginLegacy<Config>[] = await asyncLoadPlugin<
-      pluginUtils.Storage<unknown>
-    >(
+  private async loadStorePlugin(): Promise<any> {
+    const plugins = await asyncLoadPlugin(
       this.config.store,
-      {
-        config: this.config,
-        logger: this.logger,
-      },
-      (plugin) => {
-        return typeof plugin.getPackageStorage !== 'undefined';
-      },
+      { config: this.config, logger: this.logger },
+      storageSanityCheck,
+      // legacyMergeConfigs: pass the full config as the plugin's first constructor
+      // arg, which legacy `(config, logger)` storage plugins require (matches the
+      // pre-migration 7.x behaviour; @verdaccio/store uses false and so cannot
+      // drive legacy plugins).
       true,
-      this.config?.serverSettings?.pluginPrefix,
+      this.config.server?.pluginPrefix ?? PLUGIN_PREFIX,
       PLUGIN_CATEGORY.STORAGE
     );
-
     if (plugins.length > 1) {
       this.logger.warn(
         'more than one storage plugins has been detected, multiple storage are not supported, one will be selected automatically'
       );
     }
-
-    return _.head(plugins);
+    return head(plugins);
   }
+}
 
-  /**
-   *  Add a {name} package to a system
-   Function checks if package with the same name is available from uplinks.
-   If it isn't, we create package locally
-   Used storages: local (write) && uplinks
-   */
-  public async addPackage(name: string, metadata: any, callback: any): Promise<void> {
-    try {
-      await checkPackageLocal(name, this.localStorage);
-      await checkPackageRemote(
-        name,
-        this._isAllowPublishOffline(),
-        this._syncUplinksMetadata.bind(this)
-      );
-      await publishPackage(name, metadata, this.localStorage);
-      callback();
-    } catch (err: any) {
-      callback(err);
+/**
+ * `@verdaccio/store` Storage, with one change: it loads the storage plugin
+ * through {@link CompatLocalStorage} so legacy callback plugins keep working.
+ *
+ * The base `init()` only creates its internal `LocalStorage` when
+ * `this.localStorage` is still null; by pre-populating it we reuse the entire
+ * rest of the upstream Storage implementation (including filter loading via
+ * `super.init`) unchanged.
+ */
+class Storage extends BaseStorage {
+  public async init(config: Config): Promise<void> {
+    if (this.localStorage === null) {
+      const localStorage = new CompatLocalStorage(this.config, this.logger);
+      await localStorage.init();
+      await localStorage.getSecret(config);
+      // structurally compatible with the (non-exported) upstream LocalStorage
+      this.localStorage = localStorage as any;
+      debug('compat local storage initialized');
     }
-  }
-
-  private _isAllowPublishOffline(): boolean {
-    return (
-      typeof this.config.publish !== 'undefined' &&
-      _.isBoolean(this.config.publish.allow_offline) &&
-      this.config.publish.allow_offline
-    );
-  }
-
-  public readTokens(filter: TokenFilter): Promise<Token[]> {
-    return this.localStorage.readTokens(filter);
-  }
-
-  public saveToken(token: Token): Promise<void> {
-    return this.localStorage.saveToken(token);
-  }
-
-  public deleteToken(user: string, tokenKey: string): Promise<any> {
-    return this.localStorage.deleteToken(user, tokenKey);
-  }
-
-  /**
-   * Add a new version of package {name} to a system
-   Used storages: local (write)
-   */
-  public addVersion(
-    name: string,
-    version: string,
-    metadata: Version,
-    tag: StringValue,
-    callback: Callback
-  ): void {
-    this.localStorage.addVersion(name, version, metadata, tag, callback);
-  }
-
-  /**
-   * Tags a package version with a provided tag
-   Used storages: local (write)
-   */
-  public mergeTags(name: string, tagHash: MergeTags, callback: Callback): void {
-    this.localStorage.mergeTags(name, tagHash, callback);
-  }
-
-  /**
-   * Change an existing package (i.e. unpublish one version)
-   Function changes a package info from local storage and all uplinks with write access./
-   Used storages: local (write)
-   */
-  public changePackage(
-    name: string,
-    metadata: Package,
-    revision: string,
-    callback: Callback
-  ): void {
-    this.localStorage.changePackage(name, metadata, revision, callback);
-  }
-
-  /**
-   * Remove a package from a system
-   Function removes a package from local storage
-   Used storages: local (write)
-   */
-  public removePackage(name: string, callback: Callback): void {
-    this.localStorage.removePackage(name, callback);
-    // update the indexer
-    SearchMemoryIndexer.remove(name).catch((reason) => {
-      debug('indexer has failed on remove item %o', reason);
-      logger.error('indexer has failed on remove item');
-    });
-  }
-
-  /**
-   Remove a tarball from a system
-   Function removes a tarball from local storage.
-   Tarball in question should not be linked to in any existing
-   versions, i.e. package version should be unpublished first.
-   Used storage: local (write)
-   */
-  public removeTarball(name: string, filename: string, revision: string, callback: Callback): void {
-    this.localStorage.removeTarball(name, filename, revision, callback);
-  }
-
-  /**
-   * Upload a tarball for {name} package
-   Function is synchronous and returns a WritableStream
-   Used storages: local (write)
-   */
-  public addTarball(name: string, filename: string) {
-    return this.localStorage.addTarball(name, filename);
-  }
-
-  public hasLocalTarball(name: string, filename: string): Promise<boolean> {
-    const self = this;
-    return new Promise<boolean>((resolve, reject): void => {
-      let localStream: any = self.localStorage.getTarball(name, filename);
-      let isOpen = false;
-      localStream.on('error', (err): any => {
-        if (isOpen || err.status !== HTTP_STATUS.NOT_FOUND) {
-          reject(err);
-        }
-        // local reported 404 or request was aborted already
-        if (localStream) {
-          localStream.abort();
-          localStream = null;
-        }
-        resolve(false);
-      });
-      localStream.on('open', function (): void {
-        isOpen = true;
-        localStream.abort();
-        localStream = null;
-        resolve(true);
-      });
-    });
-  }
-
-  /**
-   Get a tarball from a storage for {name} package
-   Function is synchronous and returns a ReadableStream
-   Function tries to read tarball locally, if it fails then it reads package
-   information in order to figure out where we can get this tarball from
-   Used storages: local || uplink (just one)
-   */
-  public getTarball(name: string, filename: string) {
-    const readStream = new ReadTarball({});
-    readStream.abort = function () {};
-
-    const self = this;
-
-    // if someone requesting tarball, it means that we should already have some
-    // information about it, so fetching package info is unnecessary
-
-    // trying local first
-    // flow: should be IReadTarball
-    let localStream: any = self.localStorage.getTarball(name, filename);
-    let isOpen = false;
-    localStream.on('error', (err): any => {
-      if (isOpen || err.status !== HTTP_STATUS.NOT_FOUND) {
-        return readStream.emit('error', err);
-      }
-
-      // local reported 404
-      const err404 = err;
-      localStream.abort();
-      localStream = null; // we force for garbage collector
-      self.localStorage.getPackageMetadata(name, (err, info: Package): void => {
-        if (_.isNil(err) && info._distfiles && _.isNil(info._distfiles[filename]) === false) {
-          // information about this file exists locally
-          serveFile(info._distfiles[filename]);
-        } else {
-          // we know nothing about this file, trying to get information elsewhere
-          self._syncUplinksMetadata(name, info, {}, (err, info: Package): any => {
-            if (_.isNil(err) === false) {
-              return readStream.emit('error', err);
-            }
-            if (_.isNil(info._distfiles) || _.isNil(info._distfiles[filename])) {
-              return readStream.emit('error', err404);
-            }
-            serveFile(info._distfiles[filename]);
-          });
-        }
-      });
-    });
-    localStream.on('content-length', function (v): void {
-      readStream.emit('content-length', v);
-    });
-    localStream.on('open', function (): void {
-      isOpen = true;
-      localStream.pipe(readStream);
-    });
-    return readStream;
-
-    /**
-     * Fetch and cache local/remote packages.
-     * @param {Object} file define the package shape
-     */
-    function serveFile(file: DistFile): void {
-      let uplink: any = null;
-
-      for (const uplinkId in self.uplinks) {
-        if (hasProxyTo(name, uplinkId, self.config.packages)) {
-          uplink = self.uplinks[uplinkId];
-        }
-      }
-
-      if (uplink == null) {
-        uplink = new ProxyStorage(
-          '_autogenerated',
-          {
-            url: file.url,
-            cache: true,
-            _autogenerated: true,
-          },
-          self.config,
-          self.logger
-        );
-      }
-
-      let savestream: any = null;
-      if (uplink.config.cache) {
-        savestream = self.localStorage.addTarball(name, filename);
-      }
-
-      let on_open = function (): void {
-        // prevent it from being called twice
-        on_open = function () {};
-        const rstream2 = uplink.fetchTarball(file.url, {});
-        rstream2.on('error', function (err): void {
-          if (savestream) {
-            savestream.abort();
-          }
-          savestream = null;
-          readStream.emit('error', err);
-        });
-        rstream2.on('end', function (): void {
-          if (savestream) {
-            savestream.done();
-          }
-        });
-
-        rstream2.on('response', function (res: any): void {
-          const contentLength = res.headers['content-length'];
-          if (contentLength) {
-            readStream.emit('content-length', contentLength);
-            if (savestream) {
-              savestream.emit('content-length', contentLength);
-            }
-          }
-        });
-        rstream2.pipe(readStream);
-        if (savestream) {
-          rstream2.pipe(savestream);
-        }
-      };
-
-      if (savestream) {
-        savestream.on('open', function (): void {
-          on_open();
-        });
-
-        savestream.on('error', function (err): void {
-          self.logger.warn(
-            { err: err, fileName: file },
-            'error saving file @{fileName}: @{err.message}\n@{err.stack}'
-          );
-          if (savestream) {
-            savestream.abort();
-          }
-          savestream = null;
-          on_open();
-        });
-      } else {
-        on_open();
-      }
-    }
-  }
-
-  /**
-   Retrieve a package metadata for {name} package
-   Function invokes localStorage.getPackage and uplink.get_package for every
-   uplink with proxy_access rights against {name} and combines results
-   into one json object
-   Used storages: local && uplink (proxy_access)
-
-   * @param {object} options
-   * @property {string} options.name Package Name
-   * @property {object}  options.req Express `req` object
-   * @property {boolean} options.keepUpLinkData keep up link info in package meta, last update, etc.
-   * @property {function} options.callback Callback for receive data
-   */
-  public getPackage(options): void {
-    this.localStorage.getPackageMetadata(options.name, (err, data): void => {
-      if (err && (!err.status || err.status >= HTTP_STATUS.INTERNAL_ERROR)) {
-        // report internal errors right away
-        return options.callback(err);
-      }
-
-      this._syncUplinksMetadata(
-        options.name,
-        data,
-        { req: options.req, uplinksLook: options.uplinksLook },
-        function getPackageSynUpLinksCallback(err, result: Package, uplinkErrors): void {
-          if (err) {
-            return options.callback(err);
-          }
-
-          normalizeDistTags(cleanUpLinksRef(options.keepUpLinkData, result));
-
-          // npm can throw if this field doesn't exist
-          result._attachments = {};
-          if (options.abbreviated === true) {
-            options.callback(null, convertAbbreviatedManifest(result), uplinkErrors);
-          } else {
-            options.callback(null, result, uplinkErrors);
-          }
-        }
-      );
-    });
-  }
-
-  /**
-   Retrieve remote and local packages more recent than {startkey}
-   Function streams all packages from all uplinks first, and then
-   local packages.
-   Note that local packages could override registry ones just because
-   they appear in JSON last. That's a trade-off we make to avoid
-   memory issues.
-   Used storages: local && uplink (proxy_access)
-   * @param {*} startkey
-   * @param {*} options
-   * @return {Stream}
-   */
-  public search(startkey: string, options: any) {
-    const self = this;
-    const searchStream: any = new Stream.PassThrough({ objectMode: true });
-    async.eachSeries(
-      Object.keys(this.uplinks),
-      function (up_name, cb): void {
-        // shortcut: if `local=1` is supplied, don't call uplinks
-        if (options.req?.query?.local !== undefined) {
-          return cb();
-        }
-        logger.info(`search for uplink ${up_name}`);
-        // search by keyword for each uplink
-        self.uplinks[up_name]
-          .search({ url: options.req.url, abort: options.abort })
-          .then((uplinkStream) => {
-            // join uplink stream with streams PassThrough
-            uplinkStream.pipe(searchStream, { end: false });
-            uplinkStream.on('error', function (err): void {
-              self.logger.error({ err: err }, 'uplink error: @{err.message}');
-              cb();
-              // to avoid call callback more than once
-              cb = function (): void {};
-            });
-            uplinkStream.on('end', function (): void {
-              cb();
-              // to avoid call callback more than once
-              cb = function (): void {};
-            });
-
-            searchStream.abort = function (): void {
-              options.abort.abort();
-              cb();
-              // to avoid call callback more than once
-              cb = function (): void {};
-            };
-          })
-          .catch((err) => {
-            self.logger.error({ err: err }, 'uplink error: @{err.message}');
-            cb();
-            cb = function (): void {};
-          });
-      },
-      // executed after all series
-      function (): void {
-        // attach a local search results
-        const localSearchStream = self.localStorage.search(startkey, options);
-        searchStream.abort = function (): void {
-          localSearchStream.abort();
-        };
-        localSearchStream.pipe(searchStream, { end: true });
-        localSearchStream.on('error', function (err: any): void {
-          self.logger.error({ err: err }, 'search error: @{err.message}');
-          searchStream.end();
-        });
-      }
-    );
-
-    return searchStream;
-  }
-
-  /**
-   * Retrieve only private local packages
-   * @param {*} callback
-   */
-  public getLocalDatabase(callback: Callback): void {
-    const self = this;
-    this.localStorage.storagePlugin.get((err, locals): void => {
-      if (err) {
-        callback(err);
-      }
-
-      const packages: Version[] = [];
-      const getPackage = function (itemPkg): void {
-        self.localStorage.getPackageMetadata(
-          locals[itemPkg],
-          function (err, pkgMetadata: Package): void {
-            if (_.isNil(err)) {
-              const latest = pkgMetadata[DIST_TAGS].latest;
-              if (latest && pkgMetadata.versions[latest]) {
-                const version: Version = pkgMetadata.versions[latest];
-                const timeList = pkgMetadata.time as GenericBody;
-                const time = timeList[latest];
-                // @ts-ignore
-                version.time = time;
-
-                // Add for stars api
-                // @ts-ignore
-                version.users = pkgMetadata.users;
-
-                packages.push(version);
-              } else {
-                self.logger.warn(
-                  { package: locals[itemPkg] },
-                  'package @{package} does not have a "latest" tag?'
-                );
-              }
-            }
-
-            if (itemPkg >= locals.length - 1) {
-              callback(null, packages);
-            } else {
-              getPackage(itemPkg + 1);
-            }
-          }
-        );
-      };
-
-      if (locals.length) {
-        getPackage(0);
-      } else {
-        callback(null, []);
-      }
-    });
-  }
-
-  /**
-   * Function fetches package metadata from uplinks and synchronizes it with local data
-   if package is available locally, it MUST be provided in pkginfo
-   returns callback(err, result, uplink_errors)
-   */
-  public _syncUplinksMetadata(
-    name: string,
-    packageInfo: Manifest,
-    options: ISyncUplinks,
-    callback: Callback
-  ): void {
-    let found = true;
-    const self = this;
-    const upLinks: IProxy[] = [];
-    const hasToLookIntoUplinks = _.isNil(options.uplinksLook) || options.uplinksLook;
-
-    if (!packageInfo) {
-      found = false;
-      packageInfo = generatePackageTemplate(name);
-    }
-
-    for (const uplink in this.uplinks) {
-      if (hasProxyTo(name, uplink, this.config.packages) && hasToLookIntoUplinks) {
-        upLinks.push(this.uplinks[uplink]);
-      }
-    }
-
-    async.map(
-      upLinks,
-      (upLink: IProxy, cb): void => {
-        const _options = Object.assign({}, options);
-        const upLinkMeta = packageInfo._uplinks[upLink.uplinkName];
-
-        if (isObject(upLinkMeta)) {
-          const fetched = upLinkMeta.fetched;
-
-          if (fetched && Date.now() - fetched < upLink.maxage) {
-            return cb();
-          }
-
-          _options.etag = upLinkMeta.etag;
-        }
-
-        upLink
-          .getRemoteMetadata(name, _options)
-          .then(([upLinkResponse, eTag]) => {
-            let normalizedResponse;
-            try {
-              normalizedResponse = validationUtils.normalizeMetadata(upLinkResponse, name);
-            } catch (err) {
-              self.logger.error(
-                {
-                  sub: 'out',
-                  err: err,
-                },
-                'package.json validating error @{!err.message}\n@{err.stack}'
-              );
-              return cb(null, [err]);
-            }
-
-            packageInfo._uplinks[upLink.uplinkName] = {
-              etag: eTag,
-              fetched: Date.now(),
-            };
-
-            packageInfo = mergeUplinkTimeIntoLocal(packageInfo, normalizedResponse);
-
-            updateVersionsHiddenUpLinkNext(normalizedResponse, upLink);
-
-            try {
-              mergeVersions(packageInfo, normalizedResponse);
-            } catch (err) {
-              self.logger.error(
-                {
-                  sub: 'out',
-                  err: err,
-                },
-                'package.json parsing error @{!err.message}\n@{err.stack}'
-              );
-              return cb(null, [err]);
-            }
-
-            // if we got to this point, assume that the correct package exists
-            // on the uplink
-            found = true;
-            cb();
-          })
-          .catch((err) => {
-            if (err && err.remoteStatus === 304) {
-              if (upLinkMeta) {
-                upLinkMeta.fetched = Date.now();
-              }
-            }
-
-            return cb(null, [err || ErrorCode.getInternalError('no data')]);
-          });
-      },
-      // @ts-ignore
-      (err: Error, upLinksErrors: any): AsyncResultArrayCallback<unknown, Error> => {
-        assert(!err && Array.isArray(upLinksErrors));
-
-        // Check for connection timeout or reset errors with uplink(s)
-        // (these should be handled differently from the package not being found)
-        if (!found) {
-          let uplinkTimeoutError;
-          for (let i = 0; i < upLinksErrors.length; i++) {
-            if (upLinksErrors[i]) {
-              for (let j = 0; j < upLinksErrors[i].length; j++) {
-                if (upLinksErrors[i][j]) {
-                  const code = upLinksErrors[i][j].code;
-                  if (code === 'ETIMEDOUT' || code === 'ESOCKETTIMEDOUT' || code === 'ECONNRESET') {
-                    uplinkTimeoutError = true;
-                    break;
-                  }
-                }
-              }
-            }
-          }
-
-          if (uplinkTimeoutError) {
-            return callback(ErrorCode.getServiceUnavailable(), null, upLinksErrors);
-          }
-          return callback(ErrorCode.getNotFound(API_ERROR.NO_PACKAGE), null, upLinksErrors);
-        }
-
-        if (upLinks.length === 0) {
-          return callback(null, packageInfo);
-        }
-
-        self.localStorage.updateVersions(
-          name,
-          packageInfo,
-          async (err, packageJsonLocal: Package): Promise<any> => {
-            if (err) {
-              return callback(err);
-            }
-            // Any error here will cause a 404, like an uplink error. This is likely the right thing to do
-            // as a broken filter is a security risk.
-            const filterErrors: Error[] = [];
-            // This MUST be done serially and not in parallel as they modify packageJsonLocal
-            for (const filter of self.filters ?? []) {
-              try {
-                // These filters can assume it's save to modify packageJsonLocal and return it directly for
-                // performance (i.e. need not be pure)
-                packageJsonLocal = await filter.filter_metadata(packageJsonLocal);
-              } catch (err: any) {
-                filterErrors.push(err);
-              }
-            }
-            callback(null, packageJsonLocal, _.concat(upLinksErrors, filterErrors));
-          }
-        );
-      }
-    );
+    // localStorage is now non-null, so super.init only loads filter plugins
+    await super.init(config);
   }
 }
 
 export default Storage;
+export { Storage };

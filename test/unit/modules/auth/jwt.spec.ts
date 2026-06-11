@@ -13,7 +13,7 @@ import {
   fileUtils,
 } from '@verdaccio/core';
 
-import endPointAPI from '../../../../src/api';
+import { endPointAPI } from '../../../../src/lib/run-server';
 import { setup } from '../../../../src/lib/logger';
 import { addUser, getPackage, loginUserToken } from '../../__helper/api';
 import { mockServer } from '../../__helper/mock';
@@ -59,7 +59,7 @@ describe('endpoint user auth JWT unit test', () => {
   });
 
   afterAll(function () {
-    mockRegistry[0].stop();
+    mockRegistry?.[0]?.stop();
   });
 
   test('should test add a new user with JWT enabled', async () => {

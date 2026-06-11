@@ -2,12 +2,12 @@ import getPort from 'get-port';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest';
 
+import { parseConfigFile } from '@verdaccio/config';
 import { fileUtils } from '@verdaccio/core';
 
-import endPointAPI from '../../../../src/api';
+import { endPointAPI } from '../../../../src/lib/run-server';
 import { API_ERROR, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../src/lib/constants';
 import { setup } from '../../../../src/lib/logger';
-import { parseConfigFile } from '../../../../src/lib/utils';
 import { parseConfigurationFile } from '../../__helper';
 import { getNewToken, getProfile, postProfile } from '../../__helper/api';
 import { mockServer } from '../../__helper/mock';
@@ -43,7 +43,7 @@ describe('endpoint user profile', () => {
   });
 
   afterAll(function () {
-    mockRegistry[0].stop();
+    mockRegistry?.[0]?.stop();
   });
 
   test('should fetch a profile of logged user', async () => {

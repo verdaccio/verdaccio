@@ -1,10 +1,32 @@
-import { initServer as initServerNode, runServer as runServerNode } from '@verdaccio/node-api';
-import { ConfigYaml } from '@verdaccio/types';
+import * as _ from 'lodash-es';
 
-import endPointAPI from '../api/index';
+import { initServer as initServerNode, runServer as runServerNode } from '@verdaccio/node-api';
+import { defineAPI } from '@verdaccio/server';
+import { ConfigYaml, Config as IConfig } from '@verdaccio/types';
+
+import AppConfig from './config';
+import { logger } from './logger';
+import Storage from './storage';
 import { initLogger } from './utils';
 
-async function startServer(config: ConfigYaml): Promise<any> {
+/**
+ * Build the Express app from a raw config by reusing @verdaccio/server's
+ * composition (defineAPI), but inject 7.x's Storage so legacy callback storage
+ * plugins keep working. Exposed for tests that need the app without a listener.
+ */
+export async function endPointAPI(configHash: ConfigYaml): Promise<any> {
+  const appConfig: IConfig = new AppConfig(_.cloneDeep(configHash));
+  const storage = new Storage(appConfig, logger);
+  await storage.init(appConfig);
+  return defineAPI(appConfig, storage as any);
+}
+
+/**
+ * Server factory passed to @verdaccio/node-api / @verdaccio/cli: maps the
+ * deprecated `logs` config key then builds the app with 7.x's legacy-aware
+ * Storage (via {@link endPointAPI}).
+ */
+export async function startServer(config: ConfigYaml): Promise<any> {
   await initLogger(config);
   return endPointAPI(config);
 }

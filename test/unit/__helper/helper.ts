@@ -1,14 +1,14 @@
 import type { Application } from 'express';
 import path from 'node:path';
 
-// import apiMiddleware from '@verdaccio/api';
+import apiEndpoint from '@verdaccio/api';
 import { parseConfigFile } from '@verdaccio/config';
 import { setup } from '@verdaccio/logger';
-// import { Storage } from '@verdaccio/store';
 import { initializeServer as initializeServerHelper } from '@verdaccio/test-helper';
+import webMiddleware from '@verdaccio/web';
 
-import apiEndpoint from '../../../src/api/endpoint';
-import routes from '../../../src/api/web/index';
+// 7.x's Storage wrapper (adds legacy callback storage-plugin support on top of
+// @verdaccio/store); the api/web routers come straight from the published packages.
 import Storage from '../../../src/lib/storage';
 
 setup({});
@@ -18,11 +18,10 @@ export const getConf = (configName: string) => {
   return parseConfigFile(configPath);
 };
 
-// @deprecated
 export async function initializeServer(configName: string): Promise<Application> {
   return initializeServerHelper(
     getConf(configName),
-    [apiEndpoint, { async: true, routes }],
+    [apiEndpoint, { async: true, routes: webMiddleware }],
     Storage
   );
 }
