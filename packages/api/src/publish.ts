@@ -2,7 +2,8 @@ import buildDebug from 'debug';
 import type { Router } from 'express';
 
 import type { Auth } from '@verdaccio/auth';
-import { API_MESSAGE, HEADERS, HTTP_STATUS } from '@verdaccio/core';
+import { API_MESSAGE, HEADERS, HTTP_STATUS, tarballUtils } from '@verdaccio/core';
+import { notify } from '@verdaccio/hooks';
 import {
   PUBLISH_API_ENDPOINTS,
   allow,
@@ -12,7 +13,7 @@ import {
 } from '@verdaccio/middleware';
 // import star from './star';
 import type { Storage } from '@verdaccio/store';
-import type { Logger } from '@verdaccio/types';
+import type { Config, Logger, Manifest } from '@verdaccio/types';
 
 import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
 
@@ -117,6 +118,7 @@ export default function publish(
   router: Router,
   auth: Auth,
   storage: Storage,
+  config: Config,
   logger: Logger
 ): void {
   const can = allow(auth, {
@@ -128,7 +130,7 @@ export default function publish(
     can('publish'),
     media(HEADERS.JSON),
     expectJson,
-    publishPackage(storage, logger, 'publish one version')
+    publishPackage(storage, config, logger, 'publish one version')
   );
 
   router.put(
@@ -136,7 +138,7 @@ export default function publish(
     can('unpublish'),
     media(HEADERS.JSON),
     expectJson,
-    publishPackage(storage, logger, 'publish with revision')
+    publishPackage(storage, config, logger, 'publish with revision')
   );
 
   /**
@@ -169,6 +171,16 @@ export default function publish(
         await storage.removePackage(packageName, rev, username);
         debug('package %s unpublished', packageName);
         res.status(HTTP_STATUS.CREATED);
+
+        // send notification of package removal
+        const metadata: Partial<Manifest> = { name: packageName, _rev: rev };
+
+        void notify(metadata, config, req.remote_user, packageName, 'unpublish').catch(
+          (error: any) => {
+            logger.error({ error: error?.message }, 'notify batch service has failed: @{error}');
+          }
+        );
+
         return next({ ok: API_MESSAGE.PKG_REMOVED });
       } catch (err) {
         return next(err);
@@ -204,6 +216,20 @@ export default function publish(
           { packageName, filename, revision },
           `success remove tarball for @{packageName}-@{tarballName}-@{revision}`
         );
+
+        // send notification of version removal
+        // getVersionFromTarball returns undefined when the filename is not parseable;
+        // fall back to the package name so we never report `name@undefined`
+        const version = tarballUtils.getVersionFromTarball(filename);
+        const metadata: Partial<Manifest> = { name: packageName, version, _rev: revision };
+        const publishedPackage = version ? `${packageName}@${version}` : packageName;
+
+        void notify(metadata, config, req.remote_user, publishedPackage, 'unpublish').catch(
+          (error: any) => {
+            logger.error({ error: error?.message }, 'notify batch service has failed: @{error}');
+          }
+        );
+
         return next({ ok: API_MESSAGE.TARBALL_REMOVED });
       } catch (err) {
         return next(err);
@@ -212,7 +238,12 @@ export default function publish(
   );
 }
 
-export function publishPackage(storage: Storage, logger: Logger, origin: string): any {
+export function publishPackage(
+  storage: Storage,
+  config: Config,
+  logger: Logger,
+  origin: string
+): any {
   return async function (
     req: $RequestExtend,
     res: $ResponseExtend,
@@ -242,8 +273,21 @@ export function publishPackage(storage: Storage, logger: Logger, origin: string)
         uplinksLook: false,
       });
       debug('package %s published', packageName);
-
       res.status(HTTP_STATUS.CREATED);
+
+      // send notification of publication (notification step, non transactional)
+      // a publish body is a packument; the published version is the single entry
+      // under `versions` (see storage.updateManifest), not a top-level field
+      const [version] = Object.keys(metadata.versions ?? {});
+      void notify(
+        metadata,
+        config,
+        req.remote_user,
+        `${metadata.name}@${version}`,
+        'publish'
+      ).catch((error: any) => {
+        logger.error({ error: error?.message }, 'notify batch service has failed: @{error}');
+      });
 
       return next({
         success: true,

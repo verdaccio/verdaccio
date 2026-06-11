@@ -42,6 +42,7 @@
     "@verdaccio/auth": "workspace:9.0.0-next-9.18",
     "@verdaccio/config": "workspace:9.0.0-next-9.18",
     "@verdaccio/core": "workspace:9.0.0-next-9.18",
+    "@verdaccio/hooks": "workspace:9.0.0-next-9.18",
     "@verdaccio/logger": "workspace:9.0.0-next-9.18",
     "@verdaccio/middleware": "workspace:9.0.0-next-9.18",
     "@verdaccio/store": "workspace:9.0.0-next-9.18",

@@ -263,6 +263,12 @@ export type AbbreviatedManifest = Pick<Manifest, 'name' | 'dist-tags' | 'time'> 
  */
 export type UnPublishManifest = Omit<Manifest, '_attachments' | '_distfiles' | '_uplinks'>;
 
+export interface Publisher {
+  name: string;
+  groups?: string[];
+  real_groups?: string[];
+}
+
 export interface PublishManifest {
   /**
    * The `_attachments` object has different usages:
@@ -283,6 +289,16 @@ export interface PublishManifest {
    * Note: This field is removed when the package is accesed through the web user interface.
    * */
   _attachments: AttachMents;
+  /**
+   * The publisher of the package
+   *
+   * This field is added when the package is published or unpublished using the notify batch service.
+   *
+   * Note: Using `_publisher` or `_publishedPackage` would break existing handlebar templates.
+   */
+  publisher?: Publisher;
+  publishedPackage?: string;
+  publishType?: 'publish' | 'unpublish';
 }
 
 /**
