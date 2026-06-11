@@ -1,5 +1,11 @@
 # Changelog
 
+## 7.0.0-next-7.21
+
+### Minor Changes
+
+- ddf993c: Adopt `@verdaccio/server` and drop the local api/web/storage forks. A thin `Storage` wrapper is kept to support legacy callback-based storage plugins, and the unused helpers in `src/lib/utils.ts` were removed.
+
 ## 7.0.0-beta.7
 
 ### Minor Changes
