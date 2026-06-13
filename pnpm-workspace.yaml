@@ -24,6 +24,16 @@ minimumReleaseAgeExclude:
   - '@verdaccio/*'
   - '@verdaccio-scope/*'
   - 'verdaccio-*'
+  # esbuild 0.28.1 is the security patch for GHSA-gv7w-rqvm-qjhr; allow it and
+  # its platform packages in ahead of the 7-day quarantine so the override
+  # below can resolve.
+  - esbuild
+  - '@esbuild/*'
+
+# Force the esbuild security patch (>= 0.28.1) across the whole tree.
+# See GHSA-gv7w-rqvm-qjhr (RCE via NPM_CONFIG_REGISTRY, fixed in 0.28.1).
+overrides:
+  esbuild: '0.28.1'
 saveExact: true
 ignoreScripts: true
 preferFrozenLockfile: true

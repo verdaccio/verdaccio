@@ -1,0 +1,24 @@
+{
+  "name": "verdaccio-docker-dummy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Dummy Verdaccio auth plugin that always grants access (example of loading a local plugin in Docker)",
+  "keywords": [
+    "verdaccio",
+    "plugin",
+    "auth",
+    "example"
+  ],
+  "author": "Verdaccio <noreply@verdaccio.org>",
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio",
+    "directory": "docker-examples/v7/plugins/docker-local-plugin"
+  },
+  "main": "index.js",
+  "engines": {
+    "node": ">=18"
+  }
+}

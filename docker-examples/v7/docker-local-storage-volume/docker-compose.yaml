@@ -1,0 +1,9 @@
+services:
+  verdaccio:
+    image: verdaccio/verdaccio:7.x-next
+    container_name: verdaccio-docker-local-storage-vol
+    ports:
+      - '4873:4873'
+    volumes:
+      - './storage:/verdaccio/storage'
+      - './conf:/verdaccio/conf'

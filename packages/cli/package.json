@@ -52,7 +52,7 @@
     "clipanion": "4.0.0-rc.4",
     "envinfo": "7.19.0",
     "semver": "7.8.1",
-    "tsx": "4.21.0"
+    "tsx": "4.22.4"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:14.0.0-next-9.10",
