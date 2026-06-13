@@ -1,5 +1,5 @@
 FROM verdaccio/verdaccio:6.x-next
-LABEL Juan Picado <jotadeveloper@gmail.com>
+LABEL maintainer="Verdaccio <noreply@verdaccio.org>"
 # Copy the configuration file into the container
 ADD config.yaml /verdaccio/conf/config.yaml
 USER root
