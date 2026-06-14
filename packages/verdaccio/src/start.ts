@@ -1,1 +1,3 @@
-import '@verdaccio/cli';
+import { runCli } from '@verdaccio/cli';
+
+runCli();

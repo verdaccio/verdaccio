@@ -1,93 +1,41 @@
-# Verdaccio and Apache2
+# Verdaccio 6 behind Apache (httpd)
 
-Running `verdaccio` via reverse proxy is a common practice. This configuration provides a quick way to run the application through **apache2** as reverse proxy.
+Run Verdaccio behind an **Apache httpd 2.4** reverse proxy. This is a common
+setup when you already serve other sites through Apache.
 
-To run the containers, run the following command in this folder, it should start the containers in detach mode.
+## What's in here
 
-```bash
- docker-compose up -d
-```
+- `docker-compose.yaml` — two services:
+  - `verdaccio` — the registry (`verdaccio/verdaccio:6`) on port `4873`.
+  - `apacheproxy` — `httpd:2.4` built from `apache_proxy/`, published on port `80`.
+- `apache_proxy/Dockerfile` — enables `mod_proxy` / `mod_proxy_http` and includes the vhost.
+- `apache_proxy/conf/verdaccio.conf` — the reverse-proxy virtual host.
 
-To recreate the nginx image you can force the build.
+The proxy reaches the registry over Compose's default network using the
+service name `verdaccio`, so no `links` are required.
 
-```bash
- docker-compose up --build -d
-
- Building apacheproxy
-Step 1/5 : FROM eboraas/apache
- ---> 1ba66e3f5580
-Step 2/5 : MAINTAINER Juan Picado <juanpicado19@gmail.com>
- ---> Using cache
- ---> 4317b29c20ec
-Step 3/5 : RUN a2enmod proxy
- ---> Using cache
- ---> b9334b33e2f1
-Step 4/5 : COPY ./conf/000-default.conf /etc/apache2/sites-enabled/000-default.conf
- ---> Using cache
- ---> 6d464388db8f
-Step 5/5 : COPY ./conf/env.load /etc/apache2/mods-enabled/env.load
- ---> Using cache
- ---> 66740b6ffb97
-Successfully built 66740b6ffb97
-Recreating verdaccio
-Recreating apacheverdaccio_apacheproxy_1
-```
-
-To force recreate the images.
+## Run it
 
 ```bash
-docker-compose up --build --force-recreate -d
+docker compose up -d --build
 ```
 
-To stop all containers
+Open <http://localhost/> — the proxy forwards every request to Verdaccio on
+`http://verdaccio:4873/`.
+
+## Useful commands
 
 ```bash
-docker-compose stop
+docker compose logs -f        # follow logs (Apache logs to stdout/stderr)
+docker compose ps             # list running containers
+docker compose down           # stop and remove the containers
 ```
 
-To display container logs
+## Notes
 
-```bash
-$> docker-compose logs
-Attaching to apacheverdaccio_apacheproxy_1, verdaccio
-verdaccio    |  warn --- config file  - /verdaccio/conf/config.yaml
-verdaccio    |  warn --- http address - http://0.0.0.0:4873/ - verdaccio/2.1.7
-verdaccio    |  http <-- 304, user: undefined, req: 'GET /', bytes: 0/0
-verdaccio    |  http <-- 304, user: undefined, req: 'GET /-/static/jquery.min.js', bytes: 0/0
-verdaccio    |  http <-- 304, user: undefined, req: 'GET /-/static/main.css', bytes: 0/0
-verdaccio    |  http <-- 304, user: undefined, req: 'GET /-/static/main.js', bytes: 0/0
-verdaccio    |  http <-- 304, user: undefined, req: 'GET /-/logo', bytes: 0/0
-verdaccio    |  http <-- 304, user: undefined, req: 'GET /-/static/fontello.woff?10872183', bytes: 0/0
-verdaccio    |  http <-- 200, user: undefined, req: 'GET /-/static/favicon.png', bytes: 0/315
-```
-
-To access the apache logs
-
-```bash
-&> docker exec -it {ID} /bin/bash
-
-root@da8ee3cb484c:~# tail -f /var/log/apache2/verdaccio-access.log
-172.20.0.1 - - [31/May/2017:21:16:37 +0000] "GET /xmlhttprequest-ssl HTTP/1.1" 200 2616 "install sails" "npm/5.0.0 node/v4.6.1 darwin x64"
-172.20.0.1 - - [31/May/2017:21:16:37 +0000] "GET /yeast HTTP/1.1" 200 2706 "install sails" "npm/5.0.0 node/v4.6.1 darwin x64"
-172.20.0.1 - - [31/May/2017:21:16:37 +0000] "GET /has-cors HTTP/1.1" 200 1347 "install sails" "npm/5.0.0 node/v4.6.1 darwin x64"
-172.20.0.1 - - [31/May/2017:21:16:37 +0000] "GET /parsejson HTTP/1.1" 200 1234 "install sails" "npm/5.0.0 node/v4.6.1 darwin x64"
-172.20.0.1 - - [31/May/2017:21:16:37 +0000] "GET /better-assert HTTP/1.1" 200 2462 "install sails" "npm/5.0.0 node/v4.6.1 darwin x64"
-172.20.0.1 - - [31/May/2017:21:16:37 +0000] "GET /callsite HTTP/1.1" 200 1369 "install sails" "npm/5.0.0 node/v4.6.1 darwin x64"
-172.20.0.1 - - [31/May/2017:21:16:37 +0000] "GET /dot-access HTTP/1.1" 200 1477 "install sails" "npm/5.0.0 node/v4.6.1 darwin x64"
-172.20.0.1 - - [31/May/2017:21:16:37 +0000] "GET /skipper-disk HTTP/1.1" 200 3801 "install sails" "npm/5.0.0 node/v4.6.1 darwin x64"
-172.20.0.1 - - [31/May/2017:21:16:37 +0000] "GET /native-or-bluebird HTTP/1.1" 200 2257 "install sails" "npm/5.0.0 node/v4.6.1 darwin x64"
-172.20.0.1 - - [31/May/2017:21:16:37 +0000] "GET /foreachasync HTTP/1.1" 200 2742 "install sails" "npm/5.0.0 node/v4.6.1 darwin x64"
-tail: unrecognized file system type 0x794c7630 for '/var/log/apache2/verdaccio-access.log'. please report this to bug-coreutils@gnu.org. reverting to polling
-```
-
-### Display Information
-
-To display the containers running
-
-```bash
-&> docker-compose ps
-            Name                           Command               State              Ports
-----------------------------------------------------------------------------------------------------
-apacheverdaccio_apacheproxy_1   /usr/sbin/apache2ctl -D FO ...   Up      443/tcp, 0.0.0.0:80->80/tcp
-verdaccio                       /usr/src/app/bin/verdaccio ...   Up      0.0.0.0:4873->4873/tcp
-```
+- `ProxyPreserveHost On` forwards the original `Host` header; `mod_proxy`
+  automatically adds the `X-Forwarded-For` / `X-Forwarded-Host` headers.
+- `AllowEncodedSlashes NoDecode` together with `nocanon` keeps encoded slashes
+  intact, which matters for scoped packages (e.g. `@scope%2fpkg`).
+- This example terminates plain HTTP. For TLS, add `mod_ssl` and an
+  `https` virtual host, or front it with a dedicated TLS terminator.

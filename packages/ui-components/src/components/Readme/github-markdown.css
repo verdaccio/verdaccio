@@ -1413,6 +1413,7 @@
 }
 
 .markdown-body a:has(>p,>div,>pre,>blockquote):not(:has(.snippet-clipboard-content,>pre)) {
+  overflow-wrap: anywhere;
   width: fit-content;
 }
 
