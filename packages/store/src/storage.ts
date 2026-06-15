@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import { isEmpty, isEqual, isNil, reduce } from 'lodash-es';
+import { isEmpty, isEqual, isNil } from 'lodash-es';
 import assert from 'node:assert';
 import { basename } from 'node:path';
 import { PassThrough, Readable, Transform } from 'node:stream';
@@ -47,7 +47,6 @@ import type {
   Logger,
   Manifest,
   MergeTags,
-  PackageUsers,
   StringValue,
   Token,
   TokenFilter,
@@ -58,7 +57,7 @@ import type {
 import type { PublishOptions, UpdateManifestOptions } from '.';
 import { cleanUpReadme, isDeprecatedManifest, tagVersion, tagVersionNext } from '.';
 import { type Filters, applyManifestFilters, loadFilterPlugins } from './filter-pipeline';
-import { isExecutingStarCommand, isPublishablePackage } from './lib/star-utils';
+import { isPublishablePackage } from './lib/publish-utils';
 import {
   STORAGE,
   cleanUpLinksRef,
@@ -75,7 +74,7 @@ import {
 } from './lib/storage-utils';
 import { getVersion, removeLowerVersions } from './lib/versions-utils';
 import { LocalStorage } from './local-storage';
-import type { IGetPackageOptionsNext, OwnerManifestBody, StarManifestBody } from './type';
+import type { IGetPackageOptionsNext, OwnerManifestBody } from './type';
 
 const debug = buildDebug('verdaccio:storage');
 
@@ -911,7 +910,7 @@ class Storage {
   }
 
   public async updateManifest(
-    manifest: Manifest | StarManifestBody | OwnerManifestBody | UnPublishManifest,
+    manifest: Manifest | OwnerManifestBody | UnPublishManifest,
     options: UpdateManifestOptions
   ): Promise<string | undefined> {
     debug('update manifest %o for user %o', manifest._id, options.requestOptions.username);
@@ -921,16 +920,6 @@ class Storage {
       await this.deprecate(manifest as Manifest, {
         ...options,
       });
-    } else if (
-      isPublishablePackage(manifest as Manifest) === false &&
-      validationUtils.isObject((manifest as StarManifestBody).users)
-    ) {
-      debug('update manifest star');
-      // if user request to apply a star to the manifest
-      await this.star(manifest as StarManifestBody, {
-        ...options,
-      });
-      return API_MESSAGE.PKG_CHANGED;
     } else if (
       isPublishablePackage(manifest as Manifest) === false &&
       Array.isArray((manifest as OwnerManifestBody).maintainers)
@@ -980,53 +969,6 @@ class Storage {
     const { name } = manifest;
     debug('deprecating %s', name);
     return this.changePackage(name, manifest, options.revision as string);
-  }
-
-  private async star(manifest: StarManifestBody, options: UpdateManifestOptions): Promise<string> {
-    const { users } = manifest;
-    const { requestOptions, name } = options;
-    debug('star %s', name);
-    const { username } = requestOptions;
-    if (!username) {
-      throw errorUtils.getBadRequest('update users only allowed to logged users');
-    }
-
-    const localPackage = await this.getPackageManifest({
-      name,
-      requestOptions,
-      uplinksLook: false,
-    });
-    // backward compatible in case users are not in the storage.
-    const localStarUsers = localPackage.users || {};
-    // if trying to add a star
-    const userIsAddingStar = Object.keys(users as PackageUsers).includes(username);
-    if (!isExecutingStarCommand(localPackage?.users as PackageUsers, username, userIsAddingStar)) {
-      return API_MESSAGE.PKG_CHANGED;
-    }
-
-    const newUsers = userIsAddingStar
-      ? {
-          ...localStarUsers,
-          [username]: true,
-        }
-      : reduce(
-          localStarUsers,
-          (users, value, key) => {
-            if (key !== username) {
-              users[key] = value;
-            }
-            return users;
-          },
-          {}
-        );
-
-    await this.changePackage(
-      name,
-      { ...localPackage, users: newUsers },
-      options.revision as string
-    );
-
-    return API_MESSAGE.PKG_CHANGED;
   }
 
   private async unPublishAPackage(manifest: UnPublishManifest, options: UpdateManifestOptions) {

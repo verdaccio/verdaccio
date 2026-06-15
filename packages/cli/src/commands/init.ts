@@ -4,8 +4,9 @@ import { findConfigFile, parseConfigFile } from '@verdaccio/config';
 import { pkgUtils, warningUtils } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 import { initServer } from '@verdaccio/node-api';
-import startServer from '@verdaccio/server';
 import type { ConfigYaml, LoggerConfigItem } from '@verdaccio/types';
+
+import { getPkgNameOverride, getStartServer, getVersionOverride } from '../runtime';
 
 export const DEFAULT_PROCESS_NAME: string = 'verdaccio';
 
@@ -64,14 +65,16 @@ export class InitCommand extends Command {
       process.title = web?.title || DEFAULT_PROCESS_NAME;
 
       const currentDir = typeof __dirname !== 'undefined' ? __dirname : import.meta.dirname;
-      const { version, name } = pkgUtils.getPackageJson(currentDir, '../..');
+      const pkg = pkgUtils.getPackageJson(currentDir, '../..');
+      const version = getVersionOverride() ?? (pkg.version as string);
+      const name = getPkgNameOverride() ?? (pkg.name as string);
 
       await initServer(
         configParsed,
         this.port as string,
         version as string,
         name as string,
-        startServer
+        getStartServer()
       );
 
       const logLevel = configParsed.log?.level || 'default';

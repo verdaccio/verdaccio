@@ -1,0 +1,21 @@
+services:
+  verdaccio:
+    image: verdaccio/verdaccio:7.x-next
+    container_name: verdaccio
+    ports:
+      - '4873:4873'
+    volumes:
+      - verdaccio:/verdaccio
+
+  apacheproxy:
+    build: apache_proxy/
+    ports:
+      - '80:80'
+    # Compose attaches both services to the default network; the proxy reaches
+    # verdaccio by its service name (see apache_proxy/conf/000-default.conf).
+    depends_on:
+      - verdaccio
+
+volumes:
+  verdaccio:
+    driver: local
