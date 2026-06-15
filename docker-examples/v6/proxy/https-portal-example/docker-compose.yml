@@ -1,6 +1,6 @@
 services:
   verdaccio:
-    image: verdaccio/verdaccio:nightly-master
+    image: verdaccio/verdaccio:6
     container_name: verdaccio-https
     ports:
       - '4873:4873'
@@ -12,8 +12,8 @@ services:
     ports:
       - '80:80'
       - '443:443'
-    links:
-      - verdaccio:verdaccio
+    depends_on:
+      - verdaccio
     environment:
       DOMAINS: 'example.com -> http://verdaccio:4873'
       STAGE: local

@@ -1,5 +1,11 @@
 # @verdaccio/search-indexer
 
+## 9.0.0-next-9.6
+
+### Patch Changes
+
+- 47f122f: chore(deps): clean-up unused and duplicates
+
 ## 9.0.0-next-9.5
 
 ### Patch Changes

@@ -1,1 +1,1 @@
-export { default, startServer } from './server';
+export { default, startServer, defineAPI } from './server';

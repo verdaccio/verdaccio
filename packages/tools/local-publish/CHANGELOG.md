@@ -1,5 +1,11 @@
 # @verdaccio/local-publish
 
+## 2.0.0-next-9.2
+
+### Patch Changes
+
+- 47f122f: chore(deps): clean-up unused and duplicates
+
 ## 2.0.0-next-9.1
 
 ### Patch Changes

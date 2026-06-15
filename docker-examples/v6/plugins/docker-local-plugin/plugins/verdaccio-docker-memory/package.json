@@ -13,7 +13,7 @@
     "server",
     "verdaccio"
   ],
-  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "author": "Verdaccio <noreply@verdaccio.org>",
   "license": "MIT",
   "homepage": "https://verdaccio.org",
   "repository": {

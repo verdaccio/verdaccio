@@ -2,7 +2,8 @@ import buildDebug from 'debug';
 import type { Router } from 'express';
 
 import type { Auth } from '@verdaccio/auth';
-import { API_MESSAGE, HEADERS, HTTP_STATUS, reqUtils } from '@verdaccio/core';
+import { API_MESSAGE, HEADERS, HTTP_STATUS, tarballUtils, reqUtils } from '@verdaccio/core';
+import { notify } from '@verdaccio/hooks';
 import {
   PUBLISH_API_ENDPOINTS,
   allow,
@@ -11,14 +12,14 @@ import {
   media,
 } from '@verdaccio/middleware';
 import type { Storage } from '@verdaccio/store';
-import type { Logger } from '@verdaccio/types';
+import type { Config, Logger, Manifest } from '@verdaccio/types';
 
 import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
 
 const debug = buildDebug('verdaccio:api:publish');
 
 /**
-   * Publish a package / update package / un/start a package
+   * Publish a package / update package
    *
    * There are multiples scenarios here to be considered:
    *
@@ -77,27 +78,9 @@ const debug = buildDebug('verdaccio:api:publish');
    * Remove the tarball
    * npm http fetch DELETE 201 http://localhost:4873/custom-name/-/test1-1.0.3.tgz/-rev/16-e11c8db282b2d992 19ms
    *
-   * 3. Star a package
+   * 3. Change owners of a package
    *
-   * Permissions: staring a package depends of the publish and unpublish permissions, there is no
-   * specific flag for star or unstar.
-   * The URL for star is similar to the unpublish (change package format)
-   *
-   * npm has no endpoint for staring a package, rather mutate the metadata and acts as, the difference
-   * is the users property which is part of the payload and the body only includes
-   *
-   * {
-      "_id": pkgName,
-      "_rev": "3-b0cdaefc9bdb77c8",
-      "users": {
-        [username]: boolean value (true, false)
-      }
-     }
-   *
-   * 4. Change owners of a package
-   *
-   * Similar to staring a package, changing owners (maintainers) of a package uses the publish
-   * endpoint.
+   * Changing owners (maintainers) of a package uses the publish endpoint.
    *
    * The body includes a list of the new owners with the following format
    *
@@ -116,6 +99,7 @@ export default function publish(
   router: Router,
   auth: Auth,
   storage: Storage,
+  config: Config,
   logger: Logger
 ): void {
   const can = allow(auth, {
@@ -127,7 +111,7 @@ export default function publish(
     can('publish'),
     media(HEADERS.JSON),
     expectJson,
-    publishPackage(storage, logger, 'publish one version')
+    publishPackage(storage, config, logger, 'publish one version')
   );
 
   router.put(
@@ -135,7 +119,7 @@ export default function publish(
     can('unpublish'),
     media(HEADERS.JSON),
     expectJson,
-    publishPackage(storage, logger, 'publish with revision')
+    publishPackage(storage, config, logger, 'publish with revision')
   );
 
   /**
@@ -168,6 +152,16 @@ export default function publish(
         await storage.removePackage(packageName, rev, username);
         debug('package %s unpublished', packageName);
         res.status(HTTP_STATUS.CREATED);
+
+        // send notification of package removal
+        const metadata: Partial<Manifest> = { name: packageName, _rev: rev };
+
+        void notify(metadata, config, req.remote_user, packageName, 'unpublish').catch(
+          (error: any) => {
+            logger.error({ error: error?.message }, 'notify batch service has failed: @{error}');
+          }
+        );
+
         return next({ ok: API_MESSAGE.PKG_REMOVED });
       } catch (err) {
         return next(err);
@@ -204,6 +198,20 @@ export default function publish(
           { packageName, filename, revision },
           `success remove tarball for @{packageName}-@{tarballName}-@{revision}`
         );
+
+        // send notification of version removal
+        // getVersionFromTarball returns undefined when the filename is not parseable;
+        // fall back to the package name so we never report `name@undefined`
+        const version = tarballUtils.getVersionFromTarball(filename);
+        const metadata: Partial<Manifest> = { name: packageName, version, _rev: revision };
+        const publishedPackage = version ? `${packageName}@${version}` : packageName;
+
+        void notify(metadata, config, req.remote_user, publishedPackage, 'unpublish').catch(
+          (error: any) => {
+            logger.error({ error: error?.message }, 'notify batch service has failed: @{error}');
+          }
+        );
+
         return next({ ok: API_MESSAGE.TARBALL_REMOVED });
       } catch (err) {
         return next(err);
@@ -212,7 +220,12 @@ export default function publish(
   );
 }
 
-export function publishPackage(storage: Storage, logger: Logger, origin: string): any {
+export function publishPackage(
+  storage: Storage,
+  config: Config,
+  logger: Logger,
+  origin: string
+): any {
   return async function (
     req: $RequestExtend,
     res: $ResponseExtend,
@@ -242,8 +255,21 @@ export function publishPackage(storage: Storage, logger: Logger, origin: string)
         uplinksLook: false,
       });
       debug('package %s published', packageName);
-
       res.status(HTTP_STATUS.CREATED);
+
+      // send notification of publication (notification step, non transactional)
+      // a publish body is a packument; the published version is the single entry
+      // under `versions` (see storage.updateManifest), not a top-level field
+      const [version] = Object.keys(metadata.versions ?? {});
+      void notify(
+        metadata,
+        config,
+        req.remote_user,
+        `${metadata.name}@${version}`,
+        'publish'
+      ).catch((error: any) => {
+        logger.error({ error: error?.message }, 'notify batch service has failed: @{error}');
+      });
 
       return next({
         success: true,

@@ -1,0 +1,22 @@
+services:
+  verdaccio:
+    image: verdaccio/verdaccio:7.x-next
+    container_name: verdaccio_root_path
+    ports:
+      - '4873:4873'
+    volumes:
+      - verdaccio:/verdaccio
+
+  nginx:
+    restart: always
+    build: conf/nginx
+    ports:
+      - '80:80'
+    # nginx proxies to the `verdaccio` service by name over the default network
+    # (see conf/nginx/sites-enabled/verdaccio-conf).
+    depends_on:
+      - verdaccio
+
+volumes:
+  verdaccio:
+    driver: local
