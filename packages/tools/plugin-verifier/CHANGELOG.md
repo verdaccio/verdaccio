@@ -1,5 +1,15 @@
 # @verdaccio/plugin-verifier
 
+## 1.0.0-next-9.15
+
+### Patch Changes
+
+- 47f122f: chore(deps): clean-up unused and duplicates
+- Updated dependencies [47f122f]
+  - @verdaccio/core@9.0.0-next-9.19
+  - @verdaccio/loaders@9.0.0-next-9.19
+  - @verdaccio/logger@9.0.0-next-9.19
+
 ## 1.0.0-next-9.14
 
 ### Patch Changes

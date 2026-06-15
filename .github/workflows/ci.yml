@@ -82,7 +82,7 @@ jobs:
             packages/*/*/build
             packages/*/*/dist
             packages/plugins/ui-theme/static
-          key: ci-build-${{ github.sha }}-node-${{ matrix.node_version }}
+          key: ci-build-${{ github.run_id }}-${{ github.run_attempt }}-node-${{ matrix.node_version }}
   test-docker:
     needs: [build]
     if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && !failure() && !cancelled() }}
@@ -133,7 +133,7 @@ jobs:
             packages/*/*/build
             packages/*/*/dist
             packages/plugins/ui-theme/static
-          key: ci-build-${{ github.sha }}-node-${{ matrix.node_version }}
+          key: ci-build-${{ github.run_id }}-${{ github.run_attempt }}-node-${{ matrix.node_version }}
           fail-on-cache-miss: true
       - name: Test (Node 26)
         if: matrix.node_version == 26
@@ -184,7 +184,7 @@ jobs:
             packages/*/*/build
             packages/*/*/dist
             packages/plugins/ui-theme/static
-          key: ci-build-${{ github.sha }}-node-24
+          key: ci-build-${{ github.run_id }}-${{ github.run_attempt }}-node-24
           fail-on-cache-miss: true
       - name: Start Verdaccio
         run: |
@@ -216,7 +216,7 @@ jobs:
             packages/*/*/build
             packages/*/*/dist
             packages/plugins/ui-theme/static
-          key: ci-build-${{ github.sha }}-node-24
+          key: ci-build-${{ github.run_id }}-${{ github.run_attempt }}-node-24
           fail-on-cache-miss: true
       # The shared install-app action runs `pnpm install --ignore-scripts`,
       # so cypress's postinstall (which downloads the test runner binary) is
@@ -341,5 +341,5 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh cache delete "ci-build-${{ github.sha }}-node-24" --repo ${{ github.repository }} || true
-          gh cache delete "ci-build-${{ github.sha }}-node-26" --repo ${{ github.repository }} || true
+          gh cache delete "ci-build-${{ github.run_id }}-${{ github.run_attempt }}-node-24" --repo ${{ github.repository }} || true
+          gh cache delete "ci-build-${{ github.run_id }}-${{ github.run_attempt }}-node-26" --repo ${{ github.repository }} || true

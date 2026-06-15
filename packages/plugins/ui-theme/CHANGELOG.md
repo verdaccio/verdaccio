@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 9.0.0-next-9.19
+
+### Patch Changes
+
+- 47f122f: chore(deps): clean-up unused and duplicates
+
 ## 9.0.0-next-9.18
 
 ## 9.0.0-next-9.17

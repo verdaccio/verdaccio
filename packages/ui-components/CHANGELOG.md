@@ -1,5 +1,13 @@
 # @verdaccio/ui-components
 
+## 5.0.0-next-9.15
+
+### Patch Changes
+
+- 47f122f: chore(deps): clean-up unused and duplicates
+- Updated dependencies [47f122f]
+  - @verdaccio/ui-i18n@10.0.0-next-9.4
+
 ## 5.0.0-next-9.14
 
 ### Patch Changes
