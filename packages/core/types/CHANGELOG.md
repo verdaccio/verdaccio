@@ -1,5 +1,12 @@
 # Change Log
 
+## 14.0.0-next-9.10
+
+### Patch Changes
+
+- bc010e0: feat: add publish/unpublish hooks
+- 47f122f: chore(deps): clean-up unused and duplicates
+
 ## 14.0.0-next-9.9
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 services:
   verdaccio:
-    image: verdaccio/verdaccio:nightly-master
+    image: verdaccio/verdaccio:6
     container_name: verdaccio
     ports:
       - '4873:4873'
@@ -9,11 +9,11 @@ services:
 
   apacheproxy:
     build: apache_proxy/
-    links:
-      - verdaccio
     ports:
       - '80:80'
-    volumes_from:
+    # Compose attaches both services to the default network; the proxy reaches
+    # verdaccio by its service name (see apache_proxy/conf/000-default.conf).
+    depends_on:
       - verdaccio
 
 volumes:

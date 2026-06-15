@@ -1,7 +1,7 @@
 import nock from 'nock';
 import { basename } from 'node:path';
 import supertest from 'supertest';
-import { describe, expect, test } from 'vitest';
+import { beforeEach, describe, expect, test } from 'vitest';
 
 import { API_ERROR, API_MESSAGE, HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 import { generatePackageMetadata, generateRemotePackageMetadata } from '@verdaccio/test-helper';
@@ -225,6 +225,112 @@ describe('publish', () => {
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
           .expect(HTTP_STATUS.CREATED);
         expect(response.body.ok).toEqual(API_MESSAGE.TARBALL_REMOVED);
+      }
+    );
+  });
+
+  describe('notifications', () => {
+    const notifyDomain = 'http://slack-service';
+    const notifyPath = '/foo?auth_token=mySecretToken';
+
+    // notifications are fired in a non-blocking way (the publish/unpublish
+    // response does not wait for them), so the assertion cannot rely on the
+    // request having completed by the time the HTTP response resolves. Poll the
+    // nock scope until the interceptor has been consumed (or time out).
+    const waitForScopeDone = async (scope: nock.Scope, timeout = 3000): Promise<void> => {
+      const start = Date.now();
+      while (!scope.isDone() && Date.now() - start < timeout) {
+        await new Promise((resolve) => setTimeout(resolve, 10));
+      }
+    };
+
+    beforeEach(() => {
+      nock.cleanAll();
+    });
+
+    test.each([['notify-pkg', '@scope/notify-pkg']])(
+      'should trigger notification when publishing a package',
+      async (pkgName) => {
+        const notifyScope = nock(notifyDomain)
+          .post(notifyPath, (body) => {
+            expect(body).toEqual({
+              color: 'green',
+              message: `New package published: * ${pkgName}*`,
+              publishedPackage: `${pkgName}@1.0.0`,
+              publishType: 'publish',
+              message_format: 'text',
+              notify: true,
+            });
+            return true;
+          })
+          .reply(200);
+
+        const app = await initializeServer('publish-notify.yaml');
+        await publishVersion(app, pkgName, '1.0.0').expect(HTTP_STATUS.CREATED);
+        await waitForScopeDone(notifyScope);
+        expect(notifyScope.isDone()).toBe(true);
+      }
+    );
+
+    test.each([['notify-unpublish-pkg', '@scope/notify-unpublish-pkg']])(
+      'should trigger notification when unpublishing a package entirely',
+      async (pkgName) => {
+        const app = await initializeServer('publish-notify.yaml');
+        await publishVersion(app, pkgName, '1.0.0').expect(HTTP_STATUS.CREATED);
+        nock.cleanAll();
+
+        const notifyScope = nock(notifyDomain)
+          .post(notifyPath, (body) => {
+            expect(body).toEqual({
+              color: 'green',
+              message: `New package published: * ${pkgName}*`,
+              publishedPackage: pkgName,
+              publishType: 'unpublish',
+              message_format: 'text',
+              notify: true,
+            });
+            return true;
+          })
+          .reply(200);
+
+        await supertest(app)
+          .delete(`/${encodeURIComponent(pkgName)}/-rev/xxx`)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .expect(HTTP_STATUS.CREATED);
+
+        await waitForScopeDone(notifyScope);
+        expect(notifyScope.isDone()).toBe(true);
+      }
+    );
+
+    test.each([['notify-tarball-pkg', '@scope/notify-tarball-pkg']])(
+      'should trigger notification when removing a tarball',
+      async (pkgName) => {
+        const app = await initializeServer('publish-notify.yaml');
+        await publishVersion(app, pkgName, '1.0.0').expect(HTTP_STATUS.CREATED);
+        nock.cleanAll();
+
+        const notifyScope = nock(notifyDomain)
+          .post(notifyPath, (body) => {
+            expect(body).toEqual({
+              color: 'green',
+              message: `New package published: * ${pkgName}*`,
+              publishedPackage: `${pkgName}@1.0.0`,
+              publishType: 'unpublish',
+              message_format: 'text',
+              notify: true,
+            });
+            return true;
+          })
+          .reply(200);
+
+        await supertest(app)
+          .delete(`/${pkgName}/-/${basename(pkgName)}-1.0.0.tgz/-rev/revision`)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .expect(HTTP_STATUS.CREATED);
+
+        await waitForScopeDone(notifyScope);
+        expect(notifyScope.isDone()).toBe(true);
       }
     );
   });

@@ -1,5 +1,18 @@
 # Change Log
 
+## 5.0.0-next-9.20
+
+### Patch Changes
+
+- 47f122f: chore(deps): clean-up unused and duplicates
+- Updated dependencies [47f122f]
+- Updated dependencies [5215c94]
+  - @verdaccio/middleware@9.0.0-next-9.19
+  - @verdaccio/core@9.0.0-next-9.19
+  - @verdaccio/config@9.0.0-next-9.19
+  - @verdaccio/logger@9.0.0-next-9.19
+  - @verdaccio/auth@9.0.0-next-9.19
+
 ## 5.0.0-next-9.19
 
 ### Patch Changes
