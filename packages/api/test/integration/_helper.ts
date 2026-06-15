@@ -18,7 +18,7 @@ import {
   generatePackageMetadata,
   initializeServer as initializeServerHelper,
 } from '@verdaccio/test-helper';
-import type { Author, GenericBody, PackageUsers } from '@verdaccio/types';
+import type { Author, GenericBody } from '@verdaccio/types';
 
 import apiMiddleware from '../../src';
 
@@ -107,37 +107,6 @@ export function publishVersion(
     .put(`/${encodeURIComponent(pkgName)}`)
     .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
     .send(JSON.stringify(pkgMetadata))
-    .set('accept', HEADERS.GZIP)
-    .set(HEADER_TYPE.ACCEPT_ENCODING, HEADERS.JSON);
-
-  if (typeof token === 'string') {
-    test.set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token));
-  }
-
-  return test;
-}
-
-export function starPackage(
-  app: any,
-  options: {
-    users: PackageUsers;
-    name: string;
-    _rev: string;
-    _id?: string;
-  },
-  token?: string
-): supertest.Test {
-  const { _rev, _id, users } = options;
-  const starManifest = {
-    _rev,
-    _id,
-    users,
-  };
-
-  const test = supertest(app)
-    .put(`/${encodeURIComponent(options.name)}`)
-    .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-    .send(JSON.stringify(starManifest))
     .set('accept', HEADERS.GZIP)
     .set(HEADER_TYPE.ACCEPT_ENCODING, HEADERS.JSON);
 

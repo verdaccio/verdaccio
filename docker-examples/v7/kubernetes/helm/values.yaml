@@ -1,0 +1,72 @@
+# Custom values for the official Verdaccio Helm chart (https://charts.verdaccio.org).
+#
+# Install with:
+#   helm repo add verdaccio https://charts.verdaccio.org
+#   helm install my-registry verdaccio/verdaccio -f values.yaml
+#
+# These values pin Verdaccio 7 (the `7.x-next` image tag), enable persistence and
+# show a minimal inline configuration. Adapt them to your cluster.
+
+image:
+  repository: verdaccio/verdaccio
+  tag: '7.x-next'
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  port: 4873
+
+# Persist the storage directory across pod restarts.
+persistence:
+  enabled: true
+  accessMode: ReadWriteOnce
+  size: 8Gi
+  # storageClass: "-"
+
+# Expose the registry through an Ingress (disabled by default).
+ingress:
+  enabled: false
+  # className: nginx
+  # annotations:
+  #   nginx.ingress.kubernetes.io/proxy-body-size: '0'
+  # hosts:
+  #   - host: registry.example.com
+  #     paths:
+  #       - path: /
+  #         pathType: Prefix
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+# Inline configuration mounted as Verdaccio's config.yaml.
+# Remove this block to use the chart's default configuration.
+configMap: |
+  storage: /verdaccio/storage/data
+  web:
+    title: Verdaccio 7 on Kubernetes
+  auth:
+    htpasswd:
+      file: /verdaccio/storage/htpasswd
+  uplinks:
+    npmjs:
+      url: https://registry.npmjs.org/
+  packages:
+    '@*/*':
+      access: $all
+      publish: $authenticated
+      proxy: npmjs
+    '**':
+      access: $all
+      publish: $authenticated
+      proxy: npmjs
+  middlewares:
+    audit:
+      enabled: true
+  log: { type: stdout, format: pretty, level: http }

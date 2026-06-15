@@ -5,10 +5,6 @@ export enum USER_API_ENDPOINTS {
   user_token = '/-/user/token/{*subject}',
 }
 
-export enum STARS_API_ENDPOINTS {
-  get_user_starred_packages = '/-/_view/starredByUser',
-}
-
 export enum SEARCH_API_ENDPOINTS {
   search = '/-/v1/search',
   deprecated_search = '/-/all{/:since}',

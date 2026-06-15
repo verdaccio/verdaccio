@@ -20,7 +20,6 @@ import pkg from './package';
 import ping from './ping';
 import publish from './publish';
 import search from './search';
-import stars from './stars';
 import user from './user';
 import login from './v1/login';
 import profile from './v1/profile';
@@ -70,9 +69,8 @@ export default function (config: Config, auth: Auth, storage: Storage, logger: L
   search(app, logger);
   user(app, auth, config, logger);
   distTags(app, auth, storage, logger);
-  publish(app, auth, storage, logger);
+  publish(app, auth, storage, config, logger);
   ping(app);
-  stars(app, storage);
   v1Search(app, auth, storage, logger);
   token(app, auth, storage, config, logger);
   pkg(app, auth, storage, logger);
