@@ -39,8 +39,10 @@
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build": "echo 0"
   },
+  "dependencies": {
+    "@types/jsonwebtoken": "9.0.10"
+  },
   "devDependencies": {
-    "@types/jsonwebtoken": "9.0.7",
     "rimraf": "6.1.3",
     "typedoc": "0.28.14"
   },
