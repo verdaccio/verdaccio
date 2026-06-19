@@ -17,13 +17,16 @@ jobs:
       fail-fast: false
       matrix:
         node_version: [18, 22, 24, 26]
-        pm: [npm@10, npm@11, npm@next-12, pnpm@11, pnpm@10, yarn-classic, yarn-modern@4]
+        # npm@next-12 is pinned to 12.0.0-pre.0.0: the moving next-12 tag now
+        # points to 12.0.0-pre.1, a broken canary whose bundled libnpmpublish
+        # requires `sigstore` but npm no longer bundles it, breaking publish.
+        pm: [npm@10, npm@11, npm@12.0.0-pre.0.0, pnpm@11, pnpm@10, yarn-classic, yarn-modern@4]
         exclude:
           # pnpm@11 requires Node 20+
           - node_version: 18
             pm: pnpm@11
           - node_version: 18
-            pm: npm@next-12           
+            pm: npm@12.0.0-pre.0.0
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
 
