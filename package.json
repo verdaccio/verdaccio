@@ -77,7 +77,7 @@
     "@types/semver": "7.7.1",
     "@types/supertest": "6.0.3",
     "@verdaccio-scope/verdaccio-auth-foo": "0.0.2",
-    "@verdaccio/e2e-cli": "2.6.0",
+    "@verdaccio/e2e-cli": "2.10.2",
     "@verdaccio/e2e-ui": "2.4.1",
     "@verdaccio/eslint-config": "13.1.0",
     "@verdaccio/test-helper": "4.0.3",
