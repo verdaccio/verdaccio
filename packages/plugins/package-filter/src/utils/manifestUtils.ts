@@ -120,9 +120,25 @@ export function setupCreatedAndModified(manifest: Manifest): void {
     return;
   }
 
-  const sortedTimes = times.sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
-  time.created = sortedTimes[0];
-  time.modified = sortedTimes[sortedTimes.length - 1];
+  // Single O(n) pass for the earliest/latest publication time instead of an
+  // O(n log n) sort — the result is identical but cheaper on large manifests.
+  let earliest = times[0];
+  let latest = times[0];
+  let earliestMs = new Date(earliest).getTime();
+  let latestMs = earliestMs;
+  for (let i = 1; i < times.length; i++) {
+    const currentMs = new Date(times[i]).getTime();
+    if (currentMs < earliestMs) {
+      earliestMs = currentMs;
+      earliest = times[i];
+    }
+    if (currentMs > latestMs) {
+      latestMs = currentMs;
+      latest = times[i];
+    }
+  }
+  time.created = earliest;
+  time.modified = latest;
 }
 
 /**

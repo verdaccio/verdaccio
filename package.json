@@ -104,7 +104,11 @@
     "ts:ref": "update-ts-references --discardComments --rootConfigName tsconfig.base.json",
     "postinstall": "husky install",
     "local:snapshots": "changeset version --snapshot",
-    "local:publish": "cross-env npm_config_registry=http://localhost:4873 changeset publish --no-git-tag"
+    "local:publish": "cross-env npm_config_registry=http://localhost:4873 changeset publish --no-git-tag",
+    "verdaccio": "node docker/verdaccio6x/prepare.mjs && docker compose -f docker/verdaccio6x/docker-compose.yml up --build",
+    "verdaccio:build": "node docker/verdaccio6x/prepare.mjs && docker compose -f docker/verdaccio6x/docker-compose.yml build",
+    "verdaccio:run": "docker compose -f docker/verdaccio6x/docker-compose.yml up",
+    "verdaccio:down": "docker compose -f docker/verdaccio6x/docker-compose.yml down"
   },
   "engines": {
     "node": ">=18"
