@@ -50,7 +50,7 @@ function buildApp(
   app.use((_req: Request, res: Response) => {
     res.status(HTTP_STATUS.OK).json({ ok: true });
   });
-   
+
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     res.status(err.statusCode || HTTP_STATUS.INTERNAL_ERROR).json({ error: err.message });
   });
