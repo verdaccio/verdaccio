@@ -1,5 +1,12 @@
 # @verdaccio/config
 
+## 8.1.2
+
+### Patch Changes
+
+- Updated dependencies [589dd52]
+  - @verdaccio/core@8.1.2
+
 ## 8.1.1
 
 ### Patch Changes

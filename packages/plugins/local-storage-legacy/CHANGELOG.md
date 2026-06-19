@@ -1,5 +1,13 @@
 # Change Log
 
+## 11.3.4
+
+### Patch Changes
+
+- Updated dependencies [589dd52]
+  - @verdaccio/core@8.1.2
+  - @verdaccio/file-locking@13.0.1
+
 ## 11.3.3
 
 ### Patch Changes
