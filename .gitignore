@@ -64,3 +64,6 @@ packages/ui-components/storybook-static
 AGENTS.md
 CLAUDE.md
 **/.claude**
+
+# Verdaccio 6.x local test image build context
+docker/verdaccio6x/dist/

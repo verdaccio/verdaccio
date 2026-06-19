@@ -63,6 +63,7 @@ export default [
       '**/build/**',
       'dist.js',
       'bundle.js',
+      'docker/verdaccio6x/',
     ],
   },
 

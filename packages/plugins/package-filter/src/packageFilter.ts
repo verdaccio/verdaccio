@@ -72,11 +72,6 @@ export class PackageFilterPlugin
       'package-filter processing @{name} (@{versionCount} versions)'
     );
 
-    let newManifest = getManifestClone(manifest);
-    if (blockRules.size > 0) {
-      newManifest = filterBlockedVersions(newManifest, blockRules, allowRules, this.logger);
-    }
-
     let earliestDateThreshold: Date | null = null;
     if (minAgeMs) {
       earliestDateThreshold = new Date(Date.now() - minAgeMs);
@@ -84,6 +79,20 @@ export class PackageFilterPlugin
 
     if (dateThreshold && (!earliestDateThreshold || dateThreshold < earliestDateThreshold)) {
       earliestDateThreshold = dateThreshold;
+    }
+
+    // Fast path: when neither block rules nor a date threshold are configured there
+    // is nothing this filter can change. Returning the manifest untouched avoids the
+    // clone and the cleanup passes below. This matters most for `npm search`, which
+    // invokes filter_metadata once per matched package (see issue #5837).
+    if (blockRules.size === 0 && !earliestDateThreshold) {
+      debug('no filters configured, returning manifest untouched for %s', manifest.name);
+      return manifest as Manifest;
+    }
+
+    let newManifest = getManifestClone(manifest);
+    if (blockRules.size > 0) {
+      newManifest = filterBlockedVersions(newManifest, blockRules, allowRules, this.logger);
     }
 
     if (earliestDateThreshold) {
@@ -99,15 +108,24 @@ export class PackageFilterPlugin
       newManifest = filterVersionsByPublishDate(newManifest, earliestDateThreshold, allowRules);
     }
 
-    cleanupTags(newManifest);
-    setupLatestTag(newManifest);
-    cleanupTime(newManifest);
-    setupCreatedAndModified(newManifest);
-    cleanupDistFiles(newManifest);
-
     const filteredCount = Object.keys(newManifest.versions).length;
     const removedCount = versionCount - filteredCount;
-    if (filteredCount !== versionCount) {
+    // The cleanup passes only repair inconsistencies introduced by filtering:
+    // orphaned dist-tags/time/_distfiles entries and a `latest` tag pointing at a
+    // removed version. When the filters left the manifest untouched (no version
+    // removed or replaced) it is already consistent, so the passes are skipped.
+    // `readme` changing is the signal that the (count-preserving) replace strategy
+    // rewrote version content and the cleanup still needs to run.
+    const wasModified = removedCount > 0 || newManifest.readme !== manifest.readme;
+    if (wasModified) {
+      cleanupTags(newManifest);
+      setupLatestTag(newManifest);
+      cleanupTime(newManifest);
+      setupCreatedAndModified(newManifest);
+      cleanupDistFiles(newManifest);
+    }
+
+    if (removedCount > 0) {
       debug(
         'filtered %s: %d -> %d versions (%d removed)',
         manifest.name,

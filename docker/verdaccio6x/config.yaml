@@ -1,0 +1,46 @@
+# Verdaccio 6.x config for local testing of the locally-built packages.
+# The package-filter plugin is enabled so `npm search` exercises the filtering
+# path that issue #5837 is about (filter_metadata runs once per matched package).
+storage: /verdaccio/storage
+listen: 0.0.0.0:4873
+
+auth:
+  htpasswd:
+    file: /verdaccio/conf/htpasswd
+    max_users: 1000
+
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
+    cache: true
+
+filters:
+  # The scoped name must be used verbatim: verdaccio loads a config key starting
+  # with `@.../...` as-is, otherwise it prepends `verdaccio-` (which would look for
+  # a non-existent `verdaccio-package-filter`).
+  '@verdaccio/package-filter':
+    # Block versions published less than 7 days ago — forces filtering work on
+    # every package returned by search. Tune/replace with `block`/`allow` rules
+    # or a `dateThreshold` to match your scenario.
+    minAgeDays: 7
+
+packages:
+  '@*/*':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+    proxy: npmjs
+  '**':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+    proxy: npmjs
+
+middlewares:
+  audit:
+    enabled: true
+
+log:
+  type: stdout
+  format: pretty
+  level: http
