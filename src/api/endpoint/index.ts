@@ -4,12 +4,14 @@ import type { Auth } from '@verdaccio/auth';
 import {
   antiLoop,
   encodeScopePackage,
+  enforceGeneratedTokenMetadata,
   match,
   validateName,
   validatePackage,
 } from '@verdaccio/middleware';
 import type { Config } from '@verdaccio/types';
 
+import { logger } from '../../lib/logger';
 import type Storage from '../../lib/storage';
 import distTags from './api/dist-tags';
 import pkg from './api/package';
@@ -41,6 +43,7 @@ export default function (config: Config, auth: Auth, storage: Storage) {
   app.param('org_couchdb_user', match(/^org\.couchdb\.user:/));
 
   app.use(auth.apiJWTmiddleware());
+  app.use(enforceGeneratedTokenMetadata(storage, logger));
   app.use(express.json({ strict: false, limit: config.max_body_size || '10mb' }));
   app.use(antiLoop(config));
   // encode / in a scoped package name to be matched as a single parameter in routes
