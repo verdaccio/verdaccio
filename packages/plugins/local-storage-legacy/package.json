@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/local-storage-legacy",
-  "version": "11.3.3",
+  "version": "11.3.4",
   "description": "Local storage implementation",
   "keywords": [
     "plugin",

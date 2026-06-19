@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/e2e-shared",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": true,
   "description": "Shared utilities for Verdaccio E2E tests",
   "main": "src/index.ts",

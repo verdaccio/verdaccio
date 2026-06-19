@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-memory",
-  "version": "10.4.5",
+  "version": "10.4.6",
   "description": "Storage implementation in memory",
   "keywords": [
     "verdaccio",
