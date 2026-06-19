@@ -510,12 +510,12 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
         next(errorUtils.getBadRequest(API_ERROR.BAD_USERNAME_PASSWORD));
         return;
       }
-      const { user, password } = parsedCredentials as AESPayload;
+      const { user, password, tokenKey } = parsedCredentials as AESPayload;
       debug('authenticating %o', user);
       this.authenticate(user, password, (err: VerdaccioError | null, user): void => {
         if (!err) {
           debug('generating a remote user');
-          req.remote_user = user;
+          req.remote_user = tokenKey ? { ...user, token: { key: tokenKey } } : user;
           next();
         } else {
           debug('generating anonymous user');
@@ -552,11 +552,11 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     const credentials: any = getMiddlewareCredentials(security, secret, authorization);
     debug('api middleware credentials %o', credentials?.name);
     if (credentials) {
-      const { user, password } = credentials;
+      const { user, password, tokenKey } = credentials;
       debug('authenticating %o', user);
       this.authenticate(user, password, (err, user): void => {
         if (!err) {
-          req.remote_user = user;
+          req.remote_user = tokenKey ? { ...user, token: { key: tokenKey } } : user;
           debug('generating a remote user');
           next();
         } else {
@@ -629,7 +629,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
   }
 
   public async jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions): Promise<string> {
-    const { real_groups, name, groups } = user;
+    const { real_groups, name, groups, token: tokenMetadata } = user;
     debug('jwt encrypt %o', name);
     const realGroupsValidated = _.isNil(real_groups) ? [] : real_groups;
     const groupedGroups = _.isNil(groups)
@@ -640,9 +640,12 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
       name,
       groups: groupedGroups,
     };
-    const token: string = await signPayload(payload, this.secret, signOptions);
+    if (tokenMetadata?.key) {
+      payload.token = { key: tokenMetadata.key };
+    }
+    const signedToken: string = await signPayload(payload, this.secret, signOptions);
 
-    return token;
+    return signedToken;
   }
 
   /**
