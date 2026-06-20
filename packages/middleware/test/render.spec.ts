@@ -1,7 +1,9 @@
 import express from 'express';
+import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import supertest from 'supertest';
-import { beforeAll, describe, expect, test } from 'vitest';
+import { afterAll, beforeAll, describe, expect, test } from 'vitest';
 
 import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
@@ -192,6 +194,39 @@ describe('test web server', () => {
         return supertest(await initializeServer('default-test.yaml'))
           .get('/-/static/%2E%2E%2Fpartials%2Fsecret.txt')
           .expect(HTTP_STATUS.NOT_FOUND);
+      });
+
+      describe('staticPath under a dot-prefixed ancestor directory', () => {
+        // Regression: when verdaccio is installed via pnpm, the resolved
+        // staticPath goes through `node_modules/.pnpm/...`. `res.sendFile`
+        // (via the `send` package) defaults `dotfiles` to `ignore` and 404s
+        // any absolute path containing a dot-prefixed segment, breaking the
+        // entire UI. Reproduce that layout with a temp `.pnpm`-style folder.
+        let tmpRoot: string;
+        let dottedStaticPath: string;
+
+        beforeAll(() => {
+          tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'verdaccio-dot-static-'));
+          dottedStaticPath = path.join(tmpRoot, '.pnpm', 'plugin', 'static');
+          fs.mkdirSync(dottedStaticPath, { recursive: true });
+          fs.writeFileSync(path.join(dottedStaticPath, 'main.js'), 'console.log("ok")');
+        });
+
+        afterAll(() => {
+          fs.rmSync(tmpRoot, { recursive: true, force: true });
+        });
+
+        test('should serve static files from a path containing a dot-prefixed ancestor', async () => {
+          const app = express();
+          app.use(
+            webMiddleware(
+              getConf('default-test.yaml'),
+              {},
+              { ...pluginOptions, staticPath: dottedStaticPath }
+            )
+          );
+          return supertest(app).get('/-/static/main.js').expect(HTTP_STATUS.OK);
+        });
       });
     });
 
