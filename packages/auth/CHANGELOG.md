@@ -1,5 +1,11 @@
 # @verdaccio/auth
 
+## 8.0.4
+
+### Patch Changes
+
+- 92d1bbd: chore: update dependencies
+
 ## 8.0.3
 
 ### Patch Changes
