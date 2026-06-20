@@ -44,8 +44,8 @@ function buildApp(
   }
   app.use((req: Request, _res: Response, next: NextFunction) => {
     (req as any).remote_user = remoteUser;
-    // `req.ip` is a read-only accessor derived from the socket; shadow it so the
-    // socket-address path can be exercised with a deterministic address
+    // `req.ip` is a read-only accessor derived from the socket; shadow it to
+    // provide a deterministic client address for these tests
     if (typeof clientIp !== 'undefined') {
       Object.defineProperty(req, 'ip', { value: clientIp, configurable: true });
     }
