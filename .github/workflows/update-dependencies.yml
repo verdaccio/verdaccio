@@ -83,6 +83,9 @@ jobs:
             "Update verdaccio dependencies (\`@verdaccio/*\`, \`verdaccio\`, \`verdaccio-*\`) to the \`$DIST_TAG\` npm dist-tag." \
             > .changeset/update-verdaccio-dependencies.md
 
+          # Format updated package.json files and the changeset before committing.
+          pnpm format
+
           git add -A
           git commit -m "chore: update verdaccio 7.x dependencies"
           git push --force origin "$BRANCH"
