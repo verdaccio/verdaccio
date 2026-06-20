@@ -1,0 +1,37 @@
+name: yarn audit
+
+on:
+  push:
+  pull_request:
+    paths:
+      - 'package.json'
+      - 'yarn.lock'
+      - '.github/workflows/yarn-audit.yml'
+
+concurrency:
+  group: yarn-audit-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: 'yarn audit'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: 'Use Node.js'
+        uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+        with:
+          node-version-file: '.nvmrc'
+      - name: 'Enable corepack'
+        run: corepack enable
+      - name: Install Dependencies
+        run: yarn install --immutable
+      - name: 'Run yarn audit'
+        run: yarn npm audit --recursive --environment production --severity high
