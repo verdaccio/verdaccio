@@ -23,7 +23,9 @@
     "@verdaccio/config": "workspace:*",
     "@verdaccio/core": "workspace:*",
     "@verdaccio/registry-cli": "^1.1.0",
-    "get-port": "5.1.1",
-    "verdaccio": "6.5.2"
+    "get-port": "5.1.1"
+  },
+  "devDependencies": {
+    "verdaccio": "6.7.2"
   }
 }
