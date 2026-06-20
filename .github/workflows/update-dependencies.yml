@@ -8,7 +8,7 @@ on:
   push:
     # Don't re-trigger on the workflow's own PR branch (avoids a self-loop).
     branches-ignore:
-      - chore/update-verdaccio-dependencies
+      - chore/update-verdaccio-dependencies-6.x
 
 permissions:
   contents: write
@@ -102,7 +102,7 @@ jobs:
         run: |
           # Stable branch: the working tree is already rebased on the latest
           # 6.x (checked out above), so force-pushing it rebases any existing PR.
-          BRANCH="chore/update-verdaccio-dependencies"
+          BRANCH="chore/update-verdaccio-dependencies-6.x"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "$BRANCH"
