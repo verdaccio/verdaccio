@@ -3423,12 +3423,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/e2e-ui@npm:2.4.1":
-  version: 2.4.1
-  resolution: "@verdaccio/e2e-ui@npm:2.4.1"
+"@verdaccio/e2e-ui@npm:2.4.2":
+  version: 2.4.2
+  resolution: "@verdaccio/e2e-ui@npm:2.4.2"
   peerDependencies:
     cypress: ">=12.0.0"
-  checksum: 10c0/81c89eefcb30f2688065b9ed10477ffe344d0cb215b096ff83186f1250ac9bfd965a7ed8100f526078fde6d1ae06880a4e73149257638a09493354841dfaec83
+  checksum: 10c0/de607d84e045c028396c8a42ae54698fd7e652ddf12e67987c97e691565186eebed8792bbd6f8a197e15b1df3cfb9e864f8378b9d4996e1dd3f984df582ee792
   languageName: node
   linkType: hard
 
@@ -11198,7 +11198,7 @@ __metadata:
     "@verdaccio/config": "npm:8.1.2"
     "@verdaccio/core": "npm:8.1.2"
     "@verdaccio/e2e-cli": "npm:2.10.2"
-    "@verdaccio/e2e-ui": "npm:2.4.1"
+    "@verdaccio/e2e-ui": "npm:2.4.2"
     "@verdaccio/eslint-config": "npm:13.1.2"
     "@verdaccio/hooks": "npm:8.0.3"
     "@verdaccio/loaders": "npm:8.0.3"
