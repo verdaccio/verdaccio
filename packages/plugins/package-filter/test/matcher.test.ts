@@ -3,6 +3,7 @@ import { describe, expect, test } from 'vitest';
 
 import type { Manifest, Version } from '@verdaccio/types';
 
+import type { ParsedRule } from '../src/config/types';
 import { matchRules } from '../src/filtering/matcher';
 import { MatchType } from '../src/filtering/types';
 
@@ -62,13 +63,12 @@ describe('matchRules', () => {
   });
 
   test('keeps exact package rules before glob package rules', () => {
-    const result = matchRules(
-      createManifest('@babel/test'),
-      new Map([
-        ['@babel/*', 'package'],
-        ['@babel/test', { versions: [new Range('>1.0.0')] }],
-      ])
-    );
+    const rules = new Map<string, ParsedRule>([
+      ['@babel/*', 'package'],
+      ['@babel/test', { versions: [new Range('>1.0.0')] }],
+    ]);
+
+    const result = matchRules(createManifest('@babel/test'), rules);
 
     expect(result?.type).toBe(MatchType.VERSIONS);
     expect(result?.versions).toEqual(['2.0.0']);
