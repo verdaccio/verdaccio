@@ -1,61 +1,54 @@
-# Verdaccio and https-portal Example
+# Verdaccio 6 with HTTPS Portal
 
-Run `verdaccio` under fully automated HTTPS server powered by Nginx, Let's Encrypt was never so easy. Using [https-portal](https://github.com/SteveLTN/https-portal) all is builtin and no need for extra configuration.
+Run `verdaccio/verdaccio:6` behind a fully automated HTTPS server powered by
+nginx + Let's Encrypt, using
+[https-portal](https://github.com/SteveLTN/https-portal). TLS certificates are
+issued and renewed automatically — no extra configuration required.
 
 ## Prerequisites
 
-In order to make it work, this is just a local setup, so you must update your `host` file.
-
-On Mac
+This is a local setup, so map the example domain to localhost in your hosts
+file (`/etc/hosts` on macOS/Linux):
 
 ```
-➜ sudo vi /etc/hosts
-
-##
-# Host Database
-#
-# localhost is used to configure the loopback interface
-# when the system is booting.  Do not change this entry.
-##
 127.0.0.1       localhost
 127.0.0.1       example.com
 ```
 
+The compose file sets `STAGE: local`, so https-portal generates a **self-signed**
+certificate (no real Let's Encrypt calls). For a public deployment, set
+`STAGE: production` and use a real domain.
+
 ## Usage
 
-To run the containers, run the followingcommands in this folder, it should start the containers in detach mode.
+Start the containers in the background:
 
 ```bash
- docker-compose up -d
+docker compose up -d --build
 ```
 
-To recreate the nginx image you can force the build.
+Force a full rebuild/recreate:
 
 ```bash
- docker-compose up --build -d
+docker compose up -d --build --force-recreate
 ```
 
-To force recreate the images.
+Stop everything:
 
 ```bash
-docker-compose up --build --force-recreate  -d
+docker compose down
 ```
 
-To stop all containers
-
-```bash
-docker-compose stop
-```
-
-From your Javascript project
+Publish from your project:
 
 ```bash
 npm publish --registry https://example.com
 ```
 
-## NPM and self-signed certificates
+## npm and self-signed certificates
 
-Be aware of disabling strict SSL in `./npmrc`config file as explained [here](https://stackoverflow.com/questions/9626990/receiving-error-error-ssl-error-self-signed-cert-in-chain-while-using-npm).
+Because the local certificate is self-signed, npm may reject it. Either trust
+the generated certificate, or (for local testing only) disable strict SSL:
 
 ```bash
 npm config set strict-ssl false
@@ -63,7 +56,7 @@ npm config set strict-ssl false
 
 ## Login
 
-If you want to login into the Verdaccio instance created via these Docker Examples, please try:
+A default user is provided for these examples:
 
-Username: jpicado
-Password: jpicado
+- Username: `dummyuser`
+- Password: `dummyuser`

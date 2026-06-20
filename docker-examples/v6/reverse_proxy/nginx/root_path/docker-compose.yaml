@@ -1,6 +1,6 @@
 services:
   verdaccio:
-    image: verdaccio/verdaccio:nightly-master
+    image: verdaccio/verdaccio:6
     container_name: verdaccio_root_path
     ports:
       - '4873:4873'
@@ -12,12 +12,10 @@ services:
     build: conf/nginx
     ports:
       - '80:80'
-    volumes:
-      - /www/public
-    volumes_from:
+    # nginx proxies to the `verdaccio` service by name over the default network
+    # (see conf/nginx/sites-enabled/verdaccio-conf).
+    depends_on:
       - verdaccio
-    links:
-      - verdaccio:verdaccio
 
 volumes:
   verdaccio:

@@ -12,6 +12,7 @@ const debug = buildDebug('verdaccio:hooks');
 export function compileTemplate(content, metadata) {
   // FUTURE: multiple handlers
   return new Promise((resolve, reject) => {
+    // eslint-disable-next-line no-unassigned-vars
     let handler;
     try {
       if (!handler) {
@@ -34,7 +35,8 @@ export async function handleNotify(
   metadata: Partial<Manifest>,
   notifyEntry,
   remoteUser: Partial<RemoteUser>,
-  publishedPackage: string
+  publishedPackage: string,
+  publishType?: string
 ): Promise<boolean> {
   let regex;
   try {
@@ -53,15 +55,25 @@ export async function handleNotify(
     return false;
   }
 
-  let content;
-  // FIXME: publisher is not part of the expected types metadata
-  // @ts-ignore
-  if (typeof metadata?.publisher === 'undefined' || metadata?.publisher === null) {
-    // @ts-ignore
-    metadata = { ...metadata, publishedPackage, publisher: { name: remoteUser.name as string } };
-    debug('template metadata %o', metadata);
-    content = await compileTemplate(notifyEntry.content, metadata);
-  }
+  const publishMetadata = {
+    ...metadata,
+    ...(typeof metadata.publisher === 'undefined' || metadata.publisher === null
+      ? {
+          // only expose the documented publisher fields, never the full remote
+          // user object (it may carry the auth token, which must not leak to the
+          // notification endpoint)
+          publisher: {
+            name: remoteUser.name,
+            groups: remoteUser.groups,
+            real_groups: remoteUser.real_groups,
+          },
+        }
+      : {}),
+    publishedPackage,
+    publishType,
+  };
+  debug('template metadata %o', publishMetadata);
+  const content = (await compileTemplate(notifyEntry.content, publishMetadata)) as string;
 
   const options: FetchOptions = {
     body: content,
@@ -70,15 +82,9 @@ export async function handleNotify(
   // provides fallback support, it's accept an Object {} and Array of {}
   if (notifyEntry.headers && Array.isArray(notifyEntry.headers)) {
     const header = {};
-    // FIXME: we can simplify this
-    notifyEntry.headers.map(function (item): void {
-      if (Object.is(item, item)) {
-        for (const key in item) {
-          /* eslint no-prototype-builtins: 0 */
-          if (item.hasOwnProperty(key)) {
-            header[key] = item[key];
-          }
-        }
+    notifyEntry.headers.forEach((item): void => {
+      if (item && typeof item === 'object') {
+        Object.assign(header, item);
       }
     });
     options.headers = header;
@@ -98,12 +104,13 @@ export async function handleNotify(
 }
 
 export function sendNotification(
-  metadata: Manifest,
+  metadata: Partial<Manifest>,
   notify: Notification,
   remoteUser: Partial<RemoteUser>,
-  publishedPackage: string
+  publishedPackage: string,
+  publishType?: string
 ): Promise<boolean> {
-  return handleNotify(metadata, notify, remoteUser, publishedPackage) as Promise<any>;
+  return handleNotify(metadata, notify, remoteUser, publishedPackage, publishType) as Promise<any>;
 }
 
 function isHasNotification(value: any): value is Notification {
@@ -111,10 +118,11 @@ function isHasNotification(value: any): value is Notification {
 }
 
 export async function notify(
-  metadata: Manifest,
+  metadata: Partial<Manifest>,
   config: Config,
   remoteUser: RemoteUser,
-  publishedPackage: string
+  publishedPackage: string,
+  publishType?: string
 ): Promise<boolean[]> {
   debug('init send notification');
   const notification = config?.notify;
@@ -132,7 +140,8 @@ export async function notify(
         metadata,
         config.notify as Notification,
         remoteUser,
-        publishedPackage
+        publishedPackage,
+        publishType
       );
       return [response];
     } catch {
@@ -153,7 +162,7 @@ export async function notify(
       debug('sending %o notifications', notificationEntries.length);
       const results = await Promise.allSettled(
         notificationEntries.map(([, item]) =>
-          sendNotification(metadata, item, remoteUser, publishedPackage)
+          sendNotification(metadata, item, remoteUser, publishedPackage, publishType)
         )
       ).catch((error) => {
         logger.error({ error }, 'notify request has failed: @error');

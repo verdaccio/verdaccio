@@ -1,5 +1,17 @@
 # @verdaccio/auth
 
+## 9.0.0-next-9.19
+
+### Patch Changes
+
+- 47f122f: chore(deps): clean-up unused and duplicates
+- Updated dependencies [47f122f]
+  - verdaccio-htpasswd@14.0.0-next-9.19
+  - @verdaccio/core@9.0.0-next-9.19
+  - @verdaccio/signature@9.0.0-next-9.19
+  - @verdaccio/loaders@9.0.0-next-9.19
+  - @verdaccio/config@9.0.0-next-9.19
+
 ## 9.0.0-next-9.18
 
 ### Patch Changes

@@ -15,9 +15,6 @@ test-storage*
 .verdaccio_test_env
 
 # docker examples
-docker-examples/v5/reverse_proxy/nginx/relative_path/storage/*
-docker-examples/v5/**/storage/*
-docker-examples/v4/**/storage/*
 docker-examples/v6/**/storage/*
 docker-examples/v7/**/storage/*
 docker-examples/v8/**/storage/*
