@@ -24,25 +24,22 @@ export interface TokenReadableStorage {
 /**
  * Resolve the client address of an incoming request for CIDR matching.
  *
- * Prefers the `x-forwarded-for` header (taking the first, client-most entry of
- * the comma-separated list) and falls back to `req.ip` and then the raw socket
- * address. The result is normalized (trimmed and IPv4-mapped IPv6 prefixes
- * stripped) via {@link ipUtils.normalizeAddress}.
+ * Uses Express' `req.ip`, which already honors the application's `trust proxy`
+ * setting (`config.server.trustProxy`): when the operator has declared trusted
+ * proxies, `req.ip` is the upstream-most untrusted address parsed from
+ * `X-Forwarded-For`; otherwise it is the direct socket peer and the forwarded
+ * header is ignored entirely.
+ *
+ * The middleware must NOT read `X-Forwarded-For` on its own — doing so
+ * unconditionally would let any client spoof its address (and bypass a token's
+ * CIDR whitelist) simply by sending the header. Falls back to the raw socket
+ * address and is normalized (trimmed, IPv4-mapped IPv6 prefix stripped) via
+ * {@link ipUtils.normalizeAddress}.
  *
  * @param req the incoming Express request
  * @returns the normalized client address, or `undefined` when none can be determined
  */
 function getClientAddress(req: Request): string | undefined {
-  const forwardedFor = req.headers['x-forwarded-for'];
-
-  if (Array.isArray(forwardedFor)) {
-    return ipUtils.normalizeAddress(forwardedFor[0]?.split(',')[0]);
-  }
-
-  if (typeof forwardedFor === 'string') {
-    return ipUtils.normalizeAddress(forwardedFor.split(',')[0]);
-  }
-
   return ipUtils.normalizeAddress(req.ip || req.socket.remoteAddress);
 }
 
