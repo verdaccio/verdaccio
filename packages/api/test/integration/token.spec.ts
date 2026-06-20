@@ -95,22 +95,55 @@ describe('token', () => {
     });
 
     test.each([['token.yaml'], ['token.jwt.yaml']])(
-      'should fail if readonly is missing',
+      'should reject readonly when it has the wrong type',
       async (conf) => {
         const app = await initializeServer(conf);
         const credentials = { name: 'jota_token', password: 'secretPass' };
         const token = await getNewToken(app, credentials);
         const resp = await generateTokenCLI(app, token, {
           password: credentials.password,
+          readonly: 'nope',
           cidr_whitelist: [],
+        });
+        expect(resp.body.error).toEqual(SUPPORT_ERRORS.PARAMETERS_NOT_VALID);
+      }
+    );
+
+    test.each([['token.yaml'], ['token.jwt.yaml']])(
+      'should reject cidr_whitelist when it has the wrong type',
+      async (conf) => {
+        const app = await initializeServer(conf);
+        const credentials = { name: 'jota_token', password: 'secretPass' };
+        const token = await getNewToken(app, credentials);
+        const resp = await generateTokenCLI(app, token, {
+          password: credentials.password,
+          readonly: false,
+          cidr_whitelist: 'not-an-array',
         });
         expect(resp.body.error).toEqual(SUPPORT_ERRORS.PARAMETERS_NOT_VALID);
       }
     );
   });
 
+  // npm >= 11 rewrote `npm token create` to omit `readonly` and to send
+  // `cidr_whitelist` only with `--cidr`; the endpoint must default them.
   test.each([['token.yaml'], ['token.jwt.yaml']])(
-    'should fail if cidr_whitelist is missing',
+    'should default readonly to false when omitted',
+    async (conf) => {
+      const app = await initializeServer(conf);
+      const credentials = { name: 'jota_token', password: 'secretPass' };
+      const token = await getNewToken(app, credentials);
+      const resp = await generateTokenCLI(app, token, {
+        password: credentials.password,
+        cidr_whitelist: [],
+      });
+      expect(resp.body.token).toBeDefined();
+      expect(resp.body.readonly).toBe(false);
+    }
+  );
+
+  test.each([['token.yaml'], ['token.jwt.yaml']])(
+    'should default cidr_whitelist to empty when omitted',
     async (conf) => {
       const app = await initializeServer(conf);
       const credentials = { name: 'jota_token', password: 'secretPass' };
@@ -119,7 +152,23 @@ describe('token', () => {
         password: credentials.password,
         readonly: false,
       });
-      expect(resp.body.error).toEqual(SUPPORT_ERRORS.PARAMETERS_NOT_VALID);
+      expect(resp.body.token).toBeDefined();
+      expect(resp.body.cidr).toEqual([]);
+    }
+  );
+
+  test.each([['token.yaml'], ['token.jwt.yaml']])(
+    'should create a token from a body with only a password',
+    async (conf) => {
+      const app = await initializeServer(conf);
+      const credentials = { name: 'jota_token', password: 'secretPass' };
+      const token = await getNewToken(app, credentials);
+      const resp = await generateTokenCLI(app, token, {
+        password: credentials.password,
+      });
+      expect(resp.body.token).toBeDefined();
+      expect(resp.body.readonly).toBe(false);
+      expect(resp.body.cidr).toEqual([]);
     }
   );
 
