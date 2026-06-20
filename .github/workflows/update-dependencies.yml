@@ -4,6 +4,7 @@ name: update verdaccio 7.x dependencies
 # verdaccio-*) across the pnpm workspace and opens a PR against 7.x.
 on:
   workflow_dispatch:
+  push:
 
 permissions:
   contents: write
@@ -47,22 +48,29 @@ jobs:
         if: steps.diff.outputs.changed == 'true'
         run: pnpm build
 
-      - name: Create pull request
+      - name: Create or update pull request
         if: steps.diff.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          BRANCH="chore/update-dependencies-$(date +%Y%m%d%H%M)"
+          # Stable branch: the working tree is already rebased on the latest
+          # 7.x (checked out above), so force-pushing it rebases any existing PR.
+          BRANCH="chore/update-verdaccio-dependencies"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "$BRANCH"
           git add -A
           git commit -m "chore: update verdaccio dependencies"
-          git push origin "$BRANCH"
-          gh pr create \
-            --base 7.x \
-            --head "$BRANCH" \
-            --title "chore: update verdaccio dependencies" \
-            --body "Automated update of verdaccio packages only — \`@verdaccio/*\`, \`verdaccio\`, and \`verdaccio-*\` (\`pnpm update -r --latest\`). Triggered manually via the **update verdaccio 7.x dependencies** workflow.
+          git push --force origin "$BRANCH"
+
+          if [ -n "$(gh pr list --head "$BRANCH" --base 7.x --state open --json number --jq '.[].number')" ]; then
+            echo "Existing PR found — branch force-pushed (rebased onto latest 7.x)."
+          else
+            gh pr create \
+              --base 7.x \
+              --head "$BRANCH" \
+              --title "chore: update verdaccio dependencies" \
+              --body "Automated update of verdaccio packages only — \`@verdaccio/*\`, \`verdaccio\`, and \`verdaccio-*\` (\`pnpm update -r --latest\`). Triggered manually via the **update verdaccio 7.x dependencies** workflow.
 
           $(git diff --stat HEAD~1)"
+          fi
