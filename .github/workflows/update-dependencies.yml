@@ -40,7 +40,12 @@ jobs:
       - name: Update verdaccio packages to the dist-tag
         env:
           DIST_TAG: ${{ github.event.inputs.dist_tag || 'next-9' }}
-        run: pnpm update -r "@verdaccio/*@$DIST_TAG" "verdaccio@$DIST_TAG" "verdaccio-*@$DIST_TAG"
+        # Exclude packages that are not part of this release line (not published
+        # under $DIST_TAG): e2e-cli, e2e-ui and eslint-config.
+        run: |
+          pnpm update -r \
+            "@verdaccio/*@$DIST_TAG" "verdaccio@$DIST_TAG" "verdaccio-*@$DIST_TAG" \
+            "!@verdaccio/e2e-cli" "!@verdaccio/e2e-ui" "!@verdaccio/eslint-config"
 
       - name: Stop if nothing changed
         id: diff
