@@ -25,11 +25,11 @@
     "@verdaccio/core": "workspace:*",
     "@verdaccio/e2e-cli": "^2.6.0",
     "@verdaccio/e2e-shared": "workspace:*",
-    "verdaccio": "6.5.2",
     "verdaccio-auth-memory": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^20.5.8",
+    "verdaccio": "6.7.2",
     "vitest": "^4.1.4"
   }
 }
