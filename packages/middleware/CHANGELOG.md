@@ -1,5 +1,11 @@
 # @verdaccio/middleware
 
+## 8.0.5
+
+### Patch Changes
+
+- 92d1bbd: chore: update dependencies
+
 ## 8.0.4
 
 ### Patch Changes

@@ -37,7 +37,7 @@
     "node-fetch": "cjs"
   },
   "devDependencies": {
-    "@verdaccio/auth": "workspace:8.0.3",
+    "@verdaccio/auth": "workspace:8.0.4",
     "@verdaccio/logger": "workspace:8.0.3",
     "@verdaccio/types": "workspace:13.0.2",
     "nock": "13.5.6",

@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/middleware",
-  "version": "8.0.4",
+  "version": "8.0.5",
   "description": "Verdaccio Express Middleware",
   "main": "./build/index.js",
   "types": "build/index.d.ts",

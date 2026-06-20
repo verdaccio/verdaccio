@@ -244,7 +244,7 @@ importers:
         specifier: workspace:8.0.3
         version: link:../logger/logger
       '@verdaccio/middleware':
-        specifier: workspace:8.0.4
+        specifier: workspace:8.0.5
         version: link:../middleware
       '@verdaccio/types':
         specifier: workspace:13.0.2
@@ -667,7 +667,7 @@ importers:
         version: 2.6.7
     devDependencies:
       '@verdaccio/auth':
-        specifier: workspace:8.0.3
+        specifier: workspace:8.0.4
         version: link:../../auth
       '@verdaccio/logger':
         specifier: workspace:8.0.3
@@ -902,7 +902,7 @@ importers:
   packages/test-helper:
     dependencies:
       '@verdaccio/auth':
-        specifier: workspace:8.0.3
+        specifier: workspace:8.0.4
         version: link:../auth
       '@verdaccio/config':
         specifier: workspace:8.1.2
@@ -914,7 +914,7 @@ importers:
         specifier: workspace:8.0.3
         version: link:../logger/logger
       '@verdaccio/middleware':
-        specifier: workspace:8.0.4
+        specifier: workspace:8.0.5
         version: link:../middleware
       '@verdaccio/types':
         specifier: workspace:13.0.2

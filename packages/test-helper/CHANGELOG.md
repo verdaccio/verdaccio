@@ -1,5 +1,14 @@
 # Change Log
 
+## 4.0.5
+
+### Patch Changes
+
+- 92d1bbd: chore: update dependencies
+- Updated dependencies [92d1bbd]
+  - @verdaccio/auth@8.0.4
+  - @verdaccio/middleware@8.0.5
+
 ## 4.0.4
 
 ### Patch Changes
