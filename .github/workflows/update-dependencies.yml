@@ -6,9 +6,11 @@ name: update verdaccio 6.x dependencies
 on:
   workflow_dispatch:
   push:
-    # Don't re-trigger on the workflow's own PR branch (avoids a self-loop).
-    branches-ignore:
-      - chore/update-verdaccio-dependencies-6.x
+    # Only run on the 6.x release branch — never on PRs or other branches. The
+    # bot branch (chore/update-verdaccio-dependencies-6.x) is not 6.x, so this
+    # also avoids a self-loop.
+    branches:
+      - 6.x
 
 permissions:
   contents: write
