@@ -777,6 +777,41 @@ describe('storage', () => {
           ).rejects.toThrow();
         }
       );
+
+      test.each([['foo', 'publishWithOwnerAndCheck.yaml']])(
+        'should fail changing owners as non-owner with check %s, %s',
+        async (pkgName, configFile) => {
+          const config = getConfig(configFile);
+          const storage = new Storage(config, logger);
+          await storage.init(config);
+          const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+          const owner = { name: 'fooUser', email: 'fooUser@mail.abappm.com' };
+          const options = { ...defaultRequestOptions, username: owner.name };
+          await storage.updateManifest(bodyNewManifest, {
+            signal: new AbortController().signal,
+            name: pkgName,
+            uplinksLook: false,
+            requestOptions: options,
+          });
+
+          const manifest = (await storage.getPackageByOptions({
+            name: pkgName,
+            uplinksLook: false,
+            requestOptions: options,
+          })) as Manifest;
+
+          const nonOwner = 'barUser';
+          await expect(
+            executeChangeOwners(storage, {
+              _rev: manifest._rev,
+              _id: manifest._id,
+              name: pkgName,
+              username: nonOwner,
+              maintainers: [{ name: nonOwner, email: '' }],
+            })
+          ).rejects.toThrow();
+        }
+      );
     });
   });
 
