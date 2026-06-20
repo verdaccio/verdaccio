@@ -59,14 +59,12 @@ export default function (router: Router, auth: Auth, storage: Storage, config: C
     '/-/npm/v1/tokens',
     rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer) {
-      const { password } = req.body;
+      const { password, readonly = false, cidr_whitelist = [] } = req.body;
       const { name } = req.remote_user;
       // `readonly` and `cidr_whitelist` are optional: npm >= 11 rewrote
       // `npm token create` to omit them (and only sends `cidr_whitelist` with
       // `--cidr`), so default them rather than rejecting the request. A wrong
       // type is still rejected.
-      const readonly = req.body.readonly ?? false;
-      const cidr_whitelist = req.body.cidr_whitelist ?? [];
 
       if (!_.isBoolean(readonly) || !_.isArray(cidr_whitelist)) {
         return next(ErrorCode.getCode(HTTP_STATUS.BAD_DATA, SUPPORT_ERRORS.PARAMETERS_NOT_VALID));
