@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/package-filter",
-  "version": "14.0.0-next-9.43",
+  "version": "14.0.0-next-9.44",
   "description": "Package filter plugin for Verdaccio that allows blocking packages by name, scope, version or date",
   "keywords": [
     "private",
@@ -35,16 +35,16 @@
     "node": ">=24"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:9.0.0-next-9.19",
+    "@verdaccio/core": "workspace:9.0.0-next-9.20",
     "debug": "4.4.3",
     "semver": "7.8.1"
   },
   "devDependencies": {
     "@types/debug": "4.1.12",
-    "@verdaccio/config": "workspace:9.0.0-next-9.19",
-    "@verdaccio/logger": "workspace:9.0.0-next-9.19",
-    "@verdaccio/plugin-verifier": "workspace:1.0.0-next-9.15",
-    "@verdaccio/types": "workspace:14.0.0-next-9.10",
+    "@verdaccio/config": "workspace:9.0.0-next-9.20",
+    "@verdaccio/logger": "workspace:9.0.0-next-9.20",
+    "@verdaccio/plugin-verifier": "workspace:1.0.0-next-9.16",
+    "@verdaccio/types": "workspace:14.0.0-next-9.11",
     "rimraf": "6.1.3",
     "vite": "8.0.14",
     "vitest": "4.1.7"
