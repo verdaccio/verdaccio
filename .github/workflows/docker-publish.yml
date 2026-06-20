@@ -23,6 +23,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
+      # Fetch UI translations before `COPY . .`, else the image ships an
+      # English-only UI (ui-theme bundles them from gitignored download_translations/).
+      - name: Install dependencies
+        uses: ./.github/actions/install-app
+
+      - name: crowdin download
+        env:
+          # download-only token, exposed under the name crowdin.yaml expects
+          CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_DOWNLOAD }}
+          CONTEXT: production
+        run: pnpm crowdin:download
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@ce360397dd3f832beb865e1373c09c0e9f86d70a # v4.0.0
 
