@@ -5,6 +5,7 @@
     "verdaccio": "7.0.0-next-7.20"
   },
   "changesets": [
-    "adopt-verdaccio-server"
+    "adopt-verdaccio-server",
+    "update-verdaccio-dependencies"
   ]
 }
