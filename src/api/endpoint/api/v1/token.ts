@@ -81,8 +81,10 @@ export default function (router: Router, auth: Auth, storage: Storage, config: C
         }
 
         try {
-          const token = (await getApiToken(auth, config, user as RemoteUser, password)) as string;
-          const key = cryptoUtils.stringToMD5(token as string);
+          const key = cryptoUtils.generateRandomHexString(16);
+          const token = (await getApiToken(auth, config, user as RemoteUser, password, {
+            tokenKey: key,
+          })) as string;
           // TODO: use a utility here
           const maskedToken = cryptoUtils.mask(token as string, 5);
           const created = new Date().getTime();

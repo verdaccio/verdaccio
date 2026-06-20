@@ -13,7 +13,3 @@ packages:
     publish: $authenticated
 
 log: { type: stdout, format: pretty, level: debug }
-
-## enable token for testing
-flags:
-  token: true

@@ -1,16 +1,12 @@
-security:
-  api:
-    jwt:
-      sign:
-        expiresIn: 5m
-        # to avoid invalid verification token, more info on JWT page
-        notBefore: 0
-
 storage: ./storage
 
 auth:
   htpasswd:
     file: ./htpasswd
+
+# trust the (test) proxy so req.ip is derived from X-Forwarded-For
+server:
+  trustProxy: true
 
 packages:
   '@token/*':
