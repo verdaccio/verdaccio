@@ -11,6 +11,9 @@ on:
         required: true
         default: 'next-9'
   push:
+    # Don't re-trigger on the workflow's own PR branch (avoids a self-loop).
+    branches-ignore:
+      - chore/update-verdaccio-dependencies
 
 permissions:
   contents: write
