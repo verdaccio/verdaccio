@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/test-helper",
-  "version": "4.0.3",
+  "version": "4.0.4",
   "description": "Verdaccio Test Helpers",
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
@@ -24,7 +24,7 @@
     "@verdaccio/config": "workspace:8.1.2",
     "@verdaccio/core": "workspace:8.1.2",
     "@verdaccio/logger": "workspace:8.0.3",
-    "@verdaccio/middleware": "workspace:8.0.3",
+    "@verdaccio/middleware": "workspace:8.0.4",
     "@verdaccio/types": "workspace:13.0.2",
     "body-parser": "1.20.4",
     "debug": "4.4.3",

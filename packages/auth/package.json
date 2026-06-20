@@ -51,7 +51,7 @@
     "verdaccio-htpasswd": "workspace:13.0.3"
   },
   "devDependencies": {
-    "@verdaccio/middleware": "workspace:8.0.3",
+    "@verdaccio/middleware": "workspace:8.0.4",
     "@verdaccio/types": "workspace:13.0.2",
     "@verdaccio/logger": "workspace:8.0.3",
     "express": "4.22.1",
