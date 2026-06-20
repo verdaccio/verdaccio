@@ -34,13 +34,18 @@ function buildApp(
   storage: TokenReadableStorage,
   logger: Logger,
   remoteUser: RemoteUser,
-  clientIp?: string
+  clientIp?: string,
+  trustProxy?: boolean | string | number
 ): Application {
   const app = express();
+  // mirrors Verdaccio wiring `config.server.trustProxy` -> app.set('trust proxy')
+  if (typeof trustProxy !== 'undefined') {
+    app.set('trust proxy', trustProxy);
+  }
   app.use((req: Request, _res: Response, next: NextFunction) => {
     (req as any).remote_user = remoteUser;
-    // `req.ip` is a read-only accessor derived from the socket; shadow it so the
-    // no-x-forwarded-for fallback can be exercised with a deterministic address
+    // `req.ip` is a read-only accessor derived from the socket; shadow it to
+    // provide a deterministic client address for these tests
     if (typeof clientIp !== 'undefined') {
       Object.defineProperty(req, 'ip', { value: clientIp, configurable: true });
     }
@@ -104,21 +109,31 @@ describe('enforceGeneratedTokenMetadata', () => {
 
   test('rejects when the client address is outside the token CIDR whitelist', async () => {
     readTokens.mockResolvedValue([buildToken({ cidr: ['203.0.113.0/24'] })]);
-    const app = buildApp(storage, logger, buildRemoteUser({ tokenKey: 'abc123' }));
+    const app = buildApp(storage, logger, buildRemoteUser({ tokenKey: 'abc123' }), '198.51.100.5');
 
-    await request(app)
-      .put('/')
-      .set('x-forwarded-for', '198.51.100.5')
-      .expect(HTTP_STATUS.FORBIDDEN);
+    await request(app).put('/').expect(HTTP_STATUS.FORBIDDEN);
 
     expect(logger.warn).toHaveBeenCalled();
   });
 
   test('allows when the client address is inside the token CIDR whitelist', async () => {
     readTokens.mockResolvedValue([buildToken({ cidr: ['203.0.113.0/24'] })]);
-    const app = buildApp(storage, logger, buildRemoteUser({ tokenKey: 'abc123' }));
+    const app = buildApp(storage, logger, buildRemoteUser({ tokenKey: 'abc123' }), '203.0.113.5');
 
-    await request(app).get('/').set('x-forwarded-for', '203.0.113.5').expect(HTTP_STATUS.OK);
+    await request(app).get('/').expect(HTTP_STATUS.OK);
+  });
+
+  test('ignores a spoofed x-forwarded-for when trust proxy is not configured', async () => {
+    // SECURITY: with no trust proxy, the forwarded header is attacker-controlled
+    // and must NOT satisfy the CIDR whitelist. The real socket address
+    // (198.51.100.5) is outside the range, so the request is rejected even
+    // though the header claims an allowed address.
+    readTokens.mockResolvedValue([buildToken({ cidr: ['203.0.113.0/24'] })]);
+    const app = buildApp(storage, logger, buildRemoteUser({ tokenKey: 'abc123' }), '198.51.100.5');
+
+    await request(app).put('/').set('x-forwarded-for', '203.0.113.5').expect(HTTP_STATUS.FORBIDDEN);
+
+    expect(logger.warn).toHaveBeenCalled();
   });
 
   test('falls back to req.ip for the CIDR check when no x-forwarded-for is present', async () => {
@@ -137,9 +152,29 @@ describe('enforceGeneratedTokenMetadata', () => {
     expect(logger.warn).toHaveBeenCalled();
   });
 
-  test('uses the first x-forwarded-for entry for the CIDR check', async () => {
+  test('honors x-forwarded-for for the CIDR check when trust proxy is configured', async () => {
     readTokens.mockResolvedValue([buildToken({ cidr: ['203.0.113.0/24'] })]);
-    const app = buildApp(storage, logger, buildRemoteUser({ tokenKey: 'abc123' }));
+    // trust proxy enabled -> req.ip is derived from the forwarded chain
+    const app = buildApp(storage, logger, buildRemoteUser({ tokenKey: 'abc123' }), undefined, true);
+
+    await request(app).get('/').set('x-forwarded-for', '203.0.113.5').expect(HTTP_STATUS.OK);
+  });
+
+  test('rejects an out-of-range x-forwarded-for even when trust proxy is configured', async () => {
+    readTokens.mockResolvedValue([buildToken({ cidr: ['203.0.113.0/24'] })]);
+    const app = buildApp(storage, logger, buildRemoteUser({ tokenKey: 'abc123' }), undefined, true);
+
+    await request(app)
+      .put('/')
+      .set('x-forwarded-for', '198.51.100.5')
+      .expect(HTTP_STATUS.FORBIDDEN);
+
+    expect(logger.warn).toHaveBeenCalled();
+  });
+
+  test('uses the upstream-most forwarded entry when trust proxy is configured', async () => {
+    readTokens.mockResolvedValue([buildToken({ cidr: ['203.0.113.0/24'] })]);
+    const app = buildApp(storage, logger, buildRemoteUser({ tokenKey: 'abc123' }), undefined, true);
 
     await request(app)
       .get('/')
