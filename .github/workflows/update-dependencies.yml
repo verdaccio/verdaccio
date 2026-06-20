@@ -1,0 +1,68 @@
+name: update verdaccio 7.x dependencies 
+
+# Manually triggered: updates verdaccio packages (@verdaccio/*, verdaccio,
+# verdaccio-*) across the pnpm workspace and opens a PR against 7.x.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    if: github.repository == 'verdaccio/verdaccio'
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: 7.x
+          fetch-depth: 0
+
+      - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Enable corepack
+        run: corepack enable pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Update verdaccio packages (scoped and non-scoped)
+        run: pnpm update -r --latest "@verdaccio/*" "verdaccio" "verdaccio-*"
+
+      - name: Stop if nothing changed
+        id: diff
+        run: |
+          if git diff --quiet -- '*.json' pnpm-lock.yaml; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No dependency updates available."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Verify build
+        if: steps.diff.outputs.changed == 'true'
+        run: pnpm build
+
+      - name: Create pull request
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH="chore/update-dependencies-$(date +%Y%m%d%H%M)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add -A
+          git commit -m "chore: update verdaccio dependencies"
+          git push origin "$BRANCH"
+          gh pr create \
+            --base 7.x \
+            --head "$BRANCH" \
+            --title "chore: update verdaccio dependencies" \
+            --body "Automated update of verdaccio packages only — \`@verdaccio/*\`, \`verdaccio\`, and \`verdaccio-*\` (\`pnpm update -r --latest\`). Triggered manually via the **update verdaccio 7.x dependencies** workflow.
+
+          $(git diff --stat HEAD~1)"
