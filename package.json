@@ -39,10 +39,12 @@
     "@verdaccio/loaders": "9.0.0-next-9.19",
     "@verdaccio/local-storage": "14.0.0-next-9.19",
     "@verdaccio/logger": "9.0.0-next-9.19",
+    "@verdaccio/middleware": "9.0.0-next-9.20",
     "@verdaccio/node-api": "9.0.0-next-9.19",
     "@verdaccio/proxy": "9.0.0-next-9.19",
     "@verdaccio/server": "9.0.0-next-9.19",
     "@verdaccio/store": "9.0.0-next-9.19",
+    "@verdaccio/ui-theme": "9.0.0-next-9.19",
     "debug": "4.4.3",
     "express": "5.2.1",
     "lodash-es": "4.18.1",
@@ -69,7 +71,6 @@
     "@verdaccio/api": "9.0.0-next-9.19",
     "@verdaccio/e2e-cli": "2.10.2",
     "@verdaccio/eslint-config": "13.1.2",
-    "@verdaccio/local-storage-legacy": "11.3.4",
     "@verdaccio/test-helper": "5.0.0-next-9.20",
     "@verdaccio/types": "14.0.0-next-9.10",
     "@verdaccio/web": "9.0.0-next-9.19",
@@ -142,5 +143,5 @@
     "url": "https://opencollective.com/verdaccio",
     "logo": "https://opencollective.com/verdaccio/logo.txt"
   },
-  "packageManager": "pnpm@11.5.2+sha512.71c631e382066efc25625d5cf029075de07b61b37f6e27350fbd84b1bda5864c8c1967adc280776b45c30a715c0359a3be08fef42d5bb09e2b99029979692916"
+  "packageManager": "pnpm@11.8.0+sha512.c1f5e7c4cb241c8f174b743851d82f42b802324afc8b0f116b96adb15aa06664948dde36960a3ba1079ba5b4b29dd0140135b94b5b5f5263592249d68e555f26"
 }

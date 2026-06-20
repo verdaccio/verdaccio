@@ -1,9 +1,15 @@
 name: update verdaccio 7.x dependencies 
 
-# Manually triggered: updates verdaccio packages (@verdaccio/*, verdaccio,
-# verdaccio-*) across the pnpm workspace and opens a PR against 7.x.
+# Manually triggered: bumps verdaccio packages (@verdaccio/*, verdaccio,
+# verdaccio-*) to the versions published under a given npm dist-tag — the same
+# versions a Changesets release PR carries — and opens a PR against 7.x.
 on:
   workflow_dispatch:
+    inputs:
+      dist_tag:
+        description: 'npm dist-tag to bump verdaccio packages to'
+        required: true
+        default: 'next-9'
   push:
 
 permissions:
@@ -31,8 +37,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Update verdaccio packages (scoped and non-scoped)
-        run: pnpm update -r --latest "@verdaccio/*" "verdaccio" "verdaccio-*"
+      - name: Update verdaccio packages to the dist-tag
+        env:
+          DIST_TAG: ${{ github.event.inputs.dist_tag || 'next-9' }}
+        run: pnpm update -r "@verdaccio/*@$DIST_TAG" "verdaccio@$DIST_TAG" "verdaccio-*@$DIST_TAG"
 
       - name: Stop if nothing changed
         id: diff
@@ -52,6 +60,7 @@ jobs:
         if: steps.diff.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DIST_TAG: ${{ github.event.inputs.dist_tag || 'next-9' }}
         run: |
           # Stable branch: the working tree is already rebased on the latest
           # 7.x (checked out above), so force-pushing it rebases any existing PR.
@@ -59,8 +68,18 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "$BRANCH"
+
+          # Generate a changeset (stable filename so re-runs overwrite it).
+          printf '%s\n' \
+            "---" \
+            "'verdaccio': patch" \
+            "---" \
+            "" \
+            "Update verdaccio dependencies (\`@verdaccio/*\`, \`verdaccio\`, \`verdaccio-*\`) to the \`$DIST_TAG\` npm dist-tag." \
+            > .changeset/update-verdaccio-dependencies.md
+
           git add -A
-          git commit -m "chore: update verdaccio dependencies"
+          git commit -m "chore: update verdaccio 7.x dependencies"
           git push --force origin "$BRANCH"
 
           if [ -n "$(gh pr list --head "$BRANCH" --base 7.x --state open --json number --jq '.[].number')" ]; then
@@ -69,8 +88,8 @@ jobs:
             gh pr create \
               --base 7.x \
               --head "$BRANCH" \
-              --title "chore: update verdaccio dependencies" \
-              --body "Automated update of verdaccio packages only — \`@verdaccio/*\`, \`verdaccio\`, and \`verdaccio-*\` (\`pnpm update -r --latest\`). Triggered manually via the **update verdaccio 7.x dependencies** workflow.
+              --title "chore: update verdaccio 7.x dependencies" \
+              --body "Automated update of verdaccio packages only — \`@verdaccio/*\`, \`verdaccio\`, and \`verdaccio-*\` — to the \`$DIST_TAG\` npm dist-tag. Triggered manually via the **update verdaccio 7.x dependencies** workflow.
 
           $(git diff --stat HEAD~1)"
           fi
