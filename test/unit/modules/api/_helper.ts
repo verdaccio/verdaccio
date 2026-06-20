@@ -30,7 +30,14 @@ export const getConf = (conf: string) => {
 
 export async function initializeServer(configName: string): Promise<Application> {
   const config = getConf(configName);
-  return initializeServerHelper(config, [apiMiddleware], Storage);
+  const app = await initializeServerHelper(config, [apiMiddleware], Storage);
+  // mirror src/api/index.ts: honor server.trustProxy so `req.ip` (and thus the
+  // generated-token CIDR check) resolves from X-Forwarded-For only behind a
+  // configured proxy.
+  if (config.server?.trustProxy) {
+    app.set('trust proxy', config.server.trustProxy);
+  }
+  return app;
 }
 
 export function createUser(app: App, name: string, password: string): supertest.Test {

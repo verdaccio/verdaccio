@@ -12,6 +12,10 @@ auth:
   htpasswd:
     file: ./htpasswd
 
+# trust the (test) proxy so req.ip is derived from X-Forwarded-For
+server:
+  trustProxy: true
+
 packages:
   '@token/*':
     access: $authenticated

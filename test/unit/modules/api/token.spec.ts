@@ -195,7 +195,7 @@ describe('token', () => {
       }
     );
 
-    test.each([['token.yaml'], ['token.jwt.yaml']])(
+    test.each([['token.proxy.yaml'], ['token.jwt.proxy.yaml']])(
       'should reject writes when the forwarded address is outside the CIDR whitelist',
       async (conf) => {
         const app = await initializeServer(conf);
@@ -219,7 +219,7 @@ describe('token', () => {
       }
     );
 
-    test.each([['token.yaml'], ['token.jwt.yaml']])(
+    test.each([['token.proxy.yaml'], ['token.jwt.proxy.yaml']])(
       'should allow writes when the forwarded address is inside the CIDR whitelist',
       async (conf) => {
         const app = await initializeServer(conf);
@@ -242,7 +242,7 @@ describe('token', () => {
       }
     );
 
-    test.each([['token.yaml'], ['token.jwt.yaml']])(
+    test.each([['token.proxy.yaml'], ['token.jwt.proxy.yaml']])(
       'should match the CIDR whitelist against the first forwarded address',
       async (conf) => {
         const app = await initializeServer(conf);
@@ -262,6 +262,34 @@ describe('token', () => {
         )
           .set('x-forwarded-for', '203.0.113.5, 70.41.3.18')
           .expect(HTTP_STATUS.CREATED);
+      }
+    );
+
+    test.each([['token.yaml'], ['token.jwt.yaml']])(
+      'should ignore a spoofed x-forwarded-for when trust proxy is disabled',
+      async (conf) => {
+        // SECURITY: with no trust proxy configured, X-Forwarded-For is
+        // attacker-controlled and must not satisfy the CIDR whitelist. The
+        // request's real socket address is outside the range, so a forged header
+        // claiming an allowed address is still rejected.
+        const app = await initializeServer(conf);
+        const credentials = { name: 'jota_token', password: 'secretPass' };
+        const token = await getNewToken(app, credentials);
+        const response = await generateTokenCLI(app, token, {
+          password: credentials.password,
+          readonly: false,
+          cidr_whitelist: ['203.0.113.0/24'],
+        });
+
+        await publishVersionWithToken(
+          app,
+          '@token/cidr-spoofed-forwarded-token',
+          '1.0.0',
+          response.body.token
+        )
+          .set('x-forwarded-for', '203.0.113.5')
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.FORBIDDEN);
       }
     );
 
@@ -312,7 +340,7 @@ describe('token', () => {
       }
     );
 
-    test.each([['token.yaml'], ['token.jwt.yaml']])(
+    test.each([['token.proxy.yaml'], ['token.jwt.proxy.yaml']])(
       'should reject reads outside a generated token CIDR whitelist',
       async (conf) => {
         const app = await initializeServer(conf);

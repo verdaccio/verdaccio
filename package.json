@@ -27,7 +27,7 @@
     "@verdaccio/loaders": "8.0.3",
     "@verdaccio/local-storage-legacy": "11.3.4",
     "@verdaccio/logger": "8.0.3",
-    "@verdaccio/middleware": "8.0.3",
+    "@verdaccio/middleware": "8.0.4",
     "@verdaccio/package-filter": "13.0.3",
     "@verdaccio/search-indexer": "8.0.2",
     "@verdaccio/signature": "8.0.3",
