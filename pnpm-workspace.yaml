@@ -34,6 +34,10 @@ minimumReleaseAgeExclude:
 # See GHSA-gv7w-rqvm-qjhr (RCE via NPM_CONFIG_REGISTRY, fixed in 0.28.1).
 overrides:
   esbuild: '0.28.1'
+  # Force the form-data CRLF-injection patch (>= 4.0.6) across the whole tree.
+  # Pulled in transitively via supertest > superagent (dev only).
+  # See GHSA-hmw2-7cc7-3qxx (fixed in 4.0.6).
+  form-data: '>=4.0.6'
 saveExact: true
 ignoreScripts: true
 preferFrozenLockfile: true
