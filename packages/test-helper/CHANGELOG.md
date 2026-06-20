@@ -1,5 +1,12 @@
 # Change Log
 
+## 4.0.4
+
+### Patch Changes
+
+- Updated dependencies [a5f6182]
+  - @verdaccio/middleware@8.0.4
+
 ## 4.0.3
 
 ### Patch Changes
