@@ -1,5 +1,13 @@
 # @verdaccio/hooks
 
+## 9.0.0-next-9.20
+
+### Patch Changes
+
+- fde2f1b: fix(hooks): minor build errors
+  - @verdaccio/core@9.0.0-next-9.20
+  - @verdaccio/logger@9.0.0-next-9.20
+
 ## 9.0.0-next-9.19
 
 ### Patch Changes

@@ -1,5 +1,20 @@
 # @verdaccio/store
 
+## 9.0.0-next-9.20
+
+### Patch Changes
+
+- 506e965: fix(storage): check owner on package change
+  - @verdaccio/core@9.0.0-next-9.20
+  - @verdaccio/tarball@14.0.0-next-9.20
+  - @verdaccio/logger@9.0.0-next-9.20
+  - @verdaccio/local-storage@14.0.0-next-9.20
+  - @verdaccio/proxy@9.0.0-next-9.20
+  - @verdaccio/search@9.0.0-next-9.20
+  - @verdaccio/config@9.0.0-next-9.20
+  - @verdaccio/url@14.0.0-next-9.20
+  - @verdaccio/loaders@9.0.0-next-9.20
+
 ## 9.0.0-next-9.19
 
 ### Major Changes

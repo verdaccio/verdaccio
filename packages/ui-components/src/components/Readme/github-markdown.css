@@ -1113,9 +1113,9 @@
 .markdown-body .Box {
   background-color: var(--bgColor-default);
   border-color: var(--borderColor-default);
-  border-radius: var(--borderRadius-medium);
   border-style: solid;
   border-width: var(--borderWidth-thin);
+  border-radius: var(--borderRadius-medium);
 }
 
 .markdown-body .Box--condensed {
@@ -1133,25 +1133,25 @@
 }
 
 .markdown-body .Box-header {
+  padding: var(--stack-padding-normal);
+  margin: calc(var(--borderWidth-thin)*-1) calc(var(--borderWidth-thin)*-1) 0;
   background-color: var(--bgColor-muted);
   border-color: var(--borderColor-default);
-  border-top-left-radius: var(--borderRadius-medium);
-  border-top-right-radius: var(--borderRadius-medium);
   border-style: solid;
   border-width: var(--borderWidth-thin);
-  margin: calc(var(--borderWidth-thin)*-1) calc(var(--borderWidth-thin)*-1) 0;
-  padding: var(--stack-padding-normal);
+  border-top-left-radius: var(--borderRadius-medium);
+  border-top-right-radius: var(--borderRadius-medium);
 }
 
 .markdown-body .Box-body {
-  border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
   padding: var(--stack-padding-normal);
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
 }
 
 .markdown-body .Box-body:last-of-type {
-  border-bottom-left-radius: var(--borderRadius-medium);
-  border-bottom-right-radius: var(--borderRadius-medium);
   margin-bottom: calc(var(--borderWidth-thin)*-1);
+  border-bottom-right-radius: var(--borderRadius-medium);
+  border-bottom-left-radius: var(--borderRadius-medium);
 }
 
 .markdown-body .tmp-px-3 {
