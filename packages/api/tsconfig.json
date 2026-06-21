@@ -20,6 +20,9 @@
       "path": "../core/types"
     },
     {
+      "path": "../hooks"
+    },
+    {
       "path": "../logger"
     },
     {

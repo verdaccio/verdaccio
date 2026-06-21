@@ -202,7 +202,7 @@ export default function publish(
         // getVersionFromTarball returns undefined when the filename is not parseable;
         // fall back to the package name so we never report `name@undefined`
         const version = tarballUtils.getVersionFromTarball(filename);
-        const metadata: Partial<Manifest> = { name: packageName, version, _rev: revision };
+        const metadata: Partial<Manifest> = { name: packageName, _rev: revision };
         const publishedPackage = version ? `${packageName}@${version}` : packageName;
 
         void notify(metadata, config, req.remote_user, publishedPackage, 'unpublish').catch(
