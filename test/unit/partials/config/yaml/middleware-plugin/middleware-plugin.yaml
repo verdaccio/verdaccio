@@ -1,0 +1,31 @@
+# storage and self_path are injected by the spec
+
+auth:
+  htpasswd:
+    file: ./htpasswd-middleware-plugin
+
+web:
+  enable: false
+
+# load the test-only middleware plugin from this folder
+plugins: ./plugins
+
+middlewares:
+  remote-user-probe:
+    enabled: true
+
+uplinks:
+
+log: { type: stdout, format: pretty, level: trace }
+
+packages:
+  '@*/*':
+    access: $all
+    publish: $all
+    unpublish: none
+  '**':
+    access: $all
+    publish: $all
+    unpublish: none
+
+_debug: true

@@ -1,5 +1,6 @@
 import { ConfigBuilder } from '@verdaccio/config';
 import type { AuthConf, LoggerConfigItem, PackageAccessYaml } from '@verdaccio/types';
+import { ROLES } from '@verdaccio/utils';
 
 const builder = new ConfigBuilder();
 
@@ -36,7 +37,7 @@ builder.addLogger(logger);
 
 // Add package access
 const publicAccess: PackageAccessYaml = {
-  access: '$all',
+  access: ROLES.$ALL,
   publish: 'none',
 };
 
