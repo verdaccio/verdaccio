@@ -1,5 +1,7 @@
 import path from 'path';
 
+import { ROLES } from '@verdaccio/utils';
+
 const config = {
   storage: path.join(__dirname, '../store/access-storage'),
   uplinks: {
@@ -9,12 +11,12 @@ const config = {
   },
   packages: {
     jquery: {
-      allow_access: '$all',
-      allow_publish: '$all',
+      allow_access: ROLES.$ALL,
+      allow_publish: ROLES.$ALL,
     },
     '**': {
-      allow_access: '$all',
-      allow_publish: '$all',
+      allow_access: ROLES.$ALL,
+      allow_publish: ROLES.$ALL,
       proxy: 'npmjs',
     },
   },
