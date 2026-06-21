@@ -20,6 +20,11 @@ export async function initializeServer(
   const app = express();
   const logger = await setup(configObject.log ?? {});
   const config = new Config(configObject);
+  // mirror the real server wiring so tests can exercise `trust proxy`-dependent
+  // behavior (e.g. generated token CIDR enforcement against X-Forwarded-For)
+  if (config.server?.trustProxy) {
+    app.set('trust proxy', config.server.trustProxy);
+  }
   config.storage = path.join(os.tmpdir(), '/storage', cryptoUtils.generateRandomHexString());
   // httpass would get path.basename() for configPath thus we need to create a dummy folder
   // to avoid conflics
