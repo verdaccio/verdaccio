@@ -1,5 +1,47 @@
 # Changelog
 
+## 6.7.3
+
+### Patch Changes
+
+- f8fdfc2: fix: enforce generated npm token metadata
+
+  Generated npm tokens (`POST /-/npm/v1/tokens`) stored their `readonly` and
+  `cidr_whitelist` restrictions but never enforced them, and deleting a token did
+  not revoke it for the package APIs. A token marked read-only or pinned to a CIDR
+  range could still publish packages and change dist-tags, and a deleted token
+  remained usable.
+
+  Generated tokens now embed a server-issued key (in the JWT claim, or in the
+  encrypted legacy AES payload) and a new `enforceGeneratedTokenMetadata`
+  middleware looks that key up on each request, rejecting the token when it is
+  missing/revoked, used outside its CIDR whitelist, or used for a write while
+  read-only. Enforcement applies to both AES and JWT API-token modes.
+
+  Note: tokens issued before upgrading carry no key and are not retroactively
+  constrained — regenerate them to apply the restrictions.
+
+- be80623: fix: allow npm token create without readonly/cidr_whitelist
+
+  `npm token create` in npm >= 11 (and the npm 12 prereleases) rewrote the
+  request body: it no longer sends `readonly` and only sends `cidr_whitelist`
+  when `--cidr` is passed. The `POST /-/npm/v1/tokens` endpoint required both,
+  so modern npm clients failed with `422 the parameters are not valid`.
+
+  The endpoint now defaults `readonly` to `false` and `cidr_whitelist` to `[]`
+  when they are absent, while still rejecting values of the wrong type.
+
+- 75c85d5: Update verdaccio dependencies to the `latest` npm dist-tag (`@verdaccio/ui-theme` tracks `next-9`):
+  - `@verdaccio/ui-theme`: `9.0.0-next-9.19` → `9.0.0-next-9.20`
+
+- d5e5332: chore: update dependencies
+
+  Updates runtime dependencies `@verdaccio/ui-theme` (`9.0.0-next-9.19`) and
+  `semver` (`7.8.2`), along with development dependencies: Babel `7.29.7`,
+  `@changesets/cli` `2.31.0`, ESLint `10.4.1`, Vitest `4.1.8`, Cypress `15.16.0`,
+  Prettier `3.8.3`, `@verdaccio/test-helper` `4.0.4`, `@verdaccio/eslint-config`
+  `13.1.2`, and assorted type definitions.
+
 ## 6.7.2
 
 ### Patch Changes
