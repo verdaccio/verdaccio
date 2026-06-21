@@ -276,7 +276,12 @@ describe('token', () => {
           cidr_whitelist: ['203.0.113.0/24'],
         });
 
-        await publishVersionWithToken(app, '@token/cidr-generated-token', '1.0.0', response.body.token)
+        await publishVersionWithToken(
+          app,
+          '@token/cidr-generated-token',
+          '1.0.0',
+          response.body.token
+        )
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.FORBIDDEN);
       }
