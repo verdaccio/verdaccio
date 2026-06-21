@@ -104,7 +104,7 @@ export async function handleNotify(
 }
 
 export function sendNotification(
-  metadata: Manifest,
+  metadata: Partial<Manifest>,
   notify: Notification,
   remoteUser: Partial<RemoteUser>,
   publishedPackage: string,
@@ -118,7 +118,7 @@ function isHasNotification(value: any): value is Notification {
 }
 
 export async function notify(
-  metadata: Manifest,
+  metadata: Partial<Manifest>,
   config: Config,
   remoteUser: RemoteUser,
   publishedPackage: string,

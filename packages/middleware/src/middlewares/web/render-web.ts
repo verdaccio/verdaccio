@@ -39,7 +39,8 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
           return next();
         }
         debug('render custom favicon %o', file);
-        res.sendFile(file, sendFileCallback(next));
+        // see sendFileSafe for the reasoning behind `dotfiles: 'allow'`
+        res.sendFile(file, { dotfiles: 'allow' }, sendFileCallback(next));
         return;
       }
       debug('render static file %o', filename);
@@ -67,7 +68,7 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
             debug('serve custom logo  web:%s - local:%s', logo, absoluteLocalFile);
             res.sendFile(
               path.basename(absoluteLocalFile),
-              { root: path.dirname(absoluteLocalFile) },
+              { root: path.dirname(absoluteLocalFile), dotfiles: 'allow' },
               sendFileCallback(next)
             );
           });
