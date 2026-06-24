@@ -95,7 +95,7 @@
     "typescript": "5.9.3",
     "verdaccio-auth-memory": "14.0.0-next-9.20",
     "verdaccio-memory": "14.0.0-next-9.20",
-    "vite": "8.0.10",
+    "vite": "8.0.16",
     "vite-plugin-dts": "4.5.4",
     "vitest": "4.1.2"
   },
