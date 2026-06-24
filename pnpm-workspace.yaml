@@ -22,6 +22,8 @@ minimumReleaseAgeExclude:
   - 'verdaccio-*'
   # Renovate security update: js-yaml@4.2.0
   - js-yaml@4.2.0
+  # Renovate security update: vite@8.0.16
+  - vite@8.0.16
 ignoreScripts: true
 saveExact: true
 preferFrozenLockfile: true

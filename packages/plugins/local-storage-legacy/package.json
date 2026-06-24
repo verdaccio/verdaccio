@@ -47,7 +47,7 @@
     "@verdaccio/types": "workspace:*",
     "minimatch": "4.2.5",
     "rmdir-sync": "1.0.1",
-    "vite": "8.0.8",
+    "vite": "8.0.16",
     "vite-plugin-dts": "4.5.4",
     "vitest": "4.1.4"
   },
