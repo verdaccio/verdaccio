@@ -20,6 +20,8 @@ minimumReleaseAgeExclude:
   - '@verdaccio/*'
   - '@verdaccio-scope/*'
   - 'verdaccio-*'
+  # Renovate security update: js-yaml@4.2.0
+  - js-yaml@4.2.0
 ignoreScripts: true
 saveExact: true
 preferFrozenLockfile: true
