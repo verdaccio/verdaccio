@@ -29,8 +29,8 @@ minimumReleaseAgeExclude:
   # below can resolve.
   - esbuild
   - '@esbuild/*'
-  # Renovate security update: dompurify@3.4.8
-  - dompurify@3.4.8
+  # Renovate security update: dompurify@3.4.8 || 3.4.9
+  - dompurify@3.4.8 || 3.4.9
 
 # Force the esbuild security patch (>= 0.28.1) across the whole tree.
 # See GHSA-gv7w-rqvm-qjhr (RCE via NPM_CONFIG_REGISTRY, fixed in 0.28.1).
