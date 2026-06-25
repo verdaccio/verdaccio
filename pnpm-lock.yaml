@@ -985,6 +985,9 @@ importers:
       debug:
         specifier: 4.4.3
         version: 4.4.3(supports-color@5.5.0)
+      minimatch:
+        specifier: 9.0.7
+        version: 9.0.7
       semver:
         specifier: 7.8.1
         version: 7.8.1
@@ -7838,7 +7841,7 @@ snapshots:
     dependencies:
       '@eslint/object-schema': 3.0.3
       debug: 4.4.3
-      minimatch: 10.2.4
+      minimatch: 10.2.5
     transitivePeerDependencies:
       - supports-color
 
@@ -11383,7 +11386,7 @@ snapshots:
 
   minimatch@9.0.7:
     dependencies:
-      brace-expansion: 5.0.4
+      brace-expansion: 5.0.6
 
   minimatch@9.0.9:
     dependencies:
