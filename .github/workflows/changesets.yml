@@ -36,7 +36,7 @@ jobs:
         run: pnpm build
       - name: create versions
         id: changesets
-        uses: changesets/action@63a615b9cd06ba9a3e6d13796c7fbcb080a60a0b
+        uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d
         with:
           version: pnpm ci:version
           commit: 'chore: update versions'
@@ -65,7 +65,7 @@ jobs:
       - name: build
         run: pnpm build
       - name: publish
-        uses: changesets/action@63a615b9cd06ba9a3e6d13796c7fbcb080a60a0b
+        uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d
         with:
           publish: pnpm ci:publish
           createGithubReleases: false
