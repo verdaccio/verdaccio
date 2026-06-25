@@ -95,7 +95,7 @@
     "mutationobserver-shim": "0.3.7",
     "rimraf": "6.1.3",
     "storybook": "10.2.17",
-    "vite": "8.0.14",
+    "vite": "8.0.16",
     "vitest": "4.1.7",
     "whatwg-fetch": "3.6.20"
   },
