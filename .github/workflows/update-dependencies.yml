@@ -41,13 +41,11 @@ jobs:
         # Bump the production verdaccio dependencies (@verdaccio/*, verdaccio,
         # verdaccio-*) to their `latest` dist-tag, except @verdaccio/ui-theme
         # which tracks `next-9`. Packages that are not part of this release line
-        # are excluded, mirroring 7.x: @verdaccio/e2e-cli, @verdaccio/e2e-ui and
-        # @verdaccio/eslint-config. (Those live in devDependencies here, but the
-        # exclusion is kept explicit so they are never bumped by accident.)
+        # are excluded, mirroring 7.x: @verdaccio/e2e-cli, @verdaccio/e2e-ui.
         run: |
           PKGS=$(node -e "
             const deps = require('./package.json').dependencies;
-            const EXCLUDE = ['@verdaccio/e2e-cli', '@verdaccio/e2e-ui', '@verdaccio/eslint-config', '@verdaccio/ui-theme'];
+            const EXCLUDE = ['@verdaccio/e2e-cli', '@verdaccio/e2e-ui', '@verdaccio/ui-theme'];
             const out = Object.keys(deps)
               .filter((n) => n.startsWith('@verdaccio/') || n.startsWith('verdaccio-') || n === 'verdaccio')
               .filter((n) => EXCLUDE.indexOf(n) === -1)
@@ -134,7 +132,7 @@ jobs:
           {
             echo "Automated update of verdaccio packages — \`@verdaccio/*\`, \`verdaccio\`, and \`verdaccio-*\` — to the \`latest\` npm dist-tag (\`@verdaccio/ui-theme\` tracks \`next-9\`). Triggered via the **update verdaccio 6.x dependencies** workflow."
             echo ""
-            echo "Excluded (not part of the 6.x release line): \`@verdaccio/e2e-cli\`, \`@verdaccio/e2e-ui\`, \`@verdaccio/eslint-config\`."
+            echo "Excluded (not part of the 6.x release line): \`@verdaccio/e2e-cli\`, \`@verdaccio/e2e-ui\`."
             echo ""
             echo "## Updated packages"
             echo ""

@@ -279,7 +279,6 @@
 
 //             expect(res.body.error).toBeDefined();
 //             // FIXME: message is not 100% accurate
-//             /* eslint new-cap: 0 */
 //             expect(res.body.error).toMatch(API_ERROR.PASSWORD_SHORT());
 //             done();
 //           });

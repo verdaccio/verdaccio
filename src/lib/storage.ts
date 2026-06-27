@@ -54,7 +54,6 @@ class Storage {
     this.config = config;
     this.uplinks = setupUpLinks(config);
     this.logger = logger;
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this.localStorage = null;
   }

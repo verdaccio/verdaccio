@@ -16,7 +16,6 @@ import { ErrorCode } from '../../../lib/utils';
 import type { $NextFunctionVer, $RequestExtend } from '../../../types';
 
 export default function (route: Router, auth: Auth, config: Config): void {
-  /* eslint new-cap:off */
   const userRouter = express.Router();
 
   userRouter.get(
