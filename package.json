@@ -95,7 +95,7 @@
     "docker:test": "docker build -f packages/tools/Dockerfile -t verdaccio/ci-test:local . --no-cache",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
-    "lint": "oxlint --max-warnings 90",
+    "lint": "oxlint --max-warnings 28",
     "lint:fix": "oxlint --fix",
     "test": "pnpm --filter \"./packages/**\" test",
     "e2e:ui:start": "node packages/verdaccio/bin/verdaccio --config ./scripts/e2e-ui-config.yaml",
