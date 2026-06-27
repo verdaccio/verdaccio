@@ -142,7 +142,6 @@ export function addUser(
 
 export async function getNewToken(request: any, credentials: any): Promise<string> {
   debug('token', credentials.name, credentials);
-  /* eslint no-async-promise-executor: 0 */
   return new Promise(async (resolve) => {
     const [err, res] = await addUser(request, credentials.name, credentials);
     expect(err).toBeNull();

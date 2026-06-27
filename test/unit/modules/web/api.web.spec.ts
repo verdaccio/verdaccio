@@ -85,8 +85,11 @@ describe('endpoint web unit test', () => {
         expect(res.body).toHaveLength(1);
       });
 
-      test.skip('should display all packages logged', async () => {
-        const token = await getNewToken(app, { name: 'jota_token', password: 'secretPass' });
+      test('should display all packages logged', async () => {
+        const token = await getNewToken(request(app), {
+          name: 'jota_token',
+          password: 'secretPass',
+        });
         // this packages is protected at the yaml file
         const res = await request(app)
           .get('/-/verdaccio/data/packages')
