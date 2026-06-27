@@ -1,6 +1,7 @@
 import { isNil, trim } from 'lodash-es';
 import semver from 'semver';
 
+import type { searchUtils } from '@verdaccio/core';
 import {
   API_ERROR,
   DIST_TAGS,
@@ -10,10 +11,9 @@ import {
   cryptoUtils,
   errorUtils,
   pkgUtils,
-  searchUtils,
   validationUtils,
 } from '@verdaccio/core';
-import { Author, GenericBody, Manifest, ReadmeOptions, Version } from '@verdaccio/types';
+import type { Author, GenericBody, Manifest, ReadmeOptions, Version } from '@verdaccio/types';
 
 import { sortVersionsAndFilterInvalid } from './versions-utils';
 

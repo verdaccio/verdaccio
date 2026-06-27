@@ -263,9 +263,7 @@ function printTable(rows, onlyOutdated) {
       { raw: String(r.declared.length), display: String(r.declared.length) },
     ];
   });
-  const widths = headers.map((h, i) =>
-    Math.max(h.length, ...data.map((row) => row[i].raw.length))
-  );
+  const widths = headers.map((h, i) => Math.max(h.length, ...data.map((row) => row[i].raw.length)));
   const fmtRow = (cells) =>
     cells.map((c, i) => c.display + ' '.repeat(widths[i] - c.raw.length)).join('  ');
   const fmtHeader = (cells) => cells.map((c, i) => c.padEnd(widths[i])).join('  ');

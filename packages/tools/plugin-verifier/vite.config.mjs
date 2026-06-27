@@ -8,10 +8,7 @@ const dirname = import.meta.dirname;
 const require = createRequire(path.resolve(dirname, 'package.json'));
 const pkg = require('./package.json');
 
-const nodeBuiltins = new Set([
-  ...builtinModules,
-  ...builtinModules.map((m) => `node:${m}`),
-]);
+const nodeBuiltins = new Set([...builtinModules, ...builtinModules.map((m) => `node:${m}`)]);
 
 const externalDeps = new Set([
   ...Object.keys(pkg.dependencies ?? {}),
@@ -43,10 +40,7 @@ export default defineConfig({
     sourcemap: true,
     minify: false,
     lib: {
-      entry: [
-        path.resolve(dirname, 'src/index.ts'),
-        path.resolve(dirname, 'src/cli.ts'),
-      ],
+      entry: [path.resolve(dirname, 'src/index.ts'), path.resolve(dirname, 'src/cli.ts')],
     },
     rolldownOptions: {
       external: isExternal,

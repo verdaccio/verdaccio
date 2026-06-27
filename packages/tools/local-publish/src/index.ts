@@ -15,11 +15,6 @@ fileUtils
       configPath: folderPath,
     })
       .addUplink('npmjs', { url: 'https://registry.npmjs.org' })
-      .addPackageAccess('@verdaccio/eslint-config', {
-        access: constants.ROLES.$ANONYMOUS,
-        publish: constants.ROLES.$ANONYMOUS,
-        proxy: 'npmjs',
-      })
       .addPackageAccess('@verdaccio/local-storage-legacy', {
         access: constants.ROLES.$ANONYMOUS,
         publish: constants.ROLES.$ANONYMOUS,

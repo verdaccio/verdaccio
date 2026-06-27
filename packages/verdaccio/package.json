@@ -17,7 +17,7 @@
   ],
   "scripts": {
     "clean": "rimraf ./build",
-    "lint": "eslint . --ext .js,.ts",
+    "lint": "oxlint -c ../../.oxlintrc.json",
     "ge:docs": "typedoc src/index.ts --tsconfig tsconfig.build.json --plugin typedoc-plugin-markdown",
     "build": "vite build",
     "code:docker-build": "vite build",
