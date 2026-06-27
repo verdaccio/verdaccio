@@ -10,6 +10,7 @@
     "**/verdaccio-corrupted.db.json",
     "**/wrong.package.json",
     "CHANGELOG.md",
+    ".changeset/",
     "README.md",
     "CONTRIBUTORS.md",
     "test/unit/partials/config/js/*",
