@@ -1,10 +1,10 @@
 import type { Config, Logger } from '../configuration';
 
 export class Plugin<T> {
-  public constructor(config: T, options: PluginOptions<T>) {}
+  public constructor(_config: T, _options: PluginOptions<T>) {}
 }
 
-export interface IPlugin<T> {
+export interface IPlugin<_T> {
   // TODO: not used on core yet
   version?: string;
 }

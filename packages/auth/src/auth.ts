@@ -171,7 +171,6 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
   }
 
   public async invalidateToken(token: string) {
-    // eslint-disable-next-line no-console
     console.log('invalidate token pending to implement', token);
     return Promise.resolve();
   }

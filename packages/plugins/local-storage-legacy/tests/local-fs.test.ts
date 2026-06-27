@@ -2,7 +2,7 @@ import fs from 'fs';
 import mkdirp from 'mkdirp';
 import path from 'path';
 import rm from 'rmdir-sync';
-import { afterEach, beforeAll, beforeEach, describe, expect, test, vi } from 'vitest';
+import { beforeAll, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { readFile, unlockFile } from '@verdaccio/file-locking';
 import type { Logger, Package } from '@verdaccio/types';
@@ -246,7 +246,7 @@ describe('Local FS test', () => {
     });
 
     test('writeTarball() abort', () => {
-      return new Promise<void>((resolve, reject) => {
+      return new Promise<void>((resolve, _reject) => {
         const newFileLocationFolder: string = path.join(localTempStorage, '_writeTarball');
         const newFileName = 'new-readme-abort-0.0.0.tgz';
         const readmeStorage: LocalDriver = new LocalDriver(

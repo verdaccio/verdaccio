@@ -2,7 +2,6 @@ import { describe, expect, test } from 'vitest';
 
 import type { VerdaccioError } from '@verdaccio/core';
 import type { IPluginStorage, Logger } from '@verdaccio/legacy-types';
-import { IPackageStorage } from '@verdaccio/legacy-types';
 
 import LocalMemory from '../src/index';
 import type { ConfigMemory } from '../src/local-memory';

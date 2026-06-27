@@ -3,35 +3,36 @@
   "version": "13.0.2",
   "description": "Verdaccio Type Definitions",
   "keywords": [
-    "private",
-    "package",
-    "repository",
-    "registry",
     "enterprise",
     "modules",
+    "package",
+    "private",
     "proxy",
+    "registry",
+    "repository",
     "server",
     "verdaccio"
   ],
-  "author": "Juan Picado <juanpicado19@gmail.com>",
-  "license": "MIT",
   "homepage": "https://verdaccio.org",
-  "engines": {
-    "node": ">=18"
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
   },
+  "license": "MIT",
+  "author": "Juan Picado <juanpicado19@gmail.com>",
   "repository": {
     "type": "https",
     "url": "https://github.com/verdaccio/verdaccio",
     "directory": "packages/core/types"
   },
-  "bugs": {
-    "url": "https://github.com/verdaccio/verdaccio/issues"
-  },
-  "publishConfig": {
-    "access": "public"
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
   },
   "main": "src/types.ts",
   "types": "src/types.ts",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "clean": "rimraf ./build",
     "test": "pnpm type-check",
@@ -45,12 +46,11 @@
     "typedoc": "0.28.14"
   },
   "typedoc": {
+    "displayName": "@verdaccio/types",
     "entryPoint": "./src/types.ts",
-    "readmeFile": "./README.md",
-    "displayName": "@verdaccio/types"
+    "readmeFile": "./README.md"
   },
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/verdaccio"
+  "engines": {
+    "node": ">=18"
   }
 }

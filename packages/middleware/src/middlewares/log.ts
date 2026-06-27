@@ -48,7 +48,6 @@ export const log = (logger) => {
     // @ts-ignore
     res.write = function (buf): boolean {
       bytesout += buf.length;
-      /* eslint prefer-rest-params: "off" */
       // @ts-ignore
       _write.apply(res, arguments);
     };

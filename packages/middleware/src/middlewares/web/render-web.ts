@@ -28,7 +28,6 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
   const { staticPath, manifest, manifestFiles } = pluginOptions;
   debug('static path %o', staticPath);
 
-  /* eslint new-cap:off */
   const router = express.Router();
   if (typeof tokenMiddleware === 'function') {
     router.use(tokenMiddleware);

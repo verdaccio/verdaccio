@@ -1,5 +1,15 @@
 {
   "name": "readme-test",
+  "dist-tags": {
+    "foo": "0.0.0",
+    "latest": "0.0.0"
+  },
+  "readme": "this is a readme",
+  "time": {
+    "modified": "2017-10-06T20:30:38.721Z",
+    "created": "2017-10-06T20:30:38.721Z",
+    "0.0.0": "2017-10-06T20:30:38.721Z"
+  },
   "versions": {
     "0.0.0": {
       "name": "test-readme",
@@ -34,23 +44,13 @@
       ]
     }
   },
-  "dist-tags": {
-    "foo": "0.0.0",
-    "latest": "0.0.0"
-  },
-  "time": {
-    "modified": "2017-10-06T20:30:38.721Z",
-    "created": "2017-10-06T20:30:38.721Z",
-    "0.0.0": "2017-10-06T20:30:38.721Z"
-  },
-  "_distfiles": {},
   "_attachments": {
     "test-readme-0.0.0.tgz": {
       "shasum": "8ee7331cbc641581b1a8cecd9d38d744a8feb863",
       "version": "0.0.0"
     }
   },
-  "_uplinks": {},
+  "_distfiles": {},
   "_rev": "5-d647003b88ff08a0",
-  "readme": "this is a readme"
+  "_uplinks": {}
 }

@@ -63,8 +63,10 @@ class LocalMemory implements IPluginStorage<ConfigMemory> {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public search(onPackage: Callback, onEnd: Callback, validateName: Function): void {
+    void onPackage;
+    void validateName;
+
     this.logger.warn('[verdaccio/memory]: search method not implemented, PR is welcome');
     onEnd();
   }
@@ -100,7 +102,7 @@ class LocalMemory implements IPluginStorage<ConfigMemory> {
     return emptyDatabase;
   }
 
-  public saveToken(token: Token): Promise<void> {
+  public saveToken(_token: Token): Promise<void> {
     this.logger.warn('[verdaccio/memory][saveToken] save token has not been implemented yet');
 
     return Promise.reject(errorUtils.getServiceUnavailable('method not implemented'));
@@ -115,7 +117,7 @@ class LocalMemory implements IPluginStorage<ConfigMemory> {
     return Promise.reject(errorUtils.getServiceUnavailable('method not implemented'));
   }
 
-  public readTokens(filter: TokenFilter): Promise<Token[]> {
+  public readTokens(_filter: TokenFilter): Promise<Token[]> {
     this.logger.warn('[verdaccio/memory][readTokens] read tokens has not been implemented yet ');
 
     return Promise.reject(errorUtils.getServiceUnavailable('method not implemented'));

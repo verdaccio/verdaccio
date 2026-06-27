@@ -91,7 +91,6 @@ export default class ProxyAudit
       }
     };
 
-    /* eslint new-cap:off */
     const router = express.Router();
 
     router.post('/audits', express.json({ limit: '10mb' }), handleAudit);

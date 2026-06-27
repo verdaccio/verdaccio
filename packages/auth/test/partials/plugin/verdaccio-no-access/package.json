@@ -1,5 +1,5 @@
 {
   "name": "verdaccio-no-access",
-  "main": "no-access.js",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "main": "no-access.js"
 }

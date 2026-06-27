@@ -12,13 +12,10 @@ const debug = buildDebug('verdaccio:hooks');
 export function compileTemplate(content, metadata) {
   // FUTURE: multiple handlers
   return new Promise((resolve, reject) => {
-    let handler;
     try {
-      if (!handler) {
-        debug('compile default template handler %o', content);
-        const template: HandlebarsTemplateDelegate = Handlebars.compile(content);
-        return resolve(template(metadata));
-      }
+      debug('compile default template handler %o', content);
+      const template: HandlebarsTemplateDelegate = Handlebars.compile(content);
+      return resolve(template(metadata));
     } catch (error: any) {
       debug('error  template handler %o', error?.message);
       logger.error(
@@ -74,7 +71,6 @@ export async function handleNotify(
     notifyEntry.headers.map(function (item): void {
       if (Object.is(item, item)) {
         for (const key in item) {
-          /* eslint no-prototype-builtins: 0 */
           if (item.hasOwnProperty(key)) {
             header[key] = item[key];
           }

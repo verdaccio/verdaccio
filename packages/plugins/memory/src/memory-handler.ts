@@ -63,7 +63,7 @@ class MemoryHandler implements IPackageStorageManager {
       }
       try {
         onWrite(pkgFileName, transformPackage(pkg), onEnd);
-      } catch (err) {
+      } catch {
         return onEnd(getInternalError('error on parse the metadata'));
       }
     });
@@ -99,7 +99,7 @@ class MemoryHandler implements IPackageStorageManager {
 
     try {
       return cb(isJson ? getNotFound() : null, parsePackage(json));
-    } catch (err) {
+    } catch {
       return cb(getNotFound());
     }
   }

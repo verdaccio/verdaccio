@@ -1,5 +1,5 @@
 {
   "name": "verdaccio-change-password",
-  "main": "change.js",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "main": "change.js"
 }

@@ -3,36 +3,43 @@
   "version": "13.0.3",
   "description": "Package filter plugin for Verdaccio that allows blocking packages by name, scope, version or date",
   "keywords": [
-    "private",
-    "package",
-    "repository",
-    "registry",
     "enterprise",
+    "filter",
     "modules",
-    "proxy",
-    "server",
-    "verdaccio",
+    "package",
     "plugin",
-    "filter"
+    "private",
+    "proxy",
+    "registry",
+    "repository",
+    "server",
+    "verdaccio"
   ],
+  "homepage": "https://verdaccio.org",
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
+  },
+  "license": "MIT",
   "author": "Vitalii Sugrobov <vsugrob@hotmail.com>",
   "contributors": [
     "Ansile <ansilet@yandex.ru> (original project)"
   ],
-  "license": "MIT",
-  "homepage": "https://verdaccio.org",
   "repository": {
     "type": "https",
     "url": "https://github.com/verdaccio/verdaccio",
     "directory": "packages/plugins/package-filter"
   },
-  "bugs": {
-    "url": "https://github.com/verdaccio/verdaccio/issues"
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
   },
   "main": "build/index.js",
   "types": "build/index.d.ts",
-  "engines": {
-    "node": ">=18"
+  "scripts": {
+    "clean": "rimraf ./build",
+    "build": "vite build --config vite.build.config.mjs",
+    "watch": "vite build --watch --config vite.build.config.mjs",
+    "test": "vitest run"
   },
   "dependencies": {
     "@verdaccio/core": "workspace:8.1.2",
@@ -47,14 +54,7 @@
     "vite": "8.0.16",
     "vitest": "4.1.2"
   },
-  "scripts": {
-    "clean": "rimraf ./build",
-    "build": "vite build --config vite.build.config.mjs",
-    "watch": "vite build --watch --config vite.build.config.mjs",
-    "test": "vitest run"
-  },
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/verdaccio"
+  "engines": {
+    "node": ">=18"
   }
 }

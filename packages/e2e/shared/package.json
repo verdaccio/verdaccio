@@ -3,22 +3,19 @@
   "version": "1.0.3",
   "private": true,
   "description": "Shared utilities for Verdaccio E2E tests",
-  "main": "src/index.ts",
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
+  },
   "repository": {
     "type": "https",
     "url": "https://github.com/verdaccio/verdaccio",
     "directory": "packages/e2e/shared"
   },
-  "bugs": {
-    "url": "https://github.com/verdaccio/verdaccio/issues"
-  },
   "funding": {
     "type": "opencollective",
     "url": "https://opencollective.com/verdaccio"
   },
-  "engines": {
-    "node": ">=18"
-  },
+  "main": "src/index.ts",
   "dependencies": {
     "@verdaccio/config": "workspace:*",
     "@verdaccio/core": "workspace:*",
@@ -27,5 +24,8 @@
   },
   "devDependencies": {
     "verdaccio": "6.7.2"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

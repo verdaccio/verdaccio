@@ -2,8 +2,22 @@
   "name": "@verdaccio/logger-commons",
   "version": "8.0.3",
   "description": "Verdaccio Logger Commons",
-  "main": "./build/index.js",
-  "types": "./build/index.d.ts",
+  "keywords": [
+    "enterprise",
+    "modules",
+    "package",
+    "private",
+    "proxy",
+    "registry",
+    "repository",
+    "server",
+    "verdaccio"
+  ],
+  "homepage": "https://verdaccio.org",
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
+  },
+  "license": "MIT",
   "author": {
     "name": "Juan Picado",
     "email": "juanpicado19@gmail.com"
@@ -13,25 +27,12 @@
     "url": "https://github.com/verdaccio/verdaccio",
     "directory": "packages/logger/logger-commons"
   },
-  "bugs": {
-    "url": "https://github.com/verdaccio/verdaccio/issues"
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
   },
-  "license": "MIT",
-  "homepage": "https://verdaccio.org",
-  "keywords": [
-    "private",
-    "package",
-    "repository",
-    "registry",
-    "enterprise",
-    "modules",
-    "proxy",
-    "server",
-    "verdaccio"
-  ],
-  "engines": {
-    "node": ">=18"
-  },
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
   "scripts": {
     "clean": "rimraf ./build",
     "test": "cross-env TZ=utc vitest run",
@@ -44,16 +45,15 @@
   "dependencies": {
     "@verdaccio/core": "workspace:8.1.2",
     "@verdaccio/logger-prettify": "workspace:8.0.1",
-    "debug": "4.4.3",
-    "colorette": "2.0.20"
+    "colorette": "2.0.20",
+    "debug": "4.4.3"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:13.0.2",
     "pino": "9.14.0",
     "vitest": "4.1.2"
   },
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/verdaccio"
+  "engines": {
+    "node": ">=18"
   }
 }

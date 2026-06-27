@@ -1,5 +1,5 @@
 {
   "name": "verdaccio-fail",
-  "main": "fail.js",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "main": "fail.js"
 }

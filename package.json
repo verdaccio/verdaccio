@@ -1,6 +1,8 @@
 {
-  "private": true,
   "name": "verdaccio-dev",
+  "private": true,
+  "homepage": "https://verdaccio.org",
+  "license": "MIT",
   "author": {
     "name": "Verdaccio Maintainers",
     "email": "verdaccio.npm@gmail.com"
@@ -9,10 +11,34 @@
     "type": "https",
     "url": "https://github.com/verdaccio/verdaccio"
   },
-  "homepage": "https://verdaccio.org",
   "funding": {
     "type": "opencollective",
     "url": "https://opencollective.com/verdaccio"
+  },
+  "scripts": {
+    "prepare": "husky install",
+    "clean": "pnpm --filter \"./packages/**\" run clean",
+    "build": "pnpm --filter \"./packages/**\" run build",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
+    "lint": "oxlint --max-warnings 28",
+    "lint:fix": "oxlint --fix",
+    "test": "pnpm --filter \"./packages/**\" --filter \"!./packages/e2e/**\" run test",
+    "test:e2e": "pnpm --filter \"./packages/e2e/**\" run test",
+    "changeset": "changeset",
+    "changeset:check": "changeset status --since-master",
+    "ci:version": "run-s ci:version:changeset ci:version:install",
+    "ci:version:install": "pnpm install --frozen-lockfile=false",
+    "ci:version:changeset": "changeset version",
+    "ci:publish": "changeset publish",
+    "ts:ref": "update-ts-references --discardComments --rootConfigName tsconfig.base.json",
+    "postinstall": "husky install",
+    "local:snapshots": "changeset version --snapshot",
+    "local:publish": "cross-env npm_config_registry=http://localhost:4873 changeset publish --no-git-tag",
+    "verdaccio": "node docker/verdaccio6x/prepare.mjs && docker compose -f docker/verdaccio6x/docker-compose.yml up --build",
+    "verdaccio:build": "node docker/verdaccio6x/prepare.mjs && docker compose -f docker/verdaccio6x/docker-compose.yml build",
+    "verdaccio:run": "docker compose -f docker/verdaccio6x/docker-compose.yml up",
+    "verdaccio:down": "docker compose -f docker/verdaccio6x/docker-compose.yml down"
   },
   "devDependencies": {
     "@babel/cli": "7.28.3",
@@ -36,7 +62,6 @@
     "@babel/register": "7.28.3",
     "@babel/runtime": "7.28.4",
     "@changesets/cli": "2.27.12",
-    "@trivago/prettier-plugin-sort-imports": "6.0.2",
     "@types/body-parser": "1.19.5",
     "@types/connect": "3.4.38",
     "@types/cookiejar": "2.1.5",
@@ -59,19 +84,16 @@
     "@types/superagent": "4.1.24",
     "@types/supertest": "2.0.16",
     "@types/validator": "13.12.0",
-    "@verdaccio/eslint-config": "workspace:*",
     "@verdaccio/types": "workspace:*",
     "@vitest/coverage-v8": "4.1.2",
-    "@vitest/eslint-plugin": "1.6.13",
     "concurrently": "8.2.2",
     "cross-env": "7.0.3",
     "debug": "4.4.3",
-    "eslint": "10.0.3",
     "husky": "8.0.3",
-    "lint-staged": "11.2.6",
     "nock": "13.5.6",
     "npm-run-all2": "8.0.4",
-    "prettier": "3.4.2",
+    "oxfmt": "0.55.0",
+    "oxlint": "1.70.0",
     "rimraf": "5.0.10",
     "semver": "7.7.4",
     "supertest": "7.1.4",
@@ -84,39 +106,8 @@
     "vite": "8.0.16",
     "vitest": "4.1.2"
   },
-  "scripts": {
-    "prepare": "husky install",
-    "husky:pre-commit": "lint-staged",
-    "clean": "pnpm --filter \"./packages/**\" run clean",
-    "build": "pnpm --filter \"./packages/**\" run build",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,yml,yaml,md}\"",
-    "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,yml,yaml,md}\"",
-    "lint": "eslint --max-warnings 90 .",
-    "lint:fix": "eslint --fix .",
-    "test": "pnpm --filter \"./packages/**\" --filter \"!./packages/e2e/**\" run test",
-    "test:e2e": "pnpm --filter \"./packages/e2e/**\" run test",
-    "changeset": "changeset",
-    "changeset:check": "changeset status --since-master",
-    "ci:version": "run-s ci:version:changeset ci:version:install",
-    "ci:version:install": "pnpm install --frozen-lockfile=false",
-    "ci:version:changeset": "changeset version",
-    "ci:publish": "changeset publish",
-    "ts:ref": "update-ts-references --discardComments --rootConfigName tsconfig.base.json",
-    "postinstall": "husky install",
-    "local:snapshots": "changeset version --snapshot",
-    "local:publish": "cross-env npm_config_registry=http://localhost:4873 changeset publish --no-git-tag",
-    "verdaccio": "node docker/verdaccio6x/prepare.mjs && docker compose -f docker/verdaccio6x/docker-compose.yml up --build",
-    "verdaccio:build": "node docker/verdaccio6x/prepare.mjs && docker compose -f docker/verdaccio6x/docker-compose.yml build",
-    "verdaccio:run": "docker compose -f docker/verdaccio6x/docker-compose.yml up",
-    "verdaccio:down": "docker compose -f docker/verdaccio6x/docker-compose.yml down"
-  },
   "engines": {
     "node": ">=18"
-  },
-  "license": "MIT",
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx,json,yml,yaml,md}": "prettier --write",
-    "*.{js,jsx,ts,tsx}": "eslint --fix"
   },
   "packageManager": "pnpm@11.1.3+sha512.c85357fe17ca12dd23dd7071822666dfd7e3cb76fe214e3370b5ea2fb34f2a231185509b63e717f3cd0acb38dd3f8d82bcd5e8172400ae678b70ea4fbed0896d"
 }

@@ -27,12 +27,3 @@ minimumReleaseAgeExclude:
 ignoreScripts: true
 saveExact: true
 preferFrozenLockfile: true
-auditConfig:
-  ignoreGhsas:
-    # vite + ws are pulled only by the lint tooling via an optional peer
-    # dependency (@verdaccio/eslint-config -> @vitest/eslint-plugin -> vitest ->
-    # vite / jsdom -> ws). They are not shipped to consumers and are hard-pinned
-    # by vitest's internals, so a dependency update cannot move them. Not a
-    # resolution override — this only scopes the audit, not the installed tree.
-    - GHSA-fx2h-pf6j-xcff # vite: server.fs.deny bypass on Windows alternate paths
-    - GHSA-96hv-2xvq-fx4p # ws: memory exhaustion DoS from tiny fragments

@@ -3,31 +3,41 @@
   "version": "13.0.3",
   "description": "Verdaccio Middleware plugin to bypass npmjs audit",
   "keywords": [
-    "private",
-    "package",
-    "repository",
-    "registry",
     "enterprise",
     "modules",
+    "package",
+    "private",
     "proxy",
+    "registry",
+    "repository",
     "server",
     "verdaccio"
   ],
-  "author": "Juan Picado <juanpicado19@gmail.com>",
-  "license": "MIT",
   "homepage": "https://verdaccio.org",
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
+  },
+  "license": "MIT",
+  "author": "Juan Picado <juanpicado19@gmail.com>",
   "repository": {
     "type": "https",
     "url": "https://github.com/verdaccio/verdaccio",
     "directory": "packages/plugins/audit"
   },
-  "bugs": {
-    "url": "https://github.com/verdaccio/verdaccio/issues"
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
   },
   "main": "build/index.js",
   "types": "build/index.d.ts",
-  "engines": {
-    "node": ">=18"
+  "scripts": {
+    "clean": "rimraf ./build",
+    "type-check": "tsc --noEmit -p tsconfig.build.json",
+    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
+    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "build": "pnpm run build:js && pnpm run build:types",
+    "watch": "pnpm build:js -- --watch",
+    "test": "vitest run"
   },
   "dependencies": {
     "@verdaccio/config": "workspace:8.1.2",
@@ -44,17 +54,7 @@
     "supertest": "7.1.4",
     "vitest": "4.1.2"
   },
-  "scripts": {
-    "clean": "rimraf ./build",
-    "type-check": "tsc --noEmit -p tsconfig.build.json",
-    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
-    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
-    "build": "pnpm run build:js && pnpm run build:types",
-    "watch": "pnpm build:js -- --watch",
-    "test": "vitest run"
-  },
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/verdaccio"
+  "engines": {
+    "node": ">=18"
   }
 }

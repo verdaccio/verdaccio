@@ -24,7 +24,7 @@ const distDir = join(here, 'dist');
 const tarballsDir = join(distDir, 'tarballs');
 
 // Dev-only tooling that is never part of the verdaccio runtime tree.
-const EXCLUDE = new Set(['@verdaccio/eslint-config', '@verdaccio/test-helper']);
+const EXCLUDE = new Set(['@verdaccio/test-helper']);
 
 const VERDACCIO_VERSION = process.env.VERDACCIO_VERSION || '^6';
 

@@ -2,8 +2,22 @@
   "name": "@verdaccio/config",
   "version": "8.1.2",
   "description": "Verdaccio Configuration",
-  "main": "./build/index.js",
-  "types": "build/index.d.ts",
+  "keywords": [
+    "enterprise",
+    "modules",
+    "package",
+    "private",
+    "proxy",
+    "registry",
+    "repository",
+    "server",
+    "verdaccio"
+  ],
+  "homepage": "https://verdaccio.org",
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
+  },
+  "license": "MIT",
   "author": {
     "name": "Juan Picado",
     "email": "juanpicado19@gmail.com"
@@ -13,25 +27,12 @@
     "url": "https://github.com/verdaccio/verdaccio",
     "directory": "packages/config"
   },
-  "bugs": {
-    "url": "https://github.com/verdaccio/verdaccio/issues"
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
   },
-  "license": "MIT",
-  "homepage": "https://verdaccio.org",
-  "keywords": [
-    "private",
-    "package",
-    "repository",
-    "registry",
-    "enterprise",
-    "modules",
-    "proxy",
-    "server",
-    "verdaccio"
-  ],
-  "engines": {
-    "node": ">=18"
-  },
+  "main": "./build/index.js",
+  "types": "build/index.d.ts",
   "scripts": {
     "clean": "rimraf ./build",
     "test": "vitest run",
@@ -51,8 +52,7 @@
     "@verdaccio/types": "workspace:13.0.2",
     "vitest": "4.1.2"
   },
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/verdaccio"
+  "engines": {
+    "node": ">=18"
   }
 }

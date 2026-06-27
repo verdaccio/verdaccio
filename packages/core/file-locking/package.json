@@ -3,44 +3,38 @@
   "version": "13.0.1",
   "description": "Verdaccio File Locking Library",
   "keywords": [
-    "private",
-    "package",
-    "repository",
-    "registry",
     "enterprise",
     "modules",
+    "package",
+    "private",
     "proxy",
+    "registry",
+    "repository",
     "server",
     "verdaccio"
   ],
-  "author": "Juan Picado <juanpicado19@gmail.com>",
-  "license": "MIT",
   "homepage": "https://verdaccio.org",
-  "engines": {
-    "node": ">=18"
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
   },
+  "license": "MIT",
+  "author": "Juan Picado <juanpicado19@gmail.com>",
   "repository": {
     "type": "https",
     "url": "https://github.com/verdaccio/verdaccio",
     "directory": "packages/core/file-locking"
   },
-  "bugs": {
-    "url": "https://github.com/verdaccio/verdaccio/issues"
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
   },
-  "publishConfig": {
-    "access": "public"
-  },
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
   "files": [
     "build"
   ],
-  "dependencies": {
-    "lockfile": "1.0.4"
-  },
-  "devDependencies": {
-    "@verdaccio/types": "workspace:13.0.2",
-    "vitest": "4.1.2"
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "clean": "rimraf ./build",
@@ -50,8 +44,14 @@
     "watch": "pnpm build:js -- --watch",
     "build": "pnpm run build:js && pnpm run build:types"
   },
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/verdaccio"
+  "dependencies": {
+    "lockfile": "1.0.4"
+  },
+  "devDependencies": {
+    "@verdaccio/types": "workspace:13.0.2",
+    "vitest": "4.1.2"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

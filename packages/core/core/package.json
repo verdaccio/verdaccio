@@ -3,34 +3,45 @@
   "version": "8.1.2",
   "description": "Verdaccio Core Components",
   "keywords": [
-    "private",
-    "package",
-    "repository",
-    "registry",
     "enterprise",
     "modules",
+    "package",
+    "private",
     "proxy",
+    "registry",
+    "repository",
     "server",
     "verdaccio"
   ],
-  "main": "./build/index.js",
-  "types": "./build/index.d.ts",
-  "author": "Juan Picado <juanpicado19@gmail.com>",
-  "license": "MIT",
   "homepage": "https://verdaccio.org",
-  "engines": {
-    "node": ">=18"
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
   },
+  "license": "MIT",
+  "author": "Juan Picado <juanpicado19@gmail.com>",
   "repository": {
     "type": "https",
     "url": "https://github.com/verdaccio/verdaccio",
     "directory": "packages/core/core"
   },
-  "bugs": {
-    "url": "https://github.com/verdaccio/verdaccio/issues"
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
   },
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
   "publishConfig": {
     "access": "public"
+  },
+  "scripts": {
+    "clean": "rimraf ./build",
+    "test": "vitest run",
+    "type-check": "tsc --noEmit -p tsconfig.build.json",
+    "build:docs": "typedoc --options ./typedoc.json --tsconfig tsconfig.build.json",
+    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
+    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "watch": "pnpm build:js -- --watch",
+    "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
     "ajv": "8.18.0",
@@ -46,18 +57,7 @@
     "typedoc": "0.28.14",
     "vitest": "4.1.2"
   },
-  "scripts": {
-    "clean": "rimraf ./build",
-    "test": "vitest run",
-    "type-check": "tsc --noEmit -p tsconfig.build.json",
-    "build:docs": "typedoc --options ./typedoc.json --tsconfig tsconfig.build.json",
-    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
-    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
-    "watch": "pnpm build:js -- --watch",
-    "build": "pnpm run build:js && pnpm run build:types"
-  },
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/verdaccio"
+  "engines": {
+    "node": ">=18"
   }
 }

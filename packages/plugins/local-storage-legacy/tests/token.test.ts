@@ -14,14 +14,11 @@ const optionsPlugin = {
 };
 
 let locaDatabase: LocalDatabase;
-let loadPrivatePackages;
 
 describe('Local Database', () => {
   beforeEach(() => {
     const writeMock = vi.spyOn(fs, 'writeFileSync').mockImplementation();
-    loadPrivatePackages = vi
-      .spyOn(pkgUtils, 'loadPrivatePackages')
-      .mockReturnValue({ list: [], secret: '' });
+    vi.spyOn(pkgUtils, 'loadPrivatePackages').mockReturnValue({ list: [], secret: '' });
     locaDatabase = new LocalDatabase(optionsPlugin.config, optionsPlugin.logger);
     (locaDatabase as LocalDatabase).clean();
     writeMock.mockClear();

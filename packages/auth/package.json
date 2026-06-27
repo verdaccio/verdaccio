@@ -2,8 +2,22 @@
   "name": "@verdaccio/auth",
   "version": "8.0.4",
   "description": "Verdaccio Authentication",
-  "main": "./build/index.js",
-  "types": "./build/index.d.ts",
+  "keywords": [
+    "enterprise",
+    "modules",
+    "package",
+    "private",
+    "proxy",
+    "registry",
+    "repository",
+    "server",
+    "verdaccio"
+  ],
+  "homepage": "https://verdaccio.org",
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
+  },
+  "license": "MIT",
   "author": {
     "name": "Juan Picado",
     "email": "juanpicado19@gmail.com"
@@ -13,24 +27,12 @@
     "url": "https://github.com/verdaccio/verdaccio",
     "directory": "packages/auth"
   },
-  "bugs": {
-    "url": "https://github.com/verdaccio/verdaccio/issues"
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
   },
-  "homepage": "https://verdaccio.org",
-  "keywords": [
-    "private",
-    "package",
-    "repository",
-    "registry",
-    "enterprise",
-    "modules",
-    "proxy",
-    "server",
-    "verdaccio"
-  ],
-  "engines": {
-    "node": ">=18"
-  },
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
   "scripts": {
     "clean": "rimraf ./build",
     "test": "vitest run",
@@ -40,7 +42,6 @@
     "watch": "pnpm build:js -- --watch",
     "build": "pnpm run build:js && pnpm run build:types"
   },
-  "license": "MIT",
   "dependencies": {
     "@verdaccio/config": "workspace:8.1.2",
     "@verdaccio/core": "workspace:8.1.2",
@@ -51,15 +52,14 @@
     "verdaccio-htpasswd": "workspace:13.0.3"
   },
   "devDependencies": {
+    "@verdaccio/logger": "workspace:8.0.3",
     "@verdaccio/middleware": "workspace:8.0.5",
     "@verdaccio/types": "workspace:13.0.2",
-    "@verdaccio/logger": "workspace:8.0.3",
     "express": "4.22.1",
     "supertest": "7.1.4",
     "vitest": "4.1.2"
   },
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/verdaccio"
+  "engines": {
+    "node": ">=18"
   }
 }

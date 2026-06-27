@@ -3,29 +3,35 @@
   "version": "10.4.6",
   "description": "Storage implementation in memory",
   "keywords": [
-    "verdaccio",
+    "memory",
     "plugin",
     "storage",
-    "memory"
+    "verdaccio"
   ],
-  "author": "Juan Picado <juanpicado19@gmail.com>",
-  "license": "MIT",
   "homepage": "https://verdaccio.org",
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
+  },
+  "license": "MIT",
+  "author": "Juan Picado <juanpicado19@gmail.com>",
   "repository": {
     "type": "https",
     "url": "https://github.com/verdaccio/verdaccio",
     "directory": "packages/plugins/memory"
   },
-  "bugs": {
-    "url": "https://github.com/verdaccio/verdaccio/issues"
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
   },
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
   "files": [
     "lib/"
   ],
-  "engines": {
-    "node": ">=18"
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "clean": "rimraf ./lib",
+    "test": "vitest run",
+    "build": "vite build"
   },
   "dependencies": {
     "@verdaccio/core": "workspace:*",
@@ -38,13 +44,7 @@
     "vite-plugin-dts": "4.5.4",
     "vitest": "4.1.4"
   },
-  "scripts": {
-    "clean": "rimraf ./lib",
-    "test": "vitest run",
-    "build": "vite build"
-  },
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/verdaccio"
+  "engines": {
+    "node": ">=18"
   }
 }

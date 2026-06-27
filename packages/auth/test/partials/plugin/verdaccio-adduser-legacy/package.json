@@ -1,5 +1,5 @@
 {
   "name": "verdaccio-adduser-legacy",
-  "main": "adduser.js",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "main": "adduser.js"
 }

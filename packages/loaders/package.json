@@ -2,8 +2,22 @@
   "name": "@verdaccio/loaders",
   "version": "8.0.3",
   "description": "Verdaccio Loader Logic",
-  "main": "./build/index.js",
-  "types": "build/index.d.ts",
+  "keywords": [
+    "enterprise",
+    "modules",
+    "package",
+    "private",
+    "proxy",
+    "registry",
+    "repository",
+    "server",
+    "verdaccio"
+  ],
+  "homepage": "https://verdaccio.org",
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
+  },
+  "license": "MIT",
   "author": {
     "name": "Juan Picado",
     "email": "juanpicado19@gmail.com"
@@ -13,38 +27,12 @@
     "url": "https://github.com/verdaccio/verdaccio",
     "directory": "packages/loaders"
   },
-  "bugs": {
-    "url": "https://github.com/verdaccio/verdaccio/issues"
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
   },
-  "dependencies": {
-    "@verdaccio/core": "workspace:8.1.2",
-    "debug": "4.4.3",
-    "lodash": "4.18.1"
-  },
-  "devDependencies": {
-    "@verdaccio/logger": "workspace:8.0.3",
-    "@verdaccio/config": "workspace:8.1.2",
-    "@verdaccio/core": "workspace:8.1.2",
-    "@verdaccio-scope/verdaccio-auth-foo": "0.0.2",
-    "verdaccio-auth-memory": "workspace:*",
-    "vitest": "4.1.2"
-  },
-  "homepage": "https://verdaccio.org",
-  "keywords": [
-    "private",
-    "package",
-    "repository",
-    "registry",
-    "enterprise",
-    "modules",
-    "proxy",
-    "server",
-    "verdaccio"
-  ],
-  "engines": {
-    "node": ">=18"
-  },
-  "license": "MIT",
+  "main": "./build/index.js",
+  "types": "build/index.d.ts",
   "scripts": {
     "clean": "rimraf ./build",
     "test": "vitest run",
@@ -54,8 +42,20 @@
     "watch": "pnpm build:js -- --watch",
     "build": "pnpm run build:js && pnpm run build:types"
   },
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/verdaccio"
+  "dependencies": {
+    "@verdaccio/core": "workspace:8.1.2",
+    "debug": "4.4.3",
+    "lodash": "4.18.1"
+  },
+  "devDependencies": {
+    "@verdaccio-scope/verdaccio-auth-foo": "0.0.2",
+    "@verdaccio/config": "workspace:8.1.2",
+    "@verdaccio/core": "workspace:8.1.2",
+    "@verdaccio/logger": "workspace:8.0.3",
+    "verdaccio-auth-memory": "workspace:*",
+    "vitest": "4.1.2"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

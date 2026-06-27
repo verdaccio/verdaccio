@@ -93,7 +93,6 @@ export default class LocalFS {
       const self = this;
       // callback that cleans up lock first
       const unLockCallback = function (lockError: Error): void {
-        // eslint-disable-next-line prefer-rest-params
         const _args = arguments;
 
         if (locked) {

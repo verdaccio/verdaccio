@@ -3,20 +3,17 @@
   "version": "1.0.3",
   "private": true,
   "description": "E2E tests for @verdaccio/local-storage-legacy plugin",
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
+  },
   "repository": {
     "type": "https",
     "url": "https://github.com/verdaccio/verdaccio",
     "directory": "packages/e2e/local-storage-legacy"
   },
-  "bugs": {
-    "url": "https://github.com/verdaccio/verdaccio/issues"
-  },
   "funding": {
     "type": "opencollective",
     "url": "https://opencollective.com/verdaccio"
-  },
-  "engines": {
-    "node": ">=18"
   },
   "scripts": {
     "test": "vitest run"
@@ -29,5 +26,8 @@
     "@types/node": "^20.5.8",
     "verdaccio": "6.7.2",
     "vitest": "^4.1.4"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

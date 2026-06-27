@@ -2,39 +2,39 @@
   "name": "@verdaccio/legacy-types",
   "version": "1.0.5",
   "description": "verdaccio legacy types definitions",
-  "deprecated": "this is a legacy package for types should be not longer used",
   "keywords": [
-    "verdaccio",
+    "types",
     "typescript",
-    "types"
+    "verdaccio"
   ],
-  "author": "Juan Picado <juanpicado19@gmail.com>",
-  "license": "MIT",
   "homepage": "https://verdaccio.org",
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
+  },
+  "license": "MIT",
+  "author": "Juan Picado <juanpicado19@gmail.com>",
   "repository": {
     "type": "https",
     "url": "https://github.com/verdaccio/verdaccio",
     "directory": "packages/core/deprecated-types"
   },
-  "bugs": {
-    "url": "https://github.com/verdaccio/verdaccio/issues"
-  },
-  "publishConfig": {
-    "access": "public"
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
   },
   "main": "build/types.d.ts",
   "types": "build/types.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "clean": "rimraf ./build",
     "test": "exit 0",
     "build": "tsc --emitDeclarationOnly -p tsconfig.json"
   },
   "devDependencies": {
-    "typescript": "4.7.3",
-    "@types/node": "14.18.0"
+    "@types/node": "14.18.0",
+    "typescript": "4.7.3"
   },
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/verdaccio"
-  }
+  "deprecated": "this is a legacy package for types should be not longer used"
 }
