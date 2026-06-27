@@ -11,6 +11,8 @@ import type { ILocalFSPackageManager } from '../src/local-fs';
 const TEMP_FOLDER = 'local-storage-plugin';
 const STORAGE_FOLDER = 'storage';
 const PRIVATE_FOLDER = 'private';
+const PACKAGE_PATH_ERROR =
+  'package-specific storage path is not under the configured storage directory or is invalid';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const mockWrite = vi.fn((path, data) => Promise.resolve());
@@ -78,12 +80,7 @@ describe('Local Database', () => {
   });
 
   test('should create database file', async () => {
-    const storage = locaDatabase.getPackageStorage('');
-    expect(storage).toBeDefined();
-    const databaseFile = path.join(
-      (storage as ILocalFSPackageManager).path,
-      fileUtils.Files.DatabaseName
-    );
+    const databaseFile = path.join(tmpFolder, STORAGE_FOLDER, fileUtils.Files.DatabaseName);
     expect(databaseFile).toBeDefined();
     expect(mockWrite).toHaveBeenCalledWith(databaseFile, expect.any(String));
   });
@@ -153,6 +150,117 @@ describe('Local Database', () => {
       );
     });
 
+    test('should use custom storage for scoped package pattern', () => {
+      const database = new LocalDatabase(
+        // @ts-expect-error
+        {
+          storage: STORAGE_FOLDER,
+          configPath: path.join(tmpFolder, 'scoped-custom.yaml'),
+          checkSecretKey: () => 'fooX',
+          packages: {
+            '@myorg/*': {
+              access: ['$all'],
+              publish: ['$authenticated'],
+              storage: PRIVATE_FOLDER,
+            },
+            '**': {
+              access: ['$all'],
+              publish: ['$authenticated'],
+            },
+          },
+        },
+        getOptionsPlugin().logger
+      );
+
+      const pkgName = '@myorg/bar';
+      const storage = database.getPackageStorage(pkgName);
+      expect(storage).toBeDefined();
+
+      const storagePath = path
+        .normalize((storage as ILocalFSPackageManager).path)
+        .toLowerCase()
+        .replace(/\\/g, '/');
+      expect(storagePath).toMatch(
+        new RegExp(
+          `\/verdaccio-${TEMP_FOLDER}-.*\/${STORAGE_FOLDER}\/${PRIVATE_FOLDER}\/@myorg\/bar`
+        )
+      );
+    });
+
+    test('should keep scoped package storage inside custom storage directory', () => {
+      const database = new LocalDatabase(
+        // @ts-expect-error
+        {
+          storage: STORAGE_FOLDER,
+          configPath: path.join(tmpFolder, 'scoped-containment.yaml'),
+          checkSecretKey: () => 'fooX',
+          packages: {
+            '@myorg/*': {
+              access: ['$all'],
+              publish: ['$authenticated'],
+              storage: PRIVATE_FOLDER,
+            },
+            '**': {
+              access: ['$all'],
+              publish: ['$authenticated'],
+            },
+          },
+        },
+        getOptionsPlugin().logger
+      );
+
+      const storage = database.getPackageStorage('@myorg/bar');
+      const storagePath = path.resolve((storage as ILocalFSPackageManager).path);
+      const privateStoragePath = path.resolve(path.join(tmpFolder, STORAGE_FOLDER, PRIVATE_FOLDER));
+
+      expect(storagePath.startsWith(privateStoragePath + path.sep)).toBe(true);
+    });
+
+    test('should prevent scoped package name traversal escaping storage root', () => {
+      expect(() => {
+        locaDatabase.getPackageStorage('@scope/../../etc');
+      }).toThrow(PACKAGE_PATH_ERROR);
+
+      const database = new LocalDatabase(
+        // @ts-expect-error
+        {
+          storage: STORAGE_FOLDER,
+          configPath: path.join(tmpFolder, 'scoped-traversal.yaml'),
+          checkSecretKey: () => 'fooX',
+          packages: {
+            '@myorg/*': {
+              access: ['$all'],
+              publish: ['$authenticated'],
+              storage: PRIVATE_FOLDER,
+            },
+            '**': {
+              access: ['$all'],
+              publish: ['$authenticated'],
+            },
+          },
+        },
+        getOptionsPlugin().logger
+      );
+
+      expect(() => {
+        database.getPackageStorage('@myorg/bar/../../../etc');
+      }).toThrow(PACKAGE_PATH_ERROR);
+    });
+
+    test('should normalize in-root scoped package path segments safely', () => {
+      const storageRoot = path.resolve(path.join(tmpFolder, STORAGE_FOLDER));
+
+      const otherStorage = locaDatabase.getPackageStorage('@scope/../other');
+      expect(path.resolve((otherStorage as ILocalFSPackageManager).path)).toBe(
+        path.resolve(storageRoot, 'other')
+      );
+
+      const etcStorage = locaDatabase.getPackageStorage('@scope/foo/../../etc');
+      expect(path.resolve((etcStorage as ILocalFSPackageManager).path)).toBe(
+        path.resolve(storageRoot, 'etc')
+      );
+    });
+
     test('should use custom storage', () => {
       const pkgName = 'local-private-package';
       const storage = locaDatabase.getPackageStorage(pkgName);
@@ -194,7 +302,28 @@ describe('Local Database', () => {
 
       expect(() => {
         database.getPackageStorage('traversal-package');
-      }).toThrow('package-specific path is not under the configured storage directory');
+      }).toThrow(
+        'access-specific storage path is not under the configured storage directory or is invalid'
+      );
+    });
+
+    test('should prevent package name traversal from custom storage', () => {
+      expect(() => {
+        locaDatabase.getPackageStorage('..');
+      }).toThrow(PACKAGE_PATH_ERROR);
+
+      expect(() => {
+        locaDatabase.getPackageStorage('some-random-package/../../../etc');
+      }).toThrow(PACKAGE_PATH_ERROR);
+    });
+
+    test('should keep package storage inside custom storage directory', () => {
+      const pkgName = 'local-private-package';
+      const storage = locaDatabase.getPackageStorage(pkgName);
+      const storagePath = path.resolve((storage as ILocalFSPackageManager).path);
+      const privateStoragePath = path.resolve(path.join(tmpFolder, STORAGE_FOLDER, PRIVATE_FOLDER));
+
+      expect(storagePath.startsWith(privateStoragePath + path.sep)).toBe(true);
     });
   });
 
