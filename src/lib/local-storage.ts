@@ -165,7 +165,6 @@ class LocalStorage {
                 url: version.dist.tarball,
                 sha: version.dist.shasum,
               });
-              /* eslint spaced-comment: 0 */
               const upLink: string = version[Symbol.for('__verdaccio_uplink')];
 
               if (_.isNil(upLink) === false) {
@@ -304,7 +303,6 @@ class LocalStorage {
     this._updatePackage(
       pkgName,
       (data, cb): void => {
-        /* eslint guard-for-in: 0 */
         for (const tag in tags) {
           // this handle dist-tag rm command
           if (_.isNull(tags[tag])) {

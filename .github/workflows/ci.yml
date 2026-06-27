@@ -35,6 +35,22 @@ jobs:
     uses: verdaccio/verdaccio/.github/workflows/yarn-ci.yml@master
     with:
       node_version: ${{ matrix.node_version }}
+  lint:
+    runs-on: ubuntu-latest
+    name: Lint and format
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+        with:
+          node-version-file: '.nvmrc'
+      - name: Enable corepack
+        run: corepack enable
+      - name: Install dependencies
+        run: yarn install --immutable
+      - name: Lint
+        run: yarn lint
+      - name: Format check
+        run: yarn format:check
   changeset-validation:
     if: >-
       github.event_name == 'pull_request' &&

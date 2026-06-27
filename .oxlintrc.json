@@ -1,0 +1,68 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "oxc", "react", "vitest"],
+  "categories": {
+    "correctness": "error"
+  },
+  "env": {
+    "builtin": true,
+    "node": true,
+    "es2024": true
+  },
+  "ignorePatterns": [
+    "debug/**",
+    "cypress/**",
+    "cypress.config.ts",
+    "build/**",
+    "test/types-test/**/*.ts",
+    "test/types-test/plugins/**/*.ts",
+    "**/coverage/**",
+    "node_modules/**"
+  ],
+  "rules": {
+    "no-undef": "off",
+    "no-useless-escape": "off",
+    "no-useless-assignment": "off",
+    "typescript/no-this-alias": "warn",
+    "typescript/ban-ts-comment": "off",
+    "typescript/no-misused-promises": "off",
+    "typescript/no-floating-promises": "off",
+    "typescript/no-explicit-any": "off",
+    "typescript/consistent-type-imports": "off",
+    "react-hooks/exhaustive-deps": "warn",
+    "unicorn/no-empty-file": "off",
+    "no-async-promise-executor": "off",
+    "unicorn/no-useless-fallback-in-spread": "off"
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/*.{test,spec}.{js,ts,jsx,tsx}",
+        "**/tests/**/*.{ts,tsx}",
+        "**/test/**/*.{ts,tsx}",
+        "**/__tests__/**/*.{ts,tsx}",
+        "**/__mocks__/**/*.{ts,tsx}"
+      ],
+      "plugins": ["vitest"],
+      "rules": {
+        "typescript/no-require-imports": "off",
+        "typescript/ban-ts-comment": "off",
+        "typescript/no-empty-object-type": "off",
+        "typescript/no-unused-vars": "error",
+        "no-console": "off",
+        "vitest/expect-expect": "off",
+        "vitest/no-conditional-expect": "off",
+        "vitest/no-disabled-tests": "warn",
+        "vitest/require-mock-type-parameters": "off",
+        "vitest/require-to-throw-message": "off",
+        "vitest/warn-todo": "off"
+      }
+    },
+    {
+      "files": ["test/unit/modules/plugin/partials/test-plugin-storage/**/*.{js,jsx,ts,tsx}"],
+      "rules": {
+        "react/no-this-in-sfc": "off"
+      }
+    }
+  ]
+}

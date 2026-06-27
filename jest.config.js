@@ -1,5 +1,3 @@
-/* eslint comma-dangle: 0 */
-
 module.exports = {
   reporters: ['default', ['jest-junit', { outputDirectory: 'reports' }]],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],

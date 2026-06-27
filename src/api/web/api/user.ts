@@ -14,7 +14,6 @@ import type { $NextFunctionVer } from '../../../types';
 import { wrapSecPath } from './utils';
 
 function addUserAuthApi(auth: Auth, config: Config): Router {
-  /* eslint new-cap:off */
   const route = Router();
   route.post(
     wrapSecPath(WebUrls.user_login),

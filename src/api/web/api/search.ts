@@ -11,7 +11,6 @@ import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../../..
 import { wrapPath } from './utils';
 
 function addSearchWebApi(storage: Storage, auth: Auth): Router {
-  /* eslint new-cap:off */
   const route = Router();
   // Search package
   route.get(

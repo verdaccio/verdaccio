@@ -396,7 +396,6 @@ class ProxyStorage {
     }
 
     // add/override headers specified in the config
-    /* eslint guard-for-in: 0 */
     for (const key in this.config.headers) {
       headers[key] = this.config.headers[key];
     }

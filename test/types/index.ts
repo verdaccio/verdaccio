@@ -19,7 +19,6 @@ export interface IServerProcess {
   stop(): void;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 declare class PromiseAssert extends Promise<any> {
   public constructor(options: any);
 }
