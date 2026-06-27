@@ -11,6 +11,11 @@ function isStaticRequest(url: string): boolean {
   return url.startsWith('/-/static/') || url.startsWith('/favicon');
 }
 
+// Keep export of constants for backward compatibility
+export const LOG_STATUS_MESSAGE = constants.LOG_STATUS_MESSAGE;
+export const LOG_VERDACCIO_ERROR = constants.LOG_VERDACCIO_ERROR;
+export const LOG_VERDACCIO_BYTES = constants.LOG_VERDACCIO_BYTES;
+
 // Converts all @{...} to %o for debug compatibility
 function convertToDebugString(template: string): string {
   return template.replace(/@\{[^}]+\}/g, '%o');
@@ -44,7 +49,7 @@ export const log = (logger, options: LogOptions = {}) => {
     if (_skipLog) {
       debug(convertToDebugString(constants.LOG_REQUEST_MESSAGE), req.ip, req.method, req.url);
     } else {
-      req.log.info({ req }, constants.LOG_REQUEST_MESSAGE);
+      req.log.info({ req, ip: req.ip }, constants.LOG_REQUEST_MESSAGE);
     }
     req.originalUrl = req.url;
 

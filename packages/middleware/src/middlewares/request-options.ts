@@ -26,13 +26,18 @@ export function getRequestOptions(req: $RequestExtend): RequestOptions {
   };
 
   // Mask sensitive headers before debug output
+  const maskedHeaders: IncomingHttpHeaders = { ...requestOptions.headers };
+  if (maskedHeaders.cookie != null) {
+    maskedHeaders.cookie = '<Classified>';
+  }
+  if (maskedHeaders.authorization != null) {
+    maskedHeaders.authorization = '<Classified>';
+  }
+
+  // Mask sensitive headers before debug output
   const maskedRequestOptions = {
     ...requestOptions,
-    headers: {
-      ...requestOptions.headers,
-      cookie: '<classified>',
-      authorization: '<classified>',
-    },
+    headers: maskedHeaders,
   };
 
   debug('request options: %o', maskedRequestOptions);

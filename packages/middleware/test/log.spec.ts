@@ -134,8 +134,8 @@ test('should log request aborted by user', async () => {
 
   try {
     // Make request that we'll abort
-    const http = require('http');
-    const req = http.request({
+    const { request: httpRequest } = await import('node:http');
+    const req = httpRequest({
       hostname: 'localhost',
       port: port,
       path: '/slow/react',
@@ -143,7 +143,7 @@ test('should log request aborted by user', async () => {
     });
 
     // Handle expected error when we destroy the connection
-    req.on('error', (err) => {
+    req.on('error', (err: NodeJS.ErrnoException) => {
       // Expected error when destroying connection - ignore it
       if (err.code === 'ECONNRESET') {
         return;
@@ -174,6 +174,9 @@ test('should log request aborted by user', async () => {
       expect.stringContaining('request aborted by client')
     );
   } finally {
-    server.close();
+    // Await the close callback to avoid open handles
+    await new Promise<void>((resolve, reject) => {
+      server.close((err) => (err ? reject(err) : resolve()));
+    });
   }
 });
