@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@babel/cli": "7.28.3",
-    "@babel/core": "7.28.4",
+    "@babel/core": "7.29.6",
     "@babel/plugin-proposal-decorators": "7.28.0",
     "@babel/plugin-proposal-function-sent": "7.27.1",
     "@babel/plugin-proposal-throw-expressions": "7.27.1",
