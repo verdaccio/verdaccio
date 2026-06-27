@@ -10,10 +10,11 @@ on:
         description: 'npm dist-tag to bump verdaccio packages to'
         required: true
         default: 'next-9'
+  # Only run on pushes to 7.x. This also avoids re-triggering on the workflow's
+  # own PR branch (chore/update-verdaccio-dependencies), preventing a self-loop.
   push:
-    # Don't re-trigger on the workflow's own PR branch (avoids a self-loop).
-    branches-ignore:
-      - chore/update-verdaccio-dependencies
+    branches:
+      - 7.x
 
 permissions:
   contents: write
@@ -44,11 +45,11 @@ jobs:
         env:
           DIST_TAG: ${{ github.event.inputs.dist_tag || 'next-9' }}
         # Exclude packages that are not part of this release line (not published
-        # under $DIST_TAG): e2e-cli, e2e-ui and eslint-config.
+        # under $DIST_TAG): e2e-cli, e2e-ui.
         run: |
           pnpm update -r \
             "@verdaccio/*@$DIST_TAG" "verdaccio@$DIST_TAG" "verdaccio-*@$DIST_TAG" \
-            "!@verdaccio/e2e-cli" "!@verdaccio/e2e-ui" "!@verdaccio/eslint-config"
+            "!@verdaccio/e2e-cli" "!@verdaccio/e2e-ui"
 
       - name: Stop if nothing changed
         id: diff

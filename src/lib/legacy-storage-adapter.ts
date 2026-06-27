@@ -208,7 +208,7 @@ function wrapLegacyHandler(handler: any): any {
 }
 
 /** Collect a legacy streaming `search(onPackage, onEnd, validate)` into a list. */
-function search(plugin: any, query: any): Promise<any[]> {
+function search(plugin: any, _query: any): Promise<any[]> {
   return new Promise((resolve, reject) => {
     const items: any[] = [];
     try {
