@@ -10,10 +10,11 @@ on:
         description: 'npm dist-tag to bump verdaccio packages to'
         required: true
         default: 'next-9'
+  # Only run on pushes to 7.x. This also avoids re-triggering on the workflow's
+  # own PR branch (chore/update-verdaccio-dependencies), preventing a self-loop.
   push:
-    # Don't re-trigger on the workflow's own PR branch (avoids a self-loop).
-    branches-ignore:
-      - chore/update-verdaccio-dependencies
+    branches:
+      - 7.x
 
 permissions:
   contents: write
