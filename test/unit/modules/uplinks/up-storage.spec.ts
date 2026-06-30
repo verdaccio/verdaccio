@@ -355,6 +355,38 @@ describe('UpStorage', () => {
       });
     });
 
+    test('should throw a 403 on fetch a tarball from uplink', () => {
+      nock(UPLINK_URL).get('/jquery/-/forbidden-1.0.0.tgz').reply(403);
+      const proxy = generateProxy();
+      const tarball = `${UPLINK_URL}/jquery/-/forbidden-1.0.0.tgz`;
+      const stream = proxy.fetchTarball(tarball);
+      return new Promise((done) => {
+        stream.on('error', function (err: any) {
+          expect(err).not.toBeNull();
+          expect(err.statusCode).toBe(HTTP_STATUS.FORBIDDEN);
+          expect(err.message).toMatch('tarball not available: forbidden by uplink');
+          done(true);
+        });
+      });
+    });
+
+    test('should throw a 403 with uplink error detail on fetch a tarball from uplink', () => {
+      nock(UPLINK_URL)
+        .get('/jquery/-/forbidden-1.0.0.tgz')
+        .reply(403, { detail: 'package blocked by security policy' });
+      const proxy = generateProxy();
+      const tarball = `${UPLINK_URL}/jquery/-/forbidden-1.0.0.tgz`;
+      const stream = proxy.fetchTarball(tarball);
+      return new Promise((done) => {
+        stream.on('error', function (err: any) {
+          expect(err).not.toBeNull();
+          expect(err.statusCode).toBe(HTTP_STATUS.FORBIDDEN);
+          expect(err.message).toMatch('package blocked by security policy');
+          done(true);
+        });
+      });
+    });
+
     test('should be offline uplink', () => {
       // Use nock to simulate a connection error for the offline uplink
       const offlineUrl = 'http://offline.verdaccio.test';
