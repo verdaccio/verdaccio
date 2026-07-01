@@ -6,6 +6,7 @@ import * as fileUtils from './file-utils';
 import * as ipUtils from './ip-utils';
 import * as pkgUtils from './pkg-utils';
 import * as pluginUtils from './plugin-utils';
+import * as reqUtils from './req-utils';
 import * as searchUtils from './search-utils';
 import * as streamUtils from './stream-utils';
 import * as stringUtils from './string-utils';
@@ -53,4 +54,5 @@ export {
   pluginUtils,
   warningUtils,
   tarballUtils,
+  reqUtils,
 };

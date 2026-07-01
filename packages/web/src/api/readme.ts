@@ -2,7 +2,7 @@ import buildDebug from 'debug';
 import { Router } from 'express';
 
 import type { Auth } from '@verdaccio/auth';
-import { DIST_TAGS, HEADERS, HEADER_TYPE } from '@verdaccio/core';
+import { DIST_TAGS, HEADERS, HEADER_TYPE, reqUtils } from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
 import {
   $NextFunctionVer,
@@ -70,9 +70,9 @@ function addReadmeWebApi(storage: Storage, auth: Auth): Router {
       next: $NextFunctionVer
     ): Promise<void> {
       debug('readme hit');
-      const rawScope = req.params.scope; // May include '@'
-      const scope = rawScope ? rawScope.slice(1) : null; // Remove '@' if present
-      const name = scope ? addScope(scope, req.params.package) : req.params.package;
+      const scope = reqUtils.paramToString(req.params.scope).replace(/^@/, '');
+      const packageName = reqUtils.paramToString(req.params.package);
+      const name = scope ? addScope(scope, packageName) : packageName;
       debug('readme name %o', name);
       const requestOptions = getRequestOptions(req);
       try {

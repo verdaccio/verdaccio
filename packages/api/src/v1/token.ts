@@ -3,7 +3,14 @@ import { isBoolean, isNil } from 'lodash-es';
 
 import type { Auth } from '@verdaccio/auth';
 import { getApiToken } from '@verdaccio/auth';
-import { HEADERS, HTTP_STATUS, SUPPORT_ERRORS, cryptoUtils, errorUtils } from '@verdaccio/core';
+import {
+  HEADERS,
+  HTTP_STATUS,
+  SUPPORT_ERRORS,
+  cryptoUtils,
+  errorUtils,
+  reqUtils,
+} from '@verdaccio/core';
 import { TOKEN_API_ENDPOINTS, rateLimit } from '@verdaccio/middleware';
 import type { Storage } from '@verdaccio/store';
 import type { Config, Logger, RemoteUser, Token } from '@verdaccio/types';
@@ -168,9 +175,7 @@ export default function (
     TOKEN_API_ENDPOINTS.delete_token,
     rateLimit(config?.userRateLimit),
     async (req: $RequestExtend, res: Response, next: $NextFunctionVer) => {
-      const {
-        params: { tokenKey },
-      } = req;
+      const tokenKey = reqUtils.paramToString(req.params.tokenKey);
       const { name } = req.remote_user;
 
       if (isNil(name) === false) {
