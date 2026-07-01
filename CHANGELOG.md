@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.7.5
+
+### Patch Changes
+
+- 3a84578: chore: refactor eslint
+
 ## 6.7.4
 
 ### Patch Changes
@@ -47,6 +53,7 @@
   when they are absent, while still rejecting values of the wrong type.
 
 - 75c85d5: Update verdaccio dependencies to the `latest` npm dist-tag (`@verdaccio/ui-theme` tracks `next-9`):
+
   - `@verdaccio/ui-theme`: `9.0.0-next-9.19` → `9.0.0-next-9.20`
 
 - d5e5332: chore: update dependencies
@@ -77,6 +84,7 @@
 - 9f1bcc5: feat: update Node.js to 24
 
   Bumps the project's Node.js baseline to 24 across runtime and container, and adds a startup warning for users still on an older (but supported) Node.
+
   - **Node 24 bump**: `.nvmrc` `22` → `24`; `Dockerfile` base image `node:22.22.1-alpine` → `node:24.15.0-alpine` (builder + runtime).
   - **Soft-deprecation warning**: new `RECOMMENDED_NODE_VERSION = '22'` and `isVersionRecommended()` in `src/lib/cli/utils.ts`; the `init` command logs a `warn` at startup when Node is below the recommendation. `MIN_NODE_VERSION` stays at `'18'` — no hard break.
   - **Tests**: unit tests for `isVersionRecommended` and the init warning path.
@@ -2575,6 +2583,7 @@ All notable changes to this project will be documented in this file. See [standa
 ## 2 Oct 2014, version 0.12.1
 
 - web interface:
+
   - update markdown CSS (issue [#137](https://github.com/rlidwka/sinopia/pull/137))
   - jquery is now served locally (issue [#133](https://github.com/rlidwka/sinopia/pull/133))
 
@@ -2633,6 +2642,7 @@ _A bunch of development releases that are broken in various ways. Please use 0.1
 ## 26 Jul 2014, version 0.9.0
 
 - new features:
+
   - add search functionality (issue [#65](https://github.com/rlidwka/sinopia/pull/65))
   - allow users to authenticate using .htpasswd (issue [#44](https://github.com/rlidwka/sinopia/issues/44))
   - allow user registration with "npm adduser" (issue [#44](https://github.com/rlidwka/sinopia/issues/44))
@@ -2664,12 +2674,14 @@ _A bunch of development releases that are broken in various ways. Please use 0.1
 ## 13 Mar 2014, version 0.7.0
 
 - config changes:
+
   - breaking change: all time intervals are now specified in _seconds_ instead of _milliseconds_ for the sake of consistency. Change `timeout` if you have one!
   - all time intervals now can be specified in [nginx notation](http://wiki.nginx.org/ConfigNotation), for example `1m 30s` will specify a 90 seconds timeout
   - added `maxage` option to avoid asking public registry for the same data too often (issue [#47](https://github.com/rlidwka/sinopia/issues/47))
   - added `max_fails` and `fail_timeout` options to reduce amount of requests to public registry when it's down (issue [#7](https://github.com/rlidwka/sinopia/issues/7))
 
 - bug fixes:
+
   - fix crash when headers are sent twice (issue [#52](https://github.com/rlidwka/sinopia/issues/52))
   - all tarballs are returned with `Content-Length`, which allows [yapm](https://github.com/rlidwka/yapm) to estimate download time
   - when connection to public registry is interrupted when downloading a tarball, we no longer save incomplete tarball to the disk
