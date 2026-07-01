@@ -8814,12 +8814,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:7.8.2":
-  version: 7.8.2
-  resolution: "semver@npm:7.8.2"
+"semver@npm:7.8.4":
+  version: 7.8.4
+  resolution: "semver@npm:7.8.4"
   bin:
     semver: bin/semver.js
-  checksum: 10c0/8e8c193fa75b938e5b3ccf6707c6447e4b34f73e493e72b03f3185393489f45e049144052f624217c346d6c6e0a301dda8eeab2f14413e337218ecb1cbd2de16
+  checksum: 10c0/81b7c296fd7927b80f67fa516b75fa1017caac8167795320de28e76ccbc6f7f01763c30ecd10d6a0d8fd089708ab0548a5aebb94b0870e99c2a2b4600a46389b
   languageName: node
   linkType: hard
 
@@ -10150,7 +10150,7 @@ __metadata:
     oxfmt: "npm:0.54.0"
     oxlint: "npm:1.69.0"
     selfsigned: "npm:5.5.0"
-    semver: "npm:7.8.2"
+    semver: "npm:7.8.4"
     supertest: "npm:7.2.2"
     ts-node: "npm:10.9.2"
     typescript: "npm:5.9.3"
