@@ -25,7 +25,7 @@ export function isES6<T>(plugin: PluginType<T>): boolean {
  * @param {*} path the module's path
  * @return {Object}
  */
-export function tryLoad<T>(path: string, onError: any): PluginType<T> | null {
+export function tryLoad<T>(path: string): PluginType<T> | null {
   try {
     debug('loading plugin %s', path);
     return require(path) as PluginType<T>;
@@ -46,7 +46,9 @@ export function tryLoad<T>(path: string, onError: any): PluginType<T> | null {
       debug('"require" failed for ESM plugin %s, will try dynamic import', path);
       return null;
     }
-    onError({ err: err.msg }, 'error loading plugin @{err}');
+    // Do not log here: tryLoadAsync() may fall back to import() and succeed.
+    // Final error reporting happens in tryLoadAsync() when both strategies fail.
+    debug('"require" failed for plugin %s: %s', path, err.message);
     throw err;
   }
 }
@@ -99,7 +101,7 @@ function resolveEntryPoint(dirPath: string): string {
 export async function tryLoadAsync<T>(path: string, onError: any): Promise<PluginType<T> | null> {
   // Try require first (handles CJS and will be fast)
   try {
-    const cjsResult = tryLoad<T>(path, onError);
+    const cjsResult = tryLoad<T>(path);
     if (cjsResult !== null) {
       return cjsResult;
     }

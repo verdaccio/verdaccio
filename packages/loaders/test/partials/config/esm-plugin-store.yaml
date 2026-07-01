@@ -1,0 +1,4 @@
+# verdaccio-esm-plugin-store in test-plugin-storage (pure ESM storage plugin)
+store:
+  esm-plugin-store:
+    enabled: true
