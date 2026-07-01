@@ -484,6 +484,19 @@ class ProxyStorage {
       if (res.statusCode === HTTP_STATUS.NOT_FOUND) {
         return stream.emit('error', ErrorCode.getNotFound(API_ERROR.NOT_FILE_UPLINK));
       }
+      if (res.statusCode === HTTP_STATUS.FORBIDDEN) {
+        const chunks: Buffer[] = [];
+        readStream.on('data', (chunk: Buffer) => chunks.push(chunk));
+        readStream.once('end', () => {
+          let message: string | undefined;
+          try {
+            const body = JSON.parse(Buffer.concat(chunks).toString('utf8'));
+            message = body.detail || body.title || body.message;
+          } catch {}
+          stream.emit('error', ErrorCode.getForbidden(message));
+        });
+        return;
+      }
       if (!(res.statusCode >= HTTP_STATUS.OK && res.statusCode < HTTP_STATUS.MULTIPLE_CHOICES)) {
         return stream.emit(
           'error',
