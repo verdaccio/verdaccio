@@ -47,7 +47,9 @@ export const log = (logger, options: LogOptions = {}) => {
     req.url = req.originalUrl;
     const _skipLog = hideStaticLogs && isStaticRequest(req.url);
     if (_skipLog) {
-      debug(convertToDebugString(constants.LOG_REQUEST_MESSAGE), req.ip, req.method, req.url);
+      if (debug.enabled) {
+        debug(convertToDebugString(constants.LOG_REQUEST_MESSAGE), req.ip, req.method, req.url);
+      }
     } else {
       req.log.info({ req, ip: req.ip }, constants.LOG_REQUEST_MESSAGE);
     }
@@ -137,27 +139,29 @@ export const log = (logger, options: LogOptions = {}) => {
       const message = context.error ? constants.LOG_VERDACCIO_ERROR : constants.LOG_VERDACCIO_BYTES;
 
       if (_skipLog) {
-        if (context.error) {
-          debug(
-            convertToDebugString(message),
-            context.status,
-            context.user,
-            context.remoteIP,
-            context.request.method,
-            context.request.url,
-            context.error
-          );
-        } else {
-          debug(
-            convertToDebugString(message),
-            context.status,
-            context.user,
-            context.remoteIP,
-            context.request.method,
-            context.request.url,
-            context.bytes.in,
-            context.bytes.out
-          );
+        if (debug.enabled) {
+          if (context.error) {
+            debug(
+              convertToDebugString(message),
+              context.status,
+              context.user,
+              context.remoteIP,
+              context.request.method,
+              context.request.url,
+              context.error
+            );
+          } else {
+            debug(
+              convertToDebugString(message),
+              context.status,
+              context.user,
+              context.remoteIP,
+              context.request.method,
+              context.request.url,
+              context.bytes.in,
+              context.bytes.out
+            );
+          }
         }
       } else {
         req.log.http(context, message);
