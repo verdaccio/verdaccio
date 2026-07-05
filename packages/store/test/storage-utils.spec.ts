@@ -8,6 +8,7 @@ import {
   STORAGE,
   cleanUpReadme,
   isDeprecatedManifest,
+  mapManifestToSearchPackageBody,
   mergeUplinkTimeIntoLocal,
   mergeVersions,
   normalizeDistTags,
@@ -386,6 +387,36 @@ describe('Storage Utils', () => {
         versions: {},
         'dist-tags': { q: '1.1.10', w: '3.3.3', t: '4.4.4' },
       });
+    });
+  });
+
+  describe('mapManifestToSearchPackageBody', () => {
+    const searchItem = {
+      package: { name: 'npm_test' },
+      score: { final: 1, detail: { maintenance: 0, popularity: 1, quality: 1 } },
+    } as any;
+
+    test('should map packument maintainers to the npm search username format', () => {
+      const manifest = generatePackageMetadata('npm_test', '1.0.0') as Manifest;
+      manifest.time = { '1.0.0': '2018-01-14T11:17:40.712Z' };
+      manifest.versions['1.0.0'].maintainers = [
+        { name: 'jota', email: 'jota@verdaccio.org' },
+      ] as any;
+
+      const body = mapManifestToSearchPackageBody(manifest, searchItem);
+      // the npm CLI reads `maintainers[].username` and crashes when missing
+      expect(body.maintainers).toEqual([
+        { name: 'jota', email: 'jota@verdaccio.org', username: 'jota' },
+      ]);
+    });
+
+    test('should map missing maintainers to an empty list', () => {
+      const manifest = generatePackageMetadata('npm_test', '1.0.0') as Manifest;
+      manifest.time = { '1.0.0': '2018-01-14T11:17:40.712Z' };
+      delete manifest.versions['1.0.0'].maintainers;
+
+      const body = mapManifestToSearchPackageBody(manifest, searchItem);
+      expect(body.maintainers).toEqual([]);
     });
   });
 });

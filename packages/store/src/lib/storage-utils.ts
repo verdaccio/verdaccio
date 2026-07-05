@@ -382,6 +382,19 @@ export function mapManifestToSearchPackageBody(
 ): searchUtils.SearchPackageBody {
   const latest = pkgUtils.getLatest(pkg);
   const version: Version = pkg.versions[latest];
+  // packument maintainers carry `name`, but the npm search API contract uses
+  // `username` and the npm CLI crashes on entries without it — emit both
+  const maintainers = Array.isArray(version.maintainers)
+    ? version.maintainers.map((maintainer: any) =>
+        typeof maintainer === 'string'
+          ? { username: maintainer, email: '' }
+          : {
+              ...maintainer,
+              username: maintainer?.username ?? maintainer?.name ?? '',
+              email: maintainer?.email ?? '',
+            }
+      )
+    : [];
   const result: searchUtils.SearchPackageBody = {
     name: version.name,
     scope: '',
@@ -393,8 +406,7 @@ export function mapManifestToSearchPackageBody(
     author: version.author as any,
     // FIXME: not possible fill this out from a private package
     publisher: {},
-    // FIXME: type
-    maintainers: version.maintainers as any,
+    maintainers,
     links: {
       npm: '',
       homepage: version.homepage,

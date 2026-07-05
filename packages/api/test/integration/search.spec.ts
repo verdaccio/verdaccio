@@ -49,6 +49,7 @@ describe('search', () => {
                 {
                   email: '',
                   name: 'test',
+                  username: 'test',
                 },
               ],
               name: pkg,
@@ -109,6 +110,7 @@ describe('search', () => {
                 {
                   email: '',
                   name: 'test',
+                  username: 'test',
                 },
               ],
               name: pkg,
