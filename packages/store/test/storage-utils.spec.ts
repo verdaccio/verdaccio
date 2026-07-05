@@ -408,15 +408,35 @@ describe('Storage Utils', () => {
       expect(body.maintainers).toEqual([
         { name: 'jota', email: 'jota@verdaccio.org', username: 'jota' },
       ]);
+      // generatePackageMetadata includes _npmUser: { name: 'foo' }
+      expect(body.publisher).toEqual({ username: 'foo', email: '' });
+    });
+
+    test('should fall back to the first maintainer as publisher without _npmUser', () => {
+      const manifest = generatePackageMetadata('npm_test', '1.0.0') as Manifest;
+      manifest.time = { '1.0.0': '2018-01-14T11:17:40.712Z' };
+      delete (manifest.versions['1.0.0'] as any)._npmUser;
+      manifest.versions['1.0.0'].maintainers = [
+        { name: 'jota', email: 'jota@verdaccio.org' },
+      ] as any;
+
+      const body = mapManifestToSearchPackageBody(manifest, searchItem);
+      expect(body.publisher).toEqual({
+        name: 'jota',
+        email: 'jota@verdaccio.org',
+        username: 'jota',
+      });
     });
 
     test('should map missing maintainers to an empty list', () => {
       const manifest = generatePackageMetadata('npm_test', '1.0.0') as Manifest;
       manifest.time = { '1.0.0': '2018-01-14T11:17:40.712Z' };
+      delete (manifest.versions['1.0.0'] as any)._npmUser;
       delete manifest.versions['1.0.0'].maintainers;
 
       const body = mapManifestToSearchPackageBody(manifest, searchItem);
       expect(body.maintainers).toEqual([]);
+      expect(body.publisher).toEqual({});
     });
   });
 });

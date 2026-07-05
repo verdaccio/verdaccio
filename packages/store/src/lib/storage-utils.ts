@@ -395,6 +395,13 @@ export function mapManifestToSearchPackageBody(
             }
       )
     : [];
+  // npmjs fills `publisher` with the user who published the version; use
+  // `_npmUser` when the client provided it and fall back to the first
+  // maintainer (verdaccio sets it to the publishing user), otherwise the
+  // npm CLI renders "published by ???"
+  const publisher = version._npmUser?.name
+    ? { username: version._npmUser.name, email: version._npmUser.email ?? '' }
+    : (maintainers[0] ?? {});
   const result: searchUtils.SearchPackageBody = {
     name: version.name,
     scope: '',
@@ -404,8 +411,7 @@ export function mapManifestToSearchPackageBody(
     date: pkg.time[latest],
     // FIXME: type
     author: version.author as any,
-    // FIXME: not possible fill this out from a private package
-    publisher: {},
+    publisher,
     maintainers,
     links: {
       npm: '',

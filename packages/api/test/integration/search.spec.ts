@@ -53,7 +53,10 @@ describe('search', () => {
                 },
               ],
               name: pkg,
-              publisher: {},
+              publisher: {
+                email: '',
+                username: 'foo',
+              },
               scope: '',
               version: '1.0.0',
             },
@@ -114,7 +117,10 @@ describe('search', () => {
                 },
               ],
               name: pkg,
-              publisher: {},
+              publisher: {
+                email: '',
+                username: 'foo',
+              },
               scope: '@scope',
               version: '1.0.0',
             },
