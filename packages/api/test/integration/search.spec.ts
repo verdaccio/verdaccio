@@ -186,6 +186,33 @@ describe('search', () => {
     });
   });
 
+  describe('uplink forwarding', () => {
+    afterEach(() => {
+      nock.cleanAll();
+    });
+
+    test('should forward the clamped size and from values to the uplink', async () => {
+      let forwardedPath;
+      nock('https://registry.npmjs.org')
+        .get(/\/-\/v1\/search/)
+        .reply(200, function () {
+          forwardedPath = this.req.path;
+          return { objects: [], total: 0, time: '' };
+        });
+
+      const app = await initializeServer('search-abort.yaml');
+      await supertest(app)
+        .get('/-/v1/search?text=clamp-check&size=99999&from=99999')
+        .set(HEADERS.ACCEPT, HEADERS.JSON)
+        .expect(HTTP_STATUS.OK);
+
+      const forwardedQuery = new URL(forwardedPath, 'https://registry.npmjs.org').searchParams;
+      expect(forwardedQuery.get('text')).toBe('clamp-check');
+      expect(forwardedQuery.get('size')).toBe('250');
+      expect(forwardedQuery.get('from')).toBe('10000');
+    });
+  });
+
   describe('error handling', () => {
     afterEach(() => {
       nock.cleanAll();

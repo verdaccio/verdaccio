@@ -67,6 +67,14 @@ export default function (
       // request cannot demand unbounded work
       const size = parseQueryInt(query.size, DEFAULT_SIZE, MAX_SIZE);
       const from = parseQueryInt(query.from, 0, MAX_FROM);
+      // rebuild the query and relative url from the clamped values so the
+      // bounds hold end-to-end: storage plugins read `query.size`/`query.from`
+      // and the uplink proxy forwards `url` verbatim to the remote registry
+      const safeQuery = { ...query, size, from };
+      const searchParams = new URLSearchParams(query);
+      searchParams.set('size', String(size));
+      searchParams.set('from', String(from));
+      const safeUrl = `${url.split('?')[0]}?${searchParams.toString()}`;
       const abort = new AbortController();
       const onClientClose = (): void => {
         debug('search web aborted');
@@ -77,8 +85,8 @@ export default function (
       try {
         debug('storage search initiated');
         const data = await storage.search({
-          query,
-          url,
+          query: safeQuery,
+          url: safeUrl,
           abort,
         });
         debug('storage items total: %o', data.length);
