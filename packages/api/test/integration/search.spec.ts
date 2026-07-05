@@ -49,10 +49,14 @@ describe('search', () => {
                 {
                   email: '',
                   name: 'test',
+                  username: 'test',
                 },
               ],
               name: pkg,
-              publisher: {},
+              publisher: {
+                email: '',
+                username: 'foo',
+              },
               scope: '',
               version: '1.0.0',
             },
@@ -109,10 +113,14 @@ describe('search', () => {
                 {
                   email: '',
                   name: 'test',
+                  username: 'test',
                 },
               ],
               name: pkg,
-              publisher: {},
+              publisher: {
+                email: '',
+                username: 'foo',
+              },
               scope: '@scope',
               version: '1.0.0',
             },
@@ -134,6 +142,85 @@ describe('search', () => {
       });
     });
   });
+  describe('pagination', () => {
+    test('should honor the size and from parameters', async () => {
+      const res = await createUser(app, 'test', 'test');
+      await publishVersionWithToken(app, 'foo-a', '1.0.0', res.body.token);
+      await publishVersionWithToken(app, 'foo-b', '1.0.0', res.body.token);
+      await publishVersionWithToken(app, 'foo-c', '1.0.0', res.body.token);
+
+      const firstPage = await supertest(app)
+        .get('/-/v1/search?text=foo&size=2&from=0')
+        .set(HEADERS.ACCEPT, HEADERS.JSON)
+        .expect(HEADERS.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+        .expect(HTTP_STATUS.OK);
+      expect(firstPage.body.objects).toHaveLength(2);
+
+      const secondPage = await supertest(app)
+        .get('/-/v1/search?text=foo&size=2&from=2')
+        .set(HEADERS.ACCEPT, HEADERS.JSON)
+        .expect(HEADERS.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+        .expect(HTTP_STATUS.OK);
+      expect(secondPage.body.objects).toHaveLength(1);
+
+      const names = [...firstPage.body.objects, ...secondPage.body.objects].map(
+        (item) => item.package.name
+      );
+      expect(names.sort()).toEqual(['foo-a', 'foo-b', 'foo-c']);
+    });
+
+    test('should fall back to defaults on invalid size and from values', async () => {
+      const res = await createUser(app, 'test', 'test');
+      await publishVersionWithToken(app, 'foo-a', '1.0.0', res.body.token);
+
+      const response = await supertest(app)
+        .get('/-/v1/search?text=foo&size=-1&from=invalid')
+        .set(HEADERS.ACCEPT, HEADERS.JSON)
+        .expect(HEADERS.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+        .expect(HTTP_STATUS.OK);
+      expect(response.body.objects).toHaveLength(1);
+    });
+  });
+
+  describe('rate limiting', () => {
+    test('should reject requests above the configured user rate limit', async () => {
+      const app = await initializeServer('search-rate-limit.yaml');
+      const searchUrl = '/-/v1/search?text=foo&size=20&from=0';
+
+      await supertest(app).get(searchUrl).set(HEADERS.ACCEPT, HEADERS.JSON).expect(HTTP_STATUS.OK);
+      await supertest(app).get(searchUrl).set(HEADERS.ACCEPT, HEADERS.JSON).expect(HTTP_STATUS.OK);
+      // third request exceeds `userRateLimit.max: 2` in search-rate-limit.yaml
+      await supertest(app).get(searchUrl).set(HEADERS.ACCEPT, HEADERS.JSON).expect(429);
+    });
+  });
+
+  describe('uplink forwarding', () => {
+    afterEach(() => {
+      nock.cleanAll();
+    });
+
+    test('should forward the clamped size and from values to the uplink', async () => {
+      let forwardedPath;
+      nock('https://registry.npmjs.org')
+        .get(/\/-\/v1\/search/)
+        .reply(200, function () {
+          forwardedPath = this.req.path;
+          return { objects: [], total: 0, time: '' };
+        });
+
+      const app = await initializeServer('search-abort.yaml');
+      await supertest(app)
+        .get('/-/v1/search?text=clamp-check&size=99999&from=99999')
+        .set(HEADERS.ACCEPT, HEADERS.JSON)
+        .expect(HTTP_STATUS.OK);
+
+      const forwardedQuery = new URL(forwardedPath, 'https://registry.npmjs.org').searchParams;
+      expect(forwardedQuery.get('text')).toBe('clamp-check');
+      expect(forwardedQuery.get('size')).toBe('250');
+      expect(forwardedQuery.get('from')).toBe('10000');
+    });
+  });
+
   describe('error handling', () => {
     afterEach(() => {
       nock.cleanAll();
