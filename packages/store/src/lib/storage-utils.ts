@@ -1,6 +1,7 @@
 import { isNil, trim } from 'lodash-es';
 import semver from 'semver';
 
+import type { searchUtils } from '@verdaccio/core';
 import {
   API_ERROR,
   DIST_TAGS,
@@ -10,10 +11,9 @@ import {
   cryptoUtils,
   errorUtils,
   pkgUtils,
-  searchUtils,
   validationUtils,
 } from '@verdaccio/core';
-import { Author, GenericBody, Manifest, ReadmeOptions, Version } from '@verdaccio/types';
+import type { Author, GenericBody, Manifest, ReadmeOptions, Version } from '@verdaccio/types';
 
 import { sortVersionsAndFilterInvalid } from './versions-utils';
 
@@ -382,6 +382,26 @@ export function mapManifestToSearchPackageBody(
 ): searchUtils.SearchPackageBody {
   const latest = pkgUtils.getLatest(pkg);
   const version: Version = pkg.versions[latest];
+  // packument maintainers carry `name`, but the npm search API contract uses
+  // `username` and the npm CLI crashes on entries without it — emit both
+  const maintainers = Array.isArray(version.maintainers)
+    ? version.maintainers.map((maintainer: any) =>
+        typeof maintainer === 'string'
+          ? { username: maintainer, email: '' }
+          : {
+              ...maintainer,
+              username: maintainer?.username ?? maintainer?.name ?? '',
+              email: maintainer?.email ?? '',
+            }
+      )
+    : [];
+  // npmjs fills `publisher` with the user who published the version; use
+  // `_npmUser` when the client provided it and fall back to the first
+  // maintainer (verdaccio sets it to the publishing user), otherwise the
+  // npm CLI renders "published by ???"
+  const publisher = version._npmUser?.name
+    ? { username: version._npmUser.name, email: version._npmUser.email ?? '' }
+    : (maintainers[0] ?? {});
   const result: searchUtils.SearchPackageBody = {
     name: version.name,
     scope: '',
@@ -391,10 +411,8 @@ export function mapManifestToSearchPackageBody(
     date: pkg.time[latest],
     // FIXME: type
     author: version.author as any,
-    // FIXME: not possible fill this out from a private package
-    publisher: {},
-    // FIXME: type
-    maintainers: version.maintainers as any,
+    publisher,
+    maintainers,
     links: {
       npm: '',
       homepage: version.homepage,

@@ -6,10 +6,7 @@ import { createRequire } from 'node:module';
 import dts from 'vite-plugin-dts';
 import { defineConfig } from 'vite';
 
-const nodeBuiltins = new Set([
-  ...builtinModules,
-  ...builtinModules.map((m) => `node:${m}`),
-]);
+const nodeBuiltins = new Set([...builtinModules, ...builtinModules.map((m) => `node:${m}`)]);
 
 /**
  * Copies non-TypeScript files from src/ to the output directory,
@@ -66,11 +63,13 @@ export function createLibConfig(dirname, options = {}) {
 
   // Externalize all declared dependencies so they are not bundled.
   const bundleSet = new Set(bundleDeps);
-  const externalDeps = new Set([
-    ...Object.keys(pkg.dependencies ?? {}),
-    ...Object.keys(pkg.devDependencies ?? {}),
-    ...Object.keys(pkg.peerDependencies ?? {}),
-  ].filter((dep) => !bundleSet.has(dep)));
+  const externalDeps = new Set(
+    [
+      ...Object.keys(pkg.dependencies ?? {}),
+      ...Object.keys(pkg.devDependencies ?? {}),
+      ...Object.keys(pkg.peerDependencies ?? {}),
+    ].filter((dep) => !bundleSet.has(dep))
+  );
 
   const isExternal = (id) => {
     if (nodeBuiltins.has(id)) return true;
@@ -89,10 +88,7 @@ export function createLibConfig(dirname, options = {}) {
       dts({
         tsconfigPath: path.resolve(dirname, 'tsconfig.build.json'),
       }),
-      copyStaticFiles(
-        path.resolve(dirname, 'src'),
-        path.resolve(dirname, outDir)
-      ),
+      copyStaticFiles(path.resolve(dirname, 'src'), path.resolve(dirname, outDir)),
     ],
     build: {
       outDir,
@@ -107,24 +103,24 @@ export function createLibConfig(dirname, options = {}) {
         external: isExternal,
         output: esmOnly
           ? {
-            format: 'es',
-            entryFileNames: '[name].js',
-            ...sharedOutput,
-          }
-          : [
-            {
               format: 'es',
-              entryFileNames: '[name].mjs',
-              ...sharedOutput,
-            },
-            {
-              format: 'cjs',
               entryFileNames: '[name].js',
-              esModule: true,
-              exports: 'named',
               ...sharedOutput,
-            },
-          ],
+            }
+          : [
+              {
+                format: 'es',
+                entryFileNames: '[name].mjs',
+                ...sharedOutput,
+              },
+              {
+                format: 'cjs',
+                entryFileNames: '[name].js',
+                esModule: true,
+                exports: 'named',
+                ...sharedOutput,
+              },
+            ],
       },
     },
   });

@@ -286,8 +286,8 @@ pnpm build
 pnpm test
 ```
 
-> note: eslint and formatting are run separately, keep code formatting
-> before push.
+> note: linting (oxlint) and formatting (oxfmt) are run separately, keep code
+> formatting before push.
 
 All good? Perfect! You should create the pull request.
 

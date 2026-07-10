@@ -111,6 +111,10 @@ export type RequestOptions = {
    * Logged username the request, usually after token verification.
    */
   username?: string;
+  /**
+   * Request bypass cache.
+   */
+  byPassCache?: boolean;
 };
 
 export function getPublicUrl(url_prefix: string = '', requestOptions: RequestOptions): string {

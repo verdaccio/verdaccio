@@ -33,9 +33,7 @@ async function generate() {
   // The library adds bare [data-theme="x"] selectors alongside our scoped ones.
   // Remove them so variables don't leak outside .markdown-body.
   const cleanVars = (css) =>
-    css
-      .replace(/,\n\[data-theme="[^"]+"\]/g, '')
-      .replace(/,\n\[data-theme='[^']+'\]/g, '');
+    css.replace(/,\n\[data-theme="[^"]+"\]/g, '').replace(/,\n\[data-theme='[^']+'\]/g, '');
 
   const css = [
     '/* Auto-generated — do not edit. Run: node tools/generate-github-markdown.mjs */',
