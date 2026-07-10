@@ -20,7 +20,7 @@ jobs:
       NODE_OPTIONS: --max_old_space_size=4096
     steps:
     - name: Checkout
-      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       
     - name: Start containers
       run: docker compose -f "./e2e/docker/proxy-nginx/docker-compose.yaml" up -d --build

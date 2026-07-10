@@ -1,0 +1,21 @@
+storage: ./storage
+
+auth:
+  htpasswd:
+    file: ./htpasswd-search-rate-limit
+
+## low limit so the third request in the test is rejected
+userRateLimit:
+  windowMs: 60000
+  max: 2
+
+uplinks:
+
+log: { type: stdout, format: pretty, level: fatal }
+
+packages:
+  '**':
+    access: $all
+    publish: $authenticated
+
+_debug: true
