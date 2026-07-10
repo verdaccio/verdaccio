@@ -1,9 +1,11 @@
 import buildDebug from 'debug';
 import { isNil } from 'lodash-es';
-import semver, { SemVer } from 'semver';
+import type { SemVer } from 'semver';
+import semver from 'semver';
 
-import { DIST_TAGS, searchUtils } from '@verdaccio/core';
-import { Manifest, StringValue, Version, Versions } from '@verdaccio/types';
+import type { searchUtils } from '@verdaccio/core';
+import { DIST_TAGS } from '@verdaccio/core';
+import type { Manifest, StringValue, Version, Versions } from '@verdaccio/types';
 
 const debug = buildDebug('verdaccio:storage:utils');
 

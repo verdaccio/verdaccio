@@ -6,7 +6,7 @@
   "dependencyDashboard": false,
   "ignorePaths": ["docker-examples/**", "**/mock-store/corrupted-package/**"],
   "schedule": ["on the 1,11,21 day of the month"],
-  "ignoreDeps": ["customprefix-auth", "eslint-plugin-verdaccio", "@orama/orama"],
+  "ignoreDeps": ["customprefix-auth", "@orama/orama"],
   "baseBranchPatterns": ["master", "8.x", "6.x", "7.x"],
   "semanticCommitType": "fix",
   "labels": ["bot: dependencies"],
@@ -76,19 +76,16 @@
       "allowedVersions": "/^24/"
     },
     {
-      "description": "Core verdaccio deps: no release-age delay, group on 6.x/7.x",
+      "description": "Do not update internal verdaccio packages (managed via workspace + changesets)",
       "matchPackageNames": [
+        "verdaccio",
         "@verdaccio/*",
         "verdaccio-audit",
         "verdaccio-htpasswd",
         "verdaccio-auth-memory",
         "verdaccio-memory"
       ],
-      "matchUpdateTypes": ["minor", "patch"],
-      "minimumReleaseAge": "0 days",
-      "groupName": "core verdaccio dependencies",
-      "groupSlug": "all-verdaccio",
-      "matchBaseBranches": ["6.x", "7.x"]
+      "enabled": false
     },
     {
       "description": "UI deps (minor/patch)",
@@ -130,12 +127,6 @@
       "groupName": "typescript dependencies",
       "groupSlug": "all-types",
       "matchBaseBranches": ["master", "7.x"]
-    },
-    {
-      "description": "Allow ui-theme 9.x prereleases on 6.x branch",
-      "matchPackageNames": ["@verdaccio/ui-theme"],
-      "matchBaseBranches": ["6.x"],
-      "allowedVersions": "<= 9.0.0-next-9"
     },
     {
       "description": "All major updates: isolated PRs on a slow cadence (master + 7.x)",

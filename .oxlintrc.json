@@ -1,0 +1,141 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "oxc", "react", "vitest"],
+  "categories": {
+    "correctness": "error"
+  },
+  "env": {
+    "builtin": true,
+    "node": true,
+    "es2024": true
+  },
+  "ignorePatterns": [
+    "assets/**/*",
+    "**/fixtures/**",
+    "**/mock/store/**",
+    "**/partials/**",
+    "**/types/custom.d.ts",
+    "build/",
+    "coverage/",
+    "node_modules/",
+    "static/",
+    "wiki/",
+    "dist/",
+    "docs/",
+    "test/functional/store/*",
+    "**/disabled_test/**",
+    "**/*.__disabled__.ts",
+    "docker-examples/**/lib/**/*.js",
+    "test/cli/e2e-yarn4/bin/yarn-4.0.0-rc.14.cjs",
+    "yarn.js",
+    "packages/ui-components/storybook-static",
+    "**/static/**/*.js",
+    "**/build/**",
+    "dist.js",
+    "bundle.js"
+  ],
+  "rules": {
+    "no-undef": "off",
+    "typescript/consistent-type-imports": "warn",
+    "typescript/ban-ts-comment": "off",
+    "typescript/no-this-alias": "warn",
+    "typescript/no-explicit-any": "off",
+    "typescript/no-require-imports": "off",
+    "typescript/no-empty-object-type": "off",
+    "typescript/no-unsafe-function-type": "off",
+    "no-useless-escape": "off",
+    "react-hooks/exhaustive-deps": "warn",
+    "unicorn/no-empty-file": "off",
+    "unicorn/no-new-array": "off",
+    "unicorn/no-useless-spread": "off"
+  },
+  "overrides": [
+    {
+      "files": ["packages/core/types/**/*.ts"],
+      "rules": {
+        "typescript/adjacent-overload-signatures": "off",
+        "typescript/no-explicit-any": "off",
+        "typescript/no-unused-vars": "off"
+      }
+    },
+    {
+      "files": [
+        "**/*.{test,spec}.{ts,tsx,js,jsx}",
+        "**/test/**/*.{ts,tsx,js,jsx}",
+        "**/tests/**/*.{ts,tsx,js,jsx}",
+        "**/__tests__/**/*.{ts,tsx,js,jsx}",
+        "**/__mocks__/**/*.{ts,tsx,js,jsx}",
+        "**/vitest/**/*.{ts,tsx,js,jsx}"
+      ],
+      "plugins": ["vitest"],
+      "rules": {
+        "no-console": "off",
+        "typescript/no-unused-expressions": "off",
+        "typescript/ban-ts-comment": "off",
+        "typescript/no-explicit-any": "off",
+        "vitest/expect-expect": "off",
+        "vitest/no-conditional-expect": "off",
+        "vitest/no-standalone-expect": "off",
+        "vitest/no-disabled-tests": "warn",
+        "vitest/no-commented-out-tests": "warn",
+        "vitest/require-mock-type-parameters": "off",
+        "vitest/require-to-throw-message": "off",
+        "vitest/no-conditional-tests": "off",
+        "vitest/warn-todo": "off",
+        "unicorn/no-empty-file": "off"
+      }
+    },
+    {
+      "files": ["packages/cli/**/*.ts"],
+      "rules": {
+        "no-console": "off"
+      }
+    },
+    {
+      "files": ["packages/logger/src/prettify.ts"],
+      "rules": {
+        "guard-for-in": "off"
+      }
+    },
+    {
+      "files": ["packages/node-api/examples/**/*.{ts,js}"],
+      "rules": {
+        "no-console": "off"
+      }
+    },
+    {
+      "files": ["packages/plugins/ui-theme/tools/**/*.{ts,js}"],
+      "rules": {
+        "no-console": ["error", { "allow": ["warn", "log"] }]
+      }
+    },
+    {
+      "files": ["packages/tools/local-publish/src/**/*.ts"],
+      "rules": {
+        "no-console": "off"
+      }
+    },
+    {
+      "files": ["e2e/**/*.{ts,tsx}"],
+      "rules": {
+        "no-console": "off",
+        "typescript/no-require-imports": "off"
+      }
+    },
+    {
+      "files": ["scripts/**/*.{js,ts}"],
+      "rules": {
+        "no-console": "off",
+        "typescript/no-require-imports": "off"
+      }
+    },
+    {
+      "files": ["docker-examples/**/*.{ts,js}"],
+      "rules": {
+        "typescript/no-unused-vars": "off",
+        "typescript/no-explicit-any": "off",
+        "react/no-this-in-sfc": "off"
+      }
+    }
+  ]
+}

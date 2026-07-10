@@ -58,7 +58,7 @@
     "start": "vite",
     "start:watch": "vite",
     "test": "cross-env TZ=UTC vitest run",
-    "lint": "pnpm lint:js",
+    "lint": "oxlint -c ../../../.oxlintrc.json",
     "clean": "rimraf ./static",
     "verdaccio:server": "node tools/verdaccio.js",
     "build": "pnpm clean && vite build"
