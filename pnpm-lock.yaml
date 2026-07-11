@@ -1567,8 +1567,8 @@ importers:
         specifier: 2.12.10
         version: 2.12.10(@types/node@24.10.13)(typescript@5.9.3)
       msw-storybook-addon:
-        specifier: 2.0.6
-        version: 2.0.6(msw@2.12.10(@types/node@24.10.13)(typescript@5.9.3))
+        specifier: 2.0.7
+        version: 2.0.7(msw@2.12.10(@types/node@24.10.13)(typescript@5.9.3))
       mutationobserver-shim:
         specifier: 0.3.7
         version: 0.3.7
@@ -5170,8 +5170,8 @@ packages:
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
 
-  msw-storybook-addon@2.0.6:
-    resolution: {integrity: sha512-ExCwDbcJoM2V3iQU+fZNp+axVfNc7DWMRh4lyTXebDO8IbpUNYKGFUrA8UqaeWiRGKVuS7+fU+KXEa9b0OP6uA==}
+  msw-storybook-addon@2.0.7:
+    resolution: {integrity: sha512-TGmlxXy2TsaB6QcClVKRxqvay5f93xoLguHOihRFQ+gIEIyiyvcoQjkEeuOe7Y9qvddzGB1LyFomzPo9/EpnuQ==}
     peerDependencies:
       msw: ^2.0.0
 
@@ -10485,7 +10485,7 @@ snapshots:
 
   ms@2.1.3: {}
 
-  msw-storybook-addon@2.0.6(msw@2.12.10(@types/node@24.10.13)(typescript@5.9.3)):
+  msw-storybook-addon@2.0.7(msw@2.12.10(@types/node@24.10.13)(typescript@5.9.3)):
     dependencies:
       is-node-process: 1.2.0
       msw: 2.12.10(@types/node@24.10.13)(typescript@5.9.3)
