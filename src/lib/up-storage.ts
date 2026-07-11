@@ -484,6 +484,26 @@ class ProxyStorage {
       if (res.statusCode === HTTP_STATUS.NOT_FOUND) {
         return stream.emit('error', ErrorCode.getNotFound(API_ERROR.NOT_FILE_UPLINK));
       }
+      if (res.statusCode === HTTP_STATUS.FORBIDDEN) {
+        const chunks: Buffer[] = [];
+        readStream.on('data', (chunk: Buffer) => chunks.push(chunk));
+        readStream.once('end', () => {
+          let body: any;
+          const raw = Buffer.concat(chunks);
+          if (raw.length > 0) {
+            try {
+              body = JSON.parse(raw.toString('utf8'));
+            } catch {}
+          }
+          const message =
+            body?.detail ||
+            body?.title ||
+            body?.message ||
+            'tarball not available: forbidden by uplink';
+          stream.emit('error', ErrorCode.getForbidden(message));
+        });
+        return;
+      }
       if (!(res.statusCode >= HTTP_STATUS.OK && res.statusCode < HTTP_STATUS.MULTIPLE_CHOICES)) {
         return stream.emit(
           'error',
