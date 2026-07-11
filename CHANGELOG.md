@@ -1,5 +1,11 @@
 # Changelog
 
+## 7.0.0-next-7.23
+
+### Patch Changes
+
+- a768d16: chore: replace eslint and prettier with oxlint and oxfmt
+
 ## 7.0.0-next-7.22
 
 ### Patch Changes

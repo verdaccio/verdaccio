@@ -6,6 +6,7 @@
   },
   "changesets": [
     "adopt-verdaccio-server",
+    "refactor-eslint-oxlint",
     "update-verdaccio-dependencies"
   ]
 }
