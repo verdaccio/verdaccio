@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "rimraf": "6.1.3",
-    "typedoc": "0.28.14"
+    "typedoc": "0.28.19"
   },
   "typedoc": {
     "entryPoint": "./src/types.ts",
