@@ -220,8 +220,8 @@ importers:
         specifier: 8.0.16
         version: 8.0.16(@types/node@24.12.0)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vite-plugin-dts:
-        specifier: 5.0.1
-        version: 5.0.1(esbuild@0.28.1)(rolldown@1.0.3)(typescript@5.9.3)(vite@8.0.16(@types/node@24.12.0)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        specifier: 5.0.3
+        version: 5.0.3(esbuild@0.28.1)(rolldown@1.0.3)(typescript@5.9.3)(vite@8.0.16(@types/node@24.12.0)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
       vitest:
         specifier: 4.1.7
         version: 4.1.7(@types/node@24.12.0)(@vitest/coverage-v8@4.1.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.16(@types/node@24.12.0)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
@@ -1416,8 +1416,8 @@ importers:
         specifier: 8.0.16
         version: 8.0.16(@types/node@24.12.0)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vite-plugin-dts:
-        specifier: 5.0.1
-        version: 5.0.1(esbuild@0.28.1)(rolldown@1.0.3)(typescript@5.9.3)(vite@8.0.16(@types/node@24.12.0)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        specifier: 5.0.3
+        version: 5.0.3(esbuild@0.28.1)(rolldown@1.0.3)(typescript@5.9.3)(vite@8.0.16(@types/node@24.12.0)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
       vitest:
         specifier: 4.1.7
         version: 4.1.7(@types/node@24.12.0)(@vitest/coverage-v8@4.1.0)(jsdom@28.1.0(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.12.0)(typescript@5.9.3))(vite@8.0.16(@types/node@24.12.0)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
@@ -2243,9 +2243,6 @@ packages:
 
   '@jridgewell/sourcemap-codec@1.5.5':
     resolution: {integrity: sha512-cYQ9310grqxueWbl+WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og==}
-
-  '@jridgewell/trace-mapping@0.3.30':
-    resolution: {integrity: sha512-GQ7Nw5G2lTu/BtHTKfXhKHok2WGetd4XYcVKGx00SjAk8GMwgJM3zr6zORiPGuOE+/vkc90KtTosSSvaCjKb2Q==}
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
@@ -6370,12 +6367,12 @@ packages:
     resolution: {integrity: sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ==}
     engines: {node: '>= 0.8'}
 
-  unplugin-dts@1.0.1:
-    resolution: {integrity: sha512-EdJZxdWP4Tm/xhe58/zAge3Tu0OKDYygm8rucRrcCZ4XzgA31jexUKhaJuEMddOPBDs9ONnq6vwigbjeBqkfuw==}
+  unplugin-dts@1.0.3:
+    resolution: {integrity: sha512-/GR887wfG4r1cWyt1UZsLRuMIjsmEbGkS9yJrz+0dsToHAYUD5CTyP3JMGVLv25j9K0mJcwAVvZno/aTuSUvNg==}
     peerDependencies:
       '@microsoft/api-extractor': '>=7'
       '@rspack/core': ^1
-      '@vue/language-core': ~3.1.5
+      '@vue/language-core': ^3.1.5
       esbuild: 0.28.1
       rolldown: '*'
       rollup: '>=3'
@@ -6482,8 +6479,8 @@ packages:
   vfile@6.0.1:
     resolution: {integrity: sha512-1bYqc7pt6NIADBJ98UiG0Bn/CHIVOoZ/IyEkqIruLg0mE1BKzkOXY2D6CSqQIcKqgadppE5lrxgWXJmXd7zZJw==}
 
-  vite-plugin-dts@5.0.1:
-    resolution: {integrity: sha512-1L+x8bVPDhlI4kLzRIIGqO+b1VnvtY6CoHrU+riaipHJUAxayM0i1HObqeBv33Svil9hW64Z2KNiOn6UrKWCbA==}
+  vite-plugin-dts@5.0.3:
+    resolution: {integrity: sha512-gIth6NdCEHWPiiRMCK3N6C8WjvdsrtEQrmsiG8h6Ov+lFP+b07Y+wcs9H0H7n146l0PDTYK4cQN1vgeG1pMdRQ==}
     peerDependencies:
       '@microsoft/api-extractor': '>=7'
       rollup: '>=3'
@@ -6793,7 +6790,7 @@ snapshots:
       '@babel/parser': 7.28.4
       '@babel/types': 7.28.4
       '@jridgewell/gen-mapping': 0.3.13
-      '@jridgewell/trace-mapping': 0.3.30
+      '@jridgewell/trace-mapping': 0.3.31
       jsesc: 3.1.0
 
   '@babel/generator@7.29.1':
@@ -6801,7 +6798,7 @@ snapshots:
       '@babel/parser': 7.29.0
       '@babel/types': 7.29.0
       '@jridgewell/gen-mapping': 0.3.13
-      '@jridgewell/trace-mapping': 0.3.30
+      '@jridgewell/trace-mapping': 0.3.31
       jsesc: 3.1.0
 
   '@babel/helper-compilation-targets@7.27.2':
@@ -7412,7 +7409,7 @@ snapshots:
   '@jridgewell/gen-mapping@0.3.13':
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.5
-      '@jridgewell/trace-mapping': 0.3.30
+      '@jridgewell/trace-mapping': 0.3.31
 
   '@jridgewell/remapping@2.3.5':
     dependencies:
@@ -7422,11 +7419,6 @@ snapshots:
   '@jridgewell/resolve-uri@3.1.1': {}
 
   '@jridgewell/sourcemap-codec@1.5.5': {}
-
-  '@jridgewell/trace-mapping@0.3.30':
-    dependencies:
-      '@jridgewell/resolve-uri': 3.1.1
-      '@jridgewell/sourcemap-codec': 1.5.5
 
   '@jridgewell/trace-mapping@0.3.31':
     dependencies:
@@ -11800,7 +11792,7 @@ snapshots:
 
   unpipe@1.0.0: {}
 
-  unplugin-dts@1.0.1(esbuild@0.28.1)(rolldown@1.0.3)(typescript@5.9.3)(vite@8.0.16(@types/node@24.12.0)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)):
+  unplugin-dts@1.0.3(esbuild@0.28.1)(rolldown@1.0.3)(typescript@5.9.3)(vite@8.0.16(@types/node@24.12.0)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)):
     dependencies:
       '@rollup/pluginutils': 5.3.0
       '@volar/typescript': 2.4.28
@@ -11893,9 +11885,9 @@ snapshots:
       unist-util-stringify-position: 4.0.0
       vfile-message: 4.0.2
 
-  vite-plugin-dts@5.0.1(esbuild@0.28.1)(rolldown@1.0.3)(typescript@5.9.3)(vite@8.0.16(@types/node@24.12.0)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)):
+  vite-plugin-dts@5.0.3(esbuild@0.28.1)(rolldown@1.0.3)(typescript@5.9.3)(vite@8.0.16(@types/node@24.12.0)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)):
     dependencies:
-      unplugin-dts: 1.0.1(esbuild@0.28.1)(rolldown@1.0.3)(typescript@5.9.3)(vite@8.0.16(@types/node@24.12.0)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+      unplugin-dts: 1.0.3(esbuild@0.28.1)(rolldown@1.0.3)(typescript@5.9.3)(vite@8.0.16(@types/node@24.12.0)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
     optionalDependencies:
       vite: 8.0.16(@types/node@24.12.0)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
     transitivePeerDependencies:
