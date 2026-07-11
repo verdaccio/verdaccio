@@ -64,7 +64,7 @@ export default function (config: Config, auth: Auth, storage: Storage) {
   publish(app, auth, storage, config);
   ping(app);
   stars(app, storage);
-  v1Search(app, auth, storage);
+  v1Search(app, auth, storage, config);
   token(app, auth, storage, config);
   pkg(app, auth, storage, config);
   return app;

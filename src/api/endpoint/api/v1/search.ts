@@ -1,11 +1,29 @@
 import _ from 'lodash';
 import semver from 'semver';
 
-import { SEARCH_API_ENDPOINTS } from '@verdaccio/middleware';
-import type { Manifest } from '@verdaccio/types';
+import { SEARCH_API_ENDPOINTS, rateLimit } from '@verdaccio/middleware';
+import type { Config, Manifest } from '@verdaccio/types';
 
 import { HTTP_STATUS } from '../../../../lib/constants';
 import { logger } from '../../../../lib/logger';
+
+const DEFAULT_SIZE = 20;
+// the public npm registry caps page size at 250 as well
+const MAX_SIZE = 250;
+// upper bound for the pagination offset so a single request cannot force
+// an access check on an arbitrarily large slice of the catalog
+const MAX_FROM = 10_000;
+// access checks run in batches so the scan can stop early once the
+// requested page is filled
+const CHECK_ACCESS_BATCH_SIZE = 50;
+
+function parseQueryInt(value: unknown, defaultValue: number, max: number): number {
+  const parsed = Number.parseInt(String(value), 10);
+  if (Number.isNaN(parsed) || parsed < 0) {
+    return defaultValue;
+  }
+  return Math.min(parsed, max);
+}
 
 type PublisherMaintainer = {
   username: string;
@@ -159,13 +177,30 @@ async function sendResponse(
       return pkg;
     }
   });
-  const checkAccessPromises: SearchResult[] = await Promise.all(
-    removeDuplicates(resultsCollection).map((pkgItem) => {
-      return checkAccess(pkgItem, auth, req.remote_user);
-    })
-  );
+  const uniqueResults = removeDuplicates(resultsCollection);
 
-  const final: SearchResult[] = checkAccessPromises.filter((i) => !_.isNull(i)).slice(from, size);
+  // evaluate access in batches and stop as soon as the requested page
+  // is filled, instead of running an auth check on every result
+  const requested = from + size;
+  const allowed: SearchResult[] = [];
+  for (
+    let i = 0;
+    i < uniqueResults.length && allowed.length < requested;
+    i += CHECK_ACCESS_BATCH_SIZE
+  ) {
+    const batch = await Promise.all(
+      uniqueResults
+        .slice(i, i + CHECK_ACCESS_BATCH_SIZE)
+        .map((pkgItem) => checkAccess(pkgItem, auth, req.remote_user))
+    );
+    for (const item of batch) {
+      if (!_.isNull(item)) {
+        allowed.push(item as SearchResult);
+      }
+    }
+  }
+
+  const final: SearchResult[] = allowed.slice(from, requested);
   logger.debug(`search results ${final?.length}`);
 
   const response: SearchResults = {
@@ -182,66 +217,75 @@ async function sendResponse(
  * Endpoint for npm search v1
  * req: 'GET /-/v1/search?text=react&size=20&from=0&quality=0.65&popularity=0.98&maintenance=0.5'
  */
-export default function (route, auth, storage): void {
-  route.get(SEARCH_API_ENDPOINTS.search, async (req, res, next) => {
-    // TODO: implement proper result scoring weighted by quality, popularity and maintenance query parameters
-    let [text, size, from /* , quality, popularity, maintenance */] = [
-      'text',
-      'size',
-      'from' /* , 'quality', 'popularity', 'maintenance' */,
-    ].map((k) => req.query[k]);
+export default function (route, auth, storage, config: Config): void {
+  route.get(
+    SEARCH_API_ENDPOINTS.search,
+    rateLimit(config?.userRateLimit),
+    async (req, res, next) => {
+      // TODO: implement proper result scoring weighted by quality, popularity and maintenance query parameters
+      const text = req.query.text as string;
 
-    size = parseInt(size) || 20;
-    from = parseInt(from) || 0;
+      // `size` and `from` are attacker-controlled: clamp them so a single
+      // request cannot demand unbounded work
+      const size = parseQueryInt(req.query.size, DEFAULT_SIZE, MAX_SIZE);
+      const from = parseQueryInt(req.query.from, 0, MAX_FROM);
 
-    const isInteresting = compileTextSearch(text);
+      // rebuild the relative url from the clamped values so the bounds hold
+      // end-to-end: the uplink proxy forwards it verbatim to the remote registry
+      const searchParams = new URLSearchParams(req.query as Record<string, string>);
+      searchParams.set('size', String(size));
+      searchParams.set('from', String(from));
+      const safeUrl = `${req.url.split('?')[0]}?${searchParams.toString()}`;
 
-    const resultStream = storage.search(0, { req });
-    let resultBuf = [] as any;
-    let completed = false;
+      const isInteresting = compileTextSearch(text);
 
-    resultStream.on('data', (pkg: SearchResult[] | PackageResults) => {
-      // packages from the upstreams
-      if (_.isArray(pkg)) {
-        resultBuf = resultBuf.concat(
-          (pkg as SearchResult[]).filter((pkgItem) => {
-            if (!isInteresting(pkgItem?.package)) {
-              return;
-            }
-            logger.debug(`[remote] pkg name ${pkgItem?.package?.name}`);
-            return true;
-          })
-        );
-      } else {
-        // packages from local
-        // due compability with `/-/all` we cannot refactor storage.search();
-        if (!isInteresting(pkg)) {
-          return;
+      const resultStream = storage.search(0, { req, url: safeUrl });
+      let resultBuf = [] as any;
+      let completed = false;
+
+      resultStream.on('data', (pkg: SearchResult[] | PackageResults) => {
+        // packages from the upstreams
+        if (_.isArray(pkg)) {
+          resultBuf = resultBuf.concat(
+            (pkg as SearchResult[]).filter((pkgItem) => {
+              if (!isInteresting(pkgItem?.package)) {
+                return;
+              }
+              logger.debug(`[remote] pkg name ${pkgItem?.package?.name}`);
+              return true;
+            })
+          );
+        } else {
+          // packages from local
+          // due compability with `/-/all` we cannot refactor storage.search();
+          if (!isInteresting(pkg)) {
+            return;
+          }
+          logger.debug(`[local] pkg name ${(pkg as PackageResults)?.name}`);
+          resultBuf.push(pkg);
         }
-        logger.debug(`[local] pkg name ${(pkg as PackageResults)?.name}`);
-        resultBuf.push(pkg);
-      }
-    });
+      });
 
-    resultStream.on('error', function () {
-      logger.error('search endpoint has failed');
-      res.socket.destroy();
-    });
+      resultStream.on('error', function () {
+        logger.error('search endpoint has failed');
+        res.socket.destroy();
+      });
 
-    resultStream.on('end', async () => {
-      if (!completed) {
-        completed = true;
-        try {
-          const response = await sendResponse(resultBuf, resultStream, auth, req, from, size);
-          // @ts-expect-error
-          logger.info('search endpoint ok results @{total}', { total: response.total });
-          res.status(HTTP_STATUS.OK).json(response);
-        } catch (err) {
-          // @ts-expect-error
-          logger.error('search endpoint has failed @{err}', { err });
-          next(err);
+      resultStream.on('end', async () => {
+        if (!completed) {
+          completed = true;
+          try {
+            const response = await sendResponse(resultBuf, resultStream, auth, req, from, size);
+            // @ts-expect-error
+            logger.info('search endpoint ok results @{total}', { total: response.total });
+            res.status(HTTP_STATUS.OK).json(response);
+          } catch (err) {
+            // @ts-expect-error
+            logger.error('search endpoint has failed @{err}', { err });
+            next(err);
+          }
         }
-      }
-    });
-  });
+      });
+    }
+  );
 }
