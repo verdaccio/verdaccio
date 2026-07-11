@@ -543,7 +543,9 @@ class ProxyStorage {
   public search(options: any) {
     const transformStream: any = new Stream.PassThrough({ objectMode: true });
     const requestStream: Stream.Readable = this.request({
-      uri: options.req.url,
+      // prefer the sanitized url (clamped pagination) built by the search
+      // endpoint over the raw request url
+      uri: options.url || options.req.url,
       req: options.req,
       headers: {
         // query for search

@@ -4,8 +4,14 @@ import { describe, expect, test } from 'vitest';
 
 import type { Manifest } from '@verdaccio/types';
 
+import { generatePackageMetadata } from '@verdaccio/test-helper';
+
 import { DIST_TAGS, STORAGE } from '../../../../src/lib/constants';
-import { mergeUplinkTimeIntoLocal, normalizePackage } from '../../../../src/lib/storage-utils';
+import {
+  mergeUplinkTimeIntoLocal,
+  normalizePackage,
+  prepareSearchPackage,
+} from '../../../../src/lib/storage-utils';
 
 function readFile(filePath) {
   return fs.readFileSync(path.join(__dirname, `/${filePath}`));
@@ -132,6 +138,67 @@ describe('Storage Utils', () => {
       };
       const mergedPkg = mergeUplinkTimeIntoLocal(pkg1, pkg2);
       expect(Object.keys(mergedPkg.time)).toEqual(['modified', 'created', ...Object.keys(vGroup1)]);
+    });
+  });
+
+  describe('prepareSearchPackage', () => {
+    const time = '2018-01-14T11:17:40.712Z';
+
+    test('should map packument maintainers to the npm search username format', () => {
+      const manifest = generatePackageMetadata('npm_test', '1.0.0') as Manifest;
+      manifest.versions['1.0.0'].maintainers = [
+        { name: 'jota', email: 'jota@verdaccio.org' },
+      ] as any;
+
+      const pkg = prepareSearchPackage(manifest, time);
+      // the npm CLI reads `maintainers[].username` and crashes when missing
+      expect(pkg.maintainers).toEqual([
+        { name: 'jota', email: 'jota@verdaccio.org', username: 'jota' },
+      ]);
+      // generatePackageMetadata includes _npmUser: { name: 'foo' }
+      expect(pkg.publisher).toEqual({ username: 'foo', email: '' });
+    });
+
+    test('should fall back to the first maintainer as publisher without _npmUser', () => {
+      const manifest = generatePackageMetadata('npm_test', '1.0.0') as Manifest;
+      delete (manifest.versions['1.0.0'] as any)._npmUser;
+      manifest.versions['1.0.0'].maintainers = [
+        { name: 'jota', email: 'jota@verdaccio.org' },
+      ] as any;
+
+      const pkg = prepareSearchPackage(manifest, time);
+      expect(pkg.publisher).toEqual({
+        name: 'jota',
+        email: 'jota@verdaccio.org',
+        username: 'jota',
+      });
+    });
+
+    test('should fall back to the version author when maintainers are missing', () => {
+      const manifest = generatePackageMetadata('npm_test', '1.0.0') as Manifest;
+      delete (manifest.versions['1.0.0'] as any)._npmUser;
+      delete manifest.versions['1.0.0'].maintainers;
+
+      const pkg = prepareSearchPackage(manifest, time);
+      expect(pkg.maintainers).toEqual([
+        { name: 'User NPM', email: 'user@domain.com', username: 'User NPM' },
+      ]);
+      expect(pkg.publisher).toEqual({
+        name: 'User NPM',
+        email: 'user@domain.com',
+        username: 'User NPM',
+      });
+    });
+
+    test('should map missing maintainers and author to an empty list', () => {
+      const manifest = generatePackageMetadata('npm_test', '1.0.0') as Manifest;
+      delete (manifest.versions['1.0.0'] as any)._npmUser;
+      delete manifest.versions['1.0.0'].maintainers;
+      delete (manifest.versions['1.0.0'] as any).author;
+
+      const pkg = prepareSearchPackage(manifest, time);
+      expect(pkg.maintainers).toEqual([]);
+      expect(pkg.publisher).toEqual({});
     });
   });
 });

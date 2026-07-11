@@ -212,11 +212,33 @@ export function prepareSearchPackage(data: Manifest, time: unknown): any {
   if (latest && data.versions[latest]) {
     const version: Version = data.versions[latest];
     const versions: any = { [latest]: 'latest' };
+    // packument maintainers carry `name`, but the npm search API contract uses
+    // `username` and the npm CLI crashes on entries without it — emit both
+    const rawMaintainers = version.maintainers || [version.author].filter(Boolean);
+    const maintainers = Array.isArray(rawMaintainers)
+      ? rawMaintainers.map((maintainer: any) =>
+          typeof maintainer === 'string'
+            ? { username: maintainer, email: '' }
+            : {
+                ...maintainer,
+                username: maintainer?.username ?? maintainer?.name ?? '',
+                email: maintainer?.email ?? '',
+              }
+        )
+      : [];
+    // npmjs fills `publisher` with the user who published the version; use
+    // `_npmUser` when the publishing client provided it and fall back to the
+    // first maintainer, otherwise the npm CLI renders "published by ???"
+    const npmUser = (version as any)._npmUser;
+    const publisher = npmUser?.name
+      ? { username: npmUser.name, email: npmUser.email ?? '' }
+      : (maintainers[0] ?? {});
     const pkg: any = {
       name: version.name,
       description: version.description,
       [DIST_TAGS]: { latest },
-      maintainers: version.maintainers || [version.author].filter(Boolean),
+      maintainers,
+      publisher,
       author: version.author,
       repository: version.repository,
       readmeFilename: version.readmeFilename || '',
