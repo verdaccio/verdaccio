@@ -18,7 +18,7 @@
     "@changesets/changelog-github": "0.7.0",
     "@changesets/cli": "2.31.0",
     "@changesets/get-dependents-graph": "2.1.4",
-    "@crowdin/cli": "4.14.2",
+    "@crowdin/cli": "4.14.3",
     "@emotion/react": "11.14.0",
     "@emotion/styled": "11.14.1",
     "@testing-library/dom": "10.4.1",
