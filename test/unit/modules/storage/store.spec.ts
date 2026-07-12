@@ -10,6 +10,7 @@ import AppConfig from '../../../../src/lib/config';
 import { API_ERROR, HTTP_STATUS } from '../../../../src/lib/constants';
 import { setup } from '../../../../src/lib/logger';
 import Storage from '../../../../src/lib/storage';
+import { updateVersionsHiddenUpLink } from '../../../../src/lib/uplink-util';
 import configExample from '../../partials/config';
 
 setup({});
@@ -632,6 +633,351 @@ describe('StorageTest', () => {
         setTimeout(() => {
           fakeSaveStream.emit('error', new Error('disk full'));
         }, 50);
+      });
+    });
+  });
+
+  describe('getTarball uplink selection', () => {
+    const UPLINK1_URL = 'http://uplink-one.test';
+    const UPLINK2_URL = 'http://uplink-two.test';
+    const tarballFixture = path.join(__dirname, '../uplinks/__fixtures__/jquery-1.5.1.tgz');
+
+    const generateMultiUplinkStorage = async function () {
+      const storageConfig = configExample(
+        {
+          self_path: __dirname,
+          storage: storagePath,
+          uplinks: {
+            uplink1: {
+              url: UPLINK1_URL,
+              headers: { authorization: 'Bearer uplink1-token' },
+            },
+            uplink2: {
+              url: UPLINK2_URL,
+              headers: { authorization: 'Bearer uplink2-token' },
+            },
+          },
+          packages: {
+            'registry-field-*': {
+              access: '$all',
+              publish: '$all',
+            },
+            '**': {
+              access: '$all',
+              publish: '$all',
+              proxy: ['uplink1', 'uplink2'],
+            },
+          },
+        },
+        'store.spec.yaml'
+      );
+      const config: Config = new AppConfig(storageConfig as any);
+      const store: any = new Storage(config);
+      await store.init(config, []);
+      return store;
+    };
+
+    // manifest shape an uplink returns; `versions` maps version -> tarball url,
+    // the last entry becomes the latest dist-tag
+    const remoteManifest = (pkgName: string, versions: Record<string, string>) => {
+      const versionIds = Object.keys(versions);
+      return {
+        name: pkgName,
+        'dist-tags': { latest: versionIds[versionIds.length - 1] },
+        versions: Object.fromEntries(
+          versionIds.map((version) => [
+            version,
+            {
+              name: pkgName,
+              version,
+              dist: { tarball: versions[version], shasum: `sha-${version}` },
+            },
+          ])
+        ),
+      };
+    };
+
+    // cache a package through the same storage function _syncUplinksMetadata
+    // uses; when `uplink` is given the versions are tagged with it, so the
+    // created distfile records carry the registry field like in production
+    const seedCachedPackage = async (
+      storage: any,
+      pkgName: string,
+      versions: Record<string, string>,
+      uplink?: string
+    ): Promise<void> => {
+      const manifest: any = remoteManifest(pkgName, versions);
+      if (uplink) {
+        updateVersionsHiddenUpLink(manifest.versions, storage.uplinks[uplink]);
+      }
+      await storage.localStorage.updateVersionsAsync(pkgName, manifest);
+    };
+
+    // recreate the cache state left behind by other verdaccio versions:
+    // versions cached, distfile records lost
+    const dropDistFileRecords = async (storage: any, pkgName: string): Promise<void> => {
+      const pkgStorage = storage.localStorage.storagePlugin.getPackageStorage(pkgName);
+      const manifest: any = await new Promise((resolve, reject) =>
+        pkgStorage.readPackage(pkgName, (err, data) => (err ? reject(err) : resolve(data)))
+      );
+      manifest._distfiles = {};
+      await new Promise<void>((resolve, reject) =>
+        pkgStorage.savePackage(pkgName, manifest, (err) => (err ? reject(err) : resolve()))
+      );
+    };
+
+    const fetchTarball = (storage: any, pkgName: string, filename: string): Promise<void> =>
+      new Promise<void>((resolve, reject) => {
+        const stream = storage.getTarball(pkgName, filename);
+        const chunks: Buffer[] = [];
+        stream.on('data', (chunk: Buffer) => chunks.push(chunk));
+        stream.on('end', () => {
+          try {
+            expect(chunks.reduce((sum, c) => sum + c.length, 0)).toBeGreaterThan(0);
+            resolve();
+          } catch (e) {
+            reject(e);
+          }
+        });
+        stream.on('error', (err: any) => {
+          reject(new Error(`Unexpected error: ${err.message}`));
+        });
+      });
+
+    test('should pick the uplink that serves the distfile url, not the last match', async () => {
+      const storage: any = await generateMultiUplinkStorage();
+      const pkgName = 'uplink-pick';
+      const filename = `${pkgName}-1.0.0.tgz`;
+      await seedCachedPackage(storage, pkgName, {
+        '1.0.0': `${UPLINK1_URL}/${pkgName}/-/${filename}`,
+      });
+
+      let capturedAuth;
+      nock(UPLINK1_URL)
+        .get(`/${pkgName}/-/${pkgName}-1.0.0.tgz`)
+        .reply(function () {
+          capturedAuth = this.req.headers.authorization;
+          return [200, fs.readFileSync(tarballFixture)];
+        });
+
+      await fetchTarball(storage, pkgName, filename);
+      // before the fix the last matching uplink won and its settings
+      // were used for a host it does not serve
+      expect(capturedAuth).toBe('Bearer uplink1-token');
+    });
+
+    test('should keep the last configured uplink winning among duplicated urls', async () => {
+      // two uplinks pointing at the same registry (eg. read/write tokens):
+      // the previous selection used the last configured one — preserved
+      const storageConfig = configExample(
+        {
+          self_path: __dirname,
+          storage: storagePath,
+          uplinks: {
+            readers: {
+              url: UPLINK1_URL,
+              headers: { authorization: 'Bearer readers-token' },
+            },
+            writers: {
+              url: UPLINK1_URL,
+              headers: { authorization: 'Bearer writers-token' },
+            },
+          },
+          packages: {
+            '**': { access: '$all', publish: '$all', proxy: ['readers', 'writers'] },
+          },
+        },
+        'store.spec.yaml'
+      );
+      const config: Config = new AppConfig(storageConfig as any);
+      const storage: any = new Storage(config);
+      await storage.init(config, []);
+
+      const pkgName = 'uplink-duplicated';
+      const filename = `${pkgName}-1.0.0.tgz`;
+      await seedCachedPackage(storage, pkgName, {
+        '1.0.0': `${UPLINK1_URL}/${pkgName}/-/${filename}`,
+      });
+
+      let capturedAuth;
+      nock(UPLINK1_URL)
+        .get(`/${pkgName}/-/${pkgName}-1.0.0.tgz`)
+        .reply(function () {
+          capturedAuth = this.req.headers.authorization;
+          return [200, fs.readFileSync(tarballFixture)];
+        });
+
+      await fetchTarball(storage, pkgName, filename);
+      expect(capturedAuth).toBe('Bearer writers-token');
+    });
+
+    test('should use an autogenerated uplink when none serves the distfile url', async () => {
+      const storage: any = await generateMultiUplinkStorage();
+      const pkgName = 'uplink-nomatch';
+      const externalUrl = 'http://external-cdn.test';
+      const filename = `${pkgName}-1.0.0.tgz`;
+      await seedCachedPackage(storage, pkgName, {
+        '1.0.0': `${externalUrl}/${pkgName}/-/${filename}`,
+      });
+
+      let capturedAuth;
+      nock(externalUrl)
+        .get(`/${pkgName}/-/${pkgName}-1.0.0.tgz`)
+        .reply(function () {
+          capturedAuth = this.req.headers.authorization;
+          return [200, fs.readFileSync(tarballFixture)];
+        });
+
+      await fetchTarball(storage, pkgName, filename);
+      // with several ambiguous uplinks an autogenerated proxy is used,
+      // so the request reaches the external host with default settings
+      expect(capturedAuth).toBeUndefined();
+    });
+
+    test('should use the uplink recorded on the distfile registry field', async () => {
+      const storage: any = await generateMultiUplinkStorage();
+      // matches the `registry-field-*` rule, which has no proxy configured
+      const pkgName = 'registry-field-pkg';
+      const filename = `${pkgName}-1.0.0.tgz`;
+      await seedCachedPackage(
+        storage,
+        pkgName,
+        { '1.0.0': `${UPLINK2_URL}/${pkgName}/-/${filename}` },
+        'uplink2'
+      );
+      // seeding through the production merge path recorded the registry
+      const seeded = await storage.localStorage.getPackageMetadataAsync(pkgName);
+      expect(seeded._distfiles[filename].registry).toBe('uplink2');
+
+      let capturedAuth;
+      nock(UPLINK2_URL)
+        .get(`/${pkgName}/-/${pkgName}-1.0.0.tgz`)
+        .reply(function () {
+          capturedAuth = this.req.headers.authorization;
+          return [200, fs.readFileSync(tarballFixture)];
+        });
+
+      await fetchTarball(storage, pkgName, filename);
+      expect(capturedAuth).toBe('Bearer uplink2-token');
+    });
+
+    test('should keep legacy behavior for a single uplink serving tarballs from another host', async () => {
+      const storageConfig = configExample(
+        {
+          self_path: __dirname,
+          storage: storagePath,
+          uplinks: {
+            solo: {
+              url: 'http://solo-registry.test',
+              headers: { authorization: 'Bearer solo-token' },
+            },
+          },
+          packages: {
+            '**': {
+              access: '$all',
+              publish: '$all',
+              proxy: ['solo'],
+            },
+          },
+        },
+        'store.spec.yaml'
+      );
+      const config: Config = new AppConfig(storageConfig as any);
+      const storage: any = new Storage(config);
+      await storage.init(config, []);
+
+      const pkgName = 'solo-cdn-pkg';
+      const cdnUrl = 'http://solo-cdn.test';
+      const filename = `${pkgName}-1.0.0.tgz`;
+      await seedCachedPackage(storage, pkgName, {
+        '1.0.0': `${cdnUrl}/${pkgName}/-/${filename}`,
+      });
+
+      let capturedAuth;
+      nock(cdnUrl)
+        .get(`/${pkgName}/-/${pkgName}-1.0.0.tgz`)
+        .reply(function () {
+          capturedAuth = this.req.headers.authorization;
+          return [200, fs.readFileSync(tarballFixture)];
+        });
+
+      await fetchTarball(storage, pkgName, filename);
+      // a single unambiguous uplink keeps serving CDN-hosted tarballs with
+      // its settings, as it always did
+      expect(capturedAuth).toBe('Bearer solo-token');
+    });
+
+    test('should serve a tarball whose distfile record is missing from the manifest', async () => {
+      const storage: any = await generateMultiUplinkStorage();
+      const pkgName = 'selfheal-pkg';
+      const filename = `${pkgName}-1.0.0.tgz`;
+      const tarballUrl = `${UPLINK1_URL}/${pkgName}/-/${filename}`;
+
+      // storages written by other verdaccio versions can carry cached
+      // versions without their _distfiles records
+      await seedCachedPackage(storage, pkgName, { '1.0.0': tarballUrl });
+      await dropDistFileRecords(storage, pkgName);
+
+      let capturedAuth;
+      nock(UPLINK1_URL)
+        .get(`/${pkgName}/-/${filename}`)
+        .reply(function () {
+          capturedAuth = this.req.headers.authorization;
+          return [200, fs.readFileSync(tarballFixture)];
+        });
+
+      await fetchTarball(storage, pkgName, filename);
+      // the distfile is synthesized from the version dist metadata and the
+      // fetch still goes through the uplink that serves the url
+      expect(capturedAuth).toBe('Bearer uplink1-token');
+    });
+
+    test('should persist the healed distfile record when the tarball is cached', async () => {
+      const HEAL_UP = 'http://heal-uplink.test';
+      const pkgName = 'heal-pkg';
+      const filename = `${pkgName}-1.0.0.tgz`;
+      const tarballUrl = `${HEAL_UP}/${pkgName}/-/${filename}`;
+
+      const storageConfig = configExample(
+        {
+          self_path: __dirname,
+          storage: storagePath,
+          uplinks: { healup: { url: HEAL_UP } },
+          packages: { '**': { access: '$all', publish: '$all', proxy: ['healup'] } },
+        },
+        'store.spec.yaml'
+      );
+      const config: Config = new AppConfig(storageConfig as any);
+      const storage: any = new Storage(config);
+      await storage.init(config, []);
+
+      // cache state left behind by other verdaccio versions: versions
+      // cached, distfile records lost
+      await seedCachedPackage(storage, pkgName, {
+        '1.0.0': tarballUrl,
+        '1.1.0': `${HEAL_UP}/${pkgName}/-/${pkgName}-1.1.0.tgz`,
+      });
+      await dropDistFileRecords(storage, pkgName);
+
+      nock(HEAL_UP).get(`/${pkgName}/-/${filename}`).replyWithFile(200, tarballFixture, {
+        'Content-Type': 'application/octet-stream',
+      });
+
+      await fetchTarball(storage, pkgName, filename);
+
+      // the record write piggybacks on the attachment update, which can
+      // land right after the stream ends
+      await vi.waitFor(async () => {
+        const onDisk = await storage.localStorage.getPackageMetadataAsync(pkgName);
+        // only the requested tarball is healed, on demand, and the record
+        // carries the uplink that actually served it
+        expect(onDisk._distfiles[filename]).toEqual({
+          url: tarballUrl,
+          sha: 'sha-1.0.0',
+          registry: 'healup',
+        });
+        expect(Object.keys(onDisk._distfiles)).toEqual([filename]);
+        expect(onDisk._attachments[filename]).toBeDefined();
       });
     });
   });
