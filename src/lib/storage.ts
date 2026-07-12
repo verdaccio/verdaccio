@@ -34,6 +34,7 @@ import {
   cleanUpLinksRef,
   convertAbbreviatedManifest,
   generatePackageTemplate,
+  lookupDistFile,
   mergeUplinkTimeIntoLocal,
   publishPackage,
 } from './storage-utils';
@@ -135,6 +136,7 @@ class Storage {
    Used storages: local (write) && uplinks
    */
   public async addPackage(name: string, metadata: any, callback: any): Promise<void> {
+    debug('add package %o', name);
     try {
       await checkPackageLocal(name, this.localStorage);
       await checkPackageRemote(
@@ -180,6 +182,7 @@ class Storage {
     tag: StringValue,
     callback: Callback
   ): void {
+    debug('add version %s package for %s', version, name);
     this.localStorage.addVersion(name, version, metadata, tag, callback);
   }
 
@@ -188,6 +191,7 @@ class Storage {
    Used storages: local (write)
    */
   public mergeTags(name: string, tagHash: MergeTags, callback: Callback): void {
+    debug('merge tags for %o', name);
     this.localStorage.mergeTags(name, tagHash, callback);
   }
 
@@ -202,6 +206,7 @@ class Storage {
     revision: string,
     callback: Callback
   ): void {
+    debug('change existing package for package %o revision %o', name, revision);
     this.localStorage.changePackage(name, metadata, revision, callback);
   }
 
@@ -211,6 +216,7 @@ class Storage {
    Used storages: local (write)
    */
   public removePackage(name: string, callback: Callback): void {
+    debug('remove package %o', name);
     this.localStorage.removePackage(name, callback);
     // update the indexer
     SearchMemoryIndexer.remove(name).catch((reason) => {
@@ -227,6 +233,7 @@ class Storage {
    Used storage: local (write)
    */
   public removeTarball(name: string, filename: string, revision: string, callback: Callback): void {
+    debug('remove tarball %s for %s', filename, name);
     this.localStorage.removeTarball(name, filename, revision, callback);
   }
 
@@ -236,6 +243,7 @@ class Storage {
    Used storages: local (write)
    */
   public addTarball(name: string, filename: string) {
+    debug('add a tarball for %o', name);
     return this.localStorage.addTarball(name, filename);
   }
 
@@ -272,6 +280,7 @@ class Storage {
    Used storages: local || uplink (just one)
    */
   public getTarball(name: string, filename: string) {
+    debug('get tarball for package %o filename %o', name, filename);
     const readStream = new ReadTarball({});
     readStream.abort = function () {};
 
@@ -313,21 +322,27 @@ class Storage {
               if (self.filters?.length && !hasTarball(syncInfo, filename)) {
                 return readStream.emit('error', err404);
               }
-              if (_.isNil(syncInfo._distfiles) || _.isNil(syncInfo._distfiles[filename])) {
+              const distFile = lookupDistFile(syncInfo, filename);
+              if (_.isNil(distFile)) {
+                debug('remote tarball not found');
                 return readStream.emit('error', err404);
               }
-              serveFile(syncInfo._distfiles[filename]);
+              debug('dist file found, using it %o', (distFile as DistFile).url);
+              serveFile(distFile as DistFile);
             }
           );
         };
 
         self.localStorage.getPackageMetadataAsync(name).then(
           (info) => {
-            if (info._distfiles && _.isNil(info._distfiles[filename]) === false) {
+            const distFile = lookupDistFile(info, filename);
+            if (_.isNil(distFile) === false) {
               // information about this file exists locally
-              serveFile(info._distfiles[filename]);
+              debug('dist file found, using it %o', (distFile as DistFile).url);
+              serveFile(distFile as DistFile);
             } else {
               // we know nothing about this file, trying to get information elsewhere
+              debug('dist file not found, proceed update upstream');
               lookupFromUplinks(info);
             }
           },
@@ -355,13 +370,46 @@ class Storage {
     function serveFile(file: DistFile): void {
       let uplink: any = null;
 
-      for (const uplinkId in self.uplinks) {
-        if (hasProxyTo(name, uplinkId, self.config.packages)) {
-          uplink = self.uplinks[uplinkId];
+      if (file.registry && self.uplinks[file.registry]) {
+        // the distfile records which uplink it was merged from
+        // (see LocalStorage._updateUplinkToRemoteProtocol)
+        uplink = self.uplinks[file.registry];
+        debug('tarball %o is served by the recorded uplink %o', filename, file.registry);
+      } else {
+        const candidates: any[] = [];
+        for (const uplinkId in self.uplinks) {
+          if (hasProxyTo(name, uplinkId, self.config.packages)) {
+            candidates.push(self.uplinks[uplinkId]);
+          }
+        }
+        debug('tarball %o has %o candidate uplinks', filename, candidates.length);
+
+        // pick the uplink that actually serves the distfile url, so the
+        // request carries the settings of the registry hosting it; with
+        // several matching uplinks (duplicated urls) the last configured
+        // one keeps winning, exactly like the previous selection did
+        for (const candidate of candidates) {
+          if (candidate.isUplinkValid(file.url)) {
+            uplink = candidate;
+          }
+        }
+
+        if (uplink !== null) {
+          debug('uplink %o url matches tarball %o', uplink.upname, file.url);
+        } else if (candidates.length === 1) {
+          // a single configured uplink keeps the legacy behavior: tarballs
+          // hosted elsewhere (a CDN) may still need its agent/proxy settings
+          uplink = candidates[0];
+          debug(
+            'using the single configured uplink %o for tarball %o hosted elsewhere',
+            uplink.upname,
+            file.url
+          );
         }
       }
 
       if (uplink == null) {
+        debug('upstream not found, creating one for %o', name);
         uplink = new ProxyStorage(
           {
             url: file.url,
@@ -374,7 +422,17 @@ class Storage {
 
       let savestream: any = null;
       if (uplink.config.cache) {
-        savestream = self.localStorage.addTarball(name, filename);
+        // persist which configured uplink served the tarball, so future
+        // fetches can pick it directly (autogenerated proxies have no name)
+        debug('cache remote tarball enabled');
+        let distFile: DistFile = file;
+        if (!file.registry && uplink.upname) {
+          debug('recording uplink %o on the persisted distfile for %o', uplink.upname, filename);
+          distFile = { ...file, registry: uplink.upname };
+        }
+        savestream = self.localStorage.addTarball(name, filename, distFile);
+      } else {
+        debug('cache remote tarball disabled');
       }
 
       let on_open = function (): void {
@@ -442,6 +500,7 @@ class Storage {
    * @property {function} options.callback Callback for receive data
    */
   public getPackage(options): void {
+    debug('get package for %o', options.name);
     this.localStorage.getPackageMetadata(options.name, (err, data): void => {
       if (err && (!err.status || err.status >= HTTP_STATUS.INTERNAL_ERROR)) {
         // report internal errors right away
@@ -462,8 +521,10 @@ class Storage {
           // npm can throw if this field doesn't exist
           result._attachments = {};
           if (options.abbreviated === true) {
+            debug('get abbreviated manifest');
             options.callback(null, convertAbbreviatedManifest(result), uplinkErrors);
           } else {
+            debug('get full package manifest');
             options.callback(null, result, uplinkErrors);
           }
         }
@@ -602,7 +663,10 @@ class Storage {
     const upLinks: ProxyStorage[] = [];
     const hasToLookIntoUplinks = _.isNil(options.uplinksLook) || options.uplinksLook;
 
+    debug('sync uplinks for %o', name);
+    debug('is sync uplink enabled %o', hasToLookIntoUplinks);
     if (!packageInfo) {
+      debug('local package %s not found', name);
       found = false;
       packageInfo = generatePackageTemplate(name);
     }
@@ -612,6 +676,7 @@ class Storage {
         upLinks.push(this.uplinks[uplink]);
       }
     }
+    debug('uplinks found for %o: %o', name, upLinks.length);
 
     async.map(
       upLinks,
@@ -623,6 +688,7 @@ class Storage {
           const fetched = upLinkMeta.fetched;
 
           if (fetched && Date.now() - fetched < upLink.maxage) {
+            debug('returning cached manifest for %o', upLink.upname);
             return cb();
           }
 
@@ -631,10 +697,12 @@ class Storage {
 
         upLink.getRemoteMetadata(name, _options, (err, upLinkResponse, eTag): void => {
           if (err && err.remoteStatus === 304) {
+            debug('uplink %o responded 304 for %o, cache is up to date', upLink.upname, name);
             upLinkMeta.fetched = Date.now();
           }
 
           if (err || !upLinkResponse) {
+            debug('error captured on uplink %o', err?.message);
             return cb(null, [err || ErrorCode.getInternalError('no data')]);
           }
 
@@ -675,6 +743,7 @@ class Storage {
 
           // if we got to this point, assume that the correct package exists
           // on the uplink
+          debug('syncing on uplink %o', upLink.upname);
           found = true;
           cb();
         });
@@ -702,12 +771,15 @@ class Storage {
           }
 
           if (uplinkTimeoutError) {
+            debug('uplinks sync failed with timeout error');
             return callback(ErrorCode.getServiceUnavailable(), null, upLinksErrors);
           }
+          debug('uplinks sync failed with no package found');
           return callback(ErrorCode.getNotFound(API_ERROR.NO_PACKAGE), null, upLinksErrors);
         }
 
         if (upLinks.length === 0) {
+          debug('no uplinks found for %o, upstream update aborted', name);
           const { filteredPackage, filterErrors } = await self._applyFilters(
             packageInfo as Manifest
           );
@@ -739,6 +811,7 @@ class Storage {
       try {
         filteredPackage = await filter.filter_metadata(filteredPackage);
       } catch (err: any) {
+        debug('filter plugin has failed on %o: %o', packageInfo.name, err?.message);
         filterErrors.push(err);
       }
     }
@@ -762,7 +835,11 @@ class Storage {
         return true;
       }
       const { filteredPackage } = await this._applyFilters(pkgMetadata);
-      return hasTarball(filteredPackage, filename);
+      const allowed = hasTarball(filteredPackage, filename);
+      if (allowed === false) {
+        debug('tarball %o of %o is blocked by a filter plugin', filename, name);
+      }
+      return allowed;
     } catch (err: any) {
       if (err?.status === HTTP_STATUS.NOT_FOUND) {
         return true;

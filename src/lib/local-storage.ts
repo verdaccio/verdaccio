@@ -449,7 +449,7 @@ class LocalStorage {
    * @param {String} filename
    * @return {Stream}
    */
-  public addTarball(name: string, filename: string) {
+  public addTarball(name: string, filename: string, distFile?: DistFile) {
     assert(validateName(filename));
 
     let length = 0;
@@ -517,6 +517,16 @@ class LocalStorage {
           data._attachments[filename] = {
             shasum: shaOneHash.digest('hex'),
           };
+          // restore a distfile record lost by other verdaccio versions,
+          // piggybacking on the write that registers the attachment
+          if (_.isNil(distFile) === false && _.isNil(data._distfiles[filename])) {
+            debug(
+              'restoring missing distfile record for %o served by %o',
+              filename,
+              distFile.registry
+            );
+            data._distfiles[filename] = distFile;
+          }
           cb(null);
         },
         function (err): void {
