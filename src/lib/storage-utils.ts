@@ -357,7 +357,7 @@ export function prepareSearchPackage(data: Manifest, time: unknown): any {
  * (any query string is ignored, like the path parsing in updateVersions).
  */
 export function tarballMatchesFilename(tarball: string, filename: string): boolean {
-  return tarball.split('?')[0].endsWith(`/${filename}`);
+  return tarball.split(/[?#]/)[0].endsWith(`/${filename}`);
 }
 
 /**
