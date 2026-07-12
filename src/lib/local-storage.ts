@@ -447,6 +447,9 @@ class LocalStorage {
    * Add a tarball.
    * @param {String} name
    * @param {String} filename
+   * @param {DistFile} distFile distfile record to restore when the manifest
+   * lost it (storages written by other verdaccio versions); persisted
+   * together with the attachment registration once the upload succeeds
    * @return {Stream}
    */
   public addTarball(name: string, filename: string, distFile?: DistFile) {
