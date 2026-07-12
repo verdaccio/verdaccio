@@ -17,7 +17,7 @@ import LocalStorage from './local-storage';
 import { logger } from './logger';
 import { ErrorCode, isObject, normalizeDistTags } from './utils';
 
-const debug = createDebug('verdaccio:storage:storage-utils');
+const debug = createDebug('verdaccio:storage-utils');
 
 /**
  * Create an empty package manifest with all the internal bookkeeping
