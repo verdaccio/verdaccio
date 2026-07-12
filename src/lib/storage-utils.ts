@@ -364,7 +364,10 @@ export function tarballMatchesFilename(tarball: string, filename: string): boole
  * Build a distfile record from a version's dist metadata when its tarball
  * url matches the given file name.
  */
-export function distFileFromVersion(version: Version | undefined, filename: string): DistFile | null {
+export function distFileFromVersion(
+  version: Version | undefined,
+  filename: string
+): DistFile | null {
   const dist = version?.dist;
 
   if (dist?.tarball && tarballMatchesFilename(dist.tarball, filename)) {
