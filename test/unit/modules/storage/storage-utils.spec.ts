@@ -221,6 +221,23 @@ describe('Storage Utils', () => {
       ).toBe(true);
     });
 
+    test('should ignore fragments', () => {
+      // url.parse().pathname excludes fragments, so the _distfiles keys
+      // created in updateVersions never carry them — matching must agree
+      expect(
+        tarballMatchesFilename(
+          'https://registry.domain.test/pkg/-/pkg-1.0.0.tgz#integrity',
+          'pkg-1.0.0.tgz'
+        )
+      ).toBe(true);
+      expect(
+        tarballMatchesFilename(
+          'https://registry.domain.test/pkg/-/pkg-1.0.0.tgz#frag?token=abc',
+          'pkg-1.0.0.tgz'
+        )
+      ).toBe(true);
+    });
+
     test('should not match a partial basename', () => {
       // 'other-pkg-1.0.0.tgz' ends with 'pkg-1.0.0.tgz' as a plain string,
       // but the path segment boundary must be respected
