@@ -702,7 +702,7 @@ class Storage {
           }
 
           if (err || !upLinkResponse) {
-            debug('error captured on uplink %o', err?.message);
+            debug('error captured on uplink %o for %o: %o', upLink.upname, name, err?.message);
             return cb(null, [err || ErrorCode.getInternalError('no data')]);
           }
 
