@@ -104,13 +104,25 @@ export const log = (logger, options: LogOptions = {}) => {
       if (abortLogged || requestCompleted) return;
       abortLogged = true;
 
-      req.log.info(
-        {
-          ...getRequestContext(),
-          status: constants.HTTP_STATUS.CLIENT_CLOSED_REQUEST,
-        },
-        constants.LOG_VERDACCIO_ABORT
-      );
+      const context = {
+        ...getRequestContext(),
+        status: constants.HTTP_STATUS.CLIENT_CLOSED_REQUEST,
+      };
+
+      if (_skipLog) {
+        if (debug.enabled) {
+          debug(
+            convertToDebugString(constants.LOG_VERDACCIO_ABORT),
+            context.status,
+            context.user,
+            context.remoteIP,
+            context.request.method,
+            context.request.url
+          );
+        }
+      } else {
+        req.log.info(context, constants.LOG_VERDACCIO_ABORT);
+      }
     };
 
     const cleanupSocketListeners = () => {

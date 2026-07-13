@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/core",
-  "version": "9.0.0-next-9.20",
+  "version": "9.0.0-next-9.21",
   "description": "Verdaccio Core Components",
   "keywords": [
     "private",
@@ -39,7 +39,7 @@
     "minimatch": "10.2.5",
     "process-warning": "5.0.0",
     "sanitize-filename": "1.6.3",
-    "semver": "7.8.1"
+    "semver": "7.8.5"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:14.0.0-next-9.11",
