@@ -46,7 +46,7 @@
   "devDependencies": {
     "@types/debug": "4.1.12",
     "@verdaccio/config": "workspace:8.1.2",
-    "@verdaccio/types": "workspace:13.0.2"
+    "@verdaccio/types": "workspace:13.0.3"
   },
   "engines": {
     "node": ">=18"

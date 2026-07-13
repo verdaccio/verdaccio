@@ -235,7 +235,7 @@ importers:
         specifier: workspace:8.0.5
         version: link:../middleware
       '@verdaccio/types':
-        specifier: workspace:13.0.2
+        specifier: workspace:13.0.3
         version: link:../core/types
       express:
         specifier: 4.22.1
@@ -263,7 +263,7 @@ importers:
         version: 4.18.1
     devDependencies:
       '@verdaccio/types':
-        specifier: workspace:13.0.2
+        specifier: workspace:13.0.3
         version: link:../core/types
       vitest:
         specifier: 4.1.2
@@ -291,7 +291,7 @@ importers:
         version: 7.7.4
     devDependencies:
       '@verdaccio/types':
-        specifier: workspace:13.0.2
+        specifier: workspace:13.0.3
         version: link:../types
       express:
         specifier: 4.22.1
@@ -319,7 +319,7 @@ importers:
         version: 1.0.4
     devDependencies:
       '@verdaccio/types':
-        specifier: workspace:13.0.2
+        specifier: workspace:13.0.3
         version: link:../types
       vitest:
         specifier: 4.1.2
@@ -359,7 +359,7 @@ importers:
         version: 3.1.7
     devDependencies:
       '@verdaccio/types':
-        specifier: workspace:13.0.2
+        specifier: workspace:13.0.3
         version: link:../types
       node-mocks-http:
         specifier: 1.14.1
@@ -487,7 +487,7 @@ importers:
         specifier: workspace:*
         version: link:../test-helper
       '@verdaccio/types':
-        specifier: workspace:13.0.2
+        specifier: workspace:13.0.3
         version: link:../core/types
       nock:
         specifier: 13.5.6
@@ -534,7 +534,7 @@ importers:
         version: 9.14.0
     devDependencies:
       '@verdaccio/types':
-        specifier: workspace:13.0.2
+        specifier: workspace:13.0.3
         version: link:../../core/types
 
   packages/logger/logger-commons:
@@ -553,7 +553,7 @@ importers:
         version: 4.4.3
     devDependencies:
       '@verdaccio/types':
-        specifier: workspace:13.0.2
+        specifier: workspace:13.0.3
         version: link:../../core/types
       pino:
         specifier: 9.14.0
@@ -621,7 +621,7 @@ importers:
         specifier: workspace:8.0.3
         version: link:../logger/logger
       '@verdaccio/types':
-        specifier: workspace:13.0.2
+        specifier: workspace:13.0.3
         version: link:../core/types
       http-errors:
         specifier: 2.0.1
@@ -661,7 +661,7 @@ importers:
         specifier: workspace:8.0.3
         version: link:../../logger/logger
       '@verdaccio/types':
-        specifier: workspace:13.0.2
+        specifier: workspace:13.0.3
         version: link:../../core/types
       nock:
         specifier: 13.5.6
@@ -689,7 +689,7 @@ importers:
         specifier: workspace:8.1.2
         version: link:../../config
       '@verdaccio/types':
-        specifier: workspace:13.0.2
+        specifier: workspace:13.0.3
         version: link:../../core/types
 
   packages/plugins/htpasswd:
@@ -723,7 +723,7 @@ importers:
         specifier: workspace:8.1.2
         version: link:../../config
       '@verdaccio/types':
-        specifier: workspace:13.0.2
+        specifier: workspace:13.0.3
         version: link:../../core/types
       mockdate:
         specifier: 3.0.5
@@ -834,7 +834,7 @@ importers:
         specifier: workspace:8.0.3
         version: link:../../logger/logger
       '@verdaccio/types':
-        specifier: workspace:13.0.2
+        specifier: workspace:13.0.3
         version: link:../../core/types
       vite:
         specifier: 8.0.16
@@ -853,7 +853,7 @@ importers:
         version: 7.3.0
     devDependencies:
       '@verdaccio/types':
-        specifier: workspace:13.0.2
+        specifier: workspace:13.0.3
         version: link:../core/types
       vite:
         specifier: 8.0.16
@@ -881,7 +881,7 @@ importers:
         version: 9.0.3
     devDependencies:
       '@verdaccio/types':
-        specifier: workspace:13.0.2
+        specifier: workspace:13.0.3
         version: link:../core/types
       vitest:
         specifier: 4.1.2
@@ -905,7 +905,7 @@ importers:
         specifier: workspace:8.0.5
         version: link:../middleware
       '@verdaccio/types':
-        specifier: workspace:13.0.2
+        specifier: workspace:13.0.3
         version: link:../core/types
       body-parser:
         specifier: 1.20.4
@@ -936,7 +936,7 @@ importers:
         version: 7.4.9
     devDependencies:
       '@verdaccio/types':
-        specifier: workspace:13.0.2
+        specifier: workspace:13.0.3
         version: link:../core/types
       vitest:
         specifier: 4.1.2

@@ -54,7 +54,7 @@
   "devDependencies": {
     "@verdaccio/logger": "workspace:8.0.3",
     "@verdaccio/middleware": "workspace:8.0.5",
-    "@verdaccio/types": "workspace:13.0.2",
+    "@verdaccio/types": "workspace:13.0.3",
     "express": "4.22.1",
     "supertest": "7.1.4",
     "vitest": "4.1.2"

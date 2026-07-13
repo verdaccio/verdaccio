@@ -54,7 +54,7 @@
   },
   "devDependencies": {
     "@verdaccio/logger": "workspace:8.0.3",
-    "@verdaccio/types": "workspace:13.0.2",
+    "@verdaccio/types": "workspace:13.0.3",
     "http-errors": "2.0.1",
     "jsdom": "26.1.0",
     "supertest": "7.1.4",

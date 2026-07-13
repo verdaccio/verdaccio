@@ -54,7 +54,7 @@
   "devDependencies": {
     "@types/bcryptjs": "2.4.6",
     "@verdaccio/config": "workspace:8.1.2",
-    "@verdaccio/types": "workspace:13.0.2",
+    "@verdaccio/types": "workspace:13.0.3",
     "mockdate": "3.0.5",
     "vitest": "4.1.2"
   },

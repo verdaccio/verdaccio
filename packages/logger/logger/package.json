@@ -47,7 +47,7 @@
     "pino": "9.14.0"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:13.0.2"
+    "@verdaccio/types": "workspace:13.0.3"
   },
   "engines": {
     "node": ">=18"

@@ -48,7 +48,7 @@
     "minimatch": "7.4.9"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:13.0.2",
+    "@verdaccio/types": "workspace:13.0.3",
     "vitest": "4.1.2"
   },
   "engines": {

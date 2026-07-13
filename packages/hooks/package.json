@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/hooks",
-  "version": "8.0.3",
+  "version": "8.0.4",
   "description": "Verdaccio Hooks",
   "keywords": [
     "enterprise",
@@ -52,7 +52,7 @@
   "devDependencies": {
     "@verdaccio/config": "workspace:8.1.2",
     "@verdaccio/test-helper": "workspace:*",
-    "@verdaccio/types": "workspace:13.0.2",
+    "@verdaccio/types": "workspace:13.0.3",
     "nock": "13.5.6",
     "vitest": "4.1.2"
   },
