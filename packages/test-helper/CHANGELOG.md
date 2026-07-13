@@ -1,5 +1,12 @@
 # Change Log
 
+## 4.0.6
+
+### Patch Changes
+
+- Updated dependencies [0be3185]
+  - @verdaccio/types@13.0.3
+
 ## 4.0.5
 
 ### Patch Changes

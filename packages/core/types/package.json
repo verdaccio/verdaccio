@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/types",
-  "version": "13.0.2",
+  "version": "13.0.3",
   "description": "Verdaccio Type Definitions",
   "keywords": [
     "enterprise",
