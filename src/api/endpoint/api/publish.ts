@@ -316,7 +316,7 @@ export function unPublishPackage(storage: Storage, config: Config) {
       // send notification of package removal (non transactional)
       const metadata = { name: packageName } as Manifest;
       notify(metadata, config, req.remote_user, packageName, 'unpublish').catch((error) => {
-        logger.error({ error: error?.message }, 'notify batch service has failed: @{error}');
+        logger.error({ error }, 'notify batch service has failed: @{error}');
       });
 
       return next({ ok: API_MESSAGE.PKG_REMOVED });
