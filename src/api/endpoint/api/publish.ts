@@ -347,7 +347,7 @@ export function removeTarball(storage: Storage, config: Config) {
       const publishedPackage = version ? `${packageName}@${version}` : packageName;
 
       notify(metadata, config, req.remote_user, publishedPackage, 'unpublish').catch((error) => {
-        logger.error({ error: error?.message }, 'notify batch service has failed: @{error}');
+        logger.error({ error }, 'notify batch service has failed: @{error}');
       });
 
       return next({ ok: API_MESSAGE.TARBALL_REMOVED });
