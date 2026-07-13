@@ -1113,6 +1113,249 @@ describe('storage', () => {
         });
       });
     });
+
+    test('should throw 404 not_found when tarball does not exist upstream', () => {
+      return new Promise((done) => {
+        const pkgName = 'upstream';
+        const upstreamManifest = addNewVersion(
+          addNewVersion(generateRemotePackageMetadata(pkgName, '1.0.0') as Manifest, '1.0.1'),
+          '1.0.2'
+        );
+        nock('https://fake.verdaccio.org')
+          .get(`/${pkgName}`)
+          .times(10)
+          .reply(201, upstreamManifest);
+        nock('http://localhost:5555').get(`/${pkgName}/-/${pkgName}-1.0.0.tgz`).reply(404);
+        const storagePath = generateRandomStorage();
+        const config = new Config(
+          configExample(
+            {
+              storage: storagePath,
+            },
+            './fixtures/config/getTarball-getupstream.yaml',
+            import.meta.dirname
+          )
+        );
+        const storage = new Storage(config, logger);
+        storage.init(config).then(() => {
+          const req = httpMocks.createRequest({
+            method: 'GET',
+            connection: { remoteAddress: fakeHost },
+            headers: {
+              host: fakeHost,
+              [HEADERS.FORWARDED_PROTO]: 'http',
+            },
+            url: '/',
+          });
+          return storage
+            .getPackageByOptions({
+              name: pkgName,
+              uplinksLook: true,
+              requestOptions: {
+                headers: req.headers as any,
+                protocol: req.protocol,
+                host: req.get('host') as string,
+              },
+            })
+            .then(() => {
+              const abort = new AbortController();
+              storage
+                .getTarball(pkgName, `${pkgName}-1.0.0.tgz`, {
+                  signal: abort.signal,
+                })
+                .then((stream) => {
+                  stream.on('error', (err) => {
+                    expect(err).toEqual(errorUtils.getNotFound(API_ERROR.NOT_FILE_UPLINK));
+                    done(true);
+                  });
+                });
+            });
+        });
+      });
+    });
+
+    test('should throw 401 unauthorized when upstream returns unauthorized', () => {
+      return new Promise((done) => {
+        const pkgName = 'upstream';
+        const upstreamManifest = addNewVersion(
+          addNewVersion(generateRemotePackageMetadata(pkgName, '1.0.0') as Manifest, '1.0.1'),
+          '1.0.2'
+        );
+        nock('https://fake.verdaccio.org')
+          .get(`/${pkgName}`)
+          .times(10)
+          .reply(201, upstreamManifest);
+        nock('http://localhost:5555').get(`/${pkgName}/-/${pkgName}-1.0.0.tgz`).reply(401);
+        const storagePath = generateRandomStorage();
+        const config = new Config(
+          configExample(
+            {
+              storage: storagePath,
+            },
+            './fixtures/config/getTarball-getupstream.yaml',
+            import.meta.dirname
+          )
+        );
+        const storage = new Storage(config, logger);
+        storage.init(config).then(() => {
+          const req = httpMocks.createRequest({
+            method: 'GET',
+            connection: { remoteAddress: fakeHost },
+            headers: {
+              host: fakeHost,
+              [HEADERS.FORWARDED_PROTO]: 'http',
+            },
+            url: '/',
+          });
+          return storage
+            .getPackageByOptions({
+              name: pkgName,
+              uplinksLook: true,
+              requestOptions: {
+                headers: req.headers as any,
+                protocol: req.protocol,
+                host: req.get('host') as string,
+              },
+            })
+            .then(() => {
+              const abort = new AbortController();
+              storage
+                .getTarball(pkgName, `${pkgName}-1.0.0.tgz`, {
+                  signal: abort.signal,
+                })
+                .then((stream) => {
+                  stream.on('error', (err) => {
+                    expect(err).toEqual(errorUtils.getUnauthorized(API_ERROR.UNAUTHORIZED_ACCESS));
+                    done(true);
+                  });
+                });
+            });
+        });
+      });
+    });
+
+    test('should throw 403 forbidden with upstream error message', () => {
+      return new Promise((done) => {
+        const pkgName = 'upstream';
+        const upstreamMessage = 'access denied by company policy';
+        const upstreamManifest = addNewVersion(
+          addNewVersion(generateRemotePackageMetadata(pkgName, '1.0.0') as Manifest, '1.0.1'),
+          '1.0.2'
+        );
+        nock('https://fake.verdaccio.org')
+          .get(`/${pkgName}`)
+          .times(10)
+          .reply(201, upstreamManifest);
+        nock('http://localhost:5555')
+          .get(`/${pkgName}/-/${pkgName}-1.0.0.tgz`)
+          .reply(403, { detail: upstreamMessage });
+        const storagePath = generateRandomStorage();
+        const config = new Config(
+          configExample(
+            {
+              storage: storagePath,
+            },
+            './fixtures/config/getTarball-getupstream.yaml',
+            import.meta.dirname
+          )
+        );
+        const storage = new Storage(config, logger);
+        storage.init(config).then(() => {
+          const req = httpMocks.createRequest({
+            method: 'GET',
+            connection: { remoteAddress: fakeHost },
+            headers: {
+              host: fakeHost,
+              [HEADERS.FORWARDED_PROTO]: 'http',
+            },
+            url: '/',
+          });
+          return storage
+            .getPackageByOptions({
+              name: pkgName,
+              uplinksLook: true,
+              requestOptions: {
+                headers: req.headers as any,
+                protocol: req.protocol,
+                host: req.get('host') as string,
+              },
+            })
+            .then(() => {
+              const abort = new AbortController();
+              storage
+                .getTarball(pkgName, `${pkgName}-1.0.0.tgz`, {
+                  signal: abort.signal,
+                })
+                .then((stream) => {
+                  stream.on('error', (err) => {
+                    expect(err).toEqual(errorUtils.getForbidden(upstreamMessage));
+                    done(true);
+                  });
+                });
+            });
+        });
+      });
+    });
+
+    test('should throw 500 internal error for other uplink status codes like 409', () => {
+      return new Promise((done) => {
+        const pkgName = 'upstream';
+        const upstreamManifest = addNewVersion(
+          addNewVersion(generateRemotePackageMetadata(pkgName, '1.0.0') as Manifest, '1.0.1'),
+          '1.0.2'
+        );
+        nock('https://fake.verdaccio.org')
+          .get(`/${pkgName}`)
+          .times(10)
+          .reply(201, upstreamManifest);
+        nock('http://localhost:5555').get(`/${pkgName}/-/${pkgName}-1.0.0.tgz`).reply(409);
+        const storagePath = generateRandomStorage();
+        const config = new Config(
+          configExample(
+            {
+              storage: storagePath,
+            },
+            './fixtures/config/getTarball-getupstream.yaml',
+            import.meta.dirname
+          )
+        );
+        const storage = new Storage(config, logger);
+        storage.init(config).then(() => {
+          const req = httpMocks.createRequest({
+            method: 'GET',
+            connection: { remoteAddress: fakeHost },
+            headers: {
+              host: fakeHost,
+              [HEADERS.FORWARDED_PROTO]: 'http',
+            },
+            url: '/',
+          });
+          return storage
+            .getPackageByOptions({
+              name: pkgName,
+              uplinksLook: true,
+              requestOptions: {
+                headers: req.headers as any,
+                protocol: req.protocol,
+                host: req.get('host') as string,
+              },
+            })
+            .then(() => {
+              const abort = new AbortController();
+              storage
+                .getTarball(pkgName, `${pkgName}-1.0.0.tgz`, {
+                  signal: abort.signal,
+                })
+                .then((stream) => {
+                  stream.on('error', (err) => {
+                    expect(err).toEqual(errorUtils.getInternalError('bad uplink status code: 409'));
+                    done(true);
+                  });
+                });
+            });
+        });
+      });
+    });
   });
 
   describe('syncUplinksMetadata()', () => {
