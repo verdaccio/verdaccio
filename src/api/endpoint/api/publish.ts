@@ -5,10 +5,10 @@ import mime from 'mime';
 import Path from 'path';
 
 import type { Auth } from '@verdaccio/auth';
-import { validationUtils } from '@verdaccio/core';
+import { tarballUtils, validationUtils } from '@verdaccio/core';
 import { notify } from '@verdaccio/hooks';
 import { allow, expectJson, media } from '@verdaccio/middleware';
-import type { Callback, Config, MergeTags, Package, Version } from '@verdaccio/types';
+import type { Callback, Config, Manifest, MergeTags, Package, Version } from '@verdaccio/types';
 
 import { API_ERROR, API_MESSAGE, DIST_TAGS, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
@@ -106,14 +106,14 @@ export default function publish(
    * npm http fetch GET 304 http://localhost:4873/@scope%2ftest1?write=true 1076ms (from cache)
      npm http fetch DELETE 201 http://localhost:4873/@scope%2ftest1/-rev/18-d8ebe3020bd4ac9c 22ms
    */
-  router.delete('/:package/-rev/*', can('unpublish'), unPublishPackage(storage));
+  router.delete('/:package/-rev/*', can('unpublish'), unPublishPackage(storage, config));
 
   // removing a tarball
   router.delete(
     '/:package/-/:filename/-rev/:revision',
     can('unpublish'),
     can('publish'),
-    removeTarball(storage)
+    removeTarball(storage, config)
   );
 
   // uploading package tarball
@@ -248,7 +248,8 @@ export function publishPackage(storage: Storage, config: Config, auth: Auth): an
                   metadataCopy,
                   config,
                   req.remote_user,
-                  `${metadataCopy.name}@${versionToPublish}`
+                  `${metadataCopy.name}@${versionToPublish}`,
+                  'publish'
                 );
               } catch (error) {
                 logger.error({ error }, 'notify batch service has failed: @{error}');
@@ -302,7 +303,7 @@ export function publishPackage(storage: Storage, config: Config, auth: Auth): an
 /**
  * un-publish a package
  */
-export function unPublishPackage(storage: Storage) {
+export function unPublishPackage(storage: Storage, config: Config) {
   return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const packageName = req.params.package;
     debug('unpublishing %o', packageName);
@@ -311,6 +312,13 @@ export function unPublishPackage(storage: Storage) {
         return next(err);
       }
       res.status(HTTP_STATUS.CREATED);
+
+      // send notification of package removal (non transactional)
+      const metadata = { name: packageName } as Manifest;
+      notify(metadata, config, req.remote_user, packageName, 'unpublish').catch((error) => {
+        logger.error({ error }, 'notify batch service has failed: @{error}');
+      });
+
       return next({ ok: API_MESSAGE.PKG_REMOVED });
     });
   };
@@ -319,7 +327,7 @@ export function unPublishPackage(storage: Storage) {
 /**
  * Delete tarball
  */
-export function removeTarball(storage: Storage) {
+export function removeTarball(storage: Storage, config: Config) {
   return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const packageName = req.params.package;
     const { filename, revision } = req.params;
@@ -330,6 +338,18 @@ export function removeTarball(storage: Storage) {
       }
       res.status(HTTP_STATUS.CREATED);
       debug('success remove tarball for %o-%o-%o', packageName, filename, revision);
+
+      // send notification of version removal (non transactional)
+      // getVersionFromTarball returns undefined when the filename is not parseable;
+      // fall back to the package name so we never report `name@undefined`
+      const version = tarballUtils.getVersionFromTarball(filename);
+      const metadata = { name: packageName, version, _rev: revision } as unknown as Manifest;
+      const publishedPackage = version ? `${packageName}@${version}` : packageName;
+
+      notify(metadata, config, req.remote_user, publishedPackage, 'unpublish').catch((error) => {
+        logger.error({ error }, 'notify batch service has failed: @{error}');
+      });
+
       return next({ ok: API_MESSAGE.TARBALL_REMOVED });
     });
   };

@@ -2969,16 +2969,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/hooks@npm:8.0.3":
-  version: 8.0.3
-  resolution: "@verdaccio/hooks@npm:8.0.3"
+"@verdaccio/hooks@npm:8.0.4":
+  version: 8.0.4
+  resolution: "@verdaccio/hooks@npm:8.0.4"
   dependencies:
     "@verdaccio/core": "npm:8.1.2"
     "@verdaccio/logger": "npm:8.0.3"
     debug: "npm:4.4.3"
     got-cjs: "npm:12.5.4"
     handlebars: "npm:4.7.9"
-  checksum: 10c0/46e304041feaedb07dddb192c4759c96a04b9a468574004c6160dd2a6d1aa0fbc4860f1e297db0b9d8784b3d93281648ccc42bf24dbac6d130e85bbc63c2e18d
+  checksum: 10c0/81a5261d65e6baa76619ab488a0480769c5ae76a1d823ab66681b80f099a5853d2d2c71f111fbf4df16b6bc4b7facfc6b3bd048e6ca1fee51a0af16681746f62
   languageName: node
   linkType: hard
 
@@ -10112,7 +10112,7 @@ __metadata:
     "@verdaccio/core": "npm:8.1.2"
     "@verdaccio/e2e-cli": "npm:2.10.2"
     "@verdaccio/e2e-ui": "npm:2.4.1"
-    "@verdaccio/hooks": "npm:8.0.3"
+    "@verdaccio/hooks": "npm:8.0.4"
     "@verdaccio/loaders": "npm:8.0.3"
     "@verdaccio/local-storage-legacy": "npm:11.3.4"
     "@verdaccio/logger": "npm:8.0.3"
