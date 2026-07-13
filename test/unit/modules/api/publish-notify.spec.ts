@@ -28,8 +28,8 @@ describe('publish notifications', () => {
     }
   };
 
-  test.each([['notify-pkg', '@scope/notify-pkg']])(
-    'should trigger notification when publishing a package',
+  test.each(['notify-pkg', '@scope/notify-pkg'])(
+    'should trigger notification when publishing a package (%s)',
     async (pkgName) => {
       const notifyScope = nock(notifyDomain)
         .post(notifyPath, (body) => {
@@ -52,8 +52,8 @@ describe('publish notifications', () => {
     }
   );
 
-  test.each([['notify-unpublish-pkg', '@scope/notify-unpublish-pkg']])(
-    'should trigger notification when unpublishing a package entirely',
+  test.each(['notify-unpublish-pkg', '@scope/notify-unpublish-pkg'])(
+    'should trigger notification when unpublishing a package entirely (%s)',
     async (pkgName) => {
       const app = await initializeServer('publish-notify.yaml');
       await publishVersion(app, pkgName, '1.0.0').expect(HTTP_STATUS.CREATED);
@@ -83,8 +83,8 @@ describe('publish notifications', () => {
     }
   );
 
-  test.each([['notify-tarball-pkg', '@scope/notify-tarball-pkg']])(
-    'should trigger notification when removing a tarball',
+  test.each(['notify-tarball-pkg', '@scope/notify-tarball-pkg'])(
+    'should trigger notification when removing a tarball (%s)',
     async (pkgName) => {
       const app = await initializeServer('publish-notify.yaml');
       await publishVersion(app, pkgName, '1.0.0').expect(HTTP_STATUS.CREATED);
