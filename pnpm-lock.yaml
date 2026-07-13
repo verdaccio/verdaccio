@@ -1097,8 +1097,8 @@ importers:
         specifier: workspace:14.0.0-next-9.11
         version: link:../core/types
       get-stream:
-        specifier: 6.0.1
-        version: 6.0.1
+        specifier: 9.0.1
+        version: 9.0.1
       nock:
         specifier: 13.5.6
         version: 13.5.6
