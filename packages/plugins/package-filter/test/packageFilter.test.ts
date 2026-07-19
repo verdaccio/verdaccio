@@ -7,8 +7,11 @@ import type { Manifest } from '@verdaccio/types';
 
 import PackageFilterPlugin from '../src/index';
 import {
+  allDeprecatedManifest,
   babelTestManifest,
+  deprecatedManifest,
   emptyManifest,
+  scopedDeprecatedManifest,
   testaccioManifest,
   typesNodeManifest,
 } from './manifests';
@@ -680,6 +683,95 @@ describe('PackageFilterPlugin', () => {
         expect(typesResult.versions['2.6.3']._id).toBe('@types/node@1.0.0');
         expect(typesResult.readme).toContain('replaced');
       });
+    });
+  });
+
+  describe('deprecated version filtering', () => {
+    test('excludeDeprecated removes deprecated versions', async function () {
+      const config = { excludeDeprecated: true };
+      const plugin = new PackageFilterPlugin(config, pluginOptions);
+
+      const result = await plugin.filter_metadata(deprecatedManifest);
+      expect(getVersionKeys(result)).toEqual(['2.0.0', '3.0.0']);
+      expect(getVersionKeys(result)).not.toContain('1.0.0');
+      expect(getLatest(result)).toBe('3.0.0');
+    });
+
+    test('excludeDeprecated removes all versions when all are deprecated', async function () {
+      const config = { excludeDeprecated: true };
+      const plugin = new PackageFilterPlugin(config, pluginOptions);
+
+      const result = await plugin.filter_metadata(allDeprecatedManifest);
+      expect(getVersionKeys(result)).toEqual([]);
+    });
+
+    test('excludeDeprecated does not affect non-deprecated packages', async function () {
+      const config = { excludeDeprecated: true };
+      const plugin = new PackageFilterPlugin(config, pluginOptions);
+
+      const result = await plugin.filter_metadata(babelTestManifest);
+      expect(getVersionKeys(result)).toEqual(['1.0.0', '1.5.0', '3.0.0']);
+      expect(getLatest(result)).toBe('3.0.0');
+    });
+
+    test('excludeDeprecated is ignored when set to false', async function () {
+      const config = { excludeDeprecated: false };
+      const plugin = new PackageFilterPlugin(config, pluginOptions);
+
+      const result = await plugin.filter_metadata(deprecatedManifest);
+      expect(getVersionKeys(result)).toEqual(['1.0.0', '2.0.0', '3.0.0']);
+    });
+
+    test('excludeDeprecated respects allow rules by scope', async function () {
+      const config = {
+        excludeDeprecated: true,
+        allow: [{ scope: '@myscope' }],
+      };
+      const plugin = new PackageFilterPlugin(config, pluginOptions);
+
+      const scopedResult = await plugin.filter_metadata(scopedDeprecatedManifest);
+      expect(getVersionKeys(scopedResult)).toEqual(['1.0.0', '2.0.0']);
+
+      const unscopedResult = await plugin.filter_metadata(deprecatedManifest);
+      expect(getVersionKeys(unscopedResult)).toEqual(['2.0.0', '3.0.0']);
+    });
+
+    test('excludeDeprecated respects allow rules by package', async function () {
+      const config = {
+        excludeDeprecated: true,
+        allow: [{ package: 'deprecated-pkg' }],
+      };
+      const plugin = new PackageFilterPlugin(config, pluginOptions);
+
+      const allowedResult = await plugin.filter_metadata(deprecatedManifest);
+      expect(getVersionKeys(allowedResult)).toEqual(['1.0.0', '2.0.0', '3.0.0']);
+
+      const scopedResult = await plugin.filter_metadata(scopedDeprecatedManifest);
+      expect(getVersionKeys(scopedResult)).toEqual(['2.0.0']);
+    });
+
+    test('excludeDeprecated respects allow rules by version', async function () {
+      const config = {
+        excludeDeprecated: true,
+        allow: [{ package: 'deprecated-pkg', versions: '1.0.0' }],
+      };
+      const plugin = new PackageFilterPlugin(config, pluginOptions);
+
+      const result = await plugin.filter_metadata(deprecatedManifest);
+      expect(getVersionKeys(result)).toEqual(['1.0.0', '2.0.0', '3.0.0']);
+    });
+
+    test('excludeDeprecated combined with block rules', async function () {
+      const config = {
+        excludeDeprecated: true,
+        block: [{ package: 'deprecated-pkg', versions: '3.0.0' }],
+      };
+      const plugin = new PackageFilterPlugin(config, pluginOptions);
+
+      const result = await plugin.filter_metadata(deprecatedManifest);
+      expect(getVersionKeys(result)).toEqual(['2.0.0']);
+      expect(getVersionKeys(result)).not.toContain('1.0.0');
+      expect(getVersionKeys(result)).not.toContain('3.0.0');
     });
   });
 
