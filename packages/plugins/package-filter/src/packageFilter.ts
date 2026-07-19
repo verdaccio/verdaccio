@@ -5,6 +5,7 @@ import type { Logger, Manifest } from '@verdaccio/types';
 
 import { parseConfig } from './config/parser';
 import type { ParsedConfig, PluginConfig } from './config/types';
+import { filterDeprecatedVersions } from './filtering/deprecated';
 import { filterBlockedVersions } from './filtering/packageVersion';
 import { filterVersionsByPublishDate } from './filtering/publishDate';
 import { jsonLogReplacer } from './utils/jsonUtils';
@@ -61,10 +62,15 @@ export class PackageFilterPlugin
       debug('min age: %d days', minAgeDays);
       this.logger.trace({ minAgeDays }, 'package-filter min age: @{minAgeDays} days');
     }
+    if (this.parsedConfig.excludeDeprecated) {
+      debug('excludeDeprecated enabled');
+      this.logger.trace('package-filter excludeDeprecated is enabled');
+    }
   }
 
   public async filter_metadata(manifest: Readonly<Manifest>): Promise<Manifest> {
-    const { dateThreshold, minAgeMs, blockRules, allowRules } = this.parsedConfig;
+    const { dateThreshold, minAgeMs, excludeDeprecated, blockRules, allowRules } =
+      this.parsedConfig;
     const versionCount = Object.keys(manifest.versions ?? {}).length;
     debug('filtering manifest for %s (%d versions)', manifest.name, versionCount);
     this.logger.trace(
@@ -75,6 +81,10 @@ export class PackageFilterPlugin
     let newManifest = getManifestClone(manifest);
     if (blockRules.size > 0) {
       newManifest = filterBlockedVersions(newManifest, blockRules, allowRules, this.logger);
+    }
+
+    if (excludeDeprecated) {
+      newManifest = filterDeprecatedVersions(newManifest, allowRules);
     }
 
     let earliestDateThreshold: Date | null = null;
