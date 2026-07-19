@@ -70,6 +70,7 @@ export function parseConfig(config: PluginConfig): ParsedConfig {
   return {
     dateThreshold,
     minAgeMs,
+    excludeDeprecated: config.excludeDeprecated === true,
     blockRules: blockMap,
     allowRules: allowMap,
   };
