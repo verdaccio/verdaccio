@@ -67,10 +67,12 @@ export function parseConfig(config: PluginConfig): ParsedConfig {
     minAgeMs = minAgeDays * 24 * 60 * 60 * 1000;
   }
 
+  const excludeDeprecated = config.excludeDeprecated === true;
+
   return {
     dateThreshold,
     minAgeMs,
-    excludeDeprecated: config.excludeDeprecated === true,
+    excludeDeprecated,
     blockRules: blockMap,
     allowRules: allowMap,
   };
