@@ -21,7 +21,7 @@ export interface PluginConfig {
    */
   minAgeDays?: number;
   /**
-   * When true, versions whose metadata contains a deprecation notice 
+   * When true, versions whose metadata contains a deprecation notice
    * will be removed from the manifest.
    */
   excludeDeprecated?: boolean;
