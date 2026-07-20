@@ -88,7 +88,7 @@
     "@vitejs/plugin-react": "6.0.3",
     "cross-env": "10.1.0",
     "generate-github-markdown-css": "6.6.0",
-    "jsdom": "28.1.0",
+    "jsdom": "29.1.1",
     "mockdate": "3.0.5",
     "msw": "2.12.10",
     "msw-storybook-addon": "2.0.7",
