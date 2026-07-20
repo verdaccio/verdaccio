@@ -74,7 +74,7 @@ jobs:
         with:
           node-version: ${{ matrix.node_version }}
       - name: Cache build artifacts
-        uses: actions/cache/save@27d5ce7f107fe9357f9df03efb73ab90386fccae
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
           path: |
             packages/*/build
