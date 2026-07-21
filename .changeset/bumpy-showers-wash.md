@@ -11,4 +11,4 @@ filters:
     excludeDeprecated: true
 ```
 
-This way verdaccio will completely block package versions that were marked as "deprecated".
+This way Verdaccio will filter out package versions that are marked as "deprecated" (unless they are allow-listed).
