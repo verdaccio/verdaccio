@@ -178,6 +178,28 @@ export const emptyDeprecatedManifest: Manifest = {
   readme: 'Package with deprecated version and un-deprecated (empty string) version',
 };
 
+export const latestDeprecatedManifest: Manifest = {
+  [DIST_TAGS]: { latest: '3.0.0' },
+  _attachments: {},
+  _distfiles: {},
+  _rev: '',
+  _uplinks: {},
+  name: 'latest-deprecated-pkg',
+  versions: {
+    '1.0.0': { ...versionStub, _id: 'latest-deprecated-pkg@1.0.0' },
+    '2.0.0': { ...versionStub, _id: 'latest-deprecated-pkg@2.0.0' },
+    '3.0.0': { ...deprecatedVersionStub, _id: 'latest-deprecated-pkg@3.0.0' },
+  },
+  time: {
+    modified: '2024-01-01T00:00:00.000Z',
+    created: '2020-01-01T00:00:00.000Z',
+    '1.0.0': '2020-01-01T00:00:00.000Z',
+    '2.0.0': '2022-01-01T00:00:00.000Z',
+    '3.0.0': '2024-01-01T00:00:00.000Z',
+  },
+  readme: 'Package whose dist-tags.latest points to its newest, deprecated version',
+};
+
 export const allDeprecatedManifest: Manifest = {
   [DIST_TAGS]: { latest: '2.0.0' },
   _attachments: {},

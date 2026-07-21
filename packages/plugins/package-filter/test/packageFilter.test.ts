@@ -12,6 +12,7 @@ import {
   deprecatedManifest,
   emptyDeprecatedManifest,
   emptyManifest,
+  latestDeprecatedManifest,
   scopedDeprecatedManifest,
   testaccioManifest,
   typesNodeManifest,
@@ -782,6 +783,16 @@ describe('PackageFilterPlugin', () => {
       const result = await plugin.filter_metadata(emptyDeprecatedManifest);
       expect(getVersionKeys(result)).toEqual(['2.0.0']);
       expect(getVersionKeys(result)).not.toContain('1.0.0');
+    });
+
+    test('excludeDeprecated reassigns latest when the deprecated version was tagged latest', async function () {
+      const config = { excludeDeprecated: true };
+      const plugin = new PackageFilterPlugin(config, pluginOptions);
+
+      const result = await plugin.filter_metadata(latestDeprecatedManifest);
+      expect(getVersionKeys(result)).toEqual(['1.0.0', '2.0.0']);
+      expect(getVersionKeys(result)).not.toContain('3.0.0');
+      expect(getLatest(result)).toBe('2.0.0');
     });
   });
 
