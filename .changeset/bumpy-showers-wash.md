@@ -1,5 +1,5 @@
 ---
-"@verdaccio/package-filter": minor
+'@verdaccio/package-filter': minor
 ---
 
 Added `excludeDeprecated` config filter option. It filters deprecated package versions. By default the feature is disabled.
