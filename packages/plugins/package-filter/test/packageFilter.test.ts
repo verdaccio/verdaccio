@@ -10,6 +10,7 @@ import {
   allDeprecatedManifest,
   babelTestManifest,
   deprecatedManifest,
+  emptyDeprecatedManifest,
   emptyManifest,
   scopedDeprecatedManifest,
   testaccioManifest,
@@ -772,6 +773,15 @@ describe('PackageFilterPlugin', () => {
       expect(getVersionKeys(result)).toEqual(['2.0.0']);
       expect(getVersionKeys(result)).not.toContain('1.0.0');
       expect(getVersionKeys(result)).not.toContain('3.0.0');
+    });
+
+    test('excludeDeprecated keeps versions with an empty deprecated string', async function () {
+      const config = { excludeDeprecated: true };
+      const plugin = new PackageFilterPlugin(config, pluginOptions);
+
+      const result = await plugin.filter_metadata(emptyDeprecatedManifest);
+      expect(getVersionKeys(result)).toEqual(['2.0.0']);
+      expect(getVersionKeys(result)).not.toContain('1.0.0');
     });
   });
 
