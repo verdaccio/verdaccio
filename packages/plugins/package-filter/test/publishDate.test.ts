@@ -23,11 +23,10 @@ function createManifest(overrides: Partial<Manifest> = {}): Manifest {
 describe('filterVersionsByPublishDate', () => {
   test('throws when manifest has no time property', () => {
     const manifest = createManifest({ time: undefined });
-    const allowRules = new Map();
 
-    expect(() => filterVersionsByPublishDate(manifest, new Date('2024-01-01'), allowRules)).toThrow(
-      'Time of publication was not provided for package test-pkg'
-    );
+    expect(() =>
+      filterVersionsByPublishDate(manifest, new Date('2024-01-01'), undefined)
+    ).toThrow('Time of publication was not provided for package test-pkg');
   });
 
   test('throws when a version has no publish time entry', () => {
@@ -36,10 +35,9 @@ describe('filterVersionsByPublishDate', () => {
         // '1.0.0' is missing
       },
     });
-    const allowRules = new Map();
 
-    expect(() => filterVersionsByPublishDate(manifest, new Date('2024-01-01'), allowRules)).toThrow(
-      'Time of publication was not provided for package test-pkg, version 1.0.0'
-    );
+    expect(() =>
+      filterVersionsByPublishDate(manifest, new Date('2024-01-01'), undefined)
+    ).toThrow('Time of publication was not provided for package test-pkg, version 1.0.0');
   });
 });
