@@ -24,9 +24,9 @@ describe('filterVersionsByPublishDate', () => {
   test('throws when manifest has no time property', () => {
     const manifest = createManifest({ time: undefined });
 
-    expect(() =>
-      filterVersionsByPublishDate(manifest, new Date('2024-01-01'), undefined)
-    ).toThrow('Time of publication was not provided for package test-pkg');
+    expect(() => filterVersionsByPublishDate(manifest, new Date('2024-01-01'), undefined)).toThrow(
+      'Time of publication was not provided for package test-pkg'
+    );
   });
 
   test('throws when a version has no publish time entry', () => {
@@ -36,8 +36,8 @@ describe('filterVersionsByPublishDate', () => {
       },
     });
 
-    expect(() =>
-      filterVersionsByPublishDate(manifest, new Date('2024-01-01'), undefined)
-    ).toThrow('Time of publication was not provided for package test-pkg, version 1.0.0');
+    expect(() => filterVersionsByPublishDate(manifest, new Date('2024-01-01'), undefined)).toThrow(
+      'Time of publication was not provided for package test-pkg, version 1.0.0'
+    );
   });
 });
