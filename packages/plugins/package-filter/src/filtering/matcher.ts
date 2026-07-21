@@ -108,3 +108,17 @@ export function matchRules(
     versions: matchedVersions,
   };
 }
+
+/**
+ * Derive the allow-list outcome from a precomputed allow-rule match:
+ * whether the whole package/scope is allow-listed, and which versions
+ * (if any) are individually whitelisted.
+ */
+export function resolveAllowList(allowMatch: MatchResult | undefined): {
+  allowAll: boolean;
+  whitelistedVersions: string[];
+} {
+  const allowAll =
+    !!allowMatch && (allowMatch.type === MatchType.SCOPE || allowMatch.type === MatchType.PACKAGE);
+  return { allowAll, whitelistedVersions: allowMatch?.versions ?? [] };
+}

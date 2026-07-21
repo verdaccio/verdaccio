@@ -4,7 +4,8 @@ import { Range, satisfies } from 'semver';
 import type { Logger, Manifest } from '@verdaccio/types';
 
 import type { ParsedConfigRule, ParsedRule } from '../config/types';
-import { matchRules } from './matcher';
+import { matchRules, resolveAllowList } from './matcher';
+import type { MatchResult } from './types';
 import { MatchType } from './types';
 
 const debug = buildDebug('verdaccio:plugin:package-filter:filter');
@@ -29,14 +30,11 @@ const debug = buildDebug('verdaccio:plugin:package-filter:filter');
 export function filterBlockedVersions(
   manifest: Manifest,
   blockRules: Map<string, ParsedRule>,
-  allowRules: Map<string, ParsedRule>,
+  allowMatch: MatchResult | undefined,
   logger: Logger
 ): Manifest {
-  const allowMatch = matchRules(manifest, allowRules);
-  if (
-    allowMatch &&
-    (allowMatch.type === MatchType.SCOPE || allowMatch.type === MatchType.PACKAGE)
-  ) {
+  const { allowAll, whitelistedVersions } = resolveAllowList(allowMatch);
+  if (allowAll) {
     // An entire scope or package is whitelisted
     logger.trace({ name: manifest.name }, 'package @{name} is allow-listed, skipping block rules');
     return manifest;
@@ -53,7 +51,6 @@ export function filterBlockedVersions(
     'block rule matched for @{name} (type: @{type})'
   );
 
-  const whitelistedVersions: string[] = allowMatch ? allowMatch.versions : [];
   let blockRule: ParsedConfigRule = {
     versions: [new Range('*')],
     strategy: 'block',

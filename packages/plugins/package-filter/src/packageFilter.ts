@@ -6,6 +6,7 @@ import type { Logger, Manifest } from '@verdaccio/types';
 import { parseConfig } from './config/parser';
 import type { ParsedConfig, PluginConfig } from './config/types';
 import { filterDeprecatedVersions } from './filtering/deprecated';
+import { matchRules } from './filtering/matcher';
 import { filterBlockedVersions } from './filtering/packageVersion';
 import { filterVersionsByPublishDate } from './filtering/publishDate';
 import { jsonLogReplacer } from './utils/jsonUtils';
@@ -79,12 +80,14 @@ export class PackageFilterPlugin
     );
 
     let newManifest = getManifestClone(manifest);
+    const allowMatch = matchRules(newManifest, allowRules);
+
     if (blockRules.size > 0) {
-      newManifest = filterBlockedVersions(newManifest, blockRules, allowRules, this.logger);
+      newManifest = filterBlockedVersions(newManifest, blockRules, allowMatch, this.logger);
     }
 
     if (excludeDeprecated) {
-      newManifest = filterDeprecatedVersions(newManifest, allowRules);
+      newManifest = filterDeprecatedVersions(newManifest, allowMatch);
     }
 
     let earliestDateThreshold: Date | null = null;
@@ -106,7 +109,7 @@ export class PackageFilterPlugin
         { name: manifest.name, threshold: earliestDateThreshold.toISOString() },
         'applying date filter for @{name}, cutoff: @{threshold}'
       );
-      newManifest = filterVersionsByPublishDate(newManifest, earliestDateThreshold, allowRules);
+      newManifest = filterVersionsByPublishDate(newManifest, earliestDateThreshold, allowMatch);
     }
 
     cleanupTags(newManifest);
