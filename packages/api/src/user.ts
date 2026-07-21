@@ -33,6 +33,12 @@ export default function (route: Router, auth: Auth, config: Config, logger: Logg
         typeof req.remote_user.name !== 'string' ||
         req.remote_user.name === ''
       ) {
+        if (req.remote_user?.error) {
+          debug('user authentication failed: %o', req.remote_user.error);
+          return next(
+            errorUtils.getCode(HTTP_STATUS.UNAUTHORIZED, API_ERROR.BAD_USERNAME_PASSWORD)
+          );
+        }
         debug('user not logged in');
         res.status(HTTP_STATUS.OK);
         return next({ ok: false });
