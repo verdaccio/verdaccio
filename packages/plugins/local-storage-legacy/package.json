@@ -52,7 +52,7 @@
     "@types/minimatch": "3.0.5",
     "@types/node": "20.5.8",
     "@verdaccio/types": "workspace:*",
-    "minimatch": "4.2.5",
+    "minimatch": "4.2.6",
     "rmdir-sync": "1.0.1",
     "vite": "8.0.16",
     "vite-plugin-dts": "4.5.4",

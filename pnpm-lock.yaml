@@ -772,8 +772,8 @@ importers:
         specifier: workspace:*
         version: link:../../core/types
       minimatch:
-        specifier: 4.2.5
-        version: 4.2.5
+        specifier: 4.2.6
+        version: 4.2.6
       rmdir-sync:
         specifier: 1.0.1
         version: 1.0.1
@@ -3712,8 +3712,8 @@ packages:
   minimatch@3.1.5:
     resolution: {integrity: sha512-VgjWUsnnT6n+NUk6eZq77zeFdpW2LWDzP6zFGrCbHXiYNul5Dzqk2HHQ5uFH2DNW5Xbp8+jVzaeNt94ssEEl4w==}
 
-  minimatch@4.2.5:
-    resolution: {integrity: sha512-0htgU9jHBKHj95GPRwJaz73vT2ABPD7ge+OYBarvKbNtKkVQtxlIJb12LIl5ImbKqh1zcreY2fwKc8FnemLy5A==}
+  minimatch@4.2.6:
+    resolution: {integrity: sha512-i35PeWjrW3Kv6/Jken0yeuByzK4YWer7UWba3yWg8+v+5WQQtcKiQ1GqGP7Jc3jhUdlviU3gQf89ON+69eD8RA==}
     engines: {node: '>=10'}
 
   minimatch@7.4.9:
@@ -7993,7 +7993,7 @@ snapshots:
     dependencies:
       brace-expansion: 1.1.14
 
-  minimatch@4.2.5:
+  minimatch@4.2.6:
     dependencies:
       brace-expansion: 1.1.14
 
