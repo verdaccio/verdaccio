@@ -1,5 +1,39 @@
 # @verdaccio/store
 
+## 9.0.0-next-9.21
+
+### Patch Changes
+
+- 51d49f0: fix: npm search compatible maintainers in search results
+
+  Search results for local and cached packages emitted maintainers as `{ name, email }` (or omitted the field entirely), while the npm search API contract uses `{ username, email }`. npm 11 on Node 24 crashes rendering such results (`The "str" argument must be of type string. Received undefined`), making `npm search` fail against verdaccio. Maintainers now include `username` (keeping `name` for backwards compatibility) and default to an empty list when the manifest has none. The `publisher` field is now also populated — from `_npmUser` when the publishing client provided it, falling back to the first maintainer — so the npm CLI shows the publishing user instead of `by ???`.
+
+- Updated dependencies [5aa8cca]
+  - @verdaccio/core@9.0.0-next-9.21
+  - @verdaccio/url@14.0.0-next-9.21
+  - @verdaccio/config@9.0.0-next-9.21
+  - @verdaccio/tarball@14.0.0-next-9.21
+  - @verdaccio/loaders@9.0.0-next-9.21
+  - @verdaccio/logger@9.0.0-next-9.21
+  - @verdaccio/local-storage@14.0.0-next-9.21
+  - @verdaccio/proxy@9.0.0-next-9.21
+  - @verdaccio/search@9.0.0-next-9.21
+
+## 9.0.0-next-9.20
+
+### Patch Changes
+
+- 506e965: fix(storage): check owner on package change
+  - @verdaccio/core@9.0.0-next-9.20
+  - @verdaccio/tarball@14.0.0-next-9.20
+  - @verdaccio/logger@9.0.0-next-9.20
+  - @verdaccio/local-storage@14.0.0-next-9.20
+  - @verdaccio/proxy@9.0.0-next-9.20
+  - @verdaccio/search@9.0.0-next-9.20
+  - @verdaccio/config@9.0.0-next-9.20
+  - @verdaccio/url@14.0.0-next-9.20
+  - @verdaccio/loaders@9.0.0-next-9.20
+
 ## 9.0.0-next-9.19
 
 ### Major Changes

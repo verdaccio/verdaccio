@@ -7,5 +7,19 @@ if ! pnpm install --frozen-lockfile --lockfile-only 2>/dev/null; then
   exit 1
 fi
 
-#./node_modules/.bin/lint-staged
-npm run husky:pre-commit
+# Format and lint staged files with oxfmt + oxlint, then re-stage any fixes.
+STAGED=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.(js|jsx|ts|tsx|mjs|cjs|json|jsonc|json5|md|yml|yaml|html)$' || true)
+
+if [ -n "$STAGED" ]; then
+  echo "Formatting staged files (oxfmt)..."
+  echo "$STAGED" | xargs pnpm exec oxfmt --
+
+  LINTABLE=$(echo "$STAGED" | grep -E '\.(js|jsx|ts|tsx|mjs|cjs)$' || true)
+  if [ -n "$LINTABLE" ]; then
+    echo "Linting staged files (oxlint --fix)..."
+    echo "$LINTABLE" | xargs pnpm exec oxlint --fix --
+  fi
+
+  # Re-stage files that oxfmt/oxlint modified
+  echo "$STAGED" | xargs git add
+fi

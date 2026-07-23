@@ -1,5 +1,41 @@
 # @verdaccio/api
 
+## 9.0.0-next-9.21
+
+### Patch Changes
+
+- 51d49f0: fix: rate limit and bound the npm search v1 endpoint
+
+  The `/-/v1/search` endpoint now applies the `userRateLimit` rate limiting middleware (matching the login, token and profile endpoints), clamps the `size` (max 250, like the public npm registry) and `from` (max 10000) pagination parameters, and stops evaluating package access as soon as the requested page is filled instead of running an auth check over the entire result set. The clamped values are also what gets forwarded to storage plugins and uplink registries (the raw request URL and query are no longer passed through), so the bounds hold end-to-end. This prevents cheap anonymous requests from triggering unbounded full-catalog scans. As part of this, the previously broken `size`/`from` query parsing (which always fell back to the defaults) now works, so search pagination is honored.
+
+- Updated dependencies [51d49f0]
+- Updated dependencies [3649cb0]
+- Updated dependencies [5aa8cca]
+  - @verdaccio/store@9.0.0-next-9.21
+  - @verdaccio/middleware@9.0.0-next-9.21
+  - @verdaccio/core@9.0.0-next-9.21
+  - @verdaccio/auth@9.0.0-next-9.21
+  - @verdaccio/config@9.0.0-next-9.21
+  - @verdaccio/hooks@9.0.0-next-9.21
+  - @verdaccio/logger@9.0.0-next-9.21
+
+## 9.0.0-next-9.20
+
+### Patch Changes
+
+- fde2f1b: fix(hooks): minor build errors
+- Updated dependencies [fde2f1b]
+- Updated dependencies [506e965]
+- Updated dependencies [dee3b5d]
+- Updated dependencies [7078d03]
+  - @verdaccio/hooks@9.0.0-next-9.20
+  - @verdaccio/store@9.0.0-next-9.20
+  - @verdaccio/middleware@9.0.0-next-9.20
+  - @verdaccio/auth@9.0.0-next-9.20
+  - @verdaccio/core@9.0.0-next-9.20
+  - @verdaccio/logger@9.0.0-next-9.20
+  - @verdaccio/config@9.0.0-next-9.20
+
 ## 9.0.0-next-9.19
 
 ### Major Changes

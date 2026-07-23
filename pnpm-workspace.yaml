@@ -29,11 +29,23 @@ minimumReleaseAgeExclude:
   # below can resolve.
   - esbuild
   - '@esbuild/*'
+  # Renovate security update: dompurify@3.4.8 || 3.4.9 || 3.4.11
+  - dompurify@3.4.8 || 3.4.9 || 3.4.11
+  # Renovate security update: js-yaml@4.2.0
+  - js-yaml@4.2.0
+  # Renovate security update: vite@8.0.16
+  - vite@8.0.16
+  # Renovate security update: react-router@7.15.1
+  - react-router@7.15.1
 
 # Force the esbuild security patch (>= 0.28.1) across the whole tree.
 # See GHSA-gv7w-rqvm-qjhr (RCE via NPM_CONFIG_REGISTRY, fixed in 0.28.1).
 overrides:
   esbuild: '0.28.1'
+  # Force the form-data CRLF-injection patch (>= 4.0.6) across the whole tree.
+  # Pulled in transitively via supertest > superagent (dev only).
+  # See GHSA-hmw2-7cc7-3qxx (fixed in 4.0.6).
+  form-data: '>=4.0.6'
 saveExact: true
 ignoreScripts: true
 preferFrozenLockfile: true

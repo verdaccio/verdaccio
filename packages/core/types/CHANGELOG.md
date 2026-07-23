@@ -1,5 +1,11 @@
 # Change Log
 
+## 14.0.0-next-9.11
+
+### Patch Changes
+
+- 4676b51: fix(types): make jsonwebtoken types available to consumers
+
 ## 14.0.0-next-9.10
 
 ### Patch Changes

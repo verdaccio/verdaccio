@@ -1,5 +1,19 @@
 # @verdaccio/node-api
 
+## 9.0.0-next-9.21
+
+### Patch Changes
+
+- @verdaccio/config@9.0.0-next-9.21
+- @verdaccio/logger@9.0.0-next-9.21
+
+## 9.0.0-next-9.20
+
+### Patch Changes
+
+- @verdaccio/logger@9.0.0-next-9.20
+- @verdaccio/config@9.0.0-next-9.20
+
 ## 9.0.0-next-9.19
 
 ### Patch Changes

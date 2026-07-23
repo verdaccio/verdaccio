@@ -71,7 +71,7 @@ export default function (config: Config, auth: Auth, storage: Storage, logger: L
   distTags(app, auth, storage, logger);
   publish(app, auth, storage, config, logger);
   ping(app);
-  v1Search(app, auth, storage, logger);
+  v1Search(app, auth, storage, config, logger);
   token(app, auth, storage, config, logger);
   pkg(app, auth, storage, logger);
   if (config.flags?.webLogin) {

@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/store",
-  "version": "9.0.0-next-9.19",
+  "version": "9.0.0-next-9.21",
   "description": "Verdaccio Storage",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -39,28 +39,28 @@
     "build": "vite build"
   },
   "dependencies": {
-    "@verdaccio/config": "workspace:9.0.0-next-9.19",
-    "@verdaccio/core": "workspace:9.0.0-next-9.19",
-    "@verdaccio/loaders": "workspace:9.0.0-next-9.19",
-    "@verdaccio/local-storage": "workspace:14.0.0-next-9.19",
-    "@verdaccio/logger": "workspace:9.0.0-next-9.19",
-    "@verdaccio/proxy": "workspace:9.0.0-next-9.19",
-    "@verdaccio/search": "workspace:9.0.0-next-9.19",
-    "@verdaccio/tarball": "workspace:14.0.0-next-9.19",
-    "@verdaccio/url": "workspace:14.0.0-next-9.19",
+    "@verdaccio/config": "workspace:9.0.0-next-9.21",
+    "@verdaccio/core": "workspace:9.0.0-next-9.21",
+    "@verdaccio/loaders": "workspace:9.0.0-next-9.21",
+    "@verdaccio/local-storage": "workspace:14.0.0-next-9.21",
+    "@verdaccio/logger": "workspace:9.0.0-next-9.21",
+    "@verdaccio/proxy": "workspace:9.0.0-next-9.21",
+    "@verdaccio/search": "workspace:9.0.0-next-9.21",
+    "@verdaccio/tarball": "workspace:14.0.0-next-9.21",
+    "@verdaccio/url": "workspace:14.0.0-next-9.21",
     "debug": "4.4.3",
     "lodash-es": "4.18.1",
-    "semver": "7.8.1"
+    "semver": "7.8.5"
   },
   "devDependencies": {
     "@types/lodash-es": "4.17.12",
-    "@verdaccio/test-helper": "workspace:5.0.0-next-9.20",
-    "@verdaccio/types": "workspace:14.0.0-next-9.10",
+    "@verdaccio/test-helper": "workspace:5.0.0-next-9.22",
+    "@verdaccio/types": "workspace:14.0.0-next-9.11",
     "mockdate": "3.0.5",
     "nock": "13.5.6",
     "node-mocks-http": "1.14.1",
     "rimraf": "6.1.3",
-    "vite": "8.0.14",
+    "vite": "8.0.16",
     "vitest": "4.1.7"
   },
   "funding": {

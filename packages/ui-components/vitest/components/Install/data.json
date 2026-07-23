@@ -4173,7 +4173,7 @@
         "@types/node": "12.0.10",
         "@typescript-eslint/eslint-plugin": "1.11.0",
         "@verdaccio/babel-preset": "0.2.1",
-        "@verdaccio/eslint-config": "0.0.1",
+        "@verdaccio/dev-config": "0.0.1",
         "@verdaccio/types": "5.0.0-beta.4",
         "codecov": "3.5.0",
         "cross-env": "5.2.0",
@@ -4277,7 +4277,7 @@
         "@types/node": "12.0.12",
         "@typescript-eslint/eslint-plugin": "1.11.0",
         "@verdaccio/babel-preset": "1.0.0",
-        "@verdaccio/eslint-config": "0.0.1",
+        "@verdaccio/dev-config": "0.0.1",
         "@verdaccio/types": "6.2.0",
         "codecov": "3.2.0",
         "cross-env": "5.2.0",
@@ -4350,7 +4350,7 @@
         "@types/node": "12.0.12",
         "@typescript-eslint/eslint-plugin": "1.11.0",
         "@verdaccio/babel-preset": "1.0.0",
-        "@verdaccio/eslint-config": "0.0.1",
+        "@verdaccio/dev-config": "0.0.1",
         "@verdaccio/types": "8.0.0-next.2",
         "codecov": "3.2.0",
         "cross-env": "5.2.0",
@@ -4423,7 +4423,7 @@
         "@types/node": "12.0.12",
         "@typescript-eslint/eslint-plugin": "1.11.0",
         "@verdaccio/babel-preset": "1.0.0",
-        "@verdaccio/eslint-config": "0.0.1",
+        "@verdaccio/dev-config": "0.0.1",
         "@verdaccio/types": "8.0.0-next.2",
         "codecov": "3.2.0",
         "cross-env": "5.2.0",
@@ -4496,7 +4496,7 @@
         "@types/node": "12.0.12",
         "@typescript-eslint/eslint-plugin": "1.11.0",
         "@verdaccio/babel-preset": "1.0.0",
-        "@verdaccio/eslint-config": "0.0.1",
+        "@verdaccio/dev-config": "0.0.1",
         "@verdaccio/types": "8.0.0-next.2",
         "codecov": "3.2.0",
         "cross-env": "5.2.0",
@@ -4569,7 +4569,7 @@
         "@types/node": "12.0.12",
         "@typescript-eslint/eslint-plugin": "1.11.0",
         "@verdaccio/babel-preset": "1.0.0",
-        "@verdaccio/eslint-config": "0.0.1",
+        "@verdaccio/dev-config": "0.0.1",
         "@verdaccio/types": "8.0.0-next.2",
         "codecov": "3.2.0",
         "cross-env": "5.2.0",
@@ -4642,7 +4642,7 @@
         "@types/node": "12.0.12",
         "@typescript-eslint/eslint-plugin": "1.11.0",
         "@verdaccio/babel-preset": "1.0.0",
-        "@verdaccio/eslint-config": "0.0.1",
+        "@verdaccio/dev-config": "0.0.1",
         "@verdaccio/types": "6.2.0",
         "codecov": "3.2.0",
         "cross-env": "5.2.0",
@@ -4715,7 +4715,7 @@
         "@types/node": "12.7.1",
         "@typescript-eslint/eslint-plugin": "1.13.0",
         "@verdaccio/babel-preset": "1.0.0",
-        "@verdaccio/eslint-config": "0.0.1",
+        "@verdaccio/dev-config": "0.0.1",
         "@verdaccio/types": "6.2.0",
         "codecov": "3.5.0",
         "cross-env": "5.2.0",
@@ -4810,7 +4810,7 @@
       "devDependencies": {
         "@types/minimatch": "^3.0.3",
         "@verdaccio/babel-preset": "^8.0.0-next.2",
-        "@verdaccio/eslint-config": "^8.0.0-next.2",
+        "@verdaccio/dev-config": "^8.0.0-next.2",
         "@verdaccio/types": "^8.0.0-next.2",
         "minimatch": "^3.0.4",
         "rmdir-sync": "^1.0.1"
@@ -4902,7 +4902,7 @@
       "devDependencies": {
         "@types/minimatch": "^3.0.3",
         "@verdaccio/babel-preset": "^8.0.0-next.4",
-        "@verdaccio/eslint-config": "^8.0.0-next.4",
+        "@verdaccio/dev-config": "^8.0.0-next.4",
         "@verdaccio/types": "^8.0.0-next.4",
         "minimatch": "^3.0.4",
         "rmdir-sync": "^1.0.1"
@@ -4995,7 +4995,7 @@
       "devDependencies": {
         "@types/minimatch": "^3.0.3",
         "@verdaccio/babel-preset": "^8.0.0-master.16+4e11f13",
-        "@verdaccio/eslint-config": "^8.0.0-master.16+4e11f13",
+        "@verdaccio/dev-config": "^8.0.0-master.16+4e11f13",
         "@verdaccio/types": "^8.0.0-next.4",
         "minimatch": "^3.0.4",
         "rmdir-sync": "^1.0.1"
@@ -5057,7 +5057,7 @@
       "devDependencies": {
         "@types/minimatch": "^3.0.3",
         "@verdaccio/babel-preset": "^8.0.0-next.4",
-        "@verdaccio/eslint-config": "^8.0.0-next.4",
+        "@verdaccio/dev-config": "^8.0.0-next.4",
         "@verdaccio/types": "^8.0.0-next.4",
         "minimatch": "^3.0.4",
         "rmdir-sync": "^1.0.1"
@@ -5119,7 +5119,7 @@
       "devDependencies": {
         "@types/minimatch": "^3.0.3",
         "@verdaccio/babel-preset": "^8.0.1-master.5+9193ec6",
-        "@verdaccio/eslint-config": "^8.0.1-master.5+9193ec6",
+        "@verdaccio/dev-config": "^8.0.1-master.5+9193ec6",
         "@verdaccio/types": "^8.0.1-master.5+9193ec6",
         "minimatch": "^3.0.4",
         "rmdir-sync": "^1.0.1"
@@ -5178,7 +5178,7 @@
       "devDependencies": {
         "@types/minimatch": "^3.0.3",
         "@verdaccio/babel-preset": "^8.0.1-greenkeeper-tools-eslint-6-2-2.6+0481ba1",
-        "@verdaccio/eslint-config": "^8.0.1-greenkeeper-tools-eslint-6-2-2.6+0481ba1",
+        "@verdaccio/dev-config": "^8.0.1-greenkeeper-tools-eslint-6-2-2.6+0481ba1",
         "@verdaccio/types": "^8.0.0",
         "minimatch": "^3.0.4",
         "rmdir-sync": "^1.0.1"
@@ -5238,7 +5238,7 @@
       "devDependencies": {
         "@types/minimatch": "^3.0.3",
         "@verdaccio/babel-preset": "^8.0.0",
-        "@verdaccio/eslint-config": "^8.0.0",
+        "@verdaccio/dev-config": "^8.0.0",
         "@verdaccio/types": "^8.0.0",
         "minimatch": "^3.0.4",
         "rmdir-sync": "^1.0.1"
@@ -5334,7 +5334,7 @@
       "devDependencies": {
         "@types/minimatch": "^3.0.3",
         "@verdaccio/babel-preset": "^8.0.1-master.7+ef893c7",
-        "@verdaccio/eslint-config": "^8.0.1-master.7+ef893c7",
+        "@verdaccio/dev-config": "^8.0.1-master.7+ef893c7",
         "@verdaccio/types": "^8.0.0",
         "minimatch": "^3.0.4",
         "rmdir-sync": "^1.0.1"
@@ -5402,7 +5402,7 @@
       "devDependencies": {
         "@types/minimatch": "^3.0.3",
         "@verdaccio/babel-preset": "^8.0.1-master.18+f0fea8a",
-        "@verdaccio/eslint-config": "^8.0.1-master.18+f0fea8a",
+        "@verdaccio/dev-config": "^8.0.1-master.18+f0fea8a",
         "@verdaccio/types": "^8.0.1-master.18+f0fea8a",
         "minimatch": "^3.0.4",
         "rmdir-sync": "^1.0.1"
@@ -5470,7 +5470,7 @@
       "devDependencies": {
         "@types/minimatch": "^3.0.3",
         "@verdaccio/babel-preset": "^8.0.1-master.19+3a919b8",
-        "@verdaccio/eslint-config": "^8.0.0",
+        "@verdaccio/dev-config": "^8.0.0",
         "@verdaccio/types": "^8.0.0",
         "minimatch": "^3.0.4",
         "rmdir-sync": "^1.0.1"
@@ -5538,7 +5538,7 @@
       "devDependencies": {
         "@types/minimatch": "^3.0.3",
         "@verdaccio/babel-preset": "^8.0.1-remove-install-warnings.16+ec00147",
-        "@verdaccio/eslint-config": "^8.0.1-remove-install-warnings.16+ec00147",
+        "@verdaccio/dev-config": "^8.0.1-remove-install-warnings.16+ec00147",
         "@verdaccio/types": "^8.0.1-remove-install-warnings.16+ec00147",
         "minimatch": "^3.0.4",
         "rmdir-sync": "^1.0.1"
@@ -5605,7 +5605,7 @@
       "devDependencies": {
         "@types/minimatch": "^3.0.3",
         "@verdaccio/babel-preset": "^8.0.1-next.1",
-        "@verdaccio/eslint-config": "^8.0.1-next.1",
+        "@verdaccio/dev-config": "^8.0.1-next.1",
         "@verdaccio/types": "^8.0.1-next.1",
         "minimatch": "^3.0.4",
         "rmdir-sync": "^1.0.1"
@@ -5704,7 +5704,7 @@
       "devDependencies": {
         "@types/minimatch": "^3.0.3",
         "@verdaccio/babel-preset": "^8.0.1-dependabot-npm-and-yarn-eslint-plugin-jest-22-16-0.0+46e920e",
-        "@verdaccio/eslint-config": "^8.0.1-dependabot-npm-and-yarn-eslint-plugin-jest-22-16-0.0+46e920e",
+        "@verdaccio/dev-config": "^8.0.1-dependabot-npm-and-yarn-eslint-plugin-jest-22-16-0.0+46e920e",
         "@verdaccio/types": "^8.0.1-next.1",
         "minimatch": "^3.0.4",
         "rmdir-sync": "^1.0.1"
@@ -5772,7 +5772,7 @@
       "devDependencies": {
         "@types/minimatch": "^3.0.3",
         "@verdaccio/babel-preset": "^8.0.1-master.1+b1961be",
-        "@verdaccio/eslint-config": "^8.0.1-master.1+b1961be",
+        "@verdaccio/dev-config": "^8.0.1-master.1+b1961be",
         "@verdaccio/types": "^8.0.1-next.1",
         "minimatch": "^3.0.4",
         "rmdir-sync": "^1.0.1"
@@ -5916,7 +5916,7 @@
     "devDependencies": {
       "@types/minimatch": "^3.0.3",
       "@verdaccio/babel-preset": "^8.0.0",
-      "@verdaccio/eslint-config": "^8.0.0",
+      "@verdaccio/dev-config": "^8.0.0",
       "@verdaccio/types": "^8.0.0",
       "minimatch": "^3.0.4",
       "rmdir-sync": "^1.0.1"

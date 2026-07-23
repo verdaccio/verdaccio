@@ -21,10 +21,22 @@ jobs:
     environment: ${{ github.ref == 'refs/heads/master' && 'docker' || '' }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      # Fetch UI translations before `COPY . .`, else the image ships an
+      # English-only UI (ui-theme bundles them from gitignored download_translations/).
+      - name: Install dependencies
+        uses: ./.github/actions/install-app
+
+      - name: crowdin download
+        env:
+          # download-only token, exposed under the name crowdin.yaml expects
+          CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_DOWNLOAD }}
+          CONTEXT: production
+        run: pnpm crowdin:download
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@ce360397dd3f832beb865e1373c09c0e9f86d70a # v4.0.0
+        uses: docker/setup-qemu-action@96fe6ef7f33517b61c61be40b68a1882f3264fb8 # v4.2.0
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@d7f5e7f509e45cec5c76c4d5afdd7de93d0b3df5
@@ -32,7 +44,7 @@ jobs:
           driver-opts: network=host
 
       - name: Log in to Docker Hub
-        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9
+        uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
@@ -51,7 +63,7 @@ jobs:
             org.opencontainers.image.version=${{ steps.docker_meta.outputs.version }}
 
       - name: Build & Push
-        uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f
+        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a
         with:
           context: .
           file: ./Dockerfile

@@ -1,5 +1,20 @@
 # @verdaccio/signature
 
+## 9.0.0-next-9.21
+
+### Patch Changes
+
+- Updated dependencies [5aa8cca]
+  - @verdaccio/core@9.0.0-next-9.21
+  - @verdaccio/config@9.0.0-next-9.21
+
+## 9.0.0-next-9.20
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.20
+- @verdaccio/config@9.0.0-next-9.20
+
 ## 9.0.0-next-9.19
 
 ### Patch Changes

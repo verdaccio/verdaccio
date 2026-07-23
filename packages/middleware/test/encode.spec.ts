@@ -1,10 +1,15 @@
 import request from 'supertest';
-import { describe, expect, test } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 
 import { HTTP_STATUS } from '@verdaccio/core';
 
 import { encodeScopePackage } from '../src';
 import { getApp } from './helper';
+
+// supertest binds a fresh ephemeral HTTP server per request; under the parallel
+// monorepo test run the event loop can be starved enough to exceed the default
+// 5s timeout, so give these network-bound tests extra headroom to avoid flakes.
+vi.setConfig({ testTimeout: 30000 });
 
 test('encode is json with relative path', async () => {
   const app = getApp([]);

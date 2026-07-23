@@ -1,5 +1,19 @@
 # Change Log
 
+## 14.0.0-next-9.21
+
+### Patch Changes
+
+- 5aa8cca: fix(middleware): logging aborted requests
+- Updated dependencies [5aa8cca]
+  - @verdaccio/core@9.0.0-next-9.21
+
+## 14.0.0-next-9.20
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.20
+
 ## 14.0.0-next-9.19
 
 ### Patch Changes

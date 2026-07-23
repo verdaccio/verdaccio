@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/plugin-verifier",
-  "version": "1.0.0-next-9.15",
+  "version": "1.0.0-next-9.17",
   "description": "Tool to verify that a Verdaccio plugin can be loaded and passes sanity checks",
   "type": "module",
   "main": "./build/index.js",
@@ -33,16 +33,16 @@
     "node": ">=24"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:9.0.0-next-9.19",
-    "@verdaccio/loaders": "workspace:9.0.0-next-9.19",
-    "@verdaccio/logger": "workspace:9.0.0-next-9.19",
+    "@verdaccio/core": "workspace:9.0.0-next-9.21",
+    "@verdaccio/loaders": "workspace:9.0.0-next-9.21",
+    "@verdaccio/logger": "workspace:9.0.0-next-9.21",
     "clipanion": "4.0.0-rc.4",
     "debug": "4.4.3"
   },
   "devDependencies": {
     "rimraf": "6.1.3",
-    "vite": "8.0.14",
-    "vite-plugin-dts": "5.0.1",
+    "vite": "8.0.16",
+    "vite-plugin-dts": "5.0.3",
     "vitest": "4.1.7"
   },
   "scripts": {
