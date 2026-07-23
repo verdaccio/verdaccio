@@ -699,12 +699,15 @@ describe('PackageFilterPlugin', () => {
       expect(getLatest(result)).toBe('3.0.0');
     });
 
-    test('excludeDeprecated removes all versions when all are deprecated', async function () {
+    test('excludeDeprecated keeps the latest-tagged version even when all versions are deprecated', async function () {
       const config = { excludeDeprecated: true };
       const plugin = new PackageFilterPlugin(config, pluginOptions);
 
+      // allDeprecatedManifest has latest: '2.0.0' — that version must be kept
+      // so dist-tags.latest continues to resolve to a valid entry
       const result = await plugin.filter_metadata(allDeprecatedManifest);
-      expect(getVersionKeys(result)).toEqual([]);
+      expect(getVersionKeys(result)).toEqual(['2.0.0']);
+      expect(getLatest(result)).toBe('2.0.0');
     });
 
     test('excludeDeprecated does not affect non-deprecated packages', async function () {
@@ -785,14 +788,14 @@ describe('PackageFilterPlugin', () => {
       expect(getVersionKeys(result)).not.toContain('1.0.0');
     });
 
-    test('excludeDeprecated reassigns latest when the deprecated version was tagged latest', async function () {
+    test('excludeDeprecated keeps latest tag even when the latest version is deprecated', async function () {
       const config = { excludeDeprecated: true };
       const plugin = new PackageFilterPlugin(config, pluginOptions);
 
       const result = await plugin.filter_metadata(latestDeprecatedManifest);
-      expect(getVersionKeys(result)).toEqual(['1.0.0', '2.0.0']);
-      expect(getVersionKeys(result)).not.toContain('3.0.0');
-      expect(getLatest(result)).toBe('2.0.0');
+      // 3.0.0 is deprecated but it is the latest-tagged version, so it must be preserved
+      expect(getVersionKeys(result)).toEqual(['1.0.0', '2.0.0', '3.0.0']);
+      expect(getLatest(result)).toBe('3.0.0');
     });
   });
 
