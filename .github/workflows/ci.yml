@@ -226,7 +226,7 @@ jobs:
       # locked.
       - name: Cache Cypress binary
         id: cypress-cache
-        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
           path: ~/.cache/Cypress
           key: cypress-${{ runner.os }}-${{ github.head_ref || github.ref_name }}-${{ hashFiles('pnpm-lock.yaml') }}
