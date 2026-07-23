@@ -2,7 +2,7 @@ import buildDebug from 'debug';
 import type { Router } from 'express';
 
 import type { Auth } from '@verdaccio/auth';
-import { API_MESSAGE, HEADERS, HTTP_STATUS, tarballUtils } from '@verdaccio/core';
+import { API_MESSAGE, HEADERS, HTTP_STATUS, reqUtils, tarballUtils } from '@verdaccio/core';
 import { notify } from '@verdaccio/hooks';
 import {
   PUBLISH_API_ENDPOINTS,
@@ -143,8 +143,8 @@ export default function publish(
     PUBLISH_API_ENDPOINTS.publish_package,
     can('unpublish'),
     async function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
-      const packageName = req.params.package;
-      const rev = req.params.revision;
+      const packageName = reqUtils.paramToString(req.params.package);
+      const rev = reqUtils.paramToString(req.params.revision);
       const username = req?.remote_user?.name;
 
       logger.debug({ packageName }, `unpublishing @{packageName}`);
@@ -181,8 +181,9 @@ export default function publish(
       res: $ResponseExtend,
       next: $NextFunctionVer
     ): Promise<void> {
-      const packageName = req.params.package;
-      const { filename, revision } = req.params;
+      const packageName = reqUtils.paramToString(req.params.package);
+      const filename = reqUtils.paramToString(req.params.filename);
+      const revision = reqUtils.paramToString(req.params.revision);
       const username = req?.remote_user?.name;
 
       logger.debug(
@@ -232,8 +233,8 @@ export function publishPackage(
   ): Promise<void> {
     debug(origin);
     const ac = new AbortController();
-    const packageName = req.params.package;
-    const { revision } = req.params;
+    const packageName = reqUtils.paramToString(req.params.package);
+    const revision = reqUtils.paramToString(req.params.revision);
     debug('publishing package %s', packageName);
     debug('revision %s', revision);
     if (debug.enabled) {

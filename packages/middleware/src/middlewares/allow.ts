@@ -1,6 +1,6 @@
 import buildDebug from 'debug';
 
-import { API_ERROR, errorUtils, tarballUtils } from '@verdaccio/core';
+import { API_ERROR, errorUtils, reqUtils, tarballUtils } from '@verdaccio/core';
 
 import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
 
@@ -18,13 +18,15 @@ export function allow<T>(
   return function (action: string): Function {
     return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
       req.pause();
-      const packageName = req.params.scope
-        ? `${req.params.scope}/${req.params.package}`
-        : req.params.package;
-      const packageVersion = req.params.filename
-        ? tarballUtils.getVersionFromTarball(req.params.filename)
-        : req.params.version
-          ? req.params.version
+      const scope = reqUtils.paramToString(req.params.scope);
+      const name = reqUtils.paramToString(req.params.package);
+      const version = reqUtils.paramToString(req.params.version);
+      const filename = reqUtils.paramToString(req.params.filename);
+      const packageName = scope ? `${scope}/${name}` : name;
+      const packageVersion = filename
+        ? tarballUtils.getVersionFromTarball(filename)
+        : version
+          ? version
           : undefined;
       const remote_user = req.remote_user;
       debug(

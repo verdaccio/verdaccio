@@ -2,7 +2,7 @@ import buildDebug from 'debug';
 import type { Router } from 'express';
 
 import type { Auth } from '@verdaccio/auth';
-import { HEADERS, HEADER_TYPE, stringUtils } from '@verdaccio/core';
+import { HEADERS, HEADER_TYPE, reqUtils, stringUtils } from '@verdaccio/core';
 import { PACKAGE_API_ENDPOINTS, allow, getRequestOptions } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 import type { Logger } from '@verdaccio/types';
@@ -24,8 +24,8 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
       _res: $ResponseExtend,
       next: $NextFunctionVer
     ): Promise<void> {
-      const name = req.params.package;
-      const version = req.params.version;
+      const name = reqUtils.paramToString(req.params.package);
+      const version = reqUtils.paramToString(req.params.version) || undefined;
       debug('get package by version: %o %o', name, version);
       const abbreviated =
         stringUtils.getByQualityPriorityValue(req.get('Accept')) === Storage.ABBREVIATED_HEADER;
@@ -60,7 +60,8 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
     PACKAGE_API_ENDPOINTS.get_package_tarball,
     can('access'),
     async function (req: $RequestExtend, res: $ResponseExtend, next): Promise<void> {
-      const { package: pkgName, filename } = req.params;
+      const pkgName = reqUtils.paramToString(req.params.package);
+      const filename = reqUtils.paramToString(req.params.filename);
       const abort = new AbortController();
       try {
         debug('downloading tarball %o', filename);
