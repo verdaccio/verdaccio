@@ -1,5 +1,14 @@
 # @verdaccio/config
 
+## 8.1.3
+
+### Patch Changes
+
+- dc48942: chore: trigger release
+- Updated dependencies [dc48942]
+- Updated dependencies [3d2f75c]
+  - @verdaccio/core@8.1.3
+
 ## 8.1.2
 
 ### Patch Changes

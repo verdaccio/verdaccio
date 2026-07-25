@@ -1,5 +1,18 @@
 # @verdaccio/auth
 
+## 8.0.5
+
+### Patch Changes
+
+- dc48942: chore: trigger release
+- Updated dependencies [dc48942]
+- Updated dependencies [3d2f75c]
+  - @verdaccio/config@8.1.3
+  - @verdaccio/core@8.1.3
+  - @verdaccio/loaders@8.0.4
+  - verdaccio-htpasswd@13.0.4
+  - @verdaccio/signature@8.0.4
+
 ## 8.0.4
 
 ### Patch Changes

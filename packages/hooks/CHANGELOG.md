@@ -1,5 +1,15 @@
 # @verdaccio/hooks
 
+## 8.0.5
+
+### Patch Changes
+
+- dc48942: chore: trigger release
+- Updated dependencies [dc48942]
+- Updated dependencies [3d2f75c]
+  - @verdaccio/core@8.1.3
+  - @verdaccio/logger@8.0.4
+
 ## 8.0.4
 
 ### Patch Changes

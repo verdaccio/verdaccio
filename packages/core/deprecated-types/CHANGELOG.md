@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.0.6
+
+### Patch Changes
+
+- dc48942: chore: trigger release
+
 ## 1.0.5
 
 ### Patch Changes

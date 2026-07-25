@@ -1,5 +1,11 @@
 # @verdaccio/logger-prettify
 
+## 8.0.2
+
+### Patch Changes
+
+- dc48942: chore: trigger release
+
 ## 8.0.1
 
 ### Patch Changes
