@@ -2,7 +2,7 @@ import buildDebug from 'debug';
 import _ from 'lodash';
 import { existsSync, readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
-import { join } from 'node:path';
+import { isAbsolute, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 import type { pluginUtils } from '@verdaccio/core';
@@ -125,15 +125,17 @@ export async function tryLoadAsync<T>(path: string, onError: any): Promise<Plugi
 
   // Fallback to dynamic import for ESM modules
   try {
-    // import() doesn't support directory imports — resolve the entry point
+    // import() doesn't support directory imports — resolve the entry point,
+    // also for manifest-less directory plugins that only ship an index.js
     let importPath = path;
-    if (existsSync(path) && existsSync(join(path, 'package.json'))) {
+    if (existsSync(join(path, 'package.json')) || existsSync(join(path, 'index.js'))) {
       importPath = resolveEntryPoint(path);
       debug('resolved ESM entry point: %s', importPath);
     }
 
-    // Convert to file URL for import() compatibility
-    const importUrl = importPath.startsWith('/') ? pathToFileURL(importPath).href : importPath;
+    // Convert to file URL for import() compatibility (isAbsolute also covers
+    // Windows paths like C:\..., which startsWith('/') would miss)
+    const importUrl = isAbsolute(importPath) ? pathToFileURL(importPath).href : importPath;
     debug('trying dynamic import for plugin %s', importUrl);
     const module = await import(importUrl);
     debug('dynamic import succeeded for plugin %s', importUrl);
