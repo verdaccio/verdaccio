@@ -24,14 +24,16 @@ minimumReleaseAgeExclude:
   - '@verdaccio/*'
   - '@verdaccio-scope/*'
   - 'verdaccio-*'
-  # Renovate security update: js-yaml@4.2.0
-  - js-yaml@4.2.0
   # Renovate security update: vite@8.0.16
   - vite@8.0.16
   # Security update: brace-expansion GHSA-mh99-v99m-4gvg (via minimatch 10)
   - brace-expansion@5.0.8
   # Security update: fast-uri GHSA-v2hh-gcrm-f6hx (via ajv)
   - fast-uri@3.1.4
+  # Security update: js-yaml GHSA-pm4m-ph32-ghv5 (DoS in flow collections)
+  # (entries are matched by name first: a stale js-yaml@<old> entry above this
+  # one would shadow it and reject the version — keep a single js-yaml entry)
+  - js-yaml@5.2.2
 ignoreScripts: true
 saveExact: true
 preferFrozenLockfile: true
