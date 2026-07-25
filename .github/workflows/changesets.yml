@@ -34,8 +34,8 @@ jobs:
         uses: changesets/action@63a615b9cd06ba9a3e6d13796c7fbcb080a60a0b
         with:
           version: pnpm ci:version
-          commit: 'chore: update versions'
-          title: 'chore: update versions'
+          commit: 'chore: update versions 8.x'
+          title: 'chore: update versions 8.x'
           setupGitUser: true
         env:
           GITHUB_TOKEN: ${{ secrets.CHANGESET_RELEASE_TOKEN }}
