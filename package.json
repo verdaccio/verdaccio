@@ -81,7 +81,7 @@
     "@verdaccio/auth": "8.1.0",
     "@verdaccio/config": "8.2.0",
     "@verdaccio/core": "8.2.0",
-    "@verdaccio/hooks": "8.1.0",
+    "@verdaccio/hooks": "8.1.1",
     "@verdaccio/loaders": "8.1.0",
     "@verdaccio/local-storage-legacy": "11.4.0",
     "@verdaccio/logger": "8.1.0",
