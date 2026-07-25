@@ -10,6 +10,8 @@ import type { pluginUtils } from '@verdaccio/core';
 const debug = buildDebug('verdaccio:plugin:loader:utils');
 const MODULE_NOT_FOUND = 'MODULE_NOT_FOUND';
 const ERR_REQUIRE_ESM = 'ERR_REQUIRE_ESM';
+// thrown by require(esm) when the module uses top-level await
+const ERR_REQUIRE_ASYNC_MODULE = 'ERR_REQUIRE_ASYNC_MODULE';
 
 // the ESM build has no ambient require; create one so CJS plugins keep loading.
 // rolldown rewrites bare `require` to a throwing stub in the ESM output and
@@ -52,7 +54,7 @@ export function tryLoad<T>(path: string, onError: any): PluginType<T> | null {
       }
       return null;
     }
-    if (err.code === ERR_REQUIRE_ESM) {
+    if (err.code === ERR_REQUIRE_ESM || err.code === ERR_REQUIRE_ASYNC_MODULE) {
       debug('"require" failed for ESM plugin %s, will try dynamic import', path);
       return null;
     }
@@ -114,9 +116,11 @@ export async function tryLoadAsync<T>(path: string, onError: any): Promise<Plugi
       return cjsResult;
     }
   } catch (err: any) {
-    // require() may throw for various reasons (ESM module, bundler shim, etc.)
-    // — always fall through to dynamic import()
-    debug('require() threw for %s: %s — falling back to import()', path, err.message);
+    // tryLoad() returns null for the not-found / ESM cases and only throws on
+    // a real load error (the plugin itself failed to evaluate); retrying via
+    // import() would run the plugin's side effects twice and mask the error
+    debug('require() threw a real load error for %s: %s', path, err.message);
+    throw err;
   }
 
   // Fallback to dynamic import for ESM modules
