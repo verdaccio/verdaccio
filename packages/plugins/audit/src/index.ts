@@ -1,6 +1,6 @@
 import AuditPlugin from './audit';
-import { ConfigAudit } from './types';
+import type { ConfigAudit } from './types';
 
-export { ConfigAudit };
+export type { ConfigAudit };
 
 export default AuditPlugin;

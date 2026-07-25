@@ -1,4 +1,6 @@
-import { merge } from 'lodash';
+import _ from 'lodash';
+
+const { merge } = _;
 
 import type {
   AuthConf,

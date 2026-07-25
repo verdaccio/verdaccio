@@ -1,13 +1,7 @@
 import { errorUtils } from '@verdaccio/core';
-import type {
-  Callback,
-  Config,
-  IPluginStorage,
-  Logger,
-  PluginOptions,
-  Token,
-  TokenFilter,
-} from '@verdaccio/legacy-types';
+import type { Callback, Config, Logger, Token, TokenFilter } from '@verdaccio/types';
+
+import type { IPluginStorage, PluginOptions } from './legacy-plugin-api';
 
 import type { DataHandler } from './memory-handler';
 import MemoryHandler from './memory-handler';

@@ -67,7 +67,7 @@ class LocalDatabase extends TokenActions {
   ): void {
     const storages = this._getCustomPackageLocalStorages();
     debug(`search custom local packages: %o`, JSON.stringify(storages));
-    const base = Path.dirname(this.config.self_path);
+    const base = Path.dirname(this.config.self_path || '');
     const self = this;
     const storageKeys = Object.keys(storages);
     debug(`search base: %o keys: %o`, base, storageKeys);

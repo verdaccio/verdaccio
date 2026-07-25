@@ -11,6 +11,7 @@ export enum Codes {
   VERWAR004 = 'VERWAR004',
   // deprecation warnings
   VERDEP003 = 'VERDEP003',
+  VERDEP004 = 'VERDEP004',
   VERWAR006 = 'VERWAR006',
   VERWAR007 = 'VERWAR007',
 }
@@ -62,6 +63,13 @@ warningInstance.create(
   verdaccioDeprecation,
   Codes.VERDEP003,
   'multiple addresses will be deprecated in the next major, only use one'
+);
+
+warningInstance.create(
+  verdaccioDeprecation,
+  Codes.VERDEP004,
+  `JavaScript configuration files are deprecated and will be removed in the next major release, please migrate to YAML (.yaml)
+  Learn more at https://verdaccio.org/docs/configuration`
 );
 
 export function emit(code: string, a?: string, b?: string, c?: string) {

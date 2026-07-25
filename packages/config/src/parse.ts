@@ -1,10 +1,11 @@
 import buildDebug from 'debug';
-import YAML from 'js-yaml';
-import { isObject } from 'lodash';
+import { YAML11_SCHEMA, dump, load } from 'js-yaml';
+import _ from 'lodash';
 import fs from 'node:fs';
+import { createRequire } from 'node:module';
 import path from 'node:path';
 
-import { API_ERROR, APP_ERROR } from '@verdaccio/core';
+import { API_ERROR, APP_ERROR, warningUtils } from '@verdaccio/core';
 import type { ConfigYaml } from '@verdaccio/types';
 
 import { findConfigFile } from './config-path';
@@ -28,9 +29,14 @@ export function parseConfigFile(configPath: string): ConfigYaml & {
   debug('parsing config file: %o', configPath);
   try {
     if (/\.ya?ml$/i.test(configPath)) {
-      const yamlConfig = YAML.load(fs.readFileSync(configPath, 'utf8'), {
-        strict: false,
-      }) as ConfigYaml;
+      const content = fs.readFileSync(configPath, 'utf8');
+      // js-yaml v5 throws on empty input and defaults to the YAML 1.2 core
+      // schema; keep the v4 behavior: an empty config parses as {} and the
+      // YAML 1.1 schema preserves yes/no/on/off booleans and merge keys
+      const yamlConfig =
+        content.trim() === ''
+          ? ({} as ConfigYaml)
+          : (load(content, { schema: YAML11_SCHEMA }) as ConfigYaml);
 
       return Object.assign({}, yamlConfig, {
         configPath,
@@ -39,11 +45,16 @@ export function parseConfigFile(configPath: string): ConfigYaml & {
       });
     }
 
-    process.emitWarning(
-      'Using JavaScript config files is deprecated and will be removed in the next major version. Please migrate to YAML or use the ConfigBuilder.',
-      'DeprecationWarning'
-    );
-    const jsonConfig = require(configPath) as ConfigYaml;
+    warningUtils.emit(warningUtils.Codes.VERDEP004);
+    // rolldown rewrites bare `require` to a throwing stub in the ESM output and
+    // lowers `import.meta` to `{}` in the CJS output, so `import.meta.url` is
+    // only truthy in the ESM build; module-scoped __filename covers the CJS
+    // build (checking `typeof __filename`/`typeof require` instead is unsafe:
+    // node -e and the REPL leak both as globals into ES modules)
+    const requireFile = import.meta.url
+      ? createRequire(import.meta.url)
+      : createRequire(__filename);
+    const jsonConfig = requireFile(configPath) as ConfigYaml;
     return Object.assign({}, jsonConfig, {
       configPath,
       // @deprecated use configPath instead
@@ -61,8 +72,8 @@ export function parseConfigFile(configPath: string): ConfigYaml & {
 
 export function fromJStoYAML(config: Partial<ConfigYaml>): string | null {
   debug('convert config from JSON to YAML');
-  if (isObject(config)) {
-    return YAML.dump(config);
+  if (_.isObject(config)) {
+    return dump(config);
   } else {
     throw new Error(`config is not a valid object`);
   }

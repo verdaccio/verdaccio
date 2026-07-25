@@ -72,7 +72,7 @@ jobs:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
-        node_version: [24, 26]
+        node_version: [22, 24, 26]
     name: Build / ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     steps:
@@ -97,7 +97,7 @@ jobs:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
-        node_version: [24, 26]
+        node_version: [22, 24, 26]
     name: Test / ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     steps:
@@ -132,7 +132,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        node_version: [24, 26]
+        node_version: [22, 24, 26]
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Use Node
@@ -174,5 +174,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          gh cache delete "ci-build-${{ github.sha }}-node-22" --repo ${{ github.repository }} || true
           gh cache delete "ci-build-${{ github.sha }}-node-24" --repo ${{ github.repository }} || true
           gh cache delete "ci-build-${{ github.sha }}-node-26" --repo ${{ github.repository }} || true

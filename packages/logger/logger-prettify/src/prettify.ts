@@ -2,6 +2,7 @@ import { isColorSupported } from 'colorette';
 import type { WriteStream } from 'node:fs';
 import { Transform, pipeline } from 'node:stream';
 import { isMainThread } from 'node:worker_threads';
+import { register as onExitRegister, unregister as onExitUnregister } from 'on-exit-leak-free';
 import build from 'pino-abstract-transport';
 import type { SonicBoomOpts } from 'sonic-boom';
 import SonicBoom from 'sonic-boom';
@@ -20,7 +21,7 @@ function noop() {}
  *
  * @returns {object} A new SonicBoom stream
  */
-function buildSafeSonicBoom(opts: SonicBoomOpts) {
+export function buildSafeSonicBoom(opts: SonicBoomOpts) {
   const stream = new SonicBoom(opts);
   stream.on('error', filterBrokenPipe);
   if (!opts.sync && isMainThread) {
@@ -42,17 +43,12 @@ function buildSafeSonicBoom(opts: SonicBoomOpts) {
 }
 
 function setupOnExit(stream) {
-  /* istanbul ignore next */
-  if (global.WeakRef && global.WeakMap && global.FinalizationRegistry) {
-    // This is leak free, it does not leave event handlers
-    const onExit = require('on-exit-leak-free');
+  // leak free: registers exit handlers without keeping the stream alive
+  onExitRegister(stream, autoEnd);
 
-    onExit.register(stream, autoEnd);
-
-    stream.on('close', function () {
-      onExit.unregister(stream);
-    });
-  }
+  stream.on('close', function () {
+    onExitUnregister(stream);
+  });
 }
 
 /* istanbul ignore next */

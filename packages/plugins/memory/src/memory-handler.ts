@@ -3,20 +3,19 @@ import path from 'node:path';
 
 import type { VerdaccioError } from '@verdaccio/core';
 import { errorUtils } from '@verdaccio/core';
+import { ReadTarball, UploadTarball } from '@verdaccio/streams';
 import type {
   Callback,
   CallbackAction,
-  IPackageStorageManager,
-  IReadTarball,
-  IUploadTarball,
   Logger,
   Package,
   PackageTransformer,
   ReadPackageCallback,
   StorageUpdateCallback,
   StorageWriteCallback,
-} from '@verdaccio/legacy-types';
-import { ReadTarball, UploadTarball } from '@verdaccio/streams';
+} from '@verdaccio/types';
+
+import type { IPackageStorageManager } from './legacy-plugin-api';
 
 import { parsePackage, stringifyPackage } from './utils';
 
@@ -104,8 +103,8 @@ class MemoryHandler implements IPackageStorageManager {
     }
   }
 
-  public writeTarball(name: string): IUploadTarball {
-    const uploadStream: IUploadTarball = new UploadTarball({});
+  public writeTarball(name: string): UploadTarball {
+    const uploadStream: UploadTarball = new UploadTarball({});
     const temporalName = `${this.path}/${name}`;
 
     process.nextTick(function () {
@@ -149,10 +148,10 @@ class MemoryHandler implements IPackageStorageManager {
     return uploadStream;
   }
 
-  public readTarball(name: string): IReadTarball {
+  public readTarball(name: string): ReadTarball {
     const pathName = `${this.path}/${name}`;
 
-    const readTarballStream: IReadTarball = new ReadTarball({});
+    const readTarballStream: ReadTarball = new ReadTarball({});
 
     process.nextTick(function () {
       fs.stat(pathName, function (fileError, stats) {

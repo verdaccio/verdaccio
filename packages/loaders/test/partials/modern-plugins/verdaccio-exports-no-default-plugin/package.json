@@ -1,0 +1,12 @@
+{
+  "name": "verdaccio-exports-no-default-plugin",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./index.d.ts"
+      }
+    }
+  }
+}

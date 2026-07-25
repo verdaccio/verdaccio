@@ -24,24 +24,39 @@
   "files": [
     "lib"
   ],
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "./lib/index.js",
+  "module": "./lib/index.mjs",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.mjs"
+      },
+      "require": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.js"
+      }
+    },
+    "./lib/*": "./lib/*"
+  },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
     "clean": "rimraf ./lib",
     "test": "vitest run",
-    "build": "vite build"
+    "build": "vite build && tsc --emitDeclarationOnly -p tsconfig.build.json",
+    "type-check": "tsc --noEmit -p tsconfig.build.json",
+    "watch": "vite build --watch"
   },
   "devDependencies": {
-    "@verdaccio/legacy-types": "workspace:*",
+    "@verdaccio/types": "workspace:*",
     "vite": "8.0.16",
-    "vite-plugin-dts": "4.5.4",
     "vitest": "4.1.4"
   },
   "engines": {
-    "node": ">=12",
+    "node": ">=22",
     "npm": ">=5"
   }
 }
