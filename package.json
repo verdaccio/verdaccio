@@ -160,7 +160,7 @@
   },
   "preferGlobal": true,
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "packageManager": "yarn@4.17.1",
   "collective": {

@@ -28,9 +28,9 @@ Install with npm:
 npm install --global verdaccio
 ```
 
-**Node.js v18 or higher is required.**
+**Node.js v22 or higher is required.**
 
-> Node.js 20 (or the latest LTS version) is recommended.
+> Node.js 24 (or the latest LTS version) is recommended.
 
 or pull [Docker official image](https://verdaccio.org/docs/docker)
 

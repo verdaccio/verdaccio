@@ -36,7 +36,7 @@ export default defineConfig({
   },
   plugins: [copyStaticAssets()],
   build: {
-    target: 'node20',
+    target: 'node22',
     outDir: 'build',
     minify: false,
     sourcemap: true,
