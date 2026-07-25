@@ -39,6 +39,17 @@ describe('tryLoadAsync', () => {
     expect(onError).not.toHaveBeenCalled();
   });
 
+  test('falls back past a non-string exports import condition (no default)', async () => {
+    const onError = vi.fn();
+    const plugin: any = await tryLoadAsync(
+      pluginPath('verdaccio-exports-no-default-plugin'),
+      onError
+    );
+
+    expect(typeof plugin?.default).toBe('function');
+    expect(onError).not.toHaveBeenCalled();
+  });
+
   test('returns null when the plugin does not exist', async () => {
     const onError = vi.fn();
     const plugin = await tryLoadAsync(pluginPath('verdaccio-does-not-exist'), onError);

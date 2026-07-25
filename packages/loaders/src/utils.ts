@@ -73,19 +73,22 @@ function resolveEntryPoint(dirPath: string): string {
   if (existsSync(pkgPath)) {
     try {
       const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8'));
-      // Check exports first, then module, then main
+      // Check exports first, then module, then main; only string entries are
+      // usable paths — condition objects without them fall through to the
+      // next field (otherwise we would return the directory itself, which
+      // dynamic import() rejects)
       if (pkg.exports) {
         const dotExport = pkg.exports['.'];
         if (typeof dotExport === 'string') {
           return join(dirPath, dotExport);
         }
-        if (dotExport?.import?.default) {
+        if (typeof dotExport?.import === 'string') {
+          return join(dirPath, dotExport.import);
+        }
+        if (typeof dotExport?.import?.default === 'string') {
           return join(dirPath, dotExport.import.default);
         }
-        if (dotExport?.import) {
-          return join(dirPath, typeof dotExport.import === 'string' ? dotExport.import : '');
-        }
-        if (dotExport?.default) {
+        if (typeof dotExport?.default === 'string') {
           return join(dirPath, dotExport.default);
         }
       }
