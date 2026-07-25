@@ -76,7 +76,7 @@
     "supertest": "7.1.4",
     "ts-node": "10.9.2",
     "tsx": "4.22.4",
-    "typescript": "5.9.3",
+    "typescript": "7.0.2",
     "undici-types": "6.21.0",
     "update-ts-references": "6.0.0",
     "verdaccio-audit": "workspace:*",
