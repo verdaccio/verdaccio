@@ -22,7 +22,6 @@
 '@verdaccio/signature': minor
 '@verdaccio/test-helper': minor
 '@verdaccio/utils': minor
-'@verdaccio/legacy-types': patch
 ---
 
 feat: upgrade to TypeScript 7 and dual ESM/CommonJS builds

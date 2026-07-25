@@ -51,7 +51,7 @@
     "watch": "vite build --watch"
   },
   "devDependencies": {
-    "@verdaccio/legacy-types": "workspace:*",
+    "@verdaccio/types": "workspace:*",
     "vite": "8.0.16",
     "vitest": "4.1.4"
   },

@@ -57,9 +57,6 @@
       "path": "packages/core/core"
     },
     {
-      "path": "packages/core/deprecated-types"
-    },
-    {
       "path": "packages/core/file-locking"
     },
     {

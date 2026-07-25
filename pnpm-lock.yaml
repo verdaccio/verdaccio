@@ -254,15 +254,6 @@ importers:
         specifier: 4.1.2
         version: 4.1.2(@types/node@22.20.1)(jsdom@26.1.0)(vite@8.0.16(@types/node@22.20.1)(yaml@2.8.4))
 
-  packages/core/deprecated-types:
-    devDependencies:
-      '@types/node':
-        specifier: 22.20.1
-        version: 22.20.1
-      typescript:
-        specifier: 7.0.2
-        version: 7.0.2
-
   packages/core/file-locking:
     dependencies:
       lockfile:
@@ -281,9 +272,9 @@ importers:
 
   packages/core/streams:
     devDependencies:
-      '@verdaccio/legacy-types':
+      '@verdaccio/types':
         specifier: workspace:*
-        version: link:../deprecated-types
+        version: link:../types
       vite:
         specifier: 8.0.16
         version: 8.0.16(@types/node@22.20.1)(yaml@2.8.4)
@@ -780,9 +771,9 @@ importers:
         specifier: 0.5.0
         version: 0.5.0
     devDependencies:
-      '@verdaccio/legacy-types':
+      '@verdaccio/types':
         specifier: workspace:*
-        version: link:../../core/deprecated-types
+        version: link:../../core/types
       vite:
         specifier: 8.0.16
         version: 8.0.16(@types/node@22.20.1)(yaml@2.8.4)

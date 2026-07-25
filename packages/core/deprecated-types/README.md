@@ -1,3 +1,0 @@
-# TypeScript types
-
-Legacy types

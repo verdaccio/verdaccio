@@ -20,10 +20,10 @@
       "path": "../../core/core"
     },
     {
-      "path": "../../core/deprecated-types"
+      "path": "../../core/streams"
     },
     {
-      "path": "../../core/streams"
+      "path": "../../core/types"
     }
   ]
 }

@@ -1,12 +1,13 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { errorUtils } from '@verdaccio/core';
+import type { Logger } from '@verdaccio/types';
+
 import type {
   ILocalPackageManager,
   IPackageStorage,
   IPluginStorage,
-  Logger,
-} from '@verdaccio/legacy-types';
+} from '../src/legacy-plugin-api';
 
 import LocalMemory from '../src/index';
 import type { ConfigMemory } from '../src/local-memory';

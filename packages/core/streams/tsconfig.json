@@ -12,7 +12,7 @@
   "include": ["src/*.ts", "test/**/*.ts", "types/*.d.ts"],
   "references": [
     {
-      "path": "../deprecated-types"
+      "path": "../types"
     }
   ]
 }
