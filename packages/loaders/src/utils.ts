@@ -44,13 +44,16 @@ export function tryLoad<T>(path: string, onError: any): PluginType<T> | null {
   } catch (err: any) {
     if (err.code === MODULE_NOT_FOUND) {
       debug('"require" failed for plugin %s', path);
-      // If loading fails, because a dependency is missing,
-      // we want to log the error message and require stack
-      // to see where the missing dependency is.
       const message = err.message.replace(/\\\\/g, '\\').split('\n');
       if (!message[0].includes(path)) {
+        // the plugin itself was found but one of its own dependencies is
+        // missing: that is a real load error — reporting "not found" (and
+        // re-evaluating the plugin through the import() fallback) would mask
+        // the actual cause and run its side effects twice
         debug('%o', message[0]); // error message
         debug('%o', message.slice(1)); // stack trace
+        onError({ err: err.message }, 'error loading plugin @{err}');
+        throw err;
       }
       return null;
     }
@@ -78,7 +81,9 @@ function resolveEntryPoint(dirPath: string): string {
       // next field (otherwise we would return the directory itself, which
       // dynamic import() rejects)
       if (pkg.exports) {
-        const dotExport = pkg.exports['.'];
+        // exports may use the sugar form with conditions at the top level
+        // instead of a '.' subpath map
+        const dotExport = pkg.exports['.'] ?? pkg.exports;
         if (typeof dotExport === 'string') {
           return join(dirPath, dotExport);
         }
@@ -131,7 +136,10 @@ export async function tryLoadAsync<T>(path: string, onError: any): Promise<Plugi
     // import() doesn't support directory imports — resolve the entry point,
     // also for manifest-less directory plugins that only ship an index.js
     let importPath = path;
-    if (existsSync(join(path, 'package.json')) || existsSync(join(path, 'index.js'))) {
+    if (
+      isAbsolute(path) &&
+      (existsSync(join(path, 'package.json')) || existsSync(join(path, 'index.js')))
+    ) {
       importPath = resolveEntryPoint(path);
       debug('resolved ESM entry point: %s', importPath);
     }
@@ -144,7 +152,11 @@ export async function tryLoadAsync<T>(path: string, onError: any): Promise<Plugi
     debug('dynamic import succeeded for plugin %s', importUrl);
     return module as PluginType<T>;
   } catch (err: any) {
-    if (err.code === MODULE_NOT_FOUND || err.code === 'ERR_MODULE_NOT_FOUND') {
+    if (
+      err.code === MODULE_NOT_FOUND ||
+      err.code === 'ERR_MODULE_NOT_FOUND' ||
+      err.code === 'ERR_UNSUPPORTED_DIR_IMPORT'
+    ) {
       debug('"import" failed for plugin %s', path);
       return null;
     }

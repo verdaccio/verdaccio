@@ -50,6 +50,39 @@ describe('tryLoadAsync', () => {
     expect(onError).not.toHaveBeenCalled();
   });
 
+  test('resolves the exports sugar form without a dot subpath', async () => {
+    const onError = vi.fn();
+    const plugin: any = await tryLoadAsync(pluginPath('verdaccio-exports-sugar-plugin'), onError);
+
+    expect(typeof plugin?.default).toBe('function');
+    expect(onError).not.toHaveBeenCalled();
+  });
+
+  test('returns null for a directory without any entry point', async () => {
+    const onError = vi.fn();
+    const plugin = await tryLoadAsync(pluginPath('verdaccio-empty-dir-plugin'), onError);
+
+    expect(plugin).toBeNull();
+    expect(onError).not.toHaveBeenCalled();
+  });
+
+  test('reports the real error when a plugin dependency is missing', async () => {
+    const onError = vi.fn();
+    // @ts-expect-error test-only marker set by the fixture
+    delete globalThis.__verdaccioMissingDepEvaluations;
+
+    await expect(tryLoadAsync(pluginPath('verdaccio-missing-dep-plugin'), onError)).rejects.toThrow(
+      "Cannot find module 'this-dependency-does-not-exist-xyz'"
+    );
+    expect(onError).toHaveBeenCalledWith(
+      { err: expect.stringContaining('this-dependency-does-not-exist-xyz') },
+      'error loading plugin @{err}'
+    );
+    // no import() retry: the plugin must be evaluated exactly once
+    // @ts-expect-error test-only marker set by the fixture
+    expect(globalThis.__verdaccioMissingDepEvaluations).toBe(1);
+  });
+
   test('returns null when the plugin does not exist', async () => {
     const onError = vi.fn();
     const plugin = await tryLoadAsync(pluginPath('verdaccio-does-not-exist'), onError);
