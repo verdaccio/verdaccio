@@ -1,10 +1,9 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
-import { logger } from '@verdaccio/logger';
-
 import { displayExperimentsInfoBox } from '../../../../src/lib/experiments';
+import { logger } from '../../../../src/lib/logger';
 
-vi.mock('@verdaccio/logger', () => ({
+vi.mock('../../../../src/lib/logger', () => ({
   logger: {
     warn: vi.fn(),
     info: vi.fn(),
