@@ -1,5 +1,11 @@
 # Change Log
 
+## 13.0.3
+
+### Patch Changes
+
+- 3724bd7: chore: trigger release
+
 ## 13.0.2
 
 ### Patch Changes

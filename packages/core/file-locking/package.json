@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/file-locking",
-  "version": "13.0.2",
+  "version": "13.0.3",
   "description": "Verdaccio File Locking Library",
   "keywords": [
     "enterprise",
@@ -48,7 +48,7 @@
     "lockfile": "1.0.4"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:13.0.4",
+    "@verdaccio/types": "workspace:13.0.5",
     "vitest": "4.1.2"
   },
   "engines": {

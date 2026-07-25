@@ -1,5 +1,14 @@
 # @verdaccio/hooks
 
+## 8.0.6
+
+### Patch Changes
+
+- 3724bd7: chore: trigger release
+- Updated dependencies [3724bd7]
+  - @verdaccio/core@8.1.4
+  - @verdaccio/logger@8.0.5
+
 ## 8.0.5
 
 ### Patch Changes

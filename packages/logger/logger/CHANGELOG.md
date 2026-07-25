@@ -1,5 +1,13 @@
 # @verdaccio/logger
 
+## 8.0.5
+
+### Patch Changes
+
+- 3724bd7: chore: trigger release
+- Updated dependencies [3724bd7]
+  - @verdaccio/logger-commons@8.0.5
+
 ## 8.0.4
 
 ### Patch Changes
