@@ -28,8 +28,12 @@ export const getConf = (conf: string) => {
   return config;
 };
 
-export async function initializeServer(configName: string): Promise<Application> {
+export async function initializeServer(
+  configName: string,
+  mutateConfig?: (config: ReturnType<typeof getConf>) => void
+): Promise<Application> {
   const config = getConf(configName);
+  mutateConfig?.(config);
   const app = await initializeServerHelper(config, [apiMiddleware], Storage);
   // mirror src/api/index.ts: honor server.trustProxy so `req.ip` (and thus the
   // generated-token CIDR check) resolves from X-Forwarded-For only behind a

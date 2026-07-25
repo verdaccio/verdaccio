@@ -2,6 +2,7 @@ import buildDebug from 'debug';
 import fs from 'fs';
 import _ from 'lodash';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
 import type { Config } from '@verdaccio/types';
 import { isURL } from '@verdaccio/url';
@@ -45,7 +46,12 @@ export function serveFavicon(config: Config) {
         }
       } else {
         res.setHeader('content-type', 'image/x-icon');
-        fs.createReadStream(path.posix.join(__dirname, './web/html/favicon.ico')).pipe(res);
+        // __dirname only exists in the CJS build; the ESM build resolves from import.meta.url
+        const moduleDir =
+          typeof __dirname === 'undefined'
+            ? path.dirname(fileURLToPath(import.meta.url))
+            : __dirname;
+        fs.createReadStream(path.join(moduleDir, './web/html/favicon.ico')).pipe(res);
         debug('rendered ico');
       }
     } catch (err: any) {

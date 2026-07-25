@@ -3,7 +3,7 @@ import buildDebug from 'debug';
 import fs from 'fs';
 import http from 'http';
 import https from 'https';
-import { assign } from 'lodash';
+import _ from 'lodash';
 
 import { getConfigParsed, getListenAddress } from '@verdaccio/config';
 import { ConfigYaml, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
@@ -73,13 +73,13 @@ export function createServerFactory(config: ConfigYaml, addr, app) {
 
       if (pfxConfig.pfx) {
         const { pfx, passphrase } = pfxConfig;
-        httpsOptions = assign(httpsOptions, {
+        httpsOptions = _.assign(httpsOptions, {
           pfx: fs.readFileSync(pfx),
           passphrase: passphrase || '',
         });
       } else {
         const { key, cert, ca } = keyCertConfig;
-        httpsOptions = assign(httpsOptions, {
+        httpsOptions = _.assign(httpsOptions, {
           key: fs.readFileSync(key),
           cert: fs.readFileSync(cert),
           ...(ca && {

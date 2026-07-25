@@ -1,4 +1,6 @@
-import { logger } from '@verdaccio/logger';
+// the local wrapper keeps a live binding; importing `logger` straight from the
+// CJS @verdaccio/logger package snapshots `undefined` in the ESM build
+import { logger } from './logger';
 
 export function displayExperimentsInfoBox(flags) {
   if (!flags) {

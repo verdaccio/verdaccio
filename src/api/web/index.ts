@@ -5,7 +5,6 @@ import _ from 'lodash';
 
 import { PLUGIN_CATEGORY } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
-import { logger } from '@verdaccio/logger';
 import {
   WebUrlsNamespace,
   renderWebMiddleware,
@@ -15,6 +14,9 @@ import {
 } from '@verdaccio/middleware';
 import defaultTheme from '@verdaccio/ui-theme';
 
+// the local wrapper keeps a live binding; importing `logger` straight from the
+// CJS @verdaccio/logger package snapshots `undefined` in the ESM build
+import { logger } from '../../lib/logger';
 import webEndpointsApi from './api';
 
 const debug = buildDebug('verdaccio:web');

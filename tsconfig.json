@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module": "commonjs",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "isolatedModules": true,
     "declaration": true,
     "noImplicitAny": false,
     "strict": true,
