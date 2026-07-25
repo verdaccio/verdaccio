@@ -1,11 +1,19 @@
 import buildDebug from 'debug';
-import type { Method } from 'got-cjs';
-import got from 'got-cjs';
+import type { Got, Method } from 'got';
 
 import { HTTP_STATUS } from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
 
 const debug = buildDebug('verdaccio:hooks:request');
+
+// got >=12 is ESM-only; load it lazily through a dynamic import so the
+// CommonJS build can use it as well (import() is available from CJS code on
+// every supported Node.js, unlike require(esm) which needs >=22.12)
+let gotInstance: Promise<Got> | undefined;
+function loadGot(): Promise<Got> {
+  gotInstance ??= import('got').then((mod) => mod.default);
+  return gotInstance;
+}
 
 export type FetchOptions = {
   body: string;
@@ -34,7 +42,6 @@ export function verifyMethod(value: any): Method {
 
 const baseHeaders = { 'Content-Type': 'application/json' };
 export async function notifyRequest(url: string, options: FetchOptions): Promise<boolean> {
-  let response;
   try {
     const method: Method = verifyMethod(options.method);
     debug('uri %o', url);
@@ -52,7 +59,7 @@ export async function notifyRequest(url: string, options: FetchOptions): Promise
     }
 
     const headers = { ...baseHeaders, ...userHeaders };
-    const requestOptions: any = {
+    const requestOptions: { method: Method; headers: Record<string, any>; body?: string } = {
       method,
       headers,
     };
@@ -72,16 +79,17 @@ export async function notifyRequest(url: string, options: FetchOptions): Promise
       throw new Error('Notification body is undefined');
     }
 
-    response = await got(finalUrl, {
+    const got = await loadGot();
+    // validate the real HTTP status ourselves; the response body is not
+    // required to be JSON (e.g. Slack replies with a plain "ok")
+    const response = await got(finalUrl, {
       ...requestOptions,
-      responseType: 'json',
+      throwHttpErrors: false,
     });
+    debug('response.status %o', response.statusCode);
 
-    const body = await response.body;
-    debug('response.status %o', body.statusCode);
-
-    if (body.statusCode >= HTTP_STATUS.BAD_REQUEST) {
-      throw new Error(body);
+    if (response.statusCode >= HTTP_STATUS.BAD_REQUEST) {
+      throw new Error(`notification service responded with status code ${response.statusCode}`);
     }
 
     logger.info(
