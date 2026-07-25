@@ -21,7 +21,7 @@ function noop() {}
  *
  * @returns {object} A new SonicBoom stream
  */
-function buildSafeSonicBoom(opts: SonicBoomOpts) {
+export function buildSafeSonicBoom(opts: SonicBoomOpts) {
   const stream = new SonicBoom(opts);
   stream.on('error', filterBrokenPipe);
   if (!opts.sync && isMainThread) {
