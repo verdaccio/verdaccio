@@ -29,12 +29,18 @@
   },
   "bin": "./bin/verdaccio",
   "main": "build/index.js",
+  "module": "build/index.mjs",
   "types": "build/index.d.ts",
   "exports": {
     ".": {
-      "types": "./build/index.d.ts",
-      "import": "./build/index.mjs",
-      "require": "./build/index.js"
+      "import": {
+        "types": "./build/index.d.ts",
+        "default": "./build/index.mjs"
+      },
+      "require": {
+        "types": "./build/index.d.ts",
+        "default": "./build/index.js"
+      }
     },
     "./package.json": "./package.json"
   },

@@ -14,6 +14,22 @@ const copyStaticAssets = () => ({
   },
 });
 
+// every source file is its own entry so the build keeps the exact same file
+// layout babel produced (same approach as the 7.x branch)
+function collectEntries(dir: string, base: string = ''): Record<string, string> {
+  const entries: Record<string, string> = {};
+  for (const file of fs.readdirSync(dir)) {
+    const fullPath = path.join(dir, file);
+    const relPath = base ? `${base}/${file}` : file;
+    if (fs.statSync(fullPath).isDirectory()) {
+      Object.assign(entries, collectEntries(fullPath, relPath));
+    } else if (file.endsWith('.ts') && !file.endsWith('.d.ts') && !file.endsWith('.spec.ts')) {
+      entries[relPath.replace(/\.ts$/, '')] = fullPath;
+    }
+  }
+  return entries;
+}
+
 export default defineConfig({
   define: {
     'process.env.PACKAGE_VERSION': JSON.stringify(process.env.PACKAGE_VERSION ?? pkg.version),
@@ -25,10 +41,7 @@ export default defineConfig({
     minify: false,
     sourcemap: true,
     lib: {
-      entry: {
-        index: path.resolve(__dirname, 'src/index.ts'),
-        'lib/cli': path.resolve(__dirname, 'src/lib/cli.ts'),
-      },
+      entry: collectEntries(path.resolve(__dirname, 'src')),
       formats: ['es', 'cjs'],
     },
     rollupOptions: {

@@ -2,7 +2,8 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
+    "isolatedModules": true,
     "declaration": true,
     "noImplicitAny": false,
     "strict": true,
