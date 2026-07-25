@@ -1,5 +1,11 @@
 # Change Log
 
+## 10.2.7
+
+### Patch Changes
+
+- 3724bd7: chore: trigger release
+
 ## 10.2.6
 
 ### Patch Changes

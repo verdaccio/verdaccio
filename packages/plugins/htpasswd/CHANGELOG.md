@@ -1,5 +1,14 @@
 # Change Log
 
+## 13.0.5
+
+### Patch Changes
+
+- 3724bd7: chore: trigger release
+- Updated dependencies [3724bd7]
+  - @verdaccio/core@8.1.4
+  - @verdaccio/file-locking@13.0.3
+
 ## 13.0.4
 
 ### Patch Changes

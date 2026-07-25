@@ -1,5 +1,15 @@
 # @verdaccio/e2e-auth-memory
 
+## 1.0.5
+
+### Patch Changes
+
+- 3724bd7: chore: trigger release
+- Updated dependencies [3724bd7]
+  - @verdaccio/core@8.1.4
+  - @verdaccio/e2e-shared@1.0.5
+  - verdaccio-auth-memory@13.0.5
+
 ## 1.0.4
 
 ### Patch Changes

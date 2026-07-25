@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/auth",
-  "version": "8.0.5",
+  "version": "8.0.6",
   "description": "Verdaccio Authentication",
   "keywords": [
     "enterprise",
@@ -43,18 +43,18 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "@verdaccio/config": "workspace:8.1.3",
-    "@verdaccio/core": "workspace:8.1.3",
-    "@verdaccio/loaders": "workspace:8.0.4",
-    "@verdaccio/signature": "workspace:8.0.4",
+    "@verdaccio/config": "workspace:8.1.4",
+    "@verdaccio/core": "workspace:8.1.4",
+    "@verdaccio/loaders": "workspace:8.0.5",
+    "@verdaccio/signature": "workspace:8.0.5",
     "debug": "4.4.3",
     "lodash": "4.18.1",
-    "verdaccio-htpasswd": "workspace:13.0.4"
+    "verdaccio-htpasswd": "workspace:13.0.5"
   },
   "devDependencies": {
-    "@verdaccio/logger": "workspace:8.0.4",
-    "@verdaccio/middleware": "workspace:8.0.6",
-    "@verdaccio/types": "workspace:13.0.4",
+    "@verdaccio/logger": "workspace:8.0.5",
+    "@verdaccio/middleware": "workspace:8.0.7",
+    "@verdaccio/types": "workspace:13.0.5",
     "express": "4.22.1",
     "supertest": "7.1.4",
     "vitest": "4.1.2"

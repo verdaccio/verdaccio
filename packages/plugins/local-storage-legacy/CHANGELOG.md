@@ -1,5 +1,15 @@
 # Change Log
 
+## 11.3.6
+
+### Patch Changes
+
+- 3724bd7: chore: trigger release
+- Updated dependencies [3724bd7]
+  - @verdaccio/core@8.1.4
+  - @verdaccio/file-locking@13.0.3
+  - @verdaccio/streams@10.2.7
+
 ## 11.3.5
 
 ### Patch Changes

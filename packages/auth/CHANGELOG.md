@@ -1,5 +1,17 @@
 # @verdaccio/auth
 
+## 8.0.6
+
+### Patch Changes
+
+- 3724bd7: chore: trigger release
+- Updated dependencies [3724bd7]
+  - @verdaccio/config@8.1.4
+  - @verdaccio/core@8.1.4
+  - @verdaccio/loaders@8.0.5
+  - verdaccio-htpasswd@13.0.5
+  - @verdaccio/signature@8.0.5
+
 ## 8.0.5
 
 ### Patch Changes

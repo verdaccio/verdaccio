@@ -1,5 +1,13 @@
 # @verdaccio/utils
 
+## 8.1.5
+
+### Patch Changes
+
+- 3724bd7: chore: trigger release
+- Updated dependencies [3724bd7]
+  - @verdaccio/core@8.1.4
+
 ## 8.1.4
 
 ### Patch Changes

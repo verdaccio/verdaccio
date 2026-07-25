@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/search-indexer",
-  "version": "8.0.3",
+  "version": "8.0.4",
   "description": "Verdaccio Search Indexer",
   "keywords": [
     "enterprise",
@@ -44,7 +44,7 @@
     "fuse.js": "7.3.0"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:13.0.4",
+    "@verdaccio/types": "workspace:13.0.5",
     "vite": "8.0.16",
     "vite-plugin-dts": "5.0.0",
     "vitest": "4.1.2"

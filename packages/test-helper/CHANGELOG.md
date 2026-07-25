@@ -1,5 +1,18 @@
 # Change Log
 
+## 4.0.8
+
+### Patch Changes
+
+- 3724bd7: chore: trigger release
+- Updated dependencies [3724bd7]
+  - @verdaccio/auth@8.0.6
+  - @verdaccio/config@8.1.4
+  - @verdaccio/core@8.1.4
+  - @verdaccio/types@13.0.5
+  - @verdaccio/logger@8.0.5
+  - @verdaccio/middleware@8.0.7
+
 ## 4.0.7
 
 ### Patch Changes

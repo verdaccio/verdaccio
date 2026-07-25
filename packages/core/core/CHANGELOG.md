@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 8.1.4
+
+### Patch Changes
+
+- 3724bd7: chore: trigger release
+
 ## 8.1.3
 
 ### Patch Changes

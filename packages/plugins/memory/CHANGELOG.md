@@ -1,5 +1,14 @@
 # Change Log
 
+## 10.4.8
+
+### Patch Changes
+
+- 3724bd7: chore: trigger release
+- Updated dependencies [3724bd7]
+  - @verdaccio/core@8.1.4
+  - @verdaccio/streams@10.2.7
+
 ## 10.4.7
 
 ### Patch Changes
