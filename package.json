@@ -30,6 +30,14 @@
   "bin": "./bin/verdaccio",
   "main": "build/index.js",
   "types": "build/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./build/index.d.ts",
+      "import": "./build/index.mjs",
+      "require": "./build/index.js"
+    },
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "changeset": "changeset",
     "changeset:check": "changeset status --since=origin/6.x",
@@ -46,13 +54,13 @@
     "lint:ts": "yarn run type-check",
     "lint": "oxlint --max-warnings 28",
     "lint:lockfile": "echo 'No lockfile linting available'",
-    "start": "yarn babel-node --extensions \".ts,.tsx\" src/lib/cli --inspect",
-    "start:brk": "yarn babel-node --extensions \".ts,.tsx\" src/lib/cli --inspect-brk",
+    "start": "yarn tsx --inspect src/lib/cli.ts",
+    "start:brk": "yarn tsx --inspect-brk src/lib/cli.ts",
     "start:debug": "yarn node debug/bootstrap.js",
     "start:run-server": "yarn node debug/bootstrap-runserver.js",
-    "build": "rm -Rf build && PACKAGE_VERSION=$(node -p \"require('./package.json').version\")  yarn babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps inline",
+    "build": "vite build",
     "code:types": "tsc --emitDeclarationOnly -p tsconfig.json",
-    "code:docker-build": "yarn babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\"",
+    "code:docker-build": "vite build",
     "docker": "docker build -t verdaccio/verdaccio:local . --no-cache",
     "docker:run": "docker run -it --rm -p 4873:4873 -e \"DEBUG=verdaccio*\" verdaccio/verdaccio:local",
     "e2e:ui:start": "node bin/verdaccio --config ./scripts/e2e-ui-config.yaml",
@@ -96,13 +104,6 @@
     "verdaccio-htpasswd": "13.0.3"
   },
   "devDependencies": {
-    "@babel/cli": "7.29.7",
-    "@babel/core": "7.29.7",
-    "@babel/node": "7.29.7",
-    "@babel/preset-env": "7.29.7",
-    "@babel/preset-typescript": "7.29.7",
-    "@babel/register": "7.29.7",
-    "@babel/runtime": "7.29.7",
     "@changesets/changelog-github": "0.5.2",
     "@changesets/cli": "2.31.0",
     "@changesets/get-dependents-graph": "2.1.4",
@@ -124,7 +125,6 @@
     "@verdaccio/test-helper": "4.0.5",
     "@verdaccio/types": "13.0.2",
     "@vitest/coverage-v8": "4.1.8",
-    "babel-plugin-transform-inline-environment-variables": "0.4.4",
     "cross-env": "10.1.0",
     "cypress": "15.16.0",
     "fs-extra": "11.3.5",
@@ -137,9 +137,11 @@
     "selfsigned": "5.5.0",
     "supertest": "7.2.2",
     "ts-node": "10.9.2",
+    "tsx": "4.23.0",
     "typescript": "5.9.3",
     "verdaccio-auth-memory": "13.0.3",
     "verdaccio-memory": "10.4.6",
+    "vite": "8.1.4",
     "vitest": "4.1.8"
   },
   "resolutions": {

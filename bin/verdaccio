@@ -1,3 +1,7 @@
 #!/usr/bin/env node
 
-require('../build/lib/cli');
+// run the ESM build so ESM-only dependencies can be loaded on any supported Node.js
+import('../build/lib/cli.mjs').catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

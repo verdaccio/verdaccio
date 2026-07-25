@@ -5,7 +5,7 @@ import { Application } from 'express';
 import fs from 'fs';
 import http from 'http';
 import https from 'https';
-import { assign, isFunction, isObject } from 'lodash';
+import _ from 'lodash';
 import URL from 'url';
 
 import { getListenAddress } from '@verdaccio/config';
@@ -34,7 +34,7 @@ function startVerdaccio(
   pkgName: string,
   callback: Callback
 ): void {
-  if (isObject(config) === false) {
+  if (_.isObject(config) === false) {
     throw new Error(API_ERROR.CONFIG_BAD_FORMAT);
   }
 
@@ -100,14 +100,14 @@ function handleHTTPS(
     if (pfxConfig.pfx) {
       debug('Using PFX configuration');
       const { pfx, passphrase } = pfxConfig;
-      httpsOptions = assign(httpsOptions, {
+      httpsOptions = _.assign(httpsOptions, {
         pfx: fs.readFileSync(pfx),
         passphrase: passphrase || '',
       });
     } else {
       debug('Using Key/Cert configuration');
       const { key, cert, ca } = keyCertConfig;
-      httpsOptions = assign(httpsOptions, {
+      httpsOptions = _.assign(httpsOptions, {
         key: fs.readFileSync(key),
         cert: fs.readFileSync(cert),
         ...(ca && {
@@ -139,7 +139,7 @@ function listenDefaultCallback(
   const server = webServer
     .listen(addr.port || addr.path, addr.host, (): void => {
       // send a message for tests
-      if (isFunction(process.send)) {
+      if (_.isFunction(process.send)) {
         process.send({
           verdaccio_started: true,
         });

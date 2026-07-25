@@ -42,8 +42,8 @@ tsconfig.json
 *.md
 prettier.config.js
 eslint.config.mjs
-babel.config.js
 debug/*
 tsconfig*
 vitest.config.mjs
+vite.config.mts
 cypress.config.ts

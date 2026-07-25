@@ -7,7 +7,7 @@ import Stream from 'stream';
 import { hasProxyTo } from '@verdaccio/config';
 import { PLUGIN_CATEGORY, pluginUtils, validationUtils } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
-import LocalDatabasePlugin from '@verdaccio/local-storage-legacy';
+import LocalDatabasePluginModule from '@verdaccio/local-storage-legacy';
 import { SearchMemoryIndexer } from '@verdaccio/search-indexer';
 import { ReadTarball } from '@verdaccio/streams';
 import {
@@ -105,6 +105,11 @@ class Storage {
     if (_.isNil(Storage)) {
       assert(this.config.storage, 'CONFIG: storage path not defined');
       debug('no custom storage found, loading default storage @verdaccio/local-storage');
+      // the package is CJS with an `exports.default`; in the ESM build the default
+      // import is the whole `module.exports`, so unwrap `.default` when present
+      const LocalDatabasePlugin =
+        (LocalDatabasePluginModule as unknown as { default?: typeof LocalDatabasePluginModule })
+          .default ?? LocalDatabasePluginModule;
       const localStorage = new LocalDatabasePlugin(config, logger);
       logger.info(
         { name: '@verdaccio/local-storage', pluginCategory: PLUGIN_CATEGORY.STORAGE },
