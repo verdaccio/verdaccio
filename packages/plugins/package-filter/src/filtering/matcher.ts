@@ -1,4 +1,5 @@
 import buildDebug from 'debug';
+import { minimatch } from 'minimatch';
 import { satisfies } from 'semver';
 
 import type { Manifest } from '@verdaccio/types';
@@ -8,6 +9,46 @@ import type { MatchResult } from './types';
 import { MatchType } from './types';
 
 const debug = buildDebug('verdaccio:plugin:package-filter:filter');
+
+function findScopeRule(
+  scope: string | undefined,
+  rules: Map<string, ParsedRule>
+): { scope: string; rule: 'scope' } | undefined {
+  if (!scope) {
+    return undefined;
+  }
+
+  const exactRule = rules.get(scope);
+  if (exactRule === 'scope') {
+    return { scope, rule: exactRule };
+  }
+
+  for (const [ruleScope, rule] of rules) {
+    if (rule === 'scope' && minimatch(scope, ruleScope)) {
+      return { scope: ruleScope, rule };
+    }
+  }
+
+  return undefined;
+}
+
+function findPackageRule(
+  packageName: string,
+  rules: Map<string, ParsedRule>
+): { pattern: string; rule: ParsedRule } | undefined {
+  const exactRule = rules.get(packageName);
+  if (exactRule) {
+    return { pattern: packageName, rule: exactRule };
+  }
+
+  for (const [pattern, rule] of rules) {
+    if (rule !== 'scope' && minimatch(packageName, pattern)) {
+      return { pattern, rule };
+    }
+  }
+
+  return undefined;
+}
 
 /**
  * Split a package name into name itself and scope.
@@ -39,32 +80,36 @@ export function matchRules(
   manifest: Manifest,
   rules: Map<string, ParsedRule>
 ): MatchResult | undefined {
-  const { scope } = splitName(manifest.name);
-  if (scope) {
-    const rule = rules.get(scope);
-    if (rule === 'scope') {
-      debug('scope match: %s matched rule for %s', manifest.name, scope);
-      return {
-        type: MatchType.SCOPE,
-        rule,
-        scope,
-        versions: Object.keys(manifest.versions),
-      };
-    }
-  }
-
-  const rule = rules.get(manifest.name);
-  if (!rule) {
-    // No match
+  const packageName = manifest.name;
+  if (!packageName) {
     return undefined;
   }
 
+  const { scope } = splitName(packageName);
+  const scopeMatch = findScopeRule(scope, rules);
+  if (scopeMatch) {
+    debug('scope match: %s matched rule for %s', packageName, scopeMatch.scope);
+    return {
+      type: MatchType.SCOPE,
+      rule: scopeMatch.rule,
+      scope: scopeMatch.scope,
+      versions: Object.keys(manifest.versions),
+    };
+  }
+
+  const packageMatch = findPackageRule(packageName, rules);
+  if (!packageMatch) {
+    // No match
+    return undefined;
+  }
+  const { rule } = packageMatch;
+
   if (rule === 'package') {
-    debug('package match: %s', manifest.name);
+    debug('package match: %s matched rule for %s', packageName, packageMatch.pattern);
     return {
       type: MatchType.PACKAGE,
       rule,
-      package: manifest.name,
+      package: packageMatch.pattern,
       versions: Object.keys(manifest.versions),
     };
   }

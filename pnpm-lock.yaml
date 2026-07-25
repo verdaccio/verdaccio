@@ -964,6 +964,9 @@ importers:
       debug:
         specifier: 4.4.3
         version: 4.4.3(supports-color@5.5.0)
+      minimatch:
+        specifier: 9.0.7
+        version: 9.0.7
       semver:
         specifier: 7.8.5
         version: 7.8.5
@@ -3481,10 +3484,6 @@ packages:
 
   brace-expansion@2.1.1:
     resolution: {integrity: sha512-WR1cURNjuvBLMZBMbqM0UoE+WAfdUcEV1ccD8PVBVOI+Z3ND4+SZbN8RsfT2bMuG1qwz5RFvPukSZm5fF2D5eA==}
-
-  brace-expansion@5.0.4:
-    resolution: {integrity: sha512-h+DEnpVvxmfVefa4jFbCf5HdH5YMDXRsmKflpf1pILZWRFlTbJpxeU55nJl4Smt5HQaGzg1o6RHFPJaOqnmBDg==}
-    engines: {node: 18 || 20 || >=22}
 
   brace-expansion@5.0.6:
     resolution: {integrity: sha512-kLpxurY4Z4r9sgMsyG0Z9uzsBlgiU/EFKhj/h91/8yHu0edo7XuixOIH3VcJ8kkxs6/jPzoI6U9Vj3WqbMQ94g==}
@@ -8655,10 +8654,6 @@ snapshots:
     dependencies:
       balanced-match: 1.0.2
 
-  brace-expansion@5.0.4:
-    dependencies:
-      balanced-match: 4.0.4
-
   brace-expansion@5.0.6:
     dependencies:
       balanced-match: 4.0.4
@@ -10496,7 +10491,7 @@ snapshots:
 
   minimatch@9.0.7:
     dependencies:
-      brace-expansion: 5.0.4
+      brace-expansion: 5.0.6
 
   minimatch@9.0.9:
     dependencies:
