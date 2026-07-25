@@ -83,6 +83,18 @@ describe('tryLoadAsync', () => {
     expect(globalThis.__verdaccioMissingDepEvaluations).toBe(1);
   });
 
+  test('reports the real error when an ESM plugin dependency is missing', async () => {
+    const onError = vi.fn();
+
+    await expect(
+      tryLoadAsync(pluginPath('verdaccio-esm-missing-dep-plugin'), onError)
+    ).rejects.toThrow("Cannot find package 'this-esm-dep-does-not-exist-xyz'");
+    expect(onError).toHaveBeenCalledWith(
+      { err: expect.stringContaining('this-esm-dep-does-not-exist-xyz') },
+      'error loading plugin @{err}'
+    );
+  });
+
   test('returns null when the plugin does not exist', async () => {
     const onError = vi.fn();
     const plugin = await tryLoadAsync(pluginPath('verdaccio-does-not-exist'), onError);

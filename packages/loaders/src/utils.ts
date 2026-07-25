@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { existsSync, readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { isAbsolute, join } from 'node:path';
-import { pathToFileURL } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 import type { pluginUtils } from '@verdaccio/core';
 
@@ -132,10 +132,10 @@ export async function tryLoadAsync<T>(path: string, onError: any): Promise<Plugi
   }
 
   // Fallback to dynamic import for ESM modules
+  // import() doesn't support directory imports — resolve the entry point,
+  // also for manifest-less directory plugins that only ship an index.js
+  let importPath = path;
   try {
-    // import() doesn't support directory imports — resolve the entry point,
-    // also for manifest-less directory plugins that only ship an index.js
-    let importPath = path;
     if (
       isAbsolute(path) &&
       (existsSync(join(path, 'package.json')) || existsSync(join(path, 'index.js')))
@@ -152,13 +152,28 @@ export async function tryLoadAsync<T>(path: string, onError: any): Promise<Plugi
     debug('dynamic import succeeded for plugin %s', importUrl);
     return module as PluginType<T>;
   } catch (err: any) {
-    if (
-      err.code === MODULE_NOT_FOUND ||
-      err.code === 'ERR_MODULE_NOT_FOUND' ||
-      err.code === 'ERR_UNSUPPORTED_DIR_IMPORT'
-    ) {
+    if (err.code === 'ERR_UNSUPPORTED_DIR_IMPORT') {
+      // only the plugin path itself is ever imported as a directory
       debug('"import" failed for plugin %s', path);
       return null;
+    }
+    if (err.code === MODULE_NOT_FOUND || err.code === 'ERR_MODULE_NOT_FOUND') {
+      // "not found" may refer to the plugin itself (plugin not installed:
+      // return null) or to a missing dependency inside an existing plugin —
+      // a real load error that must surface, mirroring the require() path
+      // the missing specifier may be reported as a file:// URL
+      const missingRaw = /Cannot find (?:module|package) '([^']+)'/.exec(err.message)?.[1];
+      const missing = missingRaw?.startsWith('file://') ? fileURLToPath(missingRaw) : missingRaw;
+      const refersToPlugin =
+        missing === undefined ||
+        missing === path ||
+        missing === importPath ||
+        missing.startsWith(path);
+      if (refersToPlugin) {
+        debug('"import" failed for plugin %s', path);
+        return null;
+      }
+      debug('plugin %s exists but its dependency %s is missing', path, missing);
     }
     onError({ err: err.message }, 'error loading plugin @{err}');
     throw err;
