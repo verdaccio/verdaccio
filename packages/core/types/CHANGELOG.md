@@ -1,5 +1,11 @@
 # Change Log
 
+## 13.0.4
+
+### Patch Changes
+
+- dc48942: chore: trigger release
+
 ## 13.0.3
 
 ### Patch Changes

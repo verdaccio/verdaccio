@@ -1,5 +1,19 @@
 # Change Log
 
+## 4.0.7
+
+### Patch Changes
+
+- dc48942: chore: trigger release
+- Updated dependencies [dc48942]
+- Updated dependencies [3d2f75c]
+  - @verdaccio/auth@8.0.5
+  - @verdaccio/config@8.1.3
+  - @verdaccio/core@8.1.3
+  - @verdaccio/types@13.0.4
+  - @verdaccio/logger@8.0.4
+  - @verdaccio/middleware@8.0.6
+
 ## 4.0.6
 
 ### Patch Changes

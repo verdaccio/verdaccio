@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/utils",
-  "version": "8.1.3",
+  "version": "8.1.4",
   "description": "Verdaccio Utilities",
   "keywords": [
     "enterprise",
@@ -43,12 +43,12 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:8.1.2",
+    "@verdaccio/core": "workspace:8.1.3",
     "lodash": "4.18.1",
     "minimatch": "10.2.5"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:13.0.3",
+    "@verdaccio/types": "workspace:13.0.4",
     "vitest": "4.1.2"
   },
   "engines": {

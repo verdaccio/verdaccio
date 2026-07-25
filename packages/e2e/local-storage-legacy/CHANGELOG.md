@@ -1,5 +1,13 @@
 # @verdaccio/e2e-local-storage-legacy
 
+## 1.0.4
+
+### Patch Changes
+
+- dc48942: chore: trigger release
+- Updated dependencies [dc48942]
+  - @verdaccio/e2e-shared@1.0.4
+
 ## 1.0.3
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # Change Log
 
+## 10.4.7
+
+### Patch Changes
+
+- dc48942: chore: trigger release
+- Updated dependencies [dc48942]
+- Updated dependencies [3d2f75c]
+  - @verdaccio/core@8.1.3
+  - @verdaccio/streams@10.2.6
+
 ## 10.4.6
 
 ### Patch Changes

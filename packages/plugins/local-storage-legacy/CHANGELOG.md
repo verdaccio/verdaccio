@@ -1,5 +1,16 @@
 # Change Log
 
+## 11.3.5
+
+### Patch Changes
+
+- dc48942: chore: trigger release
+- Updated dependencies [dc48942]
+- Updated dependencies [3d2f75c]
+  - @verdaccio/core@8.1.3
+  - @verdaccio/file-locking@13.0.2
+  - @verdaccio/streams@10.2.6
+
 ## 11.3.4
 
 ### Patch Changes

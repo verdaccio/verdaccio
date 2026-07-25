@@ -1,5 +1,13 @@
 # @verdaccio/logger
 
+## 8.0.4
+
+### Patch Changes
+
+- dc48942: chore: trigger release
+- Updated dependencies [dc48942]
+  - @verdaccio/logger-commons@8.0.4
+
 ## 8.0.3
 
 ### Patch Changes

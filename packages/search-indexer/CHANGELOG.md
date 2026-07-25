@@ -1,5 +1,11 @@
 # @verdaccio/search-indexer
 
+## 8.0.3
+
+### Patch Changes
+
+- dc48942: chore: trigger release
+
 ## 8.0.2
 
 ### Patch Changes

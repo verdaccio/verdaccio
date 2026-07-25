@@ -1,5 +1,15 @@
 # @verdaccio/e2e-shared
 
+## 1.0.4
+
+### Patch Changes
+
+- dc48942: chore: trigger release
+- Updated dependencies [dc48942]
+- Updated dependencies [3d2f75c]
+  - @verdaccio/config@8.1.3
+  - @verdaccio/core@8.1.3
+
 ## 1.0.3
 
 ### Patch Changes
