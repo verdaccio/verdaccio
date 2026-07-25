@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-htpasswd",
-  "version": "13.0.5",
+  "version": "13.1.0",
   "description": "Htpasswd Authentication Plugin for Verdaccio",
   "keywords": [
     "enterprise",
@@ -55,8 +55,8 @@
     "build": "vite build && tsc --emitDeclarationOnly -p tsconfig.build.json"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:8.1.4",
-    "@verdaccio/file-locking": "workspace:13.0.3",
+    "@verdaccio/core": "workspace:8.2.0",
+    "@verdaccio/file-locking": "workspace:13.1.0",
     "apache-md5": "1.1.8",
     "bcryptjs": "2.4.3",
     "debug": "4.4.3",
@@ -65,7 +65,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "2.4.6",
-    "@verdaccio/config": "workspace:8.1.4",
+    "@verdaccio/config": "workspace:8.2.0",
     "@verdaccio/types": "workspace:13.0.5",
     "mockdate": "3.0.5",
     "vite": "8.0.16",

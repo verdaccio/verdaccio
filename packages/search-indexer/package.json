@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/search-indexer",
-  "version": "8.0.4",
+  "version": "8.1.0",
   "description": "Verdaccio Search Indexer",
   "keywords": [
     "enterprise",

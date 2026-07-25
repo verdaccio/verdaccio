@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/tarball",
-  "version": "13.0.5",
+  "version": "13.1.0",
   "description": "Verdaccio Tarball Utilities",
   "keywords": [
     "enterprise",
@@ -55,8 +55,8 @@
     "build": "vite build && tsc --emitDeclarationOnly -p tsconfig.build.json"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:8.1.4",
-    "@verdaccio/url": "workspace:13.0.5",
+    "@verdaccio/core": "workspace:8.2.0",
+    "@verdaccio/url": "workspace:13.1.0",
     "debug": "4.4.3",
     "gunzip-maybe": "1.4.2",
     "tar-stream": "3.1.7"

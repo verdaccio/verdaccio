@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/loaders",
-  "version": "8.0.5",
+  "version": "8.1.0",
   "description": "Verdaccio Loader Logic",
   "keywords": [
     "enterprise",
@@ -55,15 +55,15 @@
     "build": "vite build && tsc --emitDeclarationOnly -p tsconfig.build.json"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:8.1.4",
+    "@verdaccio/core": "workspace:8.2.0",
     "debug": "4.4.3",
     "lodash": "4.18.1"
   },
   "devDependencies": {
     "@verdaccio-scope/verdaccio-auth-foo": "0.0.2",
-    "@verdaccio/config": "workspace:8.1.4",
-    "@verdaccio/core": "workspace:8.1.4",
-    "@verdaccio/logger": "workspace:8.0.5",
+    "@verdaccio/config": "workspace:8.2.0",
+    "@verdaccio/core": "workspace:8.2.0",
+    "@verdaccio/logger": "workspace:8.1.0",
     "verdaccio-auth-memory": "workspace:*",
     "vite": "8.0.16",
     "vitest": "4.1.2"

@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/file-locking",
-  "version": "13.0.3",
+  "version": "13.1.0",
   "description": "Verdaccio File Locking Library",
   "keywords": [
     "enterprise",
