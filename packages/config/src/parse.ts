@@ -5,7 +5,7 @@ import fs from 'node:fs';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 
-import { API_ERROR, APP_ERROR } from '@verdaccio/core';
+import { API_ERROR, APP_ERROR, warningUtils } from '@verdaccio/core';
 import type { ConfigYaml } from '@verdaccio/types';
 
 import { findConfigFile } from './config-path';
@@ -40,10 +40,7 @@ export function parseConfigFile(configPath: string): ConfigYaml & {
       });
     }
 
-    process.emitWarning(
-      'Using JavaScript config files is deprecated and will be removed in the next major version. Please migrate to YAML or use the ConfigBuilder.',
-      'DeprecationWarning'
-    );
+    warningUtils.emit(warningUtils.Codes.VERDEP004);
     // rolldown rewrites bare `require` to a throwing stub in the ESM output and
     // lowers `import.meta` to `{}` in the CJS output, so `import.meta.url` is
     // only truthy in the ESM build; module-scoped __filename covers the CJS

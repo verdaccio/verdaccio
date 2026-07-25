@@ -29,20 +29,6 @@ describe('getConfigParsed', () => {
 describe('parseConfigFile', () => {
   const jsPartialsDir = path.join(__dirname, './partials/config/js');
 
-  test('parses a JS config file', () => {
-    const jsFile = path.join(jsPartialsDir, 'default.js');
-    const config = parseConfigFile(jsFile);
-    expect(config).toBeDefined();
-    expect(config.configPath).toBe(jsFile);
-    expect(config.config_path).toBe(jsFile);
-  });
-
-  test('throws when config file does not exist', () => {
-    expect(() => parseConfigFile('/nonexistent/path/config.yaml')).toThrow(
-      'config file does not exist or not reachable'
-    );
-  });
-
   describe('JS config deprecation warning', () => {
     let warningSpy: ReturnType<typeof vi.spyOn>;
 
@@ -54,17 +40,16 @@ describe('parseConfigFile', () => {
       warningSpy.mockRestore();
     });
 
-    test('emits a DeprecationWarning when loading a JS config', () => {
+    // must run before any other test parsing a JS config: VERDEP004 is
+    // emitted only once per process (process-warning deduplication)
+    test('emits a VerdaccioDeprecation VERDEP004 warning when loading a JS config', () => {
       const jsFile = path.join(jsPartialsDir, 'default.js');
       parseConfigFile(jsFile);
 
       expect(warningSpy).toHaveBeenCalledWith(
-        expect.stringContaining('JavaScript config files is deprecated'),
-        'DeprecationWarning'
-      );
-      expect(warningSpy).toHaveBeenCalledWith(
-        expect.stringContaining('migrate to YAML or use the ConfigBuilder'),
-        'DeprecationWarning'
+        expect.stringContaining('JavaScript configuration files are deprecated'),
+        'VerdaccioDeprecation',
+        'VERDEP004'
       );
     });
 
@@ -77,5 +62,19 @@ describe('parseConfigFile', () => {
 
       expect(warningSpy).not.toHaveBeenCalled();
     });
+  });
+
+  test('parses a JS config file', () => {
+    const jsFile = path.join(jsPartialsDir, 'default.js');
+    const config = parseConfigFile(jsFile);
+    expect(config).toBeDefined();
+    expect(config.configPath).toBe(jsFile);
+    expect(config.config_path).toBe(jsFile);
+  });
+
+  test('throws when config file does not exist', () => {
+    expect(() => parseConfigFile('/nonexistent/path/config.yaml')).toThrow(
+      'config file does not exist or not reachable'
+    );
   });
 });
