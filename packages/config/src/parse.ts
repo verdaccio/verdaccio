@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import YAML from 'js-yaml';
+import { YAML11_SCHEMA, dump, load } from 'js-yaml';
 import _ from 'lodash';
 import fs from 'node:fs';
 import { createRequire } from 'node:module';
@@ -29,9 +29,14 @@ export function parseConfigFile(configPath: string): ConfigYaml & {
   debug('parsing config file: %o', configPath);
   try {
     if (/\.ya?ml$/i.test(configPath)) {
-      const yamlConfig = YAML.load(fs.readFileSync(configPath, 'utf8'), {
-        strict: false,
-      }) as ConfigYaml;
+      const content = fs.readFileSync(configPath, 'utf8');
+      // js-yaml v5 throws on empty input and defaults to the YAML 1.2 core
+      // schema; keep the v4 behavior: an empty config parses as {} and the
+      // YAML 1.1 schema preserves yes/no/on/off booleans and merge keys
+      const yamlConfig =
+        content.trim() === ''
+          ? ({} as ConfigYaml)
+          : (load(content, { schema: YAML11_SCHEMA }) as ConfigYaml);
 
       return Object.assign({}, yamlConfig, {
         configPath,
@@ -68,7 +73,7 @@ export function parseConfigFile(configPath: string): ConfigYaml & {
 export function fromJStoYAML(config: Partial<ConfigYaml>): string | null {
   debug('convert config from JSON to YAML');
   if (_.isObject(config)) {
-    return YAML.dump(config);
+    return dump(config);
   } else {
     throw new Error(`config is not a valid object`);
   }
