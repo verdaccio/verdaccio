@@ -56,7 +56,7 @@ export function tryLoad<T>(path: string, onError: any): PluginType<T> | null {
       debug('"require" failed for ESM plugin %s, will try dynamic import', path);
       return null;
     }
-    onError({ err: err.msg }, 'error loading plugin @{err}');
+    onError({ err: err.message }, 'error loading plugin @{err}');
     throw err;
   }
 }

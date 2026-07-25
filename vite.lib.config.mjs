@@ -51,6 +51,7 @@ function copyDir(src, dest) {
  * @param {string|string[]} [options.entry] - Entry file(s) relative to dirname (default: 'src/index.ts')
  * @param {string} [options.outDir] - Output directory (default: 'build')
  * @param {boolean} [options.esmOnly] - When true, output only ESM with .js extensions (for pure ESM packages with "type": "module")
+ * @param {string[]} [options.bundleDeps] - Dependency names to bundle into the output instead of externalizing
  */
 export function createLibConfig(dirname, options = {}) {
   const { entry = 'src/index.ts', outDir = 'build', esmOnly = false, bundleDeps = [] } = options;
