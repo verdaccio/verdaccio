@@ -3,7 +3,6 @@ import _ from 'lodash';
 import assert from 'node:assert';
 
 import { APP_ERROR, authUtils, cryptoUtils, validationUtils, warningUtils } from '@verdaccio/core';
-import { Codes } from '@verdaccio/core/build/warning-utils';
 import type {
   Config as AppConfig,
   AuthConf,
@@ -216,7 +215,7 @@ class Config implements AppConfig {
           // still using Node.js versions previous to 22, but we need to emit a deprecation warning
           // deprecation warning, secret key is too long and must be 32
           // this will be removed in the next major release and will produce an error
-          warningUtils.emit(Codes.VERWAR007);
+          warningUtils.emit(warningUtils.Codes.VERWAR007);
           this.secret = secret;
           return this.secret;
         }

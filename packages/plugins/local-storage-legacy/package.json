@@ -26,8 +26,22 @@
   "files": [
     "lib/"
   ],
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "./lib/index.js",
+  "module": "./lib/index.mjs",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.mjs"
+      },
+      "require": {
+        "types": "./lib/index.d.ts",
+        "default": "./lib/index.js"
+      }
+    },
+    "./lib/*": "./lib/*"
+  },
   "publishConfig": {
     "access": "public"
   },
@@ -35,7 +49,8 @@
     "clean": "rimraf ./lib",
     "test": "vitest run --reporter=verbose",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
-    "build": "vite build"
+    "build": "vite build && tsc --emitDeclarationOnly -p tsconfig.build.json",
+    "watch": "vite build --watch"
   },
   "dependencies": {
     "@verdaccio/core": "workspace:*",
@@ -50,15 +65,14 @@
   },
   "devDependencies": {
     "@types/minimatch": "3.0.5",
-    "@types/node": "20.5.8",
+    "@types/node": "22.20.1",
     "@verdaccio/types": "workspace:*",
     "minimatch": "4.2.6",
     "rmdir-sync": "1.0.1",
     "vite": "8.0.16",
-    "vite-plugin-dts": "4.5.4",
     "vitest": "4.1.4"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   }
 }

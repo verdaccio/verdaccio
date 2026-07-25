@@ -18,6 +18,9 @@
     },
     {
       "path": "../logger/logger"
+    },
+    {
+      "path": "../test-helper"
     }
   ]
 }

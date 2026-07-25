@@ -3,6 +3,7 @@ import _ from 'lodash';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import { fileExists, folderExists } from './config-utils';
 
@@ -65,7 +66,9 @@ function createConfigFile(configLocation: SetupDirectory): SetupDirectory {
 }
 
 export function readDefaultConfig(): string {
-  const pathDefaultConf: string = path.resolve(__dirname, 'conf/default.yaml');
+  // import.meta.url is only defined in the ESM build; the CJS build falls back to __dirname
+  const currentDir = import.meta.url ? path.dirname(fileURLToPath(import.meta.url)) : __dirname;
+  const pathDefaultConf: string = path.resolve(currentDir, 'conf/default.yaml');
   try {
     debug('the path of default config used from %s', pathDefaultConf);
     fs.accessSync(pathDefaultConf, fs.constants.R_OK);

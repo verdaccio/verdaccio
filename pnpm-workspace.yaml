@@ -14,7 +14,7 @@ allowBuilds:
   esbuild: true
   unrs-resolver: true
 overrides:
-  typescript: 5.3.3
+  typescript: 7.0.2
   # Security: @verdaccio/e2e-cli pins js-yaml exactly, force the GHSA-52cp-r559-cp3m fix
   '@verdaccio/e2e-cli>js-yaml': 4.3.0
   # Security: ajv resolves fast-uri in range, pin the GHSA-v2hh-gcrm-f6hx / GHSA-4c8g-83qw-93j6 fix

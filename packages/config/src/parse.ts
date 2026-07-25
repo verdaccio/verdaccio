@@ -1,7 +1,8 @@
 import buildDebug from 'debug';
 import YAML from 'js-yaml';
-import { isObject } from 'lodash';
+import _ from 'lodash';
 import fs from 'node:fs';
+import { createRequire } from 'node:module';
 import path from 'node:path';
 
 import { API_ERROR, APP_ERROR } from '@verdaccio/core';
@@ -43,7 +44,15 @@ export function parseConfigFile(configPath: string): ConfigYaml & {
       'Using JavaScript config files is deprecated and will be removed in the next major version. Please migrate to YAML or use the ConfigBuilder.',
       'DeprecationWarning'
     );
-    const jsonConfig = require(configPath) as ConfigYaml;
+    // rolldown rewrites bare `require` to a throwing stub in the ESM output and
+    // lowers `import.meta` to `{}` in the CJS output, so `import.meta.url` is
+    // only truthy in the ESM build; module-scoped __filename covers the CJS
+    // build (checking `typeof __filename`/`typeof require` instead is unsafe:
+    // node -e and the REPL leak both as globals into ES modules)
+    const requireFile = import.meta.url
+      ? createRequire(import.meta.url)
+      : createRequire(__filename);
+    const jsonConfig = requireFile(configPath) as ConfigYaml;
     return Object.assign({}, jsonConfig, {
       configPath,
       // @deprecated use configPath instead
@@ -61,7 +70,7 @@ export function parseConfigFile(configPath: string): ConfigYaml & {
 
 export function fromJStoYAML(config: Partial<ConfigYaml>): string | null {
   debug('convert config from JSON to YAML');
-  if (isObject(config)) {
+  if (_.isObject(config)) {
     return YAML.dump(config);
   } else {
     throw new Error(`config is not a valid object`);

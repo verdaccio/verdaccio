@@ -2,7 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "target": "esnext",
-    "module": "commonjs",
+    "module": "preserve",
     "noImplicitAny": false,
     "strict": true,
     "skipLibCheck": true,
@@ -12,6 +12,8 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "rootDir": "./src",
-    "outDir": "./build"
+    "outDir": "./build",
+    "moduleResolution": "bundler",
+    "types": ["node"]
   }
 }

@@ -2,7 +2,8 @@
   "compileOnSave": false,
   "compilerOptions": {
     "target": "esnext",
-    "module": "commonjs",
+    "module": "preserve",
+    "moduleResolution": "bundler",
     "noImplicitAny": false,
     "strict": true,
     "declaration": true,
@@ -26,9 +27,6 @@
   ],
   "references": [
     {
-      "path": "packages/api"
-    },
-    {
       "path": "packages/auth"
     },
     {
@@ -44,31 +42,28 @@
       "path": "packages/middleware"
     },
     {
-      "path": "packages/proxy"
-    },
-    {
       "path": "packages/search-indexer"
-    },
-    {
-      "path": "packages/search"
     },
     {
       "path": "packages/signature"
     },
     {
-      "path": "packages/store"
+      "path": "packages/test-helper"
     },
     {
       "path": "packages/utils"
     },
     {
-      "path": "packages/web"
-    },
-    {
       "path": "packages/core/core"
     },
     {
+      "path": "packages/core/deprecated-types"
+    },
+    {
       "path": "packages/core/file-locking"
+    },
+    {
+      "path": "packages/core/streams"
     },
     {
       "path": "packages/core/tarball"
@@ -78,9 +73,6 @@
     },
     {
       "path": "packages/core/url"
-    },
-    {
-      "path": "packages/server/express"
     },
     {
       "path": "packages/logger/logger-commons"
@@ -101,10 +93,10 @@
       "path": "packages/plugins/htpasswd"
     },
     {
-      "path": "packages/plugins/memory"
+      "path": "packages/plugins/local-storage-legacy"
     },
     {
-      "path": "packages/plugins/local-storage"
+      "path": "packages/plugins/memory"
     },
     {
       "path": "packages/plugins/package-filter"

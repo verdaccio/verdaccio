@@ -1,4 +1,5 @@
 import { isColorSupported } from 'colorette';
+import { createRequire } from 'node:module';
 import type { WriteStream } from 'node:fs';
 import { Transform, pipeline } from 'node:stream';
 import { isMainThread } from 'node:worker_threads';
@@ -45,7 +46,15 @@ function setupOnExit(stream) {
   /* istanbul ignore next */
   if (global.WeakRef && global.WeakMap && global.FinalizationRegistry) {
     // This is leak free, it does not leave event handlers
-    const onExit = require('on-exit-leak-free');
+    // rolldown rewrites bare `require` to a throwing stub in the ESM output and
+    // lowers `import.meta` to `{}` in the CJS output, so `import.meta.url` is
+    // only truthy in the ESM build; module-scoped __filename covers the CJS
+    // build (checking `typeof __filename`/`typeof require` instead is unsafe:
+    // node -e and the REPL leak both as globals into ES modules)
+    const requireModule = import.meta.url
+      ? createRequire(import.meta.url)
+      : createRequire(__filename);
+    const onExit = requireModule('on-exit-leak-free');
 
     onExit.register(stream, autoEnd);
 

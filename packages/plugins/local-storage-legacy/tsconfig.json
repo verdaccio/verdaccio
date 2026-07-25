@@ -14,10 +14,16 @@
   "include": ["src/*.ts", "tests/**/*.ts", "types/*.d.ts"],
   "references": [
     {
+      "path": "../../core/core"
+    },
+    {
       "path": "../../core/file-locking"
     },
     {
       "path": "../../core/streams"
+    },
+    {
+      "path": "../../core/types"
     }
   ]
 }

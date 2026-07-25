@@ -1,8 +1,8 @@
 import buildDebug from 'debug';
 import _ from 'lodash';
 import low from 'lowdb';
-import FileAsync from 'lowdb/adapters/FileAsync';
-import FileMemory from 'lowdb/adapters/Memory';
+import FileAsync from 'lowdb/adapters/FileAsync.js';
+import FileMemory from 'lowdb/adapters/Memory.js';
 import Path from 'node:path';
 
 import type { Config, ITokenActions, Token, TokenFilter } from '@verdaccio/types';

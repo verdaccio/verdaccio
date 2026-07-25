@@ -25,11 +25,11 @@
     "verdaccio-auth-memory": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "^20.5.8",
+    "@types/node": "^22.20.1",
     "verdaccio": "6.7.2",
     "vitest": "^4.1.4"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   }
 }

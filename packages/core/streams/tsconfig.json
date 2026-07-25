@@ -9,5 +9,10 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },
-  "include": ["src/*.ts", "test/**/*.ts", "types/*.d.ts"]
+  "include": ["src/*.ts", "test/**/*.ts", "types/*.d.ts"],
+  "references": [
+    {
+      "path": "../deprecated-types"
+    }
+  ]
 }

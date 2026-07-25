@@ -17,6 +17,12 @@
   "include": ["src/*.ts", "test/**/*.ts", "types/*.d.ts"],
   "references": [
     {
+      "path": "../../core/core"
+    },
+    {
+      "path": "../../core/deprecated-types"
+    },
+    {
       "path": "../../core/streams"
     }
   ]
