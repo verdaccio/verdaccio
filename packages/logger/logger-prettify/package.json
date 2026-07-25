@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/logger-prettify",
-  "version": "8.0.3",
+  "version": "8.1.0",
   "description": "Verdaccio Logger Prettify",
   "keywords": [
     "enterprise",

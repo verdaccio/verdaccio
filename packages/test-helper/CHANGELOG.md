@@ -1,5 +1,39 @@
 # Change Log
 
+## 4.1.0
+
+### Minor Changes
+
+- 75e9dfa: feat: upgrade to TypeScript 7 and dual ESM/CommonJS builds
+
+  - Upgrade the workspace compiler to TypeScript 7.0.2 (native compiler); type
+    declarations are now emitted with `tsc --emitDeclarationOnly`.
+  - Replace the Babel build pipeline with Vite (rolldown) library builds via a
+    shared `vite.lib.config.mjs`; every package now ships both ESM (`.mjs`) and
+    CommonJS (`.js`) outputs with `exports` maps in `package.json`.
+  - Sources adjusted for ESM compatibility (`__dirname`/`require` shims,
+    type-only re-exports, extension-full deep imports).
+  - The plugin loader now supports ESM plugins: `require()` first, then a dynamic
+    `import()` fallback with entry-point resolution for directory-based plugins
+    (aligned with the loader on the main branch).
+  - BREAKING: Node.js 22 is now the minimum supported version (`engines.node`
+    `>=22` in every package).
+  - BREAKING: the deprecated AES legacy signature
+    (`aesEncryptDeprecated`/`aesDecryptDeprecated`/`generateRandomSecretKeyDeprecated`)
+    has been removed from `@verdaccio/signature` and `@verdaccio/auth` — it relied
+    on `crypto.createCipher`/`createDecipher`, which no longer exist in Node.js 22.
+    The `security.api.migrateToSecureLegacySignature` startup migration
+    (regenerating legacy 64-character secrets) is retained.
+
+### Patch Changes
+
+- Updated dependencies [75e9dfa]
+  - @verdaccio/auth@8.1.0
+  - @verdaccio/config@8.2.0
+  - @verdaccio/core@8.2.0
+  - @verdaccio/logger@8.1.0
+  - @verdaccio/middleware@8.1.0
+
 ## 4.0.8
 
 ### Patch Changes
