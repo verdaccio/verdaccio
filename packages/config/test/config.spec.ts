@@ -153,17 +153,19 @@ describe('checkSecretKey', () => {
     ).toHaveLength(TOKEN_VALID_LENGTH);
   });
 
-  itif(isNodeVersionGreaterThan21() === false)(
-    'with old unsecure legacy signature Node 21 or lower',
-    () => {
-      const config = new Config(parseConfigFile(resolveConf('default')));
-      config.security.api.migrateToSecureLegacySignature = false;
-      // 64 characters secret long
-      expect(
-        config.checkSecretKey('b4982dbb0108531fafb552374d7e83724b6458a2b3ffa97ad0edb899bdaefc4a')
-      ).toHaveLength(64);
-    }
-  );
+  test('migrates a too-short secret to a valid one', () => {
+    const config = new Config(parseConfigFile(resolveConf('default')), {
+      forceMigrateToSecureLegacySignature: true,
+    });
+    expect(config.checkSecretKey('tooshort')).toHaveLength(TOKEN_VALID_LENGTH);
+  });
+
+  test('throws on a too-short secret when migration is disabled', () => {
+    const config = new Config(parseConfigFile(resolveConf('default')), {
+      forceMigrateToSecureLegacySignature: false,
+    });
+    expect(() => config.checkSecretKey('tooshort')).toThrow('Invalid storage secret key length');
+  });
 
   test('with migration to new legacy signature Node 21 or lower', () => {
     const config = new Config(parseConfigFile(resolveConf('default')));

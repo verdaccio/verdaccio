@@ -2,7 +2,7 @@ import buildDebug from 'debug';
 import _ from 'lodash';
 import assert from 'node:assert';
 
-import { APP_ERROR, authUtils, cryptoUtils, validationUtils, warningUtils } from '@verdaccio/core';
+import { APP_ERROR, authUtils, cryptoUtils, validationUtils } from '@verdaccio/core';
 import type {
   Config as AppConfig,
   AuthConf,
@@ -186,47 +186,26 @@ class Config implements AppConfig {
     debug('checking secret key init');
     if (typeof secret === 'string' && _.isEmpty(secret) === false) {
       debug('checking secret key length %s', secret.length);
-      if (secret.length > TOKEN_VALID_LENGTH) {
-        if (isNodeVersionGreaterThan21()) {
-          debug('is node version greater than 21');
-          if (this.getMigrateToSecureLegacySignature() === true) {
-            this.secret = generateRandomSecretKey();
-            debug('rewriting secret key with length %s', this.secret.length);
-            return this.secret;
-          }
-          // oops, user needs to generate a new secret key
-          debug(
-            'secret does not comply with the required length, current length  %d, application will fail on startup',
-            secret.length
-          );
-          throw new Error(
-            `Invalid storage secret key length, must be 32 characters long but is ${secret.length}. 
-            The secret length in Node.js 22 or higher must be 32 characters long. Please consider generate a new one. 
-            Learn more at https://verdaccio.org/docs/configuration/#.verdaccio-db`
-          );
-        } else {
-          debug('is node version lower than 22');
-          if (this.getMigrateToSecureLegacySignature() === true) {
-            this.secret = generateRandomSecretKey();
-            debug('rewriting secret key with length %s', this.secret.length);
-            return this.secret;
-          }
-          debug('triggering deprecation warning for secret key length %s', secret.length);
-          // still using Node.js versions previous to 22, but we need to emit a deprecation warning
-          // deprecation warning, secret key is too long and must be 32
-          // this will be removed in the next major release and will produce an error
-          warningUtils.emit(warningUtils.Codes.VERWAR007);
-          this.secret = secret;
-          return this.secret;
-        }
-      } else if (secret.length === TOKEN_VALID_LENGTH) {
+      if (secret.length === TOKEN_VALID_LENGTH) {
         debug('detected valid secret key length %s', secret.length);
         this.secret = secret;
         return this.secret;
       }
-      debug('reusing previous key with length %s', secret.length);
-      this.secret = secret;
-      return this.secret;
+      // Node.js 22+ removed the legacy AES APIs, so token signing only works
+      // with a secret of exactly 32 characters: migrate legacy (64 characters)
+      // or manually edited secrets, otherwise fail fast at startup instead of
+      // failing later on the first signed token
+      if (this.getMigrateToSecureLegacySignature() === true) {
+        this.secret = generateRandomSecretKey();
+        debug('rewriting secret key with length %s', this.secret.length);
+        return this.secret;
+      }
+      debug('secret does not comply with the required length, current length %d', secret.length);
+      throw new Error(
+        `Invalid storage secret key length, must be 32 characters long but is ${secret.length}. 
+        The secret length in Node.js 22 or higher must be 32 characters long. Please consider generate a new one. 
+        Learn more at https://verdaccio.org/docs/configuration/#.verdaccio-db`
+      );
     } else {
       // generate a new a secret key
       // FUTURE: this might be an external secret key, perhaps within config file?
