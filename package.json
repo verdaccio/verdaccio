@@ -54,7 +54,7 @@
     "@verdaccio/package-filter": "workspace:*",
     "@verdaccio/types": "workspace:*",
     "@verdaccio/ui-theme": "workspace:*",
-    "@vitest/coverage-v8": "4.1.0",
+    "@vitest/coverage-v8": "4.1.10",
     "aria-query": "5.3.2",
     "concurrently": "10.0.3",
     "cross-env": "10.1.0",
@@ -84,7 +84,7 @@
     "verdaccio-htpasswd": "workspace:*",
     "verdaccio-memory": "workspace:*",
     "vite": "8.1.4",
-    "vitest": "4.1.7"
+    "vitest": "4.1.10"
   },
   "scripts": {
     "prepare": "husky",
