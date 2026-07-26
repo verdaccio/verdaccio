@@ -56,7 +56,7 @@
     "build": "vite build && tsc --emitDeclarationOnly -p tsconfig.build.json"
   },
   "dependencies": {
-    "ajv": "8.18.0",
+    "ajv": "8.20.0",
     "http-errors": "2.0.1",
     "http-status-codes": "2.3.0",
     "minimatch": "10.2.5",
