@@ -54,7 +54,7 @@
   "dependencies": {
     "@verdaccio/config": "workspace:8.2.0",
     "@verdaccio/core": "workspace:8.2.0",
-    "express": "4.22.1",
+    "express": "4.22.2",
     "https-proxy-agent": "5.0.1",
     "node-fetch": "cjs"
   },
