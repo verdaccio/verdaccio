@@ -1,7 +1,6 @@
 import assert from 'assert';
 import builDebug from 'debug';
 import _ from 'lodash';
-import UrlNode from 'url';
 
 import { ReadTarball, UploadTarball } from '@verdaccio/streams';
 import {
@@ -156,7 +155,9 @@ class LocalStorage {
           packageLocalJson.versions[versionId] = version;
 
           if (version.dist && version.dist.tarball) {
-            const urlObject: any = UrlNode.parse(version.dist.tarball);
+            // a dummy base keeps relative tarball URLs from throwing; it is
+            // ignored for the absolute URLs stored in practice
+            const urlObject = new URL(version.dist.tarball, 'http://localhost');
             const filename = urlObject.pathname.replace(/^.*\//, '');
 
             // we do NOT overwrite any existing records
@@ -884,13 +885,13 @@ class LocalStorage {
     // use the same protocol for the tarball
     //
     // see https://github.com/rlidwka/sinopia/issues/166
-    const tarballUrl: any = UrlNode.parse(hash.url);
-    const uplinkUrl: any = UrlNode.parse(this.config.uplinks[upLinkKey].url);
+    const tarballUrl = URL.parse(hash.url);
+    const uplinkUrl = URL.parse(this.config.uplinks[upLinkKey].url);
 
-    if (uplinkUrl.host === tarballUrl.host) {
+    if (tarballUrl !== null && uplinkUrl !== null && uplinkUrl.host === tarballUrl.host) {
       tarballUrl.protocol = uplinkUrl.protocol;
       hash.registry = upLinkKey;
-      hash.url = UrlNode.format(tarballUrl);
+      hash.url = tarballUrl.href;
     }
   }
 
