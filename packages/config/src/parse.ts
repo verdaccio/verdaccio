@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import YAML from 'js-yaml';
+import { CORE_SCHEMA, Schema, YAMLException, dump, load, mergeTag } from 'js-yaml';
 import { isObject } from 'lodash-es';
 import fs from 'node:fs';
 
@@ -10,6 +10,34 @@ import { findConfigFile } from './config-path';
 import { fileExists } from './config-utils';
 
 const debug = buildDebug('verdaccio:config:parse');
+
+/**
+ * js-yaml v5 defaults to the YAML 1.2 CORE_SCHEMA, which no longer resolves
+ * merge keys (`<<`). Extend it with the merge tag so anchors + `<<` used to
+ * share settings across config sections keep working as they did on v4.
+ */
+const CONFIG_SCHEMA = new Schema([...CORE_SCHEMA.tags, mergeTag]);
+
+/**
+ * Load YAML config content, tolerating a documentless file.
+ *
+ * js-yaml v5 throws on an empty document (an empty, whitespace-only, or
+ * comment-only file), whereas v4 returned `undefined`. Preserve the v4
+ * behavior by treating such a file as an empty config object.
+ */
+function loadYamlConfig(content: string): ConfigYaml {
+  try {
+    return (load(content, { schema: CONFIG_SCHEMA }) as ConfigYaml) ?? ({} as ConfigYaml);
+  } catch (err: any) {
+    if (
+      err instanceof YAMLException &&
+      err.reason === 'expected a document, but the input is empty'
+    ) {
+      return {} as ConfigYaml;
+    }
+    throw err;
+  }
+}
 
 /**
  * Parse a YAML config file.
@@ -29,7 +57,7 @@ export function parseConfigFile(configPath: string): ConfigYaml & {
   }
   debug('parsing config file: %o', configPath);
   try {
-    const yamlConfig = YAML.load(fs.readFileSync(configPath, 'utf8')) as ConfigYaml;
+    const yamlConfig = loadYamlConfig(fs.readFileSync(configPath, 'utf8'));
 
     return Object.assign({}, yamlConfig, {
       configPath,
@@ -45,7 +73,7 @@ export function parseConfigFile(configPath: string): ConfigYaml & {
 export function fromJStoYAML(config: Partial<ConfigYaml>): string | null {
   debug('convert config from JSON to YAML');
   if (isObject(config)) {
-    return YAML.dump(config);
+    return dump(config);
   } else {
     throw new Error(`config is not a valid object`);
   }

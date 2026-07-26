@@ -2,7 +2,7 @@ import buildDebug from 'debug';
 import { Router } from 'express';
 
 import type { Auth } from '@verdaccio/auth';
-import { DIST_TAGS, HTTP_STATUS } from '@verdaccio/core';
+import { DIST_TAGS, HTTP_STATUS, reqUtils } from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
 import {
   $NextFunctionVer,
@@ -39,9 +39,9 @@ function addSidebarWebApi(config: Config, storage: Storage, auth: Auth): Router 
       res: $ResponseExtend,
       next: $NextFunctionVer
     ): Promise<void> {
-      const rawScope = req.params.scope; // May include '@'
-      const scope = rawScope ? rawScope.slice(1) : null; // Remove '@' if present
-      const name: string = scope ? addScope(scope, req.params.package) : req.params.package;
+      const scope = reqUtils.paramToString(req.params.scope).replace(/^@/, '');
+      const packageName = reqUtils.paramToString(req.params.package);
+      const name = scope ? addScope(scope, packageName) : packageName;
       const requestOptions = getRequestOptions(req);
       try {
         const info = (await storage.getPackageByOptions({

@@ -12,6 +12,7 @@ import {
   authUtils,
   cryptoUtils,
   errorUtils,
+  reqUtils,
   validationUtils,
 } from '@verdaccio/core';
 import { USER_API_ENDPOINTS, rateLimit } from '@verdaccio/middleware';
@@ -38,14 +39,15 @@ export default function (route: Router, auth: Auth, config: Config, logger: Logg
         return next({ ok: false });
       }
 
-      const username = req.params.org_couchdb_user.split(':')[1];
+      const orgCouchdbUser = reqUtils.paramToString(req.params.org_couchdb_user);
+      const userName = orgCouchdbUser?.split(':')[1] ?? '';
       const message = authUtils.getAuthenticatedMessage(req.remote_user.name);
       debug('user authenticated message %o', message);
       res.status(HTTP_STATUS.OK);
       next({
         // 'npm owner' requires user info
         // TODO: we don't have the email
-        name: username,
+        name: userName,
         email: '',
         ok: message,
       });
@@ -77,7 +79,8 @@ export default function (route: Router, auth: Auth, config: Config, logger: Logg
       debug('login or adduser');
       const remoteName = req?.remote_user?.name;
 
-      if (!validationUtils.validateUserName(req.params.org_couchdb_user, name)) {
+      const userName = reqUtils.paramToString(req.params.org_couchdb_user);
+      if (!validationUtils.validateUserName(userName, name)) {
         return next(errorUtils.getBadRequest(API_ERROR.USERNAME_MISMATCH));
       }
 
