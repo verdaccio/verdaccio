@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import { CORE_SCHEMA, Schema, dump, load, mergeTag } from 'js-yaml';
+import { CORE_SCHEMA, Schema, YAMLException, dump, load, mergeTag } from 'js-yaml';
 import { isObject } from 'lodash-es';
 import fs from 'node:fs';
 
@@ -19,6 +19,27 @@ const debug = buildDebug('verdaccio:config:parse');
 const CONFIG_SCHEMA = new Schema([...CORE_SCHEMA.tags, mergeTag]);
 
 /**
+ * Load YAML config content, tolerating a documentless file.
+ *
+ * js-yaml v5 throws on an empty document (an empty, whitespace-only, or
+ * comment-only file), whereas v4 returned `undefined`. Preserve the v4
+ * behavior by treating such a file as an empty config object.
+ */
+function loadYamlConfig(content: string): ConfigYaml {
+  try {
+    return (load(content, { schema: CONFIG_SCHEMA }) as ConfigYaml) ?? ({} as ConfigYaml);
+  } catch (err: any) {
+    if (
+      err instanceof YAMLException &&
+      err.reason === 'expected a document, but the input is empty'
+    ) {
+      return {} as ConfigYaml;
+    }
+    throw err;
+  }
+}
+
+/**
  * Parse a YAML config file.
  * @param configPath the absolute path of the configuration file (must end in .yaml or .yml)
  */
@@ -36,9 +57,7 @@ export function parseConfigFile(configPath: string): ConfigYaml & {
   }
   debug('parsing config file: %o', configPath);
   try {
-    const yamlConfig = load(fs.readFileSync(configPath, 'utf8'), {
-      schema: CONFIG_SCHEMA,
-    }) as ConfigYaml;
+    const yamlConfig = loadYamlConfig(fs.readFileSync(configPath, 'utf8'));
 
     return Object.assign({}, yamlConfig, {
       configPath,

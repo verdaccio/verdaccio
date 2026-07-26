@@ -36,6 +36,17 @@ describe('parse', () => {
         private: { cache: true, maxage: '2m', url: 'https://example.org/' },
       });
     });
+
+    test('treats an empty config file as an empty config', () => {
+      const config = parseConfigFile(parseConfigurationFile('empty.yaml'));
+      expect(config.configPath).toEqual(parseConfigurationFile('empty.yaml'));
+      expect(config.storage).toBeUndefined();
+    });
+
+    test('treats a comment-only config file as an empty config', () => {
+      const config = parseConfigFile(parseConfigurationFile('comment-only.yaml'));
+      expect(config.storage).toBeUndefined();
+    });
   });
 
   describe('fromJStoYAML', () => {
