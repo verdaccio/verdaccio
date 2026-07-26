@@ -5,7 +5,7 @@ import { randomUUID } from 'node:crypto';
 import type { Auth } from '@verdaccio/auth';
 import { getApiToken } from '@verdaccio/auth';
 import { createRemoteUser } from '@verdaccio/config';
-import { API_ERROR, HEADERS, HTTP_STATUS, authUtils, errorUtils } from '@verdaccio/core';
+import { API_ERROR, HEADERS, HTTP_STATUS, authUtils, errorUtils, reqUtils } from '@verdaccio/core';
 import { LOGIN_API_ENDPOINTS, rateLimit } from '@verdaccio/middleware';
 import type { Storage } from '@verdaccio/store';
 import type { Config, Logger } from '@verdaccio/types';
@@ -63,13 +63,13 @@ export default function (
     LOGIN_API_ENDPOINTS.login_done_session,
     rateLimit(config?.userRateLimit),
     async function (req: $RequestExtend, res: Response, next: $NextFunctionVer): Promise<void> {
-      debug('polling login session %o', req.params.sessionId);
+      const sessionId = reqUtils.paramToString(req.params.sessionId);
+      debug('polling login session %o', sessionId);
 
-      if (!req.params.sessionId) {
+      if (!sessionId) {
         debug('sessionId is missing');
         return next(errorUtils.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.SESSION_ID_REQUIRED));
       }
-      const sessionId = req.params.sessionId;
       if (sessionId.length !== 36) {
         debug('sessionId is invalid length: %o', sessionId.length);
         return next(errorUtils.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.SESSION_ID_INVALID));
@@ -120,13 +120,13 @@ export default function (
     rateLimit(config?.userRateLimit),
     async function (req: $RequestExtend, res: Response, next: $NextFunctionVer): Promise<void> {
       const { username, password } = req.body;
-      debug('authenticating login session %o for user %o', req.params.sessionId, username);
+      const sessionId = reqUtils.paramToString(req.params.sessionId);
+      debug('authenticating login session %o for user %o', sessionId, username);
 
-      if (!req.params.sessionId) {
+      if (!sessionId) {
         debug('sessionId is missing');
         return next(errorUtils.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.SESSION_ID_REQUIRED));
       }
-      const sessionId = req.params.sessionId;
       if (sessionId.length !== 36) {
         debug('sessionId is invalid length: %o', sessionId.length);
         return next(errorUtils.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.SESSION_ID_INVALID));

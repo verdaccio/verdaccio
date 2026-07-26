@@ -17,7 +17,7 @@ import { MIN_NODE_VERSION, isVersionValid } from './utils';
  * version/name) via {@link CliRuntimeOptions} — e.g. a registry that needs to
  * boot with a custom Storage — without re-implementing the command set.
  */
-export function runCli(options: CliRuntimeOptions = {}): Promise<number> {
+export function runCli(options: CliRuntimeOptions = {}): Promise<void> {
   configureCli(options);
 
   if (process.getuid && process.getuid() === 0) {
