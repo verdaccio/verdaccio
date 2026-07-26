@@ -1297,6 +1297,44 @@ describe('storage', () => {
       });
     });
 
+    test('should throw 403 forbidden when uncached tarball is forbidden upstream', () => {
+      return new Promise((done) => {
+        const pkgName = 'upstream';
+        const upstreamMessage = 'blocked before local distfiles are cached';
+        const upstreamManifest = addNewVersion(
+          generateRemotePackageMetadata(pkgName, '1.0.0') as Manifest,
+          '1.0.1'
+        );
+        nock('https://fake.verdaccio.org').get(`/${pkgName}`).reply(201, upstreamManifest);
+        nock('http://localhost:5555')
+          .get(`/${pkgName}/-/${pkgName}-1.0.1.tgz`)
+          .reply(403, { detail: upstreamMessage });
+        const config = new Config(
+          configExample(
+            {
+              storage: generateRandomStorage(),
+            },
+            './fixtures/config/getTarball-getupstream.yaml',
+            import.meta.dirname
+          )
+        );
+        const storage = new Storage(config, logger);
+        storage.init(config).then(() => {
+          const abort = new AbortController();
+          storage
+            .getTarball(pkgName, `${pkgName}-1.0.1.tgz`, {
+              signal: abort.signal,
+            })
+            .then((stream) => {
+              stream.on('error', (err) => {
+                expect(err).toEqual(errorUtils.getForbidden(upstreamMessage));
+                done(true);
+              });
+            });
+        });
+      });
+    });
+
     test('should throw 500 internal error for other uplink status codes like 409', () => {
       return new Promise((done) => {
         const pkgName = 'upstream';
