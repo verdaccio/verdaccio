@@ -47,7 +47,7 @@
     "ci:version": "pnpm ci:version:changeset && pnpm ci:version:install",
     "ci:version:changeset": "changeset version",
     "ci:version:install": "pnpm install --frozen-lockfile=false --config.prefer-online=true",
-    "ci:publish": "changeset publish",
+    "ci:publish": "changeset publish --tag next-7",
     "type-check": "tsc --noEmit",
     "cache:clean": "pnpm store prune",
     "type-check:watch": "pnpm run type-check -- --watch",
