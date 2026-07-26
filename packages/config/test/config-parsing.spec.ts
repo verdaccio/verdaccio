@@ -28,6 +28,14 @@ describe('parse', () => {
         }).toThrow(/config file does not exist or not reachable/);
       });
     });
+
+    test('resolves YAML merge keys (anchors + <<) shared across sections', () => {
+      const config = parseConfigFile(parseConfigurationFile('merge-keys.yaml'));
+      expect(config.uplinks).toEqual({
+        npmjs: { cache: true, maxage: '2m', url: 'https://registry.npmjs.org/' },
+        private: { cache: true, maxage: '2m', url: 'https://example.org/' },
+      });
+    });
   });
 
   describe('fromJStoYAML', () => {

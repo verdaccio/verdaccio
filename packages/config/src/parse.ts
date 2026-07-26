@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import YAML from 'js-yaml';
+import { CORE_SCHEMA, Schema, dump, load, mergeTag } from 'js-yaml';
 import { isObject } from 'lodash-es';
 import fs from 'node:fs';
 
@@ -10,6 +10,13 @@ import { findConfigFile } from './config-path';
 import { fileExists } from './config-utils';
 
 const debug = buildDebug('verdaccio:config:parse');
+
+/**
+ * js-yaml v5 defaults to the YAML 1.2 CORE_SCHEMA, which no longer resolves
+ * merge keys (`<<`). Extend it with the merge tag so anchors + `<<` used to
+ * share settings across config sections keep working as they did on v4.
+ */
+const CONFIG_SCHEMA = new Schema([...CORE_SCHEMA.tags, mergeTag]);
 
 /**
  * Parse a YAML config file.
@@ -29,7 +36,9 @@ export function parseConfigFile(configPath: string): ConfigYaml & {
   }
   debug('parsing config file: %o', configPath);
   try {
-    const yamlConfig = YAML.load(fs.readFileSync(configPath, 'utf8')) as ConfigYaml;
+    const yamlConfig = load(fs.readFileSync(configPath, 'utf8'), {
+      schema: CONFIG_SCHEMA,
+    }) as ConfigYaml;
 
     return Object.assign({}, yamlConfig, {
       configPath,
@@ -45,7 +54,7 @@ export function parseConfigFile(configPath: string): ConfigYaml & {
 export function fromJStoYAML(config: Partial<ConfigYaml>): string | null {
   debug('convert config from JSON to YAML');
   if (isObject(config)) {
-    return YAML.dump(config);
+    return dump(config);
   } else {
     throw new Error(`config is not a valid object`);
   }
