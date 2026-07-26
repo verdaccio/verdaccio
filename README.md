@@ -141,11 +141,13 @@ You can now navigate to [http://localhost:4873/](http://localhost:4873/) where y
 
 ## Publishing
 
-#### 1. Create a User and Log In
+#### 1. Log In
 
 ```bash
-npm adduser --registry http://localhost:4873
+npm login --registry http://localhost:4873 --auth-type=legacy
 ```
+
+> npm 12 removed `npm adduser`. Use `npm adduser --registry http://localhost:4873 --auth-type=legacy` only with npm 11 or older if you still depend on CLI-based user creation.
 
 > If you use HTTPS, add appropriate CA information. ("null" indicates getting the CA list from the OS.)
 
@@ -172,7 +174,7 @@ docker pull verdaccio/verdaccio
 Available as [tags](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
 
 ```bash
-docker pull verdaccio/verdaccio:7.x-next
+docker pull verdaccio/verdaccio:7
 ```
 
 ### Running Verdaccio using Docker
@@ -202,16 +204,16 @@ Verdaccio aims to support all relevant features of a standard npm client for pri
 
 ### User management
 
-- Registering new users (`npm adduser {newuser}`) - **supported**
+- Registering new users (`npm adduser {newuser}`) - **supported with npm 11 or older**; npm 12 removed `npm adduser`
 - Change password (`npm profile set password`) - **supported**
 - Transferring ownership (`npm owner add {user} {pkg}`) - not supported, _PRs welcome_
 - Token (`npm token`) - **supported** (under flag)
 
 ### Miscellany
 
-- Search (`npm search`) - **supported** (cli (`/-/all` and `v1`) / browser)
+- Search (`npm search`) - **supported** (cli (`/-/v1/search`) / browser)
 - Ping (`npm ping`) - **supported**
-- Starring (`npm star`, `npm unstar`, `npm stars`) - **supported**
+- Starring (`npm star`, `npm unstar`, `npm stars`) - not supported in Verdaccio 7.x
 
 ### Security
 
