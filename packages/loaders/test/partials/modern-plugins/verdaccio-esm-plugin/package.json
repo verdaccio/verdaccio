@@ -1,0 +1,12 @@
+{
+  "name": "verdaccio-esm-plugin",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": {
+        "default": "./index.js"
+      }
+    }
+  }
+}
