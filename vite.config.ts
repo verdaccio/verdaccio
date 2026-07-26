@@ -47,10 +47,14 @@ function nativeDts() {
 
       const tsc = join(__dirname, 'node_modules', '.bin', 'tsc');
       await new Promise<void>((resolvePromise, reject) => {
-        const child = spawn(tsc, ['-p', resolve(__dirname, 'tsconfig.json'), '--emitDeclarationOnly'], {
-          cwd: __dirname,
-          stdio: 'inherit',
-        });
+        const child = spawn(
+          tsc,
+          ['-p', resolve(__dirname, 'tsconfig.json'), '--emitDeclarationOnly'],
+          {
+            cwd: __dirname,
+            stdio: 'inherit',
+          }
+        );
         child.on('error', reject);
         child.on('close', (code) =>
           code === 0
