@@ -1,9 +1,9 @@
+import { spawn } from 'node:child_process';
 import { builtinModules } from 'node:module';
 import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 
-import dts from 'vite-plugin-dts';
 import { defineConfig } from 'vite';
 
 const nodeBuiltins = new Set([...builtinModules, ...builtinModules.map((m) => `node:${m}`)]);
@@ -37,6 +37,39 @@ function copyDir(src, dest) {
       fs.copyFileSync(srcPath, destPath);
     }
   }
+}
+
+/**
+ * Emits .d.ts declarations with the TypeScript compiler itself
+ * (`tsc --emitDeclarationOnly`). TypeScript 7's native compiler has no JS
+ * compiler API, so plugin-based generators (vite-plugin-dts/unplugin-dts)
+ * would need a parallel TypeScript 6 install just to drive them.
+ */
+export function nativeDts(dirname) {
+  // The build runs once per output format; only emit declarations once.
+  let emitted = false;
+  return {
+    name: 'verdaccio:native-dts',
+    apply: 'build',
+    async closeBundle() {
+      if (emitted) return;
+      emitted = true;
+      const tsc = path.join(import.meta.dirname, 'node_modules', '.bin', 'tsc');
+      await new Promise((resolve, reject) => {
+        const child = spawn(
+          tsc,
+          ['-p', path.resolve(dirname, 'tsconfig.build.json'), '--emitDeclarationOnly'],
+          { cwd: dirname, stdio: 'inherit' }
+        );
+        child.on('error', reject);
+        child.on('close', (code) =>
+          code === 0
+            ? resolve()
+            : reject(new Error(`tsc --emitDeclarationOnly exited with code ${code}`))
+        );
+      });
+    },
+  };
 }
 
 /**
@@ -85,9 +118,7 @@ export function createLibConfig(dirname, options = {}) {
 
   return defineConfig({
     plugins: [
-      dts({
-        tsconfigPath: path.resolve(dirname, 'tsconfig.build.json'),
-      }),
+      nativeDts(dirname),
       copyStaticFiles(path.resolve(dirname, 'src'), path.resolve(dirname, outDir)),
     ],
     build: {

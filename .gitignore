@@ -28,7 +28,7 @@ coverage/
 
 # Compiled script
 packages/partials
-tsconfig.tsbuildinfo
+*.tsbuildinfo
 
 ## bundle files
 packages/standalone/dist/
@@ -48,6 +48,9 @@ packages/ui-components/src/components/Readme/github-markdown.css
 
 
 # cypress
+cypress/videos/**/*
+cypress/screenshots/**/*
+cypress/downloads/**/*
 e2e/ui/cypress/videos/**/*
 e2e/ui/cypress/screenshots/**/*
 e2e/ui/cypress/downloads/**/*

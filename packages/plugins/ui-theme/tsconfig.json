@@ -3,7 +3,7 @@
   "compilerOptions": {
     "skipLibCheck": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
     "allowJs": true,

@@ -6,9 +6,11 @@ import type { LoggerConfigItem, LoggerFormat } from '@verdaccio/types';
 import { hasColors } from './colors';
 
 // Pino transports run in a worker thread via require(), so CJS output must work.
-// import.meta.dirname works in ESM; __dirname works in CJS.
-const currentDir =
-  typeof __dirname !== 'undefined' ? __dirname : dirname(fileURLToPath(import.meta.url));
+// rolldown lowers `import.meta` to `{}` in the CJS output, so `import.meta.url`
+// is only truthy in the ESM build; module-scoped __dirname covers the CJS build
+// (checking `typeof __dirname` instead is unsafe: node -e and the REPL leak it
+// as a global into ES modules)
+const currentDir = import.meta.url ? dirname(fileURLToPath(import.meta.url)) : __dirname;
 const prettifyPath = join(currentDir, '..', 'build', 'prettify.js');
 
 export function isPrettyFormat(format: LoggerFormat | undefined): boolean {

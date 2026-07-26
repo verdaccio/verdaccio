@@ -265,15 +265,112 @@ class Storage {
       // dist file found, proceed to download
       const distFile = cachedManifest._distfiles[filename];
 
-      let current_length = 0;
-      let expected_length;
-      const passThroughRemoteStream = new PassThrough();
-      const proxy = this.getUpLinkForDistFile(name, distFile);
-      const remoteStream = proxy.fetchTarball(distFile.url, {});
+      return this.fetchTarballFromDistFile(name, filename, distFile, { signal });
+    } else {
+      debug('dist file not found, proceed update upstream');
+      // no dist url found, proceed to fetch from upstream
+      // should not be the case
+      // ensure get the latest data
+      const [updatedManifest] = await this.syncUplinksMetadata(name, cachedManifest, {
+        uplinksLook: true,
+      });
+      const distFile = (updatedManifest as Manifest)?._distfiles?.[filename];
 
-      remoteStream.on('request', async () => {
+      if (updatedManifest === null || !distFile) {
+        debug('remote tarball not found');
+        // TODO: review the error message, it causes unnecessary
+        // error on console
+        throw errorUtils.getNotFound(API_ERROR.NO_SUCH_FILE);
+      }
+
+      return this.fetchTarballFromDistFile(name, filename, distFile, { signal });
+    }
+  }
+
+  private fetchTarballFromDistFile(
+    name: string,
+    filename: string,
+    distFile: DistFile,
+    { signal }
+  ): PassThrough {
+    let current_length = 0;
+    let expected_length;
+    let uplinkStatusError: Error | null = null;
+    const passThroughRemoteStream = new PassThrough();
+    const proxy = this.getUpLinkForDistFile(name, distFile);
+    const remoteStream = proxy.fetchTarball(distFile.url, { throwHttpErrors: false });
+
+    const readRemoteBody = (): Promise<any> =>
+      new Promise((resolve) => {
+        const chunks: Buffer[] = [];
+        remoteStream.on('data', (chunk: Buffer) => chunks.push(chunk));
+        remoteStream.once('end', () => {
+          const raw = Buffer.concat(chunks);
+          if (raw.length === 0) {
+            resolve(undefined);
+            return;
+          }
+          try {
+            resolve(JSON.parse(raw.toString('utf8')));
+          } catch {
+            resolve(undefined);
+          }
+        });
+        remoteStream.once('error', () => resolve(undefined));
+      });
+
+    remoteStream
+      .on('response', async (res) => {
+        if (res.statusCode === HTTP_STATUS.NOT_FOUND) {
+          debug('remote stream response 404');
+          remoteStream.resume();
+          uplinkStatusError = errorUtils.getNotFound(errorUtils.API_ERROR.NOT_FILE_UPLINK);
+          passThroughRemoteStream.emit('error', uplinkStatusError);
+          return;
+        }
+
+        if (res.statusCode === HTTP_STATUS.UNAUTHORIZED) {
+          debug('remote stream response 401');
+          remoteStream.resume();
+          uplinkStatusError = errorUtils.getUnauthorized(errorUtils.API_ERROR.UNAUTHORIZED_ACCESS);
+          passThroughRemoteStream.emit('error', uplinkStatusError);
+          return;
+        }
+
+        if (res.statusCode === HTTP_STATUS.FORBIDDEN) {
+          debug('remote stream response 403');
+          const body = await readRemoteBody();
+          const message =
+            body?.detail ||
+            body?.title ||
+            body?.message ||
+            'tarball not available: forbidden by uplink';
+          uplinkStatusError = errorUtils.getForbidden(message);
+          passThroughRemoteStream.emit('error', uplinkStatusError);
+          return;
+        }
+
+        if (!(res.statusCode >= HTTP_STATUS.OK && res.statusCode < HTTP_STATUS.MULTIPLE_CHOICES)) {
+          debug('remote stream response %o', res.statusCode);
+          remoteStream.resume();
+          uplinkStatusError = errorUtils.getInternalError(
+            `bad uplink status code: ${res.statusCode}`
+          );
+          passThroughRemoteStream.emit('error', uplinkStatusError);
+          return;
+        }
+
+        if (res.headers[HEADER_TYPE.CONTENT_LENGTH]) {
+          expected_length = res.headers[HEADER_TYPE.CONTENT_LENGTH];
+          debug('remote stream response content length %o', expected_length);
+          passThroughRemoteStream.emit(
+            HEADER_TYPE.CONTENT_LENGTH,
+            res.headers[HEADER_TYPE.CONTENT_LENGTH]
+          );
+        }
+
         try {
-          debug('remote stream request');
+          debug('remote stream response ok, starting pipeline');
           const storage = this.getPrivatePackageStorage(name) as any;
           if (proxy.config.cache === true && storage) {
             const localStorageWriteStream = await storage.writeTarball(filename, {
@@ -289,114 +386,41 @@ class Storage {
             });
           }
         } catch (err: any) {
+          if (uplinkStatusError) {
+            return;
+          }
           debug('error on pipeline downloading tarball for package %o', name);
           passThroughRemoteStream.emit('error', err);
         }
-      });
-
-      remoteStream
-        .on('response', async (res) => {
-          if (res.statusCode === HTTP_STATUS.NOT_FOUND) {
-            debug('remote stream response 404');
-            passThroughRemoteStream.emit(
-              'error',
-              errorUtils.getNotFound(errorUtils.API_ERROR.NOT_FILE_UPLINK)
-            );
-            return;
-          }
-
-          if (res.statusCode === HTTP_STATUS.UNAUTHORIZED) {
-            debug('remote stream response 401');
-            passThroughRemoteStream.emit(
-              'error',
-              errorUtils.getUnauthorized(errorUtils.API_ERROR.UNAUTHORIZED_ACCESS)
-            );
-            return;
-          }
-
-          if (
-            !(res.statusCode >= HTTP_STATUS.OK && res.statusCode < HTTP_STATUS.MULTIPLE_CHOICES)
-          ) {
-            debug('remote stream response %o', res.statusCode);
-            passThroughRemoteStream.emit(
-              'error',
-              errorUtils.getInternalError(`bad uplink status code: ${res.statusCode}`)
-            );
-            return;
-          }
-
-          if (res.headers[HEADER_TYPE.CONTENT_LENGTH]) {
-            expected_length = res.headers[HEADER_TYPE.CONTENT_LENGTH];
-            debug('remote stream response content length %o', expected_length);
-            passThroughRemoteStream.emit(
-              HEADER_TYPE.CONTENT_LENGTH,
-              res.headers[HEADER_TYPE.CONTENT_LENGTH]
-            );
-          }
-        })
-        .on('downloadProgress', (progress) => {
-          current_length = progress.transferred;
-          if (typeof expected_length === 'undefined' && progress.total) {
-            expected_length = progress.total;
-          }
-        })
-        .on('end', () => {
-          if (expected_length && current_length != expected_length) {
-            debug('stream end, but length mismatch %o %o', current_length, expected_length);
-            passThroughRemoteStream.emit(
-              'error',
-              errorUtils.getInternalError(API_ERROR.CONTENT_MISMATCH)
-            );
-          }
-          debug('remote stream end');
-        })
-        .on('error', (err) => {
-          debug('remote stream error %o', err);
-          passThroughRemoteStream.emit('error', err);
-        });
-      return passThroughRemoteStream;
-    } else {
-      debug('dist file not found, proceed update upstream');
-      // no dist url found, proceed to fetch from upstream
-      // should not be the case
-      const passThroughRemoteStream = new PassThrough();
-      // ensure get the latest data
-      const [updatedManifest] = await this.syncUplinksMetadata(name, cachedManifest, {
-        uplinksLook: true,
-      });
-      const distFile = (updatedManifest as Manifest)?._distfiles?.[filename];
-
-      if (updatedManifest === null || !distFile) {
-        debug('remote tarball not found');
-        // TODO: review the error message, it causes unnecessary
-        // error on console
-        throw errorUtils.getNotFound(API_ERROR.NO_SUCH_FILE);
-      }
-
-      const proxy = this.getUpLinkForDistFile(name, distFile);
-      const remoteStream = proxy.fetchTarball(distFile.url, {});
-      remoteStream.on('response', async () => {
-        try {
-          const storage = this.getPrivatePackageStorage(name);
-          if (proxy.config.cache === true && storage) {
-            debug('cache remote tarball enabled');
-            const localStorageWriteStream = await storage.writeTarball(filename, {
-              signal,
-            });
-            await pipeline(remoteStream, passThroughRemoteStream, localStorageWriteStream, {
-              signal,
-            });
-          } else {
-            debug('cache remote tarball disabled');
-            await pipeline(remoteStream, passThroughRemoteStream, { signal });
-          }
-        } catch (err) {
-          debug('error on pipeline downloading tarball for package %o', name);
-          passThroughRemoteStream.emit('error', err);
+      })
+      .on('downloadProgress', (progress) => {
+        current_length = progress.transferred;
+        if (typeof expected_length === 'undefined' && progress.total) {
+          expected_length = progress.total;
         }
+      })
+      .on('end', () => {
+        if (uplinkStatusError) {
+          return;
+        }
+        if (expected_length && current_length != expected_length) {
+          debug('stream end, but length mismatch %o %o', current_length, expected_length);
+          passThroughRemoteStream.emit(
+            'error',
+            errorUtils.getInternalError(API_ERROR.CONTENT_MISMATCH)
+          );
+        }
+        debug('remote stream end');
+      })
+      .on('error', (err) => {
+        if (uplinkStatusError) {
+          return;
+        }
+        debug('remote stream error %o', err);
+        passThroughRemoteStream.emit('error', err);
       });
-      return passThroughRemoteStream;
-    }
+
+    return passThroughRemoteStream;
   }
 
   /**
