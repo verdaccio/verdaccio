@@ -59,6 +59,30 @@ describe('UpStorage', () => {
     expect(proxy).toBeDefined();
   });
 
+  describe('constructor url validation', () => {
+    test('should throw a clear error on a malformed uplink url', () => {
+      expect(() => generateProxy({ url: 'not a valid url' } as UpLinkConf)).toThrow(
+        /invalid uplink url: not a valid url/
+      );
+    });
+
+    test('should redact credentials from the invalid url error message', () => {
+      expect(() => generateProxy({ url: 'http://user:secret@ bad host' } as UpLinkConf)).toThrow(
+        /invalid uplink url: http:\/\/\*\*\*@ bad host/
+      );
+    });
+
+    test('should preserve the original parse error as cause', () => {
+      let caught: Error | undefined;
+      try {
+        generateProxy({ url: 'not a valid url' } as UpLinkConf);
+      } catch (err) {
+        caught = err as Error;
+      }
+      expect(caught?.cause).toBeInstanceOf(Error);
+    });
+  });
+
   describe('getRemoteMetadata', () => {
     beforeEach(() => {
       // @ts-ignore
@@ -518,6 +542,16 @@ describe('UpStorage', () => {
         // different protocol, different domain, different port
         const url = 'https://subdomain.my:5001';
         const tarBallUrl = 'http://subdomain.domain:4000/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz';
+        const uplinkConf = { url };
+        const proxy: any = generateProxy(uplinkConf);
+
+        expect(proxy.isUplinkValid(tarBallUrl)).toBe(false);
+      });
+
+      test('should fails on validate tarball path against uplink case#6', () => {
+        // same domain, same protocol, non-default uplink port vs default-port tarball
+        const url = 'https://subdomain.domain:5569';
+        const tarBallUrl = 'https://subdomain.domain/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz';
         const uplinkConf = { url };
         const proxy: any = generateProxy(uplinkConf);
 

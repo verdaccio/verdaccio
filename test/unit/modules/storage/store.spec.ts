@@ -1580,4 +1580,93 @@ describe('StorageTest', () => {
       expect(storage.filters[1].filter_metadata).toHaveBeenCalledTimes(1);
     });
   });
+
+  describe('updateVersions distfile url handling', () => {
+    // Build a minimal manifest whose versions carry the given tarball urls.
+    const makeManifest = (name: string, tarballs: Record<string, string>) => ({
+      name,
+      versions: Object.fromEntries(
+        Object.entries(tarballs).map(([version, tarball]) => [
+          version,
+          { name, version, dist: { tarball, shasum: `sha-${version}` } },
+        ])
+      ),
+      'dist-tags': { latest: Object.keys(tarballs)[0] },
+    });
+
+    test('extracts the trailing filename from a standard absolute tarball url', async () => {
+      const storage: any = await generateStorage();
+      const name = 'distfile-standard';
+      const tarball = 'http://localhost:4873/distfile-standard/-/distfile-standard-1.0.0.tgz';
+      const result = await storage.localStorage.updateVersionsAsync(
+        name,
+        makeManifest(name, { '1.0.0': tarball })
+      );
+
+      expect(result._distfiles['distfile-standard-1.0.0.tgz']).toEqual({
+        url: tarball,
+        sha: 'sha-1.0.0',
+      });
+    });
+
+    test('handles GitHub Packages registry tarball url format', async () => {
+      const storage: any = await generateStorage();
+      const name = 'distfile-github';
+      // GitHub Packages serves tarballs as /download/@owner/pkg/version/<content-hash>,
+      // so the last path segment is a hash rather than <pkg>-<version>.tgz.
+      const tarball =
+        'https://npm.pkg.github.com/download/@my-org/distfile-github/1.2.3/9f8e7d6c5b4a3928170615243342516170890abc';
+      const result = await storage.localStorage.updateVersionsAsync(
+        name,
+        makeManifest(name, { '1.2.3': tarball })
+      );
+
+      expect(result._distfiles['9f8e7d6c5b4a3928170615243342516170890abc']).toEqual({
+        url: tarball,
+        sha: 'sha-1.2.3',
+      });
+    });
+
+    test('resolves a relative tarball url via the dummy base without throwing', async () => {
+      const storage: any = await generateStorage();
+      const name = 'distfile-relative';
+      // A relative url would throw under the single-arg WHATWG URL constructor;
+      // the dummy base lets it resolve so the filename can still be extracted.
+      const tarball = '/distfile-relative/-/distfile-relative-1.0.0.tgz';
+      const result = await storage.localStorage.updateVersionsAsync(
+        name,
+        makeManifest(name, { '1.0.0': tarball })
+      );
+
+      expect(result._distfiles['distfile-relative-1.0.0.tgz']).toEqual({
+        url: tarball,
+        sha: 'sha-1.0.0',
+      });
+    });
+
+    test('skips a malformed tarball url and still records valid versions', async () => {
+      const storage: any = await generateStorage();
+      const name = 'distfile-malformed';
+      const validTarball =
+        'http://localhost:4873/distfile-malformed/-/distfile-malformed-2.0.0.tgz';
+      const result = await storage.localStorage.updateVersionsAsync(
+        name,
+        makeManifest(name, {
+          // an invalid absolute url (space in host) throws even with the base
+          '1.0.0': 'https://exa mple.com/distfile-malformed-1.0.0.tgz',
+          '2.0.0': validTarball,
+        })
+      );
+
+      // the malformed url is not recorded as a distfile ...
+      expect(Object.keys(result._distfiles).some((key) => key.includes('1.0.0'))).toBe(false);
+      // ... but the valid one is, and both versions are still persisted
+      expect(result._distfiles['distfile-malformed-2.0.0.tgz']).toEqual({
+        url: validTarball,
+        sha: 'sha-2.0.0',
+      });
+      expect(result.versions['1.0.0']).toBeDefined();
+      expect(result.versions['2.0.0']).toBeDefined();
+    });
+  });
 });

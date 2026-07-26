@@ -1,7 +1,6 @@
 import assert from 'assert';
 import builDebug from 'debug';
 import _ from 'lodash';
-import UrlNode from 'url';
 
 import { ReadTarball, UploadTarball } from '@verdaccio/streams';
 import {
@@ -156,7 +155,24 @@ class LocalStorage {
           packageLocalJson.versions[versionId] = version;
 
           if (version.dist && version.dist.tarball) {
-            const urlObject: any = UrlNode.parse(version.dist.tarball);
+            let urlObject: URL;
+            try {
+              // The single-arg WHATWG `URL` constructor throws on a relative url,
+              // whereas the legacy `url.parse()` this replaced accepted one. The
+              // `http://localhost` base is an arbitrary placeholder that lets a
+              // relative `dist.tarball` resolve instead of throwing; only
+              // `.pathname` is read from the result, so the host is never used and
+              // is ignored entirely for the absolute urls registries return.
+              urlObject = new URL(version.dist.tarball, 'http://localhost');
+            } catch (err: any) {
+              // an upstream registry may return a malformed tarball url; skip
+              // recording this distfile rather than aborting the whole update
+              this.logger.warn(
+                { name, version: versionId, tarball: version.dist.tarball, err: err.message },
+                'skipping distfile for @{name}@@{version}: invalid tarball url @{tarball} (@{err})'
+              );
+              continue;
+            }
             const filename = urlObject.pathname.replace(/^.*\//, '');
 
             // we do NOT overwrite any existing records
@@ -884,13 +900,13 @@ class LocalStorage {
     // use the same protocol for the tarball
     //
     // see https://github.com/rlidwka/sinopia/issues/166
-    const tarballUrl: any = UrlNode.parse(hash.url);
-    const uplinkUrl: any = UrlNode.parse(this.config.uplinks[upLinkKey].url);
+    const tarballUrl = URL.parse(hash.url);
+    const uplinkUrl = URL.parse(this.config.uplinks[upLinkKey].url);
 
-    if (uplinkUrl.host === tarballUrl.host) {
+    if (tarballUrl !== null && uplinkUrl !== null && uplinkUrl.host === tarballUrl.host) {
       tarballUrl.protocol = uplinkUrl.protocol;
       hash.registry = upLinkKey;
-      hash.url = UrlNode.format(tarballUrl);
+      hash.url = tarballUrl.href;
     }
   }
 

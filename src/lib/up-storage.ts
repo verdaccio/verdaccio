@@ -3,7 +3,6 @@ import JSONStream from 'JSONStream';
 import buildDebug from 'debug';
 import _ from 'lodash';
 import Stream from 'stream';
-import URL, { UrlWithStringQuery } from 'url';
 import zlib from 'zlib';
 
 import { ReadTarball } from '@verdaccio/streams';
@@ -80,7 +79,14 @@ class ProxyStorage {
     this.logger = logger;
     this.server_id = mainConfig.server_id;
 
-    this.url = URL.parse(this.config.url);
+    try {
+      this.url = new URL(this.config.url);
+    } catch (err) {
+      // WHATWG URL throws on malformed input; surface a clear, credential-redacted
+      // message so operators can identify the offending uplink config at startup.
+      const redactedUrl = String(this.config.url).replace(/\/\/[^/@]+@/, '//***@');
+      throw new Error(`invalid uplink url: ${redactedUrl}`, { cause: err });
+    }
 
     this._setupProxy(this.url.hostname, config, mainConfig, this.url.protocol === 'https:');
 
@@ -407,16 +413,22 @@ class ProxyStorage {
    * @return {Boolean}
    */
   public isUplinkValid(url: string): boolean {
-    const urlParsed: UrlWithStringQuery = URL.parse(url);
+    const urlParsed = URL.parse(url);
+    if (urlParsed === null) {
+      return false;
+    }
+    // WHATWG URL normalizes the default HTTPS port (443) away, exposing it as ''
     const isHTTPS = (urlDomainParsed: URL): boolean =>
       urlDomainParsed.protocol === 'https:' &&
-      (urlParsed.port === null || urlParsed.port === '443');
-    const getHost = (urlDomainParsed): boolean =>
+      (urlDomainParsed.port === '' || urlDomainParsed.port === '443');
+    const getHost = (urlDomainParsed: URL): string =>
       isHTTPS(urlDomainParsed) ? urlDomainParsed.hostname : urlDomainParsed.host;
+    // WHATWG URL has no `path`; reconstruct it from `pathname` + `search`
+    const getPath = (urlDomainParsed: URL): string =>
+      urlDomainParsed.pathname + urlDomainParsed.search;
     const isMatchProtocol: boolean = urlParsed.protocol === this.url.protocol;
     const isMatchHost: boolean = getHost(urlParsed) === getHost(this.url);
-    // @ts-ignore
-    const isMatchPath: boolean = urlParsed.path.indexOf(this.url.path) === 0;
+    const isMatchPath: boolean = getPath(urlParsed).indexOf(getPath(this.url)) === 0;
 
     return isMatchProtocol && isMatchHost && isMatchPath;
   }
