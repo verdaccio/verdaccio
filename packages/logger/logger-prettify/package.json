@@ -56,7 +56,7 @@
   },
   "dependencies": {
     "colorette": "2.0.20",
-    "dayjs": "1.11.18",
+    "dayjs": "1.11.21",
     "lodash": "4.18.1",
     "on-exit-leak-free": "2.1.2",
     "pino-abstract-transport": "1.2.0",
