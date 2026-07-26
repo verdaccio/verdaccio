@@ -37,6 +37,9 @@ minimumReleaseAgeExclude:
   - vite@8.0.16
   # Renovate security update: react-router@7.15.1 || 8.3.0
   - react-router@7.15.1 || 8.3.0
+  # Security update: fast-uri@3.1.4 fixes GHSA-v2hh-gcrm-f6hx (host confusion);
+  # published 2026-07-19, allow it in ahead of the quarantine.
+  - fast-uri@3.1.4
 
 # Force the esbuild security patch (>= 0.28.1) across the whole tree.
 # See GHSA-gv7w-rqvm-qjhr (RCE via NPM_CONFIG_REGISTRY, fixed in 0.28.1).
@@ -56,3 +59,7 @@ auditConfig:
     - GHSA-j3q9-mxjg-w52f
     # Express.js unreleased
     - GHSA-w7fw-mjwx-w883
+    # brace-expansion DoS; fixed in 5.0.8 (published 2026-07-23) which is still
+    # inside the 7-day minimumReleaseAge quarantine. Remove this ignore and
+    # update the lockfile after 2026-07-30.
+    - GHSA-mh99-v99m-4gvg
