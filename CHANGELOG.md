@@ -1,5 +1,66 @@
 # Changelog
 
+## 6.9.0
+
+### Minor Changes
+
+- b67a665: feat: require Node.js 22 as the minimum supported version
+
+  **Node.js 22 or higher is now required** (previously the CLI still accepted Node.js 18,
+  while `engines` already demanded 20). The CLI refuses to start on older runtimes and
+  `engines` is set to `>=22`; Node.js 24 is the recommended version. CI, e2e, and smoke
+  test matrices now cover Node.js 22, 24, and 26. Registry operators on Node.js 18 or 20
+  must upgrade the runtime before taking this release.
+
+- b67a665: feat: dual CJS + ESM build with `exports` field, migrate build from babel to vite 8
+
+  **Native ESM support.** The package now ships both CommonJS (`build/**/*.js`) and ESM
+  (`build/**/*.mjs`) outputs and declares an `exports` field, so
+  `import { runServer } from 'verdaccio'` resolves a real ES module instead of the
+  CommonJS interop. `require('verdaccio')` keeps working exactly as before. The
+  `verdaccio` CLI now runs on the ESM build, which means ESM-only dependencies can be
+  loaded at runtime on every supported Node.js version.
+
+  **Build toolchain.** Babel has been replaced by vite 8 (rolldown) for transpilation;
+  type declarations are still emitted by TypeScript. This is not observable in the
+  registry behavior, but local workflows changed: `yarn start` and the `debug/` bootstrap
+  scripts now use `tsx` instead of `babel-node`/`@babel/register`.
+
+### Patch Changes
+
+- b67a665: fix(deps): update @verdaccio/hooks to 8.1.1
+
+  Restores publish/unpublish webhook notifications when running on the ESM build: hooks
+  8.1.0 could not send them (the notify client failed silently on every call). The new
+  version replaces the frozen `got-cjs` fork with `got` 15 loaded in a way that works
+  from both the ESM and CommonJS builds, and reports delivery failures based on the real
+  HTTP response status.
+
+- b67a665: fix(deps): update @verdaccio/\* packages to the 2026-07-25 release batch
+
+  Updates all `@verdaccio/*` and `verdaccio-*` dependencies (config 8.1.4, core 8.1.4,
+  auth 8.0.6, middleware 8.0.7, htpasswd/audit 13.0.5, among others). Notably
+  `@verdaccio/config` 8.1.4 moves to `js-yaml` 4.3.0, resolving the high-severity
+  advisory [GHSA-52cp-r559-cp3m](https://github.com/advisories/GHSA-52cp-r559-cp3m)
+  (YAML merge-key chains forcing quadratic CPU consumption).
+
+- 2969ec8: fix: migrate uplink/storage URL parsing to the WHATWG URL API
+
+  Removes the `[DEP0169] DeprecationWarning: url.parse()` printed at startup on
+  Node.js 22+. The proxy and local-storage layers no longer use the legacy `url.parse()`
+  / `url.format()` helpers; uplink URL validation, distfile filename extraction, and the
+  remote-protocol tarball rewrite now go through the standardized `URL` API. Behavior is
+  unchanged for the absolute HTTP(S) URLs used in practice — the default HTTPS port `:443`
+  still normalizes to a match, and invalid uplink URLs are treated as not-valid instead of
+  being parsed leniently.
+
+  Because the WHATWG `URL` constructor throws on malformed input (unlike the lenient legacy
+  `url.parse()`), a misconfigured uplink `url` now fails fast at startup with a clear,
+  credential-redacted error, and a malformed `dist.tarball` returned by an upstream registry
+  is skipped (with a warning) instead of aborting the package update. Uplink URL validation
+  also now compares the uplink's own port when deciding whether to ignore the default HTTPS
+  port, so an HTTPS uplink on a non-default port no longer matches a default-port tarball.
+
 ## 6.8.0
 
 ### Minor Changes
