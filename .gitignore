@@ -28,7 +28,7 @@ coverage/
 
 # Compiled script
 packages/partials
-tsconfig.tsbuildinfo
+*.tsbuildinfo
 
 ## bundle files
 packages/standalone/dist/
