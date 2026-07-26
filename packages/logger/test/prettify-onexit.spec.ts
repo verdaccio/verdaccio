@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import type * as workerThreads from 'node:worker_threads';
-import { afterEach, describe, expect, test, vi } from 'vitest';
+import { afterAll, afterEach, describe, expect, test, vi } from 'vitest';
 
 const { register, unregister } = vi.hoisted(() => ({
   register: vi.fn(),
@@ -26,6 +26,10 @@ describe('buildSafeSonicBoom exit handling', () => {
 
   afterEach(() => {
     vi.clearAllMocks();
+  });
+
+  afterAll(() => {
+    fs.rmSync(tmpDir, { recursive: true, force: true });
   });
 
   test('registers a flush-on-exit handler for async streams', async () => {
