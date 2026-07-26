@@ -40,8 +40,8 @@
     "@verdaccio/plugin-verifier": "workspace:1.0.0-next-9.17",
     "cross-env": "10.1.0",
     "rimraf": "6.1.3",
-    "vite": "8.0.16",
-    "vitest": "4.1.7"
+    "vite": "8.1.4",
+    "vitest": "4.1.10"
   },
   "scripts": {
     "clean": "rimraf ./build",

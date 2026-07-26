@@ -1,6 +1,7 @@
 import type { WriteStream } from 'node:fs';
 import { Transform, pipeline } from 'node:stream';
 import { isMainThread } from 'node:worker_threads';
+import { register as onExitRegister, unregister as onExitUnregister } from 'on-exit-leak-free';
 import build from 'pino-abstract-transport';
 import type { SonicBoomOpts } from 'sonic-boom';
 import SonicBoom from 'sonic-boom';
@@ -68,11 +69,11 @@ export function autoEnd(stream: SonicBoom & { destroyed?: boolean }, eventName: 
 }
 
 function setupOnExit(stream) {
-  // WeakRef/FinalizationRegistry are guaranteed available in Node 20+ (pino v10 minimum)
-  const onExit = require('on-exit-leak-free');
-  onExit.register(stream, autoEnd);
+  // static import instead of a lazy require: rolldown rewrites bare `require`
+  // to a throwing stub in the ESM output, which would crash this path
+  onExitRegister(stream, autoEnd);
   stream.on('close', function () {
-    onExit.unregister(stream);
+    onExitUnregister(stream);
   });
 }
 
