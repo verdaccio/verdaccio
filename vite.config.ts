@@ -1,7 +1,7 @@
+import { spawn } from 'child_process';
 import { readFileSync, readdirSync, statSync } from 'fs';
 import { join, resolve } from 'path';
 import { defineConfig } from 'vite';
-import dts from 'vite-plugin-dts';
 
 const pkg = JSON.parse(readFileSync('./package.json', 'utf-8'));
 
@@ -33,8 +33,37 @@ const preserveModules = {
   preserveModulesRoot: 'src',
 };
 
+function nativeDts() {
+  let emitted = false;
+
+  return {
+    name: 'verdaccio:native-dts',
+    apply: 'build' as const,
+    async closeBundle() {
+      if (emitted) {
+        return;
+      }
+      emitted = true;
+
+      const tsc = join(__dirname, 'node_modules', '.bin', 'tsc');
+      await new Promise<void>((resolvePromise, reject) => {
+        const child = spawn(tsc, ['-p', resolve(__dirname, 'tsconfig.json'), '--emitDeclarationOnly'], {
+          cwd: __dirname,
+          stdio: 'inherit',
+        });
+        child.on('error', reject);
+        child.on('close', (code) =>
+          code === 0
+            ? resolvePromise()
+            : reject(new Error(`tsc --emitDeclarationOnly exited with code ${code}`))
+        );
+      });
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [dts({ outDir: 'build', tsconfigPath: './tsconfig.json' })],
+  plugins: [nativeDts()],
   build: {
     target: 'node24',
     outDir: 'build',
