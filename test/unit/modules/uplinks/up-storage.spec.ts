@@ -59,6 +59,30 @@ describe('UpStorage', () => {
     expect(proxy).toBeDefined();
   });
 
+  describe('constructor url validation', () => {
+    test('should throw a clear error on a malformed uplink url', () => {
+      expect(() => generateProxy({ url: 'not a valid url' } as UpLinkConf)).toThrow(
+        /invalid uplink url: not a valid url/
+      );
+    });
+
+    test('should redact credentials from the invalid url error message', () => {
+      expect(() => generateProxy({ url: 'http://user:secret@ bad host' } as UpLinkConf)).toThrow(
+        /invalid uplink url: http:\/\/\*\*\*@ bad host/
+      );
+    });
+
+    test('should preserve the original parse error as cause', () => {
+      let caught: Error | undefined;
+      try {
+        generateProxy({ url: 'not a valid url' } as UpLinkConf);
+      } catch (err) {
+        caught = err as Error;
+      }
+      expect(caught?.cause).toBeInstanceOf(Error);
+    });
+  });
+
   describe('getRemoteMetadata', () => {
     beforeEach(() => {
       // @ts-ignore

@@ -79,7 +79,14 @@ class ProxyStorage {
     this.logger = logger;
     this.server_id = mainConfig.server_id;
 
-    this.url = new URL(this.config.url);
+    try {
+      this.url = new URL(this.config.url);
+    } catch (err) {
+      // WHATWG URL throws on malformed input; surface a clear, credential-redacted
+      // message so operators can identify the offending uplink config at startup.
+      const redactedUrl = String(this.config.url).replace(/\/\/[^/@]+@/, '//***@');
+      throw new Error(`invalid uplink url: ${redactedUrl}`, { cause: err });
+    }
 
     this._setupProxy(this.url.hostname, config, mainConfig, this.url.protocol === 'https:');
 

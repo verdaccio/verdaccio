@@ -155,9 +155,24 @@ class LocalStorage {
           packageLocalJson.versions[versionId] = version;
 
           if (version.dist && version.dist.tarball) {
-            // a dummy base keeps relative tarball URLs from throwing; it is
-            // ignored for the absolute URLs stored in practice
-            const urlObject = new URL(version.dist.tarball, 'http://localhost');
+            let urlObject: URL;
+            try {
+              // The single-arg WHATWG `URL` constructor throws on a relative url,
+              // whereas the legacy `url.parse()` this replaced accepted one. The
+              // `http://localhost` base is an arbitrary placeholder that lets a
+              // relative `dist.tarball` resolve instead of throwing; only
+              // `.pathname` is read from the result, so the host is never used and
+              // is ignored entirely for the absolute urls registries return.
+              urlObject = new URL(version.dist.tarball, 'http://localhost');
+            } catch (err: any) {
+              // an upstream registry may return a malformed tarball url; skip
+              // recording this distfile rather than aborting the whole update
+              this.logger.warn(
+                { name, version: versionId, tarball: version.dist.tarball, err: err.message },
+                'skipping distfile for @{name}@@{version}: invalid tarball url @{tarball} (@{err})'
+              );
+              continue;
+            }
             const filename = urlObject.pathname.replace(/^.*\//, '');
 
             // we do NOT overwrite any existing records
