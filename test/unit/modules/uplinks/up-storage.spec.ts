@@ -523,6 +523,16 @@ describe('UpStorage', () => {
 
         expect(proxy.isUplinkValid(tarBallUrl)).toBe(false);
       });
+
+      test('should fails on validate tarball path against uplink case#6', () => {
+        // same domain, same protocol, non-default uplink port vs default-port tarball
+        const url = 'https://subdomain.domain:5569';
+        const tarBallUrl = 'https://subdomain.domain/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz';
+        const uplinkConf = { url };
+        const proxy: any = generateProxy(uplinkConf);
+
+        expect(proxy.isUplinkValid(tarBallUrl)).toBe(false);
+      });
     });
   });
 });

@@ -413,7 +413,7 @@ class ProxyStorage {
     // WHATWG URL normalizes the default HTTPS port (443) away, exposing it as ''
     const isHTTPS = (urlDomainParsed: URL): boolean =>
       urlDomainParsed.protocol === 'https:' &&
-      (urlParsed.port === '' || urlParsed.port === '443');
+      (urlDomainParsed.port === '' || urlDomainParsed.port === '443');
     const getHost = (urlDomainParsed: URL): string =>
       isHTTPS(urlDomainParsed) ? urlDomainParsed.hostname : urlDomainParsed.host;
     // WHATWG URL has no `path`; reconstruct it from `pathname` + `search`
