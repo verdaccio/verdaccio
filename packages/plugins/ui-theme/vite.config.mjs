@@ -73,6 +73,11 @@ export default defineConfig(({ command }) => ({
   plugins: [svgInlinePlugin(), markdownRawPlugin(), react(), verdaccioManifestPlugin()],
 
   resolve: {
+    // i18next must be a singleton: LanguageSwitch in @verdaccio/ui-components
+    // reads the i18next module directly, so a second bundled copy (pnpm can
+    // materialize one per typescript peer-resolution context) leaves it
+    // uninitialized and the language list empty.
+    dedupe: ['i18next', 'react-i18next'],
     alias: {
       'verdaccio-ui/components': path.resolve(__dirname, './src/components'),
       'verdaccio-ui/utils': path.resolve(__dirname, './src/utils'),
