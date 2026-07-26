@@ -1,5 +1,25 @@
 # @verdaccio/web
 
+## 9.0.0-next-9.22
+
+### Patch Changes
+
+- c499c4e: fix: refactor parsing of req.params
+- Updated dependencies [6795216]
+- Updated dependencies [d3b0352]
+- Updated dependencies [3574350]
+- Updated dependencies [c499c4e]
+- Updated dependencies [6a87488]
+  - @verdaccio/config@9.0.0-next-9.22
+  - @verdaccio/loaders@9.0.0-next-9.22
+  - @verdaccio/logger@9.0.0-next-9.22
+  - @verdaccio/store@9.0.0-next-9.22
+  - @verdaccio/middleware@9.0.0-next-9.22
+  - @verdaccio/core@9.0.0-next-9.22
+  - @verdaccio/ui-theme@9.0.0-next-9.22
+  - @verdaccio/auth@9.0.0-next-9.22
+  - @verdaccio/tarball@14.0.0-next-9.22
+
 ## 9.0.0-next-9.21
 
 ### Patch Changes
