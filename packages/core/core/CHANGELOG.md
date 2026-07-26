@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 9.0.0-next-9.22
+
+### Patch Changes
+
+- c499c4e: fix: refactor parsing of req.params
+
 ## 9.0.0-next-9.21
 
 ### Patch Changes

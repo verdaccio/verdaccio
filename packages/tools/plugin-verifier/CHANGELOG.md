@@ -1,5 +1,15 @@
 # @verdaccio/plugin-verifier
 
+## 1.0.0-next-9.18
+
+### Patch Changes
+
+- Updated dependencies [d3b0352]
+- Updated dependencies [c499c4e]
+  - @verdaccio/loaders@9.0.0-next-9.22
+  - @verdaccio/logger@9.0.0-next-9.22
+  - @verdaccio/core@9.0.0-next-9.22
+
 ## 1.0.0-next-9.17
 
 ### Patch Changes
