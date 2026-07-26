@@ -49,6 +49,7 @@
     "@types/superagent": "8.1.10",
     "@types/supertest": "7.2.0",
     "@types/validator": "13.15.10",
+    "@typescript/typescript6": "6.0.2",
     "@verdaccio/e2e-cli": "2.10.1",
     "@verdaccio/e2e-ui": "2.4.1",
     "@verdaccio/package-filter": "workspace:*",
