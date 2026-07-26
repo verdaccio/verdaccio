@@ -30,7 +30,7 @@
     "rimraf": "6.1.3",
     "verdaccio-auth-fake-plugin": "workspace:1.0.0-next-9.0",
     "vite": "8.1.4",
-    "vitest": "4.1.7"
+    "vitest": "4.1.10"
   },
   "homepage": "https://verdaccio.org",
   "keywords": [
