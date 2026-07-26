@@ -36,7 +36,7 @@
     "@verdaccio/core": "workspace:9.0.0-next-9.21",
     "@verdaccio/logger": "workspace:9.0.0-next-9.21",
     "debug": "4.4.3",
-    "got": "14.6.6",
+    "got": "15.1.0",
     "handlebars": "4.7.9"
   },
   "devDependencies": {
