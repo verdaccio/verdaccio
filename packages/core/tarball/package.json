@@ -59,7 +59,7 @@
     "@verdaccio/url": "workspace:13.1.0",
     "debug": "4.4.3",
     "gunzip-maybe": "1.4.2",
-    "tar-stream": "3.1.7"
+    "tar-stream": "3.2.0"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:13.0.5",
