@@ -7,15 +7,14 @@ on:
         type: boolean
         required: false
         default: false
-        
+
 permissions:
   contents: write
   actions: read
   security-events: write
 
-   
 jobs:
-     # 4️⃣ Snyk Security Scan
+  # 4️⃣ Snyk Security Scan
   snyk-scan:
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -24,20 +23,24 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: pnpm
-      
+
       - uses: pnpm/action-setup@v4
         with:
           version: latest
-    
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
       - name: Install dependencies
         run: |
-         corepack enable
-         corepack prepare yarn@4.9.2 --activate
-         yarn install
+          corepack enable
+          corepack prepare yarn@4.9.2 --activate
+          yarn install
 
       - name: Install Snyk
-        run: npm install snyk -g 
+        run: npm install snyk -g
 
       - name: Verify Snyk Token
         env:
@@ -58,7 +61,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: snyk monitor
- 
+
   # ----------------------------
   # 1️⃣ Socket Security Scan
   # ----------------------------
@@ -71,22 +74,26 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: pnpm
-      
+
       - uses: pnpm/action-setup@v4
         with:
           version: latest
-    
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
       - name: Install Socket
         run: |
           npm install -g socket
 
       - name: Install dependencies
         run: |
-         corepack enable
-         corepack prepare yarn@4.9.2 --activate
-         yarn install
- 
+          corepack enable
+          corepack prepare yarn@4.9.2 --activate
+          yarn install
+
       - name: Run Socket Scan
         env:
           SOCKET_CLI_API_TOKEN: ${{ secrets.SOCKET_API_KEY }}
@@ -104,18 +111,21 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: pnpm
-      
+
       - uses: pnpm/action-setup@v4
         with:
           version: latest
-    
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
       - name: Install dependencies
         run: |
-         corepack enable
-         corepack prepare yarn@4.9.2 --activate
-         yarn install
-
+          corepack enable
+          corepack prepare yarn@4.9.2 --activate
+          yarn install
 
       - name: Install OSV Scanner
         run: |
@@ -168,19 +178,20 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: pnpm
-      
+
       - uses: pnpm/action-setup@v4
         with:
           version: latest
-    
- 
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
       - name: Install dependencies
         run: |
-         corepack enable
-         corepack prepare yarn@4.9.2 --activate
-         yarn install
-
+          corepack enable
+          corepack prepare yarn@4.9.2 --activate
+          yarn install
 
       - name: Install jq
         run: sudo apt-get update && sudo apt-get install -y jq
@@ -239,7 +250,7 @@ jobs:
           fi
 
           echo "✅ No CodeQL findings"
- 
+
 
 
             # ----------------------------
@@ -254,39 +265,40 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: pnpm
-      
+
       - uses: pnpm/action-setup@v4
         with:
           version: latest
-    
- 
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
       - name: Install dependencies and build
         run: |
-         corepack enable
-         corepack prepare yarn@4.9.2 --activate
-         yarn install
-         yarn build
+          corepack enable
+          corepack prepare yarn@4.9.2 --activate
+          yarn install
+          yarn build
 
-         
   # ----------------------------
   # 5️⃣ Docker Build & Push
   # ----------------------------
   docker:
-    if: ${{ inputs.deploy }} 
+    if: ${{ inputs.deploy }}
     runs-on: ubuntu-latest
     timeout-minutes: 20 # Maximum running time for this job
     needs: [build_test]
     steps:
       - uses: actions/checkout@v4
       # download
- 
+
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-
 
       - name: Build & Push
         uses: docker/build-push-action@v5
@@ -302,7 +314,7 @@ jobs:
     if: ${{ inputs.deploy }}
     timeout-minutes: 20
     needs: [docker]
-   
+
     steps:
       - uses: actions/checkout@v4
 
@@ -316,17 +328,17 @@ jobs:
 
           sudo apt update
           sudo apt install -y cloudflared
- 
+
       - name: update image name and tag in deployment same as docker build and push
         env:
-          IMAGE: ${{ vars.DOCKER_REPO }}:${{ vars.APP_NAME }}-${{ github.sha }}          
-        run: | 
+          IMAGE: ${{ vars.DOCKER_REPO }}:${{ vars.APP_NAME }}-${{ github.sha }}
+        run: |
           ## replace "{{HOSTNAME}}" WITH ${{ vars.HOSTNAME }} in deployments.yml
           sed -i "s|{{HOSTNAME}}|${{ vars.HOSTNAME }}|g" deployments.yml
           ## replace "{{NAMESPACE}}" WITH ${{ vars.NAMESPACE }} in deployments.yml
           sed -i "s|{{NAMESPACE}}|${{ vars.NAMESPACE }}|g" deployments.yml
           sed -i "s|{{IMAGE}}|$IMAGE|g" deployments.yml
-          
+
       - name: Configure SSH
         run: |
           mkdir -p ~/.ssh
@@ -366,7 +378,7 @@ jobs:
         run: |
           scp setup.sh deploy-server:/tmp/setup.sh
           scp deployments.yml deploy-server:/tmp/deployment.yml
-            
+
       - name: Deploy
         run: |
           ssh \
@@ -388,10 +400,6 @@ jobs:
                 --secret-token='${{ secrets.SECRET_TOKEN }}' \
                 --port='${{ vars.PORT }}'
             "
-           
-
-
-
 
       - name: Trigger deployer-webhook  workflow
         env:
@@ -407,10 +415,3 @@ jobs:
             -d '{
               "ref":"main"
             }'
- 
-
-
-
-
-
-                        
