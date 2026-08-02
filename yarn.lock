@@ -2198,12 +2198,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/ui-theme@npm:9.0.0-next-9.22":
-  version: 9.0.0-next-9.22
-  resolution: "@verdaccio/ui-theme@npm:9.0.0-next-9.22"
+"@verdaccio/ui-theme@npm:9.0.0-next-9.23":
+  version: 9.0.0-next-9.23
+  resolution: "@verdaccio/ui-theme@npm:9.0.0-next-9.23"
   dependencies:
     debug: "npm:4.4.3"
-  checksum: 10c0/46bf56940fd9eb90a17bd90015a248166aacc76c782775131a366de3f524c179aa8400b71b63de9e6ff83c97da2e3670539bdccad34ad8459092d2edc047312e
+  checksum: 10c0/a0f839ab1d7b5240522553bbd905d14a0958cb72809979682b4ae58098e6e76b67873d375630f7a28c35d348edd51f3449aa601f9078efd5bf5aa71989dd2fd1
   languageName: node
   linkType: hard
 
@@ -8245,7 +8245,7 @@ __metadata:
     "@verdaccio/tarball": "npm:13.1.1"
     "@verdaccio/test-helper": "npm:4.1.0"
     "@verdaccio/types": "npm:13.0.5"
-    "@verdaccio/ui-theme": "npm:9.0.0-next-9.22"
+    "@verdaccio/ui-theme": "npm:9.0.0-next-9.23"
     "@verdaccio/url": "npm:13.1.1"
     "@verdaccio/utils": "npm:8.2.1"
     "@vitest/coverage-v8": "npm:4.1.8"
