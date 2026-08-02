@@ -123,25 +123,22 @@ describe('star', () => {
   test.each([
     [HTTP_STATUS.UNAUTHORIZED, 'access-error-401-demo'],
     [HTTP_STATUS.FORBIDDEN, 'access-error-403-demo'],
-  ])(
-    'should hide starred package when access check returns %s',
-    async (_statusCode, pkgName) => {
-      const userLogged = 'jota_token';
-      nock('https://registry.npmjs.org').get(`/${pkgName}`).reply(404);
-      const app = await initializeServer('star-access-error.yaml', (config) => {
-        config.plugins = path.join(__dirname, 'config', 'plugins');
-      });
-      const token = await getNewToken(app, { name: userLogged, password: 'secretPass' });
-      await publishStarredPackage(app, pkgName, userLogged, token);
+  ])('should hide starred package when access check returns %s', async (_statusCode, pkgName) => {
+    const userLogged = 'jota_token';
+    nock('https://registry.npmjs.org').get(`/${pkgName}`).reply(404);
+    const app = await initializeServer('star-access-error.yaml', (config) => {
+      config.plugins = path.join(__dirname, 'config', 'plugins');
+    });
+    const token = await getNewToken(app, { name: userLogged, password: 'secretPass' });
+    await publishStarredPackage(app, pkgName, userLogged, token);
 
-      const resp = await supertest(app)
-        .get(`/-/_view/starredByUser?key=%22${userLogged}%22`)
-        .set('Accept', HEADERS.JSON)
-        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-        .expect(HTTP_STATUS.OK);
-      expect(resp.body.rows).toEqual([]);
-    }
-  );
+    const resp = await supertest(app)
+      .get(`/-/_view/starredByUser?key=%22${userLogged}%22`)
+      .set('Accept', HEADERS.JSON)
+      .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+      .expect(HTTP_STATUS.OK);
+    expect(resp.body.rows).toEqual([]);
+  });
 
   test('should fail when starred package access check returns a server error', async () => {
     const userLogged = 'jota_token';
