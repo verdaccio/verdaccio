@@ -152,7 +152,7 @@
   },
   "resolutions": {
     "@cypress/request/form-data": "4.0.6",
-    "@types/express-serve-static-core": "4.19.8",
+    "@types/express-serve-static-core": "4.19.9",
     "@types/serve-static": "1.15.10",
     "ajv/fast-uri": "3.1.4",
     "express/path-to-regexp": "0.1.13",
