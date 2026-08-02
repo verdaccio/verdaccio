@@ -1,5 +1,12 @@
 # @verdaccio/logger-commons
 
+## 8.1.1
+
+### Patch Changes
+
+- Updated dependencies [38a00df]
+  - @verdaccio/core@8.2.1
+
 ## 8.1.0
 
 ### Minor Changes

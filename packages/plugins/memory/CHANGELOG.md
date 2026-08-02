@@ -1,5 +1,12 @@
 # Change Log
 
+## 10.5.1
+
+### Patch Changes
+
+- Updated dependencies [38a00df]
+  - @verdaccio/core@8.2.1
+
 ## 10.5.0
 
 ### Minor Changes

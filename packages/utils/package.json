@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/utils",
-  "version": "8.2.0",
+  "version": "8.2.1",
   "description": "Verdaccio Utilities",
   "keywords": [
     "enterprise",
@@ -55,7 +55,7 @@
     "build": "vite build && tsc --emitDeclarationOnly -p tsconfig.build.json"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:8.2.0",
+    "@verdaccio/core": "workspace:8.2.1",
     "lodash": "4.18.1",
     "minimatch": "10.2.5"
   },

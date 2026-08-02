@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/e2e-local-storage-legacy",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "private": true,
   "description": "E2E tests for @verdaccio/local-storage-legacy plugin",
   "bugs": {
