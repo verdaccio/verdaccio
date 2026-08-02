@@ -1,0 +1,30 @@
+auth:
+  htpasswd:
+    file: ./htpasswd-star-acl
+web:
+  enable: true
+  title: verdaccio
+
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
+
+log: { type: stdout, format: pretty, level: info }
+
+packages:
+  'private-*':
+    access: jota_token
+    publish: jota_token
+    unpublish: jota_token
+  '@*/*':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+    proxy: npmjs
+  '**':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+    proxy: npmjs
+
+_debug: true

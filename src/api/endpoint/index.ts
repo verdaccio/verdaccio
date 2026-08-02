@@ -63,7 +63,7 @@ export default function (config: Config, auth: Auth, storage: Storage) {
   distTags(app, auth, storage);
   publish(app, auth, storage, config);
   ping(app);
-  stars(app, storage);
+  stars(app, auth, storage, config);
   v1Search(app, auth, storage, config);
   token(app, auth, storage, config);
   pkg(app, auth, storage, config);
