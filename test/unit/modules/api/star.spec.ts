@@ -1,3 +1,5 @@
+import path from 'node:path';
+
 import nock from 'nock';
 import supertest from 'supertest';
 import { beforeEach, describe, expect, test } from 'vitest';
@@ -58,6 +60,101 @@ describe('star', () => {
       .expect(HTTP_STATUS.OK);
     expect(resp.body.rows).toHaveLength(3);
     expect(resp.body.rows).toEqual([{ value: 'foo' }, { value: 'pkg-1' }, { value: 'pkg-2' }]);
+  });
+
+  test('should only list starred packages the caller is allowed to access', async () => {
+    const userLogged = 'jota_token';
+    const privatePkg = 'private-demo';
+    const publicPkg = 'public-demo';
+    nock('https://registry.npmjs.org').get(`/${publicPkg}`).reply(404);
+    const app = await initializeServer('star-acl.yaml');
+    const token = await getNewToken(app, { name: userLogged, password: 'secretPass' });
+    await publishVersion(app, privatePkg, '1.0.0', undefined, token).expect(HTTP_STATUS.CREATED);
+    await publishVersion(app, publicPkg, '1.0.0', undefined, token).expect(HTTP_STATUS.CREATED);
+
+    for (const pkgName of [privatePkg, publicPkg]) {
+      const manifest = await getPackage(app, token, pkgName);
+      await starPackage(
+        app,
+        {
+          _rev: manifest.body._rev,
+          _id: manifest.body.id,
+          name: pkgName,
+          users: { [userLogged]: true },
+        },
+        token
+      ).expect(HTTP_STATUS.OK);
+    }
+
+    const authed = await supertest(app)
+      .get(`/-/_view/starredByUser?key=%22${userLogged}%22`)
+      .set('Accept', HEADERS.JSON)
+      .set('authorization', `Bearer ${token}`)
+      .expect(HTTP_STATUS.OK);
+    expect(authed.body.rows).toEqual(
+      expect.arrayContaining([{ value: privatePkg }, { value: publicPkg }])
+    );
+
+    const anon = await supertest(app)
+      .get(`/-/_view/starredByUser?key=%22${userLogged}%22`)
+      .set('Accept', HEADERS.JSON)
+      .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+      .expect(HTTP_STATUS.OK);
+    expect(anon.body.rows).toEqual([{ value: publicPkg }]);
+    expect(anon.body.rows).not.toContainEqual({ value: privatePkg });
+  });
+
+  async function publishStarredPackage(app, pkgName: string, userLogged: string, token: string) {
+    await publishVersion(app, pkgName, '1.0.0', undefined, token).expect(HTTP_STATUS.CREATED);
+
+    const manifest = await getPackage(app, token, pkgName);
+    await starPackage(
+      app,
+      {
+        _rev: manifest.body._rev,
+        _id: manifest.body.id,
+        name: pkgName,
+        users: { [userLogged]: true },
+      },
+      token
+    ).expect(HTTP_STATUS.OK);
+  }
+
+  test.each([
+    [HTTP_STATUS.UNAUTHORIZED, 'access-error-401-demo'],
+    [HTTP_STATUS.FORBIDDEN, 'access-error-403-demo'],
+  ])('should hide starred package when access check returns %s', async (_statusCode, pkgName) => {
+    const userLogged = 'jota_token';
+    nock('https://registry.npmjs.org').get(`/${pkgName}`).reply(404);
+    const app = await initializeServer('star-access-error.yaml', (config) => {
+      config.plugins = path.join(__dirname, 'config', 'plugins');
+    });
+    const token = await getNewToken(app, { name: userLogged, password: 'secretPass' });
+    await publishStarredPackage(app, pkgName, userLogged, token);
+
+    const resp = await supertest(app)
+      .get(`/-/_view/starredByUser?key=%22${userLogged}%22`)
+      .set('Accept', HEADERS.JSON)
+      .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+      .expect(HTTP_STATUS.OK);
+    expect(resp.body.rows).toEqual([]);
+  });
+
+  test('should fail when starred package access check returns a server error', async () => {
+    const userLogged = 'jota_token';
+    const pkgName = 'access-error-500-demo';
+    nock('https://registry.npmjs.org').get(`/${pkgName}`).reply(404);
+    const app = await initializeServer('star-access-error.yaml', (config) => {
+      config.plugins = path.join(__dirname, 'config', 'plugins');
+    });
+    const token = await getNewToken(app, { name: userLogged, password: 'secretPass' });
+    await publishStarredPackage(app, pkgName, userLogged, token);
+
+    await supertest(app)
+      .get(`/-/_view/starredByUser?key=%22${userLogged}%22`)
+      .set('Accept', HEADERS.JSON)
+      .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+      .expect(HTTP_STATUS.INTERNAL_ERROR);
   });
 
   test.each([['foo']])('should requires parameters', async (pkgName) => {

@@ -1,0 +1,29 @@
+plugins: ./plugins
+
+auth:
+  access-error: {}
+  htpasswd:
+    file: ./htpasswd-star-access-error
+web:
+  enable: true
+  title: verdaccio
+
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
+
+log: { type: stdout, format: pretty, level: info }
+
+packages:
+  '@*/*':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+    proxy: npmjs
+  '**':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+    proxy: npmjs
+
+_debug: true
