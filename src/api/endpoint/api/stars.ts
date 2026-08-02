@@ -39,14 +39,18 @@ export default function (route: Router, auth: Auth, storage: Storage, config: Co
         });
 
         const allowedFor = (localPackage: Version): Promise<boolean> =>
-          new Promise((resolve) => {
+          new Promise((resolve, reject) => {
             auth.allow_access(
               { packageName: localPackage.name },
               req.remote_user,
               (accessErr, allowed): void => {
                 if (accessErr) {
-                  debug(`access check failed for %o: %o`, localPackage.name, accessErr.message);
-                  return resolve(false);
+                  if (accessErr.status && String(accessErr.status).match(/^4\d\d$/)) {
+                    // auth plugin returns 4xx user error,
+                    // that's equivalent of !allowed basically
+                    return resolve(false);
+                  }
+                  return reject(accessErr);
                 }
                 resolve(Boolean(allowed));
               }
