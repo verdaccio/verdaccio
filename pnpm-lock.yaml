@@ -818,8 +818,8 @@ importers:
         specifier: 4.4.3
         version: 4.4.3
       fuse.js:
-        specifier: 7.4.2
-        version: 7.4.2
+        specifier: 7.5.0
+        version: 7.5.0
     devDependencies:
       '@verdaccio/types':
         specifier: workspace:13.0.5
@@ -2540,8 +2540,8 @@ packages:
     resolution: {integrity: sha512-plz8RVjfcDedTGfVngWH1jmJvBvAwi1v2jecfDerbEnMcmOYUEEwKFTHbNoCiYyzaK2Ws8lABkTCcRSqCY1q4w==}
     engines: {node: '>=10'}
 
-  fuse.js@7.4.2:
-    resolution: {integrity: sha512-LVbzjD4WA6UP5B1UnP8wuaXJiLnqMdM/E4fiJXTJ5haJ5b/MBNsK29h2fm6swEoQaVQjvYFWKLE2RanyZIoRVQ==}
+  fuse.js@7.5.0:
+    resolution: {integrity: sha512-sQtrEfA+ez/3G0cCZecF70oqpCRttCexYUG4mUrtWL49ULUzUyxokt5kyqwtKzj1270RaKih+hcP3qLcumccow==}
     engines: {node: '>=10'}
 
   get-caller-file@2.0.5:
@@ -5778,7 +5778,7 @@ snapshots:
 
   fuse.js@7.3.0: {}
 
-  fuse.js@7.4.2: {}
+  fuse.js@7.5.0: {}
 
   get-caller-file@2.0.5: {}
 
