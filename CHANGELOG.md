@@ -1,5 +1,20 @@
 # Changelog
 
+## 6.9.2
+
+### Patch Changes
+
+- 297dc43: fix: apply package access controls to the `starredByUser` endpoint
+
+  The `GET /-/_view/starredByUser` view did not enforce the configured package
+  access policy when listing a user's starred packages. Results are now filtered
+  through `auth.allow_access`, so the response only includes packages the
+  requesting client is authorized to see.
+
+- 05917d5: Update verdaccio dependencies to the `latest` npm dist-tag (`@verdaccio/ui-theme` tracks `next-9`):
+
+  - `@verdaccio/ui-theme`: `9.0.0-next-9.22` → `9.0.0-next-9.23`
+
 ## 6.9.1
 
 ### Patch Changes
