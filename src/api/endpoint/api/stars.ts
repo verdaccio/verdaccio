@@ -45,7 +45,8 @@ export default function (route: Router, auth: Auth, storage: Storage, config: Co
               req.remote_user,
               (accessErr, allowed): void => {
                 if (accessErr) {
-                  if (accessErr.status && String(accessErr.status).match(/^4\d\d$/)) {
+                  const status = accessErr.status ?? accessErr.statusCode;
+                  if (status && String(status).match(/^4\d\d$/)) {
                     // auth plugin returns 4xx user error,
                     // that's equivalent of !allowed basically
                     return resolve(false);
