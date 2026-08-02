@@ -68,7 +68,7 @@
     "@verdaccio/config": "workspace:8.2.1",
     "@verdaccio/types": "workspace:13.0.5",
     "mockdate": "3.0.5",
-    "vite": "8.0.16",
+    "vite": "8.1.5",
     "vitest": "4.1.2"
   },
   "engines": {
