@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/middleware",
-  "version": "8.1.0",
+  "version": "8.1.1",
   "description": "Verdaccio Express Middleware",
   "keywords": [
     "enterprise",
@@ -55,9 +55,9 @@
     "build": "vite build && tsc --emitDeclarationOnly -p tsconfig.build.json"
   },
   "dependencies": {
-    "@verdaccio/config": "workspace:8.2.0",
-    "@verdaccio/core": "workspace:8.2.0",
-    "@verdaccio/url": "workspace:13.1.0",
+    "@verdaccio/config": "workspace:8.2.1",
+    "@verdaccio/core": "workspace:8.2.1",
+    "@verdaccio/url": "workspace:13.1.1",
     "debug": "4.4.3",
     "express": "4.22.2",
     "express-rate-limit": "5.5.1",
@@ -65,7 +65,7 @@
     "lru-cache": "7.18.3"
   },
   "devDependencies": {
-    "@verdaccio/logger": "workspace:8.1.0",
+    "@verdaccio/logger": "workspace:8.1.1",
     "@verdaccio/types": "workspace:13.0.5",
     "http-errors": "2.0.1",
     "jsdom": "26.1.0",
