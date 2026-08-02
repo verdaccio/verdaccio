@@ -95,6 +95,34 @@ describe('Auth Utilities', () => {
       expect(authUtils.getMatchedPackagesSpec('@scope/vue', packages)).toBeUndefined();
     });
 
+    test('should match a rule regardless of package name casing', () => {
+      const packages = {
+        lodash: {
+          access: 'admin',
+          publish: 'admin',
+          proxy: 'custom',
+        },
+        '@scope/*': {
+          access: 'admin',
+          publish: 'admin',
+          proxy: 'custom',
+        },
+        '**': {
+          access: '$all',
+          publish: '$all',
+          proxy: 'npmjs',
+        },
+      };
+      // @ts-expect-error
+      expect(authUtils.getMatchedPackagesSpec('lodash', packages).proxy).toMatch('custom');
+      // @ts-expect-error
+      expect(authUtils.getMatchedPackagesSpec('Lodash', packages).proxy).toMatch('custom');
+      // @ts-expect-error
+      expect(authUtils.getMatchedPackagesSpec('LODASH', packages).proxy).toMatch('custom');
+      // @ts-expect-error
+      expect(authUtils.getMatchedPackagesSpec('@Scope/Pkg', packages).proxy).toMatch('custom');
+    });
+
     test('should return multiple uplinks in given order', () => {
       const packages = {
         react: {
