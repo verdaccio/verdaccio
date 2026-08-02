@@ -69,7 +69,7 @@
     "@verdaccio/types": "workspace:13.0.5",
     "express": "4.22.2",
     "supertest": "7.1.4",
-    "vite": "8.0.16",
+    "vite": "8.1.5",
     "vitest": "4.1.2"
   },
   "engines": {
