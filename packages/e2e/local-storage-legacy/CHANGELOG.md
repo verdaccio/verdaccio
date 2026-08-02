@@ -1,5 +1,11 @@
 # @verdaccio/e2e-local-storage-legacy
 
+## 1.0.7
+
+### Patch Changes
+
+- @verdaccio/e2e-shared@1.0.7
+
 ## 1.0.6
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 8.2.1
+
+### Patch Changes
+
+- 38a00df: Match package names case-insensitively in `getMatchedPackagesSpec` so access, publish and unpublish rules apply consistently to every casing of a package name.
+
 ## 8.2.0
 
 ### Minor Changes
