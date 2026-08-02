@@ -1,5 +1,12 @@
 # Change Log
 
+## 14.0.0-next-9.24
+
+### Patch Changes
+
+- be34664: fix(local-storage): uncontrolled data used in path expression
+  - @verdaccio/core@9.0.0-next-9.24
+
 ## 14.0.0-next-9.23
 
 ### Patch Changes
