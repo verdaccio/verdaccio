@@ -1,0 +1,52 @@
+# ------------------------------
+# Verdaccio Caching Proxy Config
+# ------------------------------
+
+storage: /verdaccio/storage
+secret: SECRET_TOKEN      
+
+store:
+  aws-s3-storage:
+    bucket: R2_BUCKET
+    endpoint: R2_ENDPOINT
+    region: auto
+    accessKeyId: S3_ACCESS_KEY_ID
+    secretAccessKey: S3_SECRET_ACCESS_KEY
+    s3ForcePathStyle: true
+
+web:
+  title: Verdaccio Cache Proxy
+  enable: false
+
+ 
+auth:
+  htpasswd:
+    file: /verdaccio/conf/htpasswd-dir/htpasswd
+    max_users: 1
+
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
+
+packages:
+  '@myorg/*':
+    access: $authenticated
+    publish: $authenticated
+    proxy: npmjs
+
+  '**':
+    access: $authenticated
+    publish: $authenticated            
+    proxy: npmjs
+
+    
+log:
+  type: stdout
+  format: pretty
+  level: http
+
+listen: 0.0.0.0:4873
+
+middlewares:
+  audit:
+    enabled: true

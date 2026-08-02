@@ -1,0 +1,85 @@
+name: Backup Repo to Cloudflare R2
+
+on:
+  push:
+    branches:
+      - main
+ 
+      - master
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10 # Maximum running time for this job
+
+    steps:
+      # 1️⃣ Checkout repository
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      # 2️⃣ Install Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      # 4️⃣ Zip repository
+      - name: Archive Repository
+        run: |
+          mkdir -p backup
+          git ls-files | zip backup/repo.zip -@
+
+      # 3️⃣ Install dependencies
+      - name: Install AWS SDK
+        run: |
+          rm package*
+          npm init -y  
+          npm install aws-sdk
+ 
+      # 5️⃣ Upload to R2
+      - name: Upload to Cloudflare R2
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID_B }}
+          R2_BUCKET: ${{ vars.BACKUP_BACKET_NAME }} # yahyeapps
+          AWS_ACCESS_KEY_ID: ${{ secrets.S3_ACCESS_KEY_ID_B }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_ACCESS_KEY_B }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          node << 'EOF'
+          const fs = require('fs');
+          const AWS = require('aws-sdk');
+
+          // Read environment variables
+          const accountId = process.env.R2_ACCOUNT_ID;
+          const bucket = process.env.R2_BUCKET;
+          const region = 'auto';
+          const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+          const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+          const repoName = process.env.GITHUB_REPOSITORY.split('/')[1];
+
+          // Timestamped backup filename
+          const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+          const key = `${repoName}-backup-${timestamp}.zip`;
+
+          // Initialize S3 client for R2
+          const s3 = new AWS.S3({
+            endpoint: `https://${accountId}.r2.cloudflarestorage.com`,
+            region,
+            credentials: { accessKeyId, secretAccessKey },
+          });
+
+          // Read the zip file
+          const fileBody = fs.readFileSync('backup/repo.zip');
+
+          // Upload to R2
+          s3.putObject({
+            Bucket: bucket,
+            Key: key,
+            Body: fileBody
+          }, (err) => {
+            if (err) {
+              console.error('Upload to R2 failed:', err);
+              process.exit(1);
+            }
+            console.log('Backup uploaded to R2 as:', key);
+          });
+          EOF

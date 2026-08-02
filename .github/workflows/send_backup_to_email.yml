@@ -1,0 +1,153 @@
+name: send backup to email
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  send_backup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Archive Repository
+        run: |
+          mkdir -p backup
+          REPO_NAME=$(basename $GITHUB_REPOSITORY)  
+          git ls-files | zip backup/repo.zip -@
+          # Create the archive safely
+          git ls-files -z | tar --null -T - -czf backup/${REPO_NAME}-repo.tar.gz
+          echo "enterpw!" > gpg-password.txt
+          chmod 600 gpg-password.txt
+          gpg --batch --yes --passphrase-file gpg-password.txt -c backup/${REPO_NAME}-repo.tar.gz
+          chmod 644 gpg-password.txt
+
+      - name: Install Dependencies
+        run: |
+          rm package* 
+          npm init -y  
+          npm install googleapis archiver nodemailer 
+
+      - name: Send Backup Email (SMTP + App Password)
+        env:
+          GMAIL_USER: ${{ secrets.SMTP_EMAIL }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          GMAIL_TO: "yahyeapps2023@gmail.com"
+        run: |
+          # Debug: Check if secrets are available (without exposing them)
+          if [ -z "$GMAIL_USER" ]; then
+            echo "❌ GMAIL_USER is empty or not set"
+            echo "Please check that the secret 'SMTP_EMAIL' is configured in your repository secrets"
+            exit 1
+          else
+            echo "✅ GMAIL_USER is set (length: ${#GMAIL_USER} characters)"
+          fi
+
+          if [ -z "$SMTP_PASSWORD" ]; then
+            echo "❌ SMTP_PASSWORD is empty or not set"
+            echo "Please check that the secret 'SMTP_PASSWORD' is configured in your repository secrets"
+            exit 1
+          else
+            echo "✅ SMTP_PASSWORD is set (length: ${#SMTP_PASSWORD} characters)"
+          fi
+
+          node --input-type=commonjs <<'EOF'
+          const nodemailer = require('nodemailer');
+          const fs = require('fs');
+
+          const repoName = process.env.GITHUB_REPOSITORY.split('/')[1];
+          const timestamp = new Date().toISOString();
+
+          // Check credentials
+          const user = process.env.GMAIL_USER.trim();
+          const pass = process.env.SMTP_PASSWORD.trim();
+          const to = process.env.GMAIL_TO;
+
+
+          if (!user || !pass) {
+            console.error('❌ Missing email credentials');
+            process.exit(1);
+          }
+
+          // Check if encrypted file exists
+          const encryptedFile = `backup/${repoName}-repo.tar.gz.gpg`;
+          if (!fs.existsSync(encryptedFile)) {
+            console.error('❌ Encrypted file not found:', encryptedFile);
+            // List backup directory contents
+            if (fs.existsSync('backup')) {
+              console.log('Files in backup directory:');
+              fs.readdirSync('backup').forEach(file => {
+                console.log(`  - ${file}`);
+              });
+            }
+            process.exit(1);
+          }
+
+          console.log('✅ Encrypted file found:', encryptedFile);
+
+          // Read password from file
+          const password = fs.readFileSync('gpg-password.txt', 'utf8').trim();
+
+          // Create transporter with explicit configuration
+          const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            host: 'smtp.gmail.com',
+            port: 587,
+            secure: false, // true for 465, false for other ports
+            auth: {
+              user: user,
+              pass: pass,
+            },
+            debug: true, // Enable debug logs
+            logger: true // Log information
+          });
+
+          async function sendMail() {
+            // Verify connection configuration
+            console.log('Verifying SMTP connection...');
+            await transporter.verify();
+            console.log('✅ SMTP connection verified');
+            
+            const info = await transporter.sendMail({
+              from: user,
+              to: to,
+              subject: `Backup completed: ${repoName}`,
+              text: `
+              Backup completed at ${timestamp}
+              Encrypted archive attached.
+              Password: ${password}
+              
+              Note: The archive is encrypted with GPG. Use the password above to decrypt.
+              `,
+              attachments: [
+                {
+                  filename: `${repoName}-repo.tar.gz.gpg`,
+                  path: encryptedFile,
+                }
+              ],
+            });
+
+            console.log('✅ Backup email sent, message ID:', info.messageId);
+            console.log('✅ Preview URL:', nodemailer.getTestMessageUrl(info));
+          }
+
+          sendMail().catch(err => {
+            console.error('❌ Email failed:', err);
+            console.error('Error details:', {
+              code: err.code,
+              command: err.command,
+              response: err.response,
+              responseCode: err.responseCode
+            });
+            process.exit(1);
+          });
+          EOF

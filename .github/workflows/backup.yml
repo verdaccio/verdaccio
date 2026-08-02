@@ -1,0 +1,62 @@
+name: backup
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write # Allow the action to write to the repository
+  packages: read # Allow access to packages if needed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Push backup to repository
+        env:
+          APP_NAME: ${{ github.event.repository.name }}
+          BACKUP_REPO_URL: https://x-access-token:${{ secrets.SCANNER_PAT_TOKEN }}@github.com/yusufnuuh70/yahyeapps.git
+        run: |
+          # Backup logic
+          echo "Creating backup of the application..."
+          TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+          # use last name after /  use basename to get the last part of the path
+          APP_NAME=$(basename "$APP_NAME")
+          BACKUP_DIR="/tmp/Backups/$APP_NAME/$TIMESTAMP"
+          BACKUP_REPO_PATH="/tmp/backup_repo"
+          mkdir -p "$BACKUP_DIR"
+          rm -rf .git
+          # Copy application files to the backup directory
+          cp -r . "$BACKUP_DIR" || { echo "Failed to copy files to backup directory"; exit 1; }
+
+          # List backup directory contents
+          ls -la "$BACKUP_DIR"
+
+          echo "Backup created at $BACKUP_DIR"
+
+          # Push backup to remote repository
+          echo "Cloning backup repository..."
+          git config --global user.email "yahyeapps2023@gmail.com"
+          git config --global user.name "yahyeapps2023"
+          git clone "$BACKUP_REPO_URL" "$BACKUP_REPO_PATH" || { echo "Failed to clone backup repo"; exit 1; }
+
+
+          cd "$BACKUP_REPO_PATH"
+          git pull origin main || { echo "Failed to pull latest changes"; exit 1; }
+          # Copy backup files to the repository path
+          cp -r "/tmp/Backups/$APP_NAME/" "$BACKUP_REPO_PATH/" || { echo "Failed to copy backup files to repo"; exit 1; }
+          git add .
+          git commit -m "Backup of $APP_NAME on $TIMESTAMP"
+          git push origin main --force || { echo "Failed to push backup"; exit 1; }
+
+          echo "Backup pushed to repository."
+
+          # Cleanup temporary files
+          echo "Cleaning up temporary files..."
+          rm -rf "$BACKUP_DIR"
+          echo "backup completed successfully."

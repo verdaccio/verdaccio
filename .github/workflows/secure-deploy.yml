@@ -1,0 +1,399 @@
+name: "Deploy with Security Checks"
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+  security-events: write
+
+env:
+  IMAGE_TAG: ${{ github.sha }}
+
+jobs:
+     # 4️⃣ Snyk Security Scan
+  snyk-scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm' # 👈 Automatically caches ~/.npm global cache folder
+ 
+      - name: Install dependencies
+        run: |
+         corepack enable
+         corepack prepare yarn@4.9.2 --activate
+         yarn install
+
+      - name: Install Snyk
+        run: npm install snyk -g 
+
+      - name: Verify Snyk Token
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: |
+          if [ -z "$SNYK_TOKEN" ]; then
+            echo "❌ SNYK_TOKEN is not configured. Please set it in GitHub Secrets."
+            exit 1
+          fi
+          echo "✅ SNYK_TOKEN is configured"
+
+      - name: Run Snyk test
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: snyk test --severity-threshold=high
+
+      - name: Snyk monitor (upload results)
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: snyk monitor
+ 
+  # ----------------------------
+  # 1️⃣ Socket Security Scan
+  # ----------------------------
+  socket-scan:
+    runs-on: ubuntu-latest
+    needs: [snyk-scan]
+    timeout-minutes: 20 # Maximum running time for this job
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm' # 👈 Automatically caches ~/.npm global cache folder
+
+      - name: Install Socket
+        run: |
+          npm install -g socket
+
+      - name: Install dependencies
+        run: |
+         corepack enable
+         corepack prepare yarn@4.9.2 --activate
+         yarn install
+ 
+      - name: Run Socket Scan
+        env:
+          SOCKET_CLI_API_TOKEN: ${{ secrets.SOCKET_API_KEY }}
+        run: |
+          socket ci
+  # ----------------------------
+  # 2️⃣ OSV Security Scan
+  # ----------------------------
+  osv-security-scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20 # Maximum running time for this job
+    needs: [snyk-scan, socket-scan]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm' # 👈 Automatically caches ~/.npm global cache folder
+
+      - name: Install dependencies
+        run: |
+         corepack enable
+         corepack prepare yarn@4.9.2 --activate
+         yarn install
+
+
+      - name: Install OSV Scanner
+        run: |
+          curl -L -o osv-scanner https://github.com/google/osv-scanner/releases/download/v2.3.3/osv-scanner_linux_amd64
+          chmod +x osv-scanner
+          sudo mv osv-scanner /usr/local/bin/
+
+      - name: Run OSV Scanner
+        run: osv-scanner --recursive ./ --format json --output osv-results.json || true
+
+      - name: Print OSV vulnerabilities
+        run: |
+          echo "=== OSV scan results ==="
+          jq -r '
+            .results[]?.packages[]? |
+            select(.vulnerabilities != null and (.vulnerabilities | length) > 0) |
+            "Package: \(.package.name)@\(.package.version)\n" +
+            ( .vulnerabilities[] |
+              "  - [\(.id)] \(.summary // .details // "(no summary)")" )
+          ' osv-results.json || true
+          echo "=== OSV summary ==="
+          TOTAL=$(jq '[.results[]?.packages[]?.vulnerabilities | length // 0] | add' osv-results.json)
+          echo "Total vulnerabilities: ${TOTAL:-0}"
+
+      - name: Upload OSV results artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: osv-results
+          path: osv-results.json
+
+      - name: Fail if vulnerabilities found
+        run: |
+          VULN_COUNT=$(jq '[.results[]?.packages[]?.vulnerabilities | length // 0] | add' osv-results.json)
+          if [ "$VULN_COUNT" -gt 0 ]; then
+            echo "❌ Found vulnerabilities: $VULN_COUNT"
+            exit 1
+          else
+            echo "✅ No vulnerabilities"
+          fi
+
+  # 5️⃣ CodeQL
+  # ----------------------------
+  codeql:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20 # Maximum running time for this job
+    needs: [osv-security-scan]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm' # 👈 Automatically caches ~/.npm global cache folder
+
+ 
+      - name: Install dependencies
+        run: |
+         corepack enable
+         corepack prepare yarn@4.9.2 --activate
+         yarn install
+
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Download CodeQL Bundle
+        run: |
+          CODEQL_VERSION=2.22.1
+
+          wget -q \
+            https://github.com/github/codeql-action/releases/download/codeql-bundle-v${CODEQL_VERSION}/codeql-bundle-linux64.tar.gz \
+            -O codeql-bundle-linux64.tar.gz
+
+          mkdir -p codeql
+          tar -xzf codeql-bundle-linux64.tar.gz -C codeql --strip-components=1
+          echo "$PWD/codeql" >> $GITHUB_PATH
+
+      - name: Create CodeQL Database
+        run: |
+          codeql database create codeql-db \
+            --language=javascript \
+            --source-root=. \
+            --codescanning-config=./codeql-config.yml
+
+      - name: Run CodeQL Analysis
+        run: |
+          mkdir -p codeql-results
+
+          codeql database analyze \
+            codeql-db \
+            --format=sarif-latest \
+            --output=codeql-results/results.sarif
+
+      - name: Fail on CodeQL Findings
+        run: |
+          SARIF=codeql-results/results.sarif
+
+          if [ ! -f "$SARIF" ]; then
+            echo "❌ SARIF missing"
+            exit 1
+          fi
+
+          ALERTS=$(jq '[.runs[].results[]? | select(.level=="error" or .level=="warning")] | length' "$SARIF")
+
+          echo "CodeQL alerts: $ALERTS"
+
+          if [ "$ALERTS" -gt 0 ]; then
+            echo "❌ CodeQL detected issues:"
+
+            jq -r '
+              .runs[].results[] |
+              select(.level=="error" or .level=="warning") |
+              "\(.ruleId) [\(.level)] \(.message.text) (\(.locations[0].physicalLocation.artifactLocation.uri):\(.locations[0].physicalLocation.region.startLine))"
+            ' "$SARIF"
+
+            exit 1
+          fi
+
+          echo "✅ No CodeQL findings"
+ 
+
+
+            # ----------------------------
+  # 3️⃣ Build & Test
+  # ----------------------------
+  build_test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20 # Maximum running time for this job
+    needs: [osv-security-scan, codeql]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm' # 👈 Automatically caches ~/.npm global cache folder
+
+ 
+      - name: Install dependencies and build
+        run: |
+         corepack enable
+         corepack prepare yarn@4.9.2 --activate
+         yarn install
+         yarn build
+
+         
+  # ----------------------------
+  # 5️⃣ Docker Build & Push
+  # ----------------------------
+  docker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20 # Maximum running time for this job
+    needs: [build_test]
+    steps:
+      - uses: actions/checkout@v4
+      # download
+ 
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+
+      - name: Build & Push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ vars.DOCKER_REPO }}:${{ vars.APP_NAME }}-${{ github.sha }}
+            ${{ vars.DOCKER_REPO }}:${{ vars.APP_NAME }}-latest
+
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: [docker]
+   
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install cloudflared
+        run: |
+          curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg \
+            | sudo tee /usr/share/keyrings/cloudflare-main.gpg >/dev/null
+
+          echo "deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared any main" \
+            | sudo tee /etc/apt/sources.list.d/cloudflared.list
+
+          sudo apt update
+          sudo apt install -y cloudflared
+ 
+      - name: update image name and tag in deployment same as docker build and push
+        env:
+          IMAGE: ${{ vars.DOCKER_REPO }}:${{ vars.APP_NAME }}-${{ github.sha }}          
+        run: | 
+          ## replace "{{HOSTNAME}}" WITH ${{ vars.HOSTNAME }} in deployments.yml
+          sed -i "s|{{HOSTNAME}}|${{ vars.HOSTNAME }}|g" deployments.yml
+          ## replace "{{NAMESPACE}}" WITH ${{ vars.NAMESPACE }} in deployments.yml
+          sed -i "s|{{NAMESPACE}}|${{ vars.NAMESPACE }}|g" deployments.yml
+          sed -i "s|{{IMAGE}}|$IMAGE|g" deployments.yml
+          
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+
+          cat > ~/.ssh/config <<EOF
+          Host deploy-server
+            HostName ${{vars.SSH_HOST}}
+            User yahyeapps
+            port ${{vars.SSH_PORT}} 
+            IdentityFile ~/.ssh/id_ed25519
+            StrictHostKeyChecking no
+            UserKnownHostsFile /dev/null
+            ProxyCommand cloudflared access ssh \
+              --hostname %h \
+              --service-token-id $CLOUDFLARE_SSH_ACCESS_CLIENT_ID \
+              --service-token-secret $CLOUDFLARE_SSH_ACCESS_CLIENT_SECRET
+          EOF
+        env:
+          CLOUDFLARE_SSH_ACCESS_CLIENT_ID: ${{ secrets.CLOUDFLARE_SSH_ACCESS_CLIENT_ID }}
+          CLOUDFLARE_SSH_ACCESS_CLIENT_SECRET: ${{ secrets.CLOUDFLARE_ACCESS_CLIENT_SECRET }}
+
+      - name: Test SSH connection
+        run: |
+          if ! ssh -o BatchMode=yes \
+              -o ConnectTimeout=10 \
+              deploy-server \
+              "echo Connected successfully"
+          then
+            echo "❌ SSH connection failed."
+            exit 1
+          fi
+
+      - name: Copy manifest to server
+        run: |
+          scp setup.sh deploy-server:/tmp/setup.sh
+          scp deployments.yml deploy-server:/tmp/deployment.yml
+            
+      - name: Deploy
+        run: |
+          ssh \
+            -o BatchMode=yes \
+            -o ConnectTimeout=10 \
+            deploy-server "
+              chmod +x /tmp/setup.sh &&
+              bash /tmp/setup.sh \
+                --username='${{ vars.SSH_USER }}' \
+                --namespace='${{ vars.NAMESPACE }}' \
+                --sudo-password='${{ secrets.SUDO_PASSWORD }}' \
+                --r2-account-id='${{ secrets.R2_ACCOUNT_ID_B }}' \
+                --s3-access-key-id='${{ secrets.S3_ACCESS_KEY_ID }}' \
+                --s3-secret-access-key='${{ secrets.S3_SECRET_ACCESS_KEY }}' \
+                --dockerhub-server='${{ vars.DOCKERHUB_SERVER }}' \
+                --dockerhub-username='${{ secrets.DOCKERHUB_USERNAME }}' \
+                --dockerhub-token='${{ secrets.DOCKERHUB_TOKEN }}' \
+                --r2-bucket='${{ secrets.R2_BUCKET }}' \
+                --secret-token='${{ secrets.SECRET_TOKEN }}' \
+                --port='${{ vars.PORT }}'
+            "
+           
+
+
+
+
+      - name: Trigger deployer-webhook  workflow
+        env:
+          PAT_TOKEN: ${{ secrets.SCANNER_PAT_TOKEN }}
+          DEPLOYER_WEBHOOK_DISPATCHE_PATH: ${{vars.DEPLOYER_WEBHOOK_DISPATCHE_PATH}}
+        run: |
+          curl -L \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $PAT_TOKEN" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            $DEPLOYER_WEBHOOK_DISPATCHE_PATH \
+            -d '{
+              "ref":"main"
+            }'
+ 
+
+
+
+
+
+                        
