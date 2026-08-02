@@ -33,7 +33,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          rm package* 
+          rm package.json 
           npm init -y  
           npm install googleapis archiver nodemailer 
 
