@@ -1,5 +1,12 @@
 # @verdaccio/proxy
 
+## 9.0.0-next-9.24
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.24
+- @verdaccio/config@9.0.0-next-9.24
+
 ## 9.0.0-next-9.23
 
 ### Patch Changes

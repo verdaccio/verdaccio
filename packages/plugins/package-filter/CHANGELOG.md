@@ -1,5 +1,24 @@
 # Change Log
 
+## 14.0.0-next-9.48
+
+### Minor Changes
+
+- f86df64: Added `excludeDeprecated` config filter option. It filters deprecated package versions. By default the feature is disabled.
+  The option is enabled by:
+
+  ```yaml
+  filters:
+    "@verdaccio/package-filter":
+      excludeDeprecated: true
+  ```
+
+  This way Verdaccio will filter out package versions that are marked as "deprecated" (unless they are allow-listed).
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.24
+
 ## 14.0.0-next-9.47
 
 ### Patch Changes
