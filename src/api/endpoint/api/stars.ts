@@ -55,7 +55,9 @@ export default function (route: Router, auth: Auth, storage: Storage, config: Co
 
         Promise.all(starredPackages.map(allowedFor)).then(
           (results) => {
-            const filteredPackages: Version[] = starredPackages.filter((_pkg, index) => results[index]);
+            const filteredPackages: Version[] = starredPackages.filter(
+              (_pkg, index) => results[index]
+            );
             debug(`found ${filteredPackages.length} accessible packages for user: ${key}`);
             res.status(HTTP_STATUS.OK);
             next({
