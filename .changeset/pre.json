@@ -41,6 +41,7 @@
     "@verdaccio-scope/verdaccio-fake-plugin": "1.0.0-next-9.0"
   },
   "changesets": [
+    "acl-case-insensitive-matching",
     "add-debug-dep-ui-theme",
     "add-package-filter-dep",
     "beige-ducks-camp",
