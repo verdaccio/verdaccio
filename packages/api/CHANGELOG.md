@@ -1,5 +1,47 @@
 # @verdaccio/api
 
+## 9.0.0-next-9.24
+
+### Patch Changes
+
+- @verdaccio/store@9.0.0-next-9.24
+- @verdaccio/core@9.0.0-next-9.24
+- @verdaccio/config@9.0.0-next-9.24
+- @verdaccio/auth@9.0.0-next-9.24
+- @verdaccio/hooks@9.0.0-next-9.24
+- @verdaccio/logger@9.0.0-next-9.24
+- @verdaccio/middleware@9.0.0-next-9.24
+
+## 9.0.0-next-9.23
+
+### Patch Changes
+
+- Updated dependencies [5ec045c]
+  - @verdaccio/core@9.0.0-next-9.23
+  - @verdaccio/auth@9.0.0-next-9.23
+  - @verdaccio/config@9.0.0-next-9.23
+  - @verdaccio/hooks@9.0.0-next-9.23
+  - @verdaccio/logger@9.0.0-next-9.23
+  - @verdaccio/middleware@9.0.0-next-9.23
+  - @verdaccio/store@9.0.0-next-9.23
+
+## 9.0.0-next-9.22
+
+### Patch Changes
+
+- c499c4e: fix: refactor parsing of req.params
+- Updated dependencies [6795216]
+- Updated dependencies [d3b0352]
+- Updated dependencies [3574350]
+- Updated dependencies [c499c4e]
+  - @verdaccio/config@9.0.0-next-9.22
+  - @verdaccio/logger@9.0.0-next-9.22
+  - @verdaccio/store@9.0.0-next-9.22
+  - @verdaccio/middleware@9.0.0-next-9.22
+  - @verdaccio/core@9.0.0-next-9.22
+  - @verdaccio/auth@9.0.0-next-9.22
+  - @verdaccio/hooks@9.0.0-next-9.22
+
 ## 9.0.0-next-9.21
 
 ### Patch Changes

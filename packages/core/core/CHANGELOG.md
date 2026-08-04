@@ -1,5 +1,19 @@
 # @verdaccio/core
 
+## 9.0.0-next-9.24
+
+## 9.0.0-next-9.23
+
+### Patch Changes
+
+- 5ec045c: Match package names case-insensitively in `getMatchedPackagesSpec` so access, publish and unpublish rules apply consistently to every casing of a package name.
+
+## 9.0.0-next-9.22
+
+### Patch Changes
+
+- c499c4e: fix: refactor parsing of req.params
+
 ## 9.0.0-next-9.21
 
 ### Patch Changes

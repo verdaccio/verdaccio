@@ -1,5 +1,33 @@
 # @verdaccio/middleware
 
+## 9.0.0-next-9.24
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.24
+- @verdaccio/config@9.0.0-next-9.24
+- @verdaccio/url@14.0.0-next-9.24
+
+## 9.0.0-next-9.23
+
+### Patch Changes
+
+- Updated dependencies [5ec045c]
+  - @verdaccio/core@9.0.0-next-9.23
+  - @verdaccio/config@9.0.0-next-9.23
+  - @verdaccio/url@14.0.0-next-9.23
+
+## 9.0.0-next-9.22
+
+### Patch Changes
+
+- c499c4e: fix: refactor parsing of req.params
+- Updated dependencies [6795216]
+- Updated dependencies [c499c4e]
+  - @verdaccio/config@9.0.0-next-9.22
+  - @verdaccio/core@9.0.0-next-9.22
+  - @verdaccio/url@14.0.0-next-9.22
+
 ## 9.0.0-next-9.21
 
 ### Patch Changes
