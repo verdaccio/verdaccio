@@ -20,6 +20,11 @@ export interface PluginConfig {
    * the earlier (more restrictive) date wins.
    */
   minAgeDays?: number;
+  /**
+   * When true, versions whose metadata contains a deprecation notice
+   * will be removed from the manifest.
+   */
+  excludeDeprecated?: boolean;
   block?: ConfigRule[];
   allow?: ConfigRule[];
 }
@@ -35,6 +40,7 @@ export type ParsedRule = ParsedConfigRule | PackageScopeLevel;
 export interface ParsedConfig {
   dateThreshold: Date | null;
   minAgeMs: number | null;
+  excludeDeprecated: boolean;
   blockRules: Map<string, ParsedRule>;
   allowRules: Map<string, ParsedRule>;
 }

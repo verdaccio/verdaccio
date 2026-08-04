@@ -9,6 +9,11 @@ const versionStub: Version = {
   version: '',
 } as Version; // Some properties are omitted on purpose
 
+const deprecatedVersionStub: Version = {
+  ...versionStub,
+  deprecated: 'This version is deprecated, use a newer version',
+} as Version;
+
 export const emptyManifest: Manifest = {} as Manifest;
 
 export const babelTestManifest: Manifest = {
@@ -129,4 +134,112 @@ export const testaccioManifest: Manifest = {
     '2.2.1-next': '2023-03-01T00:00:00.000Z',
   },
   readme: 'It is a testaccio test package',
+};
+
+export const deprecatedManifest: Manifest = {
+  [DIST_TAGS]: { latest: '3.0.0' },
+  _attachments: {},
+  _distfiles: {},
+  _rev: '',
+  _uplinks: {},
+  name: 'deprecated-pkg',
+  versions: {
+    '1.0.0': { ...deprecatedVersionStub, _id: 'deprecated-pkg@1.0.0' },
+    '2.0.0': { ...versionStub, _id: 'deprecated-pkg@2.0.0' },
+    '3.0.0': { ...versionStub, _id: 'deprecated-pkg@3.0.0' },
+  },
+  time: {
+    modified: '2024-01-01T00:00:00.000Z',
+    created: '2020-01-01T00:00:00.000Z',
+    '1.0.0': '2020-01-01T00:00:00.000Z',
+    '2.0.0': '2022-01-01T00:00:00.000Z',
+    '3.0.0': '2024-01-01T00:00:00.000Z',
+  },
+  readme: 'Package with some deprecated versions',
+};
+
+export const emptyDeprecatedManifest: Manifest = {
+  [DIST_TAGS]: { latest: '2.0.0' },
+  _attachments: {},
+  _distfiles: {},
+  _rev: '',
+  _uplinks: {},
+  name: 'empty-deprecated-pkg',
+  versions: {
+    '1.0.0': { ...deprecatedVersionStub, _id: 'empty-deprecated-pkg@1.0.0' },
+    '2.0.0': { ...versionStub, deprecated: '', _id: 'empty-deprecated-pkg@2.0.0' } as Version,
+  },
+  time: {
+    modified: '2023-01-01T00:00:00.000Z',
+    created: '2021-01-01T00:00:00.000Z',
+    '1.0.0': '2021-01-01T00:00:00.000Z',
+    '2.0.0': '2023-01-01T00:00:00.000Z',
+  },
+  readme: 'Package with deprecated version and un-deprecated (empty string) version',
+};
+
+export const latestDeprecatedManifest: Manifest = {
+  [DIST_TAGS]: { latest: '3.0.0' },
+  _attachments: {},
+  _distfiles: {},
+  _rev: '',
+  _uplinks: {},
+  name: 'latest-deprecated-pkg',
+  versions: {
+    '1.0.0': { ...versionStub, _id: 'latest-deprecated-pkg@1.0.0' },
+    '2.0.0': { ...versionStub, _id: 'latest-deprecated-pkg@2.0.0' },
+    '3.0.0': { ...deprecatedVersionStub, _id: 'latest-deprecated-pkg@3.0.0' },
+  },
+  time: {
+    modified: '2024-01-01T00:00:00.000Z',
+    created: '2020-01-01T00:00:00.000Z',
+    '1.0.0': '2020-01-01T00:00:00.000Z',
+    '2.0.0': '2022-01-01T00:00:00.000Z',
+    '3.0.0': '2024-01-01T00:00:00.000Z',
+  },
+  readme: 'Package whose dist-tags.latest points to its newest, deprecated version',
+};
+
+export const allDeprecatedManifest: Manifest = {
+  [DIST_TAGS]: { latest: '2.0.0' },
+  _attachments: {},
+  _distfiles: {},
+  _rev: '',
+  _uplinks: {},
+  name: 'all-deprecated-pkg',
+  versions: {
+    '1.0.0': { ...deprecatedVersionStub, _id: 'all-deprecated-pkg@1.0.0' },
+    '2.0.0': {
+      ...versionStub,
+      deprecated: 'Use @new-scope/pkg instead',
+      _id: 'all-deprecated-pkg@2.0.0',
+    } as Version,
+  },
+  time: {
+    modified: '2023-01-01T00:00:00.000Z',
+    created: '2021-01-01T00:00:00.000Z',
+    '1.0.0': '2021-01-01T00:00:00.000Z',
+    '2.0.0': '2023-01-01T00:00:00.000Z',
+  },
+  readme: 'Entirely deprecated package',
+};
+
+export const scopedDeprecatedManifest: Manifest = {
+  [DIST_TAGS]: { latest: '2.0.0' },
+  _attachments: {},
+  _distfiles: {},
+  _rev: '',
+  _uplinks: {},
+  name: '@myscope/deprecated-lib',
+  versions: {
+    '1.0.0': { ...deprecatedVersionStub, _id: '@myscope/deprecated-lib@1.0.0' },
+    '2.0.0': { ...versionStub, _id: '@myscope/deprecated-lib@2.0.0' },
+  },
+  time: {
+    modified: '2023-01-01T00:00:00.000Z',
+    created: '2021-01-01T00:00:00.000Z',
+    '1.0.0': '2021-01-01T00:00:00.000Z',
+    '2.0.0': '2023-01-01T00:00:00.000Z',
+  },
+  readme: 'Scoped package with deprecated versions',
 };
