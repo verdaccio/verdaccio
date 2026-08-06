@@ -2,14 +2,17 @@ import { describe, expect, test, vi } from 'vitest';
 
 import { EncryptionMethod, createSalt } from '../src/crypt3';
 
-vi.mock('../src/crypto-utils', async (importOriginal) => ({
-  ...(await importOriginal<typeof import('../src/crypto-utils')>()),
-  randomBytes: (len: number): { toString: () => string } => {
-    return {
-      toString: (): string => '/UEGzD0RxSNDZA=='.substring(0, len),
-    };
-  },
-}));
+vi.mock('../src/crypto-utils', async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    ...(actual as object),
+    randomBytes: (len: number): { toString: () => string } => {
+      return {
+        toString: (): string => '/UEGzD0RxSNDZA=='.substring(0, len),
+      };
+    },
+  };
+});
 
 describe('createSalt', () => {
   test('should match with the correct salt type', () => {

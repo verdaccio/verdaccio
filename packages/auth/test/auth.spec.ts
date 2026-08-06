@@ -35,8 +35,9 @@ const TEST_SECRET = 'b2df428b9929d3ace7c598bbf4e496b2';
 
 // to avoid flaky test generate same random key
 vi.mock('@verdaccio/core', async (importOriginal) => {
+  const actual = await importOriginal();
   return {
-    ...(await importOriginal<typeof import('@verdaccio/core')>()),
+    ...(actual as object),
     generateRandomSecretKey: () => 'GCYW/3IJzQI6GvPmy9sbMkFoiL7QLVw',
   };
 });
