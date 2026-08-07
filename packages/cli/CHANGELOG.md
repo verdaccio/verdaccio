@@ -1,5 +1,15 @@
 # @verdaccio/cli
 
+## 9.0.0-next-9.25
+
+### Patch Changes
+
+- @verdaccio/server@9.0.0-next-9.25
+- @verdaccio/core@9.0.0-next-9.25
+- @verdaccio/config@9.0.0-next-9.25
+- @verdaccio/node-api@9.0.0-next-9.25
+- @verdaccio/logger@9.0.0-next-9.25
+
 ## 9.0.0-next-9.24
 
 ### Patch Changes

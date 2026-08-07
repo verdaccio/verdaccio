@@ -1,5 +1,17 @@
 # @verdaccio/auth
 
+## 9.0.0-next-9.25
+
+### Patch Changes
+
+- 7a4c68d: chore: lint consistent-type-imports
+- Updated dependencies [7a4c68d]
+  - verdaccio-htpasswd@14.0.0-next-9.25
+  - @verdaccio/core@9.0.0-next-9.25
+  - @verdaccio/config@9.0.0-next-9.25
+  - @verdaccio/loaders@9.0.0-next-9.25
+  - @verdaccio/signature@9.0.0-next-9.25
+
 ## 9.0.0-next-9.24
 
 ### Patch Changes
