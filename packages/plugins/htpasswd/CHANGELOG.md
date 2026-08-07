@@ -1,5 +1,12 @@
 # Change Log
 
+## 14.0.0-next-9.25
+
+### Patch Changes
+
+- 7a4c68d: chore: lint consistent-type-imports
+  - @verdaccio/core@9.0.0-next-9.25
+
 ## 14.0.0-next-9.24
 
 ### Patch Changes
