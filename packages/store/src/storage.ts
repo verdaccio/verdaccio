@@ -1714,6 +1714,18 @@ class Storage {
           break;
         }
       } catch (err: any) {
+        const uplinkName = this.uplinks[uplink].uplinkName;
+        const upLinkMeta = localManifest?._uplinks[uplinkName];
+        if (
+          err.code === HTTP_STATUS.NOT_MODIFIED &&
+          localManifest !== null &&
+          upLinkMeta !== undefined &&
+          validationUtils.isObject(upLinkMeta)
+        ) {
+          syncManifest = updateUpLinkMetadata(uplinkName, localManifest, upLinkMeta.etag);
+          found = true;
+          break;
+        }
         debug('error captured on uplink %o', err.message);
         uplinksErrors.push(err);
         // enforce use next uplink on the list
