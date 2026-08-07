@@ -1450,7 +1450,11 @@ describe('storage', () => {
 
       test('should handle one proxy reply 304', async () => {
         const fooManifest = generatePackageMetadata('foo-no-data', '8.0.0');
-        nock('https://fake.verdaccio.org').get('/foo-no-data').reply(304);
+        fooManifest._uplinks.ver = { etag: 'rev_3333', fetched: 1 };
+        nock('https://fake.verdaccio.org')
+          .get('/foo-no-data')
+          .matchHeader('if-none-match', 'rev_3333')
+          .reply(304);
         const config = new Config(
           configExample(
             {
@@ -1465,7 +1469,9 @@ describe('storage', () => {
         const [manifest] = await storage.syncUplinksMetadata(fooManifest.name, fooManifest, {
           retry: { limit: 0 },
         });
-        expect(manifest).toEqual(fooManifest);
+        expect((manifest as Manifest)._uplinks.ver.fetched).toBeGreaterThan(1);
+        const cachedManifest = await storage.getPackageLocalMetadata(fooManifest.name);
+        expect(cachedManifest._uplinks.ver).toEqual((manifest as Manifest)._uplinks.ver);
       });
     });
 
