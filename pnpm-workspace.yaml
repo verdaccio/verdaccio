@@ -16,7 +16,7 @@ allowBuilds:
 overrides:
   typescript: 7.0.2
   # Security: @verdaccio/e2e-cli pins js-yaml exactly, force the GHSA-52cp-r559-cp3m fix
-  '@verdaccio/e2e-cli>js-yaml': 4.3.0
+  '@verdaccio/e2e-cli>js-yaml': 4.3.1
   # Security: ajv resolves fast-uri in range, pin the GHSA-v2hh-gcrm-f6hx / GHSA-4c8g-83qw-93j6 fix
   fast-uri: 3.1.4
 minimumReleaseAge: 10080
@@ -32,8 +32,8 @@ minimumReleaseAgeExclude:
   - fast-uri@3.1.4
   # Security update: js-yaml GHSA-pm4m-ph32-ghv5 (DoS in flow collections)
   # (entries are matched by name first: a stale js-yaml@<old> entry above this
-  # one would shadow it and reject the version — keep a single js-yaml entry)
-  - js-yaml@5.2.2
+  # one would shadow it and reject the version — keep a single js-yaml entry) || 4.3.1
+  - js-yaml@5.2.2 || 4.3.1
 ignoreScripts: true
 saveExact: true
 preferFrozenLockfile: true
