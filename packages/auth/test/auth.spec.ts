@@ -11,6 +11,7 @@ import {
   TOKEN_BEARER,
   authUtils,
   errorUtils,
+  API_ERROR,
 } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 import { errorReportingMiddleware, final, handleError } from '@verdaccio/middleware';
@@ -736,6 +737,85 @@ describe('AuthTest', () => {
           });
         });
         describe('valid signature handlers', () => {
+          test('should continue to the built-in middleware when plugin does not resolve the user', async () => {
+            const config: Config = new AppConfig({
+              ...authProfileConf,
+              security: { api: { jwt: { sign: { expiresIn: '29d' } } } },
+            } as any);
+            config.checkSecretKey(secret);
+            const auth = new Auth(config, logger);
+            await auth.init();
+
+            const pluginMiddleware = vi.fn((req, _res, next) => {
+              expect(req.remote_user).toBeUndefined();
+              next();
+            });
+
+            auth.plugins.unshift({
+              apiJWTmiddleware: () => pluginMiddleware,
+            } as any);
+
+            const app = await getServer(auth);
+            const res = await supertest(app).get(`/`).expect(HTTP_STATUS.OK);
+
+            expect(pluginMiddleware).toHaveBeenCalledTimes(1);
+            expect(res.body.user.groups).toEqual([
+              ROLES.$ALL,
+              ROLES.$ANONYMOUS,
+              ROLES.DEPRECATED_ALL,
+              ROLES.DEPRECATED_ANONYMOUS,
+            ]);
+          });
+
+          test('should stop the chain when plugin authenticates the user', async () => {
+            const config: Config = new AppConfig({
+              ...authProfileConf,
+              security: { api: { jwt: { sign: { expiresIn: '29d' } } } },
+            } as any);
+            config.checkSecretKey(secret);
+            const auth = new Auth(config, logger);
+            await auth.init();
+
+            const pluginMiddleware = vi.fn((req, _res, next) => {
+              req.remote_user = createRemoteUser('plugin-user', ['plugin-group']);
+              next();
+            });
+
+            auth.plugins.unshift({
+              apiJWTmiddleware: () => pluginMiddleware,
+            } as any);
+
+            const app = await getServer(auth);
+            const res = await supertest(app).get(`/`).expect(HTTP_STATUS.OK);
+
+            expect(pluginMiddleware).toHaveBeenCalledTimes(1);
+            expect(res.body.user.name).toEqual('plugin-user');
+            expect(res.body.user.real_groups).toEqual(['plugin-group']);
+          });
+
+          test('should forward plugin middleware errors', async () => {
+            const config: Config = new AppConfig({
+              ...authProfileConf,
+              security: { api: { jwt: { sign: { expiresIn: '29d' } } } },
+            } as any);
+            config.checkSecretKey(secret);
+            const auth = new Auth(config, logger);
+            await auth.init();
+
+            const pluginMiddleware = vi.fn((_req, _res, next) => {
+              next(errorUtils.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
+            });
+
+            auth.plugins.unshift({
+              apiJWTmiddleware: () => pluginMiddleware,
+            } as any);
+
+            const app = await getServer(auth);
+            await supertest(app).get(`/`).expect(HTTP_STATUS.INTERNAL_ERROR);
+
+            expect(pluginMiddleware).toHaveBeenCalledTimes(1);
+          });
+
           test('should handle valid auth token', async () => {
             const config: Config = new AppConfig(
               // @ts-expect-error
