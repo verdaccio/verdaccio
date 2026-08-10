@@ -1469,9 +1469,11 @@ describe('storage', () => {
         const [manifest] = await storage.syncUplinksMetadata(fooManifest.name, fooManifest, {
           retry: { limit: 0 },
         });
-        expect((manifest as Manifest)._uplinks.ver.fetched).toBeGreaterThan(1);
+        expect(manifest).not.toBeNull();
+        const m = manifest as Manifest;
+        expect(m._uplinks.ver.fetched).toBeGreaterThan(1);
         const cachedManifest = await storage.getPackageLocalMetadata(fooManifest.name);
-        expect(cachedManifest._uplinks.ver).toEqual((manifest as Manifest)._uplinks.ver);
+        expect(cachedManifest._uplinks.ver).toEqual(m._uplinks.ver);
       });
     });
 
