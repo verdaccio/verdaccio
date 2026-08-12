@@ -6,7 +6,7 @@ settings:
 
 overrides:
   typescript: 7.0.2
-  '@verdaccio/e2e-cli>js-yaml': 4.3.0
+  '@verdaccio/e2e-cli>js-yaml': 4.3.1
   fast-uri: 3.1.4
 
 importers:
@@ -2800,6 +2800,10 @@ packages:
     resolution: {integrity: sha512-1td788aAnnZ5qs7V2QIRl1owjtYpbKt749Y3xauqQgwIIGF/xXWz1wMTEBx5O3LK3lXLVuqXPdPxj2BoFHaW9Q==}
     hasBin: true
 
+  js-yaml@4.3.1:
+    resolution: {integrity: sha512-CY6crGq313MX8GkwvB7tzgp99vjQxY1++5y10/BKN/GUfHqWaOGQMNZkBvqSzsZKWk/ijwHlWzzkLulsGHhjWQ==}
+    hasBin: true
+
   js-yaml@5.2.2:
     resolution: {integrity: sha512-dayzUzKkJ1MkuUtZglSebU43utNXH0OWQByK9rKOOuYIO8M5TV1y+n8ALMdG0rdzBnfNkOmZEqrURepb0ejqBw==}
     hasBin: true
@@ -4856,7 +4860,7 @@ snapshots:
       '@verdaccio/registry-cli': 1.1.0
       debug: 4.4.0
       get-port: 5.1.1
-      js-yaml: 4.3.0
+      js-yaml: 4.3.1
     transitivePeerDependencies:
       - supports-color
 
@@ -6070,6 +6074,10 @@ snapshots:
       argparse: 2.0.1
 
   js-yaml@4.3.0:
+    dependencies:
+      argparse: 2.0.1
+
+  js-yaml@4.3.1:
     dependencies:
       argparse: 2.0.1
 
