@@ -70,7 +70,7 @@ class Config implements AppConfig {
     debug('config path: %s', this.configPath);
     this.plugins = config.plugins;
     this.security = merge(defaultSecurity, config.security);
-    this.server = { ...defaultServerSettings, ...config.server };
+    this.server = merge({}, defaultServerSettings, config.server);
     this.flags = {
       changePassword: config.flags?.changePassword ?? false,
       webLogin: config.flags?.webLogin ?? false,

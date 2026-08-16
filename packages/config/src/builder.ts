@@ -66,6 +66,10 @@ export default class ConfigBuilder {
     return this;
   }
 
+  public addLegacyAuthCache(legacyAuthCache: NonNullable<ServerSettingsConf['legacyAuthCache']>) {
+    return this.addServer({ legacyAuthCache });
+  }
+
   public addStorage(storage: string | object) {
     if (typeof storage === 'string') {
       this.config.storage = storage;
