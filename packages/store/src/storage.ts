@@ -1714,7 +1714,7 @@ class Storage {
           break;
         }
       } catch (err: any) {
-        const uplinkName = this.uplinks[uplink].uplinkName;
+        const uplinkName = uplink;
         const upLinkMeta = localManifest?._uplinks[uplinkName];
         // A 304 means the uplink confirms our cached manifest is current; refresh fetched timestamp.
         if (
