@@ -82,9 +82,9 @@ describe('check basic content parsed file', () => {
     expect(config.server).toBeDefined();
     expect(config.server.dotfiles).toEqual('ignore');
     expect(config.server.legacyAuthCache).toEqual({
-      enabled: true,
+      enabled: false,
       maxEntries: 1000,
-      ttlMs: 300000,
+      ttlMs: 30000,
     });
     // hideStaticLogs is not set in default config, defaults to true at runtime
     expect(config.server.hideStaticLogs).toBeUndefined();
@@ -106,17 +106,27 @@ describe('check basic content parsed file', () => {
     checkDefaultConfPackages(config);
   });
 
-  test('should keep legacy auth cache enabled when partially configured', () => {
+  test('should keep legacy auth cache disabled by default when partially configured', () => {
     const config = new Config({
       ...getDefaultConfig(),
       server: { legacyAuthCache: { maxEntries: 50 } },
     });
 
     expect(config.server.legacyAuthCache).toEqual({
-      enabled: true,
+      enabled: false,
       maxEntries: 50,
-      ttlMs: 300000,
+      ttlMs: 30000,
     });
+  });
+
+  test('should keep default rateLimit fields when partially overridden', () => {
+    const config = new Config({
+      ...getDefaultConfig(),
+      server: { rateLimit: { max: 100 } },
+    });
+
+    // a partial rateLimit override keeps the default windowMs instead of dropping it
+    expect(config.server.rateLimit).toEqual({ windowMs: 1000, max: 100 });
   });
 });
 
