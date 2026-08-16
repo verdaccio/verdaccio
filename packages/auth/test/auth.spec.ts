@@ -661,7 +661,10 @@ describe('AuthTest', () => {
 
           test('should cache a successful legacy auth token', async () => {
             const payload = 'juan:password';
-            const config: Config = new AppConfig({ ...authProfileConf });
+            const config: Config = new AppConfig({
+              ...authProfileConf,
+              server: { legacyAuthCache: { enabled: true } },
+            });
             config.checkSecretKey(TEST_SECRET);
             const auth = new Auth(config, logger);
             await auth.init();
@@ -685,7 +688,10 @@ describe('AuthTest', () => {
 
           test('should not cache basic auth in legacy auth mode', async () => {
             const payload = 'juan:password';
-            const config: Config = new AppConfig({ ...authProfileConf });
+            const config: Config = new AppConfig({
+              ...authProfileConf,
+              server: { legacyAuthCache: { enabled: true } },
+            });
             config.checkSecretKey(TEST_SECRET);
             const auth = new Auth(config, logger);
             await auth.init();
@@ -708,7 +714,10 @@ describe('AuthTest', () => {
 
           test('should share an in-flight legacy auth token verification', async () => {
             const payload = 'juan:password';
-            const config: Config = new AppConfig({ ...authProfileConf });
+            const config: Config = new AppConfig({
+              ...authProfileConf,
+              server: { legacyAuthCache: { enabled: true } },
+            });
             config.checkSecretKey(TEST_SECRET);
             const auth = new Auth(config, logger);
             await auth.init();
@@ -739,7 +748,10 @@ describe('AuthTest', () => {
 
           test('should clear in-flight legacy auth token verification when authenticate throws', async () => {
             const payload = 'juan:password';
-            const config: Config = new AppConfig({ ...authProfileConf });
+            const config: Config = new AppConfig({
+              ...authProfileConf,
+              server: { legacyAuthCache: { enabled: true } },
+            });
             config.checkSecretKey(TEST_SECRET);
             const auth = new Auth(config, logger);
             await auth.init();
@@ -764,7 +776,10 @@ describe('AuthTest', () => {
 
           test('should authenticate again when the legacy auth token changes', async () => {
             const payload = 'juan:password';
-            const config: Config = new AppConfig({ ...authProfileConf });
+            const config: Config = new AppConfig({
+              ...authProfileConf,
+              server: { legacyAuthCache: { enabled: true } },
+            });
             config.checkSecretKey(TEST_SECRET);
             const auth = new Auth(config, logger);
             await auth.init();
@@ -787,12 +802,9 @@ describe('AuthTest', () => {
             authenticateSpy.mockRestore();
           });
 
-          test('should allow disabling the legacy auth token cache', async () => {
+          test('should not cache the legacy auth token by default', async () => {
             const payload = 'juan:password';
-            const config: Config = new AppConfig({
-              ...authProfileConf,
-              server: { legacyAuthCache: { enabled: false } },
-            });
+            const config: Config = new AppConfig({ ...authProfileConf });
             config.checkSecretKey(TEST_SECRET);
             const auth = new Auth(config, logger);
             await auth.init();

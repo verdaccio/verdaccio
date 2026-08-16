@@ -572,12 +572,11 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
       }
 
       const { user, password } = credentials;
-      const completeAuth = (err: VerdaccioError | null, user?: RemoteUser): void => {
+      const applyAuthResult = (err: VerdaccioError | null, user?: RemoteUser): void => {
         if (!err && user) {
           req.remote_user = credentials.tokenKey
             ? { ...user, token: { key: credentials.tokenKey } }
             : user;
-          this.setLegacyAuthCacheEntry(cacheKey, req.remote_user);
           debug('generating a remote user');
           next();
         } else {
@@ -586,20 +585,27 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
           next(err || errorUtils.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
         }
       };
-      if (this.enqueueLegacyAuthCacheWaiter(cacheKey, completeAuth)) {
+      // concurrent requests for the same token wait for the in-flight one
+      if (this.enqueueLegacyAuthCacheWaiter(cacheKey, applyAuthResult)) {
         return;
       }
 
       debug('authenticating %o', user);
+      const onAuthComplete = (err: VerdaccioError | null, user?: RemoteUser): void => {
+        // only the leader writes the cache; waiters just reuse its result
+        if (!err && user) {
+          this.setLegacyAuthCacheEntry(
+            cacheKey,
+            credentials.tokenKey ? { ...user, token: { key: credentials.tokenKey } } : user
+          );
+        }
+        applyAuthResult(err, user);
+        this.resolveLegacyAuthCacheWaiters(cacheKey, err, user);
+      };
       try {
-        this.authenticate(user, password, (err, user): void => {
-          completeAuth(err, user);
-          this.resolveLegacyAuthCacheWaiters(cacheKey, err, user);
-        });
+        this.authenticate(user, password, onAuthComplete);
       } catch (err: any) {
-        const authError = errorUtils.getInternalError(err?.message);
-        completeAuth(authError);
-        this.resolveLegacyAuthCacheWaiters(cacheKey, authError);
+        onAuthComplete(errorUtils.getInternalError(err?.message));
       }
     } else {
       // we force npm client to ask again with basic authentication
@@ -647,12 +653,13 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
   }
 
   private isLegacyAuthCacheEnabled(): boolean {
-    return this.config.server?.legacyAuthCache?.enabled !== false;
+    // opt-in: disabled unless explicitly turned on via config
+    return this.config.server?.legacyAuthCache?.enabled === true;
   }
 
   private getLegacyAuthCacheTtlMs(): number {
     const ttlMs = this.config.server?.legacyAuthCache?.ttlMs;
-    return typeof ttlMs === 'number' && ttlMs > 0 ? ttlMs : 5 * 60 * 1000;
+    return typeof ttlMs === 'number' && ttlMs > 0 ? ttlMs : 30 * 1000;
   }
 
   private getLegacyAuthCacheMaxEntries(): number {

@@ -8,8 +8,8 @@ export default {
   // deprecated
   keepAliveTimeout: 60,
   legacyAuthCache: {
-    enabled: true,
+    enabled: false,
     maxEntries: 1000,
-    ttlMs: 5 * 60 * 1000,
+    ttlMs: 30 * 1000,
   },
 };
