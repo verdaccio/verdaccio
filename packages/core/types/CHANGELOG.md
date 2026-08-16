@@ -1,5 +1,13 @@
 # Change Log
 
+## 14.0.0-next-9.12
+
+### Patch Changes
+
+- d7937a3: Cache successful legacy AES token authentication for a short configurable window.
+
+  The cache is enabled by default under `server.legacyAuthCache` and avoids running password verification, including bcrypt-backed htpasswd verification, for every request that reuses the same legacy token. Concurrent requests for the same token now share one in-flight authentication result. The cache can be tuned or disabled with `server.legacyAuthCache.enabled`, `server.legacyAuthCache.maxEntries`, and `server.legacyAuthCache.ttlMs`.
+
 ## 14.0.0-next-9.11
 
 ### Patch Changes

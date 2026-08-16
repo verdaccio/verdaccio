@@ -1,5 +1,24 @@
 # @verdaccio/auth
 
+## 9.0.0-next-9.25
+
+### Patch Changes
+
+- 4861978: Disable the legacy auth cache by default; it must now be opted in via `server.legacyAuthCache.enabled: true`. While enabled, changed or revoked credentials stay valid until the cached entry expires, so the default TTL is 30 seconds (down from 5 minutes) and remains configurable via `server.legacyAuthCache.ttlMs`. Concurrent requests for the same token still share a single cache write from the leader request instead of each re-writing the entry.
+- d7937a3: Cache successful legacy AES token authentication for a short configurable window.
+
+  The cache is enabled by default under `server.legacyAuthCache` and avoids running password verification, including bcrypt-backed htpasswd verification, for every request that reuses the same legacy token. Concurrent requests for the same token now share one in-flight authentication result. The cache can be tuned or disabled with `server.legacyAuthCache.enabled`, `server.legacyAuthCache.maxEntries`, and `server.legacyAuthCache.ttlMs`.
+
+- 7a4c68d: chore: lint consistent-type-imports
+- Updated dependencies [4861978]
+- Updated dependencies [d7937a3]
+- Updated dependencies [7a4c68d]
+  - @verdaccio/config@9.0.0-next-9.25
+  - verdaccio-htpasswd@14.0.0-next-9.25
+  - @verdaccio/loaders@9.0.0-next-9.25
+  - @verdaccio/signature@9.0.0-next-9.25
+  - @verdaccio/core@9.0.0-next-9.25
+
 ## 9.0.0-next-9.24
 
 ### Patch Changes

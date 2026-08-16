@@ -1,5 +1,16 @@
 # @verdaccio/middleware
 
+## 9.0.0-next-9.25
+
+### Patch Changes
+
+- d7937a3: Update `express-rate-limit` to 8.6.0 and refresh transitive audit fixes for `fast-uri` and `ip-address`.
+- Updated dependencies [4861978]
+- Updated dependencies [d7937a3]
+  - @verdaccio/config@9.0.0-next-9.25
+  - @verdaccio/core@9.0.0-next-9.25
+  - @verdaccio/url@14.0.0-next-9.25
+
 ## 9.0.0-next-9.24
 
 ### Patch Changes
