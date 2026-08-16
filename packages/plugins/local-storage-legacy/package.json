@@ -70,7 +70,7 @@
     "minimatch": "4.2.6",
     "rmdir-sync": "1.0.1",
     "vite": "8.1.5",
-    "vitest": "4.1.4"
+    "vitest": "4.1.10"
   },
   "engines": {
     "node": ">=22"
