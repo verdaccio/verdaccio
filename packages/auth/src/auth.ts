@@ -591,10 +591,16 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
       }
 
       debug('authenticating %o', user);
-      this.authenticate(user, password, (err, user): void => {
-        completeAuth(err, user);
-        this.resolveLegacyAuthCacheWaiters(cacheKey, err, user);
-      });
+      try {
+        this.authenticate(user, password, (err, user): void => {
+          completeAuth(err, user);
+          this.resolveLegacyAuthCacheWaiters(cacheKey, err, user);
+        });
+      } catch (err: any) {
+        const authError = errorUtils.getInternalError(err?.message);
+        completeAuth(authError);
+        this.resolveLegacyAuthCacheWaiters(cacheKey, authError);
+      }
     } else {
       // we force npm client to ask again with basic authentication
       debug('legacy invalid header');
@@ -656,6 +662,11 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
 
   private getLegacyAuthCacheKey(authorization: string): string | void {
     if (!this.isLegacyAuthCacheEnabled()) {
+      return;
+    }
+
+    const { scheme } = parseAuthTokenHeader(authorization);
+    if (scheme.toUpperCase() !== TOKEN_BEARER.toUpperCase()) {
       return;
     }
 
