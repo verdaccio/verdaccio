@@ -9,44 +9,44 @@ importers:
   .:
     dependencies:
       '@verdaccio/auth':
-        specifier: 9.0.0-next-9.23
-        version: 9.0.0-next-9.23
+        specifier: 9.0.0-next-9.25
+        version: 9.0.0-next-9.25
       '@verdaccio/cli':
-        specifier: 9.0.0-next-9.23
-        version: 9.0.0-next-9.23(typanion@3.14.0)
+        specifier: 9.0.0-next-9.25
+        version: 9.0.0-next-9.25(typanion@3.14.0)
       '@verdaccio/config':
-        specifier: 9.0.0-next-9.23
-        version: 9.0.0-next-9.23
+        specifier: 9.0.0-next-9.25
+        version: 9.0.0-next-9.25
       '@verdaccio/core':
-        specifier: 9.0.0-next-9.23
-        version: 9.0.0-next-9.23
+        specifier: 9.0.0-next-9.25
+        version: 9.0.0-next-9.25
       '@verdaccio/loaders':
-        specifier: 9.0.0-next-9.23
-        version: 9.0.0-next-9.23
+        specifier: 9.0.0-next-9.25
+        version: 9.0.0-next-9.25
       '@verdaccio/local-storage':
-        specifier: 14.0.0-next-9.23
-        version: 14.0.0-next-9.23
+        specifier: 14.0.0-next-9.25
+        version: 14.0.0-next-9.25
       '@verdaccio/logger':
-        specifier: 9.0.0-next-9.23
-        version: 9.0.0-next-9.23
+        specifier: 9.0.0-next-9.25
+        version: 9.0.0-next-9.25
       '@verdaccio/middleware':
-        specifier: 9.0.0-next-9.23
-        version: 9.0.0-next-9.23
+        specifier: 9.0.0-next-9.25
+        version: 9.0.0-next-9.25
       '@verdaccio/node-api':
-        specifier: 9.0.0-next-9.23
-        version: 9.0.0-next-9.23
+        specifier: 9.0.0-next-9.25
+        version: 9.0.0-next-9.25
       '@verdaccio/proxy':
-        specifier: 9.0.0-next-9.23
-        version: 9.0.0-next-9.23
+        specifier: 9.0.0-next-9.25
+        version: 9.0.0-next-9.25
       '@verdaccio/server':
-        specifier: 9.0.0-next-9.23
-        version: 9.0.0-next-9.23
+        specifier: 9.0.0-next-9.25
+        version: 9.0.0-next-9.25
       '@verdaccio/store':
-        specifier: 9.0.0-next-9.23
-        version: 9.0.0-next-9.23
+        specifier: 9.0.0-next-9.25
+        version: 9.0.0-next-9.25
       '@verdaccio/ui-theme':
-        specifier: 9.0.0-next-9.23
-        version: 9.0.0-next-9.23
+        specifier: 9.0.0-next-9.25
+        version: 9.0.0-next-9.25
       debug:
         specifier: 4.4.3
         version: 4.4.3
@@ -60,11 +60,11 @@ importers:
         specifier: 7.7.4
         version: 7.7.4
       verdaccio-audit:
-        specifier: 14.0.0-next-9.23
-        version: 14.0.0-next-9.23
+        specifier: 14.0.0-next-9.25
+        version: 14.0.0-next-9.25
       verdaccio-htpasswd:
-        specifier: 14.0.0-next-9.23
-        version: 14.0.0-next-9.23
+        specifier: 14.0.0-next-9.25
+        version: 14.0.0-next-9.25
     devDependencies:
       '@changesets/changelog-github':
         specifier: 0.5.2
@@ -109,23 +109,23 @@ importers:
         specifier: 0.0.2
         version: 0.0.2
       '@verdaccio/api':
-        specifier: 9.0.0-next-9.23
-        version: 9.0.0-next-9.23
+        specifier: 9.0.0-next-9.25
+        version: 9.0.0-next-9.25
       '@verdaccio/e2e-cli':
         specifier: 2.10.2
         version: 2.10.2
       '@verdaccio/test-helper':
-        specifier: 5.0.0-next-9.24
-        version: 5.0.0-next-9.24
+        specifier: 5.0.0-next-9.26
+        version: 5.0.0-next-9.26
       '@verdaccio/types':
-        specifier: 14.0.0-next-9.11
-        version: 14.0.0-next-9.11
+        specifier: 14.0.0-next-9.12
+        version: 14.0.0-next-9.12
       '@verdaccio/web':
-        specifier: 9.0.0-next-9.23
-        version: 9.0.0-next-9.23
+        specifier: 9.0.0-next-9.25
+        version: 9.0.0-next-9.25
       '@vitest/coverage-v8':
         specifier: 4.1.2
-        version: 4.1.2(vitest@4.1.2(@types/node@25.5.0)(vite@8.1.0(@types/node@25.5.0)(esbuild@0.28.1)(tsx@4.19.4)))
+        version: 4.1.2(vitest@4.1.2(@types/node@25.5.0)(vite@8.1.0(@types/node@25.5.0)(esbuild@0.28.2)(tsx@4.19.4)))
       cross-env:
         specifier: 10.1.0
         version: 10.1.0
@@ -163,17 +163,17 @@ importers:
         specifier: 7.0.2
         version: 7.0.2
       verdaccio-auth-memory:
-        specifier: 14.0.0-next-9.23
-        version: 14.0.0-next-9.23
+        specifier: 14.0.0-next-9.25
+        version: 14.0.0-next-9.25
       verdaccio-memory:
-        specifier: 14.0.0-next-9.23
-        version: 14.0.0-next-9.23
+        specifier: 14.0.0-next-9.25
+        version: 14.0.0-next-9.25
       vite:
         specifier: 8.1.0
-        version: 8.1.0(@types/node@25.5.0)(esbuild@0.28.1)(tsx@4.19.4)
+        version: 8.1.0(@types/node@25.5.0)(esbuild@0.28.2)(tsx@4.19.4)
       vitest:
         specifier: 4.1.2
-        version: 4.1.2(@types/node@25.5.0)(vite@8.1.0(@types/node@25.5.0)(esbuild@0.28.1)(tsx@4.19.4))
+        version: 4.1.2(@types/node@25.5.0)(vite@8.1.0(@types/node@25.5.0)(esbuild@0.28.2)(tsx@4.19.4))
 
 packages:
 
@@ -288,8 +288,8 @@ packages:
     cpu: [ppc64]
     os: [aix]
 
-  '@esbuild/aix-ppc64@0.28.1':
-    resolution: {integrity: sha512-Svl7tq8k/08+p6CXPpRjQ1fKX+1odH/BQbb48fV6fj3CWHhsoIOoY87w1oHXm0qEpkIK3ZfVgp0hed3XBXzXMQ==}
+  '@esbuild/aix-ppc64@0.28.2':
+    resolution: {integrity: sha512-XExcO+dvLKvVtNTibSTBej1NCAbaGhWn9Ww1ZPx80qsahhPFe/8jgWP0IchNe0F3HwkU7n8ejhH8bjonqht8mQ==}
     engines: {node: '>=18'}
     cpu: [ppc64]
     os: [aix]
@@ -300,8 +300,8 @@ packages:
     cpu: [arm64]
     os: [android]
 
-  '@esbuild/android-arm64@0.28.1':
-    resolution: {integrity: sha512-34EGEbCIAgosYz6goLcopX6Mo7NyGv9tfwEM2/7Ce2VcVRk568iSvniGWcUXIy7wEDR1wzolcxcriFVrWYcwBg==}
+  '@esbuild/android-arm64@0.28.2':
+    resolution: {integrity: sha512-5YfKeeI8qWfBZIX+u2xZC3Zlb3Os/gLS2sbEKM+I4ZOcsWmHS2WLysCcQZDAFRslDUU5Oiq44gf6PYN1vGwG5A==}
     engines: {node: '>=18'}
     cpu: [arm64]
     os: [android]
@@ -312,8 +312,8 @@ packages:
     cpu: [arm]
     os: [android]
 
-  '@esbuild/android-arm@0.28.1':
-    resolution: {integrity: sha512-0k2F129Xdio1TdJfzJ8sy1Q47vUD2NnwdhiAf7drUN1EBTfPf4hsFCtmMgu/6m8JSzsBrlmVjudMBQqOfG8usQ==}
+  '@esbuild/android-arm@0.28.2':
+    resolution: {integrity: sha512-kXXoiPVVGQcnIYGOeaovwOURpniDBpSq4A03qkQ+BMQqtGG6HYap3xne9C1O1yo4TR3qxlCX5IqqmX6fFo2Lqg==}
     engines: {node: '>=18'}
     cpu: [arm]
     os: [android]
@@ -324,8 +324,8 @@ packages:
     cpu: [x64]
     os: [android]
 
-  '@esbuild/android-x64@0.28.1':
-    resolution: {integrity: sha512-dbwY7ltSMDWsRatcRpCnES4F+im88OCUgGZjy52shC7GqHRE/cYlxNbB4Z4UpJswpcc4Qxd2oE/ufM0p61IKng==}
+  '@esbuild/android-x64@0.28.2':
+    resolution: {integrity: sha512-O387ite7SzUyCcy3JQX4P4bLtEA7bLLkx+esve5JHnyYfNTxcVpXZo9jhdB0lTKN44gztELTdU7nS8Nr16Fs1Q==}
     engines: {node: '>=18'}
     cpu: [x64]
     os: [android]
@@ -336,8 +336,8 @@ packages:
     cpu: [arm64]
     os: [darwin]
 
-  '@esbuild/darwin-arm64@0.28.1':
-    resolution: {integrity: sha512-TZbWkQY7kvTAXbXUT7uVACR5cMHsDiSz9z7ZKAX/RTq/WJEk3QyRr0wZpNhBDX+/0CtdqUIJlOiodQcta6tY3Q==}
+  '@esbuild/darwin-arm64@0.28.2':
+    resolution: {integrity: sha512-n4KqkOQrraxHJcgjM1RvwbigfQKIKJVpM7xp+KsxiyUSrRdIXnt73VhrPAx0fV44hgfmIVKjxMN9J1t5jySVkw==}
     engines: {node: '>=18'}
     cpu: [arm64]
     os: [darwin]
@@ -348,8 +348,8 @@ packages:
     cpu: [x64]
     os: [darwin]
 
-  '@esbuild/darwin-x64@0.28.1':
-    resolution: {integrity: sha512-zfdzgK9ACBNZLI/CyHTOx81SyNbM6YXn7rxSgX97VjyiPl9W1i4Ka4fgKECEoFCKGpvBj5qArWIGgQjOwkgskQ==}
+  '@esbuild/darwin-x64@0.28.2':
+    resolution: {integrity: sha512-uq6suIWYP37qzGddBKPw5QEQPi6HiLGsO7UmkpfyaYNQ3D+rN6w6WfwH+nuqcGXWvawGwxOEroO4YGnFh95azw==}
     engines: {node: '>=18'}
     cpu: [x64]
     os: [darwin]
@@ -360,8 +360,8 @@ packages:
     cpu: [arm64]
     os: [freebsd]
 
-  '@esbuild/freebsd-arm64@0.28.1':
-    resolution: {integrity: sha512-wG2EA8ENdEI0qhkSZMjfqrdY+ziCYCPMmtZjjIwOmXFjmyzEHn+UUxk5of+SYsjtfs3VpnlC7QLzSI5hY/rOAw==}
+  '@esbuild/freebsd-arm64@0.28.2':
+    resolution: {integrity: sha512-n+I0BTSRIoy+d6RPKnEVwql5UwBJolytvY4mAOIEJorKlqgPII8ix6slVVrfZ5Tnj7glIZvloylbB/EJPMWEXw==}
     engines: {node: '>=18'}
     cpu: [arm64]
     os: [freebsd]
@@ -372,8 +372,8 @@ packages:
     cpu: [x64]
     os: [freebsd]
 
-  '@esbuild/freebsd-x64@0.28.1':
-    resolution: {integrity: sha512-i7dZ9vQgnvSCzi/rYCXNgtF/U+eKZNJBzu3eTQbRgHnM7tNSizLOkRFAl3qzVc/Op/u5YkHHa4pf/3DOYHthLQ==}
+  '@esbuild/freebsd-x64@0.28.2':
+    resolution: {integrity: sha512-78XJTJkvPs0kz2w61301PJjXl4g7q3JqiYMZ/M/yVI73EHBrCRTgkhu9oqG7vPqq+a/yadEW8aD+agKlk5xrmg==}
     engines: {node: '>=18'}
     cpu: [x64]
     os: [freebsd]
@@ -384,8 +384,8 @@ packages:
     cpu: [arm64]
     os: [linux]
 
-  '@esbuild/linux-arm64@0.28.1':
-    resolution: {integrity: sha512-yHs+0uc8+nvEAfAfxrWQKK5peSNzBc4PegcMO0EJ2hT71uA7vB8Ihg2e77R2P7SG5uYjPbHlLLmve4LLLRCf0g==}
+  '@esbuild/linux-arm64@0.28.2':
+    resolution: {integrity: sha512-pW4AC0P3it8c7do9MVM4p51FzHzdM/TZrerurgRcHJ2WTa1VQ1CIq18xncfpBJw4ojkiZZrKW2yIBWBP92j6Ug==}
     engines: {node: '>=18'}
     cpu: [arm64]
     os: [linux]
@@ -396,8 +396,8 @@ packages:
     cpu: [arm]
     os: [linux]
 
-  '@esbuild/linux-arm@0.28.1':
-    resolution: {integrity: sha512-qVXBOHQS+d5Y722GwJzJUtOLlX7km3CraOaGormF1pDtPd2C/l1SHRPgjLunLGe51Sh5YYWKMFDyV4SxgMQYTQ==}
+  '@esbuild/linux-arm@0.28.2':
+    resolution: {integrity: sha512-XlDnu2q5yoqems+xay6wSAcg9DDD7K9RLKZEBOMZm3ckNpJBvOX20tSfby8KfrrhINDyv9V2YVZKY/SpoGJI8w==}
     engines: {node: '>=18'}
     cpu: [arm]
     os: [linux]
@@ -408,8 +408,8 @@ packages:
     cpu: [ia32]
     os: [linux]
 
-  '@esbuild/linux-ia32@0.28.1':
-    resolution: {integrity: sha512-d1z4ZuP0ajrfz/FhGT4vv278rX8KnPPJx8i5+AtK7TYbx9Le9F1hyzurZpkEyjkGa9dUGhQow4C1NmeGvqxN2w==}
+  '@esbuild/linux-ia32@0.28.2':
+    resolution: {integrity: sha512-CYbnj78HsIeA+DhgUKgFCfvNsTHFhMMrinUrMZpDXJXKN8T3XViTZ/+wtHeVxEWY8ewSzTFN+nRmSwO2tZaLUQ==}
     engines: {node: '>=18'}
     cpu: [ia32]
     os: [linux]
@@ -420,8 +420,8 @@ packages:
     cpu: [loong64]
     os: [linux]
 
-  '@esbuild/linux-loong64@0.28.1':
-    resolution: {integrity: sha512-M5sRjUVZrkm1OAPR3dlOYzNmN+loZKGVi1VUQGrwuqLcbR6qeAz+famMhjASeH3YVKvZz+zT1jlh/keC3Rj/lg==}
+  '@esbuild/linux-loong64@0.28.2':
+    resolution: {integrity: sha512-buwkd8nsph4R+ajRvw0qM5Hja/TXQow3ptzWO2EbG/cqcIkHloRrdlBtQlshyYGTNFvfkfJ5tpPLVkY4DtsPfQ==}
     engines: {node: '>=18'}
     cpu: [loong64]
     os: [linux]
@@ -432,8 +432,8 @@ packages:
     cpu: [mips64el]
     os: [linux]
 
-  '@esbuild/linux-mips64el@0.28.1':
-    resolution: {integrity: sha512-mRObBZeHh2OxcBFPWE/FjylkRgZdYuiTR3vaTozquCGOH14iP9oN4x4Ge81CoIDYQrXmIxpFumJBu5MtZpnQJQ==}
+  '@esbuild/linux-mips64el@0.28.2':
+    resolution: {integrity: sha512-ZVykbDyk7519VwiNb9Lcj9m8XM6v5V9uKPvrEMkkEedVewf+0itkhahp4HDpgERXhwLRpWFypsGbG/J8s0QjJA==}
     engines: {node: '>=18'}
     cpu: [mips64el]
     os: [linux]
@@ -444,8 +444,8 @@ packages:
     cpu: [ppc64]
     os: [linux]
 
-  '@esbuild/linux-ppc64@0.28.1':
-    resolution: {integrity: sha512-slScBsMAb3GFDcdrCgLwZtPYRoH2H/youv10QiZyRjmsP48fznoveWytSgCI/R0ZcUgpc0ZhIUEx6LHts8yrfQ==}
+  '@esbuild/linux-ppc64@0.28.2':
+    resolution: {integrity: sha512-CAXl+Dtd9UUuJd8pKKdwh6MLm3MUMiqMPmhZ3tTSXPqfyQ3vDl6R5hZdZ/kYojK4ofXtdfSv1tFq8XzWx3heNQ==}
     engines: {node: '>=18'}
     cpu: [ppc64]
     os: [linux]
@@ -456,8 +456,8 @@ packages:
     cpu: [riscv64]
     os: [linux]
 
-  '@esbuild/linux-riscv64@0.28.1':
-    resolution: {integrity: sha512-kw0owk1o0GFETUJyW0jc0G4Yzs0BHZn0JDZ8JRT088vjJYX777BAs1fDGxAC+q831qOs2DTC96mNsG2opdfyyQ==}
+  '@esbuild/linux-riscv64@0.28.2':
+    resolution: {integrity: sha512-GeXCej4IQtU1B+QlDV8W/RRvbzI3O/Stss+/bCXv4lZls5WGRtu2a+3JkA3i4qIUlMXpcHebWpF8AkJhATowuA==}
     engines: {node: '>=18'}
     cpu: [riscv64]
     os: [linux]
@@ -468,8 +468,8 @@ packages:
     cpu: [s390x]
     os: [linux]
 
-  '@esbuild/linux-s390x@0.28.1':
-    resolution: {integrity: sha512-/lAIjX8aYFRByhh6L5rYtPEDRqa9de/4V/juOXcta5frjvzXO4/sqEtyytse0g3zZFuWu5cDN0MkLz2qRDD2Ag==}
+  '@esbuild/linux-s390x@0.28.2':
+    resolution: {integrity: sha512-3H1weTYZPxt/WOhByszQZybS9w5lKzUn1FDMsgEChbHWQwHYQQRfBxgCcZvPhjHfKyJjIievvMmEUawJrdY9Dg==}
     engines: {node: '>=18'}
     cpu: [s390x]
     os: [linux]
@@ -480,8 +480,8 @@ packages:
     cpu: [x64]
     os: [linux]
 
-  '@esbuild/linux-x64@0.28.1':
-    resolution: {integrity: sha512-u/anNYF2mmVOEDwLtnQ1wOr3EZ9sTNGLWrsYGYwHWzGA3Si84IOkHXlbWTD1NB+9/1lcnweYKO54uhxZydNzfA==}
+  '@esbuild/linux-x64@0.28.2':
+    resolution: {integrity: sha512-4xTZr1FUmSoQW4XIWmit3tzQrUTZM+N3P0XV8xROKYF50XfI7xeO90+1bZvNwxIufQ9hDQVRJH5YhgPVF8A/HQ==}
     engines: {node: '>=18'}
     cpu: [x64]
     os: [linux]
@@ -492,8 +492,8 @@ packages:
     cpu: [arm64]
     os: [netbsd]
 
-  '@esbuild/netbsd-arm64@0.28.1':
-    resolution: {integrity: sha512-oks0DYbLwWMmaakTsCb+zL4E+aHRVLom9IJZOAthMQEPiQmydXHkziYEsGYRx0uNV/IjEKGAV941JzH02pflqw==}
+  '@esbuild/netbsd-arm64@0.28.2':
+    resolution: {integrity: sha512-sSATRjPeDBg3pdgHoQfoYBob11Kk1FGa9lui5RIHZCoCkJa9QKlvl3/vKz2usCmYYjs7ymJR/2Nnsqe+Hjt5nw==}
     engines: {node: '>=18'}
     cpu: [arm64]
     os: [netbsd]
@@ -504,8 +504,8 @@ packages:
     cpu: [x64]
     os: [netbsd]
 
-  '@esbuild/netbsd-x64@0.28.1':
-    resolution: {integrity: sha512-aeL6lAnN89Hz43Mlh1G8ARasbuoYvSITDEx0tHh5b7jJnHcssqgjy9Yx430GDpmCa6OyrKoS0aNRjKundRizGg==}
+  '@esbuild/netbsd-x64@0.28.2':
+    resolution: {integrity: sha512-lqnzCV+mM0gIADaKihiCg6ifgfU2L3h5E33rNQBN1Y4MaVGnzryzmvvf7UHxprpQdE8hpqLolJ9Rl+SkIRDpyw==}
     engines: {node: '>=18'}
     cpu: [x64]
     os: [netbsd]
@@ -516,8 +516,8 @@ packages:
     cpu: [arm64]
     os: [openbsd]
 
-  '@esbuild/openbsd-arm64@0.28.1':
-    resolution: {integrity: sha512-MEFJe5C3R8pwXdZ5Y21oo6m7ePiS0d9pWucn99O/wvyJZChoIQKrQDxKrGeW8F5+T0okTHesAmDeiHDTIq0V/Q==}
+  '@esbuild/openbsd-arm64@0.28.2':
+    resolution: {integrity: sha512-AL2qJILH7lNjrDmCQDvdxMfAUIv8KMNZOvrwAQ8i8//ntL9FflhOyMJ8OZSMBb8/AWXe3/5v5S20y3zCoZWKoQ==}
     engines: {node: '>=18'}
     cpu: [arm64]
     os: [openbsd]
@@ -528,8 +528,8 @@ packages:
     cpu: [x64]
     os: [openbsd]
 
-  '@esbuild/openbsd-x64@0.28.1':
-    resolution: {integrity: sha512-i/ZLIOafE0Z8cI/XANJAixoJL/uRAoS2xOA3rb0xN+KK0K177cMAsQYkzHtBrtMXAKuAc7HGgcWiZ/sRC1Nxgw==}
+  '@esbuild/openbsd-x64@0.28.2':
+    resolution: {integrity: sha512-QtiuPytchRyC4rwUKhexJdQKvDuZ6hWloi3igqPQNUJCS1/v9EiO3UTOXR6A3FoMo4fnAKbWJdqaIwhOzh8qEw==}
     engines: {node: '>=18'}
     cpu: [x64]
     os: [openbsd]
@@ -540,8 +540,8 @@ packages:
     cpu: [arm64]
     os: [openharmony]
 
-  '@esbuild/openharmony-arm64@0.28.1':
-    resolution: {integrity: sha512-ge+Z7EXFNt2BO1oAMsVpiQ8EwndV9i1xXerAeTIK7AtPs3bKFXQM7nlRxDSIUIMeueR1CNXxqztLzdNeReKBJg==}
+  '@esbuild/openharmony-arm64@0.28.2':
+    resolution: {integrity: sha512-WkhYDmpTjLvGlScA1rwjRUmhl4k8oXR3cIbtqWmELgU/dFeHHlEllxDvdWcNJV9rbzCexB5vz8gtNewWLgCT7Q==}
     engines: {node: '>=18'}
     cpu: [arm64]
     os: [openharmony]
@@ -552,8 +552,8 @@ packages:
     cpu: [x64]
     os: [sunos]
 
-  '@esbuild/sunos-x64@0.28.1':
-    resolution: {integrity: sha512-BEjgtECkL3vY+SaSQ6nzVfiALUeFxpawyp8Jmf5PtYhf1Ug40N1h/hxlhts+f1FvSvarEigdxS3BlSMI2PJLcQ==}
+  '@esbuild/sunos-x64@0.28.2':
+    resolution: {integrity: sha512-GPMSkTOtMnv2U2F8gxe4Io6qmVs+YKyp832Etqqxr0hFngmXQ3rzwytelm3GIn7T4VviRUlf3sOgBOiTdvaf7g==}
     engines: {node: '>=18'}
     cpu: [x64]
     os: [sunos]
@@ -564,8 +564,8 @@ packages:
     cpu: [arm64]
     os: [win32]
 
-  '@esbuild/win32-arm64@0.28.1':
-    resolution: {integrity: sha512-lCv9eK/H6ZJWbE7bh2nw54CZ9M2nupBxJcTsdk/QQnWkdSjKGuxmmH8/GWrlT1eMmZfn4dGcCjRte397WqfQXA==}
+  '@esbuild/win32-arm64@0.28.2':
+    resolution: {integrity: sha512-PIhhEkE9uPBleRBrQEJpUn7MBnibZzbGzYWPmY3x+YoVg/95zbjB4CxPPOQ8l5tYYM4mMaCthF8/1DIfBQQyWQ==}
     engines: {node: '>=18'}
     cpu: [arm64]
     os: [win32]
@@ -576,8 +576,8 @@ packages:
     cpu: [ia32]
     os: [win32]
 
-  '@esbuild/win32-ia32@0.28.1':
-    resolution: {integrity: sha512-zvb/mB2bSCoJOpoCBgYKKpX6YM6mJBlBUVUtVj41DlZJVEB6/0CKlRYxP5wWl1C1ILiCoAU5wZZ4q1P3qeS6Eg==}
+  '@esbuild/win32-ia32@0.28.2':
+    resolution: {integrity: sha512-YmJbfTlvU7Sdn9BB+4PRES4oB6pxgS37MAONj+hBr/cpXS1aBPKXxNnDbu+QCWPj0o9dgyxeq79g6c5P8KeuYA==}
     engines: {node: '>=18'}
     cpu: [ia32]
     os: [win32]
@@ -588,8 +588,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@esbuild/win32-x64@0.28.1':
-    resolution: {integrity: sha512-bm4Mowrv+GXMlpWX++EcXw/iLyd1o3+bJkC2DkWXYVvgZCqD/bSj9ctZeAMC3cIxgjRVR2Dufaiu4YPxr5gW1A==}
+  '@esbuild/win32-x64@0.28.2':
+    resolution: {integrity: sha512-5ebpxr3nWMzrL/rnUI755Jkuee0bHL/Gq0WTF9lvcpv73wAp5eu8MfBUgWK9bhWvZjj7yX8etf/8tI8Ney695g==}
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
@@ -1280,16 +1280,16 @@ packages:
     resolution: {integrity: sha512-BqeDqLcYcm3CRYlrQnAueKg8vabBtqwgZ4jRLZJtig+JWzSX50sKdWrzbhf6waQT/HjRO+ADUs/2gjl1tdOTMQ==}
     engines: {node: '>=12'}
 
-  '@verdaccio/api@9.0.0-next-9.23':
-    resolution: {integrity: sha512-6+iun9Ue+nvpMguNxVWyjhytquE1OecIm8k/+b2MWlTUl8Ir/gLatBXAUMBd71UlkHVQ1iz4lkKkkKIZ3jjgLA==}
+  '@verdaccio/api@9.0.0-next-9.25':
+    resolution: {integrity: sha512-ZJrwJantiyByDCzgunKeDFVhatRW8ktbJyJ/4v1+lSrLJVN6flexLNGq4Kd2j6lUznxbTT0F+S1GChhgbHRIgg==}
     engines: {node: '>=24'}
 
-  '@verdaccio/auth@9.0.0-next-9.23':
-    resolution: {integrity: sha512-BdJVs6kX5jP6hLPTCdXCmvfo91QicmqrMidQQcqm+ORqI46z2h6/6En10Z81+7XlRWj280dbSJmGLUqjY3qXNg==}
+  '@verdaccio/auth@9.0.0-next-9.25':
+    resolution: {integrity: sha512-3Zm1JnrxOuA1IGnls8eg+T4XMjBMUIt1DRS9ba0m6+pT5UAnQad7ZoKqe1IA+FLbhUiSErhPwW/QtSX7mGooMQ==}
     engines: {node: '>=24'}
 
-  '@verdaccio/cli@9.0.0-next-9.23':
-    resolution: {integrity: sha512-vtI1qzMkmlXFQayCqRQt/OpSZixdiiFcY0kiCh+5QNUhPIvkqEYwsDjdVViWDuXQXKK/2bkanRHnQsVM9HAWlw==}
+  '@verdaccio/cli@9.0.0-next-9.25':
+    resolution: {integrity: sha512-r2od+Hl5ts35LtBAhRkFTWQihtgFTfAuoVXzo8qz9BQXeA3EUKY68Rdd28zqzLFzOQH1HsazotkEDfsAu55tBg==}
     engines: {node: '>=24'}
     hasBin: true
 
@@ -1298,12 +1298,12 @@ packages:
     engines: {node: '>=8'}
     deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
-  '@verdaccio/config@9.0.0-next-9.23':
-    resolution: {integrity: sha512-6jxaSoX5ogl1yneZNZA/iAuACJ023clEBxxFc5CGt1UhhI4KWb6mOmH3Rmk/ilCyOgnoYJHJRb2icYBP0MllqA==}
+  '@verdaccio/config@9.0.0-next-9.25':
+    resolution: {integrity: sha512-uQX2Hfj/auXhKdK1tj7FnGvZ+qxI6NHz4ki1UUlcvTBlBM2GbQ9UHkvKX76JQQjuBlzSM5rajIebZG5G1espdg==}
     engines: {node: '>=24'}
 
-  '@verdaccio/core@9.0.0-next-9.23':
-    resolution: {integrity: sha512-tvO4TKw1HQp4AcKenFPM+jiUrlN3xraXgF9p2SgVT/JDKRMtS4CxJ7gwxRXKEPSkngAyxlfMv+6bvwd0KoXVpg==}
+  '@verdaccio/core@9.0.0-next-9.25':
+    resolution: {integrity: sha512-AyhLocq9VL2Yg/rOI5JBBHnB8uYoWbIVKc+jUY4C671i/rN7B70dOLoQiQOAUZjxcS0PpxTXonZE/1VHIK/HKw==}
     engines: {node: '>=24'}
 
   '@verdaccio/e2e-cli@2.10.2':
@@ -1314,32 +1314,32 @@ packages:
     resolution: {integrity: sha512-3WuWIYnUcPS1/CG4UvrAoiPjwcJ1P8aD73j/R+UU2W3mH9diHSx3LWJQyRd3Gg3n6RzL49xtps+OzEZofedn2A==}
     engines: {node: '>=24'}
 
-  '@verdaccio/hooks@9.0.0-next-9.23':
-    resolution: {integrity: sha512-waXn92Bcghu7bL5JsZUm/MKCqWiYY9EI9eTIiWtzSTtCakb6rrK16sbZ9JGoCmJbsdgfsubX4BwwlJwrq9zEyQ==}
+  '@verdaccio/hooks@9.0.0-next-9.25':
+    resolution: {integrity: sha512-wWutS7RmU0z5H8kNbVoBpfSKy2aTuwgsWvt73HbmouUNxkNTsrGhAAUn0IiTt/d0FA3FBsVqyOaJjndZA04Lsg==}
     engines: {node: '>=24'}
 
-  '@verdaccio/loaders@9.0.0-next-9.23':
-    resolution: {integrity: sha512-cEmp20kFFWtyEmaejAXDNBwaWjekKkby5wunsWGZMKwbAedyCJKBbMHhgia+qNRYUbW7r1rmmCBzSYhAAuvukw==}
+  '@verdaccio/loaders@9.0.0-next-9.25':
+    resolution: {integrity: sha512-sCFybM1WJKvvfgSQf/5lmFX1KFxDllko5r+z59KAqAGtsX9aOdpgeS4fEOGrTySG2dp5pQyFsJjQKfXuMh0xyg==}
     engines: {node: '>=24'}
 
-  '@verdaccio/local-storage@14.0.0-next-9.23':
-    resolution: {integrity: sha512-VgG01IE6or1o3LEeL+1GDhgMd7CHnjqQaXj3w3WnF6vqrvNUv4hcdlR0DdSqcTa12XomxauGyAeYm5eYhLeRFw==}
+  '@verdaccio/local-storage@14.0.0-next-9.25':
+    resolution: {integrity: sha512-VzIhRXYbi4Bqo9jaFfDR7f6vNw/jXSpKREp7FNNJzFIpnXTHyQv2gl2qh3B4mIOfIpZ+D7+Tc9I249y60/06jg==}
     engines: {node: '>=24'}
 
-  '@verdaccio/logger@9.0.0-next-9.23':
-    resolution: {integrity: sha512-HetQlsr35rLJVG+AXiy+tK0kQL3WA/QR0pKYbuaA3rOy0dQmwv+98JV3uNtfr5h7B9pfgr2CTQVSvbyc0CIESg==}
+  '@verdaccio/logger@9.0.0-next-9.25':
+    resolution: {integrity: sha512-x+ozwlzJuvHiYqYBYPjTV/9Tl94cBzZV0Ll31+iW6W17Ezn34y4tPGP57HP7odkR9ppPSNk/ppDCB9DsgVxGYw==}
     engines: {node: '>=24'}
 
-  '@verdaccio/middleware@9.0.0-next-9.23':
-    resolution: {integrity: sha512-K2fChnZWRPpFMsq0ovSClJ9JAD10jMoZ+t+FGRxscAQ/nDM9J5eDuT1PZKR/oFBD0EknwiZNt+DnUffdHyfoEg==}
+  '@verdaccio/middleware@9.0.0-next-9.25':
+    resolution: {integrity: sha512-qWckpfJcfWtkbrpamsMJZhzcTi3DKJldsqvIBfe6HIbv46uSA5uS7VezO4eLQRKcJtpNaDVL44ntau15t9PEfg==}
     engines: {node: '>=24'}
 
-  '@verdaccio/node-api@9.0.0-next-9.23':
-    resolution: {integrity: sha512-wZpSW/CGtVDXfLhGBLU5dpaaOIij93zeaRXyPmgHgEcqxwz0L9jvu/ew9pvITK2MGgG7jfTVKdOmQCjv40jeQw==}
+  '@verdaccio/node-api@9.0.0-next-9.25':
+    resolution: {integrity: sha512-t8uJ1WENXz1ns1fFF5rOUSXOP/TL0zM0u05Jy/LrUAQDgbfuIJZegCVa+kSPMncU09Bc0yZy3OHOKishjofr8w==}
     engines: {node: '>=24'}
 
-  '@verdaccio/proxy@9.0.0-next-9.23':
-    resolution: {integrity: sha512-Mj4KcjLnhL75OKlA+LaB3tXBHpIVhyuchOgrCLzjIsRpgxVo6w1tW1IwBBsUs7PSrGrs1cEqkmXkkY2+RcI7ag==}
+  '@verdaccio/proxy@9.0.0-next-9.25':
+    resolution: {integrity: sha512-1dRgrl+53Z4PZbqJWTkCDx50RgMEevhKSYigLlGRWYz89aWfsFvRnh7UooMEvBjSLnBrC9Vysh7oTjL04fZSSw==}
     engines: {node: '>=24'}
 
   '@verdaccio/registry-cli@1.1.0':
@@ -1347,42 +1347,42 @@ packages:
     engines: {node: '>=24'}
     hasBin: true
 
-  '@verdaccio/search@9.0.0-next-9.23':
-    resolution: {integrity: sha512-RfBT75ngXFHHVoVict+K+NbDve3ZhzMek3TOC22Oc7PzQQMdrweXYCc+e81pv2rQSMUJAMkeK7GBPS0J6NK/MQ==}
+  '@verdaccio/search@9.0.0-next-9.25':
+    resolution: {integrity: sha512-2QUXlxshZEODVU9vVciTtxQfkUwAoNBlA6PsSBwyrjjUw7uLjQFjQ7nPVa+g7E8NMN5rsqU3RcLm11OOUpTbuQ==}
     engines: {node: '>=24'}
 
-  '@verdaccio/server@9.0.0-next-9.23':
-    resolution: {integrity: sha512-ovz7UYcO3mgB90MvVUdQ/q6+Wd2cwjCdnWMU0UZqSuhCNK6uKm9I0XdX4jkby5AtY/tbrC5nlkr6VAGEW4khPA==}
+  '@verdaccio/server@9.0.0-next-9.25':
+    resolution: {integrity: sha512-6Z1+/bt2H3eq8+QHkJIJg7knSDA5w8rchH6znPPwFHFQ2E9yHZSEbmDTwY28ZmWdkICaJL/bi8RemIT7p4I1lQ==}
     engines: {node: '>=24'}
 
-  '@verdaccio/signature@9.0.0-next-9.23':
-    resolution: {integrity: sha512-NmxEUUGGZArtq+5q1rb6wI7lzn/dsr78LpRLhdnY3SQNFfkvPL1CDQ18oyzHf0AY5dvZuZIWXsKRBBmUP19LKw==}
+  '@verdaccio/signature@9.0.0-next-9.25':
+    resolution: {integrity: sha512-/+XbhWiVZIwEWOaVqF/KYxT1HKPU57eo5H4E59Sa3ueo66E0n2/wr4MYd9IFXAwQameUOArrRcWf5nKdWNHldw==}
     engines: {node: '>=24'}
 
-  '@verdaccio/store@9.0.0-next-9.23':
-    resolution: {integrity: sha512-cKShUJXWDz1T2m+sSrxybhJyOSScpjK1u/8Eqf1ye+3qKcIZ3j5DfUW2ux71+4LL+kiwR/aqUFBy72yXKsGqZw==}
+  '@verdaccio/store@9.0.0-next-9.25':
+    resolution: {integrity: sha512-qmokjKa0xBaeE6jp5KWtSF1DMxI1Xic2t+t75EIPjrJ62LraHw2Tg+k2Ng5b5Qc12nMo2oBqOpkJMF8ouCcIgA==}
     engines: {node: '>=24'}
 
-  '@verdaccio/tarball@14.0.0-next-9.23':
-    resolution: {integrity: sha512-QLecXqrUuXR4Nm9INUy1PQz4/MadPodjbMbrt5DDMhlW2otURdieRpbz2qhZ+btArgNWOO/i/E9uq5nYhuaTnQ==}
+  '@verdaccio/tarball@14.0.0-next-9.25':
+    resolution: {integrity: sha512-rWm5dyhpdrqZxE73eV1OW/SkqQMbgBgHCfuxXKcRl1/trCAM5Rj4L3v3+turMUQ9pxGQYtVOg3Uc6KAfkHjwBQ==}
     engines: {node: '>=24'}
 
-  '@verdaccio/test-helper@5.0.0-next-9.24':
-    resolution: {integrity: sha512-SeezFK/1tTGfrlFygyRBZNjDHBWNGQgqr0n9eijhYuAz6En7uB8DgVKz3RzXOH6XvjtqUNzTqv+V9Np/0LaUxQ==}
+  '@verdaccio/test-helper@5.0.0-next-9.26':
+    resolution: {integrity: sha512-W2NhiSDmzVeVmW4bhaBZCfpikfUFE3MgAIiYOcfGXAbZa2wV2UcwC8RVCR+fNxEi8RaBU7BkzASJWb1PgOrN+g==}
 
-  '@verdaccio/types@14.0.0-next-9.11':
-    resolution: {integrity: sha512-OHbUU/Jm/E9T4HlsxdsHZLrCTXVsm9eVYTkjuAz/jl5PYePwgBgdB/Et11ta7M6uTaP9Ge7jiUeRnl3QG4kpCA==}
+  '@verdaccio/types@14.0.0-next-9.12':
+    resolution: {integrity: sha512-OB8KFRP8b1mnUU+6qGmR+wPVkLPLfxl7yhoqsqgYUXYWUQyVt5ASR6Z0YmKnLVi6DE4KQK7ywBBR5orPltWDaQ==}
     engines: {node: '>=24'}
 
-  '@verdaccio/ui-theme@9.0.0-next-9.23':
-    resolution: {integrity: sha512-l4tUIT+uZ+t/YTG5Tqm7h/WF+J0KeE7duL9VHc7kjrax4TV4PdoBwlTEKWgo8MbGLLijtpwV52MIMmzZQhGhGg==}
+  '@verdaccio/ui-theme@9.0.0-next-9.25':
+    resolution: {integrity: sha512-8VZXb2N9FRidAisQn1ZJzzxXpCHmqByG5UtjpEkqh/u85r1kNOvpWc17ISbdWEd4h1Q2AIBBWI3nP9qTlEDTmQ==}
 
-  '@verdaccio/url@14.0.0-next-9.23':
-    resolution: {integrity: sha512-mOgSNNa/K0MUdU+vlK6LytBDI8ytPLG4237QpNQoFwr67Y0Vb5F5ttNEgSN1duvAz9GRwfLQ+xmYoInIAWkpPg==}
+  '@verdaccio/url@14.0.0-next-9.25':
+    resolution: {integrity: sha512-07HtcPMTYKkXOT55iMQeGAbg7yGw5uUONCWmABE9fsJqqL4H8yTL1ZjbA/58HAGbvOLIPK4/YTbRbdP7hz7RPQ==}
     engines: {node: '>=24'}
 
-  '@verdaccio/web@9.0.0-next-9.23':
-    resolution: {integrity: sha512-lQeY8JQqqio7U1KOfcgYWR0TitTh5HHOScW6TM77pUsLgXJttSSj6E2W1Ls91ugEGWwKoPlD/0uqHGvGNwxZ1A==}
+  '@verdaccio/web@9.0.0-next-9.25':
+    resolution: {integrity: sha512-BYfdUzKj0XaCsTPY62N8pGdtfLZv7Ia6BtegGjeOqQfCdIzEVwrhaeO16G7hey3GnxyzZIlY2hsB4koaBOkxLQ==}
     engines: {node: '>=24'}
 
   '@vitest/coverage-v8@4.1.2':
@@ -1532,6 +1532,10 @@ packages:
   brace-expansion@5.0.7:
     resolution: {integrity: sha512-7oFy703dxfY3/NLxC1fh2SUCQ0H9rmAY+5EpDVfXjUTTs+HEwR2nYaqLv+GWcTsumwxPfiz6CzCNkwXwBUwqCA==}
     engines: {node: 18 || 20 || >=22}
+
+  brace-expansion@5.0.9:
+    resolution: {integrity: sha512-ScQ4IuvIEF1TMlP7Zt+vjJ//9zlPb2SDcxWxM3bk8s6t6GGdJ7KO1dCcTidOPJKePW30LE/2cT7wCyPho9/Wxg==}
+    engines: {node: 20 || >=22}
 
   braces@3.0.3:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
@@ -1787,8 +1791,8 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  esbuild@0.28.1:
-    resolution: {integrity: sha512-HrJrvZv5ayxBzPfwphOoNzkzOIIlifzk0KJrGK2c8R4+LKpMtpYLQeUdjnwjWv/LZlkH2laZk+4w78pi99D4Vw==}
+  esbuild@0.28.2:
+    resolution: {integrity: sha512-HKVLS8dvII+xoKW9kmqxbRKrnWEXfJJr/FZhhJmiqIB0e053QNYFqOBouTMO/k5sID4MvCiUCvv8b9M4h32wIA==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -1814,8 +1818,8 @@ packages:
     resolution: {integrity: sha512-knvyeauYhqjOYvQ66MznSMs83wmHrCycNEN6Ao+2AeYEfxUIkuiVxdEa1qlGEPK+We3n0THiDciYSsCcgW/DoA==}
     engines: {node: '>=12.0.0'}
 
-  express-rate-limit@8.5.2:
-    resolution: {integrity: sha512-5Kb34ipNX694DH48vN9irak1Qx30nb0PLYHXfJgw4YEjiC3ZEmZJhwOp+VfiCYwFzvFTdB9QkArYS5kXa2cx2A==}
+  express-rate-limit@8.6.0:
+    resolution: {integrity: sha512-XKJXDsASUOo0LLtFwW5hCcQGH0N4WQc/Rn8/Pvoia+TJFOkkFPvrtW9lZOeeNcxQJspvOIERMwiRLsVFlhHEkA==}
     engines: {node: '>= 16'}
     peerDependencies:
       express: '>= 4.11'
@@ -1851,8 +1855,8 @@ packages:
   fast-safe-stringify@2.1.1:
     resolution: {integrity: sha512-W+KJc2dmILlPplD/H4K9l9LcAHAfPtP6BY84uVLXQ6Evcz9Lcg33Y2z1IVblT6xdY54PXYVHEv+0Wpq8Io6zkA==}
 
-  fast-uri@3.1.4:
-    resolution: {integrity: sha512-8JnbkQ4juDyvYs4mgFGQqg4yCYtFDtUtmp2QIQq11ZZe5CFQ5wcqm1rqDgAh/QdMySuBnPzMUiJUNZG5N/AiQw==}
+  fast-uri@3.1.5:
+    resolution: {integrity: sha512-gHwA1O9LDIcKunMKhObS/HimwtehO1nPUECKAu5TpKgaO19fcWEl4bliWe1jWxVFvIXztJjjQ4L8XQ1EU9f7Jw==}
 
   fastq@1.20.1:
     resolution: {integrity: sha512-GGToxJ/w1x32s/D2EKND7kTil4n8OVk/9mycTc4VDza13lOvpUZTGX3mFSCtV9ksdGBVzvsyAVLM6mHFThxXxw==}
@@ -2045,8 +2049,8 @@ packages:
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
 
-  ip-address@10.3.1:
-    resolution: {integrity: sha512-1e9d3kb97NHJTIJDZW9rKqW2h6+dFa50Dy0fpPSMQp2ADje5gvKsXmdiK6dwY5t76TaTt5+P5N1Y/LoToIxP6g==}
+  ip-address@10.4.0:
+    resolution: {integrity: sha512-oSK96Grm3aP6OrS263xVxbNDGVL7rzBtYdpGqlDG8iQdoenDoTs/nkki+DflYbAEE8Xl6o5YxhxlrKvI3nqKXQ==}
     engines: {node: '>= 12'}
 
   ipaddr.js@1.9.1:
@@ -2114,16 +2118,16 @@ packages:
   js-tokens@10.0.0:
     resolution: {integrity: sha512-lM/UBzQmfJRo9ABXbPWemivdCW8V2G8FHaHdypQaIy523snUjog0W71ayWXTjiR+ixeMyVHN2XcpnTd/liPg/Q==}
 
-  js-yaml@3.15.0:
-    resolution: {integrity: sha512-ttBQIIQPDeLjpPOohtUdXuXUVoA2uIB6fEH9HyJ7234s5mBJ5wTx20njxplLZQgLaOfpmPQA7X2t5AX6tIPbog==}
+  js-yaml@3.15.1:
+    resolution: {integrity: sha512-S99WuO3HlhO3XN41EtYUNl9zzXjoJx7QvmipxsJVxtCBT0YHEFy+iOJhjSvrmV12nYhWpZaM8lPHkJm0yUMbag==}
     hasBin: true
 
   js-yaml@4.1.1:
     resolution: {integrity: sha512-qQKT4zQxXl8lLwBtHMWwaTcGfFOZviOJet3Oy/xmGk2gZH677CJM9EvtfdSkgWcATZhj/55JZ0rmy3myCT5lsA==}
     hasBin: true
 
-  js-yaml@4.3.0:
-    resolution: {integrity: sha512-1td788aAnnZ5qs7V2QIRl1owjtYpbKt749Y3xauqQgwIIGF/xXWz1wMTEBx5O3LK3lXLVuqXPdPxj2BoFHaW9Q==}
+  js-yaml@4.3.1:
+    resolution: {integrity: sha512-CY6crGq313MX8GkwvB7tzgp99vjQxY1++5y10/BKN/GUfHqWaOGQMNZkBvqSzsZKWk/ijwHlWzzkLulsGHhjWQ==}
     hasBin: true
 
   js-yaml@5.2.2:
@@ -2376,6 +2380,10 @@ packages:
     resolution: {integrity: sha512-MULkVLfKGYDFYejP07QOurDLLQpcjk7Fw+7jXS2R2czRQzR56yHRveU5NDJEOviH+hETZKSkIk5c+T23GjFUMg==}
     engines: {node: 18 || 20 || >=22}
 
+  minimatch@10.2.6:
+    resolution: {integrity: sha512-vpLQEs+VLCr1nU0BXS07maYoFwlDAH0gngQuuttxIwutDFEMHq2blX+8vpgxDdK3J1PwjCJiep77OitTZ4Ll1A==}
+    engines: {node: 18 || 20 || >=22}
+
   minimist@1.2.8:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
 
@@ -2594,6 +2602,9 @@ packages:
 
   process-warning@5.0.0:
     resolution: {integrity: sha512-a39t9ApHNx2L4+HBnQKqxxHNs1r7KF+Intd8Q/g1bUh6q0WIp9voPXJ/x0j+ZL45KF1pJd9+q2jLIRMfvEshkA==}
+
+  process-warning@5.1.0:
+    resolution: {integrity: sha512-jQSaVHsPgtyw60e1rQ/A+/ArPEj/S8pS/vFnyGa/gYFXrKk/6RuDkoqVDQ5NI5MmS01698ltlAk0NoDBNLujRw==}
 
   propagate@2.0.1:
     resolution: {integrity: sha512-vGrhOavPSTz4QVNuBNdcNXePNdNMaO1xj9yBeH1ScQPjk/rhg9sSlCXPhMkFuaNNW/syTvYqsnbIJxMBfRbbag==}
@@ -2866,8 +2877,8 @@ packages:
   text-decoder@1.2.7:
     resolution: {integrity: sha512-vlLytXkeP4xvEq2otHeJfSQIRyWxo/oZGEbXrtEEF9Hnmrdly59sUbzZ/QgyWuLYHctCHxFF4tRQZNQ9k60ExQ==}
 
-  thingies@2.6.0:
-    resolution: {integrity: sha512-rMHRjmlFLM1R96UYPvpmnc3LYtdFrT33JIB7L9hetGue1qAPfn1N2LJeEjxUSidu1Iku+haLZXDuEXUHNGO/lg==}
+  thingies@2.6.1:
+    resolution: {integrity: sha512-cV/CMGTK3M4MlnJ/0At6ismOw/A0EEniDNScajjz/Br3c1sqE72YD01rGpPTKwd27wAxI5Pr+6+0w8yofzFRYw==}
     engines: {node: '>=10.18'}
     peerDependencies:
       tslib: ^2
@@ -3032,20 +3043,20 @@ packages:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
 
-  verdaccio-audit@14.0.0-next-9.23:
-    resolution: {integrity: sha512-n94f4rPnHvgZXZeSL9QRMuOmiTVnyMNKpQIzDvWADs0edqocaEzc+aTY8hIY859zRYeaxpHX2PCLbr4C1U66Dg==}
+  verdaccio-audit@14.0.0-next-9.25:
+    resolution: {integrity: sha512-YYfrtpnq03HyRBi+2g9J3YA9zR+0XR97w2SkCFv+Uig2GWcERG3avXr3DpDK0DszbZdRYviL2CDTEeCjOfM6Kg==}
     engines: {node: '>=24'}
 
-  verdaccio-auth-memory@14.0.0-next-9.23:
-    resolution: {integrity: sha512-b+/9rL+2ueVP4Fos2F8DkftY89gIluC7pjJs8AzeAKWZixctTSFMv/U750T35G8bBud9ms3wj6nQGFQaXqS4LQ==}
+  verdaccio-auth-memory@14.0.0-next-9.25:
+    resolution: {integrity: sha512-z3R1oejwlHW3gIG6nbxNYRyOzfO1F8jtZE4QZb98vNkIuNlXz2/Phv0NXXxXsng5AJmLEpfdNgFCIXUG464FPw==}
     engines: {node: '>=24'}
 
-  verdaccio-htpasswd@14.0.0-next-9.23:
-    resolution: {integrity: sha512-Z6pWVvvRsUeTtd73wluerukQjE3SbYUT61YKF1IIbZeYnm9u+TOqahF5TPBZHhvOe1anITBihgkoN1m4BzfWHA==}
+  verdaccio-htpasswd@14.0.0-next-9.25:
+    resolution: {integrity: sha512-EQ0tYGl1h9ttdn/a7tnp800B70QB9fYp8RV+r+pNHsXDjBUIs5oWU5J8/hna7plM/gokh13Yv97kQzv3keEeLg==}
     engines: {node: '>=24'}
 
-  verdaccio-memory@14.0.0-next-9.23:
-    resolution: {integrity: sha512-TPuKJsYzYrD0emZENzwpfu6UVDkDkTE+IbJWjQK+bhn9oMKmbj5FMUHvaRFFRUmBbMi5H590EZCwaELrIPKRjg==}
+  verdaccio-memory@14.0.0-next-9.25:
+    resolution: {integrity: sha512-O0qKW6ngOBLWWorSRjxa3rzcDLrwIoqKK2XWy2SQd8qBSxzXi3nBJ3R4f19/40xqJ/AORojp4530YNybGjwMRg==}
     engines: {node: '>=24'}
 
   verror@1.10.0:
@@ -3305,7 +3316,7 @@ snapshots:
   '@changesets/parse@0.4.3':
     dependencies:
       '@changesets/types': 6.1.0
-      js-yaml: 4.3.0
+      js-yaml: 4.3.1
 
   '@changesets/pre@2.0.2':
     dependencies:
@@ -3382,157 +3393,157 @@ snapshots:
   '@esbuild/aix-ppc64@0.25.12':
     optional: true
 
-  '@esbuild/aix-ppc64@0.28.1':
+  '@esbuild/aix-ppc64@0.28.2':
     optional: true
 
   '@esbuild/android-arm64@0.25.12':
     optional: true
 
-  '@esbuild/android-arm64@0.28.1':
+  '@esbuild/android-arm64@0.28.2':
     optional: true
 
   '@esbuild/android-arm@0.25.12':
     optional: true
 
-  '@esbuild/android-arm@0.28.1':
+  '@esbuild/android-arm@0.28.2':
     optional: true
 
   '@esbuild/android-x64@0.25.12':
     optional: true
 
-  '@esbuild/android-x64@0.28.1':
+  '@esbuild/android-x64@0.28.2':
     optional: true
 
   '@esbuild/darwin-arm64@0.25.12':
     optional: true
 
-  '@esbuild/darwin-arm64@0.28.1':
+  '@esbuild/darwin-arm64@0.28.2':
     optional: true
 
   '@esbuild/darwin-x64@0.25.12':
     optional: true
 
-  '@esbuild/darwin-x64@0.28.1':
+  '@esbuild/darwin-x64@0.28.2':
     optional: true
 
   '@esbuild/freebsd-arm64@0.25.12':
     optional: true
 
-  '@esbuild/freebsd-arm64@0.28.1':
+  '@esbuild/freebsd-arm64@0.28.2':
     optional: true
 
   '@esbuild/freebsd-x64@0.25.12':
     optional: true
 
-  '@esbuild/freebsd-x64@0.28.1':
+  '@esbuild/freebsd-x64@0.28.2':
     optional: true
 
   '@esbuild/linux-arm64@0.25.12':
     optional: true
 
-  '@esbuild/linux-arm64@0.28.1':
+  '@esbuild/linux-arm64@0.28.2':
     optional: true
 
   '@esbuild/linux-arm@0.25.12':
     optional: true
 
-  '@esbuild/linux-arm@0.28.1':
+  '@esbuild/linux-arm@0.28.2':
     optional: true
 
   '@esbuild/linux-ia32@0.25.12':
     optional: true
 
-  '@esbuild/linux-ia32@0.28.1':
+  '@esbuild/linux-ia32@0.28.2':
     optional: true
 
   '@esbuild/linux-loong64@0.25.12':
     optional: true
 
-  '@esbuild/linux-loong64@0.28.1':
+  '@esbuild/linux-loong64@0.28.2':
     optional: true
 
   '@esbuild/linux-mips64el@0.25.12':
     optional: true
 
-  '@esbuild/linux-mips64el@0.28.1':
+  '@esbuild/linux-mips64el@0.28.2':
     optional: true
 
   '@esbuild/linux-ppc64@0.25.12':
     optional: true
 
-  '@esbuild/linux-ppc64@0.28.1':
+  '@esbuild/linux-ppc64@0.28.2':
     optional: true
 
   '@esbuild/linux-riscv64@0.25.12':
     optional: true
 
-  '@esbuild/linux-riscv64@0.28.1':
+  '@esbuild/linux-riscv64@0.28.2':
     optional: true
 
   '@esbuild/linux-s390x@0.25.12':
     optional: true
 
-  '@esbuild/linux-s390x@0.28.1':
+  '@esbuild/linux-s390x@0.28.2':
     optional: true
 
   '@esbuild/linux-x64@0.25.12':
     optional: true
 
-  '@esbuild/linux-x64@0.28.1':
+  '@esbuild/linux-x64@0.28.2':
     optional: true
 
   '@esbuild/netbsd-arm64@0.25.12':
     optional: true
 
-  '@esbuild/netbsd-arm64@0.28.1':
+  '@esbuild/netbsd-arm64@0.28.2':
     optional: true
 
   '@esbuild/netbsd-x64@0.25.12':
     optional: true
 
-  '@esbuild/netbsd-x64@0.28.1':
+  '@esbuild/netbsd-x64@0.28.2':
     optional: true
 
   '@esbuild/openbsd-arm64@0.25.12':
     optional: true
 
-  '@esbuild/openbsd-arm64@0.28.1':
+  '@esbuild/openbsd-arm64@0.28.2':
     optional: true
 
   '@esbuild/openbsd-x64@0.25.12':
     optional: true
 
-  '@esbuild/openbsd-x64@0.28.1':
+  '@esbuild/openbsd-x64@0.28.2':
     optional: true
 
   '@esbuild/openharmony-arm64@0.25.12':
     optional: true
 
-  '@esbuild/openharmony-arm64@0.28.1':
+  '@esbuild/openharmony-arm64@0.28.2':
     optional: true
 
   '@esbuild/sunos-x64@0.25.12':
     optional: true
 
-  '@esbuild/sunos-x64@0.28.1':
+  '@esbuild/sunos-x64@0.28.2':
     optional: true
 
   '@esbuild/win32-arm64@0.25.12':
     optional: true
 
-  '@esbuild/win32-arm64@0.28.1':
+  '@esbuild/win32-arm64@0.28.2':
     optional: true
 
   '@esbuild/win32-ia32@0.25.12':
     optional: true
 
-  '@esbuild/win32-ia32@0.28.1':
+  '@esbuild/win32-ia32@0.28.2':
     optional: true
 
   '@esbuild/win32-x64@0.25.12':
     optional: true
 
-  '@esbuild/win32-x64@0.28.1':
+  '@esbuild/win32-x64@0.28.2':
     optional: true
 
   '@jridgewell/resolve-uri@3.1.2': {}
@@ -3564,7 +3575,7 @@ snapshots:
       '@jsonjoy.com/json-pointer': 1.0.2(tslib@2.8.1)
       '@jsonjoy.com/util': 1.9.0(tslib@2.8.1)
       hyperdyperid: 1.2.0
-      thingies: 2.6.0(tslib@2.8.1)
+      thingies: 2.6.1(tslib@2.8.1)
       tree-dump: 1.1.0(tslib@2.8.1)
       tslib: 2.8.1
 
@@ -4054,15 +4065,15 @@ snapshots:
     dependencies:
       '@verdaccio/commons-api': 10.2.0
 
-  '@verdaccio/api@9.0.0-next-9.23':
+  '@verdaccio/api@9.0.0-next-9.25':
     dependencies:
-      '@verdaccio/auth': 9.0.0-next-9.23
-      '@verdaccio/config': 9.0.0-next-9.23
-      '@verdaccio/core': 9.0.0-next-9.23
-      '@verdaccio/hooks': 9.0.0-next-9.23
-      '@verdaccio/logger': 9.0.0-next-9.23
-      '@verdaccio/middleware': 9.0.0-next-9.23
-      '@verdaccio/store': 9.0.0-next-9.23
+      '@verdaccio/auth': 9.0.0-next-9.25
+      '@verdaccio/config': 9.0.0-next-9.25
+      '@verdaccio/core': 9.0.0-next-9.25
+      '@verdaccio/hooks': 9.0.0-next-9.25
+      '@verdaccio/logger': 9.0.0-next-9.25
+      '@verdaccio/middleware': 9.0.0-next-9.25
+      '@verdaccio/store': 9.0.0-next-9.25
       debug: 4.4.3
       express: 5.2.1
       lodash-es: 4.18.1
@@ -4071,25 +4082,25 @@ snapshots:
       - react-native-b4a
       - supports-color
 
-  '@verdaccio/auth@9.0.0-next-9.23':
+  '@verdaccio/auth@9.0.0-next-9.25':
     dependencies:
-      '@verdaccio/config': 9.0.0-next-9.23
-      '@verdaccio/core': 9.0.0-next-9.23
-      '@verdaccio/loaders': 9.0.0-next-9.23
-      '@verdaccio/signature': 9.0.0-next-9.23
+      '@verdaccio/config': 9.0.0-next-9.25
+      '@verdaccio/core': 9.0.0-next-9.25
+      '@verdaccio/loaders': 9.0.0-next-9.25
+      '@verdaccio/signature': 9.0.0-next-9.25
       debug: 4.4.3
       lodash-es: 4.18.1
-      verdaccio-htpasswd: 14.0.0-next-9.23
+      verdaccio-htpasswd: 14.0.0-next-9.25
     transitivePeerDependencies:
       - supports-color
 
-  '@verdaccio/cli@9.0.0-next-9.23(typanion@3.14.0)':
+  '@verdaccio/cli@9.0.0-next-9.25(typanion@3.14.0)':
     dependencies:
-      '@verdaccio/config': 9.0.0-next-9.23
-      '@verdaccio/core': 9.0.0-next-9.23
-      '@verdaccio/logger': 9.0.0-next-9.23
-      '@verdaccio/node-api': 9.0.0-next-9.23
-      '@verdaccio/server': 9.0.0-next-9.23
+      '@verdaccio/config': 9.0.0-next-9.25
+      '@verdaccio/core': 9.0.0-next-9.25
+      '@verdaccio/logger': 9.0.0-next-9.25
+      '@verdaccio/node-api': 9.0.0-next-9.25
+      '@verdaccio/server': 9.0.0-next-9.25
       clipanion: 4.0.0-rc.4(typanion@3.14.0)
       envinfo: 7.19.0
       semver: 7.8.5
@@ -4105,21 +4116,21 @@ snapshots:
       http-errors: 2.0.0
       http-status-codes: 2.2.0
 
-  '@verdaccio/config@9.0.0-next-9.23':
+  '@verdaccio/config@9.0.0-next-9.25':
     dependencies:
-      '@verdaccio/core': 9.0.0-next-9.23
+      '@verdaccio/core': 9.0.0-next-9.25
       debug: 4.4.3
       js-yaml: 5.2.2
       lodash-es: 4.18.1
     transitivePeerDependencies:
       - supports-color
 
-  '@verdaccio/core@9.0.0-next-9.23':
+  '@verdaccio/core@9.0.0-next-9.25':
     dependencies:
       ajv: 8.20.0
       http-errors: 2.0.1
       http-status-codes: 2.3.0
-      minimatch: 10.2.5
+      minimatch: 10.2.6
       process-warning: 5.0.0
       sanitize-filename: 1.6.3
       semver: 7.8.5
@@ -4137,27 +4148,27 @@ snapshots:
     dependencies:
       lockfile: 1.0.4
 
-  '@verdaccio/hooks@9.0.0-next-9.23':
+  '@verdaccio/hooks@9.0.0-next-9.25':
     dependencies:
-      '@verdaccio/core': 9.0.0-next-9.23
-      '@verdaccio/logger': 9.0.0-next-9.23
+      '@verdaccio/core': 9.0.0-next-9.25
+      '@verdaccio/logger': 9.0.0-next-9.25
       debug: 4.4.3
       got: 15.1.0
       handlebars: 4.7.9
     transitivePeerDependencies:
       - supports-color
 
-  '@verdaccio/loaders@9.0.0-next-9.23':
+  '@verdaccio/loaders@9.0.0-next-9.25':
     dependencies:
-      '@verdaccio/core': 9.0.0-next-9.23
+      '@verdaccio/core': 9.0.0-next-9.25
       debug: 4.4.3
       lodash-es: 4.18.1
     transitivePeerDependencies:
       - supports-color
 
-  '@verdaccio/local-storage@14.0.0-next-9.23':
+  '@verdaccio/local-storage@14.0.0-next-9.25':
     dependencies:
-      '@verdaccio/core': 9.0.0-next-9.23
+      '@verdaccio/core': 9.0.0-next-9.25
       '@verdaccio/file-locking': 14.0.0-next-9.4
       debug: 4.4.3
       globby: 11.1.0
@@ -4167,9 +4178,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@verdaccio/logger@9.0.0-next-9.23':
+  '@verdaccio/logger@9.0.0-next-9.25':
     dependencies:
-      '@verdaccio/core': 9.0.0-next-9.23
+      '@verdaccio/core': 9.0.0-next-9.25
       colorette: 2.0.20
       dayjs: 1.11.21
       debug: 4.4.3
@@ -4180,32 +4191,32 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@verdaccio/middleware@9.0.0-next-9.23':
+  '@verdaccio/middleware@9.0.0-next-9.25':
     dependencies:
-      '@verdaccio/config': 9.0.0-next-9.23
-      '@verdaccio/core': 9.0.0-next-9.23
-      '@verdaccio/url': 14.0.0-next-9.23
+      '@verdaccio/config': 9.0.0-next-9.25
+      '@verdaccio/core': 9.0.0-next-9.25
+      '@verdaccio/url': 14.0.0-next-9.25
       debug: 4.4.3
       express: 5.2.1
-      express-rate-limit: 8.5.2(express@5.2.1)
+      express-rate-limit: 8.6.0(express@5.2.1)
       lodash-es: 4.18.1
       lru-cache: 11.5.0
     transitivePeerDependencies:
       - supports-color
 
-  '@verdaccio/node-api@9.0.0-next-9.23':
+  '@verdaccio/node-api@9.0.0-next-9.25':
     dependencies:
-      '@verdaccio/config': 9.0.0-next-9.23
-      '@verdaccio/logger': 9.0.0-next-9.23
+      '@verdaccio/config': 9.0.0-next-9.25
+      '@verdaccio/logger': 9.0.0-next-9.25
       debug: 4.4.3
       lodash-es: 4.18.1
     transitivePeerDependencies:
       - supports-color
 
-  '@verdaccio/proxy@9.0.0-next-9.23':
+  '@verdaccio/proxy@9.0.0-next-9.25':
     dependencies:
-      '@verdaccio/config': 9.0.0-next-9.23
-      '@verdaccio/core': 9.0.0-next-9.23
+      '@verdaccio/config': 9.0.0-next-9.25
+      '@verdaccio/core': 9.0.0-next-9.25
       JSONStream: 1.3.5
       debug: 4.4.3
       got: 15.1.0
@@ -4216,59 +4227,59 @@ snapshots:
 
   '@verdaccio/registry-cli@1.1.0': {}
 
-  '@verdaccio/search@9.0.0-next-9.23':
+  '@verdaccio/search@9.0.0-next-9.25':
     dependencies:
-      '@verdaccio/config': 9.0.0-next-9.23
-      '@verdaccio/core': 9.0.0-next-9.23
-      '@verdaccio/logger': 9.0.0-next-9.23
-      '@verdaccio/proxy': 9.0.0-next-9.23
+      '@verdaccio/config': 9.0.0-next-9.25
+      '@verdaccio/core': 9.0.0-next-9.25
+      '@verdaccio/logger': 9.0.0-next-9.25
+      '@verdaccio/proxy': 9.0.0-next-9.25
       debug: 4.4.3
       lodash-es: 4.18.1
     transitivePeerDependencies:
       - supports-color
 
-  '@verdaccio/server@9.0.0-next-9.23':
+  '@verdaccio/server@9.0.0-next-9.25':
     dependencies:
-      '@verdaccio/api': 9.0.0-next-9.23
-      '@verdaccio/auth': 9.0.0-next-9.23
-      '@verdaccio/config': 9.0.0-next-9.23
-      '@verdaccio/core': 9.0.0-next-9.23
-      '@verdaccio/loaders': 9.0.0-next-9.23
-      '@verdaccio/logger': 9.0.0-next-9.23
-      '@verdaccio/middleware': 9.0.0-next-9.23
-      '@verdaccio/store': 9.0.0-next-9.23
-      '@verdaccio/web': 9.0.0-next-9.23
+      '@verdaccio/api': 9.0.0-next-9.25
+      '@verdaccio/auth': 9.0.0-next-9.25
+      '@verdaccio/config': 9.0.0-next-9.25
+      '@verdaccio/core': 9.0.0-next-9.25
+      '@verdaccio/loaders': 9.0.0-next-9.25
+      '@verdaccio/logger': 9.0.0-next-9.25
+      '@verdaccio/middleware': 9.0.0-next-9.25
+      '@verdaccio/store': 9.0.0-next-9.25
+      '@verdaccio/web': 9.0.0-next-9.25
       compression: 1.8.1
       cors: 2.8.6
       debug: 4.4.3
       express: 5.2.1
       lodash-es: 4.18.1
-      verdaccio-audit: 14.0.0-next-9.23
+      verdaccio-audit: 14.0.0-next-9.25
     transitivePeerDependencies:
       - bare-abort-controller
       - react-native-b4a
       - supports-color
 
-  '@verdaccio/signature@9.0.0-next-9.23':
+  '@verdaccio/signature@9.0.0-next-9.25':
     dependencies:
-      '@verdaccio/config': 9.0.0-next-9.23
-      '@verdaccio/core': 9.0.0-next-9.23
+      '@verdaccio/config': 9.0.0-next-9.25
+      '@verdaccio/core': 9.0.0-next-9.25
       debug: 4.4.3
       jsonwebtoken: 9.0.3
     transitivePeerDependencies:
       - supports-color
 
-  '@verdaccio/store@9.0.0-next-9.23':
+  '@verdaccio/store@9.0.0-next-9.25':
     dependencies:
-      '@verdaccio/config': 9.0.0-next-9.23
-      '@verdaccio/core': 9.0.0-next-9.23
-      '@verdaccio/loaders': 9.0.0-next-9.23
-      '@verdaccio/local-storage': 14.0.0-next-9.23
-      '@verdaccio/logger': 9.0.0-next-9.23
-      '@verdaccio/proxy': 9.0.0-next-9.23
-      '@verdaccio/search': 9.0.0-next-9.23
-      '@verdaccio/tarball': 14.0.0-next-9.23
-      '@verdaccio/url': 14.0.0-next-9.23
+      '@verdaccio/config': 9.0.0-next-9.25
+      '@verdaccio/core': 9.0.0-next-9.25
+      '@verdaccio/loaders': 9.0.0-next-9.25
+      '@verdaccio/local-storage': 14.0.0-next-9.25
+      '@verdaccio/logger': 9.0.0-next-9.25
+      '@verdaccio/proxy': 9.0.0-next-9.25
+      '@verdaccio/search': 9.0.0-next-9.25
+      '@verdaccio/tarball': 14.0.0-next-9.25
+      '@verdaccio/url': 14.0.0-next-9.25
       debug: 4.4.3
       lodash-es: 4.18.1
       semver: 7.8.5
@@ -4277,10 +4288,10 @@ snapshots:
       - react-native-b4a
       - supports-color
 
-  '@verdaccio/tarball@14.0.0-next-9.23':
+  '@verdaccio/tarball@14.0.0-next-9.25':
     dependencies:
-      '@verdaccio/core': 9.0.0-next-9.23
-      '@verdaccio/url': 14.0.0-next-9.23
+      '@verdaccio/core': 9.0.0-next-9.25
+      '@verdaccio/url': 14.0.0-next-9.25
       debug: 4.4.3
       gunzip-maybe: 1.4.2
       tar-stream: 3.1.7
@@ -4289,48 +4300,48 @@ snapshots:
       - react-native-b4a
       - supports-color
 
-  '@verdaccio/test-helper@5.0.0-next-9.24':
+  '@verdaccio/test-helper@5.0.0-next-9.26':
     dependencies:
-      '@verdaccio/auth': 9.0.0-next-9.23
-      '@verdaccio/config': 9.0.0-next-9.23
-      '@verdaccio/core': 9.0.0-next-9.23
-      '@verdaccio/logger': 9.0.0-next-9.23
-      '@verdaccio/middleware': 9.0.0-next-9.23
+      '@verdaccio/auth': 9.0.0-next-9.25
+      '@verdaccio/config': 9.0.0-next-9.25
+      '@verdaccio/core': 9.0.0-next-9.25
+      '@verdaccio/logger': 9.0.0-next-9.25
+      '@verdaccio/middleware': 9.0.0-next-9.25
       debug: 4.4.3
       express: 5.2.1
       supertest: 7.1.4
     transitivePeerDependencies:
       - supports-color
 
-  '@verdaccio/types@14.0.0-next-9.11':
+  '@verdaccio/types@14.0.0-next-9.12':
     dependencies:
       '@types/jsonwebtoken': 9.0.10
 
-  '@verdaccio/ui-theme@9.0.0-next-9.23':
+  '@verdaccio/ui-theme@9.0.0-next-9.25':
     dependencies:
       debug: 4.4.3
     transitivePeerDependencies:
       - supports-color
 
-  '@verdaccio/url@14.0.0-next-9.23':
+  '@verdaccio/url@14.0.0-next-9.25':
     dependencies:
-      '@verdaccio/core': 9.0.0-next-9.23
+      '@verdaccio/core': 9.0.0-next-9.25
       debug: 4.4.3
       validator: 13.15.35
     transitivePeerDependencies:
       - supports-color
 
-  '@verdaccio/web@9.0.0-next-9.23':
+  '@verdaccio/web@9.0.0-next-9.25':
     dependencies:
-      '@verdaccio/auth': 9.0.0-next-9.23
-      '@verdaccio/config': 9.0.0-next-9.23
-      '@verdaccio/core': 9.0.0-next-9.23
-      '@verdaccio/loaders': 9.0.0-next-9.23
-      '@verdaccio/logger': 9.0.0-next-9.23
-      '@verdaccio/middleware': 9.0.0-next-9.23
-      '@verdaccio/store': 9.0.0-next-9.23
-      '@verdaccio/tarball': 14.0.0-next-9.23
-      '@verdaccio/ui-theme': 9.0.0-next-9.23
+      '@verdaccio/auth': 9.0.0-next-9.25
+      '@verdaccio/config': 9.0.0-next-9.25
+      '@verdaccio/core': 9.0.0-next-9.25
+      '@verdaccio/loaders': 9.0.0-next-9.25
+      '@verdaccio/logger': 9.0.0-next-9.25
+      '@verdaccio/middleware': 9.0.0-next-9.25
+      '@verdaccio/store': 9.0.0-next-9.25
+      '@verdaccio/tarball': 14.0.0-next-9.25
+      '@verdaccio/ui-theme': 9.0.0-next-9.25
       debug: 4.4.3
       express: 5.2.1
       lodash-es: 4.18.1
@@ -4339,7 +4350,7 @@ snapshots:
       - react-native-b4a
       - supports-color
 
-  '@vitest/coverage-v8@4.1.2(vitest@4.1.2(@types/node@25.5.0)(vite@8.1.0(@types/node@25.5.0)(esbuild@0.28.1)(tsx@4.19.4)))':
+  '@vitest/coverage-v8@4.1.2(vitest@4.1.2(@types/node@25.5.0)(vite@8.1.0(@types/node@25.5.0)(esbuild@0.28.2)(tsx@4.19.4)))':
     dependencies:
       '@bcoe/v8-coverage': 1.0.2
       '@vitest/utils': 4.1.2
@@ -4351,7 +4362,7 @@ snapshots:
       obug: 2.1.1
       std-env: 4.0.0
       tinyrainbow: 3.1.0
-      vitest: 4.1.2(@types/node@25.5.0)(vite@8.1.0(@types/node@25.5.0)(esbuild@0.28.1)(tsx@4.19.4))
+      vitest: 4.1.2(@types/node@25.5.0)(vite@8.1.0(@types/node@25.5.0)(esbuild@0.28.2)(tsx@4.19.4))
 
   '@vitest/expect@4.1.2':
     dependencies:
@@ -4362,13 +4373,13 @@ snapshots:
       chai: 6.2.2
       tinyrainbow: 3.1.0
 
-  '@vitest/mocker@4.1.2(vite@8.1.0(@types/node@25.5.0)(esbuild@0.28.1)(tsx@4.19.4))':
+  '@vitest/mocker@4.1.2(vite@8.1.0(@types/node@25.5.0)(esbuild@0.28.2)(tsx@4.19.4))':
     dependencies:
       '@vitest/spy': 4.1.2
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
-      vite: 8.1.0(@types/node@25.5.0)(esbuild@0.28.1)(tsx@4.19.4)
+      vite: 8.1.0(@types/node@25.5.0)(esbuild@0.28.2)(tsx@4.19.4)
 
   '@vitest/pretty-format@4.1.2':
     dependencies:
@@ -4412,7 +4423,7 @@ snapshots:
   ajv@8.20.0:
     dependencies:
       fast-deep-equal: 3.1.3
-      fast-uri: 3.1.4
+      fast-uri: 3.1.5
       json-schema-traverse: 1.0.0
       require-from-string: 2.0.2
 
@@ -4491,6 +4502,10 @@ snapshots:
       - supports-color
 
   brace-expansion@5.0.7:
+    dependencies:
+      balanced-match: 4.0.4
+
+  brace-expansion@5.0.9:
     dependencies:
       balanced-match: 4.0.4
 
@@ -4736,34 +4751,34 @@ snapshots:
       '@esbuild/win32-ia32': 0.25.12
       '@esbuild/win32-x64': 0.25.12
 
-  esbuild@0.28.1:
+  esbuild@0.28.2:
     optionalDependencies:
-      '@esbuild/aix-ppc64': 0.28.1
-      '@esbuild/android-arm': 0.28.1
-      '@esbuild/android-arm64': 0.28.1
-      '@esbuild/android-x64': 0.28.1
-      '@esbuild/darwin-arm64': 0.28.1
-      '@esbuild/darwin-x64': 0.28.1
-      '@esbuild/freebsd-arm64': 0.28.1
-      '@esbuild/freebsd-x64': 0.28.1
-      '@esbuild/linux-arm': 0.28.1
-      '@esbuild/linux-arm64': 0.28.1
-      '@esbuild/linux-ia32': 0.28.1
-      '@esbuild/linux-loong64': 0.28.1
-      '@esbuild/linux-mips64el': 0.28.1
-      '@esbuild/linux-ppc64': 0.28.1
-      '@esbuild/linux-riscv64': 0.28.1
-      '@esbuild/linux-s390x': 0.28.1
-      '@esbuild/linux-x64': 0.28.1
-      '@esbuild/netbsd-arm64': 0.28.1
-      '@esbuild/netbsd-x64': 0.28.1
-      '@esbuild/openbsd-arm64': 0.28.1
-      '@esbuild/openbsd-x64': 0.28.1
-      '@esbuild/openharmony-arm64': 0.28.1
-      '@esbuild/sunos-x64': 0.28.1
-      '@esbuild/win32-arm64': 0.28.1
-      '@esbuild/win32-ia32': 0.28.1
-      '@esbuild/win32-x64': 0.28.1
+      '@esbuild/aix-ppc64': 0.28.2
+      '@esbuild/android-arm': 0.28.2
+      '@esbuild/android-arm64': 0.28.2
+      '@esbuild/android-x64': 0.28.2
+      '@esbuild/darwin-arm64': 0.28.2
+      '@esbuild/darwin-x64': 0.28.2
+      '@esbuild/freebsd-arm64': 0.28.2
+      '@esbuild/freebsd-x64': 0.28.2
+      '@esbuild/linux-arm': 0.28.2
+      '@esbuild/linux-arm64': 0.28.2
+      '@esbuild/linux-ia32': 0.28.2
+      '@esbuild/linux-loong64': 0.28.2
+      '@esbuild/linux-mips64el': 0.28.2
+      '@esbuild/linux-ppc64': 0.28.2
+      '@esbuild/linux-riscv64': 0.28.2
+      '@esbuild/linux-s390x': 0.28.2
+      '@esbuild/linux-x64': 0.28.2
+      '@esbuild/netbsd-arm64': 0.28.2
+      '@esbuild/netbsd-x64': 0.28.2
+      '@esbuild/openbsd-arm64': 0.28.2
+      '@esbuild/openbsd-x64': 0.28.2
+      '@esbuild/openharmony-arm64': 0.28.2
+      '@esbuild/sunos-x64': 0.28.2
+      '@esbuild/win32-arm64': 0.28.2
+      '@esbuild/win32-ia32': 0.28.2
+      '@esbuild/win32-x64': 0.28.2
 
   escape-html@1.0.3: {}
 
@@ -4783,10 +4798,13 @@ snapshots:
 
   expect-type@1.3.0: {}
 
-  express-rate-limit@8.5.2(express@5.2.1):
+  express-rate-limit@8.6.0(express@5.2.1):
     dependencies:
+      debug: 4.4.3
       express: 5.2.1
-      ip-address: 10.3.1
+      ip-address: 10.4.0
+    transitivePeerDependencies:
+      - supports-color
 
   express@5.2.1:
     dependencies:
@@ -4847,7 +4865,7 @@ snapshots:
 
   fast-safe-stringify@2.1.1: {}
 
-  fast-uri@3.1.4: {}
+  fast-uri@3.1.5: {}
 
   fastq@1.20.1:
     dependencies:
@@ -5072,7 +5090,7 @@ snapshots:
 
   inherits@2.0.4: {}
 
-  ip-address@10.3.1: {}
+  ip-address@10.4.0: {}
 
   ipaddr.js@1.9.1: {}
 
@@ -5121,7 +5139,7 @@ snapshots:
 
   js-tokens@10.0.0: {}
 
-  js-yaml@3.15.0:
+  js-yaml@3.15.1:
     dependencies:
       argparse: 1.0.10
       esprima: 4.0.1
@@ -5130,7 +5148,7 @@ snapshots:
     dependencies:
       argparse: 2.0.1
 
-  js-yaml@4.3.0:
+  js-yaml@4.3.1:
     dependencies:
       argparse: 2.0.1
 
@@ -5342,6 +5360,10 @@ snapshots:
     dependencies:
       brace-expansion: 5.0.7
 
+  minimatch@10.2.6:
+    dependencies:
+      brace-expansion: 5.0.9
+
   minimist@1.2.8: {}
 
   mri@1.2.0: {}
@@ -5521,7 +5543,7 @@ snapshots:
       on-exit-leak-free: 2.1.2
       pino-abstract-transport: 3.0.0
       pino-std-serializers: 7.1.0
-      process-warning: 5.0.0
+      process-warning: 5.1.0
       quick-format-unescaped: 4.0.4
       real-require: 0.2.0
       safe-stable-stringify: 2.5.0
@@ -5548,6 +5570,8 @@ snapshots:
   process-nextick-args@2.0.1: {}
 
   process-warning@5.0.0: {}
+
+  process-warning@5.1.0: {}
 
   propagate@2.0.1: {}
 
@@ -5601,7 +5625,7 @@ snapshots:
   read-yaml-file@1.1.0:
     dependencies:
       graceful-fs: 4.2.11
-      js-yaml: 3.15.0
+      js-yaml: 3.15.1
       pify: 4.0.1
       strip-bom: 3.0.0
 
@@ -5872,7 +5896,7 @@ snapshots:
     transitivePeerDependencies:
       - react-native-b4a
 
-  thingies@2.6.0(tslib@2.8.1):
+  thingies@2.6.1(tslib@2.8.1):
     dependencies:
       tslib: 2.8.1
 
@@ -5948,7 +5972,7 @@ snapshots:
 
   tsx@4.22.4:
     dependencies:
-      esbuild: 0.28.1
+      esbuild: 0.28.2
     optionalDependencies:
       fsevents: 2.3.3
 
@@ -6027,26 +6051,26 @@ snapshots:
 
   vary@1.1.2: {}
 
-  verdaccio-audit@14.0.0-next-9.23:
+  verdaccio-audit@14.0.0-next-9.25:
     dependencies:
-      '@verdaccio/config': 9.0.0-next-9.23
-      '@verdaccio/core': 9.0.0-next-9.23
+      '@verdaccio/config': 9.0.0-next-9.25
+      '@verdaccio/core': 9.0.0-next-9.25
       express: 5.2.1
       got: 15.1.0
       hpagent: 1.2.0
     transitivePeerDependencies:
       - supports-color
 
-  verdaccio-auth-memory@14.0.0-next-9.23:
+  verdaccio-auth-memory@14.0.0-next-9.25:
     dependencies:
-      '@verdaccio/core': 9.0.0-next-9.23
+      '@verdaccio/core': 9.0.0-next-9.25
       debug: 4.4.3
     transitivePeerDependencies:
       - supports-color
 
-  verdaccio-htpasswd@14.0.0-next-9.23:
+  verdaccio-htpasswd@14.0.0-next-9.25:
     dependencies:
-      '@verdaccio/core': 9.0.0-next-9.23
+      '@verdaccio/core': 9.0.0-next-9.25
       '@verdaccio/file-locking': 14.0.0-next-9.4
       apache-md5: 1.1.8
       bcryptjs: 3.0.3
@@ -6056,9 +6080,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  verdaccio-memory@14.0.0-next-9.23:
+  verdaccio-memory@14.0.0-next-9.25:
     dependencies:
-      '@verdaccio/core': 9.0.0-next-9.23
+      '@verdaccio/core': 9.0.0-next-9.25
       debug: 4.4.3
       memfs: 4.17.2
     transitivePeerDependencies:
@@ -6070,7 +6094,7 @@ snapshots:
       core-util-is: 1.0.2
       extsprintf: 1.3.0
 
-  vite@8.1.0(@types/node@25.5.0)(esbuild@0.28.1)(tsx@4.19.4):
+  vite@8.1.0(@types/node@25.5.0)(esbuild@0.28.2)(tsx@4.19.4):
     dependencies:
       lightningcss: 1.32.0
       picomatch: 4.0.4
@@ -6079,14 +6103,14 @@ snapshots:
       tinyglobby: 0.2.17
     optionalDependencies:
       '@types/node': 25.5.0
-      esbuild: 0.28.1
+      esbuild: 0.28.2
       fsevents: 2.3.3
       tsx: 4.19.4
 
-  vitest@4.1.2(@types/node@25.5.0)(vite@8.1.0(@types/node@25.5.0)(esbuild@0.28.1)(tsx@4.19.4)):
+  vitest@4.1.2(@types/node@25.5.0)(vite@8.1.0(@types/node@25.5.0)(esbuild@0.28.2)(tsx@4.19.4)):
     dependencies:
       '@vitest/expect': 4.1.2
-      '@vitest/mocker': 4.1.2(vite@8.1.0(@types/node@25.5.0)(esbuild@0.28.1)(tsx@4.19.4))
+      '@vitest/mocker': 4.1.2(vite@8.1.0(@types/node@25.5.0)(esbuild@0.28.2)(tsx@4.19.4))
       '@vitest/pretty-format': 4.1.2
       '@vitest/runner': 4.1.2
       '@vitest/snapshot': 4.1.2
@@ -6103,7 +6127,7 @@ snapshots:
       tinyexec: 1.0.4
       tinyglobby: 0.2.15
       tinyrainbow: 3.1.0
-      vite: 8.1.0(@types/node@25.5.0)(esbuild@0.28.1)(tsx@4.19.4)
+      vite: 8.1.0(@types/node@25.5.0)(esbuild@0.28.2)(tsx@4.19.4)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 25.5.0
