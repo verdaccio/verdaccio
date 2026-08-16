@@ -266,6 +266,11 @@ export type ServerSettingsConf = {
   // express-rate-limit settings
   rateLimit: RateLimit;
   keepAliveTimeout?: number;
+  legacyAuthCache?: {
+    enabled?: boolean;
+    maxEntries?: number;
+    ttlMs?: number;
+  };
   /**
    * Plugins should be prefixed verdaccio-XXXXXX by default.
    * To override the default prefix, use this property without `-`

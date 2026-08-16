@@ -44,7 +44,7 @@
     "@verdaccio/url": "workspace:14.0.0-next-9.24",
     "debug": "4.4.3",
     "express": "5.2.1",
-    "express-rate-limit": "8.5.2",
+    "express-rate-limit": "8.6.0",
     "lodash-es": "4.18.1",
     "lru-cache": "11.5.0"
   },
@@ -57,8 +57,8 @@
     "@verdaccio/logger": "workspace:9.0.0-next-9.24",
     "@verdaccio/types": "workspace:14.0.0-next-9.11",
     "http-errors": "2.0.1",
-    "supertest": "7.1.4",
     "rimraf": "6.1.3",
+    "supertest": "7.1.4",
     "vite": "8.1.5",
     "vitest": "4.1.10"
   },

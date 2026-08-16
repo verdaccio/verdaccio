@@ -81,6 +81,11 @@ describe('check basic content parsed file', () => {
     // server settings
     expect(config.server).toBeDefined();
     expect(config.server.dotfiles).toEqual('ignore');
+    expect(config.server.legacyAuthCache).toEqual({
+      enabled: true,
+      maxEntries: 1000,
+      ttlMs: 300000,
+    });
     // hideStaticLogs is not set in default config, defaults to true at runtime
     expect(config.server.hideStaticLogs).toBeUndefined();
   };
@@ -99,6 +104,19 @@ describe('check basic content parsed file', () => {
     expect(config.storage).toBe('/verdaccio/storage/data');
     expect(config.auth.htpasswd.file).toBe('/verdaccio/storage/htpasswd');
     checkDefaultConfPackages(config);
+  });
+
+  test('should keep legacy auth cache enabled when partially configured', () => {
+    const config = new Config({
+      ...getDefaultConfig(),
+      server: { legacyAuthCache: { maxEntries: 50 } },
+    });
+
+    expect(config.server.legacyAuthCache).toEqual({
+      enabled: true,
+      maxEntries: 50,
+      ttlMs: 300000,
+    });
   });
 });
 
