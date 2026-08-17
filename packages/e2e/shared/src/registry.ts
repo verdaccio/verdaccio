@@ -92,7 +92,19 @@ export async function startRegistry(
   const configPath = path.join(tempDir, 'config.yaml');
   fs.writeFileSync(configPath, yaml);
 
-  const verdaccioBin = require.resolve('verdaccio/bin/verdaccio');
+  // verdaccio >=6.9.2 ships an `exports` map that only exposes `.` and
+  // `./package.json`, so `require.resolve('verdaccio/bin/verdaccio')` throws.
+  // Resolve the still-exported package.json and derive the bin path from it.
+  const verdaccioPkgPath = require.resolve('verdaccio/package.json');
+  const verdaccioPkg = JSON.parse(fs.readFileSync(verdaccioPkgPath, 'utf8')) as {
+    bin?: string | Record<string, string>;
+  };
+  const binField = verdaccioPkg.bin;
+  const binRelative = typeof binField === 'string' ? binField : binField?.verdaccio;
+  if (!binRelative) {
+    throw new Error('Unable to locate the verdaccio bin entry in its package.json');
+  }
+  const verdaccioBin = path.resolve(path.dirname(verdaccioPkgPath), binRelative);
   const registryProcess = spawn('node', [verdaccioBin, '--config', configPath], {
     stdio: 'pipe',
     env: { ...process.env, NODE_ENV: 'production' },
