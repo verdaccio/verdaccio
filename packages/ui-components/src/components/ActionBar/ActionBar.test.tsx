@@ -49,6 +49,13 @@ describe('<ActionBar /> component', () => {
     });
   });
 
+  test('should use the default color variant for the homepage button', async () => {
+    renderWithRouteDetail(<ActionBar packageMeta={defaultPackageMeta} />);
+    await waitFor(() => {
+      expect(screen.getByTestId('HomeIcon').closest('button')).toHaveClass('MuiFab-default');
+    });
+  });
+
   test('should not render if data is missing', async () => {
     renderWithRouteDetail(<ActionBar packageMeta={undefined} />);
     await waitFor(() => {
