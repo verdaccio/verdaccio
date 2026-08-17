@@ -9,14 +9,13 @@ import {
   WebUrlsNamespace,
   renderWebMiddleware,
   setSecurityWebHeaders,
-  validateName,
-  validatePackage,
 } from '@verdaccio/middleware';
 import defaultTheme from '@verdaccio/ui-theme';
 
 // the local wrapper keeps a live binding; importing `logger` straight from the
 // CJS @verdaccio/logger package snapshots `undefined` in the ESM build
 import { logger } from '../../lib/logger';
+import { validateName, validatePackage } from '../../lib/validation';
 import webEndpointsApi from './api';
 
 const debug = buildDebug('verdaccio:web');

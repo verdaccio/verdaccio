@@ -18,12 +18,7 @@ import {
   onEndSearchPackage,
   onSearchPackage,
 } from '@verdaccio/types';
-import {
-  createTarballHash,
-  getLatestVersion,
-  normalizeContributors,
-  validateName,
-} from '@verdaccio/utils';
+import { createTarballHash, getLatestVersion, normalizeContributors } from '@verdaccio/utils';
 
 import { StoragePluginLegacy } from '../../types/custom';
 import { StringValue } from '../types';
@@ -37,6 +32,7 @@ import {
 } from './storage-utils';
 import { prepareSearchPackage } from './storage-utils';
 import { ErrorCode, isObject, tagVersion } from './utils';
+import { isNameValid, isPackageValid } from './validation';
 
 const debug = builDebug('verdaccio:local-storage');
 export type StoragePlugin = StoragePluginLegacy<Config> | any;
@@ -434,7 +430,7 @@ class LocalStorage {
    * @param {*} callback
    */
   public removeTarball(name: string, filename: string, revision: string, callback: Callback): void {
-    assert(validateName(filename));
+    assert(isNameValid(filename));
 
     this._updatePackage(
       name,
@@ -469,7 +465,7 @@ class LocalStorage {
    * @return {Stream}
    */
   public addTarball(name: string, filename: string, distFile?: DistFile) {
-    assert(validateName(filename));
+    assert(isNameValid(filename));
 
     let length = 0;
     const shaOneHash = createTarballHash();
@@ -583,7 +579,7 @@ class LocalStorage {
    * @return {ReadTarball}
    */
   public getTarball(name: string, filename: string) {
-    assert(validateName(filename));
+    assert(isNameValid(filename));
 
     const storage = this._getLocalStorage(name);
 
@@ -733,6 +729,9 @@ class LocalStorage {
    * @return {Object}
    */
   private _getLocalStorage(pkgName: string) {
+    if (!isPackageValid(pkgName)) {
+      return null;
+    }
     return this.storagePlugin.getPackageStorage(pkgName);
   }
 
@@ -765,7 +764,7 @@ class LocalStorage {
       this.logger.warn('plugin search not implemented yet');
       onEnd();
     } else {
-      this.storagePlugin.search(onPackage, onEnd, validateName);
+      this.storagePlugin.search(onPackage, onEnd, isNameValid);
     }
   }
 

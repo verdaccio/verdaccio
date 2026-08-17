@@ -6,13 +6,12 @@ import {
   encodeScopePackage,
   enforceGeneratedTokenMetadata,
   match,
-  validateName,
-  validatePackage,
 } from '@verdaccio/middleware';
 import type { Config } from '@verdaccio/types';
 
 import { logger } from '../../lib/logger';
 import type Storage from '../../lib/storage';
+import { validateName, validatePackage } from '../../lib/validation';
 import distTags from './api/dist-tags';
 import pkg from './api/package';
 import ping from './api/ping';
