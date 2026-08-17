@@ -827,6 +827,50 @@ describe('PackageFilterPlugin', () => {
     });
   });
 
+  // `npm search` invokes filter_metadata once per matched package, so the filter
+  // must do as little work as possible for packages it does not actually filter.
+  // See https://github.com/verdaccio/verdaccio/issues/5837
+  describe('search performance', () => {
+    test('returns the same manifest reference when no filters are configured', async function () {
+      const plugin = new PackageFilterPlugin({}, pluginOptions);
+
+      const result = await plugin.filter_metadata(babelTestManifest);
+      expect(result).toBe(babelTestManifest);
+    });
+
+    test('skips the cleanup passes for packages no rule applies to', async function () {
+      const config = {
+        block: [{ package: 'some-other-package', versions: '>1.0.0' }],
+      };
+      const plugin = new PackageFilterPlugin(config, pluginOptions);
+      const manifestWithOrphans = {
+        ...babelTestManifest,
+        'dist-tags': { latest: '3.0.0', legacy: '9.9.9' },
+        _distfiles: {
+          'orphan.tgz': { url: 'https://registry.npmjs.org/orphan.tgz' },
+        },
+      } as unknown as Manifest;
+
+      const result = await plugin.filter_metadata(manifestWithOrphans);
+
+      expect(getVersionKeys(result)).toEqual(['1.0.0', '1.5.0', '3.0.0']);
+      expect(result['dist-tags']).toHaveProperty('legacy', '9.9.9');
+      expect(result._distfiles).toHaveProperty('orphan.tgz');
+    });
+
+    test('still runs the cleanup passes when a version is removed', async function () {
+      const config = {
+        block: [{ package: '@testaccio/test', versions: '1.7.0' }],
+      };
+      const plugin = new PackageFilterPlugin(config, pluginOptions);
+
+      const result = await plugin.filter_metadata(testaccioManifest);
+
+      expect(getVersionKeys(result)).not.toContain('1.7.0');
+      expect(result._distfiles).not.toHaveProperty('testaccio-test-1.7.0.tgz');
+    });
+  });
+
   describe('manifest validity', () => {
     test('empty package does not break the plugin', async function () {
       const config = {

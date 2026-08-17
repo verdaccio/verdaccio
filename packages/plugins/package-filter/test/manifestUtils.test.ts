@@ -148,6 +148,59 @@ describe('setupLatestTag', () => {
 });
 
 describe('setupCreatedAndModified', () => {
+  test('sets created to the earliest and modified to the latest publish time', () => {
+    const manifest = createManifest({
+      time: {
+        '1.0.0': '2020-01-01T00:00:00.000Z',
+        '2.0.0': '2022-06-01T00:00:00.000Z',
+        '3.0.0': '2021-01-01T00:00:00.000Z',
+      },
+    });
+
+    setupCreatedAndModified(manifest);
+
+    expect(manifest.time!.created).toBe('2020-01-01T00:00:00.000Z');
+    expect(manifest.time!.modified).toBe('2022-06-01T00:00:00.000Z');
+  });
+
+  test('is order-independent', () => {
+    const manifest = createManifest({
+      time: {
+        '3.0.0': '2021-01-01T00:00:00.000Z',
+        '1.0.0': '2020-01-01T00:00:00.000Z',
+        '2.0.0': '2022-06-01T00:00:00.000Z',
+      },
+    });
+
+    setupCreatedAndModified(manifest);
+
+    expect(manifest.time!.created).toBe('2020-01-01T00:00:00.000Z');
+    expect(manifest.time!.modified).toBe('2022-06-01T00:00:00.000Z');
+  });
+
+  test('honours millisecond precision', () => {
+    const manifest = createManifest({
+      time: {
+        '1.0.0': '2024-01-01T00:00:00.000Z',
+        '1.0.1': '2024-01-01T00:00:00.123Z',
+      },
+    });
+
+    setupCreatedAndModified(manifest);
+
+    expect(manifest.time!.created).toBe('2024-01-01T00:00:00.000Z');
+    expect(manifest.time!.modified).toBe('2024-01-01T00:00:00.123Z');
+  });
+
+  test('does not set created/modified for an empty time object', () => {
+    const manifest = createManifest({ time: {} });
+
+    setupCreatedAndModified(manifest);
+
+    expect(manifest.time!.created).toBeUndefined();
+    expect(manifest.time!.modified).toBeUndefined();
+  });
+
   test('handles manifest without time property', () => {
     const manifest = createManifest({ time: undefined });
     expect(() => setupCreatedAndModified(manifest)).not.toThrow();

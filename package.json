@@ -90,7 +90,7 @@
     "prepare": "husky",
     "clean": "pnpm --filter \"./packages/**\" run clean",
     "build": "pnpm --filter \"./packages/**\" build",
-    "docker": "docker build -t verdaccio/verdaccio:local . --no-cache",
+    "docker": "docker build -t verdaccio/verdaccio:local-master . --no-cache",
     "docker:test": "docker build -f packages/tools/Dockerfile -t verdaccio/ci-test:local . --no-cache",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
