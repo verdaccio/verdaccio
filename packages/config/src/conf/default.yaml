@@ -126,6 +126,14 @@ server:
   # Allow `req.ip` to resolve properly when Verdaccio is behind a proxy or load-balancer
   # https://expressjs.com/en/guide/behind-proxies.html
   # trustProxy: '127.0.0.1'
+  # Cache successful legacy (Bearer) auth token validations to reduce load on the
+  # auth backend (basic-auth requests are never cached). Disabled by default:
+  # while enabled, changed or revoked credentials stay valid until the cached
+  # entry expires (ttlMs). Enable only if you understand that trade-off.
+  # legacyAuthCache:
+  #   enabled: true
+  #   ttlMs: 15000      # how long a validation is cached, in ms (default 15s)
+  #   maxEntries: 1000  # max cached tokens before the oldest are evicted
 
 # https://verdaccio.org/docs/configuration#offline-publish
 # publish:

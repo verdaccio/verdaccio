@@ -153,6 +153,17 @@ describe('Config builder', () => {
     expect(config.getConfig().listen).toEqual({ 0: 'localhost:4873' });
   });
 
+  test('should add legacy auth cache server configuration', () => {
+    const config = ConfigBuilder.build().addLegacyAuthCache({
+      enabled: true,
+      maxEntries: 50,
+      ttlMs: 10000,
+    });
+    expect(config.getConfig().server).toEqual({
+      legacyAuthCache: { enabled: true, maxEntries: 50, ttlMs: 10000 },
+    });
+  });
+
   test('should add https configuration', () => {
     const config = ConfigBuilder.build().addHttps({
       key: '/path/to/key.pem',

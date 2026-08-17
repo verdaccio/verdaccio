@@ -1,5 +1,6 @@
 import buildDebug from 'debug';
 import _ from 'lodash';
+import { createHash } from 'node:crypto';
 import { HTPasswd } from 'verdaccio-htpasswd';
 
 import { createAnonymousRemoteUser, createRemoteUser } from '@verdaccio/config';
@@ -47,6 +48,21 @@ import {
 } from './utils';
 
 const debug = buildDebug('verdaccio:auth');
+type LegacyAuthCacheEntry = {
+  expiresAt: number;
+  user: RemoteUser;
+};
+
+type LegacyAuthCacheWaiter = (err: VerdaccioError | null, user?: RemoteUser) => void;
+
+function cloneRemoteUser(user: RemoteUser): RemoteUser {
+  return {
+    ...user,
+    groups: user.groups ? [...user.groups] : user.groups,
+    real_groups: user.real_groups ? [...user.real_groups] : user.real_groups,
+    token: user.token ? { ...user.token } : user.token,
+  };
+}
 
 class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
   public config: Config;
@@ -54,6 +70,8 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
   public logger: Logger;
   public plugins: pluginUtils.Auth<Config>[];
   public options: { legacyMergeConfigs: boolean };
+  private legacyAuthCache: Map<string, LegacyAuthCacheEntry>;
+  private legacyAuthCacheWaiters: Map<string, LegacyAuthCacheWaiter[]>;
 
   public constructor(config: Config, logger: Logger, options = { legacyMergeConfigs: false }) {
     this.config = config;
@@ -61,6 +79,8 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     this.logger = logger;
     this.plugins = [];
     this.options = options;
+    this.legacyAuthCache = new Map();
+    this.legacyAuthCacheWaiters = new Map();
     if (!this.secret) {
       throw new TypeError('secret it is required value on initialize the auth class');
     }
@@ -546,23 +566,157 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     const credentials: any = getMiddlewareCredentials(security, secret, authorization);
     debug('api middleware credentials %o', credentials?.name);
     if (credentials) {
+      const cacheKey = this.getLegacyAuthCacheKey(authorization);
+      const cachedUser = this.getLegacyAuthCacheEntry(cacheKey);
+      if (cachedUser) {
+        req.remote_user = cachedUser;
+        debug('generating cached remote user');
+        return next();
+      }
+
       const { user, password, tokenKey } = credentials;
-      debug('authenticating %o', user);
-      this.authenticate(user, password, (err, user): void => {
-        if (!err) {
+      const applyAuthResult = (err: VerdaccioError | null, user?: RemoteUser): void => {
+        if (!err && user) {
           req.remote_user = tokenKey ? { ...user, token: { key: tokenKey } } : user;
           debug('generating a remote user');
           next();
         } else {
           req.remote_user = createAnonymousRemoteUser();
           debug('generating anonymous user');
-          next(err);
+          next(err || errorUtils.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
         }
-      });
+      };
+
+      if (this.enqueueLegacyAuthCacheWaiter(cacheKey, applyAuthResult)) {
+        return;
+      }
+
+      debug('authenticating %o', user);
+      const onAuthComplete = (err: VerdaccioError | null, user?: RemoteUser): void => {
+        if (!err && user) {
+          this.setLegacyAuthCacheEntry(
+            cacheKey,
+            tokenKey ? { ...user, token: { key: tokenKey } } : user
+          );
+        }
+        applyAuthResult(err, user);
+        this.resolveLegacyAuthCacheWaiters(cacheKey, err, user);
+      };
+
+      try {
+        this.authenticate(user, password, onAuthComplete);
+      } catch (err: any) {
+        onAuthComplete(errorUtils.getInternalError(err?.message));
+      }
     } else {
       // we force npm client to ask again with basic authentication
       debug('legacy invalid header');
       return next(errorUtils.getBadRequest(API_ERROR.BAD_AUTH_HEADER));
+    }
+  }
+
+  private enqueueLegacyAuthCacheWaiter(
+    cacheKey: string | void,
+    waiter: LegacyAuthCacheWaiter
+  ): boolean {
+    if (!cacheKey) {
+      return false;
+    }
+
+    const waiters = this.legacyAuthCacheWaiters.get(cacheKey);
+    if (!waiters) {
+      this.legacyAuthCacheWaiters.set(cacheKey, []);
+      return false;
+    }
+
+    waiters.push(waiter);
+    return true;
+  }
+
+  private resolveLegacyAuthCacheWaiters(
+    cacheKey: string | void,
+    err: VerdaccioError | null,
+    user?: RemoteUser
+  ): void {
+    if (!cacheKey) {
+      return;
+    }
+
+    const waiters = this.legacyAuthCacheWaiters.get(cacheKey);
+    this.legacyAuthCacheWaiters.delete(cacheKey);
+    if (!waiters) {
+      return;
+    }
+
+    for (const waiter of waiters) {
+      waiter(err, user);
+    }
+  }
+
+  private isLegacyAuthCacheEnabled(): boolean {
+    return this.config.server?.legacyAuthCache?.enabled === true;
+  }
+
+  private getLegacyAuthCacheTtlMs(): number {
+    const ttlMs = this.config.server?.legacyAuthCache?.ttlMs;
+    return typeof ttlMs === 'number' && ttlMs > 0 ? ttlMs : 15 * 1000;
+  }
+
+  private getLegacyAuthCacheMaxEntries(): number {
+    const maxEntries = this.config.server?.legacyAuthCache?.maxEntries;
+    return typeof maxEntries === 'number' && maxEntries > 0 ? maxEntries : 1000;
+  }
+
+  private getLegacyAuthCacheKey(authorization: string): string | void {
+    if (!this.isLegacyAuthCacheEnabled()) {
+      return;
+    }
+
+    const { scheme } = parseAuthTokenHeader(authorization);
+    if (scheme.toUpperCase() !== TOKEN_BEARER.toUpperCase()) {
+      return;
+    }
+
+    return createHash('sha256').update(authorization).digest('hex');
+  }
+
+  private getLegacyAuthCacheEntry(cacheKey: string | void): RemoteUser | void {
+    if (!cacheKey) {
+      return;
+    }
+
+    const entry = this.legacyAuthCache.get(cacheKey);
+    if (!entry) {
+      return;
+    }
+
+    if (entry.expiresAt <= Date.now()) {
+      this.legacyAuthCache.delete(cacheKey);
+      return;
+    }
+
+    this.legacyAuthCache.delete(cacheKey);
+    this.legacyAuthCache.set(cacheKey, entry);
+    return cloneRemoteUser(entry.user);
+  }
+
+  private setLegacyAuthCacheEntry(cacheKey: string | void, user: RemoteUser): void {
+    if (!cacheKey) {
+      return;
+    }
+
+    this.legacyAuthCache.set(cacheKey, {
+      expiresAt: Date.now() + this.getLegacyAuthCacheTtlMs(),
+      user: cloneRemoteUser(user),
+    });
+
+    const maxEntries = this.getLegacyAuthCacheMaxEntries();
+    while (this.legacyAuthCache.size > maxEntries) {
+      const oldestKey = this.legacyAuthCache.keys().next().value;
+      if (!oldestKey) {
+        break;
+      }
+      this.legacyAuthCache.delete(oldestKey);
     }
   }
 

@@ -8,6 +8,7 @@ import {
   HEADERS,
   HTTP_STATUS,
   SUPPORT_ERRORS,
+  TOKEN_BASIC,
   TOKEN_BEARER,
   authUtils,
   errorUtils,
@@ -658,6 +659,172 @@ describe('AuthTest', () => {
               .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
               .expect(HTTP_STATUS.OK);
             expect(res.body.user.name).toEqual('juan');
+          });
+
+          test('should cache a successful legacy auth token when enabled', async () => {
+            const payload = 'juan:password';
+            const config: Config = new AppConfig({
+              ...authProfileConf,
+              server: { legacyAuthCache: { enabled: true } },
+            });
+            config.checkSecretKey('35fabdd29b820d39125e76e6d85cc294');
+            const auth = new Auth(config, logger);
+            await auth.init();
+            const authenticateSpy = vi.spyOn(auth, 'authenticate');
+            const token = auth.aesEncrypt(payload) as string;
+            const app = await getServer(auth);
+
+            await supertest(app)
+              .get(`/`)
+              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+              .expect(HTTP_STATUS.OK);
+            const res = await supertest(app)
+              .get(`/`)
+              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+              .expect(HTTP_STATUS.OK);
+
+            expect(res.body.user.name).toEqual('juan');
+            expect(authenticateSpy).toHaveBeenCalledTimes(1);
+            authenticateSpy.mockRestore();
+          });
+
+          test('should not cache the legacy auth token by default', async () => {
+            const payload = 'juan:password';
+            const config: Config = new AppConfig({ ...authProfileConf });
+            config.checkSecretKey('35fabdd29b820d39125e76e6d85cc294');
+            const auth = new Auth(config, logger);
+            await auth.init();
+            const authenticateSpy = vi.spyOn(auth, 'authenticate');
+            const token = auth.aesEncrypt(payload) as string;
+            const app = await getServer(auth);
+
+            await supertest(app)
+              .get(`/`)
+              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+              .expect(HTTP_STATUS.OK);
+            await supertest(app)
+              .get(`/`)
+              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+              .expect(HTTP_STATUS.OK);
+
+            expect(authenticateSpy).toHaveBeenCalledTimes(2);
+            authenticateSpy.mockRestore();
+          });
+
+          test('should not cache basic auth in legacy auth mode', async () => {
+            const payload = 'juan:password';
+            const config: Config = new AppConfig({
+              ...authProfileConf,
+              server: { legacyAuthCache: { enabled: true } },
+            });
+            config.checkSecretKey('35fabdd29b820d39125e76e6d85cc294');
+            const auth = new Auth(config, logger);
+            await auth.init();
+            const authenticateSpy = vi.spyOn(auth, 'authenticate');
+            const token = Buffer.from(payload).toString('base64');
+            const app = await getServer(auth);
+
+            await supertest(app)
+              .get(`/`)
+              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BASIC, token))
+              .expect(HTTP_STATUS.OK);
+            await supertest(app)
+              .get(`/`)
+              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BASIC, token))
+              .expect(HTTP_STATUS.OK);
+
+            expect(authenticateSpy).toHaveBeenCalledTimes(2);
+            authenticateSpy.mockRestore();
+          });
+
+          test('should share an in-flight legacy auth token verification', async () => {
+            const payload = 'juan:password';
+            const config: Config = new AppConfig({
+              ...authProfileConf,
+              server: { legacyAuthCache: { enabled: true } },
+            });
+            config.checkSecretKey('35fabdd29b820d39125e76e6d85cc294');
+            const auth = new Auth(config, logger);
+            await auth.init();
+            const authenticateSpy = vi
+              .spyOn(auth, 'authenticate')
+              .mockImplementation((_username, _password, cb): void => {
+                setTimeout(() => cb(null, createRemoteUser('juan', ['test'])), 10);
+              });
+            const token = auth.aesEncrypt(payload) as string;
+            const app = await getServer(auth);
+
+            const [firstResponse, secondResponse] = await Promise.all([
+              supertest(app)
+                .get(`/`)
+                .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+                .expect(HTTP_STATUS.OK),
+              supertest(app)
+                .get(`/`)
+                .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+                .expect(HTTP_STATUS.OK),
+            ]);
+
+            expect(firstResponse.body.user.name).toEqual('juan');
+            expect(secondResponse.body.user.name).toEqual('juan');
+            expect(authenticateSpy).toHaveBeenCalledTimes(1);
+            authenticateSpy.mockRestore();
+          });
+
+          test('should clear in-flight legacy auth token verification when authenticate throws', async () => {
+            const payload = 'juan:password';
+            const config: Config = new AppConfig({
+              ...authProfileConf,
+              server: { legacyAuthCache: { enabled: true } },
+            });
+            config.checkSecretKey('35fabdd29b820d39125e76e6d85cc294');
+            const auth = new Auth(config, logger);
+            await auth.init();
+            const authenticateSpy = vi.spyOn(auth, 'authenticate').mockImplementation((): void => {
+              throw new TypeError('plugin group error: invalid type for function');
+            });
+            const token = auth.aesEncrypt(payload) as string;
+            const app = await getServer(auth);
+
+            await supertest(app)
+              .get(`/`)
+              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+              .expect(HTTP_STATUS.INTERNAL_ERROR);
+            await supertest(app)
+              .get(`/`)
+              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+              .expect(HTTP_STATUS.INTERNAL_ERROR);
+
+            expect(authenticateSpy).toHaveBeenCalledTimes(2);
+            authenticateSpy.mockRestore();
+          });
+
+          test('should authenticate again when the legacy auth token changes', async () => {
+            const payload = 'juan:password';
+            const config: Config = new AppConfig({
+              ...authProfileConf,
+              server: { legacyAuthCache: { enabled: true } },
+            });
+            config.checkSecretKey('35fabdd29b820d39125e76e6d85cc294');
+            const auth = new Auth(config, logger);
+            await auth.init();
+            const authenticateSpy = vi.spyOn(auth, 'authenticate');
+            const firstToken = auth.aesEncrypt(payload) as string;
+            const secondToken = auth.aesEncrypt(payload) as string;
+            const app = await getServer(auth);
+
+            await supertest(app)
+              .get(`/`)
+              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, firstToken))
+              .expect(HTTP_STATUS.OK);
+            await supertest(app)
+              .get(`/`)
+              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, secondToken))
+              .expect(HTTP_STATUS.OK);
+
+            expect(firstToken).not.toEqual(secondToken);
+            expect(authenticateSpy).toHaveBeenCalledTimes(2);
+            authenticateSpy.mockRestore();
           });
 
           test('should handle invalid auth token', async () => {

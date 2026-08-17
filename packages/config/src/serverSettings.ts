@@ -7,4 +7,9 @@ export default {
   },
   // deprecated
   keepAliveTimeout: 60,
+  legacyAuthCache: {
+    enabled: false,
+    maxEntries: 1000,
+    ttlMs: 15 * 1000,
+  },
 };
