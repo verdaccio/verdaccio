@@ -14,6 +14,7 @@ import type {
   PublishOptions,
   RateLimit,
   Security,
+  ServerSettingsConf,
   UpLinkConf,
   WebConf,
 } from '@verdaccio/types';
@@ -60,6 +61,10 @@ export default class ConfigBuilder {
   public addLogger(log: LoggerConfigItem) {
     this.config.log = log;
     return this;
+  }
+
+  public addLegacyAuthCache(legacyAuthCache: NonNullable<ServerSettingsConf['legacyAuthCache']>) {
+    return this.addServer({ legacyAuthCache });
   }
 
   public addStorage(storage: string | object) {
@@ -118,6 +123,11 @@ export default class ConfigBuilder {
 
   public addUserRateLimit(rateLimit: RateLimit) {
     this.config.userRateLimit = merge(this.config.userRateLimit, rateLimit);
+    return this;
+  }
+
+  public addServer(server: Partial<ServerSettingsConf>) {
+    this.config.server = merge(this.config.server, server);
     return this;
   }
 
