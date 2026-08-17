@@ -19,14 +19,8 @@ overrides:
   '@verdaccio/e2e-cli>js-yaml': 4.3.1
   # Security: ajv resolves fast-uri in range, pin the GHSA-v2hh-gcrm-f6hx / GHSA-4c8g-83qw-93j6 fix
   fast-uri: 3.1.5
-  # Security: keep e2e Verdaccio dev dependency on patched config parser
-  '@verdaccio/config>js-yaml': 5.2.2
-  # Security: e2e Verdaccio dependencies resolve vulnerable qs without an override
-  qs: 6.15.2
-  # Security: concurrently/npm-run-all2 resolve shell-quote below the GHSA-395f-4hp3-45gv fix
+  # Security: concurrently pins shell-quote below the GHSA-395f-4hp3-45gv fix
   shell-quote: 1.10.0
-  # Security: @cypress/request pins uuid below the GHSA-w5hq-g745-h8pq fix
-  '@cypress/request>uuid': 11.1.1
 minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
   - '@verdaccio/*'
