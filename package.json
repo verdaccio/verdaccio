@@ -41,7 +41,7 @@
     "verdaccio:down": "docker compose -f docker/verdaccio6x/docker-compose.yml down"
   },
   "devDependencies": {
-    "@changesets/cli": "2.27.12",
+    "@changesets/cli": "2.31.1",
     "@types/body-parser": "1.19.5",
     "@types/connect": "3.4.38",
     "@types/cookiejar": "2.1.5",
@@ -65,8 +65,8 @@
     "@types/supertest": "2.0.16",
     "@types/validator": "13.12.0",
     "@verdaccio/types": "workspace:*",
-    "@vitest/coverage-v8": "4.1.2",
-    "concurrently": "8.2.2",
+    "@vitest/coverage-v8": "4.1.10",
+    "concurrently": "10.0.3",
     "cross-env": "7.0.3",
     "debug": "4.4.3",
     "husky": "8.0.3",
@@ -79,12 +79,12 @@
     "supertest": "7.1.4",
     "typescript": "7.0.2",
     "undici-types": "6.21.0",
-    "update-ts-references": "3.6.2",
+    "update-ts-references": "6.0.0",
     "verdaccio-audit": "workspace:*",
     "verdaccio-auth-memory": "workspace:*",
     "verdaccio-htpasswd": "workspace:*",
     "vite": "8.1.5",
-    "vitest": "4.1.2"
+    "vitest": "4.1.10"
   },
   "engines": {
     "node": ">=22"

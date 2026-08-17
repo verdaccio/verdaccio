@@ -23,7 +23,7 @@
     "get-port": "5.1.1"
   },
   "devDependencies": {
-    "verdaccio": "6.7.2"
+    "verdaccio": "6.9.2"
   },
   "engines": {
     "node": ">=22"

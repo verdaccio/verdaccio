@@ -15,10 +15,12 @@ allowBuilds:
   unrs-resolver: true
 overrides:
   typescript: 7.0.2
-  # Security: @verdaccio/e2e-cli pins js-yaml exactly, force the GHSA-52cp-r559-cp3m fix
+  # Security: @verdaccio/e2e-cli pins js-yaml exactly, force the GHSA-5p4m-2wfm-xmqj fix
   '@verdaccio/e2e-cli>js-yaml': 4.3.1
   # Security: ajv resolves fast-uri in range, pin the GHSA-v2hh-gcrm-f6hx / GHSA-4c8g-83qw-93j6 fix
   fast-uri: 3.1.5
+  # Security: concurrently pins shell-quote below the GHSA-395f-4hp3-45gv fix
+  shell-quote: 1.10.0
 minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
   - '@verdaccio/*'
@@ -26,14 +28,25 @@ minimumReleaseAgeExclude:
   - 'verdaccio-*'
   # Renovate security update: vite@8.0.16
   - vite@8.0.16
-  # Security update: brace-expansion GHSA-mh99-v99m-4gvg (via minimatch 10)
-  - brace-expansion@5.0.8
-  # Security update: fast-uri GHSA-v2hh-gcrm-f6hx (via ajv) || 3.1.5
-  - fast-uri@3.1.4 || 3.1.5
+  # Security update: fast-uri GHSA-v2hh-gcrm-f6hx / GHSA-7p8r-x3mc-p8w7 (via ajv)
+  - fast-uri@3.1.5
   # Security update: js-yaml GHSA-pm4m-ph32-ghv5 (DoS in flow collections)
   # (entries are matched by name first: a stale js-yaml@<old> entry above this
-  # one would shadow it and reject the version — keep a single js-yaml entry) || 4.3.1
-  - js-yaml@5.2.2 || 4.3.1
+  # one would shadow it and reject the version — keep a single js-yaml entry)
+  - js-yaml@5.2.2
+  # Security update: js-yaml GHSA-5p4m-2wfm-xmqj (!!omap CPU consumption)
+  - js-yaml@4.3.1
+  # Security updates required by pnpm audit
+  - body-parser@1.20.6
+  - qs@6.15.2
+  - ws@8.21.0
+  - shell-quote@1.10.0
+  - markdown-it@14.3.0
+  - linkify-it@5.0.2
+  - nanoid@3.3.18
+  - uuid@11.1.1
+  - brace-expansion@1.1.18
+  - brace-expansion@5.0.9
 ignoreScripts: true
 saveExact: true
 preferFrozenLockfile: true

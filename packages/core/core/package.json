@@ -66,9 +66,9 @@
   "devDependencies": {
     "@verdaccio/types": "workspace:13.0.5",
     "express": "4.22.2",
-    "typedoc": "0.28.14",
+    "typedoc": "0.28.20",
     "vite": "8.1.5",
-    "vitest": "4.1.2"
+    "vitest": "4.1.10"
   },
   "engines": {
     "node": ">=22"
