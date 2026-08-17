@@ -1,5 +1,12 @@
 # @verdaccio/utils
 
+## 8.2.2
+
+### Patch Changes
+
+- Updated dependencies [4c0b6ba]
+  - @verdaccio/core@8.2.2
+
 ## 8.2.1
 
 ### Patch Changes

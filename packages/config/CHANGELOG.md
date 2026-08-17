@@ -1,5 +1,13 @@
 # @verdaccio/config
 
+## 8.2.2
+
+### Patch Changes
+
+- 02413f4: Add an opt-in cache for successful legacy AES token authentication. Enable it with `server.legacyAuthCache.enabled: true`; when enabled, the default TTL is 15 seconds and concurrent requests for the same legacy bearer token share the same in-flight authentication result.
+- Updated dependencies [4c0b6ba]
+  - @verdaccio/core@8.2.2
+
 ## 8.2.1
 
 ### Patch Changes

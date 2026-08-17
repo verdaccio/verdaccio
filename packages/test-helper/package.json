@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/test-helper",
-  "version": "4.1.1",
+  "version": "4.1.2",
   "description": "Verdaccio Test Helpers",
   "homepage": "https://verdaccio.org",
   "bugs": {
@@ -41,12 +41,12 @@
     "build": "vite build && tsc --emitDeclarationOnly -p tsconfig.build.json"
   },
   "dependencies": {
-    "@verdaccio/auth": "workspace:8.1.1",
-    "@verdaccio/config": "workspace:8.2.1",
-    "@verdaccio/core": "workspace:8.2.1",
-    "@verdaccio/logger": "workspace:8.1.1",
-    "@verdaccio/middleware": "workspace:8.1.1",
-    "@verdaccio/types": "workspace:13.0.5",
+    "@verdaccio/auth": "workspace:8.1.2",
+    "@verdaccio/config": "workspace:8.2.2",
+    "@verdaccio/core": "workspace:8.2.2",
+    "@verdaccio/logger": "workspace:8.1.2",
+    "@verdaccio/middleware": "workspace:8.1.2",
+    "@verdaccio/types": "workspace:13.0.6",
     "body-parser": "1.20.6",
     "debug": "4.4.3",
     "express": "4.22.2",

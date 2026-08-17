@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 8.2.2
+
+### Patch Changes
+
+- 4c0b6ba: Update minimatch dependency.
+
 ## 8.2.1
 
 ### Patch Changes

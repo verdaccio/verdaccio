@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/package-filter",
-  "version": "13.1.1",
+  "version": "13.2.0",
   "description": "Package filter plugin for Verdaccio that allows blocking packages by name, scope, version or date",
   "keywords": [
     "enterprise",
@@ -57,15 +57,15 @@
     "type-check": "tsc --noEmit -p tsconfig.build.json"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:8.2.1",
+    "@verdaccio/core": "workspace:8.2.2",
     "debug": "4.4.3",
     "semver": "7.8.5"
   },
   "devDependencies": {
     "@types/debug": "4.1.12",
-    "@verdaccio/config": "workspace:8.2.1",
-    "@verdaccio/logger": "workspace:8.1.1",
-    "@verdaccio/types": "workspace:13.0.5",
+    "@verdaccio/config": "workspace:8.2.2",
+    "@verdaccio/logger": "workspace:8.1.2",
+    "@verdaccio/types": "workspace:13.0.6",
     "vite": "8.1.5",
     "vitest": "4.1.10"
   },

@@ -1,5 +1,13 @@
 # Change Log
 
+## 10.5.2
+
+### Patch Changes
+
+- Updated dependencies [4c0b6ba]
+  - @verdaccio/core@8.2.2
+  - @verdaccio/streams@10.3.0
+
 ## 10.5.1
 
 ### Patch Changes
