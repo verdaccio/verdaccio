@@ -1,5 +1,12 @@
 # Change Log
 
+## 14.0.0-next-9.50
+
+### Patch Changes
+
+- 7aea4de: perf(package-filter): skip manifest cleanup when no filter changes a package
+  - @verdaccio/core@9.0.0-next-9.26
+
 ## 14.0.0-next-9.49
 
 ### Patch Changes

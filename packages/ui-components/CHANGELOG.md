@@ -1,5 +1,11 @@
 # @verdaccio/ui-components
 
+## 5.0.0-next-9.17
+
+### Patch Changes
+
+- 9463808: fix(ui): keep the homepage action icon legible on hover
+
 ## 5.0.0-next-9.16
 
 ### Patch Changes
