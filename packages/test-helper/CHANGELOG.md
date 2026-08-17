@@ -1,5 +1,18 @@
 # Change Log
 
+## 4.1.2
+
+### Patch Changes
+
+- Updated dependencies [02413f4]
+- Updated dependencies [4c0b6ba]
+  - @verdaccio/auth@8.1.2
+  - @verdaccio/config@8.2.2
+  - @verdaccio/types@13.0.6
+  - @verdaccio/core@8.2.2
+  - @verdaccio/middleware@8.1.2
+  - @verdaccio/logger@8.1.2
+
 ## 4.1.1
 
 ### Patch Changes

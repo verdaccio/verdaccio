@@ -1,5 +1,14 @@
 # Change Log
 
+## 11.4.2
+
+### Patch Changes
+
+- Updated dependencies [4c0b6ba]
+  - @verdaccio/core@8.2.2
+  - @verdaccio/file-locking@13.1.0
+  - @verdaccio/streams@10.3.0
+
 ## 11.4.1
 
 ### Patch Changes

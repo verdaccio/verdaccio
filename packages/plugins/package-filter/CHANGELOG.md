@@ -1,5 +1,16 @@
 # Change Log
 
+## 13.2.0
+
+### Minor Changes
+
+- 367ba6a: feat(package-filter): add excludeDeprecated option
+
+### Patch Changes
+
+- Updated dependencies [4c0b6ba]
+  - @verdaccio/core@8.2.2
+
 ## 13.1.1
 
 ### Patch Changes

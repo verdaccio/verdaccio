@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/logger",
-  "version": "8.1.1",
+  "version": "8.1.2",
   "description": "Verdaccio Logger",
   "keywords": [
     "enterprise",
@@ -55,11 +55,11 @@
     "build": "vite build && tsc --emitDeclarationOnly -p tsconfig.build.json"
   },
   "dependencies": {
-    "@verdaccio/logger-commons": "workspace:8.1.1",
+    "@verdaccio/logger-commons": "workspace:8.1.2",
     "pino": "9.14.0"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:13.0.5",
+    "@verdaccio/types": "workspace:13.0.6",
     "vite": "8.1.5"
   },
   "engines": {

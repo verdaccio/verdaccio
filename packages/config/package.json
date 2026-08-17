@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/config",
-  "version": "8.2.1",
+  "version": "8.2.2",
   "description": "Verdaccio Configuration",
   "keywords": [
     "enterprise",
@@ -55,13 +55,13 @@
     "build": "vite build && tsc --emitDeclarationOnly -p tsconfig.build.json"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:8.2.1",
+    "@verdaccio/core": "workspace:8.2.2",
     "debug": "4.4.3",
     "js-yaml": "5.2.2",
     "lodash": "4.18.1"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:13.0.5",
+    "@verdaccio/types": "workspace:13.0.6",
     "vite": "8.1.5",
     "vitest": "4.1.10"
   },
