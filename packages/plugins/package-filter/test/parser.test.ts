@@ -9,6 +9,7 @@ describe('parseConfig', () => {
     expect(result.allowRules.size).toBe(0);
     expect(result.dateThreshold).toBeNull();
     expect(result.minAgeMs).toBeNull();
+    expect(result.excludeDeprecated).toBe(false);
   });
 
   test('parses scope block rule', () => {
@@ -51,6 +52,11 @@ describe('parseConfig', () => {
   test('parses minAgeDays', () => {
     const result = parseConfig({ minAgeDays: 30 });
     expect(result.minAgeMs).toBe(30 * 24 * 60 * 60 * 1000);
+  });
+
+  test('parses excludeDeprecated only when explicitly enabled', () => {
+    expect(parseConfig({ excludeDeprecated: true }).excludeDeprecated).toBe(true);
+    expect(parseConfig({ excludeDeprecated: false }).excludeDeprecated).toBe(false);
   });
 
   describe('error handling', () => {

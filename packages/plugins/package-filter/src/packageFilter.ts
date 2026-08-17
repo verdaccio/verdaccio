@@ -5,6 +5,8 @@ import type { Logger, Manifest } from '@verdaccio/types';
 
 import { parseConfig } from './config/parser';
 import type { ParsedConfig, PluginConfig } from './config/types';
+import { filterDeprecatedVersions } from './filtering/deprecated';
+import { matchRules } from './filtering/matcher';
 import { filterBlockedVersions } from './filtering/packageVersion';
 import { filterVersionsByPublishDate } from './filtering/publishDate';
 import { jsonLogReplacer } from './utils/jsonUtils';
@@ -61,10 +63,15 @@ export class PackageFilterPlugin
       debug('min age: %d days', minAgeDays);
       this.logger.trace({ minAgeDays }, 'package-filter min age: @{minAgeDays} days');
     }
+    if (this.parsedConfig.excludeDeprecated) {
+      debug('excludeDeprecated enabled');
+      this.logger.trace('package-filter excludeDeprecated is enabled');
+    }
   }
 
   public async filter_metadata(manifest: Readonly<Manifest>): Promise<Manifest> {
-    const { dateThreshold, minAgeMs, blockRules, allowRules } = this.parsedConfig;
+    const { dateThreshold, minAgeMs, excludeDeprecated, blockRules, allowRules } =
+      this.parsedConfig;
     const versionCount = Object.keys(manifest.versions ?? {}).length;
     debug('filtering manifest for %s (%d versions)', manifest.name, versionCount);
     this.logger.trace(
@@ -85,14 +92,20 @@ export class PackageFilterPlugin
     // is nothing this filter can change. Returning the manifest untouched avoids the
     // clone and the cleanup passes below. This matters most for `npm search`, which
     // invokes filter_metadata once per matched package (see issue #5837).
-    if (blockRules.size === 0 && !earliestDateThreshold) {
+    if (blockRules.size === 0 && !excludeDeprecated && !earliestDateThreshold) {
       debug('no filters configured, returning manifest untouched for %s', manifest.name);
       return manifest as Manifest;
     }
 
     let newManifest = getManifestClone(manifest);
+    const allowMatch = matchRules(newManifest, allowRules);
+
     if (blockRules.size > 0) {
-      newManifest = filterBlockedVersions(newManifest, blockRules, allowRules, this.logger);
+      newManifest = filterBlockedVersions(newManifest, blockRules, allowMatch, this.logger);
+    }
+
+    if (excludeDeprecated) {
+      newManifest = filterDeprecatedVersions(newManifest, allowMatch);
     }
 
     if (earliestDateThreshold) {
@@ -105,7 +118,7 @@ export class PackageFilterPlugin
         { name: manifest.name, threshold: earliestDateThreshold.toISOString() },
         'applying date filter for @{name}, cutoff: @{threshold}'
       );
-      newManifest = filterVersionsByPublishDate(newManifest, earliestDateThreshold, allowRules);
+      newManifest = filterVersionsByPublishDate(newManifest, earliestDateThreshold, allowMatch);
     }
 
     const filteredCount = Object.keys(newManifest.versions).length;
