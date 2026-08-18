@@ -19,7 +19,7 @@ test('handle error as object', async () => {
   app.use(final);
 
   const res = await request(app).get('/401');
-  expect(res.get(HEADERS.WWW_AUTH)).toEqual('Basic, Bearer');
+  expect(res.get(HEADERS.WWW_AUTH)).toEqual('Bearer');
   expect(res.get(HEADERS.CONTENT_TYPE)).toEqual(HEADERS.JSON_CHARSET);
   expect(res.get(HEADERS.ETAG)).toEqual('W/"1c-CP1UoQiM59AjHpEk0334sfSp1kc"');
   expect(res.body).toEqual({ error: 'some error' });

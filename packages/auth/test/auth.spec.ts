@@ -8,7 +8,6 @@ import {
   HEADERS,
   HTTP_STATUS,
   SUPPORT_ERRORS,
-  TOKEN_BASIC,
   TOKEN_BEARER,
   authUtils,
   errorUtils,
@@ -686,7 +685,7 @@ describe('AuthTest', () => {
             authenticateSpy.mockRestore();
           });
 
-          test('should not cache basic auth in legacy auth mode', async () => {
+          test('should reject basic auth in legacy auth mode', async () => {
             const payload = 'juan:password';
             const config: Config = new AppConfig({
               ...authProfileConf,
@@ -701,14 +700,10 @@ describe('AuthTest', () => {
 
             await supertest(app)
               .get(`/`)
-              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BASIC, token))
-              .expect(HTTP_STATUS.OK);
-            await supertest(app)
-              .get(`/`)
-              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BASIC, token))
-              .expect(HTTP_STATUS.OK);
+              .set(HEADERS.AUTHORIZATION, buildToken('Basic', token))
+              .expect(HTTP_STATUS.INTERNAL_ERROR);
 
-            expect(authenticateSpy).toHaveBeenCalledTimes(2);
+            expect(authenticateSpy).not.toHaveBeenCalled();
             authenticateSpy.mockRestore();
           });
 
@@ -884,7 +879,7 @@ describe('AuthTest', () => {
             ]);
           });
 
-          test('should handle malformed Basic auth credentials without crashing', async () => {
+          test('should reject Basic auth credentials', async () => {
             // @ts-expect-error
             const config: Config = new AppConfig({
               ...authProfileConf,
@@ -894,7 +889,6 @@ describe('AuthTest', () => {
             const auth = new Auth(config, logger);
             await auth.init();
             const app = await getServer(auth);
-            // base64 of "test" (no colon separator) - must not crash with TypeError
             const malformedToken = Buffer.from('test').toString('base64');
             return supertest(app)
               .get(`/`)

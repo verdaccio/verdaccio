@@ -10,7 +10,6 @@ import {
   PLUGIN_CATEGORY,
   PLUGIN_PREFIX,
   SUPPORT_ERRORS,
-  TOKEN_BASIC,
   TOKEN_BEARER,
   authUtils,
   errorUtils,
@@ -18,7 +17,7 @@ import {
   warningUtils,
 } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
-import { aesEncrypt, parseBasicPayload, signPayload } from '@verdaccio/signature';
+import { aesEncrypt, signPayload } from '@verdaccio/signature';
 import type {
   AllowAccess,
   Callback,
@@ -33,13 +32,11 @@ import type {
 import type {
   $RequestExtend,
   $ResponseExtend,
-  AESPayload,
   IAuthMiddleware,
   NextFunction,
   TokenEncryption,
 } from './types';
 import {
-  convertPayloadToBase64,
   getDefaultPluginMethods,
   getMiddlewareCredentials,
   isAESLegacy,
@@ -510,43 +507,16 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     next: any
   ): void {
     debug('handle JWT api middleware');
-    const { scheme, token } = parseAuthTokenHeader(authorization);
-    if (scheme.toUpperCase() === TOKEN_BASIC.toUpperCase()) {
-      debug('handle basic token');
-      // this should happen when client tries to login with an existing user
-      const credentials = convertPayloadToBase64(token).toString();
-      const parsedCredentials = parseBasicPayload(credentials);
-      if (!parsedCredentials) {
-        debug('invalid basic credentials format (missing colon separator)');
-        next(errorUtils.getBadRequest(API_ERROR.BAD_USERNAME_PASSWORD));
-        return;
-      }
-      const { user, password } = parsedCredentials as AESPayload;
-      debug('authenticating %o', user);
-      this.authenticate(user, password, (err: VerdaccioError | null, user): void => {
-        if (!err) {
-          debug('generating a remote user');
-          req.remote_user = user;
-          next();
-        } else {
-          debug('generating anonymous user');
-          req.remote_user = createAnonymousRemoteUser();
-          next(err);
-        }
-      });
+    const credentials: any = getMiddlewareCredentials(security, secret, authorization);
+    if (credentials) {
+      // if the signature is valid we rely on it
+      req.remote_user = credentials;
+      debug('generating a remote user');
+      next();
     } else {
-      debug('handle jwt token');
-      const credentials: any = getMiddlewareCredentials(security, secret, authorization);
-      if (credentials) {
-        // if the signature is valid we rely on it
-        req.remote_user = credentials;
-        debug('generating a remote user');
-        next();
-      } else {
-        // with JWT throw 401
-        debug('jwt invalid token');
-        next(errorUtils.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
-      }
+      // with JWT throw 401
+      debug('jwt invalid token');
+      next(errorUtils.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
     }
   }
 
@@ -608,7 +578,6 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
         onAuthComplete(errorUtils.getInternalError(err?.message));
       }
     } else {
-      // we force npm client to ask again with basic authentication
       debug('legacy invalid header');
       return next(errorUtils.getBadRequest(API_ERROR.BAD_AUTH_HEADER));
     }
