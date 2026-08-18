@@ -17,6 +17,11 @@ uplinks:
     url: https://registry.npmjs.org/
 
 packages:
+  '@private/*':
+    access: $authenticated
+    publish: $anonymous $authenticated
+    unpublish: $anonymous $authenticated
+
   '@*/*':
     access: $all
     publish: $anonymous $authenticated
