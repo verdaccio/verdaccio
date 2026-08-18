@@ -45,7 +45,10 @@ async function viteBundle(file: Cypress.FileObject): Promise<string> {
         // which run in the Cypress server process).
         {
           find: /^(node:)?(fs|fs\/promises|child_process|os|path)$/,
-          replacement: path.resolve(import.meta.dirname, './cypress/support/node-builtins-stub.cjs'),
+          replacement: path.resolve(
+            import.meta.dirname,
+            './cypress/support/node-builtins-stub.cjs'
+          ),
         },
       ],
     },
