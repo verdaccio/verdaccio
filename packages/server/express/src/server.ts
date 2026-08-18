@@ -38,8 +38,7 @@ import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types
 import hookDebug from './debug';
 
 const debug = buildDebug('verdaccio:server');
-const currentDir = typeof __dirname !== 'undefined' ? __dirname : import.meta.dirname;
-const { version } = pkgUtils.getPackageJson(currentDir, '..');
+const version = pkgUtils.getPackageVersion('..');
 
 export const defineAPI = async function (config: IConfig, storage: Storage): Promise<Express> {
   const auth = new Auth(config, logger);

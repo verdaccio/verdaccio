@@ -1,6 +1,6 @@
 // const path = require('path');
 //
-// const APP_ROOT = path.resolve(__dirname, '../../');
+// const APP_ROOT = path.resolve(import.meta.dirname, '../../');
 //
 // module.exports = {
 //   APP_ROOT,

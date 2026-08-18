@@ -65,8 +65,7 @@ function createConfigFile(configLocation: SetupDirectory): SetupDirectory {
 }
 
 export function readDefaultConfig(): string {
-  const currentDir = typeof __dirname !== 'undefined' ? __dirname : import.meta.dirname;
-  const pathDefaultConf: string = path.resolve(currentDir, 'conf/default.yaml');
+  const pathDefaultConf: string = path.resolve(import.meta.dirname, 'conf/default.yaml');
   try {
     debug('the path of default config used from %s', pathDefaultConf);
     fs.accessSync(pathDefaultConf, fs.constants.R_OK);

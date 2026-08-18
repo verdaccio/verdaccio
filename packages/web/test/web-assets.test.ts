@@ -15,7 +15,7 @@ vi.mock('@verdaccio/ui-theme', () => ({ default: (...args: any[]) => mockManifes
 describe('test web server', () => {
   beforeAll(() => {
     mockManifest.mockReturnValue(() => ({
-      staticPath: path.join(__dirname, 'static'),
+      staticPath: path.join(import.meta.dirname, 'static'),
       manifestFiles: {
         js: ['runtime.js', 'vendors.js', 'main.js'],
       },

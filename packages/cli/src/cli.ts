@@ -33,12 +33,7 @@ export function runCli(options: CliRuntimeOptions = {}): Promise<void> {
 
   const [node, app, ...args] = process.argv;
 
-  const version =
-    options.version ??
-    (pkgUtils.getPackageJson(
-      typeof __dirname !== 'undefined' ? __dirname : import.meta.dirname,
-      '..'
-    ).version as string);
+  const version = options.version ?? (pkgUtils.getPackageJson(import.meta.dirname, '..').version as string);
 
   const cli = new Cli({
     binaryLabel: `verdaccio`,
@@ -50,7 +45,7 @@ export function runCli(options: CliRuntimeOptions = {}): Promise<void> {
   cli.register(InitCommand);
   cli.register(VersionCommand);
 
-  process.on('uncaughtException', function (err) {
+  process.on('uncaughtException', function(err) {
     console.error(
       `uncaught exception, please report (https://github.com/verdaccio/verdaccio/issues) this: \n${err.stack}`
     );

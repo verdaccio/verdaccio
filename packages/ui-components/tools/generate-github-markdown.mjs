@@ -1,11 +1,9 @@
 import { writeFileSync } from 'node:fs';
-import { resolve, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { resolve } from 'node:path';
 
 import githubMarkdownCss from 'generate-github-markdown-css';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const OUTPUT = resolve(__dirname, '../src/components/Readme/github-markdown.css');
+const OUTPUT = resolve(import.meta.dirname, '../src/components/Readme/github-markdown.css');
 
 async function generate() {
   const baseStyles = await githubMarkdownCss({

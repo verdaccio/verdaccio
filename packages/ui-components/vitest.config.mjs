@@ -83,8 +83,8 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      'verdaccio-ui/components': path.resolve(__dirname, './src/components'),
-      'verdaccio-ui/utils': path.resolve(__dirname, './src/utils'),
+      'verdaccio-ui/components': path.resolve(import.meta.dirname, './src/components'),
+      'verdaccio-ui/utils': path.resolve(import.meta.dirname, './src/utils'),
     },
   },
 });

@@ -1,8 +1,7 @@
 import { spawn } from 'node:child_process';
-import { builtinModules } from 'node:module';
+import { builtinModules, createRequire } from 'node:module';
 import fs from 'node:fs';
 import path from 'node:path';
-import { createRequire } from 'node:module';
 
 import { defineConfig } from 'vite';
 
@@ -54,11 +53,14 @@ export function nativeDts(dirname) {
     async closeBundle() {
       if (emitted) return;
       emitted = true;
-      const tsc = path.join(import.meta.dirname, 'node_modules', '.bin', 'tsc');
+      // Resolve via package.json — TS 7 does not export `./bin/tsc`, and on Windows
+      // `.bin/tsc` is a Unix shell shim that spawn cannot execute directly.
+      const require = createRequire(import.meta.url);
+      const tscJs = path.join(path.dirname(require.resolve('typescript/package.json')), 'bin', 'tsc');
       await new Promise((resolve, reject) => {
         const child = spawn(
-          tsc,
-          ['-p', path.resolve(dirname, 'tsconfig.build.json'), '--emitDeclarationOnly'],
+          process.execPath,
+          [tscJs, '-p', path.resolve(dirname, 'tsconfig.build.json'), '--emitDeclarationOnly'],
           { cwd: dirname, stdio: 'inherit' }
         );
         child.on('error', reject);

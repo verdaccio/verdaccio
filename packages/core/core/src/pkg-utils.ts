@@ -58,3 +58,14 @@ export function getPackageJson(packagePath: string, relativePath: string): Recor
   const packageJsonPath = path.join(packagePath, relativePath, 'package.json');
   return JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 }
+
+/**
+ * Get the version of a package.
+ * @param relativePath - The relative path to the package.json file.
+ * @returns The version of the package.
+ */
+export function getPackageVersion(relativePath: string): string {
+  const currentDir = import.meta.dirname ?? __dirname;
+  const packageJson = getPackageJson(currentDir, relativePath);
+  return packageJson.version as string;
+}

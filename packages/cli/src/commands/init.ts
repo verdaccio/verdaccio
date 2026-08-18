@@ -64,8 +64,7 @@ export class InitCommand extends Command {
 
       process.title = web?.title || DEFAULT_PROCESS_NAME;
 
-      const currentDir = typeof __dirname !== 'undefined' ? __dirname : import.meta.dirname;
-      const pkg = pkgUtils.getPackageJson(currentDir, '../..');
+      const pkg = pkgUtils.getPackageJson(import.meta.dirname, '../..');
       const version = getVersionOverride() ?? (pkg.version as string);
       const name = getPkgNameOverride() ?? (pkg.name as string);
 

@@ -12,7 +12,7 @@ const mockApp = (_req: any, res: any) => {
   res.end();
 };
 
-const certsDir = path.join(__dirname, 'partials', 'certs');
+const certsDir = path.join(import.meta.dirname, 'partials', 'certs');
 
 describe('createServerFactory', () => {
   describe('http', () => {
