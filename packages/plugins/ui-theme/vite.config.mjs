@@ -1,8 +1,11 @@
 import fs from 'node:fs';
+import { createRequire } from 'node:module';
 import path from 'node:path';
 
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
+
+const require = createRequire(import.meta.url);
 
 import pkg from './package.json' with { type: 'json' };
 import { markdownRawPlugin, svgInlinePlugin } from './tools/vite-plugins.mjs';
@@ -21,7 +24,7 @@ function verdaccioManifestPlugin() {
     apply: 'build',
     buildStart() {
       // Emit favicon as a static asset so it lands in outDir
-      const faviconPath = path.resolve(__dirname, './src/template/favicon.ico');
+      const faviconPath = path.resolve(import.meta.dirname, './src/template/favicon.ico');
       if (fs.existsSync(faviconPath)) {
         this.emitFile({
           type: 'asset',
@@ -73,13 +76,18 @@ export default defineConfig(({ command }) => ({
   plugins: [svgInlinePlugin(), markdownRawPlugin(), react(), verdaccioManifestPlugin()],
 
   resolve: {
+    // country-flag-icons imports react without declaring it, so pnpm does not
+    // link react into that package. Rolldown then fails to resolve it.
+    dedupe: ['react', 'react-dom'],
     alias: {
-      'verdaccio-ui/components': path.resolve(__dirname, './src/components'),
-      'verdaccio-ui/utils': path.resolve(__dirname, './src/utils'),
-      'verdaccio-ui/providers': path.resolve(__dirname, './src/providers'),
+      'verdaccio-ui/components': path.resolve(import.meta.dirname, './src/components'),
+      'verdaccio-ui/utils': path.resolve(import.meta.dirname, './src/utils'),
+      'verdaccio-ui/providers': path.resolve(import.meta.dirname, './src/providers'),
       // Swap @verdaccio/ui-i18n for a Vite-native loader that uses import.meta.glob
       // instead of the CJS require()-based implementation in the published package.
-      '@verdaccio/ui-i18n': path.resolve(__dirname, './src/i18n/loadTranslationFile.ts'),
+      '@verdaccio/ui-i18n': path.resolve(import.meta.dirname, './src/i18n/loadTranslationFile.ts'),
+      react: path.dirname(require.resolve('react/package.json')),
+      'react-dom': path.dirname(require.resolve('react-dom/package.json')),
     },
   },
 
@@ -102,7 +110,7 @@ export default defineConfig(({ command }) => ({
     minify: true,
     chunkSizeWarningLimit: 2560,
     rolldownOptions: {
-      input: { main: path.resolve(__dirname, './src/index.tsx') },
+      input: { main: path.resolve(import.meta.dirname, './src/index.tsx') },
       output: {
         entryFileNames: '[name].[hash].js',
         chunkFileNames: '[name].[hash].js',
