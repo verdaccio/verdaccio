@@ -24,22 +24,6 @@ minimumReleaseAgeExclude:
   - '@verdaccio/*'
   - '@verdaccio-scope/*'
   - 'verdaccio-*'
-  # esbuild 0.28.1 is the security patch for GHSA-gv7w-rqvm-qjhr; allow it and
-  # its platform packages in ahead of the 7-day quarantine so the override
-  # below can resolve.
-  - esbuild
-  - '@esbuild/*'
-  # Renovate security update: dompurify@3.4.8 || 3.4.9 || 3.4.11 || 3.4.13
-  - dompurify@3.4.8 || 3.4.9 || 3.4.11 || 3.4.13
-  # Renovate security update: js-yaml@4.2.0 || 5.2.2
-  - js-yaml@4.2.0 || 5.2.2
-  # Renovate security update: vite@8.0.16
-  - vite@8.0.16
-  # Renovate security update: react-router@7.15.1 || 8.3.0
-  - react-router@7.15.1 || 8.3.0
-  # Security update: fast-uri@3.1.4 fixes GHSA-v2hh-gcrm-f6hx (host confusion);
-  # published 2026-07-19, allow it in ahead of the quarantine.
-  - fast-uri@3.1.4
 
 # Force the esbuild security patch (>= 0.28.1) across the whole tree.
 # See GHSA-gv7w-rqvm-qjhr (RCE via NPM_CONFIG_REGISTRY, fixed in 0.28.1).
