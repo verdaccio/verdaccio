@@ -64,8 +64,8 @@
     "start:debug": "tsx --inspect debug/run-server.ts",
     "start:run-server": "tsx debug/run-server.ts",
     "build": "rm -Rf build && vite build",
-    "docker": "docker build -t verdaccio/verdaccio:local . --no-cache",
-    "docker:run": "docker run -it --rm -p 4873:4873 -e \"DEBUG=verdaccio*\" verdaccio/verdaccio:local"
+    "docker": "docker build -t verdaccio/verdaccio:local-7.x . --no-cache",
+    "docker:run": "docker run -it --rm -p 4873:4873 -e \"DEBUG=verdaccio*\" verdaccio/verdaccio:local-7.x"
   },
   "dependencies": {
     "@verdaccio/auth": "9.0.0-next-9.26",
