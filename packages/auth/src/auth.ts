@@ -711,6 +711,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
 
       const { authorization } = req.headers;
       if (isNil(authorization)) {
+        req.remote_user = createAnonymousRemoteUser();
         return next();
       }
 

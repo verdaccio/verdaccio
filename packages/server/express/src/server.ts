@@ -29,6 +29,7 @@ import {
   rateLimit,
   registerBodyParser,
   userAgent,
+  WebUrlsNamespace,
 } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 import type { ConfigYaml, Config as IConfig } from '@verdaccio/types';
@@ -106,8 +107,11 @@ export const defineAPI = async function (config: IConfig, storage: Storage): Pro
     plugins.push(auditPlugin);
   }
 
-  // Register JWT middleware so middleware plugins can access req.remote_user
-  app.use(auth.apiJWTmiddleware());
+  // Register JWT middleware so middleware plugins can access req.remote_user.
+  const apiAuthRouter = express.Router();
+  apiAuthRouter.use(WebUrlsNamespace.endpoints, (_req, _res, next) => next('router'));
+  apiAuthRouter.use(auth.apiJWTmiddleware());
+  app.use(apiAuthRouter);
 
   // Ensure sequential execution in order, and that each registration completes before the next one starts
   for (const plugin of plugins) {

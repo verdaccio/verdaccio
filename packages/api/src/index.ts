@@ -3,6 +3,7 @@ import express from 'express';
 
 import type { Auth } from '@verdaccio/auth';
 import {
+  WebUrlsNamespace,
   antiLoop,
   encodeScopePackage,
   enforceGeneratedTokenMetadata,
@@ -47,6 +48,8 @@ export default function (config: Config, auth: Auth, storage: Storage, logger: L
 
   // Body parser must be registered before JWT middleware which pauses/resumes the stream
   registerBodyParser(app, config);
+
+  app.use(WebUrlsNamespace.endpoints, (_req, _res, next) => next('router'));
 
   // Avoid executing JWT twice when the parent app already registered the JWT middleware
   const apiJwtMiddleware = auth.apiJWTmiddleware();
