@@ -33,7 +33,7 @@ RUN pnpm build
 # Pack and stage the tarball
 RUN pnpm pack --pack-destination /opt/tarball
 
-FROM --platform=${BUILDPLATFORM:-linux/amd64} node:24.14.1-alpine
+FROM node:24.14.1-alpine
 
 LABEL maintainer="https://github.com/verdaccio/verdaccio" \
       org.opencontainers.image.title="Verdaccio" \
