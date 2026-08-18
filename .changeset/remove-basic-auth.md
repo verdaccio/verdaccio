@@ -7,4 +7,4 @@
 
 Remove support for incoming HTTP Basic authentication. Verdaccio now accepts Bearer tokens for API authentication and advertises only `Bearer` in `WWW-Authenticate` responses.
 
-Web UI endpoints keep using the Web UI authentication middleware, so Web UI session tokens are not validated as npm API tokens.
+Web UI session tokens are accepted as Bearer authentication for package API requests, so the same package access rules apply to Web UI and package manager clients.

@@ -1,0 +1,25 @@
+storage: ./storage
+
+auth:
+  htpasswd:
+    file: ./htpasswd-package-web-token
+
+web:
+  enable: true
+  title: verdaccio
+
+publish:
+  allow_offline: false
+
+uplinks:
+
+log: { type: stdout, format: pretty, level: trace }
+
+packages:
+  '@*/*':
+    access: $authenticated
+    publish: $anonymous
+  '**':
+    access: $authenticated
+    publish: $anonymous
+_debug: true

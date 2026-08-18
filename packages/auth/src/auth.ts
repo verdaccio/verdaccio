@@ -574,8 +574,34 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
         onAuthComplete(errorUtils.getInternalError(err?.message));
       }
     } else {
+      const remoteUser = this.getJWTRemoteUserFromBearer(authorization);
+      if (remoteUser) {
+        req.remote_user = remoteUser;
+        debug('generating a remote user from jwt bearer');
+        return next();
+      }
+
       debug('legacy invalid header');
       return next(errorUtils.getUnauthorized(API_ERROR.BAD_USERNAME_PASSWORD));
+    }
+  }
+
+  private getJWTRemoteUserFromBearer(authorization: string): RemoteUser | void {
+    const { scheme, token } = parseAuthTokenHeader(authorization);
+    if (scheme.toUpperCase() !== TOKEN_BEARER.toUpperCase() || !token) {
+      return;
+    }
+
+    let credentials: RemoteUser | undefined;
+    try {
+      credentials = verifyJWTPayload(token, this.config.secret, this.config.security);
+    } catch {
+      return;
+    }
+
+    if (this._isRemoteUserValid(credentials)) {
+      const { name, groups } = credentials as RemoteUser;
+      return createRemoteUser(name as string, groups);
     }
   }
 

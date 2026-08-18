@@ -1,10 +1,16 @@
 import supertest from 'supertest';
 import { beforeEach, describe, expect, test } from 'vitest';
 
-import { DIST_TAGS, HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
+import { createRemoteUser } from '@verdaccio/config';
+import { DIST_TAGS, HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core';
 import { Storage } from '@verdaccio/store';
 
-import { initializeServer, publishVersion } from './_helper';
+import {
+  buildToken,
+  initializeServer,
+  initializeServerWithContext,
+  publishVersion,
+} from './_helper';
 
 describe('package', () => {
   describe('get tarball', () => {
@@ -62,6 +68,34 @@ describe('package', () => {
         .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HTTP_STATUS.OK);
       expect(response.body.name).toEqual(pkg);
+    });
+
+    test('should authorize protected package routes with a web bearer token (#5765)', async () => {
+      const { app, auth } = await initializeServerWithContext('package-web-token.yaml');
+      const token = await auth.jwtEncrypt(createRemoteUser('web-user', []), {});
+
+      await publishVersion(app, 'foo', '1.0.0');
+
+      await supertest(app)
+        .get('/foo')
+        .set(HEADERS.ACCEPT, HEADERS.JSON)
+        .expect(HTTP_STATUS.UNAUTHORIZED);
+
+      const manifestResponse = await supertest(app)
+        .get('/foo')
+        .set(HEADERS.ACCEPT, HEADERS.JSON)
+        .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+        .expect(HTTP_STATUS.OK);
+      expect(manifestResponse.body.name).toEqual('foo');
+
+      const tarballResponse = await supertest(app)
+        .get('/foo/-/foo-1.0.0.tgz')
+        .set(HEADERS.ACCEPT, HEADERS.JSON)
+        .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
+        .expect(HTTP_STATUS.OK);
+      expect(Buffer.from(tarballResponse.body).toString('utf8')).toBeDefined();
     });
 
     test.each([

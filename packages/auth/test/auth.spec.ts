@@ -707,6 +707,23 @@ describe('AuthTest', () => {
             authenticateSpy.mockRestore();
           });
 
+          test('should authenticate a valid jwt bearer in legacy auth mode', async () => {
+            const config: Config = new AppConfig({ ...authProfileConf });
+            config.checkSecretKey(TEST_SECRET);
+            const auth = new Auth(config, logger);
+            await auth.init();
+            const token = (await auth.jwtEncrypt(
+              createRemoteUser('jwt_user', [ROLES.ALL]),
+              {}
+            )) as string;
+            const app = await getServer(auth);
+            const res = await supertest(app)
+              .get(`/`)
+              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+              .expect(HTTP_STATUS.OK);
+            expect(res.body.user.name).toEqual('jwt_user');
+          });
+
           test('should share an in-flight legacy auth token verification', async () => {
             const payload = 'juan:password';
             const config: Config = new AppConfig({
@@ -894,6 +911,29 @@ describe('AuthTest', () => {
               .get(`/`)
               .set(HEADERS.AUTHORIZATION, `Basic ${malformedToken}`)
               .expect(HTTP_STATUS.UNAUTHORIZED);
+          });
+
+          test('should not authenticate a legacy token in jwt auth mode', async () => {
+            // @ts-expect-error
+            const config: Config = new AppConfig({
+              ...authProfileConf,
+              ...{ security: { api: { jwt: { sign: { expiresIn: '29d' } } } } },
+            });
+            config.checkSecretKey(TEST_SECRET);
+            const auth = new Auth(config, logger);
+            await auth.init();
+            const token = auth.aesEncrypt('juan:password') as string;
+            const app = await getServer(auth);
+            const res = await supertest(app)
+              .get(`/`)
+              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+              .expect(HTTP_STATUS.OK);
+            expect(res.body.user.groups).toEqual([
+              ROLES.$ALL,
+              ROLES.$ANONYMOUS,
+              ROLES.DEPRECATED_ALL,
+              ROLES.DEPRECATED_ANONYMOUS,
+            ]);
           });
         });
         describe('valid signature handlers', () => {
