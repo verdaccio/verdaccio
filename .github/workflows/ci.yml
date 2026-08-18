@@ -14,6 +14,7 @@ on:
       - 'docker-examples/**'
       - 'package.json'
       - 'pnpm-workspace.yaml'
+      - 'vite.lib.config.mjs'
 permissions:
   actions: read
   contents: read
