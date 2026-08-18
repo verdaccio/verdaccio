@@ -604,8 +604,8 @@ describe('AuthTest', () => {
         const app = express();
         app.use(express.json({ strict: false, limit: '10mb' }));
 
-        app.use(auth.apiJWTmiddleware());
         app.use(errorReportingMiddleware(logger) as any);
+        app.use(auth.apiJWTmiddleware());
         app.get('/{*any}', (req, res, next) => {
           if ((req as $RequestExtend).remote_user.error) {
             next(new Error((req as $RequestExtend).remote_user.error));
@@ -629,7 +629,7 @@ describe('AuthTest', () => {
             return supertest(app)
               .get(`/`)
               .set(HEADERS.AUTHORIZATION, 'Bearer foo')
-              .expect(HTTP_STATUS.INTERNAL_ERROR);
+              .expect(HTTP_STATUS.UNAUTHORIZED);
           });
 
           test('should handle missing auth header', async () => {
@@ -701,7 +701,7 @@ describe('AuthTest', () => {
             await supertest(app)
               .get(`/`)
               .set(HEADERS.AUTHORIZATION, buildToken('Basic', token))
-              .expect(HTTP_STATUS.INTERNAL_ERROR);
+              .expect(HTTP_STATUS.UNAUTHORIZED);
 
             expect(authenticateSpy).not.toHaveBeenCalled();
             authenticateSpy.mockRestore();
@@ -893,7 +893,7 @@ describe('AuthTest', () => {
             return supertest(app)
               .get(`/`)
               .set(HEADERS.AUTHORIZATION, `Basic ${malformedToken}`)
-              .expect(HTTP_STATUS.INTERNAL_ERROR);
+              .expect(HTTP_STATUS.UNAUTHORIZED);
           });
         });
         describe('valid signature handlers', () => {

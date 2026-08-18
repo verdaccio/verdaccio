@@ -455,12 +455,8 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
       req.pause();
       const next = function (err?: VerdaccioError): NextFunction {
         req.resume();
-        // uncomment this to reject users with bad auth headers
-        // return _next.apply(null, arguments)
-        // swallow error, user remains unauthorized
-        // set remoteUserError to indicate that user was attempting authentication
         if (err) {
-          req.remote_user.error = err.message;
+          return _next(err) as unknown as NextFunction;
         }
 
         return _next() as unknown as NextFunction;
@@ -516,7 +512,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     } else {
       // with JWT throw 401
       debug('jwt invalid token');
-      next(errorUtils.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
+      next(errorUtils.getUnauthorized(API_ERROR.BAD_USERNAME_PASSWORD));
     }
   }
 
@@ -552,7 +548,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
         } else {
           req.remote_user = createAnonymousRemoteUser();
           debug('generating anonymous user');
-          next(err || errorUtils.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
+          next(err || errorUtils.getUnauthorized(API_ERROR.BAD_USERNAME_PASSWORD));
         }
       };
       // concurrent requests for the same token wait for the in-flight one
@@ -579,7 +575,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
       }
     } else {
       debug('legacy invalid header');
-      return next(errorUtils.getBadRequest(API_ERROR.BAD_AUTH_HEADER));
+      return next(errorUtils.getUnauthorized(API_ERROR.BAD_USERNAME_PASSWORD));
     }
   }
 
