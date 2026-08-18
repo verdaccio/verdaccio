@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.10.0
+
+### Minor Changes
+
+- 51c2733: Update internal Verdaccio types to include the optional `server.legacyAuthCache` configuration used by the 8.x auth and config packages.
+
 ## 6.9.3
 
 ### Patch Changes
