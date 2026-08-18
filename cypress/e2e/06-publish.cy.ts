@@ -6,6 +6,11 @@ const config = createRegistryConfig({
   registryUrl,
   title: 'Verdaccio e2e',
   credentials: { user: 'test', password: 'test' },
+  features: {
+    publish: {
+      privateDownloadTarball: true,
+    },
+  },
 });
 
 publishTests(config);

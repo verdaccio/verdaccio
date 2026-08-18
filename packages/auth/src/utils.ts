@@ -3,7 +3,7 @@ import { isNil } from 'lodash-es';
 
 import { createAnonymousRemoteUser } from '@verdaccio/config';
 import type { pluginUtils } from '@verdaccio/core';
-import { API_ERROR, HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER, errorUtils } from '@verdaccio/core';
+import { API_ERROR, HTTP_STATUS, TOKEN_BEARER, errorUtils } from '@verdaccio/core';
 import { aesDecrypt, parseBasicPayload, verifyPayload } from '@verdaccio/signature';
 import type { AuthPackageAllow, Config, Logger, RemoteUser, Security } from '@verdaccio/types';
 
@@ -33,14 +33,7 @@ export function parseAESCredentials(authorizationHeader: string, secret: string)
   debug('parseAESCredentials init');
   const { scheme, token } = parseAuthTokenHeader(authorizationHeader);
 
-  // basic is deprecated and should not be enforced
-  // basic is currently being used for functional test
-  if (scheme.toUpperCase() === TOKEN_BASIC.toUpperCase()) {
-    debug('legacy header basic');
-    const credentials = convertPayloadToBase64(token).toString();
-
-    return credentials;
-  } else if (scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
+  if (scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
     debug('legacy header bearer');
     return aesDecrypt(token.toString(), secret);
   }
@@ -237,8 +230,4 @@ export function buildUser(name: string, password: string, tokenKey?: string): st
   }
 
   return String(`${name}:${password}`);
-}
-
-export function convertPayloadToBase64(payload: string): Buffer {
-  return Buffer.from(payload, 'base64');
 }

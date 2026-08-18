@@ -11,7 +11,7 @@ vi.setConfig({ testTimeout: 20000 });
 
 describe('token', () => {
   describe('basics', () => {
-    const FAKE_TOKEN: string = buildToken(TOKEN_BEARER, 'fake');
+    const FAKE_TOKEN = 'fake';
     test.each([['user.yaml'], ['user.jwt.yaml']])('should test add a new user', async (conf) => {
       const app = await initializeServer(conf);
       const credentials = { name: 'JotaJWT', password: 'secretPass' };
@@ -23,7 +23,7 @@ describe('token', () => {
       expect(vueResponse.body.name).toMatch('vue');
 
       const vueFailResp = await getPackage(app, FAKE_TOKEN, 'vue', HTTP_STATUS.UNAUTHORIZED);
-      expect(vueFailResp.body.error).toMatch(FORBIDDEN_VUE);
+      expect([API_ERROR.BAD_USERNAME_PASSWORD, FORBIDDEN_VUE]).toContain(vueFailResp.body.error);
     });
 
     test.each([['user.yaml'], ['user.jwt.yaml']])('should login an user', async (conf) => {

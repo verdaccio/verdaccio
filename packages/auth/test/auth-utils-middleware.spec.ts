@@ -103,20 +103,15 @@ describe('Auth utilities', () => {
         expect(credentials.password).toEqual(pass);
       });
 
-      test.concurrent('should unpack aes token and credentials basic auth', async () => {
+      test.concurrent('should ignore basic credentials', async () => {
         const secret = 'b2df428b9929d3ace7c598bbf4e496b2';
         const user = 'test';
         const pass = 'test';
-        // basic authentication need send user as base64
         const token = authUtils.buildUserBuffer(user, pass).toString('base64');
         const config: Config = getConfig('security-legacy', secret);
         const security: Security = config.security;
         const credentials = getMiddlewareCredentials(security, secret, `Basic ${token}`);
-        expect(credentials).toBeDefined();
-        // @ts-ignore
-        expect(credentials.user).toEqual(user);
-        // @ts-ignore
-        expect(credentials.password).toEqual(pass);
+        expect(credentials).toBeUndefined();
       });
 
       test.concurrent('should return empty credential wrong secret key', async () => {

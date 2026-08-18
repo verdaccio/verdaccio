@@ -8,7 +8,6 @@ import {
   HEADERS,
   HTTP_STATUS,
   SUPPORT_ERRORS,
-  TOKEN_BASIC,
   TOKEN_BEARER,
   authUtils,
   errorUtils,
@@ -605,8 +604,8 @@ describe('AuthTest', () => {
         const app = express();
         app.use(express.json({ strict: false, limit: '10mb' }));
 
-        app.use(auth.apiJWTmiddleware());
         app.use(errorReportingMiddleware(logger) as any);
+        app.use(auth.apiJWTmiddleware());
         app.get('/{*any}', (req, res, next) => {
           if ((req as $RequestExtend).remote_user.error) {
             next(new Error((req as $RequestExtend).remote_user.error));
@@ -630,7 +629,7 @@ describe('AuthTest', () => {
             return supertest(app)
               .get(`/`)
               .set(HEADERS.AUTHORIZATION, 'Bearer foo')
-              .expect(HTTP_STATUS.INTERNAL_ERROR);
+              .expect(HTTP_STATUS.UNAUTHORIZED);
           });
 
           test('should handle missing auth header', async () => {
@@ -686,7 +685,7 @@ describe('AuthTest', () => {
             authenticateSpy.mockRestore();
           });
 
-          test('should not cache basic auth in legacy auth mode', async () => {
+          test('should reject basic auth in legacy auth mode', async () => {
             const payload = 'juan:password';
             const config: Config = new AppConfig({
               ...authProfileConf,
@@ -701,15 +700,28 @@ describe('AuthTest', () => {
 
             await supertest(app)
               .get(`/`)
-              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BASIC, token))
-              .expect(HTTP_STATUS.OK);
-            await supertest(app)
-              .get(`/`)
-              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BASIC, token))
-              .expect(HTTP_STATUS.OK);
+              .set(HEADERS.AUTHORIZATION, buildToken('Basic', token))
+              .expect(HTTP_STATUS.UNAUTHORIZED);
 
-            expect(authenticateSpy).toHaveBeenCalledTimes(2);
+            expect(authenticateSpy).not.toHaveBeenCalled();
             authenticateSpy.mockRestore();
+          });
+
+          test('should authenticate a valid jwt bearer in legacy auth mode', async () => {
+            const config: Config = new AppConfig({ ...authProfileConf });
+            config.checkSecretKey(TEST_SECRET);
+            const auth = new Auth(config, logger);
+            await auth.init();
+            const token = (await auth.jwtEncrypt(
+              createRemoteUser('jwt_user', [ROLES.ALL]),
+              {}
+            )) as string;
+            const app = await getServer(auth);
+            const res = await supertest(app)
+              .get(`/`)
+              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+              .expect(HTTP_STATUS.OK);
+            expect(res.body.user.name).toEqual('jwt_user');
           });
 
           test('should share an in-flight legacy auth token verification', async () => {
@@ -884,7 +896,7 @@ describe('AuthTest', () => {
             ]);
           });
 
-          test('should handle malformed Basic auth credentials without crashing', async () => {
+          test('should reject Basic auth credentials', async () => {
             // @ts-expect-error
             const config: Config = new AppConfig({
               ...authProfileConf,
@@ -894,12 +906,34 @@ describe('AuthTest', () => {
             const auth = new Auth(config, logger);
             await auth.init();
             const app = await getServer(auth);
-            // base64 of "test" (no colon separator) - must not crash with TypeError
             const malformedToken = Buffer.from('test').toString('base64');
             return supertest(app)
               .get(`/`)
               .set(HEADERS.AUTHORIZATION, `Basic ${malformedToken}`)
-              .expect(HTTP_STATUS.INTERNAL_ERROR);
+              .expect(HTTP_STATUS.UNAUTHORIZED);
+          });
+
+          test('should not authenticate a legacy token in jwt auth mode', async () => {
+            // @ts-expect-error
+            const config: Config = new AppConfig({
+              ...authProfileConf,
+              ...{ security: { api: { jwt: { sign: { expiresIn: '29d' } } } } },
+            });
+            config.checkSecretKey(TEST_SECRET);
+            const auth = new Auth(config, logger);
+            await auth.init();
+            const token = auth.aesEncrypt('juan:password') as string;
+            const app = await getServer(auth);
+            const res = await supertest(app)
+              .get(`/`)
+              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+              .expect(HTTP_STATUS.OK);
+            expect(res.body.user.groups).toEqual([
+              ROLES.$ALL,
+              ROLES.$ANONYMOUS,
+              ROLES.DEPRECATED_ALL,
+              ROLES.DEPRECATED_ANONYMOUS,
+            ]);
           });
         });
         describe('valid signature handlers', () => {
