@@ -129,7 +129,7 @@
     "@verdaccio/e2e-cli": "2.10.2",
     "@verdaccio/e2e-ui": "2.4.2",
     "@verdaccio/test-helper": "4.1.0",
-    "@verdaccio/types": "13.0.5",
+    "@verdaccio/types": "13.0.6",
     "@vitest/coverage-v8": "4.1.8",
     "cross-env": "10.1.0",
     "cypress": "15.16.0",
