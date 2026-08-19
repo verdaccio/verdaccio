@@ -1,5 +1,11 @@
 # @verdaccio/ui-components
 
+## 5.0.0-next-9.18
+
+### Patch Changes
+
+- 60d8e97: fix(ui-components): lint and test warnings
+
 ## 5.0.0-next-9.17
 
 ### Patch Changes
