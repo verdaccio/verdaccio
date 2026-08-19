@@ -70,6 +70,7 @@
     "friendly-avocados-invent",
     "funny-beers-search",
     "fuzzy-icons-hover",
+    "giant-melons-visit",
     "goofy-lizards-read",
     "great-bees-flow",
     "grumpy-countries-pay",
@@ -80,6 +81,7 @@
     "js-yaml-v5-schema",
     "legacy-auth-cache-ttl",
     "legacy-auth-cache",
+    "legal-coats-attend",
     "loaders-logger-esm-hardening",
     "lucky-ghosts-prove",
     "lucky-owls-bow",
@@ -102,6 +104,7 @@
     "quiet-otters-filter",
     "real-shrimps-lick",
     "real-vans-sin",
+    "remove-basic-auth",
     "remove-deprecated-aes-encryption",
     "remove-self-path",
     "remove-star-endpoints",
@@ -146,6 +149,7 @@
     "wet-humans-fly",
     "wise-poets-compare",
     "witty-apes-try",
+    "witty-sails-learn",
     "yaml-only-config"
   ]
 }

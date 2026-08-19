@@ -1,5 +1,12 @@
 # @verdaccio/ui-theme
 
+## 9.0.0-next-9.27
+
+### Patch Changes
+
+- 65cd24e: fix(ui-theme): build error due to country-flag-icons
+- 284cbd0: fix(ui-theme): type check errors
+
 ## 9.0.0-next-9.26
 
 ## 9.0.0-next-9.25

@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/proxy",
-  "version": "9.0.0-next-9.26",
+  "version": "9.0.0-next-9.27",
   "description": "Verdaccio Proxy Fetcher",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -39,8 +39,8 @@
     "build": "vite build"
   },
   "dependencies": {
-    "@verdaccio/config": "workspace:9.0.0-next-9.26",
-    "@verdaccio/core": "workspace:9.0.0-next-9.26",
+    "@verdaccio/config": "workspace:9.0.0-next-9.27",
+    "@verdaccio/core": "workspace:9.0.0-next-9.27",
     "JSONStream": "1.3.5",
     "debug": "4.4.3",
     "got": "15.1.0",
@@ -49,7 +49,7 @@
   },
   "devDependencies": {
     "@types/lodash-es": "4.17.12",
-    "@verdaccio/logger": "workspace:9.0.0-next-9.26",
+    "@verdaccio/logger": "workspace:9.0.0-next-9.27",
     "@verdaccio/types": "workspace:14.0.0-next-9.12",
     "get-stream": "9.0.1",
     "nock": "13.5.6",

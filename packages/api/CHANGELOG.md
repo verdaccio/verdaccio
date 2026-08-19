@@ -1,5 +1,24 @@
 # @verdaccio/api
 
+## 9.0.0-next-9.27
+
+### Major Changes
+
+- 8857b15: Remove support for incoming HTTP Basic authentication. Verdaccio now accepts Bearer tokens for API authentication and advertises only `Bearer` in `WWW-Authenticate` responses.
+
+  Web UI session tokens are accepted as Bearer authentication for package API requests, so the same package access rules apply to Web UI and package manager clients.
+
+### Patch Changes
+
+- Updated dependencies [8857b15]
+  - @verdaccio/auth@9.0.0-next-9.27
+  - @verdaccio/middleware@9.0.0-next-9.27
+  - @verdaccio/hooks@9.0.0-next-9.27
+  - @verdaccio/store@9.0.0-next-9.27
+  - @verdaccio/core@9.0.0-next-9.27
+  - @verdaccio/config@9.0.0-next-9.27
+  - @verdaccio/logger@9.0.0-next-9.27
+
 ## 9.0.0-next-9.26
 
 ### Patch Changes
