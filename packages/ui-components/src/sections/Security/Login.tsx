@@ -47,13 +47,16 @@ const Login: React.FC = () => {
     formState: { isValid, errors },
   } = form;
 
-  const handleLogin = async (body: { username: string; password: string }) => {
-    try {
-      return await trigger(body);
-    } catch (err) {
-      throw normalizeAuthError(err);
-    }
-  };
+  const handleLogin = useCallback(
+    async (body: { username: string; password: string }) => {
+      try {
+        return await trigger(body);
+      } catch (err) {
+        throw normalizeAuthError(err);
+      }
+    },
+    [trigger]
+  );
 
   const onSuccess = useCallback(() => {
     navigate(`${Route.SUCCESS}?messageType=${MessageType.Login}`);
