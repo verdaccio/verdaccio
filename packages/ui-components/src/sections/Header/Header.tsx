@@ -29,17 +29,21 @@ const Header: React.FC<Props> = ({
   const { configOptions } = useConfig();
   const { userState, logOutUser } = useAuth();
 
-  // Use a ref to always have the latest token in the interval callback
+  // Use refs to always have the latest token/logout in the interval callback
   const tokenRef = useRef(userState?.token);
+  const logOutUserRef = useRef(logOutUser);
   useEffect(() => {
     tokenRef.current = userState?.token;
   }, [userState?.token]);
+  useEffect(() => {
+    logOutUserRef.current = logOutUser;
+  }, [logOutUser]);
 
   useEffect(() => {
     function checkToken() {
       const token = tokenRef.current;
       if (token && isTokenExpire(token)) {
-        logOutUser?.();
+        logOutUserRef.current?.();
       }
     }
     checkToken();
