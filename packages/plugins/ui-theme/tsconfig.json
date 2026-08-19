@@ -9,10 +9,9 @@
     "allowJs": true,
     "sourceMap": true,
     "checkJs": false,
-    "baseUrl": ".",
     "paths": {
-      "verdaccio-ui/components/*": ["src/components/*"],
-      "verdaccio-ui/utils/*": ["src/utils/*"]
+      "verdaccio-ui/components/*": ["./src/components/*"],
+      "verdaccio-ui/utils/*": ["./src/utils/*"]
     }
   },
   "include": ["src", "types/*.d.ts", "src/i18n/**/*.json"],
