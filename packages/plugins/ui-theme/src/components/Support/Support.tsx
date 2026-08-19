@@ -62,10 +62,10 @@ const Support = () => {
           </span>
           <ul style={{ padding: '10px 0' }}>{linkElements}</ul>
           <div>
-            <Typography variant="div">{`Spread the voice, make the difference today.`}</Typography>
+            <Typography variant="inherit">{`Spread the voice, make the difference today.`}</Typography>
           </div>
           <div style={{ padding: '10px 0', fontWeight: 600 }}>
-            <Typography variant="div">{`Att: Verdaccio Lead Mantainer, Juan P.`}</Typography>
+            <Typography variant="inherit">{`Att: Verdaccio Lead Mantainer, Juan P.`}</Typography>
           </div>
         </Grid>
       </Grid>
