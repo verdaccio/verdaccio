@@ -1,5 +1,5 @@
 {
-  "mode": "pre",
+  "mode": "exit",
   "tag": "next-7",
   "initialVersions": {
     "verdaccio": "7.0.0-next-7.20"
