@@ -1015,8 +1015,8 @@ importers:
         specifier: workspace:10.0.0-next-9.4
         version: link:../../core/i18n
       '@vitejs/plugin-react':
-        specifier: 6.0.3
-        version: 6.0.3(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        specifier: 6.0.5
+        version: 6.0.5(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
       country-flag-icons:
         specifier: 1.6.20
         version: 1.6.20
@@ -1546,8 +1546,8 @@ importers:
         specifier: workspace:14.0.0-next-9.12
         version: link:../core/types
       '@vitejs/plugin-react':
-        specifier: 6.0.3
-        version: 6.0.3(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        specifier: 6.0.5
+        version: 6.0.5(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
       cross-env:
         specifier: 10.1.0
         version: 10.1.0
@@ -3209,8 +3209,8 @@ packages:
     engines: {node: '>=24'}
     hasBin: true
 
-  '@vitejs/plugin-react@6.0.3':
-    resolution: {integrity: sha512-vmFvco5/QuC2f9Oj+wTk0+9XeDFkHxSamwZKYc7MxYwKICfvUvlMhqKI0VuICPltGqh1neqBKDvO4kes1ya8vg==}
+  '@vitejs/plugin-react@6.0.5':
+    resolution: {integrity: sha512-BOVzne/NL162sMdResB25mUv+vWMF5NoAjNf09TeGlE7ZpszZWSD3winycicLJw72yeVsoCn/2kOhEuCvEShMA==}
     engines: {node: ^20.19.0 || >=22.12.0}
     peerDependencies:
       '@rolldown/plugin-babel': ^0.1.7 || ^0.2.0
@@ -7990,7 +7990,7 @@ snapshots:
 
   '@verdaccio/registry-cli@1.1.0': {}
 
-  '@vitejs/plugin-react@6.0.3(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))':
+  '@vitejs/plugin-react@6.0.5(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))':
     dependencies:
       '@rolldown/pluginutils': 1.0.1
       vite: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
