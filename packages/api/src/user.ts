@@ -110,7 +110,7 @@ export default function (route: Router, auth: Auth, config: Config, logger: Logg
             res.status(HTTP_STATUS.CREATED);
             res.set(HEADERS.CACHE_CONTROL, HEADERS.NO_CACHE);
 
-            const message = authUtils.getAuthenticatedMessage(req.remote_user.name);
+            const message = authUtils.getAuthenticatedMessage(name);
             debug('login: created user message %o', message);
 
             return next({
