@@ -1,5 +1,7 @@
 # @verdaccio/core
 
+## 9.0.0-next-9.28
+
 ## 9.0.0-next-9.27
 
 ## 9.0.0-next-9.26

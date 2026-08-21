@@ -1,5 +1,21 @@
 # @verdaccio/server
 
+## 9.0.0-next-9.28
+
+### Patch Changes
+
+- Updated dependencies [5a31242]
+  - @verdaccio/api@9.0.0-next-9.28
+  - @verdaccio/web@9.0.0-next-9.28
+  - @verdaccio/core@9.0.0-next-9.28
+  - @verdaccio/config@9.0.0-next-9.28
+  - @verdaccio/auth@9.0.0-next-9.28
+  - @verdaccio/loaders@9.0.0-next-9.28
+  - @verdaccio/logger@9.0.0-next-9.28
+  - @verdaccio/middleware@9.0.0-next-9.28
+  - verdaccio-audit@14.0.0-next-9.28
+  - @verdaccio/store@9.0.0-next-9.28
+
 ## 9.0.0-next-9.27
 
 ### Major Changes
