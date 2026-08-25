@@ -4,7 +4,9 @@ import { afterAll, afterEach, beforeAll, describe, expect, test, vi } from 'vite
 import { Auth } from '@verdaccio/auth';
 import { errorUtils, HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 import { generatePackageMetadata } from '@verdaccio/test-helper';
+import type { Manifest } from '@verdaccio/types';
 
+import Storage from '../../../../src/lib/storage';
 import { setup } from '../../../../src/lib/logger';
 import { createWebApp, seedPackages } from './__helper';
 
@@ -125,5 +127,29 @@ describe('web endpoint: search', () => {
 
     expect(res.body).toHaveLength(2);
     expect(res.body.map((pkg) => pkg.name)).not.toContain('vortexmango-1');
+  });
+
+  test('should skip a package without a valid latest version', async () => {
+    await publishSearchPackages(app, 'brokenmanifest', 3);
+    const originalGetPackage = Storage.prototype.getPackage;
+    vi.spyOn(Storage.prototype, 'getPackage').mockImplementation(function (options) {
+      if (options.name === 'brokenmanifest-1') {
+        options.callback(null, {
+          name: options.name,
+          versions: {},
+          'dist-tags': { latest: '1.0.0' },
+        } as Manifest);
+        return;
+      }
+
+      originalGetPackage.call(this, options);
+    });
+
+    const res = await request(app)
+      .get('/-/verdaccio/data/search/brokenmanifest')
+      .expect(HTTP_STATUS.OK);
+
+    expect(res.body).toHaveLength(2);
+    expect(res.body.every(Boolean)).toBe(true);
   });
 });

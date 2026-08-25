@@ -50,7 +50,10 @@ function addSearchWebApi(storage: Storage, auth: Auth): Router {
               req.remote_user,
               function (err, allowed): void {
                 if (!err && allowed) {
-                  packages.push(entry.versions[entry[DIST_TAGS].latest]);
+                  const latestVersion = entry.versions?.[entry[DIST_TAGS]?.latest];
+                  if (latestVersion) {
+                    packages.push(latestVersion);
+                  }
                 }
 
                 continueOrFinish();
