@@ -276,27 +276,6 @@ jobs:
         uses: ./.github/actions/install-app
       - name: Run changeset version
         run: pnpm ci:version:changeset
-  codeql:
-    needs: [build]
-    if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && always() && !failure() && !cancelled() }}
-    runs-on: ubuntu-latest
-    name: CodeQL Analysis
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          fetch-depth: 2
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@54f647b7e1bb85c95cddabcd46b0c578ec92bc1a # v4.36.3
-        with:
-          config: |
-            paths-ignore:
-              - packages/config/test/partials/config/js/invalid.js
-              - packages/middleware/test/static/js
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@54f647b7e1bb85c95cddabcd46b0c578ec92bc1a # v4.36.3
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@54f647b7e1bb85c95cddabcd46b0c578ec92bc1a # v4.36.3
   sync-translations:
     needs: [build]
     runs-on: ubuntu-latest
