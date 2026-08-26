@@ -34,6 +34,14 @@ export function semverSanitize(version: string): string {
 }
 
 /**
+ * Get the version tagged as latest in the dist-tags of a package.
+ * @param package metadata
+ **/
+export function getLatestVersion(pkgInfo: Manifest): string {
+  return pkgInfo[DIST_TAGS].latest;
+}
+
+/**
  * Get the latest publihsed version of a package.
  * @param package metadata
  **/

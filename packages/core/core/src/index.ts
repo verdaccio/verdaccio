@@ -1,4 +1,5 @@
 import * as authUtils from './auth-utils';
+import * as authorUtils from './author-utils';
 import * as constants from './constants';
 import * as cryptoUtils from './crypto-utils';
 import * as errorUtils from './error-utils';
@@ -40,6 +41,7 @@ export {
 } from './constants';
 export {
   authUtils,
+  authorUtils,
   cryptoUtils,
   fileUtils,
   ipUtils,

@@ -229,6 +229,9 @@ importers:
       http-status-codes:
         specifier: 2.3.0
         version: 2.3.0
+      lodash:
+        specifier: 4.18.1
+        version: 4.18.1
       minimatch:
         specifier: 10.2.6
         version: 10.2.6
@@ -896,28 +899,6 @@ importers:
       vite:
         specifier: 8.1.5
         version: 8.1.5(@types/node@22.20.1)(yaml@2.9.0)
-
-  packages/utils:
-    dependencies:
-      '@verdaccio/core':
-        specifier: workspace:8.2.2
-        version: link:../core/core
-      lodash:
-        specifier: 4.18.1
-        version: 4.18.1
-      minimatch:
-        specifier: 10.2.6
-        version: 10.2.6
-    devDependencies:
-      '@verdaccio/types':
-        specifier: workspace:13.0.6
-        version: link:../core/types
-      vite:
-        specifier: 8.1.5
-        version: 8.1.5(@types/node@22.20.1)(yaml@2.9.0)
-      vitest:
-        specifier: 4.1.10
-        version: 4.1.10(@types/node@22.20.1)(@vitest/coverage-v8@4.1.10)(jsdom@26.1.0)(vite@8.1.5(@types/node@22.20.1)(yaml@2.9.0))
 
 packages:
 
