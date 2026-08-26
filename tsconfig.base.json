@@ -51,9 +51,6 @@
       "path": "packages/test-helper"
     },
     {
-      "path": "packages/utils"
-    },
-    {
       "path": "packages/core/core"
     },
     {

@@ -1,13 +1,13 @@
 import { describe, expect, test } from 'vitest';
 
-import { DEFAULT_USER } from '@verdaccio/core';
+import { DEFAULT_USER } from '../src/constants';
 
 import {
   GENERIC_AVATAR,
   addGravatarSupport,
   formatAuthor,
   generateGravatarUrl,
-} from '../src/index';
+} from '../src/author-utils';
 
 describe('Utilities', () => {
   describe('formatAuthor', () => {
