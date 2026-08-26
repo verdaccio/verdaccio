@@ -45,6 +45,7 @@ static/*
 /.yarn/install-state.gz
 .history
 CLAUDE.md
+AGENTS.md
 .claude/settings.json
 .github/*.md
 /.claude
