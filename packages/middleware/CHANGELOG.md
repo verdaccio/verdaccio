@@ -1,5 +1,14 @@
 # @verdaccio/middleware
 
+## 9.0.0-next-9.28
+
+### Patch Changes
+
+- Updated dependencies [dd4f91c]
+  - @verdaccio/core@9.0.0-next-9.28
+  - @verdaccio/config@9.0.0-next-9.28
+  - @verdaccio/url@14.0.0-next-9.28
+
 ## 9.0.0-next-9.27
 
 ### Major Changes
