@@ -1,6 +1,8 @@
 import path from 'path';
 
-import { ROLES } from '@verdaccio/utils';
+import { constants } from '@verdaccio/core';
+
+const { ROLES } = constants;
 
 const config = {
   storage: path.join(__dirname, '../store/access-storage'),

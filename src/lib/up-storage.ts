@@ -7,7 +7,9 @@ import zlib from 'zlib';
 
 import { ReadTarball } from '@verdaccio/streams';
 import { Callback, Config, Headers, Logger, Package, UpLinkConf } from '@verdaccio/types';
-import { buildToken } from '@verdaccio/utils';
+import { authUtils } from '@verdaccio/core';
+
+const { buildToken } = authUtils;
 
 import {
   API_ERROR,

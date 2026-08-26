@@ -1,10 +1,8 @@
 import type { NextFunction, Request, Response } from 'express';
 
-import { errorUtils } from '@verdaccio/core';
-import {
-  validateName as validateNameBase,
-  validatePackage as validatePackageBase,
-} from '@verdaccio/utils';
+import { errorUtils, validationUtils } from '@verdaccio/core';
+
+const { validateName: validateNameBase, validatePackage: validatePackageBase } = validationUtils;
 
 export function isNameValid(name: string): boolean {
   return validateNameBase(name) && !name.includes('*');

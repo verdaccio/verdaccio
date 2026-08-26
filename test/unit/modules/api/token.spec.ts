@@ -10,7 +10,9 @@ import {
   SUPPORT_ERRORS,
   TOKEN_BEARER,
 } from '@verdaccio/core';
-import { buildToken } from '@verdaccio/utils';
+import { authUtils } from '@verdaccio/core';
+
+const { buildToken } = authUtils;
 
 import {
   deleteTokenCLI,
@@ -24,7 +26,10 @@ describe('token', () => {
   describe('basics', () => {
     test.each([['token.yaml'], ['token.jwt.yaml']])('should list empty tokens', async (conf) => {
       const app = await initializeServer(conf);
-      const token = await getNewToken(app, { name: 'jota_token', password: 'secretPass' });
+      const token = await getNewToken(app, {
+        name: 'jota_token',
+        password: 'secretPass',
+      });
       const response = await supertest(app)
         .get('/-/npm/v1/tokens')
         .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))

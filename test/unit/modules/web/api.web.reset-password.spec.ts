@@ -2,7 +2,9 @@ import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest';
 
 import { API_ERROR, APP_ERROR, HEADERS, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core';
-import { buildToken } from '@verdaccio/utils';
+import { authUtils } from '@verdaccio/core';
+
+const { buildToken } = authUtils;
 
 import { setup } from '../../../../src/lib/logger';
 import { addUser } from '../../__helper/api';

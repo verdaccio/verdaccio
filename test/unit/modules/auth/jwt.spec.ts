@@ -11,7 +11,9 @@ import {
   TOKEN_BEARER,
   fileUtils,
 } from '@verdaccio/core';
-import { buildToken, buildUserBuffer } from '@verdaccio/utils';
+import { authUtils } from '@verdaccio/core';
+
+const { buildToken, buildUserBuffer } = authUtils;
 
 import endPointAPI from '../../../../src/api';
 import { setup } from '../../../../src/lib/logger';

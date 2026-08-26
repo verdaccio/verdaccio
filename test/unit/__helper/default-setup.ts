@@ -1,6 +1,8 @@
 import { ConfigBuilder } from '@verdaccio/config';
 import type { AuthConf, LoggerConfigItem, PackageAccessYaml } from '@verdaccio/types';
-import { ROLES } from '@verdaccio/utils';
+import { constants } from '@verdaccio/core';
+
+const { ROLES } = constants;
 
 const builder = new ConfigBuilder();
 

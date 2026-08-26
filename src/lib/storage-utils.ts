@@ -1,7 +1,7 @@
 import createDebug from 'debug';
 import _ from 'lodash';
 
-import { pkgUtils } from '@verdaccio/core';
+import { cryptoUtils, pkgUtils } from '@verdaccio/core';
 import { SearchMemoryIndexer } from '@verdaccio/search-indexer';
 import {
   AbbreviatedManifest,
@@ -10,7 +10,7 @@ import {
   Manifest,
   Version,
 } from '@verdaccio/types';
-import { generateRandomHexString } from '@verdaccio/utils';
+const { generateRandomHexString } = cryptoUtils;
 
 import { API_ERROR, DIST_TAGS, HTTP_STATUS, STORAGE, USERS } from './constants';
 import LocalStorage from './local-storage';
@@ -281,7 +281,10 @@ export function mergeUplinkTimeIntoLocal(cacheManifest: Manifest, remoteManifest
   if ('time' in remoteManifest) {
     debug('merging remote time field into local manifest for %o', cacheManifest.name);
     // remote override cache time conflicts
-    return { ...cacheManifest, time: { ...cacheManifest.time, ...remoteManifest.time } };
+    return {
+      ...cacheManifest,
+      time: { ...cacheManifest.time, ...remoteManifest.time },
+    };
   }
 
   return cacheManifest;

@@ -4,10 +4,10 @@ import path from 'node:path';
 import semver from 'semver';
 
 import { parseConfigFile } from '@verdaccio/config';
-import { errorUtils, pkgUtils, validationUtils, warningUtils } from '@verdaccio/core';
+import { authUtils, errorUtils, pkgUtils, validationUtils, warningUtils } from '@verdaccio/core';
 import { ConfigYaml, LoggerConfigItem, StringValue } from '@verdaccio/types';
 import { Config, Manifest, Version } from '@verdaccio/types';
-import { buildToken as buildTokenUtil } from '@verdaccio/utils';
+const { buildToken: buildTokenUtil } = authUtils;
 
 import { DIST_TAGS, certPem, csrPem, keyPem } from './constants';
 import { logger, setup } from './logger';

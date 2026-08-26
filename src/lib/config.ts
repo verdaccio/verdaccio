@@ -1,5 +1,7 @@
 import { Config as ConfigCore } from '@verdaccio/config';
-import { getMatchedPackagesSpec } from '@verdaccio/utils';
+import { authUtils } from '@verdaccio/core';
+
+const { getMatchedPackagesSpec } = authUtils;
 
 class Config extends ConfigCore {
   public constructor(config: any) {
