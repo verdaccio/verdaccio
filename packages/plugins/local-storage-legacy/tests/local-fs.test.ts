@@ -7,8 +7,17 @@ import { beforeAll, beforeEach, describe, expect, test, vi } from 'vitest';
 import { readFile, unlockFile } from '@verdaccio/file-locking';
 import type { Logger, Package } from '@verdaccio/types';
 
+import sanitize from 'sanitize-filename';
+
 import LocalDriver, { fSError, fileExist, noSuchFile, resourceNotAvailable } from '../src/local-fs';
 import pkg from './__fixtures__/pkg';
+
+// Wrap the real sanitizer so individual tests can force a traversal sequence
+// through it and prove the _getStorage containment barrier catches it on its own.
+vi.mock('sanitize-filename', async (importOriginal) => {
+  const actual: any = await importOriginal();
+  return { default: vi.fn(actual.default) };
+});
 
 vi.mock('@verdaccio/file-locking', () => ({
   readFile: vi.fn(),
@@ -447,6 +456,44 @@ describe('Local FS test', () => {
       // Verify the stream was created (it doesn't throw synchronously)
       expect(writeStream).toBeDefined();
       writeStream.abort();
+    });
+  });
+
+  describe('_getStorage() path-traversal barrier', () => {
+    const storageRoot = path.join('./_storage', 'guard-pkg');
+    // _getStorage is private; reach it directly to assert the containment barrier.
+    const getStorage = (localFs: LocalDriver, name: string): string =>
+      (localFs as any)._getStorage(name);
+
+    test('resolves a legitimate name under the storage root', () => {
+      const localFs = new LocalDriver(storageRoot, logger);
+      const resolved = getStorage(localFs, pkgFileName);
+
+      expect(resolved).toBe(path.join(path.resolve(storageRoot), pkgFileName));
+      expect(resolved.startsWith(path.resolve(storageRoot) + path.sep)).toBe(true);
+    });
+
+    test('confines traversal sequences to the storage root', () => {
+      const localFs = new LocalDriver(storageRoot, logger);
+      const resolved = getStorage(localFs, '../../etc/passwd');
+
+      // sanitize-filename strips the separators, so the name cannot escape the root
+      expect(resolved.startsWith(path.resolve(storageRoot) + path.sep)).toBe(true);
+      expect(resolved).not.toContain(`${path.sep}etc${path.sep}passwd`);
+    });
+
+    test('rejects a path that escapes the storage root with a plain not-found', () => {
+      // Force the sanitizer to leak a traversal sequence to exercise the barrier alone.
+      vi.mocked(sanitize).mockReturnValueOnce(`..${path.sep}..${path.sep}escape`);
+      const localFs = new LocalDriver(storageRoot, logger);
+
+      expect.assertions(2);
+      try {
+        getStorage(localFs, 'anything');
+      } catch (err: any) {
+        expect(err.code).toBe(noSuchFile);
+        expect(err.status ?? err.statusCode).toBe(404);
+      }
     });
   });
 });
