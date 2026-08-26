@@ -1,5 +1,19 @@
 # @verdaccio/api
 
+## 9.0.0-next-9.28
+
+### Patch Changes
+
+- 5a31242: fix(api): user name in login message
+- Updated dependencies [dd4f91c]
+  - @verdaccio/core@9.0.0-next-9.28
+  - @verdaccio/auth@9.0.0-next-9.28
+  - @verdaccio/config@9.0.0-next-9.28
+  - @verdaccio/hooks@9.0.0-next-9.28
+  - @verdaccio/logger@9.0.0-next-9.28
+  - @verdaccio/middleware@9.0.0-next-9.28
+  - @verdaccio/store@9.0.0-next-9.28
+
 ## 9.0.0-next-9.27
 
 ### Major Changes
