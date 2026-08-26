@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useCallback } from 'react';
-import { useForm } from 'react-hook-form';
+import { type UseFormReturn, useForm } from 'react-hook-form';
 
 import { useAuth } from '../../providers/AuthProvider';
 import type { LoginFormValues } from '../../utils/schemas';
@@ -10,7 +10,9 @@ type Options = {
   onSuccess?: () => void;
 };
 
-export function useLoginForm({ onSuccess }: Options = {}) {
+export function useLoginForm({ onSuccess }: Options = {}): UseFormReturn<LoginFormValues> & {
+  onSubmit: (data: LoginFormValues) => Promise<void>;
+} {
   const { handleLogin } = useAuth();
 
   const form = useForm<LoginFormValues>({
