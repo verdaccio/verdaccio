@@ -24,7 +24,7 @@
     "@testing-library/dom": "10.4.1",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "16.3.2",
-    "@testing-library/user-event": "14.6.1",
+    "@testing-library/user-event": "14.6.5",
     "@types/body-parser": "1.19.6",
     "@types/connect": "3.4.38",
     "@types/cookiejar": "2.1.5",
