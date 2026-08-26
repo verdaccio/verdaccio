@@ -1,5 +1,26 @@
 # @verdaccio/core
 
+## 8.3.0
+
+### Minor Changes
+
+- dd58d20: Move the remaining `@verdaccio/utils` helpers into `@verdaccio/core`
+
+  The author/gravatar helpers (`formatAuthor`, `addGravatarSupport`,
+  `generateGravatarUrl`, `normalizeContributors`, `GENERIC_AVATAR`) now live in
+  `@verdaccio/core` under a new `authorUtils` export, and `getLatestVersion` is
+  available from `pkgUtils`. This lets the deprecated `@verdaccio/utils` package be
+  retired, since every symbol it exposed now has a home in `@verdaccio/core`.
+
+### Patch Changes
+
+- dd58d20: Reject package names with extra path separators in `validatePackage`
+
+  `validatePackage` split the name with a limit, which ignored any separators past
+  the second segment and accepted non-canonical names such as `@scope/pkg/`. The
+  name is now split on every separator and only one- or two-segment names are
+  considered valid, so a package name has a single canonical form.
+
 ## 8.2.2
 
 ### Patch Changes

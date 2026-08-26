@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/url",
-  "version": "13.1.2",
+  "version": "13.1.3",
   "description": "Verdaccio URL Utilities",
   "keywords": [
     "enterprise",
@@ -55,7 +55,7 @@
     "build": "vite build && tsc --emitDeclarationOnly -p tsconfig.build.json"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:8.2.2",
+    "@verdaccio/core": "workspace:8.3.0",
     "debug": "4.4.3",
     "validator": "13.15.26"
   },
