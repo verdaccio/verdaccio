@@ -12,7 +12,10 @@ import {
   initializeServer as initializeServerHelper,
 } from '@verdaccio/test-helper';
 import type { GenericBody, PackageUsers } from '@verdaccio/types';
-import { buildToken, generateRandomHexString } from '@verdaccio/utils';
+import { authUtils, cryptoUtils } from '@verdaccio/core';
+
+const { buildToken } = authUtils;
+const { generateRandomHexString } = cryptoUtils;
 
 import apiMiddleware from '../../../../src/api/endpoint';
 import { setup } from '../../../../src/lib/logger';

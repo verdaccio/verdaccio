@@ -9,7 +9,9 @@ import {
   getLocalRegistryTarballUri,
 } from '@verdaccio/tarball';
 import type { Config, Manifest, RemoteUser } from '@verdaccio/types';
-import { addGravatarSupport, formatAuthor, generateGravatarUrl } from '@verdaccio/utils';
+import { authorUtils } from '@verdaccio/core';
+
+const { addGravatarSupport, formatAuthor, generateGravatarUrl } = authorUtils;
 
 import { DIST_TAGS, HEADERS, HEADER_TYPE, HTTP_STATUS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
@@ -34,7 +36,10 @@ const getOrder = (order = 'asc') => {
   return order === 'asc';
 };
 
-export type PackcageExt = Manifest & { author: any; dist?: { tarball: string } };
+export type PackcageExt = Manifest & {
+  author: any;
+  dist?: { tarball: string };
+};
 
 function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router {
   const pkgRouter = Router();
@@ -90,7 +95,11 @@ function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router 
                   pkgCopy.dist.tarball = getLocalRegistryTarballUri(
                     pkgCopy.dist.tarball,
                     pkg.name,
-                    { protocol: req.protocol, headers: req.headers as any, host: req.hostname },
+                    {
+                      protocol: req.protocol,
+                      headers: req.headers as any,
+                      host: req.hostname,
+                    },
                     config.url_prefix
                   );
                 }
@@ -163,7 +172,11 @@ function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router 
             let sideBarInfo: any = _.clone(info);
             sideBarInfo.versions = convertDistRemoteToLocalTarballUrls(
               info,
-              { protocol: req.protocol, headers: req.headers as any, host: req.hostname },
+              {
+                protocol: req.protocol,
+                headers: req.headers as any,
+                host: req.hostname,
+              },
               config.url_prefix
             ).versions;
             if (isVersionValid(info, v)) {

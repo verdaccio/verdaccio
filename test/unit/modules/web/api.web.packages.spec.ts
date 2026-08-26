@@ -9,7 +9,9 @@ import {
   HTTP_STATUS,
   TOKEN_BEARER,
 } from '@verdaccio/core';
-import { buildToken } from '@verdaccio/utils';
+import { authUtils } from '@verdaccio/core';
+
+const { buildToken } = authUtils;
 
 import { setup } from '../../../../src/lib/logger';
 import { getNewToken } from '../../__helper/api';
@@ -39,7 +41,10 @@ describe('web endpoint: packages', () => {
   });
 
   test.skip('should display all packages logged', async () => {
-    const token = await getNewToken(app, { name: 'jota_token', password: 'secretPass' });
+    const token = await getNewToken(app, {
+      name: 'jota_token',
+      password: 'secretPass',
+    });
     // this packages is protected at the yaml file
     const res = await request(app)
       .get('/-/verdaccio/data/packages')

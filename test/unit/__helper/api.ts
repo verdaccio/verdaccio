@@ -4,7 +4,9 @@ import request from 'supertest';
 import { expect } from 'vitest';
 
 import type { Manifest } from '@verdaccio/types';
-import { generateRandomHexString } from '@verdaccio/utils';
+import { cryptoUtils } from '@verdaccio/core';
+
+const { generateRandomHexString } = cryptoUtils;
 
 import { HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '../../../src/lib/constants';
 import { buildToken, encodeScopedUri } from '../../../src/lib/utils';

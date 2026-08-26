@@ -1,6 +1,8 @@
 import { describe, expect, test, vi } from 'vitest';
 
-import { GENERIC_AVATAR, generateGravatarUrl } from '@verdaccio/utils';
+import { authorUtils } from '@verdaccio/core';
+
+const { GENERIC_AVATAR, generateGravatarUrl } = authorUtils;
 
 import { DIST_TAGS } from '../../../../src/lib/constants';
 import { logger, setup } from '../../../../src/lib/logger';

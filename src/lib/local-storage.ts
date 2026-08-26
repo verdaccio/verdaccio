@@ -18,7 +18,11 @@ import {
   onEndSearchPackage,
   onSearchPackage,
 } from '@verdaccio/types';
-import { createTarballHash, getLatestVersion, normalizeContributors } from '@verdaccio/utils';
+import { authorUtils, cryptoUtils, pkgUtils } from '@verdaccio/core';
+
+const { createTarballHash } = cryptoUtils;
+const { getLatestVersion } = pkgUtils;
+const { normalizeContributors } = authorUtils;
 
 import { StoragePluginLegacy } from '../../types/custom';
 import { StringValue } from '../types';
@@ -164,7 +168,12 @@ class LocalStorage {
               // an upstream registry may return a malformed tarball url; skip
               // recording this distfile rather than aborting the whole update
               this.logger.warn(
-                { name, version: versionId, tarball: version.dist.tarball, err: err.message },
+                {
+                  name,
+                  version: versionId,
+                  tarball: version.dist.tarball,
+                  err: err.message,
+                },
                 'skipping distfile for @{name}@@{version}: invalid tarball url @{tarball} (@{err})'
               );
               continue;

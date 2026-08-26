@@ -3,7 +3,10 @@ import request from 'supertest';
 import { beforeAll, describe, expect, test, vi } from 'vitest';
 
 import { HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER, fileUtils } from '@verdaccio/core';
-import { ROLES, buildToken } from '@verdaccio/utils';
+import { authUtils, constants } from '@verdaccio/core';
+
+const { ROLES } = constants;
+const { buildToken } = authUtils;
 
 import endPointAPI from '../../../../src/api';
 import { setup } from '../../../../src/lib/logger';

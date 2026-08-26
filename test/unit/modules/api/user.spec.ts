@@ -3,7 +3,9 @@ import supertest from 'supertest';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { API_ERROR, HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core';
-import { buildToken } from '@verdaccio/utils';
+import { authUtils } from '@verdaccio/core';
+
+const { buildToken } = authUtils;
 
 import { createUser, getPackage, initializeServer } from './_helper';
 
