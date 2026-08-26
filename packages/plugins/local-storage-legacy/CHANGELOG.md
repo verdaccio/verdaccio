@@ -1,5 +1,13 @@
 # Change Log
 
+## 11.4.3
+
+### Patch Changes
+
+- Updated dependencies [dd58d20]
+- Updated dependencies [dd58d20]
+  - @verdaccio/core@8.3.0
+
 ## 11.4.2
 
 ### Patch Changes

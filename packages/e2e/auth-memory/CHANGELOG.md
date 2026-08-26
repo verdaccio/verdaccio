@@ -1,5 +1,15 @@
 # @verdaccio/e2e-auth-memory
 
+## 1.0.9
+
+### Patch Changes
+
+- Updated dependencies [dd58d20]
+- Updated dependencies [dd58d20]
+  - @verdaccio/core@8.3.0
+  - @verdaccio/e2e-shared@1.0.9
+  - verdaccio-auth-memory@13.1.3
+
 ## 1.0.8
 
 ### Patch Changes
