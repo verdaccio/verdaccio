@@ -1,5 +1,20 @@
 # Changelog
 
+## 6.10.1
+
+### Patch Changes
+
+- 90d5c20: Import shared helpers from `@verdaccio/core` and drop the deprecated `@verdaccio/utils` dependency
+
+  All internal usages of `@verdaccio/utils` now resolve the same helpers from
+  `@verdaccio/core` (validation, auth, crypto, package and author utilities), and
+  the `@verdaccio/utils` dependency has been removed.
+
+- 7805d50: Limit web UI search responses to 20 packages.
+- c84070b: Update verdaccio dependencies to the `latest` npm dist-tag (`@verdaccio/ui-theme` tracks `next-9`):
+
+  - `@verdaccio/ui-theme`: `9.0.0-next-9.27` → `9.0.0-next-9.28`
+
 ## 6.10.0
 
 ### Minor Changes
