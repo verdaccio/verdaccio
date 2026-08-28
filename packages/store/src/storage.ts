@@ -1715,17 +1715,19 @@ class Storage {
         }
       } catch (err: any) {
         const uplinkName = uplink;
-        const upLinkMeta = localManifest?._uplinks[uplinkName];
+        const upLinkMeta = localManifest?._uplinks?.[uplinkName];
+        const etag = upLinkMeta?.etag;
         // A 304 means the uplink confirms our cached manifest is current; refresh fetched timestamp.
         if (
           err.code === HTTP_STATUS.NOT_MODIFIED &&
           localManifest !== null &&
           validationUtils.isObject(upLinkMeta) &&
-          typeof (upLinkMeta as any).etag === 'string'
+          typeof etag === 'string'
         ) {
-          syncManifest = updateUpLinkMetadata(uplinkName, localManifest, (upLinkMeta as any).etag);
+          syncManifest = updateUpLinkMetadata(uplinkName, localManifest, etag);
+          localManifest = syncManifest;
           found = true;
-          break;
+          continue;
         }
         debug('error captured on uplink %o', err.message);
         uplinksErrors.push(err);

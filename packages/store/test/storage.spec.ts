@@ -1475,6 +1475,36 @@ describe('storage', () => {
         const cachedManifest = await storage.getPackageLocalMetadata(fooManifest.name);
         expect(cachedManifest._uplinks.ver).toEqual(m._uplinks.ver);
       });
+
+      test('should try the next proxy after a 304 response', async () => {
+        const localManifest = generatePackageMetadata('foo-multiple', '8.0.0');
+        localManifest._uplinks.ver = { etag: 'rev_3333', fetched: 1 };
+
+        nock('https://fake.verdaccio.org')
+          .get('/foo-multiple')
+          .matchHeader('if-none-match', 'rev_3333')
+          .reply(304);
+        nock('https://registry.npmjs.org')
+          .get('/foo-multiple')
+          .reply(200, generateRemotePackageMetadata('foo-multiple', '9.0.0'));
+
+        const config = new Config(
+          configExample(
+            { storage: generateRandomStorage() },
+            './fixtures/config/syncMultipleUplinksMetadata.yaml',
+            import.meta.dirname
+          )
+        );
+        const storage = new Storage(config, logger);
+        await storage.init(config);
+
+        const [manifest] = await storage.syncUplinksMetadata('foo-multiple', localManifest, {
+          retry: { limit: 0 },
+        });
+
+        expect((manifest as Manifest).versions['9.0.0']).toBeDefined();
+        expect((manifest as Manifest)._uplinks.ver.fetched).toBeGreaterThan(1);
+      });
     });
 
     describe('success scenarios', () => {
