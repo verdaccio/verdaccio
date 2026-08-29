@@ -69,7 +69,7 @@ export default function (config: Config, auth: Auth, storage: Storage, logger: L
   app.use(encodeScopePackage);
   // for "npm whoami"
   whoami(app);
-  profile(app, auth, config);
+  profile(app, auth, config, storage, logger);
   search(app, logger);
   user(app, auth, config, logger);
   distTags(app, auth, storage, logger);

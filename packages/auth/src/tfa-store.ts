@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import { randomBytes, timingSafeEqual } from 'node:crypto';
+import { createHash, randomBytes, timingSafeEqual } from 'node:crypto';
 import { Secret, TOTP } from 'otpauth';
 
 import { errorUtils } from '@verdaccio/core';
@@ -70,6 +70,18 @@ export interface TfaTokenStorage {
 
 function generateRecoveryCode(): string {
   return randomBytes(8).toString('hex');
+}
+
+/**
+ * Hash a recovery code for storage.
+ *
+ * SHA-256 rather than a password hash on purpose: these are 64 random bits, not
+ * a human-chosen secret, so there is nothing for a slow hash to protect against.
+ * The record is encrypted at rest anyway; this is defence in depth for the case
+ * where a decrypted record leaks.
+ */
+function hashRecoveryCode(plain: string): string {
+  return createHash('sha256').update(plain).digest('hex');
 }
 
 /**
@@ -192,11 +204,7 @@ export class TfaStore {
    * @returns the plain recovery codes, shown to the user exactly once, or
    *   `undefined` when the code is wrong
    */
-  public async completeEnrolment(
-    username: string,
-    code: string,
-    hashCode: (plain: string) => Promise<string>
-  ): Promise<string[] | undefined> {
+  public async completeEnrolment(username: string, code: string): Promise<string[] | undefined> {
     const record = await this.get(username);
     if (!record || record.pending === false) {
       return undefined;
@@ -206,15 +214,11 @@ export class TfaStore {
     }
 
     const plainCodes = Array.from({ length: RECOVERY_CODE_COUNT }, generateRecoveryCode);
-    const hashed: string[] = [];
-    for (const plain of plainCodes) {
-      hashed.push(await hashCode(plain));
-    }
 
     await this.save(username, {
       ...record,
       pending: false,
-      recoveryCodes: hashed,
+      recoveryCodes: plainCodes.map(hashRecoveryCode),
       failedAttempts: 0,
     });
     debug('enrolment completed for %o', username);
@@ -234,13 +238,8 @@ export class TfaStore {
    * account is locked out for a while once they pile up. A success resets the
    * counter.
    *
-   * @param compareCode compares a plain recovery code against its stored hash
    */
-  public async verify(
-    username: string,
-    code: string,
-    compareCode: (plain: string, hashed: string) => Promise<boolean>
-  ): Promise<boolean> {
+  public async verify(username: string, code: string): Promise<boolean> {
     const record = await this.get(username);
     if (!record || record.pending) {
       return false;
@@ -259,7 +258,7 @@ export class TfaStore {
       return true;
     }
 
-    const recoveryIndex = await this.findRecoveryCode(record, code, compareCode);
+    const recoveryIndex = this.findRecoveryCode(record, code);
     if (recoveryIndex >= 0) {
       // recovery codes are single use
       const remaining = record.recoveryCodes.filter((_code, index) => index !== recoveryIndex);
@@ -280,17 +279,9 @@ export class TfaStore {
     return false;
   }
 
-  private async findRecoveryCode(
-    record: TfaRecord,
-    code: string,
-    compareCode: (plain: string, hashed: string) => Promise<boolean>
-  ): Promise<number> {
-    for (const [index, hashed] of record.recoveryCodes.entries()) {
-      if (await compareCode(code, hashed)) {
-        return index;
-      }
-    }
-    return -1;
+  private findRecoveryCode(record: TfaRecord, code: string): number {
+    const candidate = hashRecoveryCode(code.trim());
+    return record.recoveryCodes.findIndex((hashed) => safeEqual(candidate, hashed));
   }
 
   private async registerFailure(username: string, record: TfaRecord): Promise<void> {

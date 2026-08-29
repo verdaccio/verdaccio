@@ -31,10 +31,6 @@ class FakeTokenStorage {
   }
 }
 
-/** Hashers stubbed with a marker so tests do not pay for bcrypt. */
-const hashCode = async (plain: string) => `hashed:${plain}`;
-const compareCode = async (plain: string, hashed: string) => hashed === `hashed:${plain}`;
-
 function currentCode(secretBase32: string): string {
   return new TOTP({
     algorithm: 'SHA1',
@@ -51,7 +47,7 @@ function buildStore(storage = new FakeTokenStorage()) {
 async function enrol(mode: 'auth-only' | 'auth-and-writes' = 'auth-and-writes') {
   const { store, storage } = buildStore();
   const { record } = await store.beginEnrolment('jota', mode, 'Verdaccio');
-  const codes = await store.completeEnrolment('jota', currentCode(record.secret), hashCode);
+  const codes = await store.completeEnrolment('jota', currentCode(record.secret));
   return { store, storage, secret: record.secret, codes: codes as string[] };
 }
 
@@ -136,7 +132,7 @@ describe('TfaStore', () => {
       const { store } = buildStore();
       const { record } = await store.beginEnrolment('jota', 'auth-and-writes', 'Verdaccio');
 
-      const codes = await store.completeEnrolment('jota', currentCode(record.secret), hashCode);
+      const codes = await store.completeEnrolment('jota', currentCode(record.secret));
 
       expect(codes).toHaveLength(10);
       expect(new Set(codes).size).toBe(10);
@@ -146,7 +142,7 @@ describe('TfaStore', () => {
       const { store } = buildStore();
       await store.beginEnrolment('jota', 'auth-and-writes', 'Verdaccio');
 
-      await expect(store.completeEnrolment('jota', '000000', hashCode)).resolves.toBeUndefined();
+      await expect(store.completeEnrolment('jota', '000000')).resolves.toBeUndefined();
       await expect(store.status('jota')).resolves.toMatchObject({ pending: true });
     });
 
@@ -164,20 +160,20 @@ describe('TfaStore', () => {
     test('should accept the current one-time password', async () => {
       const { store, secret } = await enrol();
 
-      await expect(store.verify('jota', currentCode(secret), compareCode)).resolves.toBe(true);
+      await expect(store.verify('jota', currentCode(secret))).resolves.toBe(true);
     });
 
     test('should reject a wrong one-time password', async () => {
       const { store } = await enrol();
 
-      await expect(store.verify('jota', '000000', compareCode)).resolves.toBe(false);
+      await expect(store.verify('jota', '000000')).resolves.toBe(false);
     });
 
     test('should reject anything that is not six digits', async () => {
       const { store } = await enrol();
 
       for (const bad of ['', '12345', '1234567', 'abcdef', '12 34 56']) {
-        await expect(store.verify('jota', bad, compareCode)).resolves.toBe(false);
+        await expect(store.verify('jota', bad)).resolves.toBe(false);
       }
     });
 
@@ -185,49 +181,47 @@ describe('TfaStore', () => {
       const { store } = buildStore();
       const { record } = await store.beginEnrolment('jota', 'auth-and-writes', 'Verdaccio');
 
-      await expect(store.verify('jota', currentCode(record.secret), compareCode)).resolves.toBe(
-        false
-      );
+      await expect(store.verify('jota', currentCode(record.secret))).resolves.toBe(false);
     });
 
     test('should accept a recovery code exactly once', async () => {
       const { store, codes } = await enrol();
 
-      await expect(store.verify('jota', codes[0], compareCode)).resolves.toBe(true);
+      await expect(store.verify('jota', codes[0])).resolves.toBe(true);
       // single use: the same code must not work twice
-      await expect(store.verify('jota', codes[0], compareCode)).resolves.toBe(false);
-      await expect(store.verify('jota', codes[1], compareCode)).resolves.toBe(true);
+      await expect(store.verify('jota', codes[0])).resolves.toBe(false);
+      await expect(store.verify('jota', codes[1])).resolves.toBe(true);
     });
 
     test('should lock out after repeated failures even with the right code', async () => {
       const { store, secret } = await enrol();
 
       for (let attempt = 0; attempt < 5; attempt++) {
-        await expect(store.verify('jota', '000000', compareCode)).resolves.toBe(false);
+        await expect(store.verify('jota', '000000')).resolves.toBe(false);
       }
 
       // six digits are brute-forceable without this
-      await expect(store.verify('jota', currentCode(secret), compareCode)).resolves.toBe(false);
+      await expect(store.verify('jota', currentCode(secret))).resolves.toBe(false);
     });
 
     test('should clear the failure count on a success', async () => {
       const { store, secret } = await enrol();
 
-      await store.verify('jota', '000000', compareCode);
-      await store.verify('jota', '000000', compareCode);
-      await expect(store.verify('jota', currentCode(secret), compareCode)).resolves.toBe(true);
+      await store.verify('jota', '000000');
+      await store.verify('jota', '000000');
+      await expect(store.verify('jota', currentCode(secret))).resolves.toBe(true);
 
       // the earlier failures must not carry over
       for (let attempt = 0; attempt < 4; attempt++) {
-        await store.verify('jota', '000000', compareCode);
+        await store.verify('jota', '000000');
       }
-      await expect(store.verify('jota', currentCode(secret), compareCode)).resolves.toBe(true);
+      await expect(store.verify('jota', currentCode(secret))).resolves.toBe(true);
     });
 
     test('should reject for a user without two-factor', async () => {
       const { store } = buildStore();
 
-      await expect(store.verify('nobody', '123456', compareCode)).resolves.toBe(false);
+      await expect(store.verify('nobody', '123456')).resolves.toBe(false);
     });
   });
 
@@ -250,6 +244,20 @@ describe('TfaStore', () => {
       // reporting "no two-factor" here would silently drop the second factor
       await expect(otherKey.get('jota')).rejects.toMatchObject({ code: 500 });
       await expect(otherKey.status('jota')).rejects.toThrow();
+    });
+
+    test('should leave users without two-factor untouched by a rotated secret', async () => {
+      const { storage } = await enrol();
+      const rotated = new TfaStore(storage, 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', logger);
+
+      // 'jota' is locked out by the rotation, but nobody else is: the throw is
+      // only reachable once a record exists, so users who never enabled 2FA
+      // keep working normally
+      await expect(rotated.get('jota')).rejects.toThrow();
+      await expect(rotated.get('never-enrolled')).resolves.toBeUndefined();
+      await expect(rotated.status('never-enrolled')).resolves.toBe(false);
+      await expect(rotated.isEnabled('never-enrolled')).resolves.toBe(false);
+      await expect(rotated.verify('never-enrolled', '123456')).resolves.toBe(false);
     });
 
     test('should fail loudly when the record is corrupted', async () => {

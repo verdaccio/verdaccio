@@ -1,5 +1,5 @@
 import React from 'react';
-import { describe, expect, test, vi } from 'vitest';
+import { beforeAll, describe, expect, test, vi } from 'vitest';
 
 import { MemoryRouter, renderWith, screen, waitFor } from '../../test/test-react-testing-library';
 import AppRoute from './AppRoute';
@@ -20,6 +20,14 @@ function renderAt(path: string, flags: Record<string, boolean>) {
 }
 
 describe('<AppRoute /> stage routes', () => {
+  beforeAll(async () => {
+    // AppRoute loads the stage pages lazily. Without warming the chunk here its
+    // transitive imports (MUI icons) keep resolving after the test environment
+    // is torn down, which vitest reports as an unhandled error.
+    await import('../../pages/Stage/StageList');
+    await import('../../pages/Stage/StageDetail');
+  });
+
   test('should not resolve the stage route when the flag is off', async () => {
     renderAt('/-/web/stage', { stage: false });
 
