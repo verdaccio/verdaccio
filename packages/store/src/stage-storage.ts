@@ -4,7 +4,7 @@ import { Readable } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
 
 import type { pluginUtils } from '@verdaccio/core';
-import { errorUtils } from '@verdaccio/core';
+import { errorUtils, validationUtils } from '@verdaccio/core';
 import type { Logger, Manifest } from '@verdaccio/types';
 
 import { STORAGE } from './lib/storage-utils';
@@ -138,6 +138,15 @@ export class StageStorage {
     tarball: Buffer,
     { signal }: { signal: AbortSignal }
   ): Promise<StageRecord> {
+    // the filename reaches us from the `_attachments` key of the request, so it
+    // is attacker controlled. The regular publish path asserts the same thing
+    // before writing; without it a name like `..` escapes the item folder and
+    // the write fails inside an unawaited stream handler, taking the process
+    // down rather than the request.
+    if (validationUtils.validateName(input.tarballFilename) === false) {
+      throw errorUtils.getBadRequest(`invalid tarball name ${input.tarballFilename}`);
+    }
+
     const record: StageRecord = {
       id: randomUUID(),
       packageName: input.packageName,

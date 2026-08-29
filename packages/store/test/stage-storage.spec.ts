@@ -79,6 +79,18 @@ describe('StageStorage', () => {
       expect(fs.existsSync(path.join(itemFolder, 'foo-1.0.0.tgz'))).toBe(true);
     });
 
+    test('should refuse a tarball name that escapes the item folder', async () => {
+      const { stage } = await buildStageStorage();
+
+      // the name comes from the `_attachments` key of the request, so it is
+      // attacker controlled; `..` used to reach the plugin and crash the process
+      for (const bad of ['..', '../escape.tgz', '../../../evil.tgz', '']) {
+        await expect(
+          stage.add(addInput({ tarballFilename: bad }), tarball, { signal })
+        ).rejects.toMatchObject({ code: 400 });
+      }
+    });
+
     test('should keep the tarball byte identical', async () => {
       const { stage } = await buildStageStorage();
       const record = await stage.add(addInput(), tarball, { signal });

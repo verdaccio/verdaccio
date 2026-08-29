@@ -31,13 +31,20 @@ class FakeTokenStorage {
   }
 }
 
-function currentCode(secretBase32: string): string {
+/**
+ * Code for the current 30s step, or a neighbouring one.
+ *
+ * Codes are single use, so a test that enrols and then verifies needs the next
+ * step: the enrolment code is spent. Step +1 is still inside the tolerance
+ * window, so the store accepts it.
+ */
+function currentCode(secretBase32: string, stepOffset = 0): string {
   return new TOTP({
     algorithm: 'SHA1',
     digits: 6,
     period: 30,
     secret: Secret.fromBase32(secretBase32),
-  }).generate();
+  }).generate({ timestamp: Date.now() + stepOffset * 30_000 });
 }
 
 function buildStore(storage = new FakeTokenStorage()) {
@@ -160,7 +167,29 @@ describe('TfaStore', () => {
     test('should accept the current one-time password', async () => {
       const { store, secret } = await enrol();
 
-      await expect(store.verify('jota', currentCode(secret))).resolves.toBe(true);
+      // the enrolment code is spent, so this uses the next step
+      await expect(store.verify('jota', currentCode(secret, 1))).resolves.toBe(true);
+    });
+
+    test('should reject a one-time password that was already used', async () => {
+      const { store, secret } = await enrol();
+      const code = currentCode(secret, 1);
+
+      await expect(store.verify('jota', code)).resolves.toBe(true);
+      // RFC 6238 requires single use: the code stays valid for up to 90s with
+      // the tolerance window, so replay is a real window without this
+      await expect(store.verify('jota', code)).resolves.toBe(false);
+      await expect(store.verify('jota', code)).resolves.toBe(false);
+    });
+
+    test('should not let the enrolment code be reused to authorise a write', async () => {
+      const { store } = buildStore();
+      const { record } = await store.beginEnrolment('jota', 'auth-and-writes', 'Verdaccio');
+      const code = currentCode(record.secret);
+      await store.completeEnrolment('jota', code);
+
+      // the code that confirmed enrolment is spent
+      await expect(store.verify('jota', code)).resolves.toBe(false);
     });
 
     test('should reject a wrong one-time password', async () => {
@@ -201,21 +230,23 @@ describe('TfaStore', () => {
       }
 
       // six digits are brute-forceable without this
-      await expect(store.verify('jota', currentCode(secret))).resolves.toBe(false);
+      await expect(store.verify('jota', currentCode(secret, 1))).resolves.toBe(false);
     });
 
     test('should clear the failure count on a success', async () => {
-      const { store, secret } = await enrol();
+      const { store, secret, codes } = await enrol();
 
       await store.verify('jota', '000000');
       await store.verify('jota', '000000');
-      await expect(store.verify('jota', currentCode(secret))).resolves.toBe(true);
+      await expect(store.verify('jota', currentCode(secret, 1))).resolves.toBe(true);
 
-      // the earlier failures must not carry over
+      // four more failures would lock the account if the earlier two had
+      // carried over. A recovery code is used to check, since only one TOTP
+      // step can succeed inside the same window.
       for (let attempt = 0; attempt < 4; attempt++) {
         await store.verify('jota', '000000');
       }
-      await expect(store.verify('jota', currentCode(secret))).resolves.toBe(true);
+      await expect(store.verify('jota', codes[0])).resolves.toBe(true);
     });
 
     test('should reject for a user without two-factor', async () => {

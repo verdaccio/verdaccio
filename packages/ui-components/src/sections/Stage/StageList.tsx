@@ -1,4 +1,3 @@
-import DownloadIcon from '@mui/icons-material/Download';
 import Alert from '@mui/material/Alert';
 import {
   Box,
@@ -13,7 +12,6 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Tooltip,
   Typography,
 } from '@mui/material';
 import React, { useCallback, useState } from 'react';
@@ -102,15 +100,13 @@ const StageList: React.FC = () => {
                   <TableCell>{new Date(item.createdAt).toLocaleString()}</TableCell>
                   <TableCell align="right">
                     <Box alignItems="center" display="flex" gap={1} justifyContent="flex-end">
-                      <Tooltip title={t('stage.action.download')}>
-                        <Button
-                          aria-label={t('stage.action.download')}
-                          onClick={() => handleDownload(item)}
-                          size="small"
-                        >
-                          <DownloadIcon fontSize="small" />
-                        </Button>
-                      </Tooltip>
+                      <Button
+                        data-testid={`stage-download-${item.id}`}
+                        onClick={() => handleDownload(item)}
+                        size="small"
+                      >
+                        {t('stage.action.download')}
+                      </Button>
                       <StageActions item={item} onDone={() => mutate()} />
                     </Box>
                   </TableCell>

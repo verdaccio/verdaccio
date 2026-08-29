@@ -21,11 +21,16 @@ function renderAt(path: string, flags: Record<string, boolean>) {
 
 describe('<AppRoute /> stage routes', () => {
   beforeAll(async () => {
-    // AppRoute loads the stage pages lazily. Without warming the chunk here its
-    // transitive imports (MUI icons) keep resolving after the test environment
-    // is torn down, which vitest reports as an unhandled error.
-    await import('../../pages/Stage/StageList');
-    await import('../../pages/Stage/StageDetail');
+    // AppRoute loads the stage pages lazily, and vite resolves their deep MUI
+    // imports as separate requests that outlive the module evaluation. Left
+    // alone they land after vitest tears the environment down, which it reports
+    // as an unhandled error. Warming both the pages and the deep modules they
+    // pull puts everything in the module cache first.
+    await Promise.all([
+      import('@mui/material/Alert'),
+      import('../../pages/Stage/StageList'),
+      import('../../pages/Stage/StageDetail'),
+    ]);
   });
 
   test('should not resolve the stage route when the flag is off', async () => {

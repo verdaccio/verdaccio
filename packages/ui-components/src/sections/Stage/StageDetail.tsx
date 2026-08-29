@@ -1,4 +1,3 @@
-import DownloadIcon from '@mui/icons-material/Download';
 import Alert from '@mui/material/Alert';
 import {
   Box,
@@ -84,7 +83,7 @@ const StageDetail: React.FC = () => {
       </Paper>
 
       <Box display="flex" gap={1} marginTop={2}>
-        <Button onClick={handleDownload} size="small" startIcon={<DownloadIcon />}>
+        <Button onClick={handleDownload} size="small" variant="outlined">
           {t('stage.action.download')}
         </Button>
         <StageActions item={data} onDone={() => navigate(Route.STAGE)} />

@@ -45,6 +45,15 @@ export interface TfaRecord {
   failedAttempts: number;
   /** ISO timestamp; while in the future, verification is refused outright. */
   lockedUntil?: string;
+  /**
+   * Highest TOTP time step already accepted.
+   *
+   * RFC 6238 §5.2 requires a code to be usable only once: a code stays valid for
+   * up to 90 seconds with the tolerance window, and without this a code observed
+   * in a CI log or over someone's shoulder could be replayed for the rest of
+   * that window.
+   */
+  lastUsedStep?: number;
 }
 
 /** What `GET /-/npm/v1/user` reports under `tfa`. */
@@ -209,7 +218,8 @@ export class TfaStore {
     if (!record || record.pending === false) {
       return undefined;
     }
-    if (this.verifyTotp(record, code) === false) {
+    const step = this.verifyTotp(record, code);
+    if (step === undefined) {
       return undefined;
     }
 
@@ -220,6 +230,8 @@ export class TfaStore {
       pending: false,
       recoveryCodes: plainCodes.map(hashRecoveryCode),
       failedAttempts: 0,
+      // the confirming code is spent, it must not also work for a publish
+      lastUsedStep: step,
     });
     debug('enrolment completed for %o', username);
     return plainCodes;
@@ -253,8 +265,19 @@ export class TfaStore {
       return false;
     }
 
-    if (this.verifyTotp(record, code)) {
-      await this.save(username, { ...record, failedAttempts: 0, lockedUntil: undefined });
+    const step = this.verifyTotp(record, code);
+    if (step !== undefined) {
+      if (record.lastUsedStep !== undefined && step <= record.lastUsedStep) {
+        this.logger.warn({ username }, 'rejected a replayed one-time password for @{username}');
+        await this.registerFailure(username, record);
+        return false;
+      }
+      await this.save(username, {
+        ...record,
+        failedAttempts: 0,
+        lockedUntil: undefined,
+        lastUsedStep: step,
+      });
       return true;
     }
 
@@ -300,14 +323,21 @@ export class TfaStore {
     }
   }
 
-  private verifyTotp(record: TfaRecord, code: string): boolean {
+  /**
+   * @returns the absolute time step the code belongs to, or `undefined` when it
+   *   does not match. The step is what makes replay detectable.
+   */
+  private verifyTotp(record: TfaRecord, code: string): number | undefined {
     if (typeof code !== 'string' || /^\d{6}$/.test(code.trim()) === false) {
-      return false;
+      return undefined;
     }
     const totp = this.buildTotp(record.secret);
     // `validate` returns the matching time-step delta, or null
     const delta = totp.validate({ token: code.trim(), window: TOTP_WINDOW });
-    return delta !== null;
+    if (delta === null) {
+      return undefined;
+    }
+    return Math.floor(Date.now() / 1000 / TOTP_PERIOD) + delta;
   }
 
   private buildTotp(secret: string, label?: string, issuer?: string): TOTP {

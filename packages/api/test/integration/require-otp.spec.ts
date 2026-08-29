@@ -10,14 +10,21 @@ import { buildToken, getNewToken, initializeServer, publishVersionWithToken } fr
 const PROFILE = '/-/npm/v1/user';
 const password = 'secretPass';
 
-function codeFor(otpauthUrl: string): string {
+/**
+ * Code for the current 30s step, or a neighbouring one.
+ *
+ * Codes are single use, so a test that enrols and then publishes needs the next
+ * step: the code that confirmed enrolment is already spent. Step +1 is still
+ * inside the tolerance window.
+ */
+function codeFor(otpauthUrl: string, stepOffset = 0): string {
   const secret = new URL(otpauthUrl).searchParams.get('secret') as string;
   return new TOTP({
     algorithm: 'SHA1',
     digits: 6,
     period: 30,
     secret: Secret.fromBase32(secret),
-  }).generate();
+  }).generate({ timestamp: Date.now() + stepOffset * 30_000 });
 }
 
 async function buildApp(name: string, config = 'tfa-publish.yaml') {
@@ -76,7 +83,9 @@ describe('one-time password enforcement', () => {
       expect(header.toLowerCase().split(/,\s*/)).toContain('otp');
       expect(header.toLowerCase()).not.toContain('bearer');
       // publishing with the code then works, proving the challenge was real
-      await publish(app, 'otp-header-pkg', token, codeFor(otpauthUrl)).expect(HTTP_STATUS.CREATED);
+      await publish(app, 'otp-header-pkg', token, codeFor(otpauthUrl, 1)).expect(
+        HTTP_STATUS.CREATED
+      );
     });
 
     test('should keep a body npm can fall back on', async () => {
@@ -132,7 +141,7 @@ describe('one-time password enforcement', () => {
         .post(PROFILE)
         .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
         .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
-        .set('npm-otp', codeFor(otpauthUrl))
+        .set('npm-otp', codeFor(otpauthUrl, 1))
         .send(JSON.stringify({ tfa: { mode: 'disable', password } }))
         .expect(HTTP_STATUS.OK);
 
