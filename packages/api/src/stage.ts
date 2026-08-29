@@ -186,6 +186,14 @@ export default function stage(
           { signal: abort.signal }
         );
 
+        // a staged version needs a maintainer to act on it, so it is worth
+        // announcing even though nothing became installable
+        void notify(manifest, config, req.remote_user, `${packageName}@${version}`, 'stage').catch(
+          (error: any) => {
+            logger.error({ error: error?.message }, 'notify batch service has failed: @{error}');
+          }
+        );
+
         res.status(HTTP_STATUS.CREATED);
         return next({
           message: 'Package version staged successfully.',
@@ -396,6 +404,21 @@ export default function stage(
         }
 
         await stageStorage.remove(record.id);
+
+        const rejected: Partial<Manifest> = {
+          name: record.packageName,
+          versions: { [record.version]: { version: record.version } } as any,
+        };
+        void notify(
+          rejected,
+          config,
+          req.remote_user,
+          `${record.packageName}@${record.version}`,
+          'unstage'
+        ).catch((error: any) => {
+          logger.error({ error: error?.message }, 'notify batch service has failed: @{error}');
+        });
+
         logger.info(
           { packageName: record.packageName, version: record.version, stageId: record.id },
           'rejected staged @{packageName}@@{version} (@{stageId})'

@@ -1,5 +1,6 @@
+import nock from 'nock';
 import supertest from 'supertest';
-import { beforeAll, describe, expect, test } from 'vitest';
+import { beforeAll, beforeEach, describe, expect, test } from 'vitest';
 
 import { HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
@@ -522,6 +523,101 @@ describe('stage', () => {
       await authed(supertest(app).delete(`/-/stage/${staged.body.stageId}`), token).expect(
         HTTP_STATUS.NO_CONTENT
       );
+    });
+  });
+
+  describe('notifications', () => {
+    const notifyDomain = 'http://slack-service';
+    const notifyPath = '/foo?auth_token=mySecretToken';
+
+    // notifications are fired without blocking the response, so poll the scope
+    // instead of assuming it completed by the time the request resolved
+    const waitForScopeDone = async (scope: nock.Scope, timeout = 3000): Promise<void> => {
+      const start = Date.now();
+      while (!scope.isDone() && Date.now() - start < timeout) {
+        await new Promise((resolve) => setTimeout(resolve, 10));
+      }
+    };
+
+    beforeEach(() => {
+      nock.cleanAll();
+    });
+
+    async function buildNotifyApp() {
+      const app = await initializeServer('stage-notify.yaml');
+      const token = await getNewToken(app, { name: 'owner', password: credentials.password });
+      return { app, token };
+    }
+
+    test('should notify with publishType stage when a version is staged', async () => {
+      const { app, token } = await buildNotifyApp();
+      const scope = nock(notifyDomain)
+        .post(notifyPath, (body) => {
+          expect(body).toEqual({
+            publishedPackage: 'notify-staged@1.0.0',
+            // staging is its own event: nothing became installable
+            publishType: 'stage',
+          });
+          return true;
+        })
+        .reply(200);
+
+      await stageVersion(app, 'notify-staged', '1.0.0', token).expect(HTTP_STATUS.CREATED);
+
+      await waitForScopeDone(scope);
+      expect(scope.isDone()).toBe(true);
+    });
+
+    test('should notify with publishType unstage when a version is rejected', async () => {
+      const { app, token } = await buildNotifyApp();
+      const staged = await stageVersion(app, 'notify-rejected', '1.0.0', token).expect(
+        HTTP_STATUS.CREATED
+      );
+      nock.cleanAll();
+
+      const scope = nock(notifyDomain)
+        .post(notifyPath, (body) => {
+          expect(body).toEqual({
+            publishedPackage: 'notify-rejected@1.0.0',
+            publishType: 'unstage',
+          });
+          return true;
+        })
+        .reply(200);
+
+      await authed(supertest(app).delete(`/-/stage/${staged.body.stageId}`), token).expect(
+        HTTP_STATUS.NO_CONTENT
+      );
+
+      await waitForScopeDone(scope);
+      expect(scope.isDone()).toBe(true);
+    });
+
+    test('should notify with publishType publish when a version is approved', async () => {
+      const { app, token } = await buildNotifyApp();
+      const staged = await stageVersion(app, 'notify-approved', '1.0.0', token).expect(
+        HTTP_STATUS.CREATED
+      );
+      nock.cleanAll();
+
+      const scope = nock(notifyDomain)
+        .post(notifyPath, (body) => {
+          // approving really publishes, so consumers listening for publishes
+          // must see it as one
+          expect(body).toEqual({
+            publishedPackage: 'notify-approved@1.0.0',
+            publishType: 'publish',
+          });
+          return true;
+        })
+        .reply(200);
+
+      await authed(supertest(app).post(`/-/stage/${staged.body.stageId}/approve`), token).expect(
+        HTTP_STATUS.CREATED
+      );
+
+      await waitForScopeDone(scope);
+      expect(scope.isDone()).toBe(true);
     });
   });
 
