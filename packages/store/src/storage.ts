@@ -73,6 +73,7 @@ import {
   updateUpLinkMetadata,
 } from './lib/storage-utils';
 import { getVersion, removeLowerVersions } from './lib/versions-utils';
+import { StageStorage } from './stage-storage';
 import { LocalStorage } from './local-storage';
 import type { IGetPackageOptionsNext, OwnerManifestBody } from './type';
 
@@ -89,6 +90,7 @@ class Storage {
   public readonly logger: Logger;
   public readonly uplinks: ProxyInstanceList;
   private searchService: Search;
+  private stageStorage: StageStorage | null = null;
   public constructor(config: Config, logger: Logger) {
     this.config = config;
     this.logger = logger.child({ module: 'storage' });
@@ -695,6 +697,20 @@ class Storage {
       this.filters = await loadFilterPlugins(this.config, this.logger);
     }
     return;
+  }
+
+  /**
+   * Persistence for the staged publish workflow (`npm stage`).
+   *
+   * Memoized on purpose: {@link StageStorage} serializes index mutations with a
+   * per-instance queue, so handing out more than one instance would silently
+   * defeat it.
+   */
+  public getStageStorage(): StageStorage {
+    if (this.stageStorage === null) {
+      this.stageStorage = new StageStorage(this.localStorage.getStoragePlugin(), this.logger);
+    }
+    return this.stageStorage;
   }
 
   /**

@@ -202,5 +202,38 @@
     "title": "Translations",
     "contribute": "If your language is not listed here or is not fully translated, please contribute to the translation. You can find the source code on [our main repository](https://github.com/verdaccio/verdaccio/blob/master/packages/plugins/ui-theme/src/i18n/ABOUT_TRANSLATIONS.md)",
     "description": "This is the configuration details for the language. Select a language to select a client side translation."
+  },
+  "stage": {
+    "menu": "Staged packages",
+    "title": "Staged packages",
+    "description": "Package versions waiting for review. They are not installable until a maintainer approves them.",
+    "empty": "There are no staged package versions.",
+    "backToList": "Back to staged packages",
+    "column": {
+      "package": "Package",
+      "version": "Version",
+      "tag": "Tag",
+      "stagedBy": "Staged by",
+      "date": "Date staged",
+      "access": "Access",
+      "shasum": "Shasum",
+      "actions": "Actions"
+    },
+    "action": {
+      "approve": "Approve",
+      "reject": "Reject",
+      "download": "Download tarball"
+    },
+    "confirm": {
+      "approveTitle": "Approve this version?",
+      "approveBody": "This publishes {{package}}@{{version}} under the tag \"{{tag}}\". It will be installable right away.",
+      "rejectTitle": "Reject this version?",
+      "rejectBody": "This permanently deletes the staged record and tarball for {{package}}@{{version}}. It cannot be undone."
+    },
+    "error": {
+      "list": "The staged packages could not be loaded.",
+      "notFound": "This staged package version does not exist or you cannot see it.",
+      "action": "The action could not be completed."
+    }
   }
 }

@@ -104,6 +104,23 @@ export type FlagsConfig = {
   createUser?: boolean;
 
   /**
+   * Enables the staged publish workflow (`npm stage`).
+   *
+   * Adds the `/-/stage` endpoints, which let a version be uploaded for review
+   * and only become installable once a maintainer approves it.
+   *
+   * @default false
+   */
+  stage?: boolean;
+
+  /**
+   * Enables two-factor authentication (TOTP).
+   *
+   * @default false
+   */
+  tfa?: boolean;
+
+  /**
    * Enables web-based login flow.
    *
    * @default false

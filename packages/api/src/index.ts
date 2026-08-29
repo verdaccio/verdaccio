@@ -21,6 +21,7 @@ import pkg from './package';
 import ping from './ping';
 import publish from './publish';
 import search from './search';
+import stage from './stage';
 import user from './user';
 import login from './v1/login';
 import profile from './v1/profile';
@@ -76,6 +77,11 @@ export default function (config: Config, auth: Auth, storage: Storage, logger: L
   ping(app);
   v1Search(app, auth, storage, config, logger);
   token(app, auth, storage, config, logger);
+  // must stay before pkg(): its '/:package{/:version}' route would otherwise
+  // swallow GET /-/stage
+  if (config.flags?.stage) {
+    stage(app, auth, storage, config, logger);
+  }
   pkg(app, auth, storage, logger);
   if (config.flags?.webLogin) {
     login(app, auth, storage, config, logger);

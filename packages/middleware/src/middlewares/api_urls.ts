@@ -16,6 +16,21 @@ export enum PUBLISH_API_ENDPOINTS {
   remove_tarball = '/:package/-/:filename/-rev/:revision',
 }
 
+/**
+ * Staged publish workflow (`npm stage`).
+ *
+ * `stage_package` must keep the literal `package` segment before `:stageId`
+ * routes so it is not swallowed by them, and every `:stageId` is constrained to
+ * a UUID (the npm CLI validates the format client side before calling).
+ */
+export enum STAGE_API_ENDPOINTS {
+  list = '/-/stage',
+  stage_package = '/-/stage/package/:package',
+  item = '/-/stage/:stageId',
+  approve = '/-/stage/:stageId/approve',
+  tarball = '/-/stage/:stageId/tarball',
+}
+
 export enum PING_API_ENDPOINTS {
   ping = '/-/ping',
 }

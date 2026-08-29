@@ -130,6 +130,39 @@ describe('check basic content parsed file', () => {
   });
 });
 
+describe('flags', () => {
+  test('should default every flag to false', () => {
+    const config = new Config(getDefaultConfig());
+
+    expect(config.flags).toEqual({
+      changePassword: false,
+      createUser: false,
+      stage: false,
+      tfa: false,
+      webLogin: false,
+    });
+  });
+
+  test('should keep the other flags disabled when one is opted in', () => {
+    const config = new Config({ ...getDefaultConfig(), flags: { stage: true } });
+
+    expect(config.flags).toEqual({
+      changePassword: false,
+      createUser: false,
+      stage: true,
+      tfa: false,
+      webLogin: false,
+    });
+  });
+
+  test('should enable stage and tfa independently', () => {
+    const config = new Config({ ...getDefaultConfig(), flags: { stage: true, tfa: true } });
+
+    expect(config.flags.stage).toBe(true);
+    expect(config.flags.tfa).toBe(true);
+  });
+});
+
 describe('checkSecretKey', () => {
   test('with default.yaml and pre selected secret', () => {
     const config = new Config(parseConfigFile(resolveConf('default')));
