@@ -1,4 +1,4 @@
-import type { Response, Router } from 'express';
+import type { RequestHandler, Response, Router } from 'express';
 import { isBoolean, isNil } from 'lodash-es';
 
 import type { Auth } from '@verdaccio/auth';
@@ -52,7 +52,9 @@ export default function (
   auth: Auth,
   storage: Storage,
   config: Config,
-  logger: Logger
+  logger: Logger,
+  /** No-op unless the caller has two-factor enabled for this operation. */
+  requireOtp: RequestHandler = (_req, _res, next) => next()
 ): void {
   route.get(
     TOKEN_API_ENDPOINTS.get_tokens,
@@ -90,6 +92,7 @@ export default function (
   route.post(
     TOKEN_API_ENDPOINTS.get_tokens,
     rateLimit(config?.userRateLimit),
+    requireOtp,
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer) {
       const { password } = req.body;
       const { name } = req.remote_user;

@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import type { Response, Router } from 'express';
+import type { RequestHandler, Response, Router } from 'express';
 
 import type { Auth } from '@verdaccio/auth';
 import { getApiToken } from '@verdaccio/auth';
@@ -22,7 +22,14 @@ import type { $NextFunctionVer, $RequestExtend } from '../types/custom';
 
 const debug = buildDebug('verdaccio:api:user');
 
-export default function (route: Router, auth: Auth, config: Config, logger: Logger): void {
+export default function (
+  route: Router,
+  auth: Auth,
+  config: Config,
+  logger: Logger,
+  /** No-op unless the user logging in has two-factor enabled. */
+  requireOtp: RequestHandler = (_req, _res, next) => next()
+): void {
   route.get(
     USER_API_ENDPOINTS.get_user,
     rateLimit(config?.userRateLimit),
@@ -74,6 +81,7 @@ export default function (route: Router, auth: Auth, config: Config, logger: Logg
   route.put(
     USER_API_ENDPOINTS.add_user,
     rateLimit(config?.userRateLimit),
+    requireOtp,
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       const { name, password } = req.body;
       debug('login or adduser');

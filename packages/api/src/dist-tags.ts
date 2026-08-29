@@ -1,4 +1,4 @@
-import type { Router } from 'express';
+import type { RequestHandler, Router } from 'express';
 
 import type { Auth } from '@verdaccio/auth';
 import { HEADERS, constants, errorUtils, reqUtils } from '@verdaccio/core';
@@ -8,7 +8,14 @@ import type { Logger } from '@verdaccio/types';
 
 import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
 
-export default function (route: Router, auth: Auth, storage: Storage, logger: Logger): void {
+export default function (
+  route: Router,
+  auth: Auth,
+  storage: Storage,
+  logger: Logger,
+  /** No-op unless the caller has two-factor enabled for this operation. */
+  requireOtp: RequestHandler = (_req, _res, next) => next()
+): void {
   const can = allow(auth, {
     beforeAll: (a, b) => logger.trace(a, b),
     afterAll: (a, b) => logger.trace(a, b),
@@ -40,6 +47,7 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
   route.put(
     DIST_TAGS_API_ENDPOINTS.tagging,
     can('publish'),
+    requireOtp,
     media(HEADERS.JSON),
     addTagPackageVersionMiddleware
   );
@@ -47,6 +55,7 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
   route.put(
     DIST_TAGS_API_ENDPOINTS.tagging_package,
     can('publish'),
+    requireOtp,
     media(HEADERS.JSON),
     addTagPackageVersionMiddleware
   );
@@ -54,6 +63,7 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
   route.delete(
     DIST_TAGS_API_ENDPOINTS.tagging_package,
     can('publish'),
+    requireOtp,
     async function (
       req: $RequestExtend,
       res: $ResponseExtend,

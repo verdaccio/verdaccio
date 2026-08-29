@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import type { Router } from 'express';
+import type { RequestHandler, Router } from 'express';
 
 import type { Auth } from '@verdaccio/auth';
 import {
@@ -80,7 +80,12 @@ export default function stage(
   auth: Auth,
   storage: Storage,
   config: Config,
-  logger: Logger
+  logger: Logger,
+  /**
+   * Guards approval, never staging: publishing without a one-time password and
+   * proving presence at approval time is the point of the whole flow.
+   */
+  requireOtp: RequestHandler = (_req, _res, next) => next()
 ): void {
   const can = allow(auth, {
     beforeAll: (a, b) => logger.trace(a, b),
@@ -300,6 +305,7 @@ export default function stage(
    */
   router.post(
     STAGE_API_ENDPOINTS.approve,
+    requireOtp,
     async function (
       req: $RequestExtend,
       res: $ResponseExtend,
@@ -372,6 +378,7 @@ export default function stage(
   /** Reject a staged version, dropping the record and its tarball. */
   router.delete(
     STAGE_API_ENDPOINTS.item,
+    requireOtp,
     async function (
       req: $RequestExtend,
       res: $ResponseExtend,
