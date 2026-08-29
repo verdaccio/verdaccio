@@ -127,7 +127,9 @@ export default function stage(
    */
   router.post(
     STAGE_API_ENDPOINTS.stage_package,
-    can('publish'),
+    // `stage`, not `publish`: granting it to a group without publish rights is
+    // what makes review a real gate rather than a convention
+    can('stage'),
     media(HEADERS.JSON),
     expectJson,
     async function (
@@ -386,7 +388,10 @@ export default function stage(
     ): Promise<void> {
       try {
         const record = await loadRecord(req);
-        if (!(await canPublish(auth, record.packageName, req.remote_user))) {
+        // whoever staged it may always withdraw it; anyone else needs to be
+        // able to publish the package
+        const isOwnSubmission = record.actor === req.remote_user?.name;
+        if (!isOwnSubmission && !(await canPublish(auth, record.packageName, req.remote_user))) {
           return next(errorUtils.getForbidden(API_ERROR.UNAUTHORIZED_ACCESS));
         }
 

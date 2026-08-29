@@ -48,6 +48,14 @@ export interface PackageAccessYaml {
   proxy?: string;
   access?: string;
   unpublish?: string;
+  /**
+   * Who may submit a version for review with `npm stage publish`.
+   *
+   * Falls back to `publish` when omitted, which keeps the historical behaviour.
+   * Setting it to a narrower group than `publish` is what separates proposing a
+   * release from making one.
+   */
+  stage?: string;
 }
 
 export interface Headers {

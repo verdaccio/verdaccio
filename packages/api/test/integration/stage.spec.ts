@@ -445,6 +445,86 @@ describe('stage', () => {
     });
   });
 
+  describe('the stage permission', () => {
+    // `stage` falls back to `publish` when unset, so every existing
+    // configuration keeps working; setting it to a narrower group is what
+    // separates proposing a release from making one.
+    const asUser = async (name: string) => {
+      const app = await initializeServer('stage-split.yaml');
+      const token = await getNewToken(app, { name, password: credentials.password });
+      return { app, token };
+    };
+
+    test('should let publishers stage when stage is not configured', async () => {
+      const { app, token } = await buildApp();
+
+      // '**' in stage.yaml sets publish but never stage
+      await stageVersion(app, 'fallback-pkg', '1.0.0', token).expect(HTTP_STATUS.CREATED);
+    });
+
+    test('should let a stager submit a package they cannot publish', async () => {
+      const { app, token } = await asUser('developer');
+
+      await stageVersion(app, 'gated-pkg', '1.0.0', token).expect(HTTP_STATUS.CREATED);
+      // the point of the split: they may propose, not publish
+      await publishVersionWithToken(app, 'gated-pkg', '2.0.0', token).expect(HTTP_STATUS.FORBIDDEN);
+    });
+
+    test('should refuse to stage a package the user may only publish elsewhere', async () => {
+      const { app, token } = await asUser('reviewer');
+
+      // 'reviewer' holds publish on gated-*, but stage is granted to developer
+      await stageVersion(app, 'gated-pkg', '1.0.0', token).expect(HTTP_STATUS.FORBIDDEN);
+    });
+
+    test('should let the reviewer approve what a stager submitted', async () => {
+      const app = await initializeServer('stage-split.yaml');
+      const devToken = await getNewToken(app, {
+        name: 'developer',
+        password: credentials.password,
+      });
+      const reviewerToken = await getNewToken(app, {
+        name: 'reviewer',
+        password: credentials.password,
+      });
+
+      const staged = await stageVersion(app, 'gated-pkg', '1.0.0', devToken).expect(
+        HTTP_STATUS.CREATED
+      );
+
+      await authed(
+        supertest(app).post(`/-/stage/${staged.body.stageId}/approve`),
+        reviewerToken
+      ).expect(HTTP_STATUS.CREATED);
+
+      await authed(supertest(app).get('/gated-pkg'), reviewerToken).expect(HTTP_STATUS.OK);
+    });
+
+    test('should not let a stager approve their own submission', async () => {
+      const { app, token } = await asUser('developer');
+      const staged = await stageVersion(app, 'gated-pkg', '1.0.0', token).expect(
+        HTTP_STATUS.CREATED
+      );
+
+      // this is the whole reason the permission exists
+      await authed(supertest(app).post(`/-/stage/${staged.body.stageId}/approve`), token).expect(
+        HTTP_STATUS.FORBIDDEN
+      );
+    });
+
+    test('should let a stager withdraw their own submission', async () => {
+      const { app, token } = await asUser('developer');
+      const staged = await stageVersion(app, 'gated-pkg', '1.0.0', token).expect(
+        HTTP_STATUS.CREATED
+      );
+
+      // withdrawing your own proposal is not the same as rejecting someone else's
+      await authed(supertest(app).delete(`/-/stage/${staged.body.stageId}`), token).expect(
+        HTTP_STATUS.NO_CONTENT
+      );
+    });
+  });
+
   describe('isolation from the regular registry', () => {
     test('should not leak the stage namespace into the package list', async () => {
       const { app, token } = await buildApp();

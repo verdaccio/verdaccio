@@ -156,7 +156,8 @@ export function getDefaultPluginMethods(logger: Logger): pluginUtils.Auth<Config
     allow_access: allow_action('access', logger),
     // @ts-ignore
     allow_publish: allow_action('publish', logger),
-    allow_unpublish: handleSpecialUnpublish(logger),
+    allow_unpublish: handleActionWithPublishFallback('unpublish', logger),
+    allow_stage: handleActionWithPublishFallback('stage', logger),
   };
 }
 
@@ -198,21 +199,29 @@ export function allow_action(action: ActionsAllowed, logger: Logger): AllowActio
 }
 
 /**
+ * Build a check for an action that falls back to `publish` when the packages
+ * configuration does not mention it.
  *
+ * Answering `undefined` is the signal the {@link Auth} class watches for: it
+ * means "this action was never configured here", and the caller delegates to
+ * `allow_publish` instead of denying. That is what keeps `unpublish` and
+ * `stage` optional without changing behaviour for configurations that omit them.
  */
-export function handleSpecialUnpublish(logger: Logger): any {
+export function handleActionWithPublishFallback(
+  action: 'unpublish' | 'stage',
+  logger: Logger
+): any {
   return function (user: RemoteUser, pkg: AuthPackageAllow, callback: AllowActionCallback): void {
-    const action = 'unpublish';
-    // verify whether the unpublish prop has been defined
-    const isUnpublishMissing: boolean = !pkg[action];
-    debug('is unpublish method missing ? %s', isUnpublishMissing);
-    const hasGroups: boolean = isUnpublishMissing ? false : (pkg[action] as string[]).length > 0;
+    // verify whether the prop has been defined
+    const isActionMissing: boolean = !pkg[action];
+    debug('is %s method missing ? %s', action, isActionMissing);
+    const hasGroups: boolean = isActionMissing ? false : (pkg[action] as string[]).length > 0;
     logger.trace(
-      { user: user.name, name: pkg.name, hasGroups },
-      `fallback unpublish for @{name} has groups: @{hasGroups} for @{user}`
+      { user: user.name, name: pkg.name, action, hasGroups },
+      `fallback @{action} for @{name} has groups: @{hasGroups} for @{user}`
     );
 
-    if (isUnpublishMissing || hasGroups === false) {
+    if (isActionMissing || hasGroups === false) {
       return callback(null, undefined);
     }
 
@@ -222,6 +231,13 @@ export function handleSpecialUnpublish(logger: Logger): any {
     );
     return allow_action(action, logger)(user, pkg, callback);
   };
+}
+
+/**
+ * @deprecated use {@link handleActionWithPublishFallback} with `'unpublish'`
+ */
+export function handleSpecialUnpublish(logger: Logger): any {
+  return handleActionWithPublishFallback('unpublish', logger);
 }
 
 export function buildUser(name: string, password: string, tokenKey?: string): string {

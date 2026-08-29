@@ -57,6 +57,7 @@ export function normalisePackageAccess(packages: LegacyPackageList): LegacyPacka
       access: [],
       publish: [],
       unpublish: [],
+      stage: [],
       proxy: [],
     };
   }
@@ -75,6 +76,10 @@ export function normalisePackageAccess(packages: LegacyPackageList): LegacyPacka
       normalizedPkgs[pkg].unpublish = isUndefined(packageAccess.unpublish)
         ? false
         : normalizeUserList(packageAccess.unpublish);
+      // same fallback for stage: undefined means "whoever may publish may stage"
+      normalizedPkgs[pkg].stage = isUndefined(packageAccess.stage)
+        ? false
+        : normalizeUserList(packageAccess.stage);
     }
   }
 

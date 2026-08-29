@@ -210,6 +210,7 @@ describe('getMatchedPackagesSpec', () => {
       proxy: ['facebook'],
       publish: ['admin'],
       unpublish: false,
+      stage: false,
     });
   });
 
@@ -221,6 +222,7 @@ describe('getMatchedPackagesSpec', () => {
       proxy: ['npmjs'],
       publish: [ROLES.$AUTH],
       unpublish: false,
+      stage: false,
     });
   });
 });
