@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import type { Router } from 'express';
+import type { RequestHandler, Router } from 'express';
 
 import type { Auth } from '@verdaccio/auth';
 import { API_MESSAGE, HEADERS, HTTP_STATUS, reqUtils, tarballUtils } from '@verdaccio/core';
@@ -100,7 +100,9 @@ export default function publish(
   auth: Auth,
   storage: Storage,
   config: Config,
-  logger: Logger
+  logger: Logger,
+  /** No-op unless the caller has two-factor in `auth-and-writes` mode. */
+  requireOtp: RequestHandler = (_req, _res, next) => next()
 ): void {
   const can = allow(auth, {
     beforeAll: (a, b) => logger.trace(a, b),
@@ -109,6 +111,7 @@ export default function publish(
   router.put(
     PUBLISH_API_ENDPOINTS.add_package,
     can('publish'),
+    requireOtp,
     media(HEADERS.JSON),
     expectJson,
     publishPackage(storage, config, logger, 'publish one version')
@@ -117,6 +120,7 @@ export default function publish(
   router.put(
     PUBLISH_API_ENDPOINTS.publish_package,
     can('unpublish'),
+    requireOtp,
     media(HEADERS.JSON),
     expectJson,
     publishPackage(storage, config, logger, 'publish with revision')
@@ -142,6 +146,7 @@ export default function publish(
   router.delete(
     PUBLISH_API_ENDPOINTS.publish_package,
     can('unpublish'),
+    requireOtp,
     async function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
       const packageName = reqUtils.paramToString(req.params.package);
       const rev = reqUtils.paramToString(req.params.revision);
@@ -176,6 +181,7 @@ export default function publish(
   router.delete(
     PUBLISH_API_ENDPOINTS.remove_tarball,
     can('unpublish'),
+    requireOtp,
     async function (
       req: $RequestExtend,
       res: $ResponseExtend,

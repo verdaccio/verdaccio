@@ -10,12 +10,19 @@ example is self-contained — `cd` into its folder and follow its `README.md`.
 Examples are grouped by the major Verdaccio version they target. Pick the set
 that matches the image you run.
 
-| Set                         | Verdaccio image                | Notes                                                        |
-| --------------------------- | ------------------------------ | ------------------------------------------------------------ |
-| [v7 examples](v7/README.md) | `verdaccio/verdaccio:7.x-next` | Current (Version Next / v9 dev line uses the same patterns). |
-| [v6 examples](v6/README.md) | `verdaccio/verdaccio:6`        | Previous stable.                                             |
+| Set                         | Verdaccio image                      | Notes                                             |
+| --------------------------- | ------------------------------------ | ------------------------------------------------- |
+| [v9 examples](v9/README.md) | `verdaccio/verdaccio:nightly-master` | Experimental line, where new features land first. |
+| [v7 examples](v7/README.md) | `verdaccio/verdaccio:7.x-next`       | Next major.                                       |
+| [v6 examples](v6/README.md) | `verdaccio/verdaccio:6`              | Current stable.                                   |
 
 ## What you can find
+
+### v9 ([details](v9/README.md))
+
+- **[Staged publishing and two-factor](v9/staged-publishing-and-2fa/README.md)** —
+  the `stage` and `tfa` feature flags turned on, with a package rule that lets
+  one group propose a release and another approve it.
 
 ### v7 ([details](v7/README.md))
 

@@ -221,7 +221,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/api:
     dependencies:
@@ -271,6 +271,9 @@ importers:
       nock:
         specifier: 13.5.6
         version: 13.5.6
+      otpauth:
+        specifier: 9.5.1
+        version: 9.5.1
       rimraf:
         specifier: 6.1.3
         version: 6.1.3
@@ -282,7 +285,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/auth:
     dependencies:
@@ -304,6 +307,9 @@ importers:
       lodash-es:
         specifier: 4.18.1
         version: 4.18.1
+      otpauth:
+        specifier: 9.5.1
+        version: 9.5.1
       verdaccio-htpasswd:
         specifier: workspace:14.0.0-next-9.28
         version: link:../plugins/htpasswd
@@ -334,7 +340,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/cli:
     dependencies:
@@ -377,7 +383,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/config:
     dependencies:
@@ -405,7 +411,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/core/core:
     dependencies:
@@ -448,7 +454,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/core/file-locking:
     dependencies:
@@ -467,7 +473,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/core/i18n:
     devDependencies:
@@ -510,7 +516,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/core/types:
     dependencies:
@@ -548,7 +554,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/hooks:
     dependencies:
@@ -588,7 +594,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/loaders:
     dependencies:
@@ -628,7 +634,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/logger:
     dependencies:
@@ -671,7 +677,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/middleware:
     dependencies:
@@ -723,7 +729,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/node-api:
     dependencies:
@@ -751,7 +757,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/plugins/audit:
     dependencies:
@@ -797,7 +803,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/plugins/auth-memory:
     dependencies:
@@ -828,7 +834,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/plugins/htpasswd:
     dependencies:
@@ -874,7 +880,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/plugins/local-storage:
     dependencies:
@@ -917,7 +923,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/plugins/memory:
     dependencies:
@@ -951,7 +957,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/plugins/package-filter:
     dependencies:
@@ -988,7 +994,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/plugins/ui-theme:
     dependencies:
@@ -1055,7 +1061,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
       whatwg-fetch:
         specifier: 3.6.20
         version: 3.6.20
@@ -1107,7 +1113,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/search:
     dependencies:
@@ -1147,7 +1153,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/search-indexer:
     dependencies:
@@ -1169,7 +1175,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/server/express:
     dependencies:
@@ -1236,7 +1242,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/signature:
     dependencies:
@@ -1264,7 +1270,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/store:
     dependencies:
@@ -1331,7 +1337,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/tools/helpers:
     dependencies:
@@ -1371,7 +1377,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/tools/local-publish:
     devDependencies:
@@ -1414,7 +1420,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/tools/verdaccio-auth-fake-plugin: {}
 
@@ -1556,7 +1562,7 @@ importers:
         version: 6.6.0
       jsdom:
         specifier: 29.1.1
-        version: 29.1.1(@noble/hashes@1.8.0)
+        version: 29.1.1(@noble/hashes@2.2.0)
       mockdate:
         specifier: 3.0.5
         version: 3.0.5
@@ -1580,7 +1586,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
       whatwg-fetch:
         specifier: 3.6.20
         version: 3.6.20
@@ -1672,7 +1678,7 @@ importers:
         version: link:../core/types
       jsdom:
         specifier: 29.1.1
-        version: 29.1.1(@noble/hashes@1.8.0)
+        version: 29.1.1(@noble/hashes@2.2.0)
       nock:
         specifier: 13.5.6
         version: 13.5.6
@@ -1687,7 +1693,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
 packages:
 
@@ -2406,6 +2412,10 @@ packages:
   '@noble/hashes@1.8.0':
     resolution: {integrity: sha512-jCs9ldd7NwzpgXDIf6P3+NrHh9/sD6CQdxHyjQI+h/6rDNo88ypBxxz45UDuZHz9r3tNz7N/VInSVoVdtXEI4A==}
     engines: {node: ^14.21.3 || >=16}
+
+  '@noble/hashes@2.2.0':
+    resolution: {integrity: sha512-IYqDGiTXab6FniAgnSdZwgWbomxpy9FtYvLKs7wCUs2a8RkITG+DFGO1DM9cr+E3/RgADRpFjrKVaJ1z6sjtEg==}
+    engines: {node: '>= 20.19.0'}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -5263,6 +5273,9 @@ packages:
   ospath@1.2.2:
     resolution: {integrity: sha512-o6E5qJV5zkAbIDNhGSIlyOhScKXgQrSRMilfph0clDfM0nEnBOlKlH4sWDmG95BW/CvwNz0vmm7dJVtU2KlMiA==}
 
+  otpauth@9.5.1:
+    resolution: {integrity: sha512-fJmDAHc8wImfqqqOXIlBvT1dEKrZK0Cmb2VEgScpNTolCz0PHh6ExUZGv4sLtOsWNaHCQlD+rRqaPgnoxFoZjQ==}
+
   outdent@0.5.0:
     resolution: {integrity: sha512-/jHxFIzoMXdqPzTaCpFzAAWhpkSjZPF4Vsn6jAfNpmbH/ymsmd7Qc6VE9BGn0L6YMj6uwpQLxCECpus4ukKS9Q==}
 
@@ -7115,9 +7128,9 @@ snapshots:
   '@esbuild/win32-x64@0.28.1':
     optional: true
 
-  '@exodus/bytes@1.15.0(@noble/hashes@1.8.0)':
+  '@exodus/bytes@1.15.0(@noble/hashes@2.2.0)':
     optionalDependencies:
-      '@noble/hashes': 1.8.0
+      '@noble/hashes': 2.2.0
 
   '@gerrit0/mini-shiki@3.13.1':
     dependencies:
@@ -7355,6 +7368,8 @@ snapshots:
   '@noble/hashes@1.4.0': {}
 
   '@noble/hashes@1.8.0': {}
+
+  '@noble/hashes@2.2.0': {}
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -8122,7 +8137,7 @@ snapshots:
       obug: 2.1.1
       std-env: 4.1.0
       tinyrainbow: 3.1.0
-      vitest: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+      vitest: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   '@vitest/expect@3.2.4':
     dependencies:
@@ -8712,10 +8727,10 @@ snapshots:
     dependencies:
       assert-plus: 1.0.0
 
-  data-urls@7.0.0(@noble/hashes@1.8.0):
+  data-urls@7.0.0(@noble/hashes@2.2.0):
     dependencies:
       whatwg-mimetype: 5.0.0
-      whatwg-url: 16.0.1(@noble/hashes@1.8.0)
+      whatwg-url: 16.0.1(@noble/hashes@2.2.0)
     transitivePeerDependencies:
       - '@noble/hashes'
 
@@ -9295,9 +9310,9 @@ snapshots:
 
   hpagent@1.2.0: {}
 
-  html-encoding-sniffer@6.0.0(@noble/hashes@1.8.0):
+  html-encoding-sniffer@6.0.0(@noble/hashes@2.2.0):
     dependencies:
-      '@exodus/bytes': 1.15.0(@noble/hashes@1.8.0)
+      '@exodus/bytes': 1.15.0(@noble/hashes@2.2.0)
     transitivePeerDependencies:
       - '@noble/hashes'
 
@@ -9499,17 +9514,17 @@ snapshots:
 
   jsbn@0.1.1: {}
 
-  jsdom@29.1.1(@noble/hashes@1.8.0):
+  jsdom@29.1.1(@noble/hashes@2.2.0):
     dependencies:
       '@asamuzakjp/css-color': 5.1.11
       '@asamuzakjp/dom-selector': 7.1.1
       '@bramus/specificity': 2.4.2
       '@csstools/css-syntax-patches-for-csstree': 1.1.6(css-tree@3.2.1)
-      '@exodus/bytes': 1.15.0(@noble/hashes@1.8.0)
+      '@exodus/bytes': 1.15.0(@noble/hashes@2.2.0)
       css-tree: 3.2.1
-      data-urls: 7.0.0(@noble/hashes@1.8.0)
+      data-urls: 7.0.0(@noble/hashes@2.2.0)
       decimal.js: 10.6.0
-      html-encoding-sniffer: 6.0.0(@noble/hashes@1.8.0)
+      html-encoding-sniffer: 6.0.0(@noble/hashes@2.2.0)
       is-potential-custom-element-name: 1.0.1
       lru-cache: 11.5.0
       parse5: 8.0.1
@@ -9520,7 +9535,7 @@ snapshots:
       w3c-xmlserializer: 5.0.0
       webidl-conversions: 8.0.1
       whatwg-mimetype: 5.0.0
-      whatwg-url: 16.0.1(@noble/hashes@1.8.0)
+      whatwg-url: 16.0.1(@noble/hashes@2.2.0)
       xml-name-validator: 5.0.0
     transitivePeerDependencies:
       - '@noble/hashes'
@@ -10211,6 +10226,10 @@ snapshots:
       wsl-utils: 0.1.0
 
   ospath@1.2.2: {}
+
+  otpauth@9.5.1:
+    dependencies:
+      '@noble/hashes': 2.2.0
 
   outdent@0.5.0: {}
 
@@ -11406,7 +11425,7 @@ snapshots:
       tsx: 4.22.4
       yaml: 2.8.1
 
-  vitest@4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)):
+  vitest@4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)):
     dependencies:
       '@vitest/expect': 4.1.10
       '@vitest/mocker': 4.1.10(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
@@ -11431,7 +11450,7 @@ snapshots:
     optionalDependencies:
       '@types/node': 24.13.2
       '@vitest/coverage-v8': 4.1.10(vitest@4.1.10)
-      jsdom: 29.1.1(@noble/hashes@1.8.0)
+      jsdom: 29.1.1(@noble/hashes@2.2.0)
     transitivePeerDependencies:
       - msw
 
@@ -11451,9 +11470,9 @@ snapshots:
 
   whatwg-mimetype@5.0.0: {}
 
-  whatwg-url@16.0.1(@noble/hashes@1.8.0):
+  whatwg-url@16.0.1(@noble/hashes@2.2.0):
     dependencies:
-      '@exodus/bytes': 1.15.0(@noble/hashes@1.8.0)
+      '@exodus/bytes': 1.15.0(@noble/hashes@2.2.0)
       tr46: 6.0.0
       webidl-conversions: 8.0.1
     transitivePeerDependencies:

@@ -1,8 +1,8 @@
-import type { Response, Router } from 'express';
+import type { RequestHandler, Response, Router } from 'express';
 import { isBoolean, isNil } from 'lodash-es';
 
 import type { Auth } from '@verdaccio/auth';
-import { getApiToken } from '@verdaccio/auth';
+import { getApiToken, isReservedTokenKey } from '@verdaccio/auth';
 import {
   HEADERS,
   HTTP_STATUS,
@@ -52,7 +52,9 @@ export default function (
   auth: Auth,
   storage: Storage,
   config: Config,
-  logger: Logger
+  logger: Logger,
+  /** No-op unless the caller has two-factor enabled for this operation. */
+  requireOtp: RequestHandler = (_req, _res, next) => next()
 ): void {
   route.get(
     TOKEN_API_ENDPOINTS.get_tokens,
@@ -62,7 +64,12 @@ export default function (
 
       if (isNil(name) === false) {
         try {
-          const tokens = await storage.readTokens({ user: name });
+          // the token store doubles as a per-user key-value store; rows under a
+          // reserved key are internal state, not access tokens, and listing them
+          // would expose their payload through `npm token ls`
+          const tokens = (await storage.readTokens({ user: name })).filter(
+            ({ key }) => isReservedTokenKey(key) === false
+          );
           const totalTokens = tokens.length;
           logger.debug({ totalTokens }, 'token list retrieved: @{totalTokens}');
 
@@ -85,6 +92,7 @@ export default function (
   route.post(
     TOKEN_API_ENDPOINTS.get_tokens,
     rateLimit(config?.userRateLimit),
+    requireOtp,
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer) {
       const { password } = req.body;
       const { name } = req.remote_user;
@@ -180,6 +188,16 @@ export default function (
 
       if (isNil(name) === false) {
         logger.debug({ name }, '@{name} has requested remove a token');
+        if (isReservedTokenKey(tokenKey)) {
+          // this row is not a token: deleting it here would switch two-factor
+          // off without the password and one-time password `npm profile
+          // disable-2fa` requires
+          logger.warn(
+            { tokenKey, name },
+            'refused to revoke reserved key @{tokenKey} for user @{name}'
+          );
+          return next(errorUtils.getNotFound('token not found'));
+        }
         try {
           await storage.deleteToken(name, tokenKey);
           logger.info({ tokenKey, name }, 'token id @{tokenKey} was revoked for user @{name}');

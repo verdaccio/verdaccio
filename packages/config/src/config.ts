@@ -75,6 +75,8 @@ class Config implements AppConfig {
       changePassword: config.flags?.changePassword ?? false,
       webLogin: config.flags?.webLogin ?? false,
       createUser: config.flags?.createUser ?? false,
+      stage: config.flags?.stage ?? false,
+      tfa: config.flags?.tfa ?? false,
     };
     this.user_agent = config.user_agent;
 

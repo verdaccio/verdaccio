@@ -1,0 +1,11 @@
+services:
+  verdaccio:
+    # 9.x is the experimental line, where both flags land first. It is not
+    # production ready; see the README.
+    image: verdaccio/verdaccio:nightly-master
+    container_name: verdaccio-staged-publishing-and-2fa
+    ports:
+      - '4873:4873'
+    volumes:
+      - './storage:/verdaccio/storage'
+      - './conf:/verdaccio/conf'

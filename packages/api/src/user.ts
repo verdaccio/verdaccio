@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import type { Response, Router } from 'express';
+import type { RequestHandler, Response, Router } from 'express';
 
 import type { Auth } from '@verdaccio/auth';
 import { getApiToken } from '@verdaccio/auth';
@@ -22,7 +22,41 @@ import type { $NextFunctionVer, $RequestExtend } from '../types/custom';
 
 const debug = buildDebug('verdaccio:api:user');
 
-export default function (route: Router, auth: Auth, config: Config, logger: Logger): void {
+export default function (
+  route: Router,
+  auth: Auth,
+  config: Config,
+  logger: Logger,
+  /** No-op unless the user logging in has two-factor enabled. */
+  requireOtp: RequestHandler = (_req, _res, next) => next()
+): void {
+  async function issueLoginToken(
+    req: $RequestExtend,
+    res: Response,
+    next: $NextFunctionVer,
+    name: string,
+    password: string,
+    user: RemoteUser | undefined
+  ): Promise<void> {
+    const restoredRemoteUser: RemoteUser = createRemoteUser(name, user?.groups || []);
+    const token = await getApiToken(auth, config, restoredRemoteUser, password);
+    debug('login: new token');
+    if (!token) {
+      return next(errorUtils.getUnauthorized());
+    }
+
+    res.status(HTTP_STATUS.CREATED);
+    res.set(HEADERS.CACHE_CONTROL, HEADERS.NO_CACHE);
+
+    const message = authUtils.getAuthenticatedMessage(name);
+    debug('login: created user message %o', message);
+
+    return next({
+      ok: message,
+      token,
+    });
+  }
+
   route.get(
     USER_API_ENDPOINTS.get_user,
     rateLimit(config?.userRateLimit),
@@ -100,23 +134,14 @@ export default function (route: Router, auth: Auth, config: Config, logger: Logg
               );
             }
 
-            const restoredRemoteUser: RemoteUser = createRemoteUser(name, user?.groups || []);
-            const token = await getApiToken(auth, config, restoredRemoteUser, password);
-            debug('login: new token');
-            if (!token) {
-              return next(errorUtils.getUnauthorized());
-            }
-
-            res.status(HTTP_STATUS.CREATED);
-            res.set(HEADERS.CACHE_CONTROL, HEADERS.NO_CACHE);
-
-            const message = authUtils.getAuthenticatedMessage(name);
-            debug('login: created user message %o', message);
-
-            return next({
-              ok: message,
-              token,
-            });
+            Promise.resolve(
+              requireOtp(req, res, (otpError?: any) => {
+                if (otpError) {
+                  return next(otpError);
+                }
+                issueLoginToken(req, res, next, name, password, user as RemoteUser).catch(next);
+              })
+            ).catch(next);
           }
         );
       } else {

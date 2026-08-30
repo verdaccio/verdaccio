@@ -16,11 +16,15 @@ import {
 import type { Storage } from '@verdaccio/store';
 import type { Config, Logger } from '@verdaccio/types';
 
+import { TfaStore } from '@verdaccio/auth';
+
 import distTags from './dist-tags';
 import pkg from './package';
 import ping from './ping';
 import publish from './publish';
+import { assertTokenStoreSupport, requireOtp } from './require-otp';
 import search from './search';
+import stage from './stage';
 import user from './user';
 import login from './v1/login';
 import profile from './v1/profile';
@@ -61,6 +65,23 @@ export default function (config: Config, auth: Auth, storage: Storage, logger: L
     return apiJwtMiddleware(req, res, next);
   });
 
+  // built once: without the flag nothing must reach the token store
+  let tfaStore: TfaStore | undefined;
+  if (config.flags?.tfa) {
+    // refuse to start rather than answer 503 on every write later
+    assertTokenStoreSupport(storage, logger);
+    tfaStore = new TfaStore(storage, config.secret, logger);
+  }
+  const otpForAuth = requireOtp({ tfaStore, scope: 'auth', logger });
+  // at login there is no authenticated user yet: the name is in the body
+  const otpForLogin = requireOtp({
+    tfaStore,
+    scope: 'auth',
+    logger,
+    getUsername: (req) => (typeof req.body?.name === 'string' ? req.body.name : undefined),
+  });
+  const otpForWrites = requireOtp({ tfaStore, scope: 'write', logger });
+
   app.use(enforceGeneratedTokenMetadata(storage, logger));
   app.use(antiLoop(config));
   app.use(makeURLrelative);
@@ -68,14 +89,19 @@ export default function (config: Config, auth: Auth, storage: Storage, logger: L
   app.use(encodeScopePackage);
   // for "npm whoami"
   whoami(app);
-  profile(app, auth, config);
+  profile(app, auth, config, storage, logger, otpForAuth);
   search(app, logger);
-  user(app, auth, config, logger);
-  distTags(app, auth, storage, logger);
-  publish(app, auth, storage, config, logger);
+  user(app, auth, config, logger, otpForLogin);
+  distTags(app, auth, storage, logger, otpForWrites);
+  publish(app, auth, storage, config, logger, otpForWrites);
   ping(app);
   v1Search(app, auth, storage, config, logger);
-  token(app, auth, storage, config, logger);
+  token(app, auth, storage, config, logger, otpForAuth);
+  // must stay before pkg(): its '/:package{/:version}' route would otherwise
+  // swallow GET /-/stage
+  if (config.flags?.stage) {
+    stage(app, auth, storage, config, logger, otpForWrites);
+  }
   pkg(app, auth, storage, logger);
   if (config.flags?.webLogin) {
     login(app, auth, storage, config, logger);

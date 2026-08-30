@@ -125,6 +125,20 @@ describe('<Header /> component with logged in state', () => {
     await logout();
   });
 
+  test('should show staged packages link when the stage flag is enabled', async () => {
+    window.__VERDACCIO_BASENAME_UI_OPTIONS = {
+      base: 'foo',
+      flags: { stage: true },
+    };
+    vi.spyOn(tokenUtils, 'isTokenExpire').mockReturnValue(false);
+
+    renderHeader();
+    await login('user', 'token');
+    fireEvent.click(screen.getByTestId('logInDialogIcon'));
+
+    expect(await screen.findByTestId('stagedPackagesMenuItem')).toBeInTheDocument();
+  });
+
   test('should display info button', () => {
     renderHeader();
     expect(screen.getByTestId('header--tooltip-info')).toBeInTheDocument();

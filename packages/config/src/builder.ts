@@ -104,6 +104,14 @@ export default class ConfigBuilder {
     return this;
   }
 
+  /**
+   * @deprecated use {@link addFlags}
+   */
+  public addExperiments(experiments: Partial<FlagsConfig>) {
+    this.config.experiments = merge(this.config.experiments, experiments);
+    return this;
+  }
+
   public addNotify(notify: Notifications | Notifications[]) {
     this.config.notify = notify;
     return this;

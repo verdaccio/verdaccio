@@ -16,6 +16,40 @@ export enum PUBLISH_API_ENDPOINTS {
   remove_tarball = '/:package/-/:filename/-rev/:revision',
 }
 
+/**
+ * Staged publish workflow (`npm stage`), matching the routes npmjs documents.
+ *
+ * | Method   | Route                          | Command              |
+ * | -------- | ------------------------------ | -------------------- |
+ * | `POST`   | `/-/stage/package/:package`    | `npm stage publish`  |
+ * | `GET`    | `/-/stage`                     | `npm stage list`     |
+ * | `GET`    | `/-/stage/:stageId`            | `npm stage view`     |
+ * | `GET`    | `/-/stage/:stageId/tarball`    | `npm stage download` |
+ * | `POST`   | `/-/stage/:stageId/approve`    | `npm stage approve`  |
+ * | `DELETE` | `/-/stage/:stageId`            | `npm stage reject`   |
+ *
+ * `list` accepts `package`, `page` and `perPage` as query parameters. All the
+ * routes require authentication.
+ *
+ * The body of `stage_package` is the same packument a regular publish sends —
+ * `libnpmpublish` builds the payload once and only swaps method and route — so
+ * staging reuses every validation the publish path already performs.
+ *
+ * Two constraints on the shapes above:
+ *
+ * - `stage_package` must keep the literal `package` segment declared before the
+ *   `:stageId` routes, otherwise they swallow it.
+ * - `:stageId` is constrained to a UUID, because the npm CLI validates the
+ *   format client side before it ever calls the registry.
+ */
+export enum STAGE_API_ENDPOINTS {
+  list = '/-/stage',
+  stage_package = '/-/stage/package/:package',
+  item = '/-/stage/:stageId',
+  approve = '/-/stage/:stageId/approve',
+  tarball = '/-/stage/:stageId/tarball',
+}
+
 export enum PING_API_ENDPOINTS {
   ping = '/-/ping',
 }

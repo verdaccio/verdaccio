@@ -10,6 +10,9 @@ export enum Route {
   SUCCESS = '/-/web/success',
   ADD_USER = '/-/web/add-user',
   CHANGE_PASSWORD = '/-/web/change-password',
+  // Staged publish workflow (`npm stage`), behind the `stage` flag
+  STAGE = '/-/web/stage',
+  STAGE_DETAIL = '/-/web/stage/:stageId',
   // Security API routes
   LOGIN_API = '/-/v1/login_cli',
   CHANGE_PASSWORD_API = '/-/npm/v1/user',
@@ -25,4 +28,6 @@ export enum APIRoute {
   SEARCH = '/-/verdaccio/data/search/', // :value
   SIDEBAR = '/-/verdaccio/data/sidebar/', // :packageName?v=version
   README = '/-/verdaccio/data/package/readme/', // :packageName?v=version
+  // served by the registry router, not the web one, like CHANGE_PASSWORD_API
+  STAGE = '/-/stage',
 }

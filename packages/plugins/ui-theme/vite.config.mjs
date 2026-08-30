@@ -98,6 +98,10 @@ export default defineConfig(({ command }) => ({
       '/-/verdaccio': { target: backendUrl, changeOrigin: true },
       '/-/v1': { target: backendUrl, changeOrigin: true },
       '/-/user': { target: backendUrl, changeOrigin: true },
+      // registry routes the UI talks to directly: `/-/npm/v1/user` backs the
+      // change-password form and `/-/stage` backs the staged packages view
+      '/-/npm': { target: backendUrl, changeOrigin: true },
+      '/-/stage': { target: backendUrl, changeOrigin: true },
       '**/*.tgz': { target: backendUrl, changeOrigin: true },
     },
   },

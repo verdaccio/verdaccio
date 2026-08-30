@@ -37,6 +37,7 @@ import type {
   TokenEncryption,
 } from './types';
 import {
+  SHA256_ALGORITHM,
   getDefaultPluginMethods,
   getMiddlewareCredentials,
   isAESLegacy,
@@ -389,6 +390,73 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
   }
 
   /**
+   * Allow a user to submit a package version for review (`npm stage publish`).
+   *
+   * Deliberately a weaker capability than publishing: granting `stage` to a
+   * group that lacks `publish` is what turns staging into a real review gate,
+   * because those users can propose a release but not make one.
+   *
+   * When the packages configuration says nothing about `stage`, the built-in
+   * plugin answers `undefined` and this falls back to `allow_publish`, so
+   * existing configurations behave exactly as before.
+   */
+  public allow_stage(
+    { packageName, packageVersion }: pluginUtils.AuthPluginPackage,
+    user: RemoteUser,
+    callback: Callback
+  ): void {
+    const plugins = this.plugins.slice(0);
+    const pkg = Object.assign(
+      { name: packageName, version: packageVersion },
+      authUtils.getMatchedPackagesSpec(packageName, this.config.packages)
+    );
+
+    debug('check stage permissions for user %o to package %o', user.name, packageName);
+
+    const next = (): void => {
+      const plugin = plugins.shift();
+
+      if (typeof plugin?.allow_stage !== 'function') {
+        debug('plugin does not implement allow_stage');
+        return next();
+      }
+
+      plugin.allow_stage(user, pkg, (err: VerdaccioError | null, ok?: boolean): void => {
+        if (err) {
+          debug('forbidden stage. Error: %o', err);
+          return callback(err);
+        }
+
+        // undefined means the packages config has no "stage" entry, so publish
+        // decides (see utils.ts, handleActionWithPublishFallback)
+        if (isNil(ok) === true) {
+          debug('bypass stage for %o, publish will handle the access', packageName);
+          this.logger.trace(
+            { user: user.name, name: pkg.name },
+            `bypass stage for @{name} by @{user}, publish will handle the access`
+          );
+          return this.allow_publish({ packageName, packageVersion }, user, callback);
+        }
+
+        if (ok) {
+          debug('stage was granted');
+          this.logger.trace(
+            { user: user.name, name: pkg.name },
+            `stage was granted for @{name} by @{user}`
+          );
+          return callback(null, ok);
+        }
+
+        // cb(null, false) causes next plugin to roll
+        debug('stage was denied. Rolling to next plugin');
+        return next();
+      });
+    };
+
+    return next();
+  }
+
+  /**
    * Allow user to publish a package.
    */
   public allow_publish(
@@ -668,7 +736,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
       return;
     }
 
-    return createHash('sha256').update(authorization).digest('hex');
+    return createHash(SHA256_ALGORITHM).update(authorization).digest('hex');
   }
 
   private getLegacyAuthCacheEntry(cacheKey: string | void): RemoteUser | void {
