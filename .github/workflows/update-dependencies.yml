@@ -78,14 +78,18 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "$BRANCH"
 
-          # Generate a changeset (stable filename so re-runs overwrite it).
+          # Generate a changeset. The filename must be unique per run: in pre
+          # mode changesets records applied changeset ids in .changeset/pre.json
+          # and filters those ids out of every later release plan, so reusing a
+          # stable filename yields no version bump and no release PR.
+          CHANGESET=".changeset/update-verdaccio-dependencies-${GITHUB_RUN_ID}.md"
           printf '%s\n' \
             "---" \
             "'verdaccio': patch" \
             "---" \
             "" \
             "Update verdaccio dependencies (\`@verdaccio/*\`, \`verdaccio\`, \`verdaccio-*\`) to the \`$DIST_TAG\` npm dist-tag." \
-            > .changeset/update-verdaccio-dependencies.md
+            > "$CHANGESET"
 
           # Format updated package.json files and the changeset before committing.
           pnpm format
