@@ -1,5 +1,14 @@
 # Change Log
 
+## 14.0.0-next-9.29
+
+### Patch Changes
+
+- Updated dependencies [30601b3]
+- Updated dependencies [30601b3]
+  - @verdaccio/core@9.0.0-next-9.29
+  - @verdaccio/config@9.0.0-next-9.29
+
 ## 14.0.0-next-9.28
 
 ### Patch Changes

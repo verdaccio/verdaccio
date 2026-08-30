@@ -1,5 +1,121 @@
 # @verdaccio/store
 
+## 9.0.0-next-9.29
+
+### Minor Changes
+
+- 30601b3: feat: staged publishing (`npm stage`) behind the `stage` flag
+
+  Adds the `/-/stage` endpoints so a package version can be uploaded for review and
+  only becomes installable once a maintainer approves it. Everything is gated by
+  the new `stage` feature flag, which defaults to `false`.
+
+  ```yaml
+  flags:
+    stage: true
+  ```
+
+  The whole `npm stage` family is supported — `publish`, `list`, `view`,
+  `download`, `approve` and `reject` — verified end to end against npm 11.17.
+  Staging never asks for a one-time password: deferring proof of presence to
+  approval time is the point of the flow, which lets a pipeline prepare a release
+  that a human approves later.
+
+  Package access gains a `stage` entry deciding who may submit a version for
+  review:
+
+  ```yaml
+  packages:
+    "my-company-*":
+      access: $authenticated
+      stage: developers
+      publish: release-managers
+  ```
+
+  It falls back to `publish` when omitted, exactly as `unpublish` already does, so
+  existing configurations are unaffected. Granting it to a group that lacks
+  `publish` is what turns review into a real gate: those users can propose a
+  release but neither publish one directly nor approve their own submission, though
+  they can always withdraw it. Auth plugins can implement `allow_stage`; returning
+  `undefined` defers to `allow_publish`.
+
+  Staging fires a notification with `publishType: 'stage'` and rejecting fires
+  `unstage`, so a staged version no longer waits unnoticed until somebody runs
+  `npm stage list`. Approving keeps reporting `publish`, because that is what it
+  does.
+
+  Staged items are persisted through the storage plugin interface, so any storage
+  plugin works unchanged, and the namespace is never registered in the plugin
+  database — staged versions stay out of search and the package list.
+
+  The web UI gains a "Staged packages" view (list, detail, approve, reject,
+  download) that appears only while the flag is on.
+
+### Patch Changes
+
+- 30601b3: fix: prove presence before two-factor can be switched off
+
+  Three problems found while reviewing the staged publishing and two-factor work.
+
+  Turning two-factor off only re-checked the account password. A password is
+  exactly what an attacker holding a stolen session already has, so the second
+  factor could be removed without ever proving presence — the one thing it exists
+  to require. `POST /-/npm/v1/user` now answers the standard `401` challenge when
+  two-factor is already active, which is what `otplease` in the npm CLI expects, so
+  `npm profile disable-2fa` and mode switches keep working unchanged. Enrolment is
+  untouched: the challenge stays quiet while a record is pending, so the three
+  steps of `npm profile enable-2fa` still run without a code.
+
+  Staging a tarball waited for the write stream to emit `open` before piping into
+  it. The storage plugin interface only promises a Writable, and the event is a
+  detail of the two bundled plugins, so a plugin that never emits it would have
+  hung staging forever with nothing written. The payload is now piped straight
+  away, which is correct either way because a stream that is not ready yet buffers
+  the writes.
+
+  Approving a staged version created an abort signal but never fired it when the
+  client disconnected, unlike the two sibling routes in the same file, so reading
+  the staged tarball carried on after the caller had gone.
+
+- 30601b3: fix: reject replayed one-time passwords and invalid staged tarball names
+
+  Two problems found while auditing the staged publishing and two-factor work,
+  both reproduced against a running registry before being fixed.
+
+  A one-time password could be used more than once. Codes stay valid for up to 90
+  seconds with the tolerance window, so a code seen in a CI log or over someone's
+  shoulder authorised every write in that window — three publishes went through
+  with one code. RFC 6238 §5.2 requires single use, so the accepted time step is
+  now recorded and anything at or before it is refused.
+
+  The tarball name of a staged version came from the `_attachments` key of the
+  request and reached the storage plugin unchecked. A name of `..` made the write
+  fail inside a stream handler nobody awaits, which crashed the process: any user
+  allowed to stage could take the registry down with one request. The regular
+  publish path already asserted the name; staging now does too.
+
+  Both single-use guarantees were also reachable around by sending requests at the
+  same time: two concurrent verifications read the same record, neither saw the
+  other spend the code, and both were accepted. Two-factor mutations are now
+  serialized per user, and the duplicate check when staging happens inside the
+  serialized index write instead of before it.
+
+  Logging in no longer asks for a one-time password before the password itself has
+  been accepted, which used to reveal that an account exists and has two-factor
+  enabled to anyone who could guess a username.
+
+- Updated dependencies [30601b3]
+- Updated dependencies [30601b3]
+  - @verdaccio/core@9.0.0-next-9.29
+  - @verdaccio/config@9.0.0-next-9.29
+  - @verdaccio/tarball@14.0.0-next-9.29
+  - @verdaccio/logger@9.0.0-next-9.29
+  - @verdaccio/local-storage@14.0.0-next-9.29
+  - @verdaccio/proxy@9.0.0-next-9.29
+  - @verdaccio/search@9.0.0-next-9.29
+  - @verdaccio/url@14.0.0-next-9.29
+  - @verdaccio/loaders@9.0.0-next-9.29
+
 ## 9.0.0-next-9.28
 
 ### Patch Changes
