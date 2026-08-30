@@ -1,5 +1,19 @@
 # @verdaccio/cli
 
+## 9.0.0-next-9.30
+
+### Patch Changes
+
+- 4ed3b3c: Move `tsx` to `devDependencies`
+
+  `tsx` is only used by the package's `start` script, but it was listed as a runtime dependency, so every install of `verdaccio` also pulled in `esbuild` (~10MB) and its `postinstall` script. Nothing in the published build references `tsx`.
+
+  - @verdaccio/core@9.0.0-next-9.30
+  - @verdaccio/config@9.0.0-next-9.30
+  - @verdaccio/node-api@9.0.0-next-9.30
+  - @verdaccio/logger@9.0.0-next-9.30
+  - @verdaccio/server@9.0.0-next-9.30
+
 ## 9.0.0-next-9.29
 
 ### Patch Changes
