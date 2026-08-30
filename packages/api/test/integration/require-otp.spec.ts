@@ -2,7 +2,7 @@ import { Secret, TOTP } from 'otpauth';
 import supertest from 'supertest';
 import { describe, expect, test } from 'vitest';
 
-import { HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core';
+import { API_ERROR, HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core';
 import { generatePackageMetadata } from '@verdaccio/test-helper';
 
 import { buildToken, getNewToken, initializeServer, publishVersionWithToken } from './_helper';
@@ -59,6 +59,21 @@ function publish(app: any, pkg: string, token: string, otp?: string) {
     .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
     .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
     .send(JSON.stringify(generatePackageMetadata(pkg, '1.0.0')));
+
+  if (otp) {
+    request.set('npm-otp', otp);
+  }
+  return request;
+}
+
+function login(app: any, name: string, token: string, loginPassword = password, otp?: string) {
+  const request = supertest(app)
+    .put(`/-/user/org.couchdb.user:${name}`)
+    .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+    .send({
+      name,
+      password: loginPassword,
+    });
 
   if (otp) {
     request.set('npm-otp', otp);
@@ -175,6 +190,31 @@ describe('one-time password enforcement', () => {
         .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
         .send(JSON.stringify({ password, readonly: false, cidr_whitelist: [] }))
         .expect(HTTP_STATUS.UNAUTHORIZED);
+
+      expect(response.headers['www-authenticate'].toLowerCase()).toContain('otp');
+    });
+  });
+
+  describe('login', () => {
+    test('should reject a bad password before challenging for an OTP', async () => {
+      const { app, token } = await buildApp('otp_login_bad_password');
+      await enable(app, token, 'auth-only');
+
+      const response = await login(app, 'otp_login_bad_password', token, 'wrongPassword').expect(
+        HTTP_STATUS.UNAUTHORIZED
+      );
+
+      expect(response.body.error).toBe(API_ERROR.BAD_USERNAME_PASSWORD);
+      expect(response.headers['www-authenticate'].toLowerCase()).not.toContain('otp');
+    });
+
+    test('should challenge for an OTP after the password is accepted', async () => {
+      const { app, token } = await buildApp('otp_login_challenge');
+      await enable(app, token, 'auth-only');
+
+      const response = await login(app, 'otp_login_challenge', token).expect(
+        HTTP_STATUS.UNAUTHORIZED
+      );
 
       expect(response.headers['www-authenticate'].toLowerCase()).toContain('otp');
     });

@@ -30,6 +30,33 @@ export default function (
   /** No-op unless the user logging in has two-factor enabled. */
   requireOtp: RequestHandler = (_req, _res, next) => next()
 ): void {
+  async function issueLoginToken(
+    req: $RequestExtend,
+    res: Response,
+    next: $NextFunctionVer,
+    name: string,
+    password: string,
+    user: RemoteUser | undefined
+  ): Promise<void> {
+    const restoredRemoteUser: RemoteUser = createRemoteUser(name, user?.groups || []);
+    const token = await getApiToken(auth, config, restoredRemoteUser, password);
+    debug('login: new token');
+    if (!token) {
+      return next(errorUtils.getUnauthorized());
+    }
+
+    res.status(HTTP_STATUS.CREATED);
+    res.set(HEADERS.CACHE_CONTROL, HEADERS.NO_CACHE);
+
+    const message = authUtils.getAuthenticatedMessage(name);
+    debug('login: created user message %o', message);
+
+    return next({
+      ok: message,
+      token,
+    });
+  }
+
   route.get(
     USER_API_ENDPOINTS.get_user,
     rateLimit(config?.userRateLimit),
@@ -81,7 +108,6 @@ export default function (
   route.put(
     USER_API_ENDPOINTS.add_user,
     rateLimit(config?.userRateLimit),
-    requireOtp,
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       const { name, password } = req.body;
       debug('login or adduser');
@@ -108,23 +134,14 @@ export default function (
               );
             }
 
-            const restoredRemoteUser: RemoteUser = createRemoteUser(name, user?.groups || []);
-            const token = await getApiToken(auth, config, restoredRemoteUser, password);
-            debug('login: new token');
-            if (!token) {
-              return next(errorUtils.getUnauthorized());
-            }
-
-            res.status(HTTP_STATUS.CREATED);
-            res.set(HEADERS.CACHE_CONTROL, HEADERS.NO_CACHE);
-
-            const message = authUtils.getAuthenticatedMessage(name);
-            debug('login: created user message %o', message);
-
-            return next({
-              ok: message,
-              token,
-            });
+            Promise.resolve(
+              requireOtp(req, res, (otpError?: any) => {
+                if (otpError) {
+                  return next(otpError);
+                }
+                issueLoginToken(req, res, next, name, password, user as RemoteUser).catch(next);
+              })
+            ).catch(next);
           }
         );
       } else {
