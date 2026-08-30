@@ -86,14 +86,19 @@ describe('endpoint web unit test', () => {
       });
 
       test('should display all packages logged', async () => {
-        const token = await getNewToken(request(app), {
-          name: 'jota_token',
-          password: 'secretPass',
-        });
+        const webCredentials = { name: 'jota_token', password: 'secretPass' };
+        await getNewToken(request(app), webCredentials);
+        // the web api only accepts web session tokens, so sign in through the web login
+        const login = await request(app)
+          .post('/-/verdaccio/sec/login')
+          .send({ username: webCredentials.name, password: webCredentials.password })
+          .expect(HTTP_STATUS.OK);
+        expect(login.body.token).toBeDefined();
+
         // this packages is protected at the yaml file
         const res = await request(app)
           .get('/-/verdaccio/data/packages')
-          .set(HEADERS.AUTHORIZATION, authUtils.buildToken(TOKEN_BEARER, token))
+          .set(HEADERS.AUTHORIZATION, authUtils.buildToken(TOKEN_BEARER, login.body.token))
           .expect(HTTP_STATUS.OK);
         expect(res.body).toHaveLength(2);
       });

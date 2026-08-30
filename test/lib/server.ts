@@ -2,13 +2,13 @@ import assert from 'assert';
 
 import { authUtils } from '@verdaccio/core';
 
-import { API_MESSAGE, HEADERS, HTTP_STATUS, TOKEN_BASIC } from '../../src/lib/constants';
+import { API_MESSAGE, HEADERS, HTTP_STATUS, TOKEN_BEARER } from '../../src/lib/constants';
 import { IServerBridge } from '../types';
 import { CREDENTIALS } from './credentials';
 import smartRequest from './request';
 
-const buildAuthHeader = (user, pass): string => {
-  return authUtils.buildToken(TOKEN_BASIC, Buffer.from(`${user}:${pass}`).toString('base64'));
+const buildAuthHeader = (token: string): string => {
+  return authUtils.buildToken(TOKEN_BEARER, token);
 };
 
 function getPackage(
@@ -33,12 +33,13 @@ function getPackage(
 export default class Server implements IServerBridge {
   public url: string;
   public userAgent: string;
-  public authstr: string;
+  public authstr: string | undefined;
 
   public constructor(url: string) {
     this.url = url.replace(/\/$/, '');
     this.userAgent = 'node/v8.1.2 linux x64';
-    this.authstr = buildAuthHeader(CREDENTIALS.user, CREDENTIALS.password);
+    // the API only accepts bearer tokens, so there is no header until `auth()` runs
+    this.authstr = undefined;
   }
 
   public request(options: any): any {
@@ -47,7 +48,11 @@ export default class Server implements IServerBridge {
 
     headers.accept = headers.accept || HEADERS.JSON;
     headers['user-agent'] = headers['user-agent'] || this.userAgent;
-    headers.authorization = headers.authorization || this.authstr;
+
+    const authorization = headers.authorization || this.authstr;
+    if (authorization) {
+      headers.authorization = authorization;
+    }
 
     return smartRequest({
       url: this.url + options.uri,
@@ -59,7 +64,8 @@ export default class Server implements IServerBridge {
   }
 
   public auth(name: string, password: string) {
-    this.authstr = buildAuthHeader(name, password);
+    // the login request itself is anonymous, the bearer token comes back in the body
+    this.authstr = undefined;
     return this.request({
       uri: `/-/user/org.couchdb.user:${encodeURIComponent(name)}/-rev/undefined`,
       method: 'PUT',
@@ -72,6 +78,11 @@ export default class Server implements IServerBridge {
         roles: [],
         date: new Date(),
       },
+    }).response((res) => {
+      const token = res?.body?.token;
+      if (token) {
+        this.authstr = buildAuthHeader(token);
+      }
     });
   }
 
