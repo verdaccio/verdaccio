@@ -27,13 +27,46 @@ function generateRandomStorage(): string {
  * on a throwaway folder, so the stream/rename behaviour of a production plugin
  * is exercised rather than mocked.
  */
-async function buildStageStorage(): Promise<{ stage: StageStorage; storagePath: string }> {
+async function buildStageStorage(): Promise<{
+  stage: StageStorage;
+  storagePath: string;
+  storage: Storage;
+}> {
   const storagePath = generateRandomStorage();
   const config = new Config({ ...getDefaultConfig(), storage: storagePath } as any);
   const storage = new Storage(config, logger);
   await storage.init(config);
 
-  return { stage: storage.getStageStorage(), storagePath };
+  return { stage: storage.getStageStorage(), storagePath, storage };
+}
+
+/**
+ * Make the storage plugin behave like one that never emits `'open'`.
+ *
+ * `StorageHandler.writeTarball` only promises a Writable; the two bundled
+ * plugins emit `'open'` but the interface does not require it, and a plugin
+ * that does not must still be able to stage. Writes still reach the real
+ * stream, so only the event is withheld.
+ */
+function withholdOpenEvent(storage: Storage): void {
+  const plugin: any = (storage as any).localStorage.getStoragePlugin();
+  const getPackageStorage = plugin.getPackageStorage.bind(plugin);
+
+  plugin.getPackageStorage = (name: string) => {
+    const handler = getPackageStorage(name);
+    if (!handler) {
+      return handler;
+    }
+    const writeTarball = handler.writeTarball.bind(handler);
+    handler.writeTarball = async (...args: unknown[]) => {
+      const stream: any = await writeTarball(...args);
+      const on = stream.on.bind(stream);
+      stream.on = (event: string, listener: (...a: any[]) => void) =>
+        event === 'open' ? stream : on(event, listener);
+      return stream;
+    };
+    return handler;
+  };
 }
 
 const tarball = Buffer.from('a-tarball-payload');
@@ -56,6 +89,20 @@ const signal = new AbortController().signal;
 
 describe('StageStorage', () => {
   describe('add', () => {
+    test('should stage against a plugin that never emits open', async () => {
+      const { stage, storage } = await buildStageStorage();
+      withholdOpenEvent(storage);
+
+      const record = await stage.add(addInput(), tarball, { signal });
+
+      const stream = await stage.readTarball(record.id, { signal });
+      const chunks: Buffer[] = [];
+      for await (const chunk of stream) {
+        chunks.push(chunk as Buffer);
+      }
+      expect(Buffer.concat(chunks)).toEqual(tarball);
+    });
+
     test('should persist a record with a uuid id', async () => {
       const { stage } = await buildStageStorage();
 

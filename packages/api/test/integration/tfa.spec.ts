@@ -15,27 +15,36 @@ async function buildApp(config = 'tfa.yaml', name = 'jota_tfa') {
   return { app, token, name };
 }
 
-function post(app: any, token: string, body: unknown) {
-  return supertest(app)
+function post(app: any, token: string, body: unknown, otp?: string) {
+  const request = supertest(app)
     .post(PROFILE)
     .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-    .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
-    .send(JSON.stringify(body));
+    .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token));
+  if (otp) {
+    request.set('npm-otp', otp);
+  }
+  return request.send(JSON.stringify(body));
 }
 
 function get(app: any, token: string) {
   return supertest(app).get(PROFILE).set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token));
 }
 
-/** Generate the code an authenticator app would show right now. */
-function codeFor(otpauthUrl: string): string {
+/**
+ * Code for the current 30s step, or a neighbouring one.
+ *
+ * Codes are single use, so a test that enrols and then disables needs the next
+ * step: the code that confirmed enrolment is already spent. Step +1 is still
+ * inside the tolerance window.
+ */
+function codeFor(otpauthUrl: string, stepOffset = 0): string {
   const secret = new URL(otpauthUrl).searchParams.get('secret') as string;
   return new TOTP({
     algorithm: 'SHA1',
     digits: 6,
     period: 30,
     secret: Secret.fromBase32(secret),
-  }).generate();
+  }).generate({ timestamp: Date.now() + stepOffset * 30_000 });
 }
 
 /** Walk the whole `npm profile enable-2fa` exchange. */
@@ -165,9 +174,11 @@ describe('two-factor authentication', () => {
   describe('disable', () => {
     test('should turn two-factor off', async () => {
       const { app, token } = await buildApp();
-      await enable(app, token);
+      const { otpauthUrl } = await enable(app, token);
 
-      await post(app, token, { tfa: { mode: 'disable', password } }).expect(HTTP_STATUS.OK);
+      await post(app, token, { tfa: { mode: 'disable', password } }, codeFor(otpauthUrl, 1)).expect(
+        HTTP_STATUS.OK
+      );
 
       const response = await get(app, token).expect(HTTP_STATUS.OK);
       expect(response.body.tfa).toBe(false);
@@ -175,14 +186,42 @@ describe('two-factor authentication', () => {
 
     test('should refuse to turn it off with a wrong password', async () => {
       const { app, token } = await buildApp();
+      const { otpauthUrl } = await enable(app, token);
+
+      await post(
+        app,
+        token,
+        { tfa: { mode: 'disable', password: 'wrong' } },
+        codeFor(otpauthUrl, 1)
+      ).expect(HTTP_STATUS.UNAUTHORIZED);
+
+      const response = await get(app, token).expect(HTTP_STATUS.OK);
+      expect(response.body.tfa).toMatchObject({ pending: false });
+    });
+
+    // a password alone is exactly what an attacker holding a stolen session
+    // already has; removing the second factor has to prove presence too
+    test('should challenge for an OTP instead of trusting the password', async () => {
+      const { app, token } = await buildApp();
       await enable(app, token);
 
-      await post(app, token, { tfa: { mode: 'disable', password: 'wrong' } }).expect(
+      const response = await post(app, token, { tfa: { mode: 'disable', password } }).expect(
+        HTTP_STATUS.UNAUTHORIZED
+      );
+
+      expect(response.headers['www-authenticate'].toLowerCase()).toContain('otp');
+    });
+
+    test('should leave two-factor on after a challenged attempt', async () => {
+      const { app, token } = await buildApp();
+      await enable(app, token);
+
+      await post(app, token, { tfa: { mode: 'disable', password } }).expect(
         HTTP_STATUS.UNAUTHORIZED
       );
 
       const response = await get(app, token).expect(HTTP_STATUS.OK);
-      expect(response.body.tfa).toMatchObject({ pending: false });
+      expect(response.body.tfa).toMatchObject({ mode: 'auth-and-writes', pending: false });
     });
   });
 

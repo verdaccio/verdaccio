@@ -320,28 +320,12 @@ export class StageStorage {
   ): Promise<void> {
     const writeStream = await handler.writeTarball(filename, { signal });
 
-    await new Promise<void>((resolve, reject) => {
-      let settled = false;
-      const fail = (err: Error) => {
-        if (!settled) {
-          settled = true;
-          reject(err);
-        }
-      };
-
-      writeStream.on('error', fail);
-      writeStream.on('close', () => {
-        if (!settled) {
-          settled = true;
-          resolve();
-        }
-      });
-      // both bundled plugins emit 'open' once the underlying descriptor is
-      // ready and only then accept writes
-      writeStream.on('open', () => {
-        pipeline(Readable.from(tarball), writeStream).catch(fail);
-      });
-    });
+    // `StorageHandler.writeTarball` only promises a Writable. The two bundled
+    // plugins happen to emit 'open' before accepting writes, but nothing in the
+    // interface says a plugin must, and waiting for it would hang staging
+    // forever on one that does not. Piping straight away is correct either way:
+    // a stream that is not ready yet buffers the writes.
+    await pipeline(Readable.from(tarball), writeStream);
 
     // Both plugins rename the temporary file inside an async 'close' handler
     // that nobody awaits, so 'close' does not guarantee the tarball is in its

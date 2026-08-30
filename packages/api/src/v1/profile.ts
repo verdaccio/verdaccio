@@ -1,4 +1,4 @@
-import type { Response, Router } from 'express';
+import type { RequestHandler, Response, Router } from 'express';
 import { isEmpty, isNil } from 'lodash-es';
 
 import type { Auth, TfaMode, TfaStatus } from '@verdaccio/auth';
@@ -39,7 +39,9 @@ export default function (
   auth: Auth,
   config: Config,
   storage?: Storage,
-  logger?: Logger
+  logger?: Logger,
+  /** No-op unless the caller already has two-factor enabled. */
+  requireOtp: RequestHandler = (_req, _res, next) => next()
 ): void {
   // only built when the flag is on: without it nothing must touch the token store
   const tfaStore =
@@ -145,6 +147,12 @@ export default function (
   route.post(
     PROFILE_API_ENDPOINTS.get_profile,
     rateLimit(config?.userRateLimit),
+    // Turning two-factor off, switching its mode or changing the password are
+    // exactly the operations a stolen session must not be able to perform on
+    // its own. The middleware stays quiet while enrolment is pending, so the
+    // three steps of `npm profile enable-2fa` are unaffected; `otplease` in the
+    // CLI answers the challenge on the ones that follow.
+    requireOtp,
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       if (isNil(req.remote_user.name)) {
         res.status(HTTP_STATUS.UNAUTHORIZED);

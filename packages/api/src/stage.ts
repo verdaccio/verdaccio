@@ -322,6 +322,7 @@ export default function stage(
       next: $NextFunctionVer
     ): Promise<void> {
       const abort = new AbortController();
+      req.on('aborted', () => abort.abort());
       try {
         const record = await loadRecord(req);
         if (!(await canPublish(auth, record.packageName, req.remote_user))) {
