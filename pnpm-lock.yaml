@@ -368,9 +368,6 @@ importers:
       semver:
         specifier: 7.8.5
         version: 7.8.5
-      tsx:
-        specifier: 4.22.4
-        version: 4.22.4
     devDependencies:
       '@verdaccio/types':
         specifier: workspace:14.0.0-next-9.13
@@ -378,6 +375,9 @@ importers:
       rimraf:
         specifier: 6.1.3
         version: 6.1.3
+      tsx:
+        specifier: 4.22.4
+        version: 4.22.4
       vite:
         specifier: 8.2.1
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
