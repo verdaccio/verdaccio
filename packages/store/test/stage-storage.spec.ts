@@ -103,6 +103,22 @@ describe('StageStorage', () => {
 
       expect(Buffer.concat(chunks).equals(tarball)).toBe(true);
     });
+
+    test('should reject concurrent duplicates for the same package version', async () => {
+      const { stage } = await buildStageStorage();
+
+      const results = await Promise.allSettled([
+        stage.add(addInput(), tarball, { signal }),
+        stage.add(addInput(), tarball, { signal }),
+      ]);
+
+      expect(results.filter((result) => result.status === 'fulfilled')).toHaveLength(1);
+      const rejected = results.find((result) => result.status === 'rejected');
+      expect(rejected).toMatchObject({
+        reason: { code: 409 },
+      });
+      await expect(stage.list()).resolves.toHaveLength(1);
+    });
   });
 
   describe('list', () => {

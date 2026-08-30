@@ -19,3 +19,13 @@ request and reached the storage plugin unchecked. A name of `..` made the write
 fail inside a stream handler nobody awaits, which crashed the process: any user
 allowed to stage could take the registry down with one request. The regular
 publish path already asserted the name; staging now does too.
+
+Both single-use guarantees were also reachable around by sending requests at the
+same time: two concurrent verifications read the same record, neither saw the
+other spend the code, and both were accepted. Two-factor mutations are now
+serialized per user, and the duplicate check when staging happens inside the
+serialized index write instead of before it.
+
+Logging in no longer asks for a one-time password before the password itself has
+been accepted, which used to reveal that an account exists and has two-factor
+enabled to anyone who could guess a username.

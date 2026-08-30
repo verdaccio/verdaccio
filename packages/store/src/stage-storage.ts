@@ -161,19 +161,29 @@ export class StageStorage {
     };
     debug('staging %o@%o as %o', record.packageName, record.version, record.id);
 
-    const handler = this.itemStorage(record.id);
-    // the tarball goes first: if it fails there is no record pointing at a
-    // tarball that never landed.
-    await this.writeTarball(handler, record.tarballFilename, tarball, { signal });
-    const document: StageDocument = { record, packument: input.packument };
-    await handler.savePackage(record.id, document as unknown as Manifest);
-    await this.updateIndex((items) => [record, ...items]);
+    return this.enqueueIndexMutation(async () => {
+      const items = await this.readIndex();
+      const alreadyStaged = items.find(
+        (item) => item.packageName === record.packageName && item.version === record.version
+      );
+      if (alreadyStaged) {
+        throw errorUtils.getConflict(`${record.packageName}@${record.version} is already staged`);
+      }
 
-    this.logger.info(
-      { packageName: record.packageName, version: record.version, stageId: record.id },
-      'staged @{packageName}@@{version} as @{stageId}'
-    );
-    return record;
+      const handler = this.itemStorage(record.id);
+      // the tarball goes first: if it fails there is no record pointing at a
+      // tarball that never landed.
+      await this.writeTarball(handler, record.tarballFilename, tarball, { signal });
+      const document: StageDocument = { record, packument: input.packument };
+      await handler.savePackage(record.id, document as unknown as Manifest);
+      await this.writeIndex([record, ...items]);
+
+      this.logger.info(
+        { packageName: record.packageName, version: record.version, stageId: record.id },
+        'staged @{packageName}@@{version} as @{stageId}'
+      );
+      return record;
+    });
   }
 
   /** Every staged item, newest first, optionally narrowed to one package. */
@@ -283,16 +293,23 @@ export class StageStorage {
   private async updateIndex(
     mutate: (items: StageRecord[]) => StageRecord[]
   ): Promise<StageRecord[]> {
-    const run = async (): Promise<StageRecord[]> => {
+    return this.enqueueIndexMutation(async (): Promise<StageRecord[]> => {
       const items = mutate(await this.readIndex());
-      const index: StageIndex = { items };
-      await this.indexStorage().savePackage(STAGE_INDEX, index as unknown as Manifest);
+      await this.writeIndex(items);
       return items;
-    };
+    });
+  }
+
+  private async enqueueIndexMutation<T>(run: () => Promise<T>): Promise<T> {
     const queued = this.indexQueue.then(run, run);
     // keep the chain alive even when a caller rejects
     this.indexQueue = queued.catch(() => undefined);
     return queued;
+  }
+
+  private async writeIndex(items: StageRecord[]): Promise<void> {
+    const index: StageIndex = { items };
+    await this.indexStorage().savePackage(STAGE_INDEX, index as unknown as Manifest);
   }
 
   private async writeTarball(

@@ -123,6 +123,7 @@ export class TfaStore {
   private readonly storage: TfaTokenStorage;
   private readonly secretKey: string;
   private readonly logger: Logger;
+  private readonly userQueues = new Map<string, Promise<unknown>>();
 
   public constructor(storage: TfaTokenStorage, secretKey: string, logger: Logger) {
     this.storage = storage;
@@ -191,20 +192,22 @@ export class TfaStore {
     mode: TfaMode,
     issuer: string
   ): Promise<{ record: TfaRecord; otpauthUrl: string }> {
-    const secret = new Secret({ size: 20 });
-    const record: TfaRecord = {
-      mode,
-      pending: true,
-      secret: secret.base32,
-      recoveryCodes: [],
-      createdAt: new Date().toISOString(),
-      failedAttempts: 0,
-    };
-    await this.save(username, record);
-    debug('enrolment started for %o in mode %o', username, mode);
+    return this.enqueueUserMutation(username, async () => {
+      const secret = new Secret({ size: 20 });
+      const record: TfaRecord = {
+        mode,
+        pending: true,
+        secret: secret.base32,
+        recoveryCodes: [],
+        createdAt: new Date().toISOString(),
+        failedAttempts: 0,
+      };
+      await this.save(username, record);
+      debug('enrolment started for %o in mode %o', username, mode);
 
-    const totp = this.buildTotp(record.secret, username, issuer);
-    return { record, otpauthUrl: totp.toString() };
+      const totp = this.buildTotp(record.secret, username, issuer);
+      return { record, otpauthUrl: totp.toString() };
+    });
   }
 
   /**
@@ -214,33 +217,37 @@ export class TfaStore {
    *   `undefined` when the code is wrong
    */
   public async completeEnrolment(username: string, code: string): Promise<string[] | undefined> {
-    const record = await this.get(username);
-    if (!record || record.pending === false) {
-      return undefined;
-    }
-    const step = this.verifyTotp(record, code);
-    if (step === undefined) {
-      return undefined;
-    }
+    return this.enqueueUserMutation(username, async () => {
+      const record = await this.get(username);
+      if (!record || record.pending === false) {
+        return undefined;
+      }
+      const step = this.verifyTotp(record, code);
+      if (step === undefined) {
+        return undefined;
+      }
 
-    const plainCodes = Array.from({ length: RECOVERY_CODE_COUNT }, generateRecoveryCode);
+      const plainCodes = Array.from({ length: RECOVERY_CODE_COUNT }, generateRecoveryCode);
 
-    await this.save(username, {
-      ...record,
-      pending: false,
-      recoveryCodes: plainCodes.map(hashRecoveryCode),
-      failedAttempts: 0,
-      // the confirming code is spent, it must not also work for a publish
-      lastUsedStep: step,
+      await this.save(username, {
+        ...record,
+        pending: false,
+        recoveryCodes: plainCodes.map(hashRecoveryCode),
+        failedAttempts: 0,
+        // the confirming code is spent, it must not also work for a publish
+        lastUsedStep: step,
+      });
+      debug('enrolment completed for %o', username);
+      return plainCodes;
     });
-    debug('enrolment completed for %o', username);
-    return plainCodes;
   }
 
   /** Drop a user's 2FA configuration entirely. */
   public async disable(username: string): Promise<void> {
-    await this.storage.deleteToken(username, TFA_TOKEN_KEY);
-    debug('two-factor disabled for %o', username);
+    await this.enqueueUserMutation(username, async () => {
+      await this.storage.deleteToken(username, TFA_TOKEN_KEY);
+      debug('two-factor disabled for %o', username);
+    });
   }
 
   /**
@@ -252,54 +259,56 @@ export class TfaStore {
    *
    */
   public async verify(username: string, code: string): Promise<boolean> {
-    const record = await this.get(username);
-    if (!record || record.pending) {
-      return false;
-    }
-
-    if (record.lockedUntil && new Date(record.lockedUntil) > new Date()) {
-      this.logger.warn(
-        { username },
-        'rejected a two-factor attempt for @{username}: the account is locked out'
-      );
-      return false;
-    }
-
-    const step = this.verifyTotp(record, code);
-    if (step !== undefined) {
-      if (record.lastUsedStep !== undefined && step <= record.lastUsedStep) {
-        this.logger.warn({ username }, 'rejected a replayed one-time password for @{username}');
-        await this.registerFailure(username, record);
+    return this.enqueueUserMutation(username, async () => {
+      const record = await this.get(username);
+      if (!record || record.pending) {
         return false;
       }
-      await this.save(username, {
-        ...record,
-        failedAttempts: 0,
-        lockedUntil: undefined,
-        lastUsedStep: step,
-      });
-      return true;
-    }
 
-    const recoveryIndex = this.findRecoveryCode(record, code);
-    if (recoveryIndex >= 0) {
-      // recovery codes are single use
-      const remaining = record.recoveryCodes.filter((_code, index) => index !== recoveryIndex);
-      await this.save(username, {
-        ...record,
-        recoveryCodes: remaining,
-        failedAttempts: 0,
-        lockedUntil: undefined,
-      });
-      this.logger.warn(
-        { username, remaining: remaining.length },
-        'a recovery code was used by @{username}, @{remaining} left'
-      );
-      return true;
-    }
+      if (record.lockedUntil && new Date(record.lockedUntil) > new Date()) {
+        this.logger.warn(
+          { username },
+          'rejected a two-factor attempt for @{username}: the account is locked out'
+        );
+        return false;
+      }
 
-    await this.registerFailure(username, record);
-    return false;
+      const step = this.verifyTotp(record, code);
+      if (step !== undefined) {
+        if (record.lastUsedStep !== undefined && step <= record.lastUsedStep) {
+          this.logger.warn({ username }, 'rejected a replayed one-time password for @{username}');
+          await this.registerFailure(username, record);
+          return false;
+        }
+        await this.save(username, {
+          ...record,
+          failedAttempts: 0,
+          lockedUntil: undefined,
+          lastUsedStep: step,
+        });
+        return true;
+      }
+
+      const recoveryIndex = this.findRecoveryCode(record, code);
+      if (recoveryIndex >= 0) {
+        // recovery codes are single use
+        const remaining = record.recoveryCodes.filter((_code, index) => index !== recoveryIndex);
+        await this.save(username, {
+          ...record,
+          recoveryCodes: remaining,
+          failedAttempts: 0,
+          lockedUntil: undefined,
+        });
+        this.logger.warn(
+          { username, remaining: remaining.length },
+          'a recovery code was used by @{username}, @{remaining} left'
+        );
+        return true;
+      }
+
+      await this.registerFailure(username, record);
+      return false;
+    });
   }
 
   private findRecoveryCode(record: TfaRecord, code: string): number {
@@ -349,6 +358,20 @@ export class TfaStore {
       period: TOTP_PERIOD,
       secret: Secret.fromBase32(secret),
     });
+  }
+
+  private async enqueueUserMutation<T>(username: string, run: () => Promise<T>): Promise<T> {
+    const previous = this.userQueues.get(username) ?? Promise.resolve();
+    const queued = previous.then(run, run);
+    const cleanup = queued
+      .catch(() => undefined)
+      .finally(() => {
+        if (this.userQueues.get(username) === cleanup) {
+          this.userQueues.delete(username);
+        }
+      });
+    this.userQueues.set(username, cleanup);
+    return queued;
   }
 
   private async save(username: string, record: TfaRecord): Promise<void> {

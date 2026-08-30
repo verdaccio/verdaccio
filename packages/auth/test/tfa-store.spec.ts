@@ -182,6 +182,15 @@ describe('TfaStore', () => {
       await expect(store.verify('jota', code)).resolves.toBe(false);
     });
 
+    test('should reject concurrent one-time password replays', async () => {
+      const { store, secret } = await enrol();
+      const code = currentCode(secret, 1);
+
+      const results = await Promise.all([store.verify('jota', code), store.verify('jota', code)]);
+
+      expect(results.sort()).toEqual([false, true]);
+    });
+
     test('should not let the enrolment code be reused to authorise a write', async () => {
       const { store } = buildStore();
       const { record } = await store.beginEnrolment('jota', 'auth-and-writes', 'Verdaccio');
@@ -220,6 +229,17 @@ describe('TfaStore', () => {
       // single use: the same code must not work twice
       await expect(store.verify('jota', codes[0])).resolves.toBe(false);
       await expect(store.verify('jota', codes[1])).resolves.toBe(true);
+    });
+
+    test('should reject concurrent recovery code replays', async () => {
+      const { store, codes } = await enrol();
+
+      const results = await Promise.all([
+        store.verify('jota', codes[0]),
+        store.verify('jota', codes[0]),
+      ]);
+
+      expect(results.sort()).toEqual([false, true]);
     });
 
     test('should lock out after repeated failures even with the right code', async () => {
