@@ -1,5 +1,11 @@
 # Changelog
 
+## 7.0.0-next-7.25
+
+### Patch Changes
+
+- c461320: Update verdaccio dependencies (`@verdaccio/*`, `verdaccio`, `verdaccio-*`) to the `next-9` npm dist-tag.
+
 ## 7.0.0-next-7.24
 
 ### Patch Changes
