@@ -5,6 +5,7 @@ import path from 'node:path';
 import { beforeAll, describe, expect, test } from 'vitest';
 
 import { Config, getDefaultConfig } from '@verdaccio/config';
+import { UUID_PATTERN } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
 import type { Logger } from '@verdaccio/types';
 
@@ -109,7 +110,7 @@ describe('StageStorage', () => {
       const record = await stage.add(addInput(), tarball, { signal });
 
       // the npm CLI validates the id format before it even calls the registry
-      expect(record.id).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/);
+      expect(record.id).toMatch(UUID_PATTERN);
       expect(record.packageName).toBe('foo');
       expect(record.version).toBe('1.0.0');
       expect(record.actorType).toBe('user');

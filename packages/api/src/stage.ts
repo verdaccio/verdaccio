@@ -7,6 +7,7 @@ import {
   HEADERS,
   HEADER_TYPE,
   HTTP_STATUS,
+  UUID_PATTERN,
   cryptoUtils,
   errorUtils,
   reqUtils,
@@ -28,8 +29,6 @@ import type { Config, Logger, Manifest, RemoteUser } from '@verdaccio/types';
 import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
 
 const debug = buildDebug('verdaccio:api:stage');
-
-const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 const DEFAULT_PER_PAGE = 10;
 const MAX_PER_PAGE = 100;
@@ -288,7 +287,7 @@ export default function stage(
         const record = await loadRecord(req);
         const stream: any = await stageStorage.readTarball(record.id, { signal: abort.signal });
 
-        stream.on('content-length', (size: number) => {
+        stream.on(HEADER_TYPE.CONTENT_LENGTH, (size: number) => {
           res.header(HEADER_TYPE.CONTENT_LENGTH, String(size));
         });
         stream.once('error', (err: any) => {

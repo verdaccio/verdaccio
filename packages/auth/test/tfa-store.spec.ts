@@ -1,10 +1,13 @@
+import { createHash } from 'node:crypto';
 import { Secret, TOTP } from 'otpauth';
 import { beforeAll, describe, expect, test } from 'vitest';
 
 import { setup } from '@verdaccio/logger';
+import { aesDecrypt } from '@verdaccio/signature';
 import type { Logger, Token } from '@verdaccio/types';
 
 import { TFA_TOKEN_KEY, TfaStore, isReservedTokenKey } from '../src/tfa-store';
+import { SHA256_ALGORITHM } from '../src/utils';
 
 let logger: Logger;
 beforeAll(async () => {
@@ -160,6 +163,18 @@ describe('TfaStore', () => {
       for (const code of codes) {
         expect(row!.token).not.toContain(code);
       }
+    });
+
+    test('should store recovery codes as SHA-256 hashes', async () => {
+      const { storage, codes } = await enrol();
+
+      const row = storage.rows.find((r) => r.key === TFA_TOKEN_KEY);
+      const decrypted = aesDecrypt(row!.token, SECRET_KEY);
+      const record = JSON.parse(decrypted as string);
+
+      expect(record.recoveryCodes).toEqual(
+        codes.map((code) => createHash(SHA256_ALGORITHM).update(code).digest('hex'))
+      );
     });
   });
 

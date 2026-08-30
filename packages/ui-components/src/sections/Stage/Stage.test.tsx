@@ -1,9 +1,10 @@
 import React from 'react';
-import { MemoryRouter } from 'react-router';
+import { MemoryRouter, Route as RouterRoute, Routes } from 'react-router';
 import type * as ReactRouter from 'react-router';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
-import { renderWith, screen, waitFor } from '../../test/test-react-testing-library';
+import { fireEvent, renderWith, screen, waitFor } from '../../test/test-react-testing-library';
+import StageDetail from './StageDetail';
 import StageList from './StageList';
 import type { StagePackageList } from './types';
 
@@ -51,6 +52,16 @@ function renderList() {
   return renderWith(
     <MemoryRouter initialEntries={['/-/web/stage']}>
       <StageList />
+    </MemoryRouter>
+  );
+}
+
+function renderDetail(stageId = item.id) {
+  return renderWith(
+    <MemoryRouter initialEntries={[`/-/web/stage/${stageId}`]}>
+      <Routes>
+        <RouterRoute element={<StageDetail />} path="/-/web/stage/:stageId" />
+      </Routes>
     </MemoryRouter>
   );
 }
@@ -162,5 +173,76 @@ describe('<StageList />', () => {
 
     await waitFor(() => expect(screen.getByText('stage.confirm.rejectTitle')).toBeInTheDocument());
     expect(requestMock).not.toHaveBeenCalledWith(expect.stringContaining(item.id), 'DELETE');
+  });
+
+  test('should approve after confirmation and refresh the list', async () => {
+    requestMock
+      .mockResolvedValueOnce(oneItem)
+      .mockResolvedValueOnce({ message: 'ok' })
+      .mockResolvedValueOnce(emptyList);
+
+    renderList();
+    await waitFor(() => expect(screen.getByTestId('stage-table')).toBeInTheDocument());
+
+    fireEvent.click(screen.getByTestId(`stage-approve-${item.id}`));
+    fireEvent.click(await screen.findByTestId('stage-confirm'));
+
+    await waitFor(() =>
+      expect(requestMock).toHaveBeenCalledWith(
+        `http://localhost:9000/-/stage/${item.id}/approve`,
+        'POST'
+      )
+    );
+    await waitFor(() => expect(requestMock).toHaveBeenCalledTimes(3));
+  });
+});
+
+describe('<StageDetail />', () => {
+  beforeEach(() => {
+    requestMock.mockReset();
+    navigateMock.mockReset();
+    session = { token: 'a-session-token', username: 'jota' };
+  });
+
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+
+  test('should render the staged package details', async () => {
+    requestMock.mockResolvedValue(item);
+
+    renderDetail();
+
+    await waitFor(() => expect(screen.getByTestId('stage-detail')).toBeInTheDocument());
+    expect(screen.getByText('@scope/foo@1.2.3')).toBeInTheDocument();
+    expect(screen.getByText('4f7f5f1d5bcf2f72f6e4d6c4f3b2812d8a2f6c19')).toBeInTheDocument();
+  });
+
+  test('should request the stage item by route id', async () => {
+    requestMock.mockResolvedValue(item);
+
+    renderDetail();
+
+    await waitFor(() =>
+      expect(requestMock).toHaveBeenCalledWith(`http://localhost:9000/-/stage/${item.id}`)
+    );
+  });
+
+  test('should show not found when the item cannot be loaded', async () => {
+    requestMock.mockRejectedValue(new Error('missing'));
+
+    renderDetail();
+
+    await waitFor(() => expect(screen.getByText('stage.error.notFound')).toBeInTheDocument());
+  });
+
+  test('should send anonymous visitors home without loading the item', async () => {
+    session = { token: null, username: null };
+    requestMock.mockResolvedValue(item);
+
+    renderDetail();
+
+    await waitFor(() => expect(navigateMock).toHaveBeenCalledWith('/'));
+    expect(requestMock).not.toHaveBeenCalled();
   });
 });

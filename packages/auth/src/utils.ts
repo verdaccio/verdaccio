@@ -18,6 +18,8 @@ import type {
 
 const debug = buildDebug('verdaccio:auth:utils');
 
+export const SHA256_ALGORITHM = 'sha256';
+
 /**
  * Split authentication header eg: Bearer [secret_token]
  * @param authorizationHeader auth token

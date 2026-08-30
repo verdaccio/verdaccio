@@ -9,6 +9,7 @@ export const USERS = 'users';
 export const MAINTAINERS = 'maintainers';
 export const DEFAULT_USER = 'Anonymous'; // for display purposes
 export const ANONYMOUS_USER = 'anonymous'; // for username purposes
+export const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 export const HEADER_TYPE = {
   CONTENT_ENCODING: 'content-encoding',

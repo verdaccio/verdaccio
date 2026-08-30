@@ -6,6 +6,8 @@ import { errorUtils } from '@verdaccio/core';
 import { aesDecrypt, aesEncrypt } from '@verdaccio/signature';
 import type { Logger, Token } from '@verdaccio/types';
 
+import { SHA256_ALGORITHM } from './utils';
+
 const debug = buildDebug('verdaccio:auth:tfa');
 
 /**
@@ -90,7 +92,7 @@ function generateRecoveryCode(): string {
  * where a decrypted record leaks.
  */
 function hashRecoveryCode(plain: string): string {
-  return createHash('sha256').update(plain).digest('hex');
+  return createHash(SHA256_ALGORITHM).update(plain).digest('hex');
 }
 
 /**

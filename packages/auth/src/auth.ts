@@ -37,6 +37,7 @@ import type {
   TokenEncryption,
 } from './types';
 import {
+  SHA256_ALGORITHM,
   getDefaultPluginMethods,
   getMiddlewareCredentials,
   isAESLegacy,
@@ -735,7 +736,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
       return;
     }
 
-    return createHash('sha256').update(authorization).digest('hex');
+    return createHash(SHA256_ALGORITHM).update(authorization).digest('hex');
   }
 
   private getLegacyAuthCacheEntry(cacheKey: string | void): RemoteUser | void {

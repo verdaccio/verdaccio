@@ -2,7 +2,7 @@ import nock from 'nock';
 import supertest from 'supertest';
 import { beforeAll, beforeEach, describe, expect, test } from 'vitest';
 
-import { HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core';
+import { HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER, UUID_PATTERN } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
 import { generatePackageMetadata } from '@verdaccio/test-helper';
 
@@ -14,7 +14,6 @@ import {
   publishVersionWithToken,
 } from './_helper';
 
-const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 const A_UUID = '8f6d5b3c-1a2e-4f7b-9c0d-1e2f3a4b5c6d';
 /** 404 from the GET catch-all, 590 from the test server's unmatched-request handler. */
 const UNMATCHED_STATUSES = [HTTP_STATUS.NOT_FOUND, 590];
