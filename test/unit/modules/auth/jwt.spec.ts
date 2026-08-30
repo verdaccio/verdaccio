@@ -7,7 +7,6 @@ import {
   HEADERS,
   HEADER_TYPE,
   HTTP_STATUS,
-  TOKEN_BASIC,
   TOKEN_BEARER,
   authUtils,
   fileUtils,
@@ -29,7 +28,8 @@ describe('endpoint user auth JWT unit test', () => {
   vi.setConfig({ testTimeout: 20000 });
   let app;
   let mockRegistry;
-  const FAKE_TOKEN: string = authUtils.buildToken(TOKEN_BEARER, 'fake');
+  // raw token, `getPackage` is the one that wraps it into a bearer header
+  const FAKE_TOKEN = 'fake';
 
   beforeAll(async function () {
     const store = await fileUtils.createTempStorageFolder('test-jwt-storage');
@@ -94,20 +94,16 @@ describe('endpoint user auth JWT unit test', () => {
   test('should emulate npm login when user already exist', async () => {
     const credentials = { name: 'jwtUser2', password: 'secretPass' };
     // creates an user
-    await addUser(request(app), credentials.name, credentials);
+    const [, created] = await addUser(request(app), credentials.name, credentials);
     // it should fails conflict 409
     await addUser(request(app), credentials.name, credentials, HTTP_STATUS.CONFLICT);
 
-    // npm will try to sign in sending credentials via basic auth header
-    const token = authUtils
-      .buildUserBuffer(credentials.name, credentials.password)
-      .toString('base64');
-    // put should exist in request
+    // basic auth is not accepted anymore, npm signs in again with the bearer token
     // @ts-ignore
     const res = await request(app)
       .put(`/-/user/org.couchdb.user:${credentials.name}/-rev/undefined`)
       .send(credentials)
-      .set(HEADERS.AUTHORIZATION, authUtils.buildToken(TOKEN_BASIC, token))
+      .set(HEADERS.AUTHORIZATION, authUtils.buildToken(TOKEN_BEARER, created.body.token))
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
       .expect(HTTP_STATUS.CREATED);
 
