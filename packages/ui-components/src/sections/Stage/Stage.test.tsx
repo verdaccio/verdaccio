@@ -1,5 +1,6 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router';
+import type * as ReactRouter from 'react-router';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { renderWith, screen, waitFor } from '../../test/test-react-testing-library';
@@ -28,6 +29,24 @@ vi.mock('../../store/api', () => ({
   },
 }));
 
+// the real provider derives the session from a JWT in storage; the guard only
+// cares whether there is a token at all
+let session: { token: string | null; username: string | null } = {
+  token: 'a-session-token',
+  username: 'jota',
+};
+vi.mock('../../providers/AuthProvider', () => ({
+  // the render helper mounts the real provider, so it has to stay exported
+  AuthProvider: ({ children }: { children: React.ReactNode }) => children,
+  useAuth: () => ({ userState: session }),
+}));
+
+const navigateMock = vi.fn();
+vi.mock('react-router', async () => {
+  const actual = await vi.importActual<typeof ReactRouter>('react-router');
+  return { ...actual, useNavigate: () => navigateMock };
+});
+
 function renderList() {
   return renderWith(
     <MemoryRouter initialEntries={['/-/web/stage']}>
@@ -39,6 +58,8 @@ function renderList() {
 describe('<StageList />', () => {
   beforeEach(() => {
     requestMock.mockReset();
+    navigateMock.mockReset();
+    session = { token: 'a-session-token', username: 'jota' };
   });
 
   afterEach(() => {
@@ -97,6 +118,38 @@ describe('<StageList />', () => {
       expect.stringContaining('/approve'),
       expect.anything()
     );
+  });
+
+  describe('without a session', () => {
+    test('should send the visitor home instead of showing an error', async () => {
+      session = { token: null, username: null };
+      requestMock.mockResolvedValue(emptyList);
+
+      renderList();
+
+      await waitFor(() => expect(navigateMock).toHaveBeenCalledWith('/'));
+    });
+
+    test('should not call the registry at all', async () => {
+      session = { token: null, username: null };
+      requestMock.mockResolvedValue(emptyList);
+
+      renderList();
+
+      // every stage endpoint needs auth, so the request could only come back 401
+      await waitFor(() => expect(navigateMock).toHaveBeenCalled());
+      expect(requestMock).not.toHaveBeenCalled();
+      expect(screen.queryByText('stage.error.list')).not.toBeInTheDocument();
+    });
+
+    test('should stay put when there is a session', async () => {
+      requestMock.mockResolvedValue(emptyList);
+
+      renderList();
+
+      await waitFor(() => expect(requestMock).toHaveBeenCalled());
+      expect(navigateMock).not.toHaveBeenCalled();
+    });
   });
 
   test('should confirm before rejecting', async () => {

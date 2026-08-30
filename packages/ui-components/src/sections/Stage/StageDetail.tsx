@@ -1,4 +1,3 @@
-import Alert from '@mui/material/Alert';
 import {
   Box,
   Button,
@@ -18,11 +17,13 @@ import { useNavigate, useParams } from 'react-router';
 import { Route } from '../../utils';
 import StageActions from './StageActions';
 import { downloadStagedTarball, useStageItem } from './useStage';
+import { useRequireSession } from './useRequireSession';
 
 const StageDetail: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { stageId } = useParams<{ stageId: string }>();
+  const isLoggedIn = useRequireSession();
   const { data, error, isLoading } = useStageItem(stageId);
 
   const handleDownload = useCallback(async () => {
@@ -30,6 +31,10 @@ const StageDetail: React.FC = () => {
       await downloadStagedTarball(data);
     }
   }, [data]);
+
+  if (!isLoggedIn) {
+    return null;
+  }
 
   if (isLoading) {
     return (
@@ -41,10 +46,11 @@ const StageDetail: React.FC = () => {
 
   if (error || !data) {
     return (
-      // @ts-ignore - Alert does accept children despite the type error
-      <Alert severity="error" sx={{ margin: 2 }}>
-        {t('stage.error.notFound')}
-      </Alert>
+      <Box padding={2}>
+        <Typography color="error" role="alert">
+          {t('stage.error.notFound')}
+        </Typography>
+      </Box>
     );
   }
 

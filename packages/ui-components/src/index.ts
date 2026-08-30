@@ -36,7 +36,6 @@ export { default as ErrorBoundary } from './components/ErrorBoundary';
 export { default as AppRoute } from './components/AppRoute/AppRoute';
 // sections
 export { default as SideBar } from './sections/SideBar';
-export * from './sections/Stage';
 export { default as Detail } from './sections/Detail';
 export { default as Header } from './sections/Header';
 export { default as Home } from './sections/Home';

@@ -3,3 +3,4 @@ export { default as StageDetail } from './StageDetail';
 export { default as StageActions } from './StageActions';
 export * from './types';
 export * from './useStage';
+export * from './useRequireSession';

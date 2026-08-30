@@ -1,4 +1,3 @@
-import Alert from '@mui/material/Alert';
 import {
   Box,
   Button,
@@ -20,12 +19,14 @@ import { useNavigate } from 'react-router';
 
 import { Route } from '../../utils';
 import StageActions from './StageActions';
+import { useRequireSession } from './useRequireSession';
 import type { StagePackageVersion } from './types';
 import { downloadStagedTarball, useStageList } from './useStage';
 
 const StageList: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const isLoggedIn = useRequireSession();
   const [page, setPage] = useState(0);
   const [perPage, setPerPage] = useState(10);
   const { data, error, isLoading, mutate } = useStageList(page, perPage);
@@ -33,6 +34,12 @@ const StageList: React.FC = () => {
   const handleDownload = useCallback(async (item: StagePackageVersion) => {
     await downloadStagedTarball(item);
   }, []);
+
+  // the redirect lands on the next effect; rendering the table meanwhile would
+  // only show an empty state that is about to disappear
+  if (!isLoggedIn) {
+    return null;
+  }
 
   if (isLoading) {
     return (
@@ -44,10 +51,11 @@ const StageList: React.FC = () => {
 
   if (error) {
     return (
-      // @ts-ignore - Alert does accept children despite the type error
-      <Alert severity="error" sx={{ margin: 2 }}>
-        {t('stage.error.list')}
-      </Alert>
+      <Box padding={2}>
+        <Typography color="error" role="alert">
+          {t('stage.error.list')}
+        </Typography>
+      </Box>
     );
   }
 
@@ -63,10 +71,9 @@ const StageList: React.FC = () => {
       </Typography>
 
       {items.length === 0 ? (
-        // @ts-ignore - Alert does accept children despite the type error
-        <Alert severity="info" sx={{ marginTop: 2 }}>
+        <Typography color="text.secondary" marginTop={2}>
           {t('stage.empty')}
-        </Alert>
+        </Typography>
       ) : (
         <TableContainer component={Paper} sx={{ marginTop: 2, overflowX: 'auto' }}>
           <Table aria-label={t('stage.title')} data-testid="stage-table" size="small">

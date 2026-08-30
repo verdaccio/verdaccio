@@ -1,4 +1,3 @@
-import Alert from '@mui/material/Alert';
 import {
   Button,
   Dialog,
@@ -6,6 +5,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Typography,
 } from '@mui/material';
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -103,10 +103,9 @@ const StageActions: React.FC<Props> = ({ item, onDone }) => {
                 })}
           </DialogContentText>
           {error && (
-            // @ts-ignore - Alert does accept children despite the type error
-            <Alert severity="error" sx={{ marginTop: 2 }}>
+            <Typography color="error" marginTop={2} role="alert">
               {error}
-            </Alert>
+            </Typography>
           )}
         </DialogContent>
         <DialogActions>

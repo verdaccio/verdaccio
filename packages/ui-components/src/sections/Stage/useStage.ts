@@ -1,5 +1,6 @@
 import useSWR from 'swr';
 
+import { useAuth } from '../../providers/AuthProvider';
 import API from '../../store/api';
 import { getConfiguration } from '../../configuration';
 import { stripTrailingSlash } from '../../store/utils';
@@ -19,9 +20,13 @@ function stageUrl(path = ''): string {
  * matches what this user can actually reach.
  */
 export function useStageList(page: number, perPage: number) {
+  const { userState } = useAuth();
   const url = `${stageUrl()}?page=${page}&perPage=${perPage}`;
-  const { data, error, isLoading, mutate } = useSWR<StagePackageList>(url, () =>
-    API.request<StagePackageList>(url)
+  // a null key tells SWR not to fetch: without a session the request can only
+  // come back 401
+  const { data, error, isLoading, mutate } = useSWR<StagePackageList>(
+    userState?.token ? url : null,
+    () => API.request<StagePackageList>(url)
   );
 
   return { data, error, isLoading, mutate };
@@ -29,7 +34,8 @@ export function useStageList(page: number, perPage: number) {
 
 /** A single staged version. */
 export function useStageItem(stageId?: string) {
-  const url = stageId ? stageUrl(`/${stageId}`) : null;
+  const { userState } = useAuth();
+  const url = stageId && userState?.token ? stageUrl(`/${stageId}`) : null;
   const { data, error, isLoading, mutate } = useSWR<StagePackageVersion>(url, () =>
     API.request<StagePackageVersion>(url as string)
   );
