@@ -1925,9 +1925,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/e2e-cli@npm:2.10.4":
-  version: 2.10.4
-  resolution: "@verdaccio/e2e-cli@npm:2.10.4"
+"@verdaccio/e2e-cli@npm:3.1.0":
+  version: 3.1.0
+  resolution: "@verdaccio/e2e-cli@npm:3.1.0"
   dependencies:
     "@verdaccio/registry-cli": "npm:^1.1.0"
     debug: "npm:4.4.3"
@@ -1935,16 +1935,16 @@ __metadata:
     js-yaml: "npm:5.2.3"
   bin:
     verdaccio-e2e: ./bin/e2e-cli.js
-  checksum: 10c0/fcbeda5464fec6379b6b9f07f8258730b676a91213cc1241d1ea9a03d5cdeab237743adbd593ea26b27a130255030cf56c961c765193754792762313509dc6c5
+  checksum: 10c0/10ece3a7f699e586930b927506713fca199fb1a7b12f1366f0654a990bf1c0ba943f00c47e03ba9b559e001d03d7cb68fcdbfd854c8f8d02c3f78e89c6b2a206
   languageName: node
   linkType: hard
 
-"@verdaccio/e2e-ui@npm:2.4.3":
-  version: 2.4.3
-  resolution: "@verdaccio/e2e-ui@npm:2.4.3"
+"@verdaccio/e2e-ui@npm:2.5.0":
+  version: 2.5.0
+  resolution: "@verdaccio/e2e-ui@npm:2.5.0"
   peerDependencies:
     cypress: ">=12.0.0"
-  checksum: 10c0/3266835642479a5c09e0896469fd3aa4d47a9969c554688e0f435e8a4b1d0ff150c68e18556a04204c3a69f27976b86f35e658afcb16188c1bea025a2bedb6e7
+  checksum: 10c0/ef663d83c66c8444f9b4e23f7ce93ca0ecc62f65f12f3a53d48afb3d3d90ef65ca75d106eba66a856f7046a4982b5cee873d343cbfa9e333ac4659b1cf482dd9
   languageName: node
   linkType: hard
 
@@ -8229,8 +8229,8 @@ __metadata:
     "@verdaccio/auth": "npm:8.1.3"
     "@verdaccio/config": "npm:8.3.0"
     "@verdaccio/core": "npm:8.3.0"
-    "@verdaccio/e2e-cli": "npm:2.10.4"
-    "@verdaccio/e2e-ui": "npm:2.4.3"
+    "@verdaccio/e2e-cli": "npm:3.1.0"
+    "@verdaccio/e2e-ui": "npm:2.5.0"
     "@verdaccio/hooks": "npm:8.1.4"
     "@verdaccio/loaders": "npm:8.1.3"
     "@verdaccio/local-storage-legacy": "npm:11.4.3"

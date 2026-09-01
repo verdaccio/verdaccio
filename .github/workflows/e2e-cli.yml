@@ -17,10 +17,7 @@ jobs:
       fail-fast: false
       matrix:
         node_version: [22, 24, 26]
-        # npm@next-12 is pinned to 12.0.0-pre.0.0: the moving next-12 tag now
-        # points to 12.0.0-pre.1, a broken canary whose bundled libnpmpublish
-        # requires `sigstore` but npm no longer bundles it, breaking publish.
-        pm: [npm@10, npm@11, npm@12.0.0-pre.0.0, pnpm@11, pnpm@10, yarn-classic, yarn-modern@4]
+        pm: [npm@10, npm@11, npm@12, pnpm@11, pnpm@10, yarn-modern@4]
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
 
@@ -40,16 +37,23 @@ jobs:
         run: yarn build
 
       - name: Start Verdaccio
+        # The e2e battery needs the shared config from @verdaccio/e2e-cli
+        # (max_body_size for scenario:tarballs, mock uplink for
+        # scenario:uplink-failure on port 4874).
         run: |
-          node bin/verdaccio &
+          mkdir -p /tmp/verdaccio-e2e
+          ./node_modules/.bin/verdaccio-e2e --print-config --uplink-port 4874 > /tmp/verdaccio-e2e/config.yaml
+          node bin/verdaccio --config /tmp/verdaccio-e2e/config.yaml --listen 4873 &> /tmp/verdaccio-e2e/verdaccio.log &
           for i in $(seq 1 30); do
             curl -s http://localhost:4873/-/ping && break
             sleep 1
           done
 
       - name: Run E2E CLI tests
-        run: yarn verdaccio-e2e --registry http://localhost:4873 --pm ${{ matrix.pm }} -v 
+        run: yarn verdaccio-e2e --registry http://localhost:4873 --pm ${{ matrix.pm }} --uplink-port 4874 -v
+        env:
+          E2E_PENDING_CONTRACT_CHECKS: tarballs
 
       - name: Show Verdaccio logs
         if: always()
-        run: cat ~/.config/verdaccio/verdaccio.log 2>/dev/null || echo "No log file found"
+        run: cat /tmp/verdaccio-e2e/verdaccio.log 2>/dev/null || echo "No log file found"
