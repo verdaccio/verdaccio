@@ -9,6 +9,7 @@ export type SearchPackageBody = {
   description: string;
   author: string | PublisherMaintainer;
   version: string;
+  license?: string;
   keywords: string | string[] | undefined;
   date: string;
   links?: {

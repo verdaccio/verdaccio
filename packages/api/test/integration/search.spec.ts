@@ -42,6 +42,7 @@ describe('search', () => {
               date: mockDate,
               description: 'package generated',
               keywords: [],
+              license: 'ISC',
               links: {
                 npm: '',
               },
@@ -106,6 +107,7 @@ describe('search', () => {
               date: mockDate,
               description: 'package generated',
               keywords: [],
+              license: 'ISC',
               links: {
                 npm: '',
               },
@@ -218,6 +220,44 @@ describe('search', () => {
       expect(forwardedQuery.get('text')).toBe('clamp-check');
       expect(forwardedQuery.get('size')).toBe('250');
       expect(forwardedQuery.get('from')).toBe('10000');
+    });
+
+    test('should preserve the license returned by an uplink', async () => {
+      nock('https://registry.npmjs.org')
+        .get(/\/-\/v1\/search/)
+        .reply(200, {
+          objects: [
+            {
+              package: {
+                name: 'remote-license-package',
+                version: '1.0.0',
+                description: 'remote package',
+                license: 'BSD-3-Clause',
+                keywords: [],
+                date: '2018-01-14T11:17:40.712Z',
+                publisher: { username: 'remote-user', email: '' },
+                maintainers: [{ username: 'remote-user', email: '' }],
+                links: { npm: 'https://www.npmjs.com/package/remote-license-package' },
+              },
+              score: {
+                final: 1,
+                detail: { maintenance: 1, popularity: 1, quality: 1 },
+              },
+              searchScore: 1,
+            },
+          ],
+          total: 1,
+          time: '2018-01-14T11:17:40.712Z',
+        });
+
+      const app = await initializeServer('search-abort.yaml');
+      const response = await supertest(app)
+        .get('/-/v1/search?text=remote-license-package&size=20&from=0')
+        .set(HEADERS.ACCEPT, HEADERS.JSON)
+        .expect(HTTP_STATUS.OK);
+
+      expect(response.body.objects).toHaveLength(1);
+      expect(response.body.objects[0].package.license).toBe('BSD-3-Clause');
     });
   });
 

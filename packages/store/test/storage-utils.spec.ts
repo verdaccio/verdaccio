@@ -412,6 +412,53 @@ describe('Storage Utils', () => {
       expect(body.publisher).toEqual({ username: 'foo', email: '' });
     });
 
+    test('should map the latest version license to the npm search package', () => {
+      const manifest = generatePackageMetadata('npm_test', '1.0.0') as Manifest;
+      manifest.time = { '1.0.0': '2018-01-14T11:17:40.712Z' };
+      manifest.versions['1.0.0'].license = 'Apache-2.0';
+
+      const body = mapManifestToSearchPackageBody(manifest, searchItem);
+      expect(body.license).toBe('Apache-2.0');
+    });
+
+    test('should leave license undefined when the latest version has no license', () => {
+      const manifest = generatePackageMetadata('npm_test', '1.0.0') as Manifest;
+      manifest.time = { '1.0.0': '2018-01-14T11:17:40.712Z' };
+      delete manifest.versions['1.0.0'].license;
+
+      const body = mapManifestToSearchPackageBody(manifest, searchItem);
+      expect(body.license).toBeUndefined();
+    });
+
+    test('should preserve compound SPDX license expressions', () => {
+      const manifest = generatePackageMetadata('npm_test', '1.0.0') as Manifest;
+      manifest.time = { '1.0.0': '2018-01-14T11:17:40.712Z' };
+      manifest.versions['1.0.0'].license = 'MIT OR Apache-2.0';
+
+      const body = mapManifestToSearchPackageBody(manifest, searchItem);
+      expect(body.license).toBe('MIT OR Apache-2.0');
+    });
+
+    test('should use the license selected by the latest dist-tag instead of highest semver', () => {
+      const manifest = generatePackageMetadata('npm_test', '1.0.0') as Manifest;
+      manifest.versions['1.0.0'].license = 'MIT';
+      manifest.versions['2.0.0'] = {
+        ...manifest.versions['1.0.0'],
+        _id: 'npm_test@2.0.0',
+        version: '2.0.0',
+        license: 'Apache-2.0',
+      };
+      manifest['dist-tags'].latest = '1.0.0';
+      manifest.time = {
+        '1.0.0': '2018-01-14T11:17:40.712Z',
+        '2.0.0': '2019-01-14T11:17:40.712Z',
+      };
+
+      const body = mapManifestToSearchPackageBody(manifest, searchItem);
+      expect(body.version).toBe('1.0.0');
+      expect(body.license).toBe('MIT');
+    });
+
     test('should fall back to the first maintainer as publisher without _npmUser', () => {
       const manifest = generatePackageMetadata('npm_test', '1.0.0') as Manifest;
       manifest.time = { '1.0.0': '2018-01-14T11:17:40.712Z' };
