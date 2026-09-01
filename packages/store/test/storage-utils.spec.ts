@@ -698,6 +698,23 @@ describe('Storage Utils', () => {
       ).toBe(false);
     });
 
+    test('matches only on a path segment boundary', () => {
+      // /registry (no trailing slash) must not match /registry2/... — a
+      // sibling path would otherwise receive this uplink's credentials.
+      expect(
+        uplinkServesUrl(
+          new URL('https://host.test/registry'),
+          'https://host.test/registry2/p/-/p-1.0.0.tgz'
+        )
+      ).toBe(false);
+      expect(
+        uplinkServesUrl(
+          new URL('https://host.test/registry'),
+          'https://host.test/registry/p/-/p-1.0.0.tgz'
+        )
+      ).toBe(true);
+    });
+
     test('returns false for garbage urls', () => {
       expect(uplinkServesUrl(new URL('https://registry.npmjs.org/'), '//no-protocol/p.tgz')).toBe(
         false

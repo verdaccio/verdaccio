@@ -538,10 +538,16 @@ export function lookupDistFile(manifest: Manifest, filename: string): DistFile |
 export function uplinkServesUrl(uplinkUrl: URL, tarballUrl: string): boolean {
   try {
     const parsed = new URL(tarballUrl);
+    // Compare on a path segment boundary: an uplink at /registry must not
+    // match tarballs under /registry2/... (wrong-uplink selection would send
+    // the uplink's credentials to a sibling path).
+    const basePath = uplinkUrl.pathname.endsWith('/')
+      ? uplinkUrl.pathname
+      : `${uplinkUrl.pathname}/`;
     return (
       parsed.protocol === uplinkUrl.protocol &&
       parsed.host === uplinkUrl.host &&
-      parsed.pathname.startsWith(uplinkUrl.pathname)
+      parsed.pathname.startsWith(basePath)
     );
   } catch {
     return false;
