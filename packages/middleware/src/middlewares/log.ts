@@ -8,7 +8,7 @@ import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types
 const debug = buildDebug('verdaccio:middleware:log');
 
 function isStaticRequest(url: string): boolean {
-  return url.startsWith('/-/static/') || url.startsWith('/favicon');
+  return url.startsWith('/-/static/') || url.startsWith('/-/ping') || url.startsWith('/favicon');
 }
 
 // Keep export of constants for backward compatibility
