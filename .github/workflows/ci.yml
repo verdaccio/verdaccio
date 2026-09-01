@@ -153,15 +153,14 @@ jobs:
       fail-fast: false
       matrix:
         pm:
-          - npm@7
-          - npm@8
-          - npm@9
+          # @verdaccio/e2e-cli@3 supports npm 10-12, pnpm 10+ and yarn modern
+          # only — older majors and yarn classic are end-of-life and rejected
+          # by its adapters.
           - npm@10
           - npm@11
-          - yarn-classic
+          - npm@12
           - yarn-modern@3
           - yarn-modern@4
-          - pnpm@9
           - pnpm@10
           - pnpm@11
           - bun
