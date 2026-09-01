@@ -59,7 +59,7 @@
     "otpauth": "9.5.1",
     "rimraf": "6.1.3",
     "supertest": "7.1.4",
-    "vite": "8.2.1",
+    "vite": "8.2.2",
     "vitest": "4.1.10"
   },
   "funding": {

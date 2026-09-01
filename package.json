@@ -83,7 +83,7 @@
     "verdaccio-auth-memory": "workspace:*",
     "verdaccio-htpasswd": "workspace:*",
     "verdaccio-memory": "workspace:*",
-    "vite": "8.2.1",
+    "vite": "8.2.2",
     "vitest": "4.1.10"
   },
   "scripts": {
