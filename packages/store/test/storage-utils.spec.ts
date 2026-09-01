@@ -412,6 +412,15 @@ describe('Storage Utils', () => {
       expect(body.publisher).toEqual({ username: 'foo', email: '' });
     });
 
+    test('should map the latest version license to the npm search package', () => {
+      const manifest = generatePackageMetadata('npm_test', '1.0.0') as Manifest;
+      manifest.time = { '1.0.0': '2018-01-14T11:17:40.712Z' };
+      manifest.versions['1.0.0'].license = 'Apache-2.0';
+
+      const body = mapManifestToSearchPackageBody(manifest, searchItem);
+      expect(body.license).toBe('Apache-2.0');
+    });
+
     test('should fall back to the first maintainer as publisher without _npmUser', () => {
       const manifest = generatePackageMetadata('npm_test', '1.0.0') as Manifest;
       manifest.time = { '1.0.0': '2018-01-14T11:17:40.712Z' };

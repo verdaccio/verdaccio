@@ -42,6 +42,7 @@ describe('search', () => {
               date: mockDate,
               description: 'package generated',
               keywords: [],
+              license: 'ISC',
               links: {
                 npm: '',
               },
@@ -106,6 +107,7 @@ describe('search', () => {
               date: mockDate,
               description: 'package generated',
               keywords: [],
+              license: 'ISC',
               links: {
                 npm: '',
               },

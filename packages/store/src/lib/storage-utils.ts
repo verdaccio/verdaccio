@@ -407,6 +407,7 @@ export function mapManifestToSearchPackageBody(
     scope: '',
     description: version.description,
     version: latest,
+    license: version.license,
     keywords: version.keywords,
     date: pkg.time[latest],
     // FIXME: type
