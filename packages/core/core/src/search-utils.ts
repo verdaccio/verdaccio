@@ -1,3 +1,5 @@
+import type { SearchPackageBody as _SearchPackageBody } from '@verdaccio/types';
+
 export type SearchMetrics = {
   quality: number;
   popularity: number;
@@ -41,31 +43,7 @@ export type SearchResults = {
   time: string;
 };
 
-// @deprecated use @verdaccio/types
-type PublisherMaintainer = {
-  username: string;
-  email: string;
-};
-
-// @deprecated use @verdaccio/types
-export type SearchPackageBody = {
-  name: string;
-  scope: string;
-  description: string;
-  author: string | PublisherMaintainer;
-  version: string;
-  license?: string;
-  keywords: string | string[] | undefined;
-  date: string;
-  links?: {
-    npm: string; // only include placeholder for URL eg: {url}/{packageName}
-    homepage?: string;
-    repository?: string;
-    bugs?: string;
-  };
-  publisher?: any;
-  maintainers?: PublisherMaintainer[];
-};
+export type SearchPackageBody = _SearchPackageBody;
 
 export interface SearchPackageItem extends UnStable, PrivatePackage {
   package: SearchPackageBody;
