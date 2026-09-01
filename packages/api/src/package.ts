@@ -87,6 +87,10 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
             res.destroy(err);
             return;
           }
+          // The octet-stream header was set optimistically for the download;
+          // the error body is JSON (matching registry.npmjs.org), so let the
+          // error formatter pick the content type.
+          res.removeHeader(HEADERS.CONTENT_TYPE);
           res.locals.report_error(err);
           next(err);
         });

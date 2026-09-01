@@ -440,7 +440,16 @@ class Storage {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     let isOpen = false;
     const localTarballStream = new PassThrough();
+    // Both the local fs stream and the uplink stream announce the tarball size
+    // via a 'content-length' event, but the API listens on the PassThrough
+    // wrapper — re-emit so the HTTP response can carry a Content-Length header.
+    const forwardContentLength = (source: Readable): void => {
+      source.on(HEADER_TYPE.CONTENT_LENGTH, (size) => {
+        localTarballStream.emit(HEADER_TYPE.CONTENT_LENGTH, size);
+      });
+    };
     const localStream = await this.getLocalTarball(name, filename, { signal });
+    forwardContentLength(localStream);
     localStream.on('open', async () => {
       isOpen = true;
       await pipeline(localStream, localTarballStream, { signal });
@@ -450,6 +459,7 @@ class Storage {
       if (err.code === STORAGE.NO_SUCH_FILE_ERROR || err.code === HTTP_STATUS.NOT_FOUND) {
         this.getTarballFromUpstream(name, filename, { signal })
           .then((uplinkStream) => {
+            forwardContentLength(uplinkStream);
             pipeline(uplinkStream, localTarballStream, { signal })
               .then(() => {
                 debug('successfully downloaded tarball for package %o filename %o', name, filename);

@@ -40,14 +40,26 @@ describe('package', () => {
       ['@scope/foo2', encodeURIComponent('@scope/foo2'), 'foo2-1.0.0.tgz'],
     ])('should fails if tarball does not exist', async (pkg, path, fileName) => {
       await publishVersion(app, pkg, '1.0.1');
+      // the error body is JSON, matching registry.npmjs.org
       await supertest(app)
         .get(`/${path}/-/${fileName}`)
         .set(HEADERS.ACCEPT, HEADERS.JSON)
-        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
+        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HTTP_STATUS.NOT_FOUND);
     });
 
-    test.todo('check content length file header');
+    test('should return a content-length header for the tarball', async () => {
+      await publishVersion(app, 'foo-length', '1.0.0');
+      const response = await supertest(app)
+        .get('/foo-length/-/foo-length-1.0.0.tgz')
+        .set(HEADERS.ACCEPT, HEADERS.JSON)
+        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
+        .expect(HTTP_STATUS.OK);
+      const contentLength = parseInt(response.headers[HEADER_TYPE.CONTENT_LENGTH], 10);
+      expect(Number.isNaN(contentLength)).toBe(false);
+      expect(contentLength).toBeGreaterThan(0);
+      expect(contentLength).toEqual(Buffer.from(response.body).length);
+    });
     test.todo('fails on file was aborted');
 
     test('should terminate the connection when the stream fails mid-download', async () => {

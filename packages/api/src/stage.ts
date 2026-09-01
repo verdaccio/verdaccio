@@ -291,6 +291,10 @@ export default function stage(
           res.header(HEADER_TYPE.CONTENT_LENGTH, String(size));
         });
         stream.once('error', (err: any) => {
+          // Error bodies are JSON — drop the optimistic octet-stream header.
+          if (!res.headersSent) {
+            res.removeHeader(HEADERS.CONTENT_TYPE);
+          }
           res.locals.report_error(err);
           next(err);
         });
