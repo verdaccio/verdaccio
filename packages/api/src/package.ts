@@ -78,6 +78,15 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
 
         stream.once('error', (err) => {
           debug('error on download tarball %o', err);
+          if (res.headersSent) {
+            // The 200 + headers are already on the wire (streaming had started),
+            // so an error status can no longer be sent; destroying the response
+            // is the only way to signal the failure — otherwise `pipe` just
+            // unpipes and the client waits forever on a half-sent body.
+            debug('headers already sent, destroying response for %o', req.url);
+            res.destroy(err);
+            return;
+          }
           res.locals.report_error(err);
           next(err);
         });

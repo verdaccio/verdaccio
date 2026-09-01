@@ -2213,6 +2213,17 @@ describe('storage', () => {
         // fields must not have
         // @ts-expect-error
         expect(manifest._attachments).not.toBeDefined();
+        // the abbreviated (install-v1) format must exclude the readme and
+        // internal CouchDB fields — that is its whole point
+        // @ts-expect-error
+        expect(manifest.readme).not.toBeDefined();
+        // @ts-expect-error
+        expect(manifest.readmeFilename).not.toBeDefined();
+        // @ts-expect-error
+        expect(manifest._id).not.toBeDefined();
+        // @ts-expect-error
+        expect(manifest._rev).not.toBeDefined();
+        expect(Object.keys(manifest)).toEqual(['name', DIST_TAGS, 'versions', 'modified', 'time']);
       });
     });
   });

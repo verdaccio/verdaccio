@@ -577,6 +577,9 @@ class Storage {
       },
       {}
     );
+    // The abbreviated (install-v1 / "corgi") format exists to keep install
+    // metadata small: internal CouchDB fields (_id, _rev) and the readme are
+    // deliberately excluded, matching the npm registry contract.
     const convertedManifest = {
       name: manifest['name'],
       [DIST_TAGS]: manifest[DIST_TAGS],
@@ -584,11 +587,6 @@ class Storage {
       modified: manifest.time.modified,
       // NOTE: special case for pnpm https://github.com/pnpm/rfcs/pull/2
       time: manifest.time,
-      _id: manifest._id,
-      readme: manifest.readme,
-      // TODO: not sure if this is used in some way
-      readmeFilename: '',
-      _rev: manifest._rev,
     };
 
     return convertedManifest;
