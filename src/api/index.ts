@@ -56,7 +56,22 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<ex
     app.disable('x-powered-by');
   }
 
-  app.use(compression());
+  // mime-db marks application/octet-stream as compressible, so the default
+  // compression() filter would re-gzip every (already gzipped) .tgz tarball
+  // for clients that accept gzip — npm and undici do by default. That wastes
+  // CPU on every download and strips the Content-Length header. Skip
+  // compression for tarball responses; JSON metadata stays compressed.
+  app.use(
+    compression({
+      filter: (req, res): boolean => {
+        const contentType = String(res.getHeader('Content-Type') ?? '');
+        if (contentType.startsWith('application/octet-stream')) {
+          return false;
+        }
+        return compression.filter(req, res);
+      },
+    })
+  );
 
   app.get('/-/static/favicon.ico', serveFavicon(config));
 
