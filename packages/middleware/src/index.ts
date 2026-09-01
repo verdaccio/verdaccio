@@ -25,5 +25,5 @@ export {
 } from './middlewares/log';
 export type { LogOptions } from './middlewares/log';
 export * from './types';
-export * from './middlewares/api_urls';
+export * from './middlewares/api-urls';
 export * from './middlewares/web/web-urls';
