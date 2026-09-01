@@ -197,6 +197,8 @@ jobs:
           done
       - name: Run E2E CLI tests
         run: pnpm verdaccio-e2e --registry http://localhost:4873 --pm ${{ matrix.pm }} --uplink-port 4874 -v
+        env:
+          E2E_PENDING_CONTRACT_CHECKS: tarballs
       - name: Show Verdaccio logs
         if: always()
         run: cat /tmp/verdaccio-e2e/verdaccio.log 2>/dev/null || echo "No log file found"
