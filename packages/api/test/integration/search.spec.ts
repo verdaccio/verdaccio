@@ -43,9 +43,6 @@ describe('search', () => {
               description: 'package generated',
               keywords: [],
               license: 'ISC',
-              links: {
-                npm: '',
-              },
               maintainers: [
                 {
                   email: '',
@@ -108,9 +105,6 @@ describe('search', () => {
               description: 'package generated',
               keywords: [],
               license: 'ISC',
-              links: {
-                npm: '',
-              },
               maintainers: [
                 {
                   email: '',
@@ -258,6 +252,9 @@ describe('search', () => {
 
       expect(response.body.objects).toHaveLength(1);
       expect(response.body.objects[0].package.license).toBe('BSD-3-Clause');
+      expect(response.body.objects[0].package.links).toEqual({
+        npm: 'https://www.npmjs.com/package/remote-license-package',
+      });
     });
   });
 

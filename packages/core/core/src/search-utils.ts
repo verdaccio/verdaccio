@@ -58,7 +58,7 @@ export type SearchPackageBody = {
   keywords: string | string[] | undefined;
   date: string;
   links?: {
-    npm: string; // only include placeholder for URL eg: {url}/{packageName}
+    npm?: string;
     homepage?: string;
     repository?: string;
     bugs?: string;

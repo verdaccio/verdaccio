@@ -459,6 +459,41 @@ describe('Storage Utils', () => {
       expect(body.license).toBe('MIT');
     });
 
+    test('should omit links when the latest version has no real links', () => {
+      const manifest = generatePackageMetadata('npm_test', '1.0.0') as Manifest;
+      manifest.time = { '1.0.0': '2018-01-14T11:17:40.712Z' };
+
+      const body = mapManifestToSearchPackageBody(manifest, searchItem);
+      expect(body).not.toHaveProperty('links');
+    });
+
+    test('should map only non-empty links from the latest version', () => {
+      const manifest = generatePackageMetadata('npm_test', '1.0.0') as Manifest;
+      manifest.time = { '1.0.0': '2018-01-14T11:17:40.712Z' };
+      manifest.versions['1.0.0'].homepage = 'https://example.com/npm-test';
+      manifest.versions['1.0.0'].repository = 'https://github.com/example/npm-test';
+      manifest.versions['1.0.0'].bugs = 'https://github.com/example/npm-test/issues';
+
+      const body = mapManifestToSearchPackageBody(manifest, searchItem);
+      expect(body.links).toEqual({
+        homepage: 'https://example.com/npm-test',
+        repository: 'https://github.com/example/npm-test',
+        bugs: 'https://github.com/example/npm-test/issues',
+      });
+      expect(body.links).not.toHaveProperty('npm');
+    });
+
+    test('should omit empty link values instead of emitting placeholders', () => {
+      const manifest = generatePackageMetadata('npm_test', '1.0.0') as Manifest;
+      manifest.time = { '1.0.0': '2018-01-14T11:17:40.712Z' };
+      manifest.versions['1.0.0'].homepage = '';
+      manifest.versions['1.0.0'].repository = '';
+      manifest.versions['1.0.0'].bugs = '';
+
+      const body = mapManifestToSearchPackageBody(manifest, searchItem);
+      expect(body).not.toHaveProperty('links');
+    });
+
     test('should fall back to the first maintainer as publisher without _npmUser', () => {
       const manifest = generatePackageMetadata('npm_test', '1.0.0') as Manifest;
       manifest.time = { '1.0.0': '2018-01-14T11:17:40.712Z' };
