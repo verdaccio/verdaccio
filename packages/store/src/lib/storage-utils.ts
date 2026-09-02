@@ -403,14 +403,17 @@ export function mapManifestToSearchPackageBody(
     ? { username: version._npmUser.name, email: version._npmUser.email ?? '' }
     : (maintainers[0] ?? {});
   const links: NonNullable<searchUtils.SearchPackageBody['links']> = {};
+  const repository =
+    typeof version.repository === 'string' ? version.repository : version.repository?.url;
+  const bugs = typeof version.bugs === 'string' ? version.bugs : version.bugs?.url;
   if (version.homepage) {
     links.homepage = version.homepage;
   }
-  if (version.repository) {
-    links.repository = version.repository;
+  if (repository) {
+    links.repository = repository;
   }
-  if (version.bugs) {
-    links.bugs = version.bugs;
+  if (bugs) {
+    links.bugs = bugs;
   }
   const result: searchUtils.SearchPackageBody = {
     name: version.name,

@@ -494,6 +494,24 @@ describe('Storage Utils', () => {
       expect(body).not.toHaveProperty('links');
     });
 
+    test('should map repository and bugs objects to URL strings', () => {
+      const manifest = generatePackageMetadata('npm_test', '1.0.0') as Manifest;
+      manifest.time = { '1.0.0': '2018-01-14T11:17:40.712Z' };
+      manifest.versions['1.0.0'].repository = {
+        type: 'git',
+        url: 'https://github.com/example/npm-test.git',
+      };
+      manifest.versions['1.0.0'].bugs = {
+        url: 'https://github.com/example/npm-test/issues',
+      };
+
+      const body = mapManifestToSearchPackageBody(manifest, searchItem);
+      expect(body.links).toEqual({
+        repository: 'https://github.com/example/npm-test.git',
+        bugs: 'https://github.com/example/npm-test/issues',
+      });
+    });
+
     test('should fall back to the first maintainer as publisher without _npmUser', () => {
       const manifest = generatePackageMetadata('npm_test', '1.0.0') as Manifest;
       manifest.time = { '1.0.0': '2018-01-14T11:17:40.712Z' };
