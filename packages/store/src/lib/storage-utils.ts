@@ -412,6 +412,19 @@ export function mapManifestToSearchPackageBody(
   const publisher = version._npmUser?.name
     ? { username: version._npmUser.name, email: version._npmUser.email ?? '' }
     : (maintainers[0] ?? {});
+  const links: NonNullable<searchUtils.SearchPackageBody['links']> = {};
+  const repository =
+    typeof version.repository === 'string' ? version.repository : version.repository?.url;
+  const bugs = typeof version.bugs === 'string' ? version.bugs : version.bugs?.url;
+  if (version.homepage) {
+    links.homepage = version.homepage;
+  }
+  if (repository) {
+    links.repository = repository;
+  }
+  if (bugs) {
+    links.bugs = bugs;
+  }
   const result: searchUtils.SearchPackageBody = {
     name: version.name,
     scope: '',
@@ -424,13 +437,11 @@ export function mapManifestToSearchPackageBody(
     author: version.author as any,
     publisher,
     maintainers,
-    links: {
-      npm: '',
-      homepage: version.homepage,
-      repository: version.repository,
-      bugs: version.bugs,
-    },
   };
+
+  if (Object.keys(links).length > 0) {
+    result.links = links;
+  }
 
   if (typeof searchItem.package.scoped === 'string') {
     result.scope = searchItem.package.scoped;
