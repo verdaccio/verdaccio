@@ -125,7 +125,7 @@
     "@types/semver": "7.7.1",
     "@types/supertest": "6.0.3",
     "@verdaccio-scope/verdaccio-auth-foo": "0.0.2",
-    "@verdaccio/e2e-cli": "3.1.0",
+    "@verdaccio/e2e-cli": "3.2.0",
     "@verdaccio/e2e-ui": "2.5.0",
     "@verdaccio/test-helper": "4.1.0",
     "@verdaccio/types": "13.0.6",
