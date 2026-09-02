@@ -12,6 +12,7 @@ import { Config as AppConfig } from '@verdaccio/config';
 import type { pluginUtils } from '@verdaccio/core';
 import {
   API_ERROR,
+  HEADERS,
   PLUGIN_CATEGORY,
   PLUGIN_PREFIX,
   errorUtils,
@@ -55,6 +56,19 @@ export const defineAPI = async function (config: IConfig, storage: Storage): Pro
   app.use(cors());
   app.use(rateLimit(config.server?.rateLimit));
 
+  // mime-db marks application/octet-stream as compressible, so the default
+  // compression() filter would re-gzip every (already gzipped) .tgz tarball
+  // for clients that accept gzip — npm and undici do by default. That wastes
+  // CPU on every download and strips the Content-Length header. Skip
+  // compression for tarball responses; JSON metadata stays compressed.
+  const compressionFilter = (req, res): boolean => {
+    const contentType = String(res.getHeader(HEADERS.CONTENT_TYPE) ?? '');
+    if (contentType.startsWith('application/octet-stream')) {
+      return false;
+    }
+    return compression.filter(req, res);
+  };
+
   app.use(dotfiles(config.server?.dotfiles ?? 'ignore'));
 
   const errorReportingMiddlewareWrap = errorReportingMiddleware(logger);
@@ -63,7 +77,7 @@ export const defineAPI = async function (config: IConfig, storage: Storage): Pro
   app.use(log(logger, { hideStaticLogs: config.server?.hideStaticLogs ?? true }));
   app.use(errorReportingMiddlewareWrap);
   app.use(userAgent(config));
-  app.use(compression());
+  app.use(compression({ filter: compressionFilter }));
 
   // Body parser for JSON requests must be registered before plugins
   // so plugins can access req.body instead of manually reading the stream

@@ -58,7 +58,7 @@ export const HEADERS = {
   ETAG: 'ETag',
   JSON_CHARSET: 'application/json; charset=utf-8',
   JSON_INSTALL_CHARSET: 'application/vnd.npm.install-v1+json; charset=utf-8',
-  OCTET_STREAM: 'application/octet-stream; charset=utf-8',
+  OCTET_STREAM: 'application/octet-stream',
   TEXT_CHARSET: 'text/plain; charset=utf-8',
   JAVASCRIPT_CHARSET: 'application/javascript; charset=utf-8',
   WWW_AUTH: 'WWW-Authenticate',

@@ -160,7 +160,15 @@ class ProxyStorage implements IProxy {
     this.max_fails = Number(setConfig(this.config, 'max_fails', this.config.max_fails ?? 2));
     this.fail_timeout = parseInterval(setConfig(this.config, 'fail_timeout', '5m'));
     this.strict_ssl = Boolean(setConfig(this.config, 'strict_ssl', true));
-    this.retry = { limit: this.max_fails ?? 2 };
+    // `max_fails` is the circuit-breaker threshold (failed requests before the
+    // uplink is considered offline) and must not drive the per-request retry
+    // count — otherwise a high max_fails multiplies every uplink timeout by
+    // that value. Retries have their own `retry` setting (default matches got).
+    const retryConfig = setConfig(this.config, 'retry', 2);
+    this.retry =
+      typeof retryConfig === 'object' && retryConfig !== null
+        ? (retryConfig as Partial<RetryOptions>)
+        : { limit: Number(retryConfig) };
   }
 
   private getAgent() {

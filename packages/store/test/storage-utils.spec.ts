@@ -7,6 +7,10 @@ import type { Manifest } from '@verdaccio/types';
 import {
   STORAGE,
   cleanUpReadme,
+  distFileFromVersion,
+  lookupDistFile,
+  tarballMatchesFilename,
+  uplinkServesUrl,
   isDeprecatedManifest,
   mapManifestToSearchPackageBody,
   mergeUplinkTimeIntoLocal,
@@ -484,6 +488,238 @@ describe('Storage Utils', () => {
       const body = mapManifestToSearchPackageBody(manifest, searchItem);
       expect(body.maintainers).toEqual([]);
       expect(body.publisher).toEqual({});
+    });
+  });
+  describe('tarballMatchesFilename', () => {
+    test('should match when the url path basename equals the filename', () => {
+      expect(
+        tarballMatchesFilename('https://registry.domain.test/pkg/-/pkg-1.0.0.tgz', 'pkg-1.0.0.tgz')
+      ).toBe(true);
+    });
+
+    test('should ignore query strings and fragments', () => {
+      expect(
+        tarballMatchesFilename(
+          'https://registry.domain.test/pkg/-/pkg-1.0.0.tgz?token=abc',
+          'pkg-1.0.0.tgz'
+        )
+      ).toBe(true);
+      expect(
+        tarballMatchesFilename(
+          'https://registry.domain.test/pkg/-/pkg-1.0.0.tgz#integrity',
+          'pkg-1.0.0.tgz'
+        )
+      ).toBe(true);
+    });
+
+    test('should not match a partial basename or a different filename', () => {
+      expect(
+        tarballMatchesFilename(
+          'https://registry.domain.test/pkg/-/other-pkg-1.0.0.tgz',
+          'pkg-1.0.0.tgz'
+        )
+      ).toBe(false);
+      expect(
+        tarballMatchesFilename('https://registry.domain.test/pkg/-/pkg-2.0.0.tgz', 'pkg-1.0.0.tgz')
+      ).toBe(false);
+    });
+  });
+
+  describe('distFileFromVersion', () => {
+    test('should build a distfile record from a matching version', () => {
+      const version = {
+        dist: {
+          tarball: 'https://registry.domain.test/pkg/-/pkg-1.0.0.tgz',
+          shasum: 'sha-1.0.0',
+        },
+      } as any;
+
+      expect(distFileFromVersion(version, 'pkg-1.0.0.tgz')).toEqual({
+        url: 'https://registry.domain.test/pkg/-/pkg-1.0.0.tgz',
+        sha: 'sha-1.0.0',
+      });
+    });
+
+    test('should return null on mismatch or missing dist', () => {
+      const version = {
+        dist: {
+          tarball: 'https://registry.domain.test/pkg/-/pkg-2.0.0.tgz',
+          shasum: 'sha-2.0.0',
+        },
+      } as any;
+      expect(distFileFromVersion(version, 'pkg-1.0.0.tgz')).toBeNull();
+      expect(distFileFromVersion({} as any, 'pkg-1.0.0.tgz')).toBeNull();
+      expect(distFileFromVersion({ dist: {} } as any, 'pkg-1.0.0.tgz')).toBeNull();
+      expect(distFileFromVersion(undefined as any, 'pkg-1.0.0.tgz')).toBeNull();
+    });
+  });
+
+  describe('lookupDistFile', () => {
+    const manifest = {
+      name: 'pkg',
+      versions: {
+        '1.0.0': {
+          name: 'pkg',
+          version: '1.0.0',
+          dist: {
+            tarball: 'https://registry.domain.test/pkg/-/pkg-1.0.0.tgz',
+            shasum: 'sha-from-version',
+          },
+        },
+      },
+      _distfiles: {
+        'pkg-2.0.0.tgz': {
+          url: 'https://registry.domain.test/pkg/-/pkg-2.0.0.tgz',
+          sha: 'sha-from-distfiles',
+          registry: 'npmjs',
+        },
+      },
+    } as any as Manifest;
+
+    test('should prefer the _distfiles record when present', () => {
+      expect(lookupDistFile(manifest, 'pkg-2.0.0.tgz')).toEqual({
+        url: 'https://registry.domain.test/pkg/-/pkg-2.0.0.tgz',
+        sha: 'sha-from-distfiles',
+        registry: 'npmjs',
+      });
+    });
+
+    test('should fall back to the version dist when the record is missing', () => {
+      expect(lookupDistFile(manifest, 'pkg-1.0.0.tgz')).toEqual({
+        url: 'https://registry.domain.test/pkg/-/pkg-1.0.0.tgz',
+        sha: 'sha-from-version',
+      });
+    });
+
+    test('should return null when the tarball is unknown', () => {
+      expect(lookupDistFile(manifest, 'pkg-9.9.9.tgz')).toBeNull();
+    });
+
+    test('should resolve scoped and dashed package names via the filename fast path', () => {
+      const scoped = {
+        name: '@scope/my-pkg',
+        versions: {
+          '2.0.0-next.1': {
+            dist: {
+              tarball: 'https://registry.domain.test/@scope/my-pkg/-/my-pkg-2.0.0-next.1.tgz',
+              shasum: 'sha-scoped',
+            },
+          },
+        },
+        _distfiles: {},
+      } as any as Manifest;
+
+      expect(lookupDistFile(scoped, 'my-pkg-2.0.0-next.1.tgz')).toEqual({
+        url: 'https://registry.domain.test/@scope/my-pkg/-/my-pkg-2.0.0-next.1.tgz',
+        sha: 'sha-scoped',
+      });
+    });
+
+    test('should resolve unconventional tarball names via the scan', () => {
+      const odd = {
+        name: 'pkg',
+        versions: {
+          '1.0.0': {
+            dist: {
+              tarball: 'https://registry.domain.test/pkg/-/custom-build.tgz?token=abc',
+              shasum: 'sha-odd',
+            },
+          },
+        },
+        _distfiles: {},
+      } as any as Manifest;
+
+      expect(lookupDistFile(odd, 'custom-build.tgz')).toEqual({
+        url: 'https://registry.domain.test/pkg/-/custom-build.tgz?token=abc',
+        sha: 'sha-odd',
+      });
+    });
+
+    test('should resolve GitHub Packages style digest tarball urls via the scan', () => {
+      const digest = '0e2c8dab83ed0775cd6d17e73b351f0d573fbb0b47f0e79f723e4b6ceff9eab3';
+      const github = {
+        name: '@owner/gh-pkg',
+        versions: {
+          '1.0.0': {
+            dist: {
+              tarball: `https://npm.pkg.github.com/download/@owner/gh-pkg/1.0.0/${digest}`,
+              shasum: 'sha-gh',
+            },
+          },
+        },
+        _distfiles: {},
+      } as any as Manifest;
+
+      expect(lookupDistFile(github, digest)).toEqual({
+        url: `https://npm.pkg.github.com/download/@owner/gh-pkg/1.0.0/${digest}`,
+        sha: 'sha-gh',
+      });
+      expect(lookupDistFile(github, 'a'.repeat(64))).toBeNull();
+    });
+  });
+
+  describe('uplinkServesUrl', () => {
+    test('matches same protocol, host and path prefix', () => {
+      expect(
+        uplinkServesUrl(
+          new URL('https://registry.npmjs.org/'),
+          'https://registry.npmjs.org/p/-/p-1.0.0.tgz'
+        )
+      ).toBe(true);
+    });
+
+    test('normalizes default ports', () => {
+      expect(
+        uplinkServesUrl(
+          new URL('https://registry.npmjs.org:443/'),
+          'https://registry.npmjs.org/p/-/p-1.0.0.tgz'
+        )
+      ).toBe(true);
+    });
+
+    test('rejects other hosts, protocols and paths', () => {
+      expect(
+        uplinkServesUrl(
+          new URL('https://registry.npmjs.org/'),
+          'https://cdn.example.com/p-1.0.0.tgz'
+        )
+      ).toBe(false);
+      expect(
+        uplinkServesUrl(
+          new URL('https://registry.npmjs.org/'),
+          'http://registry.npmjs.org/p-1.0.0.tgz'
+        )
+      ).toBe(false);
+      expect(
+        uplinkServesUrl(
+          new URL('https://host.test/registry/'),
+          'https://host.test/other/p-1.0.0.tgz'
+        )
+      ).toBe(false);
+    });
+
+    test('matches only on a path segment boundary', () => {
+      // /registry (no trailing slash) must not match /registry2/... — a
+      // sibling path would otherwise receive this uplink's credentials.
+      expect(
+        uplinkServesUrl(
+          new URL('https://host.test/registry'),
+          'https://host.test/registry2/p/-/p-1.0.0.tgz'
+        )
+      ).toBe(false);
+      expect(
+        uplinkServesUrl(
+          new URL('https://host.test/registry'),
+          'https://host.test/registry/p/-/p-1.0.0.tgz'
+        )
+      ).toBe(true);
+    });
+
+    test('returns false for garbage urls', () => {
+      expect(uplinkServesUrl(new URL('https://registry.npmjs.org/'), '//no-protocol/p.tgz')).toBe(
+        false
+      );
+      expect(uplinkServesUrl(new URL('https://registry.npmjs.org/'), 'not a url')).toBe(false);
     });
   });
 });
