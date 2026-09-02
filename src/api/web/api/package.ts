@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import type { Auth } from '@verdaccio/auth';
 import { createAnonymousRemoteUser } from '@verdaccio/config';
-import { WebUrls, allow } from '@verdaccio/middleware';
+import { WebUrls } from '@verdaccio/middleware';
 import {
   convertDistRemoteToLocalTarballUrls,
   getLocalRegistryTarballUri,
@@ -36,6 +36,18 @@ const getOrder = (order = 'asc') => {
   return order === 'asc';
 };
 
+// Builds the package name from the route params; returns null for a malformed
+// `:scope` segment.
+const resolveScopedName = (rawScope: string | undefined, pkg: string): string | null => {
+  if (!rawScope) {
+    return pkg;
+  }
+  if (rawScope[0] !== '@') {
+    return null;
+  }
+  return addScope(rawScope.slice(1), pkg);
+};
+
 export type PackcageExt = Manifest & {
   author: any;
   dist?: { tarball: string };
@@ -43,12 +55,6 @@ export type PackcageExt = Manifest & {
 
 function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router {
   const pkgRouter = Router();
-  const can = allow(auth, {
-    beforeAll: (params, message) => {
-      logger.debug(params, message);
-    },
-    afterAll: (params, message) => logger.debug(params, message),
-  });
 
   const checkAllow = (name, remoteUser): Promise<boolean> =>
     new Promise((resolve, reject): void => {
@@ -66,6 +72,28 @@ function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router 
         reject(err);
       }
     });
+
+  // Validates the route params and checks access before the handlers run.
+  const canAccessScopedPackage = (
+    req: $RequestExtend,
+    _res: $ResponseExtend,
+    next: $NextFunctionVer
+  ): void => {
+    const packageName = resolveScopedName(req.params.scope, req.params.package);
+    if (packageName === null) {
+      return next(ErrorCode.getNotFound());
+    }
+    req.scopedPackageName = packageName;
+    auth.allow_access({ packageName }, req.remote_user, (err, allowed): void => {
+      if (err) {
+        return next(err);
+      }
+      if (allowed) {
+        return next();
+      }
+      return next(ErrorCode.getForbidden());
+    });
+  };
 
   // Get list of all visible package
   pkgRouter.get(
@@ -131,11 +159,9 @@ function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router 
   // Get package readme
   pkgRouter.get(
     [wrapPath(WebUrls.readme_package_scoped_version), wrapPath(WebUrls.readme_package_version)],
-    can('access'),
+    canAccessScopedPackage,
     function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-      const rawScope = req.params.scope; // May include '@'
-      const scope = rawScope ? rawScope.slice(1) : null; // Remove '@' if present
-      const packageName = scope ? addScope(scope, req.params.package) : req.params.package;
+      const packageName = req.scopedPackageName as string;
 
       storage.getPackage({
         name: packageName,
@@ -155,11 +181,9 @@ function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router 
 
   pkgRouter.get(
     [wrapPath(WebUrls.sidebar_scopped_package), wrapPath(WebUrls.sidebar_package)],
-    can('access'),
+    canAccessScopedPackage,
     function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-      const rawScope = req.params.scope; // May include '@'
-      const scope = rawScope ? rawScope.slice(1) : null; // Remove '@' if present
-      const packageName: string = scope ? addScope(scope, req.params.package) : req.params.package;
+      const packageName = req.scopedPackageName as string;
 
       storage.getPackage({
         name: packageName,
