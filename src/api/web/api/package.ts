@@ -16,6 +16,7 @@ const { addGravatarSupport, formatAuthor, generateGravatarUrl } = authorUtils;
 import { DIST_TAGS, HEADERS, HEADER_TYPE, HTTP_STATUS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
 import type Storage from '../../../lib/storage';
+import { isPackageValid } from '../../../lib/validation';
 import {
   ErrorCode,
   addScope,
@@ -45,7 +46,8 @@ const resolveScopedName = (rawScope: string | undefined, pkg: string): string | 
   if (rawScope[0] !== '@') {
     return null;
   }
-  return addScope(rawScope.slice(1), pkg);
+  const name = addScope(rawScope.slice(1), pkg);
+  return isPackageValid(name) ? name : null;
 };
 
 export type PackcageExt = Manifest & {
@@ -84,7 +86,9 @@ function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router 
       return next(ErrorCode.getNotFound());
     }
     req.scopedPackageName = packageName;
-    auth.allow_access({ packageName }, req.remote_user, (err, allowed): void => {
+    const isLoginEnabled = _.isNil(config?.web?.login) || config?.web?.login === true;
+    const remoteUser: RemoteUser = isLoginEnabled ? req.remote_user : createAnonymousRemoteUser();
+    auth.allow_access({ packageName }, remoteUser, (err, allowed): void => {
       if (err) {
         return next(err);
       }

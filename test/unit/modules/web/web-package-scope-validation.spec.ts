@@ -59,6 +59,22 @@ describe('web endpoints: scope segment validation', () => {
     }
   );
 
+  test.each([['@'], ['@.scope'], ['@sc%20ope'], ['@sc*ope']])(
+    'a scope segment that is not a valid npm scope is rejected (sidebar, %s)',
+    async (scope) => {
+      const res = await request(app).get(`/-/verdaccio/data/sidebar/${scope}/pk1-test`);
+      expect(res.status).toBe(HTTP_STATUS.NOT_FOUND);
+    }
+  );
+
+  test.each([['@'], ['@.scope'], ['@sc%20ope'], ['@sc*ope']])(
+    'a scope segment that is not a valid npm scope is rejected (readme, %s)',
+    async (scope) => {
+      const res = await request(app).get(`/-/verdaccio/data/package/readme/${scope}/pk1-test`);
+      expect(res.status).toBe(HTTP_STATUS.NOT_FOUND);
+    }
+  );
+
   describe('access control on scoped packages', () => {
     test('an anonymous request cannot read a protected package (sidebar)', async () => {
       const res = await request(app).get('/-/verdaccio/data/sidebar/@protected/pk1');
@@ -100,6 +116,40 @@ describe('web endpoints: scope segment validation', () => {
         .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, loginRes.body.token));
       expect(res.status).toBe(HTTP_STATUS.OK);
       expect(res.body.latest.name).toBe('@protected/dashboard');
+    });
+  });
+
+  describe('web login disabled', () => {
+    let appNoLogin;
+    let mockRegistryNoLogin;
+
+    beforeAll(async () => {
+      ({ app: appNoLogin, mockRegistry: mockRegistryNoLogin } = await createWebApp(
+        { web: { login: false } },
+        'htpasswd-web-scope-nologin'
+      ));
+      await seedPackages(appNoLogin);
+    });
+
+    afterAll(() => {
+      mockRegistryNoLogin[0].stop();
+    });
+
+    test('an open scoped package is served (sidebar)', async () => {
+      const res = await request(appNoLogin).get('/-/verdaccio/data/sidebar/@scope/pk1-test');
+      expect(res.status).toBe(HTTP_STATUS.OK);
+    });
+
+    test('an open scoped package is served (readme)', async () => {
+      const res = await request(appNoLogin).get(
+        '/-/verdaccio/data/package/readme/@scope/pk1-test'
+      );
+      expect(res.status).toBe(HTTP_STATUS.OK);
+    });
+
+    test('a protected package stays hidden (sidebar)', async () => {
+      const res = await request(appNoLogin).get('/-/verdaccio/data/sidebar/@protected/pk1');
+      expect([HTTP_STATUS.UNAUTHORIZED, HTTP_STATUS.FORBIDDEN]).toContain(res.status);
     });
   });
 });
