@@ -291,6 +291,15 @@ export default function stage(
           res.header(HEADER_TYPE.CONTENT_LENGTH, String(size));
         });
         stream.once('error', (err: any) => {
+          if (res.headersSent) {
+            // The 200 + headers are already on the wire; destroying the
+            // response is the only way to signal the failure — and the error
+            // middleware must not run again on the terminated connection.
+            res.destroy(err);
+            return;
+          }
+          // Error bodies are JSON — drop the optimistic octet-stream header.
+          res.removeHeader(HEADERS.CONTENT_TYPE);
           res.locals.report_error(err);
           next(err);
         });

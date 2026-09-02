@@ -1,3 +1,4 @@
+import buildDebug from 'debug';
 import { isNil, trim } from 'lodash-es';
 import semver from 'semver';
 
@@ -13,9 +14,18 @@ import {
   pkgUtils,
   validationUtils,
 } from '@verdaccio/core';
-import type { Author, GenericBody, Manifest, ReadmeOptions, Version } from '@verdaccio/types';
+import type {
+  Author,
+  DistFile,
+  GenericBody,
+  Manifest,
+  ReadmeOptions,
+  Version,
+} from '@verdaccio/types';
 
 import { sortVersionsAndFilterInvalid } from './versions-utils';
+
+const debug = buildDebug('verdaccio:storage:utils');
 
 export const STORAGE = {
   PACKAGE_FILE_NAME: 'package.json',
@@ -454,4 +464,103 @@ export function normalizeContributors(contributors: Author[]): Author[] {
   }
 
   return contributors;
+}
+
+/**
+ * Whether the tarball url path ends with the given file name (any query
+ * string or fragment is ignored, like the path parsing in
+ * `tarballUtils.extractTarballFromUrl`, which creates the `_distfiles`
+ * keys — if that parsing ever changes, this must change with it).
+ */
+export function tarballMatchesFilename(tarball: string, filename: string): boolean {
+  return tarball.split(/[?#]/)[0].endsWith(`/${filename}`);
+}
+
+/**
+ * Build a distfile record from a version's dist metadata when its tarball
+ * url matches the given file name.
+ */
+export function distFileFromVersion(
+  version: Version | undefined,
+  filename: string
+): DistFile | null {
+  const dist = version?.dist;
+
+  if (dist?.tarball && tarballMatchesFilename(dist.tarball, filename)) {
+    return { url: dist.tarball, sha: dist.shasum } as DistFile;
+  }
+
+  return null;
+}
+
+/**
+ * Resolve the distfile record for a tarball filename. Prefers the
+ * `_distfiles` bookkeeping, but falls back to the version metadata when the
+ * record is missing (storages written by other verdaccio versions cache
+ * versions without their distfile records, which made those tarballs
+ * permanently unavailable).
+ *
+ * Note: no extension pre-filter before the scan on purpose — GitHub
+ * Packages advertises tarball urls ending in a bare sha-256 digest.
+ * @param manifest cached manifest
+ * @param filename tarball file name, eg. pkg-1.0.0.tgz
+ */
+export function lookupDistFile(manifest: Manifest, filename: string): DistFile | null {
+  const distFile = manifest?._distfiles?.[filename];
+  if (isNil(distFile) === false) {
+    return distFile;
+  }
+
+  const versions = manifest?.versions ?? {};
+
+  // tarballs are conventionally named <basename>-<version>.tgz, so the
+  // version can usually be derived from the filename without scanning
+  // manifests that carry thousands of versions
+  const packageBasename = manifest?.name?.replace(/^.*\//, '');
+  if (packageBasename && filename.startsWith(`${packageBasename}-`) && filename.endsWith('.tgz')) {
+    const versionId = filename.slice(packageBasename.length + 1, -'.tgz'.length);
+    const distFromVersion = distFileFromVersion(versions[versionId], filename);
+
+    if (distFromVersion) {
+      debug('distfile record missing for %o, using version %o dist', filename, versionId);
+      return distFromVersion;
+    }
+  }
+
+  // unconventional tarball names: fall back to a scan
+  for (const versionId in versions) {
+    const distFromVersion = distFileFromVersion(versions[versionId], filename);
+
+    if (distFromVersion) {
+      debug('distfile record missing for %o, using version %o dist', filename, versionId);
+      return distFromVersion;
+    }
+  }
+
+  debug('no distfile record or version dist found for %o', filename);
+  return null;
+}
+
+/**
+ * Whether an uplink's configured url serves the given tarball url: same
+ * protocol, same host and the uplink path is a prefix of the tarball path.
+ * WHATWG URL normalizes default ports (https://h:443 === https://h).
+ */
+export function uplinkServesUrl(uplinkUrl: URL, tarballUrl: string): boolean {
+  try {
+    const parsed = new URL(tarballUrl);
+    // Compare on a path segment boundary: an uplink at /registry must not
+    // match tarballs under /registry2/... (wrong-uplink selection would send
+    // the uplink's credentials to a sibling path).
+    const basePath = uplinkUrl.pathname.endsWith('/')
+      ? uplinkUrl.pathname
+      : `${uplinkUrl.pathname}/`;
+    return (
+      parsed.protocol === uplinkUrl.protocol &&
+      parsed.host === uplinkUrl.host &&
+      parsed.pathname.startsWith(basePath)
+    );
+  } catch {
+    return false;
+  }
 }

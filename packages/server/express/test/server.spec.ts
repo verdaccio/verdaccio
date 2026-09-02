@@ -1,3 +1,5 @@
+import { createHash, randomBytes } from 'node:crypto';
+import { gzipSync } from 'node:zlib';
 import supertest from 'supertest';
 import { beforeAll, describe, expect, test } from 'vitest';
 
@@ -17,7 +19,45 @@ const TARBALL_DATA =
   '+2OgkK2Q8DssFPi/IHpU9fz3/+xj5NjDf8QFE39VmE4JDfzPCBn4P4X6/f88f/Pu47zomiPk2Lv/dOv8' +
   'h+P/34/D/p9CL+Kp67mrGDRo0KBBp9ZPsETQegASAAA=+2W32vbMBDH85y';
 
-function publishVersion(app: any, pkgName: string, version: string): supertest.Test {
+/** Build one ustar entry: 512-byte header + content padded to 512. */
+function tarEntry(name: string, content: Buffer): Buffer {
+  const header = Buffer.alloc(512);
+  header.write(name, 0);
+  header.write('0000644\0', 100); // mode
+  header.write('0000000\0', 108); // uid
+  header.write('0000000\0', 116); // gid
+  header.write(content.length.toString(8).padStart(11, '0') + '\0', 124); // size
+  header.write('00000000000\0', 136); // mtime
+  header.write('        ', 148); // checksum placeholder (spaces while summing)
+  header.write('0', 156); // typeflag: regular file
+  header.write('ustar', 257); // magic (NUL-terminated by the zeroed buffer)
+  header.write('00', 263); // version
+  let sum = 0;
+  for (const byte of header) {
+    sum += byte;
+  }
+  header.write(sum.toString(8).padStart(6, '0') + '\0 ', 148);
+  const padding = Buffer.alloc((512 - (content.length % 512)) % 512);
+  return Buffer.concat([header, content, padding]);
+}
+
+/** Build a valid base64 .tgz with an incompressible payload of `payloadSize` bytes. */
+function makeTarballData(pkgName: string, payloadSize: number): string {
+  const manifest = Buffer.from(JSON.stringify({ name: pkgName, version: '1.0.0' }));
+  const tar = Buffer.concat([
+    tarEntry('package/package.json', manifest),
+    tarEntry('package/payload.bin', randomBytes(payloadSize)),
+    Buffer.alloc(1024), // end-of-archive marker
+  ]);
+  return gzipSync(tar).toString('base64');
+}
+
+function publishVersion(
+  app: any,
+  pkgName: string,
+  version: string,
+  tarballData: string = TARBALL_DATA
+): supertest.Test {
   return supertest(app)
     .put(`/${encodeURIComponent(pkgName)}`)
     .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
@@ -31,7 +71,7 @@ function publishVersion(app: any, pkgName: string, version: string): supertest.T
             name: pkgName,
             version,
             dist: {
-              shasum: '2c03764f651a9f016ca0b7620421457b619151b9',
+              shasum: createHash('sha1').update(Buffer.from(tarballData, 'base64')).digest('hex'),
               tarball: `http://localhost:5555/${pkgName}/-/${pkgName}-${version}.tgz`,
             },
           },
@@ -39,8 +79,8 @@ function publishVersion(app: any, pkgName: string, version: string): supertest.T
         _attachments: {
           [`${pkgName}-${version}.tgz`]: {
             content_type: HEADERS.OCTET_STREAM,
-            data: TARBALL_DATA,
-            length: 512,
+            data: tarballData,
+            length: Buffer.from(tarballData, 'base64').length,
           },
         },
       })
@@ -168,6 +208,26 @@ describe('server api', () => {
       .expect(HTTP_STATUS.OK);
     expect(res.body.pid).toEqual(process.pid);
     expect(res.body.mem).toBeDefined();
+  });
+
+  test('should serve tarballs uncompressed and with content-length for gzip clients', async () => {
+    const app = await initializeServer('conf.yaml');
+    // A valid .tgz over compression's 1kb threshold: without the octet-stream
+    // filter, compression() would gzip this response (mime-db marks
+    // octet-stream as compressible) and drop the Content-Length header.
+    const tarballData = makeTarballData('big-tarball', 4096);
+    const tarballBytes = Buffer.from(tarballData, 'base64').length;
+    expect(tarballBytes).toBeGreaterThan(1024);
+    await publishVersion(app, 'big-tarball', '1.0.0', tarballData);
+
+    const response = await supertest(app)
+      .get('/big-tarball/-/big-tarball-1.0.0.tgz')
+      .set(HEADER_TYPE.ACCEPT_ENCODING, 'gzip')
+      .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
+      .expect(HTTP_STATUS.OK);
+
+    expect(response.headers['content-encoding']).toBeUndefined();
+    expect(parseInt(response.headers[HEADER_TYPE.CONTENT_LENGTH], 10)).toEqual(tarballBytes);
   });
 
   test('should access protected package routes with web ui token', async () => {
