@@ -141,9 +141,7 @@ describe('web endpoints: scope segment validation', () => {
     });
 
     test('an open scoped package is served (readme)', async () => {
-      const res = await request(appNoLogin).get(
-        '/-/verdaccio/data/package/readme/@scope/pk1-test'
-      );
+      const res = await request(appNoLogin).get('/-/verdaccio/data/package/readme/@scope/pk1-test');
       expect(res.status).toBe(HTTP_STATUS.OK);
     });
 
