@@ -22,7 +22,7 @@ export default (auth, storage, config) => {
   route.use(WebUrlsNamespace.data, packageApi(storage, auth, config));
   route.use(WebUrlsNamespace.data, search(storage, auth));
   route.use(WebUrlsNamespace.data, sidebar(config, storage, auth));
-  route.use(WebUrlsNamespace.data, readme(storage, auth));
+  route.use(WebUrlsNamespace.data, readme(storage, auth, config));
   if (hasLogin(config)) {
     route.use(WebUrlsNamespace.sec, user(auth, config, storage));
   }
