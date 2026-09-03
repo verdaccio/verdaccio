@@ -8,7 +8,11 @@ import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types
 const debug = buildDebug('verdaccio:middleware:log');
 
 function isStaticRequest(url: string): boolean {
-  return url.startsWith('/-/static/') || url.startsWith('/-/ping') || url.startsWith('/favicon');
+  return url.startsWith('/-/static/') || url.startsWith('/favicon');
+}
+
+function isPingRequest(url: string): boolean {
+  return url.split('?')[0] === '/-/ping';
 }
 
 // Keep export of constants for backward compatibility
@@ -25,10 +29,25 @@ export type LogOptions = {
   // When true, static file requests (/-/static/*) are hidden from pino logs
   // and only visible via DEBUG=verdaccio:middleware:log. Defaults to true.
   hideStaticLogs?: boolean;
+  // When true, successful /-/ping requests are hidden from pino logs
+  // and only visible via DEBUG=verdaccio:middleware:log. Failed pings
+  // (status >= 400) are still logged. Defaults to true.
+  hidePingLogs?: boolean;
 };
 
 export const log = (logger, options: LogOptions = {}) => {
-  const { hideStaticLogs = true } = options;
+  const { hideStaticLogs = true, hidePingLogs = true } = options;
+
+  const shouldSkipLog = (url: string, status?: number): boolean => {
+    if (hideStaticLogs && isStaticRequest(url)) {
+      return true;
+    }
+    if (hidePingLogs && isPingRequest(url)) {
+      // Failed pings (status >= 400) are always logged
+      return status === undefined || status < constants.HTTP_STATUS.BAD_REQUEST;
+    }
+    return false;
+  };
 
   return function log(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     // logger
@@ -45,7 +64,8 @@ export const log = (logger, options: LogOptions = {}) => {
     }
 
     req.url = req.originalUrl;
-    const _skipLog = hideStaticLogs && isStaticRequest(req.url);
+    const requestUrl = req.url;
+    const _skipLog = shouldSkipLog(requestUrl);
     if (_skipLog) {
       if (debug.enabled) {
         debug(convertToDebugString(constants.LOG_REQUEST_MESSAGE), req.ip, req.method, req.url);
@@ -109,7 +129,7 @@ export const log = (logger, options: LogOptions = {}) => {
         status: constants.HTTP_STATUS.CLIENT_CLOSED_REQUEST,
       };
 
-      if (_skipLog) {
+      if (shouldSkipLog(requestUrl, context.status)) {
         if (debug.enabled) {
           debug(
             convertToDebugString(constants.LOG_VERDACCIO_ABORT),
@@ -150,7 +170,7 @@ export const log = (logger, options: LogOptions = {}) => {
       const context = getRequestContext();
       const message = context.error ? constants.LOG_VERDACCIO_ERROR : constants.LOG_VERDACCIO_BYTES;
 
-      if (_skipLog) {
+      if (shouldSkipLog(requestUrl, context.status)) {
         if (debug.enabled) {
           if (context.error) {
             debug(

@@ -74,7 +74,12 @@ export const defineAPI = async function (config: IConfig, storage: Storage): Pro
   const errorReportingMiddlewareWrap = errorReportingMiddleware(logger);
 
   // Router setup
-  app.use(log(logger, { hideStaticLogs: config.server?.hideStaticLogs ?? true }));
+  app.use(
+    log(logger, {
+      hideStaticLogs: config.server?.hideStaticLogs ?? true,
+      hidePingLogs: config.server?.hidePingLogs ?? true,
+    })
+  );
   app.use(errorReportingMiddlewareWrap);
   app.use(userAgent(config));
   app.use(compression({ filter: compressionFilter }));

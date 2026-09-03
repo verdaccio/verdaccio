@@ -100,6 +100,97 @@ describe('hideStaticLogs option', () => {
   });
 });
 
+describe('hidePingLogs option', () => {
+  test('should log ping requests when hidePingLogs is false', async () => {
+    const infoSpy = vi.fn();
+    const mockLogger = {
+      child: () => ({ info: infoSpy, http: vi.fn() }),
+    };
+
+    const app = getApp([]);
+    // @ts-ignore
+    app.use(log(mockLogger, { hidePingLogs: false }));
+    app.get('/-/ping', (_req, res) => {
+      res.status(HTTP_STATUS.OK).send('ok');
+    });
+
+    await request(app).get('/-/ping').expect(HTTP_STATUS.OK);
+    expect(infoSpy).toHaveBeenCalled();
+  });
+
+  test('should not log successful ping requests when hidePingLogs is true', async () => {
+    const infoSpy = vi.fn();
+    const httpSpy = vi.fn();
+    const mockLogger = {
+      child: () => ({ info: infoSpy, http: httpSpy }),
+    };
+
+    const app = getApp([]);
+    // @ts-ignore
+    app.use(log(mockLogger, { hidePingLogs: true }));
+    app.get('/-/ping', (_req, res) => {
+      res.status(HTTP_STATUS.OK).send('ok');
+    });
+
+    await request(app).get('/-/ping').expect(HTTP_STATUS.OK);
+    expect(infoSpy).not.toHaveBeenCalled();
+    expect(httpSpy).not.toHaveBeenCalled();
+  });
+
+  test('should hide ping logs by default', async () => {
+    const infoSpy = vi.fn();
+    const httpSpy = vi.fn();
+    const mockLogger = {
+      child: () => ({ info: infoSpy, http: httpSpy }),
+    };
+
+    const app = getApp([]);
+    // @ts-ignore
+    app.use(log(mockLogger));
+    app.get('/-/ping', (_req, res) => {
+      res.status(HTTP_STATUS.OK).send('ok');
+    });
+
+    await request(app).get('/-/ping').expect(HTTP_STATUS.OK);
+    expect(infoSpy).not.toHaveBeenCalled();
+    expect(httpSpy).not.toHaveBeenCalled();
+  });
+
+  test('should still log failed ping requests when hidePingLogs is true', async () => {
+    const httpSpy = vi.fn();
+    const mockLogger = {
+      child: () => ({ info: vi.fn(), http: httpSpy }),
+    };
+
+    const app = getApp([]);
+    // @ts-ignore
+    app.use(log(mockLogger, { hidePingLogs: true }));
+    app.get('/-/ping', (_req, res) => {
+      res.status(HTTP_STATUS.INTERNAL_ERROR).send('fail');
+    });
+
+    await request(app).get('/-/ping').expect(HTTP_STATUS.INTERNAL_ERROR);
+    expect(httpSpy).toHaveBeenCalled();
+  });
+
+  test('should hide ping logs independently of hideStaticLogs', async () => {
+    const infoSpy = vi.fn();
+    const mockLogger = {
+      child: () => ({ info: infoSpy, http: vi.fn() }),
+    };
+
+    const app = getApp([]);
+    // @ts-ignore
+    app.use(log(mockLogger, { hideStaticLogs: false, hidePingLogs: true }));
+    app.get('/-/ping', (_req, res) => {
+      res.status(HTTP_STATUS.OK).send('ok');
+    });
+
+    await request(app).get('/-/ping').expect(HTTP_STATUS.OK);
+    expect(infoSpy).not.toHaveBeenCalled();
+  });
+});
+
 test('should log request aborted by user', async () => {
   const app = getApp([]);
   // Create a mock child logger to spy on
