@@ -84,7 +84,9 @@ const Login: React.FC = () => {
   ) : (
     <SecurityLayout>
       <SecurityContainer>
-        <SecurityForm>
+        {/* container only: LoginForm renders the real <form>, and a <form>
+            cannot be a descendant of another <form> */}
+        <SecurityForm as="div">
           <LoginFormHeader />
           <LoginForm
             errors={errors}

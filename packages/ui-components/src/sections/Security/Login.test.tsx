@@ -1,4 +1,5 @@
 import React from 'react';
+import { Route as RouterRoute, Routes } from 'react-router';
 import { vi } from 'vitest';
 
 import storage from '../../store/storage';
@@ -98,8 +99,17 @@ describe('<Login /> component', () => {
   });
 
   test('should save auth token before navigating on successful login', async () => {
+    // the component navigates to Route.SUCCESS after logging in, so the test
+    // router needs that route to exist
     await act(async () => {
-      renderWithRouter(<Login />, Route.LOGIN, [LOGIN_URL_WITH_NEXT]);
+      renderWithRouter(
+        <Routes>
+          <RouterRoute element={<Login />} path={Route.LOGIN} />
+          <RouterRoute element={<div data-testid="success-page" />} path={Route.SUCCESS} />
+        </Routes>,
+        '*',
+        [LOGIN_URL_WITH_NEXT]
+      );
     });
 
     const usernameInput = screen.getByPlaceholderText('form-placeholder.username');

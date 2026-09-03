@@ -53,8 +53,11 @@ export const SearchProvider: React.FC<{ children: ReactElement }> = ({ children 
     try {
       await trigger({ text: query.text, signal: query.signal });
     } catch (err: any) {
-      // the error is surfaced through the `isError` state below
-      console.error('Search failed:', err);
+      // an abort (user kept typing or navigated away) is expected control flow;
+      // real failures are surfaced through the `isError` state below
+      if (err?.name !== 'AbortError') {
+        console.error('Search failed:', err);
+      }
     }
   };
 
