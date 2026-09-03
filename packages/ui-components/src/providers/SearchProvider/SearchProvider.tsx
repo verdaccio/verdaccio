@@ -15,6 +15,7 @@ export interface SearchContextProps {
   isError: boolean;
   searchResults: SearchResultWeb[];
   doSearch: (query: { text: string; signal?: AbortSignal }) => Promise<void>;
+  resetSearch: () => void;
 }
 
 export const SearchContext = createContext<Partial<SearchContextProps>>({
@@ -27,7 +28,7 @@ const configuration = getConfiguration();
 function useDataSearchMutation<T>(basePath: string, route: APIRoute | string, method = 'POST') {
   const key = `${basePath}${route}`;
 
-  const { data, error, isMutating, trigger } = useSWRMutation<T, any, string, any>(
+  const { data, error, isMutating, trigger, reset } = useSWRMutation<T, any, string, any>(
     key,
     (url, { arg }) => {
       return fetcher<T>(`${url}${encodeURIComponent(arg?.text ?? '')}`, method, arg ?? {}, {
@@ -36,13 +37,13 @@ function useDataSearchMutation<T>(basePath: string, route: APIRoute | string, me
     }
   );
 
-  return { data, error, isMutating, trigger };
+  return { data, error, isMutating, trigger, reset };
 }
 
 export const SearchProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
   const basePath = stripTrailingSlash(configuration.base);
 
-  const { data, isMutating, error, trigger } = useDataSearchMutation<SearchResultWeb[]>(
+  const { data, isMutating, error, trigger, reset } = useDataSearchMutation<SearchResultWeb[]>(
     basePath,
     APIRoute.SEARCH,
     'GET'
@@ -52,16 +53,22 @@ export const SearchProvider: React.FC<{ children: ReactElement }> = ({ children 
     try {
       await trigger({ text: query.text, signal: query.signal });
     } catch (err: any) {
-      console.error('Search failed:', err);
+      // an abort (user kept typing or navigated away) is expected control flow;
+      // real failures are surfaced through the `isError` state below
+      if (err?.name !== 'AbortError') {
+        console.error('Search failed:', err);
+      }
     }
   };
 
   const value: SearchContextProps = {
     searchResults: data ?? [],
     isLoading: isMutating,
-    isError: !!error,
+    // an aborted request (user kept typing) is not an error worth showing
+    isError: !!error && error.name !== 'AbortError',
     error,
     doSearch,
+    resetSearch: reset,
   };
 
   return <SearchContext.Provider value={value}>{children}</SearchContext.Provider>;

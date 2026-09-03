@@ -6,7 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { debounce } from 'lodash-es';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import semver from 'semver';
 
@@ -25,19 +25,14 @@ export const StyledText = styled(Typography)<{ theme?: Theme }>((props) => ({
 const Versions: React.FC<Props> = ({ packageMeta, packageName }) => {
   const { t } = useTranslation();
   const { configOptions } = useConfig();
-  const { versions = {}, time = {}, ['dist-tags']: distTags = {} } = packageMeta;
+  const { versions = {}, time = {}, ['dist-tags']: distTags = {} } = packageMeta ?? {};
 
-  const [packageVersions, setPackageVersions] = useState(versions);
-  if (!packageMeta || Object.keys(packageMeta).length === 0) {
-    return null;
-  }
-  const hideDeprecatedVersions = configOptions.hideDeprecatedVersions;
-  const hasDistTags = distTags && Object.keys(distTags).length > 0 && packageName;
-  const hasVersionHistory =
-    packageVersions && Object.keys(packageVersions).length > 0 && packageName;
-
-  const filterVersions = (textSearch) => {
-    const filteredVersions = Object.keys(versions).reduce((acc, version) => {
+  const [textSearch, setTextSearch] = useState('');
+  // derive the filtered list instead of caching it in state: the detail routes
+  // reuse this mounted component across packages, so cached versions from the
+  // previously visited package would leak into the next one
+  const packageVersions = useMemo(() => {
+    return Object.keys(versions).reduce((acc, version) => {
       if (textSearch !== '') {
         if (typeof versions[version] !== 'undefined') {
           if (semver.satisfies(version, textSearch, { includePrerelease: true, loose: true })) {
@@ -49,9 +44,15 @@ const Versions: React.FC<Props> = ({ packageMeta, packageName }) => {
       }
       return acc;
     }, {});
+  }, [versions, textSearch]);
 
-    setPackageVersions(filteredVersions);
-  };
+  if (!packageMeta || Object.keys(packageMeta).length === 0) {
+    return null;
+  }
+  const hideDeprecatedVersions = configOptions.hideDeprecatedVersions;
+  const hasDistTags = distTags && Object.keys(distTags).length > 0 && packageName;
+  const hasVersionHistory =
+    packageVersions && Object.keys(packageVersions).length > 0 && packageName;
 
   return (
     <Card sx={{ mb: 2 }}>
@@ -74,7 +75,7 @@ const Versions: React.FC<Props> = ({ packageMeta, packageName }) => {
             <TextField
               helperText={t('versions.search.placeholder')}
               onChange={debounce((e) => {
-                filterVersions(e.target.value);
+                setTextSearch(e.target.value);
               }, 200)}
               size="small"
               variant="standard"

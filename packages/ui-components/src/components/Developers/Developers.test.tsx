@@ -54,6 +54,18 @@ describe('test Developers', () => {
     expect(screen.queryAllByTestId('PersonIcon')).toHaveLength(2);
   });
 
+  test('should not collapse developers without email into one', () => {
+    const packageMeta = {
+      latest: {
+        packageName: 'foo',
+        version: '1.0.0',
+        contributors: [{ name: 'Alice' }, { name: 'Bob' }],
+      },
+    };
+    renderWith(<Developers packageMeta={packageMeta} type={DeveloperType.CONTRIBUTORS} />);
+    expect(screen.queryAllByTestId('PersonIcon')).toHaveLength(2);
+  });
+
   test('should show only up to max items', () => {
     const packageMeta = {
       latest: {

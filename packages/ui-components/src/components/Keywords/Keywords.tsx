@@ -12,7 +12,9 @@ const Keywords: React.FC<{ packageMeta: PackageMetaInterface }> = ({ packageMeta
   const { t } = useTranslation();
   const theme: Theme = useTheme();
 
-  if (!packageMeta?.latest?.keywords) {
+  // `keywords: []` is very common in real manifests and must not paint an
+  // empty "Keywords" section
+  if (!packageMeta?.latest?.keywords || packageMeta.latest.keywords.length === 0) {
     return null;
   }
 

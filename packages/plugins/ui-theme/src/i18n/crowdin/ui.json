@@ -17,7 +17,8 @@
       "title": "Configuration"
     },
     "license": "License",
-    "totalContributors": "Total contributors"
+    "totalContributors": "Total contributors",
+    "support": "Support"
   },
   "header": {
     "documentation": "Documentation",
@@ -39,7 +40,8 @@
     "no-results-found": "No results found",
     "clear": "Clear",
     "expand": "Expand",
-    "collapse": "Collapse"
+    "collapse": "Collapse",
+    "error": "Something went wrong while searching"
   },
   "tab": {
     "uplinks": "Uplinks",
@@ -87,7 +89,8 @@
     "required-field": "This field is required",
     "required-min-length": "This field required with a minimum length of {{length}}",
     "unable-to-sign-in": "Unable to sign in",
-    "username-or-password-cant-be-empty": "Username or password can't be empty!"
+    "username-or-password-cant-be-empty": "Username or password can't be empty!",
+    "invalid-email": "Must be a valid email address"
   },
   "help": {
     "title": "No Package Published Yet.",
@@ -152,16 +155,17 @@
     "fund-this-package": "<0>Fund</0> this package"
   },
   "error": {
-    "unspecific": "Something went wrong.",
-    "404": {
-      "sorry-we-could-not-find-it": "Sorry, we couldn't find it..."
-    },
     "401": {
       "sorry-no-access": "Sorry, you need credentials access to see this page."
     },
+    "404": {
+      "sorry-we-could-not-find-it": "Sorry, we couldn't find it..."
+    },
+    "unspecific": "Something went wrong.",
     "app-context-not-correct-used": "The app context was not used correctly",
     "theme-context-not-correct-used": "The theme context was not used correctly",
-    "package-meta-is-required-at-detail-context": "packageMeta is required at DetailContext"
+    "package-meta-is-required-at-detail-context": "packageMeta is required at DetailContext",
+    "download-tarball": "The tarball could not be downloaded"
   },
   "lng": {
     "english": "English",
@@ -235,5 +239,51 @@
       "notFound": "This staged package version does not exist or you cannot see it.",
       "action": "The action could not be completed."
     }
-  }
+  },
+  "security": {
+    "login": {
+      "createUser": "Create User",
+      "noUserQuestion": "Don't have an account?"
+    },
+    "success": {
+      "title": "Success",
+      "messageSuccess": "Thank you for using Verdaccio",
+      "messageLogin": "You have logged in successfully and may close this window",
+      "messageChangePassword": "You have changed your password successfully and may close this window",
+      "messageAddUser": "You have created a new user successfully and may close this window",
+      "submit": "Go to Home Page"
+    },
+    "addUser": {
+      "title": "Add New User",
+      "username": "Username",
+      "password": "Password",
+      "email": "Email",
+      "emailDescription": "Your email address might be added to the metadata of packages that you publish and could be seen publicly.",
+      "submit": "Create User",
+      "alreadyUserQuestion": "Already have an account?",
+      "login": "Login Here"
+    },
+    "changePassword": {
+      "title": "Change Password",
+      "username": "Username",
+      "oldPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm New Password",
+      "submit": "Change Password"
+    },
+    "error": {
+      "username-or-password-cant-be-empty": "Username or password can't be empty!",
+      "username-min-length": "Username must be at least {{length}} characters long",
+      "username-must-be-url-safe": "Username must contain only url-safe characters [a-z, 0-9, _, -, ., !, ~, *, ', (, ), and @]",
+      "username-already-exists": "Username already exists",
+      "username-not-found": "Username not found",
+      "unable-to-add-user": "Unable to add user",
+      "unable-to-change-password": "Unable to change password",
+      "unable-to-login": "Unable to login",
+      "password-mismatch": "Passwords do not match",
+      "invalid-credentials": "Invalid username or password",
+      "invalid-next-param": "Missing or invalid next parameter in login request"
+    }
+  },
+  "about": "About"
 }

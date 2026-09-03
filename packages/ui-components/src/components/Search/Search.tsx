@@ -19,7 +19,7 @@ const CONSTANTS = {
 const Search: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { searchResults, isLoading, doSearch } = useSearch();
+  const { searchResults, isLoading, isError, doSearch, resetSearch } = useSearch();
 
   const abortControllerRef = useRef<AbortController | null>(null);
 
@@ -93,6 +93,19 @@ const Search: React.FC = () => {
     [handleFetchPackages]
   );
 
+  const resetSearchRef = useRef(resetSearch);
+  resetSearchRef.current = resetSearch;
+
+  // clear the previous query's results right away so the dropdown never lists
+  // stale suggestions under the new input while the debounce timer runs
+  const handleSuggestionsFetch = useCallback(
+    ({ value }: { value: string }) => {
+      resetSearchRef.current?.();
+      debouncedFetch({ value });
+    },
+    [debouncedFetch]
+  );
+
   useEffect(() => {
     return () => {
       debouncedFetch.cancel?.();
@@ -144,9 +157,10 @@ const Search: React.FC = () => {
   return (
     <AutoComplete
       getOptionLabel={getOptionLabel}
+      hasError={isError}
       onCleanSuggestions={handleOnBlur}
       onSelectItem={handleClickSearch}
-      onSuggestionsFetch={debouncedFetch}
+      onSuggestionsFetch={handleSuggestionsFetch}
       placeholder={t('search.packages')}
       renderInput={renderInput}
       renderOption={renderOption}

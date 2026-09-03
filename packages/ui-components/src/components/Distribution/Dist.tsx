@@ -41,9 +41,9 @@ const Dist: FC<{ packageMeta: PackageMetaInterface }> = ({ packageMeta }) => {
       subheader={<StyledText variant="subtitle1">{t('sidebar.distribution.title')}</StyledText>}
     >
       <DistListItem>
-        {dist?.fileCount && (
+        {dist?.fileCount ? (
           <DistChip name={t('sidebar.distribution.file-count')}>{`${dist.fileCount}`}</DistChip>
-        )}
+        ) : null}
         {dist?.unpackedSize ? (
           <DistChip name={t('sidebar.distribution.size')}>{fileSizeSI(dist.unpackedSize)}</DistChip>
         ) : null}

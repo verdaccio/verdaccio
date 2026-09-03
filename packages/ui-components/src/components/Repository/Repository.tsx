@@ -9,7 +9,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { Theme } from '../../Theme';
-import { url as urlUtils } from '../../utils';
+import { url as urlUtils, utils } from '../../utils';
 import CopyClipboard from '../CopyClipboard';
 import { Git } from '../Icons';
 import LinkExternal from '../LinkExternal';
@@ -39,20 +39,19 @@ const RepositoryAvatar = styled(Avatar)({
 
 const Repository: React.FC<{ packageMeta: any }> = ({ packageMeta }) => {
   const { t } = useTranslation();
-  const url = packageMeta?.latest?.repository?.url;
-  if (!url || !urlUtils.isURL(url)) {
+  // repository can be the object form or a plain string, both valid in npm;
+  // `git+ssh://git@host/...` and `git://host/...` are valid manifest urls but
+  // dead links in a browser, so they are rewritten to https before validating
+  const url = utils.formatRepository(packageMeta?.latest?.repository);
+  const repositoryURL = url
+    ? url
+        .replace(/^git\+/, '')
+        .replace(/^ssh:\/\/(git@)?/, 'https://')
+        .replace(/^git:\/\//, 'https://')
+    : null;
+  if (!repositoryURL || !urlUtils.isURL(repositoryURL)) {
     return null;
   }
-
-  const getCorrectRepositoryURL = (): string => {
-    if (!url.includes('git+')) {
-      return url;
-    }
-
-    return url.split('git+')[1];
-  };
-
-  const repositoryURL = getCorrectRepositoryURL();
 
   return (
     <List

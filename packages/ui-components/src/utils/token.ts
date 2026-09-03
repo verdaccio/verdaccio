@@ -16,7 +16,8 @@ export function isTokenExpire(token: string | null): boolean {
   try {
     exp = JSON.parse(Base64.decode(payload)).exp;
   } catch (error: unknown) {
-    console.error('Invalid token:', error, token);
+    // never log the token itself: even a malformed one is credential material
+    console.error('Invalid token:', error);
     return true;
   }
 

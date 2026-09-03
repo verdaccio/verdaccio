@@ -17,7 +17,11 @@ const Person: React.FC<{
   const link = getLink(person, packageName, version);
 
   const avatarComponent = (
-    <Avatar alt={person.name} src={person.avatar} sx={{ width: 40, height: 40, ml: 0, mr: 1 }} />
+    <Avatar
+      alt={person.name}
+      src={person.avatar ?? person._avatar}
+      sx={{ width: 40, height: 40, ml: 0, mr: 1 }}
+    />
   );
 
   return (

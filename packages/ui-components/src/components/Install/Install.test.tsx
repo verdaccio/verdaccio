@@ -83,6 +83,22 @@ describe('<InstallListItem />', () => {
     // expect nothing to be rendered
     expect(screen.queryByTestId('installListItem-npm')).toBeNull();
   });
+
+  test('renders the yarn global command with the package name', () => {
+    window.localStorage.setItem(
+      'settings-ui-verdaccio',
+      JSON.stringify({ foo: { global: true, latest: true } })
+    );
+    render(
+      <InstallListItem
+        dependencyManager={DependencyManager.YARN}
+        packageName={'foo'}
+        packageVersion={'8.0.0'}
+      />
+    );
+    expect(screen.getByText('yarn global add foo')).toBeInTheDocument();
+    window.localStorage.removeItem('settings-ui-verdaccio');
+  });
 });
 
 describe('getGlobalInstall', () => {

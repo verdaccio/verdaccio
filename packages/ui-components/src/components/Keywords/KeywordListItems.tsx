@@ -12,7 +12,7 @@ const KeywordListItems: React.FC<{ keywords: undefined | string | string[] }> = 
 
   return (
     <ListItem sx={{ px: 0, mt: 0, flexWrap: 'wrap' }}>
-      {keywordList.sort().map((keyword, index) => (
+      {[...keywordList].sort().map((keyword, index) => (
         <Chip key={index} label={keyword} size="small" sx={{ mt: 0.5, mr: 0.5 }} />
       ))}
     </ListItem>

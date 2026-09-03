@@ -1,9 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link, Typography } from '@mui/material';
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useNavigate } from 'react-router';
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router';
 
 import { useDataMutation } from '../../api/use-data-mutation';
 import type { LoginFormValues } from '../../components/LoginForm/Login';
@@ -13,7 +13,7 @@ import NotFound from '../../components/NotFound';
 import { getConfiguration } from '../../configuration';
 import SecurityLayout from '../../layouts/Security/Dialog';
 import type { LoginBody } from '../../providers/AuthProvider/types';
-import { normalizeAuthError } from '../../providers/AuthProvider/utils';
+import { authErrorMessage } from '../../providers/AuthProvider/utils';
 import { saveAuth } from '../../store/storage';
 import { stripTrailingSlash } from '../../store/utils';
 import { Route } from '../../utils';
@@ -44,16 +44,12 @@ const Login: React.FC = () => {
     setError,
     handleSubmit,
     register,
-    formState: { isValid, errors },
+    formState: { isValid, isSubmitting, errors },
   } = form;
 
   const handleLogin = useCallback(
     async (body: { username: string; password: string }) => {
-      try {
-        return await trigger(body);
-      } catch (err) {
-        throw normalizeAuthError(err);
-      }
+      return await trigger(body);
     },
     [trigger]
   );
@@ -62,23 +58,35 @@ const Login: React.FC = () => {
     navigate(`${Route.SUCCESS}?messageType=${MessageType.Login}`);
   }, [navigate]);
 
+  // `disabled={isSubmitting}` only applies after a re-render; clicks landing in
+  // the same React batch would still fire duplicate requests
+  const inFlight = useRef(false);
+
   const onSubmit = useCallback(
     async (data: LoginFormValues) => {
+      if (inFlight.current) {
+        return;
+      }
+      inFlight.current = true;
       try {
         const result = await handleLogin?.(data);
         if (result && result.username && result.token) {
           saveAuth(result.username, result.token);
         }
         onSuccess();
-      } catch {
-        setError('root', {
-          type: 'server',
-          // TODO: add translation key
-          message: 'Invalid username or password',
-        });
+      } catch (err: any) {
+        // only a 401 means wrong credentials; a dead server, 500 or 429 must
+        // not claim the credentials were invalid
+        const message =
+          err?.code === 401
+            ? t('security.error.invalid-credentials')
+            : authErrorMessage(err, t('security.error.unable-to-login'));
+        setError('root', { type: 'server', message });
+      } finally {
+        inFlight.current = false;
       }
     },
-    [handleLogin, setError, onSuccess]
+    [handleLogin, setError, onSuccess, t]
   );
 
   return !next ? (
@@ -86,11 +94,14 @@ const Login: React.FC = () => {
   ) : (
     <SecurityLayout>
       <SecurityContainer>
-        <SecurityForm>
+        {/* container only: LoginForm renders the real <form>, and a <form>
+            cannot be a descendant of another <form> */}
+        <SecurityForm as="div">
           <LoginFormHeader />
           <LoginForm
             errors={errors}
             handleSubmit={handleSubmit}
+            isSubmitting={isSubmitting}
             isValid={isValid}
             onSubmit={onSubmit}
             register={register}
@@ -98,7 +109,7 @@ const Login: React.FC = () => {
           {createUserEnabled && (
             <Typography align="center" sx={{ mt: 2, fontSize: 12 }} variant="body2">
               {t('security.login.noUserQuestion')}
-              <Link href={addUserLink} sx={{ ml: 1 }}>
+              <Link component={RouterLink} sx={{ ml: 1 }} to={addUserLink}>
                 {t('security.login.createUser')}
               </Link>
             </Typography>

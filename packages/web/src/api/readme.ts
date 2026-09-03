@@ -2,7 +2,7 @@ import buildDebug from 'debug';
 import { Router } from 'express';
 
 import type { Auth } from '@verdaccio/auth';
-import { DIST_TAGS, HEADERS, HEADER_TYPE } from '@verdaccio/core';
+import { DIST_TAGS, HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 import {
   $NextFunctionVer,
   $RequestExtend,
@@ -76,9 +76,16 @@ function addReadmeWebApi(storage: Storage, auth: Auth, config: Config): Router {
           requestOptions,
         })) as Manifest;
         debug('readme pkg %o', manifest?.name);
-        res.set(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_PLAIN_UTF8);
         // TODO: sanitize query
         const { v } = req.query;
+        // a version that does not exist must be a 404, not the readme of latest
+        if (typeof v === 'string' && !isVersionValid(manifest, v)) {
+          debug('version %o not found for %o', v, name);
+          res.status(HTTP_STATUS.NOT_FOUND);
+          res.end();
+          return;
+        }
+        res.set(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_PLAIN_UTF8);
         const readme = getReadmeFromManifest(manifest, v);
         next(getReadme(readme));
       } catch (err) {

@@ -42,7 +42,9 @@ const ManifestsProvider: React.FC<{ children: ReactElement }> = ({ children }) =
       value={{
         manifests: (data.data as ManifestWeb[]) ?? [],
         isLoading: data.isLoading,
-        isError: typeof data.error?.code !== 'undefined',
+        // network failures and malformed responses reject without a `.code`;
+        // treating them as "no error" made a dead backend look like an empty registry
+        isError: typeof data.error !== 'undefined',
       }}
     >
       {children}
