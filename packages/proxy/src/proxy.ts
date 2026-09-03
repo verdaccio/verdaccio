@@ -511,7 +511,7 @@ class ProxyStorage implements IProxy {
     onSearchPage,
   }: ProxySearchParams): Promise<Stream.Readable> {
     try {
-      const uri = `${this.config.url.replace(/\/+$/, '')}/${url.replace(/^\/+/, '')}`;
+      const uri = this.buildUri(url);
       this.logger.http(
         { uri, uplink: this.uplinkName },
         'search request to uplink @{uplink} - @{uri}'
@@ -555,6 +555,11 @@ class ProxyStorage implements IProxy {
       );
       throw err;
     }
+  }
+
+  private buildUri(path: string): string {
+    const base = `${this.url.href.replace(/\/+$/, '')}/`;
+    return new URL(path.replace(/^\/+/, ''), base).href;
   }
 
   private addProxyHeaders(headers: gotHeaders, remoteAddress?: string): gotHeaders {
