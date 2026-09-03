@@ -4,6 +4,9 @@ import { HttpResponse, delay, http } from 'msw';
 import fs from 'node:fs';
 import path from 'node:path';
 
+import jqueryReadme from './api/jquery-readme';
+import storybookReadme from './api/storybook-readme';
+
 const debug = createDebugger('verdaccio:ui-components:api');
 debug('Setting up MSW API mocks.');
 
@@ -64,11 +67,11 @@ export const mockReadme = (packageName: string, content?: string) =>
     // Fallback to existing logic
     if (packageName === 'storybook') {
       debug('Returning README for storybook package.');
-      return HttpResponse.text(require('./api/storybook-readme')());
+      return HttpResponse.text(storybookReadme);
     }
     if (packageName === 'jquery') {
       debug('Returning README for jquery package.');
-      return HttpResponse.text(require('./api/jquery-readme')());
+      return HttpResponse.text(jqueryReadme);
     }
     debug(`Returning README for package ${packageName}.`);
     return HttpResponse.text(`readme for ${packageName}`);

@@ -25,7 +25,7 @@ export const StyledText = styled(Typography)<{ theme?: Theme }>((props) => ({
 const Versions: React.FC<Props> = ({ packageMeta, packageName }) => {
   const { t } = useTranslation();
   const { configOptions } = useConfig();
-  const { versions = {}, time = {}, ['dist-tags']: distTags = {} } = packageMeta;
+  const { versions = {}, time = {}, ['dist-tags']: distTags = {} } = packageMeta ?? {};
 
   const [packageVersions, setPackageVersions] = useState(versions);
   if (!packageMeta || Object.keys(packageMeta).length === 0) {

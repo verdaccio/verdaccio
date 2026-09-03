@@ -63,7 +63,8 @@ const VersionProvider: React.FC<{ children: React.ReactNode }> = ({ children }) 
       isForbidden: errorCode === 403,
       isUnAuthorized: errorCode === 401,
       hasNotBeenFound: errorCode === 404,
-      isError: errorCode !== undefined,
+      // network failures reject without a `.code`, they are still errors
+      isError: error !== undefined,
       error,
     }),
     [sidebarData.data, readmeData.data, packageName, packageVersion, isLoading, errorCode, error]
