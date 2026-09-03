@@ -15,7 +15,7 @@ import { convertDistRemoteToLocalTarballUrls } from '@verdaccio/tarball';
 import type { Config, Manifest, WebManifest } from '@verdaccio/types';
 
 import { addGravatarSupport, formatAuthor } from '../author-utils';
-import { deleteProperties, isVersionValid } from '../web-utils';
+import { deleteProperties } from '../web-utils';
 import { scopedPackageAccess } from './scoped-access';
 
 export { $RequestExtend, $ResponseExtend, $NextFunctionVer }; // Was required by other packages
@@ -43,16 +43,7 @@ function addSidebarWebApi(config: Config, storage: Storage, auth: Auth): Router 
           keepUpLinkData: true,
           requestOptions,
         })) as Manifest;
-        // TODO: sanitize query
         const { v } = req.query;
-        // a version that does not exist must be a 404, not a silent fallback
-        // to latest rendered under the requested version's title
-        if (typeof v === 'string' && !isVersionValid(info, v)) {
-          debug('version %o not found for %o', v, name);
-          res.status(HTTP_STATUS.NOT_FOUND);
-          res.end();
-          return;
-        }
         let sideBarInfo = { ...info } as WebManifest;
         sideBarInfo.versions = convertDistRemoteToLocalTarballUrls(
           info,
@@ -60,6 +51,17 @@ function addSidebarWebApi(config: Config, storage: Storage, auth: Auth): Router 
           config.url_prefix
         ).versions;
         if (typeof v === 'string') {
+          // own-property check right at the lookup: `v` is user input, and a
+          // crafted value like `__proto__` would otherwise resolve to
+          // Object.prototype and be polluted by the author assignment below.
+          // It also makes a version that does not exist a 404 instead of a
+          // silent fallback to latest rendered under the requested title.
+          if (!Object.hasOwn(sideBarInfo.versions, v)) {
+            debug('version %o not found for %o', v, name);
+            res.status(HTTP_STATUS.NOT_FOUND);
+            res.end();
+            return;
+          }
           sideBarInfo.latest = sideBarInfo.versions[v];
         } else {
           // a manifest without a resolvable dist-tags.latest (corrupt or partial

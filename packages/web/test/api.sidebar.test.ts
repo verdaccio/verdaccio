@@ -76,4 +76,19 @@ describe('sidebar api', () => {
       .get('/-/verdaccio/data/sidebar/pk5-test?v=latest')
       .expect(HTTP_STATUS.NOT_FOUND);
   });
+
+  test('should return 404 for __proto__ as version without polluting Object.prototype', async () => {
+    const app = await initializeServer('default-test.yaml');
+    await publishVersion(app, 'pk6-test', '1.0.0', { readme: 'my readme' });
+    await supertest(app)
+      .get('/-/verdaccio/data/sidebar/pk6-test?v=__proto__')
+      .expect(HTTP_STATUS.NOT_FOUND);
+    await supertest(app)
+      .get('/-/verdaccio/data/sidebar/pk6-test?v=constructor')
+      .expect(HTTP_STATUS.NOT_FOUND);
+    // the sidebar handler assigns `.author` on the looked-up version: a
+    // prototype-resolving lookup would have polluted every object
+    expect(({} as any).author).toBeUndefined();
+    expect(Object.prototype).not.toHaveProperty('author');
+  });
 });

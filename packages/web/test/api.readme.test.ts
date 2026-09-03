@@ -113,4 +113,13 @@ describe('readme api', () => {
       .set('Accept', HEADERS.TEXT_PLAIN)
       .expect(HTTP_STATUS.NOT_FOUND);
   });
+
+  test('should return 404 for __proto__ as version (inherited properties never validate)', async () => {
+    const app = await initializeServer('default-test.yaml');
+    await publishVersion(app, 'pk1-test', '1.0.0', { readme: 'my readme' });
+    await supertest(app)
+      .get('/-/verdaccio/data/package/readme/pk1-test?v=__proto__')
+      .set('Accept', HEADERS.TEXT_PLAIN)
+      .expect(HTTP_STATUS.NOT_FOUND);
+  });
 });

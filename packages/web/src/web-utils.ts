@@ -38,6 +38,7 @@ export function isVersionValid(packageMeta: Manifest, packageVersion: string): b
     return false;
   }
 
-  const hasMatchVersion = Object.keys(packageMeta.versions).includes(packageVersion);
-  return hasMatchVersion;
+  // own-property check: the version may come from user input, and values like
+  // `__proto__` must never validate against inherited properties
+  return Object.hasOwn(packageMeta.versions, packageVersion);
 }
