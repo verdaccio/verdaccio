@@ -50,6 +50,7 @@ export const DownloadProvider: React.FC<{ children: ReactNode }> = ({ children }
         onClose={() => setHasDownloadError(false)}
         open={hasDownloadError}
       >
+        {/* @ts-ignore - Alert does accept children despite the type error */}
         <Alert onClose={() => setHasDownloadError(false)} severity="error" variant="filled">
           {t('error.download-tarball')}
         </Alert>
