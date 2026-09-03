@@ -8,7 +8,7 @@ import { APIRoute } from '../../store/routes';
 import { clearAuth, saveAuth } from '../../store/storage';
 import { stripTrailingSlash } from '../../store/utils';
 import type { LoginBody } from './types';
-import { getDefaultUserState } from './utils';
+import { clearExpiredAuth, getDefaultUserState } from './utils';
 
 interface AuthContextProps {
   handleLogin: (body: { username: string; password: string }) => Promise<any>;
@@ -29,6 +29,10 @@ const basePath = stripTrailingSlash(configuration.base);
 
 const AuthProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
   const [userState, setUserState] = React.useState<LoginBody>(getDefaultUserState());
+
+  React.useEffect(() => {
+    clearExpiredAuth();
+  }, []);
   const { trigger } = useDataMutation<LoginBody>(basePath, APIRoute.LOGIN, 'POST');
   const { mutate } = useSWRConfig();
 

@@ -61,10 +61,12 @@ class API {
 
     if (token && headers.has(AuthHeader) === false) {
       headers.set(AuthHeader, `Bearer ${token}`);
-      options.headers = headers;
     }
 
     headers.set('x-client', 'verdaccio-ui');
+    // assign unconditionally: doing it only inside the token branch dropped
+    // the x-client header for anonymous requests
+    options.headers = headers;
 
     return new Promise((resolve, reject) => {
       fetch(url, {

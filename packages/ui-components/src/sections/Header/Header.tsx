@@ -15,11 +15,13 @@ type Props = {
   tokenCheckIntervalMs?: number;
 };
 
-// Session timeout default is 1 hour
+// checking the token is a local decode, so a short interval is cheap; the old
+// hourly default kept showing the user as logged in for up to an hour after
+// the session expired
 const Header: React.FC<Props> = ({
   HeaderInfoDialog,
   isPlainHeader,
-  tokenCheckIntervalMs = 60 * 60 * 1000,
+  tokenCheckIntervalMs = 60 * 1000,
 }) => {
   const { t } = useTranslation();
   const [isInfoDialogOpen, setOpenInfoDialog] = useState<boolean>(false);

@@ -6,6 +6,7 @@ import type { FC } from 'react';
 import React from 'react';
 import type { FieldErrors, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { Link as RouterLink } from 'react-router';
 
 import type { Theme } from '../../';
 import { getConfiguration } from '../../configuration';
@@ -71,7 +72,7 @@ const LoginForm: FC<Props> = ({
       </StyledButton>
       {changePasswordEnabled && (
         <Typography align="center" sx={{ mt: 2, fontSize: 12 }} variant="body2">
-          <Link href={Route.CHANGE_PASSWORD} sx={{ ml: 1 }}>
+          <Link component={RouterLink} sx={{ ml: 1 }} to={Route.CHANGE_PASSWORD}>
             {t('security.changePassword.title')}
           </Link>
         </Typography>

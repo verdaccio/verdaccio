@@ -3,7 +3,7 @@ import { Link, Typography } from '@mui/material';
 import React, { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useNavigate } from 'react-router';
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router';
 
 import { useDataMutation } from '../../api/use-data-mutation';
 import type { LoginFormValues } from '../../components/LoginForm/Login';
@@ -97,7 +97,7 @@ const Login: React.FC = () => {
           {createUserEnabled && (
             <Typography align="center" sx={{ mt: 2, fontSize: 12 }} variant="body2">
               {t('security.login.noUserQuestion')}
-              <Link href={addUserLink} sx={{ ml: 1 }}>
+              <Link component={RouterLink} sx={{ ml: 1 }} to={addUserLink}>
                 {t('security.login.createUser')}
               </Link>
             </Typography>

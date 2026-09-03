@@ -2,7 +2,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { Button, Typography } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 
 import SecurityLayout from '../../layouts/Security/Dialog';
 import { SecurityContainer, SecurityForm } from './styles';
@@ -17,6 +17,7 @@ export enum MessageType {
 const Success: React.FC = () => {
   const { t } = useTranslation();
   const location = useLocation();
+  const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
   const messageType = queryParams.get('messageType') as MessageType;
   const message = !messageType
@@ -24,7 +25,9 @@ const Success: React.FC = () => {
     : t(`security.success.message${messageType}`);
 
   const handleClose = () => {
-    window.location.href = '/';
+    // navigate() keeps the router basename; window.location.href = '/' left the
+    // registry entirely when it is served under a sub-path
+    navigate('/');
   };
 
   return (
