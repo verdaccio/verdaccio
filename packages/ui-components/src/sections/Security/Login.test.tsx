@@ -150,7 +150,7 @@ describe('<Login /> component', () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByText('Invalid username or password')).toBeInTheDocument();
+      expect(screen.getByText('security.error.invalid-credentials')).toBeInTheDocument();
     });
   });
 });

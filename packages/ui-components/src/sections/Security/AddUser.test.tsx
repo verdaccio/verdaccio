@@ -168,7 +168,7 @@ describe('<AddUser /> component', () => {
     await waitFor(() => {
       expect(mockNavigate).toHaveBeenCalledWith(expect.stringContaining(Route.SUCCESS));
     });
-    expect(screen.queryByText('Failed to create user')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('error')).not.toBeInTheDocument();
   });
 
   test('should show error message on failed submission', async () => {
@@ -205,7 +205,8 @@ describe('<AddUser /> component', () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByText('Failed to create user')).toBeInTheDocument();
+      // the server's own message is surfaced instead of a hardcoded generic one
+      expect(screen.getByText('user already exists')).toBeInTheDocument();
     });
   });
 });

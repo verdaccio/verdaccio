@@ -9,12 +9,16 @@ import { useDataMutation } from '../../api/use-data-mutation';
 import LoginDialogFormError from '../../components/LoginDialog/LoginDialogFormError';
 import { getConfiguration } from '../../configuration';
 import SecurityLayout from '../../layouts/Security/Dialog';
-import { normalizeAuthError } from '../../providers/AuthProvider/utils';
+import { authErrorMessage } from '../../providers/AuthProvider/utils';
 import { stripTrailingSlash } from '../../store/utils';
 import { Route } from '../../utils';
 import { APIRoute } from '../../utils/routes';
 import type { ChangePasswordFormValues } from '../../utils/schemas';
-import { changePasswordSchema } from '../../utils/schemas';
+import {
+  PASSWORD_MIN_LENGTH,
+  USERNAME_MIN_LENGTH,
+  changePasswordSchema,
+} from '../../utils/schemas';
 import { MessageType } from './Success';
 import { SecurityContainer, SecurityForm, SecurityTextField } from './styles';
 
@@ -40,18 +44,14 @@ const ChangePassword: React.FC = () => {
     setError,
     handleSubmit,
     register,
-    formState: { isValid, errors },
+    formState: { isValid, isSubmitting, errors },
   } = form;
 
   const { trigger } = useDataMutation<{ ok: string }>(basePath, APIRoute.RESET_PASSWORD, 'PUT');
 
   const handleChangePassword = useCallback(
     async (body: { password: { old: string; new: string } }) => {
-      try {
-        await trigger(body);
-      } catch (err) {
-        throw normalizeAuthError(err);
-      }
+      await trigger(body);
     },
     [trigger]
   );
@@ -66,14 +66,14 @@ const ChangePassword: React.FC = () => {
           },
         });
         navigate(`${Route.SUCCESS}?messageType=${MessageType.ChangePassword}`);
-      } catch {
+      } catch (err) {
         setError('root', {
           type: 'server',
-          message: 'Failed to change password',
+          message: authErrorMessage(err, t('security.error.unable-to-change-password')),
         });
       }
     },
-    [handleChangePassword, setError, navigate]
+    [handleChangePassword, setError, navigate, t]
   );
 
   useEffect(() => {
@@ -91,14 +91,22 @@ const ChangePassword: React.FC = () => {
           </Typography>
           <SecurityTextField
             error={!!errors.username}
-            helperText={errors.username?.message}
+            helperText={
+              errors.username?.message
+                ? t(errors.username.message, { length: USERNAME_MIN_LENGTH })
+                : undefined
+            }
             label={t('security.changePassword.username')}
             {...register('username')}
             required={true}
           />
           <SecurityTextField
             error={!!errors.oldPassword}
-            helperText={errors.oldPassword?.message}
+            helperText={
+              errors.oldPassword?.message
+                ? t(errors.oldPassword.message, { length: PASSWORD_MIN_LENGTH })
+                : undefined
+            }
             label={t('security.changePassword.oldPassword')}
             {...register('oldPassword')}
             required={true}
@@ -106,7 +114,11 @@ const ChangePassword: React.FC = () => {
           />
           <SecurityTextField
             error={!!errors.newPassword}
-            helperText={errors.newPassword?.message}
+            helperText={
+              errors.newPassword?.message
+                ? t(errors.newPassword.message, { length: PASSWORD_MIN_LENGTH })
+                : undefined
+            }
             label={t('security.changePassword.newPassword')}
             {...register('newPassword')}
             required={true}
@@ -114,7 +126,9 @@ const ChangePassword: React.FC = () => {
           />
           <SecurityTextField
             error={!!errors.confirmPassword}
-            helperText={errors.confirmPassword?.message}
+            helperText={
+              errors.confirmPassword?.message ? t(errors.confirmPassword.message) : undefined
+            }
             label={t('security.changePassword.confirmPassword')}
             {...register('confirmPassword')}
             required={true}
@@ -123,7 +137,7 @@ const ChangePassword: React.FC = () => {
           {errors.root && <LoginDialogFormError error={errors.root} />}
           <Button
             color="primary"
-            disabled={!isValid}
+            disabled={!isValid || isSubmitting}
             fullWidth={true}
             sx={{ mt: 2 }}
             type="submit"

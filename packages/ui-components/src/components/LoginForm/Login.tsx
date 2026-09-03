@@ -33,9 +33,17 @@ interface Props {
   onSubmit: (data: LoginFormValues) => void;
   errors: FieldErrors<LoginFormValues>;
   isValid: boolean;
+  isSubmitting?: boolean;
 }
 
-const LoginForm: FC<Props> = ({ register, handleSubmit, onSubmit, errors, isValid }) => {
+const LoginForm: FC<Props> = ({
+  register,
+  handleSubmit,
+  onSubmit,
+  errors,
+  isValid,
+  isSubmitting = false,
+}) => {
   const { t } = useTranslation();
   const configuration = getConfiguration();
   const changePasswordEnabled = configuration?.flags?.changePassword;
@@ -50,7 +58,9 @@ const LoginForm: FC<Props> = ({ register, handleSubmit, onSubmit, errors, isVali
       <StyledButton
         color="primary"
         data-testid="login-dialog-form-login-button"
-        disabled={!isValid}
+        // disable while the request is in flight: a double click means a double
+        // POST, which can even trip the login rate limit
+        disabled={!isValid || isSubmitting}
         fullWidth={true}
         id="login--dialog-button-submit"
         size="large"

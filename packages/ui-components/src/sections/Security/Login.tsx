@@ -13,7 +13,7 @@ import NotFound from '../../components/NotFound';
 import { getConfiguration } from '../../configuration';
 import SecurityLayout from '../../layouts/Security/Dialog';
 import type { LoginBody } from '../../providers/AuthProvider/types';
-import { normalizeAuthError } from '../../providers/AuthProvider/utils';
+import { authErrorMessage } from '../../providers/AuthProvider/utils';
 import { saveAuth } from '../../store/storage';
 import { stripTrailingSlash } from '../../store/utils';
 import { Route } from '../../utils';
@@ -44,16 +44,12 @@ const Login: React.FC = () => {
     setError,
     handleSubmit,
     register,
-    formState: { isValid, errors },
+    formState: { isValid, isSubmitting, errors },
   } = form;
 
   const handleLogin = useCallback(
     async (body: { username: string; password: string }) => {
-      try {
-        return await trigger(body);
-      } catch (err) {
-        throw normalizeAuthError(err);
-      }
+      return await trigger(body);
     },
     [trigger]
   );
@@ -70,15 +66,17 @@ const Login: React.FC = () => {
           saveAuth(result.username, result.token);
         }
         onSuccess();
-      } catch {
-        setError('root', {
-          type: 'server',
-          // TODO: add translation key
-          message: 'Invalid username or password',
-        });
+      } catch (err: any) {
+        // only a 401 means wrong credentials; a dead server, 500 or 429 must
+        // not claim the credentials were invalid
+        const message =
+          err?.code === 401
+            ? t('security.error.invalid-credentials')
+            : authErrorMessage(err, t('security.error.unable-to-login'));
+        setError('root', { type: 'server', message });
       }
     },
-    [handleLogin, setError, onSuccess]
+    [handleLogin, setError, onSuccess, t]
   );
 
   return !next ? (
@@ -91,6 +89,7 @@ const Login: React.FC = () => {
           <LoginForm
             errors={errors}
             handleSubmit={handleSubmit}
+            isSubmitting={isSubmitting}
             isValid={isValid}
             onSubmit={onSubmit}
             register={register}

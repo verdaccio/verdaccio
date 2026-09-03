@@ -13,7 +13,7 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { Theme } from '../../';
-import { Link, LinkExternal, useDownload, useManifests } from '../../';
+import { LinkExternal, useDownload, useManifests } from '../../';
 import { FileBinary, Law, Time, Version } from '../../components/Icons';
 import { getConfiguration } from '../../configuration';
 import type { Author as PackageAuthor } from '../../providers/ManifestsProvider/ManifestsProvider';
@@ -163,26 +163,24 @@ const Package: React.FC<PackageInterface> = ({
   const renderDownloadLink = (): React.ReactNode =>
     dist?.tarball &&
     url.isURL(dist.tarball) && (
-      <Link
-        onClick={() => {
-          handleDownload(dist.tarball);
-        }}
-        to="#"
+      // a plain button: wrapping it in <Link to="#"> pushed a stray `#` entry
+      // into the browser history on every download
+      <Tooltip
+        aria-label={t('package.download', { what: t('package.the-tar-file') })}
+        title={t('package.tarball')}
       >
-        <Tooltip
-          aria-label={t('package.download', { what: t('package.the-tar-file') })}
-          title={t('package.tarball')}
+        <IconButton
+          aria-label={t('package.download')}
+          color="primary"
+          data-testid="download-tarball"
+          onClick={() => {
+            handleDownload(dist.tarball);
+          }}
+          size="large"
         >
-          <IconButton
-            aria-label={t('package.download')}
-            color="primary"
-            data-testid="download-tarball"
-            size="large"
-          >
-            {isLoading ? <CircularProgress size={13} /> : <DownloadIcon />}
-          </IconButton>
-        </Tooltip>
-      </Link>
+          {isLoading ? <CircularProgress size={13} /> : <DownloadIcon />}
+        </IconButton>
+      </Tooltip>
     );
 
   const renderPrimaryComponent = (): React.ReactNode => {

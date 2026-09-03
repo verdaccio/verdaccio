@@ -191,7 +191,7 @@ describe('<ChangePassword /> component', () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByText('Failed to change password')).toBeInTheDocument();
+      expect(screen.getByText('invalid credentials')).toBeInTheDocument();
     });
   });
 });

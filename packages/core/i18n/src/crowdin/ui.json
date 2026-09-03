@@ -39,7 +39,8 @@
     "no-results-found": "No results found",
     "clear": "Clear",
     "expand": "Expand",
-    "collapse": "Collapse"
+    "collapse": "Collapse",
+    "error": "Something went wrong while searching"
   },
   "tab": {
     "uplinks": "Uplinks",
@@ -87,7 +88,8 @@
     "required-field": "This field is required",
     "required-min-length": "This field required with a minimum length of {{length}}",
     "unable-to-sign-in": "Unable to sign in",
-    "username-or-password-cant-be-empty": "Username or password can't be empty!"
+    "username-or-password-cant-be-empty": "Username or password can't be empty!",
+    "invalid-email": "Must be a valid email address"
   },
   "help": {
     "title": "No Package Published Yet.",
@@ -161,7 +163,8 @@
     "unspecific": "Something went wrong.",
     "app-context-not-correct-used": "The app context was not used correctly",
     "theme-context-not-correct-used": "The theme context was not used correctly",
-    "package-meta-is-required-at-detail-context": "packageMeta is required at DetailContext"
+    "package-meta-is-required-at-detail-context": "packageMeta is required at DetailContext",
+    "download-tarball": "The tarball could not be downloaded"
   },
   "lng": {
     "english": "English",

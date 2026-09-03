@@ -11,7 +11,7 @@ import PasswordField from '../../components/LoginForm/PasswordField';
 import UsernameField from '../../components/LoginForm/UsernameField';
 import { getConfiguration } from '../../configuration';
 import SecurityLayout from '../../layouts/Security/Dialog';
-import { normalizeAuthError } from '../../providers/AuthProvider/utils';
+import { authErrorMessage } from '../../providers/AuthProvider/utils';
 import { saveAuth } from '../../store/storage';
 import { stripTrailingSlash } from '../../store/utils';
 import { Route } from '../../utils';
@@ -53,7 +53,7 @@ const AddUser: React.FC = () => {
     setError,
     handleSubmit,
     register,
-    formState: { isValid, errors },
+    formState: { isValid, isSubmitting, errors },
   } = form;
 
   const { trigger } = useDataMutation<{ token?: string; username?: string }>(
@@ -64,11 +64,7 @@ const AddUser: React.FC = () => {
 
   const handleAddUser = useCallback(
     async (body: AddUserBody) => {
-      try {
-        return await trigger(body);
-      } catch (err) {
-        throw normalizeAuthError(err);
-      }
+      return await trigger(body);
     },
     [trigger]
   );
@@ -86,15 +82,14 @@ const AddUser: React.FC = () => {
           saveAuth(result.username, result.token);
         }
         navigate(`${Route.SUCCESS}?messageType=${MessageType.AddUser}`);
-      } catch {
+      } catch (err) {
         setError('root', {
           type: 'server',
-          // TODO: add translation key
-          message: 'Failed to create user',
+          message: authErrorMessage(err, t('security.error.unable-to-add-user')),
         });
       }
     },
-    [handleAddUser, setError, navigate]
+    [handleAddUser, setError, navigate, t]
   );
 
   useEffect(() => {
@@ -125,7 +120,7 @@ const AddUser: React.FC = () => {
           {errors.root && <LoginDialogFormError error={errors.root} />}
           <Button
             color="primary"
-            disabled={!isValid}
+            disabled={!isValid || isSubmitting}
             fullWidth={true}
             sx={{ mt: 2 }}
             type="submit"
