@@ -132,6 +132,45 @@ describe('<AddUser /> component', () => {
     expect(screen.getByText('security.addUser.login')).toBeInTheDocument();
   });
 
+  test('should create the user against the signup endpoint and navigate to success', async () => {
+    // the default mockAddUser handler rejects any request that is not a
+    // PUT /-/verdaccio/sec/signup carrying a 36-char sessionId, so reaching
+    // the success page proves the form matches the server contract
+    window.__VERDACCIO_BASENAME_UI_OPTIONS = {
+      ...window.__VERDACCIO_BASENAME_UI_OPTIONS,
+      flags: { createUser: true },
+    };
+
+    await act(async () => {
+      renderWithRouter(<AddUser />, Route.ADD_USER, [Route.ADD_USER]);
+    });
+
+    await act(async () => {
+      fireEvent.change(screen.getByPlaceholderText('form-placeholder.username'), {
+        target: { value: 'newuser' },
+      });
+      fireEvent.change(screen.getByPlaceholderText('form-placeholder.password'), {
+        target: { value: 'testpass' },
+      });
+      fireEvent.change(screen.getByLabelText('security.addUser.email'), {
+        target: { value: 'new@example.com' },
+      });
+    });
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: 'security.addUser.submit' })).not.toBeDisabled();
+    });
+
+    await act(async () => {
+      fireEvent.click(screen.getByRole('button', { name: 'security.addUser.submit' }));
+    });
+
+    await waitFor(() => {
+      expect(mockNavigate).toHaveBeenCalledWith(expect.stringContaining(Route.SUCCESS));
+    });
+    expect(screen.queryByText('Failed to create user')).not.toBeInTheDocument();
+  });
+
   test('should show error message on failed submission', async () => {
     // Override the default handler with a 409 error response
     server.use(mockAddUser(409, { error: 'user already exists' }));

@@ -12,8 +12,10 @@ import UsernameField from '../../components/LoginForm/UsernameField';
 import { getConfiguration } from '../../configuration';
 import SecurityLayout from '../../layouts/Security/Dialog';
 import { normalizeAuthError } from '../../providers/AuthProvider/utils';
+import { saveAuth } from '../../store/storage';
 import { stripTrailingSlash } from '../../store/utils';
 import { Route } from '../../utils';
+import { APIRoute } from '../../utils/routes';
 import type { AddUserFormValues } from '../../utils/schemas';
 import { addUserSchema } from '../../utils/schemas';
 import { MessageType } from './Success';
@@ -24,6 +26,8 @@ type AddUserBody = {
   name: string;
   password: string;
   email?: string;
+  // the signup endpoint rejects requests without a 36-char session id
+  sessionId: string;
 };
 
 const AddUser: React.FC = () => {
@@ -49,20 +53,19 @@ const AddUser: React.FC = () => {
     setError,
     handleSubmit,
     register,
-    watch,
     formState: { isValid, errors },
   } = form;
 
-  const username = watch('username');
-
-  const addUserLink = `${Route.ADD_USER}:${encodeURIComponent(username)}`;
-
-  const { trigger } = useDataMutation<{ ok: string; token: string }>(basePath, addUserLink, 'PUT');
+  const { trigger } = useDataMutation<{ token?: string; username?: string }>(
+    basePath,
+    APIRoute.SIGNUP,
+    'PUT'
+  );
 
   const handleAddUser = useCallback(
     async (body: AddUserBody) => {
       try {
-        await trigger(body);
+        return await trigger(body);
       } catch (err) {
         throw normalizeAuthError(err);
       }
@@ -73,11 +76,15 @@ const AddUser: React.FC = () => {
   const onSubmit = useCallback(
     async (data: AddUserFormValues) => {
       try {
-        await handleAddUser({
+        const result = await handleAddUser({
           name: data.username,
           password: data.password,
           email: data.email,
+          sessionId: crypto.randomUUID(),
         });
+        if (result && result.username && result.token) {
+          saveAuth(result.username, result.token);
+        }
         navigate(`${Route.SUCCESS}?messageType=${MessageType.AddUser}`);
       } catch {
         setError('root', {
