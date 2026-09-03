@@ -53,7 +53,7 @@ export interface PackageInterface {
   keywords?: PackageMetaInterface['latest']['keywords'];
   license?: PackageMetaInterface['latest']['license'];
   homepage?: string;
-  bugs?: Bugs;
+  bugs?: Bugs | string;
   dist?: Dist;
   showDownload?: boolean;
 }
@@ -143,17 +143,22 @@ const Package: React.FC<PackageInterface> = ({
       </LinkExternal>
     );
 
-  const renderBugsLink = (): React.ReactNode =>
-    bugs?.url &&
-    url.isURL(bugs.url) && (
-      <LinkExternal to={bugs.url}>
-        <Tooltip aria-label={t('package.bugs')} title={t('package.open-an-issue')}>
-          <IconButton aria-label={t('package.bugs')} color="primary" size="large">
-            <BugReport />
-          </IconButton>
-        </Tooltip>
-      </LinkExternal>
+  const renderBugsLink = (): React.ReactNode => {
+    // bugs can be the object form or a plain url string, both valid in npm
+    const bugsUrl = utils.getBugsUrl(bugs);
+    return (
+      bugsUrl &&
+      url.isURL(bugsUrl) && (
+        <LinkExternal to={bugsUrl}>
+          <Tooltip aria-label={t('package.bugs')} title={t('package.open-an-issue')}>
+            <IconButton aria-label={t('package.bugs')} color="primary" size="large">
+              <BugReport />
+            </IconButton>
+          </Tooltip>
+        </LinkExternal>
+      )
     );
+  };
 
   const renderDownloadLink = (): React.ReactNode =>
     dist?.tarball &&

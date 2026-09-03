@@ -59,6 +59,40 @@ export function formatRepository(repository: string | { url?: string } | unknown
   return null;
 }
 
+/**
+ * Normalizes the `bugs` field to its url.
+ * @see https://docs.npmjs.com/cli/configuring-npm/package-json#bugs
+ */
+export function getBugsUrl(bugs: unknown): string | null {
+  if (typeof bugs === 'string') {
+    return bugs;
+  }
+
+  if (bugs && typeof bugs === 'object' && 'url' in bugs && typeof bugs.url === 'string') {
+    return bugs.url;
+  }
+
+  return null;
+}
+
+/**
+ * Normalizes the `funding` field (string, object or array of both) to a url.
+ * @see https://docs.npmjs.com/cli/configuring-npm/package-json#funding
+ */
+export function getFundingUrl(funding: unknown): string | null {
+  const entries = Array.isArray(funding) ? funding : [funding];
+  for (const entry of entries) {
+    if (typeof entry === 'string') {
+      return entry;
+    }
+    if (entry && typeof entry === 'object' && 'url' in entry && typeof entry.url === 'string') {
+      return entry.url;
+    }
+  }
+
+  return null;
+}
+
 export function formatDate(lastUpdate: string | number): string {
   return dayjs(new Date(lastUpdate)).format(TIMEFORMAT);
 }

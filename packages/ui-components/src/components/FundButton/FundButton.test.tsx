@@ -81,4 +81,27 @@ describe('test FundButton', () => {
 
     expect(wrapper.getByText('button.fund-this-package')).toBeTruthy();
   });
+
+  test('should display the button for the string form of funding', () => {
+    const value = {
+      latest: { ...pkgMeta.latest, funding: 'https://opencollective.com/verdaccio' },
+    };
+
+    const wrapper = render(<FundButton packageMeta={value} />);
+
+    expect(wrapper.getByText('button.fund-this-package')).toBeTruthy();
+  });
+
+  test('should display the button for the array form of funding', () => {
+    const value = {
+      latest: {
+        ...pkgMeta.latest,
+        funding: [{ type: 'opencollective', url: 'https://opencollective.com/verdaccio' }],
+      },
+    };
+
+    const wrapper = render(<FundButton packageMeta={value} />);
+
+    expect(wrapper.getByText('button.fund-this-package')).toBeTruthy();
+  });
 });

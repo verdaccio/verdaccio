@@ -20,13 +20,18 @@ export type Latest = {
   license?: string | LicenseInterface;
   version: string;
   homepage?: string;
-  bugs?: {
-    url: string;
-  };
-  repository?: {
-    type?: string;
-    url?: string;
-  };
+  // bugs and repository also accept the plain string form in npm manifests
+  bugs?:
+    | string
+    | {
+        url: string;
+      };
+  repository?:
+    | string
+    | {
+        type?: string;
+        url?: string;
+      };
   main?: string;
   type?: ModuleType;
   types?: string;
