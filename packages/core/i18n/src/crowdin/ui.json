@@ -152,13 +152,13 @@
     "fund-this-package": "<0>Fund</0> this package"
   },
   "error": {
-    "unspecific": "Something went wrong.",
-    "404": {
-      "sorry-we-could-not-find-it": "Sorry, we couldn't find it..."
-    },
     "401": {
       "sorry-no-access": "Sorry, you need credentials access to see this page."
     },
+    "404": {
+      "sorry-we-could-not-find-it": "Sorry, we couldn't find it..."
+    },
+    "unspecific": "Something went wrong.",
     "app-context-not-correct-used": "The app context was not used correctly",
     "theme-context-not-correct-used": "The theme context was not used correctly",
     "package-meta-is-required-at-detail-context": "packageMeta is required at DetailContext"
@@ -247,5 +247,39 @@
       "invalid-credentials": "Invalid username or password",
       "invalid-next-param": "Missing or invalid next parameter in login request"
     }
-  }
+  },
+  "stage": {
+    "menu": "Staged packages",
+    "title": "Staged packages",
+    "description": "Package versions waiting for review. They are not installable until a maintainer approves them.",
+    "empty": "There are no staged package versions.",
+    "backToList": "Back to staged packages",
+    "column": {
+      "package": "Package",
+      "version": "Version",
+      "tag": "Tag",
+      "stagedBy": "Staged by",
+      "date": "Date staged",
+      "access": "Access",
+      "shasum": "Shasum",
+      "actions": "Actions"
+    },
+    "action": {
+      "approve": "Approve",
+      "reject": "Reject",
+      "download": "Download tarball"
+    },
+    "confirm": {
+      "approveTitle": "Approve this version?",
+      "approveBody": "This publishes {{package}}@{{version}} under the tag \"{{tag}}\". It will be installable right away.",
+      "rejectTitle": "Reject this version?",
+      "rejectBody": "This permanently deletes the staged record and tarball for {{package}}@{{version}}. It cannot be undone."
+    },
+    "error": {
+      "list": "The staged packages could not be loaded.",
+      "notFound": "This staged package version does not exist or you cannot see it.",
+      "action": "The action could not be completed."
+    }
+  },
+  "about": "About"
 }
