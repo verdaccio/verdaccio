@@ -502,8 +502,7 @@ class ProxyStorage implements IProxy {
    */
   public async search({ url, abort, retry }: ProxySearchParams): Promise<Stream.Readable> {
     try {
-      // Incoming URL is relative ie /-/v1/search...
-      const uri = new URL(url, this.url).href;
+      const uri = `${this.config.url.replace(/\/+$/, '')}/${url.replace(/^\/+/, '')}`;
       this.logger.http(
         { uri, uplink: this.uplinkName },
         'search request to uplink @{uplink} - @{uri}'
