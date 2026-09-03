@@ -38,7 +38,7 @@
     "clean": "rimraf ./build",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "watch": "vite build --watch",
-    "build": "node tools/generate-github-markdown.mjs && vite build",
+    "build": "vite build",
     "start": "cross-env BROWSER=none storybook dev -p 6006",
     "build-storybook": "storybook build",
     "generate:github-markdown-css": "node tools/generate-github-markdown.mjs"

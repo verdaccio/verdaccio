@@ -55,7 +55,6 @@ describe('search', () => {
                 email: '',
                 username: 'foo',
               },
-              scope: '',
               version: '1.0.0',
             },
             score: {
@@ -74,6 +73,7 @@ describe('search', () => {
         time: 'Sun, 14 Jan 2018 11:17:40 GMT',
         total: 1,
       });
+      expect(response.body.objects[0].package).not.toHaveProperty('scope');
     });
 
     test.each([['@scope/foo']])('should return a scoped foo private package', async (pkg) => {
@@ -117,7 +117,6 @@ describe('search', () => {
                 email: '',
                 username: 'foo',
               },
-              scope: '@scope',
               version: '1.0.0',
             },
             score: {
@@ -136,6 +135,8 @@ describe('search', () => {
         time: 'Sun, 14 Jan 2018 11:17:40 GMT',
         total: 1,
       });
+      expect(response.body.objects[0].package.name).toBe('@scope/foo');
+      expect(response.body.objects[0].package).not.toHaveProperty('scope');
     });
   });
   describe('pagination', () => {
@@ -216,7 +217,7 @@ describe('search', () => {
       expect(forwardedQuery.get('from')).toBe('10000');
     });
 
-    test('should preserve the license returned by an uplink', async () => {
+    test('should preserve optional package fields returned by an uplink', async () => {
       nock('https://registry.npmjs.org')
         .get(/\/-\/v1\/search/)
         .reply(200, {
@@ -227,6 +228,7 @@ describe('search', () => {
                 version: '1.0.0',
                 description: 'remote package',
                 license: 'BSD-3-Clause',
+                scope: 'remote-scope',
                 keywords: [],
                 date: '2018-01-14T11:17:40.712Z',
                 publisher: { username: 'remote-user', email: '' },
@@ -252,6 +254,7 @@ describe('search', () => {
 
       expect(response.body.objects).toHaveLength(1);
       expect(response.body.objects[0].package.license).toBe('BSD-3-Clause');
+      expect(response.body.objects[0].package.scope).toBe('remote-scope');
       expect(response.body.objects[0].package.links).toEqual({
         npm: 'https://www.npmjs.com/package/remote-license-package',
       });

@@ -5,7 +5,7 @@ export type PublisherMaintainer = {
 
 export type SearchPackageBody = {
   name: string;
-  scope: string;
+  scope?: string;
   description: string;
   author: string | PublisherMaintainer;
   version: string;
