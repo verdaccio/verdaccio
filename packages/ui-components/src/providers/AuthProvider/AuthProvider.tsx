@@ -28,7 +28,8 @@ const configuration = getConfiguration();
 const basePath = stripTrailingSlash(configuration.base);
 
 const AuthProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
-  const [userState, setUserState] = React.useState<LoginBody>(getDefaultUserState());
+  // lazy initializer: reading storage and decoding the JWT on every render is wasted work
+  const [userState, setUserState] = React.useState<LoginBody>(getDefaultUserState);
 
   React.useEffect(() => {
     clearExpiredAuth();
@@ -50,8 +51,10 @@ const AuthProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
   };
 
   const logOutUser = () => {
-    setUserState(getDefaultUserState());
+    // clear storage first: getDefaultUserState reads it, and the token is
+    // still valid at this point, so the old order re-hydrated the session
     clearAuth();
+    setUserState(getDefaultUserState());
     window.location?.reload();
   };
 

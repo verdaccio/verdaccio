@@ -42,9 +42,9 @@ describe('isTokenExpire', (): void => {
         : 'Unexpected token i in JSON at position 0'
     );
     const token = generateInvalidToken();
-    const result = ['Invalid token:', errorToken, 'xxxxxx.aW52YWxpZHRva2Vu.xxxxxx'];
     expect(isTokenExpire(token)).toBeTruthy();
-    expect(console.error).toHaveBeenCalledWith(...result);
+    // the token itself must NOT be logged: it is credential material
+    expect(console.error).toHaveBeenCalledWith('Invalid token:', errorToken);
   });
 
   test('isTokenExpire - token expiration is not a number', (): void => {
