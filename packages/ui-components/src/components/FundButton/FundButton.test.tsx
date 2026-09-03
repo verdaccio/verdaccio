@@ -104,4 +104,27 @@ describe('test FundButton', () => {
 
     expect(wrapper.getByText('button.fund-this-package')).toBeTruthy();
   });
+
+  test('a malformed leading entry must not hide a later valid url', () => {
+    const value = {
+      latest: {
+        ...pkgMeta.latest,
+        funding: [{ type: 'individual', url: 'not-a-url' }, 'https://opencollective.com/verdaccio'],
+      },
+    };
+
+    const wrapper = render(<FundButton packageMeta={value} />);
+
+    expect(wrapper.getByText('button.fund-this-package')).toBeTruthy();
+  });
+
+  test('should not display the button when no funding entry is a valid url', () => {
+    const value = {
+      latest: { ...pkgMeta.latest, funding: [{ type: 'individual', url: 'not-a-url' }] },
+    };
+
+    const wrapper = render(<FundButton packageMeta={value} />);
+
+    expect(wrapper.queryByText('button.fund-this-package')).toBeNull();
+  });
 });

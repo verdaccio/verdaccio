@@ -166,6 +166,43 @@ describe('<Login /> component', () => {
     });
   });
 
+  test('a 2xx response without a token shows an error instead of a false success', async () => {
+    server.use(http.post(/\/-\/v1\/login_cli\/.*/, () => HttpResponse.json({}, { status: 200 })));
+
+    await act(async () => {
+      renderWithRouter(
+        <Routes>
+          <RouterRoute element={<Login />} path={Route.LOGIN} />
+          <RouterRoute element={<div data-testid="success-page" />} path={Route.SUCCESS} />
+        </Routes>,
+        '*',
+        [LOGIN_URL_WITH_NEXT]
+      );
+    });
+
+    await act(async () => {
+      fireEvent.change(screen.getByPlaceholderText('form-placeholder.username'), {
+        target: { value: 'testuser' },
+      });
+      fireEvent.change(screen.getByPlaceholderText('form-placeholder.password'), {
+        target: { value: 'testpass' },
+      });
+    });
+
+    await waitFor(() => {
+      expect(screen.getByTestId('login-dialog-form-login-button')).not.toBeDisabled();
+    });
+    await act(async () => {
+      fireEvent.click(screen.getByTestId('login-dialog-form-login-button'));
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText('security.error.unable-to-login')).toBeInTheDocument();
+    });
+    expect(screen.queryByTestId('success-page')).not.toBeInTheDocument();
+    expect(storage.getItem('token')).toBeNull();
+  });
+
   test('a dead server shows the generic failure, never "invalid credentials"', async () => {
     server.use(http.post(/\/-\/v1\/login_cli\/.*/, () => HttpResponse.error()));
 

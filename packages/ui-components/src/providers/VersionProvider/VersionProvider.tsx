@@ -50,8 +50,10 @@ const VersionProvider: React.FC<{ children: React.ReactNode }> = ({ children }) 
     packageVersion
   );
   const isLoading = readmeData.isLoading || sidebarData.isLoading;
-  const error: ApiError | undefined = readmeData.error || sidebarData.error;
-  const errorCode = (readmeData.error as ApiError)?.code ?? (sidebarData.error as ApiError)?.code;
+  // only the sidebar data drives the whole page; a readme-only failure must
+  // not blank a page that can render from sidebar data
+  const error: ApiError | undefined = sidebarData.error;
+  const errorCode = (sidebarData.error as ApiError)?.code;
 
   const value = useMemo<DetailContextProps>(
     () => ({

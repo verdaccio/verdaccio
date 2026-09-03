@@ -317,7 +317,7 @@ describe('<AddUser /> component', () => {
       expect(requests).toBe(1);
     });
 
-    test('a 2xx response without a token still lands on success without crashing or saving auth', async () => {
+    test('a 2xx response without a token shows an error instead of a false success', async () => {
       window.localStorage.removeItem('token');
       window.localStorage.removeItem('username');
       server.use(
@@ -342,8 +342,9 @@ describe('<AddUser /> component', () => {
       });
 
       await waitFor(() => {
-        expect(mockNavigate).toHaveBeenCalledWith(expect.stringContaining(Route.SUCCESS));
+        expect(screen.getByText('security.error.unable-to-add-user')).toBeInTheDocument();
       });
+      expect(mockNavigate).not.toHaveBeenCalledWith(expect.stringContaining(Route.SUCCESS));
       expect(window.localStorage.getItem('token')).toBeNull();
     });
   });

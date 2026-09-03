@@ -95,7 +95,7 @@ describe('<Header /> component with logged in state', () => {
   });
 
   test('should load the component in logged in state', async () => {
-    vi.spyOn(tokenUtils, 'isTokenExpire').mockReturnValue(false);
+    vi.spyOn(tokenUtils, 'tokenExpireInMs').mockReturnValue(60_000);
 
     renderHeader();
     await login('user', 'token');
@@ -118,7 +118,7 @@ describe('<Header /> component with logged in state', () => {
   });
 
   test('should login and logout the user', async () => {
-    vi.spyOn(tokenUtils, 'isTokenExpire').mockReturnValue(false); // avoid immediate logout due to invalid token
+    vi.spyOn(tokenUtils, 'tokenExpireInMs').mockReturnValue(60_000); // avoid immediate logout due to invalid token
     renderHeader();
     await login('user', 'token');
     expect(screen.getByTestId('logInDialogIcon')).toBeTruthy();
@@ -130,7 +130,7 @@ describe('<Header /> component with logged in state', () => {
       base: 'foo',
       flags: { stage: true },
     };
-    vi.spyOn(tokenUtils, 'isTokenExpire').mockReturnValue(false);
+    vi.spyOn(tokenUtils, 'tokenExpireInMs').mockReturnValue(60_000);
 
     renderHeader();
     await login('user', 'token');
@@ -239,5 +239,13 @@ describe('<Header /> component with logged in state', () => {
 
   test.todo('autocompletion should display suggestions according to the type value');
 
-  test.todo('token expiration and auto logout');
+  test('should log out automatically when the token expires', async () => {
+    // first call arms the timer close to expiry; once it fires, the token reports expired
+    vi.spyOn(tokenUtils, 'tokenExpireInMs').mockReturnValueOnce(50).mockReturnValue(-1);
+    renderHeader();
+    await login('user', 'token');
+    await waitFor(() => {
+      expect(window.location.reload).toHaveBeenCalled();
+    });
+  });
 });

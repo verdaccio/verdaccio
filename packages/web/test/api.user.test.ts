@@ -282,6 +282,13 @@ describe('test web server', () => {
         .then((response) => {
           expect(response.body.token).toBeDefined();
           expect(response.body.username).toEqual('newuser');
+          // the UI stores this as its web session: it must be the web JWT,
+          // not the opaque npm API token
+          const [, payload] = response.body.token.split('.');
+          expect(payload).toBeDefined();
+          const decoded = JSON.parse(Buffer.from(payload, 'base64').toString('utf8'));
+          expect(decoded.name).toEqual('newuser');
+          expect(decoded.exp).toBeGreaterThan(Date.now() / 1000);
         });
     });
 

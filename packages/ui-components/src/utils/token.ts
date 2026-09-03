@@ -1,15 +1,16 @@
 import { Base64 } from 'js-base64';
 import { isNumber } from 'lodash-es';
 
-export function isTokenExpire(token: string | null): boolean {
+// ms until the token reports as expired (30s guard included); null when undecodable
+export function tokenExpireInMs(token: string | null): number | null {
   if (typeof token !== 'string') {
-    return true;
+    return null;
   }
 
   const [, payload] = token.split('.');
 
   if (!payload) {
-    return true;
+    return null;
   }
 
   let exp: number;
@@ -18,15 +19,17 @@ export function isTokenExpire(token: string | null): boolean {
   } catch (error: unknown) {
     // never log the token itself: even a malformed one is credential material
     console.error('Invalid token:', error);
-    return true;
+    return null;
   }
 
   if (!exp || !isNumber(exp)) {
-    return true;
+    return null;
   }
   // Report as expire before (real expire time - 30s)
-  const jsTimestamp = exp * 1000 - 30000;
-  const expired = Date.now() >= jsTimestamp;
+  return exp * 1000 - 30000 - Date.now();
+}
 
-  return expired;
+export function isTokenExpire(token: string | null): boolean {
+  const remaining = tokenExpireInMs(token);
+  return remaining === null || remaining <= 0;
 }
