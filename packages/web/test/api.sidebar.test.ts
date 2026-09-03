@@ -50,4 +50,30 @@ describe('sidebar api', () => {
       .expect(HTTP_STATUS.OK);
     expect(response.text).toMatch('pk2-test');
   });
+
+  test('should display sidebar info for an existing version', async () => {
+    const app = await initializeServer('default-test.yaml');
+    await publishVersion(app, 'pk3-test', '1.0.0', { readme: 'my readme' });
+    const response = await supertest(app)
+      .get('/-/verdaccio/data/sidebar/pk3-test?v=1.0.0')
+      .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+      .expect(HTTP_STATUS.OK);
+    expect(JSON.parse(response.text).latest.version).toBe('1.0.0');
+  });
+
+  test('should return 404 for a version that does not exist instead of falling back to latest', async () => {
+    const app = await initializeServer('default-test.yaml');
+    await publishVersion(app, 'pk4-test', '1.0.0', { readme: 'my readme' });
+    await supertest(app)
+      .get('/-/verdaccio/data/sidebar/pk4-test?v=9.9.9')
+      .expect(HTTP_STATUS.NOT_FOUND);
+  });
+
+  test('should return 404 for a dist-tag used as version', async () => {
+    const app = await initializeServer('default-test.yaml');
+    await publishVersion(app, 'pk5-test', '1.0.0', { readme: 'my readme' });
+    await supertest(app)
+      .get('/-/verdaccio/data/sidebar/pk5-test?v=latest')
+      .expect(HTTP_STATUS.NOT_FOUND);
+  });
 });

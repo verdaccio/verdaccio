@@ -45,19 +45,39 @@ function addSidebarWebApi(config: Config, storage: Storage, auth: Auth): Router 
         })) as Manifest;
         // TODO: sanitize query
         const { v } = req.query;
+        // a version that does not exist must be a 404, not a silent fallback
+        // to latest rendered under the requested version's title
+        if (typeof v === 'string' && !isVersionValid(info, v)) {
+          debug('version %o not found for %o', v, name);
+          res.status(HTTP_STATUS.NOT_FOUND);
+          res.end();
+          return;
+        }
         let sideBarInfo = { ...info } as WebManifest;
         sideBarInfo.versions = convertDistRemoteToLocalTarballUrls(
           info,
           requestOptions,
           config.url_prefix
         ).versions;
-        if (typeof v === 'string' && isVersionValid(info, v)) {
+        if (typeof v === 'string') {
           sideBarInfo.latest = sideBarInfo.versions[v];
-          sideBarInfo.latest.author = formatAuthor(sideBarInfo.latest.author);
         } else {
-          sideBarInfo.latest = sideBarInfo.versions[info[DIST_TAGS].latest];
-          sideBarInfo.latest.author = formatAuthor(sideBarInfo.latest.author);
+          // a manifest without a resolvable dist-tags.latest (corrupt or partial
+          // uplink data) used to crash here and surface as a 404 for a package
+          // that exists; fall back to the highest available version
+          const latestTag = info[DIST_TAGS]?.latest;
+          const latestVersion =
+            typeof latestTag === 'string' && sideBarInfo.versions[latestTag]
+              ? latestTag
+              : Object.keys(sideBarInfo.versions).pop();
+          if (!latestVersion) {
+            res.status(HTTP_STATUS.NOT_FOUND);
+            res.end();
+            return;
+          }
+          sideBarInfo.latest = sideBarInfo.versions[latestVersion];
         }
+        sideBarInfo.latest.author = formatAuthor(sideBarInfo.latest.author);
         sideBarInfo = deleteProperties(['readme', '_attachments', '_rev', 'name'], sideBarInfo);
         const authorAvatar = config.web
           ? addGravatarSupport(sideBarInfo, config.web.gravatar)

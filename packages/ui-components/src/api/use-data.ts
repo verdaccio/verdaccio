@@ -12,10 +12,12 @@ function buildUrl(
 ): string {
   let url = `${basePath}${route}`;
   if (packageName) {
-    url += packageName;
+    // encode each path segment (scoped names keep their `/`); characters like
+    // `+` in build-metadata versions would otherwise be decoded as a space
+    url += packageName.split('/').map(encodeURIComponent).join('/');
   }
   if (packageVersion) {
-    url += `?v=${packageVersion}`;
+    url += `?v=${encodeURIComponent(packageVersion)}`;
   }
   return url;
 }

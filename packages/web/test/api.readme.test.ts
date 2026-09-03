@@ -104,4 +104,13 @@ describe('readme api', () => {
       .expect(HTTP_STATUS.OK);
     expect(response2.text).toMatch('my readme');
   });
+
+  test('should return 404 for a version that does not exist instead of falling back to latest', async () => {
+    const app = await initializeServer('default-test.yaml');
+    await publishVersion(app, 'pk1-test', '1.0.0', { readme: 'my readme' });
+    await supertest(app)
+      .get('/-/verdaccio/data/package/readme/pk1-test?v=9.9.9')
+      .set('Accept', HEADERS.TEXT_PLAIN)
+      .expect(HTTP_STATUS.NOT_FOUND);
+  });
 });
