@@ -84,5 +84,26 @@ describe('<Version /> component', () => {
     expect(versions).toEqual(['1.0.1', '1.0.0', '0.1.1', '0.1.0']);
   });
 
+  test('should show the new package versions when packageMeta changes', () => {
+    // the detail routes remount-free navigation used to leave the previous
+    // package's versions cached in local state
+    window.__VERDACCIO_BASENAME_UI_OPTIONS.hideDeprecatedVersions = false;
+    const SwappablePackage: React.FC = () => {
+      const [meta, setMeta] = React.useState<any>(data);
+      return (
+        <>
+          <button data-testid="swap" onClick={() => setMeta(dataUnsorted)} type="button" />
+          <VersionsComponent packageMeta={meta} packageName={'jquery'} />
+        </>
+      );
+    };
+    renderWithRouteDetail(<SwappablePackage />);
+    expect(screen.queryAllByTestId('version-list-text')).toHaveLength(65);
+
+    fireEvent.click(screen.getByTestId('swap'));
+    const versions = screen.getAllByTestId('version-list-link').map((el) => el.textContent);
+    expect(versions).toEqual(['1.0.1', '1.0.0', '0.1.1', '0.1.0']);
+  });
+
   test.todo('should click on version link');
 });

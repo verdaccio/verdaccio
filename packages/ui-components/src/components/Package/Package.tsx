@@ -106,12 +106,12 @@ const Package: React.FC<PackageInterface> = ({
   };
 
   const renderFileSize = (): React.ReactNode =>
-    dist?.unpackedSize && (
+    dist?.unpackedSize ? (
       <OverviewItem>
         <StyledFileBinary />
         {utils.fileSizeSI(dist.unpackedSize)}
       </OverviewItem>
-    );
+    ) : null;
 
   const renderLicenseInfo = (): React.ReactNode =>
     license && (

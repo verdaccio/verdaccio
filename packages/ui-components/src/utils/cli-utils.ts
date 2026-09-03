@@ -39,12 +39,12 @@ export function getCLIChangePassword(command: string, registryUrl: string): stri
 
 export function getCLISBerryYamlRegistry(scope: string | undefined, registryUrl: string): string {
   return !scope
-    ? `// .yarnrc.yml    
+    ? `# .yarnrc.yml
 npmRegistryServer: "${registryUrl}"
 unsafeHttpWhitelist:
   - ${new URL(registryUrl).host}`
     : `
-// .yarnrc.yml
+# .yarnrc.yml
 npmRegistryServer: "${registryUrl}"
 npmScopes:
   ${scope.replace('@', '')}:

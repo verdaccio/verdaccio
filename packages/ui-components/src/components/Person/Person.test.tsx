@@ -47,4 +47,16 @@ describe('Person component', () => {
     // wait for the tooltip to appear
     await screen.findByTestId(mockPerson.name + '-tooltip');
   });
+
+  test('should render the gravatar sent by the sidebar endpoint as _avatar', () => {
+    const person: Developer = {
+      name: 'Jane Doe',
+      email: 'jane.doe@example.com',
+      _avatar: 'https://www.gravatar.com/avatar/1234',
+    };
+    render(<Person packageName={mockPackageName} person={person} version={mockVersion} />);
+    const avatar = screen.getByAltText(person.name);
+    expect(avatar.querySelector('img') ?? avatar).toBeInTheDocument();
+    expect((avatar as HTMLImageElement).src).toBe('https://www.gravatar.com/avatar/1234');
+  });
 });

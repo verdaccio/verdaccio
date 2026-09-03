@@ -50,6 +50,8 @@ export interface Developer {
   email?: string;
   url?: string;
   avatar?: string;
+  // the sidebar endpoint (packages/web author-utils) sends the gravatar url as `_avatar`
+  _avatar?: string;
 }
 
 interface Funding {
