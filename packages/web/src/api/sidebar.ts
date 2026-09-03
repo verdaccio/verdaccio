@@ -2,7 +2,7 @@ import buildDebug from 'debug';
 import { Router } from 'express';
 
 import type { Auth } from '@verdaccio/auth';
-import { DIST_TAGS, HTTP_STATUS } from '@verdaccio/core';
+import { DIST_TAGS, HTTP_STATUS, pkgUtils } from '@verdaccio/core';
 import {
   $NextFunctionVer,
   $RequestExtend,
@@ -66,12 +66,15 @@ function addSidebarWebApi(config: Config, storage: Storage, auth: Auth): Router 
         } else {
           // a manifest without a resolvable dist-tags.latest (corrupt or partial
           // uplink data) used to crash here and surface as a 404 for a package
-          // that exists; fall back to the highest available version
+          // that exists; fall back to the highest available version — semver
+          // sorted, since key insertion order reflects publish order, and if
+          // every key is invalid semver (fully corrupt manifest), last key wins
           const latestTag = info[DIST_TAGS]?.latest;
+          const versionKeys = Object.keys(sideBarInfo.versions);
           const latestVersion =
             typeof latestTag === 'string' && sideBarInfo.versions[latestTag]
               ? latestTag
-              : Object.keys(sideBarInfo.versions).pop();
+              : (pkgUtils.semverSort(versionKeys).pop() ?? versionKeys.pop());
           if (!latestVersion) {
             res.status(HTTP_STATUS.NOT_FOUND);
             res.end();

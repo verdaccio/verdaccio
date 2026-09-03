@@ -27,19 +27,20 @@ describe('CopyToClipBoard component', () => {
     const clipboard = navigator.clipboard;
     // @ts-ignore - simulating a non-secure context
     delete (navigator as any).clipboard;
-    const execCommand = vi.fn().mockReturnValue(true);
+    // capture what would be copied: the hidden textarea is selected when
+    // execCommand runs and removed right after
+    let copiedValue: string | undefined;
+    const execCommand = vi.fn().mockImplementation(() => {
+      copiedValue = document.querySelector('textarea')?.value;
+      return true;
+    });
     Object.assign(document, { execCommand });
-    // the shared vitest setup replaces document.createRange with a plain object,
-    // which jsdom's real Selection rejects; stub the selection to match
-    vi.spyOn(window, 'getSelection').mockReturnValue({
-      removeAllRanges: vi.fn(),
-      addRange: vi.fn(),
-    } as unknown as Selection);
 
     render(<CopyToClipBoard dataTestId={'copy-component'} text={'copy this'} title={'title'} />);
     await fireEvent.click(await screen.findByTestId('copy-component'));
 
     expect(execCommand).toHaveBeenCalledWith('copy');
+    expect(copiedValue).toBe('copy this');
     Object.assign(navigator, { clipboard });
   });
 });

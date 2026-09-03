@@ -16,6 +16,7 @@ import { saveAuth } from '../../store/storage';
 import { stripTrailingSlash } from '../../store/utils';
 import { Route } from '../../utils';
 import { APIRoute } from '../../utils/routes';
+import { generateSessionId } from '../../utils/session-id';
 import type { AddUserFormValues } from '../../utils/schemas';
 import { addUserSchema } from '../../utils/schemas';
 import { MessageType } from './Success';
@@ -84,7 +85,7 @@ const AddUser: React.FC = () => {
           name: data.username,
           password: data.password,
           email: data.email,
-          sessionId: crypto.randomUUID(),
+          sessionId: generateSessionId(),
         });
         if (result && result.username && result.token) {
           saveAuth(result.username, result.token);
