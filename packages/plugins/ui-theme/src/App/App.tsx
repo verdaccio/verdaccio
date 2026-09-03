@@ -107,8 +107,11 @@ const AppContent: React.FC = () => {
   );
 };
 
+// the server computes `basename` from the public url / url_prefix already normalized
+// for the router; the raw `url_prefix` config value may lack the leading slash or
+// ignore VERDACCIO_PUBLIC_URL, which makes every route (including /) fail to match
 // @ts-ignore
-const basename = window?.__VERDACCIO_BASENAME_UI_OPTIONS?.url_prefix;
+const basename = window?.__VERDACCIO_BASENAME_UI_OPTIONS?.basename;
 
 const App: React.FC = () => {
   return (
