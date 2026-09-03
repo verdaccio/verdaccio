@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Link, Typography } from '@mui/material';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router';
@@ -69,8 +69,16 @@ const AddUser: React.FC = () => {
     [trigger]
   );
 
+  // `disabled={isSubmitting}` only applies after a re-render; clicks landing in
+  // the same React batch would still fire duplicate requests
+  const inFlight = useRef(false);
+
   const onSubmit = useCallback(
     async (data: AddUserFormValues) => {
+      if (inFlight.current) {
+        return;
+      }
+      inFlight.current = true;
       try {
         const result = await handleAddUser({
           name: data.username,
@@ -87,6 +95,8 @@ const AddUser: React.FC = () => {
           type: 'server',
           message: authErrorMessage(err, t('security.error.unable-to-add-user')),
         });
+      } finally {
+        inFlight.current = false;
       }
     },
     [handleAddUser, setError, navigate, t]
@@ -109,6 +119,10 @@ const AddUser: React.FC = () => {
           <PasswordField errors={errors} register={register} />
 
           <SecurityTextField
+            error={!!errors.email}
+            // without this the submit button silently stays disabled on an
+            // invalid email, with no visible reason
+            helperText={errors.email?.message ? t(errors.email.message) : undefined}
             label={t('security.addUser.email')}
             type="email"
             {...register('email')}

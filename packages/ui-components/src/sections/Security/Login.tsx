@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link, Typography } from '@mui/material';
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router';
@@ -58,8 +58,16 @@ const Login: React.FC = () => {
     navigate(`${Route.SUCCESS}?messageType=${MessageType.Login}`);
   }, [navigate]);
 
+  // `disabled={isSubmitting}` only applies after a re-render; clicks landing in
+  // the same React batch would still fire duplicate requests
+  const inFlight = useRef(false);
+
   const onSubmit = useCallback(
     async (data: LoginFormValues) => {
+      if (inFlight.current) {
+        return;
+      }
+      inFlight.current = true;
       try {
         const result = await handleLogin?.(data);
         if (result && result.username && result.token) {
@@ -74,6 +82,8 @@ const Login: React.FC = () => {
             ? t('security.error.invalid-credentials')
             : authErrorMessage(err, t('security.error.unable-to-login'));
         setError('root', { type: 'server', message });
+      } finally {
+        inFlight.current = false;
       }
     },
     [handleLogin, setError, onSuccess, t]

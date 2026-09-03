@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useCallback } from 'react';
+import { useCallback, useRef } from 'react';
 import { type UseFormReturn, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -25,8 +25,16 @@ export function useLoginForm({ onSuccess }: Options = {}): UseFormReturn<LoginFo
 
   const { setError } = form;
 
+  // `disabled={isSubmitting}` only applies after a re-render; clicks landing in
+  // the same React batch would still fire duplicate requests
+  const inFlight = useRef(false);
+
   const onSubmit = useCallback(
     async (data: LoginFormValues) => {
+      if (inFlight.current) {
+        return;
+      }
+      inFlight.current = true;
       try {
         await handleLogin?.(data);
         onSuccess?.();
@@ -38,6 +46,8 @@ export function useLoginForm({ onSuccess }: Options = {}): UseFormReturn<LoginFo
             ? t('security.error.invalid-credentials')
             : authErrorMessage(err, t('security.error.unable-to-login'));
         setError('root', { type: 'server', message });
+      } finally {
+        inFlight.current = false;
       }
     },
     [handleLogin, setError, onSuccess, t]

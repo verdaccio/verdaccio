@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Typography } from '@mui/material';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -56,8 +56,16 @@ const ChangePassword: React.FC = () => {
     [trigger]
   );
 
+  // `disabled={isSubmitting}` only applies after a re-render; clicks landing in
+  // the same React batch would still fire duplicate requests
+  const inFlight = useRef(false);
+
   const onSubmit = useCallback(
     async (data: ChangePasswordFormValues) => {
+      if (inFlight.current) {
+        return;
+      }
+      inFlight.current = true;
       try {
         await handleChangePassword({
           password: {
@@ -71,6 +79,8 @@ const ChangePassword: React.FC = () => {
           type: 'server',
           message: authErrorMessage(err, t('security.error.unable-to-change-password')),
         });
+      } finally {
+        inFlight.current = false;
       }
     },
     [handleChangePassword, setError, navigate, t]

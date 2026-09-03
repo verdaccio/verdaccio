@@ -105,5 +105,21 @@ describe('<Version /> component', () => {
     expect(versions).toEqual(['1.0.1', '1.0.0', '0.1.1', '0.1.0']);
   });
 
+  test('garbage in the version filter must not crash the page', () => {
+    // the filter text goes straight into semver.satisfies as a range
+    window.__VERDACCIO_BASENAME_UI_OPTIONS.hideDeprecatedVersions = false;
+    renderVersions({ packageMeta: data, packageName: 'jquery' });
+
+    for (const hostile of ['(((', '💥', '\\', '>= 1 <', '^', 'a||b', '<script>']) {
+      fireEvent.change(screen.getByRole('textbox'), { target: { value: hostile } });
+      // no throw and the section header is still there
+      expect(screen.getByText('versions.version-history')).toBeInTheDocument();
+    }
+
+    // and it recovers when the filter is cleared
+    fireEvent.change(screen.getByRole('textbox'), { target: { value: '' } });
+    expect(screen.queryAllByTestId('version-list-text')).toHaveLength(65);
+  });
+
   test.todo('should click on version link');
 });
