@@ -2,20 +2,19 @@ import buildDebug from 'debug';
 import { Router } from 'express';
 
 import type { Auth } from '@verdaccio/auth';
-import { DIST_TAGS, HEADERS, HEADER_TYPE, reqUtils } from '@verdaccio/core';
-import { logger } from '@verdaccio/logger';
+import { DIST_TAGS, HEADERS, HEADER_TYPE } from '@verdaccio/core';
 import {
   $NextFunctionVer,
   $RequestExtend,
   $ResponseExtend,
   WebUrls,
-  allow,
   getRequestOptions,
 } from '@verdaccio/middleware';
 import type { Storage } from '@verdaccio/store';
-import type { Manifest } from '@verdaccio/types';
+import type { Config, Manifest } from '@verdaccio/types';
 
-import { addScope, isVersionValid } from '../web-utils';
+import { isVersionValid } from '../web-utils';
+import { scopedPackageAccess } from './scoped-access';
 
 export { $RequestExtend, $ResponseExtend, $NextFunctionVer }; // Was required by other packages
 
@@ -53,26 +52,20 @@ const getReadmeFromManifest = (manifest: Manifest, v?: any): string | undefined 
   return readme;
 };
 
-function addReadmeWebApi(storage: Storage, auth: Auth): Router {
+function addReadmeWebApi(storage: Storage, auth: Auth, config: Config): Router {
   debug('initialized readme web api');
-  const can = allow(auth, {
-    beforeAll: (a, b) => logger.trace(a, b),
-    afterAll: (a, b) => logger.trace(a, b),
-  });
   const pkgRouter = Router(); /* eslint new-cap: 0 */
 
   pkgRouter.get(
     [WebUrls.readme_package_scoped_version, WebUrls.readme_package_version],
-    can('access'),
+    scopedPackageAccess(auth, config),
     async function (
       req: $RequestExtend,
       res: $ResponseExtend,
       next: $NextFunctionVer
     ): Promise<void> {
       debug('readme hit');
-      const scope = reqUtils.paramToString(req.params.scope).replace(/^@/, '');
-      const packageName = reqUtils.paramToString(req.params.package);
-      const name = scope ? addScope(scope, packageName) : packageName;
+      const name = (req as $RequestExtend & { scopedPackageName: string }).scopedPackageName;
       debug('readme name %o', name);
       const requestOptions = getRequestOptions(req);
       try {

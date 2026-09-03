@@ -1,5 +1,6 @@
+import { PassThrough } from 'node:stream';
 import supertest from 'supertest';
-import { beforeEach, describe, expect, test } from 'vitest';
+import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { createRemoteUser } from '@verdaccio/config';
 import { DIST_TAGS, HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core';
@@ -39,15 +40,46 @@ describe('package', () => {
       ['@scope/foo2', encodeURIComponent('@scope/foo2'), 'foo2-1.0.0.tgz'],
     ])('should fails if tarball does not exist', async (pkg, path, fileName) => {
       await publishVersion(app, pkg, '1.0.1');
+      // the error body is JSON, matching registry.npmjs.org
       await supertest(app)
         .get(`/${path}/-/${fileName}`)
         .set(HEADERS.ACCEPT, HEADERS.JSON)
-        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
+        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HTTP_STATUS.NOT_FOUND);
     });
 
-    test.todo('check content length file header');
+    test('should return a content-length header for the tarball', async () => {
+      await publishVersion(app, 'foo-length', '1.0.0');
+      const response = await supertest(app)
+        .get('/foo-length/-/foo-length-1.0.0.tgz')
+        .set(HEADERS.ACCEPT, HEADERS.JSON)
+        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
+        .expect(HTTP_STATUS.OK);
+      const contentLength = parseInt(response.headers[HEADER_TYPE.CONTENT_LENGTH], 10);
+      expect(Number.isNaN(contentLength)).toBe(false);
+      expect(contentLength).toBeGreaterThan(0);
+      expect(contentLength).toEqual(Buffer.from(response.body).length);
+    });
     test.todo('fails on file was aborted');
+
+    test('should terminate the connection when the stream fails mid-download', async () => {
+      // simulates an uplink dropping the connection halfway through a tarball:
+      // headers (200) are already sent, so the only correct signal left is
+      // closing the connection — the client must not be left hanging.
+      const stream = new PassThrough();
+      const spy = vi.spyOn(Storage.prototype, 'getTarball').mockResolvedValue(stream as any);
+      try {
+        // buffered until the route pipes the stream into the response, which
+        // flushes the 200 + headers; then the source dies mid-body
+        stream.push(Buffer.alloc(1024));
+        setTimeout(() => stream.destroy(new Error('uplink connection dropped')), 100);
+        await expect(supertest(app).get('/foo/-/foo-1.0.0.tgz')).rejects.toThrow(
+          /aborted|socket hang up|ECONNRESET/i
+        );
+      } finally {
+        spy.mockRestore();
+      }
+    });
   });
 
   describe('get package', () => {
@@ -114,8 +146,11 @@ describe('package', () => {
       expect(response.body.time).toBeDefined();
       expect(response.body.modified).toBeDefined();
       expect(response.body[DIST_TAGS]).toEqual({ latest: '1.0.0' });
-      expect(response.body.readme).toBeDefined();
-      expect(response.body._rev).toBeDefined();
+      // the abbreviated (install-v1) format excludes the readme and internal
+      // CouchDB fields to keep install metadata small
+      expect(response.body.readme).not.toBeDefined();
+      expect(response.body._rev).not.toBeDefined();
+      expect(response.body._id).not.toBeDefined();
       expect(response.body.users).not.toBeDefined();
     });
   });

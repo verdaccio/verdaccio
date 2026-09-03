@@ -33,6 +33,11 @@ overrides:
   # Pulled in transitively via supertest > superagent (dev only).
   # See GHSA-hmw2-7cc7-3qxx (fixed in 4.0.6).
   form-data: '>=4.0.6'
+  # Force fixes for fast-uri URL normalization vulnerabilities.
+  # Pulled in transitively via ajv (production dependency).
+  # See GHSA-5jgf-p345-68v8, GHSA-f65p-4m7j-42xc, GHSA-fph4-wmhf-6fwf,
+  # and GHSA-jqff-g426-hqxp (fixed in 3.1.6).
+  fast-uri: '3.1.6'
 saveExact: true
 ignoreScripts: true
 preferFrozenLockfile: true

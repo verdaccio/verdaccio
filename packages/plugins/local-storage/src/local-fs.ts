@@ -221,11 +221,24 @@ export default class LocalFS implements ILocalFSPackageManager {
     });
   }
 
-  // remove the temporary file
+  /**
+   * Best-effort removal of a temporary file. Error and abort can both try to
+   * clean the same file from event listeners, so a missing file is fine and
+   * nothing may throw — a rejection here becomes an uncaught exception.
+   */
   private async removeTempFile(temporalName): Promise<void> {
     debug('remove temporal file %o', temporalName);
-    await unlinkPromise(temporalName);
-    debug('removed temporal file %o', temporalName);
+    try {
+      await unlinkPromise(temporalName);
+      debug('removed temporal file %o', temporalName);
+    } catch (err: any) {
+      if (err?.code !== 'ENOENT') {
+        this.logger.warn(
+          { temporalName, err: err.message },
+          'unable to remove temporal file @{temporalName}: @{err}'
+        );
+      }
+    }
   }
 
   /**
@@ -246,6 +259,9 @@ export default class LocalFS implements ILocalFSPackageManager {
 
     debug('write a temporal name %o', temporalName);
     let opened = false;
+    // an errored or aborted download must never be renamed into place: that
+    // would publish a truncated tarball under the final name
+    let failed = false;
     const writeStream = fs.createWriteStream(temporalName);
 
     writeStream.on('open', () => {
@@ -253,13 +269,13 @@ export default class LocalFS implements ILocalFSPackageManager {
     });
 
     writeStream.on('error', async (err) => {
+      failed = true;
       if (opened) {
         this.logger.error(
           { err, fileName },
           'error on open write tarball for @{fileName}: @{err.message}'
         );
-        // TODO: maybe add .once
-        writeStream.on('close', async () => {
+        writeStream.once('close', async () => {
           await this.removeTempFile(temporalName);
         });
       } else {
@@ -273,8 +289,11 @@ export default class LocalFS implements ILocalFSPackageManager {
 
     // the 'close' event is emitted when the stream and any of its
     // underlying resources (a file descriptor, for example) have been closed.
-    // TODO: maybe add .once
-    writeStream.on('close', async () => {
+    writeStream.once('close', async () => {
+      if (failed) {
+        // the error/abort listeners own the cleanup of the temporal file
+        return;
+      }
       try {
         await renameTmp(temporalName, pathName);
       } catch (err) {
@@ -290,6 +309,7 @@ export default class LocalFS implements ILocalFSPackageManager {
     signal?.addEventListener(
       'abort',
       async () => {
+        failed = true;
         if (opened) {
           // close always happens, even if error
           writeStream.once('close', async () => {

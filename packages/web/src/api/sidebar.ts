@@ -2,14 +2,12 @@ import buildDebug from 'debug';
 import { Router } from 'express';
 
 import type { Auth } from '@verdaccio/auth';
-import { DIST_TAGS, HTTP_STATUS, reqUtils } from '@verdaccio/core';
-import { logger } from '@verdaccio/logger';
+import { DIST_TAGS, HTTP_STATUS } from '@verdaccio/core';
 import {
   $NextFunctionVer,
   $RequestExtend,
   $ResponseExtend,
   WebUrls,
-  allow,
   getRequestOptions,
 } from '@verdaccio/middleware';
 import type { Storage } from '@verdaccio/store';
@@ -17,7 +15,8 @@ import { convertDistRemoteToLocalTarballUrls } from '@verdaccio/tarball';
 import type { Config, Manifest, WebManifest } from '@verdaccio/types';
 
 import { addGravatarSupport, formatAuthor } from '../author-utils';
-import { addScope, deleteProperties, isVersionValid } from '../web-utils';
+import { deleteProperties, isVersionValid } from '../web-utils';
+import { scopedPackageAccess } from './scoped-access';
 
 export { $RequestExtend, $ResponseExtend, $NextFunctionVer }; // Was required by other packages
 
@@ -26,22 +25,16 @@ const debug = buildDebug('verdaccio:web:api:sidebar');
 function addSidebarWebApi(config: Config, storage: Storage, auth: Auth): Router {
   debug('initialized sidebar web api');
   const router = Router(); /* eslint new-cap: 0 */
-  const can = allow(auth, {
-    beforeAll: (a, b) => logger.trace(a, b),
-    afterAll: (a, b) => logger.trace(a, b),
-  });
   // Get package sidebar
   router.get(
     [WebUrls.sidebar_scopped_package, WebUrls.sidebar_package],
-    can('access'),
+    scopedPackageAccess(auth, config),
     async function (
       req: $RequestExtend,
       res: $ResponseExtend,
       next: $NextFunctionVer
     ): Promise<void> {
-      const scope = reqUtils.paramToString(req.params.scope).replace(/^@/, '');
-      const packageName = reqUtils.paramToString(req.params.package);
-      const name = scope ? addScope(scope, packageName) : packageName;
+      const name = (req as $RequestExtend & { scopedPackageName: string }).scopedPackageName;
       const requestOptions = getRequestOptions(req);
       try {
         const info = (await storage.getPackageByOptions({
