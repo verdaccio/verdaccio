@@ -5,7 +5,7 @@ import path from 'node:path';
 import { beforeAll, beforeEach, describe, expect, test } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
-import { streamUtils } from '@verdaccio/core';
+import { HEADERS, TOKEN_BASIC, TOKEN_BEARER, streamUtils } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 
 import { ProxyStorage } from '../src';
@@ -64,6 +64,97 @@ describe('proxy', () => {
       const stream = await prox1.search({
         abort,
         url: searchUrl,
+      });
+
+      const searchResponse = await getStream(stream.pipe(streamUtils.transformObjectToString()));
+      expect(searchResponse).not.toBe('');
+      expect(request.isDone()).toBe(true);
+    });
+
+    test('forwards the default search headers to the uplink', async () => {
+      const response = require('./partials/search-v1.json');
+      const request = nock(domain, {
+        reqheaders: {
+          [HEADERS.ACCEPT_ENCODING]: 'gzip',
+          [HEADERS.USER_AGENT]: /npm/,
+        },
+      })
+        .get(queryUrl)
+        .reply(200, response);
+      const prox1 = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
+
+      const stream = await prox1.search({
+        abort: new AbortController(),
+        url: queryUrl,
+      });
+
+      const searchResponse = await getStream(stream.pipe(streamUtils.transformObjectToString()));
+      expect(searchResponse).not.toBe('');
+      expect(request.isDone()).toBe(true);
+    });
+
+    test.each([
+      ['Bearer', TOKEN_BEARER, 'bearer-token', `${TOKEN_BEARER} bearer-token`],
+      ['Basic', TOKEN_BASIC, 'basic-token', `${TOKEN_BASIC} basic-token`],
+    ])('forwards %s authentication to the uplink', async (_name, type, token, authorization) => {
+      const response = require('./partials/search-v1.json');
+      const request = nock(domain, {
+        reqheaders: {
+          [HEADERS.AUTHORIZATION]: authorization,
+        },
+      })
+        .get(queryUrl)
+        .reply(200, response);
+      const prox1 = new ProxyStorage(
+        'uplink',
+        {
+          url: domain,
+          auth: { type, token },
+        },
+        conf,
+        logger
+      );
+
+      const stream = await prox1.search({
+        abort: new AbortController(),
+        url: queryUrl,
+      });
+
+      const searchResponse = await getStream(stream.pipe(streamUtils.transformObjectToString()));
+      expect(searchResponse).not.toBe('');
+      expect(request.isDone()).toBe(true);
+    });
+
+    test('allows configured uplink headers to override generated headers', async () => {
+      const response = require('./partials/search-v1.json');
+      const request = nock(domain, {
+        reqheaders: {
+          [HEADERS.AUTHORIZATION]: `${TOKEN_BASIC} configured-token`,
+          'x-uplink-header': 'search-value',
+        },
+      })
+        .get(queryUrl)
+        .reply(200, response);
+      const prox1 = new ProxyStorage(
+        'uplink',
+        {
+          url: domain,
+          auth: {
+            type: TOKEN_BEARER,
+            token: 'generated-token',
+          },
+          headers: {
+            [HEADERS.AUTHORIZATION]: `${TOKEN_BASIC} configured-token`,
+            'x-uplink-header': 'search-value',
+          },
+        },
+        conf,
+        logger
+      );
+
+      const stream = await prox1.search({
+        abort: new AbortController(),
+        url: queryUrl,
       });
 
       const searchResponse = await getStream(stream.pipe(streamUtils.transformObjectToString()));
