@@ -8,7 +8,8 @@
 
 # Version Next (Development Branch)
 
-> Version 6 requires Node.js 18 or higher and is maintained in the `6.x` branch
+> Version 6 requires Node.js 22 or higher and is maintained in the `6.x` branch.
+> Version Next (this `master` branch) requires Node.js 24 or higher.
 > Note that contributing guidelines might be different based on the branch.
 
 [Verdaccio](https://verdaccio.org/) is a simple, **zero-config-required local private npm registry**.
@@ -41,7 +42,7 @@ You can find more details about the different versions of Verdaccio, minimum req
 
 ## Install
 
-> Node.js v24 as minimum version required
+> Version `next-9` requires Node.js v24 or higher
 
 Install with npm:
 
@@ -92,14 +93,15 @@ Learn more [here](https://verdaccio.org/docs/dev-plugins) how to develop plugins
 
 We test compatibility across different versions of npm, pnpm, and Yarn to ensure your favorite commands — from publishing packages to managing dependencies — work seamlessly with Verdaccio.
 
-E2E CLI tests run in CI via the `verdaccio-e2e` tool on Node.js 24 against the following matrix:
+E2E CLI tests run in CI via the [`verdaccio-e2e`](https://github.com/verdaccio/e2e-tests) tool on Node.js 24 and 26 against the following matrix:
 
 | Package Manager | Versions        |
 | --------------- | --------------- |
-| npm             | 7, 8, 9, 10, 11 |
-| yarn classic    | 1               |
-| yarn modern     | 2, 3, 4         |
-| pnpm            | 9, 10, 11       |
+| npm             | 10, 11, 12      |
+| yarn modern     | 3, 4            |
+| pnpm            | 10, 11          |
+| bun             | latest          |
+| deno            | latest          |
 
 ## Donations
 
@@ -253,7 +255,6 @@ Verdaccio aims to support all features of a standard npm client that make sense 
 
 - Searching (`npm search`) - **supported** (cli / browser)
 - Ping (`npm ping`) - **supported**
-- Starring (`npm star`, `npm unstar`, `npm stars`) - **supported**
 
 ### Security
 
@@ -281,9 +282,9 @@ Thanks to the following companies to help us to achieve our goals providing free
 | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------- |
 | ![jotadeveloper](https://avatars3.githubusercontent.com/u/558752?s=120&v=4)    | ![ayusharma](https://avatars2.githubusercontent.com/u/6918450?s=120&v=4) | ![sergiohgz](https://avatars2.githubusercontent.com/u/14012309?s=120&v=4) |
 |                                                                                | [@ayusharma\_](https://twitter.com/ayusharma_)                           | [@sergiohgz](https://twitter.com/sergiohgz)                               |
-| [Priscila Oliveria](https://github.com/priscilawebdev)                         | [Daniel Ruf](https://github.com/DanielRuf)                               |
-| ![priscilawebdev](https://avatars2.githubusercontent.com/u/29228205?s=120&v=4) | ![DanielRuf](https://avatars3.githubusercontent.com/u/827205?s=120&v=4)  |
-| [@priscilawebdev](https://twitter.com/priscilawebdev)                          | [@DanielRufde](https://twitter.com/DanielRufde)                          |
+| [Priscila Oliveria](https://github.com/priscilawebdev)                         | [Daniel Ruf](https://github.com/DanielRuf)                               | [Marc Bernard](https://github.com/mbtools)
+| ![priscilawebdev](https://avatars2.githubusercontent.com/u/29228205?s=120&v=4) | ![DanielRuf](https://avatars3.githubusercontent.com/u/827205?s=120&v=4)  | <img src="https://cdn.bsky.app/img/avatar/plain/did:plc:yqleoidz7bqq5iybtbo6llib/bafkreie5gsltwp4hqfjzs6nnlsa5djbz6rk2gsdqpidpkvfpnj3uf4tcfa" width="120px" height="120px">
+| [@priscilawebdev](https://twitter.com/priscilawebdev)                          | [@DanielRufde](https://twitter.com/DanielRufde)                          | [@marcfbe](https://bsky.app/profile/marcf.be)   
 
 You can find and chat with them over Discord, click [here](http://chat.verdaccio.org).
 
