@@ -3,7 +3,6 @@
 '@verdaccio/local-storage': patch
 '@verdaccio/plugin-verifier': patch
 'verdaccio-auth-memory': patch
-'@verdaccio/local-publish': patch
 '@verdaccio/file-locking': patch
 'verdaccio-htpasswd': patch
 '@verdaccio/ui-theme': patch

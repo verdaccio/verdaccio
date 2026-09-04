@@ -29,7 +29,6 @@
 '@verdaccio/server': patch
 '@verdaccio/signature': patch
 '@verdaccio/store': patch
-'@verdaccio/local-publish': patch
 '@verdaccio/plugin-verifier': patch
 'customprefix-auth': patch
 'verdaccio': patch
