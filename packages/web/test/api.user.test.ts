@@ -286,7 +286,7 @@ describe('test web server', () => {
           // not the opaque npm API token
           const [, payload] = response.body.token.split('.');
           expect(payload).toBeDefined();
-          const decoded = JSON.parse(Buffer.from(payload, 'base64').toString('utf8'));
+          const decoded = JSON.parse(Buffer.from(payload, 'base64url').toString('utf8'));
           expect(decoded.name).toEqual('newuser');
           expect(decoded.exp).toBeGreaterThan(Date.now() / 1000);
         });

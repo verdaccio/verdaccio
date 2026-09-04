@@ -36,7 +36,7 @@ const Header: React.FC<Props> = ({ HeaderInfoDialog, isPlainHeader }) => {
     if (!token) {
       return;
     }
-    let timer: ReturnType<typeof setTimeout>;
+    let timer: ReturnType<typeof setTimeout> | undefined;
     const arm = () => {
       const remaining = tokenExpireInMs(token);
       if (remaining === null || remaining <= 0) {

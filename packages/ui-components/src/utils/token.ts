@@ -25,7 +25,7 @@ export function tokenExpireInMs(token: string | null): number | null {
   if (!exp || !isNumber(exp)) {
     return null;
   }
-  // Report as expire before (real expire time - 30s)
+  // Report as expired before (real expire time - 30s)
   return exp * 1000 - 30000 - Date.now();
 }
 
