@@ -75,6 +75,7 @@ describe('proxy', () => {
       const response = require('./partials/search-v1.json');
       const request = nock(domain, {
         reqheaders: {
+          [HEADERS.ACCEPT]: `${HEADERS.JSON};`,
           [HEADERS.ACCEPT_ENCODING]: 'gzip',
           [HEADERS.USER_AGENT]: /npm/,
         },
@@ -86,6 +87,53 @@ describe('proxy', () => {
       const stream = await prox1.search({
         abort: new AbortController(),
         url: queryUrl,
+      });
+
+      const searchResponse = await getStream(stream.pipe(streamUtils.transformObjectToString()));
+      expect(searchResponse).not.toBe('');
+      expect(request.isDone()).toBe(true);
+    });
+
+    test('does not forward caller-provided headers to the uplink', async () => {
+      const response = require('./partials/search-v1.json');
+      const request = nock(domain)
+        .get(queryUrl)
+        .reply(200, function () {
+          expect(this.req.headers.authorization).toBeUndefined();
+          expect(this.req.headers.cookie).toBeUndefined();
+          expect(this.req.headers['npm-otp']).toBeUndefined();
+          expect(this.req.headers['npm-session']).toBeUndefined();
+          expect(this.req.headers['npm-command']).toBeUndefined();
+          expect(this.req.headers['npm-scope']).toBeUndefined();
+          expect(this.req.headers['npm-auth-type']).toBeUndefined();
+          expect(this.req.headers['proxy-authorization']).toBeUndefined();
+          expect(this.req.headers['x-forwarded-for']).toBeUndefined();
+          expect(this.req.headers['x-real-ip']).toBeUndefined();
+          expect(this.req.headers.forwarded).toBeUndefined();
+          expect(this.req.headers.referer).toBeUndefined();
+          expect(this.req.headers['x-client-secret']).toBeUndefined();
+          return response;
+        });
+      const prox1 = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
+
+      const stream = await prox1.search({
+        abort: new AbortController(),
+        url: queryUrl,
+        headers: new Headers({
+          authorization: 'Bearer client-token',
+          cookie: 'session=secret',
+          'npm-otp': '123456',
+          'npm-session': 'client-session',
+          'npm-command': 'search',
+          'npm-scope': '@private',
+          'npm-auth-type': 'legacy',
+          'proxy-authorization': 'Basic proxy-secret',
+          'x-forwarded-for': '192.0.2.1',
+          'x-real-ip': '192.0.2.2',
+          forwarded: 'for=192.0.2.3',
+          referer: 'https://client.example/private',
+          'x-client-secret': 'secret',
+        }),
       });
 
       const searchResponse = await getStream(stream.pipe(streamUtils.transformObjectToString()));
@@ -118,6 +166,10 @@ describe('proxy', () => {
       const stream = await prox1.search({
         abort: new AbortController(),
         url: queryUrl,
+        headers: new Headers({
+          authorization: `${TOKEN_BEARER} client-token`,
+          'x-uplink-header': 'client-value',
+        }),
       });
 
       const searchResponse = await getStream(stream.pipe(streamUtils.transformObjectToString()));
