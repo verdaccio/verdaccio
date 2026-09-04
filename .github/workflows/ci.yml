@@ -138,14 +138,12 @@ jobs:
       fail-fast: false
       matrix:
         pm:
-          - npm@9
           - npm@10
           - npm@11
-          - yarn-classic
           - yarn-modern@4
-          - pnpm@9
           - pnpm@10
           - pnpm@11
+          - pnpm@12          
           - bun
           - deno
     steps:
