@@ -15,9 +15,7 @@
     "url": "https://opencollective.com/verdaccio"
   },
   "devDependencies": {
-    "@changesets/changelog-github": "0.7.0",
-    "@changesets/cli": "2.31.1",
-    "@changesets/get-dependents-graph": "2.1.4",
+    "@changesets/cli": "3.0.1",
     "@crowdin/cli": "4.14.3",
     "@emotion/react": "11.14.0",
     "@emotion/styled": "11.14.1",
@@ -113,7 +111,7 @@
     "debug": "node --trace-warnings --trace-uncaught --inspect packages/verdaccio/debug/bootstrap.js",
     "debug:break": "node --trace-warnings --trace-uncaught --inspect-brk packages/verdaccio/debug/bootstrap.js",
     "changeset": "changeset",
-    "changeset:check": "changeset status --since-master",
+    "changeset:check": "changeset status --since=master",
     "ci:version": "run-s ci:version:changeset ci:version:install",
     "ci:version:install": "pnpm install --frozen-lockfile=false --config.prefer-online=true",
     "ci:version:changeset": "changeset version",

@@ -278,7 +278,14 @@ jobs:
       - name: Install dependencies
         uses: ./.github/actions/install-app
       - name: Run changeset version
-        run: pnpm ci:version:changeset
+        # @changesets/cli v3 exits 1 when there are no unreleased changesets;
+        # a PR without one (docs/tests/lint-only) is valid, so skip cleanly
+        run: |
+          if ls .changeset/*.md 2>/dev/null | grep -qv README; then
+            pnpm ci:version:changeset
+          else
+            echo "no changesets present — nothing to validate"
+          fi
   sync-translations:
     needs: [build]
     runs-on: ubuntu-latest

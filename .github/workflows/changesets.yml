@@ -22,7 +22,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master' && github.repository == 'verdaccio/verdaccio'
     outputs:
-      hasChangesets: ${{ steps.changesets.outputs.hasChangesets }}
+      # v2 renamed the output hasChangesets -> has-changesets
+      hasChangesets: ${{ steps.changesets.outputs['has-changesets'] }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Install dependencies with a custom registry
@@ -38,12 +39,15 @@ jobs:
         id: changesets
         uses: changesets/action@8488615a623b1b9c987934bb89eae8af6a946ac1
         with:
-          version: pnpm ci:version
-          commit: 'chore: update versions'
-          title: 'chore: update versions'
-          setupGitUser: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.CHANGESET_RELEASE_TOKEN }}
+          # v2 renamed every input (version -> version-script, commit ->
+          # commit-message, title -> pr-title) and dropped setupGitUser. It
+          # also no longer reads the GITHUB_TOKEN env var: the custom PAT
+          # (needed so the version PR triggers CI) must go through the
+          # github-token input.
+          github-token: ${{ secrets.CHANGESET_RELEASE_TOKEN }}
+          version-script: pnpm ci:version
+          commit-message: 'chore: update versions'
+          pr-title: 'chore: update versions'
 
   # Publish to npm once the version PR is merged (no changesets left).
   # Gated by the `npm` environment, which requires manual approval.
@@ -67,9 +71,9 @@ jobs:
       - name: publish
         uses: changesets/action@8488615a623b1b9c987934bb89eae8af6a946ac1
         with:
-          publish: pnpm ci:publish
-          createGithubReleases: false
-          setupGitUser: true
+          github-token: ${{ secrets.CHANGESET_RELEASE_TOKEN }}
+          publish-script: pnpm ci:publish
+          # v2 defaults this to true; this repo cuts GitHub releases elsewhere
+          create-github-releases: false
         env:
-          GITHUB_TOKEN: ${{ secrets.CHANGESET_RELEASE_TOKEN }}
           NPM_CONFIG_REGISTRY: https://registry.npmjs.org
