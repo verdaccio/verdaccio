@@ -119,8 +119,8 @@ importers:
         specifier: 3.1.0
         version: 3.1.0
       '@verdaccio/e2e-ui':
-        specifier: 2.5.0
-        version: 2.5.0(cypress@15.10.0)
+        specifier: 2.7.0
+        version: 2.7.0(cypress@15.10.0)
       '@verdaccio/package-filter':
         specifier: workspace:*
         version: link:packages/plugins/package-filter
@@ -3295,8 +3295,8 @@ packages:
     resolution: {integrity: sha512-uGhrQPmGQvG8VBo8Dv4syhgSrmd8WmiJ8op50OcN5JspHFq9y9hjOSzw+bWt5wBwnJ733WAWLvq7zmssMYpfbw==}
     hasBin: true
 
-  '@verdaccio/e2e-ui@2.5.0':
-    resolution: {integrity: sha512-FYM1SBOFuBOqBPt5AHt1qHT93tzZCzhdz1fdlpr15krFvjd+c7G7+rt9L5q5QeevAhEzEN525Pz0Mion5mb11Q==}
+  '@verdaccio/e2e-ui@2.7.0':
+    resolution: {integrity: sha512-mM1/oYqC3zu4cnkB9BajNQMcIkNyGFI4RCCakpaQ6X4+bW7f+DCUVcxcxXO02M7rD0TNm18fmAYbIcaAOXtLSw==}
     peerDependencies:
       cypress: '>=12.0.0'
 
@@ -8124,7 +8124,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@verdaccio/e2e-ui@2.5.0(cypress@15.10.0)':
+  '@verdaccio/e2e-ui@2.7.0(cypress@15.10.0)':
     dependencies:
       cypress: 15.10.0
 
