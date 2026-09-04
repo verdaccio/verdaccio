@@ -503,12 +503,14 @@ class ProxyStorage implements IProxy {
   public async search({ url, abort, retry }: ProxySearchParams): Promise<Stream.Readable> {
     try {
       const uri = this.buildUri(url);
+      const headers = this.applyUplinkHeaders(this.getHeaders());
       this.logger.http(
         { uri, uplink: this.uplinkName },
         'search request to uplink @{uplink} - @{uri}'
       );
       debug('searching on %o', uri);
       const response = got(uri, {
+        headers,
         signal: abort ? abort.signal : undefined,
         agent: this.agent,
         timeout: this.timeout,

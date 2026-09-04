@@ -1,0 +1,28 @@
+storage: ./storage
+
+auth:
+  htpasswd:
+    file: ./htpasswd-search-uplink-headers
+
+web:
+  enable: true
+  title: verdaccio
+
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
+    auth:
+      type: Bearer
+      token: uplink-token
+    headers:
+      x-uplink-header: configured-value
+
+log: { type: stdout, format: pretty, level: trace }
+
+packages:
+  '**':
+    access: $all
+    publish: $authenticated
+    proxy: npmjs
+
+_debug: true
