@@ -43,12 +43,15 @@ export function useDataMutation<T>(
 }
 
 async function tarballFetcher(url: string, { arg }: { arg: { link: string } }): Promise<Blob> {
+  // no `credentials: 'include'`: auth is the Bearer header (added in API.request),
+  // and `include` makes the browser reject the registry's wildcard
+  // `Access-Control-Allow-Origin: *` when the UI dev server is a different origin
+  // than the registry (pnpm start: :4873 vs :8000)
   return API.request<Blob>(arg.link, 'GET', {
     headers: {
       accept:
         'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
     },
-    credentials: 'include',
   });
 }
 
