@@ -6,6 +6,7 @@ import i18next from 'i18next';
 import type { UpLinks } from '@verdaccio/types';
 
 import type { Time } from '../types/packageMeta';
+import { isURL } from './url';
 
 export const TIMEFORMAT = 'L LTS';
 
@@ -81,11 +82,18 @@ export function getBugsUrl(bugs: unknown): string | null {
  */
 export function getFundingUrl(funding: unknown): string | null {
   const entries = Array.isArray(funding) ? funding : [funding];
+  // first *valid* url wins: a malformed entry must not hide a later valid one
   for (const entry of entries) {
-    if (typeof entry === 'string') {
+    if (typeof entry === 'string' && isURL(entry)) {
       return entry;
     }
-    if (entry && typeof entry === 'object' && 'url' in entry && typeof entry.url === 'string') {
+    if (
+      entry &&
+      typeof entry === 'object' &&
+      'url' in entry &&
+      typeof entry.url === 'string' &&
+      isURL(entry.url)
+    ) {
       return entry.url;
     }
   }

@@ -69,11 +69,21 @@ describe('sidebar api', () => {
       .expect(HTTP_STATUS.NOT_FOUND);
   });
 
-  test('should return 404 for a dist-tag used as version', async () => {
+  test('should resolve a dist-tag used as version', async () => {
     const app = await initializeServer('default-test.yaml');
     await publishVersion(app, 'pk5-test', '1.0.0', { readme: 'my readme' });
-    await supertest(app)
+    const response = await supertest(app)
       .get('/-/verdaccio/data/sidebar/pk5-test?v=latest')
+      .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+      .expect(HTTP_STATUS.OK);
+    expect(JSON.parse(response.text).latest.version).toBe('1.0.0');
+  });
+
+  test('should return 404 for an unknown dist-tag', async () => {
+    const app = await initializeServer('default-test.yaml');
+    await publishVersion(app, 'pk5b-test', '1.0.0', { readme: 'my readme' });
+    await supertest(app)
+      .get('/-/verdaccio/data/sidebar/pk5b-test?v=next')
       .expect(HTTP_STATUS.NOT_FOUND);
   });
 

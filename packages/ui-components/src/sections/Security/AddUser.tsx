@@ -11,6 +11,7 @@ import PasswordField from '../../components/LoginForm/PasswordField';
 import UsernameField from '../../components/LoginForm/UsernameField';
 import { getConfiguration } from '../../configuration';
 import SecurityLayout from '../../layouts/Security/Dialog';
+import { useAuth } from '../../providers/AuthProvider/AuthProvider';
 import { authErrorMessage } from '../../providers/AuthProvider/utils';
 import { saveAuth } from '../../store/storage';
 import { stripTrailingSlash } from '../../store/utils';
@@ -35,6 +36,7 @@ const AddUser: React.FC = () => {
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
+  const { setUserState } = useAuth();
   const configuration = getConfiguration();
   const basePath = stripTrailingSlash(configuration.base);
   const { next, user } = getSecurityUrlParams(location);
@@ -87,9 +89,13 @@ const AddUser: React.FC = () => {
           email: data.email,
           sessionId: generateSessionId(),
         });
-        if (result && result.username && result.token) {
-          saveAuth(result.username, result.token);
+        if (!result || !result.username || !result.token) {
+          // a 2xx with an unexpected body must not pass as a successful signup
+          throw new Error('signup response is missing the token');
         }
+        saveAuth(result.username, result.token);
+        // AuthProvider reads storage only once, so the header needs the state update
+        setUserState?.({ username: result.username, token: result.token });
         navigate(`${Route.SUCCESS}?messageType=${MessageType.AddUser}`);
       } catch (err) {
         setError('root', {
@@ -100,7 +106,7 @@ const AddUser: React.FC = () => {
         inFlight.current = false;
       }
     },
-    [handleAddUser, setError, navigate, t]
+    [handleAddUser, setError, setUserState, navigate, t]
   );
 
   useEffect(() => {

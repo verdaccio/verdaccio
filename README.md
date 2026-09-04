@@ -95,13 +95,13 @@ We test compatibility across different versions of npm, pnpm, and Yarn to ensure
 
 E2E CLI tests run in CI via the [`verdaccio-e2e`](https://github.com/verdaccio/e2e-tests) tool on Node.js 24 and 26 against the following matrix:
 
-| Package Manager | Versions        |
-| --------------- | --------------- |
-| npm             | 10, 11, 12      |
-| yarn modern     | 3, 4            |
-| pnpm            | 10, 11          |
-| bun             | latest          |
-| deno            | latest          |
+| Package Manager | Versions   |
+| --------------- | ---------- |
+| npm             | 10, 11, 12 |
+| yarn modern     | 3, 4       |
+| pnpm            | 10, 11     |
+| bun             | latest     |
+| deno            | latest     |
 
 ## Donations
 
@@ -278,13 +278,13 @@ Thanks to the following companies to help us to achieve our goals providing free
 
 ## Maintainers
 
-| [Juan Picado](https://github.com/juanpicado)                                   | [Ayush Sharma](https://github.com/ayusharma)                             | [Sergio Hg](https://github.com/sergiohgz)                                 |
-| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------- |
-| ![jotadeveloper](https://avatars3.githubusercontent.com/u/558752?s=120&v=4)    | ![ayusharma](https://avatars2.githubusercontent.com/u/6918450?s=120&v=4) | ![sergiohgz](https://avatars2.githubusercontent.com/u/14012309?s=120&v=4) |
-|                                                                                | [@ayusharma\_](https://twitter.com/ayusharma_)                           | [@sergiohgz](https://twitter.com/sergiohgz)                               |
-| [Priscila Oliveria](https://github.com/priscilawebdev)                         | [Daniel Ruf](https://github.com/DanielRuf)                               | [Marc Bernard](https://github.com/mbtools)
-| ![priscilawebdev](https://avatars2.githubusercontent.com/u/29228205?s=120&v=4) | ![DanielRuf](https://avatars3.githubusercontent.com/u/827205?s=120&v=4)  | <img src="https://cdn.bsky.app/img/avatar/plain/did:plc:yqleoidz7bqq5iybtbo6llib/bafkreie5gsltwp4hqfjzs6nnlsa5djbz6rk2gsdqpidpkvfpnj3uf4tcfa" width="120px" height="120px">
-| [@priscilawebdev](https://twitter.com/priscilawebdev)                          | [@DanielRufde](https://twitter.com/DanielRufde)                          | [@marcfbe](https://bsky.app/profile/marcf.be)   
+| [Juan Picado](https://github.com/juanpicado)                                   | [Ayush Sharma](https://github.com/ayusharma)                             | [Sergio Hg](https://github.com/sergiohgz)                                                                                                                                   |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ![jotadeveloper](https://avatars3.githubusercontent.com/u/558752?s=120&v=4)    | ![ayusharma](https://avatars2.githubusercontent.com/u/6918450?s=120&v=4) | ![sergiohgz](https://avatars2.githubusercontent.com/u/14012309?s=120&v=4)                                                                                                   |
+|                                                                                | [@ayusharma\_](https://twitter.com/ayusharma_)                           | [@sergiohgz](https://twitter.com/sergiohgz)                                                                                                                                 |
+| [Priscila Oliveria](https://github.com/priscilawebdev)                         | [Daniel Ruf](https://github.com/DanielRuf)                               | [Marc Bernard](https://github.com/mbtools)                                                                                                                                  |
+| ![priscilawebdev](https://avatars2.githubusercontent.com/u/29228205?s=120&v=4) | ![DanielRuf](https://avatars3.githubusercontent.com/u/827205?s=120&v=4)  | <img src="https://cdn.bsky.app/img/avatar/plain/did:plc:yqleoidz7bqq5iybtbo6llib/bafkreie5gsltwp4hqfjzs6nnlsa5djbz6rk2gsdqpidpkvfpnj3uf4tcfa" width="120px" height="120px"> |
+| [@priscilawebdev](https://twitter.com/priscilawebdev)                          | [@DanielRufde](https://twitter.com/DanielRufde)                          | [@marcfbe](https://bsky.app/profile/marcf.be)                                                                                                                               |
 
 You can find and chat with them over Discord, click [here](http://chat.verdaccio.org).
 

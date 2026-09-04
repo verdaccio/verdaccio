@@ -1,6 +1,6 @@
 import { vi } from 'vitest';
 
-import { isTokenExpire } from './token';
+import { isTokenExpire, tokenExpireInMs } from './token';
 import {
   generateInvalidToken,
   generateTokenWithExpirationAsString,
@@ -50,5 +50,22 @@ describe('isTokenExpire', (): void => {
   test('isTokenExpire - token expiration is not a number', (): void => {
     const token = generateTokenWithExpirationAsString();
     expect(isTokenExpire(token)).toBeTruthy();
+  });
+});
+
+describe('tokenExpireInMs', (): void => {
+  test('returns null for undecodable tokens', (): void => {
+    expect(tokenExpireInMs(null)).toBeNull();
+    expect(tokenExpireInMs('not_a_valid_token')).toBeNull();
+    expect(tokenExpireInMs(generateTokenWithOutExpiration())).toBeNull();
+    expect(tokenExpireInMs(generateTokenWithExpirationAsString())).toBeNull();
+  });
+
+  test('returns a positive delay for a token expiring in the future', (): void => {
+    expect(tokenExpireInMs(generateTokenWithTimeRange(24))).toBeGreaterThan(0);
+  });
+
+  test('returns a non-positive delay for an expired token', (): void => {
+    expect(tokenExpireInMs(generateTokenWithTimeRange())).toBeLessThanOrEqual(0);
   });
 });

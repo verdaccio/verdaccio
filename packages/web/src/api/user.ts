@@ -3,7 +3,7 @@ import type { Request, Response } from 'express';
 import { Router } from 'express';
 import { isNil } from 'lodash-es';
 
-import { type Auth, getApiToken } from '@verdaccio/auth';
+import type { Auth } from '@verdaccio/auth';
 import type { VerdaccioError } from '@verdaccio/core';
 import {
   API_ERROR,
@@ -124,11 +124,11 @@ function addUserAuthApi(auth: Auth, config: Config, storage: Storage): Router {
             return;
           }
 
-          const token =
-            name && password
-              ? await getApiToken(auth, config, user as RemoteUser, password)
-              : undefined;
-          if (token) {
+          // the UI stores this token as its web session: it must be the web
+          // JWT the login endpoint issues, not the opaque npm API token
+          if (name && password) {
+            const jWTSignOptions: JWTSignOptions = config.security.web.sign;
+            const token = await auth.jwtEncrypt(user as RemoteUser, jWTSignOptions);
             debug('adduser: new token %o', cryptoUtils.mask(token as string, 4));
             return next({ token, username: name });
           }

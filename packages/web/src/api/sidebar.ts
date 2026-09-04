@@ -15,7 +15,7 @@ import { convertDistRemoteToLocalTarballUrls } from '@verdaccio/tarball';
 import type { Config, Manifest, WebManifest } from '@verdaccio/types';
 
 import { addGravatarSupport, formatAuthor } from '../author-utils';
-import { deleteProperties } from '../web-utils';
+import { deleteProperties, resolveVersion } from '../web-utils';
 import { scopedPackageAccess } from './scoped-access';
 
 export { $RequestExtend, $ResponseExtend, $NextFunctionVer }; // Was required by other packages
@@ -44,25 +44,25 @@ function addSidebarWebApi(config: Config, storage: Storage, auth: Auth): Router 
           requestOptions,
         })) as Manifest;
         const { v } = req.query;
+        // `v` may be a version or a dist-tag; anything else is a 404
+        let requestedVersion: string | undefined;
+        if (typeof v === 'string') {
+          requestedVersion = resolveVersion(info, v);
+          if (!requestedVersion) {
+            debug('version %o not found for %o', v, name);
+            res.status(HTTP_STATUS.NOT_FOUND);
+            res.end();
+            return;
+          }
+        }
         let sideBarInfo = { ...info } as WebManifest;
         sideBarInfo.versions = convertDistRemoteToLocalTarballUrls(
           info,
           requestOptions,
           config.url_prefix
         ).versions;
-        if (typeof v === 'string') {
-          // own-property check right at the lookup: `v` is user input, and a
-          // crafted value like `__proto__` would otherwise resolve to
-          // Object.prototype and be polluted by the author assignment below.
-          // It also makes a version that does not exist a 404 instead of a
-          // silent fallback to latest rendered under the requested title.
-          if (!Object.hasOwn(sideBarInfo.versions, v)) {
-            debug('version %o not found for %o', v, name);
-            res.status(HTTP_STATUS.NOT_FOUND);
-            res.end();
-            return;
-          }
-          sideBarInfo.latest = sideBarInfo.versions[v];
+        if (requestedVersion) {
+          sideBarInfo.latest = sideBarInfo.versions[requestedVersion];
         } else {
           // a manifest without a resolvable dist-tags.latest (corrupt or partial
           // uplink data) used to crash here and surface as a 404 for a package

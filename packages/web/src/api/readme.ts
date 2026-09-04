@@ -13,7 +13,7 @@ import {
 import type { Storage } from '@verdaccio/store';
 import type { Config, Manifest } from '@verdaccio/types';
 
-import { isVersionValid } from '../web-utils';
+import { isVersionValid, resolveVersion } from '../web-utils';
 import { scopedPackageAccess } from './scoped-access';
 
 export { $RequestExtend, $ResponseExtend, $NextFunctionVer }; // Was required by other packages
@@ -78,15 +78,19 @@ function addReadmeWebApi(storage: Storage, auth: Auth, config: Config): Router {
         debug('readme pkg %o', manifest?.name);
         // TODO: sanitize query
         const { v } = req.query;
-        // a version that does not exist must be a 404, not the readme of latest
-        if (typeof v === 'string' && !isVersionValid(manifest, v)) {
-          debug('version %o not found for %o', v, name);
-          res.status(HTTP_STATUS.NOT_FOUND);
-          res.end();
-          return;
+        // `v` may be a version or a dist-tag; anything else is a 404
+        let requestedVersion: string | undefined;
+        if (typeof v === 'string') {
+          requestedVersion = resolveVersion(manifest, v);
+          if (!requestedVersion) {
+            debug('version %o not found for %o', v, name);
+            res.status(HTTP_STATUS.NOT_FOUND);
+            res.end();
+            return;
+          }
         }
         res.set(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_PLAIN_UTF8);
-        const readme = getReadmeFromManifest(manifest, v);
+        const readme = getReadmeFromManifest(manifest, requestedVersion);
         next(getReadme(readme));
       } catch (err) {
         next(err);

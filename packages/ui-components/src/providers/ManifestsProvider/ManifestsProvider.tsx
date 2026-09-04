@@ -42,9 +42,9 @@ const ManifestsProvider: React.FC<{ children: ReactElement }> = ({ children }) =
       value={{
         manifests: (data.data as ManifestWeb[]) ?? [],
         isLoading: data.isLoading,
-        // network failures and malformed responses reject without a `.code`;
-        // treating them as "no error" made a dead backend look like an empty registry
-        isError: typeof data.error !== 'undefined',
+        // any error counts (network failures have no `.code`), but a failed
+        // revalidation must not hide an already-cached, renderable list
+        isError: typeof data.error !== 'undefined' && typeof data.data === 'undefined',
       }}
     >
       {children}

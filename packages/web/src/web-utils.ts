@@ -1,5 +1,6 @@
 import { forEach, isNil } from 'lodash-es';
 
+import { DIST_TAGS } from '@verdaccio/core';
 import type { ConfigYaml, Manifest } from '@verdaccio/types';
 
 export function hasLogin(config: ConfigYaml) {
@@ -41,4 +42,25 @@ export function isVersionValid(packageMeta: Manifest, packageVersion: string): b
   // own-property check: the version may come from user input, and values like
   // `__proto__` must never validate against inherited properties
   return Object.hasOwn(packageMeta.versions, packageVersion);
+}
+
+/**
+ * Resolve a user-supplied version or dist-tag to a concrete version of the
+ * manifest, or undefined. Own-property checks only: `__proto__` must never
+ * resolve against inherited properties.
+ */
+export function resolveVersion(packageMeta: Manifest, version: string): string | undefined {
+  if (isVersionValid(packageMeta, version)) {
+    return version;
+  }
+
+  const distTags = packageMeta[DIST_TAGS];
+  if (distTags && Object.hasOwn(distTags, version)) {
+    const resolved = distTags[version];
+    if (typeof resolved === 'string' && isVersionValid(packageMeta, resolved)) {
+      return resolved;
+    }
+  }
+
+  return undefined;
 }

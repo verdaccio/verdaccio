@@ -105,6 +105,18 @@ describe('readme api', () => {
     expect(response2.text).toMatch('my readme');
   });
 
+  test('should resolve a dist-tag used as version', async () => {
+    const app = await initializeServer('keep-all-readmes.yaml');
+    await publishVersion(app, 'pk2-test', '1.0.0', { readme: 'my readme' });
+    await publishVersion(app, 'pk2-test', '1.2.0', { readme: 'my new readme' });
+    const response = await supertest(app)
+      .get('/-/verdaccio/data/package/readme/pk2-test?v=latest')
+      .set('Accept', HEADERS.TEXT_PLAIN)
+      .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_PLAIN_UTF8)
+      .expect(HTTP_STATUS.OK);
+    expect(response.text).toMatch('my new readme');
+  });
+
   test('should return 404 for a version that does not exist instead of falling back to latest', async () => {
     const app = await initializeServer('default-test.yaml');
     await publishVersion(app, 'pk1-test', '1.0.0', { readme: 'my readme' });

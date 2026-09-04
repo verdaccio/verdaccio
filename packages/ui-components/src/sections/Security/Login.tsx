@@ -12,6 +12,7 @@ import LoginFormHeader from '../../components/LoginForm/styles';
 import NotFound from '../../components/NotFound';
 import { getConfiguration } from '../../configuration';
 import SecurityLayout from '../../layouts/Security/Dialog';
+import { useAuth } from '../../providers/AuthProvider/AuthProvider';
 import type { LoginBody } from '../../providers/AuthProvider/types';
 import { authErrorMessage } from '../../providers/AuthProvider/utils';
 import { saveAuth } from '../../store/storage';
@@ -29,6 +30,7 @@ const Login: React.FC = () => {
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
+  const { setUserState } = useAuth();
   const { next } = getSecurityUrlParams(location);
   const createUserEnabled = configuration?.flags?.createUser;
   const addUserLink = Route.ADD_USER + (next ? '?next=' + next : '');
@@ -70,9 +72,13 @@ const Login: React.FC = () => {
       inFlight.current = true;
       try {
         const result = await handleLogin?.(data);
-        if (result && result.username && result.token) {
-          saveAuth(result.username, result.token);
+        if (!result || !result.username || !result.token) {
+          // a 2xx with an unexpected body must not pass as a successful login
+          throw new Error('login response is missing the token');
         }
+        saveAuth(result.username, result.token);
+        // AuthProvider reads storage only once, so the header needs the state update
+        setUserState?.({ username: result.username, token: result.token });
         onSuccess();
       } catch (err: any) {
         // only a 401 means wrong credentials; a dead server, 500 or 429 must
@@ -86,7 +92,7 @@ const Login: React.FC = () => {
         inFlight.current = false;
       }
     },
-    [handleLogin, setError, onSuccess, t]
+    [handleLogin, setError, setUserState, onSuccess, t]
   );
 
   return !next ? (

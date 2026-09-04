@@ -105,6 +105,31 @@ describe('<Version /> component', () => {
     expect(versions).toEqual(['1.0.1', '1.0.0', '0.1.1', '0.1.0']);
   });
 
+  test('the filter must reset when navigating to another package', () => {
+    window.__VERDACCIO_BASENAME_UI_OPTIONS.hideDeprecatedVersions = false;
+    const SwappablePackage: React.FC = () => {
+      const [pkg, setPkg] = React.useState<any>({ meta: data, name: 'jquery' });
+      return (
+        <>
+          <button
+            data-testid="swap"
+            onClick={() => setPkg({ meta: dataUnsorted, name: 'other' })}
+            type="button"
+          />
+          <VersionsComponent packageMeta={pkg.meta} packageName={pkg.name} />
+        </>
+      );
+    };
+    renderWithRouteDetail(<SwappablePackage />);
+    fireEvent.change(screen.getByRole('textbox'), { target: { value: '2.3.0' } });
+    expect(screen.queryAllByTestId('version-list-text')).toHaveLength(1);
+
+    fireEvent.click(screen.getByTestId('swap'));
+    // the previous package's filter no longer applies and the box is cleared
+    expect(screen.queryAllByTestId('version-list-text')).toHaveLength(4);
+    expect((screen.getByRole('textbox') as HTMLInputElement).value).toBe('');
+  });
+
   test('garbage in the version filter must not crash the page', () => {
     // the filter text goes straight into semver.satisfies as a range
     window.__VERDACCIO_BASENAME_UI_OPTIONS.hideDeprecatedVersions = false;

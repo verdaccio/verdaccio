@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { LoginDialog, Search, useAuth, useConfig } from '../../';
-import { isTokenExpire } from '../../utils/token';
+import { tokenExpireInMs } from '../../utils/token';
 import HeaderLeft from './HeaderLeft';
 import HeaderRight from './HeaderRight';
 import HeaderSettingsDialog from './HeaderSettingsDialog';
@@ -12,17 +12,9 @@ import { InnerMobileNavBar, InnerNavBar, MobileNavBar, NavBar } from './styles';
 type Props = {
   HeaderInfoDialog?: React.FC<any>;
   isPlainHeader?: boolean;
-  tokenCheckIntervalMs?: number;
 };
 
-// checking the token is a local decode, so a short interval is cheap; the old
-// hourly default kept showing the user as logged in for up to an hour after
-// the session expired
-const Header: React.FC<Props> = ({
-  HeaderInfoDialog,
-  isPlainHeader,
-  tokenCheckIntervalMs = 60 * 1000,
-}) => {
+const Header: React.FC<Props> = ({ HeaderInfoDialog, isPlainHeader }) => {
   const { t } = useTranslation();
   const [isInfoDialogOpen, setOpenInfoDialog] = useState<boolean>(false);
   const [isSettingsDialogOpen, setSettingsDialogOpen] = useState<boolean>(false);
@@ -31,27 +23,32 @@ const Header: React.FC<Props> = ({
   const { configOptions } = useConfig();
   const { userState, logOutUser } = useAuth();
 
-  // Use refs to always have the latest token/logout in the interval callback
-  const tokenRef = useRef(userState?.token);
+  // Use a ref to always have the latest logout in the timer callback
   const logOutUserRef = useRef(logOutUser);
-  useEffect(() => {
-    tokenRef.current = userState?.token;
-  }, [userState?.token]);
   useEffect(() => {
     logOutUserRef.current = logOutUser;
   }, [logOutUser]);
 
+  // log out exactly when the token expires; polling reloaded the page at an
+  // arbitrary moment up to a minute later, mid-interaction
   useEffect(() => {
-    function checkToken() {
-      const token = tokenRef.current;
-      if (token && isTokenExpire(token)) {
-        logOutUserRef.current?.();
-      }
+    const token = userState?.token;
+    if (!token) {
+      return;
     }
-    checkToken();
-    const interval = setInterval(checkToken, tokenCheckIntervalMs);
-    return () => clearInterval(interval);
-  }, [tokenCheckIntervalMs]);
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const arm = () => {
+      const remaining = tokenExpireInMs(token);
+      if (remaining === null || remaining <= 0) {
+        logOutUserRef.current?.();
+        return;
+      }
+      // setTimeout overflows above 2^31-1 ms; re-arm for far-away expiries
+      timer = setTimeout(arm, Math.min(remaining, 2 ** 31 - 1));
+    };
+    arm();
+    return () => clearTimeout(timer);
+  }, [userState?.token]);
 
   const handleLogout = () => {
     logOutUser?.();

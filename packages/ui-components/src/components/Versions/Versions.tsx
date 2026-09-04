@@ -6,7 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { debounce } from 'lodash-es';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import semver from 'semver';
 
@@ -28,19 +28,20 @@ const Versions: React.FC<Props> = ({ packageMeta, packageName }) => {
   const { versions = {}, time = {}, ['dist-tags']: distTags = {} } = packageMeta ?? {};
 
   const [textSearch, setTextSearch] = useState('');
-  // derive the filtered list instead of caching it in state: the detail routes
-  // reuse this mounted component across packages, so cached versions from the
-  // previously visited package would leak into the next one
+  // the detail routes reuse this mounted component across packages: reset the
+  // filter so the previous package's text does not apply to the next one
+  useEffect(() => {
+    setTextSearch('');
+  }, [packageName]);
   const packageVersions = useMemo(() => {
+    if (textSearch === '') {
+      return versions;
+    }
     return Object.keys(versions).reduce((acc, version) => {
-      if (textSearch !== '') {
-        if (typeof versions[version] !== 'undefined') {
-          if (semver.satisfies(version, textSearch, { includePrerelease: true, loose: true })) {
-            acc[version] = versions[version];
-          }
+      if (typeof versions[version] !== 'undefined') {
+        if (semver.satisfies(version, textSearch, { includePrerelease: true, loose: true })) {
+          acc[version] = versions[version];
         }
-      } else {
-        acc[version] = versions[version];
       }
       return acc;
     }, {});
@@ -73,6 +74,8 @@ const Versions: React.FC<Props> = ({ packageMeta, packageName }) => {
               <span>{` (${Object.keys(packageVersions).length})`}</span>
             </StyledText>
             <TextField
+              // uncontrolled input: remount on navigation to clear its text
+              key={packageName}
               helperText={t('versions.search.placeholder')}
               onChange={debounce((e) => {
                 setTextSearch(e.target.value);
