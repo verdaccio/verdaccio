@@ -1,5 +1,21 @@
 # Change Log
 
+## 14.0.0-next-9.14
+
+### Minor Changes
+
+- c52b632: fix: stop synthesizing scope in local npm search results
+  
+  Local `/-/v1/search` results no longer include the undocumented `package.scope` field. Scoped
+  package names remain complete in `package.name` (for example, `@scope/package`), while optional
+  fields received from uplink registries continue to pass through unchanged. `scope` is now optional
+  in `SearchPackageBody` for compatibility with remote result shapes and existing integrations.
+
+### Patch Changes
+
+- c2b5897: Omit placeholder links from local Search v1 results while preserving real package links.
+- 68ab0d4: Include the latest package version license in local npm Search v1 results.
+
 ## 14.0.0-next-9.13
 
 ### Minor Changes
