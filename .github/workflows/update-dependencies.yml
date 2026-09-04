@@ -44,12 +44,19 @@ jobs:
       - name: Update verdaccio packages to the dist-tag
         env:
           DIST_TAG: ${{ github.event.inputs.dist_tag || 'next-9' }}
-        # Exclude packages that are not part of this release line (not published
-        # under $DIST_TAG): e2e-cli, e2e-ui.
+        # e2e-cli/e2e-ui are excluded from the dist-tag bump (they release
+        # under `latest` from the e2e-tests repo, not under $DIST_TAG) and
+        # updated to their own latest in the step below.
         run: |
           pnpm update -r \
             "@verdaccio/*@$DIST_TAG" "verdaccio@$DIST_TAG" "verdaccio-*@$DIST_TAG" \
             "!@verdaccio/e2e-cli" "!@verdaccio/e2e-ui"
+
+      - name: Update e2e tooling to latest
+        # The e2e battery packages version independently of the release line;
+        # updating a package that is not a dependency is a silent no-op.
+        run: |
+          pnpm update -r "@verdaccio/e2e-cli@latest" "@verdaccio/e2e-ui@latest"
 
       - name: Stop if nothing changed
         id: diff

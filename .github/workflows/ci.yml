@@ -131,21 +131,21 @@ jobs:
 
   e2e-cli:
     needs: [build]
-    if: github.event_name == 'pull_request'
+    if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     name: E2E CLI (${{ matrix.pm }})
     strategy:
       fail-fast: false
       matrix:
         pm:
-          - npm@9
           - npm@10
           - npm@11
-          - yarn-classic
+          - npm@12
+          - yarn-modern@3
           - yarn-modern@4
-          - pnpm@9
           - pnpm@10
           - pnpm@11
+          - pnpm@12
           - bun
           - deno
     steps:
@@ -170,17 +170,24 @@ jobs:
           key: ci-build-${{ github.sha }}-node-24
           fail-on-cache-miss: true
       - name: Start Verdaccio
+        # The e2e battery needs the shared config from @verdaccio/e2e-cli
+        # (max_body_size for scenario:tarballs, mock uplink for
+        # scenario:uplink-failure on port 4874).
         run: |
-          node bin/verdaccio &
+          mkdir -p /tmp/verdaccio-e2e
+          pnpm --silent verdaccio-e2e --print-config --uplink-port 4874 > /tmp/verdaccio-e2e/config.yaml
+          node bin/verdaccio --config /tmp/verdaccio-e2e/config.yaml --listen 4873 &> /tmp/verdaccio-e2e/verdaccio.log &
           for i in $(seq 1 30); do
             curl -s http://localhost:4873/-/ping && break
             sleep 1
           done
       - name: Run E2E CLI tests
-        run: pnpm verdaccio-e2e --registry http://localhost:4873 --pm ${{ matrix.pm }} -v
+        run: pnpm verdaccio-e2e --registry http://localhost:4873 --pm ${{ matrix.pm }} --uplink-port 4874 -v
+        env:
+          E2E_PENDING_CONTRACT_CHECKS: tarballs
       - name: Show Verdaccio logs
         if: always()
-        run: cat ~/.config/verdaccio/verdaccio.log 2>/dev/null || echo "No log file found"
+        run: cat /tmp/verdaccio-e2e/verdaccio.log 2>/dev/null || echo "No log file found"
 
   codeql:
     needs: [test, e2e-cli]

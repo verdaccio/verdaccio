@@ -213,8 +213,8 @@ importers:
         specifier: 9.0.0-next-9.31
         version: 9.0.0-next-9.31(supports-color@7.2.0)
       '@verdaccio/e2e-cli':
-        specifier: 2.10.4
-        version: 2.10.4(supports-color@7.2.0)
+        specifier: 3.2.1
+        version: 3.2.1(supports-color@7.2.0)
       '@verdaccio/test-helper':
         specifier: 5.0.0-next-9.32
         version: 5.0.0-next-9.32(supports-color@7.2.0)
@@ -1411,8 +1411,8 @@ packages:
     resolution: {integrity: sha512-05ZbVSunJfW+fG/BPRHzmzZNM8xheFvj1DHeVM/7qAhCLrF8dd3sdJVG+p4suOCsuso+kEVabVh9WwuKqVrxDA==}
     engines: {node: '>=24'}
 
-  '@verdaccio/e2e-cli@2.10.4':
-    resolution: {integrity: sha512-YK+MIMpPAbSenkBVfHYcv1soJ6DIhGWM+oy0HfuJoA/nAa/OP+i1bBg7BR0xl4Vw33cL7TCiX48Oq9gEukIhrA==}
+  '@verdaccio/e2e-cli@3.2.1':
+    resolution: {integrity: sha512-nHR1EHy8drB7T0RQNAVoo73tWjRyAxSw9DRPXjYwll394S7eqTFOW6XFRwD67uTn6T4f38kq4tNx9M42winAYQ==}
     hasBin: true
 
   '@verdaccio/file-locking@14.0.0-next-9.4':
@@ -4227,7 +4227,7 @@ snapshots:
       sanitize-filename: 1.6.3
       semver: 7.8.5
 
-  '@verdaccio/e2e-cli@2.10.4(supports-color@7.2.0)':
+  '@verdaccio/e2e-cli@3.2.1(supports-color@7.2.0)':
     dependencies:
       '@verdaccio/registry-cli': 1.1.0
       debug: 4.4.3(supports-color@7.2.0)
