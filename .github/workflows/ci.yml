@@ -140,6 +140,7 @@ jobs:
         pm:
           - npm@10
           - npm@11
+          - npm@12          
           - yarn-modern@4
           - pnpm@10
           - pnpm@11
