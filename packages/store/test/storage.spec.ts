@@ -889,16 +889,13 @@ describe('storage', () => {
           );
           hostileManifest.maintainers = [{ name: nonOwner, email: '' }];
           await expect(
-            storage.updateManifest(
-              hostileManifest,
-              {
-                signal: new AbortController().signal,
-                name: pkgName,
-                uplinksLook: false,
-                revision: '1',
-                requestOptions: { ...defaultRequestOptions, username: nonOwner },
-              }
-            )
+            storage.updateManifest(hostileManifest, {
+              signal: new AbortController().signal,
+              name: pkgName,
+              uplinksLook: false,
+              revision: '1',
+              requestOptions: { ...defaultRequestOptions, username: nonOwner },
+            })
           ).rejects.toThrow('only owners are allowed to change package');
 
           const after = (await storage.getPackageByOptions({
