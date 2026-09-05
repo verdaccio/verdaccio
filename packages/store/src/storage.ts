@@ -1040,7 +1040,14 @@ class Storage {
 
   private async deprecate(manifest: Manifest, options: UpdateManifestOptions): Promise<void> {
     const { name } = manifest;
+    const { requestOptions } = options;
     debug('deprecating %s', name);
+    const localPackage = await this.getPackageManifest({
+      name,
+      requestOptions,
+      uplinksLook: false,
+    });
+    await this.checkAllowedToChangePackage(localPackage, requestOptions.username);
     return this.changePackage(name, manifest, options.revision as string);
   }
 
@@ -1053,6 +1060,7 @@ class Storage {
       requestOptions,
       uplinksLook: false,
     });
+    await this.checkAllowedToChangePackage(localPackage, requestOptions.username);
     if (localPackage._rev === manifest._rev) {
       await this.changePackage(name, manifest as Manifest, options.revision as string);
     }
