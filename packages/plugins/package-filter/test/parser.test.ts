@@ -45,7 +45,7 @@ describe('parseConfig', () => {
   test('parses dateThreshold', () => {
     const result = parseConfig({ dateThreshold: '2024-01-01' });
     expect(result.dateThreshold).toBeInstanceOf(Date);
-    expect(result.dateThreshold!.getFullYear()).toBe(2024);
+    expect(result.dateThreshold!.toISOString()).toBe('2024-01-01T00:00:00.000Z');
   });
 
   test('parses minAgeDays', () => {
