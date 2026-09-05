@@ -487,11 +487,7 @@ class Storage {
         // fallback to an off-uplink URL is client-controlled — do not fetch.
         const fromDistfiles = Boolean(origin?._distfiles?.[filename]);
         if (!fromDistfiles) {
-          debug(
-            'refusing off-uplink tarball fetch for locally published %o (%o)',
-            name,
-            file.url
-          );
+          debug('refusing off-uplink tarball fetch for locally published %o (%o)', name, file.url);
           readStream.emit('error', ErrorCode.getNotFound(API_ERROR.NO_SUCH_FILE));
           return;
         }
