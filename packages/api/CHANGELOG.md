@@ -1,5 +1,17 @@
 # @verdaccio/api
 
+## 9.0.0-next-9.32
+
+### Patch Changes
+
+- @verdaccio/config@9.0.0-next-9.32
+  - @verdaccio/core@9.0.0-next-9.32
+  - @verdaccio/auth@9.0.0-next-9.32
+  - @verdaccio/hooks@9.0.0-next-9.32
+  - @verdaccio/middleware@9.0.0-next-9.32
+  - @verdaccio/store@9.0.0-next-9.32
+  - @verdaccio/logger@9.0.0-next-9.32
+
 ## 9.0.0-next-9.31
 
 ### Patch Changes
