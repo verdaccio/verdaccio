@@ -492,7 +492,7 @@ class Storage {
             name,
             file.url
           );
-          return readStream.emit('error', ErrorCode.getNotFound(API_ERROR.NO_PACKAGE));
+          return readStream.emit('error', ErrorCode.getNotFound('no such file available'));
         }
         debug('upstream not found, creating one for %o without uplink credentials', name);
         uplink = new ProxyStorage(

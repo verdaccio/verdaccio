@@ -476,6 +476,7 @@ describe('StorageTest', () => {
         stream.on('error', (err: any) => {
           try {
             expect(err).toBeDefined();
+            expect(err.status).toBe(HTTP_STATUS.NOT_FOUND);
             expect(leak.isDone()).toBe(false);
             resolve();
           } catch (e) {
