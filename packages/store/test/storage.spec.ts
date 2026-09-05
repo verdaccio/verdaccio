@@ -884,6 +884,67 @@ describe('storage', () => {
       });
     });
 
+    test('should not fetch an off-uplink dist.tarball of a locally published package (SSRF)', async () => {
+      const pkgName = 'ssrf-local-pkg';
+      const filename = `${pkgName}-1.0.0.tgz`;
+      const storageDir = generateRandomStorage();
+      const config = new Config(
+        configExample({
+          ...getDefaultConfig(),
+          storage: storageDir,
+        })
+      );
+      const storage = new Storage(config, logger);
+      await storage.init(config);
+      await storage.updateManifest(generatePackageMetadata(pkgName, '1.0.0'), {
+        signal: new AbortController().signal,
+        name: pkgName,
+        uplinksLook: false,
+        requestOptions: defaultRequestOptions,
+      });
+
+      // reproduce the client-controlled off-uplink state: a dist.tarball on a
+      // host no uplink serves, no `_distfiles` record, and the local tarball
+      // removed so the request falls through to the upstream path
+      const pkgDir = path.join(storageDir, pkgName);
+      const tarballPath = path.join(pkgDir, filename);
+      if (fs.existsSync(tarballPath)) {
+        fs.unlinkSync(tarballPath);
+      }
+      const metadataPath = path.join(pkgDir, 'package.json');
+      const metadata = JSON.parse(fs.readFileSync(metadataPath).toString());
+      metadata._distfiles = {};
+      metadata.versions['1.0.0'].dist.tarball = `http://internal-ssrf.test/SECRET/${filename}`;
+      fs.writeFileSync(metadataPath, JSON.stringify(metadata));
+
+      const leak = nock('http://internal-ssrf.test')
+        .get(`/SECRET/${filename}`)
+        .reply(200, 'should-not-be-fetched');
+
+      const stream = await storage.getTarball(pkgName, filename, {
+        signal: new AbortController().signal,
+      });
+
+      await new Promise<void>((resolve, reject) => {
+        stream.on('error', (err: any) => {
+          try {
+            expect(err).toBeDefined();
+            expect(String(err.message)).toContain('no such file');
+            expect(leak.isDone()).toBe(false);
+            resolve();
+          } catch (e) {
+            reject(e);
+          }
+        });
+        stream.on('data', () =>
+          reject(new Error('expected a 404, not a fetch of the off-uplink URL'))
+        );
+        stream.on('end', () =>
+          reject(new Error('expected a 404, not a fetch of the off-uplink URL'))
+        );
+      });
+    });
+
     test('should create a package if tarball is requested and does not exist locally', () => {
       return new Promise((done) => {
         const pkgName = 'upstream';
