@@ -5,7 +5,7 @@ import path from 'node:path';
 import { beforeAll, beforeEach, describe, expect, test } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
-import { streamUtils } from '@verdaccio/core';
+import { HEADERS, TOKEN_BASIC, TOKEN_BEARER, streamUtils } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 
 import { ProxyStorage } from '../src';
@@ -32,36 +32,186 @@ describe('proxy', () => {
   const conf = new Config(parseConfigFile(proxyPath));
 
   describe('search', () => {
-    test('get response from endpoint', async () => {
+    test.each([
+      ['root URL', domain, queryUrl, '/-/v1/search'],
+      ['root URL with trailing slash', `${domain}/`, queryUrl, '/-/v1/search'],
+      ['subpath', `${domain}/private/npm`, queryUrl, '/private/npm/-/v1/search'],
+      [
+        'subpath with trailing slash',
+        `${domain}/private/npm/`,
+        queryUrl,
+        '/private/npm/-/v1/search',
+      ],
+      [
+        'subpath with multiple trailing slashes',
+        `${domain}/private/npm///`,
+        queryUrl,
+        '/private/npm/-/v1/search',
+      ],
+      [
+        'search path without leading slash',
+        `${domain}/private/npm`,
+        queryUrl.slice(1),
+        '/private/npm/-/v1/search',
+      ],
+    ])('preserves the configured uplink %s', async (_name, uplinkUrl, searchUrl, path) => {
       const response = require('./partials/search-v1.json');
-      nock(domain)
-        .get('/-/v1/search?maintenance=1&popularity=1&quality=1&size=10&text=verdaccio')
+      const request = nock(domain)
+        .get(`${path}?maintenance=1&popularity=1&quality=1&size=10&text=verdaccio`)
         .reply(200, response);
-      const prox1 = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
+      const prox1 = new ProxyStorage('uplink', { url: uplinkUrl }, conf, logger);
       const abort = new AbortController();
       const stream = await prox1.search({
         abort,
-        url: queryUrl,
+        url: searchUrl,
       });
 
       const searchResponse = await getStream(stream.pipe(streamUtils.transformObjectToString()));
-      expect(searchResponse).toEqual(searchResponse);
+      expect(searchResponse).not.toBe('');
+      expect(request.isDone()).toBe(true);
     });
 
-    test('get response from uplink with trailing slash', async () => {
+    test('forwards the default search headers to the uplink', async () => {
       const response = require('./partials/search-v1.json');
-      nock(domain + '/')
-        .get('/-/v1/search?maintenance=1&popularity=1&quality=1&size=10&text=verdaccio')
+      const request = nock(domain, {
+        reqheaders: {
+          [HEADERS.ACCEPT]: `${HEADERS.JSON};`,
+          [HEADERS.ACCEPT_ENCODING]: 'gzip',
+          [HEADERS.USER_AGENT]: /npm/,
+        },
+      })
+        .get(queryUrl)
         .reply(200, response);
       const prox1 = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
-      const abort = new AbortController();
+
       const stream = await prox1.search({
-        abort,
+        abort: new AbortController(),
         url: queryUrl,
       });
 
       const searchResponse = await getStream(stream.pipe(streamUtils.transformObjectToString()));
-      expect(searchResponse).toEqual(searchResponse);
+      expect(searchResponse).not.toBe('');
+      expect(request.isDone()).toBe(true);
+    });
+
+    test('does not forward caller-provided headers to the uplink', async () => {
+      const response = require('./partials/search-v1.json');
+      const request = nock(domain)
+        .get(queryUrl)
+        .reply(200, function () {
+          expect(this.req.headers.authorization).toBeUndefined();
+          expect(this.req.headers.cookie).toBeUndefined();
+          expect(this.req.headers['npm-otp']).toBeUndefined();
+          expect(this.req.headers['npm-session']).toBeUndefined();
+          expect(this.req.headers['npm-command']).toBeUndefined();
+          expect(this.req.headers['npm-scope']).toBeUndefined();
+          expect(this.req.headers['npm-auth-type']).toBeUndefined();
+          expect(this.req.headers['proxy-authorization']).toBeUndefined();
+          expect(this.req.headers['x-forwarded-for']).toBeUndefined();
+          expect(this.req.headers['x-real-ip']).toBeUndefined();
+          expect(this.req.headers.forwarded).toBeUndefined();
+          expect(this.req.headers.referer).toBeUndefined();
+          expect(this.req.headers['x-client-secret']).toBeUndefined();
+          return response;
+        });
+      const prox1 = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
+
+      const stream = await prox1.search({
+        abort: new AbortController(),
+        url: queryUrl,
+        headers: new Headers({
+          authorization: 'Bearer client-token',
+          cookie: 'session=secret',
+          'npm-otp': '123456',
+          'npm-session': 'client-session',
+          'npm-command': 'search',
+          'npm-scope': '@private',
+          'npm-auth-type': 'legacy',
+          'proxy-authorization': 'Basic proxy-secret',
+          'x-forwarded-for': '192.0.2.1',
+          'x-real-ip': '192.0.2.2',
+          forwarded: 'for=192.0.2.3',
+          referer: 'https://client.example/private',
+          'x-client-secret': 'secret',
+        }),
+      });
+
+      const searchResponse = await getStream(stream.pipe(streamUtils.transformObjectToString()));
+      expect(searchResponse).not.toBe('');
+      expect(request.isDone()).toBe(true);
+    });
+
+    test.each([
+      ['Bearer', TOKEN_BEARER, 'bearer-token', `${TOKEN_BEARER} bearer-token`],
+      ['Basic', TOKEN_BASIC, 'basic-token', `${TOKEN_BASIC} basic-token`],
+    ])('forwards %s authentication to the uplink', async (_name, type, token, authorization) => {
+      const response = require('./partials/search-v1.json');
+      const request = nock(domain, {
+        reqheaders: {
+          [HEADERS.AUTHORIZATION]: authorization,
+        },
+      })
+        .get(queryUrl)
+        .reply(200, response);
+      const prox1 = new ProxyStorage(
+        'uplink',
+        {
+          url: domain,
+          auth: { type, token },
+        },
+        conf,
+        logger
+      );
+
+      const stream = await prox1.search({
+        abort: new AbortController(),
+        url: queryUrl,
+        headers: new Headers({
+          authorization: `${TOKEN_BEARER} client-token`,
+          'x-uplink-header': 'client-value',
+        }),
+      });
+
+      const searchResponse = await getStream(stream.pipe(streamUtils.transformObjectToString()));
+      expect(searchResponse).not.toBe('');
+      expect(request.isDone()).toBe(true);
+    });
+
+    test('allows configured uplink headers to override generated headers', async () => {
+      const response = require('./partials/search-v1.json');
+      const request = nock(domain, {
+        reqheaders: {
+          [HEADERS.AUTHORIZATION]: `${TOKEN_BASIC} configured-token`,
+          'x-uplink-header': 'search-value',
+        },
+      })
+        .get(queryUrl)
+        .reply(200, response);
+      const prox1 = new ProxyStorage(
+        'uplink',
+        {
+          url: domain,
+          auth: {
+            type: TOKEN_BEARER,
+            token: 'generated-token',
+          },
+          headers: {
+            [HEADERS.AUTHORIZATION]: `${TOKEN_BASIC} configured-token`,
+            'x-uplink-header': 'search-value',
+          },
+        },
+        conf,
+        logger
+      );
+
+      const stream = await prox1.search({
+        abort: new AbortController(),
+        url: queryUrl,
+      });
+
+      const searchResponse = await getStream(stream.pipe(streamUtils.transformObjectToString()));
+      expect(searchResponse).not.toBe('');
+      expect(request.isDone()).toBe(true);
     });
 
     test('handle bad response 409', async () => {
