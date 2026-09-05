@@ -1,7 +1,7 @@
 import useSWRMutation from 'swr/mutation';
 
 import API from '../store/api';
-import type { APIRoute } from '../store/routes';
+import type { APIRoute } from '../utils/routes';
 import { HEADERS } from '../store/utils';
 
 export const fetcher = async <T>(

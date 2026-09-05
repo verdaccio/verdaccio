@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import i18n from 'i18next';
 import React from 'react';
 import { initReactI18next } from 'react-i18next';
+import { afterEach, describe, expect, test } from 'vitest';
 
 import { ThemeProvider } from '../../Theme';
 import { AppConfigurationProvider } from '../../providers';

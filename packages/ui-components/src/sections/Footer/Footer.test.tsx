@@ -1,4 +1,5 @@
 import React from 'react';
+import { beforeAll, afterAll, describe, expect, test } from 'vitest';
 
 import { render, screen } from '../../test/test-react-testing-library';
 import Footer from './Footer';

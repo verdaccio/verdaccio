@@ -1,4 +1,5 @@
 import React from 'react';
+import { afterEach, describe, expect, test } from 'vitest';
 
 import { cleanup, render, screen } from '../../../test/test-react-testing-library';
 import RegistryInfoContent from './RegistryInfoContent';

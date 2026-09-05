@@ -4,11 +4,11 @@ import { useSWRConfig } from 'swr';
 
 import { useDataMutation } from '../../api/use-data-mutation';
 import { getConfiguration } from '../../configuration';
-import { APIRoute } from '../../store/routes';
 import { clearAuth, saveAuth } from '../../store/storage';
 import { stripTrailingSlash } from '../../store/utils';
 import type { LoginBody } from './types';
 import { clearExpiredAuth, getDefaultUserState } from './utils';
+import { APIRoute } from '../../utils/routes';
 
 interface AuthContextProps {
   handleLogin: (body: { username: string; password: string }) => Promise<any>;

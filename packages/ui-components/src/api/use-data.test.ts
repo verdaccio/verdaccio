@@ -1,4 +1,6 @@
-import { APIRoute } from '../store/routes';
+import { describe, expect, test } from 'vitest';
+
+import { APIRoute } from '../utils/routes';
 import { buildUrl } from './use-data';
 
 const BASE = 'http://localhost:9000';

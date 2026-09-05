@@ -1,5 +1,5 @@
 import React from 'react';
-import { vi } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 
 import { Forbidden } from '../..';
 import { fireEvent, renderWithRouter, screen } from '../../test/test-react-testing-library';

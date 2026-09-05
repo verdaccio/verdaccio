@@ -1,3 +1,5 @@
+import { afterEach, describe, expect, test } from 'vitest';
+
 import { clearAuth, getAuth, saveAuth } from './storage';
 
 describe('auth storage', () => {

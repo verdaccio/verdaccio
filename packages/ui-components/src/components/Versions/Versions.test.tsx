@@ -1,5 +1,5 @@
 import React from 'react';
-import { vi } from 'vitest';
+import { afterEach, describe, expect, test, vi } from 'vitest';
 
 import data from '../../../vitest/components/Versions/data.json';
 import dataDeprecated from '../../../vitest/components/Versions/deprecated-versions.json';

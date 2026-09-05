@@ -6,8 +6,8 @@ import type { SearchResultWeb } from '@verdaccio/types';
 
 import { fetcher } from '../../api/use-data-mutation';
 import { getConfiguration } from '../../configuration';
-import { APIRoute } from '../../store/routes';
 import { stripTrailingSlash } from '../../store/utils';
+import { APIRoute } from '../../utils/routes';
 
 export interface SearchContextProps {
   error: Error | undefined;

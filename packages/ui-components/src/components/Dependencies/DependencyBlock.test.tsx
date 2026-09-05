@@ -1,4 +1,5 @@
 import React from 'react';
+import { describe, expect, test } from 'vitest';
 
 import { fireEvent, renderWithRouteDetail, screen } from '../../test/test-react-testing-library';
 import { DependencyBlock } from './DependencyBlock';
