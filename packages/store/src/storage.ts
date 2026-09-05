@@ -1039,16 +1039,19 @@ class Storage {
   }
 
   private async deprecate(manifest: Manifest, options: UpdateManifestOptions): Promise<void> {
-    const { name } = manifest;
-    const { requestOptions } = options;
+    const { name, requestOptions } = options;
     debug('deprecating %s', name);
-    const localPackage = await this.getPackageManifest({
-      name,
-      requestOptions,
-      uplinksLook: false,
-    });
-    await this.checkAllowedToChangePackage(localPackage, requestOptions.username);
-    return this.changePackage(name, manifest, options.revision as string);
+
+    if (this.config?.publish?.check_owners === true) {
+      const localPackage = await this.getPackageManifest({
+        name,
+        requestOptions,
+        uplinksLook: false,
+      });
+      await this.checkAllowedToChangePackage(localPackage, requestOptions.username);
+    }
+
+    return this.changePackage(name, { ...manifest, name }, options.revision as string);
   }
 
   private async unPublishAPackage(manifest: UnPublishManifest, options: UpdateManifestOptions) {
