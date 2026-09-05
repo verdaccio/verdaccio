@@ -2,7 +2,7 @@ import type { SWRResponse } from 'swr';
 import useSWR from 'swr';
 
 import API from '../store/api';
-import type { APIRoute } from '../store/routes';
+import type { APIRoute } from '../utils/routes';
 
 export function buildUrl(
   basePath: string,

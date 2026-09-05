@@ -1,5 +1,5 @@
 import React from 'react';
-import { vi } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 
 import { fireEvent, render, screen } from '../../test/test-react-testing-library';
 import CopyToClipBoard from './CopyToClipBoard';

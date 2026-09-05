@@ -3,9 +3,9 @@ import { useParams } from 'react-router';
 
 import { useData } from '../../api/use-data';
 import { getConfiguration } from '../../configuration';
-import { APIRoute } from '../../store/routes';
 import { stripTrailingSlash } from '../../store/utils';
 import type { PackageMetaInterface } from '../../types/packageMeta';
+import { APIRoute } from '../../utils/routes';
 
 function getRouterPackageName(packageName: string, scope?: string): string {
   return scope ? `${scope}/${packageName}` : packageName;

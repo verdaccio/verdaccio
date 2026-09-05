@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import React, { useRef } from 'react';
-import { vi } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 
 import useOnClickOutside from './useOnClickOutside';
 

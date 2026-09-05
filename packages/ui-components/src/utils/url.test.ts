@@ -1,4 +1,4 @@
-import { vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { downloadFile, extractFileName, isEmail, isURL } from './url';
 
@@ -50,8 +50,7 @@ describe('utils', () => {
     afterEach(() => {
       vi.restoreAllMocks();
       vi.useRealTimers();
-      // @ts-expect-error cleaning up the legacy Edge shim
-      delete (navigator as any).msSaveBlob;
+      delete (navigator as unknown as Record<string, unknown>).msSaveBlob;
     });
 
     test('should create and revoke an object url for the blob', () => {
