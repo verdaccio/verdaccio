@@ -93,9 +93,7 @@ describe('package', () => {
           stream.push(Buffer.alloc(1024));
           stream.end();
         }, 100);
-        const response = await supertest(app)
-          .get('/foo/-/foo-1.0.0.tgz')
-          .expect(HTTP_STATUS.OK);
+        const response = await supertest(app).get('/foo/-/foo-1.0.0.tgz').expect(HTTP_STATUS.OK);
         expect(Buffer.from(response.body).length).toEqual(2048);
         expect(response.headers[HEADER_TYPE.CONTENT_LENGTH]).toBeUndefined();
       } finally {
