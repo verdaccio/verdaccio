@@ -1,9 +1,15 @@
-import { Cli } from 'clipanion';
+import { Builtins, Cli } from 'clipanion';
 
 import { pkgUtils, warningUtils } from '@verdaccio/core';
 
 import { InfoCommand } from './commands/info';
 import { InitCommand } from './commands/init';
+import { StorageBackupCommand } from './commands/storage/backup';
+import { StorageCacheCommand } from './commands/storage/cache';
+import { StorageDoctorCommand } from './commands/storage/doctor';
+import { StorageMigrateCommand } from './commands/storage/migrate';
+import { StorageStatsCommand } from './commands/storage/stats';
+import { StorageViewCommand } from './commands/storage/view';
 import { VersionCommand } from './commands/version';
 import type { CliRuntimeOptions } from './runtime';
 import { configureCli } from './runtime';
@@ -49,6 +55,14 @@ export function runCli(options: CliRuntimeOptions = {}): Promise<void> {
   cli.register(InfoCommand);
   cli.register(InitCommand);
   cli.register(VersionCommand);
+  cli.register(StorageCacheCommand);
+  cli.register(StorageViewCommand);
+  cli.register(StorageDoctorCommand);
+  cli.register(StorageMigrateCommand);
+  cli.register(StorageBackupCommand);
+  cli.register(StorageStatsCommand);
+  // list every command (incl. the storage group) on `verdaccio --help` / `-h`
+  cli.register(Builtins.HelpCommand);
 
   process.on('uncaughtException', function (err) {
     console.error(

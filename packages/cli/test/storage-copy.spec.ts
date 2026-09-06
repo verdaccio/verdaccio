@@ -1,0 +1,108 @@
+import { describe, expect, test } from 'vitest';
+
+import { destPathFor } from '../src/commands/storage/storage-copy';
+
+describe('destPathFor', () => {
+  test('unscoped package', () => {
+    expect(destPathFor('/dest', 'lodash')).toBe('/dest/lodash');
+  });
+  test('scoped package keeps the @scope segment', () => {
+    expect(destPathFor('/dest', '@babel/core')).toBe('/dest/@babel/core');
+  });
+});
+
+import fs from 'node:fs/promises';
+import os from 'node:os';
+import path from 'node:path';
+
+import { listPackagesOnDisk } from '../src/commands/storage/storage-copy';
+
+describe('listPackagesOnDisk', () => {
+  test('finds top-level and scoped packages, ignores non-packages', async () => {
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), 'vc-storage-'));
+    await fs.mkdir(path.join(root, 'react'));
+    await fs.writeFile(path.join(root, 'react', 'package.json'), '{}');
+    await fs.mkdir(path.join(root, '@scope', 'a'), { recursive: true });
+    await fs.writeFile(path.join(root, '@scope', 'a', 'package.json'), '{}');
+    await fs.mkdir(path.join(root, 'not-a-package')); // no package.json
+    await fs.writeFile(path.join(root, '.verdaccio-db.json'), '{}');
+
+    const names = (await listPackagesOnDisk(root)).sort();
+    expect(names).toEqual(['@scope/a', 'react']);
+    await fs.rm(root, { recursive: true, force: true });
+  });
+
+  test('returns empty for a missing directory', async () => {
+    expect(await listPackagesOnDisk('/no/such/dir/at/all')).toEqual([]);
+  });
+});
+
+import { isFilesystemBackend } from '../src/commands/storage/storage-copy';
+
+describe('isFilesystemBackend', () => {
+  test('true when the handler exposes a path (local-storage)', () => {
+    const plugin = { getPackageStorage: () => ({ path: '/data/storage/pkg' }) };
+    expect(isFilesystemBackend(plugin, 'pkg')).toBe(true);
+  });
+
+  test('false when the handler has no path (e.g. S3/GCS plugin)', () => {
+    const plugin = {
+      getPackageStorage: () => ({ deletePackage: () => {}, removePackage: () => {} }),
+    };
+    expect(isFilesystemBackend(plugin, 'pkg')).toBe(false);
+  });
+});
+
+import { promises as fsp } from 'node:fs';
+import {
+  copyState,
+  isDefaultLocalStorage,
+  resolveStorageRoot,
+} from '../src/commands/storage/storage-copy';
+
+describe('isDefaultLocalStorage', () => {
+  test('true when no store plugin is configured', () => {
+    expect(isDefaultLocalStorage({})).toBe(true);
+    expect(isDefaultLocalStorage({ store: {} })).toBe(true);
+  });
+  test('false when a storage plugin is configured', () => {
+    expect(isDefaultLocalStorage({ store: { 'aws-s3-storage': {} } })).toBe(false);
+  });
+});
+
+describe('resolveStorageRoot', () => {
+  test('absolute storage is returned as-is', () => {
+    expect(resolveStorageRoot({ storage: '/data/storage', configPath: '/etc/config.yaml' })).toBe(
+      '/data/storage'
+    );
+  });
+  test('relative storage resolves against the config directory', () => {
+    expect(
+      resolveStorageRoot({ storage: './storage', configPath: '/etc/verdaccio/config.yaml' })
+    ).toBe('/etc/verdaccio/storage');
+  });
+  test('null when storage is missing', () => {
+    expect(resolveStorageRoot({ configPath: '/etc/config.yaml' })).toBe(null);
+  });
+});
+
+describe('copyState', () => {
+  test('copies db/token/stage when absent, preserves them when present', async () => {
+    const src = await fsp.mkdtemp(path.join(os.tmpdir(), 'vc-src-'));
+    const dest = await fsp.mkdtemp(path.join(os.tmpdir(), 'vc-dest-'));
+    await fsp.writeFile(path.join(src, '.verdaccio-db.json'), 'SRC-DB');
+    await fsp.writeFile(path.join(src, '.token-db.json'), 'SRC-TOKEN');
+    await fsp.mkdir(path.join(src, '.stage'));
+    await fsp.writeFile(path.join(src, '.stage', 'x'), 'S');
+    // dest already has a db that must be preserved
+    await fsp.writeFile(path.join(dest, '.verdaccio-db.json'), 'DEST-DB');
+
+    const result = await copyState(src, dest);
+    expect(result.preserved).toContain('.verdaccio-db.json');
+    expect(result.copied.sort()).toEqual(['.stage', '.token-db.json']);
+    expect(await fsp.readFile(path.join(dest, '.verdaccio-db.json'), 'utf8')).toBe('DEST-DB');
+    expect(await fsp.readFile(path.join(dest, '.token-db.json'), 'utf8')).toBe('SRC-TOKEN');
+    await fsp.rm(src, { recursive: true, force: true });
+    await fsp.rm(dest, { recursive: true, force: true });
+  });
+});

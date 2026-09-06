@@ -440,6 +440,9 @@ importers:
 
   packages/cli:
     dependencies:
+      '@verdaccio/auth':
+        specifier: workspace:9.0.0-next-9.31
+        version: link:../auth
       '@verdaccio/config':
         specifier: workspace:9.0.0-next-9.31
         version: link:../config
@@ -455,12 +458,15 @@ importers:
       '@verdaccio/server':
         specifier: workspace:9.0.0-next-9.31
         version: link:../server/express
+      '@verdaccio/store':
+        specifier: workspace:9.0.0-next-9.31
+        version: link:../store
+      chalk:
+        specifier: 4.1.2
+        version: 4.1.2
       clipanion:
         specifier: 4.0.0-rc.4
         version: 4.0.0-rc.4(typanion@3.14.0)
-      envinfo:
-        specifier: 7.19.0
-        version: 7.19.0
       semver:
         specifier: 7.8.5
         version: 7.8.5
@@ -4148,11 +4154,6 @@ packages:
   entities@8.0.0:
     resolution: {integrity: sha512-zwfzJecQ/Uej6tusMqwAqU/6KL2XaB2VZ2Jg54Je6ahNBGNH6Ek6g3jjNCF0fG9EWQKGZNddNjU5F1ZQn/sBnA==}
     engines: {node: '>=20.19.0'}
-
-  envinfo@7.19.0:
-    resolution: {integrity: sha512-DoSM9VyG6O3vqBf+p3Gjgr/Q52HYBBtO3v+4koAxt1MnWr+zEnxE+nke/yXS4lt2P4SYCHQ4V3f1i88LQVOpAw==}
-    engines: {node: '>=4'}
-    hasBin: true
 
   error-ex@1.3.2:
     resolution: {integrity: sha512-7dFHNmqeFSEt2ZBsCriorKnn3Z2pj+fd9kmI6QoWw4//DL+icEBfc0U7qJCisqrTsKTjw4fNFy2pW9OqStD84g==}
@@ -8875,8 +8876,6 @@ snapshots:
   entities@4.5.0: {}
 
   entities@8.0.0: {}
-
-  envinfo@7.19.0: {}
 
   error-ex@1.3.2:
     dependencies:
