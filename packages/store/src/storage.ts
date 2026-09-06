@@ -465,7 +465,16 @@ class Storage {
     forwardContentLength(localStream);
     localStream.on('open', async () => {
       isOpen = true;
-      await pipeline(localStream, localTarballStream, { signal });
+      try {
+        await pipeline(localStream, localTarballStream, { signal });
+      } catch (err: any) {
+        // pipeline already destroyed both streams; an unhandled rejection
+        // here would kill the process
+        this.logger.warn(
+          { err, filename },
+          'error streaming local tarball @{filename}: @{err.message}'
+        );
+      }
     });
 
     localStream.on('error', (err: any) => {
@@ -1410,7 +1419,16 @@ class Storage {
       const localStorageWriteStream = await storage.writeTarball(filename, { signal });
 
       localStorageWriteStream.on('open', async () => {
-        await pipeline(uploadStream, transformHash, localStorageWriteStream, { signal });
+        try {
+          await pipeline(uploadStream, transformHash, localStorageWriteStream, { signal });
+        } catch (err: any) {
+          // pipeline already destroyed the streams; an unhandled rejection
+          // here would kill the process
+          this.logger.warn(
+            { err, filename, pkgName },
+            'error uploading tarball @{filename} for @{pkgName}: @{err.message}'
+          );
+        }
       });
 
       // once the file descriptor has been closed
