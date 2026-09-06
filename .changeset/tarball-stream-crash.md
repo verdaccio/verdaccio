@@ -18,4 +18,5 @@ Fixed on three layers: `local-storage` now emits the size synchronously on
 `open` (restoring size-before-data ordering), the API skips the header once
 headers are sent instead of throwing, and the unguarded `await pipeline(...)`
 calls in the store's tarball read/write paths log a warning instead of taking
-the process down through an unhandled rejection on mid-stream failures.
+the process down through an unhandled rejection on mid-stream failures. A
+failed upload no longer records the tarball in the manifest `_attachments`.
