@@ -1013,6 +1013,349 @@ describe('storage', () => {
           expect(after.maintainers).toEqual([{ name: owner, email: '' }]);
         }
       );
+
+      test.each([['foo', 'publishWithOwnerAndCheck.yaml']])(
+        'should keep maintainers after a deprecate body without maintainers %s, %s',
+        async (pkgName, configFile) => {
+          const config = getConfig(configFile);
+          const storage = new Storage(config, logger);
+          await storage.init(config);
+          const owner = 'fooUser';
+          const options = { ...defaultRequestOptions, username: owner };
+          await storage.updateManifest(generatePackageMetadata(pkgName, '1.0.0'), {
+            signal: new AbortController().signal,
+            name: pkgName,
+            uplinksLook: false,
+            requestOptions: options,
+          });
+          const manifest = (await storage.getPackageByOptions({
+            name: pkgName,
+            uplinksLook: false,
+            requestOptions: options,
+          })) as Manifest;
+
+          // getDeprecatedPackageMetadata builds a body without top-level maintainers,
+          // like clients that do not echo the full packument back
+          const deprecateBody = getDeprecatedPackageMetadata(
+            pkgName,
+            '1.0.0',
+            { latest: '1.0.0' },
+            'some deprecation message',
+            manifest._rev
+          );
+          expect(deprecateBody.maintainers).toBeUndefined();
+          await storage.updateManifest(deprecateBody, {
+            signal: new AbortController().signal,
+            name: pkgName,
+            uplinksLook: false,
+            revision: '1',
+            requestOptions: options,
+          });
+
+          const after = (await storage.getPackageByOptions({
+            name: pkgName,
+            uplinksLook: false,
+            requestOptions: options,
+          })) as Manifest;
+          expect(after.maintainers).toEqual([{ name: owner, email: '' }]);
+
+          // ownership survived, so the owner check still rejects non-owners
+          const nonOwner = 'barUser';
+          await expect(
+            storage.updateManifest(
+              getDeprecatedPackageMetadata(
+                pkgName,
+                '1.0.0',
+                { latest: '1.0.0' },
+                'hostile deprecation',
+                after._rev
+              ),
+              {
+                signal: new AbortController().signal,
+                name: pkgName,
+                uplinksLook: false,
+                revision: '1',
+                requestOptions: { ...defaultRequestOptions, username: nonOwner },
+              }
+            )
+          ).rejects.toThrow('only owners are allowed to change package');
+        }
+      );
+
+      test.each([['foo', 'publishWithOwnerAndCheck.yaml']])(
+        'should keep maintainers after an unpublish body without maintainers %s, %s',
+        async (pkgName, configFile) => {
+          const config = getConfig(configFile);
+          const storage = new Storage(config, logger);
+          await storage.init(config);
+          const owner = 'fooUser';
+          const options = { ...defaultRequestOptions, username: owner };
+          await storage.updateManifest(generatePackageMetadata(pkgName, '1.0.0'), {
+            signal: new AbortController().signal,
+            name: pkgName,
+            uplinksLook: false,
+            requestOptions: options,
+          });
+          await storage.updateManifest(generatePackageMetadata(pkgName, '1.0.1'), {
+            signal: new AbortController().signal,
+            name: pkgName,
+            uplinksLook: false,
+            requestOptions: options,
+          });
+          const manifest = (await storage.getPackageByOptions({
+            name: pkgName,
+            uplinksLook: false,
+            requestOptions: options,
+          })) as Manifest;
+
+          const unPublishBody = generateUnPublishPackageMetadata(
+            pkgName,
+            ['1.0.1'],
+            { latest: '1.0.1' },
+            manifest._rev
+          );
+          delete (unPublishBody as { maintainers?: Author[] }).maintainers;
+          await storage.updateManifest(unPublishBody, {
+            signal: new AbortController().signal,
+            name: pkgName,
+            uplinksLook: false,
+            revision: '1',
+            requestOptions: options,
+          });
+
+          const after = (await storage.getPackageByOptions({
+            name: pkgName,
+            uplinksLook: false,
+            requestOptions: options,
+          })) as Manifest;
+          expect(Object.keys(after.versions)).toEqual(['1.0.1']);
+          expect(after.maintainers).toEqual([{ name: owner, email: '' }]);
+        }
+      );
+
+      test.each([['foo', 'publishWithOwnerAndCheck.yaml']])(
+        'should reject a deprecate with a stale revision %s, %s',
+        async (pkgName, configFile) => {
+          const config = getConfig(configFile);
+          const storage = new Storage(config, logger);
+          await storage.init(config);
+          const owner = 'fooUser';
+          const options = { ...defaultRequestOptions, username: owner };
+          await storage.updateManifest(generatePackageMetadata(pkgName, '1.0.0'), {
+            signal: new AbortController().signal,
+            name: pkgName,
+            uplinksLook: false,
+            requestOptions: options,
+          });
+          const staleManifest = (await storage.getPackageByOptions({
+            name: pkgName,
+            uplinksLook: false,
+            requestOptions: options,
+          })) as Manifest;
+          // package changes after the client fetched its copy
+          await storage.updateManifest(generatePackageMetadata(pkgName, '1.0.1'), {
+            signal: new AbortController().signal,
+            name: pkgName,
+            uplinksLook: false,
+            requestOptions: options,
+          });
+
+          // the stale body only contains 1.0.0; applying it would drop 1.0.1
+          await expect(
+            storage.updateManifest(
+              getDeprecatedPackageMetadata(
+                pkgName,
+                '1.0.0',
+                { latest: '1.0.0' },
+                'some deprecation message',
+                staleManifest._rev
+              ),
+              {
+                signal: new AbortController().signal,
+                name: pkgName,
+                uplinksLook: false,
+                revision: '1',
+                requestOptions: options,
+              }
+            )
+          ).rejects.toThrow('revision does not match the latest package revision');
+
+          const after = (await storage.getPackageByOptions({
+            name: pkgName,
+            uplinksLook: false,
+            requestOptions: options,
+          })) as Manifest;
+          expect(Object.keys(after.versions)).toEqual(expect.arrayContaining(['1.0.0', '1.0.1']));
+          expect(after.versions['1.0.0'].deprecated).toBeUndefined();
+        }
+      );
+
+      test.each([['foo', 'publishWithOwnerAndCheck.yaml']])(
+        'should reject a version unpublish with a stale revision %s, %s',
+        async (pkgName, configFile) => {
+          const config = getConfig(configFile);
+          const storage = new Storage(config, logger);
+          await storage.init(config);
+          const owner = 'fooUser';
+          const options = { ...defaultRequestOptions, username: owner };
+          await storage.updateManifest(generatePackageMetadata(pkgName, '1.0.0'), {
+            signal: new AbortController().signal,
+            name: pkgName,
+            uplinksLook: false,
+            requestOptions: options,
+          });
+          await storage.updateManifest(generatePackageMetadata(pkgName, '1.0.1'), {
+            signal: new AbortController().signal,
+            name: pkgName,
+            uplinksLook: false,
+            requestOptions: options,
+          });
+
+          await expect(
+            storage.updateManifest(
+              generateUnPublishPackageMetadata(
+                pkgName,
+                ['1.0.1'],
+                { latest: '1.0.1' },
+                'some-stale-rev'
+              ),
+              {
+                signal: new AbortController().signal,
+                name: pkgName,
+                uplinksLook: false,
+                revision: '1',
+                requestOptions: options,
+              }
+            )
+          ).rejects.toThrow('revision does not match the latest package revision');
+
+          const after = (await storage.getPackageByOptions({
+            name: pkgName,
+            uplinksLook: false,
+            requestOptions: options,
+          })) as Manifest;
+          expect(Object.keys(after.versions)).toEqual(expect.arrayContaining(['1.0.0', '1.0.1']));
+        }
+      );
+
+      test.each([['foo', 'publishWithOwnerAndCheck.yaml']])(
+        'should enforce owner check on dist-tag changes %s, %s',
+        async (pkgName, configFile) => {
+          const config = getConfig(configFile);
+          const storage = new Storage(config, logger);
+          await storage.init(config);
+          const owner = 'fooUser';
+          const options = { ...defaultRequestOptions, username: owner };
+          await storage.updateManifest(generatePackageMetadata(pkgName, '1.0.0'), {
+            signal: new AbortController().signal,
+            name: pkgName,
+            uplinksLook: false,
+            requestOptions: options,
+          });
+          await storage.updateManifest(generatePackageMetadata(pkgName, '1.0.1'), {
+            signal: new AbortController().signal,
+            name: pkgName,
+            uplinksLook: false,
+            requestOptions: options,
+          });
+
+          const nonOwner = 'barUser';
+          await expect(
+            storage.mergeTagsNext(
+              pkgName,
+              { latest: '1.0.0' },
+              { ...defaultRequestOptions, username: nonOwner }
+            )
+          ).rejects.toThrow('only owners are allowed to change package');
+
+          const merged = await storage.mergeTagsNext(
+            pkgName,
+            { beta: '1.0.0' },
+            { ...defaultRequestOptions, username: owner }
+          );
+          expect(merged[DIST_TAGS].beta).toEqual('1.0.0');
+        }
+      );
+
+      test.each([['foo', 'publishWithOwnerAndCheck.yaml']])(
+        'should enforce owner check on write access request (?write=true) %s, %s',
+        async (pkgName, configFile) => {
+          const config = getConfig(configFile);
+          const storage = new Storage(config, logger);
+          await storage.init(config);
+          const owner = 'fooUser';
+          const options = { ...defaultRequestOptions, username: owner };
+          await storage.updateManifest(generatePackageMetadata(pkgName, '1.0.0'), {
+            signal: new AbortController().signal,
+            name: pkgName,
+            uplinksLook: false,
+            requestOptions: options,
+          });
+
+          await expect(
+            storage.getPackageManifest({
+              name: pkgName,
+              uplinksLook: false,
+              requestOptions: {
+                ...defaultRequestOptions,
+                username: 'barUser',
+                byPassCache: true,
+              },
+            })
+          ).rejects.toThrow('only owners are allowed to change package');
+
+          const manifest = (await storage.getPackageManifest({
+            name: pkgName,
+            uplinksLook: false,
+            requestOptions: { ...options, byPassCache: true },
+          })) as Manifest;
+          expect(manifest.name).toEqual(pkgName);
+        }
+      );
+
+      test('should record upstream maintainers on proxied packages and enforce the owner check', async () => {
+        const pkgName = 'upstream';
+        const upstreamManifest = generateRemotePackageMetadata(
+          pkgName,
+          '1.0.0',
+          'https://fake.verdaccio.org'
+        ) as Manifest;
+        upstreamManifest.maintainers = [{ name: 'upstreamOwner', email: '' }];
+        nock('https://fake.verdaccio.org').get(`/${pkgName}`).reply(201, upstreamManifest);
+        const config = getConfig('proxyWithOwnerCheck.yaml');
+        const storage = new Storage(config, logger);
+        await storage.init(config);
+
+        // fetching through the proxy creates the local cache copy
+        await storage.getPackageByOptions({
+          name: pkgName,
+          uplinksLook: true,
+          requestOptions: defaultRequestOptions,
+        });
+
+        const cached = await storage.getPackageLocalMetadata(pkgName);
+        expect(cached.maintainers).toEqual([{ name: 'upstreamOwner', email: '' }]);
+
+        // a random authenticated user must not be able to deprecate the cached copy
+        await expect(
+          storage.updateManifest(
+            getDeprecatedPackageMetadata(
+              pkgName,
+              '1.0.0',
+              { latest: '1.0.0' },
+              'hostile deprecation',
+              cached._rev
+            ),
+            {
+              signal: new AbortController().signal,
+              name: pkgName,
+              uplinksLook: false,
+              revision: '1',
+              requestOptions: { ...defaultRequestOptions, username: 'randomUser' },
+            }
+          )
+        ).rejects.toThrow('only owners are allowed to change package');
+      });
     });
   });
 
