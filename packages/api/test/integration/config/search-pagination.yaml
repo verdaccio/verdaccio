@@ -1,0 +1,18 @@
+storage: ./storage
+
+auth:
+  htpasswd:
+    file: ./htpasswd-search-pagination
+
+uplinks:
+  first:
+    url: https://first.registry.test/
+  second:
+    url: https://second.registry.test/
+
+log: { type: stdout, format: pretty, level: fatal }
+
+packages:
+  '**':
+    access: $all
+    publish: $authenticated

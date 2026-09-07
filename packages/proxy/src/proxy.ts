@@ -53,6 +53,7 @@ export type ProxySearchParams = {
   query?: searchUtils.SearchQuery;
   headers?: Headers;
   retry?: Partial<RetryOptions>;
+  onSearchPage?: (total: number | undefined) => void;
 };
 export interface IProxy {
   uplinkName: string;
@@ -503,7 +504,12 @@ class ProxyStorage implements IProxy {
    * @param {*} options request options
    * @return {Stream}
    */
-  public async search({ url, abort, retry }: ProxySearchParams): Promise<Stream.Readable> {
+  public async search({
+    url,
+    abort,
+    retry,
+    onSearchPage,
+  }: ProxySearchParams): Promise<Stream.Readable> {
     try {
       // Incoming URL is relative ie /-/v1/search...
       const uri = new URL(url, this.url).href;
@@ -521,6 +527,7 @@ class ProxyStorage implements IProxy {
 
       const res = await (response.text() as unknown as Promise<string>);
       const total = JSON.parse(res).total;
+      onSearchPage?.(Number.isSafeInteger(total) && total >= 0 ? total : undefined);
       debug('number of packages found: %o', total);
       const streamSearch = new PassThrough({ objectMode: true });
       const streamResponse = Readable.from(res);
@@ -528,6 +535,11 @@ class ProxyStorage implements IProxy {
       streamResponse.pipe(JSONStream.parse('objects')).pipe(streamSearch, { end: true });
       return streamSearch;
     } catch (err: any) {
+      if (onSearchPage) {
+        throw abort?.signal.aborted
+          ? abort.signal.reason
+          : errorUtils.getServiceUnavailable('uplink search failed');
+      }
       debug('search error %s', err);
       if (err.response.statusCode === 409) {
         throw errorUtils.getInternalError(`bad status code ${err.response.statusCode} from uplink`);
