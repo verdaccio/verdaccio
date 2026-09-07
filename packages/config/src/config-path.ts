@@ -153,8 +153,7 @@ function getConfigPaths(): SetupDirectory[] {
  * @returns
  */
 const getXDGDirectory = (): SetupDirectory | void => {
-  const xDGConfigPath =
-    process.env.XDG_CONFIG_HOME || (process.env.HOME && path.join(process.env.HOME, '.config'));
+  const xDGConfigPath = process.env.XDG_CONFIG_HOME || path.join(os.homedir(), '.config');
   debug('XDGConfig folder path %s', xDGConfigPath);
   if (xDGConfigPath && folderExists(xDGConfigPath)) {
     debug('XDGConfig folder path %s', xDGConfigPath);
