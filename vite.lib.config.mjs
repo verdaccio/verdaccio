@@ -137,6 +137,7 @@ export function createLibConfig(dirname, options = {}) {
         ...(esmOnly && { formats: ['es'] }),
       },
       rolldownOptions: {
+        platform: 'node',
         external: isExternal,
         output: esmOnly
           ? {
