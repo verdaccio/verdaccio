@@ -102,8 +102,7 @@ function updateStorageLinks(configLocation: SetupDirectory, defaultConfig: strin
   // $XDG_DATA_HOME defines the base directory relative to which user specific data
   // files should be stored, If $XDG_DATA_HOME is either not set or empty, a default
   // equal to $HOME/.local/share should be used.
-  let dataDir =
-    process.env.XDG_DATA_HOME || path.join(os.homedir(), '.local', 'share');  
+  let dataDir = process.env.XDG_DATA_HOME || path.join(os.homedir(), '.local', 'share');
   if (folderExists(dataDir)) {
     debug(`previous storage located`);
     debug(`update storage links to %s`, dataDir);
