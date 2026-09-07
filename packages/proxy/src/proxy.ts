@@ -536,6 +536,12 @@ class ProxyStorage implements IProxy {
       return streamSearch;
     } catch (err: any) {
       if (onSearchPage) {
+        if (!abort?.signal.aborted) {
+          this.logger.error(
+            { errorMessage: err?.message, name: this.uplinkName },
+            'proxy uplink @{name} search error: @{errorMessage}'
+          );
+        }
         throw abort?.signal.aborted
           ? abort.signal.reason
           : errorUtils.getServiceUnavailable('uplink search failed');

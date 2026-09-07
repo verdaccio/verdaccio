@@ -2,7 +2,7 @@
 import getStream from 'get-stream';
 import nock from 'nock';
 import path from 'node:path';
-import { beforeAll, beforeEach, describe, expect, test } from 'vitest';
+import { afterEach, beforeAll, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
 import { streamUtils } from '@verdaccio/core';
@@ -20,6 +20,7 @@ beforeEach(() => {
   nock.cleanAll();
   nock.abortPendingRequests();
 });
+afterEach(() => vi.restoreAllMocks());
 
 const domain = 'https://registry.npmjs.org';
 
@@ -32,6 +33,26 @@ describe('proxy', () => {
   const conf = new Config(parseConfigFile(proxyPath));
 
   describe('search', () => {
+    test('logs the original paginated request failure and uplink without exposing it to clients', async () => {
+      nock(domain)
+        .get(queryUrl)
+        .replyWithError({ code: 'ECONNREFUSED', message: 'connection refused in test' });
+      const prox1 = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
+      const log = vi.spyOn(prox1.logger, 'error');
+      await expect(
+        prox1.search({
+          url: queryUrl,
+          abort: new AbortController(),
+          retry: { limit: 0 },
+          onSearchPage: () => {},
+        })
+      ).rejects.toThrow('uplink search failed');
+      expect(log).toHaveBeenCalledWith(
+        { name: 'uplink', errorMessage: expect.stringContaining('connection refused in test') },
+        'proxy uplink @{name} search error: @{errorMessage}'
+      );
+    });
+
     test('get response from endpoint', async () => {
       const response = require('./partials/search-v1.json');
       nock(domain)

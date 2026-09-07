@@ -19,6 +19,28 @@ async function consume(pages) {
 }
 
 describe('bounded uplink pages', () => {
+  test('does not suppress cancellation while awaiting the first request', async () => {
+    const opts = options();
+    const request = vi.fn(async () => {
+      opts.abort.abort(new Error('cancelled'));
+      throw new Error('request failed');
+    });
+    await expect(consume(searchPages(uplinks(request), opts))).rejects.toThrow('cancelled');
+  });
+
+  test('a failed source is retried on a new search, not on subsequent rounds', async () => {
+    const request = vi
+      .fn()
+      .mockRejectedValueOnce(new Error('offline'))
+      .mockResolvedValueOnce(Readable.from([[item('foo')]]));
+    await consume(searchPages(uplinks(request), options()));
+    const pages = searchPages(uplinks(request), options());
+    const page = await pages.next();
+    expect(page.value?.[0].package.name).toBe('foo');
+    expect(request).toHaveBeenCalledTimes(2);
+    await pages.return(undefined);
+  });
+
   test('aborting between rounds prevents another request', async () => {
     const request = vi.fn(async () => Readable.from([[item('foo')]]));
     const opts = options();

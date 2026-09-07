@@ -33,14 +33,24 @@ export async function* searchPages(
       let total: number | undefined;
       requests++;
       // Retries would bypass the request budget; the caller can retry the search.
-      const stream = await state.uplink.search({
-        ...options,
-        url: `${url.pathname}${url.search}`,
-        retry: { limit: 0 },
-        onSearchPage: (value) => {
-          total = value;
-        },
-      });
+      let stream;
+      try {
+        stream = await state.uplink.search({
+          ...options,
+          url: `${url.pathname}${url.search}`,
+          retry: { limit: 0 },
+          onSearchPage: (value) => {
+            total = value;
+          },
+        });
+      } catch (error) {
+        options.abort.signal.throwIfAborted();
+        // Preserve best-effort search for an unavailable source. Once a source
+        // has contributed results, losing its next page must not look like EOF.
+        if (state.offset > 0) throw error;
+        state.done = true;
+        continue;
+      }
       const onAbort = () => stream.destroy(options.abort.signal.reason);
       options.abort.signal.addEventListener('abort', onAbort, { once: true });
       const page: searchUtils.SearchPackageItem[] = [];

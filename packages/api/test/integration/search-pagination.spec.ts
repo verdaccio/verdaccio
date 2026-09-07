@@ -41,6 +41,81 @@ afterEach(() => {
 });
 
 describe('Search v1 progressive pagination', () => {
+  test.each([401, 404, 429, 500, 'connection', 'timeout', 'json'])(
+    'preserves local pagination when the first uplink request fails (%s)',
+    async (failure) => {
+      const upstream = nock(domain).persist().get('/-/v1/search').query(true);
+      if (failure === 'connection' || failure === 'timeout') {
+        upstream.replyWithError({
+          code: failure === 'connection' ? 'ECONNREFUSED' : 'ETIMEDOUT',
+          message: String(failure),
+        });
+      } else if (failure === 'json') {
+        upstream.reply(200, 'invalid JSON');
+      } else {
+        upstream.reply(failure);
+      }
+      const app = await initializeServer('search-abort.yaml');
+      const user = await createUser(app, 'test', 'test');
+      for (const name of ['foo-a', 'foo-b', 'foo-c']) {
+        await publishVersionWithToken(app, name, '1.0.0', user.body.token);
+      }
+      const first = await supertest(app).get('/-/v1/search?text=foo&from=0&size=2').expect(200);
+      const second = await supertest(app).get('/-/v1/search?text=foo&from=2&size=2').expect(200);
+      expect(names(first)).toEqual(['foo-a', 'foo-b']);
+      expect(names(second)).toEqual(['foo-c']);
+    }
+  );
+
+  test('returns an empty successful page when all sources are unavailable and no locals match', async () => {
+    nock(domain)
+      .get('/-/v1/search')
+      .query(true)
+      .replyWithError({ code: 'ECONNREFUSED', message: 'offline' });
+    const app = await initializeServer('search-abort.yaml');
+    const response = await supertest(app)
+      .get('/-/v1/search?text=missing&from=20&size=20')
+      .expect(200);
+    expect(names(response)).toEqual([]);
+  });
+
+  test.each(['first', 'second'])(
+    'continues paging the healthy source when %s is unavailable',
+    async (failed) => {
+      let failures = 0;
+      const offsets: number[] = [];
+      for (const name of ['first', 'second']) {
+        const host = `https://${name}.registry.test`;
+        if (name === failed) {
+          nock(host)
+            .get('/-/v1/search')
+            .query(true)
+            .reply(503, () => {
+              failures++;
+              return {};
+            });
+        } else {
+          nock(host)
+            .persist()
+            .get('/-/v1/search')
+            .query(true)
+            .reply(200, (uri) => {
+              const from = Number(new URL(uri, host).searchParams.get('from'));
+              offsets.push(from);
+              return { objects: catalog(6).slice(from, from + 2), total: 6 };
+            });
+        }
+      }
+      const app = await initializeServer('search-pagination.yaml');
+      const response = await supertest(app)
+        .get('/-/v1/search?text=remote&from=3&size=2')
+        .expect(200);
+      expect(names(response)).toEqual(['remote-3', 'remote-4']);
+      expect(offsets).toEqual([0, 2, 4]);
+      expect(failures).toBe(1);
+    }
+  );
+
   test.each([
     ['first', 15, 0],
     ['second', 0, 15],
