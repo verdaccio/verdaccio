@@ -6,9 +6,10 @@ export default defineConfig({
     coverage: {
       exclude: [
         './build',
-        'test',
-        'tests',
-        '**__partials__**',
+        '**/test/**',
+        '**/tests/**',
+        '**/__partials__/**',
+        '**/partials/**',
         '**/node_modules/**',
         '**/storybook-static/**',
         '**/src/**/*.stories.{ts,tsx}',

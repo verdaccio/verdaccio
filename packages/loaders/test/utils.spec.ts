@@ -1,5 +1,7 @@
+import { mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
 import path from 'node:path';
-import { describe, expect, test, vi } from 'vitest';
+import { afterEach, describe, expect, test, vi } from 'vitest';
 
 import { tryLoadAsync } from '../src/utils';
 
@@ -118,5 +120,104 @@ describe('tryLoadAsync', () => {
     // an import() retry would evaluate the module a second time
     // @ts-expect-error test-only marker set by the broken plugin fixture
     expect(globalThis.__verdaccioBrokenPluginEvaluations).toBe(1);
+  });
+});
+
+describe('tryLoadAsync entry point resolution', () => {
+  const tempDirs: string[] = [];
+  const tlaSource = `await Promise.resolve();
+export default function plugin() {
+  return { register_middlewares() {} };
+}
+`;
+
+  afterEach(async () => {
+    await Promise.all(tempDirs.splice(0).map((dir) => rm(dir, { recursive: true, force: true })));
+  });
+
+  async function createTlaPlugin(
+    pkg: Record<string, unknown>,
+    files: Record<string, string> = { 'index.js': tlaSource }
+  ): Promise<string> {
+    const dir = await mkdtemp(path.join(tmpdir(), 'verdaccio-tla-'));
+    tempDirs.push(dir);
+    await writeFile(
+      path.join(dir, 'package.json'),
+      JSON.stringify({ name: 'tla-plugin', version: '1.0.0', type: 'module', ...pkg })
+    );
+    for (const [file, content] of Object.entries(files)) {
+      await writeFile(path.join(dir, file), content);
+    }
+    return dir;
+  }
+
+  test('resolves a string exports field', async () => {
+    const onError = vi.fn();
+    const dir = await createTlaPlugin({ exports: './entry.js' }, { 'entry.js': tlaSource });
+    const plugin: any = await tryLoadAsync(dir, onError);
+
+    expect(typeof plugin?.default).toBe('function');
+    expect(onError).not.toHaveBeenCalled();
+  });
+
+  test('resolves nested exports import.default', async () => {
+    const onError = vi.fn();
+    const dir = await createTlaPlugin({
+      exports: { '.': { import: { default: './index.js' } } },
+    });
+    const plugin: any = await tryLoadAsync(dir, onError);
+
+    expect(typeof plugin?.default).toBe('function');
+    expect(onError).not.toHaveBeenCalled();
+  });
+
+  test('resolves exports default as a string', async () => {
+    const onError = vi.fn();
+    const dir = await createTlaPlugin({
+      exports: { '.': { default: './index.js' } },
+    });
+    const plugin: any = await tryLoadAsync(dir, onError);
+
+    expect(typeof plugin?.default).toBe('function');
+    expect(onError).not.toHaveBeenCalled();
+  });
+
+  test('resolves the module field when exports is absent', async () => {
+    const onError = vi.fn();
+    const dir = await createTlaPlugin({ module: './mod.js' }, { 'mod.js': tlaSource });
+    const plugin: any = await tryLoadAsync(dir, onError);
+
+    expect(typeof plugin?.default).toBe('function');
+    expect(onError).not.toHaveBeenCalled();
+  });
+
+  test('falls back to index.js when the manifest has no entry fields', async () => {
+    const onError = vi.fn();
+    const dir = await createTlaPlugin({});
+    const plugin: any = await tryLoadAsync(dir, onError);
+
+    expect(typeof plugin?.default).toBe('function');
+    expect(onError).not.toHaveBeenCalled();
+  });
+
+  test('reports a missing dependency on the import() path', async () => {
+    const onError = vi.fn();
+    const dir = await createTlaPlugin(
+      {},
+      {
+        'index.js': `await Promise.resolve();
+await import('this-esm-dep-does-not-exist-xyz');
+export default function plugin() {}
+`,
+      }
+    );
+
+    await expect(tryLoadAsync(dir, onError)).rejects.toThrow(
+      "Cannot find package 'this-esm-dep-does-not-exist-xyz'"
+    );
+    expect(onError).toHaveBeenCalledWith(
+      { err: expect.stringContaining('this-esm-dep-does-not-exist-xyz') },
+      'error loading plugin @{err}'
+    );
   });
 });
