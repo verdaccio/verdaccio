@@ -217,6 +217,52 @@ describe('search', () => {
       expect(forwardedQuery.get('from')).toBe('10000');
     });
 
+    test('should isolate client headers from configured uplink headers', async () => {
+      const app = await initializeServer('search-uplink-headers.yaml');
+      const user = await createUser(app, 'search-client', 'password');
+      const clientToken = user.body.token;
+      const request = nock('https://registry.npmjs.org')
+        .get(/\/-\/v1\/search/)
+        .reply(200, function () {
+          expect(this.req.headers.authorization).toBe('Bearer uplink-token');
+          expect(this.req.headers['x-uplink-header']).toBe('configured-value');
+          expect(this.req.headers.cookie).toBeUndefined();
+          expect(this.req.headers['npm-otp']).toBeUndefined();
+          expect(this.req.headers['npm-session']).toBeUndefined();
+          expect(this.req.headers['npm-command']).toBeUndefined();
+          expect(this.req.headers['npm-scope']).toBeUndefined();
+          expect(this.req.headers['npm-auth-type']).toBeUndefined();
+          expect(this.req.headers['proxy-authorization']).toBeUndefined();
+          expect(this.req.headers['x-forwarded-for']).toBeUndefined();
+          expect(this.req.headers['x-real-ip']).toBeUndefined();
+          expect(this.req.headers.forwarded).toBeUndefined();
+          expect(this.req.headers.referer).toBeUndefined();
+          expect(this.req.headers['x-client-secret']).toBeUndefined();
+          expect(Object.values(this.req.headers).join(' ')).not.toContain(clientToken);
+          return { objects: [], total: 0, time: '' };
+        });
+
+      await supertest(app)
+        .get('/-/v1/search?text=header-security&size=20&from=0')
+        .set(HEADERS.AUTHORIZATION, `Bearer ${clientToken}`)
+        .set('Cookie', 'session=client-secret')
+        .set('npm-otp', '123456')
+        .set('npm-session', 'client-session')
+        .set('npm-command', 'search')
+        .set('npm-scope', '@private')
+        .set('npm-auth-type', 'legacy')
+        .set('proxy-authorization', 'Basic proxy-secret')
+        .set('x-forwarded-for', '192.0.2.1')
+        .set('x-real-ip', '192.0.2.2')
+        .set('forwarded', 'for=192.0.2.3')
+        .set('referer', 'https://client.example/private')
+        .set('x-client-secret', 'secret')
+        .set('x-uplink-header', 'client-value')
+        .expect(HTTP_STATUS.OK);
+
+      expect(request.isDone()).toBe(true);
+    });
+
     test('should preserve optional package fields returned by an uplink', async () => {
       nock('https://registry.npmjs.org')
         .get(/\/-\/v1\/search/)
