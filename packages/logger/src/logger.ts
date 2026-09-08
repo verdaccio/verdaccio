@@ -122,5 +122,6 @@ export async function prepareSetup(
     return createLogger(loggerConfig, destination, loggerConfig.format, pino);
   }
   debug('logging stdout enabled');
-  return createLogger(loggerConfig, pino.destination(1), loggerConfig.format, pino);
+  const destination = willUseTransport(loggerConfig.format) ? undefined : pino.destination(1);
+  return createLogger(loggerConfig, destination, loggerConfig.format, pino);
 }
