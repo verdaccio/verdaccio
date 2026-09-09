@@ -46,24 +46,20 @@ describe('storage migrate', () => {
 
   test('dry-run copies nothing', async () => {
     const src = await fs.mkdtemp(path.join(os.tmpdir(), 'vc-mig-dry-'));
-    const dest = path.join(src, 'dest-elsewhere');
+    // unique parent so a prior run or parallel worker can never pre-create the target
+    const parent = await fs.mkdtemp(path.join(os.tmpdir(), 'vc-mig-dry-parent-'));
+    const dest = path.join(parent, 'dest');
     await fs.writeFile(path.join(src, '.verdaccio-db.json'), 'DB');
 
-    const { code } = await runMigrate([
-      '--from',
-      src,
-      '--to',
-      path.join(os.tmpdir(), 'vc-mig-dry-dest'),
-      '--dry-run',
-    ]);
+    const { code } = await runMigrate(['--from', src, '--to', dest, '--dry-run']);
     expect(code).toBe(0);
     expect(
       await fs
-        .access(path.join(os.tmpdir(), 'vc-mig-dry-dest'))
+        .access(dest)
         .then(() => true)
         .catch(() => false)
     ).toBe(false);
     await fs.rm(src, { recursive: true, force: true });
-    await fs.rm(dest, { recursive: true, force: true });
+    await fs.rm(parent, { recursive: true, force: true });
   });
 });
