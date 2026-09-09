@@ -13,12 +13,8 @@ const ERR_REQUIRE_ESM = 'ERR_REQUIRE_ESM';
 const ERR_REQUIRE_ASYNC_MODULE = 'ERR_REQUIRE_ASYNC_MODULE';
 
 // the ESM build has no ambient require; create one so CJS plugins keep loading.
-// rolldown rewrites bare `require` to a throwing stub in the ESM output and
-// lowers `import.meta` to `{}` in the CJS output, so `import.meta.url` is only
-// truthy in the ESM build; module-scoped __filename covers the CJS build
-// (checking `typeof __filename`/`typeof require` instead is unsafe: node -e and
-// the REPL leak both as globals into ES modules)
-const requireModule = import.meta.url ? createRequire(import.meta.url) : createRequire(__filename);
+// rolldown rewrites bare `require` to a throwing stub in the ESM output.
+const requireModule = createRequire(import.meta.filename);
 
 export type PluginType<T> = T extends pluginUtils.Plugin<T> ? T : never;
 
