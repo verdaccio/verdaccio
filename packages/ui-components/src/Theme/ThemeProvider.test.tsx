@@ -1,5 +1,6 @@
 import { useTheme } from '@mui/material/styles';
 import React from 'react';
+import { describe, expect, test } from 'vitest';
 
 import { renderWith, screen } from '../test/test-react-testing-library';
 import { PRIMARY_COLOR } from './colors';

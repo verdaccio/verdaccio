@@ -5,8 +5,8 @@ import type { Manifest } from '@verdaccio/types';
 
 import { useData } from '../../api/use-data';
 import { getConfiguration } from '../../configuration';
-import { APIRoute } from '../../store/routes';
 import { stripTrailingSlash } from '../../store/utils';
+import { APIRoute } from '../../utils/routes';
 
 export interface ManifestsContextProps {
   isError: boolean;
