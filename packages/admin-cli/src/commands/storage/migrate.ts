@@ -195,18 +195,23 @@ export class StorageMigrateCommand extends StorageBaseCommand {
       }
       const answer = await this.ask(
         `"${item.name}" exists in destination — [o]verwrite / [s]kip / [a]ll / ` +
-          `skip a[l]l? (o/s/a/l) [s]: `
+          `skip a[l]l? (o/s/a/l) [s]: `,
+        `conflicting packages are skipped; pass --overwrite to replace them`
       );
-      const choice = (answer ?? 'l').toLowerCase();
+      if (answer === null) {
+        policy = 'skip-all';
+        continue;
+      }
+      const choice = answer.toLowerCase();
       if (choice === 'o') {
         toCopy.push(item);
       } else if (choice === 'a') {
         policy = 'overwrite-all';
         toCopy.push(item);
-      } else if (choice === 'l' || answer === null) {
+      } else if (choice === 'l') {
         policy = 'skip-all';
       }
-      // 's' or anything else: skip just this one
+      // '', 's' or anything else: skip just this one (the prompt's [s] default)
     }
     return toCopy;
   }

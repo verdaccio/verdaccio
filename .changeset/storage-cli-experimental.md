@@ -49,7 +49,9 @@ private database, the token store and staged publishes) to another directory. Th
 is the configured storage by default (each package copied from its authoritative on-disk
 location, honouring per-package `storage` overrides), or an explicit `--from <dir>` (a pure
 directory-to-directory copy that needs no config). Packages already in the destination are
-resolved interactively (overwrite/skip/all), and an **existing destination database, secret
+resolved interactively (overwrite/skip/all — skip is the default; non-TTY runs skip every
+conflict and hint at `--overwrite`), and overwriting replaces the destination folder, so
+stale files that only existed there do not survive. An **existing destination database, secret
 or token store is preserved, never overwritten** — a merge does not corrupt the
 destination's index or invalidate its tokens.
 

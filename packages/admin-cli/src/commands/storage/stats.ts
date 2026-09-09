@@ -35,7 +35,8 @@ export class StorageStatsCommand extends StorageBaseCommand {
       return 1;
     }
     const items: searchUtils.SearchItem[] = await search({ text: '' } as searchUtils.SearchQuery);
-    if (items.length > 0 && !isFilesystemBackend(plugin, items[0].package.name)) {
+    // probe with any name when the registry is empty — the guard must still apply
+    if (!isFilesystemBackend(plugin, items[0]?.package.name ?? 'verdaccio-probe')) {
       this.context.stderr.write(
         `storage stats requires the filesystem storage backend; the configured storage plugin is not filesystem-based\n`
       );

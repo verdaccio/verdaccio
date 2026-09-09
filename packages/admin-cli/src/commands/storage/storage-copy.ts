@@ -18,8 +18,8 @@ export interface StorageConfig {
 }
 
 export function handlerPath(plugin: CachePlugin, name: string): string | undefined {
-  const handler = plugin.getPackageStorage(name) as { path?: string };
-  return typeof handler.path === 'string' ? handler.path : undefined;
+  const handler = plugin.getPackageStorage(name) as { path?: string } | undefined;
+  return typeof handler?.path === 'string' ? handler.path : undefined;
 }
 
 export interface CopyItem {
@@ -112,8 +112,10 @@ export async function buildCopyItems(
   return out;
 }
 
-/** Recursively copy one package folder. */
+/** Recursively copy one package folder; an existing destination is replaced, not merged. */
 export async function copyPackage(srcDir: string, destDir: string): Promise<void> {
+  // stale files that exist only in the destination must not survive an overwrite
+  await fs.rm(destDir, { recursive: true, force: true });
   await fs.cp(srcDir, destDir, { recursive: true });
 }
 

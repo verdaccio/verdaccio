@@ -41,10 +41,13 @@ export abstract class StorageBaseCommand extends Command {
   }
 
   /** Ask a free-form question; returns the trimmed answer, or null when not a TTY. */
-  protected async ask(message: string): Promise<string | null> {
+  protected async ask(
+    message: string,
+    nonTtyHint = `pass --yes to proceed non-interactively`
+  ): Promise<string | null> {
     const input = this.context.stdin as NodeJS.ReadStream;
     if (!input.isTTY) {
-      this.context.stderr.write(`not a TTY; pass --yes to proceed non-interactively\n`);
+      this.context.stderr.write(`not a TTY; ${nonTtyHint}\n`);
       return null;
     }
     const rl = readlinePromises.createInterface({ input, output: this.context.stdout });

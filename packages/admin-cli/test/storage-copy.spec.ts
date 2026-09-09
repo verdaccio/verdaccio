@@ -51,6 +51,32 @@ describe('isFilesystemBackend', () => {
     };
     expect(isFilesystemBackend(plugin, 'pkg')).toBe(false);
   });
+
+  test('false when the plugin returns no handler (empty-registry probe)', () => {
+    const plugin = { getPackageStorage: () => undefined };
+    expect(isFilesystemBackend(plugin, 'verdaccio-probe')).toBe(false);
+  });
+});
+
+import { copyPackage } from '../src/commands/storage/storage-copy';
+
+describe('copyPackage', () => {
+  test('overwriting replaces the destination — stale files do not survive', async () => {
+    const src = await fs.mkdtemp(path.join(os.tmpdir(), 'vc-cp-src-'));
+    const dest = await fs.mkdtemp(path.join(os.tmpdir(), 'vc-cp-dest-'));
+    const destPkg = path.join(dest, 'pkg');
+    await fs.writeFile(path.join(src, 'package.json'), '{"v":"new"}');
+    await fs.writeFile(path.join(src, 'pkg-2.0.0.tgz'), 'T2');
+    await fs.mkdir(destPkg);
+    await fs.writeFile(path.join(destPkg, 'package.json'), '{"v":"old"}');
+    await fs.writeFile(path.join(destPkg, 'pkg-1.0.0.tgz'), 'T1'); // only in dest
+
+    await copyPackage(src, destPkg);
+    expect((await fs.readdir(destPkg)).sort()).toEqual(['package.json', 'pkg-2.0.0.tgz']);
+    expect(await fs.readFile(path.join(destPkg, 'package.json'), 'utf8')).toBe('{"v":"new"}');
+    await fs.rm(src, { recursive: true, force: true });
+    await fs.rm(dest, { recursive: true, force: true });
+  });
 });
 
 import { promises as fsp } from 'node:fs';
