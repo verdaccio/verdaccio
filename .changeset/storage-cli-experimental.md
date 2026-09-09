@@ -51,13 +51,20 @@ location, honouring per-package `storage` overrides), or an explicit `--from <di
 directory-to-directory copy that needs no config). Packages already in the destination are
 resolved interactively (overwrite/skip/all — skip is the default; non-TTY runs skip every
 conflict and hint at `--overwrite`), and overwriting replaces the destination folder, so
-stale files that only existed there do not survive. An **existing destination database, secret
+stale files that only existed there do not survive; the replacement is staged through a
+temp sibling and swapped in only when complete, so a failed copy never destroys the
+existing destination package, and a source that resolves to the same directory as its
+destination is refused. The registry state is migrated even when the source has no
+packages (or every conflict is skipped). An **existing destination database, secret
 or token store is preserved, never overwritten** — a merge does not corrupt the
 destination's index or invalidate its tokens.
 
 `storage backup <location>` copies the whole storage tree to a fresh (empty) location as a
 complete snapshot (packages, private database, token store and `.stage`), refusing to write
-into a non-empty directory.
+into a non-empty directory or a location that is not a directory.
+
+The interactive password prompt (`-u,--user` without `--password`) aborts cleanly when the
+prompt is closed without input (Ctrl+D / Ctrl+C) instead of hanging the command.
 
 Destructive operations warn to run with the server stopped, and `doctor` ignores temp files
 younger than an hour so it does not delete an in-flight write.

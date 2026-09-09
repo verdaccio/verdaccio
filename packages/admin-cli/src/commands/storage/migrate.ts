@@ -72,10 +72,6 @@ export class StorageMigrateCommand extends StorageBaseCommand {
     }
     const { sourceRoot, sources } = resolved;
 
-    if (sources.length === 0) {
-      this.context.stdout.write(`nothing to migrate\n`);
-      return 0;
-    }
     if (sourceRoot === destRoot) {
       this.context.stderr.write(`source and destination are the same directory\n`);
       return 1;
@@ -94,13 +90,15 @@ export class StorageMigrateCommand extends StorageBaseCommand {
       return 0;
     }
 
+    // even with no packages to copy (empty source, or every conflict skipped) the
+    // registry state — db, token store, staged publishes — is still migrated
     const toCopy = await this.resolveConflicts(copyItems);
-    if (toCopy.length === 0) {
-      this.context.stdout.write(`nothing to copy\n`);
-      return 0;
-    }
     this.context.stderr.write(`run this with the server stopped to avoid copying data mid-write\n`);
-    if (!(await this.confirm(`\nCopy ${toCopy.length} package(s) to ${destRoot}? (y/N) `))) {
+    if (
+      !(await this.confirm(
+        `\nCopy ${toCopy.length} package(s) and the registry state to ${destRoot}? (y/N) `
+      ))
+    ) {
       this.context.stdout.write(`aborted, no changes made\n`);
       return 0;
     }

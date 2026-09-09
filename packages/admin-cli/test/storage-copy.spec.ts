@@ -58,9 +58,53 @@ describe('isFilesystemBackend', () => {
   });
 });
 
-import { copyPackage } from '../src/commands/storage/storage-copy';
+import { vi } from 'vitest';
+import { copyPackage, emptyDirProblem } from '../src/commands/storage/storage-copy';
+
+describe('emptyDirProblem', () => {
+  test('null for a missing target or an empty directory', async () => {
+    expect(await emptyDirProblem('/no/such/dir/at/all')).toBe(null);
+    const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'vc-empty-'));
+    expect(await emptyDirProblem(dir)).toBe(null);
+    await fs.rm(dir, { recursive: true, force: true });
+  });
+
+  test('reports a regular file and a non-empty directory', async () => {
+    const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'vc-full-'));
+    const file = path.join(dir, 'a-file');
+    await fs.writeFile(file, 'x');
+    expect(await emptyDirProblem(file)).toBe('not a directory');
+    expect(await emptyDirProblem(dir)).toBe('not empty');
+    await fs.rm(dir, { recursive: true, force: true });
+  });
+});
 
 describe('copyPackage', () => {
+  test('rejects when source and destination are the same directory', async () => {
+    const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'vc-same-'));
+    await fs.writeFile(path.join(dir, 'package.json'), '{}');
+    await expect(copyPackage(dir, dir)).rejects.toThrow(/same directory/);
+    // the source must still be intact
+    expect(await fs.readdir(dir)).toEqual(['package.json']);
+    await fs.rm(dir, { recursive: true, force: true });
+  });
+
+  test('a failed overwrite keeps the existing destination package', async () => {
+    const src = await fs.mkdtemp(path.join(os.tmpdir(), 'vc-fail-src-'));
+    const dest = await fs.mkdtemp(path.join(os.tmpdir(), 'vc-fail-dest-'));
+    const destPkg = path.join(dest, 'pkg');
+    await fs.writeFile(path.join(src, 'package.json'), '{"v":"new"}');
+    await fs.mkdir(destPkg);
+    await fs.writeFile(path.join(destPkg, 'package.json'), '{"v":"old"}');
+
+    vi.spyOn(fs, 'cp').mockRejectedValueOnce(new Error('disk full'));
+    await expect(copyPackage(src, destPkg)).rejects.toThrow('disk full');
+    expect(await fs.readFile(path.join(destPkg, 'package.json'), 'utf8')).toBe('{"v":"old"}');
+    vi.restoreAllMocks();
+    await fs.rm(src, { recursive: true, force: true });
+    await fs.rm(dest, { recursive: true, force: true });
+  });
+
   test('overwriting replaces the destination — stale files do not survive', async () => {
     const src = await fs.mkdtemp(path.join(os.tmpdir(), 'vc-cp-src-'));
     const dest = await fs.mkdtemp(path.join(os.tmpdir(), 'vc-cp-dest-'));

@@ -112,11 +112,57 @@ export async function buildCopyItems(
   return out;
 }
 
-/** Recursively copy one package folder; an existing destination is replaced, not merged. */
+/** True when both paths resolve to the same real location (symlinks included). */
+async function samePath(a: string, b: string): Promise<boolean> {
+  const realA = await fs.realpath(a).catch(() => path.resolve(a));
+  const realB = await fs.realpath(b).catch(() => path.resolve(b));
+  return realA === realB;
+}
+
+/**
+ * Recursively copy one package folder; an existing destination is replaced, not
+ * merged. The copy lands in a temp sibling first and is swapped in only once it
+ * is complete, so a failed copy never destroys the existing destination package.
+ */
 export async function copyPackage(srcDir: string, destDir: string): Promise<void> {
-  // stale files that exist only in the destination must not survive an overwrite
-  await fs.rm(destDir, { recursive: true, force: true });
-  await fs.cp(srcDir, destDir, { recursive: true });
+  // per-package storage overrides could point the source at the destination
+  if (await samePath(srcDir, destDir)) {
+    throw new Error(`source and destination are the same directory: ${srcDir}`);
+  }
+  if (!(await exists(destDir))) {
+    await fs.cp(srcDir, destDir, { recursive: true });
+    return;
+  }
+  const tmpDir = `${destDir}.migrate-tmp`;
+  const oldDir = `${destDir}.migrate-old`;
+  await fs.rm(tmpDir, { recursive: true, force: true });
+  await fs.cp(srcDir, tmpDir, { recursive: true });
+  await fs.rm(oldDir, { recursive: true, force: true });
+  await fs.rename(destDir, oldDir);
+  try {
+    await fs.rename(tmpDir, destDir);
+  } catch (err) {
+    await fs.rename(oldDir, destDir); // restore the original package
+    throw err;
+  }
+  await fs.rm(oldDir, { recursive: true, force: true });
+}
+
+/**
+ * Why the target cannot be used as a fresh (empty) destination — `not a directory`
+ * or `not empty` — or null when it is usable (missing or an empty directory).
+ */
+export async function emptyDirProblem(target: string): Promise<string | null> {
+  let stat;
+  try {
+    stat = await fs.lstat(target);
+  } catch {
+    return null;
+  }
+  if (!stat.isDirectory()) {
+    return `not a directory`;
+  }
+  return (await fs.readdir(target)).length > 0 ? `not empty` : null;
 }
 
 export interface StateResult {

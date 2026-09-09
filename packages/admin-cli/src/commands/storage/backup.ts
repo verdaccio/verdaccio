@@ -4,7 +4,7 @@ import path from 'node:path';
 
 import { StorageBaseCommand } from './base';
 import { loadStorageContext } from './context';
-import { exists, isDefaultLocalStorage, resolveStorageRoot } from './storage-copy';
+import { emptyDirProblem, exists, isDefaultLocalStorage, resolveStorageRoot } from './storage-copy';
 
 export class StorageBackupCommand extends StorageBaseCommand {
   public static paths = [[`storage`, `backup`]];
@@ -40,8 +40,9 @@ export class StorageBackupCommand extends StorageBaseCommand {
       return 1;
     }
     // a backup must land in a clean location so it is a faithful, complete snapshot
-    if ((await exists(destRoot)) && (await fs.readdir(destRoot)).length > 0) {
-      this.context.stderr.write(`backup location is not empty: ${destRoot}\n`);
+    const problem = await emptyDirProblem(destRoot);
+    if (problem !== null) {
+      this.context.stderr.write(`backup location is ${problem}: ${destRoot}\n`);
       return 1;
     }
 

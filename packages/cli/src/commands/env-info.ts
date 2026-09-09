@@ -4,7 +4,7 @@ import fs from 'node:fs/promises';
 import os from 'node:os';
 import { promisify } from 'node:util';
 
-import { findConfigFile, getConfigParsed } from '@verdaccio/config';
+import { findExistingConfigFile, getConfigParsed } from '@verdaccio/config';
 import type { ConfigYaml } from '@verdaccio/types';
 
 const run = promisify(execFile);
@@ -120,7 +120,11 @@ export function verdaccioConfigLines(
 
 async function verdaccioInfo(mask: boolean): Promise<string[]> {
   try {
-    const configPath = findConfigFile();
+    // side-effect-free lookup: --info must never create a config file
+    const configPath = findExistingConfigFile();
+    if (configPath === undefined) {
+      return [];
+    }
     return verdaccioConfigLines(getConfigParsed(configPath), configPath, mask);
   } catch {
     return [];

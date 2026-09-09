@@ -102,8 +102,17 @@ export abstract class AuthStorageCommand extends StorageBaseCommand {
       const rl = readline.createInterface({ input, output, terminal: true });
       // suppress echo so the typed password is not shown
       (rl as unknown as { _writeToOutput: (s: string) => void })._writeToOutput = () => {};
+      let answered = false;
+      // Ctrl+D / Ctrl+C close the interface without firing the question callback
+      rl.on('close', () => {
+        if (!answered) {
+          output.write(`\n`);
+          reject(new Error('password prompt closed without input'));
+        }
+      });
       output.write(`Password: `);
       rl.question(``, (answer) => {
+        answered = true;
         rl.close();
         output.write(`\n`);
         resolve(answer);
