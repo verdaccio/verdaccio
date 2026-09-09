@@ -30,7 +30,7 @@ import type {
   ProxySearchParams,
 } from '@verdaccio/proxy';
 import { ProxyStorage, setupUpLinks, updateVersionsHiddenUpLinkNext } from '@verdaccio/proxy';
-import Search from '@verdaccio/search';
+import Search, { SEARCH_MAX_CANDIDATES } from '@verdaccio/search';
 import type { TarballDetails } from '@verdaccio/tarball';
 import {
   convertDistRemoteToLocalTarballUrls,
@@ -74,7 +74,7 @@ import {
   lookupDistFile,
   uplinkServesUrl,
 } from './lib/storage-utils';
-import { getVersion, removeLowerVersions } from './lib/versions-utils';
+import { getVersion, isNewerVersion, removeLowerVersions } from './lib/versions-utils';
 import { StageStorage } from './stage-storage';
 import { LocalStorage } from './local-storage';
 import type { IGetPackageOptionsNext, OwnerManifestBody } from './type';
@@ -246,6 +246,46 @@ class Storage {
     const uniqueResults = removeLowerVersions(totalResults);
     debug('unique results %o', uniqueResults.length);
     return uniqueResults;
+  }
+
+  /** Cumulative, stable prefixes for Search v1; consumers stop once their page is full. */
+  public async *searchPages(options: ProxySearchParams) {
+    options.abort.signal.throwIfAborted();
+    const local = await this.getCachedPackages({
+      ...options.query,
+      from: 0,
+      size: SEARCH_MAX_CANDIDATES,
+    } as searchUtils.SearchQuery);
+    const merged = new Map<string, searchUtils.SearchPackageItem>();
+    let candidates = 0;
+    const append = (items: searchUtils.SearchPackageItem[]) => {
+      options.abort.signal.throwIfAborted();
+      candidates += items.length;
+      if (candidates > SEARCH_MAX_CANDIDATES) {
+        throw errorUtils.getServiceUnavailable('search pagination budget exhausted');
+      }
+      for (const item of items) {
+        const previous = merged.get(item.package.name);
+        if (
+          !previous ||
+          (item.package.version !== previous.package.version &&
+            isNewerVersion(item.package.version, previous.package.version))
+        ) {
+          // Replacing metadata must not move a package to a later page.
+          merged.set(item.package.name, item);
+        }
+      }
+      return [...merged.values()];
+    };
+    // Complete the first remote round before selecting a page so duplicate remote
+    // versions participate even when local results alone would fill it.
+    append(local);
+    let hadRound = false;
+    for await (const round of this.searchService.searchPages(options)) {
+      hadRound = true;
+      yield append(round);
+    }
+    if (!hadRound) yield [...merged.values()];
   }
 
   private async getTarballFromUpstream(name: string, filename: string, { signal }) {
