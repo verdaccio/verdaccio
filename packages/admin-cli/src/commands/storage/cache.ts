@@ -27,10 +27,10 @@ export class StorageCacheCommand extends AuthStorageCommand {
     category: `Storage`,
     description: `inspect or clean the uplink cache (experimental)`,
     examples: [
-      [`List cached uplink packages you can access`, `verdaccio storage cache`],
-      [`Clean the cache (asks for confirmation)`, `verdaccio storage cache --clean`],
-      [`Preview only, never delete`, `verdaccio storage cache --clean --dry-run`],
-      [`Clean without the prompt (scripts)`, `verdaccio storage cache --clean --yes`],
+      [`List cached uplink packages you can access`, `verdaccio-admin storage cache`],
+      [`Clean the cache (asks for confirmation)`, `verdaccio-admin storage cache --clean`],
+      [`Preview only, never delete`, `verdaccio-admin storage cache --clean --dry-run`],
+      [`Clean without the prompt (scripts)`, `verdaccio-admin storage cache --clean --yes`],
     ],
   });
 

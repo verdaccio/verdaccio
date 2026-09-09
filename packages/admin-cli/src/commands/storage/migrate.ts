@@ -33,12 +33,12 @@ export class StorageMigrateCommand extends StorageBaseCommand {
     category: `Storage`,
     description: `copy the whole storage (packages + database) to another location (experimental)`,
     examples: [
-      [`Migrate the configured storage`, `verdaccio storage migrate --to /new/storage`],
+      [`Migrate the configured storage`, `verdaccio-admin storage migrate --to /new/storage`],
       [
         `Migrate from one directory to another`,
-        `verdaccio storage migrate --from /old/storage --to /new/storage`,
+        `verdaccio-admin storage migrate --from /old/storage --to /new/storage`,
       ],
-      [`Preview only`, `verdaccio storage migrate --to /new/storage --dry-run`],
+      [`Preview only`, `verdaccio-admin storage migrate --to /new/storage --dry-run`],
     ],
   });
 

@@ -22,7 +22,7 @@ export class StorageStatsCommand extends StorageBaseCommand {
   static usage = Command.Usage({
     category: `Storage`,
     description: `report package counts and disk usage of the storage (experimental)`,
-    examples: [[`Show storage stats`, `verdaccio storage stats`]],
+    examples: [[`Show storage stats`, `verdaccio-admin storage stats`]],
   });
 
   public async execute(): Promise<number> {

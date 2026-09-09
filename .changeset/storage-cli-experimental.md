@@ -1,10 +1,13 @@
 ---
-'@verdaccio/cli': minor
+'@verdaccio/admin-cli': minor
 ---
 
-feat(cli): experimental `verdaccio storage` command group
+feat(admin-cli): new `@verdaccio/admin-cli` package with an experimental `verdaccio-admin storage` command group
 
-Adds an experimental `verdaccio storage` command with `cache`, `view`, `doctor`,
+A new package that ships the `verdaccio-admin` binary, home of the operator-facing
+maintenance commands, kept separate from the `verdaccio` binary that runs the server.
+
+It adds an experimental `storage` command group with `cache`, `view`, `doctor`,
 `migrate`, `backup` and `stats` subcommands for inspecting, cleaning, repairing, moving,
 snapshotting and measuring the storage. The group is experimental and prints a yellow
 notice on every run.
@@ -13,16 +16,6 @@ These commands target the filesystem storage backend. The ones that read the on-
 layout — `doctor`, `stats`, `migrate` and `backup` — refuse to run with a clear message
 when the configured storage plugin is not filesystem-based (e.g. S3/GCS/Azure); `cache`
 and `view` still work but omit disk sizes there.
-
-The `--info` command now builds its environment report locally (dropping the `envinfo`
-dependency), no longer lists browsers, and adds a Verdaccio section with the config path,
-whether the storage is the built-in local filesystem or a storage plugin, and the
-configured auth/middleware/filter plugins. A new `--info --mask` flag obscures every file
-path (binary, config and storage) by replacing each directory with `**` while keeping the
-structure and the final name; without it, the report ends with a hint that the flag exists.
-On Windows the binary/Docker/global-package detection (which relies on `which` and
-unshimmed executables) is skipped rather than printing broken entries; the OS, CPU and
-Verdaccio sections still show.
 
 The per-package commands (`cache`, `view`, `doctor`) are gated by the same package-access
 ACL the registry enforces. The operator logs in with `-u,--user` (password prompted, or
@@ -70,6 +63,3 @@ younger than an hour so it does not delete an in-flight write.
 `storage stats` prints a table with the item counts (private, cached and staged — the
 hidden `.stage` namespace is scanned separately), the tarball count and the disk usage
 (total and per category).
-
-`verdaccio --help` / `-h` now prints the full command index (including the storage
-group) instead of only the launch-server usage.

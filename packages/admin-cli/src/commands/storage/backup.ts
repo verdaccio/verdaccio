@@ -12,7 +12,9 @@ export class StorageBackupCommand extends StorageBaseCommand {
   static usage = Command.Usage({
     category: `Storage`,
     description: `copy the whole storage to a fresh backup location (experimental)`,
-    examples: [[`Back up the storage`, `verdaccio storage backup /backups/verdaccio-2026-09-06`]],
+    examples: [
+      [`Back up the storage`, `verdaccio-admin storage backup /backups/verdaccio-2026-09-06`],
+    ],
   });
 
   public location = Option.String({ required: true, name: `location` });

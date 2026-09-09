@@ -32,7 +32,7 @@ export class StorageViewCommand extends AuthStorageCommand {
   static usage = Command.Usage({
     category: `Storage`,
     description: `browse the storage cache and remove entries manually (experimental)`,
-    examples: [[`Open the interactive storage browser`, `verdaccio storage view`]],
+    examples: [[`Open the interactive storage browser`, `verdaccio-admin storage view`]],
   });
 
   public async execute(): Promise<number> {

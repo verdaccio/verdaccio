@@ -45,8 +45,11 @@ export class StorageDoctorCommand extends AuthStorageCommand {
     category: `Storage`,
     description: `detect and repair storage inconsistencies (experimental)`,
     examples: [
-      [`Report problems without changing anything`, `verdaccio storage doctor`],
-      [`Repair the fixable problems (asks for confirmation)`, `verdaccio storage doctor --fix`],
+      [`Report problems without changing anything`, `verdaccio-admin storage doctor`],
+      [
+        `Repair the fixable problems (asks for confirmation)`,
+        `verdaccio-admin storage doctor --fix`,
+      ],
     ],
   });
 

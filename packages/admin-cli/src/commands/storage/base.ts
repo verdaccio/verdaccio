@@ -10,7 +10,7 @@ import type { RemoteUser } from '@verdaccio/types';
 import { authenticateUser, resolveRemoteUser } from './access';
 
 /**
- * Shared base for the experimental `verdaccio storage` command group.
+ * Shared base for the experimental `verdaccio-admin storage` command group.
  *
  * Every storage subcommand emits the experimental warning once, shares the
  * `--config` flag and resolves the operator identity so operations can be gated
@@ -27,7 +27,7 @@ export abstract class StorageBaseCommand extends Command {
 
   protected warnExperimental(): void {
     this.context.stderr.write(
-      chalk.yellow(`⚠ "verdaccio storage" is experimental and may change or be removed\n`)
+      chalk.yellow(`⚠ "verdaccio-admin storage" is experimental and may change or be removed\n`)
     );
   }
 
