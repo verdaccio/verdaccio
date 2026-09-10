@@ -1,5 +1,12 @@
 # @verdaccio/ui-components
 
+## 5.0.0-next-9.22
+
+### Patch Changes
+
+- 2e494bb: fix(ui-components): imports for vitest, apiroute
+- f3f8976: chore: replace \_\_dirname with import.meta.dirname
+
 ## 5.0.0-next-9.21
 
 ### Patch Changes
