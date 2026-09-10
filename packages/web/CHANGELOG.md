@@ -1,5 +1,29 @@
 # @verdaccio/web
 
+## 9.0.0-next-9.32
+
+### Patch Changes
+
+- f3f8976: chore: replace \_\_dirname with import.meta.dirname
+- Updated dependencies [107c4d3]
+- Updated dependencies [34cd0fb]
+- Updated dependencies [3724054]
+- Updated dependencies [f3f8976]
+- Updated dependencies [3618123]
+- Updated dependencies [b27212f]
+- Updated dependencies [cbfcfd2]
+- Updated dependencies [73415bb]
+- Updated dependencies [107c4d3]
+  - @verdaccio/logger@9.0.0-next-9.32
+  - @verdaccio/config@9.0.0-next-9.32
+  - @verdaccio/loaders@9.0.0-next-9.32
+  - @verdaccio/ui-theme@9.0.0-next-9.32
+  - @verdaccio/store@9.0.0-next-9.32
+  - @verdaccio/auth@9.0.0-next-9.32
+  - @verdaccio/middleware@9.0.0-next-9.32
+  - @verdaccio/core@9.0.0-next-9.32
+  - @verdaccio/tarball@14.0.0-next-9.32
+
 ## 9.0.0-next-9.31
 
 ### Patch Changes

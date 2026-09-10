@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 9.0.0-next-9.32
+
+### Patch Changes
+
+- f3f8976: chore: replace \_\_dirname with import.meta.dirname
+
 ## 9.0.0-next-9.31
 
 ### Patch Changes
