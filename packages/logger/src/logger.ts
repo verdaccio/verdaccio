@@ -112,7 +112,11 @@ export async function prepareSetup(
     }
     // For file destinations (json format), wait for the fd to be ready
     // so we fail fast on bad paths / permissions instead of losing early logs
-    const destination = pino.destination(loggerConfig.path);
+    const destination = pino.destination({
+      dest: loggerConfig.path,
+      sync: loggerConfig.sync ?? false,
+      minLength: 0,
+    });
     await new Promise<void>((resolve, reject) => {
       destination.once('ready', resolve);
       destination.once('error', reject);
@@ -122,6 +126,8 @@ export async function prepareSetup(
     return createLogger(loggerConfig, destination, loggerConfig.format, pino);
   }
   debug('logging stdout enabled');
-  const destination = willUseTransport(loggerConfig.format) ? undefined : pino.destination(1);
+  const destination = willUseTransport(loggerConfig.format)
+    ? undefined
+    : pino.destination({ dest: 1, sync: loggerConfig.sync ?? false, minLength: 0 });
   return createLogger(loggerConfig, destination, loggerConfig.format, pino);
 }
