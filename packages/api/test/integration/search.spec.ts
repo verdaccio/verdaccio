@@ -140,6 +140,29 @@ describe('search', () => {
     });
   });
   describe('pagination', () => {
+    test('should paginate remote results only once', async () => {
+      const packages = Array.from({ length: 60 }, (_, i) => ({
+        package: { name: `remote-${i}`, version: '1.0.0' },
+      }));
+      const uplink = nock('https://registry.npmjs.org')
+        .get('/-/v1/search')
+        .query(true)
+        .reply(200, (uri) => {
+          const query = new URL(uri, 'https://registry.npmjs.org').searchParams;
+          const from = Number(query.get('from'));
+          const size = Number(query.get('size'));
+          return { objects: packages.slice(from, from + size), total: packages.length };
+        });
+      const remoteApp = await initializeServer('search-abort.yaml');
+      const response = await supertest(remoteApp)
+        .get('/-/v1/search?text=remote&from=20&size=20')
+        .expect(HTTP_STATUS.OK);
+      expect(response.body.objects.map((item) => item.package.name)).toEqual(
+        packages.slice(20, 40).map((item) => item.package.name)
+      );
+      expect(uplink.isDone()).toBe(true);
+    });
+
     test('should honor the size and from parameters', async () => {
       const res = await createUser(app, 'test', 'test');
       await publishVersionWithToken(app, 'foo-a', '1.0.0', res.body.token);
@@ -196,7 +219,7 @@ describe('search', () => {
       nock.cleanAll();
     });
 
-    test('should forward the clamped size and from values to the uplink', async () => {
+    test('should start bounded uplink pages at zero even for a large client offset', async () => {
       let forwardedPath;
       nock('https://registry.npmjs.org')
         .get(/\/-\/v1\/search/)
@@ -214,7 +237,7 @@ describe('search', () => {
       const forwardedQuery = new URL(forwardedPath, 'https://registry.npmjs.org').searchParams;
       expect(forwardedQuery.get('text')).toBe('clamp-check');
       expect(forwardedQuery.get('size')).toBe('250');
-      expect(forwardedQuery.get('from')).toBe('10000');
+      expect(forwardedQuery.get('from')).toBe('0');
     });
 
     test('should preserve optional package fields returned by an uplink', async () => {

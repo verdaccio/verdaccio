@@ -94,7 +94,6 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
         let plugin = await tryLoadAsync<T>(externalFilePlugin, (a: any, b: any) => {
           logger.error(a, b);
         });
-        debug('external plugin %o', plugin);
         if (plugin && isValid(plugin)) {
           plugin = executePlugin(
             plugin,
