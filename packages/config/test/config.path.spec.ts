@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import { afterEach, beforeEach, describe, expect, test, vi, type MockInstance } from 'vitest';
 
-import { findConfigFile } from '../src/config-path';
+import { findConfigFile, findExistingConfigFile } from '../src/config-path';
 
 describe('config-path', () => {
   let statSyncMock: MockInstance;
@@ -108,6 +108,35 @@ describe('config-path', () => {
             }).toThrow(/configuration file does not have enough permissions for reading/);
           });
         }
+      });
+    });
+
+    describe('findExistingConfigFile', () => {
+      test('returns the existing config location without creating anything', () => {
+        statSyncMock.mockReturnValue({
+          isDirectory: vi.fn().mockReturnValue(true),
+          isFile: vi.fn().mockReturnValue(true),
+        });
+        mkdirSyncMock.mockReturnValue(true).mockClear();
+        writeFileSyncMock.mockReturnValue(undefined).mockClear();
+        vi.stubEnv('XDG_CONFIG_HOME', '/home/user');
+
+        expect(findExistingConfigFile()).toEqual(platformPath('/home/user/verdaccio/config.yaml'));
+        expect(writeFileSyncMock).not.toHaveBeenCalled();
+        expect(mkdirSyncMock).not.toHaveBeenCalled();
+      });
+
+      test('returns undefined and creates nothing when no config exists', () => {
+        statSyncMock.mockImplementation(() => {
+          throw new Error('ENOENT');
+        });
+        mkdirSyncMock.mockReturnValue(true).mockClear();
+        writeFileSyncMock.mockReturnValue(undefined).mockClear();
+        vi.stubEnv('XDG_CONFIG_HOME', '/home/user');
+
+        expect(findExistingConfigFile()).toBeUndefined();
+        expect(writeFileSyncMock).not.toHaveBeenCalled();
+        expect(mkdirSyncMock).not.toHaveBeenCalled();
       });
     });
 

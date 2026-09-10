@@ -1,0 +1,79 @@
+{
+  "name": "@verdaccio/admin-cli",
+  "version": "9.0.0-next-9.31",
+  "author": {
+    "name": "Juan Picado",
+    "email": "juanpicado19@gmail.com"
+  },
+  "bin": {
+    "verdaccio-admin": "./bin/verdaccio-admin"
+  },
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio",
+    "directory": "packages/admin-cli"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
+  },
+  "homepage": "https://verdaccio.org",
+  "keywords": [
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "enterprise",
+    "modules",
+    "proxy",
+    "server",
+    "verdaccio"
+  ],
+  "engines": {
+    "node": ">=24"
+  },
+  "description": "Verdaccio Admin CLI",
+  "license": "MIT",
+  "main": "./build/index.js",
+  "types": "build/index.d.ts",
+  "scripts": {
+    "clean": "rimraf ./build",
+    "test": "vitest run",
+    "watch": "vite build --watch",
+    "build": "vite build",
+    "start": "tsx src/index.ts"
+  },
+  "dependencies": {
+    "@verdaccio/auth": "workspace:9.0.0-next-9.31",
+    "@verdaccio/config": "workspace:9.0.0-next-9.31",
+    "@verdaccio/core": "workspace:9.0.0-next-9.31",
+    "@verdaccio/logger": "workspace:9.0.0-next-9.31",
+    "@verdaccio/store": "workspace:9.0.0-next-9.31",
+    "chalk": "4.1.2",
+    "clipanion": "4.0.0-rc.4"
+  },
+  "devDependencies": {
+    "@verdaccio/types": "workspace:14.0.0-next-9.14",
+    "rimraf": "6.1.3",
+    "tsx": "4.22.4",
+    "vite": "8.2.2",
+    "vitest": "4.1.11"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  },
+  "module": "./build/index.mjs",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./build/index.d.ts",
+        "default": "./build/index.mjs"
+      },
+      "require": {
+        "types": "./build/index.d.ts",
+        "default": "./build/index.js"
+      }
+    },
+    "./build/*": "./build/*"
+  }
+}

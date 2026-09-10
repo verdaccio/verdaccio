@@ -82,7 +82,7 @@
     "verdaccio-htpasswd": "workspace:*",
     "verdaccio-memory": "workspace:*",
     "vite": "8.2.2",
-    "vitest": "4.1.10"
+    "vitest": "4.1.11"
   },
   "scripts": {
     "prepare": "husky",
