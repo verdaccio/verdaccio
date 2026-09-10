@@ -29,6 +29,9 @@
   ],
   "references": [
     {
+      "path": "packages/admin-cli"
+    },
+    {
       "path": "packages/api"
     },
     {

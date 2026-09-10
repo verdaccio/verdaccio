@@ -54,6 +54,17 @@ function findConfigFile(configPath?: string): string {
   return createConfigFile(configPaths[0]).path;
 }
 
+/**
+ * Like {@link findConfigFile}, but side-effect free: returns the first existing
+ * config file location, or undefined when none exists (nothing is created).
+ */
+function findExistingConfigFile(): string | undefined {
+  const primaryConf: SetupDirectory | void = find(getConfigPaths(), (configLocation) =>
+    fileExists(configLocation.path)
+  );
+  return primaryConf?.path;
+}
+
 function createConfigFile(configLocation: SetupDirectory): SetupDirectory {
   createConfigFolder(configLocation);
 
@@ -206,4 +217,4 @@ const getOldDirectory = (): SetupDirectory => {
   };
 };
 
-export { findConfigFile };
+export { findConfigFile, findExistingConfigFile };
