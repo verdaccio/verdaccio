@@ -69,7 +69,7 @@
     "express": "4.22.2",
     "typedoc": "0.28.20",
     "vite": "8.1.5",
-    "vitest": "4.1.10"
+    "vitest": "4.1.11"
   },
   "engines": {
     "node": ">=22"
