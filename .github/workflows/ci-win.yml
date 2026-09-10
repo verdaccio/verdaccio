@@ -5,7 +5,6 @@ on:
 permissions:
   actions: read
   contents: read
-  security-events: write
 concurrency:
   group: ci-win-${{ github.ref }}
   cancel-in-progress: true

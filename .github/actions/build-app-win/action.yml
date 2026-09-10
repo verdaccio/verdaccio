@@ -17,6 +17,7 @@ runs:
       uses: ./.github/actions/install-app-win
       with:
         node-version: ${{ inputs.node-version }}
+        registry-url: ${{ inputs.registry-url }}
     - name: build
       run: pnpm build
       shell: pwsh
