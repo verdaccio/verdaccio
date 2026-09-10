@@ -252,6 +252,46 @@ describe('token', () => {
     });
 
     test.each([['user.yaml'], ['user.jwt.yaml']])(
+      'should return 401 when Basic Auth credentials are invalid',
+      async (conf) => {
+        const app = await initializeServer(conf);
+        const basicToken = Buffer.from('admin:admin').toString('base64');
+        const response = await supertest(app)
+          .get('/-/user/org.couchdb.user:admin')
+          .set(HEADERS.AUTHORIZATION, `Basic ${basicToken}`)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.UNAUTHORIZED);
+        expect(response.body.error).toBe(API_ERROR.BAD_USERNAME_PASSWORD);
+      }
+    );
+
+    test.each([['user.yaml'], ['user.jwt.yaml']])(
+      'should return 401 when Bearer credentials are invalid',
+      async (conf) => {
+        const app = await initializeServer(conf);
+        const response = await supertest(app)
+          .get('/-/user/org.couchdb.user:admin')
+          .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, 'invalidToken'))
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.UNAUTHORIZED);
+        expect(response.body.error).toBe(API_ERROR.BAD_USERNAME_PASSWORD);
+      }
+    );
+
+    test.each([['user.yaml'], ['user.jwt.yaml']])(
+      'should return 400 when Authorization header is malformed',
+      async (conf) => {
+        const app = await initializeServer(conf);
+        const response = await supertest(app)
+          .get('/-/user/org.couchdb.user:admin')
+          .set(HEADERS.AUTHORIZATION, 'invalidToken')
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.BAD_REQUEST);
+        expect(response.body.error).toBe(API_ERROR.BAD_AUTH_HEADER);
+      }
+    );
+
+    test.each([['user.yaml'], ['user.jwt.yaml']])(
       'should return "false" if user is not logged in',
       async (conf) => {
         const app = await initializeServer(conf);
