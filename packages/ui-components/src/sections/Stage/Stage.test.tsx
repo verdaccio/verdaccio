@@ -120,7 +120,7 @@ describe('<StageList />', () => {
     renderList();
     await waitFor(() => expect(screen.getByTestId('stage-table')).toBeInTheDocument());
 
-    screen.getByTestId(`stage-approve-${item.id}`).click();
+    fireEvent.click(screen.getByTestId(`stage-approve-${item.id}`));
 
     // approving publishes for real, so it must never be one click away
     await waitFor(() => expect(screen.getByTestId('stage-confirm')).toBeInTheDocument());
@@ -169,7 +169,7 @@ describe('<StageList />', () => {
     renderList();
     await waitFor(() => expect(screen.getByTestId('stage-table')).toBeInTheDocument());
 
-    screen.getByTestId(`stage-reject-${item.id}`).click();
+    fireEvent.click(screen.getByTestId(`stage-reject-${item.id}`));
 
     await waitFor(() => expect(screen.getByText('stage.confirm.rejectTitle')).toBeInTheDocument());
     expect(requestMock).not.toHaveBeenCalledWith(expect.stringContaining(item.id), 'DELETE');

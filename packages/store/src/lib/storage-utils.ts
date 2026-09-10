@@ -388,7 +388,7 @@ export function isDeprecatedManifest(manifest: Manifest): boolean {
 
 export function mapManifestToSearchPackageBody(
   pkg: Manifest,
-  searchItem: searchUtils.SearchItem
+  _searchItem: searchUtils.SearchItem
 ): searchUtils.SearchPackageBody {
   const latest = pkgUtils.getLatest(pkg);
   const version: Version = pkg.versions[latest];
@@ -427,7 +427,6 @@ export function mapManifestToSearchPackageBody(
   }
   const result: searchUtils.SearchPackageBody = {
     name: version.name,
-    scope: '',
     description: version.description,
     version: latest,
     license: version.license,
@@ -441,10 +440,6 @@ export function mapManifestToSearchPackageBody(
 
   if (Object.keys(links).length > 0) {
     result.links = links;
-  }
-
-  if (typeof searchItem.package.scoped === 'string') {
-    result.scope = searchItem.package.scoped;
   }
 
   return result;

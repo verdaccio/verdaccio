@@ -400,6 +400,30 @@ describe('Storage Utils', () => {
       score: { final: 1, detail: { maintenance: 0, popularity: 1, quality: 1 } },
     } as any;
 
+    test('should omit scope from an unscoped local search package', () => {
+      const manifest = generatePackageMetadata('npm_test', '1.0.0') as Manifest;
+      manifest.time = { '1.0.0': '2018-01-14T11:17:40.712Z' };
+
+      const body = mapManifestToSearchPackageBody(manifest, searchItem);
+
+      expect(body.name).toBe('npm_test');
+      expect(body).not.toHaveProperty('scope');
+    });
+
+    test('should keep the scoped name but omit the redundant scope field', () => {
+      const manifest = generatePackageMetadata('@scope/npm_test', '1.0.0') as Manifest;
+      manifest.time = { '1.0.0': '2018-01-14T11:17:40.712Z' };
+      const scopedSearchItem = {
+        ...searchItem,
+        package: { name: '@scope/npm_test', scoped: '@scope' },
+      } as any;
+
+      const body = mapManifestToSearchPackageBody(manifest, scopedSearchItem);
+
+      expect(body.name).toBe('@scope/npm_test');
+      expect(body).not.toHaveProperty('scope');
+    });
+
     test('should map packument maintainers to the npm search username format', () => {
       const manifest = generatePackageMetadata('npm_test', '1.0.0') as Manifest;
       manifest.time = { '1.0.0': '2018-01-14T11:17:40.712Z' };

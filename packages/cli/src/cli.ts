@@ -34,11 +34,7 @@ export function runCli(options: CliRuntimeOptions = {}): Promise<void> {
   const [node, app, ...args] = process.argv;
 
   const version =
-    options.version ??
-    (pkgUtils.getPackageJson(
-      typeof __dirname !== 'undefined' ? __dirname : import.meta.dirname,
-      '..'
-    ).version as string);
+    options.version ?? (pkgUtils.getPackageJson(import.meta.dirname, '..').version as string);
 
   const cli = new Cli({
     binaryLabel: `verdaccio`,

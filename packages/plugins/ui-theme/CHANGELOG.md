@@ -1,5 +1,30 @@
 # @verdaccio/ui-theme
 
+## 9.0.0-next-9.31
+
+### Patch Changes
+
+- 770ebe4: fix(ui): follow-ups to the web UI bug batch
+  
+  - login and signup now update the auth context, so the header reflects the session immediately instead of showing the login button until a manual refresh
+  - a 2xx login/signup response without a token shows an error instead of a false success page
+  - a readme-only failure no longer blanks the whole package detail page, and a failed revalidation no longer hides the cached package list on the home page
+  - the versions filter resets when navigating to another package instead of silently applying the previous package's filter
+  - the search dropdown shows the loading state during the debounce window instead of flashing "No results found" on every keystroke
+  - the session now logs out exactly when the token expires (single timer) instead of polling every minute and hard-reloading mid-interaction
+  - a malformed leading `funding` entry no longer hides a later valid funding url
+- 8b2b136: Web UI bug batch:
+  
+  - the create-user form posted to a non-existent endpoint, so web signup always failed; it now calls `PUT /-/verdaccio/sec/signup` with the required `sessionId` and logs the new user in
+  - 5xx/network failures rendered a blank detail page whose tabs crashed the whole app, and an unreachable backend looked like an empty registry inviting to publish; both now show a proper error state
+  - the router used the raw `url_prefix` as basename, leaving the UI blank or 404ing behind proxies and `VERDACCIO_PUBLIC_URL`; it now uses the server-normalized basename, and the security pages' links/redirects respect sub-path deployments
+  - the whole `security.*` i18n namespace was missing from the shipped bundle (raw keys on the login, add-user and change-password pages); both crowdin sources are now synced and kept aligned by a parity test, and dates follow the selected language
+  - requesting a version that does not exist (`/v/9.9.9`, a dist-tag, or `__proto__`) silently served `latest` under the requested title; the sidebar and readme endpoints now answer 404, with own-property version lookups that also close a prototype-pollution path flagged by CodeQL
+  - login/search/download failures were swallowed or all mapped to "invalid username or password"; errors are now surfaced and translated, submits are reentrancy-guarded against duplicate requests, and a 2xx login response without a token no longer passes as a login
+  - logging out re-hydrated the session from storage before clearing it, expired tokens lingered in localStorage for up to an hour, and malformed tokens were printed to the console
+  - assorted fixes: `yarn global add -g true`, clipboard on plain-http deployments, versions tab showing the previous package's data, missing gravatars, corrupted staged tarball downloads, string forms of `repository`/`funding`/`bugs`, developers without email collapsing into one, stray "0"s and "Invalid Date" tooltips, empty keywords section, nested `<form>` markup, a11y labels and the vendor notice in the browser console
+- 770ebe4: fix(ui): drop `credentials: 'include'` from the tarball download fetch. Web-UI auth travels in the `Authorization: Bearer` header, not cookies, so `include` gained nothing but made the browser reject the registry's wildcard `Access-Control-Allow-Origin: *` on cross-origin downloads (e.g. `pnpm start`, where the UI dev server on :4873 fetches tarballs from the registry on :8000), breaking the download-tarball button with a CORS error.
+
 ## 9.0.0-next-9.30
 
 ## 9.0.0-next-9.29

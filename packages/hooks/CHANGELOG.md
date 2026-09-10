@@ -1,5 +1,17 @@
 # @verdaccio/hooks
 
+## 9.0.0-next-9.31
+
+### Patch Changes
+
+- Updated dependencies [c2b5897]
+- Updated dependencies [68ab0d4]
+- Updated dependencies [c52b632]
+- Updated dependencies [7054084]
+- Updated dependencies [cf15239]
+  - @verdaccio/core@9.0.0-next-9.31
+  - @verdaccio/logger@9.0.0-next-9.31
+
 ## 9.0.0-next-9.30
 
 ### Patch Changes

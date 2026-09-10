@@ -2,7 +2,7 @@ import buildDebug from 'debug';
 import { Router } from 'express';
 
 import type { Auth } from '@verdaccio/auth';
-import { DIST_TAGS, HEADERS, HEADER_TYPE } from '@verdaccio/core';
+import { DIST_TAGS, HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 import {
   $NextFunctionVer,
   $RequestExtend,
@@ -13,7 +13,7 @@ import {
 import type { Storage } from '@verdaccio/store';
 import type { Config, Manifest } from '@verdaccio/types';
 
-import { isVersionValid } from '../web-utils';
+import { isVersionValid, resolveVersion } from '../web-utils';
 import { scopedPackageAccess } from './scoped-access';
 
 export { $RequestExtend, $ResponseExtend, $NextFunctionVer }; // Was required by other packages
@@ -76,10 +76,21 @@ function addReadmeWebApi(storage: Storage, auth: Auth, config: Config): Router {
           requestOptions,
         })) as Manifest;
         debug('readme pkg %o', manifest?.name);
-        res.set(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_PLAIN_UTF8);
         // TODO: sanitize query
         const { v } = req.query;
-        const readme = getReadmeFromManifest(manifest, v);
+        // `v` may be a version or a dist-tag; anything else is a 404
+        let requestedVersion: string | undefined;
+        if (typeof v === 'string') {
+          requestedVersion = resolveVersion(manifest, v);
+          if (!requestedVersion) {
+            debug('version %o not found for %o', v, name);
+            res.status(HTTP_STATUS.NOT_FOUND);
+            res.end();
+            return;
+          }
+        }
+        res.set(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_PLAIN_UTF8);
+        const readme = getReadmeFromManifest(manifest, requestedVersion);
         next(getReadme(readme));
       } catch (err) {
         next(err);

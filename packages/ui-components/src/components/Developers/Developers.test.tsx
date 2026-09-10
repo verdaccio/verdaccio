@@ -1,4 +1,5 @@
 import React from 'react';
+import { afterEach, describe, expect, test } from 'vitest';
 
 import { cleanup, fireEvent, renderWith, screen } from '../../test/test-react-testing-library';
 import { DeveloperType } from './DeveloperType';
@@ -50,6 +51,18 @@ describe('test Developers', () => {
   });
 
   test('should render the component for contributors with items', () => {
+    renderWith(<Developers packageMeta={packageMeta} type={DeveloperType.CONTRIBUTORS} />);
+    expect(screen.queryAllByTestId('PersonIcon')).toHaveLength(2);
+  });
+
+  test('should not collapse developers without email into one', () => {
+    const packageMeta = {
+      latest: {
+        packageName: 'foo',
+        version: '1.0.0',
+        contributors: [{ name: 'Alice' }, { name: 'Bob' }],
+      },
+    };
     renderWith(<Developers packageMeta={packageMeta} type={DeveloperType.CONTRIBUTORS} />);
     expect(screen.queryAllByTestId('PersonIcon')).toHaveLength(2);
   });

@@ -1,13 +1,9 @@
-import buildDebug from 'debug';
-
 import type { Auth } from '@verdaccio/auth';
 import type { searchUtils } from '@verdaccio/core';
-import { HTTP_STATUS } from '@verdaccio/core';
+import { HTTP_STATUS, errorUtils } from '@verdaccio/core';
 import { SEARCH_API_ENDPOINTS, rateLimit } from '@verdaccio/middleware';
 import type { Storage } from '@verdaccio/store';
 import type { Config, Logger } from '@verdaccio/types';
-
-const debug = buildDebug('verdaccio:api:search');
 
 const DEFAULT_SIZE = 20;
 // the public npm registry caps page size at 250 as well
@@ -18,6 +14,7 @@ const MAX_FROM = 10_000;
 // access checks run in batches so the scan can stop early once the
 // requested page is filled
 const CHECK_ACCESS_BATCH_SIZE = 50;
+const SEARCH_TIMEOUT_MS = 30_000;
 
 function parseQueryInt(value: unknown, defaultValue: number, max: number): number {
   const parsed = Number.parseInt(String(value), 10);
@@ -40,7 +37,11 @@ export default function (
   config: Config,
   logger: Logger
 ): void {
-  function checkAccess(pkg: any, auth: any, remoteUser): Promise<searchUtils.SearchItemPkg | null> {
+  function checkAccess(
+    pkg: any,
+    auth: any,
+    remoteUser
+  ): Promise<searchUtils.SearchPackageItem | null> {
     return new Promise((resolve, reject) => {
       auth.allow_access({ packageName: pkg?.package?.name }, remoteUser, function (err, allowed) {
         if (err) {
@@ -67,55 +68,64 @@ export default function (
       // request cannot demand unbounded work
       const size = parseQueryInt(query.size, DEFAULT_SIZE, MAX_SIZE);
       const from = parseQueryInt(query.from, 0, MAX_FROM);
-      // rebuild the query and relative url from the clamped values so the
-      // bounds hold end-to-end: storage plugins read `query.size`/`query.from`
-      // and the uplink proxy forwards `url` verbatim to the remote registry
       const safeQuery = { ...query, size, from };
-      const searchParams = new URLSearchParams(query);
-      searchParams.set('size', String(size));
-      searchParams.set('from', String(from));
-      const safeUrl = `${url.split('?')[0]}?${searchParams.toString()}`;
       const abort = new AbortController();
       const onClientClose = (): void => {
-        debug('search web aborted');
-        abort.abort();
+        if (!res.writableEnded) abort.abort(new Error('search client disconnected'));
       };
-      req.socket.on('close', onClientClose);
+      res.on('close', onClientClose);
+      const timeout = setTimeout(() => {
+        abort.abort(errorUtils.getServiceUnavailable('search pagination timed out'));
+      }, SEARCH_TIMEOUT_MS);
+      timeout.unref();
+      let onAbort: () => void;
+      const cancelled = new Promise<never>((_resolve, reject) => {
+        onAbort = () => reject(abort.signal.reason);
+        abort.signal.addEventListener('abort', onAbort, { once: true });
+      });
 
       try {
-        debug('storage search initiated');
-        const data = await storage.search({
-          query: safeQuery,
-          url: safeUrl,
-          abort,
-        });
-        debug('storage items total: %o', data.length);
-
-        // evaluate access in batches and stop as soon as the requested page
-        // is filled, instead of running an auth check on every result
         const requested = from + size;
-        const allowed: searchUtils.SearchItemPkg[] = [];
-        for (
-          let i = 0;
-          i < data.length && allowed.length < requested && !abort.signal.aborted;
-          i += CHECK_ACCESS_BATCH_SIZE
-        ) {
-          const batch = await Promise.all(
-            data
-              .slice(i, i + CHECK_ACCESS_BATCH_SIZE)
-              .map((pkgItem) => checkAccess(pkgItem, auth, req.remote_user))
-          );
-          for (const item of batch) {
-            if (item !== null) {
-              allowed.push(item);
+        const access = new Map<string, Promise<boolean>>();
+        const collect = async (): Promise<searchUtils.SearchPackageItem[]> => {
+          if (size === 0) return [];
+          let allowed: searchUtils.SearchPackageItem[] = [];
+          for await (const data of storage.searchPages({ query: safeQuery, url, abort })) {
+            abort.signal.throwIfAborted();
+            allowed = [];
+            for (
+              let i = 0;
+              i < data.length && allowed.length < requested;
+              i += CHECK_ACCESS_BATCH_SIZE
+            ) {
+              abort.signal.throwIfAborted();
+              const batch = await Promise.race([
+                Promise.all(
+                  data.slice(i, i + CHECK_ACCESS_BATCH_SIZE).map(async (item) => {
+                    const name = item.package.name;
+                    let permission = access.get(name);
+                    if (!permission) {
+                      permission = checkAccess(item, auth, req.remote_user).then(
+                        (result) => result !== null
+                      );
+                      access.set(name, permission);
+                    }
+                    return (await permission) ? item : null;
+                  })
+                ),
+                cancelled,
+              ]);
+              for (const item of batch) if (item !== null) allowed.push(item);
             }
+            if (allowed.length >= requested) break;
           }
-        }
-
-        const final: searchUtils.SearchItemPkg[] = allowed.slice(from, requested);
+          abort.signal.throwIfAborted();
+          return allowed.slice(from, requested);
+        };
+        const final = await Promise.race([collect(), cancelled]);
         logger.debug(`search results ${final?.length}`);
 
-        const response: searchUtils.SearchResults = {
+        const response = {
           objects: final,
           total: final.length,
           time: new Date().toUTCString(),
@@ -123,11 +133,15 @@ export default function (
 
         res.status(HTTP_STATUS.OK).json(response);
       } catch (error) {
+        if (res.destroyed) return;
         logger.error({ error }, 'search endpoint has failed @{error.message}');
         next(error);
         return;
       } finally {
-        req.socket.off('close', onClientClose);
+        clearTimeout(timeout);
+        abort.signal.removeEventListener('abort', onAbort!);
+        res.off('close', onClientClose);
+        abort.abort();
       }
     }
   );

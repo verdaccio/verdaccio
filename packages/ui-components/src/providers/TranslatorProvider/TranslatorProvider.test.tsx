@@ -2,7 +2,7 @@ import { render } from '@testing-library/react';
 import i18n from 'i18next';
 import React from 'react';
 import { initReactI18next, useTranslation } from 'react-i18next';
-import { vi } from 'vitest';
+import { expect, test, vi } from 'vitest';
 
 import TranslatorProvider, { useLanguage } from './TranslatorProvider';
 
@@ -24,6 +24,8 @@ i18n.use(initReactI18next).init({
     },
   },
   debug: false,
+  // same as src/test/i18n-config.ts: keep the vendor support notice out of test output
+  showSupportNotice: false,
   interpolation: {
     escapeValue: false,
   },

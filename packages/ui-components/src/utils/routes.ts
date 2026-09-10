@@ -22,6 +22,7 @@ export enum Route {
 // http://localhost:8000/-/verdaccio/data/package/readme/jquery
 export enum APIRoute {
   LOGIN = '/-/verdaccio/sec/login',
+  SIGNUP = '/-/verdaccio/sec/signup',
   RESET_PASSWORD = '/-/verdaccio/sec/reset_password',
   CONFIG = '/-/verdaccio/packages',
   PACKAGES = '/-/verdaccio/data/packages',

@@ -20,6 +20,9 @@ allowBuilds:
   msw: true
   unrs-resolver: true
 minimumReleaseAge: 10080
+# pnpm 12 auto-adds new direct dependencies to minimumReleaseAgeExclude instead
+# of blocking them; strict keeps the pnpm 11 behavior (fail on immature versions)
+minimumReleaseAgeStrict: true
 minimumReleaseAgeExclude:
   - '@verdaccio/*'
   - '@verdaccio-scope/*'

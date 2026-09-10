@@ -1,6 +1,6 @@
 import SearchMui from '@mui/icons-material/Search';
 import { debounce } from 'lodash-es';
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
@@ -19,7 +19,7 @@ const CONSTANTS = {
 const Search: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { searchResults, isLoading, doSearch } = useSearch();
+  const { searchResults, isLoading, isError, doSearch, resetSearch } = useSearch();
 
   const abortControllerRef = useRef<AbortController | null>(null);
 
@@ -55,12 +55,17 @@ const Search: React.FC = () => {
   const doSearchRef = useRef(doSearch);
   doSearchRef.current = doSearch;
 
+  // shows the dropdown as loading during the debounce window; without it the
+  // immediate reset below reads as "no results found" on every keystroke
+  const [isDebouncing, setIsDebouncing] = useState(false);
+
   /**
    * Stable fetch function that reads the latest doSearch from a ref,
    * avoiding dependency changes that would break the debounce.
    */
   const handleFetchPackages = useCallback(
     async ({ value }: { value: string }) => {
+      setIsDebouncing(false);
       if (value?.trim() !== '') {
         // Abort any previous pending request before starting a new one
         cancelAllSearchRequests();
@@ -91,6 +96,19 @@ const Search: React.FC = () => {
   const debouncedFetch = useMemo(
     () => debounce(handleFetchPackages, CONSTANTS.API_DELAY),
     [handleFetchPackages]
+  );
+
+  // clear the previous query's results right away so the dropdown never lists
+  // stale suggestions under the new input while the debounce timer runs
+  const handleSuggestionsFetch = useCallback(
+    ({ value }: { value: string }) => {
+      resetSearch?.();
+      if (value?.trim() !== '') {
+        setIsDebouncing(true);
+      }
+      debouncedFetch({ value });
+    },
+    [resetSearch, debouncedFetch]
   );
 
   useEffect(() => {
@@ -144,14 +162,15 @@ const Search: React.FC = () => {
   return (
     <AutoComplete
       getOptionLabel={getOptionLabel}
+      hasError={isError}
       onCleanSuggestions={handleOnBlur}
       onSelectItem={handleClickSearch}
-      onSuggestionsFetch={debouncedFetch}
+      onSuggestionsFetch={handleSuggestionsFetch}
       placeholder={t('search.packages')}
       renderInput={renderInput}
       renderOption={renderOption}
       suggestions={searchResults}
-      suggestionsLoading={isLoading}
+      suggestionsLoading={isLoading || isDebouncing}
     />
   );
 };

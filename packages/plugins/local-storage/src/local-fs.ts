@@ -12,7 +12,6 @@ import type { Logger, Manifest } from '@verdaccio/types';
 
 import {
   accessPromise,
-  fstatPromise,
   mkdirPromise,
   openPromise,
   readFilePromise,
@@ -335,13 +334,22 @@ export default class LocalFS implements ILocalFSPackageManager {
     const pathName: string = this._getStorage(tarballName);
     debug('read a tarball %o', pathName);
     const readStream = addAbortSignal(signal, fs.createReadStream(pathName));
-    readStream.on('open', async function (fileDescriptorId: number) {
+    readStream.on('open', function (fileDescriptorId: number) {
       // if abort, the descriptor is null
       debug('file descriptor id %o', fileDescriptorId);
       if (fileDescriptorId) {
-        const stats = await fstatPromise(fileDescriptorId);
-        debug('file size %o', stats.size);
-        readStream.emit('content-length', stats.size);
+        // sync on purpose: the size must be emitted before the first data
+        // chunk flushes the response headers (an async fstat races it)
+        let size: number | undefined;
+        try {
+          size = fs.fstatSync(fileDescriptorId).size;
+        } catch {
+          // the stream 'error' event surfaces any real problem
+        }
+        if (size !== undefined) {
+          debug('file size %o', size);
+          readStream.emit('content-length', size);
+        }
       }
     });
     readStream.on('error', (error) => {

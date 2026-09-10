@@ -43,4 +43,20 @@ describe('Home', () => {
     });
     await waitFor(() => expect(screen.getByTestId('loading')).toBeInTheDocument());
   });
+
+  test('should render an error state when the packages endpoint is unreachable', async () => {
+    // a network failure rejects without an HTTP code; the home page used to
+    // render the empty-registry onboarding panel in that case
+    const { server } = await import('../../../vitest/server');
+    const { http, HttpResponse } = await import('msw');
+    server.use(
+      http.get('http://localhost:9000/-/verdaccio/data/packages', () => HttpResponse.error())
+    );
+
+    await act(async () => {
+      renderWithRouter(<ComponentHome />, RouterPath.ROOT, ['/']);
+    });
+    await waitFor(() => expect(screen.getByTestId('generic-error')).toBeInTheDocument());
+    expect(screen.queryByTestId('home-page-container')).not.toBeInTheDocument();
+  });
 });

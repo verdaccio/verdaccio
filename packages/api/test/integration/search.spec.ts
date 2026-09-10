@@ -55,7 +55,6 @@ describe('search', () => {
                 email: '',
                 username: 'foo',
               },
-              scope: '',
               version: '1.0.0',
             },
             score: {
@@ -74,6 +73,7 @@ describe('search', () => {
         time: 'Sun, 14 Jan 2018 11:17:40 GMT',
         total: 1,
       });
+      expect(response.body.objects[0].package).not.toHaveProperty('scope');
     });
 
     test.each([['@scope/foo']])('should return a scoped foo private package', async (pkg) => {
@@ -117,7 +117,6 @@ describe('search', () => {
                 email: '',
                 username: 'foo',
               },
-              scope: '@scope',
               version: '1.0.0',
             },
             score: {
@@ -136,9 +135,34 @@ describe('search', () => {
         time: 'Sun, 14 Jan 2018 11:17:40 GMT',
         total: 1,
       });
+      expect(response.body.objects[0].package.name).toBe('@scope/foo');
+      expect(response.body.objects[0].package).not.toHaveProperty('scope');
     });
   });
   describe('pagination', () => {
+    test('should paginate remote results only once', async () => {
+      const packages = Array.from({ length: 60 }, (_, i) => ({
+        package: { name: `remote-${i}`, version: '1.0.0' },
+      }));
+      const uplink = nock('https://registry.npmjs.org')
+        .get('/-/v1/search')
+        .query(true)
+        .reply(200, (uri) => {
+          const query = new URL(uri, 'https://registry.npmjs.org').searchParams;
+          const from = Number(query.get('from'));
+          const size = Number(query.get('size'));
+          return { objects: packages.slice(from, from + size), total: packages.length };
+        });
+      const remoteApp = await initializeServer('search-abort.yaml');
+      const response = await supertest(remoteApp)
+        .get('/-/v1/search?text=remote&from=20&size=20')
+        .expect(HTTP_STATUS.OK);
+      expect(response.body.objects.map((item) => item.package.name)).toEqual(
+        packages.slice(20, 40).map((item) => item.package.name)
+      );
+      expect(uplink.isDone()).toBe(true);
+    });
+
     test('should honor the size and from parameters', async () => {
       const res = await createUser(app, 'test', 'test');
       await publishVersionWithToken(app, 'foo-a', '1.0.0', res.body.token);
@@ -195,7 +219,7 @@ describe('search', () => {
       nock.cleanAll();
     });
 
-    test('should forward the clamped size and from values to the uplink', async () => {
+    test('should start bounded uplink pages at zero even for a large client offset', async () => {
       let forwardedPath;
       nock('https://registry.npmjs.org')
         .get(/\/-\/v1\/search/)
@@ -213,10 +237,10 @@ describe('search', () => {
       const forwardedQuery = new URL(forwardedPath, 'https://registry.npmjs.org').searchParams;
       expect(forwardedQuery.get('text')).toBe('clamp-check');
       expect(forwardedQuery.get('size')).toBe('250');
-      expect(forwardedQuery.get('from')).toBe('10000');
+      expect(forwardedQuery.get('from')).toBe('0');
     });
 
-    test('should preserve the license returned by an uplink', async () => {
+    test('should preserve optional package fields returned by an uplink', async () => {
       nock('https://registry.npmjs.org')
         .get(/\/-\/v1\/search/)
         .reply(200, {
@@ -227,6 +251,7 @@ describe('search', () => {
                 version: '1.0.0',
                 description: 'remote package',
                 license: 'BSD-3-Clause',
+                scope: 'remote-scope',
                 keywords: [],
                 date: '2018-01-14T11:17:40.712Z',
                 publisher: { username: 'remote-user', email: '' },
@@ -252,6 +277,7 @@ describe('search', () => {
 
       expect(response.body.objects).toHaveLength(1);
       expect(response.body.objects[0].package.license).toBe('BSD-3-Clause');
+      expect(response.body.objects[0].package.scope).toBe('remote-scope');
       expect(response.body.objects[0].package.links).toEqual({
         npm: 'https://www.npmjs.com/package/remote-license-package',
       });

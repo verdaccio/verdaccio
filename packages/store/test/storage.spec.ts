@@ -5,6 +5,7 @@ import { pseudoRandomBytes } from 'node:crypto';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { Readable } from 'node:stream';
 import { beforeAll, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { Config, getDefaultConfig } from '@verdaccio/config';
@@ -159,6 +160,54 @@ describe('storage', () => {
         expect(manifest.readme).toEqual('# test');
         expect(manifest._attachments).toEqual({});
         expect(typeof manifest._rev).toBeTruthy();
+      });
+
+      test('should not record _attachments when the tarball upload fails mid-stream', async () => {
+        const pkgName = 'upload-fail';
+        const requestOptions = {
+          host: 'localhost',
+          protocol: 'http',
+          headers: {},
+        };
+        const storagePath = generateRandomStorage();
+        const config = new Config(
+          configExample(
+            {
+              ...getDefaultConfig(),
+              storage: storagePath,
+            },
+            './fixtures/config/updateManifest-1.yaml',
+            import.meta.dirname
+          )
+        );
+        const storage = new Storage(config, logger);
+        await storage.init(config);
+        const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+        await storage.updateManifest(bodyNewManifest, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          uplinksLook: true,
+          revision: '1',
+          requestOptions,
+        });
+        const failingContent = new Readable({
+          read() {
+            this.push(Buffer.alloc(1024));
+            this.destroy(new Error('client aborted the upload'));
+          },
+        });
+        await expect(
+          storage.uploadTarball(pkgName, `${pkgName}-1.0.1.tgz`, failingContent, {
+            signal: new AbortController().signal,
+          })
+        ).rejects.toThrow();
+        // the write stream 'close' handler runs async after the rejection;
+        // read the raw manifest — the public API strips _attachments
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        const rawManifest = JSON.parse(
+          fs.readFileSync(path.join(storagePath, pkgName, 'package.json'), 'utf8')
+        );
+        expect(Object.keys(rawManifest._attachments)).toEqual([`${pkgName}-1.0.0.tgz`]);
       });
 
       // TODO: Review triggerUncaughtException exception on abort
@@ -881,6 +930,67 @@ describe('storage', () => {
               });
             });
         });
+      });
+    });
+
+    test('should not fetch an off-uplink dist.tarball of a locally published package (SSRF)', async () => {
+      const pkgName = 'ssrf-local-pkg';
+      const filename = `${pkgName}-1.0.0.tgz`;
+      const storageDir = generateRandomStorage();
+      const config = new Config(
+        configExample({
+          ...getDefaultConfig(),
+          storage: storageDir,
+        })
+      );
+      const storage = new Storage(config, logger);
+      await storage.init(config);
+      await storage.updateManifest(generatePackageMetadata(pkgName, '1.0.0'), {
+        signal: new AbortController().signal,
+        name: pkgName,
+        uplinksLook: false,
+        requestOptions: defaultRequestOptions,
+      });
+
+      // reproduce the client-controlled off-uplink state: a dist.tarball on a
+      // host no uplink serves, no `_distfiles` record, and the local tarball
+      // removed so the request falls through to the upstream path
+      const pkgDir = path.join(storageDir, pkgName);
+      const tarballPath = path.join(pkgDir, filename);
+      if (fs.existsSync(tarballPath)) {
+        fs.unlinkSync(tarballPath);
+      }
+      const metadataPath = path.join(pkgDir, 'package.json');
+      const metadata = JSON.parse(fs.readFileSync(metadataPath).toString());
+      metadata._distfiles = {};
+      metadata.versions['1.0.0'].dist.tarball = `http://internal-ssrf.test/SECRET/${filename}`;
+      fs.writeFileSync(metadataPath, JSON.stringify(metadata));
+
+      const leak = nock('http://internal-ssrf.test')
+        .get(`/SECRET/${filename}`)
+        .reply(200, 'should-not-be-fetched');
+
+      const stream = await storage.getTarball(pkgName, filename, {
+        signal: new AbortController().signal,
+      });
+
+      await new Promise<void>((resolve, reject) => {
+        stream.on('error', (err: any) => {
+          try {
+            expect(err).toBeDefined();
+            expect(String(err.message)).toContain('no such file');
+            expect(leak.isDone()).toBe(false);
+            resolve();
+          } catch (e) {
+            reject(e);
+          }
+        });
+        stream.on('data', () =>
+          reject(new Error('expected a 404, not a fetch of the off-uplink URL'))
+        );
+        stream.on('end', () =>
+          reject(new Error('expected a 404, not a fetch of the off-uplink URL'))
+        );
       });
     });
 

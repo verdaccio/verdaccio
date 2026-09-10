@@ -89,6 +89,7 @@ const InstallListItem: React.FC<Interface> = ({
                 text={
                   isGlobal
                     ? `yarn ${localSettings.yarnModern ? '' : 'global'} add ${getGlobalInstall(
+                        isLatest,
                         isGlobal,
                         packageVersion,
                         packageName,
@@ -99,6 +100,7 @@ const InstallListItem: React.FC<Interface> = ({
                 title={
                   isGlobal
                     ? `yarn global add ${getGlobalInstall(
+                        isLatest,
                         isGlobal,
                         packageVersion,
                         packageName,

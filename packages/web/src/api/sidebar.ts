@@ -2,7 +2,7 @@ import buildDebug from 'debug';
 import { Router } from 'express';
 
 import type { Auth } from '@verdaccio/auth';
-import { DIST_TAGS, HTTP_STATUS } from '@verdaccio/core';
+import { DIST_TAGS, HTTP_STATUS, pkgUtils } from '@verdaccio/core';
 import {
   $NextFunctionVer,
   $RequestExtend,
@@ -15,7 +15,7 @@ import { convertDistRemoteToLocalTarballUrls } from '@verdaccio/tarball';
 import type { Config, Manifest, WebManifest } from '@verdaccio/types';
 
 import { addGravatarSupport, formatAuthor } from '../author-utils';
-import { deleteProperties, isVersionValid } from '../web-utils';
+import { deleteProperties, resolveVersion } from '../web-utils';
 import { scopedPackageAccess } from './scoped-access';
 
 export { $RequestExtend, $ResponseExtend, $NextFunctionVer }; // Was required by other packages
@@ -43,21 +43,46 @@ function addSidebarWebApi(config: Config, storage: Storage, auth: Auth): Router 
           keepUpLinkData: true,
           requestOptions,
         })) as Manifest;
-        // TODO: sanitize query
         const { v } = req.query;
+        // `v` may be a version or a dist-tag; anything else is a 404
+        let requestedVersion: string | undefined;
+        if (typeof v === 'string') {
+          requestedVersion = resolveVersion(info, v);
+          if (!requestedVersion) {
+            debug('version %o not found for %o', v, name);
+            res.status(HTTP_STATUS.NOT_FOUND);
+            res.end();
+            return;
+          }
+        }
         let sideBarInfo = { ...info } as WebManifest;
         sideBarInfo.versions = convertDistRemoteToLocalTarballUrls(
           info,
           requestOptions,
           config.url_prefix
         ).versions;
-        if (typeof v === 'string' && isVersionValid(info, v)) {
-          sideBarInfo.latest = sideBarInfo.versions[v];
-          sideBarInfo.latest.author = formatAuthor(sideBarInfo.latest.author);
+        if (requestedVersion) {
+          sideBarInfo.latest = sideBarInfo.versions[requestedVersion];
         } else {
-          sideBarInfo.latest = sideBarInfo.versions[info[DIST_TAGS].latest];
-          sideBarInfo.latest.author = formatAuthor(sideBarInfo.latest.author);
+          // a manifest without a resolvable dist-tags.latest (corrupt or partial
+          // uplink data) used to crash here and surface as a 404 for a package
+          // that exists; fall back to the highest available version — semver
+          // sorted, since key insertion order reflects publish order, and if
+          // every key is invalid semver (fully corrupt manifest), last key wins
+          const latestTag = info[DIST_TAGS]?.latest;
+          const versionKeys = Object.keys(sideBarInfo.versions);
+          const latestVersion =
+            typeof latestTag === 'string' && sideBarInfo.versions[latestTag]
+              ? latestTag
+              : (pkgUtils.semverSort(versionKeys).pop() ?? versionKeys.pop());
+          if (!latestVersion) {
+            res.status(HTTP_STATUS.NOT_FOUND);
+            res.end();
+            return;
+          }
+          sideBarInfo.latest = sideBarInfo.versions[latestVersion];
         }
+        sideBarInfo.latest.author = formatAuthor(sideBarInfo.latest.author);
         sideBarInfo = deleteProperties(['readme', '_attachments', '_rev', 'name'], sideBarInfo);
         const authorAvatar = config.web
           ? addGravatarSupport(sideBarInfo, config.web.gravatar)

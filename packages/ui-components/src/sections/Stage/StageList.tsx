@@ -29,10 +29,17 @@ const StageList: React.FC = () => {
   const isLoggedIn = useRequireSession();
   const [page, setPage] = useState(0);
   const [perPage, setPerPage] = useState(10);
+  const [actionError, setActionError] = useState(false);
   const { data, error, isLoading, mutate } = useStageList(page, perPage);
 
   const handleDownload = useCallback(async (item: StagePackageVersion) => {
-    await downloadStagedTarball(item);
+    try {
+      setActionError(false);
+      await downloadStagedTarball(item);
+    } catch (err) {
+      console.error('Error downloading staged tarball:', err);
+      setActionError(true);
+    }
   }, []);
 
   // the redirect lands on the next effect; rendering the table meanwhile would
@@ -69,6 +76,12 @@ const StageList: React.FC = () => {
       <Typography color="text.secondary" gutterBottom={true} variant="body2">
         {t('stage.description')}
       </Typography>
+
+      {actionError && (
+        <Typography color="error" role="alert" variant="body2">
+          {t('stage.error.action')}
+        </Typography>
+      )}
 
       {items.length === 0 ? (
         <Typography color="text.secondary" marginTop={2}>
