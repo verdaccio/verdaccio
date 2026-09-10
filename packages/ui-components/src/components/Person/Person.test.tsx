@@ -1,4 +1,5 @@
 import React from 'react';
+import { describe, expect, test } from 'vitest';
 
 import { fireEvent, render, screen } from '../../test/test-react-testing-library';
 import type { Developer } from '../../types/packageMeta';

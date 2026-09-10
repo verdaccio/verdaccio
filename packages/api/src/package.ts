@@ -73,7 +73,11 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
 
         stream.on('content-length', (size) => {
           debug('tarball size %o', size);
-          res.header(HEADER_TYPE.CONTENT_LENGTH, size);
+          // the size event races against the first data chunk; setting a
+          // header after they are flushed would throw and kill the process
+          if (!res.headersSent) {
+            res.header(HEADER_TYPE.CONTENT_LENGTH, size);
+          }
         });
 
         stream.once('error', (err) => {

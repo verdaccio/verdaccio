@@ -80,6 +80,26 @@ describe('package', () => {
         spy.mockRestore();
       }
     });
+
+    test('should ignore a content-length event arriving after headers are sent', async () => {
+      // the size comes from an async fstat racing the first data chunk; when
+      // it loses, setting the header must be skipped instead of crashing
+      const stream = new PassThrough();
+      const spy = vi.spyOn(Storage.prototype, 'getTarball').mockResolvedValue(stream as any);
+      try {
+        stream.push(Buffer.alloc(1024));
+        setTimeout(() => {
+          stream.emit('content-length', 2048);
+          stream.push(Buffer.alloc(1024));
+          stream.end();
+        }, 100);
+        const response = await supertest(app).get('/foo/-/foo-1.0.0.tgz').expect(HTTP_STATUS.OK);
+        expect(Buffer.from(response.body).length).toEqual(2048);
+        expect(response.headers[HEADER_TYPE.CONTENT_LENGTH]).toBeUndefined();
+      } finally {
+        spy.mockRestore();
+      }
+    });
   });
 
   describe('get package', () => {

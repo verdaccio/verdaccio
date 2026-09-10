@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react';
-import { vi } from 'vitest';
+import { afterEach, describe, expect, test, vi } from 'vitest';
 
 import useLocalStorage from './useLocalStorage';
 
