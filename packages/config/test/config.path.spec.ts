@@ -1,14 +1,14 @@
 import fs from 'node:fs';
 import os from 'node:os';
-import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, test, vi, type MockInstance } from 'vitest';
 
 import { findConfigFile } from '../src/config-path';
 
 describe('config-path', () => {
-  let statSyncMock;
-  let mkdirSyncMock;
-  let writeFileSyncMock;
-  let accessSyncMock;
+  let statSyncMock: MockInstance;
+  let mkdirSyncMock: MockInstance;
+  let writeFileSyncMock: MockInstance;
+  let accessSyncMock: MockInstance;
   const fakeStats = {
     isDirectory: vi.fn().mockReturnValue(true),
   };
