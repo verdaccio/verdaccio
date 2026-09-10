@@ -313,6 +313,10 @@ export type ServerSettingsConf = {
   // When true, static file requests (/-/static/*) are hidden from pino logs
   // and only visible via DEBUG=verdaccio:middleware:log. Defaults to true.
   hideStaticLogs?: boolean;
+  // When true, successful /-/ping requests are hidden from pino logs
+  // and only visible via DEBUG=verdaccio:middleware:log. Failed pings
+  // (status >= 400) are still logged. Defaults to true.
+  hidePingLogs?: boolean;
 };
 
 /**

@@ -86,8 +86,9 @@ describe('check basic content parsed file', () => {
       maxEntries: 1000,
       ttlMs: 30000,
     });
-    // hideStaticLogs is not set in default config, defaults to true at runtime
+    // hideStaticLogs / hidePingLogs are not set in default config, default to true at runtime
     expect(config.server.hideStaticLogs).toBeUndefined();
+    expect(config.server.hidePingLogs).toBeUndefined();
   };
 
   test('parse default.yaml', () => {
