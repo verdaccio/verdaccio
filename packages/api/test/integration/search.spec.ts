@@ -13,6 +13,48 @@ describe('search', () => {
     app = await initializeServer('search.yaml');
   });
 
+  afterEach(() => {
+    MockDate.reset();
+    nock.cleanAll();
+    nock.abortPendingRequests();
+  });
+
+  test.each(['', '&size=0', '&from=20&size=10'])(
+    'returns the current UTC ISO time even for empty results (%s)',
+    async (pagination) => {
+      MockDate.set('2026-09-11T00:30:00.123+02:00');
+      const first = await supertest(app)
+        .get(`/-/v1/search?text=missing${pagination}`)
+        .expect(HTTP_STATUS.OK);
+      expect(first.body).toEqual({ objects: [], total: 0, time: '2026-09-10T22:30:00.123Z' });
+
+      MockDate.set('2026-09-11T00:31:00.456+02:00');
+      const second = await supertest(app)
+        .get(`/-/v1/search?text=missing${pagination}`)
+        .expect(HTTP_STATUS.OK);
+      expect(second.body.time).toBe('2026-09-10T22:31:00.456Z');
+    }
+  );
+
+  test('uses the response time instead of the uplink or package timestamp', async () => {
+    const published = '2020-01-02T03:04:05.678Z';
+    nock('https://registry.npmjs.org')
+      .get('/-/v1/search')
+      .query(true)
+      .reply(200, {
+        objects: [{ package: { name: 'remote', version: '1.0.0', date: published } }],
+        total: 1,
+        time: '2021-01-01T00:00:00.000Z',
+      });
+    const remoteApp = await initializeServer('search-abort.yaml');
+    MockDate.set('2026-09-11T13:45:30.123Z');
+    const response = await supertest(remoteApp)
+      .get('/-/v1/search?text=remote')
+      .expect(HTTP_STATUS.OK);
+    expect(response.body.time).toBe('2026-09-11T13:45:30.123Z');
+    expect(response.body.objects[0].package.date).toBe(published);
+  });
+
   describe('search authenticated', () => {
     test.each([['foo']])('should return a foo private package', async (pkg) => {
       const mockDate = '2018-01-14T11:17:40.712Z';
@@ -21,6 +63,8 @@ describe('search', () => {
       await publishVersionWithToken(app, pkg, '1.0.0', res.body.token);
       // this should not be displayed as part of the search
       await publishVersionWithToken(app, 'private-auth', '1.0.0', res.body.token);
+      const responseTime = '2026-09-11T13:45:30.123Z';
+      MockDate.set(responseTime);
       const response = await supertest(app)
         .get(
           `/-/v1/search?text=${encodeURIComponent(
@@ -70,7 +114,7 @@ describe('search', () => {
             verdaccioPrivate: true,
           },
         ],
-        time: 'Sun, 14 Jan 2018 11:17:40 GMT',
+        time: responseTime,
         total: 1,
       });
       expect(response.body.objects[0].package).not.toHaveProperty('scope');
@@ -132,7 +176,7 @@ describe('search', () => {
             verdaccioPrivate: true,
           },
         ],
-        time: 'Sun, 14 Jan 2018 11:17:40 GMT',
+        time: mockDate,
         total: 1,
       });
       expect(response.body.objects[0].package.name).toBe('@scope/foo');

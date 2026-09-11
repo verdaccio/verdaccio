@@ -128,7 +128,7 @@ export default function (
         const response = {
           objects: final,
           total: final.length,
-          time: new Date().toUTCString(),
+          time: new Date().toISOString(),
         };
 
         res.status(HTTP_STATUS.OK).json(response);
