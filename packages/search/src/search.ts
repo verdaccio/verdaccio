@@ -1,3 +1,4 @@
+import semver from 'semver';
 import buildDebug from 'debug';
 import { PassThrough } from 'node:stream';
 
@@ -59,13 +60,16 @@ class Search {
 
       for await (const chunk of streamPassThrough) {
         if (Array.isArray(chunk)) {
-          (chunk as searchUtils.SearchItem[])
+          (chunk as searchUtils.SearchPackageItem[])
             .filter((pkgItem) => {
               debug(`streaming remote pkg name ${pkgItem?.package?.name}`);
-              return true;
+              const version = pkgItem?.package?.version;
+              const valid =
+                typeof version === 'string' && semver.parse(version, { loose: true }) !== null;
+              if (!valid) debug('ignoring invalid uplink search version %o', version);
+              return valid;
             })
             .forEach((pkgItem) => {
-              // @ts-ignore
               return results.push({
                 ...pkgItem,
                 verdaccioPkgCached: false,

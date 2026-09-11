@@ -119,6 +119,29 @@ describe('versions-utils', () => {
   });
 
   describe('removeLowerVersions', () => {
+    test.each([false, true])('filters invalid versions in either order (reverse=%s)', (reverse) => {
+      const input = [
+        { package: { name: 'a', version: 'latest' } },
+        { package: { name: 'a', version: '1.0.0' } },
+        { package: { name: 'invalid-only', version: '^1.0.0' } },
+      ] as Parameters<typeof removeLowerVersions>[0];
+      expect(removeLowerVersions(reverse ? input.reverse() : input)).toEqual([
+        { package: { name: 'a', version: '1.0.0' } },
+      ]);
+    });
+
+    test.each([false, true])(
+      'compares legacy formats and keeps original spelling (reverse=%s)',
+      (reverse) => {
+        const input = ['1.0.0', '01.2.3', '1.2.3beta'].map((version) => ({
+          package: { name: 'a', version },
+        })) as Parameters<typeof removeLowerVersions>[0];
+        expect(removeLowerVersions(reverse ? input.reverse() : input)).toEqual([
+          { package: { name: 'a', version: '01.2.3' } },
+        ]);
+      }
+    );
+
     test('should remove lower semantic versions', () => {
       const inputArray = [
         { package: { name: 'object1', version: '1.0.0' } },

@@ -1,4 +1,5 @@
 import buildDebug from 'debug';
+import semver from 'semver';
 import { isEmpty, isEqual, isNil } from 'lodash-es';
 import assert from 'node:assert';
 import { basename } from 'node:path';
@@ -265,6 +266,16 @@ class Storage {
         throw errorUtils.getServiceUnavailable('search pagination budget exhausted');
       }
       for (const item of items) {
+        if (
+          typeof item?.package?.version !== 'string' ||
+          !semver.parse(item.package.version, { loose: true })
+        ) {
+          this.logger.warn(
+            { name: item?.package?.name, version: item?.package?.version },
+            'ignoring invalid search version for @{name}: @{version}'
+          );
+          continue;
+        }
         const previous = merged.get(item.package.name);
         if (
           !previous ||

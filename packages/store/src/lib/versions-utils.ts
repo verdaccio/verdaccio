@@ -93,8 +93,8 @@ export function tagVersionNext(manifest: Manifest, version: string, tag: StringV
  * @param oldVersion
  * @returns
  */
-export function isNewerVersion(newVersion, oldVersion) {
-  const comparisonResult = semver.compare(newVersion, oldVersion);
+export function isNewerVersion(newVersion: string, oldVersion: string) {
+  const comparisonResult = semver.compareLoose(newVersion, oldVersion);
 
   return comparisonResult === 1 || comparisonResult === 0;
 }
@@ -106,9 +106,15 @@ export function isNewerVersion(newVersion, oldVersion) {
  */
 export function removeLowerVersions(objects: searchUtils.SearchPackageItem[]) {
   const versionMap = new Map();
+  const validObjects = objects.filter((item) => {
+    const version = item?.package?.version;
+    const valid = typeof version === 'string' && semver.parse(version, { loose: true }) !== null;
+    if (!valid) debug('ignoring invalid search version %o', version);
+    return valid;
+  });
 
   // Iterate through the array and keep the highest version for each name
-  objects.forEach((item) => {
+  validObjects.forEach((item) => {
     const { name, version } = item.package;
     const key = name;
 
@@ -119,7 +125,7 @@ export function removeLowerVersions(objects: searchUtils.SearchPackageItem[]) {
   });
 
   // Filter objects based on the version map
-  return objects.reduce((acc, item) => {
+  return validObjects.reduce((acc, item) => {
     const { name, version } = item.package;
     if (
       versionMap.has(name) &&

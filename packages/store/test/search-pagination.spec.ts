@@ -9,6 +9,7 @@ const item = (name: string, version = '1.0.0', description = '') =>
 
 function setup(local: searchUtils.SearchPackageItem[], rounds: searchUtils.SearchPackageItem[][]) {
   const storage = Object.create(Storage.prototype);
+  storage.logger = { warn: vi.fn() };
   storage.getCachedPackages = vi.fn(async () => local);
   storage.searchService = {
     async *searchPages() {
@@ -42,6 +43,39 @@ describe('stable combined search prefixes', () => {
     expect(pages[1][0].package.description).toBe('newer');
     expect(storage.getCachedPackages).toHaveBeenCalledWith(expect.objectContaining({ from: 0 }));
   });
+
+  test.each([false, true])(
+    'omits invalid local entries before merging (reverse=%s)',
+    async (reverse) => {
+      const local = [item('a', 'latest'), item('a', '1.0.0'), item('invalid-only', '^1.0.0')];
+      const storage = setup(reverse ? local.reverse() : local, [[item('a', '2.0.0'), item('b')]]);
+      const page = await storage.searchPages(options()).next();
+      expect(page.value).toEqual([item('a', '2.0.0'), item('b')]);
+      expect(storage.logger.warn).toHaveBeenCalledTimes(2);
+    }
+  );
+
+  test('omits invalid local-only results without failing the search', async () => {
+    const storage = setup([item('invalid', 'latest'), item('valid')], []);
+    expect((await storage.searchPages(options()).next()).value).toEqual([item('valid')]);
+  });
+
+  test.each([
+    ['1.0.0', '01.2.3', '01.2.3'],
+    ['01.2.3', '1.0.0', '01.2.3'],
+    ['1.2.3beta', '1.2.3', '1.2.3'],
+    ['1.2.3', '1.2.3beta', '1.2.3'],
+    ['1.0.0', '1.2.3+build.1', '1.2.3+build.1'],
+  ])(
+    'compares compatible versions %s and %s without rewriting them',
+    async (local, remote, expected) => {
+      const storage = setup([item('a', local), item('b')], [[item('a', remote)]]);
+      expect((await storage.searchPages(options()).next()).value).toEqual([
+        item('a', expected),
+        item('b'),
+      ]);
+    }
+  );
 
   test('counts local and remote candidates together, including duplicates', async () => {
     const storage = setup(
