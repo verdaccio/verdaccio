@@ -1,4 +1,6 @@
+import fs from 'node:fs';
 import { PassThrough } from 'node:stream';
+import { finished } from 'node:stream/promises';
 import supertest from 'supertest';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
@@ -12,6 +14,10 @@ import {
   initializeServerWithContext,
   publishVersion,
 } from './_helper';
+
+// Keep the complete tarball path on the current sources, including failure handling.
+vi.mock('@verdaccio/store', () => import('../../../store/src'));
+vi.mock('@verdaccio/local-storage', () => import('../../../plugins/local-storage/src'));
 
 describe('package', () => {
   describe('get tarball', () => {
@@ -69,14 +75,21 @@ describe('package', () => {
       const stream = new PassThrough();
       const spy = vi.spyOn(Storage.prototype, 'getTarball').mockResolvedValue(stream as any);
       try {
-        // buffered until the route pipes the stream into the response, which
-        // flushes the 200 + headers; then the source dies mid-body
         stream.push(Buffer.alloc(1024));
-        setTimeout(() => stream.destroy(new Error('uplink connection dropped')), 100);
-        await expect(supertest(app).get('/foo/-/foo-1.0.0.tgz')).rejects.toThrow(
-          /aborted|socket hang up|ECONNRESET/i
-        );
+        // Fail only once the client has received body data, proving that the
+        // response headers have already been sent.
+        const request = supertest(app)
+          .get('/foo/-/foo-1.0.0.tgz')
+          .timeout({ deadline: 3000 })
+          .buffer(true)
+          .parse((response, callback) => {
+            response.once('data', () => stream.destroy(new Error('uplink connection dropped')));
+            response.once('error', callback);
+            response.once('end', () => callback(null, Buffer.alloc(0)));
+          });
+        await expect(request).rejects.toThrow(/aborted|socket hang up|ECONNRESET/i);
       } finally {
+        stream.destroy();
         spy.mockRestore();
       }
     });
@@ -88,18 +101,134 @@ describe('package', () => {
       const spy = vi.spyOn(Storage.prototype, 'getTarball').mockResolvedValue(stream as any);
       try {
         stream.push(Buffer.alloc(1024));
-        setTimeout(() => {
-          stream.emit('content-length', 2048);
-          stream.push(Buffer.alloc(1024));
-          stream.end();
-        }, 100);
-        const response = await supertest(app).get('/foo/-/foo-1.0.0.tgz').expect(HTTP_STATUS.OK);
+        const response = await supertest(app)
+          .get('/foo/-/foo-1.0.0.tgz')
+          .timeout({ deadline: 3000 })
+          .buffer(true)
+          .parse((response, callback) => {
+            const chunks: Buffer[] = [];
+            response.on('data', (chunk) => chunks.push(Buffer.from(chunk)));
+            // Receiving the first body chunk guarantees that setting another
+            // header is too late, regardless of machine or filesystem speed.
+            response.once('data', () => {
+              stream.emit('content-length', 2048);
+              stream.end(Buffer.alloc(1024));
+            });
+            response.once('error', callback);
+            response.once('end', () => callback(null, Buffer.concat(chunks)));
+          })
+          .expect(HTTP_STATUS.OK);
         expect(Buffer.from(response.body).length).toEqual(2048);
         expect(response.headers[HEADER_TYPE.CONTENT_LENGTH]).toBeUndefined();
       } finally {
+        stream.destroy();
         spy.mockRestore();
       }
     });
+
+    test.each(['before-data', 'during-read', 'premature-close'] as const)(
+      'propagates a local filesystem read failure (%s) without leaving HTTP hanging',
+      async (failure) => {
+        await publishVersion(app, 'read-failure', '1.0.0');
+        const url = '/read-failure/-/read-failure-1.0.0.tgz';
+        const readError = Object.assign(new Error('tarball disk read failed'), { code: 'EIO' });
+        const createReadStream = fs.createReadStream;
+        const received = Promise.withResolvers<Buffer>();
+        const reading = Promise.withResolvers<void>();
+        let source: fs.ReadStream | undefined;
+        let sourceDone: Promise<unknown> | undefined;
+        let releaseRead = () => {};
+        let firstRead = true;
+        let responseStatus: number | undefined;
+
+        // Exercise the real API -> Store pipeline -> LocalFS stream. Inject
+        // the fault only at the filesystem boundary, retaining a real descriptor.
+        const spy = vi.spyOn(fs, 'createReadStream').mockImplementationOnce((filename, options) => {
+          source = createReadStream(filename, {
+            ...(typeof options === 'object' ? options : {}),
+            highWaterMark: 64,
+            fs: {
+              open: fs.open,
+              close: fs.close,
+              read(fd, buffer, offset, length, position, callback) {
+                if (failure === 'before-data') {
+                  callback(readError, 0, buffer);
+                  return;
+                }
+                if (firstRead) {
+                  firstRead = false;
+                  fs.read(fd, buffer, offset, length, position, callback);
+                  return;
+                }
+                releaseRead = () => {
+                  releaseRead = () => {};
+                  if (failure === 'premature-close') {
+                    source!.destroy();
+                    callback(null, 0, buffer);
+                  } else {
+                    callback(readError, 0, buffer);
+                  }
+                };
+                reading.resolve();
+              },
+            },
+          });
+          sourceDone = finished(source, { cleanup: true }).catch((error) => error);
+          return source;
+        });
+
+        const request = supertest(app).get(url).timeout({ deadline: 3000 });
+        if (failure !== 'before-data') {
+          request.buffer(true).parse((response, callback) => {
+            responseStatus = response.statusCode;
+            response.once('data', (chunk) => received.resolve(Buffer.from(chunk)));
+            response.once('error', callback);
+            response.once('end', () => callback(null, Buffer.alloc(0)));
+          });
+        }
+        const outcome = request.then(
+          (response) => ({ response, error: undefined }),
+          (error: Error) => ({ response: undefined, error })
+        );
+        try {
+          if (failure === 'before-data') {
+            const result = await outcome;
+            expect(result.error).toBeUndefined();
+            expect(result.response?.status).toBe(HTTP_STATUS.INTERNAL_ERROR);
+            expect(result.response?.headers[HEADER_TYPE.CONTENT_TYPE]).toBe(HEADERS.JSON_CHARSET);
+            expect(result.response?.body.error).toBeTruthy();
+          } else {
+            const [firstChunk] = await Promise.race([
+              Promise.all([received.promise, reading.promise]),
+              outcome.then(({ error }) => {
+                throw error ?? new Error('download ended before the injected read failure');
+              }),
+            ]);
+            expect(firstChunk.length).toBe(64);
+            expect(responseStatus).toBe(HTTP_STATUS.OK);
+            releaseRead();
+            const result = await outcome;
+            expect(result.response).toBeUndefined();
+            expect(result.error?.message).toMatch(/aborted|socket hang up|ECONNRESET/i);
+          }
+          await sourceDone;
+          expect(source?.closed).toBe(true);
+          // A failed read must leave the registry usable and the original file intact.
+          const retry = await supertest(app)
+            .get(url)
+            .timeout({ deadline: 3000 })
+            .expect(HTTP_STATUS.OK);
+          expect(retry.body.length).toBe(512);
+          expect(Number(retry.headers[HEADER_TYPE.CONTENT_LENGTH])).toBe(retry.body.length);
+        } finally {
+          request.abort();
+          source?.destroy();
+          releaseRead();
+          await Promise.all([sourceDone, outcome]);
+          spy.mockRestore();
+        }
+      }
+    );
   });
 
   describe('get package', () => {
