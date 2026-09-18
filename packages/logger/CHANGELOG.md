@@ -1,5 +1,14 @@
 # @verdaccio/logger
 
+## 9.0.0-next-9.32
+
+### Patch Changes
+
+- 107c4d3: Avoid creating an unused stdout destination when pretty logging uses its own transport.
+- f3f8976: chore: replace \_\_dirname with import.meta.dirname
+- 107c4d3: Honor the configured `sync` option for JSON logs written to stdout or files, including in production. Keep asynchronous writes as the default.
+- @verdaccio/core@9.0.0-next-9.32
+
 ## 9.0.0-next-9.31
 
 ### Patch Changes

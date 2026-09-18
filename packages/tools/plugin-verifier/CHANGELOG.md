@@ -1,5 +1,18 @@
 # @verdaccio/plugin-verifier
 
+## 1.0.0-next-9.28
+
+### Patch Changes
+
+- f3f8976: chore: replace \_\_dirname with import.meta.dirname
+- Updated dependencies [107c4d3]
+- Updated dependencies [3724054]
+- Updated dependencies [f3f8976]
+- Updated dependencies [107c4d3]
+  - @verdaccio/logger@9.0.0-next-9.32
+  - @verdaccio/loaders@9.0.0-next-9.32
+  - @verdaccio/core@9.0.0-next-9.32
+
 ## 1.0.0-next-9.27
 
 ### Patch Changes
