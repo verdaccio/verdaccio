@@ -33,7 +33,7 @@ export default function (
     const tags = {};
     tags[tag] = req.body;
     try {
-      await storage.mergeTagsNext(packageName, tags);
+      await storage.mergeTagsNext(packageName, tags, getRequestOptions(req));
       res.status(constants.HTTP_STATUS.CREATED);
       return next({
         ok: constants.API_MESSAGE.TAG_ADDED,
@@ -74,7 +74,7 @@ export default function (
       const tags = {};
       tags[tag] = null;
       try {
-        await storage.mergeTagsNext(packageName, tags);
+        await storage.mergeTagsNext(packageName, tags, getRequestOptions(req));
         res.status(constants.HTTP_STATUS.CREATED);
         return next({
           ok: constants.API_MESSAGE.TAG_REMOVED,

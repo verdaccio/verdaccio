@@ -1,0 +1,16 @@
+uplinks:
+  ver:
+    url: https://fake.verdaccio.org/
+packages:
+  'upstream':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+    proxy: ver
+  '*':
+    access: $all
+    publish: $all
+log: { type: stdout, format: pretty, level: warn }
+
+publish:
+  check_owners: true

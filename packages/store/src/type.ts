@@ -28,13 +28,6 @@ export type IGetPackageOptionsNext = {
   uplinksLook: boolean;
   requestOptions: RequestOptions;
   /**
-   *
-   * The property write=true is used by package managers to get the most frest data
-   * internally indicates to avoid any cache layer.
-   */
-  byPassCache?: boolean;
-
-  /**
    * Reduce the package metadata to the minimum required to get the package.
    * https://github.com/npm/registry/blob/c0b573593fb5d6e0268de7d6612addd7059cb779/docs/responses/package-metadata.md#package-metadata
    */

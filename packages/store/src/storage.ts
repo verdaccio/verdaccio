@@ -32,6 +32,7 @@ import type {
 import { ProxyStorage, setupUpLinks, updateVersionsHiddenUpLinkNext } from '@verdaccio/proxy';
 import Search, { SEARCH_MAX_CANDIDATES } from '@verdaccio/search';
 import type { TarballDetails } from '@verdaccio/tarball';
+import type { RequestOptions } from '@verdaccio/url';
 import {
   convertDistRemoteToLocalTarballUrls,
   convertDistVersionToLocalTarballsUrl,
@@ -124,6 +125,17 @@ class Storage {
 
     debug(`change manifest updating manifest for %o`, name);
     await this.updatePackage(name, async (localData: Manifest): Promise<Manifest> => {
+      // clients echo back the _rev they fetched (GET ?write=true); a mismatch
+      // means the package changed since then and applying the stale body would
+      // silently drop versions published in between
+      if (
+        typeof metadata._rev === 'string' &&
+        metadata._rev !== '' &&
+        metadata._rev !== localData._rev
+      ) {
+        debug('revision mismatch for %o: %o != %o', name, metadata._rev, localData._rev);
+        throw errorUtils.getConflict('revision does not match the latest package revision');
+      }
       // eslint-disable-next-line guard-for-in
       for (const version in localData.versions) {
         const incomingVersion = metadata.versions[version];
@@ -159,7 +171,12 @@ class Storage {
 
       localData[USERS] = metadata[USERS];
       localData[DIST_TAGS] = metadata[DIST_TAGS];
-      localData[MAINTAINERS] = metadata[MAINTAINERS];
+      // maintainers are the ownership source for checkAllowedToChangePackage;
+      // bodies that omit them (e.g. deprecate requests) must not wipe them
+      const maintainers = metadata[MAINTAINERS];
+      if (Array.isArray(maintainers) && maintainers.length > 0) {
+        localData[MAINTAINERS] = maintainers;
+      }
       return localData;
     });
   }
@@ -598,13 +615,8 @@ class Storage {
     const [manifest] = await this.getPackage(options);
 
     // If change access is requested (?write=true), then check if logged in user is allowed to change package
-    if (options.byPassCache === true) {
-      try {
-        await this.checkAllowedToChangePackage(manifest, options.requestOptions.username);
-      } catch (err: any) {
-        this.logger.error({ err }, 'getting package has failed: @{err.message}');
-        throw errorUtils.getBadRequest(err.message);
-      }
+    if (options.requestOptions.byPassCache === true) {
+      await this.checkAllowedToChangePackage(manifest, options.requestOptions.username);
     }
 
     const convertedManifest = convertDistRemoteToLocalTarballUrls(
@@ -974,8 +986,17 @@ class Storage {
    * @param name package name
    * @param tags list of dist-tags
    */
-  public async mergeTagsNext(name: string, tags: MergeTags): Promise<Manifest> {
+  public async mergeTagsNext(
+    name: string,
+    tags: MergeTags,
+    requestOptions?: RequestOptions
+  ): Promise<Manifest> {
     return await this.updatePackage(name, async (data: Manifest): Promise<Manifest> => {
+      // requestOptions is absent only on internal calls (publish flow), which
+      // run their own ownership check before getting here
+      if (requestOptions) {
+        await this.checkAllowedToChangePackage(data, requestOptions.username);
+      }
       let newData: Manifest = { ...data };
       for (const tag of Object.keys(tags)) {
         // this handle dist-tag rm command
@@ -1144,9 +1165,26 @@ class Storage {
     }
   }
 
+  /**
+   * Read the stored manifest of a local package and enforce the ownership
+   * check (`publish.check_owners`) on it. Shared by every mutation that goes
+   * through `changePackage`.
+   */
+  private async getLocalManifestCheckOwnership(
+    name: string,
+    username: string | undefined
+  ): Promise<Manifest> {
+    const localPackage = await this.getPackageLocalMetadata(name);
+    await this.checkAllowedToChangePackage(localPackage, username);
+    return localPackage;
+  }
+
   private async deprecate(manifest: Manifest, options: UpdateManifestOptions): Promise<void> {
-    const { name } = manifest;
+    const { name, requestOptions } = options;
     debug('deprecating %s', name);
+
+    await this.getLocalManifestCheckOwnership(name, requestOptions.username);
+
     return this.changePackage(name, manifest, options.revision as string);
   }
 
@@ -1154,14 +1192,8 @@ class Storage {
     const { requestOptions, name } = options;
     debug('unpublish a package of %o', name);
 
-    const localPackage = await this.getPackageManifest({
-      name,
-      requestOptions,
-      uplinksLook: false,
-    });
-    if (localPackage._rev === manifest._rev) {
-      await this.changePackage(name, manifest as Manifest, options.revision as string);
-    }
+    await this.getLocalManifestCheckOwnership(name, requestOptions.username);
+    await this.changePackage(name, manifest as Manifest, options.revision as string);
 
     return API_MESSAGE.PKG_CHANGED;
   }
@@ -1181,13 +1213,7 @@ class Storage {
       throw errorUtils.getBadRequest('maintainers field is required and must not be empty');
     }
 
-    const localPackage = await this.getPackageManifest({
-      name,
-      requestOptions,
-      uplinksLook: false,
-    });
-
-    await this.checkAllowedToChangePackage(localPackage, username);
+    const localPackage = await this.getLocalManifestCheckOwnership(name, username);
 
     await this.changePackage(
       name,
@@ -1980,6 +2006,15 @@ class Storage {
     try {
       // merge versions from remote into the cache
       _cacheManifest = mergeVersions(_cacheManifest, remoteManifest);
+      // carry upstream ownership (dropped by mergeVersions) so check_owners
+      // can also protect proxied packages; never overwrite recorded owners
+      if (
+        (_cacheManifest[MAINTAINERS] ?? []).length === 0 &&
+        Array.isArray(remoteManifest[MAINTAINERS]) &&
+        remoteManifest[MAINTAINERS].length > 0
+      ) {
+        _cacheManifest[MAINTAINERS] = remoteManifest[MAINTAINERS];
+      }
       return _cacheManifest;
     } catch (err: any) {
       this.logger.error({ err }, 'package.json merge has failed @{!err?.message}\n@{err.stack}');
@@ -2121,6 +2156,21 @@ class Storage {
       debug('new versions from upstream: %o', newVersions);
     } else {
       debug('no new versions from upstream');
+    }
+
+    debug('update maintainers');
+    // cached manifests are created with an empty maintainers list, which the
+    // ownership check treats as "no owners recorded" (check skipped); copy the
+    // upstream owners once so check_owners also protects proxied packages.
+    // never overwrite a non-empty list: it may belong to a locally published
+    // package and upstream must not be able to rewrite local ownership.
+    if (
+      (cacheManifest[MAINTAINERS] ?? []).length === 0 &&
+      Array.isArray(remoteManifest[MAINTAINERS]) &&
+      remoteManifest[MAINTAINERS].length > 0
+    ) {
+      cacheManifest[MAINTAINERS] = remoteManifest[MAINTAINERS];
+      change = true;
     }
 
     debug('update dist-tags');
