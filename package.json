@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@changesets/cli": "3.0.1",
-    "@crowdin/cli": "4.14.3",
+    "@crowdin/cli": "5.0.2",
     "@emotion/react": "11.14.0",
     "@emotion/styled": "11.14.1",
     "@testing-library/dom": "10.4.1",
