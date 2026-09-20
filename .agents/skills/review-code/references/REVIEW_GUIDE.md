@@ -102,9 +102,11 @@ code bug.
 
 ## 2. Client compatibility and correctness
 
-The e2e matrix runs npm 10–12, yarn modern 3 and 4, pnpm 10–11, bun, and deno
-against every PR. Each client has its own expectations; a change that works for `npm`
-alone is not done.
+The e2e matrix runs npm 10–12, yarn modern 3 and 4, pnpm 10–11, bun, and deno on a PR
+whose diff matches `ci.yml`'s `pull_request.paths` filter — a docs-only or
+`.agents/`/`.claude/`-only PR does not trigger it, so a missing check there is not
+completed coverage. Each client has its own expectations; a change that works for
+`npm` alone is not done.
 
 - **Match registry.npmjs.org.** Status codes, `Content-Type`, `ETag`/`304` handling,
   abbreviated manifests (`application/vnd.npm.install-v1+json`), `%2f`-encoded scoped
