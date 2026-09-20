@@ -1,12 +1,13 @@
 ---
 name: pr-labels
-description: Choose and apply the labels for a verdaccio/verdaccio pull request — exactly one release-line label plus one to three content labels from the repository's existing taxonomy, never security, and AI assisted only on the author's own PR. Use right after gh pr create, when editing a PR, when reviewing a PR whose labels are missing or wrong, or when asked which labels a change should carry.
+description: Choose and apply the labels for a verdaccio/verdaccio pull request — exactly one release-line label plus content labels from the repository's existing taxonomy (typically one to three, more for a genuinely large multi-topic PR), never security, and AI assisted only on the author's own PR. Use right after gh pr create, when editing a PR, when reviewing a PR whose labels are missing or wrong, or when asked which labels a change should carry.
 ---
 
 # PR labels
 
 **No PR without labels.** Every pull request carries exactly one release-line label and
-one to three content labels, applied right after it is created:
+at least one content label (typically one to three; see §2 for when more is right),
+applied right after it is created:
 
 ```bash
 gh pr edit <n> --repo verdaccio/verdaccio --add-label "<release line>" --add-label "<content>"
@@ -38,7 +39,7 @@ the history stays searchable. A port PR to another branch takes that branch's la
 not the original's. `4.x` and `5.x` are deprecated with no further development: no PR
 targets them and their labels (`4.x deprecated`, `5.x branch (legacy)`) are not used.
 
-## 2. Content labels (one to three)
+## 2. Content labels (typically one to three)
 
 The content label answers "which mental folder does this PR open?". A focused PR takes
 two or three labels; a large multi-topic PR may take more, but every label must describe

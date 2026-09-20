@@ -218,7 +218,8 @@ client depends on is still a contract.
   it into the body.
 - **Every PR carries labels**: exactly one release-line label, which is
   `7.x branch (next)` for PRs against `master` (the label predates 9.x) and
-  `6.x branch (latest)` for `6.x`, plus one to three content labels. The
+  `6.x branch (latest)` for `6.x`, plus one or more content labels (typically one
+  to three). The
   [pr-labels](./.agents/skills/pr-labels/SKILL.md) skill has the taxonomy and
   worked examples; `gh label list --limit 300` is the current list, never
   invent labels.

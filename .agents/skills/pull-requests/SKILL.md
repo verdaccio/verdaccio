@@ -67,7 +67,7 @@ your report to the person who asked, not in the PR.
 
 **Labels, immediately after creation** (a PR without labels is not finished): exactly
 one release-line label (`7.x branch (next)` for `master`, `6.x branch (latest)` for
-`6.x`) plus one to three content labels. The [pr-labels](../pr-labels/SKILL.md) skill
+`6.x`) plus content labels (typically one to three). The [pr-labels](../pr-labels/SKILL.md) skill
 has the taxonomy, the worked examples, the label you never apply (`security`) and the
 one you apply only to your own PR when the author says so (`AI assisted`):
 
