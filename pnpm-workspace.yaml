@@ -49,6 +49,8 @@ minimumReleaseAgeExclude:
   - brace-expansion@5.0.9
   # Renovate security update: vitest@4.1.11
   - vitest@4.1.11
+  # Security update: express@4.22.3 resolves qs 6.16.0 (GHSA-4mjr-xmp4-gh2g and related qs DoS advisories)
+  - express@4.22.3
 ignoreScripts: true
 saveExact: true
 preferFrozenLockfile: true
