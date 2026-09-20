@@ -1,21 +1,23 @@
+import { mkdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { beforeAll, describe, expect, test } from 'vitest';
+import { afterEach, beforeAll, describe, expect, test } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
 import type { pluginUtils } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 
 import { asyncLoadPlugin } from '../src/index';
+import { executePlugin } from '../src/plugin-async-loader';
 
 function getConfig(file: string): Config {
   const conPath = path.join(import.meta.dirname, './partials/config', file);
   return new Config(parseConfigFile(conPath));
 }
 
-const authSanitize = function (plugin) {
+const authSanitize = function (plugin: any) {
   return plugin.authenticate || plugin.allow_access || plugin.allow_publish;
 };
-const storeSanitize = function (plugin) {
+const storeSanitize = function (plugin: any) {
   return typeof plugin.getPackageStorage !== 'undefined';
 };
 
@@ -42,6 +44,24 @@ describe('plugin loader', () => {
         const plugins = await asyncLoadPlugin(config.store, { config, logger }, storeSanitize);
 
         expect(plugins).toHaveLength(1);
+      });
+
+      test('testing storage es6 plugin loader', async () => {
+        const config = getConfig('valid-plugin-store.yaml');
+        config.plugins = pluginsPartialsFolder;
+        config.store = { 'es6-plugin': {} };
+        const plugins = await asyncLoadPlugin(config.store, { config, logger }, storeSanitize);
+
+        expect(plugins).toHaveLength(1);
+      });
+
+      test('should ignore a plugin that throws while loading from plugins folder', async () => {
+        const config = getConfig('valid-plugin.yaml');
+        config.plugins = path.join(import.meta.dirname, './partials/modern-plugins');
+        config.auth = { 'broken-plugin': {} };
+        const plugins = await asyncLoadPlugin(config.auth, { config, logger }, authSanitize);
+
+        expect(plugins).toHaveLength(0);
       });
 
       test('testing auth scoped plugin loader', async () => {
@@ -225,5 +245,59 @@ describe('plugin loader', () => {
         },
       });
     });
+  });
+});
+
+describe('executePlugin', () => {
+  test('instantiates ES6 plugins via the default export', () => {
+    class Plugin {
+      config: unknown;
+      options: unknown;
+      constructor(config: unknown, options: unknown) {
+        this.config = config;
+        this.options = options;
+      }
+    }
+
+    const plugin = executePlugin({ default: Plugin } as any, { foo: true }, {
+      config: { storage: './storage' },
+      logger,
+    } as pluginUtils.PluginOptions);
+
+    expect(plugin).toBeInstanceOf(Plugin);
+    expect(plugin.config).toEqual({ foo: true });
+  });
+});
+
+describe('npm plugin load errors', () => {
+  // require() resolves from src/utils.ts, so the plugin must live under this
+  // package's node_modules for the npm-load path to evaluate it
+  const npmBrokenPluginName = 'verdaccio-coverage-broken-plugin';
+  const npmBrokenPluginDir = path.join(
+    import.meta.dirname,
+    '..',
+    'node_modules',
+    npmBrokenPluginName
+  );
+
+  afterEach(async () => {
+    await rm(npmBrokenPluginDir, { recursive: true, force: true });
+  });
+
+  test('reports an evaluation error from an installed plugin', async () => {
+    await mkdir(npmBrokenPluginDir, { recursive: true });
+    await writeFile(
+      path.join(npmBrokenPluginDir, 'package.json'),
+      JSON.stringify({ name: npmBrokenPluginName, version: '1.0.0', main: 'index.js' })
+    );
+    await writeFile(
+      path.join(npmBrokenPluginDir, 'index.js'),
+      "throw new Error('npm plugin exploded');\n"
+    );
+
+    const config = getConfig('no-plugin.yaml');
+    await expect(
+      asyncLoadPlugin({ 'coverage-broken-plugin': {} }, { config, logger }, authSanitize)
+    ).rejects.toThrow('npm plugin exploded');
   });
 });
