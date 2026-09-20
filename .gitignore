@@ -60,10 +60,13 @@ e2e/ui/cypress/screenshots/**/*
 # storybook
 packages/ui-components/storybook-static
 
-# AI generated files
-AGENTS.md
-CLAUDE.md
-**/.claude**
+# Claude Code's local state, except the tracked skills symlink. Git cannot
+# re-include a path inside an excluded directory, so the root .claude
+# directory is un-excluded first and its contents excluded again.
+.claude
+!/.claude/
+/.claude/*
+!/.claude/skills
 
 # Verdaccio 6.x local test image build context
 docker/verdaccio6x/dist/
