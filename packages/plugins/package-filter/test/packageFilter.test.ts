@@ -165,6 +165,36 @@ describe('PackageFilterPlugin', () => {
       expect(getLatest(typesResult)).toBe('2.6.3');
     });
 
+    test('filters by scope glob pattern', async function () {
+      const config = {
+        block: [{ scope: '@ba*' }],
+      };
+      const plugin = new PackageFilterPlugin(config, pluginOptions);
+
+      const babelResult = await plugin.filter_metadata(babelTestManifest);
+      expect(getVersionKeys(babelResult)).toEqual([]);
+      expect(babelResult.readme).toContain('blocked by rule');
+
+      const typesResult = await plugin.filter_metadata(typesNodeManifest);
+      expect(getVersionKeys(typesResult)).toEqual(['1.0.0', '2.2.0', '2.6.3']);
+      expect(getLatest(typesResult)).toBe('2.6.3');
+    });
+
+    test('filters by package glob pattern', async function () {
+      const config = {
+        block: [{ package: '@babel/*' }],
+      };
+      const plugin = new PackageFilterPlugin(config, pluginOptions);
+
+      const babelResult = await plugin.filter_metadata(babelTestManifest);
+      expect(getVersionKeys(babelResult)).toEqual([]);
+      expect(babelResult.readme).toContain('blocked by rule');
+
+      const typesResult = await plugin.filter_metadata(typesNodeManifest);
+      expect(getVersionKeys(typesResult)).toEqual(['1.0.0', '2.2.0', '2.6.3']);
+      expect(getLatest(typesResult)).toBe('2.6.3');
+    });
+
     test('filters by versions', async function () {
       const config = {
         block: [{ package: '@babel/test', versions: '>1.0.0' }],
@@ -182,6 +212,58 @@ describe('PackageFilterPlugin', () => {
       const typesResult = await plugin.filter_metadata(typesNodeManifest);
       expect(getVersionKeys(typesResult)).toEqual(['1.0.0', '2.2.0', '2.6.3']);
       expect(getLatest(typesResult)).toBe('2.6.3');
+    });
+
+    test('filters by package glob pattern and versions', async function () {
+      const config = {
+        block: [{ package: '@babel/*', versions: '>1.0.0' }],
+      };
+      const plugin = new PackageFilterPlugin(config, pluginOptions);
+
+      const babelResult = await plugin.filter_metadata(babelTestManifest);
+      expect(getVersionKeys(babelResult)).toEqual(['1.0.0']);
+      expect(getLatest(babelResult)).toBe('1.0.0');
+
+      const typesResult = await plugin.filter_metadata(typesNodeManifest);
+      expect(getVersionKeys(typesResult)).toEqual(['1.0.0', '2.2.0', '2.6.3']);
+      expect(getLatest(typesResult)).toBe('2.6.3');
+    });
+
+    test.each([true, false])(
+      'exact package rule takes precedence over a matching glob rule (exact first: %s)',
+      async (exactFirst) => {
+        const exactRule = { package: '@babel/test', versions: '<1.5.0' };
+        const globRule = { package: '@babel/*', versions: '>1.5.0' };
+        const config = {
+          block: exactFirst ? [exactRule, globRule] : [globRule, exactRule],
+        };
+        const plugin = new PackageFilterPlugin(config, pluginOptions);
+
+        const babelResult = await plugin.filter_metadata(babelTestManifest);
+        expect(getVersionKeys(babelResult)).toEqual(['1.5.0', '3.0.0']);
+      }
+    );
+
+    test.each([
+      {
+        rules: [
+          { package: '@babel/*', versions: '<1.5.0' },
+          { package: '@babel/t*', versions: '>1.5.0' },
+        ],
+        versions: ['1.5.0', '3.0.0'],
+      },
+      {
+        rules: [
+          { package: '@babel/t*', versions: '>1.5.0' },
+          { package: '@babel/*', versions: '<1.5.0' },
+        ],
+        versions: ['1.0.0', '1.5.0'],
+      },
+    ])('first matching package glob rule determines the result', async ({ rules, versions }) => {
+      const plugin = new PackageFilterPlugin({ block: rules }, pluginOptions);
+
+      const babelResult = await plugin.filter_metadata(babelTestManifest);
+      expect(getVersionKeys(babelResult)).toEqual(versions);
     });
 
     test('filters by multiple versions', async function () {
@@ -293,6 +375,23 @@ describe('PackageFilterPlugin', () => {
         expect(getLatest(babelResult)).toBe('3.0.0');
 
         // Should not unblock @types. Version 2.6.3 should be blocked.
+        const typesResult = await plugin.filter_metadata(typesNodeManifest);
+        expect(getVersionKeys(typesResult)).not.toContain('2.6.3');
+        expect(getVersionKeys(typesResult)).toEqual(['1.0.0', '2.2.0']);
+        expect(getLatest(typesResult)).toBe('2.2.0');
+      });
+
+      test('allow by package glob pattern', async function () {
+        const config = {
+          minAgeDays: getDaysSince('2021'),
+          allow: [{ package: '@babel/*' }],
+        };
+        const plugin = new PackageFilterPlugin(config, pluginOptions);
+
+        const babelResult = await plugin.filter_metadata(babelTestManifest);
+        expect(getVersionKeys(babelResult)).toEqual(['1.0.0', '1.5.0', '3.0.0']);
+        expect(getLatest(babelResult)).toBe('3.0.0');
+
         const typesResult = await plugin.filter_metadata(typesNodeManifest);
         expect(getVersionKeys(typesResult)).not.toContain('2.6.3');
         expect(getVersionKeys(typesResult)).toEqual(['1.0.0', '2.2.0']);

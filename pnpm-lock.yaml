@@ -1106,6 +1106,9 @@ importers:
       debug:
         specifier: 4.4.3
         version: 4.4.3(supports-color@5.5.0)
+      minimatch:
+        specifier: 10.2.6
+        version: 10.2.6
       semver:
         specifier: 7.8.5
         version: 7.8.5
