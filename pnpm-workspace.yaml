@@ -15,10 +15,14 @@ allowBuilds:
   unrs-resolver: true
 overrides:
   typescript: 7.0.2
-  # Security: @verdaccio/e2e-cli pins js-yaml exactly, force the GHSA-5p4m-2wfm-xmqj fix
-  '@verdaccio/e2e-cli>js-yaml': 4.3.1
-  # Security: ajv resolves fast-uri in range, pin the GHSA-v2hh-gcrm-f6hx / GHSA-4c8g-83qw-93j6 fix
-  fast-uri: 3.1.5
+  # Security: js-yaml consumers pin old versions, force the GHSA-5p4m-2wfm-xmqj / GHSA-2883-xcg3-v3hh fixes on both majors
+  '@verdaccio/e2e-cli>js-yaml': 4.3.2
+  'js-yaml@^3.0.0': 3.15.2
+  'js-yaml@^4.0.0': 4.3.2
+  # Security: body-parser pins qs ~6.15, below the GHSA-4mjr-xmp4-gh2g fix
+  'body-parser>qs': 6.16.0
+  # Security: ajv resolves fast-uri in range, pin the fix for GHSA-jqff-g426-hqxp and the other 2026 fast-uri advisories
+  fast-uri: 3.1.6
   # Security: concurrently pins shell-quote below the GHSA-395f-4hp3-45gv fix
   shell-quote: 1.10.0
 minimumReleaseAge: 10080
@@ -29,13 +33,13 @@ minimumReleaseAgeExclude:
   # Renovate security update: vite@8.0.16
   - vite@8.0.16
   # Security update: fast-uri GHSA-v2hh-gcrm-f6hx / GHSA-7p8r-x3mc-p8w7 (via ajv)
-  - fast-uri@3.1.5
+  - fast-uri@3.1.6
   # Security update: js-yaml GHSA-pm4m-ph32-ghv5 (DoS in flow collections)
   # (entries are matched by name first: a stale js-yaml@<old> entry above this
   # one would shadow it and reject the version — keep a single js-yaml entry)
   - js-yaml@5.2.2
   # Security update: js-yaml GHSA-5p4m-2wfm-xmqj (!!omap CPU consumption)
-  - js-yaml@4.3.1
+  - js-yaml@4.3.2
   # Security updates required by pnpm audit
   - body-parser@1.20.6
   - qs@6.15.2
