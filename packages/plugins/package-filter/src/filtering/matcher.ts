@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import { minimatch } from 'minimatch';
+import { Minimatch } from 'minimatch';
 import { satisfies } from 'semver';
 
 import type { Manifest } from '@verdaccio/types';
@@ -9,6 +9,63 @@ import type { MatchResult } from './types';
 import { MatchType } from './types';
 
 const debug = buildDebug('verdaccio:plugin:package-filter:filter');
+
+interface CompiledGlobRule {
+  pattern: string;
+  matcher: Minimatch;
+  rule: ParsedRule;
+}
+
+interface CompiledGlobRules {
+  packages: CompiledGlobRule[];
+  scopes: CompiledGlobRule[];
+}
+
+const compiledGlobRules = new WeakMap<Map<string, ParsedRule>, CompiledGlobRules>();
+const globMagic = /[\\*?[\]{}!]|[+@]\(/;
+
+/**
+ * Compile patterns requiring glob or escape handling, grouped by rule type.
+ */
+function compileGlobRules(rules: Map<string, ParsedRule>): CompiledGlobRules {
+  const compiled: CompiledGlobRules = { packages: [], scopes: [] };
+
+  for (const [pattern, rule] of rules) {
+    if (!globMagic.test(pattern)) {
+      continue;
+    }
+
+    const matcher = new Minimatch(pattern);
+    const compiledRule = { pattern, matcher, rule };
+    if (rule === 'scope') {
+      compiled.scopes.push(compiledRule);
+    } else {
+      compiled.packages.push(compiledRule);
+    }
+  }
+
+  return compiled;
+}
+
+/**
+ * Cache the compiled glob rules for a rule map. Call again after changing the map.
+ */
+export function prepareRules(rules: Map<string, ParsedRule>): void {
+  compiledGlobRules.set(rules, compileGlobRules(rules));
+}
+
+/**
+ * Return cached glob rules, compiling and caching unprepared maps on first use.
+ */
+function getCompiledGlobRules(rules: Map<string, ParsedRule>): CompiledGlobRules {
+  let compiled = compiledGlobRules.get(rules);
+  if (!compiled) {
+    compiled = compileGlobRules(rules);
+    compiledGlobRules.set(rules, compiled);
+  }
+
+  return compiled;
+}
 
 function findScopeRule(
   scope: string | undefined,
@@ -23,9 +80,9 @@ function findScopeRule(
     return { scope, rule: exactRule };
   }
 
-  for (const [ruleScope, rule] of rules) {
-    if (rule === 'scope' && minimatch(scope, ruleScope)) {
-      return { scope: ruleScope, rule };
+  for (const { pattern, matcher } of getCompiledGlobRules(rules).scopes) {
+    if (matcher.match(scope)) {
+      return { scope: pattern, rule: 'scope' };
     }
   }
 
@@ -41,8 +98,8 @@ function findPackageRule(
     return { pattern: packageName, rule: exactRule };
   }
 
-  for (const [pattern, rule] of rules) {
-    if (rule !== 'scope' && minimatch(packageName, pattern)) {
+  for (const { pattern, matcher, rule } of getCompiledGlobRules(rules).packages) {
+    if (matcher.match(packageName)) {
       return { pattern, rule };
     }
   }
@@ -75,6 +132,7 @@ function splitName(name: string): { name: string; scope?: string } {
 /**
  * Try to find a rule that matches the package.
  * If found, returns the rule and the matched package versions from the manifest.
+ * Rule maps are cached; call prepareRules after modifying them.
  */
 export function matchRules(
   manifest: Manifest,

@@ -965,8 +965,8 @@ importers:
         specifier: 4.4.3
         version: 4.4.3(supports-color@5.5.0)
       minimatch:
-        specifier: 9.0.7
-        version: 9.0.7
+        specifier: 10.2.5
+        version: 10.2.5
       semver:
         specifier: 7.8.5
         version: 7.8.5
@@ -5154,10 +5154,6 @@ packages:
 
   minimatch@3.1.2:
     resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}
-
-  minimatch@9.0.7:
-    resolution: {integrity: sha512-MOwgjc8tfrpn5QQEvjijjmDVtMw2oL88ugTevzxQnzRLm6l3fVEF2gzU0kYeYYKD8C66+IdGX6peJ4MyUlUnPg==}
-    engines: {node: '>=16 || 14 >=14.17'}
 
   minimatch@9.0.9:
     resolution: {integrity: sha512-OBwBN9AL4dqmETlpS2zasx+vTeWclWzkblfZk7KTA5j3jeOONz/tRCnZomUyvNg83wL5Zv9Ss6HMJXAgL8R2Yg==}
@@ -10489,10 +10485,6 @@ snapshots:
     dependencies:
       brace-expansion: 1.1.11
 
-  minimatch@9.0.7:
-    dependencies:
-      brace-expansion: 5.0.6
-
   minimatch@9.0.9:
     dependencies:
       brace-expansion: 2.1.1
@@ -11765,7 +11757,7 @@ snapshots:
       '@gerrit0/mini-shiki': 3.13.1
       lunr: 2.3.9
       markdown-it: 14.1.0
-      minimatch: 9.0.7
+      minimatch: 9.0.9
       typescript: 5.9.3
       yaml: 2.8.1
 
