@@ -331,7 +331,13 @@ export default class LocalFS {
   }
 
   private _getStorage(fileName = ''): string {
-    const storagePath: string = path.join(this.path, sanitize(fileName));
+    // Keep the resolved path within the storage root.
+    const storageRoot: string = path.resolve(this.path);
+    const storagePath: string = path.resolve(storageRoot, sanitize(fileName));
+
+    if (storagePath !== storageRoot && !storagePath.startsWith(storageRoot + path.sep)) {
+      throw fSError(noSuchFile, 404);
+    }
 
     return storagePath;
   }
