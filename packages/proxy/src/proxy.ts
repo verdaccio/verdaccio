@@ -511,14 +511,15 @@ class ProxyStorage implements IProxy {
     onSearchPage,
   }: ProxySearchParams): Promise<Stream.Readable> {
     try {
-      // Incoming URL is relative ie /-/v1/search...
-      const uri = new URL(url, this.url).href;
+      const uri = this.buildUri(url);
+      const headers = this.applyUplinkHeaders(this.getHeaders());
       this.logger.http(
         { uri, uplink: this.uplinkName },
         'search request to uplink @{uplink} - @{uri}'
       );
       debug('searching on %o', uri);
       const response = got(uri, {
+        headers,
         signal: abort ? abort.signal : undefined,
         agent: this.agent,
         timeout: this.timeout,
@@ -556,6 +557,12 @@ class ProxyStorage implements IProxy {
       );
       throw err;
     }
+  }
+
+  private buildUri(path: string): string {
+    const base = new URL(this.url);
+    base.pathname = `${base.pathname.replace(/\/+$/, '')}/`;
+    return new URL(path.replace(/^\/+/, ''), base).href;
   }
 
   private addProxyHeaders(headers: gotHeaders, remoteAddress?: string): gotHeaders {
