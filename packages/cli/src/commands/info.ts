@@ -1,20 +1,16 @@
-import { Command } from 'clipanion';
-import envinfo from 'envinfo';
+import { Command, Option } from 'clipanion';
+
+import { getEnvInfo } from './env-info';
 
 export class InfoCommand extends Command {
   public static paths = [[`--info`], [`-i`]];
 
-  public async execute(): Promise<void> {
-    this.context.stdout.write('\nEnvironment Info:');
-    const data = await envinfo.run({
-      System: ['OS', 'CPU'],
-      Binaries: ['node', 'yarn', 'npm', 'pnpm'],
-      Virtualization: ['Docker'],
-      Browsers: ['Chrome', 'Edge', 'Firefox', 'Safari'],
-      npmGlobalPackages: ['verdaccio'],
-    });
+  public mask = Option.Boolean(`--mask`, false, {
+    description: `obscure file paths in the report (keeps the structure, hides the names)`,
+  });
 
-    this.context.stdout.write(data);
+  public async execute(): Promise<void> {
+    this.context.stdout.write(await getEnvInfo(this.mask));
     process.exit(0);
   }
 }

@@ -53,7 +53,7 @@ export const defineAPI = async function (config: IConfig, storage: Storage): Pro
   if (config.server?.trustProxy) {
     app.set('trust proxy', config.server.trustProxy);
   }
-  app.use(cors());
+  app.use(config.server?.cors ? cors(config.server.cors) : cors());
   app.use(rateLimit(config.server?.rateLimit));
 
   // mime-db marks application/octet-stream as compressible, so the default

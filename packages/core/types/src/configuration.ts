@@ -1,3 +1,4 @@
+import type { CorsOptions } from 'cors';
 import type { Algorithm as Algorithms, SignOptions, VerifyOptions } from 'jsonwebtoken';
 import type { AgentOptions as HttpAgentOptions } from 'node:http';
 import type { AgentOptions as HttpsAgentOptions } from 'node:https';
@@ -317,6 +318,8 @@ export type ServerSettingsConf = {
   // and only visible via DEBUG=verdaccio:middleware:log. Failed pings
   // (status >= 400) are still logged. Defaults to true.
   hidePingLogs?: boolean;
+  // Options passed to the cors middleware. Omit to use cors defaults.
+  cors?: CorsOptions;
 };
 
 /**
