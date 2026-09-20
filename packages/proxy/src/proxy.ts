@@ -560,7 +560,8 @@ class ProxyStorage implements IProxy {
   }
 
   private buildUri(path: string): string {
-    const base = `${this.url.href.replace(/\/+$/, '')}/`;
+    const base = new URL(this.url);
+    base.pathname = `${base.pathname.replace(/\/+$/, '')}/`;
     return new URL(path.replace(/^\/+/, ''), base).href;
   }
 

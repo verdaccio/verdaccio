@@ -75,6 +75,30 @@ describe('proxy', () => {
         queryUrl.slice(1),
         '/private/npm/-/v1/search',
       ],
+      [
+        'subpath with query',
+        `${domain}/private/npm?key=value`,
+        queryUrl,
+        '/private/npm/-/v1/search',
+      ],
+      [
+        'subpath with fragment',
+        `${domain}/private/npm#section`,
+        queryUrl,
+        '/private/npm/-/v1/search',
+      ],
+      [
+        'subpath with query and fragment',
+        `${domain}/private/npm?key=value#section`,
+        queryUrl,
+        '/private/npm/-/v1/search',
+      ],
+      [
+        'subpath with trailing slashes before query and fragment',
+        `${domain}/private/npm///?key=value#section`,
+        queryUrl,
+        '/private/npm/-/v1/search',
+      ],
     ])('preserves the configured uplink %s', async (_name, uplinkUrl, searchUrl, path) => {
       const response = require('./partials/search-v1.json');
       const request = nock(domain)
@@ -82,14 +106,18 @@ describe('proxy', () => {
         .reply(200, response);
       const prox1 = new ProxyStorage('uplink', { url: uplinkUrl }, conf, logger);
       const abort = new AbortController();
+      const onSearchPage = vi.fn();
       const stream = await prox1.search({
         abort,
         url: searchUrl,
+        onSearchPage,
       });
 
       const searchResponse = await getStream(stream.pipe(streamUtils.transformObjectToString()));
-      expect(searchResponse).not.toBe('');
+      expect(JSON.parse(searchResponse)).toEqual(response.objects);
+      expect(onSearchPage).toHaveBeenCalledExactlyOnceWith(response.total);
       expect(request.isDone()).toBe(true);
+      expect(prox1.url.href).toBe(new URL(uplinkUrl).href);
     });
 
     test('forwards the default search headers to the uplink', async () => {
@@ -165,38 +193,41 @@ describe('proxy', () => {
     test.each([
       ['Bearer', TOKEN_BEARER, 'bearer-token', `${TOKEN_BEARER} bearer-token`],
       ['Basic', TOKEN_BASIC, 'basic-token', `${TOKEN_BASIC} basic-token`],
-    ])('forwards %s authentication to the uplink', async (_name, type, token, authorization) => {
-      const response = require('./partials/search-v1.json');
-      const request = nock(domain, {
-        reqheaders: {
-          [HEADERS.AUTHORIZATION]: authorization,
-        },
-      })
-        .get(queryUrl)
-        .reply(200, response);
-      const prox1 = new ProxyStorage(
-        'uplink',
-        {
-          url: domain,
-          auth: { type, token },
-        },
-        conf,
-        logger
-      );
+    ] as const)(
+      'forwards %s authentication to the uplink',
+      async (_name, type, token, authorization) => {
+        const response = require('./partials/search-v1.json');
+        const request = nock(domain, {
+          reqheaders: {
+            [HEADERS.AUTHORIZATION]: authorization,
+          },
+        })
+          .get(queryUrl)
+          .reply(200, response);
+        const prox1 = new ProxyStorage(
+          'uplink',
+          {
+            url: domain,
+            auth: { type, token },
+          },
+          conf,
+          logger
+        );
 
-      const stream = await prox1.search({
-        abort: new AbortController(),
-        url: queryUrl,
-        headers: new Headers({
-          authorization: `${TOKEN_BEARER} client-token`,
-          'x-uplink-header': 'client-value',
-        }),
-      });
+        const stream = await prox1.search({
+          abort: new AbortController(),
+          url: queryUrl,
+          headers: new Headers({
+            authorization: `${TOKEN_BEARER} client-token`,
+            'x-uplink-header': 'client-value',
+          }),
+        });
 
-      const searchResponse = await getStream(stream.pipe(streamUtils.transformObjectToString()));
-      expect(searchResponse).not.toBe('');
-      expect(request.isDone()).toBe(true);
-    });
+        const searchResponse = await getStream(stream.pipe(streamUtils.transformObjectToString()));
+        expect(searchResponse).not.toBe('');
+        expect(request.isDone()).toBe(true);
+      }
+    );
 
     test('allows configured uplink headers to override generated headers', async () => {
       const response = require('./partials/search-v1.json');
