@@ -154,9 +154,9 @@
     "@types/express-serve-static-core": "4.19.9",
     "@types/serve-static": "1.15.10",
     "ajv/fast-uri": "3.1.6",
+    "body-parser/qs": "6.16.0",
     "express/path-to-regexp": "0.1.13",
-    "lowdb/lodash": "4.18.1",
-    "body-parser/qs": "6.16.0"
+    "lowdb/lodash": "4.18.1"
   },
   "preferGlobal": true,
   "engines": {
