@@ -102,7 +102,7 @@ code bug.
 
 ## 2. Client compatibility and correctness
 
-The e2e matrix runs npm 10–12, yarn classic and modern, pnpm 10–11, bun, and deno
+The e2e matrix runs npm 10–12, yarn modern 3 and 4, pnpm 10–11, bun, and deno
 against every PR. Each client has its own expectations; a change that works for `npm`
 alone is not done.
 

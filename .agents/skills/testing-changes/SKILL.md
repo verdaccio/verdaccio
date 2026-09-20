@@ -5,10 +5,14 @@ description: Select and run the checks that actually cover a change in the verda
 
 # Testing a change
 
-Run what the change affects. CI runs the full pipeline on every ready PR (lint, format,
-build, tests on Node.js 24 and 26, Docker build, the e2e CLI matrix, Cypress), so the
-local job is fast, honest feedback, not a second full gate. What matters is that the
-run you choose exercises the code you changed.
+Run what the change affects. CI runs the full pipeline (lint, format, build, tests on
+Node.js 24 and 26, Docker build, the e2e CLI matrix, Cypress) on a ready PR whose diff
+matches `ci.yml`'s `paths:` filter — `packages/**`, `tests/**`, `docker-examples/**`,
+`package.json`, `pnpm-workspace.yaml`, `vite.lib.config.mjs`, `.changeset/**`, or the
+workflow file itself. A docs-only or `.agents/`/`.claude/`-only PR does not trigger CI
+at all; don't cite a green check that never ran. The local job is fast, honest feedback
+either way, not a second full gate. What matters is that the run you choose exercises
+the code you changed.
 
 ## The one rule: rebuild before you test
 

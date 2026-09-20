@@ -38,8 +38,8 @@ provides.
 
 Anything a package manager observes is a contract. Before changing a status code,
 header, packument field, tarball URL, or auth flow, check what registry.npmjs.org and
-the npm CLI (`npm/cli`) do, and remember the e2e matrix runs npm, pnpm, yarn classic
-and modern, bun, and deno.
+the npm CLI (`npm/cli`) do, and remember the e2e matrix runs npm, pnpm, yarn modern
+(3 and 4), bun, and deno.
 
 ## Put it in the owning layer
 
