@@ -1,5 +1,31 @@
 # Changelog
 
+## 6.10.4
+
+### Patch Changes
+
+- 7730e60: Update express to 4.22.3 — directly and through `@verdaccio/middleware` 8.1.4,
+  `verdaccio-audit` 13.1.4 and `@verdaccio/test-helper` 4.1.4 — so the registry's entire HTTP
+  stack resolves qs 6.16.0, which fixes several denial-of-service advisories in query-string
+  handling: a remotely triggerable crash in `qs.stringify` (TypeError on crafted input), an
+  `arrayLimit` bypass through bracket-key comma parsing that allows memory exhaustion, and a
+  DoS via an attacker-controlled `isBuffer` check (GHSA-4mjr-xmp4-gh2g). A `body-parser/qs`
+  resolution covers the one remaining consumer that pins qs below the fix. Query-string
+  parsing behaviour is otherwise unchanged and no configuration change is needed.
+
+  The same update refreshes the development dependency tree, clearing every high-severity
+  `yarn npm audit` finding (stale transitive resolutions of tar, minimatch, socks/ip, js-yaml,
+  form-data, nanoid, postcss, picomatch, tmp and systeminformation, plus vitest 4.1.11 for the
+  `@vitest/mocker` path-traversal advisory) — none of these ship in the published package.
+
+- aabb0b4: Fix `npm publish` failing with `request size did not match content length` when authenticating with a token created by `npm token create`.
+
+  The JSON body parser was registered by the API router, which runs after `apiJWTmiddleware()` and after `enforceGeneratedTokenMetadata()`. The latter awaits a storage lookup for tokens that carry a server-issued key, so the request body was partially consumed before the parser attached. It is now registered before both, as it already is on `master`.
+
+- e2602b3: Update verdaccio dependencies to the `latest` npm dist-tag (`@verdaccio/ui-theme` tracks `next-9`):
+
+  - `@verdaccio/ui-theme`: `9.0.0-next-9.30` → `9.0.0-next-9.31`
+
 ## 6.10.3
 
 ### Patch Changes
