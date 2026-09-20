@@ -1,3 +1,4 @@
+import type { CorsOptions } from 'cors';
 import type { Algorithm as Algorithms, SignOptions, VerifyOptions } from 'jsonwebtoken';
 import type { AgentOptions as HttpAgentOptions } from 'node:http';
 import type { AgentOptions as HttpsAgentOptions } from 'node:https';
@@ -313,6 +314,8 @@ export type ServerSettingsConf = {
   // When true, static file requests (/-/static/*) are hidden from pino logs
   // and only visible via DEBUG=verdaccio:middleware:log. Defaults to true.
   hideStaticLogs?: boolean;
+  // Options passed to the cors middleware. Omit to use cors defaults.
+  cors?: CorsOptions;
 };
 
 /**

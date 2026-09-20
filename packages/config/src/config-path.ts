@@ -24,7 +24,7 @@ const debug = buildDebug('verdaccio:config:config-path');
  * Find and get the first config file that match.
  * @return {String} the config file path
  */
-function findConfigFile(configPath?: string): string {
+export function findConfigFile(configPath?: string): string {
   debug('searching for config file %o', configPath);
   if (typeof configPath !== 'undefined') {
     const configLocation = path.resolve(configPath);
@@ -58,7 +58,7 @@ function findConfigFile(configPath?: string): string {
  * Like {@link findConfigFile}, but side-effect free: returns the first existing
  * config file location, or undefined when none exists (nothing is created).
  */
-function findExistingConfigFile(): string | undefined {
+export function findExistingConfigFile(): string | undefined {
   const primaryConf: SetupDirectory | void = find(getConfigPaths(), (configLocation) =>
     fileExists(configLocation.path)
   );
@@ -113,8 +113,10 @@ function updateStorageLinks(configLocation: SetupDirectory, defaultConfig: strin
   // $XDG_DATA_HOME defines the base directory relative to which user specific data
   // files should be stored, If $XDG_DATA_HOME is either not set or empty, a default
   // equal to $HOME/.local/share should be used.
-  let dataDir = process.env.XDG_DATA_HOME || path.join(os.homedir(), '.local', 'share');
-  if (folderExists(dataDir)) {
+  let dataDir =
+    process.env.XDG_DATA_HOME ||
+    (process.env.HOME && path.join(process.env.HOME, '.local', 'share'));
+  if (dataDir && folderExists(dataDir)) {
     debug(`previous storage located`);
     debug(`update storage links to %s`, dataDir);
     dataDir = path.resolve(path.join(dataDir, pkgJSON.name, 'storage'));
@@ -156,15 +158,12 @@ function getConfigPaths(): SetupDirectory[] {
  * which aims to standardize the locations where applications store configuration files and other
  * user-specific data on Unix-like operating systems.
  *
- *
- *
  * https://specifications.freedesktop.org/basedir-spec/latest/
- *
- *
  * @returns
  */
 const getXDGDirectory = (): SetupDirectory | void => {
-  const xDGConfigPath = process.env.XDG_CONFIG_HOME || path.join(os.homedir(), '.config');
+  const xDGConfigPath =
+    process.env.XDG_CONFIG_HOME || (process.env.HOME && path.join(process.env.HOME, '.config'));
   debug('XDGConfig folder path %s', xDGConfigPath);
   if (xDGConfigPath && folderExists(xDGConfigPath)) {
     debug('XDGConfig folder path %s', xDGConfigPath);
@@ -216,5 +215,3 @@ const getOldDirectory = (): SetupDirectory => {
     type: 'old',
   };
 };
-
-export { findConfigFile, findExistingConfigFile };
