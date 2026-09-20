@@ -1,23 +1,35 @@
 #!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
 echo "Checking pnpm lockfile is up-to-date..."
 if ! pnpm install --frozen-lockfile --lockfile-only 2>/dev/null; then
   echo "ERROR: pnpm lockfile is out of date. Run 'pnpm install' and commit the updated lockfile."
   exit 1
 fi
 
+# Run an oxc command over a newline-separated file list, tolerating the case
+# where every file is excluded by ignore rules (oxfmt/oxlint otherwise abort).
+run_over_files() {
+  files=$1
+  shift
+  output=$(echo "$files" | xargs "$@" 2>&1)
+  status=$?
+  [ -n "$output" ] && echo "$output"
+  if [ "$status" -ne 0 ] && echo "$output" | grep -q "Expected at least one target file"; then
+    return 0
+  fi
+  return "$status"
+}
+
 # Format and lint staged files with oxfmt + oxlint, then re-stage any fixes.
 STAGED=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.(js|jsx|ts|tsx|mjs|cjs|json|jsonc|json5|md|yml|yaml|html)$' || true)
 
 if [ -n "$STAGED" ]; then
   echo "Formatting staged files (oxfmt)..."
-  echo "$STAGED" | xargs pnpm exec oxfmt --
+  run_over_files "$STAGED" pnpm exec oxfmt -- || exit 1
 
   LINTABLE=$(echo "$STAGED" | grep -E '\.(js|jsx|ts|tsx|mjs|cjs)$' || true)
   if [ -n "$LINTABLE" ]; then
     echo "Linting staged files (oxlint --fix)..."
-    echo "$LINTABLE" | xargs pnpm exec oxlint --fix --
+    run_over_files "$LINTABLE" pnpm exec oxlint --fix -- || exit 1
   fi
 
   # Re-stage files that oxfmt/oxlint modified

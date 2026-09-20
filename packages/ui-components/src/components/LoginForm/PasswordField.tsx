@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 import type { Theme } from '../../';
 import type { AddUserFormValues, LoginFormValues } from '../../utils/schemas';
+import { PASSWORD_MIN_LENGTH } from '../../utils/schemas';
 
 const StyledTextField = styled(TextField)<{ theme?: Theme }>(({ theme }) => ({
   marginTop: theme.spacing(2),
@@ -25,11 +26,14 @@ const PasswordField: FC<Props> = ({ register, errors }) => {
       autoComplete="current-password"
       error={!!errors.password}
       fullWidth={true}
-      helperText={errors.password?.message}
+      // schema messages are i18n keys (inline rules are ignored when a resolver is set)
+      helperText={
+        errors.password?.message
+          ? t(errors.password.message, { length: PASSWORD_MIN_LENGTH })
+          : undefined
+      }
       id="login--dialog-password"
-      {...register('password', {
-        required: { value: true, message: t('form-validation.required-field') },
-      })}
+      {...register('password')}
       data-testid="password"
       label={t('form.password')}
       placeholder={t('form-placeholder.password')}

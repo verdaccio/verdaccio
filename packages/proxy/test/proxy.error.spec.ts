@@ -144,4 +144,39 @@ describe('proxy', () => {
       });
     });
   });
+
+  describe('retry configuration', () => {
+    test('should not derive the got retry limit from max_fails', () => {
+      // max_fails is the circuit-breaker threshold; using it as the per-request
+      // retry count would multiply every uplink timeout by its value
+      const proxy = new ProxyStorage(
+        'uplink',
+        { ...defaultRequestOptions, max_fails: 100 } as any,
+        conf,
+        logger
+      );
+      expect((proxy as any).retry).toEqual({ limit: 2 });
+      expect(proxy.max_fails).toEqual(100);
+    });
+
+    test('should honor the retry uplink setting', () => {
+      const proxy = new ProxyStorage(
+        'uplink',
+        { ...defaultRequestOptions, retry: 0 } as any,
+        conf,
+        logger
+      );
+      expect((proxy as any).retry).toEqual({ limit: 0 });
+    });
+
+    test('should accept a got retry object', () => {
+      const proxy = new ProxyStorage(
+        'uplink',
+        { ...defaultRequestOptions, retry: { limit: 5 } } as any,
+        conf,
+        logger
+      );
+      expect((proxy as any).retry).toEqual({ limit: 5 });
+    });
+  });
 });

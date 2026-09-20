@@ -1,5 +1,5 @@
 import React from 'react';
-import { vi } from 'vitest';
+import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { cleanup, renderWith, screen } from '../../test/test-react-testing-library';
 import type { PackageMetaInterface } from '../../types/packageMeta';

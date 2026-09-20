@@ -6,7 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { debounce } from 'lodash-es';
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import semver from 'semver';
 
@@ -25,9 +25,28 @@ export const StyledText = styled(Typography)<{ theme?: Theme }>((props) => ({
 const Versions: React.FC<Props> = ({ packageMeta, packageName }) => {
   const { t } = useTranslation();
   const { configOptions } = useConfig();
-  const { versions = {}, time = {}, ['dist-tags']: distTags = {} } = packageMeta;
+  const { versions = {}, time = {}, ['dist-tags']: distTags = {} } = packageMeta ?? {};
 
-  const [packageVersions, setPackageVersions] = useState(versions);
+  const [textSearch, setTextSearch] = useState('');
+  // the detail routes reuse this mounted component across packages: reset the
+  // filter so the previous package's text does not apply to the next one
+  useEffect(() => {
+    setTextSearch('');
+  }, [packageName]);
+  const packageVersions = useMemo(() => {
+    if (textSearch === '') {
+      return versions;
+    }
+    return Object.keys(versions).reduce((acc, version) => {
+      if (typeof versions[version] !== 'undefined') {
+        if (semver.satisfies(version, textSearch, { includePrerelease: true, loose: true })) {
+          acc[version] = versions[version];
+        }
+      }
+      return acc;
+    }, {});
+  }, [versions, textSearch]);
+
   if (!packageMeta || Object.keys(packageMeta).length === 0) {
     return null;
   }
@@ -35,23 +54,6 @@ const Versions: React.FC<Props> = ({ packageMeta, packageName }) => {
   const hasDistTags = distTags && Object.keys(distTags).length > 0 && packageName;
   const hasVersionHistory =
     packageVersions && Object.keys(packageVersions).length > 0 && packageName;
-
-  const filterVersions = (textSearch) => {
-    const filteredVersions = Object.keys(versions).reduce((acc, version) => {
-      if (textSearch !== '') {
-        if (typeof versions[version] !== 'undefined') {
-          if (semver.satisfies(version, textSearch, { includePrerelease: true, loose: true })) {
-            acc[version] = versions[version];
-          }
-        }
-      } else {
-        acc[version] = versions[version];
-      }
-      return acc;
-    }, {});
-
-    setPackageVersions(filteredVersions);
-  };
 
   return (
     <Card sx={{ mb: 2 }}>
@@ -72,9 +74,11 @@ const Versions: React.FC<Props> = ({ packageMeta, packageName }) => {
               <span>{` (${Object.keys(packageVersions).length})`}</span>
             </StyledText>
             <TextField
+              // uncontrolled input: remount on navigation to clear its text
+              key={packageName}
               helperText={t('versions.search.placeholder')}
               onChange={debounce((e) => {
-                filterVersions(e.target.value);
+                setTextSearch(e.target.value);
               }, 200)}
               size="small"
               variant="standard"

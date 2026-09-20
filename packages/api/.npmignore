@@ -1,6 +1,6 @@
 /*
-!/bin/**/*
-!/build/**/*
+!/bin/
+!/build/
 !index.js
 !LICENSE
 !README.md

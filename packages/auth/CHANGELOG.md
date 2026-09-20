@@ -1,5 +1,249 @@
 # @verdaccio/auth
 
+## 9.0.0-next-9.31
+
+### Patch Changes
+
+- Updated dependencies [c2b5897]
+- Updated dependencies [68ab0d4]
+- Updated dependencies [c52b632]
+- Updated dependencies [7054084]
+- Updated dependencies [e3d3128]
+- Updated dependencies [cf15239]
+  - @verdaccio/core@9.0.0-next-9.31
+  - @verdaccio/loaders@9.0.0-next-9.31
+  - @verdaccio/config@9.0.0-next-9.31
+  - verdaccio-htpasswd@14.0.0-next-9.31
+  - @verdaccio/signature@9.0.0-next-9.31
+
+## 9.0.0-next-9.30
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.30
+- @verdaccio/config@9.0.0-next-9.30
+- @verdaccio/loaders@9.0.0-next-9.30
+- verdaccio-htpasswd@14.0.0-next-9.30
+- @verdaccio/signature@9.0.0-next-9.30
+
+## 9.0.0-next-9.29
+
+### Minor Changes
+
+- 30601b3: feat: staged publishing (`npm stage`) behind the `stage` flag
+
+  Adds the `/-/stage` endpoints so a package version can be uploaded for review and
+  only becomes installable once a maintainer approves it. Everything is gated by
+  the new `stage` feature flag, which defaults to `false`.
+
+  ```yaml
+  flags:
+    stage: true
+  ```
+
+  The whole `npm stage` family is supported — `publish`, `list`, `view`,
+  `download`, `approve` and `reject` — verified end to end against npm 11.17.
+  Staging never asks for a one-time password: deferring proof of presence to
+  approval time is the point of the flow, which lets a pipeline prepare a release
+  that a human approves later.
+
+  Package access gains a `stage` entry deciding who may submit a version for
+  review:
+
+  ```yaml
+  packages:
+    "my-company-*":
+      access: $authenticated
+      stage: developers
+      publish: release-managers
+  ```
+
+  It falls back to `publish` when omitted, exactly as `unpublish` already does, so
+  existing configurations are unaffected. Granting it to a group that lacks
+  `publish` is what turns review into a real gate: those users can propose a
+  release but neither publish one directly nor approve their own submission, though
+  they can always withdraw it. Auth plugins can implement `allow_stage`; returning
+  `undefined` defers to `allow_publish`.
+
+  Staging fires a notification with `publishType: 'stage'` and rejecting fires
+  `unstage`, so a staged version no longer waits unnoticed until somebody runs
+  `npm stage list`. Approving keeps reporting `publish`, because that is what it
+  does.
+
+  Staged items are persisted through the storage plugin interface, so any storage
+  plugin works unchanged, and the namespace is never registered in the plugin
+  database — staged versions stay out of search and the package list.
+
+  The web UI gains a "Staged packages" view (list, detail, approve, reject,
+  download) that appears only while the flag is on.
+
+- 30601b3: feat: two-factor authentication (TOTP) behind the `tfa` flag
+
+  Adds time-based one-time passwords, gated by the new `tfa` feature flag, which
+  defaults to `false`.
+
+  ```yaml
+  flags:
+    tfa: true
+  ```
+
+  Users enrol with the standard `npm profile enable-2fa`, in either `auth-only`
+  mode (logins and token creation) or `auth-and-writes` (those plus publishing,
+  unpublishing, dist-tag changes and `npm stage approve`/`reject`). Enabling,
+  disabling and switching mode all re-check the account password, so holding a
+  token is not enough to remove somebody's second factor.
+
+  The challenge answers `401` with `WWW-Authenticate: otp`, which is the only shape
+  npm and Yarn recognise — anything else, including the `Bearer` that every other
+  401 carries, is read as a plain authentication failure and never retried.
+  Verified against npm 11.17 and Yarn 4.18.
+
+  Six digits are trivially brute-forceable, so failed verifications are counted and
+  the account is locked out for five minutes after five of them. Recovery codes are
+  hashed and consumed on first use.
+
+  Secrets, recovery codes and lockout state live in the storage plugin's token
+  store, encrypted at rest with the server secret, so any plugin implementing the
+  token interface works unchanged. With the flag on, a plugin that does not now
+  fails at startup rather than answering `503` on every write.
+
+  Two ways the token APIs would have exposed that state are closed: the row is no
+  longer listed by `GET /-/npm/v1/tokens`, and `DELETE
+/-/npm/v1/tokens/token/:tokenKey` refuses to remove it, which would otherwise
+  have switched two-factor off without the password and one-time password that
+  `npm profile disable-2fa` requires.
+
+  Rotating the server secret makes existing records undecryptable. Rather than
+  reading that as "this user has no two-factor" and silently dropping everybody's
+  protection, it raises and names the likely cause.
+
+### Patch Changes
+
+- 30601b3: fix: reject replayed one-time passwords and invalid staged tarball names
+
+  Two problems found while auditing the staged publishing and two-factor work,
+  both reproduced against a running registry before being fixed.
+
+  A one-time password could be used more than once. Codes stay valid for up to 90
+  seconds with the tolerance window, so a code seen in a CI log or over someone's
+  shoulder authorised every write in that window — three publishes went through
+  with one code. RFC 6238 §5.2 requires single use, so the accepted time step is
+  now recorded and anything at or before it is refused.
+
+  The tarball name of a staged version came from the `_attachments` key of the
+  request and reached the storage plugin unchecked. A name of `..` made the write
+  fail inside a stream handler nobody awaits, which crashed the process: any user
+  allowed to stage could take the registry down with one request. The regular
+  publish path already asserted the name; staging now does too.
+
+  Both single-use guarantees were also reachable around by sending requests at the
+  same time: two concurrent verifications read the same record, neither saw the
+  other spend the code, and both were accepted. Two-factor mutations are now
+  serialized per user, and the duplicate check when staging happens inside the
+  serialized index write instead of before it.
+
+  Logging in no longer asks for a one-time password before the password itself has
+  been accepted, which used to reveal that an account exists and has two-factor
+  enabled to anyone who could guess a username.
+
+- Updated dependencies [30601b3]
+- Updated dependencies [30601b3]
+  - @verdaccio/core@9.0.0-next-9.29
+  - @verdaccio/config@9.0.0-next-9.29
+  - verdaccio-htpasswd@14.0.0-next-9.29
+  - @verdaccio/signature@9.0.0-next-9.29
+  - @verdaccio/loaders@9.0.0-next-9.29
+
+## 9.0.0-next-9.28
+
+### Patch Changes
+
+- Updated dependencies [dd4f91c]
+  - @verdaccio/core@9.0.0-next-9.28
+  - @verdaccio/config@9.0.0-next-9.28
+  - @verdaccio/loaders@9.0.0-next-9.28
+  - verdaccio-htpasswd@14.0.0-next-9.28
+  - @verdaccio/signature@9.0.0-next-9.28
+
+## 9.0.0-next-9.27
+
+### Major Changes
+
+- 8857b15: Remove support for incoming HTTP Basic authentication. Verdaccio now accepts Bearer tokens for API authentication and advertises only `Bearer` in `WWW-Authenticate` responses.
+
+  Web UI session tokens are accepted as Bearer authentication for package API requests, so the same package access rules apply to Web UI and package manager clients.
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.27
+- @verdaccio/config@9.0.0-next-9.27
+- @verdaccio/loaders@9.0.0-next-9.27
+- verdaccio-htpasswd@14.0.0-next-9.27
+- @verdaccio/signature@9.0.0-next-9.27
+
+## 9.0.0-next-9.26
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.26
+- @verdaccio/config@9.0.0-next-9.26
+- @verdaccio/loaders@9.0.0-next-9.26
+- verdaccio-htpasswd@14.0.0-next-9.26
+- @verdaccio/signature@9.0.0-next-9.26
+
+## 9.0.0-next-9.25
+
+### Patch Changes
+
+- 4861978: Disable the legacy auth cache by default; it must now be opted in via `server.legacyAuthCache.enabled: true`. While enabled, changed or revoked credentials stay valid until the cached entry expires, so the default TTL is 30 seconds (down from 5 minutes) and remains configurable via `server.legacyAuthCache.ttlMs`. Concurrent requests for the same token still share a single cache write from the leader request instead of each re-writing the entry.
+- d7937a3: Cache successful legacy AES token authentication for a short configurable window.
+
+  The cache is enabled by default under `server.legacyAuthCache` and avoids running password verification, including bcrypt-backed htpasswd verification, for every request that reuses the same legacy token. Concurrent requests for the same token now share one in-flight authentication result. The cache can be tuned or disabled with `server.legacyAuthCache.enabled`, `server.legacyAuthCache.maxEntries`, and `server.legacyAuthCache.ttlMs`.
+
+- 7a4c68d: chore: lint consistent-type-imports
+- Updated dependencies [4861978]
+- Updated dependencies [d7937a3]
+- Updated dependencies [7a4c68d]
+  - @verdaccio/config@9.0.0-next-9.25
+  - verdaccio-htpasswd@14.0.0-next-9.25
+  - @verdaccio/loaders@9.0.0-next-9.25
+  - @verdaccio/signature@9.0.0-next-9.25
+  - @verdaccio/core@9.0.0-next-9.25
+
+## 9.0.0-next-9.24
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.24
+- @verdaccio/config@9.0.0-next-9.24
+- @verdaccio/loaders@9.0.0-next-9.24
+- verdaccio-htpasswd@14.0.0-next-9.24
+- @verdaccio/signature@9.0.0-next-9.24
+
+## 9.0.0-next-9.23
+
+### Patch Changes
+
+- Updated dependencies [5ec045c]
+  - @verdaccio/core@9.0.0-next-9.23
+  - @verdaccio/config@9.0.0-next-9.23
+  - @verdaccio/loaders@9.0.0-next-9.23
+  - verdaccio-htpasswd@14.0.0-next-9.23
+  - @verdaccio/signature@9.0.0-next-9.23
+
+## 9.0.0-next-9.22
+
+### Patch Changes
+
+- Updated dependencies [6795216]
+- Updated dependencies [d3b0352]
+- Updated dependencies [c499c4e]
+  - @verdaccio/config@9.0.0-next-9.22
+  - @verdaccio/loaders@9.0.0-next-9.22
+  - @verdaccio/core@9.0.0-next-9.22
+  - verdaccio-htpasswd@14.0.0-next-9.22
+  - @verdaccio/signature@9.0.0-next-9.22
+
 ## 9.0.0-next-9.21
 
 ### Patch Changes

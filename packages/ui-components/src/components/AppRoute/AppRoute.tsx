@@ -14,6 +14,8 @@ const Login = loadable(() => import('../../pages/Security/Login'));
 const Success = loadable(() => import('../../pages/Security/Success'));
 const AddUser = loadable(() => import('../../pages/Security/AddUser'));
 const ChangePassword = loadable(() => import('../../pages/Security/ChangePassword'));
+const StageList = loadable(() => import('../../pages/Stage/StageList'));
+const StageDetail = loadable(() => import('../../pages/Stage/StageDetail'));
 
 const versionElement = (
   <VersionProvider>
@@ -25,6 +27,7 @@ const AppRoute: React.FC = () => {
   const { configOptions } = useConfig();
   const createUserEnabled = configOptions?.flags?.createUser;
   const changePasswordEnabled = configOptions?.flags?.changePassword;
+  const stageEnabled = configOptions?.flags?.stage;
   return (
     <SWRConfig value={{ revalidateOnFocus: false, revalidateOnReconnect: false }}>
       <Routes>
@@ -40,6 +43,12 @@ const AppRoute: React.FC = () => {
         <RouterRoute element={versionElement} path={Route.SCOPE_PACKAGE} />
         <RouterRoute element={versionElement} path={Route.PACKAGE_VERSION} />
         <RouterRoute element={versionElement} path={Route.PACKAGE} />
+        {stageEnabled && (
+          <RouterRoute element={<Outlet />}>
+            <RouterRoute element={<StageList />} path={Route.STAGE} />
+            <RouterRoute element={<StageDetail />} path={Route.STAGE_DETAIL} />
+          </RouterRoute>
+        )}
         <RouterRoute element={<Outlet />}>
           <RouterRoute element={<Login />} path={Route.LOGIN} />
           <RouterRoute element={<Success />} path={Route.SUCCESS} />

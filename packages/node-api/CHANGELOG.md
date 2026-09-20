@@ -1,5 +1,81 @@
 # @verdaccio/node-api
 
+## 9.0.0-next-9.31
+
+### Patch Changes
+
+- @verdaccio/config@9.0.0-next-9.31
+  - @verdaccio/logger@9.0.0-next-9.31
+
+## 9.0.0-next-9.30
+
+### Patch Changes
+
+- @verdaccio/config@9.0.0-next-9.30
+- @verdaccio/logger@9.0.0-next-9.30
+
+## 9.0.0-next-9.29
+
+### Patch Changes
+
+- Updated dependencies [30601b3]
+- Updated dependencies [30601b3]
+  - @verdaccio/config@9.0.0-next-9.29
+  - @verdaccio/logger@9.0.0-next-9.29
+
+## 9.0.0-next-9.28
+
+### Patch Changes
+
+- @verdaccio/config@9.0.0-next-9.28
+- @verdaccio/logger@9.0.0-next-9.28
+
+## 9.0.0-next-9.27
+
+### Patch Changes
+
+- @verdaccio/config@9.0.0-next-9.27
+- @verdaccio/logger@9.0.0-next-9.27
+
+## 9.0.0-next-9.26
+
+### Patch Changes
+
+- @verdaccio/config@9.0.0-next-9.26
+- @verdaccio/logger@9.0.0-next-9.26
+
+## 9.0.0-next-9.25
+
+### Patch Changes
+
+- Updated dependencies [4861978]
+- Updated dependencies [d7937a3]
+  - @verdaccio/config@9.0.0-next-9.25
+  - @verdaccio/logger@9.0.0-next-9.25
+
+## 9.0.0-next-9.24
+
+### Patch Changes
+
+- @verdaccio/config@9.0.0-next-9.24
+- @verdaccio/logger@9.0.0-next-9.24
+
+## 9.0.0-next-9.23
+
+### Patch Changes
+
+- @verdaccio/config@9.0.0-next-9.23
+- @verdaccio/logger@9.0.0-next-9.23
+
+## 9.0.0-next-9.22
+
+### Patch Changes
+
+- Updated dependencies [6795216]
+- Updated dependencies [d3b0352]
+  - @verdaccio/config@9.0.0-next-9.22
+  - @verdaccio/logger@9.0.0-next-9.22
+
 ## 9.0.0-next-9.21
 
 ### Patch Changes

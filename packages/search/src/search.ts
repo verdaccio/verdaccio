@@ -7,6 +7,7 @@ import { setupUpLinks } from '@verdaccio/proxy';
 import type { Config, Logger } from '@verdaccio/types';
 
 import { removeDuplicates } from './search-utils';
+import { searchPages } from './search-pages';
 
 const debug = buildDebug('verdaccio:search');
 
@@ -22,6 +23,10 @@ class Search {
     const uplinksList = Object.keys(this.uplinks);
 
     return uplinksList;
+  }
+
+  public searchPages(options: ProxySearchParams) {
+    return searchPages(this.uplinks, options);
   }
 
   /**

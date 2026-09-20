@@ -1,5 +1,131 @@
 # @verdaccio/core
 
+## 9.0.0-next-9.31
+
+### Patch Changes
+
+- c2b5897: Omit placeholder links from local Search v1 results while preserving real package links.
+- 68ab0d4: Include the latest package version license in local npm Search v1 results.
+- c52b632: fix: stop synthesizing scope in local npm search results
+  
+  Local `/-/v1/search` results no longer include the undocumented `package.scope` field. Scoped
+  package names remain complete in `package.name` (for example, `@scope/package`), while optional
+  fields received from uplink registries continue to pass through unchanged. `scope` is now optional
+  in `SearchPackageBody` for compatibility with remote result shapes and existing integrations.
+- 7054084: fix: tarball download reliability — uplink selection, no client hangs, content-length, npmjs parity
+  
+  - **store**: tarballs with a missing `_distfiles` record no longer 404 forever —
+    `lookupDistFile` falls back to the version's own dist metadata (conventional
+    `<name>-<version>.tgz` fast path, then a full scan that also resolves
+    bare-digest tarball urls). The uplink for a tarball is now the one that
+    actually serves it (recorded on the distfile, or matched by url on a path
+    segment boundary) instead of the last configured match, so credentials of an
+    unrelated uplink are never sent to it.
+  - **api/middleware**: when a tarball stream fails after the response headers
+    were already sent (eg. the uplink dropped the connection mid-download), the
+    response is destroyed so the client sees the failure immediately instead of
+    hanging forever; when it fails before headers are sent, the error body is
+    served as JSON like registry.npmjs.org.
+  - **proxy**: the got retry limit is no longer derived from `max_fails` (the
+    circuit-breaker threshold) — a high `max_fails` multiplied every uplink
+    timeout, so a slow uplink could block requests almost indefinitely. Retries
+    have their own `retry` uplink setting (default 2, matching got).
+  - **store**: the abbreviated manifest (`application/vnd.npm.install-v1+json`)
+    no longer includes `readme`, `readmeFilename`, `_id` and `_rev`, matching
+    the npm registry contract.
+  - **store/server**: tarball responses now carry a `Content-Length` header (the
+    `content-length` event was swallowed by the stream wrapper) and are no
+    longer re-gzipped by the compression middleware for gzip-accepting clients —
+    npm and undici accept gzip by default, so every (already gzipped) `.tgz`
+    download paid CPU for nothing. JSON metadata responses stay compressed.
+  - **core**: the `application/octet-stream` constant no longer carries a
+    spurious `charset=utf-8`, matching registry.npmjs.org.
+- cf15239: chore(core): refactor error/searchUtils
+
+## 9.0.0-next-9.30
+
+## 9.0.0-next-9.29
+
+### Minor Changes
+
+- 30601b3: feat: staged publishing (`npm stage`) behind the `stage` flag
+
+  Adds the `/-/stage` endpoints so a package version can be uploaded for review and
+  only becomes installable once a maintainer approves it. Everything is gated by
+  the new `stage` feature flag, which defaults to `false`.
+
+  ```yaml
+  flags:
+    stage: true
+  ```
+
+  The whole `npm stage` family is supported — `publish`, `list`, `view`,
+  `download`, `approve` and `reject` — verified end to end against npm 11.17.
+  Staging never asks for a one-time password: deferring proof of presence to
+  approval time is the point of the flow, which lets a pipeline prepare a release
+  that a human approves later.
+
+  Package access gains a `stage` entry deciding who may submit a version for
+  review:
+
+  ```yaml
+  packages:
+    "my-company-*":
+      access: $authenticated
+      stage: developers
+      publish: release-managers
+  ```
+
+  It falls back to `publish` when omitted, exactly as `unpublish` already does, so
+  existing configurations are unaffected. Granting it to a group that lacks
+  `publish` is what turns review into a real gate: those users can propose a
+  release but neither publish one directly nor approve their own submission, though
+  they can always withdraw it. Auth plugins can implement `allow_stage`; returning
+  `undefined` defers to `allow_publish`.
+
+  Staging fires a notification with `publishType: 'stage'` and rejecting fires
+  `unstage`, so a staged version no longer waits unnoticed until somebody runs
+  `npm stage list`. Approving keeps reporting `publish`, because that is what it
+  does.
+
+  Staged items are persisted through the storage plugin interface, so any storage
+  plugin works unchanged, and the namespace is never registered in the plugin
+  database — staged versions stay out of search and the package list.
+
+  The web UI gains a "Staged packages" view (list, detail, approve, reject,
+  download) that appears only while the flag is on.
+
+## 9.0.0-next-9.28
+
+### Patch Changes
+
+- dd4f91c: Reject package names with extra path separators in `validatePackage`
+
+  `validatePackage` split the name with a limit, which ignored any separators past
+  the second segment and accepted non-canonical names such as `@scope/pkg/`. The
+  name is now split on every separator and only one- or two-segment names are
+  considered valid, so a package name has a single canonical form.
+
+## 9.0.0-next-9.27
+
+## 9.0.0-next-9.26
+
+## 9.0.0-next-9.25
+
+## 9.0.0-next-9.24
+
+## 9.0.0-next-9.23
+
+### Patch Changes
+
+- 5ec045c: Match package names case-insensitively in `getMatchedPackagesSpec` so access, publish and unpublish rules apply consistently to every casing of a package name.
+
+## 9.0.0-next-9.22
+
+### Patch Changes
+
+- c499c4e: fix: refactor parsing of req.params
+
 ## 9.0.0-next-9.21
 
 ### Patch Changes

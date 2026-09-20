@@ -16,10 +16,56 @@ import {
   generateTokenCLI,
   getNewToken,
   initializeServer,
+  initializeServerWithContext,
   publishVersionWithToken,
 } from './_helper';
 
+import { TFA_TOKEN_KEY, TfaStore } from '@verdaccio/auth';
+
 describe('token', () => {
+  describe('reserved keys', () => {
+    // the token store doubles as a per-user key-value store (web login sessions,
+    // two-factor configuration). Those rows are not tokens.
+    const withTfaRow = async (username: string) => {
+      const { app, config, logger, storage } = await initializeServerWithContext('token.yaml');
+      const token = await getNewToken(app, { name: username, password: 'secretPass' });
+      const tfa = new TfaStore(storage, config.secret, logger);
+      await tfa.beginEnrolment(username, 'auth-and-writes', 'Verdaccio');
+
+      return { app, token, storage };
+    };
+
+    test('should not list the two-factor row as a token', async () => {
+      const { app, token, storage } = await withTfaRow('jota_reserved');
+
+      // the row really is there, it is the listing that must hide it
+      const stored = await storage.readTokens({ user: 'jota_reserved' });
+      expect(stored.some(({ key }) => key === TFA_TOKEN_KEY)).toBe(true);
+
+      const response = await supertest(app)
+        .get('/-/npm/v1/tokens')
+        .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+        .expect(HTTP_STATUS.OK);
+
+      expect(response.body.objects.some(({ key }) => key === TFA_TOKEN_KEY)).toBe(false);
+      // the payload is encrypted, but it has no business being served at all
+      expect(JSON.stringify(response.body)).not.toContain(TFA_TOKEN_KEY);
+    });
+
+    test('should refuse to revoke the two-factor row', async () => {
+      const { app, token, storage } = await withTfaRow('jota_reserved2');
+
+      // revoking it here would switch two-factor off without a password or OTP
+      await supertest(app)
+        .delete(`/-/npm/v1/tokens/token/${TFA_TOKEN_KEY}`)
+        .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+        .expect(HTTP_STATUS.NOT_FOUND);
+
+      const stored = await storage.readTokens({ user: 'jota_reserved2' });
+      expect(stored.some(({ key }) => key === TFA_TOKEN_KEY)).toBe(true);
+    });
+  });
+
   describe('basics', () => {
     test.each([['token.yaml'], ['token.jwt.yaml']])('should list empty tokens', async (conf) => {
       const app = await initializeServer(conf);

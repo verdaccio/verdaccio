@@ -1,0 +1,56 @@
+#
+# Verdaccio 9.x (experimental) with staged publishing and two-factor enabled.
+#
+# Both features are behind feature flags and off by default. This example turns
+# only those two on and leaves everything else at its usual defaults.
+#
+# Do not configure host and port under `listen` here: it is ignored under docker.
+#
+
+storage: /verdaccio/storage
+
+auth:
+  htpasswd:
+    file: /verdaccio/conf/htpasswd
+
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
+
+# The two experimental features. Neither does anything until enabled here.
+flags:
+  # `npm stage publish` uploads a version for review instead of publishing it
+  stage: true
+  # `npm profile enable-2fa` protects an account with a one-time password
+  tfa: true
+
+packages:
+  # Anyone authenticated may propose a release of these, but only `dummyuser`
+  # can approve one. This is what makes review a gate rather than a convention:
+  # a stager without `publish` cannot publish directly, nor approve their own
+  # submission.
+  'gated-*':
+    access: $all
+    stage: $authenticated
+    publish: dummyuser
+    unpublish: dummyuser
+
+  # No `stage` entry here, so it falls back to `publish`: whoever may publish
+  # may also stage, and may approve their own submission.
+  '@*/*':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+    proxy: npmjs
+
+  '**':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+    proxy: npmjs
+
+middlewares:
+  audit:
+    enabled: true
+
+log: { type: stdout, format: pretty, level: info }

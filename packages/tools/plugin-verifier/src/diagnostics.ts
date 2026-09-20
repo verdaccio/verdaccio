@@ -11,10 +11,7 @@ import type { DiagnosticStep, VerifyPluginOptions } from './types';
 
 const debug = buildDebug('verdaccio:plugin:verifier:diagnostics');
 
-// createRequire needs an absolute path; works in both ESM and CJS contexts
-const requireModule = createRequire(
-  typeof __filename !== 'undefined' ? __filename : import.meta.url
-);
+const requireModule = createRequire(import.meta.filename);
 
 function isValidExport(plugin: any): boolean {
   return typeof plugin === 'function' || typeof plugin?.default === 'function';

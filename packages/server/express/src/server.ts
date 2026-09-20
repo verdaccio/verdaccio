@@ -12,6 +12,7 @@ import { Config as AppConfig } from '@verdaccio/config';
 import type { pluginUtils } from '@verdaccio/core';
 import {
   API_ERROR,
+  HEADERS,
   PLUGIN_CATEGORY,
   PLUGIN_PREFIX,
   errorUtils,
@@ -29,6 +30,7 @@ import {
   rateLimit,
   registerBodyParser,
   userAgent,
+  WebUrlsNamespace,
 } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 import type { ConfigYaml, Config as IConfig } from '@verdaccio/types';
@@ -38,7 +40,7 @@ import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types
 import hookDebug from './debug';
 
 const debug = buildDebug('verdaccio:server');
-const currentDir = typeof __dirname !== 'undefined' ? __dirname : import.meta.dirname;
+const currentDir = import.meta.dirname;
 const { version } = pkgUtils.getPackageJson(currentDir, '..');
 
 export const defineAPI = async function (config: IConfig, storage: Storage): Promise<Express> {
@@ -51,8 +53,21 @@ export const defineAPI = async function (config: IConfig, storage: Storage): Pro
   if (config.server?.trustProxy) {
     app.set('trust proxy', config.server.trustProxy);
   }
-  app.use(cors());
+  app.use(config.server?.cors ? cors(config.server.cors) : cors());
   app.use(rateLimit(config.server?.rateLimit));
+
+  // mime-db marks application/octet-stream as compressible, so the default
+  // compression() filter would re-gzip every (already gzipped) .tgz tarball
+  // for clients that accept gzip — npm and undici do by default. That wastes
+  // CPU on every download and strips the Content-Length header. Skip
+  // compression for tarball responses; JSON metadata stays compressed.
+  const compressionFilter = (req, res): boolean => {
+    const contentType = String(res.getHeader(HEADERS.CONTENT_TYPE) ?? '');
+    if (contentType.startsWith('application/octet-stream')) {
+      return false;
+    }
+    return compression.filter(req, res);
+  };
 
   app.use(dotfiles(config.server?.dotfiles ?? 'ignore'));
 
@@ -62,7 +77,7 @@ export const defineAPI = async function (config: IConfig, storage: Storage): Pro
   app.use(log(logger, { hideStaticLogs: config.server?.hideStaticLogs ?? true }));
   app.use(errorReportingMiddlewareWrap);
   app.use(userAgent(config));
-  app.use(compression());
+  app.use(compression({ filter: compressionFilter }));
 
   // Body parser for JSON requests must be registered before plugins
   // so plugins can access req.body instead of manually reading the stream
@@ -106,8 +121,11 @@ export const defineAPI = async function (config: IConfig, storage: Storage): Pro
     plugins.push(auditPlugin);
   }
 
-  // Register JWT middleware so middleware plugins can access req.remote_user
-  app.use(auth.apiJWTmiddleware());
+  // Register JWT middleware so middleware plugins can access req.remote_user.
+  const apiAuthRouter = express.Router();
+  apiAuthRouter.use(WebUrlsNamespace.endpoints, (_req, _res, next) => next('router'));
+  apiAuthRouter.use(auth.apiJWTmiddleware());
+  app.use(apiAuthRouter);
 
   // Ensure sequential execution in order, and that each registration completes before the next one starts
   for (const plugin of plugins) {

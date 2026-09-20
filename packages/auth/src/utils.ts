@@ -3,7 +3,7 @@ import { isNil } from 'lodash-es';
 
 import { createAnonymousRemoteUser } from '@verdaccio/config';
 import type { pluginUtils } from '@verdaccio/core';
-import { API_ERROR, HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER, errorUtils } from '@verdaccio/core';
+import { API_ERROR, HTTP_STATUS, TOKEN_BEARER, errorUtils } from '@verdaccio/core';
 import { aesDecrypt, parseBasicPayload, verifyPayload } from '@verdaccio/signature';
 import type { AuthPackageAllow, Config, Logger, RemoteUser, Security } from '@verdaccio/types';
 
@@ -17,6 +17,8 @@ import type {
 } from './types';
 
 const debug = buildDebug('verdaccio:auth:utils');
+
+export const SHA256_ALGORITHM = 'sha256';
 
 /**
  * Split authentication header eg: Bearer [secret_token]
@@ -33,14 +35,7 @@ export function parseAESCredentials(authorizationHeader: string, secret: string)
   debug('parseAESCredentials init');
   const { scheme, token } = parseAuthTokenHeader(authorizationHeader);
 
-  // basic is deprecated and should not be enforced
-  // basic is currently being used for functional test
-  if (scheme.toUpperCase() === TOKEN_BASIC.toUpperCase()) {
-    debug('legacy header basic');
-    const credentials = convertPayloadToBase64(token).toString();
-
-    return credentials;
-  } else if (scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
+  if (scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
     debug('legacy header bearer');
     return aesDecrypt(token.toString(), secret);
   }
@@ -163,7 +158,8 @@ export function getDefaultPluginMethods(logger: Logger): pluginUtils.Auth<Config
     allow_access: allow_action('access', logger),
     // @ts-ignore
     allow_publish: allow_action('publish', logger),
-    allow_unpublish: handleSpecialUnpublish(logger),
+    allow_unpublish: handleActionWithPublishFallback('unpublish', logger),
+    allow_stage: handleActionWithPublishFallback('stage', logger),
   };
 }
 
@@ -205,21 +201,29 @@ export function allow_action(action: ActionsAllowed, logger: Logger): AllowActio
 }
 
 /**
+ * Build a check for an action that falls back to `publish` when the packages
+ * configuration does not mention it.
  *
+ * Answering `undefined` is the signal the {@link Auth} class watches for: it
+ * means "this action was never configured here", and the caller delegates to
+ * `allow_publish` instead of denying. That is what keeps `unpublish` and
+ * `stage` optional without changing behaviour for configurations that omit them.
  */
-export function handleSpecialUnpublish(logger: Logger): any {
+export function handleActionWithPublishFallback(
+  action: 'unpublish' | 'stage',
+  logger: Logger
+): any {
   return function (user: RemoteUser, pkg: AuthPackageAllow, callback: AllowActionCallback): void {
-    const action = 'unpublish';
-    // verify whether the unpublish prop has been defined
-    const isUnpublishMissing: boolean = !pkg[action];
-    debug('is unpublish method missing ? %s', isUnpublishMissing);
-    const hasGroups: boolean = isUnpublishMissing ? false : (pkg[action] as string[]).length > 0;
+    // verify whether the prop has been defined
+    const isActionMissing: boolean = !pkg[action];
+    debug('is %s method missing ? %s', action, isActionMissing);
+    const hasGroups: boolean = isActionMissing ? false : (pkg[action] as string[]).length > 0;
     logger.trace(
-      { user: user.name, name: pkg.name, hasGroups },
-      `fallback unpublish for @{name} has groups: @{hasGroups} for @{user}`
+      { user: user.name, name: pkg.name, action, hasGroups },
+      `fallback @{action} for @{name} has groups: @{hasGroups} for @{user}`
     );
 
-    if (isUnpublishMissing || hasGroups === false) {
+    if (isActionMissing || hasGroups === false) {
       return callback(null, undefined);
     }
 
@@ -231,14 +235,17 @@ export function handleSpecialUnpublish(logger: Logger): any {
   };
 }
 
+/**
+ * @deprecated use {@link handleActionWithPublishFallback} with `'unpublish'`
+ */
+export function handleSpecialUnpublish(logger: Logger): any {
+  return handleActionWithPublishFallback('unpublish', logger);
+}
+
 export function buildUser(name: string, password: string, tokenKey?: string): string {
   if (tokenKey) {
     return JSON.stringify({ user: name, password, tokenKey });
   }
 
   return String(`${name}:${password}`);
-}
-
-export function convertPayloadToBase64(payload: string): Buffer {
-  return Buffer.from(payload, 'base64');
 }

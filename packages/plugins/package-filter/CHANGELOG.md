@@ -1,5 +1,88 @@
 # Change Log
 
+## 14.0.0-next-9.55
+
+### Patch Changes
+
+- Updated dependencies [c2b5897]
+- Updated dependencies [68ab0d4]
+- Updated dependencies [c52b632]
+- Updated dependencies [7054084]
+- Updated dependencies [cf15239]
+  - @verdaccio/core@9.0.0-next-9.31
+
+## 14.0.0-next-9.54
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.30
+
+## 14.0.0-next-9.53
+
+### Patch Changes
+
+- Updated dependencies [30601b3]
+  - @verdaccio/core@9.0.0-next-9.29
+
+## 14.0.0-next-9.52
+
+### Patch Changes
+
+- Updated dependencies [dd4f91c]
+  - @verdaccio/core@9.0.0-next-9.28
+
+## 14.0.0-next-9.51
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.27
+
+## 14.0.0-next-9.50
+
+### Patch Changes
+
+- 7aea4de: perf(package-filter): skip manifest cleanup when no filter changes a package
+  - @verdaccio/core@9.0.0-next-9.26
+
+## 14.0.0-next-9.49
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.25
+
+## 14.0.0-next-9.48
+
+### Minor Changes
+
+- f86df64: Added `excludeDeprecated` config filter option. It filters deprecated package versions. By default the feature is disabled.
+  The option is enabled by:
+
+  ```yaml
+  filters:
+    "@verdaccio/package-filter":
+      excludeDeprecated: true
+  ```
+
+  This way Verdaccio will filter out package versions that are marked as "deprecated" (unless they are allow-listed).
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.24
+
+## 14.0.0-next-9.47
+
+### Patch Changes
+
+- Updated dependencies [5ec045c]
+  - @verdaccio/core@9.0.0-next-9.23
+
+## 14.0.0-next-9.46
+
+### Patch Changes
+
+- Updated dependencies [c499c4e]
+  - @verdaccio/core@9.0.0-next-9.22
+
 ## 14.0.0-next-9.45
 
 ### Patch Changes

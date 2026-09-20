@@ -12,7 +12,6 @@ import type { Logger, Manifest } from '@verdaccio/types';
 
 import {
   accessPromise,
-  fstatPromise,
   mkdirPromise,
   openPromise,
   readFilePromise,
@@ -221,11 +220,24 @@ export default class LocalFS implements ILocalFSPackageManager {
     });
   }
 
-  // remove the temporary file
+  /**
+   * Best-effort removal of a temporary file. Error and abort can both try to
+   * clean the same file from event listeners, so a missing file is fine and
+   * nothing may throw — a rejection here becomes an uncaught exception.
+   */
   private async removeTempFile(temporalName): Promise<void> {
     debug('remove temporal file %o', temporalName);
-    await unlinkPromise(temporalName);
-    debug('removed temporal file %o', temporalName);
+    try {
+      await unlinkPromise(temporalName);
+      debug('removed temporal file %o', temporalName);
+    } catch (err: any) {
+      if (err?.code !== 'ENOENT') {
+        this.logger.warn(
+          { temporalName, err: err.message },
+          'unable to remove temporal file @{temporalName}: @{err}'
+        );
+      }
+    }
   }
 
   /**
@@ -246,6 +258,9 @@ export default class LocalFS implements ILocalFSPackageManager {
 
     debug('write a temporal name %o', temporalName);
     let opened = false;
+    // an errored or aborted download must never be renamed into place: that
+    // would publish a truncated tarball under the final name
+    let failed = false;
     const writeStream = fs.createWriteStream(temporalName);
 
     writeStream.on('open', () => {
@@ -253,13 +268,13 @@ export default class LocalFS implements ILocalFSPackageManager {
     });
 
     writeStream.on('error', async (err) => {
+      failed = true;
       if (opened) {
         this.logger.error(
           { err, fileName },
           'error on open write tarball for @{fileName}: @{err.message}'
         );
-        // TODO: maybe add .once
-        writeStream.on('close', async () => {
+        writeStream.once('close', async () => {
           await this.removeTempFile(temporalName);
         });
       } else {
@@ -273,8 +288,11 @@ export default class LocalFS implements ILocalFSPackageManager {
 
     // the 'close' event is emitted when the stream and any of its
     // underlying resources (a file descriptor, for example) have been closed.
-    // TODO: maybe add .once
-    writeStream.on('close', async () => {
+    writeStream.once('close', async () => {
+      if (failed) {
+        // the error/abort listeners own the cleanup of the temporal file
+        return;
+      }
       try {
         await renameTmp(temporalName, pathName);
       } catch (err) {
@@ -290,6 +308,7 @@ export default class LocalFS implements ILocalFSPackageManager {
     signal?.addEventListener(
       'abort',
       async () => {
+        failed = true;
         if (opened) {
           // close always happens, even if error
           writeStream.once('close', async () => {
@@ -315,13 +334,22 @@ export default class LocalFS implements ILocalFSPackageManager {
     const pathName: string = this._getStorage(tarballName);
     debug('read a tarball %o', pathName);
     const readStream = addAbortSignal(signal, fs.createReadStream(pathName));
-    readStream.on('open', async function (fileDescriptorId: number) {
+    readStream.on('open', function (fileDescriptorId: number) {
       // if abort, the descriptor is null
       debug('file descriptor id %o', fileDescriptorId);
       if (fileDescriptorId) {
-        const stats = await fstatPromise(fileDescriptorId);
-        debug('file size %o', stats.size);
-        readStream.emit('content-length', stats.size);
+        // sync on purpose: the size must be emitted before the first data
+        // chunk flushes the response headers (an async fstat races it)
+        let size: number | undefined;
+        try {
+          size = fs.fstatSync(fileDescriptorId).size;
+        } catch {
+          // the stream 'error' event surfaces any real problem
+        }
+        if (size !== undefined) {
+          debug('file size %o', size);
+          readStream.emit('content-length', size);
+        }
       }
     });
     readStream.on('error', (error) => {

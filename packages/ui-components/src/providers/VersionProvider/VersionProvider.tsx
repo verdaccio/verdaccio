@@ -3,9 +3,9 @@ import { useParams } from 'react-router';
 
 import { useData } from '../../api/use-data';
 import { getConfiguration } from '../../configuration';
-import { APIRoute } from '../../store/routes';
 import { stripTrailingSlash } from '../../store/utils';
 import type { PackageMetaInterface } from '../../types/packageMeta';
+import { APIRoute } from '../../utils/routes';
 
 function getRouterPackageName(packageName: string, scope?: string): string {
   return scope ? `${scope}/${packageName}` : packageName;
@@ -50,8 +50,10 @@ const VersionProvider: React.FC<{ children: React.ReactNode }> = ({ children }) 
     packageVersion
   );
   const isLoading = readmeData.isLoading || sidebarData.isLoading;
-  const error: ApiError | undefined = readmeData.error || sidebarData.error;
-  const errorCode = (readmeData.error as ApiError)?.code ?? (sidebarData.error as ApiError)?.code;
+  // only the sidebar data drives the whole page; a readme-only failure must
+  // not blank a page that can render from sidebar data
+  const error: ApiError | undefined = sidebarData.error;
+  const errorCode = (sidebarData.error as ApiError)?.code;
 
   const value = useMemo<DetailContextProps>(
     () => ({
@@ -63,7 +65,8 @@ const VersionProvider: React.FC<{ children: React.ReactNode }> = ({ children }) 
       isForbidden: errorCode === 403,
       isUnAuthorized: errorCode === 401,
       hasNotBeenFound: errorCode === 404,
-      isError: errorCode !== undefined,
+      // network failures reject without a `.code`, they are still errors
+      isError: error !== undefined,
       error,
     }),
     [sidebarData.data, readmeData.data, packageName, packageVersion, isLoading, errorCode, error]

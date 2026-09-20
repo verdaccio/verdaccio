@@ -66,6 +66,10 @@ export default class ConfigBuilder {
     return this;
   }
 
+  public addLegacyAuthCache(legacyAuthCache: NonNullable<ServerSettingsConf['legacyAuthCache']>) {
+    return this.addServer({ legacyAuthCache });
+  }
+
   public addStorage(storage: string | object) {
     if (typeof storage === 'string') {
       this.config.storage = storage;
@@ -97,6 +101,14 @@ export default class ConfigBuilder {
 
   public addFlags(flags: Partial<FlagsConfig>) {
     this.config.flags = merge(this.config.flags, flags);
+    return this;
+  }
+
+  /**
+   * @deprecated use {@link addFlags}
+   */
+  public addExperiments(experiments: Partial<FlagsConfig>) {
+    this.config.experiments = merge(this.config.experiments, experiments);
     return this;
   }
 

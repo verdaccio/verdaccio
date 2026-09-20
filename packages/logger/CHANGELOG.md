@@ -1,5 +1,90 @@
 # @verdaccio/logger
 
+## 9.0.0-next-9.31
+
+### Patch Changes
+
+- Updated dependencies [c2b5897]
+- Updated dependencies [68ab0d4]
+- Updated dependencies [c52b632]
+- Updated dependencies [7054084]
+- Updated dependencies [cf15239]
+  - @verdaccio/core@9.0.0-next-9.31
+
+## 9.0.0-next-9.30
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.30
+
+## 9.0.0-next-9.29
+
+### Patch Changes
+
+- Updated dependencies [30601b3]
+  - @verdaccio/core@9.0.0-next-9.29
+
+## 9.0.0-next-9.28
+
+### Patch Changes
+
+- Updated dependencies [dd4f91c]
+  - @verdaccio/core@9.0.0-next-9.28
+
+## 9.0.0-next-9.27
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.27
+
+## 9.0.0-next-9.26
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.26
+
+## 9.0.0-next-9.25
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.25
+
+## 9.0.0-next-9.24
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.24
+
+## 9.0.0-next-9.23
+
+### Patch Changes
+
+- Updated dependencies [5ec045c]
+  - @verdaccio/core@9.0.0-next-9.23
+
+## 9.0.0-next-9.22
+
+### Patch Changes
+
+- d3b0352: fix: harden plugin loading and logger for the ESM build
+
+  - loaders: use a real `createRequire` in both output formats (the ESM build
+    previously relied on a throwing `require` stub, so every plugin — including
+    CommonJS ones — was loaded through the `import()` fallback with interop
+    differences); report `err.message` instead of the nonexistent `err.msg`;
+    rethrow real plugin evaluation errors instead of retrying via `import()`
+    (which ran plugin side effects twice and masked the original error); support
+    ESM plugins using top-level await (`ERR_REQUIRE_ASYNC_MODULE`); resolve
+    entry points for manifest-less directory plugins; use `path.isAbsolute()`
+    so Windows paths convert to `file://` URLs correctly.
+  - logger: import `on-exit-leak-free` statically (the lazy `require` crashed
+    the ESM build when `setupOnExit` ran) and make the transport directory
+    detection immune to the `__dirname` global that `node -e`/REPL leak into
+    ES modules.
+
+- Updated dependencies [c499c4e]
+  - @verdaccio/core@9.0.0-next-9.22
+
 ## 9.0.0-next-9.21
 
 ### Patch Changes

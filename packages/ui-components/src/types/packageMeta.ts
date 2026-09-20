@@ -20,13 +20,18 @@ export type Latest = {
   license?: string | LicenseInterface;
   version: string;
   homepage?: string;
-  bugs?: {
-    url: string;
-  };
-  repository?: {
-    type?: string;
-    url?: string;
-  };
+  // bugs and repository also accept the plain string form in npm manifests
+  bugs?:
+    | string
+    | {
+        url: string;
+      };
+  repository?:
+    | string
+    | {
+        type?: string;
+        url?: string;
+      };
   main?: string;
   type?: ModuleType;
   types?: string;
@@ -50,6 +55,8 @@ export interface Developer {
   email?: string;
   url?: string;
   avatar?: string;
+  // the sidebar endpoint (packages/web author-utils) sends the gravatar url as `_avatar`
+  _avatar?: string;
 }
 
 interface Funding {

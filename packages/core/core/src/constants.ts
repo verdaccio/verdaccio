@@ -9,6 +9,7 @@ export const USERS = 'users';
 export const MAINTAINERS = 'maintainers';
 export const DEFAULT_USER = 'Anonymous'; // for display purposes
 export const ANONYMOUS_USER = 'anonymous'; // for username purposes
+export const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 export const HEADER_TYPE = {
   CONTENT_ENCODING: 'content-encoding',
@@ -57,7 +58,7 @@ export const HEADERS = {
   ETAG: 'ETag',
   JSON_CHARSET: 'application/json; charset=utf-8',
   JSON_INSTALL_CHARSET: 'application/vnd.npm.install-v1+json; charset=utf-8',
-  OCTET_STREAM: 'application/octet-stream; charset=utf-8',
+  OCTET_STREAM: 'application/octet-stream',
   TEXT_CHARSET: 'text/plain; charset=utf-8',
   JAVASCRIPT_CHARSET: 'application/javascript; charset=utf-8',
   WWW_AUTH: 'WWW-Authenticate',
@@ -75,6 +76,8 @@ export const HTTP_STATUS = {
   CREATED: httpCodes.CREATED,
   /** 202: The request has been accepted for processing, but the processing is not yet complete. */
   ACCEPTED: httpCodes.ACCEPTED,
+  /** 204: The request succeeded and the response carries no body. */
+  NO_CONTENT: httpCodes.NO_CONTENT,
   /** 300: Indicates multiple options for the resource from which the client may choose. */
   MULTIPLE_CHOICES: httpCodes.MULTIPLE_CHOICES,
   /** 304: Indicates that the resource has not been modified since the last request. */

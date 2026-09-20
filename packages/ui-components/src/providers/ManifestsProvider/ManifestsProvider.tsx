@@ -5,8 +5,8 @@ import type { Manifest } from '@verdaccio/types';
 
 import { useData } from '../../api/use-data';
 import { getConfiguration } from '../../configuration';
-import { APIRoute } from '../../store/routes';
 import { stripTrailingSlash } from '../../store/utils';
+import { APIRoute } from '../../utils/routes';
 
 export interface ManifestsContextProps {
   isError: boolean;
@@ -42,7 +42,9 @@ const ManifestsProvider: React.FC<{ children: ReactElement }> = ({ children }) =
       value={{
         manifests: (data.data as ManifestWeb[]) ?? [],
         isLoading: data.isLoading,
-        isError: typeof data.error?.code !== 'undefined',
+        // any error counts (network failures have no `.code`), but a failed
+        // revalidation must not hide an already-cached, renderable list
+        isError: typeof data.error !== 'undefined' && typeof data.data === 'undefined',
       }}
     >
       {children}

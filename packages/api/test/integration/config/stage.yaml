@@ -1,0 +1,31 @@
+auth:
+  htpasswd:
+    file: ./htpasswd-stage
+web:
+  enable: true
+  title: verdaccio
+
+publish:
+  allow_offline: false
+
+uplinks:
+
+log: { type: stdout, format: pretty, level: fatal }
+
+flags:
+  stage: true
+
+packages:
+  'restricted-*':
+    access: $all
+    publish: owner
+    unpublish: owner
+  '@*/*':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+  '**':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+_debug: true

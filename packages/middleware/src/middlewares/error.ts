@@ -70,8 +70,11 @@ export const errorReportingMiddleware = (logger: Logger) =>
             res.status(HTTP_STATUS.INTERNAL_ERROR);
             next({ error: API_ERROR.INTERNAL_SERVER_ERROR });
           } else {
-            // socket should be already closed
-            debug('this should not happen, otherwise report %o', err);
+            // Headers already sent: an error status can no longer be delivered,
+            // so terminate the connection — leaving it open would make the
+            // client wait forever on a response that will never complete.
+            debug('headers already sent, destroying response %o', err);
+            res.destroy(err);
           }
         }
       };

@@ -1,5 +1,188 @@
 # @verdaccio/web
 
+## 9.0.0-next-9.31
+
+### Patch Changes
+
+- 8b2b136: Web UI bug batch:
+  
+  - the create-user form posted to a non-existent endpoint, so web signup always failed; it now calls `PUT /-/verdaccio/sec/signup` with the required `sessionId` and logs the new user in
+  - 5xx/network failures rendered a blank detail page whose tabs crashed the whole app, and an unreachable backend looked like an empty registry inviting to publish; both now show a proper error state
+  - the router used the raw `url_prefix` as basename, leaving the UI blank or 404ing behind proxies and `VERDACCIO_PUBLIC_URL`; it now uses the server-normalized basename, and the security pages' links/redirects respect sub-path deployments
+  - the whole `security.*` i18n namespace was missing from the shipped bundle (raw keys on the login, add-user and change-password pages); both crowdin sources are now synced and kept aligned by a parity test, and dates follow the selected language
+  - requesting a version that does not exist (`/v/9.9.9`, a dist-tag, or `__proto__`) silently served `latest` under the requested title; the sidebar and readme endpoints now answer 404, with own-property version lookups that also close a prototype-pollution path flagged by CodeQL
+  - login/search/download failures were swallowed or all mapped to "invalid username or password"; errors are now surfaced and translated, submits are reentrancy-guarded against duplicate requests, and a 2xx login response without a token no longer passes as a login
+  - logging out re-hydrated the session from storage before clearing it, expired tokens lingered in localStorage for up to an hour, and malformed tokens were printed to the console
+  - assorted fixes: `yarn global add -g true`, clipboard on plain-http deployments, versions tab showing the previous package's data, missing gravatars, corrupted staged tarball downloads, string forms of `repository`/`funding`/`bugs`, developers without email collapsing into one, stray "0"s and "Invalid Date" tooltips, empty keywords section, nested `<form>` markup, a11y labels and the vendor notice in the browser console
+- 770ebe4: fix(web): sign up now issues the web session JWT (the npm API token stored before could not be parsed by the UI, so the new user was never logged in), and the sidebar/readme endpoints resolve dist-tags in the `v` query param again — deep links like `/detail/pkg/v/beta` were returning 404 after the own-property hardening. Unknown versions and tags still 404, and `__proto__`-style values still never resolve.
+- de1101a: fix: validate the scope segment on the web package endpoints
+  
+  The readme and sidebar web endpoints now validate the `:scope` route segment
+  and return 404 for malformed requests.
+- Updated dependencies [c2b5897]
+- Updated dependencies [770ebe4]
+- Updated dependencies [8b2b136]
+- Updated dependencies [68ab0d4]
+- Updated dependencies [c52b632]
+- Updated dependencies [7054084]
+- Updated dependencies [e3d3128]
+- Updated dependencies [cf15239]
+- Updated dependencies [770ebe4]
+  - @verdaccio/core@9.0.0-next-9.31
+  - @verdaccio/store@9.0.0-next-9.31
+  - @verdaccio/ui-theme@9.0.0-next-9.31
+  - @verdaccio/middleware@9.0.0-next-9.31
+  - @verdaccio/loaders@9.0.0-next-9.31
+  - @verdaccio/auth@9.0.0-next-9.31
+  - @verdaccio/config@9.0.0-next-9.31
+  - @verdaccio/tarball@14.0.0-next-9.31
+  - @verdaccio/logger@9.0.0-next-9.31
+
+## 9.0.0-next-9.30
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.30
+- @verdaccio/config@9.0.0-next-9.30
+- @verdaccio/ui-theme@9.0.0-next-9.30
+- @verdaccio/auth@9.0.0-next-9.30
+- @verdaccio/tarball@14.0.0-next-9.30
+- @verdaccio/loaders@9.0.0-next-9.30
+- @verdaccio/logger@9.0.0-next-9.30
+- @verdaccio/middleware@9.0.0-next-9.30
+- @verdaccio/store@9.0.0-next-9.30
+
+## 9.0.0-next-9.29
+
+### Patch Changes
+
+- Updated dependencies [30601b3]
+- Updated dependencies [30601b3]
+- Updated dependencies [30601b3]
+- Updated dependencies [30601b3]
+  - @verdaccio/core@9.0.0-next-9.29
+  - @verdaccio/config@9.0.0-next-9.29
+  - @verdaccio/middleware@9.0.0-next-9.29
+  - @verdaccio/auth@9.0.0-next-9.29
+  - @verdaccio/store@9.0.0-next-9.29
+  - @verdaccio/ui-theme@9.0.0-next-9.29
+  - @verdaccio/tarball@14.0.0-next-9.29
+  - @verdaccio/logger@9.0.0-next-9.29
+  - @verdaccio/loaders@9.0.0-next-9.29
+
+## 9.0.0-next-9.28
+
+### Patch Changes
+
+- Updated dependencies [dd4f91c]
+  - @verdaccio/core@9.0.0-next-9.28
+  - @verdaccio/ui-theme@9.0.0-next-9.28
+  - @verdaccio/auth@9.0.0-next-9.28
+  - @verdaccio/config@9.0.0-next-9.28
+  - @verdaccio/tarball@14.0.0-next-9.28
+  - @verdaccio/loaders@9.0.0-next-9.28
+  - @verdaccio/logger@9.0.0-next-9.28
+  - @verdaccio/middleware@9.0.0-next-9.28
+  - @verdaccio/store@9.0.0-next-9.28
+
+## 9.0.0-next-9.27
+
+### Patch Changes
+
+- Updated dependencies [65cd24e]
+- Updated dependencies [284cbd0]
+- Updated dependencies [8857b15]
+  - @verdaccio/ui-theme@9.0.0-next-9.27
+  - @verdaccio/auth@9.0.0-next-9.27
+  - @verdaccio/middleware@9.0.0-next-9.27
+  - @verdaccio/store@9.0.0-next-9.27
+  - @verdaccio/core@9.0.0-next-9.27
+  - @verdaccio/config@9.0.0-next-9.27
+  - @verdaccio/tarball@14.0.0-next-9.27
+  - @verdaccio/loaders@9.0.0-next-9.27
+  - @verdaccio/logger@9.0.0-next-9.27
+
+## 9.0.0-next-9.26
+
+### Patch Changes
+
+- @verdaccio/ui-theme@9.0.0-next-9.26
+- @verdaccio/core@9.0.0-next-9.26
+- @verdaccio/config@9.0.0-next-9.26
+- @verdaccio/auth@9.0.0-next-9.26
+- @verdaccio/tarball@14.0.0-next-9.26
+- @verdaccio/loaders@9.0.0-next-9.26
+- @verdaccio/logger@9.0.0-next-9.26
+- @verdaccio/middleware@9.0.0-next-9.26
+- @verdaccio/store@9.0.0-next-9.26
+
+## 9.0.0-next-9.25
+
+### Patch Changes
+
+- Updated dependencies [4861978]
+- Updated dependencies [d7937a3]
+- Updated dependencies [d7937a3]
+- Updated dependencies [7a4c68d]
+  - @verdaccio/auth@9.0.0-next-9.25
+  - @verdaccio/config@9.0.0-next-9.25
+  - @verdaccio/middleware@9.0.0-next-9.25
+  - @verdaccio/loaders@9.0.0-next-9.25
+  - @verdaccio/store@9.0.0-next-9.25
+  - @verdaccio/core@9.0.0-next-9.25
+  - @verdaccio/tarball@14.0.0-next-9.25
+  - @verdaccio/logger@9.0.0-next-9.25
+  - @verdaccio/ui-theme@9.0.0-next-9.25
+
+## 9.0.0-next-9.24
+
+### Patch Changes
+
+- @verdaccio/store@9.0.0-next-9.24
+- @verdaccio/core@9.0.0-next-9.24
+- @verdaccio/config@9.0.0-next-9.24
+- @verdaccio/ui-theme@9.0.0-next-9.24
+- @verdaccio/auth@9.0.0-next-9.24
+- @verdaccio/tarball@14.0.0-next-9.24
+- @verdaccio/loaders@9.0.0-next-9.24
+- @verdaccio/logger@9.0.0-next-9.24
+- @verdaccio/middleware@9.0.0-next-9.24
+
+## 9.0.0-next-9.23
+
+### Patch Changes
+
+- Updated dependencies [5ec045c]
+  - @verdaccio/core@9.0.0-next-9.23
+  - @verdaccio/auth@9.0.0-next-9.23
+  - @verdaccio/config@9.0.0-next-9.23
+  - @verdaccio/tarball@14.0.0-next-9.23
+  - @verdaccio/loaders@9.0.0-next-9.23
+  - @verdaccio/logger@9.0.0-next-9.23
+  - @verdaccio/middleware@9.0.0-next-9.23
+  - @verdaccio/store@9.0.0-next-9.23
+  - @verdaccio/ui-theme@9.0.0-next-9.23
+
+## 9.0.0-next-9.22
+
+### Patch Changes
+
+- c499c4e: fix: refactor parsing of req.params
+- Updated dependencies [6795216]
+- Updated dependencies [d3b0352]
+- Updated dependencies [3574350]
+- Updated dependencies [c499c4e]
+- Updated dependencies [6a87488]
+  - @verdaccio/config@9.0.0-next-9.22
+  - @verdaccio/loaders@9.0.0-next-9.22
+  - @verdaccio/logger@9.0.0-next-9.22
+  - @verdaccio/store@9.0.0-next-9.22
+  - @verdaccio/middleware@9.0.0-next-9.22
+  - @verdaccio/core@9.0.0-next-9.22
+  - @verdaccio/ui-theme@9.0.0-next-9.22
+  - @verdaccio/auth@9.0.0-next-9.22
+  - @verdaccio/tarball@14.0.0-next-9.22
+
 ## 9.0.0-next-9.21
 
 ### Patch Changes

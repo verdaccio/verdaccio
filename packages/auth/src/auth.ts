@@ -1,5 +1,6 @@
 import buildDebug from 'debug';
 import { filter, isEmpty, isNil, isUndefined } from 'lodash-es';
+import { createHash } from 'node:crypto';
 import { HTPasswd } from 'verdaccio-htpasswd';
 
 import { createAnonymousRemoteUser, createRemoteUser } from '@verdaccio/config';
@@ -9,7 +10,6 @@ import {
   PLUGIN_CATEGORY,
   PLUGIN_PREFIX,
   SUPPORT_ERRORS,
-  TOKEN_BASIC,
   TOKEN_BEARER,
   authUtils,
   errorUtils,
@@ -17,7 +17,7 @@ import {
   warningUtils,
 } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
-import { aesEncrypt, parseBasicPayload, signPayload } from '@verdaccio/signature';
+import { aesEncrypt, signPayload } from '@verdaccio/signature';
 import type {
   AllowAccess,
   Callback,
@@ -32,13 +32,12 @@ import type {
 import type {
   $RequestExtend,
   $ResponseExtend,
-  AESPayload,
   IAuthMiddleware,
   NextFunction,
   TokenEncryption,
 } from './types';
 import {
-  convertPayloadToBase64,
+  SHA256_ALGORITHM,
   getDefaultPluginMethods,
   getMiddlewareCredentials,
   isAESLegacy,
@@ -48,6 +47,21 @@ import {
 } from './utils';
 
 const debug = buildDebug('verdaccio:auth');
+type LegacyAuthCacheEntry = {
+  expiresAt: number;
+  user: RemoteUser;
+};
+
+type LegacyAuthCacheWaiter = (err: VerdaccioError | null, user?: RemoteUser) => void;
+
+function cloneRemoteUser(user: RemoteUser): RemoteUser {
+  return {
+    ...user,
+    groups: user.groups ? [...user.groups] : user.groups,
+    real_groups: user.real_groups ? [...user.real_groups] : user.real_groups,
+    token: user.token ? { ...user.token } : user.token,
+  };
+}
 
 class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
   public config: Config;
@@ -55,6 +69,8 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
   public logger: Logger;
   public plugins: pluginUtils.Auth<Config>[];
   public options: { legacyMergeConfigs: boolean };
+  private legacyAuthCache: Map<string, LegacyAuthCacheEntry>;
+  private legacyAuthCacheWaiters: Map<string, LegacyAuthCacheWaiter[]>;
 
   public constructor(config: Config, logger: Logger, options = { legacyMergeConfigs: false }) {
     this.config = config;
@@ -62,6 +78,8 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     this.logger = logger;
     this.plugins = [];
     this.options = options;
+    this.legacyAuthCache = new Map();
+    this.legacyAuthCacheWaiters = new Map();
     if (!this.secret) {
       throw new TypeError('secret it is required value on initialize the auth class');
     }
@@ -372,6 +390,73 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
   }
 
   /**
+   * Allow a user to submit a package version for review (`npm stage publish`).
+   *
+   * Deliberately a weaker capability than publishing: granting `stage` to a
+   * group that lacks `publish` is what turns staging into a real review gate,
+   * because those users can propose a release but not make one.
+   *
+   * When the packages configuration says nothing about `stage`, the built-in
+   * plugin answers `undefined` and this falls back to `allow_publish`, so
+   * existing configurations behave exactly as before.
+   */
+  public allow_stage(
+    { packageName, packageVersion }: pluginUtils.AuthPluginPackage,
+    user: RemoteUser,
+    callback: Callback
+  ): void {
+    const plugins = this.plugins.slice(0);
+    const pkg = Object.assign(
+      { name: packageName, version: packageVersion },
+      authUtils.getMatchedPackagesSpec(packageName, this.config.packages)
+    );
+
+    debug('check stage permissions for user %o to package %o', user.name, packageName);
+
+    const next = (): void => {
+      const plugin = plugins.shift();
+
+      if (typeof plugin?.allow_stage !== 'function') {
+        debug('plugin does not implement allow_stage');
+        return next();
+      }
+
+      plugin.allow_stage(user, pkg, (err: VerdaccioError | null, ok?: boolean): void => {
+        if (err) {
+          debug('forbidden stage. Error: %o', err);
+          return callback(err);
+        }
+
+        // undefined means the packages config has no "stage" entry, so publish
+        // decides (see utils.ts, handleActionWithPublishFallback)
+        if (isNil(ok) === true) {
+          debug('bypass stage for %o, publish will handle the access', packageName);
+          this.logger.trace(
+            { user: user.name, name: pkg.name },
+            `bypass stage for @{name} by @{user}, publish will handle the access`
+          );
+          return this.allow_publish({ packageName, packageVersion }, user, callback);
+        }
+
+        if (ok) {
+          debug('stage was granted');
+          this.logger.trace(
+            { user: user.name, name: pkg.name },
+            `stage was granted for @{name} by @{user}`
+          );
+          return callback(null, ok);
+        }
+
+        // cb(null, false) causes next plugin to roll
+        debug('stage was denied. Rolling to next plugin');
+        return next();
+      });
+    };
+
+    return next();
+  }
+
+  /**
    * Allow user to publish a package.
    */
   public allow_publish(
@@ -438,12 +523,8 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
       req.pause();
       const next = function (err?: VerdaccioError): NextFunction {
         req.resume();
-        // uncomment this to reject users with bad auth headers
-        // return _next.apply(null, arguments)
-        // swallow error, user remains unauthorized
-        // set remoteUserError to indicate that user was attempting authentication
         if (err) {
-          req.remote_user.error = err.message;
+          return _next(err) as unknown as NextFunction;
         }
 
         return _next() as unknown as NextFunction;
@@ -490,43 +571,16 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     next: any
   ): void {
     debug('handle JWT api middleware');
-    const { scheme, token } = parseAuthTokenHeader(authorization);
-    if (scheme.toUpperCase() === TOKEN_BASIC.toUpperCase()) {
-      debug('handle basic token');
-      // this should happen when client tries to login with an existing user
-      const credentials = convertPayloadToBase64(token).toString();
-      const parsedCredentials = parseBasicPayload(credentials);
-      if (!parsedCredentials) {
-        debug('invalid basic credentials format (missing colon separator)');
-        next(errorUtils.getBadRequest(API_ERROR.BAD_USERNAME_PASSWORD));
-        return;
-      }
-      const { user, password } = parsedCredentials as AESPayload;
-      debug('authenticating %o', user);
-      this.authenticate(user, password, (err: VerdaccioError | null, user): void => {
-        if (!err) {
-          debug('generating a remote user');
-          req.remote_user = user;
-          next();
-        } else {
-          debug('generating anonymous user');
-          req.remote_user = createAnonymousRemoteUser();
-          next(err);
-        }
-      });
+    const credentials: any = getMiddlewareCredentials(security, secret, authorization);
+    if (credentials) {
+      // if the signature is valid we rely on it
+      req.remote_user = credentials;
+      debug('generating a remote user');
+      next();
     } else {
-      debug('handle jwt token');
-      const credentials: any = getMiddlewareCredentials(security, secret, authorization);
-      if (credentials) {
-        // if the signature is valid we rely on it
-        req.remote_user = credentials;
-        debug('generating a remote user');
-        next();
-      } else {
-        // with JWT throw 401
-        debug('jwt invalid token');
-        next(errorUtils.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
-      }
+      // with JWT throw 401
+      debug('jwt invalid token');
+      next(errorUtils.getUnauthorized(API_ERROR.BAD_USERNAME_PASSWORD));
     }
   }
 
@@ -543,10 +597,17 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     const credentials: any = getMiddlewareCredentials(security, secret, authorization);
     debug('api middleware credentials %o', credentials?.name);
     if (credentials) {
+      const cacheKey = this.getLegacyAuthCacheKey(authorization);
+      const cachedUser = this.getLegacyAuthCacheEntry(cacheKey);
+      if (cachedUser) {
+        req.remote_user = cachedUser;
+        debug('generating cached remote user');
+        return next();
+      }
+
       const { user, password } = credentials;
-      debug('authenticating %o', user);
-      this.authenticate(user, password, (err, user): void => {
-        if (!err) {
+      const applyAuthResult = (err: VerdaccioError | null, user?: RemoteUser): void => {
+        if (!err && user) {
           req.remote_user = credentials.tokenKey
             ? { ...user, token: { key: credentials.tokenKey } }
             : user;
@@ -555,13 +616,166 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
         } else {
           req.remote_user = createAnonymousRemoteUser();
           debug('generating anonymous user');
-          next(err);
+          next(err || errorUtils.getUnauthorized(API_ERROR.BAD_USERNAME_PASSWORD));
         }
-      });
+      };
+      // concurrent requests for the same token wait for the in-flight one
+      if (this.enqueueLegacyAuthCacheWaiter(cacheKey, applyAuthResult)) {
+        return;
+      }
+
+      debug('authenticating %o', user);
+      const onAuthComplete = (err: VerdaccioError | null, user?: RemoteUser): void => {
+        // only the leader writes the cache; waiters just reuse its result
+        if (!err && user) {
+          this.setLegacyAuthCacheEntry(
+            cacheKey,
+            credentials.tokenKey ? { ...user, token: { key: credentials.tokenKey } } : user
+          );
+        }
+        applyAuthResult(err, user);
+        this.resolveLegacyAuthCacheWaiters(cacheKey, err, user);
+      };
+      try {
+        this.authenticate(user, password, onAuthComplete);
+      } catch (err: any) {
+        onAuthComplete(errorUtils.getInternalError(err?.message));
+      }
     } else {
-      // we force npm client to ask again with basic authentication
+      const remoteUser = this.getJWTRemoteUserFromBearer(authorization);
+      if (remoteUser) {
+        req.remote_user = remoteUser;
+        debug('generating a remote user from jwt bearer');
+        return next();
+      }
+
       debug('legacy invalid header');
-      return next(errorUtils.getBadRequest(API_ERROR.BAD_AUTH_HEADER));
+      return next(errorUtils.getUnauthorized(API_ERROR.BAD_USERNAME_PASSWORD));
+    }
+  }
+
+  private getJWTRemoteUserFromBearer(authorization: string): RemoteUser | void {
+    const { scheme, token } = parseAuthTokenHeader(authorization);
+    if (scheme.toUpperCase() !== TOKEN_BEARER.toUpperCase() || !token) {
+      return;
+    }
+
+    let credentials: RemoteUser | undefined;
+    try {
+      credentials = verifyJWTPayload(token, this.config.secret, this.config.security);
+    } catch {
+      return;
+    }
+
+    if (this._isRemoteUserValid(credentials)) {
+      const { name, groups } = credentials as RemoteUser;
+      return createRemoteUser(name as string, groups);
+    }
+  }
+
+  private enqueueLegacyAuthCacheWaiter(
+    cacheKey: string | void,
+    waiter: LegacyAuthCacheWaiter
+  ): boolean {
+    if (!cacheKey) {
+      return false;
+    }
+
+    const waiters = this.legacyAuthCacheWaiters.get(cacheKey);
+    if (!waiters) {
+      this.legacyAuthCacheWaiters.set(cacheKey, []);
+      return false;
+    }
+
+    waiters.push(waiter);
+    return true;
+  }
+
+  private resolveLegacyAuthCacheWaiters(
+    cacheKey: string | void,
+    err: VerdaccioError | null,
+    user?: RemoteUser
+  ): void {
+    if (!cacheKey) {
+      return;
+    }
+
+    const waiters = this.legacyAuthCacheWaiters.get(cacheKey);
+    this.legacyAuthCacheWaiters.delete(cacheKey);
+    if (!waiters) {
+      return;
+    }
+
+    for (const waiter of waiters) {
+      waiter(err, user);
+    }
+  }
+
+  private isLegacyAuthCacheEnabled(): boolean {
+    // opt-in: disabled unless explicitly turned on via config
+    return this.config.server?.legacyAuthCache?.enabled === true;
+  }
+
+  private getLegacyAuthCacheTtlMs(): number {
+    const ttlMs = this.config.server?.legacyAuthCache?.ttlMs;
+    return typeof ttlMs === 'number' && ttlMs > 0 ? ttlMs : 30 * 1000;
+  }
+
+  private getLegacyAuthCacheMaxEntries(): number {
+    const maxEntries = this.config.server?.legacyAuthCache?.maxEntries;
+    return typeof maxEntries === 'number' && maxEntries > 0 ? maxEntries : 1000;
+  }
+
+  private getLegacyAuthCacheKey(authorization: string): string | void {
+    if (!this.isLegacyAuthCacheEnabled()) {
+      return;
+    }
+
+    const { scheme } = parseAuthTokenHeader(authorization);
+    if (scheme.toUpperCase() !== TOKEN_BEARER.toUpperCase()) {
+      return;
+    }
+
+    return createHash(SHA256_ALGORITHM).update(authorization).digest('hex');
+  }
+
+  private getLegacyAuthCacheEntry(cacheKey: string | void): RemoteUser | void {
+    if (!cacheKey) {
+      return;
+    }
+
+    const entry = this.legacyAuthCache.get(cacheKey);
+    if (!entry) {
+      return;
+    }
+
+    if (entry.expiresAt <= Date.now()) {
+      this.legacyAuthCache.delete(cacheKey);
+      return;
+    }
+
+    this.legacyAuthCache.delete(cacheKey);
+    this.legacyAuthCache.set(cacheKey, entry);
+    return cloneRemoteUser(entry.user);
+  }
+
+  private setLegacyAuthCacheEntry(cacheKey: string | void, user: RemoteUser): void {
+    if (!cacheKey) {
+      return;
+    }
+
+    this.legacyAuthCache.set(cacheKey, {
+      expiresAt: Date.now() + this.getLegacyAuthCacheTtlMs(),
+      user: cloneRemoteUser(user),
+    });
+
+    const maxEntries = this.getLegacyAuthCacheMaxEntries();
+    while (this.legacyAuthCache.size > maxEntries) {
+      const oldestKey = this.legacyAuthCache.keys().next().value;
+      if (!oldestKey) {
+        break;
+      }
+      this.legacyAuthCache.delete(oldestKey);
     }
   }
 
@@ -591,6 +805,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
 
       const { authorization } = req.headers;
       if (isNil(authorization)) {
+        req.remote_user = createAnonymousRemoteUser();
         return next();
       }
 

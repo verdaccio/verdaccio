@@ -18,6 +18,24 @@ describe('Package access utilities', () => {
       expect(all).toBeDefined();
     });
 
+    test('should mark stage as unset when packages do not mention it', () => {
+      const access = normalisePackageAccess({
+        'foo-*': { access: '$all', publish: '$authenticated' } as any,
+      });
+
+      // false, not [], is the signal that publish decides instead
+      expect(access['foo-*'].stage).toBe(false);
+    });
+
+    test('should normalize stage into a group list when it is configured', () => {
+      const access = normalisePackageAccess({
+        'foo-*': { access: '$all', publish: 'reviewer', stage: 'developer qa' } as any,
+      });
+
+      expect(access['foo-*'].stage).toEqual(['developer', 'qa']);
+      expect(access['foo-*'].publish).toEqual(['reviewer']);
+    });
+
     test('should define an empty publish array even if is not defined in packages', () => {
       const { packages } = parseConfigFile(parseConfigurationFile('pkgs-basic-no-publish'));
       const access = normalisePackageAccess(packages);

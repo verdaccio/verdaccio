@@ -1,4 +1,5 @@
 import React from 'react';
+import { afterAll, afterEach, beforeAll, describe, expect, test } from 'vitest';
 
 import { cleanupDownloadMocks, setupDownloadMocks } from '../../../vitest/vitestHelpers';
 import {
@@ -46,6 +47,13 @@ describe('<ActionBar /> component', () => {
       expect(screen.getByTestId('download-tarball-btn')).toBeInTheDocument();
       expect(screen.getByTestId('BugReportIcon')).toBeInTheDocument();
       expect(screen.getByTestId('HomeIcon')).toBeInTheDocument();
+    });
+  });
+
+  test('should use the default color variant for the homepage button', async () => {
+    renderWithRouteDetail(<ActionBar packageMeta={defaultPackageMeta} />);
+    await waitFor(() => {
+      expect(screen.getByTestId('HomeIcon').closest('button')).toHaveClass('MuiFab-default');
     });
   });
 

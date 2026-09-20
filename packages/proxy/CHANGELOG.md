@@ -1,5 +1,120 @@
 # @verdaccio/proxy
 
+## 9.0.0-next-9.31
+
+### Patch Changes
+
+- 7054084: fix: tarball download reliability — uplink selection, no client hangs, content-length, npmjs parity
+  
+  - **store**: tarballs with a missing `_distfiles` record no longer 404 forever —
+    `lookupDistFile` falls back to the version's own dist metadata (conventional
+    `<name>-<version>.tgz` fast path, then a full scan that also resolves
+    bare-digest tarball urls). The uplink for a tarball is now the one that
+    actually serves it (recorded on the distfile, or matched by url on a path
+    segment boundary) instead of the last configured match, so credentials of an
+    unrelated uplink are never sent to it.
+  - **api/middleware**: when a tarball stream fails after the response headers
+    were already sent (eg. the uplink dropped the connection mid-download), the
+    response is destroyed so the client sees the failure immediately instead of
+    hanging forever; when it fails before headers are sent, the error body is
+    served as JSON like registry.npmjs.org.
+  - **proxy**: the got retry limit is no longer derived from `max_fails` (the
+    circuit-breaker threshold) — a high `max_fails` multiplied every uplink
+    timeout, so a slow uplink could block requests almost indefinitely. Retries
+    have their own `retry` uplink setting (default 2, matching got).
+  - **store**: the abbreviated manifest (`application/vnd.npm.install-v1+json`)
+    no longer includes `readme`, `readmeFilename`, `_id` and `_rev`, matching
+    the npm registry contract.
+  - **store/server**: tarball responses now carry a `Content-Length` header (the
+    `content-length` event was swallowed by the stream wrapper) and are no
+    longer re-gzipped by the compression middleware for gzip-accepting clients —
+    npm and undici accept gzip by default, so every (already gzipped) `.tgz`
+    download paid CPU for nothing. JSON metadata responses stay compressed.
+  - **core**: the `application/octet-stream` constant no longer carries a
+    spurious `charset=utf-8`, matching registry.npmjs.org.
+- Updated dependencies [c2b5897]
+- Updated dependencies [68ab0d4]
+- Updated dependencies [c52b632]
+- Updated dependencies [7054084]
+- Updated dependencies [cf15239]
+  - @verdaccio/core@9.0.0-next-9.31
+  - @verdaccio/config@9.0.0-next-9.31
+
+## 9.0.0-next-9.30
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.30
+- @verdaccio/config@9.0.0-next-9.30
+
+## 9.0.0-next-9.29
+
+### Patch Changes
+
+- Updated dependencies [30601b3]
+- Updated dependencies [30601b3]
+  - @verdaccio/core@9.0.0-next-9.29
+  - @verdaccio/config@9.0.0-next-9.29
+
+## 9.0.0-next-9.28
+
+### Patch Changes
+
+- Updated dependencies [dd4f91c]
+  - @verdaccio/core@9.0.0-next-9.28
+  - @verdaccio/config@9.0.0-next-9.28
+
+## 9.0.0-next-9.27
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.27
+- @verdaccio/config@9.0.0-next-9.27
+
+## 9.0.0-next-9.26
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.26
+- @verdaccio/config@9.0.0-next-9.26
+
+## 9.0.0-next-9.25
+
+### Patch Changes
+
+- Updated dependencies [4861978]
+- Updated dependencies [d7937a3]
+  - @verdaccio/config@9.0.0-next-9.25
+  - @verdaccio/core@9.0.0-next-9.25
+
+## 9.0.0-next-9.24
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.24
+- @verdaccio/config@9.0.0-next-9.24
+
+## 9.0.0-next-9.23
+
+### Patch Changes
+
+- Updated dependencies [5ec045c]
+  - @verdaccio/core@9.0.0-next-9.23
+  - @verdaccio/config@9.0.0-next-9.23
+
+## 9.0.0-next-9.22
+
+### Patch Changes
+
+- 3574350: chore: return 403 error when uplink does on tarball path
+
+  Previously, any non-200/404 response from an uplink (e.g. a security proxy blocking a package download) would result in a generic 500 error being returned to the client. This change propagates 403 responses from the uplink through to the client, including any error detail from the response body, so callers can distinguish authorization failures from other upstream errors.
+
+- Updated dependencies [6795216]
+- Updated dependencies [c499c4e]
+  - @verdaccio/config@9.0.0-next-9.22
+  - @verdaccio/core@9.0.0-next-9.22
+
 ## 9.0.0-next-9.21
 
 ### Patch Changes

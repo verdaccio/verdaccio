@@ -1,5 +1,130 @@
 # @verdaccio/cli
 
+## 9.0.0-next-9.31
+
+### Patch Changes
+
+- Updated dependencies [c2b5897]
+- Updated dependencies [68ab0d4]
+- Updated dependencies [c52b632]
+- Updated dependencies [7054084]
+- Updated dependencies [cf15239]
+  - @verdaccio/core@9.0.0-next-9.31
+  - @verdaccio/server@9.0.0-next-9.31
+  - @verdaccio/config@9.0.0-next-9.31
+  - @verdaccio/logger@9.0.0-next-9.31
+  - @verdaccio/node-api@9.0.0-next-9.31
+
+## 9.0.0-next-9.30
+
+### Patch Changes
+
+- 4ed3b3c: Move `tsx` to `devDependencies`
+
+  `tsx` is only used by the package's `start` script, but it was listed as a runtime dependency, so every install of `verdaccio` also pulled in `esbuild` (~10MB) and its `postinstall` script. Nothing in the published build references `tsx`.
+
+  - @verdaccio/core@9.0.0-next-9.30
+  - @verdaccio/config@9.0.0-next-9.30
+  - @verdaccio/node-api@9.0.0-next-9.30
+  - @verdaccio/logger@9.0.0-next-9.30
+  - @verdaccio/server@9.0.0-next-9.30
+
+## 9.0.0-next-9.29
+
+### Patch Changes
+
+- Updated dependencies [30601b3]
+- Updated dependencies [30601b3]
+  - @verdaccio/core@9.0.0-next-9.29
+  - @verdaccio/config@9.0.0-next-9.29
+  - @verdaccio/logger@9.0.0-next-9.29
+  - @verdaccio/server@9.0.0-next-9.29
+  - @verdaccio/node-api@9.0.0-next-9.29
+
+## 9.0.0-next-9.28
+
+### Patch Changes
+
+- Updated dependencies [dd4f91c]
+  - @verdaccio/core@9.0.0-next-9.28
+  - @verdaccio/server@9.0.0-next-9.28
+  - @verdaccio/config@9.0.0-next-9.28
+  - @verdaccio/logger@9.0.0-next-9.28
+  - @verdaccio/node-api@9.0.0-next-9.28
+
+## 9.0.0-next-9.27
+
+### Patch Changes
+
+- Updated dependencies [8857b15]
+  - @verdaccio/server@9.0.0-next-9.27
+  - @verdaccio/core@9.0.0-next-9.27
+  - @verdaccio/config@9.0.0-next-9.27
+  - @verdaccio/node-api@9.0.0-next-9.27
+  - @verdaccio/logger@9.0.0-next-9.27
+
+## 9.0.0-next-9.26
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.26
+- @verdaccio/config@9.0.0-next-9.26
+- @verdaccio/node-api@9.0.0-next-9.26
+- @verdaccio/logger@9.0.0-next-9.26
+- @verdaccio/server@9.0.0-next-9.26
+
+## 9.0.0-next-9.25
+
+### Patch Changes
+
+- Updated dependencies [4861978]
+- Updated dependencies [d7937a3]
+  - @verdaccio/config@9.0.0-next-9.25
+  - @verdaccio/server@9.0.0-next-9.25
+  - @verdaccio/node-api@9.0.0-next-9.25
+  - @verdaccio/core@9.0.0-next-9.25
+  - @verdaccio/logger@9.0.0-next-9.25
+
+## 9.0.0-next-9.24
+
+### Patch Changes
+
+- @verdaccio/server@9.0.0-next-9.24
+- @verdaccio/core@9.0.0-next-9.24
+- @verdaccio/config@9.0.0-next-9.24
+- @verdaccio/node-api@9.0.0-next-9.24
+- @verdaccio/logger@9.0.0-next-9.24
+
+## 9.0.0-next-9.23
+
+### Patch Changes
+
+- Updated dependencies [5ec045c]
+  - @verdaccio/core@9.0.0-next-9.23
+  - @verdaccio/config@9.0.0-next-9.23
+  - @verdaccio/logger@9.0.0-next-9.23
+  - @verdaccio/server@9.0.0-next-9.23
+  - @verdaccio/node-api@9.0.0-next-9.23
+
+## 9.0.0-next-9.22
+
+### Patch Changes
+
+- 6a87488: Fix type resolution for the TypeScript 7 upgrade: switch the UI packages to `moduleResolution: bundler` (required to resolve react-router 8 types via its `exports` map), declare `@mui/system` as a direct dependency so emitted declarations can reference its types portably, and replace the legacy `@mui/material/styles/createTheme` module augmentation with the `@mui/material/styles` entry point.
+
+  Declaration files are now emitted with the TypeScript compiler itself (`tsc --emitDeclarationOnly`) instead of `vite-plugin-dts`, which has no JS compiler API to hook into on TypeScript 7. This drops the `@typescript/typescript6` fallback install (and with it a duplicated i18next instance that left the settings dialog's language list empty). `runCli()` in `@verdaccio/cli` is now correctly typed as `Promise<void>` — the previous `Promise<number>` annotation was wrong and only survived because the old declaration generator ignored type errors.
+
+  The Cypress e2e specs are now bundled with Vite (the default webpack/ts-loader preprocessor requires the TypeScript JS compiler API, which TypeScript 7 no longer ships).
+
+- Updated dependencies [6795216]
+- Updated dependencies [d3b0352]
+- Updated dependencies [c499c4e]
+  - @verdaccio/config@9.0.0-next-9.22
+  - @verdaccio/logger@9.0.0-next-9.22
+  - @verdaccio/core@9.0.0-next-9.22
+  - @verdaccio/node-api@9.0.0-next-9.22
+  - @verdaccio/server@9.0.0-next-9.22
+
 ## 9.0.0-next-9.21
 
 ### Patch Changes

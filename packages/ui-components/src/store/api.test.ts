@@ -59,6 +59,22 @@ describe('API Module', () => {
       expect(ok).toBe(true);
       expect(data).toBeInstanceOf(Blob);
     });
+
+    it('should process octet-stream responses as blobs even without a .tgz url', async () => {
+      // staged tarballs are served from /-/stage/:id/tarball
+      const mockResponse = {
+        ok: true,
+        status: 200,
+        url: 'https://registry.example.org/-/stage/abc123/tarball',
+        headers: new Headers({ 'Content-Type': 'application/octet-stream' }),
+        blob: vi.fn().mockResolvedValue(new Blob(['archive-data'])),
+        text: vi.fn().mockResolvedValue('should-not-be-used'),
+      } as unknown as Response;
+
+      const [ok, data] = await handleResponseType(mockResponse);
+      expect(ok).toBe(true);
+      expect(data).toBeInstanceOf(Blob);
+    });
   });
 
   describe('API.request', () => {

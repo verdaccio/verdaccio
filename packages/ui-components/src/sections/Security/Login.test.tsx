@@ -1,6 +1,9 @@
+import { HttpResponse, http } from 'msw';
 import React from 'react';
-import { vi } from 'vitest';
+import { Route as RouterRoute, Routes } from 'react-router';
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
+import { server } from '../../../vitest/server';
 import storage from '../../store/storage';
 import {
   act,
@@ -98,8 +101,17 @@ describe('<Login /> component', () => {
   });
 
   test('should save auth token before navigating on successful login', async () => {
+    // the component navigates to Route.SUCCESS after logging in, so the test
+    // router needs that route to exist
     await act(async () => {
-      renderWithRouter(<Login />, Route.LOGIN, [LOGIN_URL_WITH_NEXT]);
+      renderWithRouter(
+        <Routes>
+          <RouterRoute element={<Login />} path={Route.LOGIN} />
+          <RouterRoute element={<div data-testid="success-page" />} path={Route.SUCCESS} />
+        </Routes>,
+        '*',
+        [LOGIN_URL_WITH_NEXT]
+      );
     });
 
     const usernameInput = screen.getByPlaceholderText('form-placeholder.username');
@@ -150,7 +162,74 @@ describe('<Login /> component', () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByText('Invalid username or password')).toBeInTheDocument();
+      expect(screen.getByText('security.error.invalid-credentials')).toBeInTheDocument();
     });
+  });
+
+  test('a 2xx response without a token shows an error instead of a false success', async () => {
+    server.use(http.post(/\/-\/v1\/login_cli\/.*/, () => HttpResponse.json({}, { status: 200 })));
+
+    await act(async () => {
+      renderWithRouter(
+        <Routes>
+          <RouterRoute element={<Login />} path={Route.LOGIN} />
+          <RouterRoute element={<div data-testid="success-page" />} path={Route.SUCCESS} />
+        </Routes>,
+        '*',
+        [LOGIN_URL_WITH_NEXT]
+      );
+    });
+
+    await act(async () => {
+      fireEvent.change(screen.getByPlaceholderText('form-placeholder.username'), {
+        target: { value: 'testuser' },
+      });
+      fireEvent.change(screen.getByPlaceholderText('form-placeholder.password'), {
+        target: { value: 'testpass' },
+      });
+    });
+
+    await waitFor(() => {
+      expect(screen.getByTestId('login-dialog-form-login-button')).not.toBeDisabled();
+    });
+    await act(async () => {
+      fireEvent.click(screen.getByTestId('login-dialog-form-login-button'));
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText('security.error.unable-to-login')).toBeInTheDocument();
+    });
+    expect(screen.queryByTestId('success-page')).not.toBeInTheDocument();
+    expect(storage.getItem('token')).toBeNull();
+  });
+
+  test('a dead server shows the generic failure, never "invalid credentials"', async () => {
+    server.use(http.post(/\/-\/v1\/login_cli\/.*/, () => HttpResponse.error()));
+
+    await act(async () => {
+      renderWithRouter(<Login />, Route.LOGIN, [LOGIN_URL_WITH_NEXT]);
+    });
+
+    await act(async () => {
+      fireEvent.change(screen.getByPlaceholderText('form-placeholder.username'), {
+        target: { value: 'testuser' },
+      });
+      fireEvent.change(screen.getByPlaceholderText('form-placeholder.password'), {
+        target: { value: 'testpass' },
+      });
+    });
+
+    await waitFor(() => {
+      expect(screen.getByTestId('login-dialog-form-login-button')).not.toBeDisabled();
+    });
+    await act(async () => {
+      fireEvent.click(screen.getByTestId('login-dialog-form-login-button'));
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText('security.error.unable-to-login')).toBeInTheDocument();
+    });
+    expect(screen.queryByText('security.error.invalid-credentials')).not.toBeInTheDocument();
+    expect(storage.getItem('token')).toBeNull();
   });
 });

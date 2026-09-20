@@ -1,7 +1,7 @@
 {
   "extends": ["config:recommended"],
   "prConcurrentLimit": 2,
-  "minimumReleaseAge": "15 days",
+  "minimumReleaseAge": "7 days",
   "internalChecksFilter": "strict",
   "dependencyDashboard": false,
   "ignorePaths": ["docker-examples/**", "**/mock-store/corrupted-package/**"],

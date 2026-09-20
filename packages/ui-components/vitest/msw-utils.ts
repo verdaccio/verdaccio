@@ -4,6 +4,9 @@ import { HttpResponse, delay, http } from 'msw';
 import fs from 'node:fs';
 import path from 'node:path';
 
+import jqueryReadme from './api/jquery-readme';
+import storybookReadme from './api/storybook-readme';
+
 const debug = createDebugger('verdaccio:ui-components:api');
 debug('Setting up MSW API mocks.');
 
@@ -64,11 +67,11 @@ export const mockReadme = (packageName: string, content?: string) =>
     // Fallback to existing logic
     if (packageName === 'storybook') {
       debug('Returning README for storybook package.');
-      return HttpResponse.text(require('./api/storybook-readme')());
+      return HttpResponse.text(storybookReadme);
     }
     if (packageName === 'jquery') {
       debug('Returning README for jquery package.');
-      return HttpResponse.text(require('./api/jquery-readme')());
+      return HttpResponse.text(jqueryReadme);
     }
     debug(`Returning README for package ${packageName}.`);
     return HttpResponse.text(`readme for ${packageName}`);
@@ -151,30 +154,44 @@ export const mockCliLogin = (status = 200, customResponse?: object) =>
   }) as unknown as MswResolver);
 
 /**
- * Mocks the Verdaccio add user endpoint (PUT /-/web/add-user:username).
- * @param status - The HTTP status to return (default 201)
+ * Mocks the Verdaccio signup endpoint (PUT /-/verdaccio/sec/signup).
+ * Mirrors the server contract (packages/web/src/api/user.ts): a request without a
+ * 36-char sessionId is rejected with 400 regardless of the requested status.
+ * @param status - The HTTP status to return (default 200)
  * @param customResponse - Override the default JSON body
  */
-export const mockAddUser = (status = 201, customResponse?: object) =>
-  http.put(`${BASE_URL}/-/web/add-user:username`, (async ({ request }) => {
-    debug('Received add user request', request.method, request.url);
-    const body = (await request.json()) as { name: string; password: string; email?: string };
+export const mockAddUser = (status = 200, customResponse?: object) =>
+  http.put(`${BASE_URL}/-/verdaccio/sec/signup`, (async ({ request }) => {
+    debug('Received signup request', request.method, request.url);
+    const body = (await request.json()) as {
+      name: string;
+      password: string;
+      email?: string;
+      sessionId?: string;
+    };
 
-    if (status !== 201) {
-      debug(`Simulating add user error with status ${status}`);
+    if (typeof body.sessionId !== 'string' || body.sessionId.length !== 36) {
+      debug('Simulating signup error: invalid sessionId', body.sessionId);
+      return new HttpResponse(JSON.stringify({ error: 'session id is required' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    if (status !== 200) {
+      debug(`Simulating signup error with status ${status}`);
       return new HttpResponse(JSON.stringify(customResponse || { error: 'conflict' }), {
         status,
         headers: { 'Content-Type': 'application/json' },
       });
     }
 
-    debug('Simulating successful add user for:', body.name);
+    debug('Simulating successful signup for:', body.name);
     return HttpResponse.json(
       customResponse || {
-        ok: `user '${body.name}' created`,
+        username: body.name,
         token: 'valid-mock-token',
-      },
-      { status: 201 }
+      }
     );
   }) as unknown as MswResolver);
 

@@ -33,7 +33,7 @@ export interface TokenEncryption {
   aesEncrypt(buf: string): string | void;
 }
 
-export type ActionsAllowed = 'publish' | 'unpublish' | 'access';
+export type ActionsAllowed = 'publish' | 'unpublish' | 'access' | 'stage';
 
 // remove
 export interface IAuthMiddleware {

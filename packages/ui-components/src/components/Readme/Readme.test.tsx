@@ -1,4 +1,5 @@
 import React from 'react';
+import { beforeEach, describe, expect, test } from 'vitest';
 
 import { cleanup, render } from '../../test/test-react-testing-library';
 import Readme from './Readme';

@@ -1,5 +1,303 @@
 # @verdaccio/store
 
+## 9.0.0-next-9.31
+
+### Patch Changes
+
+- c2b5897: Omit placeholder links from local Search v1 results while preserving real package links.
+- 68ab0d4: Include the latest package version license in local npm Search v1 results.
+- c52b632: fix: stop synthesizing scope in local npm search results
+  
+  Local `/-/v1/search` results no longer include the undocumented `package.scope` field. Scoped
+  package names remain complete in `package.name` (for example, `@scope/package`), while optional
+  fields received from uplink registries continue to pass through unchanged. `scope` is now optional
+  in `SearchPackageBody` for compatibility with remote result shapes and existing integrations.
+- 7054084: fix: tarball download reliability — uplink selection, no client hangs, content-length, npmjs parity
+  
+  - **store**: tarballs with a missing `_distfiles` record no longer 404 forever —
+    `lookupDistFile` falls back to the version's own dist metadata (conventional
+    `<name>-<version>.tgz` fast path, then a full scan that also resolves
+    bare-digest tarball urls). The uplink for a tarball is now the one that
+    actually serves it (recorded on the distfile, or matched by url on a path
+    segment boundary) instead of the last configured match, so credentials of an
+    unrelated uplink are never sent to it.
+  - **api/middleware**: when a tarball stream fails after the response headers
+    were already sent (eg. the uplink dropped the connection mid-download), the
+    response is destroyed so the client sees the failure immediately instead of
+    hanging forever; when it fails before headers are sent, the error body is
+    served as JSON like registry.npmjs.org.
+  - **proxy**: the got retry limit is no longer derived from `max_fails` (the
+    circuit-breaker threshold) — a high `max_fails` multiplied every uplink
+    timeout, so a slow uplink could block requests almost indefinitely. Retries
+    have their own `retry` uplink setting (default 2, matching got).
+  - **store**: the abbreviated manifest (`application/vnd.npm.install-v1+json`)
+    no longer includes `readme`, `readmeFilename`, `_id` and `_rev`, matching
+    the npm registry contract.
+  - **store/server**: tarball responses now carry a `Content-Length` header (the
+    `content-length` event was swallowed by the stream wrapper) and are no
+    longer re-gzipped by the compression middleware for gzip-accepting clients —
+    npm and undici accept gzip by default, so every (already gzipped) `.tgz`
+    download paid CPU for nothing. JSON metadata responses stay compressed.
+  - **core**: the `application/octet-stream` constant no longer carries a
+    spurious `charset=utf-8`, matching registry.npmjs.org.
+- Updated dependencies [c2b5897]
+- Updated dependencies [7054084]
+- Updated dependencies [68ab0d4]
+- Updated dependencies [c52b632]
+- Updated dependencies [7054084]
+- Updated dependencies [e3d3128]
+- Updated dependencies [cf15239]
+  - @verdaccio/core@9.0.0-next-9.31
+  - @verdaccio/local-storage@14.0.0-next-9.31
+  - @verdaccio/proxy@9.0.0-next-9.31
+  - @verdaccio/loaders@9.0.0-next-9.31
+  - @verdaccio/config@9.0.0-next-9.31
+  - @verdaccio/tarball@14.0.0-next-9.31
+  - @verdaccio/url@14.0.0-next-9.31
+  - @verdaccio/logger@9.0.0-next-9.31
+  - @verdaccio/search@9.0.0-next-9.31
+
+## 9.0.0-next-9.30
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.30
+- @verdaccio/config@9.0.0-next-9.30
+- @verdaccio/tarball@14.0.0-next-9.30
+- @verdaccio/url@14.0.0-next-9.30
+- @verdaccio/loaders@9.0.0-next-9.30
+- @verdaccio/logger@9.0.0-next-9.30
+- @verdaccio/local-storage@14.0.0-next-9.30
+- @verdaccio/proxy@9.0.0-next-9.30
+- @verdaccio/search@9.0.0-next-9.30
+
+## 9.0.0-next-9.29
+
+### Minor Changes
+
+- 30601b3: feat: staged publishing (`npm stage`) behind the `stage` flag
+
+  Adds the `/-/stage` endpoints so a package version can be uploaded for review and
+  only becomes installable once a maintainer approves it. Everything is gated by
+  the new `stage` feature flag, which defaults to `false`.
+
+  ```yaml
+  flags:
+    stage: true
+  ```
+
+  The whole `npm stage` family is supported — `publish`, `list`, `view`,
+  `download`, `approve` and `reject` — verified end to end against npm 11.17.
+  Staging never asks for a one-time password: deferring proof of presence to
+  approval time is the point of the flow, which lets a pipeline prepare a release
+  that a human approves later.
+
+  Package access gains a `stage` entry deciding who may submit a version for
+  review:
+
+  ```yaml
+  packages:
+    "my-company-*":
+      access: $authenticated
+      stage: developers
+      publish: release-managers
+  ```
+
+  It falls back to `publish` when omitted, exactly as `unpublish` already does, so
+  existing configurations are unaffected. Granting it to a group that lacks
+  `publish` is what turns review into a real gate: those users can propose a
+  release but neither publish one directly nor approve their own submission, though
+  they can always withdraw it. Auth plugins can implement `allow_stage`; returning
+  `undefined` defers to `allow_publish`.
+
+  Staging fires a notification with `publishType: 'stage'` and rejecting fires
+  `unstage`, so a staged version no longer waits unnoticed until somebody runs
+  `npm stage list`. Approving keeps reporting `publish`, because that is what it
+  does.
+
+  Staged items are persisted through the storage plugin interface, so any storage
+  plugin works unchanged, and the namespace is never registered in the plugin
+  database — staged versions stay out of search and the package list.
+
+  The web UI gains a "Staged packages" view (list, detail, approve, reject,
+  download) that appears only while the flag is on.
+
+### Patch Changes
+
+- 30601b3: fix: prove presence before two-factor can be switched off
+
+  Three problems found while reviewing the staged publishing and two-factor work.
+
+  Turning two-factor off only re-checked the account password. A password is
+  exactly what an attacker holding a stolen session already has, so the second
+  factor could be removed without ever proving presence — the one thing it exists
+  to require. `POST /-/npm/v1/user` now answers the standard `401` challenge when
+  two-factor is already active, which is what `otplease` in the npm CLI expects, so
+  `npm profile disable-2fa` and mode switches keep working unchanged. Enrolment is
+  untouched: the challenge stays quiet while a record is pending, so the three
+  steps of `npm profile enable-2fa` still run without a code.
+
+  Staging a tarball waited for the write stream to emit `open` before piping into
+  it. The storage plugin interface only promises a Writable, and the event is a
+  detail of the two bundled plugins, so a plugin that never emits it would have
+  hung staging forever with nothing written. The payload is now piped straight
+  away, which is correct either way because a stream that is not ready yet buffers
+  the writes.
+
+  Approving a staged version created an abort signal but never fired it when the
+  client disconnected, unlike the two sibling routes in the same file, so reading
+  the staged tarball carried on after the caller had gone.
+
+- 30601b3: fix: reject replayed one-time passwords and invalid staged tarball names
+
+  Two problems found while auditing the staged publishing and two-factor work,
+  both reproduced against a running registry before being fixed.
+
+  A one-time password could be used more than once. Codes stay valid for up to 90
+  seconds with the tolerance window, so a code seen in a CI log or over someone's
+  shoulder authorised every write in that window — three publishes went through
+  with one code. RFC 6238 §5.2 requires single use, so the accepted time step is
+  now recorded and anything at or before it is refused.
+
+  The tarball name of a staged version came from the `_attachments` key of the
+  request and reached the storage plugin unchecked. A name of `..` made the write
+  fail inside a stream handler nobody awaits, which crashed the process: any user
+  allowed to stage could take the registry down with one request. The regular
+  publish path already asserted the name; staging now does too.
+
+  Both single-use guarantees were also reachable around by sending requests at the
+  same time: two concurrent verifications read the same record, neither saw the
+  other spend the code, and both were accepted. Two-factor mutations are now
+  serialized per user, and the duplicate check when staging happens inside the
+  serialized index write instead of before it.
+
+  Logging in no longer asks for a one-time password before the password itself has
+  been accepted, which used to reveal that an account exists and has two-factor
+  enabled to anyone who could guess a username.
+
+- Updated dependencies [30601b3]
+- Updated dependencies [30601b3]
+  - @verdaccio/core@9.0.0-next-9.29
+  - @verdaccio/config@9.0.0-next-9.29
+  - @verdaccio/tarball@14.0.0-next-9.29
+  - @verdaccio/logger@9.0.0-next-9.29
+  - @verdaccio/local-storage@14.0.0-next-9.29
+  - @verdaccio/proxy@9.0.0-next-9.29
+  - @verdaccio/search@9.0.0-next-9.29
+  - @verdaccio/url@14.0.0-next-9.29
+  - @verdaccio/loaders@9.0.0-next-9.29
+
+## 9.0.0-next-9.28
+
+### Patch Changes
+
+- Updated dependencies [dd4f91c]
+  - @verdaccio/core@9.0.0-next-9.28
+  - @verdaccio/config@9.0.0-next-9.28
+  - @verdaccio/tarball@14.0.0-next-9.28
+  - @verdaccio/url@14.0.0-next-9.28
+  - @verdaccio/loaders@9.0.0-next-9.28
+  - @verdaccio/logger@9.0.0-next-9.28
+  - @verdaccio/local-storage@14.0.0-next-9.28
+  - @verdaccio/proxy@9.0.0-next-9.28
+  - @verdaccio/search@9.0.0-next-9.28
+
+## 9.0.0-next-9.27
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.27
+- @verdaccio/config@9.0.0-next-9.27
+- @verdaccio/tarball@14.0.0-next-9.27
+- @verdaccio/url@14.0.0-next-9.27
+- @verdaccio/loaders@9.0.0-next-9.27
+- @verdaccio/logger@9.0.0-next-9.27
+- @verdaccio/local-storage@14.0.0-next-9.27
+- @verdaccio/proxy@9.0.0-next-9.27
+- @verdaccio/search@9.0.0-next-9.27
+
+## 9.0.0-next-9.26
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.26
+- @verdaccio/config@9.0.0-next-9.26
+- @verdaccio/tarball@14.0.0-next-9.26
+- @verdaccio/url@14.0.0-next-9.26
+- @verdaccio/loaders@9.0.0-next-9.26
+- @verdaccio/logger@9.0.0-next-9.26
+- @verdaccio/local-storage@14.0.0-next-9.26
+- @verdaccio/proxy@9.0.0-next-9.26
+- @verdaccio/search@9.0.0-next-9.26
+
+## 9.0.0-next-9.25
+
+### Patch Changes
+
+- Updated dependencies [4861978]
+- Updated dependencies [d7937a3]
+  - @verdaccio/config@9.0.0-next-9.25
+  - @verdaccio/loaders@9.0.0-next-9.25
+  - @verdaccio/proxy@9.0.0-next-9.25
+  - @verdaccio/search@9.0.0-next-9.25
+  - @verdaccio/core@9.0.0-next-9.25
+  - @verdaccio/tarball@14.0.0-next-9.25
+  - @verdaccio/logger@9.0.0-next-9.25
+  - @verdaccio/local-storage@14.0.0-next-9.25
+  - @verdaccio/url@14.0.0-next-9.25
+
+## 9.0.0-next-9.24
+
+### Patch Changes
+
+- Updated dependencies [be34664]
+  - @verdaccio/local-storage@14.0.0-next-9.24
+  - @verdaccio/core@9.0.0-next-9.24
+  - @verdaccio/config@9.0.0-next-9.24
+  - @verdaccio/tarball@14.0.0-next-9.24
+  - @verdaccio/url@14.0.0-next-9.24
+  - @verdaccio/loaders@9.0.0-next-9.24
+  - @verdaccio/logger@9.0.0-next-9.24
+  - @verdaccio/proxy@9.0.0-next-9.24
+  - @verdaccio/search@9.0.0-next-9.24
+
+## 9.0.0-next-9.23
+
+### Patch Changes
+
+- Updated dependencies [5ec045c]
+  - @verdaccio/core@9.0.0-next-9.23
+  - @verdaccio/config@9.0.0-next-9.23
+  - @verdaccio/tarball@14.0.0-next-9.23
+  - @verdaccio/url@14.0.0-next-9.23
+  - @verdaccio/loaders@9.0.0-next-9.23
+  - @verdaccio/logger@9.0.0-next-9.23
+  - @verdaccio/local-storage@14.0.0-next-9.23
+  - @verdaccio/proxy@9.0.0-next-9.23
+  - @verdaccio/search@9.0.0-next-9.23
+
+## 9.0.0-next-9.22
+
+### Patch Changes
+
+- 3574350: chore: return 403 error when uplink does on tarball path
+
+  Previously, any non-200/404 response from an uplink (e.g. a security proxy blocking a package download) would result in a generic 500 error being returned to the client. This change propagates 403 responses from the uplink through to the client, including any error detail from the response body, so callers can distinguish authorization failures from other upstream errors.
+
+- Updated dependencies [6795216]
+- Updated dependencies [d3b0352]
+- Updated dependencies [3574350]
+- Updated dependencies [c499c4e]
+  - @verdaccio/config@9.0.0-next-9.22
+  - @verdaccio/loaders@9.0.0-next-9.22
+  - @verdaccio/logger@9.0.0-next-9.22
+  - @verdaccio/proxy@9.0.0-next-9.22
+  - @verdaccio/core@9.0.0-next-9.22
+  - @verdaccio/search@9.0.0-next-9.22
+  - @verdaccio/local-storage@14.0.0-next-9.22
+  - @verdaccio/tarball@14.0.0-next-9.22
+  - @verdaccio/url@14.0.0-next-9.22
+
 ## 9.0.0-next-9.21
 
 ### Patch Changes

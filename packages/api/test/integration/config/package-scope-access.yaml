@@ -1,0 +1,28 @@
+storage: ./storage
+
+auth:
+  htpasswd:
+    file: ./htpasswd-package-scope-access
+
+web:
+  enable: true
+  title: verdaccio
+
+publish:
+  allow_offline: false
+
+uplinks:
+
+log: { type: stdout, format: pretty, level: trace }
+
+packages:
+  '@restricted/*':
+    access: maintainer
+    publish: $anonymous
+  '@*/*':
+    access: $anonymous
+    publish: $anonymous
+  '**':
+    access: $anonymous
+    publish: $anonymous
+_debug: true

@@ -1,5 +1,138 @@
 # verdaccio
 
+## 9.0.0-next-9.31
+
+### Patch Changes
+
+- Updated dependencies [770ebe4]
+- Updated dependencies [8b2b136]
+- Updated dependencies [7054084]
+- Updated dependencies [770ebe4]
+  - @verdaccio/ui-theme@9.0.0-next-9.31
+  - @verdaccio/server@9.0.0-next-9.31
+  - @verdaccio/cli@9.0.0-next-9.31
+  - verdaccio-audit@14.0.0-next-9.31
+  - verdaccio-htpasswd@14.0.0-next-9.31
+  - @verdaccio/package-filter@14.0.0-next-9.55
+  - @verdaccio/node-api@9.0.0-next-9.31
+
+## 9.0.0-next-9.30
+
+### Patch Changes
+
+- Updated dependencies [4ed3b3c]
+  - @verdaccio/cli@9.0.0-next-9.30
+  - @verdaccio/node-api@9.0.0-next-9.30
+  - @verdaccio/ui-theme@9.0.0-next-9.30
+  - verdaccio-audit@14.0.0-next-9.30
+  - verdaccio-htpasswd@14.0.0-next-9.30
+  - @verdaccio/package-filter@14.0.0-next-9.54
+  - @verdaccio/server@9.0.0-next-9.30
+
+## 9.0.0-next-9.29
+
+### Patch Changes
+
+- Updated dependencies [30601b3]
+  - @verdaccio/ui-theme@9.0.0-next-9.29
+  - @verdaccio/cli@9.0.0-next-9.29
+  - verdaccio-audit@14.0.0-next-9.29
+  - verdaccio-htpasswd@14.0.0-next-9.29
+  - @verdaccio/package-filter@14.0.0-next-9.53
+  - @verdaccio/server@9.0.0-next-9.29
+  - @verdaccio/node-api@9.0.0-next-9.29
+
+## 9.0.0-next-9.28
+
+### Patch Changes
+
+- @verdaccio/server@9.0.0-next-9.28
+- @verdaccio/ui-theme@9.0.0-next-9.28
+- @verdaccio/cli@9.0.0-next-9.28
+- verdaccio-audit@14.0.0-next-9.28
+- verdaccio-htpasswd@14.0.0-next-9.28
+- @verdaccio/package-filter@14.0.0-next-9.52
+- @verdaccio/node-api@9.0.0-next-9.28
+
+## 9.0.0-next-9.27
+
+### Patch Changes
+
+- Updated dependencies [65cd24e]
+- Updated dependencies [284cbd0]
+- Updated dependencies [8857b15]
+  - @verdaccio/ui-theme@9.0.0-next-9.27
+  - @verdaccio/server@9.0.0-next-9.27
+  - verdaccio-audit@14.0.0-next-9.27
+  - @verdaccio/cli@9.0.0-next-9.27
+  - @verdaccio/node-api@9.0.0-next-9.27
+  - verdaccio-htpasswd@14.0.0-next-9.27
+  - @verdaccio/package-filter@14.0.0-next-9.51
+
+## 9.0.0-next-9.26
+
+### Patch Changes
+
+- Updated dependencies [7aea4de]
+  - @verdaccio/package-filter@14.0.0-next-9.50
+  - @verdaccio/ui-theme@9.0.0-next-9.26
+  - @verdaccio/cli@9.0.0-next-9.26
+  - @verdaccio/node-api@9.0.0-next-9.26
+  - verdaccio-audit@14.0.0-next-9.26
+  - verdaccio-htpasswd@14.0.0-next-9.26
+  - @verdaccio/server@9.0.0-next-9.26
+
+## 9.0.0-next-9.25
+
+### Patch Changes
+
+- Updated dependencies [7a4c68d]
+  - verdaccio-htpasswd@14.0.0-next-9.25
+  - verdaccio-audit@14.0.0-next-9.25
+  - @verdaccio/server@9.0.0-next-9.25
+  - @verdaccio/cli@9.0.0-next-9.25
+  - @verdaccio/node-api@9.0.0-next-9.25
+  - @verdaccio/package-filter@14.0.0-next-9.49
+  - @verdaccio/ui-theme@9.0.0-next-9.25
+
+## 9.0.0-next-9.24
+
+### Patch Changes
+
+- Updated dependencies [f86df64]
+  - @verdaccio/package-filter@14.0.0-next-9.48
+  - @verdaccio/server@9.0.0-next-9.24
+  - @verdaccio/cli@9.0.0-next-9.24
+  - @verdaccio/node-api@9.0.0-next-9.24
+  - @verdaccio/ui-theme@9.0.0-next-9.24
+  - verdaccio-audit@14.0.0-next-9.24
+  - verdaccio-htpasswd@14.0.0-next-9.24
+
+## 9.0.0-next-9.23
+
+### Patch Changes
+
+- @verdaccio/cli@9.0.0-next-9.23
+- verdaccio-audit@14.0.0-next-9.23
+- verdaccio-htpasswd@14.0.0-next-9.23
+- @verdaccio/package-filter@14.0.0-next-9.47
+- @verdaccio/server@9.0.0-next-9.23
+- @verdaccio/node-api@9.0.0-next-9.23
+- @verdaccio/ui-theme@9.0.0-next-9.23
+
+## 9.0.0-next-9.22
+
+### Patch Changes
+
+- Updated dependencies [6a87488]
+  - @verdaccio/ui-theme@9.0.0-next-9.22
+  - @verdaccio/cli@9.0.0-next-9.22
+  - @verdaccio/node-api@9.0.0-next-9.22
+  - verdaccio-audit@14.0.0-next-9.22
+  - verdaccio-htpasswd@14.0.0-next-9.22
+  - @verdaccio/package-filter@14.0.0-next-9.46
+  - @verdaccio/server@9.0.0-next-9.22
+
 ## 9.0.0-next-9.21
 
 ### Patch Changes

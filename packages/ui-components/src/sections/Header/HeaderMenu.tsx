@@ -4,8 +4,11 @@ import Menu from '@mui/material/Menu';
 import type { MouseEvent } from 'react';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 
 import { MenuItem } from '../../';
+import { useConfig } from '../../providers/AppConfigurationProvider/AppConfigurationProvider';
+import { Route } from '../../utils';
 import HeaderGreetings from './HeaderGreetings';
 
 // Workaround: MUI v7 MenuProps type resolution breaks inherited PopoverProps.
@@ -29,6 +32,9 @@ const HeaderMenu: React.FC<Props> = ({
   onLoggedInMenuClose,
 }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { configOptions } = useConfig();
+  const stageEnabled = configOptions?.flags?.stage;
   return (
     <>
       <IconButton
@@ -56,6 +62,18 @@ const HeaderMenu: React.FC<Props> = ({
         <MenuItem>
           <HeaderGreetings username={username} />
         </MenuItem>
+        {stageEnabled && (
+          <MenuItem
+            data-testid="stagedPackagesMenuItem"
+            id="stagedPackagesMenuItem"
+            onClick={() => {
+              onLoggedInMenuClose();
+              navigate(Route.STAGE);
+            }}
+          >
+            {t('stage.menu')}
+          </MenuItem>
+        )}
         <MenuItem data-testid="logOutDialogIcon" id="logOutDialogIcon" onClick={onLogout}>
           {t('button.logout')}
         </MenuItem>

@@ -4,6 +4,7 @@ export interface PackageAccess {
   proxy?: string[];
   access?: string[];
   unpublish?: string[] | boolean; // false means fallback to publish access
+  stage?: string[] | boolean; // false means fallback to publish access
 }
 
 export interface PackageList {
@@ -298,7 +299,15 @@ export interface PublishManifest {
    */
   publisher?: Publisher;
   publishedPackage?: string;
-  publishType?: 'publish' | 'unpublish';
+  /**
+   * Which event triggered the notification.
+   *
+   * - `publish` / `unpublish`: a version became installable, or stopped being so.
+   *   Approving a staged version reports `publish`, because that is what it does.
+   * - `stage` / `unstage`: a version was submitted for review, or that submission
+   *   was discarded. Neither changes what is installable.
+   */
+  publishType?: 'publish' | 'unpublish' | 'stage' | 'unstage';
 }
 
 /**

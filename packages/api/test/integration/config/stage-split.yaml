@@ -1,0 +1,37 @@
+auth:
+  htpasswd:
+    file: ./htpasswd-stage-split
+web:
+  enable: true
+  title: verdaccio
+
+publish:
+  allow_offline: false
+
+uplinks:
+
+log: { type: stdout, format: pretty, level: fatal }
+
+flags:
+  stage: true
+
+packages:
+  # developers may propose a release, only release-managers may make one
+  'gated-*':
+    access: $all
+    stage: developer
+    publish: reviewer
+    unpublish: reviewer
+  'restricted-*':
+    access: $all
+    publish: owner
+    unpublish: owner
+  '@*/*':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+  '**':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+_debug: true

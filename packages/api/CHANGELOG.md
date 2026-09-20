@@ -1,5 +1,295 @@
 # @verdaccio/api
 
+## 9.0.0-next-9.31
+
+### Patch Changes
+
+- 7054084: fix: tarball download reliability — uplink selection, no client hangs, content-length, npmjs parity
+  
+  - **store**: tarballs with a missing `_distfiles` record no longer 404 forever —
+    `lookupDistFile` falls back to the version's own dist metadata (conventional
+    `<name>-<version>.tgz` fast path, then a full scan that also resolves
+    bare-digest tarball urls). The uplink for a tarball is now the one that
+    actually serves it (recorded on the distfile, or matched by url on a path
+    segment boundary) instead of the last configured match, so credentials of an
+    unrelated uplink are never sent to it.
+  - **api/middleware**: when a tarball stream fails after the response headers
+    were already sent (eg. the uplink dropped the connection mid-download), the
+    response is destroyed so the client sees the failure immediately instead of
+    hanging forever; when it fails before headers are sent, the error body is
+    served as JSON like registry.npmjs.org.
+  - **proxy**: the got retry limit is no longer derived from `max_fails` (the
+    circuit-breaker threshold) — a high `max_fails` multiplied every uplink
+    timeout, so a slow uplink could block requests almost indefinitely. Retries
+    have their own `retry` uplink setting (default 2, matching got).
+  - **store**: the abbreviated manifest (`application/vnd.npm.install-v1+json`)
+    no longer includes `readme`, `readmeFilename`, `_id` and `_rev`, matching
+    the npm registry contract.
+  - **store/server**: tarball responses now carry a `Content-Length` header (the
+    `content-length` event was swallowed by the stream wrapper) and are no
+    longer re-gzipped by the compression middleware for gzip-accepting clients —
+    npm and undici accept gzip by default, so every (already gzipped) `.tgz`
+    download paid CPU for nothing. JSON metadata responses stay compressed.
+  - **core**: the `application/octet-stream` constant no longer carries a
+    spurious `charset=utf-8`, matching registry.npmjs.org.
+- Updated dependencies [c2b5897]
+- Updated dependencies [68ab0d4]
+- Updated dependencies [c52b632]
+- Updated dependencies [7054084]
+- Updated dependencies [e3d3128]
+- Updated dependencies [cf15239]
+  - @verdaccio/core@9.0.0-next-9.31
+  - @verdaccio/store@9.0.0-next-9.31
+  - @verdaccio/middleware@9.0.0-next-9.31
+  - @verdaccio/auth@9.0.0-next-9.31
+  - @verdaccio/config@9.0.0-next-9.31
+  - @verdaccio/hooks@9.0.0-next-9.31
+  - @verdaccio/logger@9.0.0-next-9.31
+
+## 9.0.0-next-9.30
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.30
+- @verdaccio/config@9.0.0-next-9.30
+- @verdaccio/auth@9.0.0-next-9.30
+- @verdaccio/hooks@9.0.0-next-9.30
+- @verdaccio/logger@9.0.0-next-9.30
+- @verdaccio/middleware@9.0.0-next-9.30
+- @verdaccio/store@9.0.0-next-9.30
+
+## 9.0.0-next-9.29
+
+### Minor Changes
+
+- 30601b3: feat: staged publishing (`npm stage`) behind the `stage` flag
+
+  Adds the `/-/stage` endpoints so a package version can be uploaded for review and
+  only becomes installable once a maintainer approves it. Everything is gated by
+  the new `stage` feature flag, which defaults to `false`.
+
+  ```yaml
+  flags:
+    stage: true
+  ```
+
+  The whole `npm stage` family is supported — `publish`, `list`, `view`,
+  `download`, `approve` and `reject` — verified end to end against npm 11.17.
+  Staging never asks for a one-time password: deferring proof of presence to
+  approval time is the point of the flow, which lets a pipeline prepare a release
+  that a human approves later.
+
+  Package access gains a `stage` entry deciding who may submit a version for
+  review:
+
+  ```yaml
+  packages:
+    "my-company-*":
+      access: $authenticated
+      stage: developers
+      publish: release-managers
+  ```
+
+  It falls back to `publish` when omitted, exactly as `unpublish` already does, so
+  existing configurations are unaffected. Granting it to a group that lacks
+  `publish` is what turns review into a real gate: those users can propose a
+  release but neither publish one directly nor approve their own submission, though
+  they can always withdraw it. Auth plugins can implement `allow_stage`; returning
+  `undefined` defers to `allow_publish`.
+
+  Staging fires a notification with `publishType: 'stage'` and rejecting fires
+  `unstage`, so a staged version no longer waits unnoticed until somebody runs
+  `npm stage list`. Approving keeps reporting `publish`, because that is what it
+  does.
+
+  Staged items are persisted through the storage plugin interface, so any storage
+  plugin works unchanged, and the namespace is never registered in the plugin
+  database — staged versions stay out of search and the package list.
+
+  The web UI gains a "Staged packages" view (list, detail, approve, reject,
+  download) that appears only while the flag is on.
+
+- 30601b3: feat: two-factor authentication (TOTP) behind the `tfa` flag
+
+  Adds time-based one-time passwords, gated by the new `tfa` feature flag, which
+  defaults to `false`.
+
+  ```yaml
+  flags:
+    tfa: true
+  ```
+
+  Users enrol with the standard `npm profile enable-2fa`, in either `auth-only`
+  mode (logins and token creation) or `auth-and-writes` (those plus publishing,
+  unpublishing, dist-tag changes and `npm stage approve`/`reject`). Enabling,
+  disabling and switching mode all re-check the account password, so holding a
+  token is not enough to remove somebody's second factor.
+
+  The challenge answers `401` with `WWW-Authenticate: otp`, which is the only shape
+  npm and Yarn recognise — anything else, including the `Bearer` that every other
+  401 carries, is read as a plain authentication failure and never retried.
+  Verified against npm 11.17 and Yarn 4.18.
+
+  Six digits are trivially brute-forceable, so failed verifications are counted and
+  the account is locked out for five minutes after five of them. Recovery codes are
+  hashed and consumed on first use.
+
+  Secrets, recovery codes and lockout state live in the storage plugin's token
+  store, encrypted at rest with the server secret, so any plugin implementing the
+  token interface works unchanged. With the flag on, a plugin that does not now
+  fails at startup rather than answering `503` on every write.
+
+  Two ways the token APIs would have exposed that state are closed: the row is no
+  longer listed by `GET /-/npm/v1/tokens`, and `DELETE
+/-/npm/v1/tokens/token/:tokenKey` refuses to remove it, which would otherwise
+  have switched two-factor off without the password and one-time password that
+  `npm profile disable-2fa` requires.
+
+  Rotating the server secret makes existing records undecryptable. Rather than
+  reading that as "this user has no two-factor" and silently dropping everybody's
+  protection, it raises and names the likely cause.
+
+### Patch Changes
+
+- 30601b3: fix: prove presence before two-factor can be switched off
+
+  Three problems found while reviewing the staged publishing and two-factor work.
+
+  Turning two-factor off only re-checked the account password. A password is
+  exactly what an attacker holding a stolen session already has, so the second
+  factor could be removed without ever proving presence — the one thing it exists
+  to require. `POST /-/npm/v1/user` now answers the standard `401` challenge when
+  two-factor is already active, which is what `otplease` in the npm CLI expects, so
+  `npm profile disable-2fa` and mode switches keep working unchanged. Enrolment is
+  untouched: the challenge stays quiet while a record is pending, so the three
+  steps of `npm profile enable-2fa` still run without a code.
+
+  Staging a tarball waited for the write stream to emit `open` before piping into
+  it. The storage plugin interface only promises a Writable, and the event is a
+  detail of the two bundled plugins, so a plugin that never emits it would have
+  hung staging forever with nothing written. The payload is now piped straight
+  away, which is correct either way because a stream that is not ready yet buffers
+  the writes.
+
+  Approving a staged version created an abort signal but never fired it when the
+  client disconnected, unlike the two sibling routes in the same file, so reading
+  the staged tarball carried on after the caller had gone.
+
+- Updated dependencies [30601b3]
+- Updated dependencies [30601b3]
+- Updated dependencies [30601b3]
+- Updated dependencies [30601b3]
+  - @verdaccio/core@9.0.0-next-9.29
+  - @verdaccio/config@9.0.0-next-9.29
+  - @verdaccio/middleware@9.0.0-next-9.29
+  - @verdaccio/auth@9.0.0-next-9.29
+  - @verdaccio/store@9.0.0-next-9.29
+  - @verdaccio/hooks@9.0.0-next-9.29
+  - @verdaccio/logger@9.0.0-next-9.29
+
+## 9.0.0-next-9.28
+
+### Patch Changes
+
+- 5a31242: fix(api): user name in login message
+- Updated dependencies [dd4f91c]
+  - @verdaccio/core@9.0.0-next-9.28
+  - @verdaccio/auth@9.0.0-next-9.28
+  - @verdaccio/config@9.0.0-next-9.28
+  - @verdaccio/hooks@9.0.0-next-9.28
+  - @verdaccio/logger@9.0.0-next-9.28
+  - @verdaccio/middleware@9.0.0-next-9.28
+  - @verdaccio/store@9.0.0-next-9.28
+
+## 9.0.0-next-9.27
+
+### Major Changes
+
+- 8857b15: Remove support for incoming HTTP Basic authentication. Verdaccio now accepts Bearer tokens for API authentication and advertises only `Bearer` in `WWW-Authenticate` responses.
+
+  Web UI session tokens are accepted as Bearer authentication for package API requests, so the same package access rules apply to Web UI and package manager clients.
+
+### Patch Changes
+
+- Updated dependencies [8857b15]
+  - @verdaccio/auth@9.0.0-next-9.27
+  - @verdaccio/middleware@9.0.0-next-9.27
+  - @verdaccio/hooks@9.0.0-next-9.27
+  - @verdaccio/store@9.0.0-next-9.27
+  - @verdaccio/core@9.0.0-next-9.27
+  - @verdaccio/config@9.0.0-next-9.27
+  - @verdaccio/logger@9.0.0-next-9.27
+
+## 9.0.0-next-9.26
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.26
+- @verdaccio/config@9.0.0-next-9.26
+- @verdaccio/auth@9.0.0-next-9.26
+- @verdaccio/hooks@9.0.0-next-9.26
+- @verdaccio/logger@9.0.0-next-9.26
+- @verdaccio/middleware@9.0.0-next-9.26
+- @verdaccio/store@9.0.0-next-9.26
+
+## 9.0.0-next-9.25
+
+### Patch Changes
+
+- Updated dependencies [4861978]
+- Updated dependencies [d7937a3]
+- Updated dependencies [d7937a3]
+- Updated dependencies [7a4c68d]
+  - @verdaccio/auth@9.0.0-next-9.25
+  - @verdaccio/config@9.0.0-next-9.25
+  - @verdaccio/middleware@9.0.0-next-9.25
+  - @verdaccio/hooks@9.0.0-next-9.25
+  - @verdaccio/store@9.0.0-next-9.25
+  - @verdaccio/core@9.0.0-next-9.25
+  - @verdaccio/logger@9.0.0-next-9.25
+
+## 9.0.0-next-9.24
+
+### Patch Changes
+
+- @verdaccio/store@9.0.0-next-9.24
+- @verdaccio/core@9.0.0-next-9.24
+- @verdaccio/config@9.0.0-next-9.24
+- @verdaccio/auth@9.0.0-next-9.24
+- @verdaccio/hooks@9.0.0-next-9.24
+- @verdaccio/logger@9.0.0-next-9.24
+- @verdaccio/middleware@9.0.0-next-9.24
+
+## 9.0.0-next-9.23
+
+### Patch Changes
+
+- Updated dependencies [5ec045c]
+  - @verdaccio/core@9.0.0-next-9.23
+  - @verdaccio/auth@9.0.0-next-9.23
+  - @verdaccio/config@9.0.0-next-9.23
+  - @verdaccio/hooks@9.0.0-next-9.23
+  - @verdaccio/logger@9.0.0-next-9.23
+  - @verdaccio/middleware@9.0.0-next-9.23
+  - @verdaccio/store@9.0.0-next-9.23
+
+## 9.0.0-next-9.22
+
+### Patch Changes
+
+- c499c4e: fix: refactor parsing of req.params
+- Updated dependencies [6795216]
+- Updated dependencies [d3b0352]
+- Updated dependencies [3574350]
+- Updated dependencies [c499c4e]
+  - @verdaccio/config@9.0.0-next-9.22
+  - @verdaccio/logger@9.0.0-next-9.22
+  - @verdaccio/store@9.0.0-next-9.22
+  - @verdaccio/middleware@9.0.0-next-9.22
+  - @verdaccio/core@9.0.0-next-9.22
+  - @verdaccio/auth@9.0.0-next-9.22
+  - @verdaccio/hooks@9.0.0-next-9.22
+
 ## 9.0.0-next-9.21
 
 ### Patch Changes

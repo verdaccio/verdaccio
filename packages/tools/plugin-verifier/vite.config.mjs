@@ -1,8 +1,9 @@
 import { builtinModules, createRequire } from 'node:module';
 import path from 'node:path';
 
-import dts from 'vite-plugin-dts';
 import { defineConfig } from 'vite';
+
+import { nativeDts } from '../../../vite.lib.config.mjs';
 
 const dirname = import.meta.dirname;
 const require = createRequire(path.resolve(dirname, 'package.json'));
@@ -29,11 +30,7 @@ const sharedOutput = {
 };
 
 export default defineConfig({
-  plugins: [
-    dts({
-      tsconfigPath: path.resolve(dirname, 'tsconfig.build.json'),
-    }),
-  ],
+  plugins: [nativeDts(dirname)],
   build: {
     outDir: 'build',
     emptyOutDir: true,

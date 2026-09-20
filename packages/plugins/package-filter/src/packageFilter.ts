@@ -5,6 +5,8 @@ import type { Logger, Manifest } from '@verdaccio/types';
 
 import { parseConfig } from './config/parser';
 import type { ParsedConfig, PluginConfig } from './config/types';
+import { filterDeprecatedVersions } from './filtering/deprecated';
+import { matchRules } from './filtering/matcher';
 import { filterBlockedVersions } from './filtering/packageVersion';
 import { filterVersionsByPublishDate } from './filtering/publishDate';
 import { jsonLogReplacer } from './utils/jsonUtils';
@@ -61,21 +63,21 @@ export class PackageFilterPlugin
       debug('min age: %d days', minAgeDays);
       this.logger.trace({ minAgeDays }, 'package-filter min age: @{minAgeDays} days');
     }
+    if (this.parsedConfig.excludeDeprecated) {
+      debug('excludeDeprecated enabled');
+      this.logger.trace('package-filter excludeDeprecated is enabled');
+    }
   }
 
   public async filter_metadata(manifest: Readonly<Manifest>): Promise<Manifest> {
-    const { dateThreshold, minAgeMs, blockRules, allowRules } = this.parsedConfig;
+    const { dateThreshold, minAgeMs, excludeDeprecated, blockRules, allowRules } =
+      this.parsedConfig;
     const versionCount = Object.keys(manifest.versions ?? {}).length;
     debug('filtering manifest for %s (%d versions)', manifest.name, versionCount);
     this.logger.trace(
       { name: manifest.name, versionCount },
       'package-filter processing @{name} (@{versionCount} versions)'
     );
-
-    let newManifest = getManifestClone(manifest);
-    if (blockRules.size > 0) {
-      newManifest = filterBlockedVersions(newManifest, blockRules, allowRules, this.logger);
-    }
 
     let earliestDateThreshold: Date | null = null;
     if (minAgeMs) {
@@ -84,6 +86,25 @@ export class PackageFilterPlugin
 
     if (dateThreshold && (!earliestDateThreshold || dateThreshold < earliestDateThreshold)) {
       earliestDateThreshold = dateThreshold;
+    }
+
+    // Fast path: when no filter is configured there is nothing this plugin can
+    // change. Avoid cloning and cleanup for the `npm search` hot path, which
+    // invokes filter_metadata once per matched package.
+    if (blockRules.size === 0 && !excludeDeprecated && !earliestDateThreshold) {
+      debug('no filters configured, returning manifest untouched for %s', manifest.name);
+      return manifest as Manifest;
+    }
+
+    let newManifest = getManifestClone(manifest);
+    const allowMatch = matchRules(newManifest, allowRules);
+
+    if (blockRules.size > 0) {
+      newManifest = filterBlockedVersions(newManifest, blockRules, allowMatch, this.logger);
+    }
+
+    if (excludeDeprecated) {
+      newManifest = filterDeprecatedVersions(newManifest, allowMatch);
     }
 
     if (earliestDateThreshold) {
@@ -96,18 +117,27 @@ export class PackageFilterPlugin
         { name: manifest.name, threshold: earliestDateThreshold.toISOString() },
         'applying date filter for @{name}, cutoff: @{threshold}'
       );
-      newManifest = filterVersionsByPublishDate(newManifest, earliestDateThreshold, allowRules);
+      newManifest = filterVersionsByPublishDate(newManifest, earliestDateThreshold, allowMatch);
     }
-
-    cleanupTags(newManifest);
-    setupLatestTag(newManifest);
-    cleanupTime(newManifest);
-    setupCreatedAndModified(newManifest);
-    cleanupDistFiles(newManifest);
 
     const filteredCount = Object.keys(newManifest.versions).length;
     const removedCount = versionCount - filteredCount;
-    if (filteredCount !== versionCount) {
+    // The cleanup passes only repair inconsistencies introduced by filtering:
+    // orphaned dist-tags/time/_distfiles entries and a `latest` tag pointing at a
+    // removed version. When the filters left the manifest untouched, it is
+    // already consistent, so the passes are skipped.
+    // `readme` changing is the signal that the count-preserving replace strategy
+    // rewrote version content and cleanup still needs to run.
+    const wasModified = removedCount > 0 || newManifest.readme !== manifest.readme;
+    if (wasModified) {
+      cleanupTags(newManifest);
+      setupLatestTag(newManifest);
+      cleanupTime(newManifest);
+      setupCreatedAndModified(newManifest);
+      cleanupDistFiles(newManifest);
+    }
+
+    if (removedCount > 0) {
       debug(
         'filtered %s: %d -> %d versions (%d removed)',
         manifest.name,

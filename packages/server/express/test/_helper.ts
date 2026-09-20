@@ -4,6 +4,7 @@ import path from 'node:path';
 import { parseConfigFile } from '@verdaccio/config';
 import { cryptoUtils, fileUtils } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
+import type { ConfigYaml } from '@verdaccio/types';
 
 import apiMiddleware from '../src';
 
@@ -21,8 +22,12 @@ export const getConf = async (conf) => {
   return config;
 };
 
-export async function initializeServer(configName): Promise<Application> {
+export async function initializeServer(
+  configName,
+  configure?: (config: ConfigYaml) => void
+): Promise<Application> {
   const config = await getConf(configName);
+  configure?.(config);
   await setup(config.log ?? {});
   return apiMiddleware(config);
 }

@@ -6,6 +6,7 @@ import i18next from 'i18next';
 import type { UpLinks } from '@verdaccio/types';
 
 import type { Time } from '../types/packageMeta';
+import { isURL } from './url';
 
 export const TIMEFORMAT = 'L LTS';
 
@@ -54,6 +55,47 @@ export function formatRepository(repository: string | { url?: string } | unknown
     typeof repository.url === 'string'
   ) {
     return repository.url;
+  }
+
+  return null;
+}
+
+/**
+ * Normalizes the `bugs` field to its url.
+ * @see https://docs.npmjs.com/cli/configuring-npm/package-json#bugs
+ */
+export function getBugsUrl(bugs: unknown): string | null {
+  if (typeof bugs === 'string') {
+    return bugs;
+  }
+
+  if (bugs && typeof bugs === 'object' && 'url' in bugs && typeof bugs.url === 'string') {
+    return bugs.url;
+  }
+
+  return null;
+}
+
+/**
+ * Normalizes the `funding` field (string, object or array of both) to a url.
+ * @see https://docs.npmjs.com/cli/configuring-npm/package-json#funding
+ */
+export function getFundingUrl(funding: unknown): string | null {
+  const entries = Array.isArray(funding) ? funding : [funding];
+  // first *valid* url wins: a malformed entry must not hide a later valid one
+  for (const entry of entries) {
+    if (typeof entry === 'string' && isURL(entry)) {
+      return entry;
+    }
+    if (
+      entry &&
+      typeof entry === 'object' &&
+      'url' in entry &&
+      typeof entry.url === 'string' &&
+      isURL(entry.url)
+    ) {
+      return entry.url;
+    }
   }
 
   return null;

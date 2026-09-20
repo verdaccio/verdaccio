@@ -1,5 +1,110 @@
 # @verdaccio/ui-theme
 
+## 9.0.0-next-9.31
+
+### Patch Changes
+
+- 770ebe4: fix(ui): follow-ups to the web UI bug batch
+  
+  - login and signup now update the auth context, so the header reflects the session immediately instead of showing the login button until a manual refresh
+  - a 2xx login/signup response without a token shows an error instead of a false success page
+  - a readme-only failure no longer blanks the whole package detail page, and a failed revalidation no longer hides the cached package list on the home page
+  - the versions filter resets when navigating to another package instead of silently applying the previous package's filter
+  - the search dropdown shows the loading state during the debounce window instead of flashing "No results found" on every keystroke
+  - the session now logs out exactly when the token expires (single timer) instead of polling every minute and hard-reloading mid-interaction
+  - a malformed leading `funding` entry no longer hides a later valid funding url
+- 8b2b136: Web UI bug batch:
+  
+  - the create-user form posted to a non-existent endpoint, so web signup always failed; it now calls `PUT /-/verdaccio/sec/signup` with the required `sessionId` and logs the new user in
+  - 5xx/network failures rendered a blank detail page whose tabs crashed the whole app, and an unreachable backend looked like an empty registry inviting to publish; both now show a proper error state
+  - the router used the raw `url_prefix` as basename, leaving the UI blank or 404ing behind proxies and `VERDACCIO_PUBLIC_URL`; it now uses the server-normalized basename, and the security pages' links/redirects respect sub-path deployments
+  - the whole `security.*` i18n namespace was missing from the shipped bundle (raw keys on the login, add-user and change-password pages); both crowdin sources are now synced and kept aligned by a parity test, and dates follow the selected language
+  - requesting a version that does not exist (`/v/9.9.9`, a dist-tag, or `__proto__`) silently served `latest` under the requested title; the sidebar and readme endpoints now answer 404, with own-property version lookups that also close a prototype-pollution path flagged by CodeQL
+  - login/search/download failures were swallowed or all mapped to "invalid username or password"; errors are now surfaced and translated, submits are reentrancy-guarded against duplicate requests, and a 2xx login response without a token no longer passes as a login
+  - logging out re-hydrated the session from storage before clearing it, expired tokens lingered in localStorage for up to an hour, and malformed tokens were printed to the console
+  - assorted fixes: `yarn global add -g true`, clipboard on plain-http deployments, versions tab showing the previous package's data, missing gravatars, corrupted staged tarball downloads, string forms of `repository`/`funding`/`bugs`, developers without email collapsing into one, stray "0"s and "Invalid Date" tooltips, empty keywords section, nested `<form>` markup, a11y labels and the vendor notice in the browser console
+- 770ebe4: fix(ui): drop `credentials: 'include'` from the tarball download fetch. Web-UI auth travels in the `Authorization: Bearer` header, not cookies, so `include` gained nothing but made the browser reject the registry's wildcard `Access-Control-Allow-Origin: *` on cross-origin downloads (e.g. `pnpm start`, where the UI dev server on :4873 fetches tarballs from the registry on :8000), breaking the download-tarball button with a CORS error.
+
+## 9.0.0-next-9.30
+
+## 9.0.0-next-9.29
+
+### Minor Changes
+
+- 30601b3: feat: staged publishing (`npm stage`) behind the `stage` flag
+
+  Adds the `/-/stage` endpoints so a package version can be uploaded for review and
+  only becomes installable once a maintainer approves it. Everything is gated by
+  the new `stage` feature flag, which defaults to `false`.
+
+  ```yaml
+  flags:
+    stage: true
+  ```
+
+  The whole `npm stage` family is supported — `publish`, `list`, `view`,
+  `download`, `approve` and `reject` — verified end to end against npm 11.17.
+  Staging never asks for a one-time password: deferring proof of presence to
+  approval time is the point of the flow, which lets a pipeline prepare a release
+  that a human approves later.
+
+  Package access gains a `stage` entry deciding who may submit a version for
+  review:
+
+  ```yaml
+  packages:
+    "my-company-*":
+      access: $authenticated
+      stage: developers
+      publish: release-managers
+  ```
+
+  It falls back to `publish` when omitted, exactly as `unpublish` already does, so
+  existing configurations are unaffected. Granting it to a group that lacks
+  `publish` is what turns review into a real gate: those users can propose a
+  release but neither publish one directly nor approve their own submission, though
+  they can always withdraw it. Auth plugins can implement `allow_stage`; returning
+  `undefined` defers to `allow_publish`.
+
+  Staging fires a notification with `publishType: 'stage'` and rejecting fires
+  `unstage`, so a staged version no longer waits unnoticed until somebody runs
+  `npm stage list`. Approving keeps reporting `publish`, because that is what it
+  does.
+
+  Staged items are persisted through the storage plugin interface, so any storage
+  plugin works unchanged, and the namespace is never registered in the plugin
+  database — staged versions stay out of search and the package list.
+
+  The web UI gains a "Staged packages" view (list, detail, approve, reject,
+  download) that appears only while the flag is on.
+
+## 9.0.0-next-9.28
+
+## 9.0.0-next-9.27
+
+### Patch Changes
+
+- 65cd24e: fix(ui-theme): build error due to country-flag-icons
+- 284cbd0: fix(ui-theme): type check errors
+
+## 9.0.0-next-9.26
+
+## 9.0.0-next-9.25
+
+## 9.0.0-next-9.24
+
+## 9.0.0-next-9.23
+
+## 9.0.0-next-9.22
+
+### Patch Changes
+
+- 6a87488: Fix type resolution for the TypeScript 7 upgrade: switch the UI packages to `moduleResolution: bundler` (required to resolve react-router 8 types via its `exports` map), declare `@mui/system` as a direct dependency so emitted declarations can reference its types portably, and replace the legacy `@mui/material/styles/createTheme` module augmentation with the `@mui/material/styles` entry point.
+
+  Declaration files are now emitted with the TypeScript compiler itself (`tsc --emitDeclarationOnly`) instead of `vite-plugin-dts`, which has no JS compiler API to hook into on TypeScript 7. This drops the `@typescript/typescript6` fallback install (and with it a duplicated i18next instance that left the settings dialog's language list empty). `runCli()` in `@verdaccio/cli` is now correctly typed as `Promise<void>` — the previous `Promise<number>` annotation was wrong and only survived because the old declaration generator ignored type errors.
+
+  The Cypress e2e specs are now bundled with Vite (the default webpack/ts-loader preprocessor requires the TypeScript JS compiler API, which TypeScript 7 no longer ships).
+
 ## 9.0.0-next-9.21
 
 ## 9.0.0-next-9.20

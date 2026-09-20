@@ -2,7 +2,7 @@ import React from 'react';
 
 import { SvgIcon } from './SvgIcon';
 
-const License = function License({ ref, ...props }) {
+const License = function License({ ref, ...props }: React.ComponentProps<typeof SvgIcon>) {
   return (
     <SvgIcon viewBox="0 0 490.652 490.652" {...props} ref={ref}>
       <path d="M456.607 9.904H34.04C15.269 9.904 0 25.17 0 43.945V310.17c0 18.77 15.269 34.039 34.04 34.039h260.642c-4.043-10.35-6.534-21.737-7.159-33.742l-253.974-.297.491-266.718 423.063.493V310.17c0 .279-.23.492-.495.492l-15.251-.019c-.637 11.942-3.111 23.263-7.138 33.565h22.389c18.777 0 34.045-15.27 34.045-34.039V43.945c-.001-18.775-15.268-34.041-34.046-34.041z" />

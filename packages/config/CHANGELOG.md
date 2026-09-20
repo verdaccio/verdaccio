@@ -1,5 +1,180 @@
 # @verdaccio/config
 
+## 9.0.0-next-9.31
+
+### Patch Changes
+
+- Updated dependencies [c2b5897]
+- Updated dependencies [68ab0d4]
+- Updated dependencies [c52b632]
+- Updated dependencies [7054084]
+- Updated dependencies [cf15239]
+  - @verdaccio/core@9.0.0-next-9.31
+
+## 9.0.0-next-9.30
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.30
+
+## 9.0.0-next-9.29
+
+### Minor Changes
+
+- 30601b3: feat: staged publishing (`npm stage`) behind the `stage` flag
+
+  Adds the `/-/stage` endpoints so a package version can be uploaded for review and
+  only becomes installable once a maintainer approves it. Everything is gated by
+  the new `stage` feature flag, which defaults to `false`.
+
+  ```yaml
+  flags:
+    stage: true
+  ```
+
+  The whole `npm stage` family is supported — `publish`, `list`, `view`,
+  `download`, `approve` and `reject` — verified end to end against npm 11.17.
+  Staging never asks for a one-time password: deferring proof of presence to
+  approval time is the point of the flow, which lets a pipeline prepare a release
+  that a human approves later.
+
+  Package access gains a `stage` entry deciding who may submit a version for
+  review:
+
+  ```yaml
+  packages:
+    "my-company-*":
+      access: $authenticated
+      stage: developers
+      publish: release-managers
+  ```
+
+  It falls back to `publish` when omitted, exactly as `unpublish` already does, so
+  existing configurations are unaffected. Granting it to a group that lacks
+  `publish` is what turns review into a real gate: those users can propose a
+  release but neither publish one directly nor approve their own submission, though
+  they can always withdraw it. Auth plugins can implement `allow_stage`; returning
+  `undefined` defers to `allow_publish`.
+
+  Staging fires a notification with `publishType: 'stage'` and rejecting fires
+  `unstage`, so a staged version no longer waits unnoticed until somebody runs
+  `npm stage list`. Approving keeps reporting `publish`, because that is what it
+  does.
+
+  Staged items are persisted through the storage plugin interface, so any storage
+  plugin works unchanged, and the namespace is never registered in the plugin
+  database — staged versions stay out of search and the package list.
+
+  The web UI gains a "Staged packages" view (list, detail, approve, reject,
+  download) that appears only while the flag is on.
+
+- 30601b3: feat: two-factor authentication (TOTP) behind the `tfa` flag
+
+  Adds time-based one-time passwords, gated by the new `tfa` feature flag, which
+  defaults to `false`.
+
+  ```yaml
+  flags:
+    tfa: true
+  ```
+
+  Users enrol with the standard `npm profile enable-2fa`, in either `auth-only`
+  mode (logins and token creation) or `auth-and-writes` (those plus publishing,
+  unpublishing, dist-tag changes and `npm stage approve`/`reject`). Enabling,
+  disabling and switching mode all re-check the account password, so holding a
+  token is not enough to remove somebody's second factor.
+
+  The challenge answers `401` with `WWW-Authenticate: otp`, which is the only shape
+  npm and Yarn recognise — anything else, including the `Bearer` that every other
+  401 carries, is read as a plain authentication failure and never retried.
+  Verified against npm 11.17 and Yarn 4.18.
+
+  Six digits are trivially brute-forceable, so failed verifications are counted and
+  the account is locked out for five minutes after five of them. Recovery codes are
+  hashed and consumed on first use.
+
+  Secrets, recovery codes and lockout state live in the storage plugin's token
+  store, encrypted at rest with the server secret, so any plugin implementing the
+  token interface works unchanged. With the flag on, a plugin that does not now
+  fails at startup rather than answering `503` on every write.
+
+  Two ways the token APIs would have exposed that state are closed: the row is no
+  longer listed by `GET /-/npm/v1/tokens`, and `DELETE
+/-/npm/v1/tokens/token/:tokenKey` refuses to remove it, which would otherwise
+  have switched two-factor off without the password and one-time password that
+  `npm profile disable-2fa` requires.
+
+  Rotating the server secret makes existing records undecryptable. Rather than
+  reading that as "this user has no two-factor" and silently dropping everybody's
+  protection, it raises and names the likely cause.
+
+### Patch Changes
+
+- Updated dependencies [30601b3]
+  - @verdaccio/core@9.0.0-next-9.29
+
+## 9.0.0-next-9.28
+
+### Patch Changes
+
+- Updated dependencies [dd4f91c]
+  - @verdaccio/core@9.0.0-next-9.28
+
+## 9.0.0-next-9.27
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.27
+
+## 9.0.0-next-9.26
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.26
+
+## 9.0.0-next-9.25
+
+### Patch Changes
+
+- 4861978: Disable the legacy auth cache by default; it must now be opted in via `server.legacyAuthCache.enabled: true`. While enabled, changed or revoked credentials stay valid until the cached entry expires, so the default TTL is 30 seconds (down from 5 minutes) and remains configurable via `server.legacyAuthCache.ttlMs`. Concurrent requests for the same token still share a single cache write from the leader request instead of each re-writing the entry.
+- d7937a3: Cache successful legacy AES token authentication for a short configurable window.
+
+  The cache is enabled by default under `server.legacyAuthCache` and avoids running password verification, including bcrypt-backed htpasswd verification, for every request that reuses the same legacy token. Concurrent requests for the same token now share one in-flight authentication result. The cache can be tuned or disabled with `server.legacyAuthCache.enabled`, `server.legacyAuthCache.maxEntries`, and `server.legacyAuthCache.ttlMs`.
+
+  - @verdaccio/core@9.0.0-next-9.25
+
+## 9.0.0-next-9.24
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.24
+
+## 9.0.0-next-9.23
+
+### Patch Changes
+
+- Updated dependencies [5ec045c]
+  - @verdaccio/core@9.0.0-next-9.23
+
+## 9.0.0-next-9.22
+
+### Patch Changes
+
+- 6795216: fix: adapt config parsing to js-yaml v5
+
+  js-yaml v5 dropped its default export, switched the default schema to the
+  YAML 1.2 `CORE_SCHEMA` (which no longer resolves merge keys), and now throws on
+  an empty document. Config parsing now:
+
+  - uses the named `load`/`dump` exports instead of the removed default export;
+  - extends `CORE_SCHEMA` with the merge tag, so anchors and `<<` merge keys used
+    to share settings across `config.yaml` sections keep working as before;
+  - treats an empty, whitespace-only, or comment-only config file as an empty
+    config, matching the previous v4 behavior.
+
+- Updated dependencies [c499c4e]
+  - @verdaccio/core@9.0.0-next-9.22
+
 ## 9.0.0-next-9.21
 
 ### Patch Changes

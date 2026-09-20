@@ -41,6 +41,8 @@ export const API_ERROR = {
   USERNAME_PASSWORD_REQUIRED: 'username and password is required',
   USERNAME_ALREADY_REGISTERED: 'username is already registered',
   USERNAME_MISMATCH: 'username does not match logged in user',
+  NO_CREDENTIALS_PROVIDED: 'no credentials provided',
+  CAN_NOT_USE_THIS_FILENAME: "can't use this filename",
   SESSION_ID_REQUIRED: 'session id is required',
   SESSION_ID_INVALID: 'session id is invalid',
   SESSION_TOKEN_EXPIRED: 'session token expired',
@@ -69,42 +71,47 @@ function getError(code: number, message: string): VerdaccioError {
   return httpError as VerdaccioError;
 }
 
-export function getConflict(message: string = API_ERROR.PACKAGE_EXIST): VerdaccioError {
+/** 409 Conflict. Defaults to {@link API_ERROR.PACKAGE_EXIST}. */
+export function getConflict(message = API_ERROR.PACKAGE_EXIST): VerdaccioError {
   return getError(HTTP_STATUS.CONFLICT, message);
 }
 
-export function getBadData(customMessage?: string): VerdaccioError {
-  return getError(HTTP_STATUS.BAD_DATA, customMessage || API_ERROR.BAD_DATA);
+/** 422 Unprocessable Entity. Defaults to {@link API_ERROR.BAD_DATA}. */
+export function getBadData(message = API_ERROR.BAD_DATA): VerdaccioError {
+  return getError(HTTP_STATUS.BAD_DATA, message);
 }
 
-export function getBadRequest(customMessage: string): VerdaccioError {
-  return getError(HTTP_STATUS.BAD_REQUEST, customMessage);
+/** 400 Bad Request. */
+export function getBadRequest(message: string): VerdaccioError {
+  return getError(HTTP_STATUS.BAD_REQUEST, message);
 }
 
-export function getInternalError(customMessage?: string): VerdaccioError {
-  return customMessage
-    ? getError(HTTP_STATUS.INTERNAL_ERROR, customMessage)
-    : getError(HTTP_STATUS.INTERNAL_ERROR, API_ERROR.UNKNOWN_ERROR);
+/** 500 Internal Server Error. Defaults to {@link API_ERROR.UNKNOWN_ERROR}. */
+export function getInternalError(message = API_ERROR.UNKNOWN_ERROR): VerdaccioError {
+  return getError(HTTP_STATUS.INTERNAL_ERROR, message);
 }
 
-export function getUnauthorized(message = 'no credentials provided'): VerdaccioError {
+/** 401 Unauthorized. Defaults to {@link API_ERROR.NO_CREDENTIALS_PROVIDED}. */
+export function getUnauthorized(message = API_ERROR.NO_CREDENTIALS_PROVIDED): VerdaccioError {
   return getError(HTTP_STATUS.UNAUTHORIZED, message);
 }
 
-export function getForbidden(message = "can't use this filename"): VerdaccioError {
+/** 403 Forbidden. Defaults to {@link API_ERROR.CAN_NOT_USE_THIS_FILENAME}. */
+export function getForbidden(message = API_ERROR.CAN_NOT_USE_THIS_FILENAME): VerdaccioError {
   return getError(HTTP_STATUS.FORBIDDEN, message);
 }
 
-export function getServiceUnavailable(
-  message: string = API_ERROR.RESOURCE_UNAVAILABLE
-): VerdaccioError {
+/** 503 Service Unavailable. Defaults to {@link API_ERROR.RESOURCE_UNAVAILABLE}. */
+export function getServiceUnavailable(message = API_ERROR.RESOURCE_UNAVAILABLE): VerdaccioError {
   return getError(HTTP_STATUS.SERVICE_UNAVAILABLE, message);
 }
 
-export function getNotFound(customMessage?: string): VerdaccioError {
-  return getError(HTTP_STATUS.NOT_FOUND, customMessage || API_ERROR.NO_PACKAGE);
+/** 404 Not Found. Defaults to {@link API_ERROR.NO_PACKAGE}. */
+export function getNotFound(message = API_ERROR.NO_PACKAGE): VerdaccioError {
+  return getError(HTTP_STATUS.NOT_FOUND, message);
 }
 
-export function getCode(statusCode: number, customMessage: string): VerdaccioError {
-  return getError(statusCode, customMessage);
+/** Returns an error with a custom HTTP status code. */
+export function getCode(statusCode: number, message: string): VerdaccioError {
+  return getError(statusCode, message);
 }

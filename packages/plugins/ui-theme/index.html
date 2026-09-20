@@ -20,6 +20,14 @@
         title: 'Verdaccio Dev UI',
         scope: '',
         version: 'dev',
+        // the dev server serves this file instead of the server-rendered
+        // template, so flag-gated UI needs the flags declared here too
+        flags: {
+          changePassword: true,
+          createUser: true,
+          webLogin: true,
+          stage: true,
+        },
       };
     </script>
   </head>

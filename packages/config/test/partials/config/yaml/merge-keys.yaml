@@ -1,0 +1,13 @@
+storage: ./storage
+
+uplink_defaults: &uplink_defaults
+  cache: true
+  maxage: 2m
+
+uplinks:
+  npmjs:
+    <<: *uplink_defaults
+    url: https://registry.npmjs.org/
+  private:
+    <<: *uplink_defaults
+    url: https://example.org/

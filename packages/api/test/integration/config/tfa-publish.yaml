@@ -1,0 +1,28 @@
+auth:
+  htpasswd:
+    file: ./htpasswd-tfa-publish
+web:
+  enable: true
+  title: verdaccio
+
+uplinks: {}
+
+log: { type: stdout, format: pretty, level: trace }
+
+packages:
+  '@*/*':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+  'verdaccio':
+    access: $all
+    publish: $all
+  '**':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+
+_debug: true
+
+flags:
+  tfa: true

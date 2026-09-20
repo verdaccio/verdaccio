@@ -59,6 +59,11 @@ uplinks:
     url: https://registry.npmjs.org/
 
 packages:
+  '@private/*':
+    access: \$authenticated
+    publish: \$anonymous \$authenticated
+    unpublish: \$anonymous \$authenticated
+
   '@*/*':
     access: \$all
     publish: \$anonymous \$authenticated
@@ -80,6 +85,11 @@ middlewares:
 userRateLimit:
   windowMs: 1000
   max: 10000
+
+# needed by the signup and change-password e2e-ui suites
+flags:
+  createUser: true
+  changePassword: true
 
 listen: 0.0.0.0:${PORT}
 

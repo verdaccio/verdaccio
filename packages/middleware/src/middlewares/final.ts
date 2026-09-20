@@ -1,7 +1,7 @@
 import buildDebug from 'debug';
 import { isNil, isObject } from 'lodash-es';
 
-import { HEADERS, HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER, cryptoUtils } from '@verdaccio/core';
+import { HEADERS, HTTP_STATUS, TOKEN_BEARER, cryptoUtils } from '@verdaccio/core';
 import type { Manifest } from '@verdaccio/types';
 
 import type { $NextFunctionVer, $RequestExtend, $ResponseExtend, MiddlewareError } from '../types';
@@ -20,7 +20,7 @@ export function final(
 ): void {
   if (res.statusCode === HTTP_STATUS.UNAUTHORIZED && !res.getHeader(HEADERS.WWW_AUTH)) {
     debug('set auth header support');
-    res.header(HEADERS.WWW_AUTH, `${TOKEN_BASIC}, ${TOKEN_BEARER}`);
+    res.header(HEADERS.WWW_AUTH, TOKEN_BEARER);
   }
 
   try {

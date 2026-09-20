@@ -108,6 +108,57 @@ describe('Local FS test', () => {
       }));
   });
 
+  describe('writeTarball failure cleanup', () => {
+    const waitEvent = (stream, event): Promise<unknown> =>
+      new Promise((resolve) => stream.once(event, resolve));
+    const settle = (): Promise<unknown> => new Promise((resolve) => setTimeout(resolve, 50));
+
+    test('an errored write removes the temporal file and never renames it', async () => {
+      const tmp = await fileUtils.createTempFolder('local-fs-write-error');
+      const localFs = new LocalDriver(tmp, logger);
+      const stream = await localFs.writeTarball('bad-1.0.0.tgz', {
+        signal: new AbortController().signal,
+      });
+      await waitEvent(stream, 'open');
+      stream.write('partial download');
+      stream.destroy(new Error('uplink timed out'));
+      await waitEvent(stream, 'close');
+      await settle();
+      // neither a truncated final tarball nor a temporal leftover
+      expect(fs.readdirSync(tmp)).toEqual([]);
+    });
+
+    test('an aborted write removes the temporal file', async () => {
+      const abort = new AbortController();
+      const tmp = await fileUtils.createTempFolder('local-fs-write-abort');
+      const localFs = new LocalDriver(tmp, logger);
+      const stream = await localFs.writeTarball('bad-1.0.0.tgz', { signal: abort.signal });
+      await waitEvent(stream, 'open');
+      stream.write('partial download');
+      abort.abort();
+      stream.destroy();
+      await waitEvent(stream, 'close');
+      await settle();
+      expect(fs.readdirSync(tmp)).toEqual([]);
+    });
+
+    test('error and abort together do not raise an unhandled rejection', async () => {
+      // both paths clean the same temporal file: the second unlink hits
+      // ENOENT and used to escape as an uncaught exception
+      const abort = new AbortController();
+      const tmp = await fileUtils.createTempFolder('local-fs-write-double');
+      const localFs = new LocalDriver(tmp, logger);
+      const stream = await localFs.writeTarball('bad-1.0.0.tgz', { signal: abort.signal });
+      await waitEvent(stream, 'open');
+      stream.write('partial download');
+      abort.abort();
+      stream.destroy(new Error('uplink timed out'));
+      await waitEvent(stream, 'close');
+      await settle();
+      expect(fs.readdirSync(tmp)).toEqual([]);
+    });
+  });
+
   describe('readTarballNext', () => {
     test('should read a tarball', () =>
       new Promise((done) => {

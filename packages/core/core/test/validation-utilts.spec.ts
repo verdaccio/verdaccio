@@ -29,6 +29,17 @@ describe('validatePackage', () => {
     expect(validatePackage('favicon.ico')).toBeFalsy();
     expect(validatePackage('%')).toBeFalsy();
   });
+
+  // a package name must have a single canonical form: extra path separators
+  // (trailing, interior or nested) are not valid and must be rejected.
+  test('should reject non-canonical names with extra path separators', () => {
+    expect(validatePackage('@scope/pkg/')).toBeFalsy();
+    expect(validatePackage('@scope/pkg//')).toBeFalsy();
+    expect(validatePackage('@scope/pkg/extra')).toBeFalsy();
+    expect(validatePackage('@scope/')).toBeFalsy();
+    expect(validatePackage('pkg/')).toBeFalsy();
+    expect(validatePackage('@scope//pkg')).toBeFalsy();
+  });
 });
 
 describe('isObject', () => {

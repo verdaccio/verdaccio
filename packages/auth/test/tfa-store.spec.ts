@@ -1,0 +1,345 @@
+import { createHash } from 'node:crypto';
+import { Secret, TOTP } from 'otpauth';
+import { beforeAll, describe, expect, test } from 'vitest';
+
+import { setup } from '@verdaccio/logger';
+import { aesDecrypt } from '@verdaccio/signature';
+import type { Logger, Token } from '@verdaccio/types';
+
+import { TFA_TOKEN_KEY, TfaStore, isReservedTokenKey } from '../src/tfa-store';
+import { SHA256_ALGORITHM } from '../src/utils';
+
+let logger: Logger;
+beforeAll(async () => {
+  logger = await setup({ type: 'stdout', format: 'pretty', level: 'fatal' });
+});
+
+/** 32 chars, the length aesEncrypt enforces. */
+const SECRET_KEY = '12345678901234567890123456789012';
+
+/** In-memory stand-in for the storage plugin's token store. */
+class FakeTokenStorage {
+  public rows: Token[] = [];
+
+  public async saveToken(token: Token) {
+    this.rows.push(token);
+  }
+
+  public async deleteToken(user: string, tokenKey: string) {
+    this.rows = this.rows.filter((row) => !(row.user === user && row.key === tokenKey));
+  }
+
+  public async readTokens({ user }: { user: string }) {
+    return this.rows.filter((row) => row.user === user);
+  }
+}
+
+/**
+ * Code for the current 30s step, or a neighbouring one.
+ *
+ * Codes are single use, so a test that enrols and then verifies needs the next
+ * step: the enrolment code is spent. Step +1 is still inside the tolerance
+ * window, so the store accepts it.
+ */
+function currentCode(secretBase32: string, stepOffset = 0): string {
+  return new TOTP({
+    algorithm: 'SHA1',
+    digits: 6,
+    period: 30,
+    secret: Secret.fromBase32(secretBase32),
+  }).generate({ timestamp: Date.now() + stepOffset * 30_000 });
+}
+
+function buildStore(storage = new FakeTokenStorage()) {
+  return { store: new TfaStore(storage, SECRET_KEY, logger), storage };
+}
+
+async function enrol(mode: 'auth-only' | 'auth-and-writes' = 'auth-and-writes') {
+  const { store, storage } = buildStore();
+  const { record } = await store.beginEnrolment('jota', mode, 'Verdaccio');
+  const codes = await store.completeEnrolment('jota', currentCode(record.secret));
+  return { store, storage, secret: record.secret, codes: codes as string[] };
+}
+
+describe('isReservedTokenKey', () => {
+  test('should hide the two-factor row from the token APIs', () => {
+    // otherwise `npm token ls` would list it and leak the encrypted payload
+    expect(isReservedTokenKey(TFA_TOKEN_KEY)).toBe(true);
+    expect(isReservedTokenKey('some-real-token-key')).toBe(false);
+  });
+});
+
+describe('TfaStore', () => {
+  describe('status', () => {
+    test('should report false when the user has no two-factor', async () => {
+      const { store } = buildStore();
+
+      await expect(store.status('jota')).resolves.toBe(false);
+      await expect(store.isEnabled('jota')).resolves.toBe(false);
+    });
+
+    test('should report pending between starting and finishing enrolment', async () => {
+      const { store } = buildStore();
+
+      await store.beginEnrolment('jota', 'auth-only', 'Verdaccio');
+
+      await expect(store.status('jota')).resolves.toEqual({
+        mode: 'auth-only',
+        pending: true,
+      });
+      // a half-finished enrolment must not count as protection
+      await expect(store.isEnabled('jota')).resolves.toBe(false);
+    });
+
+    test('should report the mode once enrolled', async () => {
+      const { store } = await enrol('auth-only');
+
+      await expect(store.status('jota')).resolves.toEqual({
+        mode: 'auth-only',
+        pending: false,
+      });
+      await expect(store.isEnabled('jota')).resolves.toBe(true);
+    });
+  });
+
+  describe('beginEnrolment', () => {
+    test('should return an otpauth url the npm CLI accepts', async () => {
+      const { store } = buildStore();
+
+      const { otpauthUrl } = await store.beginEnrolment('jota', 'auth-and-writes', 'My Registry');
+
+      // the CLI checks /^otpauth:[/][/]/ and aborts otherwise
+      expect(otpauthUrl).toMatch(/^otpauth:\/\//);
+      const url = new URL(otpauthUrl);
+      expect(url.searchParams.get('secret')).toEqual(expect.any(String));
+      expect(url.searchParams.get('issuer')).toBe('My Registry');
+    });
+
+    test('should store the record encrypted, not in the clear', async () => {
+      const { store, storage } = buildStore();
+
+      const { record } = await store.beginEnrolment('jota', 'auth-and-writes', 'Verdaccio');
+
+      const row = storage.rows.find((r) => r.key === TFA_TOKEN_KEY);
+      expect(row).toBeDefined();
+      expect(row!.token).not.toContain(record.secret);
+      expect(row!.token).not.toContain('auth-and-writes');
+    });
+
+    test('should replace a previous enrolment instead of piling rows up', async () => {
+      const { store, storage } = buildStore();
+
+      await store.beginEnrolment('jota', 'auth-only', 'Verdaccio');
+      await store.beginEnrolment('jota', 'auth-and-writes', 'Verdaccio');
+
+      expect(storage.rows.filter((r) => r.key === TFA_TOKEN_KEY)).toHaveLength(1);
+      await expect(store.status('jota')).resolves.toMatchObject({ mode: 'auth-and-writes' });
+    });
+  });
+
+  describe('completeEnrolment', () => {
+    test('should hand out recovery codes for a valid first code', async () => {
+      const { store } = buildStore();
+      const { record } = await store.beginEnrolment('jota', 'auth-and-writes', 'Verdaccio');
+
+      const codes = await store.completeEnrolment('jota', currentCode(record.secret));
+
+      expect(codes).toHaveLength(10);
+      expect(new Set(codes).size).toBe(10);
+    });
+
+    test('should refuse a wrong code and stay pending', async () => {
+      const { store } = buildStore();
+      await store.beginEnrolment('jota', 'auth-and-writes', 'Verdaccio');
+
+      await expect(store.completeEnrolment('jota', '000000')).resolves.toBeUndefined();
+      await expect(store.status('jota')).resolves.toMatchObject({ pending: true });
+    });
+
+    test('should not store the recovery codes in the clear', async () => {
+      const { storage, codes } = await enrol();
+
+      const row = storage.rows.find((r) => r.key === TFA_TOKEN_KEY);
+      for (const code of codes) {
+        expect(row!.token).not.toContain(code);
+      }
+    });
+
+    test('should store recovery codes as SHA-256 hashes', async () => {
+      const { storage, codes } = await enrol();
+
+      const row = storage.rows.find((r) => r.key === TFA_TOKEN_KEY);
+      const decrypted = aesDecrypt(row!.token, SECRET_KEY);
+      const record = JSON.parse(decrypted as string);
+
+      expect(record.recoveryCodes).toEqual(
+        codes.map((code) => createHash(SHA256_ALGORITHM).update(code).digest('hex'))
+      );
+    });
+  });
+
+  describe('verify', () => {
+    test('should accept the current one-time password', async () => {
+      const { store, secret } = await enrol();
+
+      // the enrolment code is spent, so this uses the next step
+      await expect(store.verify('jota', currentCode(secret, 1))).resolves.toBe(true);
+    });
+
+    test('should reject a one-time password that was already used', async () => {
+      const { store, secret } = await enrol();
+      const code = currentCode(secret, 1);
+
+      await expect(store.verify('jota', code)).resolves.toBe(true);
+      // RFC 6238 requires single use: the code stays valid for up to 90s with
+      // the tolerance window, so replay is a real window without this
+      await expect(store.verify('jota', code)).resolves.toBe(false);
+      await expect(store.verify('jota', code)).resolves.toBe(false);
+    });
+
+    test('should reject concurrent one-time password replays', async () => {
+      const { store, secret } = await enrol();
+      const code = currentCode(secret, 1);
+
+      const results = await Promise.all([store.verify('jota', code), store.verify('jota', code)]);
+
+      expect(results.sort()).toEqual([false, true]);
+    });
+
+    test('should not let the enrolment code be reused to authorise a write', async () => {
+      const { store } = buildStore();
+      const { record } = await store.beginEnrolment('jota', 'auth-and-writes', 'Verdaccio');
+      const code = currentCode(record.secret);
+      await store.completeEnrolment('jota', code);
+
+      // the code that confirmed enrolment is spent
+      await expect(store.verify('jota', code)).resolves.toBe(false);
+    });
+
+    test('should reject a wrong one-time password', async () => {
+      const { store } = await enrol();
+
+      await expect(store.verify('jota', '000000')).resolves.toBe(false);
+    });
+
+    test('should reject anything that is not six digits', async () => {
+      const { store } = await enrol();
+
+      for (const bad of ['', '12345', '1234567', 'abcdef', '12 34 56']) {
+        await expect(store.verify('jota', bad)).resolves.toBe(false);
+      }
+    });
+
+    test('should reject while enrolment is still pending', async () => {
+      const { store } = buildStore();
+      const { record } = await store.beginEnrolment('jota', 'auth-and-writes', 'Verdaccio');
+
+      await expect(store.verify('jota', currentCode(record.secret))).resolves.toBe(false);
+    });
+
+    test('should accept a recovery code exactly once', async () => {
+      const { store, codes } = await enrol();
+
+      await expect(store.verify('jota', codes[0])).resolves.toBe(true);
+      // single use: the same code must not work twice
+      await expect(store.verify('jota', codes[0])).resolves.toBe(false);
+      await expect(store.verify('jota', codes[1])).resolves.toBe(true);
+    });
+
+    test('should reject concurrent recovery code replays', async () => {
+      const { store, codes } = await enrol();
+
+      const results = await Promise.all([
+        store.verify('jota', codes[0]),
+        store.verify('jota', codes[0]),
+      ]);
+
+      expect(results.sort()).toEqual([false, true]);
+    });
+
+    test('should lock out after repeated failures even with the right code', async () => {
+      const { store, secret } = await enrol();
+
+      for (let attempt = 0; attempt < 5; attempt++) {
+        await expect(store.verify('jota', '000000')).resolves.toBe(false);
+      }
+
+      // six digits are brute-forceable without this
+      await expect(store.verify('jota', currentCode(secret, 1))).resolves.toBe(false);
+    });
+
+    test('should clear the failure count on a success', async () => {
+      const { store, secret, codes } = await enrol();
+
+      await store.verify('jota', '000000');
+      await store.verify('jota', '000000');
+      await expect(store.verify('jota', currentCode(secret, 1))).resolves.toBe(true);
+
+      // four more failures would lock the account if the earlier two had
+      // carried over. A recovery code is used to check, since only one TOTP
+      // step can succeed inside the same window.
+      for (let attempt = 0; attempt < 4; attempt++) {
+        await store.verify('jota', '000000');
+      }
+      await expect(store.verify('jota', codes[0])).resolves.toBe(true);
+    });
+
+    test('should reject for a user without two-factor', async () => {
+      const { store } = buildStore();
+
+      await expect(store.verify('nobody', '123456')).resolves.toBe(false);
+    });
+  });
+
+  describe('disable', () => {
+    test('should remove the record', async () => {
+      const { store, storage } = await enrol();
+
+      await store.disable('jota');
+
+      await expect(store.status('jota')).resolves.toBe(false);
+      expect(storage.rows.filter((r) => r.key === TFA_TOKEN_KEY)).toHaveLength(0);
+    });
+  });
+
+  describe('unreadable records', () => {
+    test('should fail loudly when the server secret changed', async () => {
+      const { storage } = await enrol();
+      const otherKey = new TfaStore(storage, 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', logger);
+
+      // reporting "no two-factor" here would silently drop the second factor
+      await expect(otherKey.get('jota')).rejects.toMatchObject({ code: 500 });
+      await expect(otherKey.status('jota')).rejects.toThrow();
+    });
+
+    test('should leave users without two-factor untouched by a rotated secret', async () => {
+      const { storage } = await enrol();
+      const rotated = new TfaStore(storage, 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', logger);
+
+      // 'jota' is locked out by the rotation, but nobody else is: the throw is
+      // only reachable once a record exists, so users who never enabled 2FA
+      // keep working normally
+      await expect(rotated.get('jota')).rejects.toThrow();
+      await expect(rotated.get('never-enrolled')).resolves.toBeUndefined();
+      await expect(rotated.status('never-enrolled')).resolves.toBe(false);
+      await expect(rotated.isEnabled('never-enrolled')).resolves.toBe(false);
+      await expect(rotated.verify('never-enrolled', '123456')).resolves.toBe(false);
+    });
+
+    test('should fail loudly when the record is corrupted', async () => {
+      const { store, storage } = await enrol();
+      const row = storage.rows.find((r) => r.key === TFA_TOKEN_KEY)!;
+      row.token = 'not-encrypted-at-all';
+
+      await expect(store.get('jota')).rejects.toMatchObject({ code: 500 });
+    });
+  });
+
+  describe('isolation between users', () => {
+    test('should not read another user record', async () => {
+      const { store } = await enrol();
+
+      await expect(store.status('someone-else')).resolves.toBe(false);
+    });
+  });
+});
