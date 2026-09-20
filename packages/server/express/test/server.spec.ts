@@ -89,6 +89,23 @@ function publishVersion(
     .expect(HTTP_STATUS.CREATED);
 }
 
+function initializeCorsServer() {
+  return initializeServer('conf.yaml', (config) => {
+    config.server = {
+      ...config.server,
+      cors: {
+        origin: 'https://trusted.example',
+        methods: ['GET', 'PUT'],
+        allowedHeaders: ['Authorization'],
+        exposedHeaders: ['X-Test-Header'],
+        credentials: true,
+        maxAge: 600,
+        optionsSuccessStatus: 200,
+      },
+    };
+  });
+}
+
 beforeAll(async () => {
   await setup({});
 });
@@ -129,9 +146,25 @@ describe('server api', () => {
       .expect(HTTP_STATUS.OK);
   });
 
-  test('should contains cors headers', async () => {
+  test('should use default CORS options when none are configured', async () => {
     const app = await initializeServer('conf.yaml');
     await supertest(app).get('/').expect('access-control-allow-origin', '*').expect(HTTP_STATUS.OK);
+  });
+
+  test('should pass configured CORS options to the middleware', async () => {
+    const app = await initializeCorsServer();
+    await supertest(app)
+      .options('/jquery')
+      .set('Origin', 'https://trusted.example')
+      .set('Access-Control-Request-Method', 'PUT')
+      .set('Access-Control-Request-Headers', 'Authorization')
+      .expect('access-control-allow-origin', 'https://trusted.example')
+      .expect('access-control-allow-credentials', 'true')
+      .expect('access-control-allow-methods', 'GET,PUT')
+      .expect('access-control-allow-headers', 'Authorization')
+      .expect('access-control-expose-headers', 'X-Test-Header')
+      .expect('access-control-max-age', '600')
+      .expect(HTTP_STATUS.OK);
   });
 
   test('should contains etag', async () => {
