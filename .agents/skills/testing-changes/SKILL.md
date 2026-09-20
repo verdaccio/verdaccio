@@ -6,10 +6,12 @@ description: Select and run the checks that cover a change on the verdaccio 7.x 
 # Testing a change (7.x)
 
 Run what the change affects. CI lints, builds and tests on Node.js 24 and 25 and
-builds the Docker image; the CLI e2e battery for this line lives in the
-`verdaccio/e2e-tests` repository (branch `7.x`) and is not part of this repo's
-CI. **There are no active git hooks on this branch**: nothing runs unless you run
-it.
+builds the Docker image — but only on a PR whose diff matches `ci.yml`'s `paths:`
+filter (`src/**`, `test/**`, `docker-examples/**`, `package.json`, `pnpm-lock.yaml`,
+`pnpm-workspace.yaml`, or the workflow file itself); a docs-only or `.agents/`-only PR
+does not trigger it. The CLI e2e battery for this line lives in the
+`verdaccio/e2e-tests` repository (branch `7.x`) and is not part of this repo's CI.
+**There are no active git hooks on this branch**: nothing runs unless you run it.
 
 ## First: is the code even in this branch?
 
