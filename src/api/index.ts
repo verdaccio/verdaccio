@@ -9,7 +9,13 @@ import { getUserAgent } from '@verdaccio/config';
 import type { pluginUtils } from '@verdaccio/core';
 import { PLUGIN_CATEGORY } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
-import { errorReportingMiddleware, final, handleError, log } from '@verdaccio/middleware';
+import {
+  errorReportingMiddleware,
+  final,
+  handleError,
+  log,
+  registerBodyParser,
+} from '@verdaccio/middleware';
 import { SearchMemoryIndexer } from '@verdaccio/search-indexer';
 import type { ConfigYaml, Config as IConfig } from '@verdaccio/types';
 
@@ -93,6 +99,15 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<ex
     config?.serverSettings?.pluginPrefix ?? 'verdaccio',
     PLUGIN_CATEGORY.MIDDLEWARE
   );
+
+  // Buffer the request body before anything that can suspend the request.
+  // apiJWTmiddleware() pauses the stream, and the API router's
+  // enforceGeneratedTokenMetadata() awaits a storage lookup for tokens minted
+  // via `npm token create` -- both run ahead of the router's own body parser,
+  // so without this the parser sees fewer bytes than Content-Length announced
+  // and the request is rejected. Registering here also lets middleware plugins
+  // read req.body.
+  registerBodyParser(app, config);
 
   // Register JWT middleware so middleware plugins can access req.remote_user
   app.use(auth.apiJWTmiddleware());
