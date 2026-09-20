@@ -229,6 +229,43 @@ describe('PackageFilterPlugin', () => {
       expect(getLatest(typesResult)).toBe('2.6.3');
     });
 
+    test.each([true, false])(
+      'exact package rule takes precedence over a matching glob rule (exact first: %s)',
+      async (exactFirst) => {
+        const exactRule = { package: '@babel/test', versions: '<1.5.0' };
+        const globRule = { package: '@babel/*', versions: '>1.5.0' };
+        const config = {
+          block: exactFirst ? [exactRule, globRule] : [globRule, exactRule],
+        };
+        const plugin = new PackageFilterPlugin(config, pluginOptions);
+
+        const babelResult = await plugin.filter_metadata(babelTestManifest);
+        expect(getVersionKeys(babelResult)).toEqual(['1.5.0', '3.0.0']);
+      }
+    );
+
+    test.each([
+      {
+        rules: [
+          { package: '@babel/*', versions: '<1.5.0' },
+          { package: '@babel/t*', versions: '>1.5.0' },
+        ],
+        versions: ['1.5.0', '3.0.0'],
+      },
+      {
+        rules: [
+          { package: '@babel/t*', versions: '>1.5.0' },
+          { package: '@babel/*', versions: '<1.5.0' },
+        ],
+        versions: ['1.0.0', '1.5.0'],
+      },
+    ])('first matching package glob rule determines the result', async ({ rules, versions }) => {
+      const plugin = new PackageFilterPlugin({ block: rules }, pluginOptions);
+
+      const babelResult = await plugin.filter_metadata(babelTestManifest);
+      expect(getVersionKeys(babelResult)).toEqual(versions);
+    });
+
     test('filters by multiple versions', async function () {
       const config = {
         block: [
