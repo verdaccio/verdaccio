@@ -6,9 +6,12 @@ description: Select and run the checks that cover a change in the verdaccio 8.x 
 # Testing a change (8.x)
 
 Run what the change affects. CI runs lint and format, a build and the tests on
-Node.js 22, 24 and 26, and the e2e packages, so the local job is fast, honest
-feedback. The pre-commit hook runs `pnpm format:check` and `pnpm lint` and
-refuses the commit on either; format before committing.
+Node.js 22, 24 and 26, and the e2e packages — but only on a PR whose diff matches
+`ci.yml`'s `paths:` filter (`packages/**`, `test/**`, `package.json`,
+`pnpm-workspace.yaml`, `.changeset/**`, or the workflow file itself); a docs-only or
+`.agents/`-only PR does not trigger it. The pre-commit hook runs `pnpm format:check`
+and `pnpm lint` locally regardless, and refuses the commit on either; format before
+committing.
 
 ## The one rule: rebuild before you test
 

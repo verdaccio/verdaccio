@@ -85,8 +85,12 @@ used by `auth` here and by the 6.x binary for storage, filters and middleware:
 - The export is a `default` class (`new plugin.default(config, options)`) or a CJS
   factory function. `require()` is tried first, `import()` second; the entry point for a
   folder is read from `exports['.']`, then `module`, then `main`.
-- A plugin that throws in its constructor, or fails the category's sanity check, is
-  logged and skipped; the registry keeps starting.
+- A plugin that fails the category's sanity check is logged and skipped; the registry
+  keeps starting. **A throwing constructor is only guaranteed to be caught this way
+  when loaded from a configured `plugins:` folder** (that path wraps `executePlugin` in
+  a `try`/`catch`); the npm-resolved (`node_modules`) path calls `executePlugin`
+  unguarded, so a throwing constructor there currently propagates out of
+  `asyncLoadPlugin` instead of being skipped — a known loader gap, not a guarantee.
 
 Loader changes are tested in `packages/loaders/test` and through the e2e packages
 (`pnpm test:e2e`, `packages/e2e/auth-memory` and `local-storage-legacy`); run both.
