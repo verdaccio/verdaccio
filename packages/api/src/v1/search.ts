@@ -24,12 +24,7 @@ function parseQueryInt(value: unknown, defaultValue: number, max: number): numbe
   return Math.min(parsed, max);
 }
 
-/**
- * Endpoint for npm search v1
- * Empty value
- *  - {"objects":[],"total":0,"time":"Sun Jul 25 2021 14:09:11 GMT+0000 (Coordinated Universal Time)"}
- * req: 'GET /-/v1/search?text=react&size=20&frpom=0&quality=0.65&popularity=0.98&maintenance=0.5'
- */
+/** Search v1 includes the response time as an ISO 8601 UTC timestamp. */
 export default function (
   route,
   auth: Auth,
@@ -128,7 +123,7 @@ export default function (
         const response = {
           objects: final,
           total: final.length,
-          time: new Date().toUTCString(),
+          time: new Date().toISOString(),
         };
 
         res.status(HTTP_STATUS.OK).json(response);
