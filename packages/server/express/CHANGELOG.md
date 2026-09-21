@@ -1,5 +1,36 @@
 # @verdaccio/server
 
+## 9.0.0-next-9.32
+
+### Patch Changes
+
+- f3f8976: chore: replace \_\_dirname with import.meta.dirname
+- a45b832: Allow the standard `cors` middleware options to be configured under `server.cors`.
+- Updated dependencies [107c4d3]
+- Updated dependencies [34cd0fb]
+- Updated dependencies [3724054]
+- Updated dependencies [59f1350]
+- Updated dependencies [f3f8976]
+- Updated dependencies [6e49543]
+- Updated dependencies [89a7362]
+- Updated dependencies [3724054]
+- Updated dependencies [3618123]
+- Updated dependencies [b27212f]
+- Updated dependencies [cbfcfd2]
+- Updated dependencies [a4e2da0]
+- Updated dependencies [73415bb]
+- Updated dependencies [107c4d3]
+  - @verdaccio/logger@9.0.0-next-9.32
+  - @verdaccio/config@9.0.0-next-9.32
+  - @verdaccio/loaders@9.0.0-next-9.32
+  - @verdaccio/core@9.0.0-next-9.32
+  - @verdaccio/store@9.0.0-next-9.32
+  - @verdaccio/web@9.0.0-next-9.32
+  - @verdaccio/api@9.0.0-next-9.32
+  - @verdaccio/auth@9.0.0-next-9.32
+  - @verdaccio/middleware@9.0.0-next-9.32
+  - verdaccio-audit@14.0.0-next-9.32
+
 ## 9.0.0-next-9.31
 
 ### Patch Changes

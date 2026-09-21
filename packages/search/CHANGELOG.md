@@ -1,5 +1,27 @@
 # @verdaccio/search
 
+## 9.0.0-next-9.32
+
+### Patch Changes
+
+- 59f1350: Validate package versions before combining search results. Paginated searches return 503 for malformed uplink versions instead of returning invalid results or failing with 500. Invalid local and legacy search entries are omitted. Preserve support for legacy version formats and return their original spelling while comparing versions consistently. When a local package and an uplink report the same version in different spellings, the local entry and its metadata are kept; only a strictly newer version replaces it.
+- 73415bb: Fix Search v1 pagination by collecting bounded uplink pages from offset zero and applying the client offset once, after deduplication and access checks. Keep result ordering stable across uplink rounds, fetch additional candidates when needed, and cancel work on disconnect or after 30 seconds. Skip uplinks that fail before contributing any results so local and healthy-uplink searches remain available. Return 503 when an uplink fails after contributing a page, stops advancing, or the shared budget of 100 requests / 25,000 candidates is exhausted instead of returning an incomplete successful page.
+- Updated dependencies [107c4d3]
+- Updated dependencies [34cd0fb]
+- Updated dependencies [59f1350]
+- Updated dependencies [f3f8976]
+- Updated dependencies [89a7362]
+- Updated dependencies [297c20e]
+- Updated dependencies [3618123]
+- Updated dependencies [cbfcfd2]
+- Updated dependencies [a4e2da0]
+- Updated dependencies [73415bb]
+- Updated dependencies [107c4d3]
+  - @verdaccio/logger@9.0.0-next-9.32
+  - @verdaccio/config@9.0.0-next-9.32
+  - @verdaccio/core@9.0.0-next-9.32
+  - @verdaccio/proxy@9.0.0-next-9.32
+
 ## 9.0.0-next-9.31
 
 ### Patch Changes
