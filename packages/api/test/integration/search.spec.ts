@@ -36,24 +36,32 @@ describe('search', () => {
     }
   );
 
-  test('uses the response time instead of the uplink or package timestamp', async () => {
-    const published = '2020-01-02T03:04:05.678Z';
-    nock('https://registry.npmjs.org')
-      .get('/-/v1/search')
-      .query(true)
-      .reply(200, {
-        objects: [{ package: { name: 'remote', version: '1.0.0', date: published } }],
-        total: 1,
-        time: '2021-01-01T00:00:00.000Z',
-      });
-    const remoteApp = await initializeServer('search-abort.yaml');
-    MockDate.set('2026-09-11T13:45:30.123Z');
-    const response = await supertest(remoteApp)
-      .get('/-/v1/search?text=remote')
-      .expect(HTTP_STATUS.OK);
-    expect(response.body.time).toBe('2026-09-11T13:45:30.123Z');
-    expect(response.body.objects[0].package.date).toBe(published);
-  });
+  test.each(['2021-01-01T00:00:00.000Z', undefined, 'invalid date'])(
+    'timestamps the completed search independently of uplink time (%s)',
+    async (uplinkTime) => {
+      const published = '2020-01-02T03:04:05.678Z';
+      const responseTime = '2026-09-12T00:00:00.000Z';
+      const uplink = nock('https://registry.npmjs.org')
+        .get('/-/v1/search')
+        .query(true)
+        .reply(200, () => {
+          MockDate.set(responseTime);
+          return {
+            objects: [{ package: { name: 'remote', version: '1.0.0', date: published } }],
+            total: 1,
+            time: uplinkTime,
+          };
+        });
+      const remoteApp = await initializeServer('search-abort.yaml');
+      MockDate.set('2026-09-11T23:59:59.999Z');
+      const response = await supertest(remoteApp)
+        .get('/-/v1/search?text=remote')
+        .expect(HTTP_STATUS.OK);
+      expect(response.body.time).toBe(responseTime);
+      expect(response.body.objects[0].package.date).toBe(published);
+      expect(uplink.isDone()).toBe(true);
+    }
+  );
 
   describe('search authenticated', () => {
     test.each([['foo']])('should return a foo private package', async (pkg) => {
@@ -127,6 +135,8 @@ describe('search', () => {
       await publishVersionWithToken(app, pkg, '1.0.0', res.body.token);
       // this should not be displayed as part of the search
       await publishVersionWithToken(app, '@private/auth', '1.0.0', res.body.token);
+      const responseTime = '2026-09-11T13:45:30.123Z';
+      MockDate.set(responseTime);
       const response = await supertest(app)
         .get(
           `/-/v1/search?text=${encodeURIComponent(
@@ -176,7 +186,7 @@ describe('search', () => {
             verdaccioPrivate: true,
           },
         ],
-        time: mockDate,
+        time: responseTime,
         total: 1,
       });
       expect(response.body.objects[0].package.name).toBe('@scope/foo');
@@ -213,19 +223,34 @@ describe('search', () => {
       await publishVersionWithToken(app, 'foo-b', '1.0.0', res.body.token);
       await publishVersionWithToken(app, 'foo-c', '1.0.0', res.body.token);
 
+      MockDate.set('2026-09-11T13:45:30.123Z');
       const firstPage = await supertest(app)
         .get('/-/v1/search?text=foo&size=2&from=0')
         .set(HEADERS.ACCEPT, HEADERS.JSON)
         .expect(HEADERS.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HTTP_STATUS.OK);
       expect(firstPage.body.objects).toHaveLength(2);
+      expect(firstPage.body.time).toBe('2026-09-11T13:45:30.123Z');
 
+      MockDate.set('2026-09-11T13:46:30.456Z');
       const secondPage = await supertest(app)
         .get('/-/v1/search?text=foo&size=2&from=2')
         .set(HEADERS.ACCEPT, HEADERS.JSON)
         .expect(HEADERS.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HTTP_STATUS.OK);
       expect(secondPage.body.objects).toHaveLength(1);
+      expect(secondPage.body.time).toBe('2026-09-11T13:46:30.456Z');
+
+      for (const pagination of ['size=2&from=3', 'size=0&from=0']) {
+        const emptyPage = await supertest(app)
+          .get(`/-/v1/search?text=foo&${pagination}`)
+          .expect(HTTP_STATUS.OK);
+        expect(emptyPage.body).toEqual({
+          objects: [],
+          total: 0,
+          time: '2026-09-11T13:46:30.456Z',
+        });
+      }
 
       const names = [...firstPage.body.objects, ...secondPage.body.objects].map(
         (item) => item.package.name
@@ -237,12 +262,14 @@ describe('search', () => {
       const res = await createUser(app, 'test', 'test');
       await publishVersionWithToken(app, 'foo-a', '1.0.0', res.body.token);
 
+      MockDate.set('2026-09-11T13:45:30.123Z');
       const response = await supertest(app)
         .get('/-/v1/search?text=foo&size=-1&from=invalid')
         .set(HEADERS.ACCEPT, HEADERS.JSON)
         .expect(HEADERS.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HTTP_STATUS.OK);
       expect(response.body.objects).toHaveLength(1);
+      expect(response.body.time).toBe('2026-09-11T13:45:30.123Z');
     });
   });
 
@@ -254,7 +281,11 @@ describe('search', () => {
       await supertest(app).get(searchUrl).set(HEADERS.ACCEPT, HEADERS.JSON).expect(HTTP_STATUS.OK);
       await supertest(app).get(searchUrl).set(HEADERS.ACCEPT, HEADERS.JSON).expect(HTTP_STATUS.OK);
       // third request exceeds `userRateLimit.max: 2` in search-rate-limit.yaml
-      await supertest(app).get(searchUrl).set(HEADERS.ACCEPT, HEADERS.JSON).expect(429);
+      const response = await supertest(app)
+        .get(searchUrl)
+        .set(HEADERS.ACCEPT, HEADERS.JSON)
+        .expect(429);
+      expect(response.body).not.toHaveProperty('time');
     });
   });
 

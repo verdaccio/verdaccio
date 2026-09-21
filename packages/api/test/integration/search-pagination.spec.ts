@@ -1,6 +1,7 @@
+import MockDate from 'mockdate';
 import nock from 'nock';
 import supertest from 'supertest';
-import { afterEach, describe, expect, test, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import {
   createUser,
@@ -10,7 +11,10 @@ import {
 } from './_helper';
 
 const domain = 'https://registry.npmjs.org';
-const item = (name: string, version = '1.0.0') => ({ package: { name, version } });
+const responseTime = '2026-09-21T10:20:30.000Z';
+const item = (name: string, version = '1.0.0', date?: string) => ({
+  package: { name, version, ...(date ? { date } : {}) },
+});
 const catalog = (count: number) => Array.from({ length: count }, (_, i) => item(`remote-${i}`));
 
 function paginatedUplink(objects: ReturnType<typeof item>[], cap = 250, reportTotal = true) {
@@ -34,7 +38,10 @@ function paginatedUplink(objects: ReturnType<typeof item>[], cap = 250, reportTo
 
 const names = (response) => response.body.objects.map((entry) => entry.package.name);
 
+beforeEach(() => MockDate.set(responseTime));
+
 afterEach(() => {
+  MockDate.reset();
   nock.cleanAll();
   nock.abortPendingRequests();
   vi.restoreAllMocks();
@@ -64,6 +71,8 @@ describe('Search v1 progressive pagination', () => {
       const second = await supertest(app).get('/-/v1/search?text=foo&from=2&size=2').expect(200);
       expect(names(first)).toEqual(['foo-a', 'foo-b']);
       expect(names(second)).toEqual(['foo-c']);
+      expect(first.body.time).toBe(responseTime);
+      expect(second.body.time).toBe(responseTime);
     }
   );
 
@@ -77,6 +86,7 @@ describe('Search v1 progressive pagination', () => {
       .get('/-/v1/search?text=missing&from=20&size=20')
       .expect(200);
     expect(names(response)).toEqual([]);
+    expect(response.body.time).toBe(responseTime);
   });
 
   test.each(['first', 'second'])(
@@ -111,6 +121,7 @@ describe('Search v1 progressive pagination', () => {
         .get('/-/v1/search?text=remote&from=3&size=2')
         .expect(200);
       expect(names(response)).toEqual(['remote-3', 'remote-4']);
+      expect(response.body.time).toBe(responseTime);
       expect(offsets).toEqual([0, 2, 4]);
       expect(failures).toBe(1);
     }
@@ -151,8 +162,10 @@ describe('Search v1 progressive pagination', () => {
       const app = await initializeServer('search-pagination.yaml');
       const response = await supertest(app).get('/-/v1/search?text=any&from=1&size=5').expect(200);
       expect(names(response)).toEqual(['b', 'c', 'd', 'e', 'f']);
+      expect(response.body.time).toBe(responseTime);
       const pageOne = await supertest(app).get('/-/v1/search?text=any&from=0&size=1').expect(200);
       expect(pageOne.body.objects[0].package).toEqual({ name: 'a', version: '2.0.0' });
+      expect(pageOne.body.time).toBe(responseTime);
       expect(first).toEqual([0, 2, 0]);
       expect(second).toEqual([0, 2, 0]);
     }
@@ -172,6 +185,7 @@ describe('Search v1 progressive pagination', () => {
         .map((entry) => entry.package.name)
     );
     expect(requests.map((query) => query.get('from'))).toEqual(['0', '250']);
+    expect(response.body.time).toBe(responseTime);
     for (const query of requests) {
       expect(Object.fromEntries(query)).toMatchObject({
         size: '250',
@@ -188,6 +202,7 @@ describe('Search v1 progressive pagination', () => {
     const app = await initializeServer('search-abort.yaml');
     const response = await supertest(app).get('/-/v1/search?text=remote&from=5&size=2').expect(200);
     expect(names(response)).toEqual(['remote-5', 'remote-6']);
+    expect(response.body.time).toBe(responseTime);
     expect(requests.map((query) => query.get('from'))).toEqual(['0', '2', '4', '6']);
   });
 
@@ -203,21 +218,30 @@ describe('Search v1 progressive pagination', () => {
         .map((entry) => entry.package.name)
     );
     expect(requests.length).toBeLessThanOrEqual(5);
+    expect(response.body.time).toBe(responseTime);
   });
 
   test('combines local and remote packages and retains the newer duplicate in its original position', async () => {
     const app = await initializeServer('search-abort.yaml');
+    const localPublished = '2020-01-02T03:04:05.678Z';
+    const remotePublished = '2021-02-03T04:05:06.789Z';
+    MockDate.set(localPublished);
     const user = await createUser(app, 'test', 'test');
     await publishVersionWithToken(app, 'foo-a', '1.0.0', user.body.token);
     await publishVersionWithToken(app, 'foo-b', '1.0.0', user.body.token);
     const requests = paginatedUplink(
-      [item('foo-a', '2.0.0'), item('foo-c'), item('foo-d'), item('foo-e')],
+      [item('foo-a', '2.0.0', remotePublished), item('foo-c'), item('foo-d'), item('foo-e')],
       2
     );
+    MockDate.set(responseTime);
     const first = await supertest(app).get('/-/v1/search?text=foo&from=0&size=2').expect(200);
     const second = await supertest(app).get('/-/v1/search?text=foo&from=2&size=2').expect(200);
     expect(names(first)).toEqual(['foo-a', 'foo-b']);
     expect(first.body.objects[0].package.version).toBe('2.0.0');
+    expect(first.body.objects[0].package.date).toBe(remotePublished);
+    expect(first.body.objects[1].package.date).toBe(localPublished);
+    expect(first.body.time).toBe(responseTime);
+    expect(second.body.time).toBe(responseTime);
     expect(names(second)).toEqual(['foo-c', 'foo-d']);
     expect(requests.map((query) => query.get('from'))).toEqual(['0', '0', '2']);
   });
@@ -230,6 +254,7 @@ describe('Search v1 progressive pagination', () => {
     });
     const response = await supertest(app).get('/-/v1/search?text=remote&from=2&size=2').expect(200);
     expect(names(response)).toEqual(['remote-4', 'remote-6']);
+    expect(response.body.time).toBe(responseTime);
     expect(requests).toHaveLength(4);
     expect(access).toHaveBeenCalledTimes(8);
   });
@@ -240,6 +265,7 @@ describe('Search v1 progressive pagination', () => {
     const response = await supertest(app).get('/-/v1/search?text=remote&from=5&size=0').expect(200);
     expect(names(response)).toEqual([]);
     expect(requests).toHaveLength(0);
+    expect(response.body.time).toBe(responseTime);
   });
 
   test('aborts an in-flight second HTTP page when the client disconnects', async () => {
@@ -289,6 +315,7 @@ describe('Search v1 progressive pagination', () => {
     const app = await initializeServer('search-abort.yaml');
     const response = await supertest(app).get('/-/v1/search?text=remote&from=2&size=2').expect(503);
     expect(response.body.error).toContain('did not advance');
+    expect(response.body).not.toHaveProperty('time');
     expect(requests).toBe(2);
   });
 
@@ -299,6 +326,7 @@ describe('Search v1 progressive pagination', () => {
       .get('/-/v1/search?text=remote&from=100&size=2')
       .expect(503);
     expect(response.body.error).toContain('budget exhausted');
+    expect(response.body).not.toHaveProperty('time');
     expect(requests).toHaveLength(100);
   });
 
@@ -309,7 +337,8 @@ describe('Search v1 progressive pagination', () => {
       .reply(200, { objects: catalog(2), total: 10 });
     const failed = nock(domain).get('/-/v1/search').query(true).reply(500);
     const app = await initializeServer('search-abort.yaml');
-    await supertest(app).get('/-/v1/search?text=remote&from=2&size=2').expect(503);
+    const response = await supertest(app).get('/-/v1/search?text=remote&from=2&size=2').expect(503);
+    expect(response.body).not.toHaveProperty('time');
     expect(failed.isDone()).toBe(true);
   });
 });
