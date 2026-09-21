@@ -34,6 +34,7 @@ describe('web search with an unavailable uplink', () => {
   ])('returns local matches for "$text" when every uplink fails', async ({ text, names }) => {
     const app = await initializeServer('search-errors.yaml');
     await publishVersion(app, 'local-match', '1.0.0');
+    await publishVersion(app, 'blocked-match', '1.0.0');
     const log = vi.spyOn(logger, 'error').mockImplementation(() => {});
     const upstreams = ['failing', 'healthy'].map((name) =>
       nock(`https://${name}.registry.test`)

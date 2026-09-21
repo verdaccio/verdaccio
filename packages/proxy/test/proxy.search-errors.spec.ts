@@ -1,9 +1,11 @@
 /* global AbortController */
+import getStream from 'get-stream';
 import nock from 'nock';
 import path from 'node:path';
 import { afterEach, beforeAll, describe, expect, test, vi } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
+import { streamUtils } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 
 import { ProxyStorage } from '../src';
@@ -83,6 +85,40 @@ describe('unpaginated search errors used by the web API', () => {
     await expect(search()).rejects.toMatchObject({ name: 'AbortError', code: 'ERR_ABORTED' });
     expect(log).toHaveBeenCalledExactlyOnceWith(
       { name: 'uplink', errorMessage: expect.any(String) },
+      logMessage
+    );
+    expect(upstream.isDone()).toBe(true);
+  });
+
+  test('preserves cancellation before starting the request', async () => {
+    const upstream = nock(domain).get(url).reply(200, { objects: [] });
+    const { search, abort, log } = prepareSearch();
+    abort.abort();
+
+    await expect(search()).rejects.toMatchObject({ name: 'AbortError', code: 'ERR_ABORTED' });
+    expect(log).toHaveBeenCalledExactlyOnceWith(
+      { name: 'uplink', errorMessage: expect.any(String) },
+      logMessage
+    );
+    expect(upstream.isDone()).toBe(false);
+  });
+
+  test('returns results when the same uplink recovers after a connection failure', async () => {
+    const objects = [{ package: { name: 'verdaccio', version: '1.0.0' } }];
+    const upstream = nock(domain)
+      .get(url)
+      .replyWithError({ code: 'ECONNRESET', message: 'uplink connection reset' })
+      .get(url)
+      .reply(200, { objects, total: objects.length });
+    const { search, log } = prepareSearch();
+
+    await expect(search()).rejects.toMatchObject({ code: 'ECONNRESET' });
+    const stream = await search();
+    const result = await getStream(stream.pipe(streamUtils.transformObjectToString()));
+
+    expect(JSON.parse(result)).toEqual(objects);
+    expect(log).toHaveBeenCalledExactlyOnceWith(
+      { name: 'uplink', errorMessage: 'uplink connection reset' },
       logMessage
     );
     expect(upstream.isDone()).toBe(true);
@@ -168,5 +204,16 @@ describe('paginated search error regressions', () => {
 
     await expect(search()).rejects.toBe(reason);
     expect(log).not.toHaveBeenCalled();
+  });
+
+  test('propagates cancellation before starting the request without logging a failure', async () => {
+    const upstream = nock(domain).get(url).reply(200, { objects: [] });
+    const { search, abort, log } = prepareSearch(() => {});
+    const reason = new Error('search client disconnected');
+    abort.abort(reason);
+
+    await expect(search()).rejects.toBe(reason);
+    expect(log).not.toHaveBeenCalled();
+    expect(upstream.isDone()).toBe(false);
   });
 });
