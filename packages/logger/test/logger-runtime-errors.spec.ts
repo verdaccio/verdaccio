@@ -1,9 +1,14 @@
-import { mkdirSync, mkdtempSync, renameSync, rmSync } from 'node:fs';
+import * as fs from 'node:fs';
+import { createRequire } from 'node:module';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import pino from 'pino';
 import SonicBoom from 'sonic-boom';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
+
+const require = createRequire(import.meta.url);
+// SonicBoom opens via CJS require('fs'); ESM namespace exports are not patchable.
+const fsCjs = require('node:fs') as typeof import('node:fs');
 
 // In-process (unlike the subprocess exit specs): coverage tools can't see
 // code run in a spawned child, so prepareSetup's error/reopen paths need this too.
@@ -14,9 +19,9 @@ describe('file destination runtime error handling (in-process)', () => {
   let originalSigusr2Listeners: NodeJS.SignalsListener[];
 
   beforeEach(() => {
-    directory = mkdtempSync(join(tmpdir(), 'logger-runtime-'));
+    directory = fs.mkdtempSync(join(tmpdir(), 'logger-runtime-'));
     liveDir = join(directory, 'live');
-    mkdirSync(liveDir);
+    fs.mkdirSync(liveDir);
     outputPath = join(liveDir, 'output.log');
     originalSigusr2Listeners = process.listeners('SIGUSR2') as NodeJS.SignalsListener[];
   });
@@ -27,7 +32,7 @@ describe('file destination runtime error handling (in-process)', () => {
         process.removeListener('SIGUSR2', listener as NodeJS.SignalsListener);
       }
     }
-    rmSync(directory, { recursive: true, force: true });
+    fs.rmSync(directory, { recursive: true, force: true });
     vi.restoreAllMocks();
   });
 
@@ -118,9 +123,20 @@ describe('file destination runtime error handling (in-process)', () => {
     );
     const destination = (logger as any)[pino.symbols.streamSym];
 
-    renameSync(liveDir, join(directory, 'moved'));
-    // Sync reopen throws synchronously here; the wrapper must catch it.
-    destination.reopen();
+    // Stub openSync: Windows cannot rename a directory while SonicBoom holds the fd.
+    const originalOpenSync = fsCjs.openSync;
+    fsCjs.openSync = ((file: fs.PathLike, ...args: any[]) => {
+      if (file !== outputPath) {
+        return originalOpenSync(file, ...(args as [fs.OpenMode?, fs.Mode?]));
+      }
+      throw Object.assign(new Error('ENOENT during test'), { code: 'ENOENT' });
+    }) as typeof fsCjs.openSync;
+    try {
+      // Sync reopen throws synchronously here; the wrapper must catch it.
+      destination.reopen();
+    } finally {
+      fsCjs.openSync = originalOpenSync;
+    }
 
     expect(reports).toHaveLength(1);
     expect(JSON.parse(reports[0])).toMatchObject({
@@ -129,7 +145,6 @@ describe('file destination runtime error handling (in-process)', () => {
       err: { code: 'ENOENT' },
     });
 
-    renameSync(join(directory, 'moved'), liveDir);
     await new Promise<void>((resolve) => {
       destination.once('ready', resolve);
       destination.reopen();

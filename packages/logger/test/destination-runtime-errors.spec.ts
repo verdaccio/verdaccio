@@ -31,14 +31,12 @@ describe('file destination errors after ready', () => {
           async function main() {
             const outputPath = ${JSON.stringify(outputPath)};
             const live = ${JSON.stringify(dirname(outputPath))};
-            const rotated = ${JSON.stringify(join(directory, 'rotated'))};
             fs.mkdirSync(live);
             const logger = await prepareSetup(${JSON.stringify({ type: 'file', path: outputPath, format: 'json', sync })}, pino);
             const healthy = await prepareSetup(${JSON.stringify({ type: 'file', path: healthyPath, format: 'json', sync: false })}, pino);
             const destination = logger[pino.symbols.streamSym];
             logger.info('before failures');
             await new Promise((resolve, reject) => logger.flush(error => error ? reject(error) : resolve()));
-            if (${JSON.stringify(scenario)} === 'reopen') fs.renameSync(live, rotated);
             for (let attempt = 0; attempt < 2; attempt++) {
               if (${JSON.stringify(scenario)} === 'write') {
                 await new Promise(resolve => {
@@ -63,6 +61,13 @@ describe('file destination errors after ready', () => {
                   }
                 });
               } else if (${JSON.stringify(sync ?? false)}) {
+                // Stub openSync: Windows cannot rename a directory while SonicBoom holds the fd.
+                const original = fs.openSync;
+                fs.openSync = (file, ...args) => {
+                  if (file !== outputPath) return original(file, ...args);
+                  fs.openSync = original;
+                  throw Object.assign(new Error('ENOENT during test'), { code: 'ENOENT' });
+                };
                 process.emit('SIGUSR2', 'SIGUSR2');
                 await new Promise(resolve => process.nextTick(resolve));
               } else {
@@ -72,14 +77,16 @@ describe('file destination errors after ready', () => {
                     if (file !== outputPath) return original(file, ...args);
                     fs.open = original;
                     const callback = args.pop();
-                    original(file, ...args, (error, fd) => { callback(error, fd); resolve(); });
+                    process.nextTick(() => {
+                      callback(Object.assign(new Error('ENOENT during test'), { code: 'ENOENT' }));
+                      resolve();
+                    });
                   };
                   process.emit('SIGUSR2', 'SIGUSR2');
                 });
               }
             }
             if (${JSON.stringify(scenario)} === 'reopen') {
-              fs.renameSync(rotated, live);
               const ready = new Promise(resolve => destination.once('ready', resolve));
               process.emit('SIGUSR2', 'SIGUSR2');
               await ready;
