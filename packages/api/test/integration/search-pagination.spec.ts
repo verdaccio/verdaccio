@@ -41,6 +41,39 @@ afterEach(() => {
 });
 
 describe('Search v1 progressive pagination', () => {
+  test.each([false, true])(
+    'rejects invalid uplink versions with 503 (duplicate=%s)',
+    async (duplicate) => {
+      paginatedUplink([...(duplicate ? [item('foo', '1.0.0')] : []), item('foo', 'latest')]);
+      const app = await initializeServer('search-abort.yaml');
+      const response = await supertest(app).get('/-/v1/search?text=foo').expect(503);
+      expect(response.body.error).toBe('invalid uplink search package');
+    }
+  );
+
+  test('serves a compatible legacy version after comparing duplicate uplink results', async () => {
+    paginatedUplink([item('foo', '1.0.0'), item('foo', '01.2.3')]);
+    const app = await initializeServer('search-abort.yaml');
+    const response = await supertest(app).get('/-/v1/search?text=foo').expect(200);
+    expect(response.body.objects.map((entry) => entry.package)).toEqual([
+      { name: 'foo', version: '01.2.3' },
+    ]);
+  });
+
+  test('keeps searching and paginating when local metadata contains invalid versions', async () => {
+    paginatedUplink([item('foo', '2.0.0'), item('remote')]);
+    const { app, storage } = await initializeServerWithContext('search-abort.yaml');
+    vi.spyOn(storage, 'getCachedPackages').mockResolvedValue([
+      item('invalid-only', 'latest'),
+      item('foo', '^1.0.0'),
+      item('local', '01.2.3'),
+    ] as Awaited<ReturnType<typeof storage.getCachedPackages>>);
+    const response = await supertest(app).get('/-/v1/search?text=foo&from=1&size=2').expect(200);
+    expect(names(response)).toEqual(['foo', 'remote']);
+    const first = await supertest(app).get('/-/v1/search?text=foo&size=1').expect(200);
+    expect(first.body.objects[0].package).toEqual({ name: 'local', version: '01.2.3' });
+  });
+
   test.each([401, 404, 429, 500, 'connection', 'timeout', 'json'])(
     'preserves local pagination when the first uplink request fails (%s)',
     async (failure) => {

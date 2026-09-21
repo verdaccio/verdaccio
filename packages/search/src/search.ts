@@ -1,6 +1,7 @@
 import buildDebug from 'debug';
 import { PassThrough } from 'node:stream';
 
+import { pkgUtils } from '@verdaccio/core';
 import type { searchUtils } from '@verdaccio/core';
 import type { IProxy, ProxyInstanceList, ProxySearchParams } from '@verdaccio/proxy';
 import { setupUpLinks } from '@verdaccio/proxy';
@@ -59,13 +60,15 @@ class Search {
 
       for await (const chunk of streamPassThrough) {
         if (Array.isArray(chunk)) {
-          (chunk as searchUtils.SearchItem[])
+          (chunk as searchUtils.SearchPackageItem[])
             .filter((pkgItem) => {
               debug(`streaming remote pkg name ${pkgItem?.package?.name}`);
-              return true;
+              const version = pkgItem?.package?.version;
+              const valid = pkgUtils.isValidVersion(version);
+              if (!valid) debug('ignoring invalid uplink search version %o', version);
+              return valid;
             })
             .forEach((pkgItem) => {
-              // @ts-ignore
               return results.push({
                 ...pkgItem,
                 verdaccioPkgCached: false,
