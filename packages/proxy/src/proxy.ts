@@ -547,7 +547,7 @@ class ProxyStorage implements IProxy {
           : errorUtils.getServiceUnavailable('uplink search failed');
       }
       debug('search error %s', err);
-      if (err.response.statusCode === 409) {
+      if (err?.response?.statusCode === 409) {
         throw errorUtils.getInternalError(`bad status code ${err.response.statusCode} from uplink`);
       }
       this.logger.error(
