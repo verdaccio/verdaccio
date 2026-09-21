@@ -88,6 +88,7 @@ describe('search pagination lifecycle', () => {
     vi.setSystemTime('2026-09-21T10:20:30.123Z');
     const entry = { package: { name: 'foo', version: '1.0.0', date: '2020-01-01T00:00:00Z' } };
     const storage = {
+      /** Yields one candidate while the test controls when its access check completes. */
       async *searchPages() {
         yield [entry];
       },

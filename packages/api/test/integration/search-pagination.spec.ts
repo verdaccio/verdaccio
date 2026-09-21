@@ -12,6 +12,8 @@ import {
 
 const domain = 'https://registry.npmjs.org';
 const responseTime = '2026-09-21T10:20:30.000Z';
+
+/** Creates an uplink search result with an optional package publication date. */
 const item = (name: string, version = '1.0.0', date?: string) => ({
   package: { name, version, ...(date ? { date } : {}) },
 });
