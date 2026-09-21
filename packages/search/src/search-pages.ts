@@ -1,6 +1,4 @@
-import semver from 'semver';
-
-import { errorUtils } from '@verdaccio/core';
+import { errorUtils, pkgUtils } from '@verdaccio/core';
 import type { searchUtils } from '@verdaccio/core';
 import type { ProxyInstanceList, ProxySearchParams } from '@verdaccio/proxy';
 
@@ -77,8 +75,7 @@ export async function* searchPages(
       for (const item of page) {
         if (
           typeof item?.package?.name !== 'string' ||
-          typeof item.package.version !== 'string' ||
-          !semver.parse(item.package.version, { loose: true })
+          !pkgUtils.isValidVersion(item.package.version)
         ) {
           throw errorUtils.getServiceUnavailable('invalid uplink search package');
         }

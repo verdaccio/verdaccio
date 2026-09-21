@@ -4,7 +4,7 @@ import type { SemVer } from 'semver';
 import semver from 'semver';
 
 import type { searchUtils } from '@verdaccio/core';
-import { DIST_TAGS } from '@verdaccio/core';
+import { DIST_TAGS, pkgUtils } from '@verdaccio/core';
 import type { Manifest, StringValue, Version, Versions } from '@verdaccio/types';
 
 const debug = buildDebug('verdaccio:storage:utils');
@@ -108,7 +108,7 @@ export function removeLowerVersions(objects: searchUtils.SearchPackageItem[]) {
   const versionMap = new Map();
   const validObjects = objects.filter((item) => {
     const version = item?.package?.version;
-    const valid = typeof version === 'string' && semver.parse(version, { loose: true }) !== null;
+    const valid = pkgUtils.isValidVersion(version);
     if (!valid) debug('ignoring invalid search version %o', version);
     return valid;
   });

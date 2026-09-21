@@ -7,19 +7,23 @@ import type { Manifest } from '@verdaccio/types';
 import { DIST_TAGS } from './constants';
 
 /**
+ * Whether `version` is a string that semver parses in loose mode, the format npm
+ * has historically accepted. Loose admits non-canonical spellings such as `v1.2.3`,
+ * `=1.2.3`, `01.2.3`, `1.2.3beta` or trailing whitespace, and callers keep the
+ * original string: nothing is normalised. Spellings that parse to the same version
+ * compare equal under `semver.compareLoose`, and so does build metadata
+ * (`1.2.3+build.1` equals `1.2.3`), so compare with it and never by string equality.
+ */
+export function isValidVersion(version: unknown): version is string {
+  return typeof version === 'string' && semver.parse(version, { loose: true }) !== null;
+}
+
+/**
  * Function filters out bad semver versions and sorts the array.
  * @return {Array} sorted Array
  */
 export function semverSort(listVersions: string[]): string[] {
-  return listVersions
-    .filter(function (x): boolean {
-      if (!semver.parse(x, true)) {
-        return false;
-      }
-      return true;
-    })
-    .sort(semver.compareLoose)
-    .map(String);
+  return listVersions.filter(isValidVersion).sort(semver.compareLoose).map(String);
 }
 
 /**

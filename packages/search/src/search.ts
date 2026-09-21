@@ -1,7 +1,7 @@
-import semver from 'semver';
 import buildDebug from 'debug';
 import { PassThrough } from 'node:stream';
 
+import { pkgUtils } from '@verdaccio/core';
 import type { searchUtils } from '@verdaccio/core';
 import type { IProxy, ProxyInstanceList, ProxySearchParams } from '@verdaccio/proxy';
 import { setupUpLinks } from '@verdaccio/proxy';
@@ -64,8 +64,7 @@ class Search {
             .filter((pkgItem) => {
               debug(`streaming remote pkg name ${pkgItem?.package?.name}`);
               const version = pkgItem?.package?.version;
-              const valid =
-                typeof version === 'string' && semver.parse(version, { loose: true }) !== null;
+              const valid = pkgUtils.isValidVersion(version);
               if (!valid) debug('ignoring invalid uplink search version %o', version);
               return valid;
             })
