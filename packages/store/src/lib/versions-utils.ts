@@ -88,15 +88,13 @@ export function tagVersionNext(manifest: Manifest, version: string, tag: StringV
 }
 
 /**
- *  Check if the version is newer than the older version.
- * @param newVersion
- * @param oldVersion
- * @returns
+ * Whether `newVersion` is strictly newer than `oldVersion` under loose semver.
+ * Equal versions in any spelling (`1.2.3`, `v1.2.3`, `01.2.3`, `1.2.3+build`) are
+ * not newer, so search merges keep the entry they saw first, which is the local one.
+ * Both arguments must already pass `pkgUtils.isValidVersion`.
  */
-export function isNewerVersion(newVersion: string, oldVersion: string) {
-  const comparisonResult = semver.compareLoose(newVersion, oldVersion);
-
-  return comparisonResult === 1 || comparisonResult === 0;
+export function isNewerVersion(newVersion: string, oldVersion: string): boolean {
+  return semver.compareLoose(newVersion, oldVersion) === 1;
 }
 
 /**

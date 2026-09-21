@@ -274,12 +274,9 @@ class Storage {
           continue;
         }
         const previous = merged.get(item.package.name);
-        if (
-          !previous ||
-          (item.package.version !== previous.package.version &&
-            isNewerVersion(item.package.version, previous.package.version))
-        ) {
-          // Replacing metadata must not move a package to a later page.
+        // Only a strictly newer version replaces an entry, so an equal version from an
+        // uplink never drops the local metadata; replacing must not move a package to a later page.
+        if (!previous || isNewerVersion(item.package.version, previous.package.version)) {
           merged.set(item.package.name, item);
         }
       }

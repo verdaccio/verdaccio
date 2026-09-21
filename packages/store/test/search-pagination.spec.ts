@@ -25,6 +25,16 @@ const options = () => ({
 });
 
 describe('stable combined search prefixes', () => {
+  test.each(['v1.2.3', '01.2.3', '1.2.3+build.2'])(
+    'keeps local metadata when an uplink reports the equivalent version %s',
+    async (remote) => {
+      const storage = setup([item('a', '1.2.3', 'local')], [[item('a', remote, 'remote')]]);
+      const pages = [];
+      for await (const page of storage.searchPages(options())) pages.push(page);
+      expect(pages.at(-1)).toEqual([item('a', '1.2.3', 'local')]);
+    }
+  );
+
   test('keeps local metadata on equal versions and updates newer versions without moving names', async () => {
     const storage = setup(
       [item('a', '1.0.0', 'local'), item('b')],
