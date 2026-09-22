@@ -50,6 +50,25 @@ describe('unpaginated search errors used by the web API', () => {
     }
   );
 
+  test('preserves and logs a connection failure without an abort controller', async () => {
+    const code = 'ECONNRESET';
+    const message = 'uplink connection reset';
+    const upstream = nock(domain).get(url).replyWithError({ code, message });
+    const { proxy, log } = prepareSearch();
+
+    // @ts-expect-error JavaScript callers can omit the abort controller.
+    await expect(proxy.search({ url, retry: { limit: 0 } })).rejects.toMatchObject({
+      name: 'RequestError',
+      code,
+      message,
+    });
+    expect(log).toHaveBeenCalledExactlyOnceWith(
+      { name: 'uplink', errorMessage: message },
+      logMessage
+    );
+    expect(upstream.isDone()).toBe(true);
+  });
+
   test('preserves and logs a timeout without a response', async () => {
     const upstream = nock(domain).get(url).delayConnection(1_000).reply(200, { objects: [] });
     const { proxy, search, log } = prepareSearch();
@@ -74,34 +93,36 @@ describe('unpaginated search errors used by the web API', () => {
     );
   });
 
-  test('preserves cancellation of an in-flight request', async () => {
-    const { search, abort, log } = prepareSearch();
-    const upstream = nock(domain)
-      .get(url)
-      .delay(1_000)
-      .reply(200, { objects: [] })
-      .on('request', () => abort.abort());
+  test.each(['default', 'custom'])(
+    'preserves in-flight cancellation with a %s reason without logging a failure',
+    async (reasonType) => {
+      const { search, abort, log } = prepareSearch();
+      const reason = reasonType === 'custom' ? new Error('search client disconnected') : undefined;
+      const upstream = nock(domain)
+        .get(url)
+        .delay(1_000)
+        .reply(200, { objects: [] })
+        .on('request', () => abort.abort(reason));
 
-    await expect(search()).rejects.toMatchObject({ name: 'AbortError', code: 'ERR_ABORTED' });
-    expect(log).toHaveBeenCalledExactlyOnceWith(
-      { name: 'uplink', errorMessage: expect.any(String) },
-      logMessage
-    );
-    expect(upstream.isDone()).toBe(true);
-  });
+      await expect(search()).rejects.toMatchObject({ name: 'AbortError', code: 'ERR_ABORTED' });
+      expect(log).not.toHaveBeenCalled();
+      expect(upstream.isDone()).toBe(true);
+    }
+  );
 
-  test('preserves cancellation before starting the request', async () => {
-    const upstream = nock(domain).get(url).reply(200, { objects: [] });
-    const { search, abort, log } = prepareSearch();
-    abort.abort();
+  test.each(['default', 'custom'])(
+    'preserves cancellation before starting with a %s reason without logging a failure',
+    async (reasonType) => {
+      const upstream = nock(domain).get(url).reply(200, { objects: [] });
+      const { search, abort, log } = prepareSearch();
+      const reason = reasonType === 'custom' ? new Error('search client disconnected') : undefined;
+      abort.abort(reason);
 
-    await expect(search()).rejects.toMatchObject({ name: 'AbortError', code: 'ERR_ABORTED' });
-    expect(log).toHaveBeenCalledExactlyOnceWith(
-      { name: 'uplink', errorMessage: expect.any(String) },
-      logMessage
-    );
-    expect(upstream.isDone()).toBe(false);
-  });
+      await expect(search()).rejects.toMatchObject({ name: 'AbortError', code: 'ERR_ABORTED' });
+      expect(log).not.toHaveBeenCalled();
+      expect(upstream.isDone()).toBe(false);
+    }
+  );
 
   test('returns results when the same uplink recovers after a connection failure', async () => {
     const objects = [{ package: { name: 'verdaccio', version: '1.0.0' } }];
