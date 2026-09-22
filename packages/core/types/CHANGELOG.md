@@ -1,5 +1,11 @@
 # Change Log
 
+## 14.0.0-next-9.15
+
+### Patch Changes
+
+- a45b832: Allow the standard `cors` middleware options to be configured under `server.cors`.
+
 ## 14.0.0-next-9.14
 
 ### Minor Changes

@@ -1,5 +1,22 @@
 # @verdaccio/plugin-verifier
 
+## 1.0.0-next-9.28
+
+### Patch Changes
+
+- f3f8976: chore: replace \_\_dirname with import.meta.dirname
+- 46f4ff5: chore(tools): set rolldown platform for plugin-verifier
+- Updated dependencies [107c4d3]
+- Updated dependencies [3724054]
+- Updated dependencies [59f1350]
+- Updated dependencies [f3f8976]
+- Updated dependencies [89a7362]
+- Updated dependencies [3724054]
+- Updated dependencies [107c4d3]
+  - @verdaccio/logger@9.0.0-next-9.32
+  - @verdaccio/loaders@9.0.0-next-9.32
+  - @verdaccio/core@9.0.0-next-9.32
+
 ## 1.0.0-next-9.27
 
 ### Patch Changes

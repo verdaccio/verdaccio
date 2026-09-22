@@ -1,5 +1,27 @@
 # @verdaccio/logger
 
+## 9.0.0-next-9.32
+
+### Patch Changes
+
+- 107c4d3: Avoid creating an unused stdout destination when pretty logging uses its own transport.
+- f3f8976: chore: replace \_\_dirname with import.meta.dirname
+- 89a7362: Prevent file logging failures from unexpectedly terminating the registry.
+  
+  In the 9.x asynchronous file logging path, an unsuccessful initial open could leave a
+  destination registered for process exit and cause `sonic boom is not ready yet`. Setup
+  now reports the original error and removes only the destination that failed to open;
+  healthy destinations continue to flush when the process exits.
+  
+  After a file opens successfully, write and reopen errors are reported as structured
+  JSON errors on standard error. Error handling remains active for repeated failures,
+  including synchronous reopen failures during log rotation. Logging can resume after
+  the destination becomes writable again, and configured redaction also applies to the
+  error reports. No configuration change is required.
+- 107c4d3: Honor the configured `sync` option for JSON logs written to stdout or files, including in production. Keep asynchronous writes as the default.
+- Updated dependencies [59f1350]
+  - @verdaccio/core@9.0.0-next-9.32
+
 ## 9.0.0-next-9.31
 
 ### Patch Changes
