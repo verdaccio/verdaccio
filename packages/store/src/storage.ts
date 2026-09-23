@@ -20,6 +20,7 @@ import {
   USERS,
   cryptoUtils,
   errorUtils,
+  pkgUtils,
   tarballUtils,
   validationUtils,
 } from '@verdaccio/core';
@@ -282,13 +283,17 @@ class Storage {
         throw errorUtils.getServiceUnavailable('search pagination budget exhausted');
       }
       for (const item of items) {
+        if (!pkgUtils.isValidVersion(item?.package?.version)) {
+          this.logger.warn(
+            { name: item?.package?.name, version: item?.package?.version },
+            'ignoring invalid search version for @{name}: @{version}'
+          );
+          continue;
+        }
         const previous = merged.get(item.package.name);
-        if (
-          !previous ||
-          (item.package.version !== previous.package.version &&
-            isNewerVersion(item.package.version, previous.package.version))
-        ) {
-          // Replacing metadata must not move a package to a later page.
+        // Only a strictly newer version replaces an entry, so an equal version from an
+        // uplink never drops the local metadata; replacing must not move a package to a later page.
+        if (!previous || isNewerVersion(item.package.version, previous.package.version)) {
           merged.set(item.package.name, item);
         }
       }

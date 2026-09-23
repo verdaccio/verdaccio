@@ -10,7 +10,7 @@ import type { LoggerFormat } from '@verdaccio/types';
 describe.each(['development', 'production'])('file destination in %s', (environment) => {
   let directory: string;
   let destinations: ReturnType<typeof pino.destination>[];
-  let originalListeners: ReturnType<typeof process.listeners>;
+  let originalListeners: NodeJS.SignalsListener[];
 
   beforeEach(() => {
     directory = mkdtempSync(join(tmpdir(), 'logger-sync-'));
@@ -28,7 +28,7 @@ describe.each(['development', 'production'])('file destination in %s', (environm
 
   afterEach(async () => {
     for (const destination of destinations) {
-      if (destination.destroyed) continue;
+      if ('destroyed' in destination && destination.destroyed) continue;
       const closed = once(destination, 'close');
       destination.end();
       await closed;
@@ -55,7 +55,7 @@ describe.each(['development', 'production'])('file destination in %s', (environm
       );
 
       expect(destinations).toHaveLength(1);
-      expect(destinations[0].sync).toBe(sync ?? false);
+      expect(destinations[0]).toHaveProperty('sync', sync ?? false);
       logger.info('first message');
       logger.info('second message');
       // Sync must make even short messages readable before yielding or flushing.

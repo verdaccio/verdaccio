@@ -55,7 +55,7 @@ describe('proxy', () => {
 
     test('get response from endpoint', async () => {
       const response = require('./partials/search-v1.json');
-      nock(domain)
+      const upstream = nock(domain)
         .get('/-/v1/search?maintenance=1&popularity=1&quality=1&size=10&text=verdaccio')
         .reply(200, response);
       const prox1 = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
@@ -66,12 +66,13 @@ describe('proxy', () => {
       });
 
       const searchResponse = await getStream(stream.pipe(streamUtils.transformObjectToString()));
-      expect(searchResponse).toEqual(searchResponse);
+      expect(JSON.parse(searchResponse)).toEqual(response.objects);
+      expect(upstream.isDone()).toBe(true);
     });
 
     test('get response from uplink with trailing slash', async () => {
       const response = require('./partials/search-v1.json');
-      nock(domain + '/')
+      const upstream = nock(domain + '/')
         .get('/-/v1/search?maintenance=1&popularity=1&quality=1&size=10&text=verdaccio')
         .reply(200, response);
       const prox1 = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
@@ -82,7 +83,8 @@ describe('proxy', () => {
       });
 
       const searchResponse = await getStream(stream.pipe(streamUtils.transformObjectToString()));
-      expect(searchResponse).toEqual(searchResponse);
+      expect(JSON.parse(searchResponse)).toEqual(response.objects);
+      expect(upstream.isDone()).toBe(true);
     });
 
     test('handle bad response 409', async () => {

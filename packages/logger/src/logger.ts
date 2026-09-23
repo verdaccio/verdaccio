@@ -1,5 +1,6 @@
 // <reference types="node" />
 import buildDebug from 'debug';
+import { unregister as onExitUnregister } from 'on-exit-leak-free';
 import type { LoggerOptions } from 'pino';
 
 import type { Logger, LoggerConfigItem, LoggerFormat } from '@verdaccio/types';
@@ -117,12 +118,73 @@ export async function prepareSetup(
       sync: loggerConfig.sync ?? false,
       minLength: 0,
     });
+    let errorLogger: Logger | undefined;
+    let reopening = false;
+    let reopenListeners: (() => void)[] = [];
+    const onReopenReady = () => {
+      reopening = false;
+      reopenListeners = [];
+    };
+    const reportedErrors = new WeakSet<Error>();
+    const onRuntimeError = (error: Error) => {
+      // Pino re-emits errors; synchronous reopen failures also throw the same error.
+      if (reportedErrors.has(error)) return;
+      reportedErrors.add(error);
+      // Failed reopens otherwise leave callbacks that close the old fd again on recovery.
+      for (const listener of reopenListeners) destination.removeListener('ready', listener);
+      destination.removeListener('ready', onReopenReady);
+      reopening = false;
+      reopenListeners = [];
+      const reporter: Logger = (errorLogger ??= createLogger(
+        { level: 'error', redact: loggerConfig.redact },
+        pino.destination({ dest: 2, sync: true, minLength: 0 }),
+        'json',
+        pino
+      ));
+      reporter.error({ err: error, path: loggerConfig.path }, 'file log destination error');
+    };
     await new Promise<void>((resolve, reject) => {
-      destination.once('ready', resolve);
-      destination.once('error', reject);
+      const onReady = () => {
+        destination.removeListener('error', onError);
+        destination.on('error', onRuntimeError);
+        resolve();
+      };
+      const onError = (error: Error) => {
+        destination.removeListener('ready', onReady);
+        // A failed open leaves fd=-1, so Pino's exit flush would throw.
+        // SonicBoom.destroy() waits for ready here; unregister the failed stream directly.
+        onExitUnregister(destination);
+        reject(error);
+      };
+      destination.once('ready', onReady);
+      destination.once('error', onError);
     });
     debug('file destination ready: %s', loggerConfig.path);
-    process.on('SIGUSR2', () => destination.reopen());
+    const reopen = destination.reopen.bind(destination);
+    // SonicBoom can defer reopening until a pending write finishes.
+    destination.reopen = (file?: string) => {
+      if (!reopening) {
+        reopening = true;
+        destination.once('ready', onReopenReady);
+      }
+      const previousListeners = new Set(destination.rawListeners('ready'));
+      let reopenError: Error | undefined;
+      try {
+        reopen(file);
+      } catch (error) {
+        reopenError = error as Error;
+      } finally {
+        reopenListeners.push(
+          ...destination
+            .rawListeners('ready')
+            .filter((listener) => !previousListeners.has(listener))
+        );
+      }
+      if (reopenError) onRuntimeError(reopenError);
+    };
+    process.on('SIGUSR2', () => {
+      if (!reopening) destination.reopen();
+    });
     return createLogger(loggerConfig, destination, loggerConfig.format, pino);
   }
   debug('logging stdout enabled');

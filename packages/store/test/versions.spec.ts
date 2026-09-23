@@ -3,6 +3,7 @@ import { describe, expect, test } from 'vitest';
 
 import {
   getVersion,
+  isNewerVersion,
   removeLowerVersions,
   sortVersionsAndFilterInvalid,
   tagVersion,
@@ -118,7 +119,58 @@ describe('versions-utils', () => {
     });
   });
 
+  describe('isNewerVersion', () => {
+    test.each([
+      ['2.0.0', '1.0.0', true],
+      ['1.0.0', '2.0.0', false],
+      ['1.2.3', '1.2.3-beta.1', true],
+      ['1.2.3-beta.1', '1.2.3', false],
+      ['1.2.3-beta.2', '1.2.3-beta.1', true],
+      ['1.2.3', '1.2.3', false],
+      ['v1.2.3', '1.2.3', false],
+      ['01.2.3', '1.2.3', false],
+      ['1.2.3beta', '1.2.3-beta', false],
+      ['1.2.3+build.2', '1.2.3', false],
+    ])('isNewerVersion(%s, %s) is %s', (newVersion, oldVersion, expected) => {
+      expect(isNewerVersion(newVersion, oldVersion)).toBe(expected);
+    });
+  });
+
   describe('removeLowerVersions', () => {
+    test.each(['v1.0.0', '01.0.0', '1.0.0+build.2'])(
+      'keeps the first entry when a later one has the equivalent version %s',
+      (later) => {
+        const input = [
+          { package: { name: 'a', version: '1.0.0', description: 'first' } },
+          { package: { name: 'a', version: later, description: 'later' } },
+        ] as Parameters<typeof removeLowerVersions>[0];
+        expect(removeLowerVersions(input)).toEqual([input[0]]);
+      }
+    );
+
+    test.each([false, true])('filters invalid versions in either order (reverse=%s)', (reverse) => {
+      const input = [
+        { package: { name: 'a', version: 'latest' } },
+        { package: { name: 'a', version: '1.0.0' } },
+        { package: { name: 'invalid-only', version: '^1.0.0' } },
+      ] as Parameters<typeof removeLowerVersions>[0];
+      expect(removeLowerVersions(reverse ? input.reverse() : input)).toEqual([
+        { package: { name: 'a', version: '1.0.0' } },
+      ]);
+    });
+
+    test.each([false, true])(
+      'compares legacy formats and keeps original spelling (reverse=%s)',
+      (reverse) => {
+        const input = ['1.0.0', '01.2.3', '1.2.3beta'].map((version) => ({
+          package: { name: 'a', version },
+        })) as Parameters<typeof removeLowerVersions>[0];
+        expect(removeLowerVersions(reverse ? input.reverse() : input)).toEqual([
+          { package: { name: 'a', version: '01.2.3' } },
+        ]);
+      }
+    );
+
     test('should remove lower semantic versions', () => {
       const inputArray = [
         { package: { name: 'object1', version: '1.0.0' } },

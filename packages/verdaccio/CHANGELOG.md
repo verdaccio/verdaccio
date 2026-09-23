@@ -1,5 +1,23 @@
 # verdaccio
 
+## 9.0.0-next-9.32
+
+### Patch Changes
+
+- a45b832: Allow the standard `cors` middleware options to be configured under `server.cors`.
+- Updated dependencies [34cd0fb]
+- Updated dependencies [f3f8976]
+- Updated dependencies [6ce6075]
+- Updated dependencies [a45b832]
+- Updated dependencies [1ed4074]
+  - @verdaccio/cli@9.0.0-next-9.32
+  - @verdaccio/node-api@9.0.0-next-9.32
+  - @verdaccio/server@9.0.0-next-9.32
+  - @verdaccio/ui-theme@9.0.0-next-9.32
+  - @verdaccio/package-filter@14.0.0-next-9.56
+  - verdaccio-audit@14.0.0-next-9.32
+  - verdaccio-htpasswd@14.0.0-next-9.32
+
 ## 9.0.0-next-9.31
 
 ### Patch Changes

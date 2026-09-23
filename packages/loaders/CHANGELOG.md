@@ -1,5 +1,15 @@
 # @verdaccio/loaders
 
+## 9.0.0-next-9.32
+
+### Patch Changes
+
+- 3724054: chore(loader): remove console log
+- f3f8976: chore: replace \_\_dirname with import.meta.dirname
+- 3724054: chore(loader): improve test coverage
+- Updated dependencies [59f1350]
+  - @verdaccio/core@9.0.0-next-9.32
+
 ## 9.0.0-next-9.31
 
 ### Patch Changes
