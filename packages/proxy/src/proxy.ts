@@ -547,13 +547,15 @@ class ProxyStorage implements IProxy {
           : errorUtils.getServiceUnavailable('uplink search failed');
       }
       debug('search error %s', err);
-      if (err?.response?.statusCode === 409) {
+      if (err?.response?.statusCode === HTTP_STATUS.CONFLICT) {
         throw errorUtils.getInternalError(`bad status code ${err.response.statusCode} from uplink`);
       }
-      this.logger.error(
-        { errorMessage: err?.message, name: this.uplinkName },
-        'proxy uplink @{name} search error: @{errorMessage}'
-      );
+      if (!abort?.signal.aborted) {
+        this.logger.error(
+          { errorMessage: err?.message, name: this.uplinkName },
+          'proxy uplink @{name} search error: @{errorMessage}'
+        );
+      }
       throw err;
     }
   }
