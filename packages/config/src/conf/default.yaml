@@ -127,6 +127,10 @@ server:
   # Hide static file requests (/-/static/*) from pino logs.
   # They remain visible via DEBUG=verdaccio:middleware:log.
   # hideStaticLogs: true
+  # Hide successful /-/ping requests from pino logs (health-check noise).
+  # Failed pings (status >= 400) are still logged.
+  # They remain visible via DEBUG=verdaccio:middleware:log.
+  # hidePingLogs: true
   # The pluginPrefix replaces the default plugins prefix which is `verdaccio`. Please don't include `-`. If `something` is provided
   # the resolved package will be `something-xxxx`.
   # pluginPrefix: something
