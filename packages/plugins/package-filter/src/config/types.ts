@@ -34,7 +34,7 @@ export interface ParsedConfigRule {
   strategy?: BlockStrategy;
 }
 
-export type PackageScopeLevel = 'scope' | 'package' | undefined;
+export type PackageScopeLevel = 'scope' | 'package';
 export type ParsedRule = ParsedConfigRule | PackageScopeLevel;
 
 export interface ParsedConfig {

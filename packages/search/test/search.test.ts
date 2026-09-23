@@ -19,6 +19,23 @@ const domain = 'https://registry.npmjs.org';
 
 describe('search', () => {
   const response = require('./partials/search.json');
+  test.each([false, true])(
+    'does not let an invalid remote entry hide a valid duplicate (reverse=%s)',
+    async (reverse) => {
+      const objects = [
+        { package: { name: 'foo', version: 'latest' } },
+        { package: { name: 'foo', version: '01.2.3' } },
+        { package: { name: 'invalid-only', version: '^1.0.0' } },
+      ];
+      nock(domain)
+        .get('/-/v1/search')
+        .reply(200, { objects: reverse ? objects.reverse() : objects });
+      const search = new Search(new Config(getDefaultConfig()), logger);
+      const results = await search.search({ url: '/-/v1/search', abort: new AbortController() });
+      expect(results.map((entry) => entry.package)).toEqual([{ name: 'foo', version: '01.2.3' }]);
+    }
+  );
+
   test('search', async () => {
     nock(domain).get('/-/v1/search').reply(200, response);
     const abort = new AbortController();

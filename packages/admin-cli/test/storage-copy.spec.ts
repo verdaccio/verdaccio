@@ -1,19 +1,19 @@
+import fs from 'node:fs/promises';
+import os from 'node:os';
+import path from 'node:path';
+
 import { describe, expect, test } from 'vitest';
 
 import { destPathFor } from '../src/commands/storage/storage-copy';
 
 describe('destPathFor', () => {
   test('unscoped package', () => {
-    expect(destPathFor('/dest', 'lodash')).toBe('/dest/lodash');
+    expect(destPathFor('/dest', 'lodash')).toBe(path.join('/dest', 'lodash'));
   });
   test('scoped package keeps the @scope segment', () => {
-    expect(destPathFor('/dest', '@babel/core')).toBe('/dest/@babel/core');
+    expect(destPathFor('/dest', '@babel/core')).toBe(path.join('/dest', '@babel', 'core'));
   });
 });
-
-import fs from 'node:fs/promises';
-import os from 'node:os';
-import path from 'node:path';
 
 import { listPackagesOnDisk } from '../src/commands/storage/storage-copy';
 
@@ -143,13 +143,13 @@ describe('isDefaultLocalStorage', () => {
 describe('resolveStorageRoot', () => {
   test('absolute storage is returned as-is', () => {
     expect(resolveStorageRoot({ storage: '/data/storage', configPath: '/etc/config.yaml' })).toBe(
-      '/data/storage'
+      path.resolve('/data/storage')
     );
   });
   test('relative storage resolves against the config directory', () => {
     expect(
       resolveStorageRoot({ storage: './storage', configPath: '/etc/verdaccio/config.yaml' })
-    ).toBe('/etc/verdaccio/storage');
+    ).toBe(path.resolve('/etc/verdaccio', './storage'));
   });
   test('null when storage is missing', () => {
     expect(resolveStorageRoot({ configPath: '/etc/config.yaml' })).toBe(null);

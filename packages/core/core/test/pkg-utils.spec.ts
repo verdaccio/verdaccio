@@ -35,6 +35,20 @@ describe('pkg-utils', () => {
     ]);
   });
 
+  test.each(['1.2.3', '01.2.3', 'v1.2.3', '=1.2.3', '1.2.3beta', '1.2.3-beta.1', '1.2.3+build.1'])(
+    'isValidVersion accepts %s',
+    (version) => {
+      expect(pkgUtils.isValidVersion(version)).toBe(true);
+    }
+  );
+
+  test.each(['latest', '^1.2.3', '1.2', '1.2.3.4', '', 'garbage', undefined, null, 1])(
+    'isValidVersion rejects %s',
+    (version) => {
+      expect(pkgUtils.isValidVersion(version)).toBe(false);
+    }
+  );
+
   test('semverSanitize', () => {
     expect(pkgUtils.semverSanitize('1.0.0')).toBe('1.0.0');
     expect(pkgUtils.semverSanitize('1.0.0-beta.1')).toBe('1.0.0-beta.1');

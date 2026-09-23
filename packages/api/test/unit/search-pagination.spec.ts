@@ -78,8 +78,42 @@ describe('search pagination lifecycle', () => {
     expect(h.next).toHaveBeenCalledWith(
       expect.objectContaining({ statusCode: 503, message: 'search pagination timed out' })
     );
+    expect(h.res.json).not.toHaveBeenCalled();
     expect(rounds).toBe(1);
     expect(vi.getTimerCount()).toBe(timers);
+  });
+
+  test('timestamps the response after asynchronous access checks finish', async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime('2026-09-21T10:20:30.123Z');
+    const entry = { package: { name: 'foo', version: '1.0.0', date: '2020-01-01T00:00:00Z' } };
+    const storage = {
+      /** Yields one candidate while the test controls when its access check completes. */
+      async *searchPages() {
+        yield [entry];
+      },
+    };
+    let finishAccess: () => void;
+    let started: () => void;
+    const accessStarted = new Promise<void>((resolve) => {
+      started = resolve;
+    });
+    const h = harness(storage, (_pkg, _user, callback) => {
+      finishAccess = () => callback(null, true);
+      started!();
+    });
+    const running = h.run();
+    await accessStarted;
+    expect(h.res.json).not.toHaveBeenCalled();
+    vi.setSystemTime('2026-09-21T10:20:31.456Z');
+    finishAccess!();
+    await running;
+    expect(h.res.json).toHaveBeenCalledExactlyOnceWith({
+      objects: [entry],
+      total: 1,
+      time: '2026-09-21T10:20:31.456Z',
+    });
+    expect(h.next).not.toHaveBeenCalled();
   });
 
   test('normal completion removes timers and listeners', async () => {

@@ -40,6 +40,7 @@ export default defineConfig({
       entry: [path.resolve(dirname, 'src/index.ts'), path.resolve(dirname, 'src/cli.ts')],
     },
     rolldownOptions: {
+      platform: 'node',
       external: isExternal,
       output: [
         {

@@ -1,5 +1,50 @@
 # @verdaccio/api
 
+## 9.0.0-next-9.32
+
+### Patch Changes
+
+- 6e49543: Return the Search v1 response `time` as an ISO 8601 UTC timestamp with millisecond precision, such as `2026-09-21T10:20:30.123Z`, instead of a textual GMT date.
+  
+  The timestamp represents when Verdaccio prepares the completed search response, including empty pages and results from local packages or uplinks. Package publication dates are unchanged.
+  
+  Clients that parse the previous textual GMT representation should accept the ISO 8601 `time` value.
+- b27212f: Fix the registry process crashing during concurrent tarball downloads.
+  
+  The tarball size was emitted through an async `fstat` racing the first data
+  chunk — two unordered parallel I/O completions. When the chunk won (roughly 1
+  in 2000 requests under concurrent load), the response headers were already
+  flushed and setting `Content-Length` threw an uncaught `ERR_HTTP_HEADERS_SENT`
+  that killed the whole process. Verdaccio 6.x was immune because its legacy
+  storage only started piping data from inside the `fstat` callback; the 9.x
+  streams refactor silently lost that ordering guarantee.
+  
+  Fixed on three layers: `local-storage` now emits the size synchronously on
+  `open` (restoring size-before-data ordering), the API skips the header once
+  headers are sent instead of throwing, and the unguarded `await pipeline(...)`
+  calls in the store's tarball read/write paths log a warning instead of taking
+  the process down through an unhandled rejection on mid-stream failures. A
+  failed upload no longer records the tarball in the manifest `_attachments`.
+- 73415bb: Fix Search v1 pagination by collecting bounded uplink pages from offset zero and applying the client offset once, after deduplication and access checks. Keep result ordering stable across uplink rounds, fetch additional candidates when needed, and cancel work on disconnect or after 30 seconds. Skip uplinks that fail before contributing any results so local and healthy-uplink searches remain available. Return 503 when an uplink fails after contributing a page, stops advancing, or the shared budget of 100 requests / 25,000 candidates is exhausted instead of returning an incomplete successful page.
+- Updated dependencies [107c4d3]
+- Updated dependencies [34cd0fb]
+- Updated dependencies [59f1350]
+- Updated dependencies [f3f8976]
+- Updated dependencies [89a7362]
+- Updated dependencies [3618123]
+- Updated dependencies [b27212f]
+- Updated dependencies [cbfcfd2]
+- Updated dependencies [a4e2da0]
+- Updated dependencies [73415bb]
+- Updated dependencies [107c4d3]
+  - @verdaccio/logger@9.0.0-next-9.32
+  - @verdaccio/config@9.0.0-next-9.32
+  - @verdaccio/core@9.0.0-next-9.32
+  - @verdaccio/store@9.0.0-next-9.32
+  - @verdaccio/auth@9.0.0-next-9.32
+  - @verdaccio/hooks@9.0.0-next-9.32
+  - @verdaccio/middleware@9.0.0-next-9.32
+
 ## 9.0.0-next-9.31
 
 ### Patch Changes

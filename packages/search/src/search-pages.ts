@@ -1,4 +1,4 @@
-import { errorUtils } from '@verdaccio/core';
+import { errorUtils, pkgUtils } from '@verdaccio/core';
 import type { searchUtils } from '@verdaccio/core';
 import type { ProxyInstanceList, ProxySearchParams } from '@verdaccio/proxy';
 
@@ -73,7 +73,10 @@ export async function* searchPages(
       }
       let progress = false;
       for (const item of page) {
-        if (typeof item?.package?.name !== 'string' || typeof item.package.version !== 'string') {
+        if (
+          typeof item?.package?.name !== 'string' ||
+          !pkgUtils.isValidVersion(item.package.version)
+        ) {
           throw errorUtils.getServiceUnavailable('invalid uplink search package');
         }
         const key = JSON.stringify([item.package.name, item.package.version]);

@@ -19,6 +19,29 @@ async function consume(pages) {
 }
 
 describe('bounded uplink pages', () => {
+  test.each(['latest', '^1.2.3', '1.2', '', 'garbage'])(
+    'rejects an invalid uplink version without needing a duplicate: %s',
+    async (version) => {
+      const request = async () => Readable.from([[{ package: { name: 'foo', version } }]]);
+      await expect(consume(searchPages(uplinks(request), options()))).rejects.toMatchObject({
+        status: 503,
+        message: 'invalid uplink search package',
+      });
+    }
+  );
+
+  test.each(['01.2.3', '1.2.3beta', 'v1.2.3', '1.2.3-beta.1', '1.2.3+build.1'])(
+    'preserves the original spelling of a supported version: %s',
+    async (version) => {
+      const request = vi
+        .fn()
+        .mockResolvedValueOnce(Readable.from([[{ package: { name: 'foo', version } }]]));
+      const pages = searchPages(uplinks(request), options());
+      expect((await pages.next()).value?.[0].package.version).toBe(version);
+      await pages.return(undefined);
+    }
+  );
+
   test('does not suppress cancellation while awaiting the first request', async () => {
     const opts = options();
     const request = vi.fn(async () => {

@@ -1,5 +1,17 @@
 # Change Log
 
+## 14.0.0-next-9.56
+
+### Minor Changes
+
+- 6ce6075: Add glob pattern support for package filter allow and block rules.
+
+### Patch Changes
+
+- 1ed4074: fix(package-filter): flaky test
+- Updated dependencies [59f1350]
+  - @verdaccio/core@9.0.0-next-9.32
+
 ## 14.0.0-next-9.55
 
 ### Patch Changes
