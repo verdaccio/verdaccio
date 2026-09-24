@@ -513,13 +513,16 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     debug('jwt middleware');
     const plugins = this.plugins.slice(0);
     const helpers = { createAnonymousRemoteUser, createRemoteUser };
+
+    const handlers: any[] = [];
+
     for (const plugin of plugins) {
       if (plugin.apiJWTmiddleware) {
-        return plugin.apiJWTmiddleware(helpers);
+        handlers.push(plugin.apiJWTmiddleware(helpers));
       }
     }
 
-    return (req: $RequestExtend, res: $ResponseExtend, _next: NextFunction) => {
+    handlers.push((req: $RequestExtend, res: $ResponseExtend, _next: NextFunction) => {
       req.pause();
       const next = function (err?: VerdaccioError): NextFunction {
         req.resume();
@@ -560,6 +563,34 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
         debug('api middleware using JWT auth token');
         this.handleJWTAPIMiddleware(req, security, secret, authorization, next);
       }
+    });
+
+    return (req: $RequestExtend, res: $ResponseExtend, _next: NextFunction) => {
+      const middleware = handlers.slice(0);
+      const next = (err?: VerdaccioError): void => {
+        if (err) {
+          if (isNil(req.remote_user)) {
+            const remoteUser = createAnonymousRemoteUser();
+            req.remote_user = remoteUser;
+            res.locals.remote_user = remoteUser;
+          }
+          req.remote_user.error = err.message;
+          return _next();
+        }
+
+        if (isNil(req.remote_user) === false) {
+          return _next();
+        }
+
+        const handler = middleware.shift();
+        if (typeof handler !== 'function') {
+          return _next();
+        }
+
+        return handler(req, res, next);
+      };
+
+      return next();
     };
   }
 
