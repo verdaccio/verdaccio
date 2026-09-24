@@ -22,7 +22,7 @@
   "devDependencies": {
     "@mui/material": "7.3.11",
     "@testing-library/dom": "10.4.2",
-    "@testing-library/jest-dom": "6.9.1",
+    "@testing-library/jest-dom": "7.0.1",
     "@testing-library/react": "16.3.3",
     "@verdaccio/ui-components": "workspace:5.0.0-next-9.22",
     "@verdaccio/ui-i18n": "workspace:10.0.0-next-9.5",
