@@ -1,5 +1,5 @@
-import { create, insert, remove, search } from '@orama/orama';
 import buildDebug from 'debug';
+import { create, insert, remove, search } from 'zbsearch';
 
 import type { Logger, Version } from '@verdaccio/types';
 
@@ -78,32 +78,37 @@ class SearchMemoryIndexer {
     }
   }
 
-  /**
-   * Force a re-index.
-   */
+  // Resolve after all packages supplied by storage have been indexed.
   public async reindex(): Promise<void> {
+    const storage = this.storage;
+    if (!storage) {
+      return;
+    }
     debug('reindexing search indexer');
-    this.storage?.getLocalDatabase(async (error, packages): Promise<void> => {
-      if (error) {
-        // that function shouldn't produce any
-        throw error;
-      }
-      let i = packages.length;
-      if (i === 0) {
-        debug('no packages to index');
-      }
-
-      while (i--) {
-        const pkg = packages[i];
-        debug('indexing package %s', pkg?.name);
-        try {
-          await this.add(pkg);
-        } catch (err: any) {
-          this.logger?.error({ err: err.message }, 'error @{err} indexing package');
+    const packages = await new Promise<Version[]>((resolve, reject) => {
+      storage.getLocalDatabase((error: Error | null, packages?: Version[]) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(packages ?? []);
         }
-      }
-      debug('reindexed search indexer');
+      });
     });
+    let i = packages.length;
+    if (i === 0) {
+      debug('no packages to index');
+    }
+
+    while (i--) {
+      const pkg = packages[i];
+      debug('indexing package %s', pkg?.name);
+      try {
+        await this.add(pkg);
+      } catch (err: any) {
+        this.logger?.error({ err: err.message }, 'error @{err} indexing package');
+      }
+    }
+    debug('reindexed search indexer');
   }
 
   public async init(logger: Logger) {
@@ -119,7 +124,7 @@ class SearchMemoryIndexer {
       },
     });
 
-    this.reindex();
+    await this.reindex();
   }
 }
 

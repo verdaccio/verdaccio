@@ -1299,13 +1299,16 @@ importers:
 
   packages/search-indexer:
     dependencies:
-      '@orama/orama':
-        specifier: 1.2.11
-        version: 1.2.11
       debug:
         specifier: 4.4.3
         version: 4.4.3(supports-color@5.5.0)
+      zbsearch:
+        specifier: 4.0.0
+        version: 4.0.0
     devDependencies:
+      '@verdaccio/test-helper':
+        specifier: workspace:5.0.0-next-9.33
+        version: link:../tools/helpers
       '@verdaccio/types':
         specifier: workspace:14.0.0-next-9.15
         version: link:../core/types
@@ -2584,10 +2587,6 @@ packages:
 
   '@open-draft/until@2.1.0':
     resolution: {integrity: sha512-U69T3ItWHvLwGg5eJ0n3I62nWuE6ilHlmz7zM0npLBRvPRd7e6NYmg54vvRtP5mZG7kZqZCFVdsTWo7BPtBujg==}
-
-  '@orama/orama@1.2.11':
-    resolution: {integrity: sha512-0yDcWgxOX0je18Z5dR64r4L3Jzm6bDNIpqM7qSu7H+9qhf6EsnlJbICrjt/oJ+WYnwiog4T0OXduVfLwAX+NVA==}
-    engines: {node: '>= 16.0.0'}
 
   '@oxc-project/types@0.146.0':
     resolution: {integrity: sha512-XC0QsnnhVe7sLIWmYmdPw7x5P0h4W8vUU3Nv1ySgWXtvCz8NizoAEpGXA0sOYoJQV2Rl13LgURAHQ5cI5ILCSA==}
@@ -6671,6 +6670,10 @@ packages:
   yup@1.7.1:
     resolution: {integrity: sha512-GKHFX2nXul2/4Dtfxhozv701jLQHdf6J34YDh2cEkpqoo8le5Mg6/LrdseVLrFarmFygZTlfIhHx/QKfb/QWXw==}
 
+  zbsearch@4.0.0:
+    resolution: {integrity: sha512-gm4zfO31n2ZdruTTRQoWVWO4Q2+zrDt2GlrvIc+5JulRQNAm4IanCxER82vQ7Ug96FYkGqWUJBXFe1kGAcDWaQ==}
+    engines: {node: '>= 20.0.0'}
+
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
 
@@ -7406,8 +7409,6 @@ snapshots:
       outvariant: 1.4.3
 
   '@open-draft/until@2.1.0': {}
-
-  '@orama/orama@1.2.11': {}
 
   '@oxc-project/types@0.146.0': {}
 
@@ -11648,5 +11649,7 @@ snapshots:
       tiny-case: 1.0.3
       toposort: 2.0.2
       type-fest: 2.19.0
+
+  zbsearch@4.0.0: {}
 
   zwitch@2.0.4: {}
