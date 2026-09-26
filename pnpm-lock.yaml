@@ -1582,8 +1582,8 @@ importers:
         specifier: 5.9.1
         version: 5.9.1(@standard-schema/spec@1.1.0)(ajv@8.20.0)(react-hook-form@7.88.0(react@19.3.0))(typanion@3.14.0)(yup@1.7.1)
       '@microlink/react-json-view':
-        specifier: 1.31.34
-        version: 1.31.34(@types/react@19.2.18)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+        specifier: 1.31.36
+        version: 1.31.36(@types/react@19.2.18)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@mui/icons-material':
         specifier: 7.3.11
         version: 7.3.11(@mui/material@7.3.11(@emotion/react@11.14.0(@types/react@19.2.18)(react@19.3.0)(supports-color@5.5.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.18)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.2.18)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.2.18)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(@types/react@19.2.18)(react@19.3.0)
@@ -1615,8 +1615,8 @@ importers:
         specifier: 25.10.10
         version: 25.10.10(typescript@7.0.2)
       js-base64:
-        specifier: 3.9.3
-        version: 3.9.3
+        specifier: 3.9.4
+        version: 3.9.4
       localstorage-memory:
         specifier: 1.0.3
         version: 1.0.3
@@ -2450,8 +2450,8 @@ packages:
       '@types/react': '>=16'
       react: '>=16'
 
-  '@microlink/react-json-view@1.31.34':
-    resolution: {integrity: sha512-GeOm9g/0Jng+F93/lxcSlB/i/7o1r0AeYn+CBIEafCnMV3Xc1Ie8lJBbkgK0JOFqjZ4qBcib7/hL9160prQwmA==}
+  '@microlink/react-json-view@1.31.36':
+    resolution: {integrity: sha512-UjuA1IF2fAPZTGEtQG2ME+MAjirsaGJadVqx12cqR9qa6zbVInMrb44zHYX2u86P98uQehrq8ByMyZETXGGcEA==}
     engines: {node: '>=17'}
     peerDependencies:
       react: '>= 15'
@@ -4775,8 +4775,8 @@ packages:
   jju@1.4.0:
     resolution: {integrity: sha512-8wb9Yw966OSxApiCt0K3yNJL8pnNeIv+OEq2YMidz4FKP6nonSRoOXc80iXY4JaN2FC11B9qsNmDsm+ZOfMROA==}
 
-  js-base64@3.9.3:
-    resolution: {integrity: sha512-uwYQp+VJ38FVvtim6qNbit6e9uT6dwWQ4Y1+H9TxhW5hcHjpHwoxlR0nMpqUmIFOmu4VqMxwdJA88gIVuZJQ/g==}
+  js-base64@3.9.4:
+    resolution: {integrity: sha512-PtOMXpEGuP0RRiRXsjzHzl44dMHxSu2CPvAhinupR1tBa88me+1DPqsobl7eupn5UukjLkln1ZnAOAOXOrYG0Q==}
 
   js-tokens@10.0.0:
     resolution: {integrity: sha512-lM/UBzQmfJRo9ABXbPWemivdCW8V2G8FHaHdypQaIy523snUjog0W71ayWXTjiR+ixeMyVHN2XcpnTd/liPg/Q==}
@@ -7284,7 +7284,7 @@ snapshots:
       '@types/react': 19.2.18
       react: 19.3.0
 
-  '@microlink/react-json-view@1.31.34(@types/react@19.2.18)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
+  '@microlink/react-json-view@1.31.36(@types/react@19.2.18)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
       react: 19.3.0
       react-base16-styling: 0.10.0
@@ -9573,7 +9573,7 @@ snapshots:
 
   jju@1.4.0: {}
 
-  js-base64@3.9.3: {}
+  js-base64@3.9.4: {}
 
   js-tokens@10.0.0: {}
 
