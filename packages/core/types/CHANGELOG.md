@@ -1,5 +1,11 @@
 # Change Log
 
+## 14.0.0-next-9.16
+
+### Patch Changes
+
+- 950fd9f: feat(middleware): add `server.hidePingLogs` to suppress successful `/-/ping` logs (defaults to true; failed pings are still logged)
+
 ## 14.0.0-next-9.15
 
 ### Patch Changes

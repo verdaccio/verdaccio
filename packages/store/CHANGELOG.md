@@ -1,5 +1,37 @@
 # @verdaccio/store
 
+## 9.0.0-next-9.33
+
+### Patch Changes
+
+- ed518e8: Stop revalidating uplink metadata on every request once `maxage` expires.
+  
+  A `304 Not Modified` from an uplink was handled as a failure, so the `fetched`
+  timestamp of the cached manifest was never refreshed. Once `maxage` expired the
+  cache never looked fresh again and every single request revalidated against the
+  uplink; with several uplinks configured, a 304 from one of them also caused
+  avoidable requests to the rest. Verdaccio now treats the 304 as what it is — the
+  uplink confirming the cached manifest is current — refreshes the timestamp,
+  keeps checking the remaining uplinks for newer data, and serves from cache until
+  `maxage` expires again.
+  
+  This affects the 9.x and 7.x lines since the uplink client was migrated to
+  `got`; 6.x already behaved this way. Clients that read the full packument
+  (rather than the abbreviated install metadata) will see a new ETag after each
+  refresh, because the cached manifest is written back with a new revision.
+- Updated dependencies [950fd9f]
+- Updated dependencies [b2e2a5a]
+- Updated dependencies [73c78e3]
+  - @verdaccio/config@9.0.0-next-9.33
+  - @verdaccio/proxy@9.0.0-next-9.33
+  - @verdaccio/logger@9.0.0-next-9.33
+  - @verdaccio/loaders@9.0.0-next-9.33
+  - @verdaccio/search@9.0.0-next-9.33
+  - @verdaccio/core@9.0.0-next-9.33
+  - @verdaccio/tarball@14.0.0-next-9.33
+  - @verdaccio/local-storage@14.0.0-next-9.33
+  - @verdaccio/url@14.0.0-next-9.33
+
 ## 9.0.0-next-9.32
 
 ### Patch Changes
