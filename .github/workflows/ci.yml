@@ -189,8 +189,66 @@ jobs:
         if: always()
         run: cat /tmp/verdaccio-e2e/verdaccio.log 2>/dev/null || echo "No log file found"
 
+  e2e-ui:
+    needs: [build]
+    if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && !failure() && !cancelled() }}
+    runs-on: ubuntu-latest
+    name: E2E UI
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+        with:
+          node-version-file: '.nvmrc'
+      - name: Enable corepack
+        run: corepack enable pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Restore build artifacts
+        uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        with:
+          path: build/
+          key: ci-build-${{ github.sha }}-node-24
+          fail-on-cache-miss: true
+      # The cypress binary is not in the pnpm store, so cache it separately and
+      # only download it when the cache misses. The version is pinned by the
+      # cypress entry in pnpm-lock.yaml.
+      - name: Cache Cypress binary
+        id: cypress-cache
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: Install Cypress binary
+        if: steps.cypress-cache.outputs.cache-hit != 'true'
+        run: pnpm exec cypress install
+      - name: Start Verdaccio
+        run: |
+          nohup pnpm e2e:ui:start > verdaccio.log 2>&1 &
+          for i in $(seq 1 30); do
+            curl -s http://localhost:4873/-/ping && break
+            sleep 1
+          done
+      - name: Create test user (for signin suite)
+        run: |
+          curl -s -X PUT -H "Content-Type: application/json" \
+            -d '{"name":"test","password":"test","_id":"org.couchdb.user:test","type":"user","roles":[]}' \
+            http://localhost:4873/-/user/org.couchdb.user:test
+      - name: Run Cypress
+        run: pnpm e2e:ui:run
+        env:
+          VERDACCIO_URL: http://localhost:4873
+      - name: Show Verdaccio logs
+        if: always()
+        run: cat verdaccio.log 2>/dev/null || echo "No log file found"
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+          if-no-files-found: ignore
+
   codeql:
-    needs: [test, e2e-cli]
+    needs: [test, e2e-cli, e2e-ui]
     if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && always() && !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     name: CodeQL Analysis
@@ -209,7 +267,7 @@ jobs:
         uses: github/codeql-action/analyze@51f77329afa6477de8c49fc9c7046c15b9a4e79d # v3.29.5
 
   cleanup:
-    needs: [test, e2e-cli, codeql]
+    needs: [test, e2e-cli, e2e-ui, codeql]
     if: always()
     runs-on: ubuntu-latest
     name: Cleanup caches
