@@ -9,7 +9,10 @@ import { setup } from '@verdaccio/logger';
 import type { Logger } from '@verdaccio/types';
 
 import AppConfig from '../../../../src/lib/config';
-import { isLegacyStoragePlugin } from '../../../../src/lib/legacy-storage-adapter';
+import {
+  isLegacyStoragePlugin,
+  wrapLegacyStoragePlugin,
+} from '../../../../src/lib/legacy-storage-adapter';
 
 // CJS/ESM interop for the plugin default export
 const LocalDatabaseNew = (LocalDatabaseNewModule as any).default || LocalDatabaseNewModule;
@@ -26,6 +29,29 @@ function buildConfig(storageDir: string): any {
 beforeAll(async () => {
   logger = await setup({ type: 'stdout', format: 'pretty', level: 'fatal' } as any);
 });
+
+/** A legacy plugin that emits the documented shape: the package itself. */
+function legacyPluginEmitting(names: string[], opts: { honourPredicate?: boolean } = {}): any {
+  return {
+    get: (cb: any) => cb(null, names),
+    add: (_name: string, cb: any) => cb(null),
+    getSecret: () => Promise.resolve('secret'),
+    setSecret: () => Promise.resolve(),
+    getPackageStorage: () => undefined,
+    search(onPackage: any, onEnd: any, validate: (name: string) => boolean) {
+      const emit = opts.honourPredicate ? names.filter((n) => validate(n)) : names;
+      let i = 0;
+      const next = (): void => {
+        if (i >= emit.length) {
+          onEnd();
+          return;
+        }
+        onPackage({ name: emit[i++], path: 'p', time: 0 }, next);
+      };
+      next();
+    },
+  };
+}
 
 describe('legacy storage adapter', () => {
   describe('isLegacyStoragePlugin (detection)', () => {
@@ -70,6 +96,47 @@ describe('legacy storage adapter', () => {
       } finally {
         fs.rmSync(storageDir, { recursive: true, force: true });
       }
+    });
+  });
+
+  describe('search', () => {
+    // Regression: the adapter dropped the query and passed `() => true`, so every
+    // package came back for any text. /-/v1/search returned the whole catalogue.
+    test('filters the collected results by the query text', async () => {
+      const plugin = legacyPluginEmitting(['alpha-one', 'alpha-two', 'beta-one']);
+      const wrapped = wrapLegacyStoragePlugin(plugin, logger);
+
+      const items = await wrapped.search({ text: 'alpha' });
+
+      expect(items.map((i: any) => i.package.name)).toEqual(['alpha-one', 'alpha-two']);
+    });
+
+    // Regression: the legacy contract emits the package itself, but the store reads
+    // `item.package.name`. Passing it through unwrapped made the endpoint fail.
+    test('wraps the legacy item shape into a search item', async () => {
+      const plugin = legacyPluginEmitting(['solo-pkg']);
+      const wrapped = wrapLegacyStoragePlugin(plugin, logger);
+
+      const [item] = await wrapped.search({ text: 'solo' });
+
+      expect(item.package.name).toBe('solo-pkg');
+      expect(item.score.final).toBeDefined();
+    });
+
+    test('lets a plugin skip names early through the predicate', async () => {
+      const plugin = legacyPluginEmitting(['alpha-one', 'beta-one'], { honourPredicate: true });
+      const wrapped = wrapLegacyStoragePlugin(plugin, logger);
+
+      const items = await wrapped.search({ text: 'beta' });
+
+      expect(items.map((i: any) => i.package.name)).toEqual(['beta-one']);
+    });
+
+    test('returns everything when there is no query text', async () => {
+      const plugin = legacyPluginEmitting(['alpha-one', 'beta-one']);
+      const wrapped = wrapLegacyStoragePlugin(plugin, logger);
+
+      expect(await wrapped.search({})).toHaveLength(2);
     });
   });
 });
