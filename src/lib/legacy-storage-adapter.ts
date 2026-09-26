@@ -207,14 +207,44 @@ function wrapLegacyHandler(handler: any): any {
   };
 }
 
-/** Collect a legacy streaming `search(onPackage, onEnd, validate)` into a list. */
-function search(plugin: any, _query: any): Promise<any[]> {
+/**
+ * The legacy contract emits the package itself, while `@verdaccio/store` reads
+ * `item.package.name` and `item.score`. Wrap whatever is not already in that shape,
+ * otherwise a plugin following the documented contract makes `/-/v1/search` fail.
+ */
+function toSearchItem(item: any): any {
+  if (item !== null && typeof item === 'object' && 'package' in item) {
+    return item;
+  }
+
+  return {
+    package: item,
+    score: { final: 1, detail: { quality: 1, popularity: 1, maintenance: 1 } },
+  };
+}
+
+/**
+ * Collect a legacy streaming `search(onPackage, onEnd, validate)` into a list.
+ *
+ * A legacy plugin has no way to receive the query, so the filtering happens here, on
+ * the emitted name. The predicate stays permissive on purpose: a plugin calls it with
+ * the basename (`pkg` for `@scope/pkg`), so any rejection there could drop a package
+ * whose full name does match.
+ */
+function search(plugin: any, query: any): Promise<any[]> {
+  const text = typeof query?.text === 'string' ? query.text.toLowerCase() : undefined;
+  const matches = (name: unknown): boolean =>
+    text === undefined || (typeof name === 'string' && name.toLowerCase().includes(text));
+
   return new Promise((resolve, reject) => {
     const items: any[] = [];
     try {
       plugin.search(
         (item: any, done: () => void) => {
-          items.push(item);
+          const searchItem = toSearchItem(item);
+          if (matches(searchItem?.package?.name)) {
+            items.push(searchItem);
+          }
           done();
         },
         (err: any) => (err ? reject(err) : resolve(items)),
