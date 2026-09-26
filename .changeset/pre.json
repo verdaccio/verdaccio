@@ -6,6 +6,7 @@
   },
   "changesets": [
     "adopt-verdaccio-server",
+    "legacy-adapter-search-query",
     "red-bees-mate",
     "refactor-eslint-oxlint",
     "update-verdaccio-dependencies-33313427064",
