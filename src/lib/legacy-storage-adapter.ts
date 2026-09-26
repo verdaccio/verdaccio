@@ -226,9 +226,10 @@ function toSearchItem(item: any): any {
 /**
  * Collect a legacy streaming `search(onPackage, onEnd, validate)` into a list.
  *
- * A legacy plugin has no way to receive the query, so the filtering has to happen
- * here: the predicate lets a plugin skip names early, and whatever it emits anyway
- * is filtered again before the list is returned.
+ * A legacy plugin has no way to receive the query, so the filtering happens here, on
+ * the emitted name. The predicate stays permissive on purpose: a plugin calls it with
+ * the basename (`pkg` for `@scope/pkg`), so any rejection there could drop a package
+ * whose full name does match.
  */
 function search(plugin: any, query: any): Promise<any[]> {
   const text = typeof query?.text === 'string' ? query.text.toLowerCase() : undefined;
@@ -247,7 +248,7 @@ function search(plugin: any, query: any): Promise<any[]> {
           done();
         },
         (err: any) => (err ? reject(err) : resolve(items)),
-        (name: string) => matches(name)
+        () => true
       );
     } catch (err) {
       reject(err);

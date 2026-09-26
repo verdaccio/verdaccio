@@ -31,7 +31,7 @@ beforeAll(async () => {
 });
 
 /** A legacy plugin that emits the documented shape: the package itself. */
-function legacyPluginEmitting(names: string[], opts: { honourPredicate?: boolean } = {}): any {
+function legacyPluginEmitting(names: string[]): any {
   return {
     get: (cb: any) => cb(null, names),
     add: (_name: string, cb: any) => cb(null),
@@ -39,7 +39,9 @@ function legacyPluginEmitting(names: string[], opts: { honourPredicate?: boolean
     setSecret: () => Promise.resolve(),
     getPackageStorage: () => undefined,
     search(onPackage: any, onEnd: any, validate: (name: string) => boolean) {
-      const emit = opts.honourPredicate ? names.filter((n) => validate(n)) : names;
+      // mirrors @verdaccio/local-storage-legacy: the predicate gets the basename,
+      // while the emitted name is the full one
+      const emit = names.filter((n) => validate(n.includes('/') ? n.split('/')[1] : n));
       let i = 0;
       const next = (): void => {
         if (i >= emit.length) {
@@ -123,14 +125,19 @@ describe('legacy storage adapter', () => {
       expect(item.score.final).toBeDefined();
     });
 
-    test('lets a plugin skip names early through the predicate', async () => {
-      const plugin = legacyPluginEmitting(['alpha-one', 'beta-one'], { honourPredicate: true });
-      const wrapped = wrapLegacyStoragePlugin(plugin, logger);
+    // Regression: a legacy plugin calls the predicate with the basename (`pkg` for
+    // `@scope/pkg`), so filtering there drops scoped packages the query does match.
+    test.each([['@scope/pkg'], ['@scope'], ['pkg']])(
+      'keeps a scoped package for the query %s',
+      async (text) => {
+        const plugin = legacyPluginEmitting(['@scope/pkg', 'other-one']);
+        const wrapped = wrapLegacyStoragePlugin(plugin, logger);
 
-      const items = await wrapped.search({ text: 'beta' });
+        const items = await wrapped.search({ text });
 
-      expect(items.map((i: any) => i.package.name)).toEqual(['beta-one']);
-    });
+        expect(items.map((i: any) => i.package.name)).toEqual(['@scope/pkg']);
+      }
+    );
 
     test('returns everything when there is no query text', async () => {
       const plugin = legacyPluginEmitting(['alpha-one', 'beta-one']);

@@ -19,8 +19,9 @@ The adapter also passed the items through unchanged. The legacy contract emits t
 package itself, while the store reads `item.package.name`, so a plugin following the
 documented contract made the endpoint fail with a 500 instead.
 
-The adapter now filters the collected results by the query text, offers the same match
-through the predicate so a plugin can skip names as it walks its storage, and wraps
-anything that is not already in the store's shape. Operators running a callback-based
+The adapter now filters the collected results by the query text and wraps anything that
+is not already in the store's shape. The filtering is done on the emitted name, never on
+the name predicate a plugin is given: that one receives the basename, so rejecting there
+would drop scoped packages whose full name does match. Operators running a callback-based
 storage plugin get working search without touching the plugin; plugins already on the
 promise-based API were never wrapped and are unaffected.
