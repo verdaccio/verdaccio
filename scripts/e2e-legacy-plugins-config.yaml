@@ -1,0 +1,45 @@
+# Registry for the e2e battery running against the purpose-built plugins in
+# test/e2e-plugins: a callback-based storage plugin, which forces
+# src/lib/legacy-storage-adapter.ts, plus a middleware plugin.
+storage: ./storage-legacy
+plugins: ../test/e2e-plugins
+
+store:
+  legacy-storage:
+
+middlewares:
+  middleware:
+
+auth:
+  htpasswd:
+    file: ./htpasswd-legacy
+    max_users: 1000
+
+web:
+  enable: true
+  title: Verdaccio E2E legacy plugins
+
+max_body_size: 100mb
+
+uplinks:
+  e2emock:
+    url: http://localhost:4874/
+    timeout: 3s
+    retry: 0
+    max_fails: 100
+    fail_timeout: 1s
+
+packages:
+  'e2e-uplink-*':
+    access: $all
+    proxy: e2emock
+  '@*/*':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+  '**':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+
+log: { type: stdout, format: pretty, level: warn }

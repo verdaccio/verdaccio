@@ -65,9 +65,9 @@ Rules that follow:
   (`api.ts`, `mock.ts`, `default-setup.ts`, `expects.ts`); `test/unit/partials`.
 - `docs/env.variables.md` — environment variables.
 - `.github/workflows` — `ci.yml` (lint and format, build and tests on Node.js 24
-  and 25, Docker build, CodeQL), `changesets.yml`, `docker-nightly.yml`,
-  `pnpm-audit.yml`, `update-dependencies.yml`. The CLI e2e battery for this
-  line runs in the `verdaccio/e2e-tests` repository, branch `7.x`, not here.
+  and 25, Docker build, the `@verdaccio/e2e-cli` battery across package managers,
+  the Cypress web UI suite, CodeQL), `changesets.yml`, `docker-nightly.yml`,
+  `pnpm-audit.yml`, `update-dependencies.yml`.
 
 ## Setup, build, test, lint
 

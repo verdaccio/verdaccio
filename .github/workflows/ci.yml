@@ -189,6 +189,53 @@ jobs:
         if: always()
         run: cat /tmp/verdaccio-e2e/verdaccio.log 2>/dev/null || echo "No log file found"
 
+  e2e-cli-legacy-plugins:
+    needs: [build]
+    if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && !failure() && !cancelled() }}
+    runs-on: ubuntu-latest
+    name: E2E CLI (legacy plugins, ${{ matrix.pm }})
+    strategy:
+      fail-fast: false
+      matrix:
+        pm:
+          - npm@12
+          - pnpm@12
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+        with:
+          node-version-file: '.nvmrc'
+      - name: Enable corepack
+        run: corepack enable pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Restore build artifacts
+        uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        with:
+          path: build/
+          key: ci-build-${{ github.sha }}-node-24
+          fail-on-cache-miss: true
+      # test/e2e-plugins holds a callback-based storage plugin and a middleware plugin,
+      # so this run goes through src/lib/legacy-storage-adapter.ts. Nothing else in CI
+      # exercises that path, and the published plugins that need it all use it.
+      - name: Start Verdaccio with the legacy plugins
+        run: |
+          mkdir -p /tmp/verdaccio-e2e
+          node bin/verdaccio --config ./scripts/e2e-legacy-plugins-config.yaml --listen 4873 &> /tmp/verdaccio-e2e/verdaccio.log &
+          for i in $(seq 1 30); do
+            curl -s http://localhost:4873/-/ping && break
+            sleep 1
+          done
+      - name: Check the adapter actually wrapped the plugin
+        run: grep -q "legacy callback-based storage plugin" /tmp/verdaccio-e2e/verdaccio.log
+      - name: Run E2E CLI tests
+        run: pnpm verdaccio-e2e --registry http://localhost:4873 --pm ${{ matrix.pm }} -v
+        env:
+          E2E_PENDING_CONTRACT_CHECKS: tarballs
+      - name: Show Verdaccio logs
+        if: always()
+        run: cat /tmp/verdaccio-e2e/verdaccio.log 2>/dev/null || echo "No log file found"
+
   e2e-ui:
     needs: [build]
     if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && !failure() && !cancelled() }}
@@ -248,7 +295,7 @@ jobs:
           if-no-files-found: ignore
 
   codeql:
-    needs: [test, e2e-cli, e2e-ui]
+    needs: [test, e2e-cli, e2e-cli-legacy-plugins, e2e-ui]
     if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && always() && !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     name: CodeQL Analysis
@@ -267,7 +314,7 @@ jobs:
         uses: github/codeql-action/analyze@51f77329afa6477de8c49fc9c7046c15b9a4e79d # v3.29.5
 
   cleanup:
-    needs: [test, e2e-cli, e2e-ui, codeql]
+    needs: [test, e2e-cli, e2e-cli-legacy-plugins, e2e-ui, codeql]
     if: always()
     runs-on: ubuntu-latest
     name: Cleanup caches

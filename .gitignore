@@ -48,6 +48,8 @@ cypress/videos/**/*
 cypress/screenshots/**/*
 cypress/downloads/**/*
 
-# registry state created by `pnpm e2e:ui:start`
+# registry state created by `pnpm e2e:ui:start` and the legacy-plugin battery
 scripts/storage/
 scripts/htpasswd
+scripts/storage-legacy/
+scripts/htpasswd-legacy
