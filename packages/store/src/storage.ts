@@ -32,6 +32,7 @@ import type {
 } from '@verdaccio/proxy';
 import { ProxyStorage, setupUpLinks, updateVersionsHiddenUpLinkNext } from '@verdaccio/proxy';
 import Search, { SEARCH_MAX_CANDIDATES } from '@verdaccio/search';
+import { SearchIndexer } from '@verdaccio/search-indexer';
 import type { TarballDetails } from '@verdaccio/tarball';
 import {
   convertDistRemoteToLocalTarballUrls,
@@ -93,12 +94,14 @@ class Storage {
   public readonly logger: Logger;
   public readonly uplinks: ProxyInstanceList;
   private searchService: Search;
+  private readonly webSearchIndexer = new SearchIndexer();
   private stageStorage: StageStorage | null = null;
   public constructor(config: Config, logger: Logger) {
     this.config = config;
     this.logger = logger.child({ module: 'storage' });
     this.uplinks = setupUpLinks(config, this.logger);
     this.searchService = new Search(config, this.logger);
+    this.webSearchIndexer.configureStorage(this);
     this.filters = null;
     // @ts-ignore
     this.localStorage = null;
@@ -247,6 +250,40 @@ class Storage {
     const uniqueResults = removeLowerVersions(totalResults);
     debug('unique results %o', uniqueResults.length);
     return uniqueResults;
+  }
+
+  public async searchWeb(options: ProxySearchParams): Promise<searchUtils.SearchPackageItem[]> {
+    options.abort.signal.throwIfAborted();
+    const { hits } = await this.webSearchIndexer.query(options.query?.text ?? '');
+    const local: searchUtils.SearchPackageItem[] = [];
+    for (const hit of hits) {
+      options.abort.signal.throwIfAborted();
+      let manifest: Manifest;
+      try {
+        manifest = await this.getPackageLocalMetadata(hit.id);
+      } catch (err: any) {
+        if (err.statusCode !== HTTP_STATUS.NOT_FOUND) throw err;
+        await this.webSearchIndexer.remove(hit.id);
+        continue;
+      }
+      const [filteredManifest] = await this.applyFilters(manifest);
+      if (isEmpty(filteredManifest?.versions)) continue;
+      const score = 1 - (hit.score ?? 0);
+      const item: searchUtils.SearchItem = {
+        package: { name: hit.id },
+        score: { final: score, detail: { maintenance: 0, popularity: 1, quality: 1 } },
+        verdaccioPrivate: true,
+        verdaccioPkgCached: false,
+      };
+      local.push({
+        ...item,
+        package: mapManifestToSearchPackageBody(filteredManifest, item),
+        searchScore: score,
+      });
+    }
+    const results = await this.search(options);
+    options.abort.signal.throwIfAborted();
+    return removeLowerVersions([...local, ...results]);
   }
 
   /** Cumulative, stable prefixes for Search v1; consumers stop once their page is full. */
@@ -774,6 +811,7 @@ class Storage {
     if (!this.filters) {
       this.filters = await loadFilterPlugins(this.config, this.logger);
     }
+    await this.webSearchIndexer.init(this.logger);
     return;
   }
 
@@ -921,6 +959,7 @@ class Storage {
       // remove folder
       debug('remove package folder');
       await storage.removePackage(pkgName);
+      await this.webSearchIndexer.remove(pkgName);
       this.logger.info({ pkgName }, 'package @{pkgName} removed');
     } catch (err: any) {
       this.logger.error({ err }, 'removed package has failed: @{err.message}');
@@ -1738,6 +1777,28 @@ class Storage {
       throw errorUtils.getBadData();
     }
     await storage.savePackage(name, this.setDefaultRevision(json));
+    await this.updateSearchIndex(name, json);
+  }
+
+  private async updateSearchIndex(name: string, manifest: Manifest): Promise<void> {
+    try {
+      const localPackages = await this.localStorage.getStoragePlugin().get();
+      if (!localPackages.includes(name)) {
+        await this.webSearchIndexer.remove(name);
+        return;
+      }
+      const [filteredManifest] = await this.applyFilters(structuredClone(manifest));
+      const latest = filteredManifest[DIST_TAGS]?.latest;
+      const version = latest && filteredManifest.versions?.[latest];
+      if (version) {
+        await this.webSearchIndexer.add(version);
+      } else {
+        await this.webSearchIndexer.remove(name);
+      }
+    } catch (err) {
+      await this.webSearchIndexer.remove(name);
+      this.logger.error({ name, err }, 'error indexing package @{name}: @{err.message}');
+    }
   }
 
   /**

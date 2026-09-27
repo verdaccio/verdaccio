@@ -51,8 +51,8 @@
     "build": "vite build"
   },
   "dependencies": {
-    "@orama/orama": "1.2.11",
-    "debug": "4.4.3"
+    "debug": "4.4.3",
+    "fuse.js": "7.5.0"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:14.0.0-next-9.15",

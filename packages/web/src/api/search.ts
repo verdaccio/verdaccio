@@ -63,7 +63,7 @@ function addSearchWebApi(storage: Storage, auth: Auth): Router {
         // @ts-ignore
         const urlParams = new URLSearchParams(query);
         debug('search web init');
-        const data = await storage?.search({
+        const data = await storage.searchWeb({
           query,
           url: `/-/v1/search?${urlParams.toString()}`,
           abort,

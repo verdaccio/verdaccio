@@ -1299,12 +1299,12 @@ importers:
 
   packages/search-indexer:
     dependencies:
-      '@orama/orama':
-        specifier: 1.2.11
-        version: 1.2.11
       debug:
         specifier: 4.4.3
         version: 4.4.3(supports-color@5.5.0)
+      fuse.js:
+        specifier: 7.5.0
+        version: 7.5.0
     devDependencies:
       '@verdaccio/types':
         specifier: workspace:14.0.0-next-9.15
@@ -1437,6 +1437,9 @@ importers:
       '@verdaccio/search':
         specifier: workspace:9.0.0-next-9.32
         version: link:../search
+      '@verdaccio/search-indexer':
+        specifier: workspace:9.0.0-next-9.6
+        version: link:../search-indexer
       '@verdaccio/tarball':
         specifier: workspace:14.0.0-next-9.32
         version: link:../core/tarball
@@ -2584,10 +2587,6 @@ packages:
 
   '@open-draft/until@2.1.0':
     resolution: {integrity: sha512-U69T3ItWHvLwGg5eJ0n3I62nWuE6ilHlmz7zM0npLBRvPRd7e6NYmg54vvRtP5mZG7kZqZCFVdsTWo7BPtBujg==}
-
-  '@orama/orama@1.2.11':
-    resolution: {integrity: sha512-0yDcWgxOX0je18Z5dR64r4L3Jzm6bDNIpqM7qSu7H+9qhf6EsnlJbICrjt/oJ+WYnwiog4T0OXduVfLwAX+NVA==}
-    engines: {node: '>= 16.0.0'}
 
   '@oxc-project/types@0.146.0':
     resolution: {integrity: sha512-XC0QsnnhVe7sLIWmYmdPw7x5P0h4W8vUU3Nv1ySgWXtvCz8NizoAEpGXA0sOYoJQV2Rl13LgURAHQ5cI5ILCSA==}
@@ -4402,6 +4401,10 @@ packages:
 
   function-bind@1.1.2:
     resolution: {integrity: sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==}
+
+  fuse.js@7.5.0:
+    resolution: {integrity: sha512-sQtrEfA+ez/3G0cCZecF70oqpCRttCexYUG4mUrtWL49ULUzUyxokt5kyqwtKzj1270RaKih+hcP3qLcumccow==}
+    engines: {node: '>=10'}
 
   generate-github-markdown-css@6.6.0:
     resolution: {integrity: sha512-w5mLLHA/EkcYh4flSsfPs/uFZdpEAMZK4dHXgPBFJmf8IOIv++1qPy1KiqwL8/eepB4Oomhf1CsLJS7UMheGoQ==}
@@ -7407,8 +7410,6 @@ snapshots:
 
   '@open-draft/until@2.1.0': {}
 
-  '@orama/orama@1.2.11': {}
-
   '@oxc-project/types@0.146.0': {}
 
   '@oxfmt/binding-android-arm-eabi@0.55.0':
@@ -9212,6 +9213,8 @@ snapshots:
     optional: true
 
   function-bind@1.1.2: {}
+
+  fuse.js@7.5.0: {}
 
   generate-github-markdown-css@6.6.0:
     dependencies:

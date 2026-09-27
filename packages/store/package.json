@@ -46,6 +46,7 @@
     "@verdaccio/logger": "workspace:9.0.0-next-9.32",
     "@verdaccio/proxy": "workspace:9.0.0-next-9.32",
     "@verdaccio/search": "workspace:9.0.0-next-9.32",
+    "@verdaccio/search-indexer": "workspace:9.0.0-next-9.6",
     "@verdaccio/tarball": "workspace:14.0.0-next-9.32",
     "@verdaccio/url": "workspace:14.0.0-next-9.32",
     "debug": "4.4.3",

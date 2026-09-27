@@ -38,6 +38,9 @@
       "path": "../search"
     },
     {
+      "path": "../search-indexer"
+    },
+    {
       "path": "../tools/helpers"
     }
   ]

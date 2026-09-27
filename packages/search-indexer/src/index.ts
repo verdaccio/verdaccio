@@ -1,1 +1,2 @@
-export { default as SearchMemoryIndexer } from './indexer';
+export { default as SearchMemoryIndexer, SearchIndexer } from './indexer';
+export type { Results } from './indexer';
