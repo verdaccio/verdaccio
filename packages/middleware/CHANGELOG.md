@@ -1,5 +1,15 @@
 # @verdaccio/middleware
 
+## 9.0.0-next-9.33
+
+### Patch Changes
+
+- 950fd9f: feat(middleware): add `server.hidePingLogs` to suppress successful `/-/ping` logs (defaults to true; failed pings are still logged)
+- Updated dependencies [950fd9f]
+  - @verdaccio/config@9.0.0-next-9.33
+  - @verdaccio/core@9.0.0-next-9.33
+  - @verdaccio/url@14.0.0-next-9.33
+
 ## 9.0.0-next-9.32
 
 ### Patch Changes

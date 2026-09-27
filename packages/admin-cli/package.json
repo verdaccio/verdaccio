@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/admin-cli",
-  "version": "9.0.0-next-9.32",
+  "version": "9.0.0-next-9.33",
   "author": {
     "name": "Juan Picado",
     "email": "juanpicado19@gmail.com"
@@ -43,16 +43,16 @@
     "start": "tsx src/index.ts"
   },
   "dependencies": {
-    "@verdaccio/auth": "workspace:9.0.0-next-9.32",
-    "@verdaccio/config": "workspace:9.0.0-next-9.32",
-    "@verdaccio/core": "workspace:9.0.0-next-9.32",
-    "@verdaccio/logger": "workspace:9.0.0-next-9.32",
-    "@verdaccio/store": "workspace:9.0.0-next-9.32",
+    "@verdaccio/auth": "workspace:9.0.0-next-9.33",
+    "@verdaccio/config": "workspace:9.0.0-next-9.33",
+    "@verdaccio/core": "workspace:9.0.0-next-9.33",
+    "@verdaccio/logger": "workspace:9.0.0-next-9.33",
+    "@verdaccio/store": "workspace:9.0.0-next-9.33",
     "chalk": "4.1.2",
     "clipanion": "4.0.0-rc.4"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:14.0.0-next-9.15",
+    "@verdaccio/types": "workspace:14.0.0-next-9.16",
     "rimraf": "6.1.3",
     "tsx": "4.22.4",
     "vite": "8.2.2",
