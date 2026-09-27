@@ -12,11 +12,13 @@ import {
   tarballMatchesFilename,
   uplinkServesUrl,
   isDeprecatedManifest,
+  maintainerAllowsLocalUser,
   mapManifestToSearchPackageBody,
   mergeUplinkTimeIntoLocal,
   mergeVersions,
   normalizeDistTags,
   normalizePackage,
+  scopeUpstreamMaintainers,
 } from '../src/lib/storage-utils';
 import { readFile } from './fixtures/test.utils';
 
@@ -797,6 +799,28 @@ describe('Storage Utils', () => {
         false
       );
       expect(uplinkServesUrl(new URL('https://registry.npmjs.org/'), 'not a url')).toBe(false);
+    });
+  });
+
+  describe('upstream maintainer identities', () => {
+    test('scopes upstream maintainers to an origin that a local user cannot satisfy', () => {
+      expect(
+        scopeUpstreamMaintainers([{ name: 'alice', email: 'a@example.com' }, 'bob'], 'npmjs')
+      ).toEqual([{ name: '$uplink:npmjs:alice', email: 'a@example.com' }, '$uplink:npmjs:bob']);
+      expect(
+        scopeUpstreamMaintainers([{ name: '$uplink:npmjs:alice', email: '' }], 'npmjs')
+      ).toEqual([{ name: '$uplink:npmjs:alice', email: '' }]);
+
+      expect(maintainerAllowsLocalUser({ name: 'alice', email: '' }, 'alice')).toBe(true);
+      expect(maintainerAllowsLocalUser({ name: 'anonymous', email: '' }, 'anyone')).toBe(true);
+      expect(maintainerAllowsLocalUser({ name: '$uplink:npmjs:alice', email: '' }, 'alice')).toBe(
+        false
+      );
+      expect(
+        maintainerAllowsLocalUser({ name: '$uplink:npmjs:alice', email: '' }, '$uplink:npmjs:alice')
+      ).toBe(false);
+      expect(maintainerAllowsLocalUser('$uplink:npmjs:bob', 'bob')).toBe(false);
+      expect(maintainerAllowsLocalUser({ name: 'anonymous', email: '' }, undefined)).toBe(true);
     });
   });
 });

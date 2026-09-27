@@ -294,6 +294,9 @@ class MemoryHandler implements pluginUtils.StorageHandler {
       const newManifest = await handleUpdate(manifest);
       return newManifest;
     } catch (err: any) {
+      if (typeof err?.status === 'number') {
+        throw err;
+      }
       throw errorUtils.getInternalError(err.message);
     }
   }

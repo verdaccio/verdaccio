@@ -4,6 +4,7 @@ import semver from 'semver';
 
 import type { searchUtils } from '@verdaccio/core';
 import {
+  ANONYMOUS_USER,
   API_ERROR,
   DIST_TAGS,
   HTTP_STATUS,
@@ -19,6 +20,7 @@ import type {
   DistFile,
   GenericBody,
   Manifest,
+  Person,
   ReadmeOptions,
   Version,
 } from '@verdaccio/types';
@@ -265,6 +267,42 @@ export function prepareSearchPackage(data: Manifest): any {
 
     return pkg;
   }
+}
+
+/** Maintainer names copied from an uplink. Never a local account. */
+export const UPSTREAM_MAINTAINER_PREFIX = '$uplink:';
+
+export function scopeUpstreamMaintainers(maintainers: Person[], uplinkName: string): Person[] {
+  const origin = uplinkName.length > 0 ? uplinkName : 'remote';
+  return maintainers.map((maintainer) => {
+    if (typeof maintainer === 'string') {
+      return scopeUpstreamMaintainerName(origin, maintainer);
+    }
+    const name = typeof maintainer?.name === 'string' ? maintainer.name : '';
+    return {
+      ...maintainer,
+      name: scopeUpstreamMaintainerName(origin, name),
+    };
+  });
+}
+
+function scopeUpstreamMaintainerName(uplinkName: string, name: string): string {
+  if (name.startsWith(UPSTREAM_MAINTAINER_PREFIX)) {
+    return name;
+  }
+  return `${UPSTREAM_MAINTAINER_PREFIX}${uplinkName}:${name}`;
+}
+
+export function maintainerAllowsLocalUser(
+  maintainer: Person,
+  username: string | undefined
+): boolean {
+  const name = typeof maintainer === 'string' ? maintainer : maintainer?.name;
+  // reserved uplink identities must not authorize the local user who registered that string
+  if (typeof name === 'string' && name.startsWith(UPSTREAM_MAINTAINER_PREFIX)) {
+    return false;
+  }
+  return name === username || name === ANONYMOUS_USER;
 }
 
 /**

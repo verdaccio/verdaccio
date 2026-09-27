@@ -67,11 +67,13 @@ import {
   generateRevision,
   getLatestReadme,
   mapManifestToSearchPackageBody,
+  maintainerAllowsLocalUser,
   mergeUplinkTimeIntoLocalNext,
   mergeVersions,
   normalizeContributors,
   normalizeDistTags,
   normalizePackage,
+  scopeUpstreamMaintainers,
   updateUpLinkMetadata,
   lookupDistFile,
   uplinkServesUrl,
@@ -113,7 +115,12 @@ class Storage {
    Function changes a package info from local storage and all uplinks with write access./
    Used storages: local (write)
    */
-  public async changePackage(name: string, metadata: Manifest, revision: string): Promise<void> {
+  public async changePackage(
+    name: string,
+    metadata: Manifest,
+    revision: string,
+    auth?: { username?: string }
+  ): Promise<void> {
     debug('change existing package for package %o revision %o', name, revision);
     debug(`change manifest tags for %o revision %o`, name, revision);
     if (
@@ -126,14 +133,17 @@ class Storage {
 
     debug(`change manifest updating manifest for %o`, name);
     await this.updatePackage(name, async (localData: Manifest): Promise<Manifest> => {
-      // clients echo back the _rev they fetched (GET ?write=true); a mismatch
-      // means the package changed since then and applying the stale body would
-      // silently drop versions published in between
-      if (
-        typeof metadata._rev === 'string' &&
-        metadata._rev !== '' &&
-        metadata._rev !== localData._rev
-      ) {
+      // The plugin lock is held here and through the write in updatePackage.
+      if (auth) {
+        await this.checkAllowedToChangePackage(localData, auth.username);
+      }
+      // clients echo back the _rev they fetched (GET ?write=true); missing or
+      // empty skips the match and lets a stale body drop concurrent versions
+      if (typeof metadata._rev !== 'string' || metadata._rev === '') {
+        debug('missing or empty revision for %o', name);
+        throw errorUtils.getBadData('revision is missing or empty');
+      }
+      if (metadata._rev !== localData._rev) {
         debug('revision mismatch for %o: %o != %o', name, metadata._rev, localData._rev);
         throw errorUtils.getConflict('revision does not match the latest package revision');
       }
@@ -1173,9 +1183,8 @@ class Storage {
   }
 
   /**
-   * Read the stored manifest of a local package and enforce the ownership
-   * check (`publish.check_owners`) on it. Shared by every mutation that goes
-   * through `changePackage`.
+   * Read the stored manifest and apply `publish.check_owners` before
+   * `changePackage` takes the package lock. The locked path checks again.
    */
   private async getLocalManifestCheckOwnership(
     name: string,
@@ -1190,17 +1199,18 @@ class Storage {
     const { name, requestOptions } = options;
     debug('deprecating %s', name);
 
-    await this.getLocalManifestCheckOwnership(name, requestOptions.username);
-
-    return this.changePackage(name, manifest, options.revision as string);
+    return this.changePackage(name, manifest, options.revision as string, {
+      username: requestOptions.username,
+    });
   }
 
   private async unPublishAPackage(manifest: UnPublishManifest, options: UpdateManifestOptions) {
     const { requestOptions, name } = options;
     debug('unpublish a package of %o', name);
 
-    await this.getLocalManifestCheckOwnership(name, requestOptions.username);
-    await this.changePackage(name, manifest as Manifest, options.revision as string);
+    await this.changePackage(name, manifest as Manifest, options.revision as string, {
+      username: requestOptions.username,
+    });
 
     return API_MESSAGE.PKG_CHANGED;
   }
@@ -1222,10 +1232,12 @@ class Storage {
 
     const localPackage = await this.getLocalManifestCheckOwnership(name, username);
 
+    // keep the request _rev; localPackage is only for versions/dist-tags shape
     await this.changePackage(
       name,
-      { ...localPackage, maintainers: maintainers as Author[] },
-      options.revision as string
+      { ...localPackage, maintainers: maintainers as Author[], _rev: manifest._rev },
+      options.revision as string,
+      { username }
     );
 
     return API_MESSAGE.PKG_CHANGED;
@@ -1782,21 +1794,23 @@ class Storage {
       throw errorUtils.getNotFound();
     }
 
-    // we update the package on the local storage
-    const updatedManifest: Manifest = await storage.updatePackage(name, updateHandler);
-    // after correctly updated write to the storage
-    try {
-      await this.writePackage(name, normalizePackage(updatedManifest));
-      return updatedManifest;
-    } catch (err: any) {
-      if (err.code === resourceNotAvailable) {
-        throw errorUtils.getInternalError('resource temporarily unavailable');
-      } else if (err.code === noSuchFile) {
-        throw errorUtils.getNotFound();
-      } else {
-        throw err;
+    // Save before this callback returns. The plugin releases the package lock
+    // then, so a later write can overwrite an owner change committed in between.
+    return storage.updatePackage(name, async (manifest: Manifest): Promise<Manifest> => {
+      const updated = await updateHandler(manifest);
+      try {
+        await this.writePackage(name, normalizePackage(updated));
+      } catch (err: any) {
+        if (err.code === resourceNotAvailable) {
+          throw errorUtils.getInternalError('resource temporarily unavailable');
+        } else if (err.code === noSuchFile) {
+          throw errorUtils.getNotFound();
+        } else {
+          throw err;
+        }
       }
-    }
+      return updated;
+    });
   }
 
   /**
@@ -1902,6 +1916,7 @@ class Storage {
     }
 
     const uplinksErrors: any[] = [];
+    let syncedUplinkName: string | undefined;
     // we resolve uplinks async in series, first come first serve
     for (const uplink of upLinks) {
       try {
@@ -1916,6 +1931,7 @@ class Storage {
         debug('syncing on uplink %o', syncManifest.name);
         if (isNil(syncManifest) === false) {
           found = true;
+          syncedUplinkName = uplink;
           break;
         }
       } catch (err: any) {
@@ -1932,6 +1948,7 @@ class Storage {
           syncManifest = updateUpLinkMetadata(uplinkName, localManifest, etag);
           localManifest = syncManifest;
           found = true;
+          syncedUplinkName = uplinkName;
           continue;
         }
         debug('error captured on uplink %o', err.message);
@@ -1943,7 +1960,11 @@ class Storage {
 
     if (found && syncManifest !== null) {
       // updates the local cache manifest with fresh data
-      const updatedCacheManifest = await this.updateVersionsNext(name, syncManifest);
+      const updatedCacheManifest = await this.updateVersionsNext(
+        name,
+        syncManifest,
+        syncedUplinkName
+      );
       // plugin filter applied to the manifest
       const [filteredManifest, filtersErrors] = await this.applyFilters(updatedCacheManifest);
       return [filteredManifest, [...uplinksErrors, ...filtersErrors]];
@@ -2028,14 +2049,17 @@ class Storage {
     try {
       // merge versions from remote into the cache
       _cacheManifest = mergeVersions(_cacheManifest, remoteManifest);
-      // carry upstream ownership (dropped by mergeVersions) so check_owners
-      // can also protect proxied packages; never overwrite recorded owners
+      // record upstream owners as origin-scoped identities so a local account
+      // cannot satisfy check_owners; never overwrite recorded owners
       if (
         (_cacheManifest[MAINTAINERS] ?? []).length === 0 &&
         Array.isArray(remoteManifest[MAINTAINERS]) &&
         remoteManifest[MAINTAINERS].length > 0
       ) {
-        _cacheManifest[MAINTAINERS] = remoteManifest[MAINTAINERS];
+        _cacheManifest[MAINTAINERS] = scopeUpstreamMaintainers(
+          remoteManifest[MAINTAINERS],
+          uplink.uplinkName
+        );
       }
       return _cacheManifest;
     } catch (err: any) {
@@ -2125,7 +2149,11 @@ class Storage {
     @param remoteManifest
     @returns return a merged manifest.
   */
-  public async updateVersionsNext(name: string, remoteManifest: Manifest): Promise<Manifest> {
+  public async updateVersionsNext(
+    name: string,
+    remoteManifest: Manifest,
+    uplinkName?: string
+  ): Promise<Manifest> {
     debug(`updating versions for package %o`, name);
     const cacheManifest: Manifest = await this.readCreatePackage(name);
     let change = false;
@@ -2181,17 +2209,17 @@ class Storage {
     }
 
     debug('update maintainers');
-    // cached manifests are created with an empty maintainers list, which the
-    // ownership check treats as "no owners recorded" (check skipped); copy the
-    // upstream owners once so check_owners also protects proxied packages.
-    // never overwrite a non-empty list: it may belong to a locally published
-    // package and upstream must not be able to rewrite local ownership.
+    // empty maintainers skip check_owners; copy upstream owners once, scoped so
+    // they cannot match a local user, and never replace recorded local owners
     if (
       (cacheManifest[MAINTAINERS] ?? []).length === 0 &&
       Array.isArray(remoteManifest[MAINTAINERS]) &&
       remoteManifest[MAINTAINERS].length > 0
     ) {
-      cacheManifest[MAINTAINERS] = remoteManifest[MAINTAINERS];
+      cacheManifest[MAINTAINERS] = scopeUpstreamMaintainers(
+        remoteManifest[MAINTAINERS],
+        uplinkName ?? 'remote'
+      );
       change = true;
     }
 
@@ -2258,13 +2286,7 @@ class Storage {
       this.config?.publish?.check_owners === true &&
       manifest.maintainers &&
       manifest.maintainers.length > 0 &&
-      !manifest.maintainers.some((maintainer) => {
-        if (typeof maintainer === 'string') {
-          return maintainer === username || maintainer === ANONYMOUS_USER;
-        } else {
-          return maintainer.name === username || maintainer.name === ANONYMOUS_USER;
-        }
-      })
+      !manifest.maintainers.some((maintainer) => maintainerAllowsLocalUser(maintainer, username))
     ) {
       this.logger.error({ username }, '@{username} is not a maintainer (package owner)');
       throw errorUtils.getForbidden('only owners are allowed to change package');

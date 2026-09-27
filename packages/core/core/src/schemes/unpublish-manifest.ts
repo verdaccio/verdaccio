@@ -26,7 +26,7 @@ const schema: JSONSchemaType<Manifest> = {
   properties: {
     name: { type: 'string' },
     versions: { type: 'object', minProperties: 1 },
-    _rev: { type: 'string' },
+    _rev: { type: 'string', minLength: 1 },
     _id: { type: 'string' },
     time: {
       type: 'object',
