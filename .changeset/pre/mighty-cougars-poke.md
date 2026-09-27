@@ -25,7 +25,6 @@
 '@verdaccio/ui-theme': patch
 '@verdaccio/proxy': patch
 '@verdaccio/search': patch
-'@verdaccio/search-indexer': patch
 '@verdaccio/server': patch
 '@verdaccio/signature': patch
 '@verdaccio/store': patch
