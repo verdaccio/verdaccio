@@ -1,5 +1,7 @@
 # @verdaccio/core
 
+## 9.0.0-next-9.33
+
 ## 9.0.0-next-9.32
 
 ### Patch Changes

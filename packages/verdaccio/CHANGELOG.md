@@ -1,5 +1,32 @@
 # verdaccio
 
+## 9.0.0-next-9.33
+
+### Minor Changes
+
+- 1a9202a: restore the programmatic exports dropped between lines
+  
+  The `verdaccio` package exported only `runServer`, while 6.x and 7.x also exported a default
+  and the configuration helpers. Upgrading from 7.x turned `require('verdaccio').default` into
+  `undefined` with no warning, and `ConfigBuilder`, `parseConfigFile`, `getDefaultConfig` and
+  `Config` had to be imported from `@verdaccio/config` instead.
+  
+  Adds back `initServer`, the four configuration exports and a default export pointing at
+  `runServer`, matching 7.x. A test now pins the surface so the three lines cannot drift apart
+  again.
+
+### Patch Changes
+
+- Updated dependencies [950fd9f]
+  - @verdaccio/server@9.0.0-next-9.33
+  - @verdaccio/config@9.0.0-next-9.33
+  - @verdaccio/cli@9.0.0-next-9.33
+  - @verdaccio/node-api@9.0.0-next-9.33
+  - verdaccio-audit@14.0.0-next-9.33
+  - verdaccio-htpasswd@14.0.0-next-9.33
+  - @verdaccio/package-filter@14.0.0-next-9.57
+  - @verdaccio/ui-theme@9.0.0-next-9.33
+
 ## 9.0.0-next-9.32
 
 ### Patch Changes
