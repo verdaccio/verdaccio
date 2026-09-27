@@ -3,6 +3,7 @@
  * This file includes global settings for the test environment.
  */
 import '@testing-library/jest-dom/vitest';
+import { configure } from '@testing-library/react';
 import createDebugger from 'debug';
 import 'mutationobserver-shim';
 import { vi } from 'vitest';
@@ -13,6 +14,9 @@ import { server } from './server';
 const debug = createDebugger('verdaccio:ui-components:vitest-setup');
 
 debug('Setting up Vitest environment for ui-components package.');
+
+// The msw handlers answer after a deliberate 500ms delay, which the 1s default cannot absorb on CI.
+configure({ asyncUtilTimeout: 5000 });
 
 // Configure the test environment URL
 Object.defineProperty(window, 'location', {

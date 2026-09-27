@@ -1716,6 +1716,9 @@ importers:
       '@verdaccio/cli':
         specifier: workspace:9.0.0-next-9.32
         version: link:../cli
+      '@verdaccio/config':
+        specifier: workspace:9.0.0-next-9.32
+        version: link:../config
       '@verdaccio/node-api':
         specifier: workspace:9.0.0-next-9.32
         version: link:../node-api

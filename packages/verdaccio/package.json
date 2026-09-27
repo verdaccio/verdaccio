@@ -17,6 +17,7 @@
   ],
   "scripts": {
     "clean": "rimraf ./build",
+    "test": "vitest run",
     "lint": "oxlint -c ../../.oxlintrc.json",
     "ge:docs": "typedoc src/index.ts --tsconfig tsconfig.build.json --plugin typedoc-plugin-markdown",
     "build": "vite build",
@@ -38,6 +39,7 @@
   "homepage": "https://verdaccio.org",
   "dependencies": {
     "@verdaccio/cli": "workspace:9.0.0-next-9.32",
+    "@verdaccio/config": "workspace:9.0.0-next-9.32",
     "@verdaccio/node-api": "workspace:9.0.0-next-9.32",
     "@verdaccio/server": "workspace:9.0.0-next-9.32",
     "@verdaccio/ui-theme": "workspace:9.0.0-next-9.32",
