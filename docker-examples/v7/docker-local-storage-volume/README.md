@@ -16,6 +16,13 @@ The registry is available on <http://localhost:4873/>. The `./storage` and
 `./conf` folders are mounted into the container, so published packages and
 config survive restarts.
 
+> **On Linux:** the container runs as uid `10001`, so folders owned by your host
+> user are not writable by it and the registry fails on startup with
+> `EACCES: permission denied, mkdir '/verdaccio/storage/...'`. Run
+> `sudo chown -R 10001:65533 ./storage ./conf` before `docker compose up`, or use
+> [named volumes](https://docs.docker.com/storage/volumes/) instead of bind mounts.
+> See [the Docker docs](https://verdaccio.org/docs/docker#running-verdaccio-using-docker).
+
 ## Login
 
 If you want to login into the Verdaccio instance created via these Docker Examples, please try:

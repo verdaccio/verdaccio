@@ -59,9 +59,6 @@
       "path": "packages/proxy"
     },
     {
-      "path": "packages/search-indexer"
-    },
-    {
       "path": "packages/search"
     },
     {
