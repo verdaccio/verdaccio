@@ -464,7 +464,7 @@
 
 ### Patch Changes
 
-- 54b1906: chore(deps): node-api, proxy, search, search-indexer
+- 54b1906: chore(deps): node-api, proxy, search
 - Updated dependencies [9350431]
   - @verdaccio/core@8.0.0-next-8.19
   - @verdaccio/config@8.0.0-next-8.19

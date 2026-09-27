@@ -67,8 +67,7 @@ unless noted. The request path is roughly `verdaccio` → `server` → `api`/`we
   `packages/core/tarball`, `packages/core/url`, `packages/core/file-locking`,
   `packages/core/i18n` — focused helpers.
 - `packages/middleware`, `packages/loaders` (plugin loading), `packages/logger`,
-  `packages/hooks` (notifications), `packages/search`,
-  `packages/search-indexer`, `packages/signature`.
+  `packages/hooks` (notifications), `packages/search`, `packages/signature`.
 - `packages/plugins/audit`, `packages/plugins/memory`,
   `packages/plugins/package-filter` — bundled plugins (`verdaccio-audit`,
   `verdaccio-memory`, `@verdaccio/package-filter`).

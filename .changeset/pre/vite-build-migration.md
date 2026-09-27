@@ -13,7 +13,6 @@
 '@verdaccio/node-api': major
 '@verdaccio/proxy': major
 '@verdaccio/search': major
-'@verdaccio/search-indexer': major
 '@verdaccio/server': major
 '@verdaccio/signature': major
 '@verdaccio/store': major

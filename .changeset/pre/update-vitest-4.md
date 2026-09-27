@@ -8,7 +8,6 @@
 '@verdaccio/middleware': patch
 '@verdaccio/node-api': patch
 '@verdaccio/proxy': patch
-'@verdaccio/search-indexer': patch
 '@verdaccio/search': patch
 '@verdaccio/signature': patch
 '@verdaccio/store': patch

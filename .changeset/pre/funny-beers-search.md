@@ -7,7 +7,6 @@
 'verdaccio-htpasswd': patch
 '@verdaccio/ui-theme': patch
 'verdaccio-memory': patch
-'@verdaccio/search-indexer': patch
 '@verdaccio/server': patch
 'verdaccio-audit': patch
 '@verdaccio/test-helper': patch
