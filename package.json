@@ -110,7 +110,7 @@
   },
   "devDependencies": {
     "@changesets/changelog-github": "0.7.0",
-    "@changesets/cli": "2.31.0",
+    "@changesets/cli": "3.0.2",
     "@changesets/get-dependents-graph": "2.1.4",
     "@types/async": "3.2.25",
     "@types/debug": "4.1.13",
