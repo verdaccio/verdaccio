@@ -1,18 +1,4 @@
 {
   "mode": "pre",
-  "tag": "next-7",
-  "initialVersions": {
-    "verdaccio": "7.0.0-next-7.20"
-  },
-  "changesets": [
-    "adopt-verdaccio-server",
-    "legacy-adapter-search-query",
-    "red-bees-mate",
-    "refactor-eslint-oxlint",
-    "update-verdaccio-dependencies-33313427064",
-    "update-verdaccio-dependencies-33905474839",
-    "update-verdaccio-dependencies-36250491093",
-    "update-verdaccio-dependencies-6155-6179",
-    "update-verdaccio-dependencies"
-  ]
+  "tag": "next-7"
 }

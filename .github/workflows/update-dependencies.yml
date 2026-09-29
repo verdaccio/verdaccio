@@ -85,10 +85,8 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "$BRANCH"
 
-          # Generate a changeset. The filename must be unique per run: in pre
-          # mode changesets records applied changeset ids in .changeset/pre.json
-          # and filters those ids out of every later release plan, so reusing a
-          # stable filename yields no version bump and no release PR.
+          # Use a unique name per run to preserve each dependency update
+          # in the prerelease history under .changeset/pre/.
           CHANGESET=".changeset/update-verdaccio-dependencies-${GITHUB_RUN_ID}.md"
           printf '%s\n' \
             "---" \
