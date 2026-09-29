@@ -108,7 +108,6 @@ settings:
 overrides:
   esbuild: 0.28.2
   form-data: '>=4.0.6'
-  fast-uri: 3.1.6
 
 importers:
 
