@@ -23,3 +23,6 @@ auditConfig:
     - GHSA-j3q9-mxjg-w52f
     # Express.js unreleased
     - GHSA-w7fw-mjwx-w883
+    # fast-uri (via Ajv)
+    - GHSA-qw65-cvwx-89v3
+    - GHSA-58mr-gqgx-xq4g
