@@ -15,7 +15,7 @@
     "url": "https://opencollective.com/verdaccio"
   },
   "devDependencies": {
-    "@changesets/cli": "3.0.1",
+    "@changesets/cli": "3.0.3",
     "@crowdin/cli": "4.14.3",
     "@emotion/react": "11.14.0",
     "@emotion/styled": "11.14.1",
