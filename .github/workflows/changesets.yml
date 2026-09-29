@@ -22,8 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master' && github.repository == 'verdaccio/verdaccio'
     outputs:
-      # v2 renamed the output hasChangesets -> has-changesets
-      hasChangesets: ${{ steps.changesets.outputs['has-changesets'] }}
+      has-changesets: ${{ steps.changesets.outputs.has-changesets }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Install dependencies with a custom registry
@@ -37,13 +36,9 @@ jobs:
         run: pnpm build
       - name: create versions
         id: changesets
-        uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51
+        uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
         with:
-          # v2 renamed every input (version -> version-script, commit ->
-          # commit-message, title -> pr-title) and dropped setupGitUser. It
-          # also no longer reads the GITHUB_TOKEN env var: the custom PAT
-          # (needed so the version PR triggers CI) must go through the
-          # github-token input.
+          # Pass the release PAT explicitly so version PRs trigger CI.
           github-token: ${{ secrets.CHANGESET_RELEASE_TOKEN }}
           version-script: pnpm ci:version
           commit-message: 'chore: update versions'
@@ -53,7 +48,7 @@ jobs:
   # Gated by the `npm` environment, which requires manual approval.
   publish:
     needs: version
-    if: needs.version.outputs.hasChangesets == 'false'
+    if: needs.version.outputs.has-changesets == 'false'
     timeout-minutes: 14
     runs-on: ubuntu-latest
     environment: npm
@@ -69,11 +64,11 @@ jobs:
       - name: build
         run: pnpm build
       - name: publish
-        uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51
+        uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
         with:
           github-token: ${{ secrets.CHANGESET_RELEASE_TOKEN }}
           publish-script: pnpm ci:publish
-          # v2 defaults this to true; this repo cuts GitHub releases elsewhere
+          # GitHub releases are created by a separate workflow.
           create-github-releases: false
         env:
           NPM_CONFIG_REGISTRY: https://registry.npmjs.org
