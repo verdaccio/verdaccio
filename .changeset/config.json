@@ -1,9 +1,10 @@
 {
-  "$schema": "https://unpkg.com/@changesets/config@1.3.0/schema.json",
+  "$schema": "https://unpkg.com/@changesets/config@4.0.0/schema.json",
   "changelog": "@changesets/cli/changelog",
   "commit": false,
   "fixed": [["@verdaccio/core", "@verdaccio/config"]],
   "access": "public",
   "baseBranch": "8.x",
-  "updateInternalDependencies": "patch"
+  "updateInternalDependencies": "patch",
+  "privatePackages": { "version": true, "tag": false }
 }
