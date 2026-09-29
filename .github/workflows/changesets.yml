@@ -37,7 +37,7 @@ jobs:
         run: pnpm build
       - name: create versions
         id: changesets
-        uses: changesets/action@8488615a623b1b9c987934bb89eae8af6a946ac1
+        uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51
         with:
           # v2 renamed every input (version -> version-script, commit ->
           # commit-message, title -> pr-title) and dropped setupGitUser. It
@@ -69,7 +69,7 @@ jobs:
       - name: build
         run: pnpm build
       - name: publish
-        uses: changesets/action@8488615a623b1b9c987934bb89eae8af6a946ac1
+        uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51
         with:
           github-token: ${{ secrets.CHANGESET_RELEASE_TOKEN }}
           publish-script: pnpm ci:publish
