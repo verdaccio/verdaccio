@@ -36,8 +36,8 @@ minimumReleaseAgeExclude:
   - fast-uri@3.1.6
   # Security update: js-yaml GHSA-pm4m-ph32-ghv5 (DoS in flow collections)
   # (entries are matched by name first: a stale js-yaml@<old> entry above this
-  # one would shadow it and reject the version — keep a single js-yaml entry)
-  - js-yaml@5.2.2
+  # one would shadow it and reject the version — keep a single js-yaml entry) || 5.4.1
+  - js-yaml@5.2.2 || 5.4.1
   # Security update: js-yaml GHSA-5p4m-2wfm-xmqj (!!omap CPU consumption)
   - js-yaml@4.3.2
   # Security updates required by pnpm audit
