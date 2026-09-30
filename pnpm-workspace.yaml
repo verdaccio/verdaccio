@@ -22,7 +22,7 @@ overrides:
   # Security: body-parser pins qs ~6.15, below the GHSA-4mjr-xmp4-gh2g fix
   'body-parser>qs': 6.16.0
   # Security: ajv resolves fast-uri in range, pin the fix for GHSA-jqff-g426-hqxp and the other 2026 fast-uri advisories
-  fast-uri: 3.1.6
+  fast-uri: 3.1.8
   # Security: concurrently pins shell-quote below the GHSA-395f-4hp3-45gv fix
   shell-quote: 1.10.0
 minimumReleaseAge: 10080

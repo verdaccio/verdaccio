@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/8.x' && github.repository == 'verdaccio/verdaccio'
     outputs:
-      hasChangesets: ${{ steps.changesets.outputs.hasChangesets }}
+      has-changesets: ${{ steps.changesets.outputs.has-changesets }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies with a custom registry
@@ -31,20 +31,19 @@ jobs:
         run: pnpm build
       - name: create versions
         id: changesets
-        uses: changesets/action@63a615b9cd06ba9a3e6d13796c7fbcb080a60a0b
+        uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
         with:
-          version: pnpm ci:version
-          commit: 'chore: update versions 8.x'
-          title: 'chore: update versions 8.x'
-          setupGitUser: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.CHANGESET_RELEASE_TOKEN }}
+          github-token: ${{ secrets.CHANGESET_RELEASE_TOKEN }}
+          version-script: pnpm ci:version
+          commit-message: 'chore: update versions 8.x'
+          pr-title: 'chore: update versions 8.x'
+          push-with-git-cli: true
 
   # Publish to npm once the version PR is merged (no changesets left).
   # Gated by the `npm` environment, which requires manual approval.
   publish:
     needs: version
-    if: needs.version.outputs.hasChangesets == 'false'
+    if: needs.version.outputs.has-changesets == 'false'
     timeout-minutes: 14
     runs-on: ubuntu-latest
     environment: npm
@@ -55,11 +54,12 @@ jobs:
       - name: build
         run: pnpm build
       - name: publish
-        uses: changesets/action@63a615b9cd06ba9a3e6d13796c7fbcb080a60a0b
+        uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
         with:
-          publish: pnpm ci:publish
-          createGithubReleases: false
-          setupGitUser: true
+          github-token: ${{ secrets.CHANGESET_RELEASE_TOKEN }}
+          publish-script: pnpm ci:publish
+          create-github-releases: false
+          push-git-tags: false
+          push-with-git-cli: true
         env:
-          GITHUB_TOKEN: ${{ secrets.CHANGESET_RELEASE_TOKEN }}
           NPM_CONFIG_REGISTRY: https://registry.npmjs.org
