@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import semver from 'semver';
 
+import { errorUtils } from '@verdaccio/core';
 import { SEARCH_API_ENDPOINTS, rateLimit } from '@verdaccio/middleware';
 import type { Config, Manifest } from '@verdaccio/types';
 
@@ -223,7 +224,15 @@ export default function (route, auth, storage, config: Config): void {
     rateLimit(config?.userRateLimit),
     async (req, res, next) => {
       // TODO: implement proper result scoring weighted by quality, popularity and maintenance query parameters
-      const text = req.query.text as string;
+      const text = req.query.text;
+      if (typeof text !== 'string' || text.trim().length === 0) {
+        const error = errorUtils.getBadRequest("'text' query parameter is required");
+        res.status(error.status).json({
+          error: error.message,
+          code: 'ERR_TEXT_MISSING',
+        });
+        return;
+      }
 
       // `size` and `from` are attacker-controlled: clamp them so a single
       // request cannot demand unbounded work
