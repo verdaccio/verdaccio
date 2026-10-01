@@ -59,6 +59,15 @@ export default function (
     rateLimit(config?.userRateLimit),
     async (req, res, next) => {
       const { query, url } = req;
+      if (typeof query.text !== 'string' || query.text.trim().length === 0) {
+        const error = errorUtils.getBadRequest("'text' query parameter is required");
+        res.status(error.status).json({
+          error: error.message,
+          code: 'ERR_TEXT_MISSING',
+        });
+        return;
+      }
+
       // `size` and `from` are attacker-controlled: clamp them so a single
       // request cannot demand unbounded work
       const size = parseQueryInt(query.size, DEFAULT_SIZE, MAX_SIZE);

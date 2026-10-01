@@ -46,6 +46,9 @@ preferFrozenLockfile: true
 
 auditConfig:
   ignoreGhsas:
+    # brace-expansion (via minimatch)
+    - GHSA-qhr7-859c-m2p7
+    - GHSA-6j4f-fj2g-mc7p
     # Express.js unreleased
     - GHSA-j3q9-mxjg-w52f
     # Express.js unreleased
