@@ -114,6 +114,20 @@ describe('MemoryHandler', () => {
       ).rejects.toEqual(errorUtils.getInternalError('error on parse the metadata'));
     });
 
+    test('should keep the status of an error thrown while updating a package', async () => {
+      const localMemory = new LocalMemory(memoryConfig, getDefaultConfig());
+      const pkgName = 'test-status';
+      const handler = localMemory.getPackageStorage(pkgName);
+      expect(handler).toBeDefined();
+      await handler.savePackage(pkgName, pkgExample);
+      const forbidden = errorUtils.getForbidden('only owners are allowed to change package');
+      await expect(
+        handler.updatePackage(pkgName, async () => {
+          throw forbidden;
+        })
+      ).rejects.toEqual(forbidden);
+    });
+
     test('should delete a package', async () => {
       const localMemory = new LocalMemory(memoryConfig, getDefaultConfig());
       const pkgName = 'test8';

@@ -68,4 +68,29 @@ describe('validatePublishSingleVersion', () => {
     const result = validateUnPublishSingleVersion(null);
     expect(result).toBe(false);
   });
+
+  it('should invalidate a manifest with an empty _rev', () => {
+    const invalidManifest = {
+      name: '@juanpicado/test2',
+      versions: {
+        '3.0.2-0': {
+          name: '@juanpicado/test2',
+        },
+      },
+      _rev: '',
+      _id: '@juanpicado/test2',
+      time: {
+        created: '2024-11-02T14:33:06.170Z',
+        modified: '2024-11-02T14:33:22.919Z',
+        '3.0.2-0': '2024-11-02T14:33:06.208Z',
+      },
+      readme: 'ERROR: No README data found!',
+      'dist-tags': {
+        latest: '3.0.2-0',
+      },
+    };
+
+    const result = validateUnPublishSingleVersion(invalidManifest);
+    expect(result).toBe(false);
+  });
 });
