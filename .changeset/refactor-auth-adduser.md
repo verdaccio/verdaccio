@@ -17,9 +17,16 @@ The htpasswd and in-memory plugins now consider only stored user entries, so
 usernames such as `constructor` or `toString` can be registered and authenticated.
 When htpasswd reloads its file, users removed from it are now forgotten: before,
 a user deleted from the `.htpasswd` file could keep authenticating until Verdaccio
-restarted.
+restarted. If reading the `.htpasswd` file fails after its lock is taken, the lock is
+now released instead of blocking later registrations until it goes stale.
 
-Authentication reports invalid plugin group results through the error callback.
+These htpasswd issues affect every published `verdaccio-htpasswd` up to
+`14.0.0-next-9.33` (shipped by `verdaccio@9.0.0-next-9.33` and `7.0.0-next-7.29`) and
+`13.1.3` (shipped by the stable `verdaccio@6.10.4`). This change fixes the next line;
+the port to the stable 6.x line is pending.
+
+Authentication reports invalid plugin group results through the error callback,
+checking the type before the length so values such as `{ length: 0 }` are rejected.
 The plugin verifier also rejects native `async` implementations and non-function
 values for `adduser` and legacy `add_user`, with a diagnostic explaining the callback
 contract. This additional validation applies to the verifier, not the production

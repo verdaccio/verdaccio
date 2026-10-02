@@ -205,11 +205,11 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
           return cb(err);
         }
 
-        if (!!groups && groups.length !== 0) {
-          if (!Array.isArray(groups)) {
-            return cb(errorUtils.getInternalError(API_ERROR.BAD_FORMAT_USER_GROUP));
-          }
+        if (groups && !Array.isArray(groups)) {
+          return cb(errorUtils.getInternalError(API_ERROR.BAD_FORMAT_USER_GROUP));
+        }
 
+        if (groups && groups.length !== 0) {
           debug('authentication for user %o was successfully. Groups: %o', username, groups);
           return cb(err, createRemoteUser(username, groups));
         }

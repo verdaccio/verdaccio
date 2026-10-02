@@ -11,14 +11,10 @@ import {
   addUserToHTPasswd,
   changePasswordToHTPasswd,
   generateHtpasswdLine,
-  lockAndRead,
   parseHTPasswd,
   sanityCheck,
   verifyPassword,
 } from '../src/utils';
-
-const mockReadFile = vi.fn();
-const mockUnlockFile = vi.fn();
 
 const defaultHashConfig = {
   algorithm: constants.HtpasswdHashAlgorithm.bcrypt,
@@ -35,11 +31,6 @@ const mockTimeAndRandomBytes = () => {
   });
   Math.random = vi.fn(() => 0.38849);
 };
-
-vi.mock('@verdaccio/file-locking', () => ({
-  readFile: () => mockReadFile(),
-  unlockFile: () => mockUnlockFile(),
-}));
 
 describe('parseHTPasswd', () => {
   test('should parse the password for a single line', () => {
@@ -184,13 +175,6 @@ describe('addUserToHTPasswd - bcrypt', () => {
     await expect(
       addUserToHTPasswd(a, b, c, defaultHashConfig)
     ).rejects.toThrowErrorMatchingSnapshot();
-  });
-});
-describe('lockAndRead', () => {
-  test('should call the readFile method', () => {
-    const cb = (): void => {};
-    lockAndRead('.htpasswd', cb);
-    expect(mockReadFile).toHaveBeenCalled();
   });
 });
 

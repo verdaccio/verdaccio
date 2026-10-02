@@ -155,7 +155,7 @@ describe('AuthTest', () => {
 
         const callback = vi.fn();
 
-        for (const [index, value] of [true, 1, 'test', {}].entries()) {
+        for (const [index, value] of [true, 1, 'test', {}, { length: 0 }].entries()) {
           // @ts-ignore
           auth.authenticate(null, value, callback);
           expect(callback).toHaveBeenCalledTimes(index + 1);

@@ -3,9 +3,10 @@ import bcrypt from 'bcryptjs';
 import buildDebug from 'debug';
 import createError, { type HttpError } from 'http-errors';
 import crypto from 'node:crypto';
+import { readFile } from 'node:fs';
 
 import { API_ERROR, HTTP_STATUS, constants } from '@verdaccio/core';
-import { readFile } from '@verdaccio/file-locking';
+import { lockFile, unlockFile } from '@verdaccio/file-locking';
 import type { Callback } from '@verdaccio/types';
 
 import crypt3 from './crypt3';
@@ -20,15 +21,18 @@ export interface HtpasswdHashConfig {
   rounds?: number;
 }
 
-// this function neither unlocks file nor closes it
-// it'll have to be done manually later
+// On success the caller owns the lock and must unlock it; on error no lock is held.
 export function lockAndRead(name: string, cb: Callback): void {
-  readFile(name, { lock: true }, (err, res) => {
-    if (err) {
-      return cb(err);
+  lockFile(name, (lockError) => {
+    if (lockError) {
+      return cb(lockError);
     }
-
-    return cb(null, res);
+    readFile(name, 'utf8', (readError, res) => {
+      if (readError) {
+        return unlockFile(name, () => cb(readError));
+      }
+      cb(null, res);
+    });
   });
 }
 
