@@ -39,13 +39,13 @@ export function lockAndRead(name: string, cb: Callback): void {
  */
 export function parseHTPasswd(input: string): Record<string, any> {
   // The input is split on line ending styles that are both windows and unix compatible
-  return input.split(/[\r]?[\n]/).reduce((result, line) => {
+  return input.split(/[\r]?[\n]/).reduce<Record<string, string>>((result, line) => {
     const args = line.split(':', 3).map((str) => str.trim());
     if (args.length > 1) {
       result[args[0]] = args[1];
     }
     return result;
-  }, {});
+  }, Object.create(null));
 }
 
 /**
@@ -163,7 +163,7 @@ export async function sanityCheck(
     return err;
   }
 
-  const hash = users[user];
+  const hash = Object.hasOwn(users, user) ? users[user] : undefined;
 
   if (maxUsers < 0) {
     debug('registration is disabled');
@@ -173,7 +173,7 @@ export async function sanityCheck(
   }
 
   if (hash) {
-    const auth = await verifyFn(password, users[user]);
+    const auth = await verifyFn(password, hash);
     if (auth) {
       debug(`user ${user} already exists`);
       err = Error(API_ERROR.USERNAME_ALREADY_REGISTERED);

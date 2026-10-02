@@ -4,9 +4,9 @@ import { createRequire } from 'node:module';
 import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
-import { PLUGIN_PREFIX } from '@verdaccio/core';
+import { PLUGIN_CATEGORY, PLUGIN_PREFIX } from '@verdaccio/core';
 
-import { getSanityCheck } from './sanity-checks';
+import { getAuthRegistrationError, getSanityCheck } from './sanity-checks';
 import type { DiagnosticStep, VerifyPluginOptions } from './types';
 
 const debug = buildDebug('verdaccio:plugin:verifier:diagnostics');
@@ -244,7 +244,11 @@ export async function runDiagnostics(options: VerifyPluginOptions): Promise<Diag
     steps.push({
       phase: 'sanity-check',
       pass: false,
-      message: `Plugin does not implement the required methods for category "${category}". Available methods: [${unique.join(', ')}]`,
+      message:
+        (!customSanityCheck && category === PLUGIN_CATEGORY.AUTHENTICATION
+          ? getAuthRegistrationError(instance)
+          : undefined) ??
+        `Plugin does not implement the required methods for category "${category}". Available methods: [${unique.join(', ')}]`,
     });
     return steps;
   }

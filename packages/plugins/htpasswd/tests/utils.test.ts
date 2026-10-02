@@ -68,6 +68,14 @@ user4:$6FrCasdvppdwE:autocreated 2017-12-14T13:30:20.838Z`;
     };
     expect(parseHTPasswd(input)).toEqual(output);
   });
+
+  test('preserves usernames that match object properties', () => {
+    const users = parseHTPasswd('__proto__:first\nconstructor:second\ntoString:third');
+    expect(Object.keys(users)).toEqual(['__proto__', 'constructor', 'toString']);
+    expect(users.__proto__).toBe('first');
+    expect(users.constructor).toBe('second');
+    expect(users.toString).toBe('third');
+  });
 });
 
 describe('verifyPassword', () => {
@@ -192,6 +200,17 @@ describe('sanityCheck', () => {
   beforeEach(() => {
     users = { test: '$6FrCaT/v0dwE' };
   });
+
+  test.each(['constructor', 'toString', '__proto__'])(
+    'does not verify an inherited property named %s',
+    async (username) => {
+      const verifyFn = vi.fn();
+      await expect(
+        sanityCheck(username, 'password', verifyFn, users, Infinity)
+      ).resolves.toBeNull();
+      expect(verifyFn).not.toHaveBeenCalled();
+    }
+  );
 
   test('should throw error for user already exists', async () => {
     const verifyFn = vi.fn();

@@ -15,8 +15,7 @@ const debug = buildDebug('verdaccio:plugin:verifier');
  * Verifies that a plugin can be loaded by Verdaccio.
  *
  * Uses `asyncLoadPlugin` from `@verdaccio/loaders` — the same loader
- * Verdaccio uses at startup — so the verification is identical to what
- * happens in production.
+ * Verdaccio uses at startup, with additional auth registration contract checks.
  *
  * Steps verified:
  * 1. Module resolution — can the plugin be found/required?

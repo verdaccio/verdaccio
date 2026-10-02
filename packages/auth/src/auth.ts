@@ -205,21 +205,9 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
           return cb(err);
         }
 
-        // Expect: SKIP if groups is falsey and not an array
-        //         with at least one item (truthy length)
-        // Expect: CONTINUE otherwise (will error if groups is not
-        //         an array, but this is current behavior)
-        // Caveat: STRING (if valid) will pass successfully
-        //         bug give unexpected results
-        // Info: Cannot use `== false to check falsey values`
         if (!!groups && groups.length !== 0) {
-          // TODO: create a better understanding of expectations
-          if (typeof groups === 'string') {
-            throw new TypeError('plugin group error: invalid type for function');
-          }
-          const isGroupValid: boolean = Array.isArray(groups);
-          if (!isGroupValid) {
-            throw new TypeError(API_ERROR.BAD_FORMAT_USER_GROUP);
+          if (!Array.isArray(groups)) {
+            return cb(errorUtils.getInternalError(API_ERROR.BAD_FORMAT_USER_GROUP));
           }
 
           debug('authentication for user %o was successfully. Groups: %o', username, groups);

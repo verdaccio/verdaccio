@@ -1,9 +1,28 @@
+import { types } from 'node:util';
+
 import { PLUGIN_CATEGORY, pluginUtils } from '@verdaccio/core';
 
 import type { PluginCategory } from './types';
 
-// Re-export sanity checks from @verdaccio/core for convenience.
-export const authSanityCheck = pluginUtils.authSanityCheck;
+export function getAuthRegistrationError(plugin: any): string | undefined {
+  for (const method of ['adduser', 'add_user']) {
+    const implementation = plugin?.[method];
+    if (implementation === undefined) continue;
+    if (
+      typeof implementation !== 'function' ||
+      types.isAsyncFunction(implementation) ||
+      Object.prototype.toString.call(implementation) === '[object AsyncFunction]'
+    ) {
+      return `Auth plugin ${method} must be a non-async function returning void and reporting its result through the callback.`;
+    }
+  }
+}
+
+export function authSanityCheck(plugin: any): boolean {
+  return pluginUtils.authSanityCheck(plugin) && getAuthRegistrationError(plugin) === undefined;
+}
+
+// Re-export the remaining sanity checks from @verdaccio/core.
 export const storageSanityCheck = pluginUtils.storageSanityCheck;
 export const middlewareSanityCheck = pluginUtils.middlewareSanityCheck;
 export const filterSanityCheck = pluginUtils.filterSanityCheck;
