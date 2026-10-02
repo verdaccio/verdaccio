@@ -20,7 +20,7 @@ export default class Memory
 
   public constructor(config: VerdaccioMemoryConfig, appOptions: pluginUtils.PluginOptions) {
     super(config, appOptions);
-    this._users = config.users || {};
+    this._users = Object.assign(Object.create(null), config.users);
     this._config = config;
     this._logger = appOptions.logger;
     this._app_config = appOptions.config;

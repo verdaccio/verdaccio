@@ -2,7 +2,7 @@
 
 A testing tool that verifies whether a Verdaccio plugin can be properly loaded, instantiated, and passes the required sanity checks for its category.
 
-It uses `asyncLoadPlugin` from `@verdaccio/loaders` internally — the **same loader Verdaccio uses at startup** — so the verification is identical to what happens in production.
+It uses `asyncLoadPlugin` from `@verdaccio/loaders` internally — the **same loader Verdaccio uses at startup** — and adds registration contract checks for authentication plugins.
 
 Available as both a **CLI** and a **programmatic API**.
 
@@ -33,6 +33,15 @@ When a plugin is verified, it runs through the same pipeline Verdaccio executes 
 | `filter`         | `filter_metadata`                               |
 
 ## CLI
+
+The default authentication check rejects native `async` implementations of optional
+`adduser` and legacy `add_user`, as well as non-function values. Registration must
+return `void` and report success or failure through its callback; asynchronous work
+inside the method is allowed if it handles its errors and completes the callback.
+The verifier never calls registration, so it cannot detect ordinary functions
+(including transpiled async functions) that return a Promise. Test the return value
+and callback behavior in the plugin's own tests. A custom `sanityCheck` overrides
+these default checks. These additional checks do not change the production loader.
 
 The CLI is built with [clipanion](https://mael.dev/clipanion/) (the same framework used by `@verdaccio/cli`).
 

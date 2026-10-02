@@ -54,7 +54,7 @@ export default class HTPasswd
   // constructor
   public constructor(config: HTPasswdConfig, options: pluginUtils.PluginOptions) {
     super(config, options);
-    this.users = {};
+    this.users = Object.create(null);
 
     // verdaccio logger
     this.logger = options.logger;
@@ -120,7 +120,7 @@ export default class HTPasswd
         debug('error %o', err);
         return cb(err.code === 'ENOENT' ? null : err);
       }
-      if (!this.users[user]) {
+      if (!Object.hasOwn(this.users, user)) {
         debug('user %s not found', user);
         return cb(null, false);
       }
@@ -153,79 +153,51 @@ export default class HTPasswd
     });
   }
 
-  /**
-   * Add user
-   * 1. lock file for writing (other processes can still read)
-   * 2. reload .htpasswd
-   * 3. write new data into .htpasswd.tmp
-   * 4. move .htpasswd.tmp to .htpasswd
-   * 5. reload .htpasswd
-   * 6. unlock file
-   *
-   * @param {string} user
-   * @param {string} password
-   * @param {function} realCb
-   * @returns {Promise<any>}
-   */
-  public async adduser(user: string, password: string, realCb: Callback): Promise<any> {
+  /** Register a user and report the result through the callback. */
+  public adduser(user: string, password: string, realCb: Callback): void {
     const pathPass = this.path;
     debug('adduser %s', user);
-    let sanity = await sanityCheck(user, password, verifyPassword, this.users, this.maxUsers);
-    debug('sanity check: %s', sanity);
-    // preliminary checks, just to ensure that file won't be reloaded if it's
-    // not needed
-    if (sanity) {
-      debug('sanity check failed');
-      return realCb(sanity, false);
-    }
-
-    lockAndRead(pathPass, async (err, res): Promise<void> => {
-      let locked = false;
-      debug('locked and read');
-
-      // callback that cleans up lock first
-      const cb = (err): void => {
-        if (locked) {
-          unlockFile(pathPass, () => {
-            // ignore any error from the unlock
-            realCb(err, !err);
-          });
-        } else {
-          realCb(err, !err);
+    // Rejection handlers are passed to then() so a throwing callback is never invoked twice.
+    void sanityCheck(user, password, verifyPassword, this.users, this.maxUsers).then(
+      (rejection) => {
+        if (rejection) {
+          return realCb(rejection, false);
         }
-      };
 
-      if (!err) {
-        debug('locked');
-        locked = true;
-      }
+        // Create the file first so the lock also serializes the very first registrations.
+        writeFile(pathPass, '', { flag: 'wx' }, (createError) => {
+          if (createError && createError.code !== 'EEXIST') {
+            return realCb(createError, false);
+          }
 
-      // ignore ENOENT errors, we'll just create .htpasswd in that case
-      if (err && err.code !== 'ENOENT') {
-        return cb(err);
-      }
-      debug('read file');
-      const body = (res || '').toString('utf8');
-      this.users = parseHTPasswd(body);
-      debug('parsed users');
-      // real checks, to prevent race conditions
-      // parsing users after reading file.
-      sanity = await sanityCheck(user, password, verifyPassword, this.users, this.maxUsers);
-      debug('sanity check: %s', sanity);
-      if (sanity) {
-        debug('sanity check failed');
-        return cb(sanity);
-      }
+          lockAndRead(pathPass, (err, res): void => {
+            if (err) {
+              return realCb(err, false);
+            }
+            const cb = (error): void => {
+              unlockFile(pathPass, () => realCb(error, !error));
+            };
 
-      try {
-        debug('add user to htpasswd file');
-        this._writeFile(await addUserToHTPasswd(body, user, password, this.hashConfig), cb);
-        debug('user added');
-      } catch (err: any) {
-        debug('error %o', err);
-        return cb(err);
-      }
-    });
+            try {
+              const body = (res || '').toString('utf8');
+              this.users = parseHTPasswd(body);
+              // Recheck after locking and reading to avoid concurrent registration races.
+              void sanityCheck(user, password, verifyPassword, this.users, this.maxUsers)
+                .then((rejection) => {
+                  if (rejection) {
+                    throw rejection;
+                  }
+                  return addUserToHTPasswd(body, user, password, this.hashConfig);
+                })
+                .then((updated) => this._writeFile(updated, cb), cb);
+            } catch (error) {
+              cb(error);
+            }
+          });
+        });
+      },
+      (error) => realCb(error, false)
+    );
   }
 
   /**
@@ -249,8 +221,8 @@ export default class HTPasswd
         if (err) {
           return callback(err);
         }
+        this.users = parseHTPasswd(buffer);
         debug('reload users total: %s', Object.keys(this.users).length);
-        Object.assign(this.users, parseHTPasswd(buffer));
         callback();
       });
     });
