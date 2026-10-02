@@ -59,6 +59,21 @@ describe('Memory', function () {
       }
     });
 
+    test.each(['constructor', 'toString', '__proto__'])(
+      'registers and authenticates %s as a new user',
+      (name) => {
+        const instance = new Memory({ users: {} }, { config, logger });
+        const added = vi.fn();
+        const authenticated = vi.fn();
+
+        instance.adduser(name, 'secret', added);
+        instance.authenticate(name, 'secret', authenticated);
+
+        expect(added).toHaveBeenCalledWith(null, name);
+        expect(authenticated).toHaveBeenCalledWith(null, [name]);
+      }
+    );
+
     test('adds users', function () {
       return new Promise((done) => {
         auth.adduser?.('test', 'secret', function (err, user) {

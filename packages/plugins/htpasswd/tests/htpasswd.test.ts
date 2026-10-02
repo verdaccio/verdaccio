@@ -1,10 +1,12 @@
 import bcrypt from 'bcryptjs';
 import crypto from 'node:crypto';
+import { writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
 import type { pluginUtils } from '@verdaccio/core';
+import { fileUtils } from '@verdaccio/core';
 
 import type { HTPasswdConfig } from '../src/htpasswd';
 import HTPasswd, { DEFAULT_SLOW_VERIFY_MS } from '../src/htpasswd';
@@ -120,5 +122,25 @@ describe('HTPasswd', () => {
         wrapper.authenticate('bcrypt', 'password', callback);
       });
     });
+  });
+});
+
+describe('reload()', () => {
+  test('stops authenticating a user removed from the file', async () => {
+    const folder = await fileUtils.createTempFolder('htpasswd-reload');
+    const file = path.join(folder, 'htpasswd');
+    const hash = bcrypt.hashSync('secret', 4);
+    await writeFile(file, `removed:${hash}\nkept:${hash}\n`);
+    const plugin = new HTPasswd({ file } as HTPasswdConfig, options);
+    const authenticate = (user: string) =>
+      new Promise((resolve) =>
+        plugin.authenticate(user, 'secret', (_err, groups) => resolve(groups))
+      );
+
+    await expect(authenticate('removed')).resolves.toEqual(['removed']);
+    await writeFile(file, `kept:${hash}\n`);
+
+    await expect(authenticate('removed')).resolves.toBe(false);
+    await expect(authenticate('kept')).resolves.toEqual(['kept']);
   });
 });

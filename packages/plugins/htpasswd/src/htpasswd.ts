@@ -157,10 +157,11 @@ export default class HTPasswd
   public adduser(user: string, password: string, realCb: Callback): void {
     const pathPass = this.path;
     debug('adduser %s', user);
-    void sanityCheck(user, password, verifyPassword, this.users, this.maxUsers)
-      .then((sanity) => {
-        if (sanity) {
-          return realCb(sanity, false);
+    // Rejection handlers are passed to then() so a throwing callback is never invoked twice.
+    void sanityCheck(user, password, verifyPassword, this.users, this.maxUsers).then(
+      (rejection) => {
+        if (rejection) {
+          return realCb(rejection, false);
         }
 
         lockAndRead(pathPass, (err, res): void => {
@@ -183,21 +184,20 @@ export default class HTPasswd
             this.users = parseHTPasswd(body);
             // Recheck after locking and reading to avoid concurrent registration races.
             void sanityCheck(user, password, verifyPassword, this.users, this.maxUsers)
-              .then((sanity) => {
-                if (sanity) {
-                  return cb(sanity);
+              .then((rejection) => {
+                if (rejection) {
+                  throw rejection;
                 }
-                return addUserToHTPasswd(body, user, password, this.hashConfig).then((updated) => {
-                  this._writeFile(updated, cb);
-                });
+                return addUserToHTPasswd(body, user, password, this.hashConfig);
               })
-              .catch(cb);
+              .then((updated) => this._writeFile(updated, cb), cb);
           } catch (error) {
             cb(error);
           }
         });
-      })
-      .catch((error) => realCb(error, false));
+      },
+      (error) => realCb(error, false)
+    );
   }
 
   /**
@@ -221,8 +221,8 @@ export default class HTPasswd
         if (err) {
           return callback(err);
         }
+        this.users = parseHTPasswd(buffer);
         debug('reload users total: %s', Object.keys(this.users).length);
-        Object.assign(this.users, parseHTPasswd(buffer));
         callback();
       });
     });

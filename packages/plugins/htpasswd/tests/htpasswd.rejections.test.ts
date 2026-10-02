@@ -30,7 +30,6 @@ test('returns a preliminary sanity check rejection through the callback', async 
 
   expect(plugin.adduser('user', 'password', callback)).toBeUndefined();
   await vi.waitFor(() => expect(callback).toHaveBeenCalledTimes(1));
-  expect(callback).toHaveBeenCalledTimes(1);
   expect(callback).toHaveBeenCalledWith(failure, false);
   expect(sanityCheck).toHaveBeenCalledTimes(1);
 });
@@ -52,7 +51,7 @@ test('unlocks and returns a sanity check rejection after reading the file', asyn
   const callback = vi.fn();
 
   await new Promise<void>((resolve) => {
-    void plugin.adduser('user', 'password', (error, success) => {
+    plugin.adduser('user', 'password', (error, success) => {
       callback(error, success);
       resolve();
     });
@@ -62,4 +61,25 @@ test('unlocks and returns a sanity check rejection after reading the file', asyn
   expect(callback).toHaveBeenCalledWith(failure, false);
   expect(sanityCheck).toHaveBeenCalledTimes(2);
   await expect(access(`${file}.lock`)).rejects.toMatchObject({ code: 'ENOENT' });
+});
+
+test('does not call back again when the callback throws', async () => {
+  const sanityCheck = vi.fn().mockResolvedValue(new Error('registration disabled'));
+  vi.doMock('../src/utils.ts', async (importOriginal) => ({
+    ...((await importOriginal()) as object),
+    sanityCheck,
+  }));
+  const thrown = new Error('callback failed');
+  const unhandled = new Promise((resolve) => process.once('unhandledRejection', resolve));
+
+  const HTPasswd = (await import('../src/htpasswd')).default;
+  const plugin = new HTPasswd({ file: './htpasswd' }, options);
+  const callback = vi.fn(() => {
+    throw thrown;
+  });
+
+  plugin.adduser('user', 'password', callback);
+
+  await expect(unhandled).resolves.toBe(thrown);
+  expect(callback).toHaveBeenCalledTimes(1);
 });

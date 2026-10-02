@@ -138,13 +138,8 @@ export async function addUserToHTPasswd(
 }
 
 /**
- * Sanity check for a user
- * @param {string} user
- * @param {object} users
- * @param {string} password
- * @param {Callback} verifyFn
- * @param {number} maxUsers
- * @returns {object}
+ * Check whether `user` may be registered; resolves to `null` when allowed, or to the HTTP error
+ * that rejects it (never throws for a rejection). `verifyFn` checks `password` against an existing hash.
  */
 export async function sanityCheck(
   user: string,

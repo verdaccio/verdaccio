@@ -2,6 +2,7 @@
 '@verdaccio/auth': patch
 'verdaccio-htpasswd': patch
 '@verdaccio/plugin-verifier': patch
+'verdaccio-auth-memory': patch
 ---
 
 Align user registration with the authentication plugin callback contract.
@@ -9,7 +10,14 @@ Align user registration with the authentication plugin callback contract.
 The htpasswd plugin's `adduser` method now returns `void` and reports registration
 results and internal asynchronous errors through its callback. Registration retains
 the checks performed after acquiring the file lock and releases the lock before
-reporting completion. User lookups now consider only stored user entries.
+reporting completion, and invokes the callback exactly once even if the callback
+itself throws.
+
+The htpasswd and in-memory plugins now consider only stored user entries, so
+usernames such as `constructor` or `toString` can be registered and authenticated.
+When htpasswd reloads its file, users removed from it are now forgotten: before,
+a user deleted from the `.htpasswd` file could keep authenticating until Verdaccio
+restarted.
 
 Authentication reports invalid plugin group results through the error callback.
 The plugin verifier also rejects native `async` implementations and non-function
