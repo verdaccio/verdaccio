@@ -6,13 +6,7 @@ import { HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER, UUID_PATTERN } from '@
 import { setup } from '@verdaccio/logger';
 import { generatePackageMetadata } from '@verdaccio/test-helper';
 
-import {
-  buildToken,
-  getNewToken,
-  initializeServer,
-  publishVersion,
-  publishVersionWithToken,
-} from './_helper';
+import { buildToken, getNewToken, initializeServer, publishVersionWithToken } from './_helper';
 
 const A_UUID = '8f6d5b3c-1a2e-4f7b-9c0d-1e2f3a4b5c6d';
 /** 404 from the GET catch-all, 590 from the test server's unmatched-request handler. */
@@ -624,9 +618,7 @@ describe('stage', () => {
     test('should not leak the stage namespace into the package list', async () => {
       const { app, token } = await buildApp();
       await stageVersion(app, 'foo-leak', '1.0.0', token).expect(HTTP_STATUS.CREATED);
-      await publishVersion(app, 'foo-visible', '1.0.0', undefined, token).expect(
-        HTTP_STATUS.CREATED
-      );
+      await publishVersionWithToken(app, 'foo-visible', '1.0.0', token).expect(HTTP_STATUS.CREATED);
 
       const response = await authed(supertest(app).get('/-/all'), token);
       const body = JSON.stringify(response.body);
