@@ -164,36 +164,36 @@ export default class HTPasswd
           return realCb(rejection, false);
         }
 
-        lockAndRead(pathPass, (err, res): void => {
-          const locked = !err;
-          const cb = (error): void => {
-            if (locked) {
-              unlockFile(pathPass, () => realCb(error, !error));
-            } else {
-              realCb(error, !error);
+        // Create the file first so the lock also serializes the very first registrations.
+        writeFile(pathPass, '', { flag: 'wx' }, (createError) => {
+          if (createError && createError.code !== 'EEXIST') {
+            return realCb(createError, false);
+          }
+
+          lockAndRead(pathPass, (err, res): void => {
+            if (err) {
+              return realCb(err, false);
             }
-          };
+            const cb = (error): void => {
+              unlockFile(pathPass, () => realCb(error, !error));
+            };
 
-          // A missing file will be created when writing the first user.
-          if (err && err.code !== 'ENOENT') {
-            return cb(err);
-          }
-
-          try {
-            const body = (res || '').toString('utf8');
-            this.users = parseHTPasswd(body);
-            // Recheck after locking and reading to avoid concurrent registration races.
-            void sanityCheck(user, password, verifyPassword, this.users, this.maxUsers)
-              .then((rejection) => {
-                if (rejection) {
-                  throw rejection;
-                }
-                return addUserToHTPasswd(body, user, password, this.hashConfig);
-              })
-              .then((updated) => this._writeFile(updated, cb), cb);
-          } catch (error) {
-            cb(error);
-          }
+            try {
+              const body = (res || '').toString('utf8');
+              this.users = parseHTPasswd(body);
+              // Recheck after locking and reading to avoid concurrent registration races.
+              void sanityCheck(user, password, verifyPassword, this.users, this.maxUsers)
+                .then((rejection) => {
+                  if (rejection) {
+                    throw rejection;
+                  }
+                  return addUserToHTPasswd(body, user, password, this.hashConfig);
+                })
+                .then((updated) => this._writeFile(updated, cb), cb);
+            } catch (error) {
+              cb(error);
+            }
+          });
         });
       },
       (error) => realCb(error, false)

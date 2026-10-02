@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import crypto from 'node:crypto';
-import { writeFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
@@ -10,6 +10,7 @@ import { fileUtils } from '@verdaccio/core';
 
 import type { HTPasswdConfig } from '../src/htpasswd';
 import HTPasswd, { DEFAULT_SLOW_VERIFY_MS } from '../src/htpasswd';
+import { parseHTPasswd } from '../src/utils';
 
 const options = {
   logger: { warn: vi.fn(), info: vi.fn() },
@@ -142,5 +143,22 @@ describe('reload()', () => {
 
     await expect(authenticate('removed')).resolves.toBe(false);
     await expect(authenticate('kept')).resolves.toEqual(['kept']);
+  });
+});
+
+describe('adduser()', () => {
+  test('keeps both users when the first registrations run concurrently', async () => {
+    const file = path.join(await fileUtils.createTempFolder('htpasswd-create'), 'htpasswd');
+    const plugin = new HTPasswd({ file } as HTPasswdConfig, options);
+    const add = (user: string) =>
+      new Promise((resolve) => plugin.adduser(user, 'secret', (err, ok) => resolve([err, ok])));
+
+    await expect(Promise.all([add('alice'), add('bob')])).resolves.toEqual([
+      [null, true],
+      [null, true],
+    ]);
+
+    const users = Object.keys(parseHTPasswd(await readFile(file, 'utf8')));
+    expect(users.sort()).toEqual(['alice', 'bob']);
   });
 });

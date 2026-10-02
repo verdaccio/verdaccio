@@ -18,7 +18,9 @@ usernames such as `constructor` or `toString` can be registered and authenticate
 When htpasswd reloads its file, users removed from it are now forgotten: before,
 a user deleted from the `.htpasswd` file could keep authenticating until Verdaccio
 restarted. If reading the `.htpasswd` file fails after its lock is taken, the lock is
-now released instead of blocking later registrations until it goes stale.
+now released instead of blocking later registrations until it goes stale. When the
+`.htpasswd` file does not exist yet, registration creates it before taking the lock, so
+concurrent first registrations no longer lose a user that was reported as created.
 
 These htpasswd issues affect every published `verdaccio-htpasswd` up to
 `14.0.0-next-9.33` (shipped by `verdaccio@9.0.0-next-9.33` and `7.0.0-next-7.29`) and
