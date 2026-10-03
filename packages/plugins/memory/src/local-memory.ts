@@ -137,7 +137,8 @@ class LocalMemory
   private _createEmtpyDatabase(): MemoryLocalStorage {
     const list: string[] = [];
     const files = {};
-    const tokens = {};
+    // keyed by username: names like `constructor` or `__proto__` must not hit the prototype
+    const tokens = Object.create(null);
     const emptyDatabase = {
       list,
       files,

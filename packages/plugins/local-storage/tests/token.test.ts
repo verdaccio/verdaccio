@@ -74,6 +74,18 @@ describe('Local Database', () => {
       );
     });
 
+    test.each(['constructor', 'toString', '__proto__'])(
+      'should save, read and revoke tokens for user %s',
+      async (user) => {
+        expect(await locaDatabase.readTokens({ user })).toEqual([]);
+        await expect(locaDatabase.deleteToken(user, token.key)).rejects.toThrow('user not found');
+        await locaDatabase.saveToken({ ...token, user });
+        expect(await locaDatabase.readTokens({ user })).toEqual([{ ...token, user }]);
+        await locaDatabase.deleteToken(user, token.key);
+        expect(await locaDatabase.readTokens({ user })).toEqual([]);
+      }
+    );
+
     test('should verify save more than one token', async () => {
       await locaDatabase.saveToken(token);
       const tokens = await locaDatabase.readTokens({ user: token.user });
