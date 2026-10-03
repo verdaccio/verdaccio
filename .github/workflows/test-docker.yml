@@ -1,4 +1,4 @@
-# Shared by master, 7.x and 8.x; only inline steps, since ./ paths resolve against the caller.
+# Called by master and 7.x; inline steps only, since ./ paths resolve against the caller.
 name: Test Docker build
 
 on:

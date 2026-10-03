@@ -81,7 +81,7 @@ jobs:
   test-docker:
     needs: [changeset-check, lint-and-format, build]
     if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && !failure() && !cancelled() }}
-    uses: ./.github/workflows/x-test-docker.yml
+    uses: ./.github/workflows/test-docker.yml
   test:
     needs: [changeset-check, lint-and-format, build]
     if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && !failure() && !cancelled() }}
