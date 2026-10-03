@@ -134,6 +134,8 @@ describe('Utilities', () => {
         expect(getVersion(cloneMetadata(), undefined)).toBeUndefined();
         expect(getVersion(cloneMetadata(), null)).toBeUndefined();
         expect(getVersion(cloneMetadata(), 2)).toBeUndefined();
+        expect(getVersion(cloneMetadata(), 'constructor')).toBeUndefined();
+        expect(getVersion(cloneMetadata(), 'toString')).toBeUndefined();
       });
     });
   });

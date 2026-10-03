@@ -46,6 +46,28 @@ describe('package', () => {
       app = await initializeServer('package.yaml');
     });
 
+    test.each([['foo'], ['@scope/foo']])('should resolve a version and a dist-tag', async (pkg) => {
+      await publishVersion(app, pkg, '1.0.0');
+      for (const query of ['1.0.0', 'latest']) {
+        const response = await supertest(app)
+          .get(`/${pkg}/${query}`)
+          .set(HEADERS.ACCEPT, HEADERS.JSON)
+          .expect(HTTP_STATUS.OK);
+        expect(response.body.version).toEqual('1.0.0');
+      }
+    });
+
+    test.each(['constructor', 'toString', 'hasOwnProperty', 'nope'])(
+      'should return 404 for the unknown version %s',
+      async (query) => {
+        await publishVersion(app, 'foo', '1.0.0');
+        await supertest(app)
+          .get(`/foo/${query}`)
+          .set(HEADERS.ACCEPT, HEADERS.JSON)
+          .expect(HTTP_STATUS.NOT_FOUND);
+      }
+    );
+
     test.each([['foo'], ['@scope/foo']])('should return a foo private package', async (pkg) => {
       await publishVersion(app, pkg, '1.0.0');
       const response = await supertest(app)

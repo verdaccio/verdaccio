@@ -108,7 +108,10 @@ export default function (route: Router, auth: Auth, storage: Storage, config: Co
         }
 
         if (_.isNil(metadata[DIST_TAGS]) === false) {
-          if (_.isNil(metadata[DIST_TAGS][queryVersion]) === false) {
+          if (
+            Object.hasOwn(metadata[DIST_TAGS], queryVersion) &&
+            _.isNil(metadata[DIST_TAGS][queryVersion]) === false
+          ) {
             queryVersion = metadata[DIST_TAGS][queryVersion];
             version = getVersion(metadata, queryVersion);
             if (_.isNil(version) === false) {
