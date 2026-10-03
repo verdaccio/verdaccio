@@ -9,8 +9,6 @@ export { validateUnPublishSingleVersion } from './schemes/unpublish-manifest';
 
 const scopedPackagePattern = /^(?:@([^/]+?)[/])?([^/]+?)$/;
 const exclusionList = ['node_modules', 'favicon.ico'];
-const windowsReservedNames = /^(con|prn|aux|nul|com[0-9]|lpt[0-9])(\..*)?$/i;
-const MAX_NAME_LENGTH = 255;
 
 /** Package name rules for existing packages; a leading hyphen stays valid. */
 export function validatePackageName(name: unknown): boolean {
@@ -74,10 +72,6 @@ export function validateName(name: string): boolean {
   return !(
     !normalizedName.match(/^[-a-zA-Z0-9_.!~*'()@]+$/) ||
     normalizedName.startsWith('.') || // ".bin", etc.
-    normalizedName.endsWith('.') ||
-    normalizedName.includes('*') ||
-    normalizedName.length > MAX_NAME_LENGTH ||
-    windowsReservedNames.test(normalizedName) ||
     ['node_modules', '__proto__', 'favicon.ico'].includes(normalizedName)
   );
 }
