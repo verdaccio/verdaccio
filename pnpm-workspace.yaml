@@ -25,6 +25,12 @@ overrides:
   fast-uri: 3.1.8
   # Security: concurrently pins shell-quote below the GHSA-395f-4hp3-45gv fix
   shell-quote: 1.10.0
+auditConfig:
+  ignoreGhsas:
+    # braces: no patched release yet; only reached through globby with fixed '*' patterns
+    - GHSA-vfj7-8cjw-p6xm
+    # http-cache-semantics: no patched release yet; got only uses it with the `cache` option, which hooks never sets
+    - GHSA-ch52-4w7c-c8xp
 minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
   - '@verdaccio/*'
