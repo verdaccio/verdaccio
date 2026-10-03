@@ -7,6 +7,38 @@ import { DEFAULT_PASSWORD_VALIDATION, DIST_TAGS, MAINTAINERS } from './constants
 export { validatePublishSingleVersion } from './schemes/publish-manifest';
 export { validateUnPublishSingleVersion } from './schemes/unpublish-manifest';
 
+const scopedPackagePattern = /^(?:@([^/]+?)[/])?([^/]+?)$/;
+const exclusionList = ['node_modules', 'favicon.ico'];
+const windowsReservedNames = /^(con|prn|aux|nul|com[0-9]|lpt[0-9])(\..*)?$/i;
+const MAX_NAME_LENGTH = 255;
+
+/** Package name rules for existing packages; a leading hyphen stays valid. */
+export function validatePackageName(name: unknown): boolean {
+  if (typeof name !== 'string' || !name.length) {
+    return false;
+  }
+  if (name.startsWith('.') || name.startsWith('_') || name.trim() !== name) {
+    return false;
+  }
+  if (exclusionList.includes(name.toLowerCase())) {
+    return false;
+  }
+  if (encodeURIComponent(name) === name) {
+    return true;
+  }
+  const nameMatch = name.match(scopedPackagePattern);
+  if (!nameMatch) {
+    return false;
+  }
+  const [, user, pkg] = nameMatch;
+  return (
+    user !== undefined &&
+    encodeURIComponent(user) === user &&
+    !pkg.startsWith('.') &&
+    encodeURIComponent(pkg) === pkg
+  );
+}
+
 export function isPackageNameScoped(name: string): boolean {
   return name.startsWith('@');
 }
@@ -41,6 +73,10 @@ export function validateName(name: string): boolean {
   return !(
     !normalizedName.match(/^[-a-zA-Z0-9_.!~*'()@]+$/) ||
     normalizedName.startsWith('.') || // ".bin", etc.
+    normalizedName.endsWith('.') ||
+    normalizedName.includes('*') ||
+    normalizedName.length > MAX_NAME_LENGTH ||
+    windowsReservedNames.test(normalizedName) ||
     ['node_modules', '__proto__', 'favicon.ico'].includes(normalizedName)
   );
 }
@@ -50,6 +86,13 @@ export function validateName(name: string): boolean {
  * @return {Boolean} whether the package is valid or not
  */
 export function validatePackage(name: string): boolean {
+  if (!isValidPackagePath(name)) {
+    return false;
+  }
+  return validatePackageName(name);
+}
+
+function isValidPackagePath(name: string): boolean {
   // Split on every separator (no limit) so trailing or interior slashes are not
   // silently dropped, keeping a single canonical form per package name.
   const nameList = name.split('/');
