@@ -151,10 +151,14 @@ function addUserAuthApi(auth: Auth, config: Config, storage: Storage): Router {
           });
         }
 
-        const { password } = req.body;
+        const password = req.body?.password;
         const { name } = req.remote_user;
 
         if (
+          isNil(password) ||
+          typeof password !== 'object' ||
+          Array.isArray(password) ||
+          typeof password.old !== 'string' ||
           validationUtils.validatePassword(
             password.new,
             config?.server?.passwordValidationRegex
