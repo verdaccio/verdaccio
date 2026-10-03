@@ -6,6 +6,7 @@ import {
   normalizeMetadata,
   validateName,
   validatePackage,
+  validatePackageName,
   validatePassword,
   validateUserName,
 } from '../src/validation-utils';
@@ -39,6 +40,65 @@ describe('validatePackage', () => {
     expect(validatePackage('@scope/')).toBeFalsy();
     expect(validatePackage('pkg/')).toBeFalsy();
     expect(validatePackage('@scope//pkg')).toBeFalsy();
+  });
+});
+
+describe('validatePackageName', () => {
+  test('should follow npm rules for existing packages', () => {
+    for (const name of [
+      'some-package',
+      '@npm/thingy',
+      'JSONStream',
+      'http',
+      '-',
+      'a'.repeat(215),
+    ]) {
+      expect(validatePackageName(name)).toBe(true);
+    }
+    for (const name of [
+      '',
+      '_pkg',
+      '.pkg',
+      ' pkg',
+      '@secret',
+      'foo@bar',
+      '@scope/.pkg',
+      null,
+      42,
+    ]) {
+      expect(validatePackageName(name)).toBe(false);
+    }
+  });
+});
+
+describe('validatePackage with npm rules', () => {
+  test('should keep accepting existing package names', () => {
+    for (const name of ['-', '-build-infra', 'JSONStream', 'http', '@scope/pkg']) {
+      expect(validatePackage(name)).toBeTruthy();
+    }
+  });
+
+  test('should reject names npm or the storage cannot accept', () => {
+    for (const name of [
+      '_pkg',
+      '@secret',
+      'foo@bar',
+      'con',
+      'nul.js',
+      '@scope/aux',
+      '@lpt1/pkg',
+      'a'.repeat(256),
+    ]) {
+      expect(validatePackage(name)).toBeFalsy();
+    }
+  });
+
+  test('should keep accepting route parameters', () => {
+    for (const value of ['con-1.0.0.tgz', 'old-package@0.1.2.tgz', '1.0.0', 'latest']) {
+      expect(validateName(value)).toBeTruthy();
+    }
+    expect(validateName('con')).toBeFalsy();
+    expect(validateName('a'.repeat(256))).toBeFalsy();
   });
 });
 
@@ -120,6 +180,24 @@ describe('validateName', () => {
     expect(validateName('@.hidden/pkg')).toBeFalsy();
     expect(validateName('@scope/')).toBeFalsy();
     expect(validateName('@/pkg')).toBeFalsy();
+  });
+
+  test('should fail with a trailing dot or an asterisk', () => {
+    for (const name of [
+      'pkg.',
+      'pkg..',
+      'p*kg',
+      'pkg*',
+      '@scope/pkg.',
+      '@scope./pkg',
+      '@scope/p*kg',
+    ]) {
+      expect(validateName(name)).toBeFalsy();
+      expect(validatePackage(name)).toBeFalsy();
+    }
+    expect(validateName('pkg.js')).toBeTruthy();
+    expect(validateName('foo-1.0.0.tgz')).toBeTruthy();
+    expect(validateName('1.0.0-beta.1')).toBeTruthy();
   });
 
   test('should fail with no hidden files', () => {
