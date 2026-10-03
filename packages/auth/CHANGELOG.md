@@ -1,5 +1,16 @@
 # @verdaccio/auth
 
+## 8.1.5
+
+### Patch Changes
+
+- Updated dependencies [28f36b8]
+  - @verdaccio/core@8.3.2
+  - @verdaccio/config@8.3.2
+  - @verdaccio/loaders@8.1.5
+  - verdaccio-htpasswd@13.1.5
+  - @verdaccio/signature@8.1.5
+
 ## 8.1.4
 
 ### Patch Changes
