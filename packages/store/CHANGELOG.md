@@ -1,5 +1,43 @@
 # @verdaccio/store
 
+## 9.0.0-next-9.34
+
+### Patch Changes
+
+- 83eb46c: fix(store): enforce `publish.check_owners` on deprecate, version unpublish and dist-tags
+  
+  `npm deprecate`, version-level unpublish and dist-tag changes all mutate the package through the store without the store-level ownership check used by publish, owner changes, tarball removal, and package removal. With `unpublish: $authenticated`, that check is the only owner protection on these routes.
+  
+  - `deprecate` and `unPublishAPackage` now run the ownership check against the stored manifest before applying the change; the package name is always taken from the request URL, never from the request body.
+  - `mergeTagsNext` (dist-tag add/rm) now runs the ownership check as well.
+  - `changePackage` no longer wipes the stored `maintainers` list when the request body omits it (e.g. deprecate bodies), which previously turned the ownership check into a no-op for that package.
+  - Cached manifests of proxied packages now record the upstream maintainers, so the ownership check also protects them (they were created with an empty list, which skips the check).
+  - `changePackage` rejects bodies whose `_rev` is missing or empty (422) or does not match the stored revision (409); a deprecate without a revision, or with a stale one, no longer silently drops concurrently published versions, and a stale version unpublish no longer reports success without applying (which made npm delete the tarball anyway). Empty `_rev` is also rejected by the unpublish body schema.
+  - `changeOwners` keeps the request body's `_rev` when calling `changePackage` instead of substituting the latest local revision, so a concurrent owner update with a stale revision is rejected rather than overwriting the other change.
+  - The owner pre-check on `GET /:package?write=true` now actually runs (it read a request option that was never set) and returns 403 instead of wrapping it into a 400.
+  - fix(local-storage): errors thrown by the `updatePackage` handler are no longer masked as `resource temporarily unavailable` after unlocking; the original error (403 forbidden, 404 unknown tag version, 409 conflict) reaches the client.
+- 83eb46c: Keep `publish.check_owners` in effect until a deprecate or version unpublish is saved.
+  
+  On 9.x, with `publish.check_owners` enabled, `npm deprecate` and version unpublish checked ownership and then saved the manifest after the package lock was released. A concurrent owner change could save a new maintainer list in that gap, and the in-flight update could still save the manifest it had already authorized. Ownership is now checked on the manifest read under the package lock, and the updated manifest is saved before that lock is released.
+  
+  The memory storage plugin keeps the HTTP status of an error raised while a package is updated, so a rejected update stays forbidden instead of becoming an internal error.
+- 83eb46c: Keep upstream package owners distinct from local accounts when `publish.check_owners` is enabled.
+  
+  Proxied packages record the upstream maintainer list so the ownership check applies to them. Those names are now stored as origin-scoped identities (`$uplink:<uplink>:<name>`) and are not treated as local users, so a local account whose username matches an upstream maintainer cannot change the cached package. A name that already starts with `$uplink:` is left as-is and still does not grant ownership. Packages that already have a recorded maintainer list are left unchanged. Version metadata and search results keep the upstream display names.
+- Updated dependencies [83eb46c]
+- Updated dependencies [0cac607]
+- Updated dependencies [b6cc475]
+- Updated dependencies [b6cc475]
+  - @verdaccio/core@9.0.0-next-9.34
+  - @verdaccio/local-storage@14.0.0-next-9.34
+  - @verdaccio/config@9.0.0-next-9.34
+  - @verdaccio/tarball@14.0.0-next-9.34
+  - @verdaccio/url@14.0.0-next-9.34
+  - @verdaccio/loaders@9.0.0-next-9.34
+  - @verdaccio/logger@9.0.0-next-9.34
+  - @verdaccio/proxy@9.0.0-next-9.34
+  - @verdaccio/search@9.0.0-next-9.34
+
 ## 9.0.0-next-9.33
 
 ### Patch Changes

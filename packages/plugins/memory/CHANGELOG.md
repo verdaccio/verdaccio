@@ -1,5 +1,20 @@
 # Change Log
 
+## 14.0.0-next-9.34
+
+### Patch Changes
+
+- 83eb46c: Keep `publish.check_owners` in effect until a deprecate or version unpublish is saved.
+  
+  On 9.x, with `publish.check_owners` enabled, `npm deprecate` and version unpublish checked ownership and then saved the manifest after the package lock was released. A concurrent owner change could save a new maintainer list in that gap, and the in-flight update could still save the manifest it had already authorized. Ownership is now checked on the manifest read under the package lock, and the updated manifest is saved before that lock is released.
+  
+  The memory storage plugin keeps the HTTP status of an error raised while a package is updated, so a rejected update stays forbidden instead of becoming an internal error.
+- b6cc475: Improve validation of API token lookups in the `@verdaccio/local-storage` and `verdaccio-memory` token stores, which now consider only stored entries. Existing token databases need no migration.
+- Updated dependencies [83eb46c]
+- Updated dependencies [0cac607]
+- Updated dependencies [b6cc475]
+  - @verdaccio/core@9.0.0-next-9.34
+
 ## 14.0.0-next-9.33
 
 ### Patch Changes
