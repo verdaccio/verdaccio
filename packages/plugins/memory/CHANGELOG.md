@@ -1,5 +1,13 @@
 # Change Log
 
+## 10.5.4
+
+### Patch Changes
+
+- Updated dependencies [76550c1]
+- Updated dependencies [9623b1b]
+  - @verdaccio/core@8.3.1
+
 ## 10.5.3
 
 ### Patch Changes
