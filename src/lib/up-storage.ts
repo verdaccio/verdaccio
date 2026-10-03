@@ -567,6 +567,16 @@ class ProxyStorage {
       },
     });
 
+    // the search ends once: the first failure wins and no end follows it
+    let failed = false;
+    const fail = (err: Error): void => {
+      if (failed) {
+        return;
+      }
+      failed = true;
+      transformStream.emit('error', err);
+    };
+
     const parsePackage = (pkg: Package): void => {
       if (isObjectOrArray(pkg)) {
         transformStream.emit('data', pkg);
@@ -575,18 +585,12 @@ class ProxyStorage {
 
     requestStream.on('response', (res): void => {
       if (!String(res.statusCode).match(/^2\d\d$/)) {
-        return transformStream.emit(
-          'error',
-          ErrorCode.getInternalError(`bad status code ${res.statusCode} from uplink`)
-        );
+        return fail(ErrorCode.getInternalError(`bad status code ${res.statusCode} from uplink`));
       }
 
       // an unreadable body ends this uplink's results instead of leaving the search open
       const onInvalidBody = (err: Error): void => {
-        transformStream.emit(
-          'error',
-          ErrorCode.getInternalError(`invalid search response from uplink: ${err.message}`)
-        );
+        fail(ErrorCode.getInternalError(`invalid search response from uplink: ${err.message}`));
       };
 
       // See https://github.com/request/request#requestoptions-callback
@@ -600,13 +604,13 @@ class ProxyStorage {
       }
       jsonStream.pipe(JSONStream.parse('*')).on('data', parsePackage).on('error', onInvalidBody);
       jsonStream.on('end', (): void => {
-        transformStream.emit('end');
+        if (!failed) {
+          transformStream.emit('end');
+        }
       });
     });
 
-    requestStream.on('error', (err: Error): void => {
-      transformStream.emit('error', err);
-    });
+    requestStream.on('error', fail);
 
     transformStream.abort = (): void => {
       // FIXME: this is clearly a potential issue

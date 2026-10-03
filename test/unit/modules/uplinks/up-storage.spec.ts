@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import nock from 'nock';
 import { readFileSync, statSync } from 'node:fs';
+import { type AddressInfo, createServer } from 'node:http';
 import { join } from 'node:path';
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, test } from 'vitest';
 
@@ -484,6 +485,41 @@ describe('UpStorage', () => {
 
       await expect(waitForEnd(generateProxy().search(searchOptions()))).resolves.not.toBe('end');
     });
+
+    test.each([
+      ['an invalid JSON body', {}, '{not json'],
+      ['an invalid compressed body', { 'content-encoding': 'gzip' }, 'not compressed'],
+    ])(
+      'should emit a single error and no end when the uplink returns %s',
+      async (_label, headers, body) => {
+        // a real server: with nock the response stays paused after the parser fails
+        const server = createServer((_req, res) => {
+          res.writeHead(200, { 'content-type': 'application/json', ...headers });
+          res.end(body);
+        });
+        await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', () => resolve()));
+        nock.enableNetConnect('127.0.0.1');
+        const { port } = server.address() as AddressInfo;
+        const stream = generateProxy({ url: `http://127.0.0.1:${port}` }).search(searchOptions());
+        const events: string[] = [];
+
+        try {
+          await new Promise<void>((resolve) => {
+            stream.on('data', () => {});
+            stream.on('end', () => events.push('end'));
+            stream.on('error', () => {
+              events.push('error');
+              // let the response finish so a late end or error would be recorded
+              setTimeout(resolve, 100);
+            });
+          });
+        } finally {
+          nock.disableNetConnect();
+          server.close();
+        }
+        expect(events).toEqual(['error']);
+      }
+    );
   });
 
   describe('isUplinkValid', () => {
