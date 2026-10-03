@@ -184,6 +184,26 @@ describe('search', () => {
         .expect(HTTP_STATUS.OK);
       expect(response.body.objects).toHaveLength(1);
     });
+
+    test.each([
+      'size%5BtoString%5D=x',
+      'from%5BtoString%5D=x',
+      'quality%5BtoString%5D=x',
+      'popularity%5BtoString%5D=x&maintenance%5BtoString%5D=x',
+      'size%5B%5D=5&size%5B%5D=6',
+    ])('should fall back to defaults on non-plain values (%s)', async (query) => {
+      const res = await createUser(app, 'test', 'test');
+      await publishVersionWithToken(app, 'foo-a', '1.0.0', res.body.token);
+
+      const response = await supertest(app)
+        .get(`/-/v1/search?text=foo&${query}`)
+        .set(HEADERS.ACCEPT, HEADERS.JSON)
+        .timeout(2000)
+        .expect(HTTP_STATUS.OK);
+      expect(response.body.objects).toHaveLength(1);
+
+      await supertest(app).get('/-/v1/search?text=foo').timeout(2000).expect(HTTP_STATUS.OK);
+    });
   });
 
   describe('rate limiting', () => {
@@ -223,9 +243,64 @@ describe('search', () => {
       expect(forwardedQuery.get('size')).toBe('250');
       expect(forwardedQuery.get('from')).toBe('10000');
     });
+
+    test('should forward only plain string parameters to the uplink', async () => {
+      let forwardedPath;
+      nock('https://registry.npmjs.org')
+        .get(/\/-\/v1\/search/)
+        .reply(200, function () {
+          forwardedPath = this.req.path;
+          return { objects: [], total: 0, time: '' };
+        });
+
+      const app = await initializeServer('search-uplink.yaml');
+      await supertest(app)
+        .get('/-/v1/search?text=foo&quality=0.65&popularity%5BtoString%5D=x&size%5BtoString%5D=x')
+        .set(HEADERS.ACCEPT, HEADERS.JSON)
+        .timeout(2000)
+        .expect(HTTP_STATUS.OK);
+
+      const forwardedQuery = new URL(forwardedPath, 'https://registry.npmjs.org').searchParams;
+      expect([...forwardedQuery.keys()].sort()).toEqual(['from', 'quality', 'size', 'text']);
+      expect(forwardedQuery.get('quality')).toBe('0.65');
+      expect(forwardedQuery.get('size')).toBe('20');
+    });
   });
 
   describe('error handling', () => {
+    afterEach(() => {
+      nock.cleanAll();
+    });
+
     test.todo('should able to abort the request');
+
+    test.each([
+      ['an error status', (scope: nock.Interceptor) => scope.reply(HTTP_STATUS.INTERNAL_ERROR, {})],
+      ['a dropped connection', (scope: nock.Interceptor) => scope.replyWithError('socket hang up')],
+      [
+        'an invalid JSON body',
+        (scope: nock.Interceptor) =>
+          scope.reply(HTTP_STATUS.OK, '{not json', { 'content-type': 'application/json' }),
+      ],
+      [
+        'an invalid compressed body',
+        (scope: nock.Interceptor) =>
+          scope.reply(HTTP_STATUS.OK, 'not compressed', { 'content-encoding': 'gzip' }),
+      ],
+    ])('should return the local results when the uplink returns %s', async (_label, reply) => {
+      reply(nock('https://registry.npmjs.org').get('/-/v1/search').query(true));
+      const app = await initializeServer('search-uplink.yaml');
+      const res = await createUser(app, 'test', 'test');
+      await publishVersionWithToken(app, 'foo-a', '1.0.0', res.body.token);
+
+      const response = await supertest(app)
+        .get('/-/v1/search?text=foo')
+        .set(HEADERS.ACCEPT, HEADERS.JSON)
+        .timeout(2000)
+        .expect(HTTP_STATUS.OK);
+      expect(response.body.objects.map((item) => item.package.name)).toEqual(['foo-a']);
+
+      await supertest(app).get('/-/ping').timeout(2000).expect(HTTP_STATUS.OK);
+    });
   });
 });
