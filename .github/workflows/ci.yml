@@ -32,7 +32,7 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies
-        uses: verdaccio/verdaccio/.github/actions/install-app@afc298aeaf845039524d00d6baee492a2d4e090f # master
+        uses: verdaccio/verdaccio/.github/actions/install-app@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
           ignore-scripts: 'false'
       - name: Lint
@@ -52,13 +52,13 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies
-        uses: verdaccio/verdaccio/.github/actions/install-app@afc298aeaf845039524d00d6baee492a2d4e090f # master
+        uses: verdaccio/verdaccio/.github/actions/install-app@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
           node-version: ${{ matrix.node_version }}
           ignore-scripts: 'false'
       - name: Build
         run: pnpm build
-      - uses: verdaccio/verdaccio/.github/actions/build-cache@afc298aeaf845039524d00d6baee492a2d4e090f # master
+      - uses: verdaccio/verdaccio/.github/actions/build-cache@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
           mode: save
           node-version: ${{ matrix.node_version }}
@@ -77,11 +77,11 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies
-        uses: verdaccio/verdaccio/.github/actions/install-app@afc298aeaf845039524d00d6baee492a2d4e090f # master
+        uses: verdaccio/verdaccio/.github/actions/install-app@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
           node-version: ${{ matrix.node_version }}
           ignore-scripts: 'false'
-      - uses: verdaccio/verdaccio/.github/actions/build-cache@afc298aeaf845039524d00d6baee492a2d4e090f # master
+      - uses: verdaccio/verdaccio/.github/actions/build-cache@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
           mode: restore
           node-version: ${{ matrix.node_version }}
@@ -94,7 +94,7 @@ jobs:
   test-docker:
     needs: [lint-and-format, build]
     if: github.event_name == 'pull_request'
-    uses: verdaccio/verdaccio/.github/workflows/test-docker.yml@afc298aeaf845039524d00d6baee492a2d4e090f # master
+    uses: verdaccio/verdaccio/.github/workflows/test-docker.yml@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
 
   e2e-cli:
     needs: [lint-and-format, build]
@@ -118,18 +118,18 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies
-        uses: verdaccio/verdaccio/.github/actions/install-app@afc298aeaf845039524d00d6baee492a2d4e090f # master
+        uses: verdaccio/verdaccio/.github/actions/install-app@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
           ignore-scripts: 'false'
-      - uses: verdaccio/verdaccio/.github/actions/build-cache@afc298aeaf845039524d00d6baee492a2d4e090f # master
+      - uses: verdaccio/verdaccio/.github/actions/build-cache@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
           mode: restore
           node-version: 24
           path: build/
-      - uses: verdaccio/verdaccio/.github/actions/start-verdaccio@afc298aeaf845039524d00d6baee492a2d4e090f # master
+      - uses: verdaccio/verdaccio/.github/actions/start-verdaccio@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
           bin: bin/verdaccio
-      - uses: verdaccio/verdaccio/.github/actions/e2e-cli@afc298aeaf845039524d00d6baee492a2d4e090f # master
+      - uses: verdaccio/verdaccio/.github/actions/e2e-cli@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
           pm: ${{ matrix.pm }}
       - name: Show Verdaccio logs
@@ -150,23 +150,23 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies
-        uses: verdaccio/verdaccio/.github/actions/install-app@afc298aeaf845039524d00d6baee492a2d4e090f # master
+        uses: verdaccio/verdaccio/.github/actions/install-app@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
           ignore-scripts: 'false'
-      - uses: verdaccio/verdaccio/.github/actions/build-cache@afc298aeaf845039524d00d6baee492a2d4e090f # master
+      - uses: verdaccio/verdaccio/.github/actions/build-cache@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
           mode: restore
           node-version: 24
           path: build/
       # test/e2e-plugins holds a callback-based storage plugin and a middleware plugin,
       # the only CI path through src/lib/legacy-storage-adapter.ts.
-      - uses: verdaccio/verdaccio/.github/actions/start-verdaccio@afc298aeaf845039524d00d6baee492a2d4e090f # master
+      - uses: verdaccio/verdaccio/.github/actions/start-verdaccio@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
           bin: bin/verdaccio
           config: ./scripts/e2e-legacy-plugins-config.yaml
       - name: Check the adapter actually wrapped the plugin
         run: grep -q "legacy callback-based storage plugin" /tmp/verdaccio-e2e/verdaccio.log
-      - uses: verdaccio/verdaccio/.github/actions/e2e-cli@afc298aeaf845039524d00d6baee492a2d4e090f # master
+      - uses: verdaccio/verdaccio/.github/actions/e2e-cli@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
           pm: ${{ matrix.pm }}
           uplink-port: ''
@@ -182,21 +182,21 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies
-        uses: verdaccio/verdaccio/.github/actions/install-app@afc298aeaf845039524d00d6baee492a2d4e090f # master
+        uses: verdaccio/verdaccio/.github/actions/install-app@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
           ignore-scripts: 'false'
-      - uses: verdaccio/verdaccio/.github/actions/build-cache@afc298aeaf845039524d00d6baee492a2d4e090f # master
+      - uses: verdaccio/verdaccio/.github/actions/build-cache@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
           mode: restore
           node-version: 24
           path: build/
-      - uses: verdaccio/verdaccio/.github/actions/cypress-binary@afc298aeaf845039524d00d6baee492a2d4e090f # master
-      - uses: verdaccio/verdaccio/.github/actions/start-verdaccio@afc298aeaf845039524d00d6baee492a2d4e090f # master
+      - uses: verdaccio/verdaccio/.github/actions/cypress-binary@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
+      - uses: verdaccio/verdaccio/.github/actions/start-verdaccio@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
           bin: bin/verdaccio
           config: ./scripts/e2e-ui-config.yaml
           test-user: 'true'
-      - uses: verdaccio/verdaccio/.github/actions/e2e-ui@afc298aeaf845039524d00d6baee492a2d4e090f # master
+      - uses: verdaccio/verdaccio/.github/actions/e2e-ui@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
           shard: 1
           shards: 1
@@ -217,10 +217,10 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies
-        uses: verdaccio/verdaccio/.github/actions/install-app@afc298aeaf845039524d00d6baee492a2d4e090f # master
+        uses: verdaccio/verdaccio/.github/actions/install-app@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
           ignore-scripts: 'false'
-      - uses: verdaccio/verdaccio/.github/actions/cypress-binary@afc298aeaf845039524d00d6baee492a2d4e090f # master
+      - uses: verdaccio/verdaccio/.github/actions/cypress-binary@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
           save: 'true'
 
@@ -251,7 +251,7 @@ jobs:
     permissions:
       actions: write
     steps:
-      - uses: verdaccio/verdaccio/.github/actions/delete-build-cache@afc298aeaf845039524d00d6baee492a2d4e090f # master
+      - uses: verdaccio/verdaccio/.github/actions/delete-build-cache@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
           node-versions: 24 26
           token: ${{ github.token }}

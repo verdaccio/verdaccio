@@ -14,4 +14,4 @@ permissions:
 
 jobs:
   audit:
-    uses: verdaccio/verdaccio/.github/workflows/pnpm-audit.yml@afc298aeaf845039524d00d6baee492a2d4e090f # master
+    uses: verdaccio/verdaccio/.github/workflows/pnpm-audit.yml@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
