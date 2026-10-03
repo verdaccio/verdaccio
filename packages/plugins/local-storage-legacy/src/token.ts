@@ -40,6 +40,8 @@ export default class TokenActions implements ITokenActions {
       }
       debug('token bd generated');
       this.tokenDb = await low(adapter);
+      // keyed by username, so inherited keys must not count as stored tokens
+      this.tokenDb.setState(Object.assign(Object.create(null), this.tokenDb.getState()));
     }
 
     return this.tokenDb;
@@ -48,27 +50,23 @@ export default class TokenActions implements ITokenActions {
   public async saveToken(token: Token): Promise<void> {
     debug('token key %o', token.key);
     const db = await this.getTokenDb();
-    const userData = await db.get(token.user).value();
-    debug('user data %o', userData);
-    if (_.isNil(userData)) {
-      await db.set(token.user, [token]).write();
+    const state = db.getState();
+    debug('user data %o', state[token.user]);
+    if (_.isNil(state[token.user])) {
+      state[token.user] = [token];
       debug('token user %o new database', token.user);
     } else {
-      // types does not match with valid implementation
-      // @ts-ignore
-      await db
-        .get(token.user)
-        // @ts-ignore
-        .push(token)
-        .write();
+      state[token.user].push(token);
     }
+    await db.write();
     debug('data %o', await db.getState());
     debug('token saved %o', token.user);
   }
 
   public async deleteToken(user: string, tokenKey: string): Promise<void> {
     const db = await this.getTokenDb();
-    const userTokens = await db.get(user).value();
+    const state = db.getState();
+    const userTokens = state[user];
     if (_.isNil(userTokens)) {
       throw new Error('user not found');
     }
@@ -77,7 +75,8 @@ export default class TokenActions implements ITokenActions {
       debug('key %o', key);
       return key !== tokenKey;
     });
-    await db.set(user, remainingTokens).write();
+    state[user] = remainingTokens;
+    await db.write();
     debug('removed tokens key %o', tokenKey);
   }
 
@@ -85,7 +84,6 @@ export default class TokenActions implements ITokenActions {
     const { user } = filter;
     debug('read tokens with %o', user);
     const db = await this.getTokenDb();
-    const tokens = await db.get(user).value();
-    return tokens || [];
+    return db.getState()[user] || [];
   }
 }
