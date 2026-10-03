@@ -134,6 +134,19 @@ describe('Local Database', () => {
       expect(locaDatabase.getPackageStorage(pkgName)).toBeUndefined();
     });
 
+    test('should warn when a name has no storage', () => {
+      const warn = vi.mocked(optionsPlugin.logger.warn);
+      warn.mockClear();
+      locaDatabase.getPackageStorage('nul');
+      locaDatabase.getPackageStorage('@scope/con');
+      locaDatabase.getPackageStorage('pkg');
+
+      expect(warn.mock.calls.map(([fields]) => fields)).toEqual([
+        { packageName: 'nul' },
+        { packageName: '@scope/con' },
+      ]);
+    });
+
     test('should not allow path traversal in package name', () => {
       const maliciousName = '../../etc/passwd';
       const storage = locaDatabase.getPackageStorage(maliciousName);

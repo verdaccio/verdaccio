@@ -194,6 +194,10 @@ class LocalDatabase extends TokenActions {
     // only names that map to a directory of the same name get a storage
     if (packageName.split('/').some((segment) => !segment || sanitize(segment) !== segment)) {
       debug('the package %o has no storage for its name', packageName);
+      this.logger.warn(
+        { packageName },
+        'package @{packageName} has no local storage because its name is not a valid directory name'
+      );
       return;
     }
 
