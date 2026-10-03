@@ -39,7 +39,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Check changeset
-        uses: verdaccio/verdaccio/.github/actions/changeset-check@efba55c9e1e7781567cd6bd96ffad0dd0c4aa1be # master
+        uses: verdaccio/verdaccio/.github/actions/changeset-check@afc298aeaf845039524d00d6baee492a2d4e090f # master
   lint-and-format:
     runs-on: ubuntu-latest
     name: Lint & Format
@@ -47,7 +47,7 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies
-        uses: verdaccio/verdaccio/.github/actions/install-app@efba55c9e1e7781567cd6bd96ffad0dd0c4aa1be # master
+        uses: verdaccio/verdaccio/.github/actions/install-app@afc298aeaf845039524d00d6baee492a2d4e090f # master
         with:
           reporter: 'default'
       - name: Lint
@@ -66,12 +66,12 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies
-        uses: verdaccio/verdaccio/.github/actions/install-app@efba55c9e1e7781567cd6bd96ffad0dd0c4aa1be # master
+        uses: verdaccio/verdaccio/.github/actions/install-app@afc298aeaf845039524d00d6baee492a2d4e090f # master
         with:
           node-version: ${{ matrix.node_version }}
       - name: Build
         run: pnpm build
-      - uses: verdaccio/verdaccio/.github/actions/build-cache@efba55c9e1e7781567cd6bd96ffad0dd0c4aa1be # master
+      - uses: verdaccio/verdaccio/.github/actions/build-cache@afc298aeaf845039524d00d6baee492a2d4e090f # master
         with:
           mode: save
           node-version: ${{ matrix.node_version }}
@@ -88,10 +88,10 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies
-        uses: verdaccio/verdaccio/.github/actions/install-app@efba55c9e1e7781567cd6bd96ffad0dd0c4aa1be # master
+        uses: verdaccio/verdaccio/.github/actions/install-app@afc298aeaf845039524d00d6baee492a2d4e090f # master
         with:
           node-version: ${{ matrix.node_version }}
-      - uses: verdaccio/verdaccio/.github/actions/build-cache@efba55c9e1e7781567cd6bd96ffad0dd0c4aa1be # master
+      - uses: verdaccio/verdaccio/.github/actions/build-cache@afc298aeaf845039524d00d6baee492a2d4e090f # master
         with:
           mode: restore
           node-version: ${{ matrix.node_version }}
@@ -115,10 +115,10 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies
-        uses: verdaccio/verdaccio/.github/actions/install-app@efba55c9e1e7781567cd6bd96ffad0dd0c4aa1be # master
+        uses: verdaccio/verdaccio/.github/actions/install-app@afc298aeaf845039524d00d6baee492a2d4e090f # master
         with:
           node-version: ${{ matrix.node_version }}
-      - uses: verdaccio/verdaccio/.github/actions/build-cache@efba55c9e1e7781567cd6bd96ffad0dd0c4aa1be # master
+      - uses: verdaccio/verdaccio/.github/actions/build-cache@afc298aeaf845039524d00d6baee492a2d4e090f # master
         with:
           mode: restore
           node-version: ${{ matrix.node_version }}
@@ -132,7 +132,7 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies
-        uses: verdaccio/verdaccio/.github/actions/install-app@efba55c9e1e7781567cd6bd96ffad0dd0c4aa1be # master
+        uses: verdaccio/verdaccio/.github/actions/install-app@afc298aeaf845039524d00d6baee492a2d4e090f # master
       - name: Run changeset version
         run: |
           changeset_file=$(find .changeset -maxdepth 1 -type f -name '*.md' ! -name README.md -print -quit)
@@ -149,7 +149,7 @@ jobs:
     permissions:
       actions: write
     steps:
-      - uses: verdaccio/verdaccio/.github/actions/delete-build-cache@efba55c9e1e7781567cd6bd96ffad0dd0c4aa1be # master
+      - uses: verdaccio/verdaccio/.github/actions/delete-build-cache@afc298aeaf845039524d00d6baee492a2d4e090f # master
         with:
           node-versions: 22 24 26
           token: ${{ github.token }}
