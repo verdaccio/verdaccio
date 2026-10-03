@@ -9,13 +9,9 @@ on:
       - 'pnpm-workspace.yaml'
       - '.github/workflows/pnpm-audit.yml'
 
-concurrency:
-  group: pnpm-audit-${{ github.ref }}
-  cancel-in-progress: true
-
 permissions:
   contents: read
 
 jobs:
   audit:
-    uses: verdaccio/verdaccio/.github/workflows/x-pnpm-audit.yml@efba55c9e1e7781567cd6bd96ffad0dd0c4aa1be # master
+    uses: verdaccio/verdaccio/.github/workflows/pnpm-audit.yml@afc298aeaf845039524d00d6baee492a2d4e090f # master

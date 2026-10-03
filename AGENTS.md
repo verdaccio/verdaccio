@@ -68,7 +68,8 @@ Rules that follow:
   and 26, Docker build, the `@verdaccio/e2e-cli` battery across package managers,
   the Cypress web UI suite, CodeQL), `changesets.yml`, `docker-nightly.yml`,
   `pnpm-audit.yml`, `update-dependencies.yml`. Their steps are composite actions and
-  reusable workflows from `master` (`.github/actions/*`, `x-*.yml`), pinned by commit SHA.
+  reusable workflows from `master` (`.github/actions/*`, `test-docker.yml`, `pnpm-audit.yml`),
+  pinned by commit SHA.
 
 ## Setup, build, test, lint
 

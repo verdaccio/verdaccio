@@ -29,7 +29,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Install dependencies
-        uses: verdaccio/verdaccio/.github/actions/install-app@efba55c9e1e7781567cd6bd96ffad0dd0c4aa1be # master
+        uses: verdaccio/verdaccio/.github/actions/install-app@afc298aeaf845039524d00d6baee492a2d4e090f # master
         with:
           ignore-scripts: 'false'
       - name: Build
@@ -57,7 +57,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Install dependencies
-        uses: verdaccio/verdaccio/.github/actions/install-app@efba55c9e1e7781567cd6bd96ffad0dd0c4aa1be # master
+        uses: verdaccio/verdaccio/.github/actions/install-app@afc298aeaf845039524d00d6baee492a2d4e090f # master
         with:
           ignore-scripts: 'false'
       - name: Build
