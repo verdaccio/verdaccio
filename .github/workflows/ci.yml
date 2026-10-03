@@ -46,8 +46,7 @@ jobs:
   lint-and-format:
     runs-on: ubuntu-latest
     name: Lint & Format
-    needs: [changeset-check]
-    if: ${{ always() && !failure() && !cancelled() && github.event.pull_request.draft == false }}
+    if: ${{ github.event.pull_request.draft == false }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Install dependencies
@@ -59,8 +58,7 @@ jobs:
       - name: Format
         run: pnpm format:check
   build:
-    needs: [lint-and-format]
-    if: ${{ always() && !failure() && !cancelled() && github.event.pull_request.draft == false }}
+    if: ${{ github.event.pull_request.draft == false }}
     strategy:
       fail-fast: true
       matrix:
@@ -85,7 +83,7 @@ jobs:
             packages/plugins/ui-theme/static
           key: ci-build-${{ github.run_id }}-${{ github.run_attempt }}-node-${{ matrix.node_version }}
   test-docker:
-    needs: [build]
+    needs: [changeset-check, lint-and-format, build]
     if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     name: Test Docker Build
@@ -110,14 +108,21 @@ jobs:
         if: always()
         run: docker stop verdaccio-test
   test:
-    needs: [build]
+    needs: [changeset-check, lint-and-format, build]
     if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && !failure() && !cancelled() }}
     strategy:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
         node_version: [24, 26]
-    name: Test / ${{ matrix.os }} / Node ${{ matrix.node_version }}
+        suite: [ui, core]
+        # ui-components alone takes as long as every other package together
+        include:
+          - suite: ui
+            filter: --filter @verdaccio/ui-components
+          - suite: core
+            filter: --filter "./packages/**" --filter "!@verdaccio/ui-components" --no-sort
+    name: Test / ${{ matrix.os }} / Node ${{ matrix.node_version }} / ${{ matrix.suite }}
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -136,16 +141,12 @@ jobs:
             packages/plugins/ui-theme/static
           key: ci-build-${{ github.run_id }}-${{ github.run_attempt }}-node-${{ matrix.node_version }}
           fail-on-cache-miss: true
-      - name: Test (Node 26)
-        if: matrix.node_version == 26
-        run: pnpm test
+      - name: Test
+        run: pnpm ${{ matrix.filter }} test
         env:
-          NODE_OPTIONS: --no-webstorage
-      - name: Test (Other Node)
-        if: matrix.node_version != 26
-        run: pnpm test
+          NODE_OPTIONS: ${{ matrix.node_version == 26 && '--no-webstorage' || '' }}
   e2e-cli:
-    needs: [build]
+    needs: [changeset-check, lint-and-format, build]
     if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     name: E2E CLI (${{ matrix.pm }})
@@ -206,10 +207,14 @@ jobs:
         if: always()
         run: cat /tmp/verdaccio-e2e/verdaccio.log 2>/dev/null || echo "No log file found"
   e2e-ui:
-    needs: [build]
+    needs: [changeset-check, lint-and-format, build]
     if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && !failure() && !cancelled() }}
     runs-on: ubuntu-latest
-    name: E2E UI
+    name: E2E UI (${{ matrix.shard }}/2)
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Install dependencies
@@ -225,21 +230,22 @@ jobs:
             packages/plugins/ui-theme/static
           key: ci-build-${{ github.run_id }}-${{ github.run_attempt }}-node-24
           fail-on-cache-miss: true
-      # The shared install-app action runs `pnpm install --ignore-scripts`,
-      # so cypress's postinstall (which downloads the test runner binary) is
-      # suppressed. Cache the binary across runs and only invoke `cypress
-      # install` on a cache miss — the version is pinned by the cypress entry
-      # in pnpm-lock.yaml, so this never pulls anything that isn't already
-      # locked.
-      - name: Cache Cypress binary
+      - name: Cypress version
+        id: cypress-version
+        run: echo "version=$(node -p "require('./package.json').devDependencies.cypress")" >> "$GITHUB_OUTPUT"
+      # Only pushes to master save this cache (cypress-cache job); PRs read it.
+      - name: Restore Cypress binary
         id: cypress-cache
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
           path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-${{ github.head_ref || github.ref_name }}-${{ hashFiles('pnpm-lock.yaml') }}
+          key: cypress-${{ runner.os }}-${{ steps.cypress-version.outputs.version }}
       - name: Install Cypress binary
         if: steps.cypress-cache.outputs.cache-hit != 'true'
         run: pnpm exec cypress install
+      - name: Pick specs for this shard
+        id: specs
+        run: echo "list=$(ls cypress/e2e/*.cy.ts | sort | awk 'NR % 2 == ${{ matrix.shard }} % 2' | paste -sd, -)" >> "$GITHUB_OUTPUT"
       - name: Start Verdaccio
         run: |
           nohup node packages/verdaccio/bin/verdaccio --config ./scripts/e2e-ui-config.yaml > verdaccio.log 2>&1 &
@@ -253,7 +259,7 @@ jobs:
             -d '{"name":"test","password":"test","_id":"org.couchdb.user:test","type":"user","roles":[]}' \
             http://localhost:4873/-/user/org.couchdb.user:test
       - name: Run Cypress
-        run: pnpm e2e:ui:run
+        run: pnpm e2e:ui:run --spec "${{ steps.specs.outputs.list }}"
         env:
           VERDACCIO_URL: http://localhost:4873
       - name: Show Verdaccio logs
@@ -262,17 +268,39 @@ jobs:
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: failure()
         with:
-          name: cypress-screenshots
+          name: cypress-screenshots-${{ matrix.shard }}
           path: cypress/screenshots
           if-no-files-found: ignore
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        if: always()
+  cypress-cache:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    name: Cypress binary cache
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Cypress version
+        id: cypress-version
+        run: echo "version=$(node -p "require('./package.json').devDependencies.cypress")" >> "$GITHUB_OUTPUT"
+      - name: Look up cache
+        id: lookup
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
-          name: cypress-videos
-          path: cypress/videos
-          if-no-files-found: ignore
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ steps.cypress-version.outputs.version }}
+          lookup-only: true
+      - name: Install dependencies
+        if: steps.lookup.outputs.cache-hit != 'true'
+        uses: ./.github/actions/install-app
+      - name: Install Cypress binary
+        if: steps.lookup.outputs.cache-hit != 'true'
+        run: pnpm exec cypress install
+      - name: Save cache
+        if: steps.lookup.outputs.cache-hit != 'true'
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ steps.cypress-version.outputs.version }}
   changeset-validation:
-    needs: [build]
+    needs: [changeset-check, lint-and-format, build]
     if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && always() && !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     name: Changeset validation
