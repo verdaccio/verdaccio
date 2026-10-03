@@ -68,7 +68,7 @@ export function tagVersion(data: Manifest, version: string, tag: StringValue): b
  */
 export function getVersion(pkg: Manifest, version: any): Version | void {
   // this condition must allow cast
-  if (_.isNil(pkg.versions[version]) === false) {
+  if (Object.hasOwn(pkg.versions, version) && _.isNil(pkg.versions[version]) === false) {
     return pkg.versions[version];
   }
 
