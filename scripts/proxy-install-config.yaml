@@ -1,0 +1,23 @@
+# Used by scripts/proxy-install-popular.sh; storage is relative to this file's copy.
+storage: ./storage
+
+auth:
+  htpasswd:
+    file: ./htpasswd
+
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
+    timeout: 60s
+
+packages:
+  '@*/*':
+    access: $all
+    proxy: npmjs
+  '**':
+    access: $all
+    proxy: npmjs
+
+max_body_size: 200mb
+
+log: { type: stdout, format: pretty, level: warn }

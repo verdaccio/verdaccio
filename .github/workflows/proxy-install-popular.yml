@@ -1,0 +1,64 @@
+name: Proxy install of popular packages
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'verdaccio version or dist-tag on npm (latest, next-7, 6.10.5, ...)'
+        required: true
+        default: 'latest'
+      concurrency:
+        description: 'Installs running at the same time against the proxy'
+        required: true
+        type: choice
+        default: '5'
+        options: ['5', '10', '20']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: proxy-install-popular
+  cancel-in-progress: false
+
+jobs:
+  install:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    name: verdaccio@${{ inputs.version }}, ${{ inputs.concurrency }} at a time
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: '.nvmrc'
+      - name: Install verdaccio@${{ inputs.version }}
+        id: verdaccio
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          if ! [[ "$VERSION" =~ ^[A-Za-z0-9._-]+$ ]]; then
+            echo "::error::'$VERSION' is not a version or dist-tag"
+            exit 1
+          fi
+          npm install --global "verdaccio@$VERSION" --no-audit --no-fund
+          pkg="$(npm root --global)/verdaccio"
+          echo "bin=$pkg/$(node -p "const b = require('$pkg/package.json').bin; typeof b === 'string' ? b : b.verdaccio")" >> "$GITHUB_OUTPUT"
+          echo "Running verdaccio $(node -p "require('$pkg/package.json').version")"
+      - name: Prepare config
+        run: |
+          mkdir -p /tmp/verdaccio-proxy
+          cp scripts/proxy-install-config.yaml /tmp/verdaccio-proxy/config.yaml
+      - uses: ./.github/actions/start-verdaccio
+        with:
+          bin: ${{ steps.verdaccio.outputs.bin }}
+          config: /tmp/verdaccio-proxy/config.yaml
+          log: /tmp/verdaccio-proxy/verdaccio.log
+      - name: Install popular packages through the proxy
+        run: ./scripts/proxy-install-popular.sh
+        env:
+          REGISTRY: http://localhost:4873
+          CONCURRENCY: ${{ inputs.concurrency }}
+      - name: Show Verdaccio logs
+        if: always()
+        run: cat /tmp/verdaccio-proxy/verdaccio.log 2>/dev/null || echo "No log file found"
