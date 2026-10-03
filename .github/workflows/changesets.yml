@@ -26,7 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies with a custom registry
-        uses: verdaccio/verdaccio/.github/actions/install-app@0952ccefdc6282d675ca1917b403441924a90976 # master
+        uses: verdaccio/verdaccio/.github/actions/install-app@efba55c9e1e7781567cd6bd96ffad0dd0c4aa1be # master
       - name: build
         run: pnpm build
       - name: create versions
@@ -50,7 +50,7 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies with a custom registry
-        uses: verdaccio/verdaccio/.github/actions/install-app@0952ccefdc6282d675ca1917b403441924a90976 # master
+        uses: verdaccio/verdaccio/.github/actions/install-app@efba55c9e1e7781567cd6bd96ffad0dd0c4aa1be # master
       - name: build
         run: pnpm build
       - name: publish

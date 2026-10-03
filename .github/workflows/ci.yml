@@ -39,7 +39,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Check changeset
-        uses: verdaccio/verdaccio/.github/actions/changeset-check@0952ccefdc6282d675ca1917b403441924a90976 # master
+        uses: verdaccio/verdaccio/.github/actions/changeset-check@efba55c9e1e7781567cd6bd96ffad0dd0c4aa1be # master
   lint-and-format:
     runs-on: ubuntu-latest
     name: Lint & Format
@@ -47,7 +47,7 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies
-        uses: verdaccio/verdaccio/.github/actions/install-app@0952ccefdc6282d675ca1917b403441924a90976 # master
+        uses: verdaccio/verdaccio/.github/actions/install-app@efba55c9e1e7781567cd6bd96ffad0dd0c4aa1be # master
         with:
           reporter: 'default'
       - name: Lint
@@ -66,20 +66,15 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies
-        uses: verdaccio/verdaccio/.github/actions/install-app@0952ccefdc6282d675ca1917b403441924a90976 # master
+        uses: verdaccio/verdaccio/.github/actions/install-app@efba55c9e1e7781567cd6bd96ffad0dd0c4aa1be # master
         with:
           node-version: ${{ matrix.node_version }}
       - name: Build
         run: pnpm build
-      - name: Cache build artifacts
-        uses: actions/cache/save@27d5ce7f107fe9357f9df03efb73ab90386fccae
+      - uses: verdaccio/verdaccio/.github/actions/build-cache@efba55c9e1e7781567cd6bd96ffad0dd0c4aa1be # master
         with:
-          path: |
-            packages/*/build
-            packages/*/dist
-            packages/*/*/build
-            packages/*/*/dist
-          key: ci-build-${{ github.sha }}-node-${{ matrix.node_version }}
+          mode: save
+          node-version: ${{ matrix.node_version }}
   test:
     needs: [changeset-check, lint-and-format, build]
     if: ${{ github.event_name == 'pull_request' && !failure() && !cancelled() }}
@@ -93,19 +88,13 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies
-        uses: verdaccio/verdaccio/.github/actions/install-app@0952ccefdc6282d675ca1917b403441924a90976 # master
+        uses: verdaccio/verdaccio/.github/actions/install-app@efba55c9e1e7781567cd6bd96ffad0dd0c4aa1be # master
         with:
           node-version: ${{ matrix.node_version }}
-      - name: Restore build artifacts
-        uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae
+      - uses: verdaccio/verdaccio/.github/actions/build-cache@efba55c9e1e7781567cd6bd96ffad0dd0c4aa1be # master
         with:
-          path: |
-            packages/*/build
-            packages/*/dist
-            packages/*/*/build
-            packages/*/*/dist
-          key: ci-build-${{ github.sha }}-node-${{ matrix.node_version }}
-          fail-on-cache-miss: true
+          mode: restore
+          node-version: ${{ matrix.node_version }}
       - name: Test (Node 26)
         if: matrix.node_version == 26
         run: pnpm test
@@ -126,19 +115,13 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies
-        uses: verdaccio/verdaccio/.github/actions/install-app@0952ccefdc6282d675ca1917b403441924a90976 # master
+        uses: verdaccio/verdaccio/.github/actions/install-app@efba55c9e1e7781567cd6bd96ffad0dd0c4aa1be # master
         with:
           node-version: ${{ matrix.node_version }}
-      - name: Restore build artifacts
-        uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae
+      - uses: verdaccio/verdaccio/.github/actions/build-cache@efba55c9e1e7781567cd6bd96ffad0dd0c4aa1be # master
         with:
-          path: |
-            packages/*/build
-            packages/*/dist
-            packages/*/*/build
-            packages/*/*/dist
-          key: ci-build-${{ github.sha }}-node-${{ matrix.node_version }}
-          fail-on-cache-miss: true
+          mode: restore
+          node-version: ${{ matrix.node_version }}
       - name: E2E Tests
         run: pnpm test:e2e
   changeset-validation:
@@ -149,7 +132,7 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies
-        uses: verdaccio/verdaccio/.github/actions/install-app@0952ccefdc6282d675ca1917b403441924a90976 # master
+        uses: verdaccio/verdaccio/.github/actions/install-app@efba55c9e1e7781567cd6bd96ffad0dd0c4aa1be # master
       - name: Run changeset version
         run: |
           changeset_file=$(find .changeset -maxdepth 1 -type f -name '*.md' ! -name README.md -print -quit)
@@ -166,11 +149,7 @@ jobs:
     permissions:
       actions: write
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Delete build artifact caches
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh cache delete "ci-build-${{ github.sha }}-node-22" --repo ${{ github.repository }} || true
-          gh cache delete "ci-build-${{ github.sha }}-node-24" --repo ${{ github.repository }} || true
-          gh cache delete "ci-build-${{ github.sha }}-node-26" --repo ${{ github.repository }} || true
+      - uses: verdaccio/verdaccio/.github/actions/delete-build-cache@efba55c9e1e7781567cd6bd96ffad0dd0c4aa1be # master
+        with:
+          node-versions: 22 24 26
+          token: ${{ github.token }}

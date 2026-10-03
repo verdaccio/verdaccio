@@ -56,8 +56,8 @@ Every package is published as `@verdaccio/<name>` unless noted:
   `@verdaccio/*` tree is the local build (`pnpm verdaccio`, `pnpm verdaccio:build`).
 - `.github/workflows` — `ci.yml` (changeset check, lint and format, build and
   tests on Node.js 22, 24 and 26, e2e, changeset validation),
-  `changesets.yml`, `pnpm-audit.yml`. The `install-app` and `changeset-check`
-  actions come from `master`, pinned by commit SHA.
+  `changesets.yml`, `pnpm-audit.yml`. Their steps are composite actions and
+  reusable workflows from `master` (`.github/actions/*`, `x-*.yml`), pinned by commit SHA.
 
 ## Setup, build, test, lint
 
