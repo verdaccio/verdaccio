@@ -19,6 +19,10 @@ preferFrozenLockfile: true
 
 auditConfig:
   ignoreGhsas:
+    # braces: no patched release yet; only reached through globby with fixed '*' patterns
+    - GHSA-vfj7-8cjw-p6xm
+    # http-cache-semantics: no patched release yet; got only uses it with the `cache` option, which is never set
+    - GHSA-ch52-4w7c-c8xp
     # Express.js unreleased
     - GHSA-j3q9-mxjg-w52f
     # Express.js unreleased
