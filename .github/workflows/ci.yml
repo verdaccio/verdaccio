@@ -162,6 +162,9 @@ jobs:
           - pnpm@11
           - bun
           - deno
+          # installed by the e2e CLI itself; both only exercise install and ci
+          - upm@1.3.1
+          - nub@0.9.5
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Install dependencies
@@ -198,7 +201,7 @@ jobs:
       - name: Run E2E CLI tests
         run: pnpm verdaccio-e2e --registry http://localhost:4873 --pm ${{ matrix.pm }} --uplink-port 4874 -v
         env:
-          E2E_PENDING_CONTRACT_CHECKS: tarballs
+          E2E_PENDING_CONTRACT_CHECKS: tarballs,package-names
       - name: Show Verdaccio logs
         if: always()
         run: cat /tmp/verdaccio-e2e/verdaccio.log 2>/dev/null || echo "No log file found"
