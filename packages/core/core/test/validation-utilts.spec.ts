@@ -63,6 +63,8 @@ describe('validatePackageName', () => {
       '@secret',
       'foo@bar',
       '@scope/.pkg',
+      '\uD800',
+      '@scope/\uD800',
       null,
       42,
     ]) {

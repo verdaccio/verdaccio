@@ -10,6 +10,15 @@ export { validateUnPublishSingleVersion } from './schemes/unpublish-manifest';
 const scopedPackagePattern = /^(?:@([^/]+?)[/])?([^/]+?)$/;
 const exclusionList = ['node_modules', 'favicon.ico'];
 
+// encodeURIComponent throws on malformed UTF-16, such as a lone surrogate
+function isUrlFriendly(value: string): boolean {
+  try {
+    return encodeURIComponent(value) === value;
+  } catch {
+    return false;
+  }
+}
+
 /** Package name rules for existing packages; a leading hyphen stays valid. */
 export function validatePackageName(name: unknown): boolean {
   if (typeof name !== 'string' || !name.length) {
@@ -21,7 +30,7 @@ export function validatePackageName(name: unknown): boolean {
   if (exclusionList.includes(name.toLowerCase())) {
     return false;
   }
-  if (encodeURIComponent(name) === name) {
+  if (isUrlFriendly(name)) {
     return true;
   }
   const nameMatch = name.match(scopedPackagePattern);
@@ -29,12 +38,7 @@ export function validatePackageName(name: unknown): boolean {
     return false;
   }
   const [, user, pkg] = nameMatch;
-  return (
-    user !== undefined &&
-    encodeURIComponent(user) === user &&
-    !pkg.startsWith('.') &&
-    encodeURIComponent(pkg) === pkg
-  );
+  return user !== undefined && isUrlFriendly(user) && !pkg.startsWith('.') && isUrlFriendly(pkg);
 }
 
 export function isPackageNameScoped(name: string): boolean {
