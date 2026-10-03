@@ -111,10 +111,24 @@ describe('Local Database', () => {
       }
     });
 
+    test.each(['pkg', '@scope/pkg', '@con/pkg', '@lpt1/pkg', 'JSONStream', '-'])(
+      'should get a storage for %s',
+      (pkgName) => {
+        expect(locaDatabase.getPackageStorage(pkgName)).toBeDefined();
+      }
+    );
+
+    test.each(['pkg.', 'pk*g', 'con', 'nul.js', '@scope/aux', '@scope./pkg', 'a'.repeat(256)])(
+      'should not get a storage for %s',
+      (pkgName) => {
+        expect(locaDatabase.getPackageStorage(pkgName)).toBeUndefined();
+      }
+    );
+
     test('should not allow path traversal in package name', () => {
       const maliciousName = '../../etc/passwd';
       const storage = locaDatabase.getPackageStorage(maliciousName);
-      expect(storage).toBeDefined();
+      expect(storage).toBeUndefined();
 
       if (storage) {
         const storagePath = (storage as LocalFS).path;

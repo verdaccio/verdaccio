@@ -73,32 +73,32 @@ describe('validatePackageName', () => {
 
 describe('validatePackage with npm rules', () => {
   test('should keep accepting existing package names', () => {
-    for (const name of ['-', '-build-infra', 'JSONStream', 'http', '@scope/pkg']) {
+    for (const name of [
+      '-',
+      '-build-infra',
+      'JSONStream',
+      'http',
+      'con',
+      'pkg.',
+      '@scope/pkg',
+      '@con/pkg',
+      '@lpt1/pkg',
+      '@scope/_pkg',
+    ]) {
       expect(validatePackage(name)).toBeTruthy();
     }
   });
 
-  test('should reject names npm or the storage cannot accept', () => {
-    for (const name of [
-      '_pkg',
-      '@secret',
-      'foo@bar',
-      'con',
-      'nul.js',
-      '@scope/aux',
-      '@lpt1/pkg',
-      'a'.repeat(256),
-    ]) {
+  test('should reject names npm does not accept', () => {
+    for (const name of ['_pkg', '@secret', 'foo@bar', ' pkg']) {
       expect(validatePackage(name)).toBeFalsy();
     }
   });
 
   test('should keep accepting route parameters', () => {
-    for (const value of ['con-1.0.0.tgz', 'old-package@0.1.2.tgz', '1.0.0', 'latest']) {
+    for (const value of ['aux', 'con', 'next', 'con-1.0.0.tgz', 'old-package@0.1.2.tgz', '1.0.0']) {
       expect(validateName(value)).toBeTruthy();
     }
-    expect(validateName('con')).toBeFalsy();
-    expect(validateName('a'.repeat(256))).toBeFalsy();
   });
 });
 
@@ -180,24 +180,6 @@ describe('validateName', () => {
     expect(validateName('@.hidden/pkg')).toBeFalsy();
     expect(validateName('@scope/')).toBeFalsy();
     expect(validateName('@/pkg')).toBeFalsy();
-  });
-
-  test('should fail with a trailing dot or an asterisk', () => {
-    for (const name of [
-      'pkg.',
-      'pkg..',
-      'p*kg',
-      'pkg*',
-      '@scope/pkg.',
-      '@scope./pkg',
-      '@scope/p*kg',
-    ]) {
-      expect(validateName(name)).toBeFalsy();
-      expect(validatePackage(name)).toBeFalsy();
-    }
-    expect(validateName('pkg.js')).toBeTruthy();
-    expect(validateName('foo-1.0.0.tgz')).toBeTruthy();
-    expect(validateName('1.0.0-beta.1')).toBeTruthy();
   });
 
   test('should fail with no hidden files', () => {
