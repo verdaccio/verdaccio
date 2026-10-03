@@ -83,7 +83,7 @@ describe('Search v1 progressive pagination', () => {
     expect(first.body.objects[0].package).toEqual({ name: 'local', version: '01.2.3' });
   });
 
-  test.each([401, 404, 429, 500, 'connection', 'timeout', 'json'])(
+  test.each([401, 404, 429, 500, 'connection', 'timeout', 'json', 'gzip'])(
     'preserves local pagination when the first uplink request fails (%s)',
     async (failure) => {
       const upstream = nock(domain).persist().get('/-/v1/search').query(true);
@@ -94,6 +94,8 @@ describe('Search v1 progressive pagination', () => {
         });
       } else if (failure === 'json') {
         upstream.reply(200, 'invalid JSON');
+      } else if (failure === 'gzip') {
+        upstream.reply(200, 'not compressed', { 'content-encoding': 'gzip' });
       } else {
         upstream.reply(failure);
       }
