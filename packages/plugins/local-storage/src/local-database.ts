@@ -327,6 +327,8 @@ class LocalDatabase extends pluginUtils.Plugin<{}> implements Storage {
       debug('token db generated');
       this.tokenDb = new Low<Record<string, Token[]>>(adapter, {});
       await this.tokenDb.read();
+      // keyed by username: names like `constructor` or `__proto__` must not hit the prototype
+      this.tokenDb.data = Object.assign(Object.create(null), this.tokenDb.data);
     }
 
     return this.tokenDb;
