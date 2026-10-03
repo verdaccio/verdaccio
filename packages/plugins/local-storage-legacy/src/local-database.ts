@@ -191,14 +191,19 @@ class LocalDatabase extends TokenActions {
       return;
     }
 
-    const sanitizedName = packageName
-      .split('/')
-      .map((segment) => sanitize(segment))
-      .join('/');
+    // only names that map to a directory of the same name get a storage
+    if (packageName.split('/').some((segment) => !segment || sanitize(segment) !== segment)) {
+      debug('the package %o has no storage for its name', packageName);
+      this.logger.warn(
+        { packageName },
+        'package @{packageName} has no local storage because its name is not a valid directory name'
+      );
+      return;
+    }
 
     const packageStoragePath: string = Path.join(
       Path.resolve(Path.dirname(this.config.self_path || ''), packagePath),
-      sanitizedName
+      packageName
     );
 
     debug('storage absolute path: ', packageStoragePath);
