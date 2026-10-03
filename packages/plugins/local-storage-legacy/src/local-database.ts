@@ -191,17 +191,15 @@ class LocalDatabase extends TokenActions {
       return;
     }
 
-    const segments = packageName.split('/');
     // only names that map to a directory of the same name get a storage
-    if (segments.some((segment) => sanitize(segment) !== segment)) {
+    if (packageName.split('/').some((segment) => sanitize(segment) !== segment)) {
       debug('the package %o has no storage for its name', packageName);
       return;
     }
-    const sanitizedName = segments.join('/');
 
     const packageStoragePath: string = Path.join(
       Path.resolve(Path.dirname(this.config.self_path || ''), packagePath),
-      sanitizedName
+      packageName
     );
 
     debug('storage absolute path: ', packageStoragePath);
