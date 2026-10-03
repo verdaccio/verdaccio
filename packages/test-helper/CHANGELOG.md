@@ -1,5 +1,16 @@
 # Change Log
 
+## 4.1.6
+
+### Patch Changes
+
+- Updated dependencies [28f36b8]
+  - @verdaccio/core@8.3.2
+  - @verdaccio/auth@8.1.5
+  - @verdaccio/config@8.3.2
+  - @verdaccio/middleware@8.1.6
+  - @verdaccio/logger@8.1.5
+
 ## 4.1.5
 
 ### Patch Changes

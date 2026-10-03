@@ -1,5 +1,12 @@
 # @verdaccio/loaders
 
+## 8.1.5
+
+### Patch Changes
+
+- Updated dependencies [28f36b8]
+  - @verdaccio/core@8.3.2
+
 ## 8.1.4
 
 ### Patch Changes

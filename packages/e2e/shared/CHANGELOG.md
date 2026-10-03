@@ -1,5 +1,13 @@
 # @verdaccio/e2e-shared
 
+## 1.0.11
+
+### Patch Changes
+
+- Updated dependencies [28f36b8]
+  - @verdaccio/core@8.3.2
+  - @verdaccio/config@8.3.2
+
 ## 1.0.10
 
 ### Patch Changes
