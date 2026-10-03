@@ -5,6 +5,7 @@ import { describe, expect, test, vi } from 'vitest';
 
 import { Config as AppConfig, ROLES, createRemoteUser, getDefaultConfig } from '@verdaccio/config';
 import {
+  API_ERROR,
   HEADERS,
   HTTP_STATUS,
   SUPPORT_ERRORS,
@@ -145,7 +146,7 @@ describe('AuthTest', () => {
         }
       });
 
-      test('should error truthy non-array', async () => {
+      test('should return an error for truthy non-array groups', async () => {
         const config: Config = new AppConfig({ ...authPluginPassThrougConf });
         config.checkSecretKey('12345');
         const auth: Auth = new Auth(config, logger);
@@ -154,12 +155,14 @@ describe('AuthTest', () => {
 
         const callback = vi.fn();
 
-        for (const value of [true, 1, 'test', {}]) {
-          expect(function () {
-            // @ts-ignore
-            auth.authenticate(null, value, callback);
-          }).toThrow(TypeError);
-          expect(callback).not.toHaveBeenCalled();
+        for (const [index, value] of [true, 1, 'test', {}, { length: 0 }].entries()) {
+          // @ts-ignore
+          auth.authenticate(null, value, callback);
+          expect(callback).toHaveBeenCalledTimes(index + 1);
+          expect(callback).toHaveBeenNthCalledWith(
+            index + 1,
+            errorUtils.getInternalError(API_ERROR.BAD_FORMAT_USER_GROUP)
+          );
         }
       });
 

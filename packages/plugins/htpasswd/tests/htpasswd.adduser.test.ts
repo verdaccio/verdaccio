@@ -44,7 +44,7 @@ describe('HTPasswd', () => {
       vi.doMock('../src/utils.ts', async (importOriginal) => {
         return {
           ...(await importOriginal<typeof import('../src/utils')>()),
-          sanityCheck: vi.fn((): Error => Error(API_ERROR.UNAUTHORIZED_ACCESS)),
+          sanityCheck: vi.fn(async (): Promise<Error> => Error(API_ERROR.UNAUTHORIZED_ACCESS)),
         };
       });
       const HTPasswd = (await import('../src/htpasswd')).default;
@@ -84,7 +84,7 @@ describe('HTPasswd', () => {
         vi.doMock('../src/utils.ts', async (importOriginal) => {
           return {
             ...(await importOriginal<typeof import('../src/utils')>()),
-            sanityCheck: vi.fn((): Error => Error('some error')),
+            sanityCheck: vi.fn(async (): Promise<Error> => Error('some error')),
           };
         });
         const HTPasswd = (await import('../src/htpasswd')).default;

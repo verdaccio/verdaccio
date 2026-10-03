@@ -11,14 +11,10 @@ import {
   addUserToHTPasswd,
   changePasswordToHTPasswd,
   generateHtpasswdLine,
-  lockAndRead,
   parseHTPasswd,
   sanityCheck,
   verifyPassword,
 } from '../src/utils';
-
-const mockReadFile = vi.fn();
-const mockUnlockFile = vi.fn();
 
 const defaultHashConfig = {
   algorithm: constants.HtpasswdHashAlgorithm.bcrypt,
@@ -35,11 +31,6 @@ const mockTimeAndRandomBytes = () => {
   });
   Math.random = vi.fn(() => 0.38849);
 };
-
-vi.mock('@verdaccio/file-locking', () => ({
-  readFile: () => mockReadFile(),
-  unlockFile: () => mockUnlockFile(),
-}));
 
 describe('parseHTPasswd', () => {
   test('should parse the password for a single line', () => {
@@ -67,6 +58,14 @@ user4:$6FrCasdvppdwE:autocreated 2017-12-14T13:30:20.838Z`;
       user4: '$6FrCasdvppdwE',
     };
     expect(parseHTPasswd(input)).toEqual(output);
+  });
+
+  test('preserves usernames that match object properties', () => {
+    const users = parseHTPasswd('__proto__:first\nconstructor:second\ntoString:third');
+    expect(Object.keys(users)).toEqual(['__proto__', 'constructor', 'toString']);
+    expect(users.__proto__).toBe('first');
+    expect(users.constructor).toBe('second');
+    expect(users.toString).toBe('third');
   });
 });
 
@@ -163,13 +162,6 @@ describe('addUserToHTPasswd - bcrypt', () => {
     ).rejects.toThrowErrorMatchingSnapshot();
   });
 });
-describe('lockAndRead', () => {
-  test('should call the readFile method', () => {
-    const cb = (): void => {};
-    lockAndRead('.htpasswd', cb);
-    expect(mockReadFile).toHaveBeenCalled();
-  });
-});
 
 describe('sanityCheck', () => {
   let users;
@@ -177,6 +169,17 @@ describe('sanityCheck', () => {
   beforeEach(() => {
     users = { test: '$6FrCaT/v0dwE' };
   });
+
+  test.each(['constructor', 'toString', '__proto__'])(
+    'does not verify an inherited property named %s',
+    async (username) => {
+      const verifyFn = vi.fn();
+      await expect(
+        sanityCheck(username, 'password', verifyFn, users, Infinity)
+      ).resolves.toBeNull();
+      expect(verifyFn).not.toHaveBeenCalled();
+    }
+  );
 
   test('should throw error for user already exists', async () => {
     const verifyFn = vi.fn();

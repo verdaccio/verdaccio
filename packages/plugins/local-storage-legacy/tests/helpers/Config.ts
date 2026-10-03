@@ -1,9 +1,9 @@
-import minimatch from 'minimatch';
+import { makeRe } from 'minimatch';
 
 // FUTURE: we should use the same is on verdaccio
 export function getMatchedPackagesSpec(pkgName: string, packages: object): object | undefined {
   for (const i in packages) {
-    if (minimatch.makeRe(i).exec(pkgName)) {
+    if (makeRe(i).exec(pkgName)) {
       return packages[i];
     }
   }
