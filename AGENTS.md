@@ -65,7 +65,7 @@ Rules that follow:
   (`api.ts`, `mock.ts`, `default-setup.ts`, `expects.ts`); `test/unit/partials`.
 - `docs/env.variables.md` — environment variables.
 - `.github/workflows` — `ci.yml` (lint and format, build and tests on Node.js 24
-  and 25, Docker build, the `@verdaccio/e2e-cli` battery across package managers,
+  and 26, Docker build, the `@verdaccio/e2e-cli` battery across package managers,
   the Cypress web UI suite, CodeQL), `changesets.yml`, `docker-nightly.yml`,
   `pnpm-audit.yml`, `update-dependencies.yml`.
 

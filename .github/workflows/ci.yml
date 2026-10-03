@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - 'master'
+      - '7.x'
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
     paths:
@@ -44,12 +44,12 @@ jobs:
         run: pnpm format:check
 
   build:
-    needs: [lint-and-format]
+    if: github.event.pull_request.draft == false
     strategy:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
-        node_version: [24, 25]
+        node_version: [24, 26]
     name: Build / ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     steps:
@@ -70,13 +70,13 @@ jobs:
           key: ci-build-${{ github.sha }}-node-${{ matrix.node_version }}
 
   test:
-    needs: [build]
+    needs: [lint-and-format, build]
     if: github.event_name == 'pull_request'
     strategy:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
-        node_version: [24, 25]
+        node_version: [24, 26]
     name: Test / ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     steps:
@@ -104,7 +104,7 @@ jobs:
         run: pnpm test
 
   test-docker:
-    needs: [build]
+    needs: [lint-and-format, build]
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     name: Test Docker Build
@@ -130,7 +130,7 @@ jobs:
         run: docker stop verdaccio-test
 
   e2e-cli:
-    needs: [build]
+    needs: [lint-and-format, build]
     if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     name: E2E CLI (${{ matrix.pm }})
@@ -190,7 +190,7 @@ jobs:
         run: cat /tmp/verdaccio-e2e/verdaccio.log 2>/dev/null || echo "No log file found"
 
   e2e-cli-legacy-plugins:
-    needs: [build]
+    needs: [lint-and-format, build]
     if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     name: E2E CLI (legacy plugins, ${{ matrix.pm }})
@@ -237,7 +237,7 @@ jobs:
         run: cat /tmp/verdaccio-e2e/verdaccio.log 2>/dev/null || echo "No log file found"
 
   e2e-ui:
-    needs: [build]
+    needs: [lint-and-format, build]
     if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     name: E2E UI
@@ -256,15 +256,16 @@ jobs:
           path: build/
           key: ci-build-${{ github.sha }}-node-24
           fail-on-cache-miss: true
-      # The cypress binary is not in the pnpm store, so cache it separately and
-      # only download it when the cache misses. The version is pinned by the
-      # cypress entry in pnpm-lock.yaml.
-      - name: Cache Cypress binary
+      - name: Cypress version
+        id: cypress-version
+        run: echo "version=$(node -p "require('./package.json').devDependencies.cypress")" >> "$GITHUB_OUTPUT"
+      # Only pushes to 7.x save this cache (cypress-cache job); PRs read it.
+      - name: Restore Cypress binary
         id: cypress-cache
-        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         with:
           path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          key: cypress-${{ runner.os }}-${{ steps.cypress-version.outputs.version }}
       - name: Install Cypress binary
         if: steps.cypress-cache.outputs.cache-hit != 'true'
         run: pnpm exec cypress install
@@ -293,6 +294,43 @@ jobs:
           name: cypress-screenshots
           path: cypress/screenshots
           if-no-files-found: ignore
+
+  cypress-cache:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/7.x'
+    runs-on: ubuntu-latest
+    name: Cypress binary cache
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Cypress version
+        id: cypress-version
+        run: echo "version=$(node -p "require('./package.json').devDependencies.cypress")" >> "$GITHUB_OUTPUT"
+      # 7.x can also read master's cache, so a shared cypress version is not stored twice
+      - name: Look up cache
+        id: lookup
+        uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ steps.cypress-version.outputs.version }}
+          lookup-only: true
+      - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+        if: steps.lookup.outputs.cache-hit != 'true'
+        with:
+          node-version-file: '.nvmrc'
+      - name: Enable corepack
+        if: steps.lookup.outputs.cache-hit != 'true'
+        run: corepack enable pnpm
+      - name: Install dependencies
+        if: steps.lookup.outputs.cache-hit != 'true'
+        run: pnpm install --frozen-lockfile
+      - name: Install Cypress binary
+        if: steps.lookup.outputs.cache-hit != 'true'
+        run: pnpm exec cypress install
+      - name: Save cache
+        if: steps.lookup.outputs.cache-hit != 'true'
+        uses: actions/cache/save@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ steps.cypress-version.outputs.version }}
 
   codeql:
     needs: [test, e2e-cli, e2e-cli-legacy-plugins, e2e-ui]
