@@ -1,0 +1,36 @@
+name: 'Build cache'
+description: 'Save or restore the build output shared between jobs of one CI run'
+
+inputs:
+  mode:
+    description: 'save or restore'
+    required: true
+  node-version:
+    description: 'Node.js version the build was made with'
+    required: true
+  path:
+    description: 'Build output paths'
+    required: false
+    default: |
+      packages/*/build
+      packages/*/dist
+      packages/*/*/build
+      packages/*/*/dist
+      packages/plugins/ui-theme/static
+
+runs:
+  using: composite
+  steps:
+    - name: Save build artifacts
+      if: inputs.mode == 'save'
+      uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+      with:
+        path: ${{ inputs.path }}
+        key: ci-build-${{ github.run_id }}-${{ github.run_attempt }}-node-${{ inputs.node-version }}
+    - name: Restore build artifacts
+      if: inputs.mode == 'restore'
+      uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+      with:
+        path: ${{ inputs.path }}
+        key: ci-build-${{ github.run_id }}-${{ github.run_attempt }}-node-${{ inputs.node-version }}
+        fail-on-cache-miss: true

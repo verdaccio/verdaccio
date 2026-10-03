@@ -1,0 +1,36 @@
+# Shared by master, 7.x and 8.x; only inline steps, since ./ paths resolve against the caller.
+name: Test Docker build
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  test-docker:
+    runs-on: ubuntu-latest
+    name: Test Docker Build
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Build Docker image
+        run: docker build -t verdaccio-test .
+        env:
+          VERDACCIO_BUILD_REGISTRY: https://registry.npmjs.org
+      - name: Run Verdaccio in background
+        run: |
+          docker run -d --name verdaccio-test -p 4873:4873 verdaccio-test
+          for i in $(seq 1 30); do
+            curl -s http://localhost:4873/-/ping && break
+            sleep 1
+          done
+      - name: Test npm install from local Verdaccio
+        run: |
+          npm set registry http://localhost:4873
+          npm install -g verdaccio
+      - name: Show Verdaccio logs
+        if: always()
+        run: docker logs verdaccio-test
+      - name: Stop Verdaccio
+        if: always()
+        run: docker stop verdaccio-test

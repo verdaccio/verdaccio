@@ -68,45 +68,20 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - name: Build application with Node ${{ matrix.node_version }}
-        uses: ./.github/actions/build-app
+      - name: Install dependencies
+        uses: ./.github/actions/install-app
         with:
           node-version: ${{ matrix.node_version }}
-      - name: Cache build artifacts
-        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+      - name: Build
+        run: pnpm build
+      - uses: ./.github/actions/build-cache
         with:
-          path: |
-            packages/*/build
-            packages/*/dist
-            packages/*/*/build
-            packages/*/*/dist
-            packages/plugins/ui-theme/static
-          key: ci-build-${{ github.run_id }}-${{ github.run_attempt }}-node-${{ matrix.node_version }}
+          mode: save
+          node-version: ${{ matrix.node_version }}
   test-docker:
     needs: [changeset-check, lint-and-format, build]
     if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && !failure() && !cancelled() }}
-    runs-on: ubuntu-latest
-    name: Test Docker Build
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - name: Build Docker image
-        run: docker build -t verdaccio-test .
-        env:
-          VERDACCIO_BUILD_REGISTRY: https://registry.npmjs.org
-      - name: Run Verdaccio in background
-        run: |
-          docker run -d --name verdaccio-test -p 4873:4873 verdaccio-test
-          sleep 10
-      - name: Test npm install from local Verdaccio
-        run: |
-          npm set registry http://localhost:4873
-          npm install -g verdaccio
-      - name: Show Verdaccio logs
-        if: always()
-        run: docker logs verdaccio-test
-      - name: Stop Verdaccio
-        if: always()
-        run: docker stop verdaccio-test
+    uses: ./.github/workflows/x-test-docker.yml
   test:
     needs: [changeset-check, lint-and-format, build]
     if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && !failure() && !cancelled() }}
@@ -130,17 +105,10 @@ jobs:
         uses: ./.github/actions/install-app
         with:
           node-version: ${{ matrix.node_version }}
-      - name: Restore build artifacts
-        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+      - uses: ./.github/actions/build-cache
         with:
-          path: |
-            packages/*/build
-            packages/*/dist
-            packages/*/*/build
-            packages/*/*/dist
-            packages/plugins/ui-theme/static
-          key: ci-build-${{ github.run_id }}-${{ github.run_attempt }}-node-${{ matrix.node_version }}
-          fail-on-cache-miss: true
+          mode: restore
+          node-version: ${{ matrix.node_version }}
       - name: Test
         run: pnpm ${{ matrix.filter }} test
         env:
@@ -170,39 +138,14 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Install dependencies
         uses: ./.github/actions/install-app
-      - name: Setup Bun
-        if: startsWith(matrix.pm, 'bun')
-        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
-      - name: Setup Deno
-        if: startsWith(matrix.pm, 'deno')
-        uses: denoland/setup-deno@22d081ff2d3a40755e97629de92e3bcbfa7cf2ed
-      - name: Restore build artifacts
-        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+      - uses: ./.github/actions/build-cache
         with:
-          path: |
-            packages/*/build
-            packages/*/dist
-            packages/*/*/build
-            packages/*/*/dist
-            packages/plugins/ui-theme/static
-          key: ci-build-${{ github.run_id }}-${{ github.run_attempt }}-node-24
-          fail-on-cache-miss: true
-      - name: Start Verdaccio
-        # The e2e battery needs the shared config from @verdaccio/e2e-cli
-        # (max_body_size for scenario:tarballs, mock uplink for
-        # scenario:uplink-failure on port 4874).
-        run: |
-          mkdir -p /tmp/verdaccio-e2e
-          pnpm --silent verdaccio-e2e --print-config --uplink-port 4874 > /tmp/verdaccio-e2e/config.yaml
-          node packages/verdaccio/bin/verdaccio --config /tmp/verdaccio-e2e/config.yaml --listen 4873 &> /tmp/verdaccio-e2e/verdaccio.log &
-          for i in $(seq 1 30); do
-            curl -s http://localhost:4873/-/ping && break
-            sleep 1
-          done
-      - name: Run E2E CLI tests
-        run: pnpm verdaccio-e2e --registry http://localhost:4873 --pm ${{ matrix.pm }} --uplink-port 4874 -v
-        env:
-          E2E_PENDING_CONTRACT_CHECKS: tarballs,package-names
+          mode: restore
+          node-version: 24
+      - uses: ./.github/actions/start-verdaccio
+      - uses: ./.github/actions/e2e-cli
+        with:
+          pm: ${{ matrix.pm }}
       - name: Show Verdaccio logs
         if: always()
         run: cat /tmp/verdaccio-e2e/verdaccio.log 2>/dev/null || echo "No log file found"
@@ -219,52 +162,22 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Install dependencies
         uses: ./.github/actions/install-app
-      - name: Restore build artifacts
-        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+      - uses: ./.github/actions/build-cache
         with:
-          path: |
-            packages/*/build
-            packages/*/dist
-            packages/*/*/build
-            packages/*/*/dist
-            packages/plugins/ui-theme/static
-          key: ci-build-${{ github.run_id }}-${{ github.run_attempt }}-node-24
-          fail-on-cache-miss: true
-      - name: Cypress version
-        id: cypress-version
-        run: echo "version=$(node -p "require('./package.json').devDependencies.cypress")" >> "$GITHUB_OUTPUT"
-      # Only pushes to master save this cache (cypress-cache job); PRs read it.
-      - name: Restore Cypress binary
-        id: cypress-cache
-        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+          mode: restore
+          node-version: 24
+      - uses: ./.github/actions/cypress-binary
+      - uses: ./.github/actions/start-verdaccio
         with:
-          path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-${{ steps.cypress-version.outputs.version }}
-      - name: Install Cypress binary
-        if: steps.cypress-cache.outputs.cache-hit != 'true'
-        run: pnpm exec cypress install
-      - name: Pick specs for this shard
-        id: specs
-        run: echo "list=$(ls cypress/e2e/*.cy.ts | sort | awk 'NR % 2 == ${{ matrix.shard }} % 2' | paste -sd, -)" >> "$GITHUB_OUTPUT"
-      - name: Start Verdaccio
-        run: |
-          nohup node packages/verdaccio/bin/verdaccio --config ./scripts/e2e-ui-config.yaml > verdaccio.log 2>&1 &
-          for i in $(seq 1 30); do
-            curl -s http://localhost:4873/-/ping && break
-            sleep 1
-          done
-      - name: Create test user (for signin suite)
-        run: |
-          curl -s -X PUT -H "Content-Type: application/json" \
-            -d '{"name":"test","password":"test","_id":"org.couchdb.user:test","type":"user","roles":[]}' \
-            http://localhost:4873/-/user/org.couchdb.user:test
-      - name: Run Cypress
-        run: pnpm e2e:ui:run --spec "${{ steps.specs.outputs.list }}"
-        env:
-          VERDACCIO_URL: http://localhost:4873
+          config: ./scripts/e2e-ui-config.yaml
+          test-user: 'true'
+      - uses: ./.github/actions/e2e-ui
+        with:
+          shard: ${{ matrix.shard }}
+          shards: 2
       - name: Show Verdaccio logs
         if: always()
-        run: cat verdaccio.log 2>/dev/null || echo "No log file found"
+        run: cat /tmp/verdaccio-e2e/verdaccio.log 2>/dev/null || echo "No log file found"
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: failure()
         with:
@@ -277,28 +190,10 @@ jobs:
     name: Cypress binary cache
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - name: Cypress version
-        id: cypress-version
-        run: echo "version=$(node -p "require('./package.json').devDependencies.cypress")" >> "$GITHUB_OUTPUT"
-      - name: Look up cache
-        id: lookup
-        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+      - uses: ./.github/actions/install-app
+      - uses: ./.github/actions/cypress-binary
         with:
-          path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-${{ steps.cypress-version.outputs.version }}
-          lookup-only: true
-      - name: Install dependencies
-        if: steps.lookup.outputs.cache-hit != 'true'
-        uses: ./.github/actions/install-app
-      - name: Install Cypress binary
-        if: steps.lookup.outputs.cache-hit != 'true'
-        run: pnpm exec cypress install
-      - name: Save cache
-        if: steps.lookup.outputs.cache-hit != 'true'
-        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
-        with:
-          path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-${{ steps.cypress-version.outputs.version }}
+          save: 'true'
   changeset-validation:
     needs: [changeset-check, lint-and-format, build]
     if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && always() && !failure() && !cancelled() }}
@@ -324,24 +219,10 @@ jobs:
     if: (github.event_name == 'push' && github.ref == 'refs/heads/master' && github.repository == 'verdaccio/verdaccio') || github.event_name == 'workflow_dispatch'
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+      - name: Install dependencies
+        uses: ./.github/actions/install-app
         with:
-          node-version-file: '.nvmrc'
-      - name: Install pnpm
-        run: |
-          npm install --global corepack@latest
-          corepack enable
-          corepack install
-      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: ~/.pnpm-store
-          key: pnpm-${{ github.ref_name }}-${{ hashFiles('pnpm-lock.yaml') }}
-      - name: set store
-        run: |
-          pnpm config set store-dir ~/.pnpm-store
-      - name: Install
-        ## we need scripts, pupetter downloads aditional content
-        run: pnpm install --registry https://registry.npmjs.org
+          ignore-scripts: 'false'
       - name: build
         run: pnpm build
       - name: sync
@@ -358,9 +239,7 @@ jobs:
       actions: write
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - name: Delete build artifact caches
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh cache delete "ci-build-${{ github.run_id }}-${{ github.run_attempt }}-node-24" --repo ${{ github.repository }} || true
-          gh cache delete "ci-build-${{ github.run_id }}-${{ github.run_attempt }}-node-26" --repo ${{ github.repository }} || true
+      - uses: ./.github/actions/delete-build-cache
+        with:
+          node-versions: 24 26
+          token: ${{ github.token }}

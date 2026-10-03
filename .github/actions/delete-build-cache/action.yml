@@ -1,0 +1,22 @@
+name: 'Delete build cache'
+description: 'Delete the build caches saved by build-cache in this run'
+
+inputs:
+  node-versions:
+    description: 'Space-separated Node.js versions of the build matrix'
+    required: true
+  token:
+    description: 'Token with actions: write'
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Delete build artifact caches
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.token }}
+      run: |
+        for node in ${{ inputs.node-versions }}; do
+          gh cache delete "ci-build-${{ github.run_id }}-${{ github.run_attempt }}-node-$node" --repo ${{ github.repository }} || true
+        done
