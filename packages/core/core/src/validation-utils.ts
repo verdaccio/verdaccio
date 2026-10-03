@@ -21,7 +21,6 @@ export function validateName(name: string): boolean {
     return false;
   }
 
-  // scoped names are checked segment by segment
   if (isPackageNameScoped(name) && name.includes('/')) {
     return validatePackage(name);
   }
