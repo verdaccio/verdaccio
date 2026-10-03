@@ -67,7 +67,8 @@ Rules that follow:
 - `.github/workflows` — `ci.yml` (lint and format, build and tests on Node.js 24
   and 26, Docker build, the `@verdaccio/e2e-cli` battery across package managers,
   the Cypress web UI suite, CodeQL), `changesets.yml`, `docker-nightly.yml`,
-  `pnpm-audit.yml`, `update-dependencies.yml`.
+  `pnpm-audit.yml`, `update-dependencies.yml`. Their steps are composite actions and
+  reusable workflows from `master` (`.github/actions/*`, `x-*.yml`), pinned by commit SHA.
 
 ## Setup, build, test, lint
 

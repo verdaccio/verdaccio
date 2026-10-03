@@ -31,15 +31,10 @@ jobs:
           ref: 7.x
           fetch-depth: 0
 
-      - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
-        with:
-          node-version-file: '.nvmrc'
-
-      - name: Enable corepack
-        run: corepack enable pnpm
-
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        uses: verdaccio/verdaccio/.github/actions/install-app@efba55c9e1e7781567cd6bd96ffad0dd0c4aa1be # master
+        with:
+          ignore-scripts: 'false'
 
       - name: Update verdaccio packages to the dist-tag
         env:
