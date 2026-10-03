@@ -31,6 +31,8 @@ minimumReleaseAgeExclude:
   - vitest@4.1.11
   # Renovate security update: js-yaml@5.4.1
   - js-yaml@5.4.1
+  # Renovate security update: dompurify@3.4.16
+  - dompurify@3.4.16
 
 # Force the esbuild security patch (>= 0.28.1) across the whole tree.
 # See GHSA-gv7w-rqvm-qjhr (RCE via NPM_CONFIG_REGISTRY, fixed in 0.28.1).
