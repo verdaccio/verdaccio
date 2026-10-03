@@ -109,6 +109,19 @@ describe('validateName', () => {
     expect(validateName('some\\thing')).toBeFalsy();
   });
 
+  test('should validate every segment of a scoped name', () => {
+    expect(validateName('@scope/pkg')).toBeTruthy();
+    expect(validateName('@Scope/JSONStream')).toBeTruthy();
+    expect(validateName('@scope')).toBeTruthy();
+    expect(validateName('@scope/pkg/extra')).toBeFalsy();
+    expect(validateName('@scope/pkg/..')).toBeFalsy();
+    expect(validateName('@x/y/../../etc/passwd')).toBeFalsy();
+    expect(validateName('@../pkg')).toBeFalsy();
+    expect(validateName('@.hidden/pkg')).toBeFalsy();
+    expect(validateName('@scope/')).toBeFalsy();
+    expect(validateName('@/pkg')).toBeFalsy();
+  });
+
   test('should fail with no hidden files', () => {
     expect(validateName('.bin')).toBeFalsy();
   });
