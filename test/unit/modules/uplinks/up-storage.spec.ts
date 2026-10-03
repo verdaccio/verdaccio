@@ -445,6 +445,47 @@ describe('UpStorage', () => {
     }, 10000);
   });
 
+  describe('search', () => {
+    const searchOptions = () => ({
+      url: '/-/v1/search?text=foo',
+      req: {
+        url: '/-/v1/search?text=foo',
+        get: () => undefined,
+        headers: {},
+        socket: { remoteAddress: '127.0.0.1' },
+        connection: { remoteAddress: '127.0.0.1' },
+      },
+    });
+    const waitForEnd = (stream) =>
+      new Promise((resolve) => {
+        stream.on('data', () => {});
+        stream.on('end', () => resolve('end'));
+        stream.on('error', (err) => resolve(err.message));
+      });
+
+    test('should stream the uplink results and end', async () => {
+      nock(UPLINK_URL)
+        .get('/-/v1/search')
+        .query(true)
+        .reply(200, { objects: [{ package: { name: 'foo' } }], total: 1 });
+
+      await expect(waitForEnd(generateProxy().search(searchOptions()))).resolves.toBe('end');
+    });
+
+    test.each([
+      ['an error status', (scope) => scope.reply(500, {})],
+      ['an invalid JSON body', (scope) => scope.reply(200, '{not json')],
+      [
+        'an invalid compressed body',
+        (scope) => scope.reply(200, 'not compressed', { 'content-encoding': 'gzip' }),
+      ],
+    ])('should end with an error when the uplink returns %s', async (_label, reply) => {
+      reply(nock(UPLINK_URL).get('/-/v1/search').query(true));
+
+      await expect(waitForEnd(generateProxy().search(searchOptions()))).resolves.not.toBe('end');
+    });
+  });
+
   describe('isUplinkValid', () => {
     describe('valid use cases', () => {
       const validateUpLink = (

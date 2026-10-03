@@ -581,15 +581,24 @@ class ProxyStorage {
         );
       }
 
+      // an unreadable body ends this uplink's results instead of leaving the search open
+      const onInvalidBody = (err: Error): void => {
+        transformStream.emit(
+          'error',
+          ErrorCode.getInternalError(`invalid search response from uplink: ${err.message}`)
+        );
+      };
+
       // See https://github.com/request/request#requestoptions-callback
       // Request library will not decode gzip stream.
       let jsonStream;
       if (res.headers[HEADER_TYPE.CONTENT_ENCODING] === HEADERS.GZIP) {
         jsonStream = res.pipe(zlib.createUnzip());
+        jsonStream.on('error', onInvalidBody);
       } else {
         jsonStream = res;
       }
-      jsonStream.pipe(JSONStream.parse('*')).on('data', parsePackage);
+      jsonStream.pipe(JSONStream.parse('*')).on('data', parsePackage).on('error', onInvalidBody);
       jsonStream.on('end', (): void => {
         transformStream.emit('end');
       });

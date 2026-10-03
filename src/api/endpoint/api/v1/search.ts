@@ -19,7 +19,10 @@ const MAX_FROM = 10_000;
 const CHECK_ACCESS_BATCH_SIZE = 50;
 
 function parseQueryInt(value: unknown, defaultValue: number, max: number): number {
-  const parsed = Number.parseInt(String(value), 10);
+  if (typeof value !== 'string') {
+    return defaultValue;
+  }
+  const parsed = Number.parseInt(value, 10);
   if (Number.isNaN(parsed) || parsed < 0) {
     return defaultValue;
   }
@@ -219,82 +222,92 @@ async function sendResponse(
  * req: 'GET /-/v1/search?text=react&size=20&from=0&quality=0.65&popularity=0.98&maintenance=0.5'
  */
 export default function (route, auth, storage, config: Config): void {
+  const search = async (req, res, next): Promise<void> => {
+    // TODO: implement proper result scoring weighted by quality, popularity and maintenance query parameters
+    const text = req.query.text;
+    if (typeof text !== 'string' || text.trim().length === 0) {
+      const error = errorUtils.getBadRequest("'text' query parameter is required");
+      res.status(error.status).json({
+        error: error.message,
+        code: 'ERR_TEXT_MISSING',
+      });
+      return;
+    }
+
+    // `size` and `from` are attacker-controlled: clamp them so a single
+    // request cannot demand unbounded work
+    const size = parseQueryInt(req.query.size, DEFAULT_SIZE, MAX_SIZE);
+    const from = parseQueryInt(req.query.from, 0, MAX_FROM);
+
+    // rebuild the relative url from the clamped values so the bounds hold
+    // end-to-end: the uplink proxy forwards it verbatim to the remote registry
+    const searchParams = new URLSearchParams();
+    for (const [key, value] of Object.entries(req.query)) {
+      if (typeof value === 'string') {
+        searchParams.set(key, value);
+      }
+    }
+    searchParams.set('size', String(size));
+    searchParams.set('from', String(from));
+    const safeUrl = `${req.url.split('?')[0]}?${searchParams.toString()}`;
+
+    const isInteresting = compileTextSearch(text);
+
+    const resultStream = storage.search(0, { req, url: safeUrl });
+    let resultBuf = [] as any;
+    let completed = false;
+
+    resultStream.on('data', (pkg: SearchResult[] | PackageResults) => {
+      // packages from the upstreams
+      if (_.isArray(pkg)) {
+        resultBuf = resultBuf.concat(
+          (pkg as SearchResult[]).filter((pkgItem) => {
+            if (!isInteresting(pkgItem?.package)) {
+              return;
+            }
+            logger.debug(`[remote] pkg name ${pkgItem?.package?.name}`);
+            return true;
+          })
+        );
+      } else {
+        // packages from local
+        // due compability with `/-/all` we cannot refactor storage.search();
+        if (!isInteresting(pkg)) {
+          return;
+        }
+        logger.debug(`[local] pkg name ${(pkg as PackageResults)?.name}`);
+        resultBuf.push(pkg);
+      }
+    });
+
+    resultStream.on('error', function () {
+      logger.error('search endpoint has failed');
+      res.socket.destroy();
+    });
+
+    resultStream.on('end', async () => {
+      if (!completed) {
+        completed = true;
+        try {
+          const response = await sendResponse(resultBuf, resultStream, auth, req, from, size);
+          // @ts-expect-error
+          logger.info('search endpoint ok results @{total}', { total: response.total });
+          res.status(HTTP_STATUS.OK).json(response);
+        } catch (err) {
+          // @ts-expect-error
+          logger.error('search endpoint has failed @{err}', { err });
+          next(err);
+        }
+      }
+    });
+  };
+
   route.get(
     SEARCH_API_ENDPOINTS.search,
     rateLimit(config?.userRateLimit),
-    async (req, res, next) => {
-      // TODO: implement proper result scoring weighted by quality, popularity and maintenance query parameters
-      const text = req.query.text;
-      if (typeof text !== 'string' || text.trim().length === 0) {
-        const error = errorUtils.getBadRequest("'text' query parameter is required");
-        res.status(error.status).json({
-          error: error.message,
-          code: 'ERR_TEXT_MISSING',
-        });
-        return;
-      }
-
-      // `size` and `from` are attacker-controlled: clamp them so a single
-      // request cannot demand unbounded work
-      const size = parseQueryInt(req.query.size, DEFAULT_SIZE, MAX_SIZE);
-      const from = parseQueryInt(req.query.from, 0, MAX_FROM);
-
-      // rebuild the relative url from the clamped values so the bounds hold
-      // end-to-end: the uplink proxy forwards it verbatim to the remote registry
-      const searchParams = new URLSearchParams(req.query as Record<string, string>);
-      searchParams.set('size', String(size));
-      searchParams.set('from', String(from));
-      const safeUrl = `${req.url.split('?')[0]}?${searchParams.toString()}`;
-
-      const isInteresting = compileTextSearch(text);
-
-      const resultStream = storage.search(0, { req, url: safeUrl });
-      let resultBuf = [] as any;
-      let completed = false;
-
-      resultStream.on('data', (pkg: SearchResult[] | PackageResults) => {
-        // packages from the upstreams
-        if (_.isArray(pkg)) {
-          resultBuf = resultBuf.concat(
-            (pkg as SearchResult[]).filter((pkgItem) => {
-              if (!isInteresting(pkgItem?.package)) {
-                return;
-              }
-              logger.debug(`[remote] pkg name ${pkgItem?.package?.name}`);
-              return true;
-            })
-          );
-        } else {
-          // packages from local
-          // due compability with `/-/all` we cannot refactor storage.search();
-          if (!isInteresting(pkg)) {
-            return;
-          }
-          logger.debug(`[local] pkg name ${(pkg as PackageResults)?.name}`);
-          resultBuf.push(pkg);
-        }
-      });
-
-      resultStream.on('error', function () {
-        logger.error('search endpoint has failed');
-        res.socket.destroy();
-      });
-
-      resultStream.on('end', async () => {
-        if (!completed) {
-          completed = true;
-          try {
-            const response = await sendResponse(resultBuf, resultStream, auth, req, from, size);
-            // @ts-expect-error
-            logger.info('search endpoint ok results @{total}', { total: response.total });
-            res.status(HTTP_STATUS.OK).json(response);
-          } catch (err) {
-            // @ts-expect-error
-            logger.error('search endpoint has failed @{err}', { err });
-            next(err);
-          }
-        }
-      });
+    // Express 4 does not handle rejected promises from async handlers
+    (req, res, next) => {
+      search(req, res, next).catch(next);
     }
   );
 }
