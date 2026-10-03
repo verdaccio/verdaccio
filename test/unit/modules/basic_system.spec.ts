@@ -60,7 +60,22 @@ describe('basic system test', () => {
     });
   }, 10000);
 
-  test('server should respond on /___not_found_package', () => {
+  test('server should respond on /not-found-package', () => {
+    return new Promise((done) => {
+      request(
+        {
+          url: `http://localhost:${port}/not-found-package`,
+        },
+        function (err, res, body) {
+          expect(err).toBeNull();
+          expect(body).toMatch(API_ERROR.NO_PACKAGE);
+          done(true);
+        }
+      );
+    });
+  }, 10000);
+
+  test('server should reject a package name starting with an underscore', () => {
     return new Promise((done) => {
       request(
         {
@@ -68,7 +83,8 @@ describe('basic system test', () => {
         },
         function (err, res, body) {
           expect(err).toBeNull();
-          expect(body).toMatch(API_ERROR.NO_PACKAGE);
+          expect(res.statusCode).toBe(400);
+          expect(body).toMatch('invalid package');
           done(true);
         }
       );
