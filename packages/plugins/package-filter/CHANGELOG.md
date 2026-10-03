@@ -1,5 +1,13 @@
 # Change Log
 
+## 13.2.2
+
+### Patch Changes
+
+- Updated dependencies [76550c1]
+- Updated dependencies [9623b1b]
+  - @verdaccio/core@8.3.1
+
 ## 13.2.1
 
 ### Patch Changes
