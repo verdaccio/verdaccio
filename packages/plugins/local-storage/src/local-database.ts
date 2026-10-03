@@ -227,9 +227,15 @@ class LocalDatabase extends pluginUtils.Plugin<{}> implements Storage {
     const packageStoragePath = fileUtils.resolveSafePath(storagePath, packageName);
     debug('package path %o', packageStoragePath);
 
-    if (isNil(packageStoragePath)) {
-      this.logger.error(
-        'package-specific storage path is not under the configured storage directory or is invalid'
+    // the folder must be the name itself, not a normalized form of it
+    const isExactFolder =
+      !isNil(packageStoragePath) &&
+      path.relative(storagePath, packageStoragePath).split(path.sep).join('/') === packageName;
+
+    if (!isExactFolder) {
+      this.logger.warn(
+        { packageName },
+        'package @{packageName} has no local storage because its name does not match its folder'
       );
       throw errorUtils.getInternalError(
         'package-specific storage path is not under the configured storage directory or is invalid'
