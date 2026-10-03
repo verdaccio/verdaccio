@@ -62,7 +62,7 @@ RUN apk --no-cache add openssl dumb-init \
 COPY --from=builder /opt/tarball .
 
 # Install verdaccio globally, copy default config, and clean up in a single layer
-RUN npm install -g $VERDACCIO_APPDIR/verdaccio-*.tgz \
+RUN npm install -g --ignore-scripts $VERDACCIO_APPDIR/verdaccio-*.tgz \
     && cp /usr/local/lib/node_modules/verdaccio/node_modules/@verdaccio/config/build/conf/docker.yaml /verdaccio/conf/config.yaml \
     && npm cache clean --force \
     && rm -Rf .npm/ $VERDACCIO_APPDIR/verdaccio-*.tgz
