@@ -17,7 +17,10 @@ const CHECK_ACCESS_BATCH_SIZE = 50;
 const SEARCH_TIMEOUT_MS = 30_000;
 
 function parseQueryInt(value: unknown, defaultValue: number, max: number): number {
-  const parsed = Number.parseInt(String(value), 10);
+  if (typeof value !== 'string') {
+    return defaultValue;
+  }
+  const parsed = Number.parseInt(value, 10);
   if (Number.isNaN(parsed) || parsed < 0) {
     return defaultValue;
   }
@@ -73,6 +76,16 @@ export default function (
       const size = parseQueryInt(query.size, DEFAULT_SIZE, MAX_SIZE);
       const from = parseQueryInt(query.from, 0, MAX_FROM);
       const safeQuery = { ...query, size, from };
+      // forward only plain string parameters to the uplinks, with the clamped pagination
+      const searchParams = new URLSearchParams();
+      for (const [key, value] of Object.entries(query)) {
+        if (typeof value === 'string') {
+          searchParams.set(key, value);
+        }
+      }
+      searchParams.set('size', String(size));
+      searchParams.set('from', String(from));
+      const safeUrl = `${url.split('?')[0]}?${searchParams.toString()}`;
       const abort = new AbortController();
       const onClientClose = (): void => {
         if (!res.writableEnded) abort.abort(new Error('search client disconnected'));
@@ -94,7 +107,7 @@ export default function (
         const collect = async (): Promise<searchUtils.SearchPackageItem[]> => {
           if (size === 0) return [];
           let allowed: searchUtils.SearchPackageItem[] = [];
-          for await (const data of storage.searchPages({ query: safeQuery, url, abort })) {
+          for await (const data of storage.searchPages({ query: safeQuery, url: safeUrl, abort })) {
             abort.signal.throwIfAborted();
             allowed = [];
             for (

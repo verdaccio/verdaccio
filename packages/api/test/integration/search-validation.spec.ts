@@ -81,3 +81,23 @@ describe('valid search text', () => {
     }
   );
 });
+
+describe('non-plain search parameters', () => {
+  test.each([
+    'size%5BtoString%5D=x',
+    'from%5BtoString%5D=x',
+    'quality%5BtoString%5D=x',
+    'popularity%5BtoString%5D=x&maintenance%5BtoString%5D=x',
+    'size%5B%5D=5&size%5B%5D=6',
+  ])('falls back to defaults and keeps serving searches (%s)', async (query) => {
+    const app = await initializeServer('search.yaml');
+
+    const response = await supertest(app)
+      .get(`/-/v1/search?text=foo&${query}`)
+      .timeout(2000)
+      .expect(HTTP_STATUS.OK);
+    expect(response.body).toEqual({ objects: [], total: 0, time: expect.any(String) });
+
+    await supertest(app).get('/-/v1/search?text=foo').timeout(2000).expect(HTTP_STATUS.OK);
+  });
+});
