@@ -21,14 +21,11 @@ export function validateName(name: string): boolean {
     return false;
   }
 
-  let normalizedName: string = name.toLowerCase();
-
-  const isScoped: boolean = isPackageNameScoped(name);
-  const scopedName = name.split('/', 2)[1];
-
-  if (isScoped && typeof scopedName !== 'undefined') {
-    normalizedName = scopedName.toLowerCase();
+  if (isPackageNameScoped(name) && name.includes('/')) {
+    return validatePackage(name);
   }
+
+  const normalizedName: string = name.toLowerCase();
 
   /**
    * Some context about the first regex
