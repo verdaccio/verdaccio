@@ -1,5 +1,45 @@
 # Changelog
 
+## 6.10.5
+
+### Patch Changes
+
+- 2ccbacf: Migrate the 6.x release workflow to Changesets action v2 and CLI v3.
+- c159460: Improve validation of Search v1 query parameters.
+  
+  `size` and `from` now accept only plain string values; anything else falls back to the default page size and offset, as other non-numeric values already did. Only plain string parameters are forwarded to uplinks. An uplink search response that cannot be read now ends that uplink's results, and local results are still returned. Unexpected errors in the search endpoint are reported through the regular error handler. Registry configuration does not need to change.
+- ec341ee: Validate Search v1 query text before starting a search.
+  
+  Search requests must provide a single, non-blank `text` string. Missing or invalid search text now receives HTTP 400 with the JSON error code `ERR_TEXT_MISSING`, before searching local packages or uplinks.
+  
+  Earlier 6.x releases could accept searches without text. Clients that call the search API directly must now supply a non-blank query. Valid query text is preserved, and searches with no matching packages continue to return HTTP 200 with an empty results array.
+- 35e8373: Update verdaccio dependencies to the `latest` npm dist-tag (`@verdaccio/ui-theme` tracks `next-9`):
+  
+  - `@verdaccio/auth`: `8.1.4` → `8.1.5`
+  - `@verdaccio/config`: `8.3.1` → `8.3.2`
+  - `@verdaccio/core`: `8.3.1` → `8.3.2`
+  - `@verdaccio/hooks`: `8.1.5` → `8.1.6`
+  - `@verdaccio/loaders`: `8.1.4` → `8.1.5`
+  - `@verdaccio/local-storage-legacy`: `11.4.4` → `11.4.5`
+  - `@verdaccio/logger`: `8.1.4` → `8.1.5`
+  - `@verdaccio/middleware`: `8.1.5` → `8.1.6`
+  - `@verdaccio/package-filter`: `13.2.2` → `13.2.3`
+  - `@verdaccio/signature`: `8.1.4` → `8.1.5`
+  - `@verdaccio/tarball`: `13.1.4` → `13.1.5`
+  - `@verdaccio/ui-theme`: `9.0.0-next-9.31` → `9.0.0-next-9.33`
+  - `@verdaccio/url`: `13.1.4` → `13.1.5`
+  - `verdaccio-audit`: `13.1.5` → `13.1.6`
+  - `verdaccio-htpasswd`: `13.1.4` → `13.1.5`
+  
+  Package name validation now follows the npm rules for existing packages: names that start with an underscore, use `@` without a scope, or contain characters that are not URL-friendly are rejected with HTTP 400 instead of being looked up. Packages whose names cannot be stored as a directory of the same name on every platform (for example `nul` or `aux.js`) are still served from uplinks, but are not cached locally and cannot be published to local storage; a warning is logged when one is requested. Rename any private package with such a name before upgrading. Registry configuration does not need to change.
+- 3d1ca06: Improve version validation in `GET /<package>/<version>`.
+  
+  The endpoint now resolves only versions and dist-tags that the package actually defines. A version or tag name that the package does not define now returns HTTP 404 (`version not found`) in every case, instead of an internal server error for some names. Requests for existing versions, ranges and dist-tags behave as before, and registry configuration does not need to change.
+  
+  Update the internal `@verdaccio/*` modules to their latest 8.x releases (`@verdaccio/core` and `@verdaccio/config` 8.3.1, `@verdaccio/auth` 8.1.4, `@verdaccio/middleware` 8.1.5, `verdaccio-htpasswd` 13.1.4, `@verdaccio/local-storage-legacy` 11.4.4, `verdaccio-auth-memory` 13.1.4, `verdaccio-memory` 10.5.4, `verdaccio-audit` 13.1.5 and the rest of the set), which improve validation of user registration, authentication, API tokens and request parameters. When the htpasswd file is reloaded, users removed from it now stop authenticating without a restart.
+  
+  Update `brace-expansion` and ignore two advisories without a published fix (`braces`, `http-cache-semantics`) that are not reachable from the registry code paths.
+
 ## 6.10.4
 
 ### Patch Changes
