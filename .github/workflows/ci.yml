@@ -1,6 +1,11 @@
 name: CI
 
-on: [push, pull_request]
+on:
+  # Branch pushes only: a PR branch push would otherwise run CI twice
+  push:
+    branches: ['6.x']
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review, labeled]
 
 permissions:
   contents: read
@@ -15,7 +20,8 @@ jobs:
       github.event.pull_request.draft == false &&
       github.actor != 'renovate[bot]' &&
       github.actor != 'dependabot[bot]' &&
-      github.head_ref != 'changeset-release/6.x'
+      github.head_ref != 'changeset-release/6.x' &&
+      !contains(github.event.pull_request.labels.*.name, 'skip changeset')
     runs-on: ubuntu-latest
     name: Changeset file check
     permissions:
@@ -72,7 +78,13 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - uses: ./.github/actions/install-app
       - name: Run changeset version
-        run: yarn ci:version:changeset
+        # @changesets/cli v3 exits 1 when there are no changesets; a PR without one is valid
+        run: |
+          if ls .changeset/*.md 2>/dev/null | grep -qv README; then
+            yarn ci:version:changeset
+          else
+            echo "no changesets present, nothing to validate"
+          fi
   e2e-cli:
     needs: [build]
     if: github.event_name == 'pull_request'
