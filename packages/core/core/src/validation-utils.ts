@@ -157,7 +157,7 @@ export function isObject(obj: any): boolean {
 }
 
 export function validatePassword(
-  password: string,
+  password: unknown,
   validation: RegExp | string = DEFAULT_PASSWORD_VALIDATION
 ): boolean {
   if (typeof password !== 'string') {

@@ -2,7 +2,8 @@ import path from 'node:path';
 import supertest from 'supertest';
 import { afterEach, beforeAll, describe, expect, test, vi } from 'vitest';
 
-import { API_ERROR, HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
+import { Auth } from '@verdaccio/auth';
+import { API_ERROR, APP_ERROR, HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
 
 import { initializeServer } from './helper';
@@ -201,6 +202,122 @@ describe('test web server', () => {
         })
       )
       .expect(HTTP_STATUS.OK);
+  });
+
+  describe('password request validation', () => {
+    afterEach(() => {
+      vi.restoreAllMocks();
+    });
+
+    test.each([
+      ['missing body', undefined],
+      ['empty body', {}],
+      ['array body', []],
+      ['null password', { password: null }],
+      ['string password', { password: 'new-pass' }],
+      ['number password', { password: 12345678 }],
+      ['boolean password', { password: true }],
+      ['array password', { password: [] }],
+      ['empty password object', { password: {} }],
+      ['missing old password', { password: { new: 'new-pass' } }],
+      ['null old password', { password: { old: null, new: 'new-pass' } }],
+      ['number old password', { password: { old: 1234, new: 'new-pass' } }],
+      ['boolean old password', { password: { old: true, new: 'new-pass' } }],
+      ['array old password', { password: { old: ['test'], new: 'new-pass' } }],
+      ['object old password', { password: { old: {}, new: 'new-pass' } }],
+      ['missing new password', { password: { old: 'test' } }],
+      ['null new password', { password: { old: 'test', new: null } }],
+      ['number new password', { password: { old: 'test', new: 12345678 } }],
+      ['boolean new password', { password: { old: 'test', new: true } }],
+      ['array new password', { password: { old: 'test', new: ['new-pass'] } }],
+      ['object new password', { password: { old: 'test', new: {} } }],
+      ['empty new password', { password: { old: 'test', new: '' } }],
+    ])('should reject %s without changing credentials', async (_label, body) => {
+      const api = supertest(await initializeServer('default-test.yaml'));
+      const login = await api
+        .post('/-/verdaccio/sec/login')
+        .send({ username: 'test', password: 'test' })
+        .expect(HTTP_STATUS.OK);
+      const changePassword = vi.spyOn(Auth.prototype, 'changePassword');
+
+      const response = await api
+        .put('/-/verdaccio/sec/reset_password')
+        .set(HEADER_TYPE.AUTHORIZATION, `Bearer ${login.body.token}`)
+        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+        .send(body === undefined ? undefined : JSON.stringify(body))
+        .expect(HTTP_STATUS.BAD_REQUEST);
+
+      expect(response.body.error).toBe(APP_ERROR.PASSWORD_VALIDATION);
+      expect(changePassword).not.toHaveBeenCalled();
+      await api
+        .post('/-/verdaccio/sec/login')
+        .send({ username: 'test', password: 'test' })
+        .expect(HTTP_STATUS.OK);
+    });
+
+    test('should apply the configured policy only to the new password', async () => {
+      const api = supertest(await initializeServer('password-validation.yaml'));
+      const login = await api
+        .post('/-/verdaccio/sec/login')
+        .send({ username: 'test', password: 'test' })
+        .expect(HTTP_STATUS.OK);
+      const changePassword = vi.spyOn(Auth.prototype, 'changePassword');
+
+      const rejected = await api
+        .put('/-/verdaccio/sec/reset_password')
+        .set(HEADER_TYPE.AUTHORIZATION, `Bearer ${login.body.token}`)
+        .send({ password: { old: 'test', new: 'other-pass' } })
+        .expect(HTTP_STATUS.BAD_REQUEST);
+      expect(rejected.body.error).toBe(APP_ERROR.PASSWORD_VALIDATION);
+      expect(changePassword).not.toHaveBeenCalled();
+
+      await api
+        .put('/-/verdaccio/sec/reset_password')
+        .set(HEADER_TYPE.AUTHORIZATION, `Bearer ${login.body.token}`)
+        .send({ password: { old: 'test', new: 'new-pass' } })
+        .expect(HTTP_STATUS.OK);
+      await api
+        .post('/-/verdaccio/sec/login')
+        .send({ username: 'test', password: 'new-pass' })
+        .expect(HTTP_STATUS.OK);
+      await api
+        .post('/-/verdaccio/sec/login')
+        .send({ username: 'test', password: 'test' })
+        .expect(HTTP_STATUS.UNAUTHORIZED);
+    });
+
+    test.each(['wrong-password', ''])(
+      'should preserve credentials for an incorrect old password (%j)',
+      async (old) => {
+        const api = supertest(await initializeServer('default-test.yaml'));
+        const login = await api
+          .post('/-/verdaccio/sec/login')
+          .send({ username: 'test', password: 'test' })
+          .expect(HTTP_STATUS.OK);
+        const changePassword = vi.spyOn(Auth.prototype, 'changePassword');
+        await api
+          .put('/-/verdaccio/sec/reset_password')
+          .set(HEADER_TYPE.AUTHORIZATION, `Bearer ${login.body.token}`)
+          .send({ password: { old, new: 'new-pass' } })
+          .expect(HTTP_STATUS.INTERNAL_ERROR);
+        expect(changePassword).toHaveBeenCalledWith('test', old, 'new-pass', expect.any(Function));
+        await api
+          .post('/-/verdaccio/sec/login')
+          .send({ username: 'test', password: 'test' })
+          .expect(HTTP_STATUS.OK);
+        await api
+          .post('/-/verdaccio/sec/login')
+          .send({ username: 'test', password: 'new-pass' })
+          .expect(HTTP_STATUS.UNAUTHORIZED);
+      }
+    );
+
+    test('should require authentication before validating the password body', async () => {
+      const api = supertest(await initializeServer('default-test.yaml'));
+      const changePassword = vi.spyOn(Auth.prototype, 'changePassword');
+      await api.put('/-/verdaccio/sec/reset_password').send({}).expect(HTTP_STATUS.UNAUTHORIZED);
+      expect(changePassword).not.toHaveBeenCalled();
+    });
   });
 
   describe('signup', () => {
