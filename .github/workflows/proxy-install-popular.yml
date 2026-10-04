@@ -88,18 +88,22 @@ jobs:
         run: |
           log=/tmp/verdaccio-proxy/verdaccio.log
           storage=/tmp/verdaccio-proxy/storage
-          # grep -c prints 0 and exits 1 when nothing matches
-          count() { local n; n=$(grep -cE "$1" "$log" 2>/dev/null); echo "${n:-0}"; }
+          # The step runs with bash -e: grep exits 1 on no match, so every lookup must tolerate it
+          count() { local n; n=$(grep -cE "$1" "$log" 2>/dev/null || true); echo "${n:-0}"; }
           {
             echo "### Verdaccio ${{ steps.verdaccio.outputs.version || inputs.version }}"
             echo
             echo "| | |"
             echo "| --- | --- |"
-            pid=$(pgrep -f "verdaccio --config /tmp/verdaccio-proxy/config.yaml" | head -n1)
-            env_of_pid=$( [ -n "$pid" ] && tr '\0' '\n' < "/proc/$pid/environ" | grep '^NODE_ENV=' | cut -d= -f2 )
+            pid=$(pgrep -f "verdaccio --config /tmp/verdaccio-proxy/config.yaml" | head -n1 || true)
+            env_of_pid=""
+            if [ -n "$pid" ] && [ -r "/proc/$pid/environ" ]; then
+              env_of_pid=$(tr '\0' '\n' < "/proc/$pid/environ" | grep '^NODE_ENV=' | cut -d= -f2 || true)
+            fi
             echo "| NODE_ENV of the verdaccio process | ${env_of_pid:-unset or process not running} |"
             echo "| Packages cached | $(find "$storage" -name package.json 2>/dev/null | wc -l | tr -d ' ') |"
-            echo "| Tarballs cached | $(find "$storage" -name '*.tgz' 2>/dev/null | wc -l | tr -d ' ') ($(du -sh "$storage" 2>/dev/null | cut -f1)) |"
+            size=$(du -sh "$storage" 2>/dev/null | cut -f1 || true)
+            echo "| Tarballs cached | $(find "$storage" -name '*.tgz' 2>/dev/null | wc -l | tr -d ' ') (${size:-0}) |"
             echo "| Concurrent cache writes of the same tarball | $(count 'error saving file') |"
             echo "| Uplink marked offline | $(count 'is now offline') |"
             echo "| Warnings and errors in the log (startup line excluded) | $(( $(count '^(warn|error|fatal)') - $(count '^warn --- http address') )) |"
