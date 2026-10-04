@@ -66,7 +66,10 @@ jobs:
         run: |
           mkdir -p /tmp/verdaccio-proxy
           cp scripts/proxy-install-config.yaml /tmp/verdaccio-proxy/config.yaml
+      # Only for the verdaccio process: npm skips devDependencies under NODE_ENV=production
       - uses: ./.github/actions/start-verdaccio
+        env:
+          NODE_ENV: production
         with:
           bin: ${{ steps.verdaccio.outputs.bin }}
           config: /tmp/verdaccio-proxy/config.yaml
@@ -92,6 +95,9 @@ jobs:
             echo
             echo "| | |"
             echo "| --- | --- |"
+            pid=$(pgrep -f "verdaccio --config /tmp/verdaccio-proxy/config.yaml" | head -n1)
+            env_of_pid=$( [ -n "$pid" ] && tr '\0' '\n' < "/proc/$pid/environ" | grep '^NODE_ENV=' | cut -d= -f2 )
+            echo "| NODE_ENV of the verdaccio process | ${env_of_pid:-unset or process not running} |"
             echo "| Packages cached | $(find "$storage" -name package.json 2>/dev/null | wc -l | tr -d ' ') |"
             echo "| Tarballs cached | $(find "$storage" -name '*.tgz' 2>/dev/null | wc -l | tr -d ' ') ($(du -sh "$storage" 2>/dev/null | cut -f1)) |"
             echo "| Concurrent cache writes of the same tarball | $(count 'error saving file') |"
