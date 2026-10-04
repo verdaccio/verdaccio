@@ -1,4 +1,4 @@
-FROM --platform=${BUILDPLATFORM:-linux/amd64} node:24.14.1-alpine AS builder
+FROM --platform=${BUILDPLATFORM:-linux/amd64} node:24.15.0-alpine AS builder
 
 ENV NODE_ENV=production \
     VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org
@@ -33,7 +33,7 @@ RUN pnpm build
 # Pack and stage the tarball
 RUN pnpm pack --pack-destination /opt/tarball
 
-FROM node:24.14.1-alpine
+FROM node:24.15.0-alpine
 
 LABEL maintainer="https://github.com/verdaccio/verdaccio" \
       org.opencontainers.image.title="Verdaccio" \
@@ -62,8 +62,14 @@ RUN apk --no-cache add openssl dumb-init \
 COPY --from=builder /opt/tarball .
 
 # Install verdaccio globally, copy default config, and clean up in a single layer
-RUN npm install -g --ignore-scripts --min-release-age=3 $VERDACCIO_APPDIR/verdaccio-*.tgz \
-    && cp /usr/local/lib/node_modules/verdaccio/node_modules/@verdaccio/config/build/conf/docker.yaml /verdaccio/conf/config.yaml \
+RUN npm install --global npm@latest --ignore-scripts --no-audit --no-fund \
+    && npm install --global $VERDACCIO_APPDIR/verdaccio-*.tgz --ignore-scripts --no-audit --no-fund \
+        --min-release-age=3 \
+        --min-release-age-exclude verdaccio \
+        --min-release-age-exclude '@verdaccio/*' \
+        --min-release-age-exclude 'verdaccio-*' \
+    && pkg="$(npm root --global)/verdaccio" \
+    && cp "$pkg/node_modules/@verdaccio/config/build/conf/docker.yaml" /verdaccio/conf/config.yaml \
     && npm cache clean --force \
     && rm -Rf .npm/ $VERDACCIO_APPDIR/verdaccio-*.tgz
 
