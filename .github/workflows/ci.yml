@@ -5,7 +5,7 @@ on:
     branches:
       - '8.x'
   pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
+    types: [opened, synchronize, reopened, ready_for_review, labeled]
     paths:
       - .changeset/**
       - .github/workflows/ci.yml
@@ -28,7 +28,8 @@ jobs:
       github.event.pull_request.draft == false &&
       github.actor != 'renovate[bot]' &&
       github.actor != 'dependabot[bot]' &&
-      github.head_ref != 'changeset-release/8.x'
+      github.head_ref != 'changeset-release/8.x' &&
+      !contains(github.event.pull_request.labels.*.name, 'skip changeset')
     runs-on: ubuntu-latest
     name: Changeset file check
     permissions:
@@ -39,26 +40,15 @@ jobs:
         with:
           fetch-depth: 0
       - name: Check changeset
-        uses: ./.github/actions/changeset-check
-  prepare:
-    needs: [changeset-check]
-    # Avoid running on draft PRs; always() allows this to proceed when changeset-check is skipped (Renovate)
-    if: ${{ always() && !failure() && !cancelled() && github.event.pull_request.draft == false }}
-    runs-on: ubuntu-latest
-    name: setup
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Install dependencies
-        uses: ./.github/actions/install-app
+        uses: verdaccio/verdaccio/.github/actions/changeset-check@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
   lint-and-format:
     runs-on: ubuntu-latest
     name: Lint & Format
-    needs: prepare
-    if: ${{ always() && !failure() && !cancelled() }}
+    if: ${{ github.event.pull_request.draft == false }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies
-        uses: ./.github/actions/install-app
+        uses: verdaccio/verdaccio/.github/actions/install-app@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
           reporter: 'default'
       - name: Lint
@@ -66,8 +56,7 @@ jobs:
       - name: Format
         run: pnpm format:check
   build:
-    needs: [lint-and-format]
-    if: ${{ always() && !failure() && !cancelled() }}
+    if: ${{ github.event.pull_request.draft == false }}
     strategy:
       fail-fast: true
       matrix:
@@ -77,21 +66,18 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Build application with Node ${{ matrix.node_version }}
-        uses: ./.github/actions/build-app
+      - name: Install dependencies
+        uses: verdaccio/verdaccio/.github/actions/install-app@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
           node-version: ${{ matrix.node_version }}
-      - name: Cache build artifacts
-        uses: actions/cache/save@27d5ce7f107fe9357f9df03efb73ab90386fccae
+      - name: Build
+        run: pnpm build
+      - uses: verdaccio/verdaccio/.github/actions/build-cache@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
-          path: |
-            packages/*/build
-            packages/*/dist
-            packages/*/*/build
-            packages/*/*/dist
-          key: ci-build-${{ github.sha }}-node-${{ matrix.node_version }}
+          mode: save
+          node-version: ${{ matrix.node_version }}
   test:
-    needs: [build]
+    needs: [changeset-check, lint-and-format, build]
     if: ${{ github.event_name == 'pull_request' && !failure() && !cancelled() }}
     strategy:
       fail-fast: true
@@ -103,19 +89,13 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies
-        uses: ./.github/actions/install-app
+        uses: verdaccio/verdaccio/.github/actions/install-app@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
           node-version: ${{ matrix.node_version }}
-      - name: Restore build artifacts
-        uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae
+      - uses: verdaccio/verdaccio/.github/actions/build-cache@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
-          path: |
-            packages/*/build
-            packages/*/dist
-            packages/*/*/build
-            packages/*/*/dist
-          key: ci-build-${{ github.sha }}-node-${{ matrix.node_version }}
-          fail-on-cache-miss: true
+          mode: restore
+          node-version: ${{ matrix.node_version }}
       - name: Test (Node 26)
         if: matrix.node_version == 26
         run: pnpm test
@@ -125,7 +105,7 @@ jobs:
         if: matrix.node_version != 26
         run: pnpm test
   e2e:
-    needs: [build]
+    needs: [changeset-check, lint-and-format, build]
     if: ${{ github.event_name == 'pull_request' && !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     name: E2E / Node ${{ matrix.node_version }}
@@ -135,19 +115,14 @@ jobs:
         node_version: [22, 24, 26]
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Use Node
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+      - name: Install dependencies
+        uses: verdaccio/verdaccio/.github/actions/install-app@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
           node-version: ${{ matrix.node_version }}
-      - name: Install pnpm
-        run: |
-          npm install --global corepack@latest
-          corepack enable
-          corepack prepare
-      - name: Install
-        run: pnpm install --frozen-lockfile --ignore-scripts
-      - name: Build
-        run: pnpm build
+      - uses: verdaccio/verdaccio/.github/actions/build-cache@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
+        with:
+          mode: restore
+          node-version: ${{ matrix.node_version }}
       - name: E2E Tests
         run: pnpm test:e2e
   changeset-validation:
@@ -158,7 +133,7 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies
-        uses: ./.github/actions/install-app
+        uses: verdaccio/verdaccio/.github/actions/install-app@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
       - name: Run changeset version
         run: |
           changeset_file=$(find .changeset -maxdepth 1 -type f -name '*.md' ! -name README.md -print -quit)
@@ -175,11 +150,7 @@ jobs:
     permissions:
       actions: write
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Delete build artifact caches
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh cache delete "ci-build-${{ github.sha }}-node-22" --repo ${{ github.repository }} || true
-          gh cache delete "ci-build-${{ github.sha }}-node-24" --repo ${{ github.repository }} || true
-          gh cache delete "ci-build-${{ github.sha }}-node-26" --repo ${{ github.repository }} || true
+      - uses: verdaccio/verdaccio/.github/actions/delete-build-cache@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
+        with:
+          node-versions: 22 24 26
+          token: ${{ github.token }}
