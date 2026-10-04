@@ -13,8 +13,31 @@ concurrency:
   cancel-in-progress: true  
 
 jobs:
-  smoke:  
-    uses: verdaccio/verdaccio/.github/workflows/x-smok-test-docker.yml@master
-    with:
-      docker_tag: '6.x-next'
-      module_tag: '@latest'
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+        with:
+          node-version-file: '.nvmrc'
+          package-manager-cache: false
+      - name: Run verdaccio/verdaccio:6.x-next
+        run: |
+          docker run -d --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio:6.x-next
+          for i in $(seq 1 30); do
+            curl -s http://localhost:4873/-/ping && exit 0
+            sleep 1
+          done
+          docker logs verdaccio
+          exit 1
+      - name: verdaccio cli
+        run: npm install -g verdaccio@latest --registry http://localhost:4873
+      - name: gatsby cli
+        run: npm install -g gatsby-cli --registry http://localhost:4873
+      - name: netlify cli
+        run: npm install -g netlify-cli --registry http://localhost:4873
+      - name: angular cli
+        run: npm install -g @angular/cli --registry http://localhost:4873
+      - name: Show Verdaccio logs
+        if: always()
+        run: docker logs verdaccio || true

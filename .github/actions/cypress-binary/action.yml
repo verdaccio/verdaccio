@@ -1,0 +1,33 @@
+name: 'Cypress binary'
+description: 'Restore the Cypress binary keyed on its version, installing it on a miss; save only from 6.x pushes'
+
+inputs:
+  save:
+    description: 'Save the binary on a cache miss (branch pushes only, so PRs do not fill the cache quota)'
+    required: false
+    default: 'false'
+
+runs:
+  using: composite
+  steps:
+    - name: Cypress version
+      id: version
+      shell: bash
+      run: echo "version=$(node -p "require('./package.json').devDependencies.cypress")" >> "$GITHUB_OUTPUT"
+    - name: Restore Cypress binary
+      id: cache
+      uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+      with:
+        path: ~/.cache/Cypress
+        key: cypress-${{ runner.os }}-${{ steps.version.outputs.version }}
+        lookup-only: ${{ inputs.save == 'true' }}
+    - name: Install Cypress binary
+      if: steps.cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: yarn cypress install
+    - name: Save Cypress binary
+      if: inputs.save == 'true' && steps.cache.outputs.cache-hit != 'true'
+      uses: actions/cache/save@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+      with:
+        path: ~/.cache/Cypress
+        key: cypress-${{ runner.os }}-${{ steps.version.outputs.version }}

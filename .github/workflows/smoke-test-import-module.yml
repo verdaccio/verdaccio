@@ -17,8 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0    
-      - name: Use Node ${{ matrix.node_version }}
-        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+      - uses: ./.github/actions/install-app
         with:
           node-version: ${{ matrix.node_version }}
       - name: Docker test
@@ -59,8 +58,6 @@ jobs:
             exit 1
           fi
           echo "//localhost:4873/:_authToken=$token" >> ~/.npmrc
-      - name: Install dependencies
-        run: yarn
       - name: Bump up package and save version
         run: |
           npm version prerelease --no-git-tag-version --preid $(date +%s%N)

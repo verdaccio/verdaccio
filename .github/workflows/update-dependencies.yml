@@ -27,15 +27,7 @@ jobs:
           ref: 6.x
           fetch-depth: 0
 
-      - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
-        with:
-          node-version-file: '.nvmrc'
-
-      - name: Enable corepack
-        run: corepack enable
-
-      - name: Install dependencies
-        run: yarn install --immutable
+      - uses: ./.github/actions/install-app
 
       - name: Update verdaccio packages
         # Bump the production verdaccio dependencies (@verdaccio/*, verdaccio,

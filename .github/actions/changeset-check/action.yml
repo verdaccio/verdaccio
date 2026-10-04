@@ -22,16 +22,20 @@ runs:
           echo "$CHANGED"
         fi
 
+    # Fork PRs get a read-only token, so the comment steps would 403; the final step still enforces the check
     - name: Find existing comment
       id: find-comment
-      if: always()
+      if: always() && github.event.pull_request.head.repo.full_name == github.repository
       uses: peter-evans/find-comment@b30e6a3c0ed37e7c023ccd3f1db5c6c0b0c23aad # v4.0.0
       with:
         issue-number: ${{ github.event.pull_request.number }}
         body-includes: '<!-- changeset-check -->'
 
     - name: Post missing changeset comment
-      if: steps.check.outputs.found == 'false' && steps.find-comment.outputs.comment-id == ''
+      if: >-
+        github.event.pull_request.head.repo.full_name == github.repository &&
+        steps.check.outputs.found == 'false' &&
+        steps.find-comment.outputs.comment-id == ''
       uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5.0.0
       with:
         issue-number: ${{ github.event.pull_request.number }}
@@ -49,7 +53,10 @@ runs:
           Please read the [contribution guidelines](https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md#adding-a-changeset-changeset) for more details.
 
     - name: Remove comment when changeset is added
-      if: steps.check.outputs.found == 'true' && steps.find-comment.outputs.comment-id != ''
+      if: >-
+        github.event.pull_request.head.repo.full_name == github.repository &&
+        steps.check.outputs.found == 'true' &&
+        steps.find-comment.outputs.comment-id != ''
       uses: peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9 # v5.0.0
       with:
         comment-id: ${{ steps.find-comment.outputs.comment-id }}

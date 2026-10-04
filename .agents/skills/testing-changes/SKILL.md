@@ -47,7 +47,7 @@ fails on any of them.
 
 `bin/verdaccio` runs `build/`, so `yarn build` before anything that starts the
 binary. The CLI battery is `@verdaccio/e2e-cli` (repository `verdaccio/e2e-tests`,
-branch `main`), invoked the way `.github/workflows/e2e-cli.yml` does:
+branch `main`), invoked the way the `e2e-cli` job in `.github/workflows/ci.yml` does:
 
 ```bash
 yarn build
