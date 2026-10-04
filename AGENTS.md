@@ -64,8 +64,7 @@ Rules that follow:
 - `.github/workflows` — `ci.yml` (changeset check, build, lint, changeset
   validation, CLI and UI e2e), `docker-nightly.yml`, smoke tests,
   `release-canary.yml`. Shared steps live in `.github/actions/` (yarn install,
-  start Verdaccio, Cypress binary, changeset check); nothing is taken from
-  `master`.
+  start Verdaccio, changeset check); nothing is taken from `master`.
 
 ## Setup, build, test, lint
 
@@ -86,7 +85,8 @@ yarn docker                                    # verdaccio/verdaccio:local
 CI runs lint and format, a build on Node.js 22, 24 and 26, the changeset
 checks, and, reusing that build, the CLI e2e matrix (npm 10–12, pnpm 10–11,
 yarn modern 4, via `@verdaccio/e2e-cli` against `node bin/verdaccio`) and the
-Cypress UI suite. The changeset jobs skip drafts. **There are no git hooks on
+Cypress UI suite. All of that runs on pull requests; a push to `6.x` only runs
+lint and format. The changeset jobs skip drafts. **There are no git hooks on
 this branch**: run lint, format and the tests yourself before committing.
 
 ## Never ignore test failures

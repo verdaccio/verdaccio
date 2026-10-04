@@ -43,7 +43,9 @@ jobs:
         run: yarn lint
       - name: Format check
         run: yarn format:check
+  # Pushes to 6.x only run lint and format; everything else runs on PRs
   build:
+    if: github.event_name == 'pull_request'
     strategy:
       fail-fast: false
       matrix:
@@ -130,7 +132,8 @@ jobs:
           path: build/
           key: ci-build-${{ github.run_id }}-${{ github.run_attempt }}-node-24
           fail-on-cache-miss: true
-      - uses: ./.github/actions/cypress-binary
+      - name: Install Cypress binary
+        run: yarn cypress install
       - uses: ./.github/actions/start-verdaccio
         with:
           config: ./scripts/e2e-ui-config.yaml
@@ -149,19 +152,9 @@ jobs:
       - name: Show Verdaccio logs
         if: always()
         run: cat /tmp/verdaccio-e2e/verdaccio.log 2>/dev/null || echo "No log file found"
-  cypress-cache:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/6.x'
-    runs-on: ubuntu-latest
-    name: Cypress binary cache
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - uses: ./.github/actions/install-app
-      - uses: ./.github/actions/cypress-binary
-        with:
-          save: 'true'
   cleanup:
     needs: [build, e2e-cli, e2e-ui]
-    if: always()
+    if: always() && github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     name: Cleanup caches
     permissions:
