@@ -62,9 +62,9 @@ Rules that follow:
   `test/unit/partials` — fixtures.
 - `scripts/` — e2e UI helpers; `docs/env.variables.md` — environment variables.
 - `.github/workflows` — `ci.yml` (changeset check, build, lint, changeset
-  validation, CLI and UI e2e), `docker-nightly.yml`, smoke tests,
-  `release-canary.yml`. Shared steps live in `.github/actions/` (yarn install,
-  start Verdaccio, changeset check); nothing is taken from `master`.
+  validation, CLI and UI e2e), `docker-nightly.yml`, smoke tests. Shared
+  steps live in `.github/actions/` (yarn install, start Verdaccio, changeset
+  check); nothing is taken from `master`.
 
 ## Setup, build, test, lint
 
