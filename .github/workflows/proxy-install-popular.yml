@@ -27,11 +27,21 @@ jobs:
     runs-on: ubuntu-latest
     name: verdaccio@${{ inputs.version }}, ${{ inputs.concurrency }} at a time
     timeout-minutes: 60
+    env:
+      MIN_RELEASE_AGE: 7
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version-file: '.nvmrc'
+      # npm ignores unknown config silently, which would drop the release-age policy
+      - name: Check npm supports the release-age policy
+        run: |
+          node -e "
+            const { definitions } = require('$(npm root --global)/npm/node_modules/@npmcli/config/lib/definitions');
+            for (const key of ['min-release-age', 'min-release-age-exclude']) {
+              if (!definitions[key]) { console.error('npm ' + require('$(npm root --global)/npm/package.json').version + ' does not support ' + key); process.exit(1); }
+            }"
       - name: Install verdaccio@${{ inputs.version }}
         id: verdaccio
         env:
@@ -41,7 +51,12 @@ jobs:
             echo "::error::'$VERSION' is not a version or dist-tag"
             exit 1
           fi
-          npm install --global "verdaccio@$VERSION" --no-audit --no-fund
+          # The chosen verdaccio release may be days old; its third-party dependencies may not
+          npm install --global "verdaccio@$VERSION" --ignore-scripts --no-audit --no-fund \
+            --min-release-age "$MIN_RELEASE_AGE" \
+            --min-release-age-exclude verdaccio \
+            --min-release-age-exclude '@verdaccio/*' \
+            --min-release-age-exclude 'verdaccio-*'
           pkg="$(npm root --global)/verdaccio"
           echo "bin=$pkg/$(node -p "const b = require('$pkg/package.json').bin; typeof b === 'string' ? b : b.verdaccio")" >> "$GITHUB_OUTPUT"
           echo "Running verdaccio $(node -p "require('$pkg/package.json').version")"

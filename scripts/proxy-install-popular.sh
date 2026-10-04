@@ -5,6 +5,7 @@ set -uo pipefail
 
 REGISTRY="${REGISTRY:-http://localhost:4873}"
 CONCURRENCY="${CONCURRENCY:-5}"
+MIN_RELEASE_AGE="${MIN_RELEASE_AGE:-7}"
 WORK="${WORK:-$(mktemp -d)}"
 
 PACKAGES=(
@@ -36,12 +37,12 @@ install_one() {
   mkdir -p "$dir"
   cd "$dir" || return 1
   echo '{"name":"proxy-install-probe","version":"1.0.0","private":true}' > package.json
-  # Empty userconfig and cache: nothing from the machine's npm setup, every request hits the registry
-  : > .npmrc
+  # Own userconfig and empty cache: only this policy applies, and every request hits the registry
+  printf 'min-release-age=%s\nignore-scripts=true\n' "$MIN_RELEASE_AGE" > .npmrc
   local start=$SECONDS
   # shellcheck disable=SC2086 # a spec may name several packages
   if ! npm install $spec --registry "$REGISTRY" --userconfig "$dir/.npmrc" --cache "$dir/.npm-cache" \
-      --ignore-scripts --no-audit --no-fund --loglevel=error > install.log 2>&1; then
+      --no-audit --no-fund --loglevel=error > install.log 2>&1; then
     echo "FAIL  $spec ($((SECONDS - start))s)"
     tail -n 30 install.log | sed 's/^/      /'
     echo "$spec" >> "$WORK/failed"
@@ -59,9 +60,9 @@ install_one() {
   echo "ok    $spec: $total packages in $((SECONDS - start))s"
 }
 export -f install_one
-export REGISTRY WORK
+export REGISTRY WORK MIN_RELEASE_AGE
 
-echo "Installing ${#PACKAGES[@]} specs through $REGISTRY, $CONCURRENCY at a time (work dir $WORK)"
+echo "Installing ${#PACKAGES[@]} specs through $REGISTRY, $CONCURRENCY at a time, no lifecycle scripts, releases older than $MIN_RELEASE_AGE days (work dir $WORK)"
 started=$SECONDS
 printf '%s\n' "${PACKAGES[@]}" | xargs -P "$CONCURRENCY" -I{} bash -c 'install_one "$1"' _ {}
 echo "Finished in $((SECONDS - started))s"
