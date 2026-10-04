@@ -3,10 +3,12 @@ name: Proxy install of popular packages
 on:
   workflow_dispatch:
     inputs:
-      version:
-        description: 'verdaccio version or dist-tag on npm (latest, next-7, 6.10.5, ...)'
+      dist-tag:
+        description: 'verdaccio dist-tag on npm: latest (6.x), next-7 (7.x) or next-9 (master)'
         required: true
+        type: choice
         default: 'latest'
+        options: ['latest', 'next-7', 'next-9']
       concurrency:
         description: 'Installs running at the same time against the proxy'
         required: true
@@ -25,7 +27,7 @@ jobs:
   install:
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
-    name: verdaccio@${{ inputs.version }}, ${{ inputs.concurrency }} at a time
+    name: verdaccio@${{ inputs.dist-tag }}, ${{ inputs.concurrency }} at a time
     timeout-minutes: 60
     env:
       MIN_RELEASE_AGE: 7
@@ -42,17 +44,13 @@ jobs:
             for (const key of ['min-release-age', 'min-release-age-exclude']) {
               if (!definitions[key]) { console.error('npm ' + require('$(npm root --global)/npm/package.json').version + ' does not support ' + key); process.exit(1); }
             }"
-      - name: Install verdaccio@${{ inputs.version }}
+      - name: Install verdaccio@${{ inputs.dist-tag }}
         id: verdaccio
         env:
-          VERSION: ${{ inputs.version }}
+          DIST_TAG: ${{ inputs.dist-tag }}
         run: |
-          if ! [[ "$VERSION" =~ ^[A-Za-z0-9._-]+$ ]]; then
-            echo "::error::'$VERSION' is not a version or dist-tag"
-            exit 1
-          fi
           # The chosen verdaccio release may be days old; its third-party dependencies may not
-          npm install --global "verdaccio@$VERSION" --ignore-scripts --no-audit --no-fund \
+          npm install --global "verdaccio@$DIST_TAG" --ignore-scripts --no-audit --no-fund \
             --min-release-age "$MIN_RELEASE_AGE" \
             --min-release-age-exclude verdaccio \
             --min-release-age-exclude '@verdaccio/*' \
@@ -91,7 +89,7 @@ jobs:
           # The step runs with bash -e: grep exits 1 on no match, so every lookup must tolerate it
           count() { local n; n=$(grep -cE "$1" "$log" 2>/dev/null || true); echo "${n:-0}"; }
           {
-            echo "### Verdaccio ${{ steps.verdaccio.outputs.version || inputs.version }}"
+            echo "### Verdaccio ${{ steps.verdaccio.outputs.version || inputs.dist-tag }}"
             echo
             echo "| | |"
             echo "| --- | --- |"
