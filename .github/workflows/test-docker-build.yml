@@ -4,6 +4,9 @@ on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
 
+env:
+  MIN_RELEASE_AGE: 3
+
 permissions:
   contents: read
 
@@ -33,9 +36,22 @@ jobs:
           done
           exit 1
 
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+
+      - name: Install latest npm
+        run: npm install --global npm@latest --ignore-scripts --no-audit --no-fund
+
       - name: Test npm install from local Verdaccio
         run: |
-          npm install --global verdaccio@next-7 --registry http://localhost:4873
+          npm install --global verdaccio@next-7 --registry http://localhost:4873 \
+            --ignore-scripts --no-audit --no-fund \
+            --min-release-age "$MIN_RELEASE_AGE" \
+            --min-release-age-exclude verdaccio \
+            --min-release-age-exclude '@verdaccio/*' \
+            --min-release-age-exclude 'verdaccio-*'
 
       - name: Show Verdaccio logs (for debugging)
         if: always()
@@ -73,9 +89,22 @@ jobs:
           done
           exit 1
 
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+
+      - name: Install latest npm
+        run: npm install --global npm@latest --ignore-scripts --no-audit --no-fund
+
       - name: Test npm install from local Verdaccio
         run: |
-          npm install --global verdaccio@next-7 --registry http://localhost:4873
+          npm install --global verdaccio@next-7 --registry http://localhost:4873 \
+            --ignore-scripts --no-audit --no-fund \
+            --min-release-age "$MIN_RELEASE_AGE" \
+            --min-release-age-exclude verdaccio \
+            --min-release-age-exclude '@verdaccio/*' \
+            --min-release-age-exclude 'verdaccio-*'
 
       - name: Show Verdaccio logs (for debugging)
         if: always()
@@ -151,9 +180,22 @@ jobs:
           done
           exit 1
 
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+
+      - name: Install latest npm
+        run: npm install --global npm@latest --ignore-scripts --no-audit --no-fund
+
       - name: Test npm install from local Verdaccio
         run: |
-          npm install --global verdaccio@next-7 --registry http://localhost:4873
+          npm install --global verdaccio@next-7 --registry http://localhost:4873 \
+            --ignore-scripts --no-audit --no-fund \
+            --min-release-age "$MIN_RELEASE_AGE" \
+            --min-release-age-exclude verdaccio \
+            --min-release-age-exclude '@verdaccio/*' \
+            --min-release-age-exclude 'verdaccio-*'
 
       - name: Show Verdaccio logs (for debugging)
         if: always()
