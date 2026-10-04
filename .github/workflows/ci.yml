@@ -57,8 +57,9 @@ jobs:
         run: pnpm lint
       - name: Format
         run: pnpm format:check
+  # Pushes to master only run lint and format; everything else runs on PRs
   build:
-    if: ${{ github.event.pull_request.draft == false }}
+    if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false }}
     strategy:
       fail-fast: true
       matrix:
@@ -184,14 +185,28 @@ jobs:
           name: cypress-screenshots-${{ matrix.shard }}
           path: cypress/screenshots
           if-no-files-found: ignore
+  # Not a check: keeps the Cypress binary cached for master and 7.x PRs, only when its version changes
   cypress-cache:
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     name: Cypress binary cache
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: ./.github/actions/install-app
-      - uses: ./.github/actions/cypress-binary
+      - name: Cypress version
+        id: cypress-version
+        run: echo "version=$(node -p "require('./package.json').devDependencies.cypress")" >> "$GITHUB_OUTPUT"
+      - name: Look up cache
+        id: lookup
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ steps.cypress-version.outputs.version }}
+          lookup-only: true
+      - name: Install dependencies
+        if: steps.lookup.outputs.cache-hit != 'true'
+        uses: ./.github/actions/install-app
+      - if: steps.lookup.outputs.cache-hit != 'true'
+        uses: ./.github/actions/cypress-binary
         with:
           save: 'true'
   changeset-validation:
@@ -213,7 +228,6 @@ jobs:
             echo "no changesets present — nothing to validate"
           fi
   sync-translations:
-    needs: [build]
     runs-on: ubuntu-latest
     name: synchronize translations
     if: (github.event_name == 'push' && github.ref == 'refs/heads/master' && github.repository == 'verdaccio/verdaccio') || github.event_name == 'workflow_dispatch'
@@ -232,7 +246,7 @@ jobs:
         run: pnpm crowdin:sync
   cleanup:
     needs: [test, e2e-cli, e2e-ui]
-    if: always()
+    if: ${{ always() && github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
     name: Cleanup caches
     permissions:
