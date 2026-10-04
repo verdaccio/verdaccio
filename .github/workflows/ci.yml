@@ -5,7 +5,7 @@ on:
     branches:
       - '8.x'
   pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
+    types: [opened, synchronize, reopened, ready_for_review, labeled]
     paths:
       - .changeset/**
       - .github/workflows/ci.yml
@@ -28,7 +28,8 @@ jobs:
       github.event.pull_request.draft == false &&
       github.actor != 'renovate[bot]' &&
       github.actor != 'dependabot[bot]' &&
-      github.head_ref != 'changeset-release/8.x'
+      github.head_ref != 'changeset-release/8.x' &&
+      !contains(github.event.pull_request.labels.*.name, 'skip changeset')
     runs-on: ubuntu-latest
     name: Changeset file check
     permissions:
