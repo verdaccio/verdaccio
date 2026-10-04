@@ -1,5 +1,6 @@
 ---
 '@verdaccio/web': patch
+'@verdaccio/core': patch
 ---
 
 Improve request validation when changing passwords through the web API.

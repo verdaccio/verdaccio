@@ -154,13 +154,11 @@ function addUserAuthApi(auth: Auth, config: Config, storage: Storage): Router {
         const password = req.body?.password;
         const { name } = req.remote_user;
 
+        // Existing passwords may predate the current password policy.
         if (
-          isNil(password) ||
-          typeof password !== 'object' ||
-          Array.isArray(password) ||
-          typeof password.old !== 'string' ||
+          validationUtils.validatePassword(password?.old, /^/) === false ||
           validationUtils.validatePassword(
-            password.new,
+            password?.new,
             config?.server?.passwordValidationRegex
           ) === false
         ) {
