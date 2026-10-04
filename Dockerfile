@@ -63,9 +63,15 @@ COPY --from=builder /opt/tarball .
 USER root
 # install verdaccio as a global package so is fully handled by npm
 # ensure none dependency is being missing and is prod by default
-RUN npm install -g --ignore-scripts --min-release-age=3 $VERDACCIO_APPDIR/verdaccio.tgz \
+RUN npm install --global npm@latest --ignore-scripts --no-audit --no-fund \
+    && npm install --global $VERDACCIO_APPDIR/verdaccio.tgz --ignore-scripts --no-audit --no-fund \
+        --min-release-age=3 \
+        --min-release-age-exclude verdaccio \
+        --min-release-age-exclude '@verdaccio/*' \
+        --min-release-age-exclude 'verdaccio-*' \
+    && pkg="$(npm root --global)/verdaccio" \
     # copy default config file
-    && cp /usr/local/lib/node_modules/verdaccio/node_modules/@verdaccio/config/build/conf/docker.yaml /verdaccio/conf/config.yaml \
+    && cp "$pkg/node_modules/@verdaccio/config/build/conf/docker.yaml" /verdaccio/conf/config.yaml \
     ## clean up cache
     && npm cache clean --force \
     && rm -Rf .npm/ \
