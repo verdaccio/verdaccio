@@ -59,7 +59,9 @@ jobs:
             --min-release-age-exclude 'verdaccio-*'
           pkg="$(npm root --global)/verdaccio"
           echo "bin=$pkg/$(node -p "const b = require('$pkg/package.json').bin; typeof b === 'string' ? b : b.verdaccio")" >> "$GITHUB_OUTPUT"
-          echo "Running verdaccio $(node -p "require('$pkg/package.json').version")"
+          version=$(node -p "require('$pkg/package.json').version")
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "Running verdaccio $version"
       - name: Prepare config
         run: |
           mkdir -p /tmp/verdaccio-proxy
@@ -74,6 +76,33 @@ jobs:
         env:
           REGISTRY: http://localhost:4873
           CONCURRENCY: ${{ inputs.concurrency }}
+          VERDACCIO_VERSION: ${{ steps.verdaccio.outputs.version }}
       - name: Show Verdaccio logs
         if: always()
         run: cat /tmp/verdaccio-proxy/verdaccio.log 2>/dev/null || echo "No log file found"
+      - name: Add Verdaccio activity to the summary
+        if: always()
+        run: |
+          log=/tmp/verdaccio-proxy/verdaccio.log
+          storage=/tmp/verdaccio-proxy/storage
+          count() { grep -c "$1" "$log" 2>/dev/null || echo 0; }
+          {
+            echo "### Verdaccio ${{ steps.verdaccio.outputs.version || inputs.version }}"
+            echo
+            echo "| | |"
+            echo "| --- | --- |"
+            echo "| Packages cached | $(find "$storage" -name package.json 2>/dev/null | wc -l) |"
+            echo "| Tarballs cached | $(find "$storage" -name '*.tgz' 2>/dev/null | wc -l) ($(du -sh "$storage" 2>/dev/null | cut -f1)) |"
+            echo "| Concurrent cache writes of the same tarball (\`already present\`) | $(count 'already present') |"
+            echo "| Uplink marked offline | $(count 'is now offline') |"
+            echo "| Warnings / errors in the log | $(grep -cE '^(warn|error|fatal)' "$log" 2>/dev/null || echo 0) |"
+            if grep -qE '^(error|fatal)|is now offline' "$log" 2>/dev/null; then
+              echo
+              echo "<details><summary>Errors in the Verdaccio log</summary>"
+              echo
+              echo '```'
+              grep -E -A3 '^(error|fatal)|is now offline' "$log" | tail -n 60
+              echo '```'
+              echo "</details>"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
