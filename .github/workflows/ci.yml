@@ -40,8 +40,9 @@ jobs:
       - name: Format
         run: pnpm format:check
 
+  # Pushes to 7.x only run lint and format; everything else runs on PRs
   build:
-    if: github.event.pull_request.draft == false
+    if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
     strategy:
       fail-fast: true
       matrix:
@@ -210,20 +211,6 @@ jobs:
           path: cypress/screenshots
           if-no-files-found: ignore
 
-  cypress-cache:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/7.x'
-    runs-on: ubuntu-latest
-    name: Cypress binary cache
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Install dependencies
-        uses: verdaccio/verdaccio/.github/actions/install-app@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
-        with:
-          ignore-scripts: 'false'
-      - uses: verdaccio/verdaccio/.github/actions/cypress-binary@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
-        with:
-          save: 'true'
-
   codeql:
     needs: [test, e2e-cli, e2e-cli-legacy-plugins, e2e-ui]
     if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && always() && !failure() && !cancelled() }}
@@ -245,7 +232,7 @@ jobs:
 
   cleanup:
     needs: [test, e2e-cli, e2e-cli-legacy-plugins, e2e-ui, codeql]
-    if: always()
+    if: always() && github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     name: Cleanup caches
     permissions:
