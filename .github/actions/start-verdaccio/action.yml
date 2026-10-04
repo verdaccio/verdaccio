@@ -1,0 +1,55 @@
+name: 'Start Verdaccio'
+description: 'Start the built Verdaccio in the background and wait for /-/ping'
+
+inputs:
+  config:
+    description: 'Config file; when empty, the @verdaccio/e2e-cli shared config is generated'
+    required: false
+    default: ''
+  uplink-port:
+    description: 'Mock uplink port written into the generated e2e-cli config'
+    required: false
+    default: '4874'
+  test-user:
+    description: 'Create the test/test user used by the UI suites'
+    required: false
+    default: 'false'
+
+runs:
+  using: composite
+  steps:
+    - name: Start Verdaccio
+      shell: bash
+      run: |
+        # A server already on the port would answer our ping and hide a failed start
+        if curl -s http://localhost:4873/-/ping > /dev/null; then
+          echo "::error::Port 4873 is already in use"
+          exit 1
+        fi
+        mkdir -p /tmp/verdaccio-e2e
+        config="${{ inputs.config }}"
+        if [ -z "$config" ]; then
+          config=/tmp/verdaccio-e2e/config.yaml
+          yarn verdaccio-e2e --print-config --uplink-port ${{ inputs.uplink-port }} > "$config"
+        fi
+        nohup node bin/verdaccio --config "$config" --listen 4873 > /tmp/verdaccio-e2e/verdaccio.log 2>&1 &
+        pid=$!
+        for i in $(seq 1 30); do
+          if ! kill -0 "$pid" 2>/dev/null; then
+            cat /tmp/verdaccio-e2e/verdaccio.log
+            echo "::error::Verdaccio exited before answering /-/ping"
+            exit 1
+          fi
+          curl -s http://localhost:4873/-/ping && exit 0
+          sleep 1
+        done
+        cat /tmp/verdaccio-e2e/verdaccio.log
+        echo "::error::Verdaccio did not answer /-/ping within 30s"
+        exit 1
+    - name: Create test user
+      if: inputs.test-user == 'true'
+      shell: bash
+      run: |
+        curl -s -X PUT -H "Content-Type: application/json" \
+          -d '{"name":"test","password":"test","_id":"org.couchdb.user:test","type":"user","roles":[]}' \
+          http://localhost:4873/-/user/org.couchdb.user:test

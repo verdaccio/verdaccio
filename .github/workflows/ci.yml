@@ -6,7 +6,7 @@ permissions:
   contents: read
 concurrency:
   group: ci-${{ github.ref }}-6.x
-  cancel-in-progress: true  
+  cancel-in-progress: true
 
 jobs:
   changeset-check:
@@ -27,30 +27,40 @@ jobs:
           fetch-depth: 0
       - name: Check changeset
         uses: ./.github/actions/changeset-check
-  build:
-    strategy:
-      fail-fast: false
-      matrix:
-        node_version: [22, 24, 26]
-    uses: verdaccio/verdaccio/.github/workflows/yarn-ci.yml@master
-    with:
-      node_version: ${{ matrix.node_version }}
   lint:
     runs-on: ubuntu-latest
     name: Lint and format
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
-        with:
-          node-version-file: '.nvmrc'
-      - name: Enable corepack
-        run: corepack enable
-      - name: Install dependencies
-        run: yarn install --immutable
+      - uses: ./.github/actions/install-app
       - name: Lint
         run: yarn lint
       - name: Format check
         run: yarn format:check
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        node_version: [22, 24, 26]
+    runs-on: ubuntu-latest
+    name: Node ${{ matrix.node_version }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: ./.github/actions/install-app
+        with:
+          node-version: ${{ matrix.node_version }}
+      - name: Build
+        run: yarn build
+      - name: Types
+        run: yarn code:types
+      - name: Test
+        run: yarn test
+      # The e2e jobs restore this build instead of building again
+      - name: Save build
+        uses: actions/cache/save@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        with:
+          path: build/
+          key: ci-build-${{ github.run_id }}-${{ github.run_attempt }}-node-${{ matrix.node_version }}
   changeset-validation:
     if: >-
       github.event_name == 'pull_request' &&
@@ -60,12 +70,95 @@ jobs:
     name: Changeset validation
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
-        with:
-          node-version-file: '.nvmrc'
-      - name: Enable corepack
-        run: corepack enable
-      - name: Install dependencies
-        run: yarn install --immutable
+      - uses: ./.github/actions/install-app
       - name: Run changeset version
         run: yarn ci:version:changeset
+  e2e-cli:
+    needs: [build]
+    if: github.event_name == 'pull_request'
+    name: E2E CLI (${{ matrix.pm }}, Node ${{ matrix.node_version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node_version: [22, 24, 26]
+        pm: [npm@10, npm@11, npm@12, pnpm@11, pnpm@10, yarn-modern@4]
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: ./.github/actions/install-app
+        with:
+          node-version: ${{ matrix.node_version }}
+      - name: Restore build
+        uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        with:
+          path: build/
+          key: ci-build-${{ github.run_id }}-${{ github.run_attempt }}-node-${{ matrix.node_version }}
+          fail-on-cache-miss: true
+      - uses: ./.github/actions/start-verdaccio
+      - name: Run E2E CLI tests
+        run: yarn verdaccio-e2e --registry http://localhost:4873 --pm ${{ matrix.pm }} --uplink-port 4874 -v
+        env:
+          E2E_PENDING_CONTRACT_CHECKS: tarballs
+      - name: Show Verdaccio logs
+        if: always()
+        run: cat /tmp/verdaccio-e2e/verdaccio.log 2>/dev/null || echo "No log file found"
+  e2e-ui:
+    needs: [build]
+    if: github.event_name == 'pull_request'
+    name: E2E UI (Node 24)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: ./.github/actions/install-app
+        with:
+          node-version: 24
+      - name: Restore build
+        uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        with:
+          path: build/
+          key: ci-build-${{ github.run_id }}-${{ github.run_attempt }}-node-24
+          fail-on-cache-miss: true
+      - uses: ./.github/actions/cypress-binary
+      - uses: ./.github/actions/start-verdaccio
+        with:
+          config: ./scripts/e2e-ui-config.yaml
+          test-user: 'true'
+      - name: Run Cypress
+        run: yarn cypress run
+        env:
+          VERDACCIO_URL: http://localhost:4873
+      - name: Upload Cypress screenshots
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+          if-no-files-found: ignore
+      - name: Show Verdaccio logs
+        if: always()
+        run: cat /tmp/verdaccio-e2e/verdaccio.log 2>/dev/null || echo "No log file found"
+  cypress-cache:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/6.x'
+    runs-on: ubuntu-latest
+    name: Cypress binary cache
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: ./.github/actions/install-app
+      - uses: ./.github/actions/cypress-binary
+        with:
+          save: 'true'
+  cleanup:
+    needs: [build, e2e-cli, e2e-ui]
+    if: always()
+    runs-on: ubuntu-latest
+    name: Cleanup caches
+    permissions:
+      actions: write
+    steps:
+      - name: Delete build caches
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for node in 22 24 26; do
+            gh cache delete "ci-build-${{ github.run_id }}-${{ github.run_attempt }}-node-$node" --repo ${{ github.repository }} || true
+          done

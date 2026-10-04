@@ -62,8 +62,10 @@ Rules that follow:
   `test/unit/partials` — fixtures.
 - `scripts/` — e2e UI helpers; `docs/env.variables.md` — environment variables.
 - `.github/workflows` — `ci.yml` (changeset check, build, lint, changeset
-  validation), `e2e-cli.yml`, `e2e-ui.yml`, `docker-nightly.yml`, smoke tests,
-  `release-canary.yml`.
+  validation, CLI and UI e2e), `docker-nightly.yml`, smoke tests,
+  `release-canary.yml`. Shared steps live in `.github/actions/` (yarn install,
+  start Verdaccio, Cypress binary, changeset check); nothing is taken from
+  `master`.
 
 ## Setup, build, test, lint
 
@@ -82,7 +84,7 @@ yarn docker                                    # verdaccio/verdaccio:local
 ```
 
 CI runs lint and format, a build on Node.js 22, 24 and 26, the changeset
-checks, and, in their own workflows, the CLI e2e matrix (npm 10–12, pnpm 10–11,
+checks, and, reusing that build, the CLI e2e matrix (npm 10–12, pnpm 10–11,
 yarn modern 4, via `@verdaccio/e2e-cli` against `node bin/verdaccio`) and the
 Cypress UI suite. The changeset jobs skip drafts. **There are no git hooks on
 this branch**: run lint, format and the tests yourself before committing.
@@ -276,5 +278,5 @@ target path, and Claude Code finds neither the skills nor this guide.
   runner, network lockdown.
 - `tsconfig.json`, `.oxlintrc.json`, `.oxfmtrc.json`, `.nvmrc`.
 - `.changeset/config.json` — release configuration (`baseBranch: 6.x`).
-- `.github/workflows/ci.yml`, `e2e-cli.yml`, `e2e-ui.yml`.
+- `.github/workflows/ci.yml`, `.github/actions/`.
 - `VERSIONS.md`, `SECURITY.md`, `docs/env.variables.md`.
