@@ -85,17 +85,18 @@ jobs:
         run: |
           log=/tmp/verdaccio-proxy/verdaccio.log
           storage=/tmp/verdaccio-proxy/storage
-          count() { grep -c "$1" "$log" 2>/dev/null || echo 0; }
+          # grep -c prints 0 and exits 1 when nothing matches
+          count() { local n; n=$(grep -cE "$1" "$log" 2>/dev/null); echo "${n:-0}"; }
           {
             echo "### Verdaccio ${{ steps.verdaccio.outputs.version || inputs.version }}"
             echo
             echo "| | |"
             echo "| --- | --- |"
-            echo "| Packages cached | $(find "$storage" -name package.json 2>/dev/null | wc -l) |"
-            echo "| Tarballs cached | $(find "$storage" -name '*.tgz' 2>/dev/null | wc -l) ($(du -sh "$storage" 2>/dev/null | cut -f1)) |"
-            echo "| Concurrent cache writes of the same tarball (\`already present\`) | $(count 'already present') |"
+            echo "| Packages cached | $(find "$storage" -name package.json 2>/dev/null | wc -l | tr -d ' ') |"
+            echo "| Tarballs cached | $(find "$storage" -name '*.tgz' 2>/dev/null | wc -l | tr -d ' ') ($(du -sh "$storage" 2>/dev/null | cut -f1)) |"
+            echo "| Concurrent cache writes of the same tarball | $(count 'error saving file') |"
             echo "| Uplink marked offline | $(count 'is now offline') |"
-            echo "| Warnings / errors in the log | $(grep -cE '^(warn|error|fatal)' "$log" 2>/dev/null || echo 0) |"
+            echo "| Warnings and errors in the log (startup line excluded) | $(( $(count '^(warn|error|fatal)') - $(count '^warn --- http address') )) |"
             if grep -qE '^(error|fatal)|is now offline' "$log" 2>/dev/null; then
               echo
               echo "<details><summary>Errors in the Verdaccio log</summary>"
