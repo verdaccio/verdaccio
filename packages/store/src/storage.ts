@@ -600,7 +600,10 @@ class Storage {
     // the version could be a dist-tag eg: beta, alpha, so we find the matched version
     // on disg-tag list
     if (isNil(convertedManifest[DIST_TAGS]) === false) {
-      if (isNil(convertedManifest[DIST_TAGS][queryVersion]) === false) {
+      if (
+        Object.hasOwn(convertedManifest[DIST_TAGS], queryVersion) &&
+        isNil(convertedManifest[DIST_TAGS][queryVersion]) === false
+      ) {
         // the version found as a distag
         const matchedDisTagVersion: string = convertedManifest[DIST_TAGS][queryVersion];
         debug('dist-tag version found %o', matchedDisTagVersion);

@@ -41,7 +41,7 @@ class MemoryHandler implements pluginUtils.StorageHandler {
   }
 
   public async hasPackage(packageName: string): Promise<boolean> {
-    return this.data[packageName] !== undefined;
+    return Object.hasOwn(this.data, packageName) && this.data[packageName] !== undefined;
   }
 
   public async deletePackage(fileName: string): Promise<void> {
@@ -83,7 +83,7 @@ class MemoryHandler implements pluginUtils.StorageHandler {
   public async readPackage(packageName: string): Promise<Manifest> {
     debug('read package %o', packageName);
     const json = this.data[packageName];
-    if (json === undefined) {
+    if (!Object.hasOwn(this.data, packageName) || json === undefined) {
       throw errorUtils.getNotFound();
     }
     try {
@@ -289,8 +289,7 @@ class MemoryHandler implements pluginUtils.StorageHandler {
   ): Promise<Manifest> {
     debug('update package %o', packageName);
     try {
-      const json = this.data[packageName];
-      const manifest = parsePackage(json);
+      const manifest = await this.readPackage(packageName);
       const newManifest = await handleUpdate(manifest);
       return newManifest;
     } catch (err: any) {

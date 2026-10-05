@@ -108,6 +108,41 @@ describe('package', () => {
       app = await initializeServer('package.yaml');
     });
 
+    test.each(['foo', '@scope/foo'])('should resolve versions and tags for %s', async (pkg) => {
+      await publishVersion(app, pkg, '1.0.0');
+      for (const query of ['1.0.0', 'latest']) {
+        const response = await supertest(app).get(`/${pkg}/${query}`).expect(HTTP_STATUS.OK);
+        expect(response.body.version).toBe('1.0.0');
+      }
+    });
+
+    test.each(['constructor', 'toString', 'hasOwnProperty', 'nope'])(
+      'should return 404 for missing version or tag %s',
+      async (query) => {
+        await publishVersion(app, 'foo', '1.0.0');
+        await supertest(app).get(`/foo/${query}`).expect(HTTP_STATUS.NOT_FOUND);
+      }
+    );
+
+    test.each(['constructor', 'toString', 'hasOwnProperty'])(
+      'should resolve an explicitly stored tag %s',
+      async (tag) => {
+        await publishVersion(app, 'foo', '1.0.0');
+        await supertest(app)
+          .put(`/-/package/foo/dist-tags/${tag}`)
+          .set(HEADERS.CONTENT_TYPE, HEADERS.JSON)
+          .send(JSON.stringify('1.0.0'))
+          .expect(HTTP_STATUS.CREATED);
+        const response = await supertest(app).get(`/foo/${tag}`).expect(HTTP_STATUS.OK);
+        expect(response.body.version).toBe('1.0.0');
+      }
+    );
+
+    test('should keep rejecting an invalid version name', async () => {
+      await publishVersion(app, 'foo', '1.0.0');
+      await supertest(app).get('/foo/__proto__').expect(HTTP_STATUS.BAD_REQUEST);
+    });
+
     test.each([
       ['foo', 'foo'],
       ['@scope/foo', '@scope/foo'],
