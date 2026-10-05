@@ -63,24 +63,35 @@ export const log = (logger, options: LogOptions = {}) => {
       req.headers.cookie = '<Classified>';
     }
 
+    const _otp = req.headers['npm-otp'];
+    if (isNil(_otp) === false) {
+      req.headers['npm-otp'] = '<Classified>';
+    }
+
     req.url = req.originalUrl;
     const requestUrl = req.url;
-    const _skipLog = shouldSkipLog(requestUrl);
-    if (_skipLog) {
-      if (debug.enabled) {
-        debug(convertToDebugString(constants.LOG_REQUEST_MESSAGE), req.ip, req.method, req.url);
+    try {
+      const _skipLog = shouldSkipLog(requestUrl);
+      if (_skipLog) {
+        if (debug.enabled) {
+          debug(convertToDebugString(constants.LOG_REQUEST_MESSAGE), req.ip, req.method, req.url);
+        }
+      } else {
+        req.log.info({ req, ip: req.ip }, constants.LOG_REQUEST_MESSAGE);
       }
-    } else {
-      req.log.info({ req, ip: req.ip }, constants.LOG_REQUEST_MESSAGE);
-    }
-    req.originalUrl = req.url;
+      req.originalUrl = req.url;
+    } finally {
+      if (isNil(_auth) === false) {
+        req.headers.authorization = _auth;
+      }
 
-    if (isNil(_auth) === false) {
-      req.headers.authorization = _auth;
-    }
+      if (isNil(_cookie) === false) {
+        req.headers.cookie = _cookie;
+      }
 
-    if (isNil(_cookie) === false) {
-      req.headers.cookie = _cookie;
+      if (isNil(_otp) === false) {
+        req.headers['npm-otp'] = _otp;
+      }
     }
 
     let bytesin = 0;

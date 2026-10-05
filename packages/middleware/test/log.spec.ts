@@ -1,3 +1,5 @@
+import type { ErrorRequestHandler } from 'express';
+import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import request from 'supertest';
 import { beforeAll, describe, expect, test, vi } from 'vitest';
@@ -8,12 +10,112 @@ import { logger, setup } from '@verdaccio/logger';
 import { log } from '../src';
 import { getApp } from './helper';
 
+const logPath = path.join(import.meta.dirname, './verdaccio.log');
+
 beforeAll(async () => {
   await setup({
     type: 'file',
-    path: path.join(import.meta.dirname, './verdaccio.log'),
+    path: logPath,
     level: 'trace',
     format: 'json',
+    sync: true,
+  });
+});
+
+describe('sensitive request headers', () => {
+  const sensitiveHeaders = {
+    authorization: 'Bearer private-test-token',
+    cookie: 'session=private-test-session',
+    'npm-otp': '654321',
+  };
+
+  test.each([false, true])('masks JSON headers with redact removal = %s', async (remove) => {
+    const offset = readFileSync(logPath, 'utf8').length;
+    const requestLogger = remove
+      ? logger.child({}, { redact: { paths: ['req.headers["npm-otp"]'], remove: true } })
+      : logger;
+    const app = getApp([]);
+    app.use(log(requestLogger));
+    app.get('/react', (req, res) => {
+      for (const [header, value] of Object.entries(sensitiveHeaders)) {
+        expect(req.headers[header]).toBe(value);
+      }
+      res.sendStatus(HTTP_STATUS.OK);
+    });
+
+    await request(app).get('/react').set(sensitiveHeaders).expect(HTTP_STATUS.OK);
+
+    const output = readFileSync(logPath, 'utf8').slice(offset);
+    const records = output
+      .trim()
+      .split('\n')
+      .map((line) => JSON.parse(line));
+    const loggedHeaders = records.find((record) => record.req)?.req.headers;
+    expect(loggedHeaders).toBeDefined();
+    expect(loggedHeaders.authorization).toBe('<Classified>');
+    expect(loggedHeaders.cookie).toBe('<Classified>');
+    if (remove) {
+      expect(loggedHeaders).not.toHaveProperty('npm-otp');
+    } else {
+      expect(loggedHeaders['npm-otp']).toBe('<Classified>');
+    }
+    for (const value of Object.values(sensitiveHeaders)) {
+      expect(output).not.toContain(value);
+    }
+  });
+
+  test('does not add absent sensitive headers to the request or JSON log', async () => {
+    const offset = readFileSync(logPath, 'utf8').length;
+    const app = getApp([]);
+    app.use(log(logger));
+    app.get('/react', (req, res) => {
+      for (const header of Object.keys(sensitiveHeaders)) {
+        expect(req.headers).not.toHaveProperty(header);
+      }
+      res.sendStatus(HTTP_STATUS.OK);
+    });
+
+    await request(app).get('/react').expect(HTTP_STATUS.OK);
+
+    const records = readFileSync(logPath, 'utf8')
+      .slice(offset)
+      .trim()
+      .split('\n')
+      .map((line) => JSON.parse(line));
+    const loggedHeaders = records.find((record) => record.req)?.req.headers;
+    expect(loggedHeaders).toBeDefined();
+    for (const header of Object.keys(sensitiveHeaders)) {
+      expect(loggedHeaders).not.toHaveProperty(header);
+    }
+  });
+
+  test('restores all sensitive headers when the logger throws', async () => {
+    const failure = new Error('request logger failed');
+    const app = getApp([]);
+    app.use(
+      log({
+        child: () => ({
+          info: () => {
+            throw failure;
+          },
+        }),
+      })
+    );
+    const nextHandler = vi.fn((_req, res) => res.sendStatus(HTTP_STATUS.OK));
+    app.get('/react', nextHandler);
+    const onError = vi.fn();
+    const errorHandler: ErrorRequestHandler = (error, req, res, _next) => {
+      onError(error, { ...req.headers });
+      res.sendStatus(HTTP_STATUS.INTERNAL_ERROR);
+    };
+    app.use(errorHandler);
+
+    await request(app).get('/react').set(sensitiveHeaders).expect(HTTP_STATUS.INTERNAL_ERROR);
+    expect(onError).toHaveBeenCalledExactlyOnceWith(
+      failure,
+      expect.objectContaining(sensitiveHeaders)
+    );
+    expect(nextHandler).not.toHaveBeenCalled();
   });
 });
 
