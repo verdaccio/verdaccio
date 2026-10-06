@@ -53,10 +53,16 @@ function addUserAuthApi(auth: Auth, config: Config): Router {
           });
         }
 
-        const { password } = req.body;
+        const password = req.body?.password;
         const { name } = req.remote_user;
 
-        if (validationUtils.validatePassword(password.new) === false) {
+        if (
+          _.isNil(password) ||
+          typeof password !== 'object' ||
+          Array.isArray(password) ||
+          typeof password.old !== 'string' ||
+          validationUtils.validatePassword(password.new) === false
+        ) {
           return next(ErrorCode.getCode(HTTP_STATUS.BAD_REQUEST, APP_ERROR.PASSWORD_VALIDATION));
         }
 
