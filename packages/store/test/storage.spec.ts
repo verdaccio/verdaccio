@@ -78,6 +78,22 @@ const defaultRequestOptions = {
   headers: {},
 };
 
+test('should not resolve a dist-tag inherited from the manifest prototype', async () => {
+  const storage = new Storage(getConfig('updateManifest-1.yaml'), logger);
+  const manifest = generatePackageMetadata('foo', '1.0.0');
+  manifest[DIST_TAGS] = Object.create({ inherited: '1.0.0' });
+  vi.spyOn(storage as any, 'getPackage').mockResolvedValue([manifest, []]);
+
+  await expect(
+    storage.getPackageByVersion({
+      name: 'foo',
+      version: 'inherited',
+      uplinksLook: false,
+      requestOptions: defaultRequestOptions,
+    })
+  ).rejects.toMatchObject({ statusCode: 404 });
+});
+
 const executeChangeOwners = async (
   storage,
   options: {
