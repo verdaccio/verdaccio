@@ -143,6 +143,31 @@ describe('web endpoint: reset_password (flag enabled)', () => {
       await loginWebUI(user.name, user.password);
     });
 
+    test.each(['', 'x', 'old\npassword'])(
+      'should let the authentication plugin check a legacy old password: %j',
+      async (old) => {
+        const changePassword = vi.spyOn(Auth.prototype, 'changePassword');
+        const response = await request(app)
+          .put('/-/verdaccio/sec/reset_password')
+          .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+          .send({ password: { old, new: 'new-pass' } })
+          .expect(HTTP_STATUS.CONFLICT);
+
+        expect(response.body.error).toMatch(/invalid old password/i);
+        expect(changePassword).toHaveBeenCalledWith(
+          user.name,
+          old,
+          'new-pass',
+          expect.any(Function)
+        );
+        await loginWebUI(user.name, user.password);
+        await request(app)
+          .post('/-/verdaccio/sec/login')
+          .send({ username: user.name, password: 'new-pass' })
+          .expect(HTTP_STATUS.UNAUTHORIZED);
+      }
+    );
+
     test('should require authentication before validating the password body', async () => {
       const changePassword = vi.spyOn(Auth.prototype, 'changePassword');
       const response = await request(app)
