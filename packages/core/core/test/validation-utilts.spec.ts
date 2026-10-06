@@ -204,6 +204,22 @@ describe('validateName', () => {
 });
 
 describe('validatePassword', () => {
+  test.each([undefined, null, 123, true, [], {}, { old: 'old-pass', new: 'new-pass' }])(
+    'rejects non-string passwords even with a permissive policy: %j',
+    (password) => {
+      expect(validatePassword(password)).toBe(false);
+      expect(validatePassword(password, /^/)).toBe(false);
+    }
+  );
+
+  test.each(['', 'x', 'old\npassword'])(
+    'allows legacy passwords with an explicitly permissive policy: %j',
+    (password) => {
+      expect(validatePassword(password, /^/)).toBe(true);
+      expect(validatePassword(password, /^new-.{4,}$/)).toBe(false);
+    }
+  );
+
   test('should validate password according the length', () => {
     expect(validatePassword('12345', DEFAULT_PASSWORD_VALIDATION)).toBeTruthy();
   });
@@ -218,12 +234,10 @@ describe('validatePassword', () => {
   });
 
   test('should validate invalid password)', () => {
-    // @ts-expect-error
     expect(validatePassword(undefined)).toBeFalsy();
   });
 
   test('should validate invalid password number)', () => {
-    // @ts-expect-error
     expect(validatePassword(2342344234342)).toBeFalsy();
   });
 
