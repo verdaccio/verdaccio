@@ -1,5 +1,16 @@
 # Changelog
 
+## 6.10.6
+
+### Patch Changes
+
+- 56b6a85: Disable dependency lifecycle scripts and require third-party dependencies to be at least three days old when installing Verdaccio in the final Docker image stage.
+  
+  The production installation now uses npm's `--ignore-scripts` and `--min-release-age=3` options. Verdaccio and packages matching `@verdaccio/*` or `verdaccio-*` are excluded from the age restriction so new Verdaccio releases can be built immediately. The final stage updates npm to support these exclusions and disables installation audit and funding output. Image builds still fail if another required dependency has no eligible version. No configuration changes are required for operators.
+- db47d78: Update verdaccio dependencies to the `latest` npm dist-tag (`@verdaccio/ui-theme` tracks `next-9`):
+  
+  - `@verdaccio/ui-theme`: `9.0.0-next-9.33` → `9.0.0-next-9.34`
+
 ## 6.10.5
 
 ### Patch Changes
