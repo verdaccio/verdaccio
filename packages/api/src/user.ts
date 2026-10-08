@@ -34,6 +34,8 @@ export default function (route: Router, auth: Auth, config: Config, logger: Logg
         typeof req.remote_user.name !== 'string' ||
         req.remote_user.name === ''
       ) {
+        // Only fires when a custom auth plugin's apiJWTmiddleware records the failure here;
+        // the bundled middleware propagates auth errors instead of storing them on remote_user.
         if (req.remote_user?.error) {
           debug('user authentication failed: %o', req.remote_user.error);
           // a malformed Authorization header is a client error, not a credential failure
