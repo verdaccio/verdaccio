@@ -93,6 +93,14 @@ describe('unpaginated search errors used by the web API', () => {
     );
   });
 
+  test('logs and rejects an invalid compressed body', async () => {
+    nock(domain).get(url).reply(200, 'not compressed', { 'content-encoding': 'gzip' });
+    const { search, log } = prepareSearch();
+
+    await expect(search()).rejects.toThrow();
+    expect(log).toHaveBeenCalledOnce();
+  });
+
   test.each(['default', 'custom'])(
     'preserves in-flight cancellation with a %s reason without logging a failure',
     async (reasonType) => {

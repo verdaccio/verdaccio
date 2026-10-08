@@ -3,9 +3,10 @@ import bcrypt from 'bcryptjs';
 import buildDebug from 'debug';
 import createError, { type HttpError } from 'http-errors';
 import crypto from 'node:crypto';
+import { readFile } from 'node:fs';
 
 import { API_ERROR, HTTP_STATUS, constants } from '@verdaccio/core';
-import { readFile } from '@verdaccio/file-locking';
+import { lockFile, unlockFile } from '@verdaccio/file-locking';
 import type { Callback } from '@verdaccio/types';
 
 import crypt3 from './crypt3';
@@ -20,15 +21,18 @@ export interface HtpasswdHashConfig {
   rounds?: number;
 }
 
-// this function neither unlocks file nor closes it
-// it'll have to be done manually later
+// On success the caller owns the lock and must unlock it; on error no lock is held.
 export function lockAndRead(name: string, cb: Callback): void {
-  readFile(name, { lock: true }, (err, res) => {
-    if (err) {
-      return cb(err);
+  lockFile(name, (lockError) => {
+    if (lockError) {
+      return cb(lockError);
     }
-
-    return cb(null, res);
+    readFile(name, 'utf8', (readError, res) => {
+      if (readError) {
+        return unlockFile(name, () => cb(readError));
+      }
+      cb(null, res);
+    });
   });
 }
 
@@ -39,13 +43,13 @@ export function lockAndRead(name: string, cb: Callback): void {
  */
 export function parseHTPasswd(input: string): Record<string, any> {
   // The input is split on line ending styles that are both windows and unix compatible
-  return input.split(/[\r]?[\n]/).reduce((result, line) => {
+  return input.split(/[\r]?[\n]/).reduce<Record<string, string>>((result, line) => {
     const args = line.split(':', 3).map((str) => str.trim());
     if (args.length > 1) {
       result[args[0]] = args[1];
     }
     return result;
-  }, {});
+  }, Object.create(null));
 }
 
 /**
@@ -138,13 +142,8 @@ export async function addUserToHTPasswd(
 }
 
 /**
- * Sanity check for a user
- * @param {string} user
- * @param {object} users
- * @param {string} password
- * @param {Callback} verifyFn
- * @param {number} maxUsers
- * @returns {object}
+ * Check whether `user` may be registered; resolves to `null` when allowed, or to the HTTP error
+ * that rejects it (never throws for a rejection). `verifyFn` checks `password` against an existing hash.
  */
 export async function sanityCheck(
   user: string,
@@ -163,7 +162,7 @@ export async function sanityCheck(
     return err;
   }
 
-  const hash = users[user];
+  const hash = Object.hasOwn(users, user) ? users[user] : undefined;
 
   if (maxUsers < 0) {
     debug('registration is disabled');
@@ -173,7 +172,7 @@ export async function sanityCheck(
   }
 
   if (hash) {
-    const auth = await verifyFn(password, users[user]);
+    const auth = await verifyFn(password, hash);
     if (auth) {
       debug(`user ${user} already exists`);
       err = Error(API_ERROR.USERNAME_ALREADY_REGISTERED);

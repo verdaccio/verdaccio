@@ -36,6 +36,13 @@ describe('versions-utils', () => {
       });
     });
 
+    test.each(['constructor', 'toString', 'hasOwnProperty', '__proto__'])(
+      'should ignore inherited version %s',
+      (version) => {
+        expect(getVersion({ ...metadata } as any, version)).toBeUndefined();
+      }
+    );
+
     test('should return nothing on get non existing version', () => {
       expect(getVersion({ ...metadata } as any, '0')).toBeUndefined();
       expect(getVersion({ ...metadata } as any, '2.0.0')).toBeUndefined();

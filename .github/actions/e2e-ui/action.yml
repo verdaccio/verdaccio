@@ -1,0 +1,24 @@
+name: 'E2E UI'
+description: 'Run one shard of the Cypress UI suites against localhost:4873'
+
+inputs:
+  shard:
+    description: 'Shard index, starting at 1'
+    required: true
+  shards:
+    description: 'Total number of shards'
+    required: true
+
+runs:
+  using: composite
+  steps:
+    # Round-robin over the sorted specs, so new spec files are always picked up
+    - name: Pick specs for this shard
+      id: specs
+      shell: bash
+      run: echo "list=$(ls cypress/e2e/*.cy.ts | sort | awk 'NR % ${{ inputs.shards }} == ${{ inputs.shard }} % ${{ inputs.shards }}' | paste -sd, -)" >> "$GITHUB_OUTPUT"
+    - name: Run Cypress
+      shell: bash
+      env:
+        VERDACCIO_URL: http://localhost:4873
+      run: pnpm exec cypress run --spec "${{ steps.specs.outputs.list }}"

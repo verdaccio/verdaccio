@@ -83,7 +83,7 @@ describe('Search v1 progressive pagination', () => {
     expect(first.body.objects[0].package).toEqual({ name: 'local', version: '01.2.3' });
   });
 
-  test.each([401, 404, 429, 500, 'connection', 'timeout', 'json'])(
+  test.each([401, 404, 429, 500, 'connection', 'timeout', 'json', 'gzip'])(
     'preserves local pagination when the first uplink request fails (%s)',
     async (failure) => {
       const upstream = nock(domain).persist().get('/-/v1/search').query(true);
@@ -94,6 +94,8 @@ describe('Search v1 progressive pagination', () => {
         });
       } else if (failure === 'json') {
         upstream.reply(200, 'invalid JSON');
+      } else if (failure === 'gzip') {
+        upstream.reply(200, 'not compressed', { 'content-encoding': 'gzip' });
       } else {
         upstream.reply(failure);
       }
@@ -230,6 +232,35 @@ describe('Search v1 progressive pagination', () => {
         maintenance: '0.3',
       });
     }
+  });
+
+  test('forwards only plain string parameters to the uplinks', async () => {
+    const requests = paginatedUplink(catalog(3));
+    const app = await initializeServer('search-abort.yaml');
+    await supertest(app)
+      .get('/-/v1/search?text=remote&quality=0.1&popularity=0.2&popularity=0.4&maintenance=0.3')
+      .expect(200);
+    expect(requests.length).toBeGreaterThan(0);
+    for (const query of requests) {
+      expect(query.getAll('popularity')).toEqual([]);
+      expect(Object.fromEntries(query)).toMatchObject({
+        text: 'remote',
+        quality: '0.1',
+        maintenance: '0.3',
+      });
+    }
+  });
+
+  test('falls back to the default page size when size is repeated', async () => {
+    const app = await initializeServer('search-abort.yaml');
+    const user = await createUser(app, 'test', 'test');
+    for (const name of ['foo-a', 'foo-b', 'foo-c']) {
+      await publishVersionWithToken(app, name, '1.0.0', user.body.token);
+    }
+    nock(domain).persist().get('/-/v1/search').query(true).reply(200, { objects: [], total: 0 });
+
+    const response = await supertest(app).get('/-/v1/search?text=foo&size=1&size=2').expect(200);
+    expect(names(response)).toEqual(['foo-a', 'foo-b', 'foo-c']);
   });
 
   test('continues after short pages when an uplink has a smaller cap and no total', async () => {

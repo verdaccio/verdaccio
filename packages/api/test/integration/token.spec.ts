@@ -127,6 +127,35 @@ describe('token', () => {
     });
   });
 
+  describe('prototype key usernames', () => {
+    test.each(['constructor', 'toString', '__proto__'])(
+      'should create, list and revoke tokens for %s',
+      async (name) => {
+        const app = await initializeServer('token.yaml');
+        const token = await getNewToken(app, { name, password: 'secretPass' });
+        const listTokens = async () =>
+          (
+            await supertest(app)
+              .get('/-/npm/v1/tokens')
+              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+              .expect(HTTP_STATUS.OK)
+          ).body.objects;
+
+        expect(await listTokens()).toHaveLength(0);
+        const response = await generateTokenCLI(app, token, {
+          password: 'secretPass',
+          readonly: false,
+          cidr_whitelist: [],
+        });
+        expect(response.status).toBe(HTTP_STATUS.OK);
+        expect(await listTokens()).toHaveLength(1);
+
+        await deleteTokenCLI(app, token, response.body.key);
+        expect(await listTokens()).toHaveLength(0);
+      }
+    );
+  });
+
   describe('handle errors', () => {
     test.each([['token.yaml'], ['token.jwt.yaml']])('should delete a token', async (conf) => {
       const app = await initializeServer(conf);

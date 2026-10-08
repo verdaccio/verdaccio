@@ -151,6 +151,27 @@ describe('LocalMemory', () => {
       });
     });
 
+    test.each(['constructor', 'toString', '__proto__'])(
+      'should save, read and revoke tokens for user %s',
+      async (user) => {
+        const localMemory = new LocalMemory({}, { ...getDefaultConfig(), config });
+        const token: Token = {
+          user,
+          token: 'test-token',
+          key: 'test-key',
+          readonly: false,
+          created: Date.now(),
+        };
+
+        expect(await localMemory.readTokens({ user })).toEqual([]);
+        await expect(localMemory.deleteToken(user, token.key)).rejects.toThrow('user not found');
+        await localMemory.saveToken(token);
+        expect(await localMemory.readTokens({ user })).toEqual([token]);
+        await localMemory.deleteToken(user, token.key);
+        expect(await localMemory.readTokens({ user })).toEqual([]);
+      }
+    );
+
     test('should handle deleting a token for a non-existent user', () => {
       return new Promise((done) => {
         const localMemory = new LocalMemory({}, { ...getDefaultConfig(), config });

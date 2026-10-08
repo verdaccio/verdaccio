@@ -38,6 +38,42 @@ describe('Memory', function () {
   });
 
   describe('#adduser', function () {
+    test.each(['new', 'existing', 'limit'])('returns void and calls back once: %s', (scenario) => {
+      const instance = new Memory(
+        { users: scenario === 'new' ? {} : { existing: { name: 'existing', password: 'secret' } } },
+        { config: { ...config, max_users: scenario === 'limit' ? 1 : 100 }, logger }
+      );
+      const callback = vi.fn();
+      const result = instance.adduser(
+        scenario === 'existing' ? 'existing' : 'new-user',
+        'secret',
+        callback
+      );
+
+      expect(result).toBeUndefined();
+      expect(callback).toHaveBeenCalledTimes(1);
+      if (scenario === 'limit') {
+        expect(callback.mock.calls[0][0]).toBeInstanceOf(Error);
+      } else {
+        expect(callback).toHaveBeenCalledWith(null, scenario === 'existing' ? true : 'new-user');
+      }
+    });
+
+    test.each(['constructor', 'toString', '__proto__'])(
+      'registers and authenticates %s as a new user',
+      (name) => {
+        const instance = new Memory({ users: {} }, { config, logger });
+        const added = vi.fn();
+        const authenticated = vi.fn();
+
+        instance.adduser(name, 'secret', added);
+        instance.authenticate(name, 'secret', authenticated);
+
+        expect(added).toHaveBeenCalledWith(null, name);
+        expect(authenticated).toHaveBeenCalledWith(null, [name]);
+      }
+    );
+
     test('adds users', function () {
       return new Promise((done) => {
         auth.adduser?.('test', 'secret', function (err, user) {

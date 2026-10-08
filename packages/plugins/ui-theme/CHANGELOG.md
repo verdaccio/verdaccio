@@ -1,5 +1,9 @@
 # @verdaccio/ui-theme
 
+## 9.0.0-next-9.34
+
+No changes in this release.
+
 ## 9.0.0-next-9.33
 
 ## 9.0.0-next-9.32

@@ -6,6 +6,7 @@ import {
   normalizeMetadata,
   validateName,
   validatePackage,
+  validatePackageName,
   validatePassword,
   validateUserName,
 } from '../src/validation-utils';
@@ -39,6 +40,67 @@ describe('validatePackage', () => {
     expect(validatePackage('@scope/')).toBeFalsy();
     expect(validatePackage('pkg/')).toBeFalsy();
     expect(validatePackage('@scope//pkg')).toBeFalsy();
+  });
+});
+
+describe('validatePackageName', () => {
+  test('should follow npm rules for existing packages', () => {
+    for (const name of [
+      'some-package',
+      '@npm/thingy',
+      'JSONStream',
+      'http',
+      '-',
+      'a'.repeat(215),
+    ]) {
+      expect(validatePackageName(name)).toBe(true);
+    }
+    for (const name of [
+      '',
+      '_pkg',
+      '.pkg',
+      ' pkg',
+      '@secret',
+      'foo@bar',
+      '@scope/.pkg',
+      '\uD800',
+      '@scope/\uD800',
+      null,
+      42,
+    ]) {
+      expect(validatePackageName(name)).toBe(false);
+    }
+  });
+});
+
+describe('validatePackage with npm rules', () => {
+  test('should keep accepting existing package names', () => {
+    for (const name of [
+      '-',
+      '-build-infra',
+      'JSONStream',
+      'http',
+      'con',
+      'pkg.',
+      '@scope/pkg',
+      '@con/pkg',
+      '@lpt1/pkg',
+      '@scope/_pkg',
+    ]) {
+      expect(validatePackage(name)).toBeTruthy();
+    }
+  });
+
+  test('should reject names npm does not accept', () => {
+    for (const name of ['_pkg', '@secret', 'foo@bar', ' pkg']) {
+      expect(validatePackage(name)).toBeFalsy();
+    }
+  });
+
+  test('should keep accepting route parameters', () => {
+    for (const value of ['aux', 'con', 'next', 'con-1.0.0.tgz', 'old-package@0.1.2.tgz', '1.0.0']) {
+      expect(validateName(value)).toBeTruthy();
+    }
   });
 });
 
@@ -109,6 +171,19 @@ describe('validateName', () => {
     expect(validateName('some\\thing')).toBeFalsy();
   });
 
+  test('should validate every segment of a scoped name', () => {
+    expect(validateName('@scope/pkg')).toBeTruthy();
+    expect(validateName('@Scope/JSONStream')).toBeTruthy();
+    expect(validateName('@scope')).toBeTruthy();
+    expect(validateName('@scope/pkg/extra')).toBeFalsy();
+    expect(validateName('@scope/pkg/..')).toBeFalsy();
+    expect(validateName('@x/y/../../etc/passwd')).toBeFalsy();
+    expect(validateName('@../pkg')).toBeFalsy();
+    expect(validateName('@.hidden/pkg')).toBeFalsy();
+    expect(validateName('@scope/')).toBeFalsy();
+    expect(validateName('@/pkg')).toBeFalsy();
+  });
+
   test('should fail with no hidden files', () => {
     expect(validateName('.bin')).toBeFalsy();
   });
@@ -129,6 +204,22 @@ describe('validateName', () => {
 });
 
 describe('validatePassword', () => {
+  test.each([undefined, null, 123, true, [], {}, { old: 'old-pass', new: 'new-pass' }])(
+    'rejects non-string passwords even with a permissive policy: %j',
+    (password) => {
+      expect(validatePassword(password)).toBe(false);
+      expect(validatePassword(password, /^/)).toBe(false);
+    }
+  );
+
+  test.each(['', 'x', 'old\npassword'])(
+    'allows legacy passwords with an explicitly permissive policy: %j',
+    (password) => {
+      expect(validatePassword(password, /^/)).toBe(true);
+      expect(validatePassword(password, '^new-.{4,}$')).toBe(false);
+    }
+  );
+
   test('should validate password according the length', () => {
     expect(validatePassword('12345', DEFAULT_PASSWORD_VALIDATION)).toBeTruthy();
   });
@@ -143,12 +234,10 @@ describe('validatePassword', () => {
   });
 
   test('should validate invalid password)', () => {
-    // @ts-expect-error
     expect(validatePassword(undefined)).toBeFalsy();
   });
 
   test('should validate invalid password number)', () => {
-    // @ts-expect-error
     expect(validatePassword(2342344234342)).toBeFalsy();
   });
 

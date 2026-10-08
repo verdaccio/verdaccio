@@ -1,5 +1,20 @@
 # verdaccio
 
+## 9.0.0-next-9.34
+
+### Patch Changes
+
+- 8409cdb: Update the master release tooling to Changesets CLI v3.0.3.
+- Updated dependencies [31e18e8]
+  - verdaccio-htpasswd@14.0.0-next-9.34
+  - @verdaccio/server@9.0.0-next-9.34
+  - @verdaccio/cli@9.0.0-next-9.34
+  - @verdaccio/config@9.0.0-next-9.34
+  - verdaccio-audit@14.0.0-next-9.34
+  - @verdaccio/package-filter@14.0.0-next-9.58
+  - @verdaccio/node-api@9.0.0-next-9.34
+  - @verdaccio/ui-theme@9.0.0-next-9.34
+
 ## 9.0.0-next-9.33
 
 ### Minor Changes

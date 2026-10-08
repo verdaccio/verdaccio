@@ -9,6 +9,19 @@ const fixturesPath = join(import.meta.dirname, 'fixtures');
 
 describe('verifyPlugin', () => {
   describe('authentication plugins', () => {
+    it('rejects async adduser with a callback-contract diagnostic', async () => {
+      const result = await verifyPlugin({
+        pluginPath: 'async-adduser-plugin',
+        category: PLUGIN_CATEGORY.AUTHENTICATION,
+        pluginsFolder: fixturesPath,
+      });
+
+      expect(result.success).toBe(false);
+      expect(result.pluginsLoaded).toBe(0);
+      expect(result.error).toContain('adduser must be a non-async function returning void');
+      expect(result.diagnostics?.find((step) => step.phase === 'sanity-check')?.pass).toBe(false);
+    });
+
     it('should verify a valid auth plugin (CommonJS)', async () => {
       const result = await verifyPlugin({
         pluginPath: 'valid-auth-plugin',

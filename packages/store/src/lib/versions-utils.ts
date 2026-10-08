@@ -19,7 +19,7 @@ export function getVersion(versions: Versions, version: string): Version | undef
   }
 
   // this condition must allow cast
-  if (isNil(versions[version]) === false) {
+  if (Object.hasOwn(versions, version) && isNil(versions[version]) === false) {
     return versions[version];
   }
 

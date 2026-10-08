@@ -32,7 +32,8 @@ describe('file destination runtime error handling (in-process)', () => {
         process.removeListener('SIGUSR2', listener as NodeJS.SignalsListener);
       }
     }
-    fs.rmSync(directory, { recursive: true, force: true });
+    // async destinations may still be writing; retry until the folder settles
+    fs.rmSync(directory, { recursive: true, force: true, maxRetries: 5, retryDelay: 50 });
     vi.restoreAllMocks();
   });
 

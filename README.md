@@ -290,6 +290,7 @@ You can find and chat with them over Discord, click [here](http://chat.verdaccio
 
 ## Who is using Verdaccio?
 
+- [n8n](https://github.com/n8n-io/n8n) _(+206.7k ⭐️)_
 - [create-react-app](https://github.com/facebook/create-react-app) _(+103.4k ⭐️)_
 - [Grafana](https://github.com/grafana/grafana/search?q=verdaccio) _(+74.1k ⭐️)_
 - [Docusaurus](https://github.com/facebook/docusaurus) _(+65.1k ⭐️)_

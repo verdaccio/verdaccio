@@ -1,0 +1,117 @@
+name: Proxy install of popular packages
+
+on:
+  workflow_dispatch:
+    inputs:
+      dist-tag:
+        description: 'verdaccio dist-tag on npm: latest (6.x), next-7 (7.x) or next-9 (master)'
+        required: true
+        type: choice
+        default: 'latest'
+        options: ['latest', 'next-7', 'next-9']
+      concurrency:
+        description: 'Installs running at the same time against the proxy'
+        required: true
+        type: choice
+        default: '5'
+        options: ['5', '10', '20']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: proxy-install-popular
+  cancel-in-progress: false
+
+jobs:
+  install:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    name: verdaccio@${{ inputs.dist-tag }}, ${{ inputs.concurrency }} at a time
+    timeout-minutes: 60
+    env:
+      MIN_RELEASE_AGE: 7
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: '.nvmrc'
+      # npm ignores unknown config silently, which would drop the release-age policy
+      - name: Check npm supports the release-age policy
+        run: |
+          node -e "
+            const { definitions } = require('$(npm root --global)/npm/node_modules/@npmcli/config/lib/definitions');
+            for (const key of ['min-release-age', 'min-release-age-exclude']) {
+              if (!definitions[key]) { console.error('npm ' + require('$(npm root --global)/npm/package.json').version + ' does not support ' + key); process.exit(1); }
+            }"
+      - name: Install verdaccio@${{ inputs.dist-tag }}
+        id: verdaccio
+        env:
+          DIST_TAG: ${{ inputs.dist-tag }}
+        run: |
+          # The chosen verdaccio release may be days old; its third-party dependencies may not
+          npm install --global "verdaccio@$DIST_TAG" --ignore-scripts --no-audit --no-fund \
+            --min-release-age "$MIN_RELEASE_AGE" \
+            --min-release-age-exclude verdaccio \
+            --min-release-age-exclude '@verdaccio/*' \
+            --min-release-age-exclude 'verdaccio-*'
+          pkg="$(npm root --global)/verdaccio"
+          echo "bin=$pkg/$(node -p "const b = require('$pkg/package.json').bin; typeof b === 'string' ? b : b.verdaccio")" >> "$GITHUB_OUTPUT"
+          version=$(node -p "require('$pkg/package.json').version")
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "Running verdaccio $version"
+      - name: Prepare config
+        run: |
+          mkdir -p /tmp/verdaccio-proxy
+          cp scripts/proxy-install-config.yaml /tmp/verdaccio-proxy/config.yaml
+      # Only for the verdaccio process: npm skips devDependencies under NODE_ENV=production
+      - uses: ./.github/actions/start-verdaccio
+        env:
+          NODE_ENV: production
+        with:
+          bin: ${{ steps.verdaccio.outputs.bin }}
+          config: /tmp/verdaccio-proxy/config.yaml
+          log: /tmp/verdaccio-proxy/verdaccio.log
+      - name: Install popular packages through the proxy
+        run: ./scripts/proxy-install-popular.sh
+        env:
+          REGISTRY: http://localhost:4873
+          CONCURRENCY: ${{ inputs.concurrency }}
+          VERDACCIO_VERSION: ${{ steps.verdaccio.outputs.version }}
+      - name: Show Verdaccio logs
+        if: always()
+        run: cat /tmp/verdaccio-proxy/verdaccio.log 2>/dev/null || echo "No log file found"
+      - name: Add Verdaccio activity to the summary
+        if: always()
+        run: |
+          log=/tmp/verdaccio-proxy/verdaccio.log
+          storage=/tmp/verdaccio-proxy/storage
+          # The step runs with bash -e: grep exits 1 on no match, so every lookup must tolerate it
+          count() { local n; n=$(grep -cE "$1" "$log" 2>/dev/null || true); echo "${n:-0}"; }
+          {
+            echo "### Verdaccio ${{ steps.verdaccio.outputs.version || inputs.dist-tag }}"
+            echo
+            echo "| | |"
+            echo "| --- | --- |"
+            pid=$(pgrep -f "verdaccio --config /tmp/verdaccio-proxy/config.yaml" | head -n1 || true)
+            env_of_pid=""
+            if [ -n "$pid" ] && [ -r "/proc/$pid/environ" ]; then
+              env_of_pid=$(tr '\0' '\n' < "/proc/$pid/environ" | grep '^NODE_ENV=' | cut -d= -f2 || true)
+            fi
+            echo "| NODE_ENV of the verdaccio process | ${env_of_pid:-unset or process not running} |"
+            echo "| Packages cached | $(find "$storage" -name package.json 2>/dev/null | wc -l | tr -d ' ') |"
+            size=$(du -sh "$storage" 2>/dev/null | cut -f1 || true)
+            echo "| Tarballs cached | $(find "$storage" -name '*.tgz' 2>/dev/null | wc -l | tr -d ' ') (${size:-0}) |"
+            echo "| Concurrent cache writes of the same tarball | $(count 'error saving file') |"
+            echo "| Uplink marked offline | $(count 'is now offline') |"
+            echo "| Warnings and errors in the log (startup line excluded) | $(( $(count '^(warn|error|fatal)') - $(count '^warn --- http address') )) |"
+            if grep -qE '^(error|fatal)|is now offline' "$log" 2>/dev/null; then
+              echo
+              echo "<details><summary>Errors in the Verdaccio log</summary>"
+              echo
+              echo '```'
+              grep -E -A3 '^(error|fatal)|is now offline' "$log" | tail -n 60
+              echo '```'
+              echo "</details>"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

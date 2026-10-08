@@ -1,5 +1,43 @@
 # @verdaccio/api
 
+## 9.0.0-next-9.34
+
+### Patch Changes
+
+- 83eb46c: fix(store): enforce `publish.check_owners` on deprecate, version unpublish and dist-tags
+  
+  `npm deprecate`, version-level unpublish and dist-tag changes all mutate the package through the store without the store-level ownership check used by publish, owner changes, tarball removal, and package removal. With `unpublish: $authenticated`, that check is the only owner protection on these routes.
+  
+  - `deprecate` and `unPublishAPackage` now run the ownership check against the stored manifest before applying the change; the package name is always taken from the request URL, never from the request body.
+  - `mergeTagsNext` (dist-tag add/rm) now runs the ownership check as well.
+  - `changePackage` no longer wipes the stored `maintainers` list when the request body omits it (e.g. deprecate bodies), which previously turned the ownership check into a no-op for that package.
+  - Cached manifests of proxied packages now record the upstream maintainers, so the ownership check also protects them (they were created with an empty list, which skips the check).
+  - `changePackage` rejects bodies whose `_rev` is missing or empty (422) or does not match the stored revision (409); a deprecate without a revision, or with a stale one, no longer silently drops concurrently published versions, and a stale version unpublish no longer reports success without applying (which made npm delete the tarball anyway). Empty `_rev` is also rejected by the unpublish body schema.
+  - `changeOwners` keeps the request body's `_rev` when calling `changePackage` instead of substituting the latest local revision, so a concurrent owner update with a stale revision is rejected rather than overwriting the other change.
+  - The owner pre-check on `GET /:package?write=true` now actually runs (it read a request option that was never set) and returns 403 instead of wrapping it into a 400.
+  - fix(local-storage): errors thrown by the `updatePackage` handler are no longer masked as `resource temporarily unavailable` after unlocking; the original error (403 forbidden, 404 unknown tag version, 409 conflict) reaches the client.
+- a376746: Return HTTP 400 with `ERR_TEXT_MISSING` when Search v1 receives no usable `text` query parameter.
+  
+  Earlier releases in the 9.x API line could treat missing or blank search text as a successful search with no results. The endpoint now requires a single string containing at least one non-whitespace character. Missing, empty, whitespace-only, or repeated values are rejected before searching local packages or uplinks, with npm's JSON error message and code.
+  
+  Clients calling `GET /-/v1/search` directly must supply a non-blank `text` value. A valid search with no matching packages still returns HTTP 200 with an empty results array.
+- 4064b28: Improve validation of Search v1 query parameters.
+  
+  `size` and `from` now accept only a single plain value; anything else, including repeated parameters, falls back to the default page size and offset, as other non-numeric values already did. Only plain string parameters are forwarded to uplinks. Registry configuration does not need to change.
+- Updated dependencies [83eb46c]
+- Updated dependencies [0cac607]
+- Updated dependencies [b6cc475]
+- Updated dependencies [83eb46c]
+- Updated dependencies [31e18e8]
+- Updated dependencies [83eb46c]
+  - @verdaccio/store@9.0.0-next-9.34
+  - @verdaccio/core@9.0.0-next-9.34
+  - @verdaccio/auth@9.0.0-next-9.34
+  - @verdaccio/config@9.0.0-next-9.34
+  - @verdaccio/hooks@9.0.0-next-9.34
+  - @verdaccio/logger@9.0.0-next-9.34
+  - @verdaccio/middleware@9.0.0-next-9.34
+
 ## 9.0.0-next-9.33
 
 ### Patch Changes

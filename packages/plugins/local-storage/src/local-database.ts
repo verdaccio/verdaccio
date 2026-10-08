@@ -227,9 +227,15 @@ class LocalDatabase extends pluginUtils.Plugin<{}> implements Storage {
     const packageStoragePath = fileUtils.resolveSafePath(storagePath, packageName);
     debug('package path %o', packageStoragePath);
 
-    if (isNil(packageStoragePath)) {
-      this.logger.error(
-        'package-specific storage path is not under the configured storage directory or is invalid'
+    // the folder must be the name itself, not a normalized form of it
+    const isExactFolder =
+      !isNil(packageStoragePath) &&
+      path.relative(storagePath, packageStoragePath).split(path.sep).join('/') === packageName;
+
+    if (!isExactFolder) {
+      this.logger.warn(
+        { packageName },
+        'package @{packageName} has no local storage because its name does not match its folder'
       );
       throw errorUtils.getInternalError(
         'package-specific storage path is not under the configured storage directory or is invalid'
@@ -327,6 +333,8 @@ class LocalDatabase extends pluginUtils.Plugin<{}> implements Storage {
       debug('token db generated');
       this.tokenDb = new Low<Record<string, Token[]>>(adapter, {});
       await this.tokenDb.read();
+      // keyed by username: names like `constructor` or `__proto__` must not hit the prototype
+      this.tokenDb.data = Object.assign(Object.create(null), this.tokenDb.data);
     }
 
     return this.tokenDb;

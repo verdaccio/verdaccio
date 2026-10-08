@@ -247,19 +247,30 @@ describe('Local Database', () => {
       }).toThrow(PACKAGE_PATH_ERROR);
     });
 
-    test('should normalize in-root scoped package path segments safely', () => {
-      const storageRoot = path.resolve(path.join(tmpFolder, STORAGE_FOLDER));
+    test.each(['@scope/../other', '@scope/foo/../../etc', '@scope//pkg', 'pkg/', '.', './pkg'])(
+      'should reject %s, which does not map to a folder of the same name',
+      (pkgName) => {
+        expect(() => locaDatabase.getPackageStorage(pkgName)).toThrow(PACKAGE_PATH_ERROR);
+      }
+    );
 
-      const otherStorage = locaDatabase.getPackageStorage('@scope/../other');
-      expect(path.resolve((otherStorage as ILocalFSPackageManager).path)).toBe(
-        path.resolve(storageRoot, 'other')
-      );
-
-      const etcStorage = locaDatabase.getPackageStorage('@scope/foo/../../etc');
-      expect(path.resolve((etcStorage as ILocalFSPackageManager).path)).toBe(
-        path.resolve(storageRoot, 'etc')
-      );
+    test('should warn when a name does not match its folder', () => {
+      const warn = vi.spyOn(getOptionsPlugin().logger, 'warn');
+      expect(() => locaDatabase.getPackageStorage('@scope//pkg')).toThrow(PACKAGE_PATH_ERROR);
+      expect(warn).toHaveBeenCalledWith({ packageName: '@scope//pkg' }, expect.any(String));
+      warn.mockRestore();
     });
+
+    test.each(['nul', 'con', '@scope/aux', '@con/foo', 'pkg.'])(
+      'should keep a storage folder named %s',
+      (pkgName) => {
+        const storageRoot = path.resolve(path.join(tmpFolder, STORAGE_FOLDER));
+        const storage = locaDatabase.getPackageStorage(pkgName);
+        expect(path.resolve((storage as ILocalFSPackageManager).path)).toBe(
+          path.resolve(storageRoot, pkgName)
+        );
+      }
+    );
 
     test('should use custom storage', () => {
       const pkgName = 'local-private-package';
