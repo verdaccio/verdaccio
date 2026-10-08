@@ -1321,8 +1321,15 @@ class Storage {
     // get the unique version available
     const [versionToPublish] = Object.keys(versions);
 
-    // at this point document is either created or existed before
+    // Scoped clients include the scope in the key; storage uses only the basename.
     const [firstAttachmentKey] = Object.keys(_attachments);
+    const tarballName = basename(firstAttachmentKey);
+    if (
+      !validationUtils.validateName(firstAttachmentKey) ||
+      !validationUtils.validateName(tarballName)
+    ) {
+      throw errorUtils.getBadRequest(`invalid tarball name ${firstAttachmentKey}`);
+    }
     const buffer = this.getBufferManifest(body._attachments[firstAttachmentKey].data as string);
 
     try {
@@ -1391,7 +1398,7 @@ class Storage {
     // 3. upload the tarball to the storage
     try {
       const readable = Readable.from(buffer);
-      await this.uploadTarball(name, basename(firstAttachmentKey), readable, {
+      await this.uploadTarball(name, tarballName, readable, {
         signal: options.signal,
       });
     } catch (err: any) {

@@ -106,9 +106,9 @@ async function createUploadFixture() {
     await fs.rm(root, { recursive: true, force: true });
   });
 
-  function start() {
+  function start(filename = fileName) {
     const outcome = storage
-      .uploadTarball(pkgName, fileName, source, { signal: controller.signal })
+      .uploadTarball(pkgName, filename, source, { signal: controller.signal })
       .then(
         () => ({ ok: true as const }),
         (error: NodeJS.ErrnoException) => ({ ok: false as const, error })
@@ -139,6 +139,7 @@ async function createUploadFixture() {
   }
 
   return {
+    storage,
     start,
     source,
     destination,
@@ -159,6 +160,36 @@ async function createUploadFixture() {
 }
 
 describe('tarball upload failure finalization', () => {
+  test('rejects an invalid name and closes the source before destination setup', async () => {
+    const fixture = await createUploadFixture();
+    const result = await fixture.start('..');
+    expect(result).toMatchObject({ ok: false, error: { code: 'ERR_ASSERTION' } });
+    expect(fixture.source.destroyed).toBe(true);
+    expect(fixture.writeTarball).not.toHaveBeenCalled();
+    expect(fixture.updatePackage).not.toHaveBeenCalled();
+    expect(fixture.success).not.toHaveBeenCalled();
+  });
+
+  test('rejects an invalid publish attachment through the storage API before changing metadata', async () => {
+    const fixture = await createUploadFixture();
+    const before = await fs.readFile(fixture.manifestPath, 'utf8');
+    const metadata = generatePackageMetadata(pkgName, '1.0.1');
+    const [attachment] = Object.values(metadata._attachments);
+    metadata._attachments = { '..': attachment };
+    await expect(
+      fixture.storage.updateManifest(metadata, {
+        name: pkgName,
+        signal: fixture.controller.signal,
+        uplinksLook: false,
+        revision: '1',
+        requestOptions: { host: 'localhost', protocol: 'http', headers: {} },
+      })
+    ).rejects.toMatchObject({ statusCode: 400, message: 'invalid tarball name ..' });
+    expect(await fs.readFile(fixture.manifestPath, 'utf8')).toBe(before);
+    expect(fixture.writeTarball).not.toHaveBeenCalled();
+    expect(fixture.updatePackage).not.toHaveBeenCalled();
+  });
+
   test('rejects a destination ENOSPC after data was written without recording the tarball', async () => {
     const fixture = await createUploadFixture();
     const outcome = fixture.start();

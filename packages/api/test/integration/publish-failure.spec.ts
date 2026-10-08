@@ -111,6 +111,62 @@ async function fixture(pkgName: string) {
 }
 
 describe.each(['publish-failure', '@scope/publish-failure'])('HTTP publishing of %s', (pkgName) => {
+  test.each([
+    '',
+    '..',
+    '.hidden.tgz',
+    'foo bar.tgz',
+    'node_modules',
+    'favicon.ico',
+    '__proto__',
+    'NODE_MODULES',
+    'foo%20bar.tgz',
+    'foo\\bar.tgz',
+    '@scope/.hidden.tgz',
+    '@scope/node_modules',
+    '@scope/__proto__',
+    '@scope/valid/..',
+  ])('rejects invalid attachment %j before writing and allows a corrected retry', async (key) => {
+    const ctx = await fixture(pkgName);
+    for (const version of ['1.0.0', '1.0.1']) {
+      const previous = version === '1.0.1' ? await ctx.readManifest() : undefined;
+      const metadata = ctx.payload(version);
+      const [attachment] = Object.values(metadata._attachments);
+      const attempts = ctx.write.mock.calls.length;
+      const response = await ctx
+        .publish({ ...metadata, _attachments: { [key]: attachment } })
+        .expect(HTTP_STATUS.BAD_REQUEST);
+      expect(response.body.error).toEqual(`invalid tarball name ${key}`);
+      expect(response.body.success).toBeUndefined();
+      expect(ctx.write).toHaveBeenCalledTimes(attempts);
+      if (previous) {
+        expect(await ctx.readManifest()).toEqual(previous);
+      } else {
+        expect(fs.existsSync(ctx.packagePath)).toBe(false);
+      }
+      await ctx.publish(metadata).expect(HTTP_STATUS.CREATED);
+      await ctx.expectAvailable(metadata);
+      const saved = await ctx.readManifest();
+      expect(saved.versions[version]).toBeDefined();
+      expect(saved['dist-tags'].latest).toBe(version);
+    }
+  });
+
+  test.each(['plain', 'scoped', 'legacy'] as const)(
+    'accepts a %s attachment name and serves the stored tarball',
+    async (style) => {
+      const ctx = await fixture(pkgName);
+      const metadata = ctx.payload('1.0.0');
+      const [attachment] = Object.values(metadata._attachments);
+      const filename = style === 'legacy' ? 'package@1.0.0.tgz' : 'package-1.0.0.tgz';
+      const key = style === 'scoped' ? `@scope/${filename}` : filename;
+      metadata._attachments = { [key]: attachment };
+      metadata.versions['1.0.0'].dist.tarball = `http://localhost/${pkgName}/-/${filename}`;
+      await ctx.publish(metadata).expect(HTTP_STATUS.CREATED);
+      await ctx.expectAvailable({ ...metadata, _attachments: { [filename]: attachment } });
+    }
+  );
+
   test.each(['prepare', 'partial write', 'rename'] as const)(
     'reports a %s failure, cleans up and characterizes retries',
     async (failure) => {
