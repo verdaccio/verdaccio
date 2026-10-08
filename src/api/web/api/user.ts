@@ -53,10 +53,14 @@ function addUserAuthApi(auth: Auth, config: Config): Router {
           });
         }
 
-        const { password } = req.body;
+        const password = req.body?.password;
         const { name } = req.remote_user;
 
-        if (validationUtils.validatePassword(password.new) === false) {
+        // Existing passwords may predate the current password policy.
+        if (
+          validationUtils.validatePassword(password?.old, /^/) === false ||
+          validationUtils.validatePassword(password?.new) === false
+        ) {
           return next(ErrorCode.getCode(HTTP_STATUS.BAD_REQUEST, APP_ERROR.PASSWORD_VALIDATION));
         }
 
