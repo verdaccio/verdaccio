@@ -1,5 +1,21 @@
 # @verdaccio/api
 
+## 9.0.0-next-9.35
+
+### Patch Changes
+
+- f8369c9: fix: return 401 when auth credentials are invalid on GET /-/user/
+- eca39a9: chore(api): helper clean-up
+- Updated dependencies [d733daf]
+- Updated dependencies [1693358]
+  - @verdaccio/store@9.0.0-next-9.35
+  - @verdaccio/core@9.0.0-next-9.35
+  - @verdaccio/auth@9.0.0-next-9.35
+  - @verdaccio/config@9.0.0-next-9.35
+  - @verdaccio/hooks@9.0.0-next-9.35
+  - @verdaccio/logger@9.0.0-next-9.35
+  - @verdaccio/middleware@9.0.0-next-9.35
+
 ## 9.0.0-next-9.34
 
 ### Patch Changes
