@@ -3,7 +3,13 @@ import { describe, expect, test, vi } from 'vitest';
 
 import { API_ERROR, HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core';
 
-import { buildToken, createUser, getPackage, initializeServer } from './_helper';
+import {
+  buildToken,
+  createUser,
+  getPackage,
+  initializeServer,
+  initializeServerWithContext,
+} from './_helper';
 
 const FORBIDDEN_VUE = 'authorization required to access package vue';
 
@@ -211,6 +217,20 @@ describe('token', () => {
         expect(response.body.error).toBe(API_ERROR.BAD_USERNAME_PASSWORD);
       }
     );
+
+    test('should return 401 when the Bearer token is valid but expired', async () => {
+      const { app, auth } = await initializeServerWithContext('user.jwt.yaml');
+      const expiredToken = await auth.jwtEncrypt(
+        { name: 'test', real_groups: [], groups: [] } as any,
+        { expiresIn: '-1s' }
+      );
+      const response = await supertest(app)
+        .get('/-/user/org.couchdb.user:test')
+        .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, expiredToken))
+        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+        .expect(HTTP_STATUS.UNAUTHORIZED);
+      expect(response.body.error).toBe(API_ERROR.BAD_USERNAME_PASSWORD);
+    });
 
     test.each([['user.yaml'], ['user.jwt.yaml']])(
       'should return 400 when Authorization header is malformed',
