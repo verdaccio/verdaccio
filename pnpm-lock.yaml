@@ -1559,10 +1559,10 @@ importers:
         version: 11.14.1(@emotion/react@11.14.0(@types/react@19.2.18)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.2.18)(react@19.3.0)(supports-color@5.5.0)
       '@hookform/resolvers':
         specifier: 5.9.1
-        version: 5.9.1(@standard-schema/spec@1.1.0)(ajv@8.20.0)(react-hook-form@7.88.0(react@19.3.0))(typanion@3.14.0)(yup@1.7.1)
+        version: 5.9.1(@standard-schema/spec@1.1.0)(ajv@8.20.0)(react-hook-form@7.89.0(@types/react@19.2.18)(react@19.3.0))(typanion@3.14.0)(yup@1.7.1)
       '@microlink/react-json-view':
-        specifier: 1.31.34
-        version: 1.31.34(@types/react@19.2.18)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+        specifier: 1.31.38
+        version: 1.31.38(@types/react@19.2.18)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@mui/icons-material':
         specifier: 7.3.11
         version: 7.3.11(@mui/material@7.3.11(@emotion/react@11.14.0(@types/react@19.2.18)(react@19.3.0)(supports-color@5.5.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.18)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.2.18)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.2.18)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(@types/react@19.2.18)(react@19.3.0)
@@ -1594,8 +1594,8 @@ importers:
         specifier: 25.10.10
         version: 25.10.10(typescript@7.0.2)
       js-base64:
-        specifier: 3.9.3
-        version: 3.9.3
+        specifier: 3.9.4
+        version: 3.9.4
       localstorage-memory:
         specifier: 1.0.3
         version: 1.0.3
@@ -1618,8 +1618,8 @@ importers:
         specifier: 19.3.0
         version: 19.3.0(react@19.3.0)
       react-hook-form:
-        specifier: 7.88.0
-        version: 7.88.0(react@19.3.0)
+        specifier: 7.89.0
+        version: 7.89.0(@types/react@19.2.18)(react@19.3.0)
       react-i18next:
         specifier: 16.6.6
         version: 16.6.6(i18next@25.10.10(typescript@7.0.2))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(typescript@7.0.2)
@@ -2432,8 +2432,8 @@ packages:
       '@types/react': '>=16'
       react: '>=16'
 
-  '@microlink/react-json-view@1.31.34':
-    resolution: {integrity: sha512-GeOm9g/0Jng+F93/lxcSlB/i/7o1r0AeYn+CBIEafCnMV3Xc1Ie8lJBbkgK0JOFqjZ4qBcib7/hL9160prQwmA==}
+  '@microlink/react-json-view@1.31.38':
+    resolution: {integrity: sha512-utEYo7dRhlFpgPovgYv3LkIuiL7H0z72xClfpN5/MvxMJP2WkbdivTGTEf43fy7pxn7D0ED+KFlN89Tbw6QlpA==}
     engines: {node: '>=17'}
     peerDependencies:
       react: '>= 15'
@@ -4753,8 +4753,8 @@ packages:
   jju@1.4.0:
     resolution: {integrity: sha512-8wb9Yw966OSxApiCt0K3yNJL8pnNeIv+OEq2YMidz4FKP6nonSRoOXc80iXY4JaN2FC11B9qsNmDsm+ZOfMROA==}
 
-  js-base64@3.9.3:
-    resolution: {integrity: sha512-uwYQp+VJ38FVvtim6qNbit6e9uT6dwWQ4Y1+H9TxhW5hcHjpHwoxlR0nMpqUmIFOmu4VqMxwdJA88gIVuZJQ/g==}
+  js-base64@3.9.4:
+    resolution: {integrity: sha512-PtOMXpEGuP0RRiRXsjzHzl44dMHxSu2CPvAhinupR1tBa88me+1DPqsobl7eupn5UukjLkln1ZnAOAOXOrYG0Q==}
 
   js-tokens@10.0.0:
     resolution: {integrity: sha512-lM/UBzQmfJRo9ABXbPWemivdCW8V2G8FHaHdypQaIy523snUjog0W71ayWXTjiR+ixeMyVHN2XcpnTd/liPg/Q==}
@@ -5641,11 +5641,15 @@ packages:
     peerDependencies:
       react: ^19.3.0
 
-  react-hook-form@7.88.0:
-    resolution: {integrity: sha512-QRaLOWhX93YCnMiRfnOFRSwWXZNt8qhm2JTZwypoDvKpSffTJHmpzMXt8U6PV5UThvL3IiiLDUWe2nHMtz6Mmw==}
+  react-hook-form@7.89.0:
+    resolution: {integrity: sha512-vKcoCfy8RKZDrhSdqsRFp0uEOdS1AhLjOL6hR7Wmfzg1akNxEhaPf5WORx8SgEQPVXakdDyDkqQp+KNxVnnPHg==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
+      '@types/react': '*'
       react: ^16.8.0 || ^17 || ^18 || ^19
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
 
   react-i18next@16.6.6:
     resolution: {integrity: sha512-ZgL2HUoW34UKUkOV7uSQFE1CDnRPD+tCR3ywSuWH7u2iapnz86U8Bi3Vrs620qNDzCf1F47NxglCEkchCTDOHw==}
@@ -7155,10 +7159,10 @@ snapshots:
       '@shikijs/types': 3.13.0
       '@shikijs/vscode-textmate': 10.0.2
 
-  '@hookform/resolvers@5.9.1(@standard-schema/spec@1.1.0)(ajv@8.20.0)(react-hook-form@7.88.0(react@19.3.0))(typanion@3.14.0)(yup@1.7.1)':
+  '@hookform/resolvers@5.9.1(@standard-schema/spec@1.1.0)(ajv@8.20.0)(react-hook-form@7.89.0(@types/react@19.2.18)(react@19.3.0))(typanion@3.14.0)(yup@1.7.1)':
     dependencies:
       '@standard-schema/utils': 0.3.0
-      react-hook-form: 7.88.0(react@19.3.0)
+      react-hook-form: 7.89.0(@types/react@19.2.18)(react@19.3.0)
     optionalDependencies:
       '@standard-schema/spec': 1.1.0
       ajv: 8.20.0
@@ -7266,7 +7270,7 @@ snapshots:
       '@types/react': 19.2.18
       react: 19.3.0
 
-  '@microlink/react-json-view@1.31.34(@types/react@19.2.18)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
+  '@microlink/react-json-view@1.31.38(@types/react@19.2.18)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
       react: 19.3.0
       react-base16-styling: 0.10.0
@@ -9552,7 +9556,7 @@ snapshots:
 
   jju@1.4.0: {}
 
-  js-base64@3.9.3: {}
+  js-base64@3.9.4: {}
 
   js-tokens@10.0.0: {}
 
@@ -10573,9 +10577,11 @@ snapshots:
       react: 19.3.0
       scheduler: 0.28.0
 
-  react-hook-form@7.88.0(react@19.3.0):
+  react-hook-form@7.89.0(@types/react@19.2.18)(react@19.3.0):
     dependencies:
       react: 19.3.0
+    optionalDependencies:
+      '@types/react': 19.2.18
 
   react-i18next@16.6.6(i18next@25.10.10(typescript@7.0.2))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(typescript@7.0.2):
     dependencies:
