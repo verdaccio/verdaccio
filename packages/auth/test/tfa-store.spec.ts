@@ -268,6 +268,15 @@ describe('TfaStore', () => {
       await expect(store.verify('jota', currentCode(secret, 1))).resolves.toBe(false);
     });
 
+    test('should still lock out after the same number of failures fired concurrently', async () => {
+      const { store, secret } = await enrol();
+
+      // the existing lockout test above only covers sequential failures
+      await Promise.all(Array.from({ length: 5 }, () => store.verify('jota', '000000')));
+
+      await expect(store.verify('jota', currentCode(secret, 1))).resolves.toBe(false);
+    });
+
     test('should clear the failure count on a success', async () => {
       const { store, secret, codes } = await enrol();
 
