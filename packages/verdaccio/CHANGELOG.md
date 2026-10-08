@@ -1,5 +1,22 @@
 # verdaccio
 
+## 9.0.0-next-9.35
+
+### Patch Changes
+
+- 2d3bcca: Update the bundled Express dependencies to clear two advisories in the shipped dependency tree.
+  
+  `proxy-addr` is forced to `>=2.0.8` (GHSA-jqcg-44mw-7w3h, IP spoofing via an IPv4-mapped IPv6 trust subnet) and `compression` to `>=1.8.2` (GHSA-vc2v-76pw-4v95, denial of service through a memory leak when a response closes prematurely). Both are reached transitively through Express; the fix is applied as a workspace override, so no configuration change is required when upgrading.
+- Updated dependencies [7027b96]
+  - verdaccio-htpasswd@14.0.0-next-9.35
+  - @verdaccio/server@9.0.0-next-9.35
+  - @verdaccio/cli@9.0.0-next-9.35
+  - @verdaccio/config@9.0.0-next-9.35
+  - verdaccio-audit@14.0.0-next-9.35
+  - @verdaccio/package-filter@14.0.0-next-9.59
+  - @verdaccio/node-api@9.0.0-next-9.35
+  - @verdaccio/ui-theme@9.0.0-next-9.35
+
 ## 9.0.0-next-9.34
 
 ### Patch Changes

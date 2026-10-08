@@ -1,5 +1,13 @@
 # @verdaccio/core
 
+## 9.0.0-next-9.35
+
+### Patch Changes
+
+- 1693358: Improve request validation when changing passwords through the web API.
+  
+  Password changes validate the supplied credential fields before invoking the authentication plugin and retain the configured policy for new passwords. Existing passwords remain eligible for replacement even when they do not meet the current policy. No configuration changes are required.
+
 ## 9.0.0-next-9.34
 
 ### Patch Changes
