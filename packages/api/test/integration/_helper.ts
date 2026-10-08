@@ -134,8 +134,7 @@ export function publishVersion(
   app: any,
   pkgName: string,
   version: string,
-  distTags?: GenericBody,
-  token?: string
+  distTags?: GenericBody
 ): supertest.Test {
   const pkgMetadata = generatePackageMetadata(pkgName, version, distTags);
 
@@ -145,10 +144,6 @@ export function publishVersion(
     .send(JSON.stringify(pkgMetadata))
     .set('accept', HEADERS.GZIP)
     .set(HEADER_TYPE.ACCEPT_ENCODING, HEADERS.JSON);
-
-  if (typeof token === 'string' && isEmpty(token) === false) {
-    test.set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token));
-  }
 
   return test;
 }
