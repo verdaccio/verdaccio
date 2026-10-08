@@ -12,7 +12,11 @@ updates:
     assignees:
       - 'verdacciopack'
     schedule:
-      interval: 'weekly'
+      interval: 'monthly'
+    groups:
+      github-actions:
+        patterns:
+          - '*'
     labels:
       - 'bot: dependencies'
     commit-message:
