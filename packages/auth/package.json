@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/auth",
-  "version": "8.1.5",
+  "version": "8.1.6",
   "description": "Verdaccio Authentication",
   "keywords": [
     "enterprise",
@@ -55,17 +55,17 @@
     "build": "vite build && tsc --emitDeclarationOnly -p tsconfig.build.json"
   },
   "dependencies": {
-    "@verdaccio/config": "workspace:8.3.2",
-    "@verdaccio/core": "workspace:8.3.2",
-    "@verdaccio/loaders": "workspace:8.1.5",
-    "@verdaccio/signature": "workspace:8.1.5",
+    "@verdaccio/config": "workspace:8.3.3",
+    "@verdaccio/core": "workspace:8.3.3",
+    "@verdaccio/loaders": "workspace:8.1.6",
+    "@verdaccio/signature": "workspace:8.1.6",
     "debug": "4.4.3",
     "lodash": "4.18.1",
-    "verdaccio-htpasswd": "workspace:13.1.5"
+    "verdaccio-htpasswd": "workspace:13.1.6"
   },
   "devDependencies": {
-    "@verdaccio/logger": "workspace:8.1.5",
-    "@verdaccio/middleware": "workspace:8.1.6",
+    "@verdaccio/logger": "workspace:8.1.6",
+    "@verdaccio/middleware": "workspace:8.1.7",
     "@verdaccio/types": "workspace:13.0.6",
     "express": "4.22.3",
     "supertest": "7.1.4",
