@@ -52,7 +52,7 @@ export async function initializeServerWithContext(configName: string) {
   config.configPath = config.storage;
 
   const storage = new Storage(config, logger);
-  await storage.init(config, []);
+  await storage.init(config);
   const auth = new Auth(config, logger);
   await auth.init();
 
