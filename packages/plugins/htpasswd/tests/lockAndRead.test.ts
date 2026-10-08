@@ -36,7 +36,8 @@ describe('lockAndRead', () => {
     await expect(access(`${file}.lock`)).rejects.toMatchObject({ code: 'ENOENT' });
   });
 
-  test.skipIf(process.getuid?.() === 0)(
+  // Windows ignores chmod; root can still read mode 0o000.
+  test.skipIf(process.platform === 'win32' || process.getuid?.() === 0)(
     'releases the lock when reading fails after locking',
     async () => {
       const file = await createFile('user:hash\n');
