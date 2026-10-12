@@ -2,14 +2,14 @@ import bcrypt from 'bcryptjs';
 import crypto from 'node:crypto';
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { beforeEach, describe, expect, test, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
 import type { pluginUtils } from '@verdaccio/core';
 import { fileUtils } from '@verdaccio/core';
 
 import type { HTPasswdConfig } from '../src/htpasswd';
-import HTPasswd, { DEFAULT_SLOW_VERIFY_MS } from '../src/htpasswd';
+import HTPasswd, { DEFAULT_SLOW_VERIFY_MS, DEFAULT_VERIFY_CACHE_MS } from '../src/htpasswd';
 import { parseHTPasswd } from '../src/utils';
 
 const options = {
@@ -143,6 +143,92 @@ describe('reload()', () => {
 
     await expect(authenticate('removed')).resolves.toBe(false);
     await expect(authenticate('kept')).resolves.toEqual(['kept']);
+  });
+});
+
+describe('password verification cache', () => {
+  const setup = async (extra: Partial<HTPasswdConfig> = {}) => {
+    const folder = await fileUtils.createTempFolder('htpasswd-verify-cache');
+    const file = path.join(folder, 'htpasswd');
+    await writeFile(file, `alice:${bcrypt.hashSync('secret', 4)}\n`);
+    const plugin = new HTPasswd({ file, ...extra } as HTPasswdConfig, options);
+    const authenticate = (password: string) =>
+      new Promise((resolve) =>
+        plugin.authenticate('alice', password, (_err, groups) => resolve(groups))
+      );
+    const compare = vi.spyOn(bcrypt, 'compare');
+    return { file, authenticate, compare };
+  };
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+    vi.useRealTimers();
+  });
+
+  test('skips bcrypt for a repeated successful login', async () => {
+    const { authenticate, compare } = await setup();
+
+    await expect(authenticate('secret')).resolves.toEqual(['alice']);
+    await expect(authenticate('secret')).resolves.toEqual(['alice']);
+
+    expect(compare).toHaveBeenCalledTimes(1);
+  });
+
+  test('runs bcrypt once for a burst of identical concurrent logins', async () => {
+    const { authenticate, compare } = await setup();
+
+    const results = await Promise.all(Array.from({ length: 8 }, () => authenticate('secret')));
+
+    expect(results).toEqual(Array.from({ length: 8 }, () => ['alice']));
+    expect(compare).toHaveBeenCalledTimes(1);
+  });
+
+  test('a concurrent burst with a wrong password fails for every request', async () => {
+    const { authenticate } = await setup();
+
+    const results = await Promise.all(Array.from({ length: 4 }, () => authenticate('wrong')));
+
+    expect(results).toEqual([false, false, false, false]);
+  });
+
+  test('never caches a failed login', async () => {
+    const { authenticate, compare } = await setup();
+
+    await expect(authenticate('secret')).resolves.toEqual(['alice']);
+    await expect(authenticate('wrong')).resolves.toBe(false);
+    await expect(authenticate('wrong')).resolves.toBe(false);
+
+    expect(compare).toHaveBeenCalledTimes(3);
+  });
+
+  test('rejects the old password right after a password change', async () => {
+    const { file, authenticate } = await setup();
+
+    await expect(authenticate('secret')).resolves.toEqual(['alice']);
+    await writeFile(file, `alice:${bcrypt.hashSync('changed', 4)}\n`);
+
+    await expect(authenticate('secret')).resolves.toBe(false);
+    await expect(authenticate('changed')).resolves.toEqual(['alice']);
+  });
+
+  test('verifies again once the entry expires', async () => {
+    vi.useFakeTimers({ toFake: ['Date'] });
+    const { authenticate, compare } = await setup();
+
+    await expect(authenticate('secret')).resolves.toEqual(['alice']);
+    vi.setSystemTime(Date.now() + DEFAULT_VERIFY_CACHE_MS + 1);
+    await expect(authenticate('secret')).resolves.toEqual(['alice']);
+
+    expect(compare).toHaveBeenCalledTimes(2);
+  });
+
+  test('verify_cache_ms: 0 disables the cache', async () => {
+    const { authenticate, compare } = await setup({ verify_cache_ms: 0 });
+
+    await expect(authenticate('secret')).resolves.toEqual(['alice']);
+    await expect(authenticate('secret')).resolves.toEqual(['alice']);
+
+    expect(compare).toHaveBeenCalledTimes(2);
   });
 });
 

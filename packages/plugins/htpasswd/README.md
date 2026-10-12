@@ -40,6 +40,9 @@ As simple as running:
             #rounds: 10
             # Log a warning if the password takes more then this duration in milliseconds to verify.
             #slow_verify_ms: 200
+            # Remember a successful password verification for this many milliseconds,
+            # so repeated requests with the same credentials skip bcrypt. 0 disables it.
+            #verify_cache_ms: 60000
 
 ### Bcrypt rounds
 
@@ -51,6 +54,21 @@ additional latency in processing requests.
 If your Verdaccio instance handles a large number of authenticated requests using
 username and password for authentication, the `rounds` configuration value may need
 to be decreased to prevent excessive CPU usage and request latency.
+
+### Verification cache
+
+Clients that authenticate with username and password (`username` + `_password` or
+`_auth` in `.npmrc`) send the credentials on every request, so a single `npm install`
+or `pnpm install` can trigger hundreds of bcrypt verifications, all for the same
+password. To avoid paying for each one, the plugin remembers a successful
+verification for `verify_cache_ms` (default `60000`), and identical verifications
+that arrive while one is already running wait for it instead of starting another.
+
+The cache only holds successful verifications. Its key is an HMAC (with a random
+per-process secret) of the username, the password and the stored hash, so it never
+contains a password or anything usable to guess one offline, and a password change
+or a removed user stops matching immediately. Set `verify_cache_ms: 0` to verify
+every request.
 
 Also note that setting the `rounds` configuration value to a value that is too small
 increases the risk of successful brute force attack. Auth0 has a
