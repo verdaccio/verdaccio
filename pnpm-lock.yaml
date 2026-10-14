@@ -1561,8 +1561,8 @@ importers:
         specifier: 5.9.1
         version: 5.9.1(@standard-schema/spec@1.1.0)(ajv@8.20.0)(react-hook-form@7.89.0(@types/react@19.2.18)(react@19.3.0))(typanion@3.14.0)(yup@1.7.1)
       '@microlink/react-json-view':
-        specifier: 1.31.38
-        version: 1.31.38(@types/react@19.2.18)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+        specifier: 1.31.40
+        version: 1.31.40(@types/react@19.2.18)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@mui/icons-material':
         specifier: 7.3.11
         version: 7.3.11(@mui/material@7.3.11(@emotion/react@11.14.0(@types/react@19.2.18)(react@19.3.0)(supports-color@5.5.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.18)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.2.18)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.2.18)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(@types/react@19.2.18)(react@19.3.0)
@@ -2432,8 +2432,8 @@ packages:
       '@types/react': '>=16'
       react: '>=16'
 
-  '@microlink/react-json-view@1.31.38':
-    resolution: {integrity: sha512-utEYo7dRhlFpgPovgYv3LkIuiL7H0z72xClfpN5/MvxMJP2WkbdivTGTEf43fy7pxn7D0ED+KFlN89Tbw6QlpA==}
+  '@microlink/react-json-view@1.31.40':
+    resolution: {integrity: sha512-IqeoQMppY8bL/y2ghr3NH6ARq8wTlhcONBkIH7gY2jkWC7T5Rj5wB+pDAlyMn77TZ8kpiPKsRCOqAvbvc75HGA==}
     engines: {node: '>=17'}
     peerDependencies:
       react: '>= 15'
@@ -7270,7 +7270,7 @@ snapshots:
       '@types/react': 19.2.18
       react: 19.3.0
 
-  '@microlink/react-json-view@1.31.38(@types/react@19.2.18)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
+  '@microlink/react-json-view@1.31.40(@types/react@19.2.18)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
       react: 19.3.0
       react-base16-styling: 0.10.0
