@@ -19,7 +19,8 @@ function addUserAuthApi(auth: Auth, config: Config): Router {
     wrapSecPath(WebUrls.user_login),
     rateLimit(config?.userRateLimit),
     function (req: Request, res: Response, next: $NextFunctionVer): void {
-      const { username, password } = req.body;
+      const username = req.body?.username;
+      const password = req.body?.password;
 
       auth.authenticate(username, password, async (err, user?: RemoteUser): Promise<void> => {
         if (err) {

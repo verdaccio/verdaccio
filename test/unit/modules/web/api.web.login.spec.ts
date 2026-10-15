@@ -62,4 +62,14 @@ describe('web endpoint: login', () => {
         });
     });
   });
+
+  test('should reject a null body as invalid credentials', async () => {
+    const res = await request(app)
+      .post('/-/verdaccio/sec/login')
+      .set(HEADERS.CONTENT_TYPE, HEADERS.JSON)
+      .send('null');
+
+    expect(res.status).toBe(HTTP_STATUS.UNAUTHORIZED);
+    expect(res.get('www-authenticate')).toBe('Bearer');
+  });
 });
