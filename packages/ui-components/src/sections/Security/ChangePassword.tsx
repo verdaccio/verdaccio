@@ -18,11 +18,7 @@ import { stripTrailingSlash } from '../../store/utils';
 import { Route } from '../../utils';
 import { APIRoute } from '../../utils/routes';
 import type { ChangePasswordFormValues } from '../../utils/schemas';
-import {
-  PASSWORD_MIN_LENGTH,
-  USERNAME_MIN_LENGTH,
-  changePasswordSchema,
-} from '../../utils/schemas';
+import { PASSWORD_MIN_LENGTH, changePasswordSchema } from '../../utils/schemas';
 import { MessageType } from './Success';
 import { SecurityContainer, SecurityForm, SecurityTextField } from './styles';
 
@@ -65,7 +61,6 @@ const ChangePasswordForm: React.FC = () => {
   const form = useForm<ChangePasswordFormValues>({
     mode: 'onChange',
     defaultValues: {
-      username: '',
       oldPassword: '',
       newPassword: '',
       confirmPassword: '',
@@ -131,17 +126,6 @@ const ChangePasswordForm: React.FC = () => {
           <Typography align="center" component="h1" gutterBottom={true} variant="h4">
             {t('security.changePassword.title')}
           </Typography>
-          <SecurityTextField
-            error={!!errors.username}
-            helperText={
-              errors.username?.message
-                ? t(errors.username.message, { length: USERNAME_MIN_LENGTH })
-                : undefined
-            }
-            label={t('security.changePassword.username')}
-            {...register('username')}
-            required={true}
-          />
           <SecurityTextField
             error={!!errors.oldPassword}
             helperText={

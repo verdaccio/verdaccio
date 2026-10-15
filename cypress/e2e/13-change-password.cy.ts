@@ -1,4 +1,4 @@
-import { changePasswordTests, createRegistryConfig } from '@verdaccio/e2e-ui';
+import { createRegistryConfig } from '@verdaccio/e2e-ui';
 
 const registryUrl = Cypress.env('VERDACCIO_URL') || 'http://localhost:4873';
 
@@ -7,21 +7,7 @@ const config = createRegistryConfig({
   registryUrl,
   title: 'Verdaccio e2e',
   credentials: { user: 'test', password: 'test' },
-  features: {
-    changePassword: {
-      // The happy-path BODY works on master (a valid change lands on the
-      // success page), but the suite's after() cleanup calls cy.login to
-      // restore the original password assuming a logged-out header — and
-      // changing the password does not invalidate the JWT still in
-      // localStorage, so the user stays logged in and cy.login can't find
-      // the login button. Re-enable once the e2e-ui change-password after()
-      // hook clears the session before its restore login.
-      happyPath: false,
-    },
-  },
 });
-
-changePasswordTests(config);
 
 describe('change password navigation', () => {
   it('does not offer change password in the login dialog', () => {
@@ -56,7 +42,45 @@ describe('change password session requirement', () => {
     cy.get(config.selectors.loginDialog.submitButton).click();
     cy.getByTestId(config.testIds.login.dialog).should('not.exist');
     cy.get('input[name="oldPassword"]').should('be.visible');
+    cy.get('form input').should('have.length', 3);
+    cy.get('input[name="username"]').should('not.exist');
   };
+
+  it('keeps submit disabled until all three password fields are valid', () => {
+    cy.visit(`${registryUrl}${path}`);
+    signIn();
+    cy.get('form button[type="submit"]').should('be.disabled');
+    cy.get('input[name="oldPassword"]').type(config.credentials.password, { log: false });
+    cy.get('input[name="newPassword"]').type('new-test-password', { log: false });
+    cy.get('form button[type="submit"]').should('be.disabled');
+    cy.get('input[name="confirmPassword"]').type('new-test-password', { log: false });
+    cy.get('form button[type="submit"]').should('not.be.disabled');
+  });
+
+  it('rejects mismatched passwords and allows correcting the confirmation', () => {
+    cy.visit(`${registryUrl}${path}`);
+    signIn();
+    cy.get('input[name="oldPassword"]').type(config.credentials.password, { log: false });
+    cy.get('input[name="newPassword"]').type('new-test-password', { log: false });
+    cy.get('input[name="confirmPassword"]').type('different-password', { log: false });
+    cy.get('form button[type="submit"]').should('be.disabled');
+    cy.get('input[name="confirmPassword"]').clear().type('new-test-password', { log: false });
+    cy.get('form button[type="submit"]').should('not.be.disabled');
+  });
+
+  it('shows an error and keeps the form when the current password is wrong', () => {
+    cy.visit(`${registryUrl}${path}`);
+    signIn();
+    cy.intercept('PUT', '/-/verdaccio/sec/reset_password').as('wrongPassword');
+    cy.get('input[name="oldPassword"]').type('definitely-wrong-password', { log: false });
+    cy.get('input[name="newPassword"]').type('new-test-password', { log: false });
+    cy.get('input[name="confirmPassword"]').type('new-test-password', { log: false });
+    cy.get('form button[type="submit"]').should('not.be.disabled').click();
+    cy.wait('@wrongPassword').its('response.statusCode').should('eq', 500);
+    cy.getByTestId(config.testIds.login.error).should('be.visible').and('not.be.empty');
+    cy.location('pathname').should('eq', path);
+    cy.get('input[name="oldPassword"]').should('be.visible');
+  });
 
   it('requires sign-in for a direct visit and returns to the password form', () => {
     cy.visit(`${registryUrl}${path}`);
@@ -89,7 +113,6 @@ describe('change password session requirement', () => {
       statusCode: 401,
       body: { message: 'session expired' },
     }).as('expiredSession');
-    cy.get('input[name="username"]').type(config.credentials.user);
     cy.get('input[name="oldPassword"]').type(config.credentials.password, { log: false });
     cy.get('input[name="newPassword"]').type('temporary-new-password', { log: false });
     cy.get('input[name="confirmPassword"]').type('temporary-new-password', { log: false });
@@ -116,7 +139,6 @@ describe('change password session requirement', () => {
     cy.visit(`${registryUrl}${path}`);
     signIn(user, oldPassword);
     cy.intercept('PUT', '/-/verdaccio/sec/reset_password').as('passwordChange');
-    cy.get('input[name="username"]').type(user);
     cy.get('input[name="oldPassword"]').type(oldPassword, { log: false });
     cy.get('input[name="newPassword"]').type(newPassword, { log: false });
     cy.get('input[name="confirmPassword"]').type(newPassword, { log: false });

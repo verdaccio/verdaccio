@@ -163,7 +163,8 @@ describe('<ChangePassword /> component', () => {
       renderWithRouter(<ChangePassword />, Route.CHANGE_PASSWORD, [Route.CHANGE_PASSWORD]);
     });
 
-    expect(screen.getByLabelText(/security.changePassword.username/)).toBeInTheDocument();
+    expect(screen.queryByLabelText(/security.changePassword.username/)).not.toBeInTheDocument();
+    expect(document.querySelectorAll('form input')).toHaveLength(3);
     expect(screen.getByLabelText(/security.changePassword.oldPassword/)).toBeInTheDocument();
     expect(screen.getByLabelText(/security.changePassword.newPassword/)).toBeInTheDocument();
     expect(screen.getByLabelText(/security.changePassword.confirmPassword/)).toBeInTheDocument();
@@ -194,9 +195,6 @@ describe('<ChangePassword /> component', () => {
     });
 
     await act(async () => {
-      fireEvent.change(screen.getByLabelText(/security.changePassword.username/), {
-        target: { value: 'testuser' },
-      });
       fireEvent.change(screen.getByLabelText(/security.changePassword.oldPassword/), {
         target: { value: 'oldpass' },
       });
@@ -225,9 +223,6 @@ describe('<ChangePassword /> component', () => {
     });
 
     await act(async () => {
-      fireEvent.change(screen.getByLabelText(/security.changePassword.username/), {
-        target: { value: 'testuser' },
-      });
       fireEvent.change(screen.getByLabelText(/security.changePassword.oldPassword/), {
         target: { value: 'oldpass' },
       });
@@ -261,9 +256,6 @@ describe('<ChangePassword /> component', () => {
     });
 
     await act(async () => {
-      fireEvent.change(screen.getByLabelText(/security.changePassword.username/), {
-        target: { value: 'testuser' },
-      });
       fireEvent.change(screen.getByLabelText(/security.changePassword.oldPassword/), {
         target: { value: 'fail' },
       });
@@ -311,7 +303,6 @@ describe('<ChangePassword /> component', () => {
         renderWithRouter(<ChangePassword />, Route.CHANGE_PASSWORD, [Route.CHANGE_PASSWORD]);
       });
 
-      await fillField(/security.changePassword.username/, 'testuser');
       await fillField(/security.changePassword.oldPassword/, 'oldpass');
       await fillField(/security.changePassword.newPassword/, 'newpass');
       await fillField(/security.changePassword.confirmPassword/, 'different');
@@ -343,7 +334,6 @@ describe('<ChangePassword /> component', () => {
       );
       enableFlag();
       renderWithRouter(<ChangePassword />, Route.CHANGE_PASSWORD, [Route.CHANGE_PASSWORD]);
-      await fillField(/security.changePassword.username/, 'testuser');
       await fillField(/security.changePassword.oldPassword/, 'oldpass');
       await fillField(/security.changePassword.newPassword/, 'newpass');
       await fillField(/security.changePassword.confirmPassword/, 'newpass');
@@ -387,7 +377,6 @@ describe('<ChangePassword /> component', () => {
         renderWithRouter(<ChangePassword />, Route.CHANGE_PASSWORD, [Route.CHANGE_PASSWORD]);
       });
 
-      await fillField(/security.changePassword.username/, 'testuser');
       await fillField(/security.changePassword.oldPassword/, 'oldpass');
       await fillField(/security.changePassword.newPassword/, 'newpass');
       await fillField(/security.changePassword.confirmPassword/, 'newpass');

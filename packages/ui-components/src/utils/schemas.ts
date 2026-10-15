@@ -35,7 +35,6 @@ export const addUserSchema = yup.object({
 export type AddUserFormValues = yup.InferType<typeof addUserSchema>;
 
 export const changePasswordSchema = yup.object({
-  username: usernameSchema,
   oldPassword: passwordSchema,
   newPassword: passwordSchema,
   confirmPassword: yup
