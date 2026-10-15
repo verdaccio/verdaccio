@@ -76,8 +76,13 @@ describe('change password session requirement', () => {
     cy.get('input[name="newPassword"]').type('new-test-password', { log: false });
     cy.get('input[name="confirmPassword"]').type('new-test-password', { log: false });
     cy.get('form button[type="submit"]').should('not.be.disabled').click();
-    cy.wait('@wrongPassword').its('response.statusCode').should('eq', 500);
-    cy.getByTestId(config.testIds.login.error).should('be.visible').and('not.be.empty');
+    cy.wait('@wrongPassword').then(({ response }) => {
+      cy.wrap(response?.statusCode).should('eq', 400);
+      cy.wrap(response?.body).should('deep.eq', { error: 'invalid old password' });
+    });
+    cy.contains('The current password is incorrect.').should('be.visible');
+    cy.get('input[name="oldPassword"]').should('have.attr', 'aria-invalid', 'true');
+    cy.getByTestId(config.testIds.login.dialog).should('not.exist');
     cy.location('pathname').should('eq', path);
     cy.get('input[name="oldPassword"]').should('be.visible');
   });

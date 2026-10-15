@@ -294,6 +294,18 @@ describe('Memory', function () {
       });
     });
 
+    test('rejects an incorrect old password without changing credentials', () => {
+      const callback = vi.fn();
+      auth.changePassword('test', 'wrong', 'newSecret', callback);
+      expect(callback).toHaveBeenCalledWith(
+        expect.objectContaining({
+          status: 400,
+          message: 'invalid old password',
+        })
+      );
+      expect(auth._users.test.password).toBe('secret');
+    });
+
     test('should fail change password with user not found', function () {
       return new Promise((done) => {
         auth.changePassword('NOTFOUND', 'secret', 'newSecret', function (err) {

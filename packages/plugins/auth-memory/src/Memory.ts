@@ -77,6 +77,10 @@ export default class Memory
     const user = this._users[username];
     debug('init change password for %o', user?.name);
 
+    if (user && user.password !== password) {
+      return cb(errorUtils.getBadRequest(API_ERROR.INVALID_OLD_PASSWORD));
+    }
+
     if (user && user.password === password) {
       user.password = newPassword;
       this._users[username] = user;

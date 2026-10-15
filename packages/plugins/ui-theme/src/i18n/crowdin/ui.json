@@ -268,6 +268,7 @@
       "title": "Change Password",
       "username": "Username",
       "oldPassword": "Current Password",
+      "invalidOldPassword": "The current password is incorrect.",
       "newPassword": "New Password",
       "confirmPassword": "Confirm New Password",
       "submit": "Change Password"

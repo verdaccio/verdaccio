@@ -64,9 +64,7 @@ describe('HTPasswd', () => {
     return new Promise((done) => {
       const callback = (error, isSuccess): void => {
         expect(error).not.toBeNull();
-        expect(error.message).toBe(
-          `Unable to change password for user 'sanityCheck': invalid old password`
-        );
+        expect(error).toMatchObject({ status: 400, message: 'invalid old password' });
         expect(isSuccess).toBeFalsy();
         done(true);
       };

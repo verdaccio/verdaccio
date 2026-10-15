@@ -240,6 +240,47 @@ describe('<ChangePassword /> component', () => {
     });
   });
 
+  test('shows an incorrect password on the field and allows retrying without signing out', async () => {
+    let attempts = 0;
+    server.use(
+      http.put('http://localhost:9000/-/verdaccio/sec/reset_password', () => {
+        attempts++;
+        return attempts === 1
+          ? HttpResponse.json({ error: 'invalid old password' }, { status: 400 })
+          : HttpResponse.json({ ok: true });
+      })
+    );
+    window.__VERDACCIO_BASENAME_UI_OPTIONS.flags = { changePassword: true };
+    renderWithRouter(<ChangePassword />, Route.CHANGE_PASSWORD, [Route.CHANGE_PASSWORD]);
+    const token = storage.getItem('token');
+    const oldPassword = screen.getByLabelText(/security.changePassword.oldPassword/);
+    fireEvent.change(oldPassword, { target: { value: 'wrong-password' } });
+    fireEvent.change(screen.getByLabelText(/security.changePassword.newPassword/), {
+      target: { value: 'newpass' },
+    });
+    fireEvent.change(screen.getByLabelText(/security.changePassword.confirmPassword/), {
+      target: { value: 'newpass' },
+    });
+    const submit = screen.getByRole('button', { name: 'security.changePassword.submit' });
+    await waitFor(() => expect(submit).not.toBeDisabled());
+    fireEvent.click(submit);
+    expect(
+      await screen.findByText('security.changePassword.invalidOldPassword')
+    ).toBeInTheDocument();
+    expect(oldPassword).toHaveAttribute('aria-invalid', 'true');
+    expect(oldPassword).toHaveFocus();
+    expect(storage.getItem('token')).toBe(token);
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(mockNavigate).not.toHaveBeenCalled();
+    fireEvent.change(oldPassword, { target: { value: 'correct-password' } });
+    await waitFor(() => expect(submit).not.toBeDisabled());
+    fireEvent.click(submit);
+    await waitFor(() =>
+      expect(mockNavigate).toHaveBeenCalledWith(`${Route.SUCCESS}?messageType=ChangePassword`)
+    );
+    expect(attempts).toBe(2);
+  });
+
   test('should preserve the form and show the error on a non-session failure', async () => {
     server.use(
       http.put('http://localhost:9000/-/verdaccio/sec/reset_password', () =>

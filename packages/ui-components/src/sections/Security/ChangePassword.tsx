@@ -108,6 +108,21 @@ const ChangePasswordForm: React.FC = () => {
           setUserState?.({ username: null, token: null });
           return;
         }
+        if (
+          err instanceof CustomError &&
+          err.code === 400 &&
+          err.message === 'invalid old password'
+        ) {
+          setError(
+            'oldPassword',
+            {
+              type: 'server',
+              message: 'security.changePassword.invalidOldPassword',
+            },
+            { shouldFocus: true }
+          );
+          return;
+        }
         setError('root', {
           type: 'server',
           message: authErrorMessage(err, t('security.error.unable-to-change-password')),

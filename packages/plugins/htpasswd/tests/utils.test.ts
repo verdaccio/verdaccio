@@ -272,19 +272,9 @@ describe('changePasswordToHTPasswd', () => {
   test('should throw error for wrong password', async () => {
     const body = 'test:$6b9MlB3WUELU:autocreated 2017-11-06T18:17:21.957Z';
 
-    try {
-      await changePasswordToHTPasswd(
-        body,
-        'test',
-        'somerandompassword',
-        'newPassword',
-        defaultHashConfig
-      );
-    } catch (error: any) {
-      expect(error.message).toEqual(
-        `Unable to change password for user 'test': invalid old password`
-      );
-    }
+    await expect(
+      changePasswordToHTPasswd(body, 'test', 'somerandompassword', 'newPassword', defaultHashConfig)
+    ).rejects.toMatchObject({ status: 400, message: 'invalid old password' });
   });
 
   test('should throw error when user does not exist', async () => {

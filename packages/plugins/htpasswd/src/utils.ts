@@ -5,7 +5,7 @@ import createError, { type HttpError } from 'http-errors';
 import crypto from 'node:crypto';
 import { readFile } from 'node:fs';
 
-import { API_ERROR, HTTP_STATUS, constants } from '@verdaccio/core';
+import { API_ERROR, HTTP_STATUS, constants, errorUtils } from '@verdaccio/core';
 import { lockFile, unlockFile } from '@verdaccio/file-locking';
 import type { Callback } from '@verdaccio/types';
 
@@ -222,7 +222,7 @@ export async function changePasswordToHTPasswd(
   const passwordValid = await verifyPassword(passwd, hash);
   if (!passwordValid) {
     debug(`invalid old password`);
-    throw new Error(`Unable to change password for user '${user}': invalid old password`);
+    throw errorUtils.getBadRequest(API_ERROR.INVALID_OLD_PASSWORD);
   }
   const updatedUserLine = await generateHtpasswdLine(username, newPasswd, hashConfig);
   lines.splice(userLineIndex, 1, updatedUserLine);
