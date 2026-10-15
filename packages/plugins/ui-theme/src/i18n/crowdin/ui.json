@@ -264,6 +264,7 @@
       "login": "Login Here"
     },
     "changePassword": {
+      "loginRequired": "Sign in to change your password. If your session has expired, sign in again.",
       "title": "Change Password",
       "username": "Username",
       "oldPassword": "Current Password",

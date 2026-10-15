@@ -6,10 +6,14 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import { useDataMutation } from '../../api/use-data-mutation';
+import LoginDialog from '../../components/LoginDialog/LoginDialog';
 import LoginDialogFormError from '../../components/LoginDialog/LoginDialogFormError';
 import { getConfiguration } from '../../configuration';
 import SecurityLayout from '../../layouts/Security/Dialog';
+import { useAuth } from '../../providers/AuthProvider';
 import { authErrorMessage } from '../../providers/AuthProvider/utils';
+import { CustomError } from '../../store/api';
+import { clearAuth } from '../../store/storage';
 import { stripTrailingSlash } from '../../store/utils';
 import { Route } from '../../utils';
 import { APIRoute } from '../../utils/routes';
@@ -26,9 +30,38 @@ const ChangePassword: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const configuration = getConfiguration();
-  const basePath = stripTrailingSlash(configuration.base);
   const changePasswordEnabled = configuration?.flags?.changePassword;
 
+  const { userState } = useAuth();
+
+  useEffect(() => {
+    if (!changePasswordEnabled) {
+      navigate('/');
+    }
+  }, [changePasswordEnabled, navigate]);
+
+  if (!changePasswordEnabled) {
+    return null;
+  }
+
+  if (!userState?.token) {
+    return (
+      <LoginDialog
+        message={t('security.changePassword.loginRequired')}
+        onClose={() => navigate(Route.ROOT)}
+        open={true}
+      />
+    );
+  }
+
+  return <ChangePasswordForm />;
+};
+
+const ChangePasswordForm: React.FC = () => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { setUserState } = useAuth();
+  const basePath = stripTrailingSlash(getConfiguration().base);
   const form = useForm<ChangePasswordFormValues>({
     mode: 'onChange',
     defaultValues: {
@@ -75,6 +108,11 @@ const ChangePassword: React.FC = () => {
         });
         navigate(`${Route.SUCCESS}?messageType=${MessageType.ChangePassword}`);
       } catch (err) {
+        if (err instanceof CustomError && err.code === 401) {
+          clearAuth();
+          setUserState?.({ username: null, token: null });
+          return;
+        }
         setError('root', {
           type: 'server',
           message: authErrorMessage(err, t('security.error.unable-to-change-password')),
@@ -83,16 +121,10 @@ const ChangePassword: React.FC = () => {
         inFlight.current = false;
       }
     },
-    [handleChangePassword, setError, navigate, t]
+    [handleChangePassword, setError, setUserState, navigate, t]
   );
 
-  useEffect(() => {
-    if (!changePasswordEnabled) {
-      navigate('/');
-    }
-  }, [changePasswordEnabled, navigate]);
-
-  return changePasswordEnabled ? (
+  return (
     <SecurityLayout>
       <SecurityContainer>
         <SecurityForm onSubmit={handleSubmit(onSubmit)}>
@@ -158,7 +190,7 @@ const ChangePassword: React.FC = () => {
         </SecurityForm>
       </SecurityContainer>
     </SecurityLayout>
-  ) : null;
+  );
 };
 
 export default ChangePassword;
