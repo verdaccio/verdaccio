@@ -22,7 +22,10 @@ function addUserAuthApi(auth: Auth, config: Config): Router {
       const username = req.body?.username;
       const password = req.body?.password;
 
-      if (!username || !password || typeof username !== 'string' || typeof password !== 'string') {
+      if (
+        typeof username !== 'string' ||
+        validationUtils.validatePassword(password, /^/) === false
+      ) {
         return next(
           ErrorCode.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.USERNAME_PASSWORD_REQUIRED)
         );

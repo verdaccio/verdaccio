@@ -68,8 +68,7 @@ describe('web endpoint: login', () => {
     ['an empty object', '{}'],
     ['a missing username', JSON.stringify({ password: credentials.password })],
     ['a missing password', JSON.stringify({ username: credentials.name })],
-    ['an empty username', JSON.stringify({ username: '', password: credentials.password })],
-    ['an empty password', JSON.stringify({ username: credentials.name, password: '' })],
+    ['a null username', JSON.stringify({ username: null, password: credentials.password })],
     ['a non-string username', JSON.stringify({ username: [credentials.name], password: 'x' })],
     ['a non-string password', JSON.stringify({ username: credentials.name, password: {} })],
   ])('should reject %s with 400', async (_label, body) => {
@@ -80,5 +79,15 @@ describe('web endpoint: login', () => {
 
     expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST);
     expect(res.body.error).toBe(API_ERROR.USERNAME_PASSWORD_REQUIRED);
+  });
+
+  test.each([
+    ['an empty username', { username: '', password: credentials.password }],
+    ['an empty password', { username: credentials.name, password: '' }],
+  ])('should leave %s to the authentication plugin', async (_label, body) => {
+    const res = await request(app).post('/-/verdaccio/sec/login').send(body);
+
+    expect(res.status).toBe(HTTP_STATUS.UNAUTHORIZED);
+    expect(res.body.error).toMatch(/bad username\/password, access denied/);
   });
 });
