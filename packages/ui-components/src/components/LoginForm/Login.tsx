@@ -1,16 +1,11 @@
 import styled from '@emotion/styled';
 import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
-import Typography from '@mui/material/Typography';
 import type { FC } from 'react';
 import React from 'react';
 import type { FieldErrors, UseFormHandleSubmit, UseFormRegister } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Link as RouterLink } from 'react-router';
 
 import type { Theme } from '../../';
-import { getConfiguration } from '../../configuration';
-import { Route } from '../../utils';
 import LoginDialogFormError from '../LoginDialog/LoginDialogFormError';
 import PasswordField from './PasswordField';
 import UsernameField from './UsernameField';
@@ -46,8 +41,6 @@ const LoginForm: FC<Props> = ({
   isSubmitting = false,
 }) => {
   const { t } = useTranslation();
-  const configuration = getConfiguration();
-  const changePasswordEnabled = configuration?.flags?.changePassword;
 
   return (
     <StyledForm noValidate={true} onSubmit={handleSubmit(onSubmit)}>
@@ -70,13 +63,6 @@ const LoginForm: FC<Props> = ({
       >
         {t('button.login')}
       </StyledButton>
-      {changePasswordEnabled && (
-        <Typography align="center" sx={{ mt: 2, fontSize: 12 }} variant="body2">
-          <Link component={RouterLink} sx={{ ml: 1 }} to={Route.CHANGE_PASSWORD}>
-            {t('security.changePassword.title')}
-          </Link>
-        </Typography>
-      )}
     </StyledForm>
   );
 };
