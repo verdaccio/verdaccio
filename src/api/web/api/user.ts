@@ -19,7 +19,17 @@ function addUserAuthApi(auth: Auth, config: Config): Router {
     wrapSecPath(WebUrls.user_login),
     rateLimit(config?.userRateLimit),
     function (req: Request, res: Response, next: $NextFunctionVer): void {
-      const { username, password } = req.body;
+      const username = req.body?.username;
+      const password = req.body?.password;
+
+      if (
+        typeof username !== 'string' ||
+        validationUtils.validatePassword(password, /^/) === false
+      ) {
+        return next(
+          ErrorCode.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.USERNAME_PASSWORD_REQUIRED)
+        );
+      }
 
       auth.authenticate(username, password, async (err, user?: RemoteUser): Promise<void> => {
         if (err) {
@@ -53,10 +63,14 @@ function addUserAuthApi(auth: Auth, config: Config): Router {
           });
         }
 
-        const { password } = req.body;
+        const password = req.body?.password;
         const { name } = req.remote_user;
 
-        if (validationUtils.validatePassword(password.new) === false) {
+        // Existing passwords may predate the current password policy.
+        if (
+          validationUtils.validatePassword(password?.old, /^/) === false ||
+          validationUtils.validatePassword(password?.new) === false
+        ) {
           return next(ErrorCode.getCode(HTTP_STATUS.BAD_REQUEST, APP_ERROR.PASSWORD_VALIDATION));
         }
 
