@@ -22,6 +22,12 @@ function addUserAuthApi(auth: Auth, config: Config): Router {
       const username = req.body?.username;
       const password = req.body?.password;
 
+      if (!username || !password || typeof username !== 'string' || typeof password !== 'string') {
+        return next(
+          ErrorCode.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.USERNAME_PASSWORD_REQUIRED)
+        );
+      }
+
       auth.authenticate(username, password, async (err, user?: RemoteUser): Promise<void> => {
         if (err) {
           const errorCode = err.message ? HTTP_STATUS.UNAUTHORIZED : HTTP_STATUS.INTERNAL_ERROR;

@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest';
 
-import { HEADERS, HTTP_STATUS } from '@verdaccio/core';
+import { API_ERROR, HEADERS, HTTP_STATUS } from '@verdaccio/core';
 
 import { setup } from '../../../../src/lib/logger';
 import { addUser } from '../../__helper/api';
@@ -63,13 +63,22 @@ describe('web endpoint: login', () => {
     });
   });
 
-  test('should reject a null body as invalid credentials', async () => {
+  test.each([
+    ['null', 'null'],
+    ['an empty object', '{}'],
+    ['a missing username', JSON.stringify({ password: credentials.password })],
+    ['a missing password', JSON.stringify({ username: credentials.name })],
+    ['an empty username', JSON.stringify({ username: '', password: credentials.password })],
+    ['an empty password', JSON.stringify({ username: credentials.name, password: '' })],
+    ['a non-string username', JSON.stringify({ username: [credentials.name], password: 'x' })],
+    ['a non-string password', JSON.stringify({ username: credentials.name, password: {} })],
+  ])('should reject %s with 400', async (_label, body) => {
     const res = await request(app)
       .post('/-/verdaccio/sec/login')
       .set(HEADERS.CONTENT_TYPE, HEADERS.JSON)
-      .send('null');
+      .send(body);
 
-    expect(res.status).toBe(HTTP_STATUS.UNAUTHORIZED);
-    expect(res.get('www-authenticate')).toBe('Bearer');
+    expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST);
+    expect(res.body.error).toBe(API_ERROR.USERNAME_PASSWORD_REQUIRED);
   });
 });
