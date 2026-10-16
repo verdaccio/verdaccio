@@ -308,14 +308,22 @@ describe('StageStorage', () => {
   });
 
   describe('toStagePackageVersion', () => {
-    test('should strip the internal tarball filename', async () => {
+    test('should expose staged status without changing the stored record', async () => {
       const { stage } = await buildStageStorage();
       const record = await stage.add(addInput(), tarball, { signal });
 
-      const serialized = toStagePackageVersion(record);
+      const stored = await stage.get(record.id);
+      expect(stored).not.toHaveProperty('status');
+      const serialized = toStagePackageVersion(Object.freeze(stored!));
 
       expect(serialized).not.toHaveProperty('tarballFilename');
-      expect(serialized).toMatchObject({ id: record.id, packageName: 'foo', version: '1.0.0' });
+      expect(serialized).toMatchObject({
+        id: record.id,
+        packageName: 'foo',
+        version: '1.0.0',
+        status: 'staged',
+      });
+      expect(await stage.get(record.id)).toEqual(stored);
     });
   });
 

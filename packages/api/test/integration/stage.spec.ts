@@ -140,7 +140,7 @@ describe('stage', () => {
         supertest(app).get(`/-/stage/${response.body.stageId}`),
         token
       ).expect(HTTP_STATUS.OK);
-      expect(item.body.packageName).toBe('@scope/foo');
+      expect(item.body).toMatchObject({ packageName: '@scope/foo', status: 'staged' });
     });
   });
 
@@ -154,7 +154,10 @@ describe('stage', () => {
 
       expect(response.body.total).toBe(2);
       expect(response.body.items.map((item: any) => item.version)).toEqual(['2.0.0', '1.0.0']);
-      expect(response.body.items[0]).not.toHaveProperty('tarballFilename');
+      for (const item of response.body.items) {
+        expect(item.status).toBe('staged');
+        expect(item).not.toHaveProperty('tarballFilename');
+      }
     });
 
     test('should filter by package name', async () => {
@@ -168,7 +171,7 @@ describe('stage', () => {
       ).expect(HTTP_STATUS.OK);
 
       expect(response.body.total).toBe(1);
-      expect(response.body.items[0].packageName).toBe('foo-b');
+      expect(response.body.items[0]).toMatchObject({ packageName: 'foo-b', status: 'staged' });
     });
 
     test('should paginate without repeating or losing items', async () => {
@@ -187,6 +190,9 @@ describe('stage', () => {
         ).expect(HTTP_STATUS.OK);
         seen.push(...response.body.items.map((item: any) => item.version));
         expect(response.body.total).toBe(5);
+        for (const item of response.body.items) {
+          expect(item.status).toBe('staged');
+        }
         if (seen.length >= response.body.total || response.body.items.length < 2) {
           break;
         }
@@ -251,11 +257,13 @@ describe('stage', () => {
       expect(response.body).toMatchObject({
         id: staged.body.stageId,
         packageName: 'foo-view',
+        status: 'staged',
         version: '1.0.0',
         tag: 'next',
         actorType: 'user',
         access: 'public',
       });
+      expect(response.body).not.toHaveProperty('tarballFilename');
       expect(response.body.shasum).toEqual(expect.any(String));
       expect(response.body.createdAt).toEqual(expect.any(String));
     });
