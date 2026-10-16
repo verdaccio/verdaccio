@@ -1,7 +1,11 @@
 export { dotfiles } from './middlewares/dotfiles';
 export type { DotfilesPolicy } from './middlewares/dotfiles';
 export { match } from './middlewares/match';
-export { validateName, validatePackage } from './middlewares/validation';
+export {
+  validateName,
+  validatePackage,
+  validatePackageVersionStatus,
+} from './middlewares/validation';
 export { media } from './middlewares/media';
 export { makeURLrelative } from './middlewares/make-url-relative';
 export { encodeScopePackage } from './middlewares/encode-pkg';

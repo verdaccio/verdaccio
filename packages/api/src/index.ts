@@ -4,6 +4,8 @@ import express from 'express';
 import type { Auth } from '@verdaccio/auth';
 import {
   WebUrlsNamespace,
+  PACKAGE_API_ENDPOINTS,
+  validatePackageVersionStatus,
   antiLoop,
   encodeScopePackage,
   enforceGeneratedTokenMetadata,
@@ -20,6 +22,7 @@ import { TfaStore } from '@verdaccio/auth';
 
 import distTags from './dist-tags';
 import pkg from './package';
+import packageVersionStatus from './package-version-status';
 import ping from './ping';
 import publish from './publish';
 import { assertTokenStoreSupport, requireOtp } from './require-otp';
@@ -54,6 +57,8 @@ export default function (config: Config, auth: Auth, storage: Storage, logger: L
   registerBodyParser(app, config);
 
   app.use(WebUrlsNamespace.endpoints, (_req, _res, next) => next('router'));
+
+  app.get(PACKAGE_API_ENDPOINTS.version_status, validatePackageVersionStatus);
 
   // Avoid executing JWT twice when the parent app already registered the JWT middleware
   const apiJwtMiddleware = auth.apiJWTmiddleware();
@@ -102,6 +107,7 @@ export default function (config: Config, auth: Auth, storage: Storage, logger: L
   if (config.flags?.stage) {
     stage(app, auth, storage, config, logger, otpForWrites);
   }
+  packageVersionStatus(app, auth, storage);
   pkg(app, auth, storage, logger);
   if (config.flags?.webLogin) {
     login(app, auth, storage, config, logger);

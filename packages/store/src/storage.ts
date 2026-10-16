@@ -816,6 +816,35 @@ class Storage {
     return this.stageStorage;
   }
 
+  /** Resolve a locally known version without fetching lifecycle information from uplinks. */
+  public async getPackageVersionStatus(
+    name: string,
+    version: string
+  ): Promise<'published' | 'staged'> {
+    // Read staging first: approval publishes the version before removing its staged record.
+    const staged = this.config.flags?.stage
+      ? await this.getStageStorage().findByVersion(name, version)
+      : undefined;
+    let manifest: Manifest | undefined;
+    try {
+      manifest = await this.getPackageLocalMetadata(name);
+    } catch (error: any) {
+      if (error.status !== HTTP_STATUS.NOT_FOUND) {
+        throw error;
+      }
+    }
+    if (manifest) {
+      const [filtered] = await this.applyFilters(manifest);
+      if (Object.hasOwn(filtered.versions, version)) {
+        return 'published';
+      }
+    }
+    if (staged) {
+      return 'staged';
+    }
+    throw errorUtils.getNotFound('no such package version');
+  }
+
   /**
    * Retrieve a wrapper that provide access to the package location.
    * @param {Object} pkgName package name.

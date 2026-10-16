@@ -1,4 +1,5 @@
 import assert from 'node:assert';
+import semver from 'semver';
 
 import type { Manifest } from '@verdaccio/types';
 
@@ -188,4 +189,9 @@ export function validateUserName(userName: any, expectedName: string): boolean {
     userName.split(':')[0] === 'org.couchdb.user' &&
     userName.split(':')[1] === expectedName
   );
+}
+
+/** Accept an exact semver, including prereleases and build metadata, but never a range or tag. */
+export function validateExactVersion(version: unknown): version is string {
+  return typeof version === 'string' && semver.valid(version) !== null;
 }

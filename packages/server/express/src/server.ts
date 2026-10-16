@@ -22,6 +22,8 @@ import {
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { logger } from '@verdaccio/logger';
 import {
+  PACKAGE_API_ENDPOINTS,
+  validatePackageVersionStatus,
   dotfiles,
   errorReportingMiddleware,
   final,
@@ -129,6 +131,7 @@ export const defineAPI = async function (config: IConfig, storage: Storage): Pro
   // Register JWT middleware so middleware plugins can access req.remote_user.
   const apiAuthRouter = express.Router();
   apiAuthRouter.use(WebUrlsNamespace.endpoints, (_req, _res, next) => next('router'));
+  apiAuthRouter.get(PACKAGE_API_ENDPOINTS.version_status, validatePackageVersionStatus);
   apiAuthRouter.use(auth.apiJWTmiddleware());
   app.use(apiAuthRouter);
 
