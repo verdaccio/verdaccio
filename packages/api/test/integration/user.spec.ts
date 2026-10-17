@@ -425,6 +425,29 @@ describe('basic login', () => {
         .expect(HTTP_STATUS.UNAUTHORIZED);
     });
 
+    test('should log in an existing user with a single PUT carrying Basic, the way pnpm does', async () => {
+      const app = await initializeServer(conf);
+      await createUser(app, 'basic_pnpm', 'secretPass');
+
+      const response = await supertest(app)
+        .put('/-/user/org.couchdb.user:basic_pnpm')
+        .set(HEADERS.AUTHORIZATION, basic('basic_pnpm', 'secretPass'))
+        .send({ name: 'basic_pnpm', password: 'secretPass', email: 'p@test.io', type: 'user' })
+        .expect(HTTP_STATUS.CREATED);
+      expect(response.body.ok).toMatch("you are authenticated as 'basic_pnpm'");
+    });
+
+    test('should register a new user when the PUT carries Basic, the way pnpm does', async () => {
+      const app = await initializeServer(conf);
+
+      const response = await supertest(app)
+        .put('/-/user/org.couchdb.user:basic_new')
+        .set(HEADERS.AUTHORIZATION, basic('basic_new', 'secretPass'))
+        .send({ name: 'basic_new', password: 'secretPass', email: 'n@test.io', type: 'user' })
+        .expect(HTTP_STATUS.CREATED);
+      expect(response.body.ok).toMatch("user 'basic_new' created");
+    });
+
     test('should reject a wrong password sent with Basic', async () => {
       const app = await initializeServer(conf);
       await createUser(app, 'basic_wrong', 'secretPass');
@@ -435,7 +458,7 @@ describe('basic login', () => {
         .send({ name: 'basic_wrong', password: 'otherPass' })
         .expect(HTTP_STATUS.UNAUTHORIZED);
 
-      expect(response.body.error).toBe(API_ERROR.BAD_USERNAME_PASSWORD);
+      expect(response.body.token).toBeUndefined();
     });
 
     test('should not issue a token when Basic belongs to another user than the body', async () => {

@@ -68,10 +68,9 @@ export default function (
     }
 
     auth.authenticate(credentials.user, credentials.password, (err, user): void => {
-      if (err || !user) {
-        return next(errorUtils.getUnauthorized(API_ERROR.BAD_USERNAME_PASSWORD));
+      if (!err && user) {
+        req.remote_user = user;
       }
-      req.remote_user = user;
       next();
     });
   }
