@@ -138,12 +138,12 @@ export function isAuthHeaderValid(authorization: string): boolean {
 
 const LOGIN_PATH = /\/-\/user\/org\.couchdb\.user:[^/]+(\/-rev\/[^/]+)?\/?$/;
 
-/** `npm login` for an existing user retries `PUT /-/user/...` with Basic; it is the only place Basic is accepted. */
+/** Clients retry the login of an existing user with Basic on `GET`/`PUT /-/user/...`, the only routes accepting it. */
 export function isBasicLoginRequest(
   req: Pick<Request, 'method' | 'url' | 'headers'>,
   security?: Security
 ): boolean {
-  if (security?.api?.basicLogin === false || req.method !== 'PUT') {
+  if (security?.api?.basicLogin === false || (req.method !== 'PUT' && req.method !== 'GET')) {
     return false;
   }
   const authorization = req.headers?.authorization;

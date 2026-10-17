@@ -379,6 +379,52 @@ describe('basic login', () => {
       expect(vueResponse.body.name).toMatch('vue');
     });
 
+    test('should log in an existing user the way Yarn does, sending Basic on the GET and the PUT', async () => {
+      const app = await initializeServer(conf);
+      const credentials = { name: 'basic_yarn', password: 'secretPass' };
+      await createUser(app, credentials.name, credentials.password);
+      const authorization = basic(credentials.name, credentials.password);
+      const userPath = `/-/user/org.couchdb.user:${credentials.name}`;
+
+      await supertest(app)
+        .put(userPath)
+        .send({ name: credentials.name, password: credentials.password })
+        .expect(HTTP_STATUS.CONFLICT);
+
+      const current = await supertest(app)
+        .get(userPath)
+        .set(HEADERS.AUTHORIZATION, authorization)
+        .expect(HTTP_STATUS.OK);
+      expect(current.body.ok).toMatch(`you are authenticated as '${credentials.name}'`);
+
+      const response = await supertest(app)
+        .put(`${userPath}/-rev/undefined`)
+        .set(HEADERS.AUTHORIZATION, authorization)
+        .send({ name: credentials.name, password: credentials.password })
+        .expect(HTTP_STATUS.CREATED);
+      expect(response.body.token).toBeDefined();
+    });
+
+    test('should answer the GET without credentials the way npm sends it', async () => {
+      const app = await initializeServer(conf);
+      await createUser(app, 'basic_npm_get', 'secretPass');
+
+      const response = await supertest(app)
+        .get('/-/user/org.couchdb.user:basic_npm_get?write=true')
+        .expect(HTTP_STATUS.OK);
+      expect(response.body).toEqual({ ok: false });
+    });
+
+    test('should reject a wrong password sent with Basic on the GET', async () => {
+      const app = await initializeServer(conf);
+      await createUser(app, 'basic_get_wrong', 'secretPass');
+
+      await supertest(app)
+        .get('/-/user/org.couchdb.user:basic_get_wrong')
+        .set(HEADERS.AUTHORIZATION, basic('basic_get_wrong', 'otherPass'))
+        .expect(HTTP_STATUS.UNAUTHORIZED);
+    });
+
     test('should reject a wrong password sent with Basic', async () => {
       const app = await initializeServer(conf);
       await createUser(app, 'basic_wrong', 'secretPass');
@@ -417,10 +463,6 @@ describe('basic login', () => {
         .get('/vue')
         .set(HEADERS.AUTHORIZATION, authorization)
         .expect(HTTP_STATUS.UNAUTHORIZED);
-      await supertest(app)
-        .get('/-/user/org.couchdb.user:basic_routes')
-        .set(HEADERS.AUTHORIZATION, authorization)
-        .expect(HTTP_STATUS.UNAUTHORIZED);
     });
   });
 
@@ -448,6 +490,11 @@ describe('basic login', () => {
       .put('/-/user/org.couchdb.user:basic_off')
       .set(HEADERS.AUTHORIZATION, basic('basic_off', 'secretPass'))
       .send({ name: 'basic_off', password: 'secretPass' })
+      .expect(HTTP_STATUS.UNAUTHORIZED);
+
+    await supertest(app)
+      .get('/-/user/org.couchdb.user:basic_off')
+      .set(HEADERS.AUTHORIZATION, basic('basic_off', 'secretPass'))
       .expect(HTTP_STATUS.UNAUTHORIZED);
   });
 });
