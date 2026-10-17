@@ -177,6 +177,7 @@ server:
 # security:
 #   api:
 #     legacy: true
+#     basicLogin: true # accept Basic auth on the login endpoint only, set false to disable
 #     jwt:
 #       sign:
 #         expiresIn: 29d

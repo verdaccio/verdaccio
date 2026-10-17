@@ -42,6 +42,7 @@ import {
   getMiddlewareCredentials,
   isAESLegacy,
   isAuthHeaderValid,
+  isBasicLoginRequest,
   parseAuthTokenHeader,
   verifyJWTPayload,
 } from './utils';
@@ -532,6 +533,11 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
       const { authorization } = req.headers;
       if (isNil(authorization)) {
         debug('jwt, authentication header is missing');
+        return next();
+      }
+
+      if (isBasicLoginRequest(req, this.config.security)) {
+        debug('basic login request, credentials are checked by the login route');
         return next();
       }
 

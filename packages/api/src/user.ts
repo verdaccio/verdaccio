@@ -2,7 +2,7 @@ import buildDebug from 'debug';
 import type { RequestHandler, Response, Router } from 'express';
 
 import type { Auth } from '@verdaccio/auth';
-import { getApiToken } from '@verdaccio/auth';
+import { getApiToken, isBasicLoginRequest, parseBasicLoginCredentials } from '@verdaccio/auth';
 import { createRemoteUser } from '@verdaccio/config';
 import {
   API_ERROR,
@@ -122,9 +122,29 @@ export default function (
  * @param {Auth} auth
  * @param {Config} config
  */
+  function basicLoginAuth(req: $RequestExtend, _res: Response, next: $NextFunctionVer): void {
+    if (!isBasicLoginRequest(req, config.security)) {
+      return next();
+    }
+
+    const credentials = parseBasicLoginCredentials(req.headers.authorization as string);
+    if (!credentials) {
+      return next(errorUtils.getBadRequest(API_ERROR.BAD_USERNAME_PASSWORD));
+    }
+
+    auth.authenticate(credentials.user, credentials.password, (err, user): void => {
+      if (err || !user) {
+        return next(errorUtils.getUnauthorized(API_ERROR.BAD_USERNAME_PASSWORD));
+      }
+      req.remote_user = user;
+      next();
+    });
+  }
+
   route.put(
     USER_API_ENDPOINTS.add_user,
     rateLimit(config?.userRateLimit),
+    basicLoginAuth,
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       const { name, password } = req.body;
       debug('login or adduser');

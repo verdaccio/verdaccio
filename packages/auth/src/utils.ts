@@ -1,9 +1,10 @@
 import buildDebug from 'debug';
+import type { Request } from 'express';
 import { isNil } from 'lodash-es';
 
 import { createAnonymousRemoteUser } from '@verdaccio/config';
 import type { pluginUtils } from '@verdaccio/core';
-import { API_ERROR, HTTP_STATUS, TOKEN_BEARER, errorUtils } from '@verdaccio/core';
+import { API_ERROR, HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER, errorUtils } from '@verdaccio/core';
 import { aesDecrypt, parseBasicPayload, verifyPayload } from '@verdaccio/signature';
 import type { AuthPackageAllow, Config, Logger, RemoteUser, Security } from '@verdaccio/types';
 
@@ -133,6 +134,39 @@ export function verifyJWTPayload(token: string, secret: string, security: Securi
 
 export function isAuthHeaderValid(authorization: string): boolean {
   return authorization.split(' ').length === 2;
+}
+
+const LOGIN_PATH = /\/-\/user\/org\.couchdb\.user:[^/]+(\/-rev\/[^/]+)?\/?$/;
+
+/** `npm login` for an existing user retries `PUT /-/user/...` with Basic; it is the only place Basic is accepted. */
+export function isBasicLoginRequest(
+  req: Pick<Request, 'method' | 'url' | 'headers'>,
+  security?: Security
+): boolean {
+  if (security?.api?.basicLogin === false || req.method !== 'PUT') {
+    return false;
+  }
+  const authorization = req.headers?.authorization;
+  if (typeof authorization !== 'string') {
+    return false;
+  }
+  const path = (req.url ?? '').split('?')[0];
+  return (
+    LOGIN_PATH.test(path) &&
+    parseAuthTokenHeader(authorization).scheme.toUpperCase() === TOKEN_BASIC.toUpperCase()
+  );
+}
+
+export function parseBasicLoginCredentials(
+  authorization: string
+): { user: string; password: string } | undefined {
+  const { token } = parseAuthTokenHeader(authorization);
+  const decoded = Buffer.from(token ?? '', 'base64').toString();
+  const separator = decoded.indexOf(':');
+  if (separator <= 0) {
+    return undefined;
+  }
+  return { user: decoded.slice(0, separator), password: decoded.slice(separator + 1) };
 }
 
 /**

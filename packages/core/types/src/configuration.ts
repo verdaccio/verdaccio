@@ -227,6 +227,8 @@ export interface JWTVerifyOptions extends VerifyOptions {}
 export interface APITokenOptions {
   legacy: boolean;
   jwt?: JWTOptions;
+  /** Accept `Authorization: Basic` on the login endpoint only. Enabled unless `false`. */
+  basicLogin?: boolean;
 }
 
 export interface Security {
