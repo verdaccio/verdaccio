@@ -476,6 +476,21 @@ describe('basic login', () => {
         .expect(HTTP_STATUS.CONFLICT);
     });
 
+    test('should answer 400 when the Basic credentials are malformed', async () => {
+      const app = await initializeServer(conf);
+      const malformed = buildToken(TOKEN_BASIC, Buffer.from('no-separator').toString('base64'));
+
+      await supertest(app)
+        .put('/-/user/org.couchdb.user:basic_malformed')
+        .set(HEADERS.AUTHORIZATION, malformed)
+        .send({ name: 'basic_malformed', password: 'secretPass' })
+        .expect(HTTP_STATUS.BAD_REQUEST);
+      await supertest(app)
+        .get('/-/user/org.couchdb.user:basic_malformed')
+        .set(HEADERS.AUTHORIZATION, malformed)
+        .expect(HTTP_STATUS.BAD_REQUEST);
+    });
+
     test('should keep rejecting Basic on every other route', async () => {
       const app = await initializeServer(conf);
       await createUser(app, 'basic_routes', 'secretPass');
