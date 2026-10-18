@@ -1,5 +1,18 @@
 # @verdaccio/config
 
+## 9.0.0-next-9.36
+
+### Patch Changes
+
+- 5009e4d: Fix `npm login`, `yarn npm login` and `pnpm login` failing with `401 need: Bearer`, for a user that already exists and, with pnpm, also when registering a new user.
+  
+  When the account exists, the npm client gets `409` on `PUT /-/user/org.couchdb.user:<name>` and retries the same request with `Authorization: Basic`; Yarn sends Basic on the `GET` of the same path as well, and pnpm sends it on a single `PUT`, even when the user does not exist yet. Removing incoming Basic authentication dropped that retry along with the rest, so the first token for an existing user could no longer be obtained through the legacy login (`/-/v1/login` is only available behind `flags.webLogin`). Tokens already issued, `_authToken` in `.npmrc` and registering a new user without a Basic header (npm, Yarn) were not affected.
+  
+  Basic is accepted again, and only on the login routes (`GET` and `PUT /-/user/org.couchdb.user:*`). The password is checked behind the same rate limit and two-factor challenge as before, and every other route still answers `401` to a Basic header. A failure of the authentication backend is reported as an error instead of being taken for an unknown user. Affects the versions that removed incoming Basic authentication (`7.0.0-next-7.x` and `9.0.0-next-9.x`); 6.x was never affected.
+  
+  To keep rejecting Basic everywhere, including the login route, set `security.api.basicLogin: false`.
+- @verdaccio/core@9.0.0-next-9.36
+
 ## 9.0.0-next-9.35
 
 ### Patch Changes
