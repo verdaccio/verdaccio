@@ -2,6 +2,8 @@ import { Secret, TOTP } from 'otpauth';
 import supertest from 'supertest';
 import { describe, expect, test, vi } from 'vitest';
 
+import { Auth } from '@verdaccio/auth';
+
 import {
   API_ERROR,
   HEADERS,
@@ -9,6 +11,7 @@ import {
   HTTP_STATUS,
   TOKEN_BASIC,
   TOKEN_BEARER,
+  errorUtils,
 } from '@verdaccio/core';
 
 import {
@@ -503,6 +506,37 @@ describe('basic login', () => {
 
     expect(response.headers['www-authenticate'].toLowerCase()).toContain('otp');
   });
+
+  test.each([
+    ['an internal error', () => errorUtils.getInternalError('backend down')],
+    ['an error without status', () => new Error('backend down')],
+  ])(
+    'should report a failing auth backend instead of registering the user (%s)',
+    async (_, failure) => {
+      const app = await initializeServer('user.yaml');
+      const authenticate = vi
+        .spyOn(Auth.prototype, 'authenticate')
+        .mockImplementation((_user, _password, cb) => cb(failure() as any));
+      const addUser = vi.spyOn(Auth.prototype, 'add_user');
+      try {
+        const authorization = basic('basic_down', 'secretPass');
+
+        await supertest(app)
+          .put('/-/user/org.couchdb.user:basic_down')
+          .set(HEADERS.AUTHORIZATION, authorization)
+          .send({ name: 'basic_down', password: 'secretPass', email: 'd@test.io', type: 'user' })
+          .expect(HTTP_STATUS.INTERNAL_ERROR);
+        await supertest(app)
+          .get('/-/user/org.couchdb.user:basic_down')
+          .set(HEADERS.AUTHORIZATION, authorization)
+          .expect(HTTP_STATUS.INTERNAL_ERROR);
+        expect(addUser).not.toHaveBeenCalled();
+      } finally {
+        authenticate.mockRestore();
+        addUser.mockRestore();
+      }
+    }
+  );
 
   // keep last: security settings leak into later configs of the same process
   test('should reject Basic on the login route when basicLogin is disabled', async () => {

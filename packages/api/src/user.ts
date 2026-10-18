@@ -68,6 +68,10 @@ export default function (
     }
 
     auth.authenticate(credentials.user, credentials.password, (err, user): void => {
+      // a failing backend is reported, not mistaken for an unknown user to register
+      if (err && !(typeof err.status === 'number' && err.status < HTTP_STATUS.INTERNAL_ERROR)) {
+        return next(err);
+      }
       if (!err && user) {
         req.remote_user = user;
       }
