@@ -108,7 +108,7 @@ the `debug` namespaces.
 
 CI (`.github/workflows/ci.yml`) runs lint, format check, build and tests on
 Node.js 24 and 26, a Docker build, the CLI e2e matrix (npm 10–12, yarn modern
-3–4, pnpm 10–11, bun, deno) and the Cypress UI suite — but only on a ready PR
+3–4, pnpm 11, bun, deno) and the Cypress UI suite — but only on a ready PR
 whose diff matches the workflow's `paths:` filter (`packages/**`, `tests/**`,
 `docker-examples/**`, `package.json`, `pnpm-workspace.yaml`,
 `vite.lib.config.mjs`, `.changeset/**`, or the workflow file itself); a

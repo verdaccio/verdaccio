@@ -7,7 +7,7 @@
 # Examples:
 #   ./scripts/e2e-cli-local.sh              # defaults to npm@11
 #   ./scripts/e2e-cli-local.sh npm@10
-#   ./scripts/e2e-cli-local.sh pnpm@10
+#   ./scripts/e2e-cli-local.sh pnpm@11
 #   ./scripts/e2e-cli-local.sh yarn-classic
 #   ./scripts/e2e-cli-local.sh yarn-modern@4
 set -euo pipefail
