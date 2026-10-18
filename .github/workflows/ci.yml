@@ -5,7 +5,7 @@ on:
     branches:
       - 'master'
   pull_request:
-    types: [opened, synchronize, reopened, ready_for_review, labeled]
+    types: [opened, synchronize, reopened, ready_for_review]
     paths:
       - .changeset/**
       - .github/workflows/ci.yml
@@ -24,25 +24,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  changeset-check:
-    if: >-
-      github.event_name == 'pull_request' &&
-      github.event.pull_request.draft == false &&
-      github.actor != 'renovate[bot]' &&
-      github.actor != 'dependabot[bot]' &&
-      github.head_ref != 'changeset-release/master' &&
-      !contains(github.event.pull_request.labels.*.name, 'skip changeset')
-    runs-on: ubuntu-latest
-    name: Changeset file check
-    permissions:
-      contents: read
-      pull-requests: write
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          fetch-depth: 0
-      - name: Check changeset
-        uses: ./.github/actions/changeset-check        
   lint-and-format:
     runs-on: ubuntu-latest
     name: Lint & Format
@@ -80,11 +61,11 @@ jobs:
           mode: save
           node-version: ${{ matrix.node_version }}
   test-docker:
-    needs: [changeset-check, lint-and-format, build]
+    needs: [lint-and-format, build]
     if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && !failure() && !cancelled() }}
     uses: ./.github/workflows/test-docker.yml
   test:
-    needs: [changeset-check, lint-and-format, build]
+    needs: [lint-and-format, build]
     if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && !failure() && !cancelled() }}
     strategy:
       fail-fast: true
@@ -115,7 +96,7 @@ jobs:
         env:
           NODE_OPTIONS: ${{ matrix.node_version == 26 && '--no-webstorage' || '' }}
   e2e-cli:
-    needs: [changeset-check, lint-and-format, build]
+    needs: [lint-and-format, build]
     if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     name: E2E CLI (${{ matrix.pm }})
@@ -151,7 +132,7 @@ jobs:
         if: always()
         run: cat /tmp/verdaccio-e2e/verdaccio.log 2>/dev/null || echo "No log file found"
   e2e-ui:
-    needs: [changeset-check, lint-and-format, build]
+    needs: [lint-and-format, build]
     if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     name: E2E UI (${{ matrix.shard }}/2)
@@ -210,7 +191,7 @@ jobs:
         with:
           save: 'true'
   changeset-validation:
-    needs: [changeset-check, lint-and-format, build]
+    needs: [lint-and-format, build]
     if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && always() && !failure() && !cancelled() }}
     runs-on: ubuntu-latest
     name: Changeset validation
