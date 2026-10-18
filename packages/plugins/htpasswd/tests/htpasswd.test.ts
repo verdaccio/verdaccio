@@ -147,7 +147,8 @@ describe('reload()', () => {
 });
 
 describe('password verification cache', () => {
-  const setup = async (extra: Partial<HTPasswdConfig> = {}) => {
+  const TTL = 60_000;
+  const setup = async (extra: Partial<HTPasswdConfig> = { verify_cache_ms: TTL }) => {
     const folder = await fileUtils.createTempFolder('htpasswd-verify-cache');
     const file = path.join(folder, 'htpasswd');
     await writeFile(file, `alice:${bcrypt.hashSync('secret', 4)}\n`);
@@ -157,7 +158,8 @@ describe('password verification cache', () => {
         plugin.authenticate('alice', password, (_err, groups) => resolve(groups))
       );
     const compare = vi.spyOn(bcrypt, 'compare');
-    return { file, authenticate, compare };
+    const cacheSize = () => (plugin as any).verifyCache.size as number;
+    return { file, authenticate, compare, cacheSize };
   };
 
   afterEach(() => {
@@ -216,10 +218,45 @@ describe('password verification cache', () => {
     const { authenticate, compare } = await setup();
 
     await expect(authenticate('secret')).resolves.toEqual(['alice']);
-    vi.setSystemTime(Date.now() + DEFAULT_VERIFY_CACHE_MS + 1);
+    vi.setSystemTime(Date.now() + TTL + 1);
     await expect(authenticate('secret')).resolves.toEqual(['alice']);
 
     expect(compare).toHaveBeenCalledTimes(2);
+  });
+
+  test('removes expired entries from memory on the next lookup', async () => {
+    vi.useFakeTimers({ toFake: ['Date'] });
+    const { authenticate, cacheSize } = await setup();
+
+    await expect(authenticate('secret')).resolves.toEqual(['alice']);
+    expect(cacheSize()).toBe(1);
+    vi.setSystemTime(Date.now() + TTL + 1);
+    await expect(authenticate('wrong')).resolves.toBe(false);
+
+    expect(cacheSize()).toBe(0);
+  });
+
+  test('removes expired entries from memory while idle', async () => {
+    vi.useFakeTimers({ toFake: ['Date', 'setInterval', 'clearInterval'] });
+    const { authenticate, cacheSize } = await setup();
+
+    await expect(authenticate('secret')).resolves.toEqual(['alice']);
+    expect(cacheSize()).toBe(1);
+    vi.advanceTimersByTime(2 * TTL);
+
+    expect(cacheSize()).toBe(0);
+    expect(vi.getTimerCount()).toBe(0);
+  });
+
+  test('is disabled by default', async () => {
+    expect(DEFAULT_VERIFY_CACHE_MS).toBe(0);
+    const { authenticate, compare, cacheSize } = await setup({});
+
+    await expect(authenticate('secret')).resolves.toEqual(['alice']);
+    await expect(authenticate('secret')).resolves.toEqual(['alice']);
+
+    expect(compare).toHaveBeenCalledTimes(2);
+    expect(cacheSize()).toBe(0);
   });
 
   test('verify_cache_ms: 0 disables the cache', async () => {

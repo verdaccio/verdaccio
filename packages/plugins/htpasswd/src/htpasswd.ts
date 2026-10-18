@@ -33,7 +33,7 @@ export type HTPasswdConfig = {
 };
 
 export const DEFAULT_SLOW_VERIFY_MS = 200;
-export const DEFAULT_VERIFY_CACHE_MS = 60_000;
+export const DEFAULT_VERIFY_CACHE_MS = 0;
 const MAX_VERIFY_CACHE_ENTRIES = 1000;
 
 /**
@@ -57,6 +57,7 @@ export default class HTPasswd
   // stored hash, so repeated basic-auth requests skip bcrypt. Value: expiry time.
   private verifyCacheMs: number;
   private verifyCache: Map<string, number>;
+  private verifyCacheSweep: ReturnType<typeof setInterval> | null = null;
   // In-flight verifications by the same key, so a burst of identical logins
   // (a package manager fetching in parallel) runs bcrypt once, not per request.
   private pendingVerify: Map<string, Promise<boolean>>;
@@ -135,18 +136,40 @@ export default class HTPasswd
       .digest('base64');
   }
 
+  /**
+   * Drop expired entries. Every entry gets the same TTL and is re-inserted on
+   * renewal, so the map is ordered by expiry and the scan stops at the first
+   * live entry.
+   */
+  private pruneVerifyCache(now: number): void {
+    for (const [entry, expiresAt] of this.verifyCache) {
+      if (expiresAt > now) break;
+      this.verifyCache.delete(entry);
+    }
+    if (this.verifyCache.size === 0 && this.verifyCacheSweep !== null) {
+      clearInterval(this.verifyCacheSweep);
+      this.verifyCacheSweep = null;
+    }
+  }
+
   private rememberVerified(key: string): void {
     const now = Date.now();
+    this.pruneVerifyCache(now);
+    this.verifyCache.delete(key);
     if (this.verifyCache.size >= MAX_VERIFY_CACHE_ENTRIES) {
-      for (const [entry, expiresAt] of this.verifyCache) {
-        if (expiresAt <= now) this.verifyCache.delete(entry);
-      }
-      // Still full: drop the oldest entry (Map keeps insertion order).
-      if (this.verifyCache.size >= MAX_VERIFY_CACHE_ENTRIES) {
-        this.verifyCache.delete(this.verifyCache.keys().next().value as string);
-      }
+      // Still full of live entries: drop the oldest (Map keeps insertion order).
+      this.verifyCache.delete(this.verifyCache.keys().next().value as string);
     }
     this.verifyCache.set(key, now + this.verifyCacheMs);
+    // Sweep while there is something to expire, so entries leave memory within
+    // about 2 x verify_cache_ms even when no further logins arrive.
+    if (this.verifyCacheSweep === null) {
+      this.verifyCacheSweep = setInterval(
+        () => this.pruneVerifyCache(Date.now()),
+        this.verifyCacheMs
+      );
+      this.verifyCacheSweep.unref?.();
+    }
   }
 
   /**
@@ -171,7 +194,10 @@ export default class HTPasswd
 
       const hash: string = this.users[user];
       const cacheKey = this.verifyCacheMs > 0 ? this.verifyCacheKey(user, password, hash) : null;
-      if (cacheKey !== null && (this.verifyCache.get(cacheKey) ?? 0) > Date.now()) {
+      if (cacheKey !== null) {
+        this.pruneVerifyCache(Date.now());
+      }
+      if (cacheKey !== null && this.verifyCache.has(cacheKey)) {
         debug('password for %s verified from cache', user);
         return cb(null, [user]);
       }
