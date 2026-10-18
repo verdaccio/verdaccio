@@ -266,6 +266,27 @@ describe('proxy', () => {
       expect(request.isDone()).toBe(true);
     });
 
+    test('rejects without calling the uplink when the configured token env is missing', async () => {
+      delete process.env.VERDACCIO_MISSING_SEARCH_TOKEN;
+      const request = nock(domain).get(queryUrl).reply(200, {});
+      const prox1 = new ProxyStorage(
+        'uplink',
+        {
+          url: domain,
+          auth: {
+            type: TOKEN_BEARER,
+            token_env: 'VERDACCIO_MISSING_SEARCH_TOKEN',
+          },
+        },
+        conf,
+        logger
+      );
+
+      await expect(prox1.search({ abort: new AbortController(), url: queryUrl })).rejects.toThrow();
+      expect(request.isDone()).toBe(false);
+      nock.cleanAll();
+    });
+
     test('handle bad response 409', async () => {
       nock(domain)
         .get('/-/v1/search?maintenance=1&popularity=1&quality=1&size=10&text=verdaccio')
