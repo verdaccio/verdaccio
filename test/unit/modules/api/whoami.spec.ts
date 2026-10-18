@@ -24,7 +24,26 @@ describe('whoami', () => {
       });
   });
 
-  test.skip('should fails with 401 if is not logged in', async () => {
+  test('should fail with 401 without credentials', async () => {
+    const app = await initializeServer('whoami.yaml');
+    return supertest(app)
+      .get('/-/whoami')
+      .set('Accept', HEADERS.JSON)
+      .expect('Content-Type', HEADERS.JSON_CHARSET)
+      .expect(HTTP_STATUS.UNAUTHORIZED);
+  });
+
+  test('should fail with 401 with an unknown bearer token', async () => {
+    const app = await initializeServer('whoami.yaml');
+    return supertest(app)
+      .get('/-/whoami')
+      .set('Accept', HEADERS.JSON)
+      .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, 'unknown-token'))
+      .expect('Content-Type', HEADERS.JSON_CHARSET)
+      .expect(HTTP_STATUS.UNAUTHORIZED);
+  });
+
+  test('should fails with 401 if is not logged in', async () => {
     const app = await initializeServer('whoami.yaml');
     // @ts-expect-error internal property
     const { _body } = await createUser(app, 'test', 'test');
