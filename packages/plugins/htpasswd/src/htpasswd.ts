@@ -35,6 +35,8 @@ export type HTPasswdConfig = {
 export const DEFAULT_SLOW_VERIFY_MS = 200;
 export const DEFAULT_VERIFY_CACHE_MS = 0;
 const MAX_VERIFY_CACHE_ENTRIES = 1000;
+// Node runs any longer timer delay after 1ms instead.
+const MAX_TIMER_DELAY_MS = 2 ** 31 - 1;
 
 /**
  * HTPasswd - Verdaccio auth class
@@ -166,7 +168,7 @@ export default class HTPasswd
     if (this.verifyCacheSweep === null) {
       this.verifyCacheSweep = setInterval(
         () => this.pruneVerifyCache(Date.now()),
-        this.verifyCacheMs
+        Math.min(this.verifyCacheMs, MAX_TIMER_DELAY_MS)
       );
       this.verifyCacheSweep.unref?.();
     }

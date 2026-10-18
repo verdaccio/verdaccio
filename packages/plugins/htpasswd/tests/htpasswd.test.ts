@@ -248,6 +248,15 @@ describe('password verification cache', () => {
     expect(vi.getTimerCount()).toBe(0);
   });
 
+  test('caps the sweep interval at the largest timer delay Node supports', async () => {
+    const setInterval = vi.spyOn(globalThis, 'setInterval');
+    const { authenticate } = await setup({ verify_cache_ms: 30 * 24 * 60 * 60 * 1000 });
+
+    await expect(authenticate('secret')).resolves.toEqual(['alice']);
+
+    expect(setInterval).toHaveBeenCalledWith(expect.any(Function), 2 ** 31 - 1);
+  });
+
   test('is disabled by default', async () => {
     expect(DEFAULT_VERIFY_CACHE_MS).toBe(0);
     const { authenticate, compare, cacheSize } = await setup({});
