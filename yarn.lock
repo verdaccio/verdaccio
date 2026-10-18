@@ -1877,17 +1877,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/e2e-cli@npm:3.2.0":
-  version: 3.2.0
-  resolution: "@verdaccio/e2e-cli@npm:3.2.0"
+"@verdaccio/e2e-cli@npm:4.0.0":
+  version: 4.0.0
+  resolution: "@verdaccio/e2e-cli@npm:4.0.0"
   dependencies:
     "@verdaccio/registry-cli": "npm:^1.1.0"
     debug: "npm:4.4.3"
     get-port: "npm:7.2.0"
-    js-yaml: "npm:5.2.3"
+    js-yaml: "npm:5.4.1"
   bin:
     verdaccio-e2e: ./bin/e2e-cli.js
-  checksum: 10c0/d65570a5b9bb8365d487107fcbef2540100ce0990a4b33c1fde20c87ba165fc5646e1926d3bee0928e7884df54fd5c728695e1d8d759be51055b975c0c69eed7
+  checksum: 10c0/6c8f980b509092465c0970736dddcaa47b22a52e0a1d75ee4a5bcdc228defecee968e18d1b63e8bb3fd1ec1b8170d7e61347424de54d04658cf0bc4461dbfbfb
   languageName: node
   linkType: hard
 
@@ -4472,17 +4472,6 @@ __metadata:
   version: 10.0.0
   resolution: "js-tokens@npm:10.0.0"
   checksum: 10c0/a93498747812ba3e0c8626f95f75ab29319f2a13613a0de9e610700405760931624433a0de59eb7c27ff8836e526768fb20783861b86ef89be96676f2c996b64
-  languageName: node
-  linkType: hard
-
-"js-yaml@npm:5.2.3":
-  version: 5.2.3
-  resolution: "js-yaml@npm:5.2.3"
-  dependencies:
-    argparse: "npm:^2.0.1"
-  bin:
-    js-yaml: bin/js-yaml.mjs
-  checksum: 10c0/55cd6310c8eee88d432ae038d451ac9d6aa0eb9e5d38a94df3d6c4a4015d08c9dad7c18669e0e8854e4173a615d6b6b7448bd0aac408773f8a46122ffd863c69
   languageName: node
   linkType: hard
 
@@ -7265,7 +7254,7 @@ __metadata:
     "@verdaccio/auth": "npm:8.1.6"
     "@verdaccio/config": "npm:8.3.3"
     "@verdaccio/core": "npm:8.3.3"
-    "@verdaccio/e2e-cli": "npm:3.2.0"
+    "@verdaccio/e2e-cli": "npm:4.0.0"
     "@verdaccio/e2e-ui": "npm:2.7.0"
     "@verdaccio/hooks": "npm:8.1.7"
     "@verdaccio/loaders": "npm:8.1.6"

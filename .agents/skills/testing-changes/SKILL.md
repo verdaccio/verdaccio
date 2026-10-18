@@ -57,7 +57,7 @@ node bin/verdaccio --config /tmp/verdaccio-e2e/config.yaml --listen 4873 &
 yarn verdaccio-e2e --registry http://localhost:4873 --pm npm@11 --uplink-port 4874 -v
 ```
 
-CI runs npm 10–12, pnpm 10–11 and yarn modern 4; run at least the client the
+CI runs npm 10–12, pnpm 11 and yarn modern 4; run at least the client the
 reporter used and `npm@11` when a change touches publish, install, tarballs,
 dist-tags, search or auth. The UI suite is Cypress: `yarn e2e:ui:local`
 (headless) or `yarn e2e:ui:local:open`. `yarn docker` builds
