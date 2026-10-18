@@ -1,4 +1,5 @@
 import buildDebug from 'debug';
+import { createHmac, randomBytes } from 'node:crypto';
 import { readFile, stat, writeFile } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 
@@ -28,9 +29,14 @@ export type HTPasswdConfig = {
   rounds?: number;
   max_users?: number;
   slow_verify_ms?: number;
+  verify_cache_ms?: number;
 };
 
 export const DEFAULT_SLOW_VERIFY_MS = 200;
+export const DEFAULT_VERIFY_CACHE_MS = 0;
+const MAX_VERIFY_CACHE_ENTRIES = 1000;
+// Node runs any longer timer delay after 1ms instead.
+const MAX_TIMER_DELAY_MS = 2 ** 31 - 1;
 
 /**
  * HTPasswd - Verdaccio auth class
@@ -49,6 +55,15 @@ export default class HTPasswd
   private hashConfig: HtpasswdHashConfig;
   private path: string;
   private slowVerifyMs: number;
+  // Successful password verifications, keyed by an HMAC of user, password and
+  // stored hash, so repeated basic-auth requests skip bcrypt. Value: expiry time.
+  private verifyCacheMs: number;
+  private verifyCache: Map<string, number>;
+  private verifyCacheSweep: ReturnType<typeof setInterval> | null = null;
+  // In-flight verifications by the same key, so a burst of identical logins
+  // (a package manager fetching in parallel) runs bcrypt once, not per request.
+  private pendingVerify: Map<string, Promise<boolean>>;
+  private verifyCacheSecret: Buffer;
   private logger: Logger;
   private lastTime: any;
   // constructor
@@ -103,6 +118,60 @@ export default class HTPasswd
       this.logger.info({ ms: config.slow_verify_ms }, 'slow_verify_ms enabled for @{ms}');
     }
     this.slowVerifyMs = config.slow_verify_ms || DEFAULT_SLOW_VERIFY_MS;
+    this.verifyCacheMs =
+      typeof config.verify_cache_ms === 'number' && config.verify_cache_ms >= 0
+        ? config.verify_cache_ms
+        : DEFAULT_VERIFY_CACHE_MS;
+    this.verifyCache = new Map();
+    this.pendingVerify = new Map();
+    this.verifyCacheSecret = randomBytes(32);
+  }
+
+  /**
+   * Key for the verification cache. The stored hash is part of the key, so a
+   * password change or a removed user can never match a stale entry, and the
+   * per-process secret keeps the key useless for guessing passwords offline.
+   */
+  private verifyCacheKey(user: string, password: string, hash: string): string {
+    return createHmac('sha256', this.verifyCacheSecret)
+      .update(JSON.stringify([user, password, hash]))
+      .digest('base64');
+  }
+
+  /**
+   * Drop expired entries. Every entry gets the same TTL and is re-inserted on
+   * renewal, so the map is ordered by expiry and the scan stops at the first
+   * live entry.
+   */
+  private pruneVerifyCache(now: number): void {
+    for (const [entry, expiresAt] of this.verifyCache) {
+      if (expiresAt > now) break;
+      this.verifyCache.delete(entry);
+    }
+    if (this.verifyCache.size === 0 && this.verifyCacheSweep !== null) {
+      clearInterval(this.verifyCacheSweep);
+      this.verifyCacheSweep = null;
+    }
+  }
+
+  private rememberVerified(key: string): void {
+    const now = Date.now();
+    this.pruneVerifyCache(now);
+    this.verifyCache.delete(key);
+    if (this.verifyCache.size >= MAX_VERIFY_CACHE_ENTRIES) {
+      // Still full of live entries: drop the oldest (Map keeps insertion order).
+      this.verifyCache.delete(this.verifyCache.keys().next().value as string);
+    }
+    this.verifyCache.set(key, now + this.verifyCacheMs);
+    // Sweep while there is something to expire, so entries leave memory within
+    // about 2 x verify_cache_ms even when no further logins arrive.
+    if (this.verifyCacheSweep === null) {
+      this.verifyCacheSweep = setInterval(
+        () => this.pruneVerifyCache(Date.now()),
+        Math.min(this.verifyCacheMs, MAX_TIMER_DELAY_MS)
+      );
+      this.verifyCacheSweep.unref?.();
+    }
   }
 
   /**
@@ -125,10 +194,35 @@ export default class HTPasswd
         return cb(null, false);
       }
 
+      const hash: string = this.users[user];
+      const cacheKey = this.verifyCacheMs > 0 ? this.verifyCacheKey(user, password, hash) : null;
+      if (cacheKey !== null) {
+        this.pruneVerifyCache(Date.now());
+      }
+      if (cacheKey !== null && this.verifyCache.has(cacheKey)) {
+        debug('password for %s verified from cache', user);
+        return cb(null, [user]);
+      }
+
+      const pending = cacheKey !== null ? this.pendingVerify.get(cacheKey) : undefined;
+      if (pending) {
+        debug('password for %s joins an in-flight verification', user);
+        return cb(null, (await pending) ? [user] : false);
+      }
+
       let passwordValid = false;
+      let settle: ((valid: boolean) => void) | undefined;
+      if (cacheKey !== null) {
+        this.pendingVerify.set(
+          cacheKey,
+          new Promise<boolean>((resolve) => {
+            settle = resolve;
+          })
+        );
+      }
       try {
         const start = new Date();
-        passwordValid = await verifyPassword(password, this.users[user]);
+        passwordValid = await verifyPassword(password, hash);
         const durationMs = new Date().getTime() - start.getTime();
         if (durationMs > this.slowVerifyMs) {
           debug('password for user "%s" took %sms to verify', user, durationMs);
@@ -139,6 +233,13 @@ export default class HTPasswd
         }
       } catch (error: any) {
         this.logger.error({ message: error.message }, 'Unable to verify user password: @{message}');
+      }
+      if (cacheKey !== null) {
+        if (passwordValid) {
+          this.rememberVerified(cacheKey);
+        }
+        this.pendingVerify.delete(cacheKey);
+        settle?.(passwordValid);
       }
       if (!passwordValid) {
         debug('password invalid for %s', user);
