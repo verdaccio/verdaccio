@@ -108,10 +108,12 @@ jobs:
         uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5
         with:
           images: verdaccio/verdaccio
-          # 7.x is the "next-7" line — NOT latest, so no latest tag here.
+          flavor: |
+            latest=false
           tags: |
             type=raw,value=${{ steps.ver.outputs.version }}
-            type=raw,value=7.x-next
+            type=raw,value=${{ steps.ver.outputs.major }}
+            type=raw,value=${{ steps.ver.outputs.majorminor }}
 
       - name: Build & push Docker image
         if: steps.ver.outputs.version
