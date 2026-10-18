@@ -1,5 +1,20 @@
 # @verdaccio/proxy
 
+## 9.0.0-next-9.36
+
+### Patch Changes
+
+- 1cdb33c: Preserve configured uplink subpaths and authentication headers when forwarding search requests.
+  Searches to uplinks such as `https://host.example/private/npm` retain `/private/npm` and use the
+  uplink's authentication and configured headers. Sensitive client headers are not forwarded.
+  
+  Normalize the pathname without modifying the configured URL, including when the uplink URL
+  contains a query string or fragment. The search request retains its own query parameters and
+  does not lose the last segment of the uplink subpath.
+- Updated dependencies [5009e4d]
+  - @verdaccio/config@9.0.0-next-9.36
+  - @verdaccio/core@9.0.0-next-9.36
+
 ## 9.0.0-next-9.35
 
 ### Patch Changes

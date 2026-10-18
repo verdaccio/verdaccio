@@ -1,5 +1,21 @@
 # @verdaccio/store
 
+## 9.0.0-next-9.36
+
+### Patch Changes
+
+- Updated dependencies [1cdb33c]
+- Updated dependencies [5009e4d]
+  - @verdaccio/proxy@9.0.0-next-9.36
+  - @verdaccio/config@9.0.0-next-9.36
+  - @verdaccio/search@9.0.0-next-9.36
+  - @verdaccio/core@9.0.0-next-9.36
+  - @verdaccio/tarball@14.0.0-next-9.36
+  - @verdaccio/logger@9.0.0-next-9.36
+  - @verdaccio/local-storage@14.0.0-next-9.36
+  - @verdaccio/loaders@9.0.0-next-9.36
+  - @verdaccio/url@14.0.0-next-9.36
+
 ## 9.0.0-next-9.35
 
 ### Patch Changes
