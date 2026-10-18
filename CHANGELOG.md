@@ -1,5 +1,19 @@
 # Changelog
 
+## 7.0.0-next-7.31
+
+### Patch Changes
+
+- 256fd40: Disable dependency lifecycle scripts and require third-party dependencies to be at least three days old when installing Verdaccio in the final Docker image stage.
+  
+  The production installation now uses npm's `--ignore-scripts` and `--min-release-age=3` options. Verdaccio and packages matching `@verdaccio/*` or `verdaccio-*` are excluded from the age restriction so new Verdaccio releases can be built immediately. The final stage updates npm to support these exclusions and disables installation audit and funding output. Image builds still fail if another required dependency has no eligible version. No configuration changes are required for operators.
+  
+  The Docker base image uses Node.js 24.15.0 for compatibility with the updated npm.
+- f565393: Update the proxy address dependency to correctly match trusted proxy subnets when determining client IP addresses. Earlier 7.x prereleases using the affected dependency can misidentify clients with certain IPv6 trust configurations. No configuration migration is required.
+  
+  Update `@verdaccio/e2e-cli` to 4.0.0, which drops pnpm 10, and remove pnpm 10 from the CLI e2e matrix.
+- 1aef95b: Update verdaccio dependencies (`@verdaccio/*`, `verdaccio`, `verdaccio-*`) to the `next-9` npm dist-tag.
+
 ## 7.0.0-next-7.30
 
 ### Patch Changes
