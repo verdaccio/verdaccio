@@ -26,7 +26,11 @@ describe('search', () => {
       const first = await supertest(app)
         .get(`/-/v1/search?text=missing${pagination}`)
         .expect(HTTP_STATUS.OK);
-      expect(first.body).toEqual({ objects: [], total: 0, time: '2026-09-10T22:30:00.123Z' });
+      expect(first.body).toEqual({
+        objects: [],
+        total: 0,
+        time: '2026-09-10T22:30:00.123Z',
+      });
 
       MockDate.set('2026-09-11T00:31:00.456+02:00');
       const second = await supertest(app)
@@ -47,7 +51,11 @@ describe('search', () => {
         .reply(200, () => {
           MockDate.set(responseTime);
           return {
-            objects: [{ package: { name: 'remote', version: '1.0.0', date: published } }],
+            objects: [
+              {
+                package: { name: 'remote', version: '1.0.0', date: published },
+              },
+            ],
             total: 1,
             time: uplinkTime,
           };
@@ -205,7 +213,10 @@ describe('search', () => {
           const query = new URL(uri, 'https://registry.npmjs.org').searchParams;
           const from = Number(query.get('from'));
           const size = Number(query.get('size'));
-          return { objects: packages.slice(from, from + size), total: packages.length };
+          return {
+            objects: packages.slice(from, from + size),
+            total: packages.length,
+          };
         });
       const remoteApp = await initializeServer('search-abort.yaml');
       const response = await supertest(remoteApp)
@@ -315,6 +326,58 @@ describe('search', () => {
       expect(forwardedQuery.get('from')).toBe('0');
     });
 
+    test('should isolate client headers from configured uplink headers', async () => {
+      const app = await initializeServer('search-uplink-headers.yaml');
+      const user = await createUser(app, 'search-client', 'password');
+      const clientToken = user.body.token;
+      let received: Record<string, string | string[] | undefined> = {};
+      const request = nock('https://registry.npmjs.org')
+        .get(/\/-\/v1\/search/)
+        .reply(200, function () {
+          received = this.req.headers;
+          return { objects: [], total: 0, time: '' };
+        });
+
+      await supertest(app)
+        .get('/-/v1/search?text=header-security&size=20&from=0')
+        .set(HEADERS.AUTHORIZATION, `Bearer ${clientToken}`)
+        .set('Cookie', 'session=client-secret')
+        .set('npm-otp', '123456')
+        .set('npm-session', 'client-session')
+        .set('npm-command', 'search')
+        .set('npm-scope', '@private')
+        .set('npm-auth-type', 'legacy')
+        .set('proxy-authorization', 'Basic proxy-secret')
+        .set('x-forwarded-for', '192.0.2.1')
+        .set('x-real-ip', '192.0.2.2')
+        .set('forwarded', 'for=192.0.2.3')
+        .set('referer', 'https://client.example/private')
+        .set('x-client-secret', 'secret')
+        .set('x-uplink-header', 'client-value')
+        .expect(HTTP_STATUS.OK);
+
+      expect(request.isDone()).toBe(true);
+      expect(received.authorization).toBe('Bearer uplink-token');
+      expect(received['x-uplink-header']).toBe('configured-value');
+      for (const header of [
+        'cookie',
+        'npm-otp',
+        'npm-session',
+        'npm-command',
+        'npm-scope',
+        'npm-auth-type',
+        'proxy-authorization',
+        'x-forwarded-for',
+        'x-real-ip',
+        'forwarded',
+        'referer',
+        'x-client-secret',
+      ]) {
+        expect(received[header]).toBeUndefined();
+      }
+      expect(Object.values(received).join(' ')).not.toContain(clientToken);
+    });
+
     test('should preserve optional package fields returned by an uplink', async () => {
       nock('https://registry.npmjs.org')
         .get(/\/-\/v1\/search/)
@@ -331,7 +394,9 @@ describe('search', () => {
                 date: '2018-01-14T11:17:40.712Z',
                 publisher: { username: 'remote-user', email: '' },
                 maintainers: [{ username: 'remote-user', email: '' }],
-                links: { npm: 'https://www.npmjs.com/package/remote-license-package' },
+                links: {
+                  npm: 'https://www.npmjs.com/package/remote-license-package',
+                },
               },
               score: {
                 final: 1,
