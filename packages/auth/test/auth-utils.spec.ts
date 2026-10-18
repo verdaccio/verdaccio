@@ -17,7 +17,14 @@ import { aesDecrypt, verifyPayload } from '@verdaccio/signature';
 import type { Config, RemoteUser } from '@verdaccio/types';
 
 import type { ActionsAllowed, AllowActionCallbackResponse } from '../src';
-import { Auth, allow_action, getApiToken, getDefaultPluginMethods } from '../src';
+import {
+  Auth,
+  allow_action,
+  getApiToken,
+  getDefaultPluginMethods,
+  isBasicLoginRequest,
+  parseBasicLoginCredentials,
+} from '../src';
 
 // valid 32-character secret for AES-256 encryption tests
 const TEST_SECRET = 'b2df428b9929d3ace7c598bbf4e496b2';
@@ -356,6 +363,76 @@ describe('Auth utilities', () => {
   describe('getAuthenticatedMessage test', () => {
     test('should sign token with jwt enabled', () => {
       expect(authUtils.getAuthenticatedMessage('test')).toBe("you are authenticated as 'test'");
+    });
+  });
+
+  describe('isBasicLoginRequest', () => {
+    const basic = `Basic ${Buffer.from('foo:bar').toString('base64')}`;
+    const request = (method: string, url: string, authorization?: string) => ({
+      method,
+      url,
+      headers: authorization ? { authorization } : {},
+    });
+    const login = '/-/user/org.couchdb.user:foo';
+
+    test.each([
+      ['PUT', login],
+      ['GET', `${login}?write=true`],
+      ['PUT', `${login}/-rev/1-abc`],
+    ])('should accept Basic on %s %s', (method, url) => {
+      expect(isBasicLoginRequest(request(method, url, basic) as any)).toBe(true);
+    });
+
+    test('should accept the scheme in any case', () => {
+      expect(
+        isBasicLoginRequest(request('PUT', login, basic.replace('Basic', 'basic')) as any)
+      ).toBe(true);
+    });
+
+    test.each([
+      ['POST', login],
+      ['DELETE', login],
+      ['PUT', '/-/whoami'],
+      ['GET', '/vue'],
+      ['PUT', `${login}/extra`],
+    ])('should reject Basic on %s %s', (method, url) => {
+      expect(isBasicLoginRequest(request(method, url, basic) as any)).toBe(false);
+    });
+
+    test('should reject a missing or non Basic authorization header', () => {
+      expect(isBasicLoginRequest(request('PUT', login) as any)).toBe(false);
+      expect(isBasicLoginRequest(request('PUT', login, 'Bearer abc') as any)).toBe(false);
+    });
+
+    test('should reject everything when basicLogin is false', () => {
+      const security = { api: { basicLogin: false } } as any;
+      expect(isBasicLoginRequest(request('PUT', login, basic) as any, security)).toBe(false);
+    });
+  });
+
+  describe('parseBasicLoginCredentials', () => {
+    const encode = (value: string) => `Basic ${Buffer.from(value).toString('base64')}`;
+
+    test('should split user and password', () => {
+      expect(parseBasicLoginCredentials(encode('foo:bar'))).toEqual({
+        user: 'foo',
+        password: 'bar',
+      });
+    });
+
+    test('should keep colons inside the password', () => {
+      expect(parseBasicLoginCredentials(encode('foo:ba:r'))).toEqual({
+        user: 'foo',
+        password: 'ba:r',
+      });
+    });
+
+    test('should accept an empty password', () => {
+      expect(parseBasicLoginCredentials(encode('foo:'))).toEqual({ user: 'foo', password: '' });
+    });
+
+    test.each([['nocolon'], [':nouser'], ['']])('should reject %p', (value) => {
+      expect(parseBasicLoginCredentials(encode(value))).toBeUndefined();
     });
   });
 });

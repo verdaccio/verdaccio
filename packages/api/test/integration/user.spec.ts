@@ -2,7 +2,17 @@ import { Secret, TOTP } from 'otpauth';
 import supertest from 'supertest';
 import { describe, expect, test, vi } from 'vitest';
 
-import { API_ERROR, HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core';
+import { Auth } from '@verdaccio/auth';
+
+import {
+  API_ERROR,
+  HEADERS,
+  HEADER_TYPE,
+  HTTP_STATUS,
+  TOKEN_BASIC,
+  TOKEN_BEARER,
+  errorUtils,
+} from '@verdaccio/core';
 
 import {
   buildToken,
@@ -343,5 +353,220 @@ describe('token', () => {
         expect(response2.body.error).toBe(API_ERROR.USERNAME_MISMATCH);
       }
     );
+  });
+});
+
+describe('basic login', () => {
+  const basic = (name: string, password: string) =>
+    buildToken(TOKEN_BASIC, Buffer.from(`${name}:${password}`).toString('base64'));
+
+  describe.each([['user.yaml'], ['user.jwt.yaml']])('%s', (conf) => {
+    test('should log in an existing user the way npm does, retrying with Basic after the 409', async () => {
+      const app = await initializeServer(conf);
+      const credentials = { name: 'basic_login', password: 'secretPass' };
+      await createUser(app, credentials.name, credentials.password);
+
+      await supertest(app)
+        .put(`/-/user/org.couchdb.user:${credentials.name}`)
+        .send({ name: credentials.name, password: credentials.password })
+        .expect(HTTP_STATUS.CONFLICT);
+
+      const response = await supertest(app)
+        .put(`/-/user/org.couchdb.user:${credentials.name}/-rev/undefined`)
+        .set(HEADERS.AUTHORIZATION, basic(credentials.name, credentials.password))
+        .send({ name: credentials.name, password: credentials.password })
+        .expect(HTTP_STATUS.CREATED);
+
+      expect(response.body.ok).toMatch(`you are authenticated as '${credentials.name}'`);
+      const vueResponse = await getPackage(app, response.body.token, 'vue');
+      expect(vueResponse.body.name).toMatch('vue');
+    });
+
+    test('should log in an existing user the way Yarn does, sending Basic on the GET and the PUT', async () => {
+      const app = await initializeServer(conf);
+      const credentials = { name: 'basic_yarn', password: 'secretPass' };
+      await createUser(app, credentials.name, credentials.password);
+      const authorization = basic(credentials.name, credentials.password);
+      const userPath = `/-/user/org.couchdb.user:${credentials.name}`;
+
+      await supertest(app)
+        .put(userPath)
+        .send({ name: credentials.name, password: credentials.password })
+        .expect(HTTP_STATUS.CONFLICT);
+
+      const current = await supertest(app)
+        .get(userPath)
+        .set(HEADERS.AUTHORIZATION, authorization)
+        .expect(HTTP_STATUS.OK);
+      expect(current.body.ok).toMatch(`you are authenticated as '${credentials.name}'`);
+
+      const response = await supertest(app)
+        .put(`${userPath}/-rev/undefined`)
+        .set(HEADERS.AUTHORIZATION, authorization)
+        .send({ name: credentials.name, password: credentials.password })
+        .expect(HTTP_STATUS.CREATED);
+      expect(response.body.token).toBeDefined();
+    });
+
+    test('should answer the GET without credentials the way npm sends it', async () => {
+      const app = await initializeServer(conf);
+      await createUser(app, 'basic_npm_get', 'secretPass');
+
+      const response = await supertest(app)
+        .get('/-/user/org.couchdb.user:basic_npm_get?write=true')
+        .expect(HTTP_STATUS.OK);
+      expect(response.body).toEqual({ ok: false });
+    });
+
+    test('should reject a wrong password sent with Basic on the GET', async () => {
+      const app = await initializeServer(conf);
+      await createUser(app, 'basic_get_wrong', 'secretPass');
+
+      await supertest(app)
+        .get('/-/user/org.couchdb.user:basic_get_wrong')
+        .set(HEADERS.AUTHORIZATION, basic('basic_get_wrong', 'otherPass'))
+        .expect(HTTP_STATUS.UNAUTHORIZED);
+    });
+
+    test('should log in an existing user with a single PUT carrying Basic, the way pnpm does', async () => {
+      const app = await initializeServer(conf);
+      await createUser(app, 'basic_pnpm', 'secretPass');
+
+      const response = await supertest(app)
+        .put('/-/user/org.couchdb.user:basic_pnpm')
+        .set(HEADERS.AUTHORIZATION, basic('basic_pnpm', 'secretPass'))
+        .send({ name: 'basic_pnpm', password: 'secretPass', email: 'p@test.io', type: 'user' })
+        .expect(HTTP_STATUS.CREATED);
+      expect(response.body.ok).toMatch("you are authenticated as 'basic_pnpm'");
+    });
+
+    test('should register a new user when the PUT carries Basic, the way pnpm does', async () => {
+      const app = await initializeServer(conf);
+
+      const response = await supertest(app)
+        .put('/-/user/org.couchdb.user:basic_new')
+        .set(HEADERS.AUTHORIZATION, basic('basic_new', 'secretPass'))
+        .send({ name: 'basic_new', password: 'secretPass', email: 'n@test.io', type: 'user' })
+        .expect(HTTP_STATUS.CREATED);
+      expect(response.body.ok).toMatch("user 'basic_new' created");
+    });
+
+    test('should reject a wrong password sent with Basic', async () => {
+      const app = await initializeServer(conf);
+      await createUser(app, 'basic_wrong', 'secretPass');
+
+      const response = await supertest(app)
+        .put('/-/user/org.couchdb.user:basic_wrong')
+        .set(HEADERS.AUTHORIZATION, basic('basic_wrong', 'otherPass'))
+        .send({ name: 'basic_wrong', password: 'otherPass' })
+        .expect(HTTP_STATUS.UNAUTHORIZED);
+
+      expect(response.body.token).toBeUndefined();
+    });
+
+    test('should not issue a token when Basic belongs to another user than the body', async () => {
+      const app = await initializeServer(conf);
+      await createUser(app, 'basic_owner', 'secretPass');
+      await createUser(app, 'basic_other', 'secretPass');
+
+      await supertest(app)
+        .put('/-/user/org.couchdb.user:basic_other')
+        .set(HEADERS.AUTHORIZATION, basic('basic_owner', 'secretPass'))
+        .send({ name: 'basic_other', password: 'secretPass' })
+        .expect(HTTP_STATUS.CONFLICT);
+    });
+
+    test('should answer 400 when the Basic credentials are malformed', async () => {
+      const app = await initializeServer(conf);
+      const malformed = buildToken(TOKEN_BASIC, Buffer.from('no-separator').toString('base64'));
+
+      await supertest(app)
+        .put('/-/user/org.couchdb.user:basic_malformed')
+        .set(HEADERS.AUTHORIZATION, malformed)
+        .send({ name: 'basic_malformed', password: 'secretPass' })
+        .expect(HTTP_STATUS.BAD_REQUEST);
+      await supertest(app)
+        .get('/-/user/org.couchdb.user:basic_malformed')
+        .set(HEADERS.AUTHORIZATION, malformed)
+        .expect(HTTP_STATUS.BAD_REQUEST);
+    });
+
+    test('should keep rejecting Basic on every other route', async () => {
+      const app = await initializeServer(conf);
+      await createUser(app, 'basic_routes', 'secretPass');
+      const authorization = basic('basic_routes', 'secretPass');
+
+      await supertest(app)
+        .get('/-/whoami')
+        .set(HEADERS.AUTHORIZATION, authorization)
+        .expect(HTTP_STATUS.UNAUTHORIZED);
+      await supertest(app)
+        .get('/vue')
+        .set(HEADERS.AUTHORIZATION, authorization)
+        .expect(HTTP_STATUS.UNAUTHORIZED);
+    });
+  });
+
+  test('should still require an OTP after accepting the Basic password', async () => {
+    const app = await initializeServer('tfa-publish.yaml');
+    const credentials = { name: 'basic_login_tfa', password: 'secretPass' };
+    const created = await createUser(app, credentials.name, credentials.password);
+    await enableTfa(app, created.body.token, credentials.password);
+
+    const response = await supertest(app)
+      .put(`/-/user/org.couchdb.user:${credentials.name}`)
+      .set(HEADERS.AUTHORIZATION, basic(credentials.name, credentials.password))
+      .send({ name: credentials.name, password: credentials.password })
+      .expect(HTTP_STATUS.UNAUTHORIZED);
+
+    expect(response.headers['www-authenticate'].toLowerCase()).toContain('otp');
+  });
+
+  test.each([
+    ['an internal error', () => errorUtils.getInternalError('backend down')],
+    ['an error without status', () => new Error('backend down')],
+  ])(
+    'should report a failing auth backend instead of registering the user (%s)',
+    async (_, failure) => {
+      const app = await initializeServer('user.yaml');
+      const authenticate = vi
+        .spyOn(Auth.prototype, 'authenticate')
+        .mockImplementation((_user, _password, cb) => cb(failure() as any));
+      const addUser = vi.spyOn(Auth.prototype, 'add_user');
+      try {
+        const authorization = basic('basic_down', 'secretPass');
+
+        await supertest(app)
+          .put('/-/user/org.couchdb.user:basic_down')
+          .set(HEADERS.AUTHORIZATION, authorization)
+          .send({ name: 'basic_down', password: 'secretPass', email: 'd@test.io', type: 'user' })
+          .expect(HTTP_STATUS.INTERNAL_ERROR);
+        await supertest(app)
+          .get('/-/user/org.couchdb.user:basic_down')
+          .set(HEADERS.AUTHORIZATION, authorization)
+          .expect(HTTP_STATUS.INTERNAL_ERROR);
+        expect(addUser).not.toHaveBeenCalled();
+      } finally {
+        authenticate.mockRestore();
+        addUser.mockRestore();
+      }
+    }
+  );
+
+  // keep last: security settings leak into later configs of the same process
+  test('should reject Basic on the login route when basicLogin is disabled', async () => {
+    const app = await initializeServer('user.basic-login-off.yaml');
+    await createUser(app, 'basic_off', 'secretPass');
+
+    await supertest(app)
+      .put('/-/user/org.couchdb.user:basic_off')
+      .set(HEADERS.AUTHORIZATION, basic('basic_off', 'secretPass'))
+      .send({ name: 'basic_off', password: 'secretPass' })
+      .expect(HTTP_STATUS.UNAUTHORIZED);
+
+    await supertest(app)
+      .get('/-/user/org.couchdb.user:basic_off')
+      .set(HEADERS.AUTHORIZATION, basic('basic_off', 'secretPass'))
+      .expect(HTTP_STATUS.UNAUTHORIZED);
   });
 });

@@ -3,7 +3,7 @@ description: 'Run the @verdaccio/e2e-cli battery for one package manager against
 
 inputs:
   pm:
-    description: 'Package manager spec, e.g. npm@11, pnpm@10, bun, deno'
+    description: 'Package manager spec, e.g. npm@11, pnpm@11, bun, deno'
     required: true
   uplink-port:
     description: 'Mock uplink port; empty skips the uplink scenarios'

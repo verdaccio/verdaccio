@@ -128,8 +128,8 @@ jobs:
           - npm@12
           - yarn-modern@3
           - yarn-modern@4
-          - pnpm@10
           - pnpm@11
+          - pnpm@12
           - bun
           - deno
           # installed by the e2e CLI itself; both only exercise install and ci
