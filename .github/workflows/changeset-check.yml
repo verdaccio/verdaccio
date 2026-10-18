@@ -1,0 +1,32 @@
+name: Changeset check
+
+on:
+  # Separate from CI so adding or removing a label does not rerun the whole pipeline
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review, labeled, unlabeled]
+
+permissions:
+  contents: read
+concurrency:
+  group: changeset-check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  changeset-check:
+    if: >-
+      github.event.pull_request.draft == false &&
+      github.actor != 'renovate[bot]' &&
+      github.actor != 'dependabot[bot]' &&
+      github.head_ref != 'changeset-release/master' &&
+      !contains(github.event.pull_request.labels.*.name, 'skip changeset')
+    runs-on: ubuntu-latest
+    name: Changeset file check
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - name: Check changeset
+        uses: ./.github/actions/changeset-check
