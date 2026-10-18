@@ -1,5 +1,30 @@
 # Changelog
 
+## 6.10.6
+
+### Patch Changes
+
+- 56b6a85: Disable dependency lifecycle scripts and require third-party dependencies to be at least three days old when installing Verdaccio in the final Docker image stage.
+  
+  The production installation now uses npm's `--ignore-scripts` and `--min-release-age=3` options. Verdaccio and packages matching `@verdaccio/*` or `verdaccio-*` are excluded from the age restriction so new Verdaccio releases can be built immediately. The final stage updates npm to support these exclusions and disables installation audit and funding output. Image builds still fail if another required dependency has no eligible version. No configuration changes are required for operators.
+- db47d78: Update verdaccio dependencies to the `latest` npm dist-tag (`@verdaccio/ui-theme` tracks `next-9`):
+  
+  - `@verdaccio/ui-theme`: `9.0.0-next-9.34` → `9.0.0-next-9.36`
+- fdbfef9: Improve request validation when changing passwords and signing in through the web API.
+  
+  Password changes validate the supplied credential fields before invoking the authentication plugin. Existing passwords remain eligible for replacement even when they do not meet the current policy. The existing validation for new passwords and authentication plugin error handling remain unchanged. No configuration changes are required.
+  
+  Web sign-in requests now validate the supplied credential fields the same way as password changes. Requests that omit the username or password, send either with a type other than a string, or send a `null` body are rejected with HTTP 400 and the message `username and password is required`; a `null` body previously failed with an internal server error (HTTP 500), and the other cases reached the authentication plugin. Empty strings are still passed to the authentication plugin, which rejects them as before. The web UI always sends both fields, so signing in from it is unaffected.
+  
+  This release also updates the internal `@verdaccio/*` modules and the bundled `verdaccio-htpasswd` and `verdaccio-audit` plugins to their latest 6.x-compatible versions. The shared password validator now accepts input of any type and rejects anything that is not a string, and the webhook notification templates use Handlebars 4.7.10, which includes a security fix. `proxy-addr`, which Express uses to resolve client addresses when `server.trustProxy` is configured, is updated to 2.0.8, which includes a security fix for trusted-subnet matching of IPv4-mapped IPv6 addresses.
+- abced78: `npm whoami` and any other request to `/-/whoami` now answer `401 Unauthorized` when the request carries no credentials or a token Verdaccio does not recognise.
+  
+  Until now the endpoint answered `200` with an empty body `{}` for anonymous requests, so clients that check the status code, rather than the `username` field, treated an expired or wrong token as a valid login. The npm public registry and Verdaccio 7 answer `401` in that case, and this release aligns 6.x with them. Requests with a valid token are unchanged and still return `{ "username": "<name>" }`. No configuration change is required.
+  
+  This release also updates the internal `@verdaccio/*` modules to their latest 8.x patches. `@verdaccio/core` 8.3.3 corrects the input type of the shared password validator, without changing which passwords are accepted. `@verdaccio/hooks` 8.1.7 brings `handlebars` 4.7.10, which fixes several template injection advisories in the library that renders notification templates.
+  
+  `proxy-addr`, used by Express to decide which proxies are trusted when `X-Forwarded-For` is read, is pinned to 2.0.8 to fix an IP spoofing issue with IPv4-mapped IPv6 trusted subnets (GHSA-jqcg-44mw-7w3h).
+
 ## 6.10.5
 
 ### Patch Changes
