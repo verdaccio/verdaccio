@@ -27,6 +27,11 @@ vi.mock('../pages/Security/AddUser', () => ({
 vi.mock('../pages/Security/ChangePassword', () => ({
   default: () => <div data-testid="change-password-page">change-password-page</div>,
 }));
+// The loadable mock imports every page eagerly; a real Stage page would load after teardown.
+vi.mock('../pages/Stage/StageList', () => ({ default: () => <div data-testid="stage-list" /> }));
+vi.mock('../pages/Stage/StageDetail', () => ({
+  default: () => <div data-testid="stage-detail" />,
+}));
 
 // Make loadable resolve synchronously
 vi.mock('../utils/loadable', () => ({
