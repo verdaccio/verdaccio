@@ -55,6 +55,7 @@ export enum PING_API_ENDPOINTS {
 }
 
 export enum PACKAGE_API_ENDPOINTS {
+  version_status = '/-/package/:statusPackage/version/:statusVersion/status',
   get_package_by_version = '/:package{/:version}',
   get_package_tarball = '/:package/-/:filename',
 }

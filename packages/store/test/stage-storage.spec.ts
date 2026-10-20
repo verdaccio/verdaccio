@@ -2,7 +2,7 @@ import { pseudoRandomBytes } from 'node:crypto';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { beforeAll, describe, expect, test } from 'vitest';
+import { beforeAll, describe, expect, test, vi } from 'vitest';
 
 import { Config, getDefaultConfig } from '@verdaccio/config';
 import { UUID_PATTERN } from '@verdaccio/core';
@@ -308,14 +308,51 @@ describe('StageStorage', () => {
   });
 
   describe('toStagePackageVersion', () => {
-    test('should strip the internal tarball filename', async () => {
+    test('should expose staged status without changing the stored record', async () => {
       const { stage } = await buildStageStorage();
       const record = await stage.add(addInput(), tarball, { signal });
 
-      const serialized = toStagePackageVersion(record);
+      const stored = await stage.get(record.id);
+      expect(stored).not.toHaveProperty('status');
+      const serialized = toStagePackageVersion(Object.freeze(stored!));
 
       expect(serialized).not.toHaveProperty('tarballFilename');
-      expect(serialized).toMatchObject({ id: record.id, packageName: 'foo', version: '1.0.0' });
+      expect(serialized).toMatchObject({
+        id: record.id,
+        packageName: 'foo',
+        version: '1.0.0',
+        status: 'staged',
+      });
+      expect(await stage.get(record.id)).toEqual(stored);
+    });
+  });
+
+  describe('Storage.getPackageVersionStatus', () => {
+    test('should observe approval occurring between staging and manifest reads', async () => {
+      const { storage, stage } = await buildStageStorage();
+      storage.config.flags = { ...storage.config.flags, stage: true };
+      const record = await stage.add(addInput(), tarball, { signal });
+      const find = vi.spyOn(stage, 'findByVersion').mockImplementation(async () => {
+        await stage.remove(record.id);
+        return undefined;
+      });
+      vi.spyOn(storage, 'getPackageLocalMetadata').mockResolvedValue({
+        name: 'foo',
+        versions: { '1.0.0': { name: 'foo', version: '1.0.0' } },
+      } as any);
+      expect(await storage.getPackageVersionStatus('foo', '1.0.0')).toBe('published');
+      expect(find).toHaveBeenCalledBefore(storage.getPackageLocalMetadata);
+    });
+
+    test('should prefer published while the staged record still exists', async () => {
+      const { storage, stage } = await buildStageStorage();
+      storage.config.flags = { ...storage.config.flags, stage: true };
+      await stage.add(addInput(), tarball, { signal });
+      vi.spyOn(storage, 'getPackageLocalMetadata').mockResolvedValue({
+        name: 'foo',
+        versions: { '1.0.0': { name: 'foo', version: '1.0.0' } },
+      } as any);
+      expect(await storage.getPackageVersionStatus('foo', '1.0.0')).toBe('published');
     });
   });
 

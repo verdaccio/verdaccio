@@ -55,7 +55,9 @@ export interface StageRecord {
 }
 
 /** Shape served to clients: {@link StageRecord} without the internal fields. */
-export type StagePackageVersion = Omit<StageRecord, 'tarballFilename'>;
+export type StagePackageVersion = Omit<StageRecord, 'tarballFilename'> & {
+  status: 'staged';
+};
 
 /**
  * The publish payload kept for a staged item, minus `_attachments` (the tarball
@@ -93,7 +95,7 @@ export interface ListStageFilter {
 /** Strip the internal fields before the record leaves the registry. */
 export function toStagePackageVersion(record: StageRecord): StagePackageVersion {
   const { tarballFilename: _tarballFilename, ...rest } = record;
-  return rest;
+  return { ...rest, status: 'staged' };
 }
 
 function isNotFound(err: any): boolean {

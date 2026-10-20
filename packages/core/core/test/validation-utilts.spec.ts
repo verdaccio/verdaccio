@@ -5,6 +5,7 @@ import {
   isObject,
   normalizeMetadata,
   validateName,
+  validateExactVersion,
   validatePackage,
   validatePackageName,
   validatePassword,
@@ -368,4 +369,28 @@ describe('validateUserName', () => {
   test('should fail to validate username if not given', () => {
     expect(validateUserName(undefined, 'test')).toBeFalsy();
   });
+});
+
+describe('validateExactVersion', () => {
+  test.each(['1.0.0', '0.0.0', '1.2.3-beta.1', '1.2.3+build.1'])(
+    'accepts exact version %s',
+    (version) => expect(validateExactVersion(version)).toBe(true)
+  );
+  test.each([
+    undefined,
+    null,
+    1,
+    '',
+    'latest',
+    '*',
+    '1.x',
+    '1.0',
+    '^1.0.0',
+    '~1.0.0',
+    '01.0.0',
+    'v1.0.0',
+    ' 1.0.0 ',
+  ])('rejects non-exact version %s', (version) =>
+    expect(validateExactVersion(version)).toBe(false)
+  );
 });

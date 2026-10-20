@@ -316,3 +316,23 @@ describe('middleware plugins jwt order', () => {
     expect(response.body.groups).toContain('$anonymous');
   });
 });
+
+describe('package version status validation before authentication', () => {
+  test.each(['latest', '^1.0.0', '1.x'])(
+    'should reject %s before the parent JWT middleware',
+    async (version) => {
+      const app = await initializeServer('conf.yaml');
+      await supertest(app)
+        .get(`/-/package/example/version/${encodeURIComponent(version)}/status`)
+        .set('Authorization', 'Bearer invalid')
+        .expect(HTTP_STATUS.BAD_REQUEST);
+    }
+  );
+
+  test('should require authentication for a valid version', async () => {
+    const app = await initializeServer('conf.yaml');
+    await supertest(app)
+      .get('/-/package/example/version/1.0.0/status')
+      .expect(HTTP_STATUS.UNAUTHORIZED);
+  });
+});
