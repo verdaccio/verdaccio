@@ -191,7 +191,11 @@ export function validateUserName(userName: any, expectedName: string): boolean {
   );
 }
 
-/** Accept an exact semver, including prereleases and build metadata, but never a range or tag. */
+/**
+ * Check that a value is an exact semver as stored in a manifest, never a range, tag, or loose form.
+ * @param version the value to check, usually a route parameter
+ * @return true for `1.2.3`, `1.2.3-beta.1` or `1.2.3+build.1`; false for `v1.2.3` or ` 1.2.3 `
+ */
 export function validateExactVersion(version: unknown): version is string {
   // semver.valid trims whitespace and strips a leading 'v'; the lookup is exact, so reject both.
   return (
