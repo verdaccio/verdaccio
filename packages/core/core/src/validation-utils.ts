@@ -193,5 +193,11 @@ export function validateUserName(userName: any, expectedName: string): boolean {
 
 /** Accept an exact semver, including prereleases and build metadata, but never a range or tag. */
 export function validateExactVersion(version: unknown): version is string {
-  return typeof version === 'string' && semver.valid(version) !== null;
+  // semver.valid trims whitespace and strips a leading 'v'; the lookup is exact, so reject both.
+  return (
+    typeof version === 'string' &&
+    version === version.trim() &&
+    /^\d/.test(version) &&
+    semver.valid(version) !== null
+  );
 }

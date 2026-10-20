@@ -82,14 +82,22 @@ describe('package version status', () => {
     }
   );
 
-  test.each(['latest', '^1.0.0', '~1.0.0', '*', '1.x', '1.0', '01.0.0', '__proto__'])(
-    'should reject %s before missing or invalid credentials',
-    async (version) => {
-      const { app } = await initializeServerWithContext('stage.yaml');
-      await supertest(app).get(statusUrl('status-invalid', version)).expect(400);
-      await authed(supertest(app).get(statusUrl('status-invalid', version)), 'invalid').expect(400);
-    }
-  );
+  test.each([
+    'latest',
+    '^1.0.0',
+    '~1.0.0',
+    '*',
+    '1.x',
+    '1.0',
+    '01.0.0',
+    'v1.0.0',
+    ' 1.0.0 ',
+    '__proto__',
+  ])('should reject %s before missing or invalid credentials', async (version) => {
+    const { app } = await initializeServerWithContext('stage.yaml');
+    await supertest(app).get(statusUrl('status-invalid', version)).expect(400);
+    await authed(supertest(app).get(statusUrl('status-invalid', version)), 'invalid').expect(400);
+  });
 
   test.each(['bad name', '@scope/', 'pkg/extra', '__proto__'])(
     'should reject invalid package %s before authentication',
