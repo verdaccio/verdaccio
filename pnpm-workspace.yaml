@@ -35,6 +35,8 @@ minimumReleaseAgeExclude:
   - dompurify@3.4.16
   # Renovate security update: handlebars@4.7.10
   - handlebars@4.7.10
+  # Renovate security update: vite@8.2.4
+  - vite@8.2.4
 
 # Force the esbuild security patch (>= 0.28.1) across the whole tree.
 # See GHSA-gv7w-rqvm-qjhr (RCE via NPM_CONFIG_REGISTRY, fixed in 0.28.1).
