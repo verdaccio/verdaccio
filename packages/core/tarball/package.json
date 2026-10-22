@@ -64,7 +64,7 @@
   "devDependencies": {
     "@verdaccio/types": "workspace:13.0.6",
     "node-mocks-http": "1.14.1",
-    "vite": "8.1.5",
+    "vite": "8.2.4",
     "vitest": "4.1.11"
   },
   "engines": {
