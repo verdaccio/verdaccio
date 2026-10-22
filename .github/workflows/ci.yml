@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Lint & Format
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
       - name: Install dependencies
         uses: verdaccio/verdaccio/.github/actions/install-app@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
@@ -51,7 +51,7 @@ jobs:
     name: Build / ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
       - name: Install dependencies
         uses: verdaccio/verdaccio/.github/actions/install-app@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
@@ -76,7 +76,7 @@ jobs:
     name: Test / ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
       - name: Install dependencies
         uses: verdaccio/verdaccio/.github/actions/install-app@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
@@ -116,7 +116,7 @@ jobs:
           - bun
           - deno
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
       - name: Install dependencies
         uses: verdaccio/verdaccio/.github/actions/install-app@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
@@ -148,7 +148,7 @@ jobs:
           - npm@12
           - pnpm@12
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
       - name: Install dependencies
         uses: verdaccio/verdaccio/.github/actions/install-app@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
@@ -180,7 +180,7 @@ jobs:
     runs-on: ubuntu-latest
     name: E2E UI
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
       - name: Install dependencies
         uses: verdaccio/verdaccio/.github/actions/install-app@8f877d52abb8f37f3b4eacd7917dad8299544034 # master
         with:
@@ -203,7 +203,7 @@ jobs:
       - name: Show Verdaccio logs
         if: always()
         run: cat /tmp/verdaccio-e2e/verdaccio.log 2>/dev/null || echo "No log file found"
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: failure()
         with:
           name: cypress-screenshots
@@ -217,17 +217,17 @@ jobs:
     name: CodeQL Analysis
     steps:
       - name: Checkout repository
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
           fetch-depth: 2
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@51f77329afa6477de8c49fc9c7046c15b9a4e79d # v3.29.5
+        uses: github/codeql-action/init@ce5e7eeac396d720fe2d802714996c8ce561e311 # v3.39.0
         with:
           languages: javascript-typescript
       - name: Autobuild
-        uses: github/codeql-action/autobuild@51f77329afa6477de8c49fc9c7046c15b9a4e79d # v3.29.5
+        uses: github/codeql-action/autobuild@ce5e7eeac396d720fe2d802714996c8ce561e311 # v3.39.0
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@51f77329afa6477de8c49fc9c7046c15b9a4e79d # v3.29.5
+        uses: github/codeql-action/analyze@ce5e7eeac396d720fe2d802714996c8ce561e311 # v3.39.0
 
   cleanup:
     needs: [test, e2e-cli, e2e-cli-legacy-plugins, e2e-ui, codeql]
