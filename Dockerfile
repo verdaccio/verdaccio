@@ -1,4 +1,4 @@
-FROM --platform=${BUILDPLATFORM:-linux/amd64} node:24.15.0-alpine AS builder
+FROM --platform=${BUILDPLATFORM:-linux/amd64} node:24.22.1-alpine AS builder
 
 ENV NODE_ENV=production \
     VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org  \
@@ -36,7 +36,7 @@ RUN yarn pack --out verdaccio.tgz \
 
 RUN rm -Rf /opt/verdaccio-build
 
-FROM node:24.15.0-alpine
+FROM node:24.22.1-alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
 
 ENV VERDACCIO_APPDIR=/opt/verdaccio \
@@ -54,7 +54,7 @@ ENV YARN_VERSION=1.22.22
 WORKDIR $VERDACCIO_APPDIR
 
 # https://github.com/Yelp/dumb-init
-RUN apk --no-cache add openssl dumb-init
+RUN apk --no-cache add openssl dumb-init ca-certificates && apk --no-cache upgrade ca-certificates
 
 RUN mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
 
