@@ -44,8 +44,8 @@ minimumReleaseAgeExclude:
   - '@verdaccio/*'
   - '@verdaccio-scope/*'
   - 'verdaccio-*'
-  # Renovate security update: vite@8.0.16
-  - vite@8.0.16
+  # Renovate security update: vite@8.0.16 || 8.2.4
+  - vite@8.0.16 || 8.2.4
   # Security update: fast-uri GHSA-v2hh-gcrm-f6hx / GHSA-7p8r-x3mc-p8w7 (via ajv)
   - fast-uri@3.1.6
   # Security update: js-yaml GHSA-pm4m-ph32-ghv5 (DoS in flow collections)

@@ -59,7 +59,7 @@
     "@types/debug": "4.1.12",
     "@verdaccio/config": "workspace:8.3.3",
     "@verdaccio/types": "workspace:13.0.6",
-    "vite": "8.1.5"
+    "vite": "8.2.4"
   },
   "engines": {
     "node": ">=22"
