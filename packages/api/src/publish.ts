@@ -123,7 +123,7 @@ export default function publish(
     requireOtp,
     media(HEADERS.JSON),
     expectJson,
-    publishPackage(storage, config, logger, 'publish with revision')
+    publishPackage(storage, config, logger, 'publish with revision', true)
   );
 
   /**
@@ -230,7 +230,8 @@ export function publishPackage(
   storage: Storage,
   config: Config,
   logger: Logger,
-  origin: string
+  origin: string,
+  allowUnpublish = false
 ): any {
   return async function (
     req: $RequestExtend,
@@ -254,6 +255,7 @@ export function publishPackage(
 
     try {
       const message = await storage.updateManifest(metadata, {
+        allowUnpublish,
         name: packageName,
         revision,
         signal: ac.signal,

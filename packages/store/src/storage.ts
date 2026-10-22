@@ -1170,6 +1170,9 @@ class Storage {
       }
       return message;
     } else if (validationUtils.validateUnPublishSingleVersion(manifest)) {
+      if (!options.allowUnpublish) {
+        throw errorUtils.getBadRequest(API_ERROR.UNSUPORTED_REGISTRY_CALL);
+      }
       debug('unpublish a version');
 
       await this.unPublishAPackage(manifest as UnPublishManifest, {

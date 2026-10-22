@@ -4,7 +4,11 @@ import supertest from 'supertest';
 import { beforeEach, describe, expect, test } from 'vitest';
 
 import { API_ERROR, API_MESSAGE, HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
-import { generatePackageMetadata, generateRemotePackageMetadata } from '@verdaccio/test-helper';
+import {
+  generatePackageMetadata,
+  generateRemotePackageMetadata,
+  generateUnPublishPackageMetadata,
+} from '@verdaccio/test-helper';
 
 import { getPackage, initializeServer, publishVersion } from './_helper';
 
@@ -160,6 +164,39 @@ describe('publish', () => {
   });
 
   describe('unpublish a package', () => {
+    test('should only accept a version unpublish on the revision route', async () => {
+      const pkgName = 'version-unpublish-route';
+      const app = await initializeServer('publish.yaml');
+      await publishVersion(app, pkgName, '1.0.0').expect(HTTP_STATUS.CREATED);
+      await publishVersion(app, pkgName, '1.0.1').expect(HTTP_STATUS.CREATED);
+
+      const manifest = await getPackage(app, '', pkgName);
+      const body = generateUnPublishPackageMetadata(
+        pkgName,
+        ['1.0.1'],
+        { latest: '1.0.1' },
+        manifest.body._rev
+      );
+
+      await supertest(app)
+        .put(`/${pkgName}`)
+        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+        .send(body)
+        .expect(HTTP_STATUS.BAD_REQUEST);
+
+      const unchanged = await getPackage(app, '', pkgName);
+      expect(Object.keys(unchanged.body.versions)).toEqual(['1.0.0', '1.0.1']);
+
+      await supertest(app)
+        .put(`/${pkgName}/-rev/${encodeURIComponent(manifest.body._rev)}`)
+        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+        .send(body)
+        .expect(HTTP_STATUS.CREATED);
+
+      const updated = await getPackage(app, '', pkgName);
+      expect(Object.keys(updated.body.versions)).toEqual(['1.0.1']);
+    });
+
     test.each([['foo', '@scope/foo']])('should unpublish entirely a package', async (pkgName) => {
       const app = await initializeServer('publish.yaml');
       await publishVersion(app, pkgName, '1.0.0');
