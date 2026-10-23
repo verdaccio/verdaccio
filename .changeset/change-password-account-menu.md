@@ -18,3 +18,5 @@ Opening the password change URL without a session now displays a sign-in dialog 
 The password change form no longer asks for a username. The authenticated session determines which account is updated; users enter only their current password, new password and confirmation.
 
 An incorrect current password now returns HTTP 400 with `invalid old password` when using the bundled htpasswd or auth-memory plugin. Previously it returned a generic HTTP 500. The form displays a translated field error and keeps the session open so the user can correct the password. Unexpected plugin and storage failures still return a generic HTTP 500.
+
+`npm profile set password` still returns HTTP 403 for an incorrect current password, but the message is now `invalid old password` instead of `Unable to change password for user '<name>': invalid old password`.
