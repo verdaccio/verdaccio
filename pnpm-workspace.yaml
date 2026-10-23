@@ -37,6 +37,8 @@ minimumReleaseAgeExclude:
   - handlebars@4.7.10
   # Renovate security update: vite@8.2.4
   - vite@8.2.4
+  # Renovate security update: storybook@10.6.2
+  - storybook@10.6.2
 
 # Force the esbuild security patch (>= 0.28.1) across the whole tree.
 # See GHSA-gv7w-rqvm-qjhr (RCE via NPM_CONFIG_REGISTRY, fixed in 0.28.1).
