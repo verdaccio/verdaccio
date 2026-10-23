@@ -233,7 +233,6 @@
     "changePassword": {
       "loginRequired": "Sign in to change your password. If your session has expired, sign in again.",
       "title": "Change Password",
-      "username": "Username",
       "oldPassword": "Current Password",
       "invalidOldPassword": "The current password is incorrect.",
       "newPassword": "New Password",
