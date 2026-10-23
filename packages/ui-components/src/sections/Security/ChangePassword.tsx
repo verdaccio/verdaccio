@@ -6,19 +6,19 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import { useDataMutation } from '../../api/use-data-mutation';
+import LoginDialog from '../../components/LoginDialog/LoginDialog';
 import LoginDialogFormError from '../../components/LoginDialog/LoginDialogFormError';
 import { getConfiguration } from '../../configuration';
 import SecurityLayout from '../../layouts/Security/Dialog';
+import { useAuth } from '../../providers/AuthProvider';
 import { authErrorMessage } from '../../providers/AuthProvider/utils';
+import { CustomError } from '../../store/api';
+import { clearAuth } from '../../store/storage';
 import { stripTrailingSlash } from '../../store/utils';
 import { Route } from '../../utils';
 import { APIRoute } from '../../utils/routes';
 import type { ChangePasswordFormValues } from '../../utils/schemas';
-import {
-  PASSWORD_MIN_LENGTH,
-  USERNAME_MIN_LENGTH,
-  changePasswordSchema,
-} from '../../utils/schemas';
+import { PASSWORD_MIN_LENGTH, changePasswordSchema } from '../../utils/schemas';
 import { MessageType } from './Success';
 import { SecurityContainer, SecurityForm, SecurityTextField } from './styles';
 
@@ -26,13 +26,41 @@ const ChangePassword: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const configuration = getConfiguration();
-  const basePath = stripTrailingSlash(configuration.base);
   const changePasswordEnabled = configuration?.flags?.changePassword;
 
+  const { userState } = useAuth();
+
+  useEffect(() => {
+    if (!changePasswordEnabled) {
+      navigate('/');
+    }
+  }, [changePasswordEnabled, navigate]);
+
+  if (!changePasswordEnabled) {
+    return null;
+  }
+
+  if (!userState?.token) {
+    return (
+      <LoginDialog
+        message={t('security.changePassword.loginRequired')}
+        onClose={() => navigate(Route.ROOT)}
+        open={true}
+      />
+    );
+  }
+
+  return <ChangePasswordForm />;
+};
+
+const ChangePasswordForm: React.FC = () => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { setUserState } = useAuth();
+  const basePath = stripTrailingSlash(getConfiguration().base);
   const form = useForm<ChangePasswordFormValues>({
     mode: 'onChange',
     defaultValues: {
-      username: '',
       oldPassword: '',
       newPassword: '',
       confirmPassword: '',
@@ -75,6 +103,26 @@ const ChangePassword: React.FC = () => {
         });
         navigate(`${Route.SUCCESS}?messageType=${MessageType.ChangePassword}`);
       } catch (err) {
+        if (err instanceof CustomError && err.code === 401) {
+          clearAuth();
+          setUserState?.({ username: null, token: null });
+          return;
+        }
+        if (
+          err instanceof CustomError &&
+          err.code === 400 &&
+          err.message === 'invalid old password'
+        ) {
+          setError(
+            'oldPassword',
+            {
+              type: 'server',
+              message: 'security.changePassword.invalidOldPassword',
+            },
+            { shouldFocus: true }
+          );
+          return;
+        }
         setError('root', {
           type: 'server',
           message: authErrorMessage(err, t('security.error.unable-to-change-password')),
@@ -83,33 +131,16 @@ const ChangePassword: React.FC = () => {
         inFlight.current = false;
       }
     },
-    [handleChangePassword, setError, navigate, t]
+    [handleChangePassword, setError, setUserState, navigate, t]
   );
 
-  useEffect(() => {
-    if (!changePasswordEnabled) {
-      navigate('/');
-    }
-  }, [changePasswordEnabled, navigate]);
-
-  return changePasswordEnabled ? (
+  return (
     <SecurityLayout>
       <SecurityContainer>
         <SecurityForm onSubmit={handleSubmit(onSubmit)}>
           <Typography align="center" component="h1" gutterBottom={true} variant="h4">
             {t('security.changePassword.title')}
           </Typography>
-          <SecurityTextField
-            error={!!errors.username}
-            helperText={
-              errors.username?.message
-                ? t(errors.username.message, { length: USERNAME_MIN_LENGTH })
-                : undefined
-            }
-            label={t('security.changePassword.username')}
-            {...register('username')}
-            required={true}
-          />
           <SecurityTextField
             error={!!errors.oldPassword}
             helperText={
@@ -158,7 +189,7 @@ const ChangePassword: React.FC = () => {
         </SecurityForm>
       </SecurityContainer>
     </SecurityLayout>
-  ) : null;
+  );
 };
 
 export default ChangePassword;

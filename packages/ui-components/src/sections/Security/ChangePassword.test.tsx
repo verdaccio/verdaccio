@@ -3,6 +3,7 @@ import React from 'react';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { server } from '../../../vitest/server';
+import storage, { clearAuth, saveAuth } from '../../store/storage';
 import {
   act,
   cleanup,
@@ -30,25 +31,113 @@ describe('<ChangePassword /> component', () => {
     vi.resetAllMocks();
     mockNavigate.mockClear();
     cleanup();
+    saveAuth(
+      'testuser',
+      `header.${btoa(JSON.stringify({ exp: Date.now() / 1000 + 3600 }))}.signature`
+    );
   });
 
   afterEach(() => {
+    clearAuth();
     // @ts-ignore
     delete window.__VERDACCIO_BASENAME_UI_OPTIONS.flags;
   });
 
-  test('should redirect to home when changePassword flag is disabled', async () => {
-    window.__VERDACCIO_BASENAME_UI_OPTIONS = {
-      ...window.__VERDACCIO_BASENAME_UI_OPTIONS,
-      flags: { changePassword: false },
-    };
+  test.each([false, undefined])(
+    'redirects home without offering login when the flag is %s',
+    async (enabled) => {
+      clearAuth();
+      window.__VERDACCIO_BASENAME_UI_OPTIONS = {
+        ...window.__VERDACCIO_BASENAME_UI_OPTIONS,
+        flags: { changePassword: enabled },
+      };
 
-    await act(async () => {
+      await act(async () => {
+        renderWithRouter(<ChangePassword />, Route.CHANGE_PASSWORD, [Route.CHANGE_PASSWORD]);
+      });
+
+      expect(mockNavigate).toHaveBeenCalledWith('/');
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+      expect(screen.queryByText('security.changePassword.title')).not.toBeInTheDocument();
+    }
+  );
+
+  test.each(['anonymous', 'expired', 'malformed'])(
+    'requires sign-in for an %s session',
+    async (session) => {
+      clearAuth();
+      if (session === 'expired') {
+        saveAuth('testuser', `header.${btoa(JSON.stringify({ exp: 1 }))}.signature`);
+      } else if (session === 'malformed') {
+        saveAuth('testuser', 'not-a-jwt');
+      }
+      window.__VERDACCIO_BASENAME_UI_OPTIONS.flags = { changePassword: true };
       renderWithRouter(<ChangePassword />, Route.CHANGE_PASSWORD, [Route.CHANGE_PASSWORD]);
-    });
 
-    expect(mockNavigate).toHaveBeenCalledWith('/');
-    expect(screen.queryByText('security.changePassword.title')).not.toBeInTheDocument();
+      expect(await screen.findByText('security.changePassword.loginRequired')).toBeInTheDocument();
+      expect(
+        screen.queryByLabelText(/security.changePassword.oldPassword/)
+      ).not.toBeInTheDocument();
+      expect(storage.getItem('token')).toBeNull();
+      expect(mockNavigate).not.toHaveBeenCalled();
+    }
+  );
+
+  test('returns to the password form after signing in at the same URL', async () => {
+    clearAuth();
+    window.__VERDACCIO_BASENAME_UI_OPTIONS.flags = { changePassword: true };
+    renderWithRouter(<ChangePassword />, Route.CHANGE_PASSWORD, [Route.CHANGE_PASSWORD]);
+    fireEvent.change(screen.getByPlaceholderText('form-placeholder.username'), {
+      target: { value: 'testuser' },
+    });
+    fireEvent.change(screen.getByPlaceholderText('form-placeholder.password'), {
+      target: { value: 'testpass' },
+    });
+    const submit = screen.getByTestId('login-dialog-form-login-button');
+    await waitFor(() => expect(submit).not.toBeDisabled());
+    fireEvent.click(submit);
+
+    expect(await screen.findByLabelText(/security.changePassword.oldPassword/)).toBeInTheDocument();
+    expect(screen.queryByText('security.changePassword.loginRequired')).not.toBeInTheDocument();
+    expect(mockNavigate).not.toHaveBeenCalled();
+  });
+
+  test('failed sign-in keeps the password form hidden and allows retrying', async () => {
+    clearAuth();
+    server.use(
+      http.post('http://localhost:9000/-/verdaccio/sec/login', () =>
+        HttpResponse.json({ error: 'bad credentials' }, { status: 401 })
+      )
+    );
+    window.__VERDACCIO_BASENAME_UI_OPTIONS.flags = { changePassword: true };
+    renderWithRouter(<ChangePassword />, Route.CHANGE_PASSWORD, [Route.CHANGE_PASSWORD]);
+    fireEvent.change(screen.getByPlaceholderText('form-placeholder.username'), {
+      target: { value: 'testuser' },
+    });
+    fireEvent.change(screen.getByPlaceholderText('form-placeholder.password'), {
+      target: { value: 'wrongpass' },
+    });
+    const submit = screen.getByTestId('login-dialog-form-login-button');
+    await waitFor(() => expect(submit).not.toBeDisabled());
+    fireEvent.click(submit);
+
+    expect(await screen.findByText('security.error.invalid-credentials')).toBeInTheDocument();
+    expect(screen.queryByLabelText(/security.changePassword.oldPassword/)).not.toBeInTheDocument();
+    expect(storage.getItem('token')).toBeNull();
+    fireEvent.change(screen.getByPlaceholderText('form-placeholder.password'), {
+      target: { value: 'corrected-password' },
+    });
+    await waitFor(() => expect(submit).not.toBeDisabled());
+    expect(mockNavigate).not.toHaveBeenCalled();
+  });
+
+  test('cancelling sign-in returns home without exposing the password form', async () => {
+    clearAuth();
+    window.__VERDACCIO_BASENAME_UI_OPTIONS.flags = { changePassword: true };
+    renderWithRouter(<ChangePassword />, Route.CHANGE_PASSWORD, [Route.CHANGE_PASSWORD]);
+    fireEvent.keyDown(await screen.findByRole('dialog'), { key: 'Escape', code: 'Escape' });
+    expect(mockNavigate).toHaveBeenCalledWith(Route.ROOT);
+    expect(screen.queryByLabelText(/security.changePassword.oldPassword/)).not.toBeInTheDocument();
   });
 
   test('should render the form when changePassword flag is enabled', async () => {
@@ -74,7 +163,8 @@ describe('<ChangePassword /> component', () => {
       renderWithRouter(<ChangePassword />, Route.CHANGE_PASSWORD, [Route.CHANGE_PASSWORD]);
     });
 
-    expect(screen.getByLabelText(/security.changePassword.username/)).toBeInTheDocument();
+    expect(screen.queryByLabelText(/security.changePassword.username/)).not.toBeInTheDocument();
+    expect(document.querySelectorAll('form input')).toHaveLength(3);
     expect(screen.getByLabelText(/security.changePassword.oldPassword/)).toBeInTheDocument();
     expect(screen.getByLabelText(/security.changePassword.newPassword/)).toBeInTheDocument();
     expect(screen.getByLabelText(/security.changePassword.confirmPassword/)).toBeInTheDocument();
@@ -105,9 +195,6 @@ describe('<ChangePassword /> component', () => {
     });
 
     await act(async () => {
-      fireEvent.change(screen.getByLabelText(/security.changePassword.username/), {
-        target: { value: 'testuser' },
-      });
       fireEvent.change(screen.getByLabelText(/security.changePassword.oldPassword/), {
         target: { value: 'oldpass' },
       });
@@ -136,9 +223,6 @@ describe('<ChangePassword /> component', () => {
     });
 
     await act(async () => {
-      fireEvent.change(screen.getByLabelText(/security.changePassword.username/), {
-        target: { value: 'testuser' },
-      });
       fireEvent.change(screen.getByLabelText(/security.changePassword.oldPassword/), {
         target: { value: 'oldpass' },
       });
@@ -156,7 +240,53 @@ describe('<ChangePassword /> component', () => {
     });
   });
 
-  test('should show error message on failed submission', async () => {
+  test('shows an incorrect password on the field and allows retrying without signing out', async () => {
+    let attempts = 0;
+    server.use(
+      http.put('http://localhost:9000/-/verdaccio/sec/reset_password', () => {
+        attempts++;
+        return attempts === 1
+          ? HttpResponse.json({ error: 'invalid old password' }, { status: 400 })
+          : HttpResponse.json({ ok: true });
+      })
+    );
+    window.__VERDACCIO_BASENAME_UI_OPTIONS.flags = { changePassword: true };
+    renderWithRouter(<ChangePassword />, Route.CHANGE_PASSWORD, [Route.CHANGE_PASSWORD]);
+    const token = storage.getItem('token');
+    const oldPassword = screen.getByLabelText(/security.changePassword.oldPassword/);
+    fireEvent.change(oldPassword, { target: { value: 'wrong-password' } });
+    fireEvent.change(screen.getByLabelText(/security.changePassword.newPassword/), {
+      target: { value: 'newpass' },
+    });
+    fireEvent.change(screen.getByLabelText(/security.changePassword.confirmPassword/), {
+      target: { value: 'newpass' },
+    });
+    const submit = screen.getByRole('button', { name: 'security.changePassword.submit' });
+    await waitFor(() => expect(submit).not.toBeDisabled());
+    fireEvent.click(submit);
+    expect(
+      await screen.findByText('security.changePassword.invalidOldPassword')
+    ).toBeInTheDocument();
+    expect(oldPassword).toHaveAttribute('aria-invalid', 'true');
+    expect(oldPassword).toHaveFocus();
+    expect(storage.getItem('token')).toBe(token);
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(mockNavigate).not.toHaveBeenCalled();
+    fireEvent.change(oldPassword, { target: { value: 'correct-password' } });
+    await waitFor(() => expect(submit).not.toBeDisabled());
+    fireEvent.click(submit);
+    await waitFor(() =>
+      expect(mockNavigate).toHaveBeenCalledWith(`${Route.SUCCESS}?messageType=ChangePassword`)
+    );
+    expect(attempts).toBe(2);
+  });
+
+  test('should preserve the form and show the error on a non-session failure', async () => {
+    server.use(
+      http.put('http://localhost:9000/-/verdaccio/sec/reset_password', () =>
+        HttpResponse.json({ error: 'password change failed' }, { status: 500 })
+      )
+    );
     window.__VERDACCIO_BASENAME_UI_OPTIONS = {
       ...window.__VERDACCIO_BASENAME_UI_OPTIONS,
       flags: { changePassword: true },
@@ -166,11 +296,7 @@ describe('<ChangePassword /> component', () => {
       renderWithRouter(<ChangePassword />, Route.CHANGE_PASSWORD, [Route.CHANGE_PASSWORD]);
     });
 
-    // Use "fail" as old password to trigger mock error
     await act(async () => {
-      fireEvent.change(screen.getByLabelText(/security.changePassword.username/), {
-        target: { value: 'testuser' },
-      });
       fireEvent.change(screen.getByLabelText(/security.changePassword.oldPassword/), {
         target: { value: 'fail' },
       });
@@ -193,7 +319,8 @@ describe('<ChangePassword /> component', () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByText('invalid credentials')).toBeInTheDocument();
+      expect(screen.getByText('password change failed')).toBeInTheDocument();
+      expect(screen.getByLabelText(/security.changePassword.oldPassword/)).toBeInTheDocument();
     });
   });
 
@@ -217,7 +344,6 @@ describe('<ChangePassword /> component', () => {
         renderWithRouter(<ChangePassword />, Route.CHANGE_PASSWORD, [Route.CHANGE_PASSWORD]);
       });
 
-      await fillField(/security.changePassword.username/, 'testuser');
       await fillField(/security.changePassword.oldPassword/, 'oldpass');
       await fillField(/security.changePassword.newPassword/, 'newpass');
       await fillField(/security.changePassword.confirmPassword/, 'different');
@@ -241,10 +367,47 @@ describe('<ChangePassword /> component', () => {
       });
     });
 
+    test('a rejected session clears credentials and the password fields before signing in again', async () => {
+      server.use(
+        http.put('http://localhost:9000/-/verdaccio/sec/reset_password', () =>
+          HttpResponse.json({ message: 'session expired' }, { status: 401 })
+        )
+      );
+      enableFlag();
+      renderWithRouter(<ChangePassword />, Route.CHANGE_PASSWORD, [Route.CHANGE_PASSWORD]);
+      await fillField(/security.changePassword.oldPassword/, 'oldpass');
+      await fillField(/security.changePassword.newPassword/, 'newpass');
+      await fillField(/security.changePassword.confirmPassword/, 'newpass');
+      const submit = screen.getByRole('button', { name: 'security.changePassword.submit' });
+      await waitFor(() => expect(submit).not.toBeDisabled());
+      fireEvent.click(submit);
+
+      expect(await screen.findByText('security.changePassword.loginRequired')).toBeInTheDocument();
+      expect(storage.getItem('token')).toBeNull();
+      expect(storage.getItem('username')).toBeNull();
+      expect(
+        screen.queryByLabelText(/security.changePassword.oldPassword/)
+      ).not.toBeInTheDocument();
+      fireEvent.change(screen.getByPlaceholderText('form-placeholder.username'), {
+        target: { value: 'testuser' },
+      });
+      fireEvent.change(screen.getByPlaceholderText('form-placeholder.password'), {
+        target: { value: 'testpass' },
+      });
+      const login = screen.getByTestId('login-dialog-form-login-button');
+      await waitFor(() => expect(login).not.toBeDisabled());
+      fireEvent.click(login);
+      expect(await screen.findByLabelText(/security.changePassword.oldPassword/)).toHaveValue('');
+      expect(screen.getByLabelText(/security.changePassword.newPassword/)).toHaveValue('');
+      expect(screen.getByLabelText(/security.changePassword.confirmPassword/)).toHaveValue('');
+    });
+
     test('double-clicking submit sends a single request', async () => {
       let requests = 0;
       server.use(
-        http.put('http://localhost:9000/-/verdaccio/sec/reset_password', async () => {
+        http.put('http://localhost:9000/-/verdaccio/sec/reset_password', async ({ request }) => {
+          expect(request.headers.get('authorization')).toBe(`Bearer ${storage.getItem('token')}`);
+          expect(await request.json()).toEqual({ password: { old: 'oldpass', new: 'newpass' } });
           requests += 1;
           await delay(200);
           return HttpResponse.json({ ok: 'password changed' });
@@ -255,7 +418,6 @@ describe('<ChangePassword /> component', () => {
         renderWithRouter(<ChangePassword />, Route.CHANGE_PASSWORD, [Route.CHANGE_PASSWORD]);
       });
 
-      await fillField(/security.changePassword.username/, 'testuser');
       await fillField(/security.changePassword.oldPassword/, 'oldpass');
       await fillField(/security.changePassword.newPassword/, 'newpass');
       await fillField(/security.changePassword.confirmPassword/, 'newpass');

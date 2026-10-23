@@ -35,6 +35,7 @@ const HeaderMenu: React.FC<Props> = ({
   const navigate = useNavigate();
   const { configOptions } = useConfig();
   const stageEnabled = configOptions?.flags?.stage;
+  const changePasswordEnabled = configOptions?.flags?.changePassword;
   return (
     <>
       <IconButton
@@ -62,6 +63,18 @@ const HeaderMenu: React.FC<Props> = ({
         <MenuItem>
           <HeaderGreetings username={username} />
         </MenuItem>
+        {changePasswordEnabled && (
+          <MenuItem
+            data-testid="changePasswordMenuItem"
+            id="changePasswordMenuItem"
+            onClick={() => {
+              onLoggedInMenuClose();
+              navigate(Route.CHANGE_PASSWORD);
+            }}
+          >
+            {t('security.changePassword.title')}
+          </MenuItem>
+        )}
         {stageEnabled && (
           <MenuItem
             data-testid="stagedPackagesMenuItem"

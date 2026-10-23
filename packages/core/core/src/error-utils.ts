@@ -4,6 +4,7 @@ import createError from 'http-errors';
 import { HTTP_STATUS } from './constants';
 
 export const API_ERROR = {
+  INVALID_OLD_PASSWORD: 'invalid old password',
   PASSWORD_SHORT: 'The provided password does not pass the validation',
   MUST_BE_LOGGED: 'You must be logged in to publish packages.',
   PLUGIN_ERROR: 'bug in the auth plugin system',

@@ -166,6 +166,12 @@ function addUserAuthApi(auth: Auth, config: Config, storage: Storage): Router {
         }
 
         auth.changePassword(name as string, password.old, password.new, (err, isUpdated): void => {
+          if (
+            err?.status === HTTP_STATUS.BAD_REQUEST &&
+            err.message === API_ERROR.INVALID_OLD_PASSWORD
+          ) {
+            return next(errorUtils.getBadRequest(API_ERROR.INVALID_OLD_PASSWORD));
+          }
           if (isNil(err) && isUpdated) {
             next({
               ok: true,

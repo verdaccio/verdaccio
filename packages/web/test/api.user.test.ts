@@ -299,7 +299,8 @@ describe('test web server', () => {
           .put('/-/verdaccio/sec/reset_password')
           .set(HEADER_TYPE.AUTHORIZATION, `Bearer ${login.body.token}`)
           .send({ password: { old, new: 'new-pass' } })
-          .expect(HTTP_STATUS.INTERNAL_ERROR);
+          .expect(HTTP_STATUS.BAD_REQUEST)
+          .expect({ error: 'invalid old password' });
         expect(changePassword).toHaveBeenCalledWith('test', old, 'new-pass', expect.any(Function));
         await api
           .post('/-/verdaccio/sec/login')
@@ -309,6 +310,30 @@ describe('test web server', () => {
           .post('/-/verdaccio/sec/login')
           .send({ username: 'test', password: 'new-pass' })
           .expect(HTTP_STATUS.UNAUTHORIZED);
+      }
+    );
+
+    test.each(['plugin failure with private details', 'invalid old password'])(
+      'keeps unclassified plugin errors internal (%s)',
+      async (message) => {
+        const api = supertest(await initializeServer('default-test.yaml'));
+        const login = await api
+          .post('/-/verdaccio/sec/login')
+          .send({ username: 'test', password: 'test' })
+          .expect(HTTP_STATUS.OK);
+        const spy = vi
+          .spyOn(Auth.prototype, 'changePassword')
+          .mockImplementationOnce((_name, _old, _new, cb) => cb(new Error(message)));
+        try {
+          await api
+            .put('/-/verdaccio/sec/reset_password')
+            .set(HEADER_TYPE.AUTHORIZATION, `Bearer ${login.body.token}`)
+            .send({ password: { old: 'test', new: 'new-pass' } })
+            .expect(HTTP_STATUS.INTERNAL_ERROR)
+            .expect({ error: API_ERROR.INTERNAL_SERVER_ERROR });
+        } finally {
+          spy.mockRestore();
+        }
       }
     );
 

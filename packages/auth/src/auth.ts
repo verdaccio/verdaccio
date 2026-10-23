@@ -7,6 +7,7 @@ import { createAnonymousRemoteUser, createRemoteUser } from '@verdaccio/config';
 import type { VerdaccioError, pluginUtils } from '@verdaccio/core';
 import {
   API_ERROR,
+  HTTP_STATUS,
   PLUGIN_CATEGORY,
   PLUGIN_PREFIX,
   SUPPORT_ERRORS,
@@ -165,6 +166,16 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
         debug('updating password for %o', username);
         plugin.changePassword!(username, password, newPassword, (err, profile): void => {
           if (err) {
+            if (
+              err.status === HTTP_STATUS.BAD_REQUEST &&
+              err.message === API_ERROR.INVALID_OLD_PASSWORD
+            ) {
+              this.logger.warn(
+                { username },
+                'Password change rejected for @{username}: invalid old password'
+              );
+              return cb(err);
+            }
             this.logger.error(
               { username, err },
               `An error has been produced

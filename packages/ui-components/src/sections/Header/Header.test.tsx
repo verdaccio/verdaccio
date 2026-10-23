@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router';
 import { afterAll, afterEach, beforeAll, describe, expect, test, vi } from 'vitest';
 
 import { HeaderInfoDialog } from '../../';
@@ -123,6 +124,60 @@ describe('<Header /> component with logged in state', () => {
     await login('user', 'token');
     expect(screen.getByTestId('logInDialogIcon')).toBeTruthy();
     await logout();
+  });
+
+  test('should offer change password in the account menu and navigate when enabled', async () => {
+    window.__VERDACCIO_BASENAME_UI_OPTIONS = {
+      base: 'http://localhost:9000/',
+      flags: { changePassword: true },
+    };
+    vi.spyOn(tokenUtils, 'tokenExpireInMs').mockReturnValue(60_000);
+    function Location() {
+      return <div data-testid="current-path">{useLocation().pathname}</div>;
+    }
+    renderWithRouter(
+      <>
+        <Header HeaderInfoDialog={CustomInfoDialog} />
+        <Location />
+      </>,
+      '*',
+      ['/']
+    );
+    await login('user', 'token');
+    fireEvent.click(screen.getByTestId('logInDialogIcon'));
+    fireEvent.click(await screen.findByRole('menuitem', { name: 'security.changePassword.title' }));
+
+    expect(screen.getByTestId('current-path')).toHaveTextContent('/-/web/change-password');
+    await waitFor(() => expect(screen.queryByRole('menu')).not.toBeInTheDocument());
+  });
+
+  test.each([false, undefined])(
+    'should hide change password when the flag is %s',
+    async (enabled) => {
+      window.__VERDACCIO_BASENAME_UI_OPTIONS = {
+        base: 'http://localhost:9000/',
+        flags: { changePassword: enabled },
+      };
+      vi.spyOn(tokenUtils, 'tokenExpireInMs').mockReturnValue(60_000);
+      renderHeader();
+      await login('user', 'token');
+      fireEvent.click(screen.getByTestId('logInDialogIcon'));
+
+      expect(await screen.findByText('button.logout')).toBeInTheDocument();
+      expect(screen.queryByText('security.changePassword.title')).not.toBeInTheDocument();
+    }
+  );
+
+  test('should not offer change password in the login dialog even when enabled', async () => {
+    window.__VERDACCIO_BASENAME_UI_OPTIONS = {
+      base: 'http://localhost:9000/',
+      flags: { changePassword: true },
+    };
+    renderHeader();
+    fireEvent.click(screen.getByTestId('header--button-login'));
+
+    expect(await screen.findByTestId('login-dialog-form-login-button')).toBeInTheDocument();
+    expect(screen.queryByText('security.changePassword.title')).not.toBeInTheDocument();
   });
 
   test('should show staged packages link when the stage flag is enabled', async () => {
