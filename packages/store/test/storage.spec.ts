@@ -1494,6 +1494,7 @@ describe('storage', () => {
                 signal: new AbortController().signal,
                 name: pkgName,
                 uplinksLook: false,
+                allowUnpublish: true,
                 revision: '1',
                 requestOptions: options,
               }
@@ -1594,6 +1595,7 @@ describe('storage', () => {
               signal: new AbortController().signal,
               name: pkgName,
               uplinksLook: false,
+              allowUnpublish: true,
               revision: '1',
               requestOptions: options,
             })
@@ -1643,6 +1645,7 @@ describe('storage', () => {
                 signal: new AbortController().signal,
                 name: pkgName,
                 uplinksLook: false,
+                allowUnpublish: true,
                 revision: '1',
                 requestOptions: options,
               }

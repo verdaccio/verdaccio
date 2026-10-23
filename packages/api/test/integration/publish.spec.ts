@@ -164,38 +164,70 @@ describe('publish', () => {
   });
 
   describe('unpublish a package', () => {
-    test('should only accept a version unpublish on the revision route', async () => {
-      const pkgName = 'version-unpublish-route';
-      const app = await initializeServer('publish.yaml');
-      await publishVersion(app, pkgName, '1.0.0').expect(HTTP_STATUS.CREATED);
-      await publishVersion(app, pkgName, '1.0.1').expect(HTTP_STATUS.CREATED);
+    test.each([undefined, 'deprecated version', ''])(
+      'should only accept a version unpublish on the revision route (deprecated: %s)',
+      async (deprecated) => {
+        const pkgName = 'version-unpublish-route';
+        const app = await initializeServer('publish.yaml');
+        await publishVersion(app, pkgName, '1.0.0').expect(HTTP_STATUS.CREATED);
+        await publishVersion(app, pkgName, '1.0.1').expect(HTTP_STATUS.CREATED);
 
-      const manifest = await getPackage(app, '', pkgName);
-      const body = generateUnPublishPackageMetadata(
-        pkgName,
-        ['1.0.1'],
-        { latest: '1.0.1' },
-        manifest.body._rev
-      );
+        const manifest = await getPackage(app, '', pkgName).set('host', 'localhost');
+        const body = generateUnPublishPackageMetadata(
+          pkgName,
+          ['1.0.1'],
+          { latest: '1.0.1' },
+          manifest.body._rev
+        );
+        if (deprecated !== undefined) {
+          body.versions['1.0.1'].deprecated = deprecated;
+        }
 
-      await supertest(app)
-        .put(`/${pkgName}`)
-        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-        .send(body)
-        .expect(HTTP_STATUS.BAD_REQUEST);
+        await supertest(app)
+          .put(`/${pkgName}`)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .send(body)
+          .expect(HTTP_STATUS.BAD_REQUEST);
 
-      const unchanged = await getPackage(app, '', pkgName);
-      expect(Object.keys(unchanged.body.versions)).toEqual(['1.0.0', '1.0.1']);
+        const unchanged = await getPackage(app, '', pkgName).set('host', 'localhost');
+        expect(unchanged.body).toEqual(manifest.body);
 
-      await supertest(app)
-        .put(`/${pkgName}/-rev/${encodeURIComponent(manifest.body._rev)}`)
-        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-        .send(body)
-        .expect(HTTP_STATUS.CREATED);
+        await supertest(app)
+          .put(`/${pkgName}/-rev/${encodeURIComponent(manifest.body._rev)}`)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .send(body)
+          .expect(HTTP_STATUS.CREATED);
 
-      const updated = await getPackage(app, '', pkgName);
-      expect(Object.keys(updated.body.versions)).toEqual(['1.0.1']);
-    });
+        const updated = await getPackage(app, '', pkgName);
+        expect(Object.keys(updated.body.versions)).toEqual(['1.0.1']);
+        expect(updated.body.versions['1.0.1'].deprecated).toEqual(deprecated || undefined);
+      }
+    );
+
+    test.each(['deprecated version', ''])(
+      'should retain all versions when updating deprecation through the publish route (%s)',
+      async (deprecated) => {
+        const pkgName = 'deprecation-publish-route';
+        const app = await initializeServer('publish.yaml');
+        await publishVersion(app, pkgName, '1.0.0').expect(HTTP_STATUS.CREATED);
+        await publishVersion(app, pkgName, '1.0.1').expect(HTTP_STATUS.CREATED);
+
+        const manifest = await getPackage(app, '', pkgName);
+        const body = manifest.body;
+        body.versions['1.0.1'].deprecated = deprecated;
+
+        await supertest(app)
+          .put(`/${pkgName}`)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .send(body)
+          .expect(HTTP_STATUS.CREATED);
+
+        const updated = await getPackage(app, '', pkgName);
+        expect(Object.keys(updated.body.versions)).toEqual(['1.0.0', '1.0.1']);
+        expect(updated.body.versions['1.0.0'].deprecated).toBeUndefined();
+        expect(updated.body.versions['1.0.1'].deprecated).toEqual(deprecated || undefined);
+      }
+    );
 
     test.each([['foo', '@scope/foo']])('should unpublish entirely a package', async (pkgName) => {
       const app = await initializeServer('publish.yaml');

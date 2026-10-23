@@ -1134,7 +1134,18 @@ class Storage {
     options: UpdateManifestOptions
   ): Promise<string | undefined> {
     debug('update manifest %o for user %o', manifest._id, options.requestOptions.username);
-    if (isDeprecatedManifest(manifest as Manifest)) {
+    const isDeprecation = isDeprecatedManifest(manifest as Manifest);
+    if (isDeprecation && !options.allowUnpublish) {
+      const localManifest = await this.getPackageLocalMetadata(options.name);
+      if (
+        Object.keys(localManifest.versions).some((version) =>
+          isNil((manifest as Manifest).versions[version])
+        )
+      ) {
+        throw errorUtils.getBadRequest(API_ERROR.UNSUPORTED_REGISTRY_CALL);
+      }
+    }
+    if (isDeprecation) {
       debug('update manifest deprecate');
       // if the manifest is deprecated, we need to update the package.json
       await this.deprecate(manifest as Manifest, {
