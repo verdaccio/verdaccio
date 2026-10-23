@@ -1364,8 +1364,15 @@ class Storage {
     // get the unique version available
     const [versionToPublish] = Object.keys(versions);
 
-    // at this point document is either created or existed before
+    // Scoped clients include the scope in the key; storage uses only the basename.
     const [firstAttachmentKey] = Object.keys(_attachments);
+    const tarballName = basename(firstAttachmentKey);
+    if (
+      !validationUtils.validateName(firstAttachmentKey) ||
+      !validationUtils.validateName(tarballName)
+    ) {
+      throw errorUtils.getBadRequest(`invalid tarball name ${firstAttachmentKey}`);
+    }
     const buffer = this.getBufferManifest(body._attachments[firstAttachmentKey].data as string);
 
     try {
@@ -1434,7 +1441,7 @@ class Storage {
     // 3. upload the tarball to the storage
     try {
       const readable = Readable.from(buffer);
-      await this.uploadTarball(name, basename(firstAttachmentKey), readable, {
+      await this.uploadTarball(name, tarballName, readable, {
         signal: options.signal,
       });
     } catch (err: any) {
@@ -1497,11 +1504,21 @@ class Storage {
           return stream;
         })
         .then((stream) => {
+          // Cancellation may reach the destination while setup is still
+          // resolving. Preserve that error instead of piping into a destroyed stream.
+          if (stream.errored) {
+            throw stream.errored;
+          }
           pipeline(contentReadable, stream, { signal })
             .then(() => {
               debug('success pipe upload tarball');
             })
             .catch(reject);
+        })
+        .catch((err) => {
+          // Destination setup can fail before a stream is returned.
+          contentReadable.destroy();
+          reject(err);
         });
     });
   }
@@ -1551,10 +1568,11 @@ class Storage {
       // a failed write emits 'close' too — it must never reach the metadata update
       let uploadFailed = false;
 
-      localStorageWriteStream.on('open', async () => {
-        try {
-          await pipeline(uploadStream, transformHash, localStorageWriteStream, { signal });
-        } catch (err: any) {
+      // Connect immediately: Writable streams buffer until ready. Waiting for
+      // 'open' would leave cancellation and source errors unable to close a
+      // destination that is still opening (or never emits 'open').
+      pipeline(uploadStream, transformHash, localStorageWriteStream, { signal }).catch(
+        (err: any) => {
           // pipeline already destroyed the streams; an unhandled rejection
           // here would kill the process
           uploadFailed = true;
@@ -1563,11 +1581,11 @@ class Storage {
             'error uploading tarball @{filename} for @{pkgName}: @{err.message}'
           );
         }
-      });
+      );
 
       // once the file descriptor has been closed
       localStorageWriteStream.on('close', async () => {
-        if (uploadFailed) {
+        if (uploadFailed || !localStorageWriteStream.writableFinished) {
           debug('skip metadata update for failed upload %o for %o', filename, pkgName);
           return;
         }

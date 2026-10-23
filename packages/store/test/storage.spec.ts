@@ -6,6 +6,8 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { Readable } from 'node:stream';
+import type { PassThrough, Writable } from 'node:stream';
+import { finished } from 'node:stream/promises';
 import { beforeAll, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { Config, getDefaultConfig } from '@verdaccio/config';
@@ -221,7 +223,9 @@ describe('storage', () => {
         expect(typeof manifest._rev).toBeTruthy();
       });
 
-      test('should not record _attachments when the tarball upload fails mid-stream', async () => {
+      test('should not record _attachments when the tarball upload fails mid-stream', async ({
+        onTestFinished,
+      }) => {
         const pkgName = 'upload-fail';
         const requestOptions = {
           host: 'localhost',
@@ -249,23 +253,85 @@ describe('storage', () => {
           revision: '1',
           requestOptions,
         });
+        const manifestPath = path.join(storagePath, pkgName, 'package.json');
+        const originalManifest = fs.readFileSync(manifestPath, 'utf8');
+        const plugin = storage.localStorage.getStoragePlugin();
+        const packageStorage = plugin.getPackageStorage(pkgName)!;
+        const getPackageStorage = vi
+          .spyOn(plugin, 'getPackageStorage')
+          .mockReturnValue(packageStorage);
+        const completions: Promise<unknown>[] = [];
+        let destination: Writable | undefined;
+        const writeTarball = packageStorage.writeTarball.bind(packageStorage);
+        const writeTarballSpy = vi
+          .spyOn(packageStorage, 'writeTarball')
+          .mockImplementation(async (...args) => {
+            const stream = await writeTarball(...args);
+            destination = stream;
+            // Register before piping: an error can reject finished() before close.
+            completions.push(
+              new Promise<void>((resolve) => stream.once('close', resolve)),
+              finished(stream, { cleanup: true }).catch((error) => error)
+            );
+            return stream;
+          });
+        const internals = storage as unknown as {
+          uploadTarballAsStream: (
+            name: string,
+            filename: string,
+            options: { signal: AbortSignal }
+          ) => Promise<PassThrough>;
+          updatePackage: (
+            name: string,
+            update: (manifest: Manifest) => Promise<Manifest>
+          ) => Promise<Manifest>;
+        };
+        const updatePackage = vi.spyOn(internals, 'updatePackage');
+        const success = vi.fn();
+        const uploadTarballAsStream = internals.uploadTarballAsStream.bind(storage);
+        const uploadTarballAsStreamSpy = vi
+          .spyOn(internals, 'uploadTarballAsStream')
+          .mockImplementation(async (...args) => {
+            const stream = await uploadTarballAsStream(...args);
+            stream.on('success', success);
+            return stream;
+          });
         const failingContent = new Readable({
           read() {
             this.push(Buffer.alloc(1024));
             this.destroy(new Error('client aborted the upload'));
           },
         });
+        completions.push(finished(failingContent, { cleanup: true }).catch((error) => error));
+        async function settleUpload() {
+          await Promise.all(completions);
+          // A close listener can start an async metadata update after rejection.
+          await Promise.allSettled(updatePackage.mock.results.map((result) => result.value));
+        }
+        onTestFinished(async () => {
+          failingContent.destroy();
+          destination?.destroy();
+          await settleUpload();
+          uploadTarballAsStreamSpy.mockRestore();
+          updatePackage.mockRestore();
+          writeTarballSpy.mockRestore();
+          getPackageStorage.mockRestore();
+          fs.rmSync(path.dirname(storagePath), { recursive: true, force: true });
+        });
         await expect(
           storage.uploadTarball(pkgName, `${pkgName}-1.0.1.tgz`, failingContent, {
             signal: new AbortController().signal,
           })
-        ).rejects.toThrow();
-        // the write stream 'close' handler runs async after the rejection;
-        // read the raw manifest — the public API strips _attachments
-        await new Promise((resolve) => setTimeout(resolve, 100));
-        const rawManifest = JSON.parse(
-          fs.readFileSync(path.join(storagePath, pkgName, 'package.json'), 'utf8')
-        );
+        ).rejects.toThrow('client aborted the upload');
+        await settleUpload();
+        expect(writeTarballSpy).toHaveBeenCalledTimes(1);
+        expect(destination?.closed).toBe(true);
+        expect(updatePackage).not.toHaveBeenCalled();
+        expect(success).not.toHaveBeenCalled();
+        // Read the raw manifest — the public API strips _attachments.
+        const savedManifest = fs.readFileSync(manifestPath, 'utf8');
+        expect(savedManifest).toBe(originalManifest);
+        const rawManifest = JSON.parse(savedManifest);
         expect(Object.keys(rawManifest._attachments)).toEqual([`${pkgName}-1.0.0.tgz`]);
       });
 

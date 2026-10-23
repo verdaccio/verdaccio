@@ -257,69 +257,44 @@ export default class LocalFS implements ILocalFSPackageManager {
     );
 
     debug('write a temporal name %o', temporalName);
-    let opened = false;
-    // an errored or aborted download must never be renamed into place: that
-    // would publish a truncated tarball under the final name
-    let failed = false;
-    const writeStream = fs.createWriteStream(temporalName);
-
-    writeStream.on('open', () => {
-      opened = true;
-    });
-
-    writeStream.on('error', async (err) => {
-      failed = true;
-      if (opened) {
-        this.logger.error(
-          { err, fileName },
-          'error on open write tarball for @{fileName}: @{err.message}'
-        );
-        writeStream.once('close', async () => {
-          await this.removeTempFile(temporalName);
-        });
-      } else {
-        this.logger.error(
-          { err, fileName },
-          'error on writing tarball for @{fileName}: @{err.message}'
-        );
+    const finalize = async (closeError: NodeJS.ErrnoException | null): Promise<void> => {
+      if (closeError || writeStream.errored || !writeStream.writableFinished) {
+        // An opening write may create the file after cancellation. Its
+        // descriptor must be closed before removing the temporary file.
         await this.removeTempFile(temporalName);
-      }
-    });
-
-    // the 'close' event is emitted when the stream and any of its
-    // underlying resources (a file descriptor, for example) have been closed.
-    writeStream.once('close', async () => {
-      if (failed) {
-        // the error/abort listeners own the cleanup of the temporal file
         return;
       }
       try {
-        await renameTmp(temporalName, pathName);
+        // A failed rename must reject the upload: the final tarball is not
+        // available to readers.
+        await renamePromise(temporalName, pathName);
       } catch (err) {
-        this.logger.error(
-          { err, temporalName, pathName },
-          'error on rename temporal file @{temporalName} to @{pathName}: @{err.message},' +
-            'please report this bug'
-        );
+        await this.removeTempFile(temporalName);
+        throw err;
       }
+    };
+    const writeStream: fs.WriteStream = fs.createWriteStream(temporalName, {
+      fs: {
+        open: fs.open,
+        write: fs.write,
+        writev: fs.writev,
+        close(fd, callback) {
+          fs.close(fd, (err) => {
+            // Include finalization in stream destruction. An async 'close'
+            // listener would let pipeline and Store finish before the rename.
+            finalize(err).then(() => callback(err), callback);
+          });
+        },
+      },
     });
 
-    // if upload is aborted, we clean up the temporal file
-    signal?.addEventListener(
-      'abort',
-      async () => {
-        failed = true;
-        if (opened) {
-          // close always happens, even if error
-          writeStream.once('close', async () => {
-            await this.removeTempFile(temporalName);
-          });
-        } else {
-          await this.removeTempFile(temporalName);
-        }
-      },
-      { once: true }
-    );
+    writeStream.on('error', (err) => {
+      this.logger.error({ err, fileName }, 'error writing tarball for @{fileName}: @{err.message}');
+    });
+
+    if (signal) {
+      addAbortSignal(signal, writeStream);
+    }
 
     return writeStream;
   }
