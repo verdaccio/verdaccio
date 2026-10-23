@@ -543,6 +543,7 @@ describe('storage', () => {
         unPublishManifest.time = manifestWrite.time;
         // we send the unpublish request
         await storage.updateManifest(unPublishManifest, {
+          allowUnpublish: true,
           signal: new AbortController().signal,
           name: pkgName,
           uplinksLook: true,
@@ -1156,6 +1157,7 @@ describe('storage', () => {
                 manifest._rev
               ),
               {
+                allowUnpublish: true,
                 signal: new AbortController().signal,
                 name: pkgName,
                 uplinksLook: false,
@@ -1257,6 +1259,7 @@ describe('storage', () => {
               manifest._rev
             ),
             {
+              allowUnpublish: true,
               signal: new AbortController().signal,
               name: pkgName,
               uplinksLook: false,
@@ -1310,6 +1313,7 @@ describe('storage', () => {
                 manifest._rev
               ),
               {
+                allowUnpublish: true,
                 signal: new AbortController().signal,
                 name: pkgName,
                 uplinksLook: false,
@@ -1431,6 +1435,7 @@ describe('storage', () => {
           );
           delete (unPublishBody as { maintainers?: Author[] }).maintainers;
           await storage.updateManifest(unPublishBody, {
+            allowUnpublish: true,
             signal: new AbortController().signal,
             name: pkgName,
             uplinksLook: false,
@@ -1489,6 +1494,7 @@ describe('storage', () => {
                 signal: new AbortController().signal,
                 name: pkgName,
                 uplinksLook: false,
+                allowUnpublish: true,
                 revision: '1',
                 requestOptions: options,
               }
@@ -1535,6 +1541,7 @@ describe('storage', () => {
                 'some-stale-rev'
               ),
               {
+                allowUnpublish: true,
                 signal: new AbortController().signal,
                 name: pkgName,
                 uplinksLook: false,
@@ -1588,6 +1595,7 @@ describe('storage', () => {
               signal: new AbortController().signal,
               name: pkgName,
               uplinksLook: false,
+              allowUnpublish: true,
               revision: '1',
               requestOptions: options,
             })
@@ -1637,6 +1645,7 @@ describe('storage', () => {
                 signal: new AbortController().signal,
                 name: pkgName,
                 uplinksLook: false,
+                allowUnpublish: true,
                 revision: '1',
                 requestOptions: options,
               }

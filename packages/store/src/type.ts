@@ -40,6 +40,7 @@ export type PublishOptions = {
 } & IGetPackageOptionsNext;
 
 export type UpdateManifestOptions = {
+  allowUnpublish?: boolean;
   name: string;
   version?: string;
   revision?: string;
