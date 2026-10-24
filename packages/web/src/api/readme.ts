@@ -52,6 +52,26 @@ const getReadmeFromManifest = (manifest: Manifest, v?: any): string | undefined 
   return readme;
 };
 
+// Experimental (`flags.tarballMetadata`): when the manifest has no README for the version,
+// read it from that version's tarball before falling back to the latest or root README.
+const getTarballReadme = async (
+  storage: Storage,
+  config: Config,
+  manifest: Manifest,
+  requestedVersion?: string
+): Promise<string | undefined> => {
+  const version = requestedVersion ?? manifest[DIST_TAGS]?.latest;
+  if (!config.flags?.tarballMetadata || !version || !isVersionValid(manifest, version)) {
+    return undefined;
+  }
+  const isLatest = version === manifest[DIST_TAGS]?.latest;
+  const ownReadme = manifest.versions[version].readme || (isLatest ? manifest.readme : undefined);
+  if (ownReadme) {
+    return ownReadme;
+  }
+  return storage.getTarballReadme(manifest.name, manifest.versions[version]);
+};
+
 function addReadmeWebApi(storage: Storage, auth: Auth, config: Config): Router {
   debug('initialized readme web api');
   const pkgRouter = Router(); /* eslint new-cap: 0 */
@@ -90,7 +110,9 @@ function addReadmeWebApi(storage: Storage, auth: Auth, config: Config): Router {
           }
         }
         res.set(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_PLAIN_UTF8);
-        const readme = getReadmeFromManifest(manifest, requestedVersion);
+        const readme =
+          (await getTarballReadme(storage, config, manifest, requestedVersion)) ??
+          getReadmeFromManifest(manifest, requestedVersion);
         next(getReadme(readme));
       } catch (err) {
         next(err);

@@ -13,6 +13,7 @@ import type {
   RateLimit,
   Security,
   ServerSettingsConf,
+  TarballMetadataConf,
 } from '@verdaccio/types';
 
 import { getUserAgent } from './agent';
@@ -33,6 +34,8 @@ export const defaultUserRateLimiting = {
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 1000,
 };
+
+export const DEFAULT_TARBALL_METADATA_MAX_SIZE_MB = 20;
 
 const TOKEN_VALID_LENGTH = 32;
 
@@ -56,6 +59,7 @@ class Config implements AppConfig {
   // @ts-ignore
   public secret: string;
   public flags: FlagsConfig;
+  public tarball_metadata: TarballMetadataConf;
   public userRateLimit: RateLimit;
   public constructor(config: ConfigYaml & { config_path: string }) {
     const self = this;
@@ -77,6 +81,10 @@ class Config implements AppConfig {
       createUser: config.flags?.createUser ?? false,
       stage: config.flags?.stage ?? false,
       tfa: config.flags?.tfa ?? false,
+      tarballMetadata: config.flags?.tarballMetadata ?? false,
+    };
+    this.tarball_metadata = {
+      max_size_mb: config.tarball_metadata?.max_size_mb ?? DEFAULT_TARBALL_METADATA_MAX_SIZE_MB,
     };
     this.user_agent = config.user_agent;
 
