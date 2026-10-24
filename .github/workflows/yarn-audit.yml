@@ -1,9 +1,6 @@
 name: yarn audit
 
 on:
-  # Branch pushes only: PR branches are covered by pull_request
-  push:
-    branches: ['6.x']
   pull_request:
     paths:
       - 'package.json'

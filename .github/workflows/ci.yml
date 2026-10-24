@@ -77,7 +77,7 @@ jobs:
       fail-fast: false
       matrix:
         node_version: [22, 24, 26]
-        pm: [npm@10, npm@11, npm@12, pnpm@11, yarn-modern@4]
+        pm: [npm@10, npm@11, npm@12, pnpm@11, yarn-modern@4, bun]
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - uses: ./.github/actions/install-app
@@ -89,6 +89,9 @@ jobs:
           path: build/
           key: ci-build-${{ github.run_id }}-${{ github.run_attempt }}-node-${{ matrix.node_version }}
           fail-on-cache-miss: true
+      - name: Setup Bun
+        if: matrix.pm == 'bun'
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
       - uses: ./.github/actions/start-verdaccio
       - name: Run E2E CLI tests
         run: yarn verdaccio-e2e --registry http://localhost:4873 --pm ${{ matrix.pm }} --uplink-port 4874 -v
