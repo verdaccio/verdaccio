@@ -1,5 +1,26 @@
 # Changelog
 
+## 6.11.0
+
+### Minor Changes
+
+- 93010b3: `web.showSearch: false` now also disables the web search endpoint.
+  
+  Until now the option only hid the search box in the header, while `/-/verdaccio/data/search` kept answering. With `showSearch: false` the endpoint is no longer registered and answers 404, the same way `web.login: false` removes the web login endpoints. The npm search API used by `npm search` (`/-/v1/search`) is not affected, and nothing changes for registries that leave `showSearch` unset or set it to `true`.
+
+### Patch Changes
+
+- a3a664b: Releases are published with npm provenance again.
+  
+  verdaccio 6.10.5, 6.10.6 and 6.10.7 reached the npm registry without a provenance attestation, while every release from 6.9.0 to 6.10.4 had one. The release pipeline switched from `npm publish` to `yarn npm publish`, and yarn ignored the setting that requested provenance, so those versions were published through trusted publishing but without a signed SLSA statement. The package contents were not affected.
+  
+  Package managers that compare trust evidence between versions, such as pnpm with `trustPolicy: no-downgrade`, refuse to install those three versions with `ERR_PNPM_TRUST_DOWNGRADE`. This release carries provenance again, so upgrading to it, or pinning 6.10.4 or earlier, installs cleanly; nothing else needs to change on the operator side.
+- 90fde27: Update the bundled `@verdaccio/*` modules to their latest releases, which forward the new web UI options to the UI and fix a denial-of-service in request body parsing.
+  
+  The web UI options `web.footer`, `web.poweredBy`, `web.help` and `web.showPackageListToolbar` now reach the UI (`@verdaccio/ui-theme` `9.0.0-next-9.39`); before this update the server dropped them. `showPackageListToolbar` defaults to `false`, so the home page looks the same after upgrading unless you turn it on, and `bun` is now listed among the default package managers shown on a package page.
+  
+  `body-parser` moves to `1.20.9`, fixing a denial of service where trailing bytes after a compressed request body could tie up the server (GHSA-27r3-jxmh-p828). All 6.x releases that use `express` 4.22.3 are affected; no configuration change is needed.
+
 ## 6.10.7
 
 ### Patch Changes
