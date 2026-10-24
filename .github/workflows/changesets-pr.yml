@@ -18,11 +18,8 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Install dependencies with a custom registry
         uses: ./.github/actions/install-app
-      - name: crowdin download
-        env:
-          CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
-          CONTEXT: production
-        run: pnpm crowdin:download
+      - name: crowdin translations
+        uses: ./.github/actions/crowdin-translations
       - name: build
         run: pnpm build
       - name: Docker test

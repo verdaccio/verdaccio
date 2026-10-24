@@ -28,12 +28,8 @@ jobs:
       - name: Install dependencies
         uses: ./.github/actions/install-app
 
-      - name: crowdin download
-        env:
-          # download-only token, exposed under the name crowdin.yaml expects
-          CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_DOWNLOAD }}
-          CONTEXT: production
-        run: pnpm crowdin:download
+      - name: crowdin translations
+        uses: ./.github/actions/crowdin-translations
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@99012661954931238ded8c8b007157a8430204e1 # v4.4.0

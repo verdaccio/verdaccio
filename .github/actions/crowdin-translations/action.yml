@@ -1,0 +1,14 @@
+name: 'Crowdin translations'
+description: 'Restore the UI translations cached by the crowdin workflow; fails when no cache exists'
+
+runs:
+  using: composite
+  steps:
+    - name: Restore cached translations
+      uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+      with:
+        path: packages/ui-components/src/i18n/download_translations
+        # never an exact hit: the prefix restores the newest cache saved by crowdin.yml
+        key: crowdin-translations-${{ github.run_id }}
+        restore-keys: crowdin-translations-
+        fail-on-cache-miss: true
