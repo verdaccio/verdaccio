@@ -1,5 +1,25 @@
 # @verdaccio/ui-components
 
+## 5.0.0-next-9.26
+
+### Patch Changes
+
+- e2cb9d7: Show the bun publish command and the bun login note in the web UI help guide only while the bun tab is selected.
+  
+  The help guide listed `bun publish --registry <url>` and the note about bun having no login command whenever `bun` was in `web.pkgManagers`, which it is by default, so npm, pnpm and yarn users saw bun instructions too. Both now follow the client chosen in the first step: the bun tab shows `bun publish`, every other tab shows `npm publish`. Removing `bun` from `web.pkgManagers` still hides the bun tab entirely.
+- 9d16db0: Show the note about uplink packages only on the home page help card, not in the settings dialog.
+  
+  The note explaining that packages fetched from uplinks such as npmjs are cached but not listed, with its "How uplinks work" link, is about the empty package list on the home page. It was also shown under the publishing guide in the settings dialog, where there is no list to explain. It now appears only on the home page help card.
+- 6532105: Suggest Verdaccio's yarn-plugin-npm in the web UI help guide when the yarn tab is selected.
+  
+  The "Create a user or log in" step only offered `npm adduser`, so Yarn users had to switch to npm to get a token. With the yarn tab selected, the step now also shows how to install the plugin (`yarn dlx @verdaccio/yarn-import npm-login`) and log in with `yarn npm login --registry <url>`, which can create the user on the registry and stores the token in `~/.yarnrc.yml`, plus a link to https://github.com/verdaccio/yarn-plugin-npm. Other tabs are unchanged.
+- 601dd79: Make links inside the web UI's markdown text readable in dark mode.
+  
+  Text rendered from markdown, such as the package filter link under the minimum release age settings, the package manager notes and the translation contribution text in the settings dialog, used plain browser links whose default dark blue was nearly invisible on the dark theme. These links now use the theme's link style, the same as the documentation link in the dialog footer, in both light and dark mode. The custom footer, powered-by text and `web.help` markdown get the same styling, and every markdown link opens in a new tab.
+- 3b79553: Add bottom spacing to the settings dialog tabs so their last item no longer touches the dialog footer.
+  
+  In the publishing tab the last command box sat flush against the footer with the documentation link and close button, and looked cut off. Every tab of the settings dialog now has the same space below its content as above it.
+
 ## 5.0.0-next-9.25
 
 ### Minor Changes
