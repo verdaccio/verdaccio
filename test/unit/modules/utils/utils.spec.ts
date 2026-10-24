@@ -8,6 +8,7 @@ import { DIST_TAGS } from '../../../../src/lib/constants';
 import { logger, setup } from '../../../../src/lib/logger';
 import {
   getVersion,
+  hasSearch,
   hasTarball,
   normalizeDistTags,
   parseReadme,
@@ -17,6 +18,12 @@ import {
 setup({});
 
 describe('Utilities', () => {
+  test('hasSearch is enabled unless showSearch is false', () => {
+    expect(hasSearch({} as any)).toBe(true);
+    expect(hasSearch({ web: { showSearch: true } } as any)).toBe(true);
+    expect(hasSearch({ web: { showSearch: false } } as any)).toBe(false);
+  });
+
   const metadata: any = {
     name: 'npm_test',
     versions: {

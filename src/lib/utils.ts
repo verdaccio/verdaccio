@@ -275,6 +275,11 @@ export function hasLogin(config: Config) {
   return _.isNil(config?.web?.login) || config?.web?.login === true;
 }
 
+// the web search endpoint follows the search box: `showSearch: false` removes both
+export function hasSearch(config: Config) {
+  return config?.web?.showSearch !== false;
+}
+
 /**
  * Check whether any version in a package manifest has a tarball URL
  * that matches the given filename.
