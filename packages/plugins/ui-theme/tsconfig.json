@@ -17,9 +17,6 @@
   "include": ["src", "types/*.d.ts", "src/i18n/**/*.json"],
   "references": [
     {
-      "path": "../../core/i18n"
-    },
-    {
       "path": "../../core/types"
     },
     {

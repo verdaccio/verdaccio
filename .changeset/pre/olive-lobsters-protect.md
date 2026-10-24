@@ -5,7 +5,6 @@
 '@verdaccio/config': major
 '@verdaccio/core': major
 '@verdaccio/file-locking': major
-'@verdaccio/ui-i18n': major
 '@verdaccio/tarball': major
 '@verdaccio/types': major
 '@verdaccio/url': major

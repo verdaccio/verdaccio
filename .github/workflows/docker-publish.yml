@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       # Fetch UI translations before `COPY . .`, else the image ships an
-      # English-only UI (ui-theme bundles them from gitignored download_translations/).
+      # English-only UI (ui-components bundles packages/ui-components/src/i18n/download_translations/).
       - name: Install dependencies
         uses: ./.github/actions/install-app
 

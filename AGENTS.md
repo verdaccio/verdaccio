@@ -64,8 +64,8 @@ unless noted. The request path is roughly `verdaccio` → `server` → `api`/`we
 - `packages/core/core` — shared utilities (`errorUtils`, `validationUtils`,
   `pkgUtils`, `searchUtils`, `streamUtils`, constants such as `HTTP_STATUS` and
   `API_ERROR`). `packages/core/types` — shared TypeScript types.
-  `packages/core/tarball`, `packages/core/url`, `packages/core/file-locking`,
-  `packages/core/i18n` — focused helpers.
+  `packages/core/tarball`, `packages/core/url`, `packages/core/file-locking` —
+  focused helpers.
 - `packages/middleware`, `packages/loaders` (plugin loading), `packages/logger`,
   `packages/hooks` (notifications), `packages/search`, `packages/signature`.
 - `packages/plugins/audit`, `packages/plugins/memory`,

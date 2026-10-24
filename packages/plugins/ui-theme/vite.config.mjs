@@ -83,9 +83,6 @@ export default defineConfig(({ command }) => ({
       'verdaccio-ui/components': path.resolve(import.meta.dirname, './src/components'),
       'verdaccio-ui/utils': path.resolve(import.meta.dirname, './src/utils'),
       'verdaccio-ui/providers': path.resolve(import.meta.dirname, './src/providers'),
-      // Swap @verdaccio/ui-i18n for a Vite-native loader that uses import.meta.glob
-      // instead of the CJS require()-based implementation in the published package.
-      '@verdaccio/ui-i18n': path.resolve(import.meta.dirname, './src/i18n/loadTranslationFile.ts'),
       react: path.dirname(require.resolve('react/package.json')),
       'react-dom': path.dirname(require.resolve('react-dom/package.json')),
     },

@@ -51,7 +51,6 @@
     "@mui/icons-material": "7.3.11",
     "@mui/material": "7.3.11",
     "@mui/system": "7.3.11",
-    "@verdaccio/ui-i18n": "workspace:10.0.0-next-9.6",
     "country-flag-icons": "1.6.20",
     "dayjs": "1.11.23",
     "debug": "4.4.3",

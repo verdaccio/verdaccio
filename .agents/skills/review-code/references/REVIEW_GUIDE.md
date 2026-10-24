@@ -180,7 +180,7 @@ When a change does not belong, say why in one paragraph and name what would.
 - Established npm semantics win over invention: if npm has a name, a header, or a
   status for it, use that.
 - Web UI changes follow the existing design and i18n path
-  (`packages/plugins/ui-theme/src/i18n/crowdin/ui.json`); hard-coded English strings
+  (`packages/ui-components/src/i18n/crowdin/ui.json`); hard-coded English strings
   in components are a defect.
 - Avoid user-visible noise: no new `info`-level logs on the hot path, no new startup
   warnings without a `VERWAR` code in `docs/warnings.md`.

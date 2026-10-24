@@ -7,7 +7,6 @@
 '@verdaccio/config': patch
 '@verdaccio/core': patch
 '@verdaccio/file-locking': patch
-'@verdaccio/ui-i18n': patch
 '@verdaccio/tarball': patch
 '@verdaccio/types': patch
 '@verdaccio/url': patch
