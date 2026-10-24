@@ -82,7 +82,8 @@ jobs:
           create-github-releases: true
         env:
           NPM_CONFIG_REGISTRY: https://registry.npmjs.org
-          NPM_CONFIG_PROVENANCE: 'true'
+          # changeset publish runs `yarn npm publish`, which ignores NPM_CONFIG_PROVENANCE
+          YARN_NPM_PUBLISH_PROVENANCE: 'true'
 
       - name: Read published verdaccio version
         if: steps.changesets.outputs.published == 'true'
