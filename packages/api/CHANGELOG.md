@@ -1,5 +1,18 @@
 # @verdaccio/api
 
+## 9.0.0-next-9.38
+
+### Patch Changes
+
+- Updated dependencies [d8ff951]
+  - @verdaccio/config@9.0.0-next-9.38
+  - @verdaccio/auth@9.0.0-next-9.38
+  - @verdaccio/hooks@9.0.0-next-9.38
+  - @verdaccio/middleware@9.0.0-next-9.38
+  - @verdaccio/store@9.0.0-next-9.38
+  - @verdaccio/core@9.0.0-next-9.38
+  - @verdaccio/logger@9.0.0-next-9.38
+
 ## 9.0.0-next-9.37
 
 ### Minor Changes

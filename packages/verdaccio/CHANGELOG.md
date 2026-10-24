@@ -1,5 +1,20 @@
 # verdaccio
 
+## 9.0.0-next-9.38
+
+### Patch Changes
+
+- Updated dependencies [d8ff951]
+- Updated dependencies [52d92de]
+  - @verdaccio/ui-theme@9.0.0-next-9.38
+  - @verdaccio/config@9.0.0-next-9.38
+  - @verdaccio/cli@9.0.0-next-9.38
+  - @verdaccio/node-api@9.0.0-next-9.38
+  - verdaccio-audit@14.0.0-next-9.38
+  - verdaccio-htpasswd@14.0.0-next-9.38
+  - @verdaccio/package-filter@14.0.0-next-9.62
+  - @verdaccio/server@9.0.0-next-9.38
+
 ## 9.0.0-next-9.37
 
 ### Patch Changes
