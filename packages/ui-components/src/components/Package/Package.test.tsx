@@ -88,6 +88,24 @@ describe('<Package /> component', () => {
     expect(screen.getByTestId('package-version-link')).toHaveAttribute('href', href);
   });
 
+  test.each(['private', 'cached'] as const)('shows the %s origin badge', (origin) => {
+    renderWith(
+      <MemoryRouter>
+        <Package author={props.author} name={props.name} origin={origin} version={props.version} />
+      </MemoryRouter>
+    );
+    expect(screen.getByTestId(`package-origin-${origin}`)).toBeInTheDocument();
+  });
+
+  test('shows no origin badge without an origin', () => {
+    renderWith(
+      <MemoryRouter>
+        <Package author={props.author} name={props.name} version={props.version} />
+      </MemoryRouter>
+    );
+    expect(screen.queryByTestId(/package-origin-/)).not.toBeInTheDocument();
+  });
+
   // test if click on download button will trigger the download action
   test('should download the package', async () => {
     renderWith(
