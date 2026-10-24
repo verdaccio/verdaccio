@@ -3,6 +3,7 @@ import path from 'node:path';
 import { describe, expect, test } from 'vitest';
 
 import {
+  DEFAULT_TARBALL_METADATA_MAX_SIZE_MB,
   Config,
   DEFAULT_REGISTRY,
   DEFAULT_UPLINK,
@@ -139,6 +140,7 @@ describe('flags', () => {
       changePassword: false,
       createUser: false,
       stage: false,
+      tarballMetadata: false,
       tfa: false,
       signatures: false,
       webLogin: false,
@@ -152,6 +154,7 @@ describe('flags', () => {
       changePassword: false,
       createUser: false,
       stage: true,
+      tarballMetadata: false,
       tfa: false,
       signatures: false,
       webLogin: false,
@@ -163,6 +166,20 @@ describe('flags', () => {
 
     expect(config.flags.stage).toBe(true);
     expect(config.flags.tfa).toBe(true);
+  });
+});
+
+describe('tarball_metadata', () => {
+  test('should default the unpack limit', () => {
+    const config = new Config(getDefaultConfig());
+
+    expect(config.tarball_metadata).toEqual({ max_size_mb: DEFAULT_TARBALL_METADATA_MAX_SIZE_MB });
+  });
+
+  test('should keep a configured unpack limit', () => {
+    const config = new Config({ ...getDefaultConfig(), tarball_metadata: { max_size_mb: 5 } });
+
+    expect(config.tarball_metadata.max_size_mb).toBe(5);
   });
 });
 
