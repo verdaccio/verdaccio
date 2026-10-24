@@ -26,11 +26,23 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Install dependencies
         uses: ./.github/actions/install-app
-      - name: Upload sources and download translations
+      - name: Upload sources
         env:
           CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
           CONTEXT: production
-        run: pnpm crowdin:sync
+        run: pnpm crowdin:upload
+      - name: Download translations
+        env:
+          CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
+          CONTEXT: production
+        # Crowdin rejects a build while another one is running ("Too Many Project Builds")
+        run: |
+          for attempt in 1 2 3 4 5 6; do
+            pnpm crowdin:download && exit 0
+            echo "::warning::Crowdin download failed (attempt $attempt), retrying in 2 minutes"
+            sleep 120
+          done
+          exit 1
       - name: Check translations
         run: test -n "$(ls -A packages/ui-components/src/i18n/download_translations)"
       - name: Save translations
