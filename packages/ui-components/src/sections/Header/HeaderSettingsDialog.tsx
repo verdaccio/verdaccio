@@ -12,6 +12,7 @@ import { CustomHelp, HelpGuide } from '../../components/Help/Help';
 import RegistryInfoDialog from '../../components/RegistryInfoDialog';
 import { getConfiguration } from '../../configuration';
 import { useConfig } from '../../providers';
+import { externalLinkComponents } from '../../utils/markdown';
 import LanguageSwitch from './LanguageSwitch';
 import RegistryInfoContent from './RegistryInfoContent';
 
@@ -88,7 +89,9 @@ const HeaderSettingsDialog: React.FC<Props> = ({ onCloseDialog, isOpen }) => {
         <TabPanel index={2} value={value}>
           <TextContent>{t('language.description')}</TextContent>
           <LanguageSwitch />
-          <ReactMarkdown>{t('language.contribute')}</ReactMarkdown>
+          <ReactMarkdown components={externalLinkComponents}>
+            {t('language.contribute')}
+          </ReactMarkdown>
         </TabPanel>
       </Box>
     </RegistryInfoDialog>

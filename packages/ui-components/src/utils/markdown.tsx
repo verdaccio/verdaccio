@@ -1,11 +1,13 @@
+import Link from '@mui/material/Link';
 import React from 'react';
 
-// links in operator markdown leave the registry, so they open in a new tab; raw HTML is not rendered
+// links in markdown leave the registry, so they open in a new tab; MUI Link keeps them readable in dark mode
 export const externalLinkComponents = {
   a: ({
     node: _node,
+    color: _color,
     ...props
   }: React.AnchorHTMLAttributes<HTMLAnchorElement> & { node?: unknown }) => (
-    <a {...props} rel="noopener noreferrer" target="_blank" />
+    <Link {...props} rel="noopener noreferrer" target="_blank" />
   ),
 };

@@ -21,6 +21,7 @@ import {
   getMinReleaseAgeConfig,
   useConfig,
 } from '../../../';
+import { externalLinkComponents } from '../../../utils/markdown';
 import { Description, TextContent } from './styles';
 
 export const NODE_MANAGER = {
@@ -172,13 +173,17 @@ const RegistryInfoContent: FC<Props> = ({ scope, registryUrl }) => {
           </AccordionSummary>
           <AccordionDetails>
             <Description>
-              <ReactMarkdown>{t('packageManagers.yarnclassicDetails')}</ReactMarkdown>
+              <ReactMarkdown components={externalLinkComponents}>
+                {t('packageManagers.yarnclassicDetails')}
+              </ReactMarkdown>
             </Description>
             <CommandContainer data-testid={'tab-content'}>
               {renderYarnTab(scope, registryUrl)}
             </CommandContainer>
             <Description>
-              <ReactMarkdown>{t('packageManagers.yarnBerryDetails')}</ReactMarkdown>
+              <ReactMarkdown components={externalLinkComponents}>
+                {t('packageManagers.yarnBerryDetails')}
+              </ReactMarkdown>
             </Description>
             <CommandContainer data-testid={'tab-content'}>
               {renderYarnBerryTab(scope, registryUrl)}
@@ -212,7 +217,9 @@ const RegistryInfoContent: FC<Props> = ({ scope, registryUrl }) => {
             </AccordionSummary>
             <AccordionDetails>
               <Description>
-                <ReactMarkdown>{t('packageManagers.bunDetails')}</ReactMarkdown>
+                <ReactMarkdown components={externalLinkComponents}>
+                  {t('packageManagers.bunDetails')}
+                </ReactMarkdown>
               </Description>
               <CommandContainer data-testid={'tab-content'}>
                 {renderBunTab(scope, registryUrl)}
@@ -243,7 +250,9 @@ const RegistryInfoContent: FC<Props> = ({ scope, registryUrl }) => {
                 {renderMinReleaseAgeTab(minAgeManagers, exampleScope, t)}
               </CommandContainer>
               <Description>
-                <ReactMarkdown>{t('packageManagers.minReleaseAge.registry')}</ReactMarkdown>
+                <ReactMarkdown components={externalLinkComponents}>
+                  {t('packageManagers.minReleaseAge.registry')}
+                </ReactMarkdown>
               </Description>
             </AccordionDetails>
           </Accordion>
