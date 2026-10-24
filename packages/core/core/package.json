@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/core",
-  "version": "8.3.3",
+  "version": "8.4.0",
   "description": "Verdaccio Core Components",
   "keywords": [
     "enterprise",
@@ -65,7 +65,7 @@
     "semver": "7.8.5"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:13.0.6",
+    "@verdaccio/types": "workspace:13.1.0",
     "express": "4.22.3",
     "typedoc": "0.28.20",
     "vite": "8.3.4",

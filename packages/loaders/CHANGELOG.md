@@ -1,5 +1,11 @@
 # @verdaccio/loaders
 
+## 8.1.7
+
+### Patch Changes
+
+- @verdaccio/core@8.4.0
+
 ## 8.1.6
 
 ### Patch Changes

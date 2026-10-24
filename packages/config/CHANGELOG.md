@@ -1,5 +1,22 @@
 # @verdaccio/config
 
+## 8.4.0
+
+### Minor Changes
+
+- 7ab1032: Pass the new web UI options to the UI theme, so registries on 6.x can use them.
+  
+  The web UI gained options that only work when the server forwards them to the browser. `@verdaccio/middleware` now forwards `web.footer` (markdown that replaces the footer message), `web.poweredBy` (`false` hides the "Powered by" link, markdown replaces it), `web.help` (markdown that replaces the welcome card of an empty registry, with `{{registryUrl}}` filled in) and `web.showPackageListToolbar` (the filter, scope and sort bar above the home page package list). On this line the toolbar stays off unless `showPackageListToolbar: true` is set, so the home page looks as before after an upgrade. `bun` joins the default `web.pkgManagers` list (`yarn`, `pnpm`, `npm`, `bun`); registries that set `pkgManagers` keep their own list.
+  
+  The options take effect with a `@verdaccio/ui-theme` release that implements them. The default `config.yaml` documents them as comments; nothing changes for registries that do not set them.
+
+### Patch Changes
+
+- 2bda24a: Update runtime dependencies to their latest minor and patch releases, with no change in behaviour for 6.x.
+  
+  `@verdaccio/config` now uses `js-yaml` 5.5.0, `@verdaccio/tarball` uses `tar-stream` 3.2.2, `@verdaccio/url` uses `validator` 13.15.35 and `@verdaccio/logger-prettify` uses `dayjs` 1.11.23. `@verdaccio/test-helper` moves to `body-parser` 1.20.9, `fs-extra` 11.4.1 and `supertest` 7.3.1. No major versions were bumped. Operators do not need to do anything; the update arrives with the next `verdaccio` 6.x release.
+- @verdaccio/core@8.4.0
+
 ## 8.3.3
 
 ### Patch Changes

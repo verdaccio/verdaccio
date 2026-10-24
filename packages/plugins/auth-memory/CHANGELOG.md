@@ -1,5 +1,11 @@
 # Change Log
 
+## 13.1.7
+
+### Patch Changes
+
+- @verdaccio/core@8.4.0
+
 ## 13.1.6
 
 ### Patch Changes

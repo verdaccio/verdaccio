@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/signature",
-  "version": "8.1.6",
+  "version": "8.1.7",
   "description": "Verdaccio Signature Utilities",
   "keywords": [
     "enterprise",
@@ -55,13 +55,13 @@
     "build": "vite build && tsc --emitDeclarationOnly -p tsconfig.build.json"
   },
   "dependencies": {
-    "@verdaccio/config": "workspace:8.3.3",
-    "@verdaccio/core": "workspace:8.3.3",
+    "@verdaccio/config": "workspace:8.4.0",
+    "@verdaccio/core": "workspace:8.4.0",
     "debug": "4.4.3",
     "jsonwebtoken": "9.0.3"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:13.0.6",
+    "@verdaccio/types": "workspace:13.1.0",
     "vite": "8.3.4",
     "vitest": "5.0.5"
   },

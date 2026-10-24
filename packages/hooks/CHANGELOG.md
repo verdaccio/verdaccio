@@ -1,5 +1,12 @@
 # @verdaccio/hooks
 
+## 8.1.8
+
+### Patch Changes
+
+- @verdaccio/core@8.4.0
+  - @verdaccio/logger@8.1.7
+
 ## 8.1.7
 
 ### Patch Changes
