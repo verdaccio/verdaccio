@@ -80,7 +80,7 @@ export default defineConfig({
   },
   video: false,
   screenshotOnRunFailure: false,
-  env: {
+  expose: {
     VERDACCIO_URL: registryUrl,
   },
 });

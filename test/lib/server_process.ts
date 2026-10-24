@@ -1,10 +1,10 @@
 import { ForkOptions, fork } from 'child_process';
 import debug from 'debug';
+import { cp } from 'fs/promises';
 import path from 'path';
 
 import { fileUtils } from '@verdaccio/core';
 
-import { HTTP_STATUS } from '../../src/lib/constants';
 import { IServerBridge, IServerProcess, IVerdaccioConfig } from '../types';
 import { CREDENTIALS } from './credentials';
 
@@ -25,6 +25,10 @@ export default class VerdaccioProcess implements IServerProcess {
   public async init(verdaccioPath = '../../bin/verdaccio'): Promise<[VerdaccioProcess, number]> {
     log('creating temporary storage path...');
     const store = await fileUtils.createTempStorageFolder('server-test');
+    await cp(this.config.storagePath, store, {
+      recursive: true,
+      filter: (src) => path.basename(src) !== '.verdaccio-db.json',
+    });
     this.config.storagePath = store;
     log(`storage path set to: %s`, store);
 
@@ -39,6 +43,8 @@ export default class VerdaccioProcess implements IServerProcess {
       const options: ForkOptions = {
         silent: !this.silence,
         stdio: this.silence ? 'ignore' : 'inherit',
+        // parallel forks must not share the config's storage folder
+        env: { ...process.env, VERDACCIO_STORAGE_PATH: this.config.storagePath },
       };
 
       log('forking Verdaccio CLI from: %s', cliPath);
@@ -53,11 +59,8 @@ export default class VerdaccioProcess implements IServerProcess {
         if ('verdaccio_started' in msg) {
           log('verdaccio started message received');
           try {
-            const status = await this.bridge.debug().status(HTTP_STATUS.OK);
-            await this.bridge
-              .auth(CREDENTIALS.user, CREDENTIALS.password)
-              .status(HTTP_STATUS.CREATED)
-              .body_ok(new RegExp(CREDENTIALS.user));
+            const status = await this.bridge.debug();
+            await this.bridge.auth(CREDENTIALS.user, CREDENTIALS.password);
 
             log('verdaccio ready, PID: %s', status.pid);
             resolve([this, status.pid]);

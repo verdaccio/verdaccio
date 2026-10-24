@@ -9,10 +9,10 @@ minimumReleaseAgeExclude:
   - '@verdaccio/*'
   - '@verdaccio-scope/*'
   - 'verdaccio-*'
-  # Renovate security update: vite@8.0.16
-  - vite@8.0.16
-  # Renovate security update: vitest@4.1.11
-  - vitest@4.1.11
+  # security update: body-parser@2.4.0 (GHSA-27r3-jxmh-p828)
+  - body-parser@2.4.0
+  # security update: fast-uri@3.1.9 (GHSA-w74x-v6f9-j3xg)
+  - fast-uri@3.1.9
 ignoreScripts: true
 saveExact: true
 preferFrozenLockfile: true

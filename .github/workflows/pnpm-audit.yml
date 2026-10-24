@@ -1,7 +1,6 @@
 name: pnpm audit
 
 on:
-  push:
   pull_request:
     paths:
       - 'package.json'

@@ -1,6 +1,6 @@
 import { createRegistryConfig, homeTests } from '@verdaccio/e2e-ui';
 
-const registryUrl = Cypress.env('VERDACCIO_URL') || 'http://localhost:4873';
+const registryUrl = Cypress.expose('VERDACCIO_URL') || 'http://localhost:4873';
 
 const config = createRegistryConfig({
   registryUrl,
