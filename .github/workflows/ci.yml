@@ -209,23 +209,6 @@ jobs:
           else
             echo "no changesets present — nothing to validate"
           fi
-  sync-translations:
-    runs-on: ubuntu-latest
-    name: synchronize translations
-    if: (github.event_name == 'push' && github.ref == 'refs/heads/master' && github.repository == 'verdaccio/verdaccio') || github.event_name == 'workflow_dispatch'
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - name: Install dependencies
-        uses: ./.github/actions/install-app
-        with:
-          ignore-scripts: 'false'
-      - name: build
-        run: pnpm build
-      - name: sync
-        env:
-          CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
-          CONTEXT: production
-        run: pnpm crowdin:sync
   cleanup:
     needs: [test, e2e-cli, e2e-ui]
     if: ${{ always() && github.event_name == 'pull_request' }}

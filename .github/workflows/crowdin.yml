@@ -1,0 +1,48 @@
+name: Crowdin translations
+
+# The only workflow that talks to Crowdin; everything else restores the cache it saves.
+on:
+  schedule:
+    - cron: '0 3 * * 1'
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+
+permissions:
+  actions: write
+  contents: read
+
+concurrency:
+  group: crowdin-translations
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    name: Sync and cache translations
+    if: github.repository == 'verdaccio/verdaccio'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install dependencies
+        uses: ./.github/actions/install-app
+      - name: Upload sources and download translations
+        env:
+          CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
+          CONTEXT: production
+        run: pnpm crowdin:sync
+      - name: Check translations
+        run: test -n "$(ls -A packages/ui-components/src/i18n/download_translations)"
+      - name: Save translations
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+        with:
+          path: packages/ui-components/src/i18n/download_translations
+          key: crowdin-translations-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Delete older translation caches
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CURRENT: crowdin-translations-${{ github.run_id }}-${{ github.run_attempt }}
+        run: |
+          gh cache list --repo "$GITHUB_REPOSITORY" --ref "$GITHUB_REF" --key crowdin-translations- --limit 100 --json key --jq '.[].key' \
+            | grep -vx "$CURRENT" \
+            | xargs -r -n1 gh cache delete --repo "$GITHUB_REPOSITORY"
