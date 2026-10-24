@@ -182,7 +182,10 @@
     "ukraine": "Ukraine",
     "khmer": "Khmer",
     "chinese": "Chinese Simplified",
-    "chineseTraditional": "Chinese Traditional"
+    "chineseTraditional": "Chinese Traditional",
+    "korean": "Korean",
+    "polish": "Polish",
+    "galician": "Galician"
   },
   "flag": {
     "austria": "Austria",

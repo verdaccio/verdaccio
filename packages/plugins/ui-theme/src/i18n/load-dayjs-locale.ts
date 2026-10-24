@@ -64,6 +64,26 @@ async function loadDayJSLocale() {
       await import('dayjs/locale/cs');
       dayjs.locale('cs');
       break;
+    case 'ga-ie':
+      await import('dayjs/locale/ga');
+      dayjs.locale('ga');
+      break;
+    case 'it-it':
+      await import('dayjs/locale/it');
+      dayjs.locale('it');
+      break;
+    case 'ko-kr':
+      await import('dayjs/locale/ko');
+      dayjs.locale('ko');
+      break;
+    case 'pl-pl':
+      await import('dayjs/locale/pl');
+      dayjs.locale('pl');
+      break;
+    case 'gl-es':
+      await import('dayjs/locale/gl');
+      dayjs.locale('gl');
+      break;
     default:
       await import('dayjs/locale/en');
       dayjs.locale('en');
