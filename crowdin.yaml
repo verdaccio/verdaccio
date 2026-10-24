@@ -7,6 +7,8 @@ preserve_hierarchy: true
 
 files:
   - source: /packages/ui-components/src/i18n/crowdin/*.json
+    # keep the existing Crowdin file, which holds the translation history
+    dest: /packages/plugins/ui-theme/src/i18n/crowdin/%original_file_name%
     translation: '/packages/ui-components/src/i18n/download_translations/%locale%/%original_file_name%'
     # only translated strings, so the UI can show each language's real progress
     skip_untranslated_strings: true
