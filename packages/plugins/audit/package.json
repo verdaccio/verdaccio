@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-audit",
-  "version": "13.1.7",
+  "version": "13.1.8",
   "description": "Verdaccio Middleware plugin to bypass npmjs audit",
   "keywords": [
     "enterprise",
@@ -52,16 +52,16 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@verdaccio/config": "workspace:8.3.3",
-    "@verdaccio/core": "workspace:8.3.3",
+    "@verdaccio/config": "workspace:8.4.0",
+    "@verdaccio/core": "workspace:8.4.0",
     "express": "4.22.3",
     "https-proxy-agent": "5.0.1",
     "node-fetch": "cjs"
   },
   "devDependencies": {
-    "@verdaccio/auth": "workspace:8.1.6",
-    "@verdaccio/logger": "workspace:8.1.6",
-    "@verdaccio/types": "workspace:13.0.6",
+    "@verdaccio/auth": "workspace:8.1.7",
+    "@verdaccio/logger": "workspace:8.1.7",
+    "@verdaccio/types": "workspace:13.1.0",
     "nock": "13.5.6",
     "supertest": "7.3.1",
     "vite": "8.3.4",

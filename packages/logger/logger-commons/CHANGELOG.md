@@ -1,5 +1,13 @@
 # @verdaccio/logger-commons
 
+## 8.1.7
+
+### Patch Changes
+
+- Updated dependencies [2bda24a]
+  - @verdaccio/logger-prettify@8.1.1
+  - @verdaccio/core@8.4.0
+
 ## 8.1.6
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # Change Log
 
+## 10.5.7
+
+### Patch Changes
+
+- @verdaccio/core@8.4.0
+  - @verdaccio/streams@10.3.0
+
 ## 10.5.6
 
 ### Patch Changes

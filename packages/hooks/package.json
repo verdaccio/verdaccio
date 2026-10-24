@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/hooks",
-  "version": "8.1.7",
+  "version": "8.1.8",
   "description": "Verdaccio Hooks",
   "keywords": [
     "enterprise",
@@ -55,16 +55,16 @@
     "build": "vite build && tsc --emitDeclarationOnly -p tsconfig.build.json"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:8.3.3",
-    "@verdaccio/logger": "workspace:8.1.6",
+    "@verdaccio/core": "workspace:8.4.0",
+    "@verdaccio/logger": "workspace:8.1.7",
     "debug": "4.4.3",
     "got": "15.1.0",
     "handlebars": "4.7.10"
   },
   "devDependencies": {
-    "@verdaccio/config": "workspace:8.3.3",
+    "@verdaccio/config": "workspace:8.4.0",
     "@verdaccio/test-helper": "workspace:*",
-    "@verdaccio/types": "workspace:13.0.6",
+    "@verdaccio/types": "workspace:13.1.0",
     "nock": "14.0.17",
     "vite": "8.3.4",
     "vitest": "5.0.5"

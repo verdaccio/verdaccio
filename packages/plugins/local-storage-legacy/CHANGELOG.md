@@ -1,5 +1,13 @@
 # Change Log
 
+## 11.4.7
+
+### Patch Changes
+
+- @verdaccio/core@8.4.0
+  - @verdaccio/file-locking@13.1.0
+  - @verdaccio/streams@10.3.0
+
 ## 11.4.6
 
 ### Patch Changes
