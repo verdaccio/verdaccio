@@ -1,8 +1,8 @@
 import React from 'react';
 import { describe, expect, test, vi } from 'vitest';
 
-import { fireEvent, render, screen } from '../../test/test-react-testing-library';
-import CopyToClipBoard from './CopyToClipBoard';
+import { act, fireEvent, render, screen } from '../../test/test-react-testing-library';
+import CopyToClipBoard, { COPIED_FEEDBACK_MS } from './CopyToClipBoard';
 
 Object.assign(navigator, {
   clipboard: { writeText: vi.fn().mockImplementation(() => Promise.resolve()) },
@@ -42,5 +42,35 @@ describe('CopyToClipBoard component', () => {
     expect(execCommand).toHaveBeenCalledWith('copy');
     expect(copiedValue).toBe('copy this');
     Object.assign(navigator, { clipboard });
+  });
+
+  test('confirms the copy and resets after a moment', async () => {
+    vi.useFakeTimers();
+    render(<CopyToClipBoard dataTestId={'copy-component'} text={'copy this'} title={'npm i'} />);
+    const button = screen.getByTestId('copy-component');
+    expect(button).toHaveAttribute('aria-label', 'npm i');
+    await act(async () => {
+      fireEvent.click(button);
+    });
+    expect(button).toHaveAttribute('aria-label', 'copy-to-clipboard-done');
+    act(() => {
+      vi.advanceTimersByTime(COPIED_FEEDBACK_MS);
+    });
+    expect(button).toHaveAttribute('aria-label', 'npm i');
+    vi.useRealTimers();
+  });
+
+  test('does not confirm a copy that failed', async () => {
+    // the clipboard API refuses and the execCommand fallback copies nothing
+    vi.mocked(navigator.clipboard.writeText).mockImplementationOnce(() =>
+      Promise.reject(new Error('NotAllowedError'))
+    );
+    Object.assign(document, { execCommand: vi.fn().mockReturnValue(false) });
+    render(<CopyToClipBoard dataTestId={'copy-component'} text={'copy this'} title={'npm i'} />);
+    const button = screen.getByTestId('copy-component');
+    await act(async () => {
+      fireEvent.click(button);
+    });
+    expect(button).toHaveAttribute('aria-label', 'npm i');
   });
 });

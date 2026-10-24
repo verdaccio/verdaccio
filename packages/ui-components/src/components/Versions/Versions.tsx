@@ -58,7 +58,7 @@ const Versions: React.FC<Props> = ({ packageMeta, packageName }) => {
   return (
     <Card sx={{ mb: 2 }}>
       <CardContent>
-        <Box data-testid="versions" sx={{ m: 2 }}>
+        <Box data-testid="versions" sx={{ m: { xs: 0, sm: 2 } }}>
           {hasDistTags ? (
             <>
               <StyledText variant="subtitle1">
@@ -82,7 +82,7 @@ const Versions: React.FC<Props> = ({ packageMeta, packageName }) => {
               }, 200)}
               size="small"
               variant="standard"
-              sx={{ width: '50%' }}
+              sx={{ width: { xs: '100%', sm: '50%' } }}
             />
           </>
           {hasVersionHistory ? (

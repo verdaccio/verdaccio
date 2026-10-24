@@ -9,6 +9,12 @@ web:
   showSettings: true
   showSearch: true
   showFooter: true
+  showPackageListToolbar: false
+  footer: 'Internal registry · [Support](https://verdaccio.org/docs/what-is-verdaccio)'
+  poweredBy: false
+  help: |
+    ## Platform registry
+    Run `npm config set registry {{registryUrl}}` first.
   showThemeSwitch: true
   showDownloadTarball: true
   showRaw: true

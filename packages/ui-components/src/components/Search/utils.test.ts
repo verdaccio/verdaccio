@@ -32,6 +32,7 @@ describe('normalizeSearchOption', () => {
         isPrivate: true,
         isCached: false,
         isRemote: false,
+        origin: 'private',
       });
     });
 

@@ -32,6 +32,7 @@ import {
   PackageTitle,
   Published,
   Wrapper,
+  VersionLink,
   WrapperLink,
 } from './styles';
 
@@ -88,8 +89,13 @@ const Package: React.FC<PackageInterface> = ({
   const renderVersionInfo = (): React.ReactNode =>
     version && (
       <OverviewItem>
-        <StyledVersion />
-        {t('package.version', { version })}
+        <VersionLink
+          data-testid="package-version-link"
+          to={`${Route.DETAIL}${packageName}/v/${version}`}
+        >
+          <StyledVersion />
+          {t('package.version', { version })}
+        </VersionLink>
       </OverviewItem>
     );
 

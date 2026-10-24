@@ -84,3 +84,57 @@ export const pnpmOnly: Story = {
     );
   },
 };
+
+export const allManagers: Story = {
+  name: 'All package managers (with bun)',
+  render: () => {
+    const { configOptions } = useConfig();
+    return (
+      <Install
+        configOptions={{
+          ...configOptions,
+          base: 'http://localhost:4873/',
+          pkgManagers: ['npm', 'yarn', 'pnpm', 'bun'],
+        }}
+        packageMeta={packageMeta}
+        packageName="jquery"
+      />
+    );
+  },
+};
+
+export const bunOnly: Story = {
+  name: 'Only bun',
+  render: () => {
+    const { configOptions } = useConfig();
+    return (
+      <Install
+        configOptions={{
+          ...configOptions,
+          base: 'http://localhost:4873/',
+          pkgManagers: ['bun'],
+        }}
+        packageMeta={packageMeta}
+        packageName="jquery"
+      />
+    );
+  },
+};
+
+export const scopedPackage: Story = {
+  name: 'Scoped package (.npmrc for the scope)',
+  render: () => {
+    const { configOptions } = useConfig();
+    return (
+      <Install
+        configOptions={{
+          ...configOptions,
+          base: 'http://localhost:4873/',
+          pkgManagers: ['npm', 'pnpm', 'yarn'],
+        }}
+        packageMeta={{ ...packageMeta, latest: { ...packageMeta.latest, version: '8.0.0' } }}
+        packageName="@verdaccio/core"
+      />
+    );
+  },
+};

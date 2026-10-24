@@ -1,3 +1,4 @@
+import type { AutocompleteRenderGroupParams } from '@mui/material/Autocomplete';
 import Autocomplete from '@mui/material/Autocomplete';
 import type { FC } from 'react';
 import React, { useState } from 'react';
@@ -24,6 +25,8 @@ interface Props {
   getOptionLabel: (option: any) => any;
   onCleanSuggestions: (event: React.SyntheticEvent) => void;
   onSelectItem: OnSelecItem;
+  groupBy?: (option: any) => string;
+  renderGroup?: (params: AutocompleteRenderGroupParams) => React.ReactNode;
 }
 
 const AutoComplete: FC<Props> = ({
@@ -36,6 +39,8 @@ const AutoComplete: FC<Props> = ({
   onSelectItem,
   suggestionsLoading = false,
   hasError = false,
+  groupBy,
+  renderGroup,
 }: Props) => {
   const { t } = useTranslation();
   const [inputValue, setInputValue] = useState('');
@@ -66,6 +71,7 @@ const AutoComplete: FC<Props> = ({
         filterOptions={(options, state) => (state.inputValue.trim() ? options : [])}
         fullWidth={true}
         getOptionLabel={getOptionLabel}
+        groupBy={groupBy}
         id="search-header-suggest"
         inputValue={inputValue}
         loading={suggestionsLoading}
@@ -77,6 +83,7 @@ const AutoComplete: FC<Props> = ({
         onInputChange={handleOnInputChange}
         options={hasError ? [] : suggestions}
         renderInput={renderInput}
+        renderGroup={renderGroup}
         renderOption={renderOption}
         renderTags={() => null}
       />

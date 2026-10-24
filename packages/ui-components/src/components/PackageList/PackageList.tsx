@@ -1,5 +1,5 @@
 import Divider from '@mui/material/Divider';
-import React from 'react';
+import React, { useState } from 'react';
 import { AutoSizer } from 'react-virtualized/dist/commonjs/AutoSizer';
 import { CellMeasurer, CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
 import type { ListRowProps } from 'react-virtualized/dist/commonjs/List';
@@ -14,13 +14,10 @@ interface Props {
   packages: ManifestWeb[];
 }
 
-const cache = new CellMeasurerCache({
-  fixedWidth: true,
-  defaultHeight: 100,
-});
-
 const PackageList: React.FC<Props> = ({ packages }) => {
   const { configOptions } = useConfig();
+  // heights are cached by row index: callers remount the list (key) when its rows change
+  const [cache] = useState(() => new CellMeasurerCache({ fixedWidth: true, defaultHeight: 100 }));
   const renderRow = ({ index, key, parent, style }: ListRowProps) => {
     const { name, version, description, time, keywords, dist, homepage, bugs, author, license } =
       packages[index];

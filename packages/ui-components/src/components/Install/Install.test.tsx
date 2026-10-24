@@ -6,7 +6,7 @@ import type { PackageManagers } from '@verdaccio/types';
 import data from '../../../vitest/components/Install/data.json';
 import { useConfig } from '../../providers';
 import { render, screen } from '../../test/test-react-testing-library';
-import Install from './Install';
+import Install, { getNpmrcRegistryLine } from './Install';
 import InstallListItem, { DependencyManager, getGlobalInstall } from './InstallListItem';
 
 const ComponentToBeRendered: React.FC<{ name?: string; pkgManagers?: PackageManagers[] }> = ({
@@ -53,6 +53,22 @@ describe('<Install />', () => {
     expect(screen.queryByText('pnpm')).not.toBeInTheDocument();
     expect(screen.queryByText('npm')).not.toBeInTheDocument();
     expect(screen.getByText('yarn add foo@8.0.0')).toBeInTheDocument();
+  });
+
+  test('lists bun only when it is configured', () => {
+    window.__VERDACCIO_BASENAME_UI_OPTIONS.pkgManagers = ['npm', 'bun'];
+    render(<ComponentToBeRendered />);
+    expect(screen.getByText('bun add foo@8.0.0')).toBeInTheDocument();
+    expect(screen.getByAltText('bun package manager')).toBeInTheDocument();
+    window.__VERDACCIO_BASENAME_UI_OPTIONS.pkgManagers = ['npm'];
+  });
+
+  test('shows the .npmrc registry line for the package', () => {
+    window.__VERDACCIO_BASENAME_UI_OPTIONS.pkgManagers = ['npm'];
+    render(<ComponentToBeRendered name="@verdaccio/core" />);
+    expect(screen.getByTestId('install-npmrc')).toHaveTextContent(
+      `@verdaccio:registry=${window.__VERDACCIO_BASENAME_UI_OPTIONS.base}`
+    );
   });
 
   test('should have the element PNPM', () => {
@@ -129,5 +145,18 @@ describe('getGlobalInstall', () => {
   });
   test('yarn latest global', () => {
     expect(getGlobalInstall(true, true, '1.0.0', 'foo', true)).toEqual('foo');
+  });
+});
+
+describe('getNpmrcRegistryLine', () => {
+  test('scopes the registry for a scoped package', () => {
+    expect(getNpmrcRegistryLine('@verdaccio/core', 'http://localhost:4873/')).toEqual(
+      '@verdaccio:registry=http://localhost:4873/'
+    );
+  });
+  test('sets the default registry for an unscoped package', () => {
+    expect(getNpmrcRegistryLine('foo', 'http://localhost:4873/')).toEqual(
+      'registry=http://localhost:4873/'
+    );
   });
 });

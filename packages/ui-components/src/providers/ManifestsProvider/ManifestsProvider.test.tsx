@@ -90,4 +90,28 @@ describe('<ManifestsProvider />', () => {
     expect(screen.getByText('no-error')).toBeInTheDocument();
     expect(screen.getByText(400, { exact: false })).toBeInTheDocument();
   });
+
+  test('polls while the registry is empty and stops once a package arrives', async () => {
+    let requests = 0;
+    server.use(
+      http.get(PACKAGES_URL, () => {
+        requests += 1;
+        return HttpResponse.json(requests < 2 ? [] : [{ name: 'verdaccio' }]);
+      })
+    );
+    renderWithRouter(
+      <ManifestsProvider emptyRefreshMs={50}>
+        <CustomComponent />
+      </ManifestsProvider>,
+      RouterPath.ROOT,
+      ['/']
+    );
+    // SWR dedupes revalidations for 2s, so the second request lands after that window
+    await waitFor(() => expect(screen.getByText('packages:1')).toBeInTheDocument(), {
+      timeout: 5000,
+    });
+    const requestsWhenFound = requests;
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    expect(requests).toBe(requestsWhenFound);
+  }, 10_000);
 });

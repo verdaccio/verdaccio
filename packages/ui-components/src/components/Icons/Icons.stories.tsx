@@ -3,6 +3,7 @@ import Stack from '@mui/material/Stack';
 import React from 'react';
 
 import {
+  Bun,
   CommonJS,
   ES6Modules,
   Earth,
@@ -29,6 +30,7 @@ export const Icons: any = () => (
       <Npm />
       <Pnpm />
       <Yarn />
+      <Bun />
     </Stack>
     <Stack direction="row" spacing={2}>
       <NodeJS />

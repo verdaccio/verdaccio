@@ -24,8 +24,6 @@ i18n.use(initReactI18next).init({
     },
   },
   debug: false,
-  // same as src/test/i18n-config.ts: keep the vendor support notice out of test output
-  showSupportNotice: false,
   interpolation: {
     escapeValue: false,
   },

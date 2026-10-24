@@ -46,7 +46,14 @@ export function getUIOptions(
   const favicon = resolveLogo(config?.web?.favicon, config?.url_prefix, requestOptions);
   const logo = resolveLogo(config?.web?.logo, config?.url_prefix, requestOptions);
   const logoDark = resolveLogo(config?.web?.logoDark, config?.url_prefix, requestOptions);
-  const pkgManagers = config?.web?.pkgManagers ?? ['yarn', 'pnpm', 'npm'];
+  const pkgManagers = config?.web?.pkgManagers ?? ['yarn', 'pnpm', 'npm', 'bun'];
+  const help = typeof config?.web?.help === 'string' ? config.web.help : undefined;
+  const footer = typeof config?.web?.footer === 'string' ? config.web.footer : undefined;
+  const rawPoweredBy = config?.web?.poweredBy;
+  const poweredBy =
+    typeof rawPoweredBy === 'string' || typeof rawPoweredBy === 'boolean'
+      ? rawPoweredBy
+      : undefined;
   const version = res.locals.app_version ?? '';
   const flags = {
     ...config.flags,
@@ -62,6 +69,7 @@ export function getUIOptions(
     showFooter,
     showSearch,
     showDownloadTarball,
+    showPackageListToolbar,
     showRaw,
     showUplinks,
   } = Object.assign({}, config?.web);
@@ -71,8 +79,12 @@ export function getUIOptions(
     showSettings,
     showThemeSwitch,
     showFooter,
+    footer,
+    poweredBy,
+    help,
     showSearch,
     showDownloadTarball,
+    showPackageListToolbar,
     showRaw,
     showUplinks,
     darkMode,

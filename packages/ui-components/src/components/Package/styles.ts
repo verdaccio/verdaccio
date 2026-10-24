@@ -53,6 +53,16 @@ export const WrapperLink = styled(Link)({
   textDecoration: 'none',
 });
 
+export const VersionLink = styled(Link)({
+  display: 'flex',
+  alignItems: 'center',
+  color: 'inherit',
+  textDecoration: 'none',
+  ':hover, :focus-visible': {
+    textDecoration: 'underline',
+  },
+});
+
 export const PackageTitle = styled('span')<{ theme?: Theme }>(({ theme }) => ({
   fontWeight: theme.fontWeight.bold,
   fontSize: 20,

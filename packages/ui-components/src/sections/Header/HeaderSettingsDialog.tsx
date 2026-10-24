@@ -7,8 +7,11 @@ import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 
 import type { Theme } from '../../';
+import { VERDACCIO_DOCS_URL } from '../../components/DocsLink';
+import { CustomHelp, HelpGuide } from '../../components/Help/Help';
 import RegistryInfoDialog from '../../components/RegistryInfoDialog';
 import { getConfiguration } from '../../configuration';
+import { useConfig } from '../../providers';
 import LanguageSwitch from './LanguageSwitch';
 import RegistryInfoContent from './RegistryInfoContent';
 
@@ -54,19 +57,35 @@ const HeaderSettingsDialog: React.FC<Props> = ({ onCloseDialog, isOpen }) => {
   const configStore = getConfiguration();
   const { scope, base } = configStore;
   const { t } = useTranslation();
+  const { configOptions } = useConfig();
+  const customHelp = configOptions.help?.trim();
   return (
-    <RegistryInfoDialog onClose={onCloseDialog} open={isOpen} title={t('dialog.settings.title')}>
+    <RegistryInfoDialog
+      docsUrl={VERDACCIO_DOCS_URL}
+      onClose={onCloseDialog}
+      open={isOpen}
+      title={t('dialog.settings.title')}
+    >
       <Box sx={{ width: '100%' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs aria-label="basic tabs example" onChange={handleChange} value={value}>
             <Tab label={t('packageManagers.title')} {...a11yProps(0)} />
-            <Tab label={t('language.title')} {...a11yProps(1)} />
+            <Tab
+              data-testid="settings-publish-tab"
+              label={t('help.settings-tab')}
+              {...a11yProps(1)}
+            />
+            <Tab label={t('language.title')} {...a11yProps(2)} />
           </Tabs>
         </Box>
         <TabPanel index={0} value={value}>
           <RegistryInfoContent registryUrl={base} scope={scope} />
         </TabPanel>
-        <TabPanel index={1} value={value}>
+        {/* the welcome guide stays reachable once the registry has packages */}
+        <TabPanel data-testid="settings-publish" index={1} value={value}>
+          {customHelp ? <CustomHelp markdown={customHelp} /> : <HelpGuide />}
+        </TabPanel>
+        <TabPanel index={2} value={value}>
           <TextContent>{t('language.description')}</TextContent>
           <LanguageSwitch />
           <ReactMarkdown>{t('language.contribute')}</ReactMarkdown>

@@ -1,15 +1,18 @@
 import SearchMui from '@mui/icons-material/Search';
+import type { AutocompleteRenderGroupParams } from '@mui/material/Autocomplete';
+import ListSubheader from '@mui/material/ListSubheader';
 import { debounce } from 'lodash-es';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
-import { useSearch } from '../../';
+import { useConfig, useSearch } from '../../';
 import { Route } from '../../utils';
 import AutoComplete from './AutoComplete';
-import SearchItem from './SearchItem';
+import SearchItem, { ORIGIN_ICONS } from './SearchItem';
 import { StyledInputAdornment, StyledTextField } from './styles';
-import { normalizeSearchOption } from './utils';
+import type { SearchOrigin } from './utils';
+import { normalizeSearchOption, sortByOrigin } from './utils';
 
 const CONSTANTS = {
   API_DELAY: 300,
@@ -20,6 +23,12 @@ const Search: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { searchResults, isLoading, isError, doSearch, resetSearch } = useSearch();
+  const { configOptions } = useConfig();
+  const groupByOrigin = configOptions?.showUplinks === true;
+  const suggestions = useMemo(
+    () => (groupByOrigin && searchResults ? sortByOrigin(searchResults) : searchResults),
+    [groupByOrigin, searchResults]
+  );
 
   const abortControllerRef = useRef<AbortController | null>(null);
 
@@ -155,6 +164,29 @@ const Search: React.FC = () => {
     );
   };
 
+  const getOptionGroup = (option) => normalizeSearchOption(option).origin ?? '';
+
+  const renderGroup = ({ key, group, children }: AutocompleteRenderGroupParams) => {
+    if (!group) {
+      return <React.Fragment key={key}>{children}</React.Fragment>;
+    }
+    const OriginIcon = ORIGIN_ICONS[group as SearchOrigin];
+    return (
+      <li key={key}>
+        {/* a div: the default <li> would nest a list item inside the group's <li> */}
+        <ListSubheader
+          component="div"
+          data-testid={`search-group-${group}`}
+          sx={{ display: 'flex', alignItems: 'center', gap: 1, lineHeight: '36px' }}
+        >
+          {OriginIcon && <OriginIcon fontSize="small" />}
+          {t(`search.group.${group}`, { count: React.Children.count(children) })}
+        </ListSubheader>
+        <ul style={{ padding: 0 }}>{children}</ul>
+      </li>
+    );
+  };
+
   const getOptionLabel = (option) => {
     return normalizeSearchOption(option).name;
   };
@@ -162,14 +194,16 @@ const Search: React.FC = () => {
   return (
     <AutoComplete
       getOptionLabel={getOptionLabel}
+      groupBy={groupByOrigin ? getOptionGroup : undefined}
       hasError={isError}
       onCleanSuggestions={handleOnBlur}
       onSelectItem={handleClickSearch}
       onSuggestionsFetch={handleSuggestionsFetch}
       placeholder={t('search.packages')}
+      renderGroup={groupByOrigin ? renderGroup : undefined}
       renderInput={renderInput}
       renderOption={renderOption}
-      suggestions={searchResults}
+      suggestions={suggestions}
       suggestionsLoading={isLoading || isDebouncing}
     />
   );

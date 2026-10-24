@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 import { WebUrlsNamespace, rateLimit } from '@verdaccio/middleware';
 
-import { hasLogin } from '../web-utils';
+import { hasLogin, hasSearch } from '../web-utils';
 import packageApi from './package';
 import readme from './readme';
 import search from './search';
@@ -20,7 +20,9 @@ export default (auth, storage, config) => {
     })
   );
   route.use(WebUrlsNamespace.data, packageApi(storage, auth, config));
-  route.use(WebUrlsNamespace.data, search(storage, auth));
+  if (hasSearch(config)) {
+    route.use(WebUrlsNamespace.data, search(storage, auth));
+  }
   route.use(WebUrlsNamespace.data, sidebar(config, storage, auth));
   route.use(WebUrlsNamespace.data, readme(storage, auth, config));
   if (hasLogin(config)) {

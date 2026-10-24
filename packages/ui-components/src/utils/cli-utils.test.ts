@@ -1,7 +1,12 @@
 import type { SyntheticEvent } from 'react';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
-import { copyToClipBoardUtility, getCLISetConfigRegistry } from './cli-utils';
+import {
+  copyToClipBoardUtility,
+  getBunfigRegistry,
+  getCLISetConfigRegistry,
+  getMinReleaseAgeConfig,
+} from './cli-utils';
 
 describe('copyToClipBoardUtility', () => {
   let originalGetSelection: typeof window.getSelection;
@@ -63,5 +68,51 @@ describe('getCLISetRegistry', () => {
 
   test('should not output scope when scope is not set', () => {
     expect(getCLISetConfigRegistry(command, blankScope, url)).toEqual(`${command} registry ${url}`);
+  });
+});
+
+describe('getBunfigRegistry', () => {
+  const url = 'http://localhost:4873/';
+
+  test('sets the default registry of bun install', () => {
+    expect(getBunfigRegistry(undefined, url)).toEqual(
+      `# bunfig.toml\n[install]\nregistry = "${url}"`
+    );
+  });
+
+  test('sets only the scope when a scope is given', () => {
+    expect(getBunfigRegistry('@verdaccio', url)).toEqual(
+      `# bunfig.toml\n[install.scopes]\n"@verdaccio" = "${url}"`
+    );
+  });
+});
+
+describe('getMinReleaseAgeConfig', () => {
+  test('writes days for npm and exempts the scope', () => {
+    expect(getMinReleaseAgeConfig('npm', '@verdaccio', 3)).toEqual(
+      '# .npmrc\nmin-release-age=3\nmin-release-age-exclude[]=@verdaccio/*'
+    );
+  });
+
+  test('writes minutes for pnpm', () => {
+    expect(getMinReleaseAgeConfig('pnpm', '@verdaccio', 3)).toEqual(
+      "# pnpm-workspace.yaml\nminimumReleaseAge: 4320\nminimumReleaseAgeExclude:\n  - '@verdaccio/*'"
+    );
+  });
+
+  test('gives the scope its own gate for yarn', () => {
+    expect(getMinReleaseAgeConfig('yarn', '@verdaccio', 3)).toEqual(
+      '# .yarnrc.yml\nnpmMinimalAgeGate: 3d\nnpmScopes:\n  verdaccio:\n    npmMinimalAgeGate: 0'
+    );
+  });
+
+  test('writes seconds for bun', () => {
+    expect(getMinReleaseAgeConfig('bun', '@verdaccio', 3)).toEqual(
+      '# bunfig.toml\n[install]\nminimumReleaseAge = 259200'
+    );
+  });
+
+  test('returns nothing for an unknown client', () => {
+    expect(getMinReleaseAgeConfig('deno', '@verdaccio')).toEqual('');
   });
 });

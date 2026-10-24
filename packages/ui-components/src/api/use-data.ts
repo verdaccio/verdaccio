@@ -1,4 +1,4 @@
-import type { SWRResponse } from 'swr';
+import type { SWRConfiguration, SWRResponse } from 'swr';
 import useSWR from 'swr';
 
 import API from '../store/api';
@@ -31,11 +31,12 @@ export function useData<T>(
   basePath: string,
   route: APIRoute,
   packageName?: string,
-  packageVersion?: string
+  packageVersion?: string,
+  options?: SWRConfiguration<T>
 ): Pick<SWRResponse<T>, 'data' | 'error' | 'isLoading' | 'mutate'> {
   const url = buildUrl(basePath, route, packageName, packageVersion);
 
-  const { data, error, isLoading, mutate } = useSWR<T>(url, () => API.request<T>(url));
+  const { data, error, isLoading, mutate } = useSWR<T>(url, () => API.request<T>(url), options);
 
   return { data, error, isLoading, mutate };
 }

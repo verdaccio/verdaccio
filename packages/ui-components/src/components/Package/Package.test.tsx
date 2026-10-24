@@ -76,6 +76,18 @@ describe('<Package /> component', () => {
     expect(wrapper.getByText('MIT')).toBeInTheDocument();
   });
 
+  test.each([
+    ['verdaccio', '/-/web/detail/verdaccio/v/1.0.0'],
+    ['@verdaccio/core', '/-/web/detail/@verdaccio/core/v/1.0.0'],
+  ])('links the version of %s to its version page', (name, href) => {
+    renderWith(
+      <MemoryRouter>
+        <Package author={props.author} dist={props.dist} name={name} version={props.version} />
+      </MemoryRouter>
+    );
+    expect(screen.getByTestId('package-version-link')).toHaveAttribute('href', href);
+  });
+
   // test if click on download button will trigger the download action
   test('should download the package', async () => {
     renderWith(

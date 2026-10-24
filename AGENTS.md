@@ -52,7 +52,8 @@ unless noted. The request path is roughly `verdaccio` → `server` → `api`/`we
   user/login/token, stage, whoami, ping.
 - `packages/web` — web UI endpoints and middleware. `packages/plugins/ui-theme`
   and `packages/ui-components` — the React UI (`packages/ui-components` has
-  Storybook).
+  Storybook; after bumping `msw`, regenerate its worker with `npx msw init public`
+  and unregister the old one, see its README "Updating msw").
 - `packages/store` — storage orchestration: local packages, uplink merge,
   filter pipeline, stage storage. `packages/plugins/local-storage` — the default
   filesystem storage plugin (`@verdaccio/local-storage`).

@@ -59,4 +59,26 @@ describe('<PackageList /> component', () => {
 
     expect(wrapper.queryAllByTestId('package-item-list')).toHaveLength(3);
   });
+
+  test.each([
+    [true, 1],
+    [false, 0],
+  ])('shows the download button when showDownloadTarball is %s', (showDownloadTarball, count) => {
+    vi.spyOn(HTMLElement.prototype, 'offsetWidth', 'get').mockReturnValue(600);
+    window.__VERDACCIO_BASENAME_UI_OPTIONS = { showDownloadTarball };
+    const packages = [
+      {
+        name: 'verdaccio',
+        version: '6.1.2',
+        description: 'A lightweight private npm proxy registry',
+        author: { name: 'Verdaccio contributors' },
+        dist: { tarball: 'http://localhost:4873/verdaccio/-/verdaccio-6.1.2.tgz' },
+      },
+    ];
+    const wrapper = renderWithRouter(<PackageList packages={packages as any} />, RouterPath.ROOT, [
+      RouterPath.ROOT,
+    ]);
+    expect(wrapper.queryAllByTestId('download-tarball')).toHaveLength(count);
+    window.__VERDACCIO_BASENAME_UI_OPTIONS = {};
+  });
 });

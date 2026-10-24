@@ -4,9 +4,10 @@ import { HttpResponse, http } from 'msw';
 import React, { useEffect } from 'react';
 import { MemoryRouter, Route, Routes, useLocation } from 'react-router';
 import { action } from 'storybook/actions';
+import { userEvent, within } from 'storybook/test';
 
 import searchVerdaccio from '../../../vitest/api/search-verdaccio.json';
-import { SearchProvider } from '../../providers';
+import { AppConfigurationProvider, SearchProvider } from '../../providers';
 import Home from '../../sections/Home';
 import Search from './Search';
 
@@ -50,7 +51,7 @@ export const SearchByQuery: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get('https://fake.verdaccio.org/-/verdaccio/data/search/*', ({ request }) => {
+        http.get('https://my.company.example/-/verdaccio/data/search/*', ({ request }) => {
           const url = new URL(request.url);
           const rawQuery = url.pathname.split('/-/verdaccio/data/search/')[1] || '';
           const query = decodeURIComponent(rawQuery);
@@ -70,4 +71,106 @@ export const SearchByQuery: Story = {
       ],
     },
   },
+};
+
+const result = (
+  name: string,
+  version: string,
+  description: string,
+  flags: { verdaccioPrivate?: boolean; verdaccioPkgCached?: boolean } = {}
+) => ({ package: { name, version, description }, ...flags });
+
+// what /-/verdaccio/data/search returns with uplinks: published here, cached, or only upstream
+const mixedResults = [
+  result('@verdaccio/ui-components', '5.0.0', 'React components of the Verdaccio web UI', {
+    verdaccioPrivate: true,
+  }),
+  result('react', '19.2.0', 'React is a JavaScript library for building user interfaces.', {
+    verdaccioPkgCached: true,
+  }),
+  result('react-dom', '19.2.0', 'React package for working with the DOM.', {
+    verdaccioPkgCached: true,
+  }),
+  result('react-router', '7.9.4', 'Declarative routing for React', {}),
+  result('react-redux', '9.2.0', 'Official React bindings for Redux', {}),
+  result('@tanstack/react-query', '5.90.2', 'Hooks for managing server state in React', {}),
+];
+
+const searchHandler = (results: unknown[]) =>
+  http.get('https://my.company.example/-/verdaccio/data/search/*', ({ request }) => {
+    const query = decodeURIComponent(
+      new URL(request.url).pathname.split('/-/verdaccio/data/search/')[1] || ''
+    ).toLowerCase();
+    return HttpResponse.json(
+      results.filter((item: any) =>
+        `${item.package.name} ${item.package.description}`.toLowerCase().includes(query)
+      )
+    );
+  });
+
+const renderSearch = (showUplinks: boolean) => () => (
+  <MemoryRouter initialEntries={['/']}>
+    <NavigationLogger />
+    <Routes>
+      <Route
+        element={
+          <AppConfigurationProvider overrideConfig={{ showUplinks }}>
+            <Box component="section" sx={{ minHeight: 480 }}>
+              {/* the search field is styled for the header bar */}
+              <Box sx={{ bgcolor: 'primary.main', px: 2, py: 1 }}>
+                <SearchProvider>
+                  <Search />
+                </SearchProvider>
+              </Box>
+            </Box>
+          </AppConfigurationProvider>
+        }
+        path="*"
+      />
+    </Routes>
+  </MemoryRouter>
+);
+
+const typeReact = async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+  const input = within(canvasElement).getByPlaceholderText(/search/i);
+  await userEvent.click(input);
+  await userEvent.type(input, 'react');
+};
+
+export const RemoteEnabled: Story = {
+  name: 'Uplinks shown: published, cached and remote groups',
+  render: renderSearch(true),
+  play: typeReact,
+  parameters: { msw: { handlers: [searchHandler(mixedResults)] } },
+};
+
+export const RemoteDisabled: Story = {
+  name: 'Uplinks hidden (showUplinks: false): flat list',
+  render: renderSearch(false),
+  play: typeReact,
+  parameters: { msw: { handlers: [searchHandler(mixedResults)] } },
+};
+
+export const OnlyLocal: Story = {
+  name: 'Only packages published here',
+  render: renderSearch(true),
+  play: typeReact,
+  parameters: {
+    msw: {
+      handlers: [
+        searchHandler([
+          result('@verdaccio/ui-components', '5.0.0', 'React components of the Verdaccio web UI', {
+            verdaccioPrivate: true,
+          }),
+        ]),
+      ],
+    },
+  },
+};
+
+export const NoResults: Story = {
+  name: 'No results',
+  render: renderSearch(true),
+  play: typeReact,
+  parameters: { msw: { handlers: [searchHandler([])] } },
 };

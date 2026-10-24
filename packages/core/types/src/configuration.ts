@@ -137,7 +137,7 @@ export type FlagsConfig = {
   webLogin?: boolean;
 };
 
-export type PackageManagers = 'pnpm' | 'yarn' | 'npm' | string;
+export type PackageManagers = 'pnpm' | 'yarn' | 'npm' | 'bun' | string;
 
 // FUTURE: WebConf and TemplateUIOptions should be merged .
 export type CommonWebConf = {
@@ -158,8 +158,15 @@ export type CommonWebConf = {
   showSettings?: boolean;
   showSearch?: boolean;
   showFooter?: boolean;
+  // markdown shown in the footer instead of the default message (text, links, images)
+  footer?: string;
+  // false hides the "Powered by" link; markdown replaces it
+  poweredBy?: boolean | string;
+  // markdown that replaces the welcome card of an empty registry; {{registryUrl}} is filled in
+  help?: string;
   showThemeSwitch?: boolean;
   showDownloadTarball?: boolean;
+  showPackageListToolbar?: boolean;
   showUplinks?: boolean;
   hideDeprecatedVersions?: boolean;
   primaryColor?: string;

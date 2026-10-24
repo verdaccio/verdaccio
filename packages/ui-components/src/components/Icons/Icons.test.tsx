@@ -3,6 +3,7 @@ import { describe, expect, test } from 'vitest';
 
 import { render } from '../../test/test-react-testing-library';
 import {
+  Bun,
   CommonJS,
   ES6Modules,
   Earth,
@@ -46,9 +47,10 @@ describe('Icon components', () => {
         <Npm />
         <Pnpm />
         <Yarn />
+        <Bun />
       </>
     );
-    expect(container.querySelectorAll('img')).toHaveLength(8);
+    expect(container.querySelectorAll('img')).toHaveLength(9);
   });
 
   test('should render small graphic', () => {

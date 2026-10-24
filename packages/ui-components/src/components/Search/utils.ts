@@ -1,3 +1,12 @@
+/** Where a search result lives: published here, cached from an uplink, or only on an uplink. */
+export enum SearchOrigin {
+  PRIVATE = 'private',
+  CACHED = 'cached',
+  REMOTE = 'remote',
+}
+
+export const SEARCH_ORIGIN_ORDER = [SearchOrigin.PRIVATE, SearchOrigin.CACHED, SearchOrigin.REMOTE];
+
 export type NormalizedSearchOption = {
   name: string;
   version?: string;
@@ -5,6 +14,7 @@ export type NormalizedSearchOption = {
   isPrivate: boolean;
   isCached: boolean;
   isRemote: boolean;
+  origin?: SearchOrigin;
 };
 
 /**
@@ -31,6 +41,11 @@ export function normalizeSearchOption(option: any): NormalizedSearchOption {
       isPrivate,
       isCached,
       isRemote: !isCached && !isPrivate,
+      origin: isPrivate
+        ? SearchOrigin.PRIVATE
+        : isCached
+          ? SearchOrigin.CACHED
+          : SearchOrigin.REMOTE,
     };
   }
 
@@ -43,6 +58,18 @@ export function normalizeSearchOption(option: any): NormalizedSearchOption {
     isCached: false,
     isRemote: false,
   };
+}
+
+/** Orders results private, cached, remote (stable inside each group), as grouping requires. */
+export function sortByOrigin<T>(options: T[]): T[] {
+  const rank = (option: T) => {
+    const origin = normalizeSearchOption(option).origin;
+    return origin ? SEARCH_ORIGIN_ORDER.indexOf(origin) : SEARCH_ORIGIN_ORDER.length;
+  };
+  return options
+    .map((option, index) => ({ option, index }))
+    .sort((a, b) => rank(a.option) - rank(b.option) || a.index - b.index)
+    .map(({ option }) => option);
 }
 
 function removeHtmlTags(input: string): string {

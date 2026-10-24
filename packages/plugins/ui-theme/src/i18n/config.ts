@@ -32,8 +32,6 @@ i18n
     },
     resources: languages,
     debug: false,
-    // keep the vendor support notice out of the browser console and test output
-    showSupportNotice: false,
     interpolation: {
       escapeValue: false, // react already safes from xss
     },

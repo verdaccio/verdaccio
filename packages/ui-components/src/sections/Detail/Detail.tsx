@@ -1,28 +1,36 @@
 import Box from '@mui/material/Box';
-import React, { useState } from 'react';
+import React from 'react';
+import { useSearchParams } from 'react-router';
 
 import Deprecated from '../../components/Deprecated';
 import { useConfig, useVersion } from '../../providers';
-import ContainerContent from './ContainerContent';
+import ContainerContent, { TabPosition } from './ContainerContent';
 import Tabs from './Tabs';
 
-export enum TabPosition {
-  README = 'readme',
-  DEPENDENCIES = 'dependencies',
-  VERSIONS = 'versions',
-  UPLINKS = 'uplinks',
-}
+export { TabPosition };
+
+export const TAB_SEARCH_PARAM = 'tab';
 
 const DetailContainer: React.FC = () => {
   const { configOptions } = useConfig();
   const tabs = configOptions.showUplinks
     ? Object.values(TabPosition)
     : Object.values(TabPosition).filter((tab) => tab !== TabPosition.UPLINKS);
-  const [tabPosition, setTabPosition] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const requestedTab = searchParams.get(TAB_SEARCH_PARAM) as TabPosition | null;
+  const tabPosition =
+    requestedTab && tabs.includes(requestedTab) ? requestedTab : TabPosition.README;
   const { readMe, packageMeta } = useVersion();
 
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-    setTabPosition(newValue);
+  const handleChange = (_event: React.SyntheticEvent, newValue: TabPosition) => {
+    setSearchParams((params) => {
+      if (newValue === TabPosition.README) {
+        params.delete(TAB_SEARCH_PARAM);
+      } else {
+        params.set(TAB_SEARCH_PARAM, newValue);
+      }
+      return params;
+    });
   };
 
   return (
@@ -33,7 +41,7 @@ const DetailContainer: React.FC = () => {
         tabPosition={tabPosition}
       />
       {packageMeta?.latest?.deprecated && <Deprecated message={packageMeta?.latest?.deprecated} />}
-      <ContainerContent readDescription={readMe} tabPosition={tabs[tabPosition]} />
+      <ContainerContent readDescription={readMe} tabPosition={tabPosition} />
     </Box>
   );
 };

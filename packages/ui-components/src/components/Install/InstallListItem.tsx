@@ -7,7 +7,7 @@ import React from 'react';
 
 import { useSettings } from '../../providers/PersistenceSettingProvider';
 import CopyToClipBoard from '../CopyClipboard';
-import { Npm, Pnpm, Yarn } from '../Icons';
+import { Bun, Npm, Pnpm, Yarn } from '../Icons';
 
 const InstallItem = styled(ListItem)({
   padding: 0,
@@ -31,6 +31,7 @@ export enum DependencyManager {
   NPM = 'npm',
   YARN = 'yarn',
   PNPM = 'pnpm',
+  BUN = 'bun',
 }
 
 interface Interface {
@@ -130,6 +131,19 @@ const InstallListItem: React.FC<Interface> = ({
           />
         </InstallItem>
       );
+    case DependencyManager.BUN: {
+      const command = `bun add ${getGlobalInstall(isLatest, isGlobal, packageVersion, packageName)}`;
+      return (
+        <InstallItem data-testid={'installListItem-bun'}>
+          <PackageMangerAvatar alt={'bun'} sx={{ bgcolor: common.white }}>
+            <Bun />
+          </PackageMangerAvatar>
+          <InstallListItemText
+            primary={<CopyToClipBoard dataTestId="installBun" text={command} title={command} />}
+          />
+        </InstallItem>
+      );
+    }
     default:
       return null;
   }

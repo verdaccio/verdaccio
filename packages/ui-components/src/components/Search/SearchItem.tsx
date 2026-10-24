@@ -1,15 +1,13 @@
 import styled from '@emotion/styled';
-import Cached from '@mui/icons-material/Cached';
-import HttpsIcon from '@mui/icons-material/Https';
-import SyncAlt from '@mui/icons-material/SyncAlt';
+import CloudOutlined from '@mui/icons-material/CloudOutlined';
+import Inventory2Outlined from '@mui/icons-material/Inventory2Outlined';
+import LockOutlined from '@mui/icons-material/LockOutlined';
 import type { Theme } from '@mui/material';
-import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useConfig } from '../../';
-import { cleanDescription } from './utils';
+import { SearchOrigin, cleanDescription } from './utils';
 
 type SearchItemProps = {
   name: string;
@@ -20,48 +18,55 @@ type SearchItemProps = {
   isRemote?: boolean;
 };
 
-const Wrapper = styled.div({
+export const ORIGIN_ICONS = {
+  [SearchOrigin.PRIVATE]: LockOutlined,
+  [SearchOrigin.CACHED]: Inventory2Outlined,
+  [SearchOrigin.REMOTE]: CloudOutlined,
+};
+
+const Row = styled('div')({
   display: 'flex',
   alignItems: 'center',
+  gap: 12,
   width: '100%',
+  minWidth: 0,
 });
 
-export const Description = styled('div')<{ theme?: Theme }>(({ theme }) => ({
-  display: 'none',
-  color: theme.palette.greyLight2,
-  lineHeight: '1.5rem',
-  whiteSpace: 'nowrap',
-  textOverflow: 'ellipsis',
-  alignItems: 'center',
-  overflow: 'hidden',
-  paddingLeft: theme.spacing(),
-  fontSize: theme.fontSize.ssm,
-  [`@media (min-width: ${theme.breakPoints.medium}px)`]: {
-    display: 'block',
-    width: '300px',
-  },
-  [`@media (min-width: ${theme.breakPoints.large}px)`]: {
-    display: 'block',
-    width: '500px',
-  },
-  [`@media (min-width: 1440px)`]: {
-    display: 'block',
-    width: '600px',
-  },
-}));
-
-const NameGroup = styled.span({
+const Text = styled('div')({
   display: 'flex',
-  flex: '1',
+  flexDirection: 'column',
+  flex: 1,
+  minWidth: 0,
+});
+
+const TitleLine = styled('div')({
+  display: 'flex',
+  alignItems: 'baseline',
+  gap: 8,
 });
 
 const Name = styled('span')<{ theme?: Theme }>(({ theme }) => ({
-  fontWeight: '700',
+  fontWeight: 700,
   fontSize: theme.fontSize.sm,
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
 }));
 
 const Version = styled('span')<{ theme?: Theme }>(({ theme }) => ({
+  marginLeft: 'auto',
+  flexShrink: 0,
   fontSize: theme.fontSize.ssm,
+  color: theme.palette.text.secondary,
+}));
+
+export const Description = styled('span')<{ theme?: Theme }>(({ theme }) => ({
+  color: theme.palette.text.secondary,
+  fontSize: theme.fontSize.ssm,
+  lineHeight: 1.5,
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
 }));
 
 const SearchItem: React.FC<SearchItemProps> = ({
@@ -75,51 +80,34 @@ const SearchItem: React.FC<SearchItemProps> = ({
 }) => {
   const { t } = useTranslation();
   const { configOptions } = useConfig();
-  const handleDelete = () => {
-    // no action assigned by default
-  };
+  const origin = isPrivate
+    ? SearchOrigin.PRIVATE
+    : isCached
+      ? SearchOrigin.CACHED
+      : isRemote
+        ? SearchOrigin.REMOTE
+        : undefined;
+  const OriginIcon = configOptions?.showUplinks && origin ? ORIGIN_ICONS[origin] : undefined;
+
   return (
-    <li {...props} style={{ flexDirection: 'column' }}>
-      <Wrapper>
-        <NameGroup>
-          <Name>{name}</Name>
+    <li {...props}>
+      <Row>
+        {OriginIcon && (
+          <OriginIcon
+            color={origin === SearchOrigin.PRIVATE ? 'primary' : 'action'}
+            data-testid={`search-origin-${origin}`}
+            fontSize="small"
+            titleAccess={t(`search.origin.${origin}`)}
+          />
+        )}
+        <Text>
+          <TitleLine>
+            <Name>{name}</Name>
+            {version && <Version>{version}</Version>}
+          </TitleLine>
           {description && <Description>{cleanDescription(description)}</Description>}
-        </NameGroup>
-        {version && <Version>{version}</Version>}
-      </Wrapper>
-      {configOptions?.showUplinks && (
-        <Wrapper>
-          <Stack direction="row" spacing={1}>
-            {isPrivate && (
-              <Chip
-                color="primary"
-                deleteIcon={<HttpsIcon />}
-                label={t('search.isPrivate')}
-                onDelete={handleDelete}
-                size="small"
-              />
-            )}
-            {isRemote && !isPrivate && (
-              <Chip
-                deleteIcon={<SyncAlt />}
-                label={t('search.isRemote')}
-                onDelete={handleDelete}
-                size="small"
-                variant="outlined"
-              />
-            )}
-            {isCached && (
-              <Chip
-                deleteIcon={<Cached />}
-                label={t('search.isCached')}
-                onDelete={handleDelete}
-                size="small"
-                variant="outlined"
-              />
-            )}
-          </Stack>
-        </Wrapper>
-      )}
+        </Text>
+      </Row>
     </li>
   );
 };
