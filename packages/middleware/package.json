@@ -69,9 +69,9 @@
     "@verdaccio/types": "workspace:13.0.6",
     "http-errors": "2.0.1",
     "jsdom": "26.1.0",
-    "supertest": "7.1.4",
-    "vite": "8.2.4",
-    "vitest": "4.1.11"
+    "supertest": "7.3.1",
+    "vite": "8.3.4",
+    "vitest": "5.0.5"
   },
   "engines": {
     "node": ">=22"

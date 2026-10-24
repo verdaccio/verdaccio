@@ -68,8 +68,8 @@
     "@verdaccio/types": "workspace:13.0.6",
     "express": "4.22.3",
     "typedoc": "0.28.20",
-    "vite": "8.2.4",
-    "vitest": "4.1.11"
+    "vite": "8.3.4",
+    "vitest": "5.0.5"
   },
   "engines": {
     "node": ">=22"

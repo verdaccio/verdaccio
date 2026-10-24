@@ -146,10 +146,10 @@ export function filterBlockedVersions(
   debug('replacing versions for %s: %o', manifest.name, newVersionsMapping);
 
   const removedVersions = Object.entries(newVersionsMapping).filter(
-    ([_, replace]) => replace === null
+    ([, replace]) => replace === null
   ) as [string, null][];
   const replacedVersions = Object.entries(newVersionsMapping).filter(
-    ([_, replace]) => replace !== null
+    ([, replace]) => replace !== null
   ) as [string, string][];
 
   removedVersions.forEach(([version]) => {

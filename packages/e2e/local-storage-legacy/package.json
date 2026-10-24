@@ -19,13 +19,13 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@verdaccio/e2e-cli": "^2.6.0",
+    "@verdaccio/e2e-cli": "^2.10.4",
     "@verdaccio/e2e-shared": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "^22.20.1",
-    "verdaccio": "6.9.2",
-    "vitest": "^4.1.10"
+    "@types/node": "^22.20.5",
+    "verdaccio": "6.10.5",
+    "vitest": "^5.0.5"
   },
   "engines": {
     "node": ">=22"
