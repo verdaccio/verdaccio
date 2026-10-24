@@ -13,9 +13,27 @@ import {
   screen,
   waitFor,
 } from '../../test/test-react-testing-library';
-import ManifestsProvider, { useManifests } from './ManifestsProvider';
+import ManifestsProvider, { CACHED_PAGE_SIZE, useManifests } from './ManifestsProvider';
 
 const PACKAGES_URL = 'http://localhost:9000/-/verdaccio/data/packages';
+const CACHED_URL = 'http://localhost:9000/-/verdaccio/data/packages/cached';
+
+const pkg = (name: string, origin: 'private' | 'cached') => ({ name, version: '1.0.0', origin });
+
+function PagedComponent() {
+  const { isLoading, loadMore, manifests } = useManifests();
+  return isLoading ? (
+    <div>{'loading ...'}</div>
+  ) : (
+    <div>
+      <button onClick={() => loadMore?.()} type="button">
+        {'more'}
+      </button>
+      <div>{`total:${manifests?.length}`}</div>
+      <div>{`cached:${manifests?.filter((m) => m.origin === 'cached').length}`}</div>
+    </div>
+  );
+}
 
 function CustomComponent() {
   const { isError, isLoading, manifests } = useManifests();
@@ -38,6 +56,72 @@ function CustomComponent() {
 describe('<ManifestsProvider />', () => {
   afterEach(() => {
     cleanup();
+  });
+
+  describe('with flags.cachedPackages', () => {
+    const options = window.__VERDACCIO_BASENAME_UI_OPTIONS;
+
+    afterEach(() => {
+      window.__VERDACCIO_BASENAME_UI_OPTIONS = options;
+    });
+
+    test('should append cached packages page by page after the private ones', async () => {
+      window.__VERDACCIO_BASENAME_UI_OPTIONS = { ...options, flags: { cachedPackages: true } };
+      const total = 60;
+      server.use(
+        http.get(PACKAGES_URL, () => HttpResponse.json([pkg('a', 'private'), pkg('b', 'private')])),
+        http.get(CACHED_URL, ({ request }) => {
+          const params = new URL(request.url).searchParams;
+          const offset = Number(params.get('offset'));
+          const limit = Number(params.get('limit'));
+          const names = Array.from({ length: total }, (_, i) => `cached-${i}`);
+          return HttpResponse.json({
+            total,
+            offset,
+            limit,
+            packages: names.slice(offset, offset + limit).map((name) => pkg(name, 'cached')),
+          });
+        })
+      );
+
+      await act(async () =>
+        renderWithRouter(
+          <ManifestsProvider>
+            <PagedComponent />
+          </ManifestsProvider>,
+          RouterPath.ROOT,
+          [RouterPath.ROOT]
+        )
+      );
+
+      await waitFor(() => screen.getByText(`total:${2 + CACHED_PAGE_SIZE}`));
+      fireEvent.click(screen.getByText('more'));
+      await waitFor(() => screen.getByText(`total:${2 + total}`));
+      expect(screen.getByText(`cached:${total}`)).toBeInTheDocument();
+    });
+
+    test('should not request cached packages when the flag is off', async () => {
+      let cachedRequests = 0;
+      server.use(
+        http.get(CACHED_URL, () => {
+          cachedRequests++;
+          return HttpResponse.json({ total: 0, offset: 0, limit: 50, packages: [] });
+        })
+      );
+
+      await act(async () =>
+        renderWithRouter(
+          <ManifestsProvider>
+            <PagedComponent />
+          </ManifestsProvider>,
+          RouterPath.ROOT,
+          [RouterPath.ROOT]
+        )
+      );
+
+      await waitFor(() => screen.getByText('cached:0'));
+      expect(cachedRequests).toBe(0);
+    });
   });
 
   test('should load data from the provider', async () => {
