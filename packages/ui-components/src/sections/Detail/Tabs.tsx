@@ -6,10 +6,11 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { Theme } from '../../Theme';
+import { TabPosition } from './ContainerContent';
 
 interface Props {
-  onChange: (event: React.ChangeEvent<{}>, newValue: number) => void;
-  tabPosition: number;
+  onChange: (event: React.SyntheticEvent, newValue: TabPosition) => void;
+  tabPosition: TabPosition;
   showUplinks?: boolean;
 }
 
@@ -25,11 +26,31 @@ const DetailContainerTabs: React.FC<Props> = ({ tabPosition, onChange, showUplin
       value={tabPosition}
       variant={isMobile ? 'scrollable' : 'fullWidth'}
     >
-      <Tab data-testid={'readme-tab'} id={'readme-tab'} label={t('tab.readme')} />
-      <Tab data-testid={'dependencies-tab'} id={'dependencies-tab'} label={t('tab.dependencies')} />
-      <Tab data-testid={'versions-tab'} id={'versions-tab'} label={t('tab.versions')} />
+      <Tab
+        data-testid={'readme-tab'}
+        id={'readme-tab'}
+        label={t('tab.readme')}
+        value={TabPosition.README}
+      />
+      <Tab
+        data-testid={'dependencies-tab'}
+        id={'dependencies-tab'}
+        label={t('tab.dependencies')}
+        value={TabPosition.DEPENDENCIES}
+      />
+      <Tab
+        data-testid={'versions-tab'}
+        id={'versions-tab'}
+        label={t('tab.versions')}
+        value={TabPosition.VERSIONS}
+      />
       {showUplinks && (
-        <Tab data-testid={'uplinks-tab'} id={'uplinks-tab'} label={t('tab.uplinks')} />
+        <Tab
+          data-testid={'uplinks-tab'}
+          id={'uplinks-tab'}
+          label={t('tab.uplinks')}
+          value={TabPosition.UPLINKS}
+        />
       )}
     </Tabs>
   );

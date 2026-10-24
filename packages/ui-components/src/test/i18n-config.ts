@@ -12,7 +12,6 @@ i18n.use(initReactI18next).init({
     },
   },
   debug: false,
-  showSupportNotice: false,
   interpolation: {
     escapeValue: false, // react already safes from xss
   },

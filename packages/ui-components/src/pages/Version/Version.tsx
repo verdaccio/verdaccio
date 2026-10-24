@@ -2,14 +2,14 @@ import React from 'react';
 
 import Forbidden from '../../components/Forbidden';
 import GenericError from '../../components/GenericError';
-import { Loading, NotFound, VersionLayout, useVersion } from '../../index';
+import { NotFound, VersionLayout, VersionSkeleton, useVersion } from '../../index';
 
 const Version: React.FC = () => {
   const { hasNotBeenFound, isForbidden, isUnAuthorized, isError, isLoading, packageMeta } =
     useVersion();
 
   if (isLoading) {
-    return <Loading />;
+    return <VersionSkeleton />;
   }
 
   if (isUnAuthorized) {

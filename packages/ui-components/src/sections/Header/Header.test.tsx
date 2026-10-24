@@ -260,6 +260,8 @@ describe('<Header /> component with logged in state', () => {
     };
     renderHeader();
     expect(screen.queryByTestId('search-container')).toBeNull();
+    // the mobile search icon opens the mobile search bar, so it goes too
+    expect(screen.queryByTestId('header--tooltip-search')).toBeNull();
   });
 
   test('should hide settings if is disabled', () => {

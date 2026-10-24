@@ -55,6 +55,19 @@ describe('test web server', () => {
     expect(response.body).toHaveLength(0);
   });
 
+  test('should not serve the search api when showSearch is false', async () => {
+    const app = await initializeServer('search-disabled.yaml');
+    await publishVersion(app, 'foo', '1.0.0');
+    await supertest(app)
+      .get('/-/verdaccio/data/search/foo')
+      .set('Accept', HEADERS.JSON_CHARSET)
+      .expect(HTTP_STATUS.NOT_FOUND);
+    await supertest(app)
+      .get('/-/verdaccio/data/packages')
+      .set('Accept', HEADERS.JSON_CHARSET)
+      .expect(HTTP_STATUS.OK);
+  });
+
   // TODO: need a way to make this fail
   test.skip('should fail search api', async () => {
     const response = await supertest(await initializeServer('default-test.yaml'))

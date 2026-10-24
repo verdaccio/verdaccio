@@ -7,6 +7,11 @@ export function hasLogin(config: ConfigYaml) {
   return isNil(config?.web?.login) || config?.web?.login === true;
 }
 
+// the web search endpoint follows the search box: `showSearch: false` removes both
+export function hasSearch(config: ConfigYaml) {
+  return config?.web?.showSearch !== false;
+}
+
 export function sortByName(packages: any[], orderAscending: boolean | void = true): string[] {
   return packages.slice().sort(function (a, b): number {
     const comparatorNames = a.name.toLowerCase() < b.name.toLowerCase();

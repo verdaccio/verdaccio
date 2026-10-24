@@ -30,6 +30,7 @@ export { default as LoginDialog } from './components/LoginDialog';
 export { default as Search } from './components/Search';
 export { default as HeaderInfoDialog } from './components/HeaderInfoDialog';
 export { default as Loading } from './components/Loading';
+export { PackageListSkeleton, VersionSkeleton } from './components/Loading';
 export { default as Package } from './components/Package';
 export { default as Help } from './components/Help';
 export { default as PackageList } from './components/PackageList';

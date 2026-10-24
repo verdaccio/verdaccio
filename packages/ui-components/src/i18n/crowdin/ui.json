@@ -1,5 +1,7 @@
 {
+  "loading": "Loading...",
   "copy-to-clipboard": "Copy to clipboard",
+  "copy-to-clipboard-done": "Copied",
   "author-anonymous": "Anonymous",
   "author-unknown": "Unknown",
   "action-bar-action": {
@@ -10,6 +12,8 @@
     "raw-title": "Manifest of {{package}}"
   },
   "dialog": {
+    "docs-link": "Verdaccio documentation",
+    "opens-in-new-tab": "(opens in a new tab)",
     "registry-info": {
       "title": "Information"
     },
@@ -23,7 +27,6 @@
   "header": {
     "documentation": "Documentation",
     "registry-info": "Registry Information",
-    "registry-info-link": "Learn more",
     "settings": "Settings",
     "help": "Help",
     "registry-no-conf": "No configurations available",
@@ -31,9 +34,16 @@
   },
   "search": {
     "packages": "Search Packages",
-    "isPrivate": "Private",
-    "isRemote": "Remote",
-    "isCached": "Cached"
+    "origin": {
+      "private": "Published on this registry",
+      "cached": "Cached from an uplink",
+      "remote": "Available from an uplink"
+    },
+    "group": {
+      "private": "Published here ({{count}})",
+      "cached": "Cached from uplinks ({{count}})",
+      "remote": "Available from uplinks ({{count}})"
+    }
   },
   "autoComplete": {
     "loading": "Loading...",
@@ -60,6 +70,18 @@
     "deprecated": "Deprecated",
     "search.placeholder": "Search for a version by semver range, e.g., ^1.0.0.",
     "hide-deprecated": "All deprecated versions are hidden by global configuration"
+  },
+  "packageList": {
+    "filter": "Filter packages",
+    "scope": "Scope",
+    "all-scopes": "All scopes",
+    "no-scope": "Without scope",
+    "sort": "Sort by",
+    "sort-default": "Default order",
+    "sort-name": "Name",
+    "sort-recent": "Recently published",
+    "count": "{{shown}} of {{total}} packages",
+    "no-match": "No packages match the current filter."
   },
   "package": {
     "published-on": "Published {{time}}",
@@ -93,13 +115,32 @@
     "invalid-email": "Must be a valid email address"
   },
   "help": {
+    "settings-tab": "Publishing",
     "title": "No Package Published Yet.",
-    "sub-title": "To publish your first package just:",
-    "first-step": "1. Create user",
+    "welcome": "Welcome to {{title}}. The registry is ready: point your package manager to it and publish your first package.",
+    "steps": {
+      "configure": {
+        "title": "Point your package manager to this registry",
+        "description": "Run it once on each machine, or commit the file to your project so everyone uses the same registry."
+      },
+      "login": {
+        "title": "Create a user or log in",
+        "description": "Publishing needs an account on this registry.",
+        "bun-note": "bun has no login command: it uses the token that npm adduser saves in .npmrc."
+      },
+      "publish": {
+        "title": "Publish your package",
+        "description": "Run it from the folder that contains the package.json."
+      },
+      "wait": {
+        "title": "Watch it appear here",
+        "description": "This page checks for new packages every few seconds, so there is no need to reload it."
+      }
+    },
     "first-step-command-line": "npm adduser --registry {{registryUrl}}",
-    "second-step": "2. Publish",
     "second-step-command-line": "npm publish --registry {{registryUrl}}",
-    "third-step": "3. Refresh this page"
+    "uplinks-note": "Packages installed through this registry from its uplinks, such as npmjs, are cached but not listed here: this page only shows packages published to this registry.",
+    "uplinks-link": "How uplinks work"
   },
   "sidebar": {
     "detail": {
@@ -111,7 +152,8 @@
       "title": "Installation",
       "latest": "latest version",
       "global": "global package",
-      "yarnModern": "yarn modern syntax"
+      "yarnModern": "yarn modern syntax",
+      "npmrc": "Registry for .npmrc"
     },
     "repository": {
       "title": "Repository"
@@ -151,7 +193,6 @@
     "login": "Login",
     "logout": "Logout",
     "go-to-the-home-page": "Go to the home page",
-    "learn-more": "Learn More",
     "fund-this-package": "<0>Fund</0> this package"
   },
   "error": {
@@ -203,7 +244,17 @@
     "title": "Package Managers",
     "description": "This is the configuration details for the registry. Each package manager could have different configuration, expand each section for more details. If the section is disable review your configuration.",
     "yarnclassicDetails": "Yarn classic configuration differs from Yarn 2+ configuration. For more details, please visit [Yarn Classic](https://verdaccio.org/docs/cli-registry#yarn-1x).",
-    "yarnBerryDetails": "Yarn Berry does not support the `--registry` flag, instead all configurarion should be defined on the `yarnrc.yaml` file in the root of your project. For more details, please visit [Yarn Berry](https://verdaccio.org/docs/cli-registry#yarn-berry-2x)."
+    "yarnBerryDetails": "Yarn Berry does not support the `--registry` flag, instead all configurarion should be defined on the `yarnrc.yaml` file in the root of your project. For more details, please visit [Yarn Berry](https://verdaccio.org/docs/cli-registry#yarn-berry-2x).",
+    "minReleaseAge": {
+      "title": "Minimum release age",
+      "description": "Skip versions published in the last {{days}} days, so a malicious release has time to be reported and removed before anyone installs it. Packages of {{scope}}, published here, stay exempt so your own releases install right away.",
+      "npm": "npm 11.10 or newer; the scope exemption needs npm 12.",
+      "pnpm": "minimumReleaseAge is in minutes.",
+      "yarn": "Each scope can have its own gate under npmScopes (yarn 4.17 or newer); 0 turns it off for the scope.",
+      "bun": "minimumReleaseAge is in seconds. bun exempts exact package names only, so list the packages of the scope in minimumReleaseAgeExcludes.",
+      "registry": "Registry operators can enforce a minimum age for everybody with the [package filter](https://verdaccio.org/docs/configuration#package-filter) (`minAgeDays`)."
+    },
+    "bunDetails": "bun reads the registry from `bunfig.toml` (or `.npmrc`) and the token that `npm adduser` saves in `.npmrc`. For more details, please visit [bun](https://verdaccio.org/docs/setup-bun)."
   },
   "language": {
     "title": "Translations",

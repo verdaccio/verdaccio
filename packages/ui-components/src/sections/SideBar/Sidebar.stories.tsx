@@ -5,7 +5,7 @@ import { MemoryRouter, Route, Routes } from 'react-router';
 
 import storybookReadme from '../../../vitest/api/storybook-readme.js';
 import storybookSidebar from '../../../vitest/api/storybook-sidebar.json';
-import { VersionProvider } from '../../providers';
+import { AppConfigurationProvider, VersionProvider } from '../../providers';
 import DetailSidebar from './Sidebar';
 
 const meta: Meta<typeof DetailSidebar> = {
@@ -18,13 +18,13 @@ export default meta;
 type Story = StoryObj<typeof DetailSidebar>;
 
 const handlers = [
-  http.get('https://fake.verdaccio.org/-/verdaccio/data/sidebar/storybook', () => {
+  http.get('https://my.company.example/-/verdaccio/data/sidebar/storybook', () => {
     return HttpResponse.json(storybookSidebar);
   }),
-  http.get('https://fake.verdaccio.org/-/verdaccio/data/package/readme/storybook', () => {
+  http.get('https://my.company.example/-/verdaccio/data/package/readme/storybook', () => {
     return HttpResponse.json(storybookReadme);
   }),
-  http.get('https://fake.verdaccio.org/storybook/-/storybook-6.5.15.tgz', () => {
+  http.get('https://my.company.example/storybook/-/storybook-6.5.15.tgz', () => {
     const content = 'fake tarball content';
 
     const blob = new Blob([content], {
@@ -83,4 +83,25 @@ export const SidebarPackageVersion: Story = {
       handlers,
     },
   },
+};
+
+export const SidebarWithoutDownload: Story = {
+  name: 'Download disabled (web.showDownloadTarball: false)',
+  render: () => (
+    <MemoryRouter initialEntries={[`/-/web/detail/storybook`]}>
+      <Routes>
+        <Route
+          element={
+            <AppConfigurationProvider overrideConfig={{ showDownloadTarball: false }}>
+              <VersionProvider>
+                <DetailSidebar />
+              </VersionProvider>
+            </AppConfigurationProvider>
+          }
+          path="/-/web/detail/:package"
+        />
+      </Routes>
+    </MemoryRouter>
+  ),
+  parameters: { msw: { handlers } },
 };

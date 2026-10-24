@@ -14,7 +14,13 @@
     "types": ["node"]
   },
   "include": ["src/**/*"],
-  "exclude": ["src/**/*.stories.tsx", "src/**/*.test.tsx", "src/**/*.test.ts", "src/test/**"],
+  "exclude": [
+    "src/**/*.stories.tsx",
+    "src/**/__stories__/**",
+    "src/**/*.test.tsx",
+    "src/**/*.test.ts",
+    "src/test/**"
+  ],
   "typedocOptions": {
     "categoryOrder": ["Model", "Component", "Provider", "*"],
     "defaultCategory": "Component",

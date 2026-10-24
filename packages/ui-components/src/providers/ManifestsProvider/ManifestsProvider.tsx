@@ -1,5 +1,5 @@
 import type { ReactElement } from 'react';
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 import type { Manifest } from '@verdaccio/types';
 
@@ -32,10 +32,22 @@ export const ManifestsContext = createContext<Partial<ManifestsContextProps>>({}
 
 const configuration = getConfiguration();
 
-const ManifestsProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
-  const basePath = stripTrailingSlash(configuration.base);
+/** While the registry is empty the home page polls, so a first publish shows up without a reload. */
+export const EMPTY_REGISTRY_REFRESH_MS = 10_000;
 
-  const data = useData<ManifestWeb[]>(basePath, APIRoute.PACKAGES);
+const ManifestsProvider: React.FC<{ children: ReactElement; emptyRefreshMs?: number }> = ({
+  children,
+  emptyRefreshMs = EMPTY_REGISTRY_REFRESH_MS,
+}) => {
+  const basePath = stripTrailingSlash(configuration.base);
+  // a number, not SWR's function form: that one is read once at mount, before any data exists
+  const [refreshInterval, setRefreshInterval] = useState(0);
+
+  const data = useData<ManifestWeb[]>(basePath, APIRoute.PACKAGES, undefined, undefined, {
+    refreshInterval,
+    onSuccess: (latest) =>
+      setRefreshInterval(Array.isArray(latest) && latest.length === 0 ? emptyRefreshMs : 0),
+  });
 
   return (
     <ManifestsContext.Provider

@@ -3,14 +3,18 @@ import React from 'react';
 import { afterEach, describe, expect, test, vi } from 'vitest';
 
 import { SearchProvider } from '../../';
+import { mockSearch } from '../../../vitest/msw-utils';
+import { server } from '../../../vitest/server';
 import {
   fireEvent,
+  renderWith,
   renderWithRouteDetail,
   screen,
   waitFor,
 } from '../../test/test-react-testing-library';
 import Search from './Search';
-import { cleanDescription } from './utils';
+import SearchItem from './SearchItem';
+import { SearchOrigin, cleanDescription, normalizeSearchOption, sortByOrigin } from './utils';
 
 vi.mock('lodash-es', async () => {
   const actual = await vi.importActual('lodash-es');
@@ -199,7 +203,90 @@ describe('<Search /> component', () => {
     expect(abortSpy).not.toHaveBeenCalled();
   });
 
-  test.todo('handle SearchItem properties, isPrivate, isRemote, isCached');
+  describe('local and cached results', () => {
+    const result = (
+      name: string,
+      flags: { verdaccioPrivate?: boolean; verdaccioPkgCached?: boolean }
+    ) => ({
+      package: { name, version: '1.0.0', description: `${name} description` },
+      ...flags,
+    });
+    const mixedResults = [
+      result('react-dom', {}),
+      result('react', { verdaccioPkgCached: true }),
+      result('@verdaccio/ui-components', { verdaccioPrivate: true }),
+      result('react-router', {}),
+    ];
+
+    const typeQuery = async (showUplinks: boolean) => {
+      window.__VERDACCIO_BASENAME_UI_OPTIONS.showUplinks = showUplinks;
+      server.use(mockSearch(mixedResults));
+      renderWithRouteDetail(<ComponentToBeRendered />);
+      const input = screen.getByPlaceholderText('search.packages');
+      fireEvent.focus(input);
+      fireEvent.change(input, { target: { value: 'react' } });
+      await waitFor(() => expect(screen.getAllByRole('option')).toHaveLength(4), { timeout: 3000 });
+    };
+
+    test('groups results as published here, cached and remote when uplinks are shown', async () => {
+      await typeQuery(true);
+      const groups = ['private', 'cached', 'remote'].map((group) =>
+        screen.getByTestId(`search-group-${group}`)
+      );
+      expect(groups.map((group) => group.textContent)).toEqual([
+        'search.group.private',
+        'search.group.cached',
+        'search.group.remote',
+      ]);
+      expect(
+        screen.getAllByRole('option').map((option) => option.querySelector('span')?.textContent)
+      ).toEqual(['@verdaccio/ui-components', 'react', 'react-dom', 'react-router']);
+    });
+
+    test('lists results flat and without origin icons when uplinks are hidden', async () => {
+      await typeQuery(false);
+      expect(screen.queryByTestId('search-group-private')).not.toBeInTheDocument();
+      expect(screen.queryByTestId('search-origin-private')).not.toBeInTheDocument();
+      expect(screen.getAllByRole('option')[0]).toHaveTextContent('react-dom');
+      window.__VERDACCIO_BASENAME_UI_OPTIONS.showUplinks = true;
+    });
+  });
+});
+
+describe('<SearchItem />', () => {
+  test('labels the origin icon for assistive technology', () => {
+    renderWith(<SearchItem isCached={true} name="react" version="19.2.0" />, { showUplinks: true });
+    expect(screen.getByTitle('search.origin.cached')).toBeInTheDocument();
+    expect(screen.getByText('19.2.0')).toBeInTheDocument();
+  });
+});
+
+describe('search origin helpers', () => {
+  test('derives the origin from the verdaccio flags', () => {
+    expect(normalizeSearchOption({ package: { name: 'a' }, verdaccioPrivate: true }).origin).toBe(
+      SearchOrigin.PRIVATE
+    );
+    expect(normalizeSearchOption({ package: { name: 'a' }, verdaccioPkgCached: true }).origin).toBe(
+      SearchOrigin.CACHED
+    );
+    expect(normalizeSearchOption({ package: { name: 'a' } }).origin).toBe(SearchOrigin.REMOTE);
+    expect(normalizeSearchOption({ name: 'flat' }).origin).toBeUndefined();
+  });
+
+  test('sorts private, cached, remote and keeps the server order inside each group', () => {
+    const options = [
+      { package: { name: 'remote-1' } },
+      { package: { name: 'cached-1' }, verdaccioPkgCached: true },
+      { package: { name: 'remote-2' } },
+      { package: { name: 'private-1' }, verdaccioPrivate: true },
+    ];
+    expect(sortByOrigin(options).map((option) => option.package.name)).toEqual([
+      'private-1',
+      'cached-1',
+      'remote-1',
+      'remote-2',
+    ]);
+  });
 });
 
 describe('cleanDescription', () => {

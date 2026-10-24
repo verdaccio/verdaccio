@@ -53,6 +53,10 @@ describe('test web server', () => {
             showSettings: true,
             showThemeSwitch: true,
             showFooter: true,
+            showPackageListToolbar: false,
+            footer: 'Internal registry · [Support](https://verdaccio.org/docs/what-is-verdaccio)',
+            poweredBy: false,
+            help: '## Platform registry\nRun `npm config set registry {{registryUrl}}` first.\n',
             showSearch: true,
             showDownloadTarball: true,
             darkMode: false,
@@ -116,6 +120,14 @@ describe('test web server', () => {
           .expect(HTTP_STATUS.OK);
         const options = JSON.parse(response.text.slice(response.text.indexOf('=') + 1, -1));
         expect(options.basename).toEqual('/');
+      });
+
+      test('should list bun among the default package managers', async () => {
+        const {
+          window: { __VERDACCIO_BASENAME_UI_OPTIONS },
+        } = await render('default-test.yaml');
+        expect(__VERDACCIO_BASENAME_UI_OPTIONS.pkgManagers).toEqual(['yarn', 'pnpm', 'npm', 'bun']);
+        expect(__VERDACCIO_BASENAME_UI_OPTIONS.help).toBeUndefined();
       });
 
       test.todo('should default title');

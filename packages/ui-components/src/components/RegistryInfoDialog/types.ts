@@ -5,4 +5,6 @@ export interface Props {
   open: boolean;
   title: string;
   onClose: () => void;
+  // a single documentation link in the footer, shared by every tab
+  docsUrl?: string;
 }

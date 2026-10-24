@@ -34,6 +34,18 @@ describe('<Version /> page', () => {
     });
   });
 
+  test('should render the version skeleton while the manifest loads', async () => {
+    renderWithRouter(
+      <VersionProvider>
+        <Version />
+      </VersionProvider>,
+      RouterPath.PACKAGE_VERSION,
+      ['/-/web/detail/jquery/v/1.5.1']
+    );
+    expect(screen.getByTestId('version-skeleton')).toBeInTheDocument();
+    await waitFor(() => expect(screen.queryByTestId('version-skeleton')).not.toBeInTheDocument());
+  });
+
   test('should render a generic error instead of a blank page when the sidebar request fails', async () => {
     server.use(mockSidebar('jquery', undefined, 500));
 

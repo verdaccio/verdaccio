@@ -18,3 +18,16 @@ WithDefaultArgs.args = {
   dataTestId: 'id',
   title: 'Copy this',
 };
+
+export const RegistryCommand: any = Template.bind({});
+RegistryCommand.args = {
+  text: 'npm config set registry http://localhost:4873/',
+  dataTestId: 'id',
+  title: 'npm config set registry http://localhost:4873/',
+};
+
+export const WithoutTooltip: any = Template.bind({});
+WithoutTooltip.args = {
+  text: 'npm publish --registry http://localhost:4873/',
+  dataTestId: 'id',
+};

@@ -3,7 +3,7 @@ import type { TemplateUIOptions } from '@verdaccio/types';
 const defaultValues: TemplateUIOptions = {
   primaryColor: '#ffffff',
   darkMode: false,
-  pkgManagers: ['yarn', 'pnpm', 'npm'],
+  pkgManagers: ['yarn', 'pnpm', 'npm', 'bun'],
   scope: '',
   base: '',
   login: true,

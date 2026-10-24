@@ -17,7 +17,7 @@ interface AppConfigurationProviderProps {
 
 const DEFAULT_OPTIONS: TemplateUIOptions = {
   primaryColor: PRIMARY_COLOR,
-  pkgManagers: ['yarn', 'pnpm', 'npm'],
+  pkgManagers: ['yarn', 'pnpm', 'npm', 'bun'],
   scope: '',
   base: '',
   flags: {},
@@ -30,6 +30,7 @@ const DEFAULT_OPTIONS: TemplateUIOptions = {
   showSearch: true,
   showRaw: true,
   showDownloadTarball: true,
+  showPackageListToolbar: true,
   showUplinks: true,
   hideDeprecatedVersions: false,
   title: 'Verdaccio',

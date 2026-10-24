@@ -25,7 +25,6 @@ i18n.use(initReactI18next).init({
     'es-ES': { translation: { 'lng.english': 'Inglés' } },
   },
   debug: false,
-  showSupportNotice: false,
   interpolation: { escapeValue: false },
 });
 

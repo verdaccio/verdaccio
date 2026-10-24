@@ -1,8 +1,14 @@
 import { describe, expect, test } from 'vitest';
 
-import { isVersionValid, resolveVersion, sortByName } from '../src/web-utils';
+import { hasSearch, isVersionValid, resolveVersion, sortByName } from '../src/web-utils';
 
 describe('Utilities', () => {
+  test('hasSearch is enabled unless showSearch is false', () => {
+    expect(hasSearch({} as any)).toBe(true);
+    expect(hasSearch({ web: { showSearch: true } } as any)).toBe(true);
+    expect(hasSearch({ web: { showSearch: false } } as any)).toBe(false);
+  });
+
   describe('Sort packages', () => {
     const packages = [
       {

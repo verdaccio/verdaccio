@@ -38,10 +38,10 @@ export const DetailStorybook: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get('https://fake.verdaccio.org/-/verdaccio/data/sidebar/storybook', () => {
+        http.get('https://my.company.example/-/verdaccio/data/sidebar/storybook', () => {
           return HttpResponse.json(storybookSidebar);
         }),
-        http.get('https://fake.verdaccio.org/-/verdaccio/data/package/readme/storybook', () => {
+        http.get('https://my.company.example/-/verdaccio/data/package/readme/storybook', () => {
           return HttpResponse.json(storybookReadme);
         }),
       ],
@@ -54,10 +54,10 @@ export const DetailJquery: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get('https://fake.verdaccio.org/-/verdaccio/data/sidebar/jquery', () => {
+        http.get('https://my.company.example/-/verdaccio/data/sidebar/jquery', () => {
           return HttpResponse.json(jquerySidebar);
         }),
-        http.get('https://fake.verdaccio.org/-/verdaccio/data/package/readme/jquery', () => {
+        http.get('https://my.company.example/-/verdaccio/data/package/readme/jquery', () => {
           return HttpResponse.json(jqueryReadme);
         }),
       ],
@@ -65,12 +65,18 @@ export const DetailJquery: Story = {
   },
 };
 
+export const DetailJqueryVersions: Story = {
+  name: 'Detail jquery (versions tab from the address)',
+  render: () => getDetailApp(`/-/web/detail/jquery?tab=versions`),
+  parameters: DetailJquery.parameters,
+};
+
 export const DetailForbidden: Story = {
   render: () => getDetailApp(`/-/web/detail/JSONStream`),
   parameters: {
     msw: {
       handlers: [
-        http.get('https://fake.verdaccio.org/-/verdaccio/data/sidebar/JSONStream', () => {
+        http.get('https://my.company.example/-/verdaccio/data/sidebar/JSONStream', () => {
           return new HttpResponse('unauthorized', { status: 401 });
         }),
       ],

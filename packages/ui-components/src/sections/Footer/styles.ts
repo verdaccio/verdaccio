@@ -14,11 +14,13 @@ export const Wrapper = styled('div')<{ theme?: Theme }>(({ theme }) => ({
 export const Inner = styled('div')<{ theme?: Theme }>(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
+  flexWrap: 'wrap',
+  gap: theme.spacing(1, 2),
   justifyContent: 'flex-end',
-  paddingLeft: 16,
-  paddingRight: 16,
   width: '100%',
   [`@media (min-width: ${theme.breakPoints.medium}px)`]: {
+    paddingLeft: 16,
+    paddingRight: 16,
     minWidth: 400,
     maxWidth: 800,
     margin: 'auto',
@@ -46,4 +48,26 @@ export const Right = styled(Left)({
 export const Love = styled('span')<{ theme?: Theme }>(({ theme }) => ({
   color: theme.palette.love,
   padding: '0 5px',
+}));
+
+export const CustomContent = styled('div')<{ theme?: Theme }>(({ theme }) => ({
+  display: 'flex',
+  flexWrap: 'wrap',
+  alignItems: 'center',
+  gap: theme.spacing(1),
+  minWidth: 0,
+  // keeps it on the left also when the powered-by wraps below it
+  marginRight: 'auto',
+  p: {
+    margin: 0,
+  },
+  img: {
+    maxHeight: 32,
+    maxWidth: 200,
+    verticalAlign: 'middle',
+    marginRight: theme.spacing(1),
+  },
+  a: {
+    color: theme.palette.mode === 'dark' ? common.white : theme.palette.primary.main,
+  },
 }));
