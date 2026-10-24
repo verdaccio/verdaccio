@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 import { rateLimit } from '@verdaccio/middleware';
 
-import { hasLogin } from '../../../lib/utils';
+import { hasLogin, hasSearch } from '../../../lib/utils';
 import packageApi from './package';
 import search from './search';
 import user from './user';
@@ -17,7 +17,9 @@ export default (auth, storage, config) => {
     })
   );
   router.use(packageApi(storage, auth, config));
-  router.use(search(storage, auth));
+  if (hasSearch(config)) {
+    router.use(search(storage, auth));
+  }
   if (hasLogin(config)) {
     router.use(user(auth, config));
   }

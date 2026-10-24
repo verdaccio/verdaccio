@@ -153,3 +153,25 @@ describe('web endpoint: search', () => {
     expect(res.body.every(Boolean)).toBe(true);
   });
 });
+
+describe('web endpoint: search disabled', () => {
+  let app;
+  let mockRegistry;
+
+  beforeAll(async () => {
+    ({ app, mockRegistry } = await createWebApp(
+      { web: { showSearch: false } },
+      'htpasswd-web-search-off'
+    ));
+    await seedPackages(app);
+  });
+
+  afterAll(() => {
+    mockRegistry[0].stop();
+  });
+
+  test('should not serve the web search when showSearch is false', async () => {
+    await request(app).get('/-/verdaccio/data/search/scope').expect(HTTP_STATUS.NOT_FOUND);
+    await request(app).get('/-/verdaccio/data/packages').expect(HTTP_STATUS.OK);
+  });
+});
