@@ -68,6 +68,22 @@ describe('<Help /> component', () => {
     expect(screen.getByTestId('help-publish-command')).toBeInTheDocument();
   });
 
+  test('suggests yarn-plugin-npm for logging in only on the yarn tab', () => {
+    renderWith(<Help />, { login: true, pkgManagers: ['npm', 'yarn'], base: REGISTRY });
+    expect(screen.queryByTestId('help-login-yarn-plugin')).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByTestId('help-setup-yarn'));
+    expect(screen.getByText('yarn dlx @verdaccio/yarn-import npm-login')).toBeInTheDocument();
+    expect(screen.getByText(`yarn npm login --registry ${REGISTRY}`)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'help.steps.login.yarn-plugin-link' })).toHaveAttribute(
+      'href',
+      'https://github.com/verdaccio/yarn-plugin-npm'
+    );
+
+    fireEvent.click(screen.getByTestId('help-setup-npm'));
+    expect(screen.queryByTestId('help-login-yarn-plugin')).not.toBeInTheDocument();
+  });
+
   test('replaces the guide with web.help and fills in the registry address', () => {
     renderWith(<Help />, { help: 'Run `npm config set registry {{registryUrl}}`', base: REGISTRY });
     expect(screen.getByTestId('help-card')).toBeInTheDocument();

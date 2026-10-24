@@ -35,6 +35,8 @@ const SETUP_TABS = ['npm', 'pnpm', 'yarn', 'bun', NPMRC] as const;
 type SetupTab = (typeof SETUP_TABS)[number];
 
 const DOCS_UPLINKS_URL = 'https://verdaccio.org/docs/uplinks';
+const YARN_PLUGIN_NPM_URL = 'https://github.com/verdaccio/yarn-plugin-npm';
+const YARN_PLUGIN_INSTALL = 'yarn dlx @verdaccio/yarn-import npm-login';
 
 /** The one-time command that makes a client use this registry, honouring `web.scope`. */
 export function getSetupCommand(tab: SetupTab, scope: string | undefined, registryUrl: string) {
@@ -157,6 +159,21 @@ export const HelpGuide: React.FC<{ withWaitStep?: boolean; labelledBy?: string }
             <Typography color="text.secondary" sx={{ mt: 1 }} variant="body2">
               {t('help.steps.login.bun-note')}
             </Typography>
+          )}
+          {setupTab === 'yarn' && (
+            <Box data-testid="help-login-yarn-plugin" sx={{ mt: 2 }}>
+              <Typography color="text.secondary" variant="body2">
+                {t('help.steps.login.yarn-note')}{' '}
+                <Link href={YARN_PLUGIN_NPM_URL} rel="noopener noreferrer" target="_blank">
+                  {t('help.steps.login.yarn-plugin-link')}
+                </Link>
+              </Typography>
+              <Command dataTestId="help-login-yarn-plugin-install" text={YARN_PLUGIN_INSTALL} />
+              <Command
+                dataTestId="help-login-yarn-command"
+                text={getCLISetRegistry('yarn npm login', registryUrl)}
+              />
+            </Box>
           )}
         </>
       ),

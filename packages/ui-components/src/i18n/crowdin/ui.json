@@ -126,7 +126,9 @@
       "login": {
         "title": "Create a user or log in",
         "description": "Publishing needs an account on this registry.",
-        "bun-note": "bun has no login command: it uses the token that npm adduser saves in .npmrc."
+        "bun-note": "bun has no login command: it uses the token that npm adduser saves in .npmrc.",
+        "yarn-note": "Prefer to stay in Yarn? Verdaccio's yarn-plugin-npm adds a yarn npm login that can also create the user on this registry.",
+        "yarn-plugin-link": "About yarn-plugin-npm"
       },
       "publish": {
         "title": "Publish your package",
