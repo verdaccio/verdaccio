@@ -92,7 +92,7 @@
     "verdaccio-htpasswd": "14.0.0-next-9.36"
   },
   "devDependencies": {
-    "@changesets/changelog-github": "0.5.2",
+    "@changesets/changelog-github": "1.0.1",
     "@changesets/cli": "3.0.3",
     "@changesets/get-dependents-graph": "2.1.3",
     "@orama/orama": "1.2.11",
