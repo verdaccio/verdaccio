@@ -1,5 +1,38 @@
 # @verdaccio/core
 
+## 9.0.0-next-9.37
+
+### Minor Changes
+
+- c2eafec: Add `GET /-/package/{package-name}/version/{version}/status` for authenticated users with publish access. The response contains `packageName`, `version`, and `status` (`published` or `staged`). Invalid names and non-exact versions return 400 before authentication; missing credentials return 401, and missing versions or denied package access return the same 404.
+  
+  Published versions are resolved from local metadata (including cached metadata), with manifest filters applied, without contacting uplinks. Staged versions are available when `flags.stage` is enabled; the endpoint also works for published versions with staging disabled. This is a local view, not a live status query to upstream registries.
+  
+  Verdaccio does not track automated validation, moderation, or deletion history, so it does not emit `validating`, `blocked`, or `deleted`. Versions no longer present locally or in staging return 404. No storage migration is required.
+  
+  Staged version listings and details also include `status: "staged"`, allowing npm stage clients to display that the version is ready for maintainer review. Existing records receive this field when read.
+
+### Patch Changes
+
+- 4a483d0: Move the Change Password option from the login form to the signed-in user's account menu.
+  
+  When `flags.changePassword` is enabled, users can now open the password change form from their account menu. Previously, the link appeared in the login form even though changing a password requires an authenticated session. The option remains hidden when the feature is disabled.
+  
+  Opening the password change URL without a session now displays a sign-in dialog explaining that authentication is required. Successful sign-in returns users to the form at the same URL. If the server rejects an expired session, the form is cleared and sign-in is requested again.
+  
+  The password change form no longer asks for a username. The authenticated session determines which account is updated; users enter only their current password, new password and confirmation.
+  
+  An incorrect current password submitted through the web form (`PUT /-/verdaccio/sec/reset_password`) now returns HTTP 400 with `invalid old password` when using the bundled htpasswd or auth-memory plugin. Previously it returned a generic HTTP 500. The form displays a translated field error and keeps the session open so the user can correct the password. Unexpected plugin and storage failures on that endpoint still return a generic HTTP 500.
+  
+  `npm profile set password` (`POST /-/npm/v1/user`) still returns HTTP 403 for an incorrect current password, as do plugin and storage failures on that endpoint, but the message is now `invalid old password` instead of `Unable to change password for user '<name>': invalid old password`.
+- 8a6e1a1: Update runtime dependencies across the registry and run the official Docker image on Node.js 26.
+  
+  The Docker image now builds and runs on `node:26-alpine`, the Node.js line that becomes Active LTS on 28 October 2026; Node.js 24 entered maintenance on 20 October. Operators who extend the image should check that any native addons they install support Node.js 26.
+  
+  The uplink, notification and audit HTTP client moves to `got` 16. Verdaccio does not use the options removed in that release (the HTTP/2 agent slot, `dnsCache` and the old `auth` stubs), so uplink configuration, `agent_options` and `https_proxy` behave as before. Uplink responses with an error status, such as a 404 for a package the uplink does not have, keep appearing in the `http` log as they did with `got` 15. The CLI moves to `chalk` 6 and the web UI's README renderer to `marked` 18.
+  
+  The remaining updates are minor or patch releases: `express` 5.3.0 in every package that serves HTTP, `express-rate-limit` 8.7.1, `pino` 10.4.0, `js-yaml` 5.5.0, `tar-stream` 3.2.2, `sanitize-filename` 1.6.4, `process-warning` 5.1.1 and `memfs` 4.80.0. No configuration changes are required.
+
 ## 9.0.0-next-9.36
 
 No changes in this release.

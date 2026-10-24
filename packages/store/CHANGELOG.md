@@ -1,5 +1,42 @@
 # @verdaccio/store
 
+## 9.0.0-next-9.37
+
+### Minor Changes
+
+- c2eafec: Add `GET /-/package/{package-name}/version/{version}/status` for authenticated users with publish access. The response contains `packageName`, `version`, and `status` (`published` or `staged`). Invalid names and non-exact versions return 400 before authentication; missing credentials return 401, and missing versions or denied package access return the same 404.
+  
+  Published versions are resolved from local metadata (including cached metadata), with manifest filters applied, without contacting uplinks. Staged versions are available when `flags.stage` is enabled; the endpoint also works for published versions with staging disabled. This is a local view, not a live status query to upstream registries.
+  
+  Verdaccio does not track automated validation, moderation, or deletion history, so it does not emit `validating`, `blocked`, or `deleted`. Versions no longer present locally or in staging return 404. No storage migration is required.
+  
+  Staged version listings and details also include `status: "staged"`, allowing npm stage clients to display that the version is ready for maintainer review. Existing records receive this field when read.
+
+### Patch Changes
+
+- c7bf0d0: Restrict version unpublishing to registry requests that passed the unpublish authorization route. Publish requests can no longer be interpreted as version removals based only on the shape of their package metadata.
+  
+  Deprecation updates continue to work through the publish route when they retain all stored versions. This corrects metadata update handling in the 9.x prerelease line and requires no configuration changes.
+- 0fc3051: Reject tarball uploads when destination setup fails, propagate cancellation before the file opens, and prevent premature stream closure from recording a successful upload. Clean failed upload files after their descriptors close so incomplete tarballs are not kept as final files.
+  
+  Wait for the temporary tarball to be renamed before recording upload success, and propagate rename and descriptor-close failures to the caller. Verify cleanup, preservation of existing files, retries, and complete binary uploads with the real filesystem.
+- 0fc3051: Reject invalid tarball attachment names with a 400 response before saving a published version or its tags. Previously, a malformed attachment name could fail after metadata had been saved, leaving a version without a tarball and preventing a corrected publish of the same version. Correcting the attachment name now allows that version to be published normally.
+  
+  Scoped attachment names sent by npm and Yarn and legacy tarball filenames remain supported. This fixes the normal publish flow in the 9.x storage implementation; no configuration changes are required.
+- Updated dependencies [4a483d0]
+- Updated dependencies [c2eafec]
+- Updated dependencies [8a6e1a1]
+- Updated dependencies [0fc3051]
+  - @verdaccio/core@9.0.0-next-9.37
+  - @verdaccio/config@9.0.0-next-9.37
+  - @verdaccio/tarball@14.0.0-next-9.37
+  - @verdaccio/logger@9.0.0-next-9.37
+  - @verdaccio/proxy@9.0.0-next-9.37
+  - @verdaccio/local-storage@14.0.0-next-9.37
+  - @verdaccio/url@14.0.0-next-9.37
+  - @verdaccio/loaders@9.0.0-next-9.37
+  - @verdaccio/search@9.0.0-next-9.37
+
 ## 9.0.0-next-9.36
 
 ### Patch Changes
