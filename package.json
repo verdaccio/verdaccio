@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@changesets/cli": "3.0.3",
-    "@crowdin/cli": "4.14.3",
+    "@crowdin/cli": "5.4.0",
     "@emotion/react": "11.14.0",
     "@emotion/styled": "11.14.1",
     "@testing-library/dom": "10.4.2",
@@ -120,7 +120,7 @@
     "ui:storybook:build": "pnpm --filter ...@verdaccio/ui-components build-storybook",
     "ui:storybook": "pnpm --filter ...@verdaccio/ui-components start",
     "translations": "local-crowdin-api translations",
-    "crowdin:upload": "crowdin upload sources --auto-update --config ./crowdin.yaml",
+    "crowdin:upload": "crowdin upload sources --config ./crowdin.yaml",
     "crowdin:download": "crowdin download --verbose --config ./crowdin.yaml",
     "crowdin:sync": "pnpm crowdin:upload && pnpm crowdin:download",
     "local:registry": "pnpm --filter ...@verdaccio/local-publish start",
