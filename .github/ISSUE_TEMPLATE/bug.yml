@@ -25,7 +25,8 @@ body:
       description: What version of our software are you running?
       options:
         - 6.x (Stable)
-        - 8.x (Next)
+        - 7.x (Next)
+        - 9.x (Experimental)        
       default: 0
     validations:
       required: true
