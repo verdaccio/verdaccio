@@ -6,7 +6,11 @@ import { PassThrough, Readable, Transform } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
 import { URL } from 'node:url';
 
-import { getProxiesForPackage, hasProxyTo } from '@verdaccio/config';
+import {
+  DEFAULT_TARBALL_METADATA_MAX_SIZE_MB,
+  getProxiesForPackage,
+  hasProxyTo,
+} from '@verdaccio/config';
 import type { pluginUtils, searchUtils } from '@verdaccio/core';
 import {
   ANONYMOUS_USER,
@@ -32,7 +36,7 @@ import type {
 } from '@verdaccio/proxy';
 import { ProxyStorage, setupUpLinks, updateVersionsHiddenUpLinkNext } from '@verdaccio/proxy';
 import Search, { SEARCH_MAX_CANDIDATES } from '@verdaccio/search';
-import type { TarballDetails } from '@verdaccio/tarball';
+import type { TarballDetails, TarballMetadata } from '@verdaccio/tarball';
 import type { RequestOptions } from '@verdaccio/url';
 import {
   convertDistRemoteToLocalTarballUrls,
@@ -80,6 +84,7 @@ import {
 } from './lib/storage-utils';
 import { getVersion, isNewerVersion, removeLowerVersions } from './lib/versions-utils';
 import { StageStorage } from './stage-storage';
+import { TarballMetadataService } from './tarball-metadata';
 import { LocalStorage } from './local-storage';
 import type { IGetPackageOptionsNext, OwnerManifestBody } from './type';
 
@@ -97,11 +102,19 @@ class Storage {
   public readonly uplinks: ProxyInstanceList;
   private searchService: Search;
   private stageStorage: StageStorage | null = null;
+  private tarballMetadata: TarballMetadataService | null = null;
   public constructor(config: Config, logger: Logger) {
     this.config = config;
     this.logger = logger.child({ module: 'storage' });
     this.uplinks = setupUpLinks(config, this.logger);
     this.searchService = new Search(config, this.logger);
+    if (config.flags?.tarballMetadata) {
+      this.tarballMetadata = new TarballMetadataService({
+        maxSizeMB: config.tarball_metadata?.max_size_mb ?? DEFAULT_TARBALL_METADATA_MAX_SIZE_MB,
+        logger: this.logger,
+        onMetadata: (name, filename, metadata) => this.saveTarballStats(name, filename, metadata),
+      });
+    }
     this.filters = null;
     // @ts-ignore
     this.localStorage = null;
@@ -574,6 +587,49 @@ class Storage {
     });
 
     return localTarballStream;
+  }
+
+  /**
+   * Experimental (`flags.tarballMetadata`): the README inside a version's tarball,
+   * or undefined when the flag is off, the tarball has none or exceeds the size limit.
+   */
+  public async getTarballReadme(name: string, version: Version): Promise<string | undefined> {
+    if (this.tarballMetadata === null || typeof version?.dist?.tarball !== 'string') {
+      return undefined;
+    }
+    const filename = tarballUtils.extractTarballFromUrl(version.dist.tarball);
+    return this.tarballMetadata.getReadme(name, filename, (signal) =>
+      this.getTarball(name, filename, { signal })
+    );
+  }
+
+  private async saveTarballStats(
+    name: string,
+    filename: string,
+    { fileCount, unpackedSize }: TarballMetadata
+  ): Promise<void> {
+    const findVersion = (manifest: Manifest): Version | undefined =>
+      Object.values(manifest.versions ?? {}).find(
+        (version) =>
+          typeof version?.dist?.tarball === 'string' &&
+          tarballUtils.extractTarballFromUrl(version.dist.tarball) === filename
+      );
+    const hasStats = (version: Version): boolean =>
+      !isNil(version.dist.fileCount) && !isNil(version.dist.unpackedSize);
+
+    const cached = findVersion(await this.getPackageLocalMetadata(name));
+    if (!cached || hasStats(cached)) {
+      return;
+    }
+    await this.updatePackage(name, async (manifest: Manifest): Promise<Manifest> => {
+      const version = findVersion(manifest);
+      if (version && !hasStats(version)) {
+        version.dist.fileCount = fileCount;
+        version.dist.unpackedSize = unpackedSize;
+        debug('tarball stats saved for %o %o', name, filename);
+      }
+      return manifest;
+    });
   }
 
   public async getPackageByVersion(options: IGetPackageOptionsNext): Promise<Version> {
@@ -1444,6 +1500,7 @@ class Storage {
       await this.uploadTarball(name, tarballName, readable, {
         signal: options.signal,
       });
+      this.tarballMetadata?.schedule(name, tarballName, async () => Readable.from(buffer));
     } catch (err: any) {
       this.logger.error({ err }, 'upload tarball has failed: @{err.message}');
       // TODO: undo if this fails
