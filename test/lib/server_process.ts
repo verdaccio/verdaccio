@@ -1,5 +1,6 @@
 import { ForkOptions, fork } from 'child_process';
 import debug from 'debug';
+import { cp } from 'fs/promises';
 import path from 'path';
 
 import { fileUtils } from '@verdaccio/core';
@@ -24,6 +25,10 @@ export default class VerdaccioProcess implements IServerProcess {
   public async init(verdaccioPath = '../../bin/verdaccio'): Promise<[VerdaccioProcess, number]> {
     log('creating temporary storage path...');
     const store = await fileUtils.createTempStorageFolder('server-test');
+    await cp(this.config.storagePath, store, {
+      recursive: true,
+      filter: (src) => path.basename(src) !== '.verdaccio-db.json',
+    });
     this.config.storagePath = store;
     log(`storage path set to: %s`, store);
 
@@ -38,6 +43,8 @@ export default class VerdaccioProcess implements IServerProcess {
       const options: ForkOptions = {
         silent: !this.silence,
         stdio: this.silence ? 'ignore' : 'inherit',
+        // parallel forks must not share the config's storage folder
+        env: { ...process.env, VERDACCIO_STORAGE_PATH: this.config.storagePath },
       };
 
       log('forking Verdaccio CLI from: %s', cliPath);
