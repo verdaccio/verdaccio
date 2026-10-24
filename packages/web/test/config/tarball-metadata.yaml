@@ -1,0 +1,30 @@
+auth:
+  auth-memory:
+    users:
+      test:
+        name: test
+        password: test
+
+web:
+  title: verdaccio
+
+uplinks:
+  remote:
+    url: https://registry.tarball.test/
+    retry: 0
+
+log: { type: stdout, format: pretty, level: trace }
+
+packages:
+  'private-*':
+    access: $authenticated
+    publish: $anonymous
+  'remote-*':
+    access: $anonymous
+    proxy: remote
+  '**':
+    access: $anonymous
+    publish: $anonymous
+
+flags:
+  tarballMetadata: true
