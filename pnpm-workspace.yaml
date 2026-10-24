@@ -31,8 +31,8 @@ minimumReleaseAgeExclude:
   - vitest@4.1.11
   # Renovate security update: js-yaml@5.4.1
   - js-yaml@5.4.1
-  # Renovate security update: dompurify@3.4.16
-  - dompurify@3.4.16
+  # Renovate security update: dompurify@3.4.16 || 3.4.17
+  - dompurify@3.4.16 || 3.4.17
   # Renovate security update: handlebars@4.7.10
   - handlebars@4.7.10
   # Renovate security update: vite@8.2.4
