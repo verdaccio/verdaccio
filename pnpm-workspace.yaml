@@ -9,8 +9,6 @@ minimumReleaseAgeExclude:
   - '@verdaccio/*'
   - '@verdaccio-scope/*'
   - 'verdaccio-*'
-  # Renovate security update: vitest@4.1.11
-  - vitest@4.1.11
 ignoreScripts: true
 saveExact: true
 preferFrozenLockfile: true
