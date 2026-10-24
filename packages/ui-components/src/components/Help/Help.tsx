@@ -106,8 +106,8 @@ export const HelpGuide: React.FC<{ withWaitStep?: boolean; labelledBy?: string }
   const setupTabs = SETUP_TABS.filter(
     (tab) => tab === NPMRC || configOptions.pkgManagers?.includes(tab)
   );
-  const hasBun = configOptions.pkgManagers?.includes('bun');
   const [setupTab, setSetupTab] = useState<SetupTab>(setupTabs[0]);
+  const isBun = setupTab === 'bun';
   const steps: { key: string; title: string; description?: string; body?: React.ReactNode }[] = [
     {
       key: 'configure',
@@ -153,7 +153,7 @@ export const HelpGuide: React.FC<{ withWaitStep?: boolean; labelledBy?: string }
             dataTestId="help-login-command"
             text={t('help.first-step-command-line', { registryUrl })}
           />
-          {hasBun && (
+          {isBun && (
             <Typography color="text.secondary" sx={{ mt: 1 }} variant="body2">
               {t('help.steps.login.bun-note')}
             </Typography>
@@ -166,19 +166,16 @@ export const HelpGuide: React.FC<{ withWaitStep?: boolean; labelledBy?: string }
     key: 'publish',
     title: t('help.steps.publish.title'),
     description: t('help.steps.publish.description'),
-    body: (
-      <>
-        <Command
-          dataTestId="help-publish-command"
-          text={t('help.second-step-command-line', { registryUrl })}
-        />
-        {hasBun && (
-          <Command
-            dataTestId="help-publish-command-bun"
-            text={getCLISetRegistry('bun publish', registryUrl)}
-          />
-        )}
-      </>
+    body: isBun ? (
+      <Command
+        dataTestId="help-publish-command-bun"
+        text={getCLISetRegistry('bun publish', registryUrl)}
+      />
+    ) : (
+      <Command
+        dataTestId="help-publish-command"
+        text={t('help.second-step-command-line', { registryUrl })}
+      />
     ),
   });
   if (withWaitStep) {

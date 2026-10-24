@@ -49,14 +49,23 @@ describe('<Help /> component', () => {
     expect(screen.getByText(`registry=${REGISTRY}`)).toBeInTheDocument();
   });
 
-  test('shows bun setup, publish and login note only when bun is configured', () => {
+  test('shows bun publish and the login note only while the bun tab is selected', () => {
     renderWith(<Help />, { login: true, pkgManagers: ['npm', 'bun'], base: REGISTRY });
-    expect(screen.getByText(`bun publish --registry ${REGISTRY}`)).toBeInTheDocument();
-    expect(screen.getByText('help.steps.login.bun-note')).toBeInTheDocument();
+    expect(screen.getByTestId('help-publish-command')).toBeInTheDocument();
+    expect(screen.queryByTestId('help-publish-command-bun')).not.toBeInTheDocument();
+    expect(screen.queryByText('help.steps.login.bun-note')).not.toBeInTheDocument();
+
     fireEvent.click(screen.getByTestId('help-setup-bun'));
     expect(
       screen.getByText(/\[install\] registry = "http:\/\/localhost:4873\/"/)
     ).toBeInTheDocument();
+    expect(screen.getByText(`bun publish --registry ${REGISTRY}`)).toBeInTheDocument();
+    expect(screen.queryByTestId('help-publish-command')).not.toBeInTheDocument();
+    expect(screen.getByText('help.steps.login.bun-note')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByTestId('help-setup-npm'));
+    expect(screen.queryByTestId('help-publish-command-bun')).not.toBeInTheDocument();
+    expect(screen.getByTestId('help-publish-command')).toBeInTheDocument();
   });
 
   test('replaces the guide with web.help and fills in the registry address', () => {
