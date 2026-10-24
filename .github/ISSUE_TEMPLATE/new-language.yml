@@ -1,0 +1,38 @@
+name: New UI Language 🌐
+description: Request a new language for the Verdaccio web UI.
+title: '[Language]: '
+labels: ['topic: translations', 'issue_needs_triage']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping translate Verdaccio! Once the language is enabled you can translate it on Crowdin; see [how to translate](https://github.com/verdaccio/verdaccio/blob/master/packages/ui-components/src/i18n/ABOUT_TRANSLATIONS.md).
+  - type: input
+    id: language
+    attributes:
+      label: Language
+      description: Name of the language, in English and in the language itself.
+      placeholder: ex. Korean (한국어)
+    validations:
+      required: true
+  - type: input
+    id: locale
+    attributes:
+      label: Locale code
+      description: The locale used by Crowdin, if you know it.
+      placeholder: ex. ko-KR
+  - type: dropdown
+    id: contribute
+    attributes:
+      label: Will you help translate it?
+      options:
+        - Yes, I will translate it
+        - I can help review translations
+        - No, I am only requesting it
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else?
+      description: Regional variants, terminology notes, or other people interested in helping.

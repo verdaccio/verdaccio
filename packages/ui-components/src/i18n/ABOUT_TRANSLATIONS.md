@@ -8,7 +8,7 @@ The web UI is translated by the community on [Crowdin](https://crowdin.com/proje
 
 ### Adding a new language
 
-1. If the language is not available in Crowdin, ask in the `#contribute` channel on [Discord](https://discord.gg/7qWJxBf) to enable it.
+1. If the language is not available in Crowdin, [open a new language request](https://github.com/verdaccio/verdaccio/issues/new?template=new-language.yml) to enable it.
 2. Add its name under `lng` in `packages/ui-components/src/i18n/crowdin/ui.json`, e.g. `{ "lng": { "korean": "Korean" } }`.
 3. Add the language, its flag and menu key to `packages/plugins/ui-theme/src/i18n/enabledLanguages.ts`.
 

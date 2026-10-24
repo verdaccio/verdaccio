@@ -384,9 +384,9 @@ All translations are provided by the **[crowdin](http://crowdin.com)** platform,
 
 If you want to contribute by adding translations, create an account (GitHub could be used as fast alternative), in the platform you can contribute to two areas, the website or improve User Interface translations.
 
-> Languages with less the 40% of translations available are excluded by the build system.
+The UI settings dialog shows how much of each language is translated.
 
-If a language is not listed, ask for it in the [Discord](https://discord.gg/7qWJxBf) channel #contribute channel.
+If a language is not listed, [open a new language request](https://github.com/verdaccio/verdaccio/issues/new?template=new-language.yml).
 
 For adding a new **language** on the UI follow these steps:
 
