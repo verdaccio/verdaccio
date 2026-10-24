@@ -213,11 +213,11 @@ importers:
         specifier: 13.15.10
         version: 13.15.10
       '@verdaccio/e2e-cli':
-        specifier: 4.0.0
-        version: 4.0.0(supports-color@5.5.0)
+        specifier: 4.0.1
+        version: 4.0.1(supports-color@5.5.0)
       '@verdaccio/e2e-ui':
-        specifier: 2.7.0
-        version: 2.7.0(cypress@16.2.0)
+        specifier: 2.8.0
+        version: 2.8.0(cypress@16.2.0)
       '@verdaccio/package-filter':
         specifier: workspace:*
         version: link:packages/plugins/package-filter
@@ -3803,12 +3803,12 @@ packages:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
     deprecated: Potential CWE-502 - Update to 1.3.1 or higher
 
-  '@verdaccio/e2e-cli@4.0.0':
-    resolution: {integrity: sha512-V+TCYJyIKybpIoHpY/uu30Uj9dZb4eyY3cyGfNgjhXuWGYXZ00l8pWdmfHZclR2aZKoqxJ3fXXPVAkeeFSiByg==}
+  '@verdaccio/e2e-cli@4.0.1':
+    resolution: {integrity: sha512-izSStmzZ9v+7zBkFe/5cno3Wsqy4SBSL6N9uKQttP23SD+xFlxHiP1tX9JlenjZGD/liuRX18PG8GDkAXMx7Aw==}
     hasBin: true
 
-  '@verdaccio/e2e-ui@2.7.0':
-    resolution: {integrity: sha512-mM1/oYqC3zu4cnkB9BajNQMcIkNyGFI4RCCakpaQ6X4+bW7f+DCUVcxcxXO02M7rD0TNm18fmAYbIcaAOXtLSw==}
+  '@verdaccio/e2e-ui@2.8.0':
+    resolution: {integrity: sha512-CevLiL+9SPGR+KWL6Tt6Toi9Grypt/fffPehyHMN93iJAGmvGcUCdSlYhxSMa8k9C05488lSn7cdAcF0/iLlYw==}
     peerDependencies:
       cypress: '>=12.0.0'
 
@@ -8720,7 +8720,7 @@ snapshots:
 
   '@ungap/structured-clone@1.2.0': {}
 
-  '@verdaccio/e2e-cli@4.0.0(supports-color@5.5.0)':
+  '@verdaccio/e2e-cli@4.0.1(supports-color@5.5.0)':
     dependencies:
       '@verdaccio/registry-cli': 1.1.0
       debug: 4.4.3(supports-color@5.5.0)
@@ -8729,7 +8729,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@verdaccio/e2e-ui@2.7.0(cypress@16.2.0)':
+  '@verdaccio/e2e-ui@2.8.0(cypress@16.2.0)':
     dependencies:
       cypress: 16.2.0
 
