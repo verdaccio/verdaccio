@@ -1,5 +1,9 @@
 # @verdaccio/core
 
+## 9.0.0-next-9.40
+
+No changes in this release.
+
 ## 9.0.0-next-9.39
 
 No changes in this release.
