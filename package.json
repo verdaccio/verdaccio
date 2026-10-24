@@ -112,7 +112,7 @@
     "@verdaccio/web": "9.0.0-next-9.36",
     "@vitest/coverage-v8": "4.1.2",
     "cross-env": "10.1.0",
-    "cypress": "15.10.0",
+    "cypress": "16.2.0",
     "fs-extra": "11.4.1",
     "get-port": "7.2.0",
     "kleur": "4.1.5",
