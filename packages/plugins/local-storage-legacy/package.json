@@ -64,12 +64,12 @@
     "sanitize-filename": "1.6.4"
   },
   "devDependencies": {
-    "@types/node": "22.20.1",
+    "@types/node": "22.20.5",
     "@verdaccio/types": "workspace:*",
     "minimatch": "10.2.6",
     "rmdir-sync": "1.0.1",
-    "vite": "8.2.4",
-    "vitest": "4.1.11"
+    "vite": "8.3.4",
+    "vitest": "4.1.12"
   },
   "engines": {
     "node": ">=22"

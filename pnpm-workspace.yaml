@@ -32,7 +32,7 @@ overrides:
   source-map-js: 1.2.2
   markdown-it: 14.3.1
   qs: 6.16.0
-  'js-yaml@^5.0.0': 5.4.1
+  'js-yaml@^5.0.0': 5.5.0
 auditConfig:
   ignoreGhsas:
     # braces: no patched release yet; only reached through globby with fixed '*' patterns

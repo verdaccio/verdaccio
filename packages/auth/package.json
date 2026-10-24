@@ -68,9 +68,9 @@
     "@verdaccio/middleware": "workspace:8.1.7",
     "@verdaccio/types": "workspace:13.0.6",
     "express": "4.22.3",
-    "supertest": "7.1.4",
-    "vite": "8.2.4",
-    "vitest": "4.1.11"
+    "supertest": "7.3.1",
+    "vite": "8.3.4",
+    "vitest": "4.1.12"
   },
   "engines": {
     "node": ">=22"
