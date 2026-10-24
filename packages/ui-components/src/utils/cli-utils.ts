@@ -44,8 +44,8 @@ export function getBunfigRegistry(scope: string | undefined, registryUrl: string
 export const MIN_RELEASE_AGE_DAYS = 3;
 
 /**
- * The config that keeps a client from installing versions newer than `days`, with `scope` exempt
- * (yarn gives the scope its own gate instead), in the file and unit each client reads.
+ * The config that keeps a client from installing versions newer than `days`, in the file and unit
+ * each client reads; npm and pnpm exempt `scope`, yarn gives it its own gate, bun cannot exempt a scope.
  */
 export function getMinReleaseAgeConfig(
   manager: string,

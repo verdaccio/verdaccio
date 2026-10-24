@@ -247,7 +247,7 @@
     "yarnBerryDetails": "Yarn Berry does not support the `--registry` flag, instead all configurarion should be defined on the `yarnrc.yaml` file in the root of your project. For more details, please visit [Yarn Berry](https://verdaccio.org/docs/cli-registry#yarn-berry-2x).",
     "minReleaseAge": {
       "title": "Minimum release age",
-      "description": "Skip versions published in the last {{days}} days, so a malicious release has time to be reported and removed before anyone installs it. Packages of {{scope}}, published here, stay exempt so your own releases install right away.",
+      "description": "Skip versions published in the last {{days}} days, so a malicious release has time to be reported and removed before anyone installs it. Where the client allows it, packages of {{scope}}, published here, stay exempt so your own releases install right away.",
       "npm": "npm 11.10 or newer; the scope exemption needs npm 12.",
       "pnpm": "minimumReleaseAge is in minutes.",
       "yarn": "Each scope can have its own gate under npmScopes (yarn 4.17 or newer); 0 turns it off for the scope.",

@@ -173,7 +173,9 @@ const Search: React.FC = () => {
     const OriginIcon = ORIGIN_ICONS[group as SearchOrigin];
     return (
       <li key={key}>
+        {/* a div: the default <li> would nest a list item inside the group's <li> */}
         <ListSubheader
+          component="div"
           data-testid={`search-group-${group}`}
           sx={{ display: 'flex', alignItems: 'center', gap: 1, lineHeight: '36px' }}
         >

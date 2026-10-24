@@ -238,6 +238,8 @@ describe('<Search /> component', () => {
         'search.group.cached',
         'search.group.remote',
       ]);
+      // the header sits inside the group's <li>, so it must not be a list item itself
+      groups.forEach((group) => expect(group.tagName).toBe('DIV'));
       expect(
         screen.getAllByRole('option').map((option) => option.querySelector('span')?.textContent)
       ).toEqual(['@verdaccio/ui-components', 'react', 'react-dom', 'react-router']);

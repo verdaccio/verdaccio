@@ -49,8 +49,8 @@ function CopyToClipBoard({ text, children, dataTestId, title, ...props }: Props)
   }, [copied]);
 
   const handleCopy = (event: React.SyntheticEvent<HTMLElement>) => {
-    copyToClipBoardUtility(text)(event);
-    setCopied(true);
+    // announce the copy only when the clipboard really changed
+    copyToClipBoardUtility(text)(event).then((ok) => setCopied(ok));
   };
 
   const button = (

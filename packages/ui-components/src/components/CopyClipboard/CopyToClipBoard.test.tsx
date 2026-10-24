@@ -49,12 +49,28 @@ describe('CopyToClipBoard component', () => {
     render(<CopyToClipBoard dataTestId={'copy-component'} text={'copy this'} title={'npm i'} />);
     const button = screen.getByTestId('copy-component');
     expect(button).toHaveAttribute('aria-label', 'npm i');
-    fireEvent.click(button);
+    await act(async () => {
+      fireEvent.click(button);
+    });
     expect(button).toHaveAttribute('aria-label', 'copy-to-clipboard-done');
     act(() => {
       vi.advanceTimersByTime(COPIED_FEEDBACK_MS);
     });
     expect(button).toHaveAttribute('aria-label', 'npm i');
     vi.useRealTimers();
+  });
+
+  test('does not confirm a copy that failed', async () => {
+    // the clipboard API refuses and the execCommand fallback copies nothing
+    vi.mocked(navigator.clipboard.writeText).mockImplementationOnce(() =>
+      Promise.reject(new Error('NotAllowedError'))
+    );
+    Object.assign(document, { execCommand: vi.fn().mockReturnValue(false) });
+    render(<CopyToClipBoard dataTestId={'copy-component'} text={'copy this'} title={'npm i'} />);
+    const button = screen.getByTestId('copy-component');
+    await act(async () => {
+      fireEvent.click(button);
+    });
+    expect(button).toHaveAttribute('aria-label', 'npm i');
   });
 });

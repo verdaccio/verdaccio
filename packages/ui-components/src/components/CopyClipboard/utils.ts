@@ -4,9 +4,9 @@ import type { SyntheticEvent } from 'react';
 // very common for LAN registries) `navigator.clipboard` is undefined. The
 // hidden-textarea approach needs no Selection/Range juggling — and
 // window.getSelection() can legitimately return null.
-function execCommandCopy(str: string): void {
+function execCommandCopy(str: string): boolean {
   if (!document.body) {
-    return;
+    return false;
   }
   const textarea = document.createElement('textarea');
   textarea.value = str;
@@ -16,18 +16,22 @@ function execCommandCopy(str: string): void {
   textarea.setAttribute('readonly', '');
   document.body.appendChild(textarea);
   textarea.select();
-  document.execCommand('copy');
+  const copied = document.execCommand?.('copy') ?? false;
   document.body.removeChild(textarea);
+  return copied;
 }
 
+/** Copies `str`; resolves to whether the clipboard actually changed. */
 export const copyToClipBoardUtility =
-  (str: string): ((e: SyntheticEvent<HTMLElement>) => void) =>
-  (event: SyntheticEvent<HTMLElement>): void => {
+  (str: string): ((e: SyntheticEvent<HTMLElement>) => Promise<boolean>) =>
+  (event: SyntheticEvent<HTMLElement>): Promise<boolean> => {
     event.preventDefault();
 
     if (navigator.clipboard?.writeText) {
-      navigator.clipboard.writeText(str).catch(() => execCommandCopy(str));
-    } else {
-      execCommandCopy(str);
+      return navigator.clipboard.writeText(str).then(
+        () => true,
+        () => execCommandCopy(str)
+      );
     }
+    return Promise.resolve(execCommandCopy(str));
   };
