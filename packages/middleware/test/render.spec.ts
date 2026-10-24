@@ -49,6 +49,10 @@ describe('test web server', () => {
             showSettings: true,
             showThemeSwitch: true,
             showFooter: true,
+            footer: 'Internal registry · [Support](https://verdaccio.org/docs/what-is-verdaccio)',
+            poweredBy: false,
+            help: '## Platform registry\nRun `npm config set registry {{registryUrl}}` first.\n',
+            showPackageListToolbar: true,
             showSearch: true,
             showDownloadTarball: true,
             darkMode: false,
@@ -67,6 +71,16 @@ describe('test web server', () => {
             language: 'en-US',
           })
         );
+      });
+
+      test('should default to bun in the package managers and no package list toolbar', async () => {
+        const {
+          window: { __VERDACCIO_BASENAME_UI_OPTIONS },
+        } = await render('default-test.yaml');
+        expect(__VERDACCIO_BASENAME_UI_OPTIONS.pkgManagers).toEqual(['yarn', 'pnpm', 'npm', 'bun']);
+        expect(__VERDACCIO_BASENAME_UI_OPTIONS.showPackageListToolbar).toBe(false);
+        expect(__VERDACCIO_BASENAME_UI_OPTIONS.footer).toBeUndefined();
+        expect(__VERDACCIO_BASENAME_UI_OPTIONS.help).toBeUndefined();
       });
 
       test('should render logo and favicon as file', async () => {
