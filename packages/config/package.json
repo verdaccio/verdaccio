@@ -63,7 +63,7 @@
   "devDependencies": {
     "@verdaccio/types": "workspace:13.0.6",
     "vite": "8.3.4",
-    "vitest": "4.1.12"
+    "vitest": "5.0.5"
   },
   "engines": {
     "node": ">=22"

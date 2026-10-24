@@ -27,7 +27,7 @@
   "devDependencies": {
     "@types/node": "^22.20.5",
     "verdaccio": "6.10.5",
-    "vitest": "^4.1.12"
+    "vitest": "^5.0.5"
   },
   "engines": {
     "node": ">=22"
