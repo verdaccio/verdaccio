@@ -42,7 +42,7 @@
     "globby": "11.1.0",
     "lodash-es": "4.18.1",
     "lowdb": "7.0.1",
-    "sanitize-filename": "1.6.3"
+    "sanitize-filename": "1.6.4"
   },
   "devDependencies": {
     "@types/lodash-es": "4.17.12",
