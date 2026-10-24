@@ -47,7 +47,7 @@
     "@verdaccio/logger": "workspace:8.1.6",
     "@verdaccio/middleware": "workspace:8.1.7",
     "@verdaccio/types": "workspace:13.0.6",
-    "body-parser": "1.20.8",
+    "body-parser": "1.20.9",
     "debug": "4.4.3",
     "express": "4.22.3",
     "fs-extra": "11.4.1",

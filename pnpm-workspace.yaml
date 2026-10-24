@@ -22,7 +22,7 @@ overrides:
   # Security: body-parser pins qs ~6.15, below the GHSA-4mjr-xmp4-gh2g fix
   'body-parser>qs': 6.16.0
   # Security: ajv resolves fast-uri in range, pin the fix for GHSA-jqff-g426-hqxp and the other 2026 fast-uri advisories
-  fast-uri: 3.1.8
+  fast-uri: 3.1.9
   # Security: launch-editor (changesets) pins shell-quote below the 1.11.0 fix
   shell-quote: 1.11.0
   # Security: transitive pins below the patched releases flagged by pnpm audit
@@ -30,9 +30,13 @@ overrides:
   proxy-addr: 2.0.8
   compression: 1.8.2
   source-map-js: 1.2.2
-  markdown-it: 14.3.1
+  markdown-it: 14.3.3
   qs: 6.16.0
   'js-yaml@^5.0.0': 5.5.0
+  # Security: pnpm audit advisories on handlebars, launch-editor and body-parser
+  handlebars: 4.7.10
+  launch-editor: 2.14.2
+  body-parser: 1.20.9
 auditConfig:
   ignoreGhsas:
     # braces: no patched release yet; only reached through globby with fixed '*' patterns
@@ -47,7 +51,7 @@ minimumReleaseAgeExclude:
   # Renovate security update: vite@8.0.16 || 8.2.4
   - vite@8.0.16 || 8.2.4
   # Security update: fast-uri GHSA-v2hh-gcrm-f6hx / GHSA-7p8r-x3mc-p8w7 (via ajv)
-  - fast-uri@3.1.6
+  - fast-uri@3.1.6 || 3.1.9
   # Security update: js-yaml GHSA-pm4m-ph32-ghv5 (DoS in flow collections)
   # (entries are matched by name first: a stale js-yaml@<old> entry above this
   # one would shadow it and reject the version — keep a single js-yaml entry) || 5.4.1
@@ -55,7 +59,7 @@ minimumReleaseAgeExclude:
   # Security update: js-yaml GHSA-5p4m-2wfm-xmqj (!!omap CPU consumption)
   - js-yaml@4.3.2
   # Security updates required by pnpm audit
-  - body-parser@1.20.6
+  - body-parser@1.20.6 || 1.20.9
   - qs@6.15.2
   - ws@8.21.0
   - shell-quote@1.11.0
