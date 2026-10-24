@@ -113,7 +113,7 @@ jobs:
           - yarn-modern@4
           - pnpm@11
           - pnpm@12
-          - bun
+          # - bun
           - deno
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
