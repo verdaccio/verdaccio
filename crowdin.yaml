@@ -8,3 +8,5 @@ preserve_hierarchy: true
 files:
   - source: /packages/ui-components/src/i18n/crowdin/*.json
     translation: '/packages/ui-components/src/i18n/download_translations/%locale%/%original_file_name%'
+    # only translated strings, so the UI can show each language's real progress
+    skip_untranslated_strings: true

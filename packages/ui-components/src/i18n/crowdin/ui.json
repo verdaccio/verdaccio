@@ -204,8 +204,9 @@
   },
   "language": {
     "title": "Translations",
-    "contribute": "If your language is not listed here or is not fully translated, please contribute to the translation. You can find the source code on [our main repository](https://github.com/verdaccio/verdaccio/blob/master/packages/plugins/ui-theme/src/i18n/ABOUT_TRANSLATIONS.md)",
-    "description": "This is the configuration details for the language. Select a language to select a client side translation."
+    "contribute": "Want to help translate? More languages can be added on request. [Here is how](https://github.com/verdaccio/verdaccio/blob/master/packages/ui-components/src/i18n/ABOUT_TRANSLATIONS.md).",
+    "description": "This is the configuration details for the language. Select a language to select a client side translation.",
+    "progress": "{{progress}}% translated"
   },
   "security": {
     "login": {

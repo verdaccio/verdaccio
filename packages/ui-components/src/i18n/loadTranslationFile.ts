@@ -8,10 +8,13 @@ const translationModules = import.meta.glob<Record<string, unknown>>(
 
 export const DEFAULT_TRANSLATION_LANGUAGE = 'en-US';
 
-/** Returns the UI strings for a language, falling back to English when it was not downloaded. */
+/**
+ * Returns the translated UI strings for a language. Crowdin only exports translated strings,
+ * so missing keys (or a language that was not downloaded) fall back to English through i18next.
+ */
 export function loadTranslationFile(lng: string): Record<string, unknown> {
   if (lng === DEFAULT_TRANSLATION_LANGUAGE) {
     return enTranslations;
   }
-  return translationModules[`./download_translations/${lng}/ui.json`] ?? enTranslations;
+  return translationModules[`./download_translations/${lng}/ui.json`] ?? {};
 }

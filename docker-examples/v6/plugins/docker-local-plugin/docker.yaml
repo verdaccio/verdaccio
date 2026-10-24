@@ -195,5 +195,5 @@ log: { type: stdout, format: pretty, level: http }
 
 # translate your registry, api i18n not available yet
 # i18n:
-# list of the available translations https://github.com/verdaccio/verdaccio/blob/master/packages/plugins/ui-theme/src/i18n/ABOUT_TRANSLATIONS.md
+# list of the available translations https://github.com/verdaccio/verdaccio/blob/master/packages/ui-components/src/i18n/ABOUT_TRANSLATIONS.md
 #   web: en-US
