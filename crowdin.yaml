@@ -6,7 +6,7 @@ api_token_env: CROWDIN_VERDACCIO_API_KEY
 preserve_hierarchy: true
 
 files:
-  - source: /packages/core/i18n/src/crowdin/*.json
-    translation: '/packages/core/i18n/src/download_translations/%locale%/%original_file_name%'
-  - source: /packages/plugins/ui-theme/src/i18n/crowdin/*.json
-    translation: '/packages/plugins/ui-theme/src/i18n/download_translations/%locale%/%original_file_name%'
+  - source: /packages/ui-components/src/i18n/crowdin/*.json
+    translation: '/packages/ui-components/src/i18n/download_translations/%locale%/%original_file_name%'
+    # only translated strings, so the UI can show each language's real progress
+    skip_untranslated_strings: true

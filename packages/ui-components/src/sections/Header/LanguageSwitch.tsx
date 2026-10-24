@@ -1,98 +1,103 @@
 import styled from '@emotion/styled';
+import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
+import CardActionArea from '@mui/material/CardActionArea';
 import Grid from '@mui/material/Grid';
+import LinearProgress from '@mui/material/LinearProgress';
 import Typography from '@mui/material/Typography';
 import i18next from 'i18next';
-import React, { useCallback, useState } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { Theme } from '../../';
 import { useLanguage } from '../../';
+import { DEFAULT_TRANSLATION_LANGUAGE } from '../../i18n/loadTranslationFile';
+import { getTranslationProgress } from '../../i18n/translationProgress';
 
-export const CardSelected = styled(Card)<{ theme?: Theme }>(({ theme }) => {
-  return {
-    backgroundColor: theme.palette.grey['600'],
-    opacity: '0.9',
-    color: theme.palette.error.contrastText,
-    fontWeight: 'bold',
-  };
+export const CardSelected = styled(Card)<{ theme?: Theme }>(({ theme }) => ({
+  backgroundColor: theme.palette.grey['600'],
+  color: theme.palette.error.contrastText,
+  fontWeight: 'bold',
+}));
+
+export const CardUnSelected = styled(Card)<{ theme?: Theme }>(({ theme }) => ({
+  ':hover': {
+    backgroundColor: theme.palette.greyGainsboro,
+  },
+}));
+
+const FlagIcon = styled('span')({
+  display: 'inline-flex',
+  flexShrink: 0,
+  width: 24,
+  '& svg': { width: '100%', height: 'auto' },
 });
 
-export const CardUnSelected = styled(Card)<{ theme?: Theme }>(({ theme }) => {
-  return {
-    cursor: 'pointer',
-    ':hover': {
-      backgroundColor: theme.palette.greyGainsboro,
-    },
-  };
-});
+type TranslationResources = Record<string, { translation?: Record<string, unknown> }>;
 
-const LanguageContent = ({ translation, icon }) => (
-  <>
-    <CardContent>
-      <Typography display="block" gutterBottom={true} variant="caption">
-        {translation}
+const LanguageContent = ({ name, icon: Icon, progress }) => {
+  const { t } = useTranslation();
+  return (
+    <Box sx={{ p: 1 }}>
+      <Box sx={{ alignItems: 'center', display: 'flex', gap: 1 }}>
+        <FlagIcon>
+          <Icon />
+        </FlagIcon>
+        <Typography noWrap={true} title={name} variant="body2">
+          {name}
+        </Typography>
+      </Box>
+      <Typography component="div" sx={{ mt: 0.5 }} variant="caption">
+        {t('language.progress', { progress })}
       </Typography>
-    </CardContent>
-    <CardContent>{icon}</CardContent>
-  </>
-);
+      <LinearProgress
+        aria-label={t('language.progress', { progress })}
+        color="inherit"
+        sx={{ borderRadius: 1, height: 3, opacity: 0.7 }}
+        value={progress}
+        variant="determinate"
+      />
+    </Box>
+  );
+};
 
 const LanguageSwitch = () => {
-  const { language, setLanguage, listLanguages } = useLanguage();
-  const listConverted = listLanguages.reduce(
-    (prev, item) => {
-      prev[item.lng] = {
-        translation: item.menuKey,
-        icon: item.icon,
-      };
-      return prev;
-    },
-    {} as Record<string, { translation: string; icon: any }>
-  );
-
-  const [languages] = useState<string[]>(Object.keys(i18next.options?.resources || {}));
+  const { language: currentLanguage, setLanguage, listLanguages } = useLanguage();
   const { t } = useTranslation();
-  const currentLanguage = language;
-  const getCurrentLngDetails = useCallback(
-    (language: string) => {
-      const lng = listConverted[language] || listConverted['en-US'];
+
+  const languages = useMemo(() => {
+    const resources = (i18next.options?.resources || {}) as TranslationResources;
+    const source = resources[DEFAULT_TRANSLATION_LANGUAGE]?.translation ?? {};
+    return Object.keys(resources).map((lng) => {
+      const item =
+        listLanguages.find((language) => language.lng === lng) ??
+        listLanguages.find((language) => language.lng === DEFAULT_TRANSLATION_LANGUAGE);
       return {
-        icon: <lng.icon />,
-        translation: t(lng.translation),
+        lng,
+        icon: item?.icon ?? (() => null),
+        menuKey: item?.menuKey ?? lng,
+        progress: getTranslationProgress(source, resources[lng]?.translation),
       };
-    },
-    [listConverted, t]
-  );
-  const handleChangeLanguage = useCallback(
-    (language: string) => {
-      setLanguage(language);
-    },
-    [setLanguage]
-  );
+    });
+  }, [listLanguages]);
 
   return (
-    <div>
-      <Grid columns={{ xs: 12, sm: 12, md: 12 }} container={true} spacing={{ xs: 1, md: 1 }}>
-        {languages.map((language, index) => {
-          const { icon, translation } = getCurrentLngDetails(language);
-          return (
-            <Grid key={index} size={{ sm: 2, xs: 6 }}>
-              {language === currentLanguage ? (
-                <CardSelected sx={{ maxWidth: 80 }}>
-                  <LanguageContent icon={icon} translation={translation} />
-                </CardSelected>
-              ) : (
-                <CardUnSelected onClick={() => handleChangeLanguage(language)}>
-                  <LanguageContent icon={icon} translation={translation} />
-                </CardUnSelected>
-              )}
-            </Grid>
-          );
-        })}
-      </Grid>
-    </div>
+    <Grid container={true} spacing={1} sx={{ mb: 2 }}>
+      {languages.map(({ lng, icon, menuKey, progress }) => {
+        const content = <LanguageContent icon={icon} name={t(menuKey)} progress={progress} />;
+        return (
+          <Grid key={lng} size={{ xs: 6, sm: 4, md: 3 }}>
+            {lng === currentLanguage ? (
+              <CardSelected aria-current="true">{content}</CardSelected>
+            ) : (
+              <CardUnSelected>
+                <CardActionArea onClick={() => setLanguage(lng)}>{content}</CardActionArea>
+              </CardUnSelected>
+            )}
+          </Grid>
+        );
+      })}
+    </Grid>
   );
 };
 

@@ -83,9 +83,6 @@
       "path": "packages/core/file-locking"
     },
     {
-      "path": "packages/core/i18n"
-    },
-    {
       "path": "packages/core/tarball"
     },
     {

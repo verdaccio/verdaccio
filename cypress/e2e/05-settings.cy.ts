@@ -9,7 +9,7 @@ const config = createRegistryConfig({
   features: {
     settings: {
       // The workspace ui-theme builds its bundle from
-      // packages/plugins/ui-theme/src/i18n without crowdin's
+      // packages/ui-components/src/i18n without crowdin's
       // download_translations/, so non-English locales fall back to
       // English at runtime. The language switcher click visibly does
       // nothing, which makes the upstream "should change the UI language"

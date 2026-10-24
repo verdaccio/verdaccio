@@ -24,9 +24,6 @@
   ],
   "references": [
     {
-      "path": "../core/i18n"
-    },
-    {
       "path": "../core/types"
     }
   ]

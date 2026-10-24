@@ -2,7 +2,7 @@ import * as Flags from 'country-flag-icons/react/3x2';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-import loadTranslation from '@verdaccio/ui-i18n';
+import { loadTranslationFile as loadTranslation } from '../../src/i18n/loadTranslationFile';
 
 const DEFAULT_LANGUAGE = 'en-US';
 

@@ -384,17 +384,17 @@ All translations are provided by the **[crowdin](http://crowdin.com)** platform,
 
 If you want to contribute by adding translations, create an account (GitHub could be used as fast alternative), in the platform you can contribute to two areas, the website or improve User Interface translations.
 
-> Languages with less the 40% of translations available are excluded by the build system.
+The UI settings dialog shows how much of each language is translated.
 
-If a language is not listed, ask for it in the [Discord](https://discord.gg/7qWJxBf) channel #contribute channel.
+If a language is not listed, [open a new language request](https://github.com/verdaccio/verdaccio/issues/new?template=new-language.yml).
 
 For adding a new **language** on the UI follow these steps:
 
 1. Ensure the **language** has been enabled, must be visible in the `crowdin` platform.
-2. Find in the explorer the file `en.US.json` in the path `packages/plugins/ui-theme/src/i18n/crowdin/ui.json` and complete the translations, **not need to find approval on this**.
-3. Into the project, add a new field into `packages/plugins/ui-theme/src/i18n/crowdin/ui.json` file, in the section `lng`, the new language, eg: `{ lng: {korean:"Korean"}}`. (This file is English based, once the PR has been merged, this string will be available in crowdin for translate to the targeted language).
+2. Find in the explorer the file `ui.json` in the path `packages/ui-components/src/i18n/crowdin/ui.json` and complete the translations, **not need to find approval on this**.
+3. Into the project, add a new field into `packages/ui-components/src/i18n/crowdin/ui.json` file, in the section `lng`, the new language, eg: `{ lng: {korean:"Korean"}}`. (This file is English based, once the PR has been merged, this string will be available in crowdin for translate to the targeted language).
 4. Add the language, [flag icon](https://www.npmjs.com/package/country-flag-icons), and the menu key for the new language eg: `menuKey: 'lng.korean'` to the file `packages/plugins/ui-theme/src/i18n/enabledLanguages.ts`.
-5. For local testing, read `packages/plugins/ui-theme/src/i18n/ABOUT_TRANSLATIONS.md`.
+5. For local testing, read `packages/ui-components/src/i18n/ABOUT_TRANSLATIONS.md`.
 6. Add a `changeset` file, see more info below.
 
 ## Develop Plugins {#develop-plugins}

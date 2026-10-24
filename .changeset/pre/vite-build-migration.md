@@ -19,7 +19,6 @@
 '@verdaccio/tarball': major
 '@verdaccio/test-helper': major
 '@verdaccio/ui-components': major
-'@verdaccio/ui-i18n': major
 '@verdaccio/url': major
 '@verdaccio/web': major
 'verdaccio': major

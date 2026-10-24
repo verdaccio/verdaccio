@@ -18,9 +18,6 @@ export default defineConfig({
       'verdaccio-ui/components': path.resolve(import.meta.dirname, './src/components'),
       'verdaccio-ui/utils': path.resolve(import.meta.dirname, './src/utils'),
       'verdaccio-ui/providers': path.resolve(import.meta.dirname, './src/providers'),
-      // Swap @verdaccio/ui-i18n for a Vite-native loader that uses import.meta.glob
-      // instead of the CJS require()-based implementation in the published package.
-      '@verdaccio/ui-i18n': path.resolve(import.meta.dirname, './src/i18n/loadTranslationFile.ts'),
       // react-markdown v9 is ESM-only, mock it for Node.js 18 compatibility
       'react-markdown': path.resolve(import.meta.dirname, './vitest/react-markdown-mock.js'),
     },

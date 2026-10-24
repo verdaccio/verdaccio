@@ -6,7 +6,6 @@
 'verdaccio-auth-memory': patch
 '@verdaccio/ui-components': patch
 '@verdaccio/ui-theme': patch
-'@verdaccio/ui-i18n': patch
 ---
 
 Move the Change Password option from the login form to the signed-in user's account menu.

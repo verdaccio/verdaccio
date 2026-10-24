@@ -60,3 +60,6 @@ export * from './hooks';
 // others
 export * from './Theme';
 export { api } from './store';
+
+// i18n
+export { loadTranslationFile, DEFAULT_TRANSLATION_LANGUAGE } from './i18n/loadTranslationFile';

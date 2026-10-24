@@ -1,7 +1,6 @@
 ---
 '@verdaccio/ui-components': patch
 '@verdaccio/ui-theme': patch
-'@verdaccio/ui-i18n': patch
 '@verdaccio/web': patch
 ---
 

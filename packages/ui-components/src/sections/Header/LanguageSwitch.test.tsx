@@ -15,8 +15,14 @@ i18n.use(initReactI18next).init({
   fallbackLng: 'en-US',
   load: 'currentOnly',
   resources: {
-    'en-US': { translation: { 'lng.english': 'English', 'lng.spanish': 'Spanish' } },
-    'es-ES': { translation: {} },
+    'en-US': {
+      translation: {
+        'lng.english': 'English',
+        'lng.spanish': 'Spanish',
+        'language.progress': '{{progress}}% translated',
+      },
+    },
+    'es-ES': { translation: { 'lng.english': 'Inglés' } },
   },
   debug: false,
   showSupportNotice: false,
@@ -53,6 +59,12 @@ describe('<LanguageSwitch />', () => {
     expect(screen.getByText('Spanish')).toBeInTheDocument();
     expect(screen.getByTestId('icon-en')).toBeInTheDocument();
     expect(screen.getByTestId('icon-es')).toBeInTheDocument();
+  });
+
+  test('should show how much of each language is translated', () => {
+    renderSwitch();
+    expect(screen.getByText('100% translated')).toBeInTheDocument();
+    expect(screen.getByText('33% translated')).toBeInTheDocument();
   });
 
   test('should switch and persist the language when clicking another card', async () => {

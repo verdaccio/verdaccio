@@ -1,7 +1,7 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-import loadTranslationFile from '@verdaccio/ui-i18n';
+import { loadTranslationFile } from '@verdaccio/ui-components';
 
 import type { LanguageConfiguration } from './enabledLanguages';
 import { DEFAULT_LANGUAGE, listLanguages, listLanguagesAsString } from './enabledLanguages';
