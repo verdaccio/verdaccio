@@ -204,27 +204,18 @@ export const HelpGuide: React.FC<{ withWaitStep?: boolean; labelledBy?: string }
   }
 
   return (
-    <>
-      <StepList aria-labelledby={labelledBy} data-testid="help-guide">
-        {steps.map((step, index) => (
-          <HelpStep
-            description={step.description}
-            index={index + 1}
-            key={step.key}
-            title={step.title}
-          >
-            {step.body}
-          </HelpStep>
-        ))}
-      </StepList>
-      {/* @ts-ignore - Alert does accept children despite the type error */}
-      <Alert data-testid="help-uplinks-note" severity="info" sx={{ mt: 3 }}>
-        {t('help.uplinks-note')}{' '}
-        <Link href={DOCS_UPLINKS_URL} rel="noopener noreferrer" target="_blank">
-          {t('help.uplinks-link')}
-        </Link>
-      </Alert>
-    </>
+    <StepList aria-labelledby={labelledBy} data-testid="help-guide">
+      {steps.map((step, index) => (
+        <HelpStep
+          description={step.description}
+          index={index + 1}
+          key={step.key}
+          title={step.title}
+        >
+          {step.body}
+        </HelpStep>
+      ))}
+    </StepList>
   );
 };
 
@@ -265,6 +256,13 @@ const Help: React.FC = () => {
           </Box>
         </Box>
         <HelpGuide labelledBy="help-card__title" withWaitStep={true} />
+        {/* @ts-ignore - Alert does accept children despite the type error */}
+        <Alert data-testid="help-uplinks-note" severity="info" sx={{ mt: 3 }}>
+          {t('help.uplinks-note')}{' '}
+          <Link href={DOCS_UPLINKS_URL} rel="noopener noreferrer" target="_blank">
+            {t('help.uplinks-link')}
+          </Link>
+        </Alert>
       </CardContent>
       <CardActions sx={{ px: { xs: 2, sm: 4 }, pb: 3 }}>
         <DocsLink dataTestId="help-docs-link" />

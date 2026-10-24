@@ -17,6 +17,7 @@ describe('<HeaderSettingsDialog /> publishing tab', () => {
     expect(within(panel).getAllByRole('listitem')).toHaveLength(3);
     expect(within(panel).getByText('help.second-step-command-line')).toBeInTheDocument();
     expect(within(panel).queryByText('help.steps.wait.title')).not.toBeInTheDocument();
+    expect(within(panel).queryByTestId('help-uplinks-note')).not.toBeInTheDocument();
     // the documentation link lives once in the dialog footer, not in each tab
     expect(within(panel).queryByText('button.learn-more')).not.toBeInTheDocument();
     expect(screen.getByTestId('registryInfo--dialog-docs')).toHaveAttribute(
