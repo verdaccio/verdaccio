@@ -38,7 +38,7 @@ function TabPanel(props) {
       role="tabpanel"
       {...other}
     >
-      {value === index && <Box sx={{ paddingTop: 3 }}>{children}</Box>}
+      {value === index && <Box sx={{ paddingTop: 3, paddingBottom: 3 }}>{children}</Box>}
     </div>
   );
 }
