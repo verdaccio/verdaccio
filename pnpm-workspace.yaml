@@ -33,6 +33,8 @@ minimumReleaseAgeExclude:
   - handlebars@4.7.10
   # Renovate security update: storybook@10.6.2
   - storybook@10.6.2
+  # Security update: body-parser@2.4.0 (GHSA-27r3-jxmh-p828)
+  - body-parser@2.4.0
 
 # Force the esbuild security patch (>= 0.28.1) across the whole tree.
 # See GHSA-gv7w-rqvm-qjhr (RCE via NPM_CONFIG_REGISTRY, fixed in 0.28.1).
@@ -48,6 +50,9 @@ overrides:
   # compression DoS via memory leak on premature response close, reached through express.
   # See GHSA-vc2v-76pw-4v95 (fixed in 1.8.2).
   compression: '>=1.8.2'
+  # body-parser DoS via trailing bytes after a compressed request body, reached through express.
+  # See GHSA-27r3-jxmh-p828 (fixed in 2.4.0).
+  body-parser: '>=2.4.0'
 saveExact: true
 ignoreScripts: true
 preferFrozenLockfile: true
