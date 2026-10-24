@@ -265,7 +265,7 @@ unless a maintainer has labelled the PR `skip changeset`.
   what registry operators read at upgrade time and the only place the change
   is explained for them. Lead with the user-visible effect in one sentence,
   for example `Fix the registry process crashing during concurrent tarball
-downloads.`, then explain it fully: what triggered it, what changed and
+  downloads.`, then explain it fully: what triggered it, what changed and
   how it behaves now, anything the operator must do (config, migration,
   version to upgrade from), and, for a bug, which versions were affected.
   Several paragraphs are fine when the change warrants them. No file list,

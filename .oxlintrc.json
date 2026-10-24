@@ -39,6 +39,8 @@
     "typescript/consistent-type-imports": "warn",
     "typescript/ban-ts-comment": "off",
     "typescript/no-this-alias": "warn",
+    "react/refs": "warn",
+    "react/set-state-in-effect": "warn",
     "typescript/no-explicit-any": "off",
     "typescript/no-require-imports": "off",
     "typescript/no-empty-object-type": "off",

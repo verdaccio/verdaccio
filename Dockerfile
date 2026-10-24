@@ -1,4 +1,4 @@
-FROM --platform=${BUILDPLATFORM:-linux/amd64} node:24-alpine AS builder
+FROM --platform=${BUILDPLATFORM:-linux/amd64} node:26-alpine AS builder
 
 ENV NODE_ENV=development \
     VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org
@@ -15,7 +15,7 @@ RUN npm -g i corepack && \
     pnpm run build && \
     pnpm --filter verdaccio --prod --legacy deploy /opt/verdaccio-deploy
 
-FROM node:24-alpine
+FROM node:26-alpine
 LABEL maintainer="https://github.com/verdaccio"
 
 ENV VERDACCIO_APPDIR=/opt/verdaccio \

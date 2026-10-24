@@ -15,7 +15,7 @@
 #
 #   docker build -f packages/tools/Dockerfile -t verdaccio/ci-test:local . --no-cache
 
-FROM node:24-alpine
+FROM node:26-alpine
 
 # development deps are needed to build and test the packages
 ENV NODE_ENV=development \

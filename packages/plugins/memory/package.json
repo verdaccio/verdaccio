@@ -32,7 +32,7 @@
   "dependencies": {
     "@verdaccio/core": "workspace:9.0.0-next-9.36",
     "debug": "4.4.3",
-    "memfs": "4.17.2"
+    "memfs": "4.80.0"
   },
   "devDependencies": {
     "@verdaccio/config": "workspace:9.0.0-next-9.36",
@@ -40,14 +40,14 @@
     "@verdaccio/plugin-verifier": "workspace:1.0.0-next-9.32",
     "cross-env": "10.1.0",
     "rimraf": "6.1.3",
-    "vite": "8.2.4",
-    "vitest": "4.1.11"
+    "vite": "8.3.4",
+    "vitest": "5.0.5"
   },
   "scripts": {
     "clean": "rimraf ./build",
     "build": "vite build",
     "watch": "vite build --watch",
-    "test": "cross-env NODE_ENV=test vitest run"
+    "test": "cross-env NODE_ENV=test vitest run --fsModuleCachePath node_modules/.vitest-cache"
   },
   "funding": {
     "type": "opencollective",
