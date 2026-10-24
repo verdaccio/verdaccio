@@ -42,9 +42,22 @@ web:
   # In combination with darkMode you can force specific theme
   # showThemeSwitch: true
   # showFooter: true
+  # Replace the footer message with markdown: text, links and images
+  # footer: 'Need help? Read the [registry guide](https://verdaccio.org/docs/cli-registry)'
+  # Hide the "Powered by" link with false, or replace it with markdown (text, links, images)
+  # poweredBy: false
+  # Replace the welcome card shown while the registry is empty with markdown;
+  # {{registryUrl}} is replaced with the address of the registry
+  # help: |
+  #   ## Platform registry
+  #   Run `npm config set registry {{registryUrl}}`, then read the
+  #   [registry guide](https://verdaccio.org/docs/cli-registry).
+  # false hides the search box and disables the web search endpoint (npm search is not affected)
   # showSearch: true
   # showRaw: true
   # showDownloadTarball: true
+  # Filter, scope and sort bar above the package list of the home page (off by default)
+  # showPackageListToolbar: false
   # showUplinks: true
   #
   # HTML tags injected before ends </head>
