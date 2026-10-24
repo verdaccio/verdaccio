@@ -259,15 +259,17 @@ describe.each(['publish-failure', '@scope/publish-failure'])('HTTP publishing of
         });
       } else {
         const save = LocalFS.prototype.savePackage;
-        vi.spyOn(LocalFS.prototype, 'savePackage').mockImplementation(
-          async function (this: LocalFS, name, data) {
-            if (data._attachments[filename]) {
-              entered.resolve();
-              await release.promise;
-            }
-            return save.call(this, name, data);
+        vi.spyOn(LocalFS.prototype, 'savePackage').mockImplementation(async function (
+          this: LocalFS,
+          name,
+          data
+        ) {
+          if (data._attachments[filename]) {
+            entered.resolve();
+            await release.promise;
           }
-        );
+          return save.call(this, name, data);
+        });
       }
       const completed = vi.fn();
       const request = ctx.publish(metadata).then((response) => {

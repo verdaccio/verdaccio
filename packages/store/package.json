@@ -34,7 +34,7 @@
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "vitest run --testTimeout 20000",
+    "test": "vitest run --fsModuleCachePath node_modules/.vitest-cache --testTimeout 20000",
     "watch": "vite build --watch",
     "build": "vite build"
   },
@@ -58,10 +58,10 @@
     "@verdaccio/types": "workspace:14.0.0-next-9.17",
     "mockdate": "3.0.5",
     "nock": "13.5.6",
-    "node-mocks-http": "1.14.1",
+    "node-mocks-http": "1.18.1",
     "rimraf": "6.1.3",
-    "vite": "8.2.4",
-    "vitest": "4.1.11"
+    "vite": "8.3.4",
+    "vitest": "5.0.5"
   },
   "funding": {
     "type": "opencollective",

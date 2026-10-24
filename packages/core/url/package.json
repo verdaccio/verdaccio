@@ -38,14 +38,14 @@
     "validator": "13.15.35"
   },
   "devDependencies": {
-    "node-mocks-http": "1.14.1",
+    "node-mocks-http": "1.18.1",
     "rimraf": "6.1.3",
-    "vite": "8.2.4",
-    "vitest": "4.1.11"
+    "vite": "8.3.4",
+    "vitest": "5.0.5"
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "vitest run",
+    "test": "vitest run --fsModuleCachePath node_modules/.vitest-cache",
     "watch": "vite build --watch",
     "build": "vite build"
   },

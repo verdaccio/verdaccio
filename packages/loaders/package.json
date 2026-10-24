@@ -29,8 +29,8 @@
     "customprefix-auth": "workspace:4.0.0-next-9.1",
     "rimraf": "6.1.3",
     "verdaccio-auth-fake-plugin": "workspace:1.0.0-next-9.0",
-    "vite": "8.2.4",
-    "vitest": "4.1.11"
+    "vite": "8.3.4",
+    "vitest": "5.0.5"
   },
   "homepage": "https://verdaccio.org",
   "keywords": [
@@ -50,7 +50,7 @@
   "license": "MIT",
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "vitest run",
+    "test": "vitest run --fsModuleCachePath node_modules/.vitest-cache",
     "watch": "vite build --watch",
     "build": "vite build"
   },

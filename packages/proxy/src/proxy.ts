@@ -389,17 +389,7 @@ class ProxyStorage implements IProxy {
           this.last_request_time = Date.now();
         })
         .on<any>('response', (eventResponse) => {
-          const message = "@{!status}, req: '@{request.method} @{request.url}' (streaming)";
-          this.logger.http(
-            {
-              request: {
-                method: method,
-                url: uri,
-              },
-              status: eventResponse !== null ? eventResponse.statusCode : 'ERR',
-            },
-            message
-          );
+          this.logUplinkResponse(method, uri, eventResponse);
         })
         .on('downloadProgress', (progress) => {
           if (progress.total) {
@@ -438,6 +428,8 @@ class ProxyStorage implements IProxy {
       if (err.code === 'ERR_NON_2XX_3XX_RESPONSE') {
         const code = err.response.statusCode;
         debug('error code %s', code);
+        // got only emits `response` for the response the promise resolves with
+        this.logUplinkResponse(method, uri, err.response);
         if (code === HTTP_STATUS.NOT_FOUND) {
           throw errorUtils.getNotFound(API_ERROR.NOT_PACKAGE_UPLINK);
         }
@@ -454,6 +446,16 @@ class ProxyStorage implements IProxy {
       }
       throw err;
     }
+  }
+
+  private logUplinkResponse(method: string, uri: string, response: { statusCode: number } | null) {
+    this.logger.http(
+      {
+        request: { method, url: uri },
+        status: response !== null ? response.statusCode : 'ERR',
+      },
+      "@{!status}, req: '@{request.method} @{request.url}' (streaming)"
+    );
   }
 
   // FIXME: handle stream and retry
