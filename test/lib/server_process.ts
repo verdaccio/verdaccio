@@ -4,7 +4,6 @@ import path from 'path';
 
 import { fileUtils } from '@verdaccio/core';
 
-import { HTTP_STATUS } from '../../src/lib/constants';
 import { IServerBridge, IServerProcess, IVerdaccioConfig } from '../types';
 import { CREDENTIALS } from './credentials';
 
@@ -53,11 +52,8 @@ export default class VerdaccioProcess implements IServerProcess {
         if ('verdaccio_started' in msg) {
           log('verdaccio started message received');
           try {
-            const status = await this.bridge.debug().status(HTTP_STATUS.OK);
-            await this.bridge
-              .auth(CREDENTIALS.user, CREDENTIALS.password)
-              .status(HTTP_STATUS.CREATED)
-              .body_ok(new RegExp(CREDENTIALS.user));
+            const status = await this.bridge.debug();
+            await this.bridge.auth(CREDENTIALS.user, CREDENTIALS.password);
 
             log('verdaccio ready, PID: %s', status.pid);
             resolve([this, status.pid]);

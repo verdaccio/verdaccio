@@ -9,8 +9,6 @@ minimumReleaseAgeExclude:
   - '@verdaccio/*'
   - '@verdaccio-scope/*'
   - 'verdaccio-*'
-  # Renovate security update: vite@8.0.16
-  - vite@8.0.16
   # Renovate security update: vitest@4.1.11
   - vitest@4.1.11
 ignoreScripts: true
