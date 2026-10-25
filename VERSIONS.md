@@ -24,7 +24,7 @@ Verdaccio `7.0.0` was released on 2026-10-25 and is the current stable line: it 
 
 ### About 6.x (maintenance)
 
-With the release of 7.0.0, 6.x moved to maintenance. It receives **security fixes only** for **8 months** after that release, until **2027-06-25**; no new features or regular bug fixes land on 6.x. Releases are published under the `latest-6` npm tag and the `6`, `6.x` and `6.x.x` Docker tags. Plan the upgrade to 7.x before that date; the [migration guide](#migration-guide) covers the breaking changes.
+With the release of 7.0.0, 6.x moved to maintenance. It is guaranteed **security fixes** for **8 months** after that release, until **2027-06-25**. Other fixes may still land on 6.x, but they are not guaranteed, and new development happens on 7.x. Releases are published under the `latest-6` npm tag and the `6`, `6.x` and `6.x.x` Docker tags. Plan the upgrade to 7.x before that date; the [migration guide](#migration-guide) covers the breaking changes.
 
 ### About 8.x
 
