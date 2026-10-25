@@ -45,7 +45,7 @@ Area labels: `topic: *` (`proxy/uplinks`, `web`, `api`, `search`, `config`,
 (`publish`, `unpublish`, `owner`, `npm team`, `npm deprecate`), `Docker`, `helm`,
 `React`, `performance`.
 
-Release-line labels: `6.x branch (latest)` for the stable line, `7.x branch
+Release-line labels: `6.x branch (maintenance)` for the maintenance line, `7.x branch
 (next)` for `master`/9.x (the label predates 9.x and is the one in use). `4.x` and
 `5.x` are deprecated with no further development: a report against them gets
 `issue: wontfix` with a pointer to a supported version, not a release-line label.
@@ -140,7 +140,7 @@ applied (if you disagree, say so in the report instead), and swap
 `issue_needs_triage` out only when you apply the outcome:
 
 ```bash
-gh issue edit <n> --repo verdaccio/verdaccio --add-label "issue: bug" --add-label "topic: proxy/uplinks" --add-label "7.x branch (next)" --remove-label "issue_needs_triage"
+gh issue edit <n> --repo verdaccio/verdaccio --add-label "issue: bug" --add-label "topic: proxy/uplinks" --add-label "7.x branch (stable)" --remove-label "issue_needs_triage"
 ```
 
 If permissions block the change, report the intended labels and the error; do

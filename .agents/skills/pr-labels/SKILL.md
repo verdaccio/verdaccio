@@ -29,12 +29,12 @@ can add them.
 
 ## 1. Release-line label (always exactly one)
 
-| Base branch of the PR | Label                 |
-| --------------------- | --------------------- |
-| `master` (9.x)        | `7.x branch (next)`   |
-| `6.x`                 | `6.x branch (latest)` |
+| Base branch of the PR | Label                      |
+| --------------------- | -------------------------- |
+| `master` (9.x)        | `7.x branch (stable)`      |
+| `6.x`                 | `6.x branch (maintenance)` |
 
-`7.x branch (next)` is the label in use for `master`; it predates 9.x and was kept so
+`7.x branch (stable)` is the label in use for `master`; 9.x ships through the 7 binary, so
 the history stays searchable. A port PR to another branch takes that branch's label,
 not the original's. `4.x` and `5.x` are deprecated with no further development: no PR
 targets them and their labels (`4.x deprecated`, `5.x branch (legacy)`) are not used.
@@ -90,16 +90,16 @@ PR, see §3), `WIP`, `dev: do-not-merge`, `dev: blocked`.
 
 ## 4. Choosing — worked examples from the history
 
-- `perf(6.x): stop re-compressing tarballs…` → `performance` + `6.x branch (latest)`.
-- `feat: staged publishing and 2FA` → `dev: experiment` + `7.x branch (next)`.
-- `fix(search): include license in local results` → `topic: search` + `7.x branch (next)`.
-- `fix(logger): honor JSON sync…` → `issue: bug` + `topic: logging` + `7.x branch (next)`.
+- `perf(6.x): stop re-compressing tarballs…` → `performance` + `6.x branch (maintenance)`.
+- `feat: staged publishing and 2FA` → `dev: experiment` + `7.x branch (stable)`.
+- `fix(search): include license in local results` → `topic: search` + `7.x branch (stable)`.
+- `fix(logger): honor JSON sync…` → `issue: bug` + `topic: logging` + `7.x branch (stable)`.
 - `fix: emit tarball content-length before data flows` → `issue: bug` + `feat: storage` +
-  `plugin: local-storage` + `7.x branch (next)`.
+  `plugin: local-storage` + `7.x branch (stable)`.
 - `fix: tarball download reliability — uplink selection…` (large, multi-topic) →
   `issue: bug` + `feat: storage` + `topic: proxy/uplinks` + `performance` +
-  `7.x branch (next)`.
-- `chore: migrate pnpm to v12` → `dev: migration` + `7.x branch (next)` (+ `skip changeset`,
+  `7.x branch (stable)`.
+- `chore: migrate pnpm to v12` → `dev: migration` + `7.x branch (stable)` (+ `skip changeset`,
   added by a maintainer).
 - Workflow-only change → `dev: ci-build` + the release line.
 

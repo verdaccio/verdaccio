@@ -4,14 +4,14 @@
 
 The following table describes the versions of this project:
 
-| Version          | Supported          | Minimum Node.js | Branch | Npm Tag          | Docker Images           | Helm Charts | E2E Tests                                                          |
-| ---------------- | ------------------ | --------------- | ------ | ---------------- | ----------------------- | ----------- | ------------------------------------------------------------------ |
-| 4.x              | :x: (deprecated)   | 10              | 4.x    | latest-4         | (Not available)         | 3.x         | ❌                                                                 |
-| 5.x previous     | :x: (deprecated)   | 14              | 5.x    | latest-5         | (Not available)         | 4.0 - 4.18  | ❌                                                                 |
-| 6.x current      | :white_check_mark: | 22              | 6.x    | latest-6, latest | 6, 6.x, 6.x.x, 6.x-next | 4.19 - ...  | [e2e-tests/main](https://github.com/verdaccio/e2e-tests/tree/main) |
-| 7.x next         | :x:                | 24              | 7.x    | next-7           | 7.x-next                | n/a         | [e2e-tests/7.x](https://github.com/verdaccio/e2e-tests/tree/7.x)   |
-| 8.x              | :x: (skipped)      | 18              | 8.x    | next-8           | (none)                  | n/a         | ❌                                                                 |
-| 9.x experimental | :white_check_mark: | 24              | master | next-9           | nightly-master          | n/a         | master branch                                                      |
+| Version         | Supported                                                  | Minimum Node.js | Branch | Npm Tag  | Docker Images           | Helm Charts   | E2E Tests                                                          |
+| --------------- | ---------------------------------------------------------- | --------------- | ------ | -------- | ----------------------- | ------------- | ------------------------------------------------------------------ |
+| 4.x             | :x: (deprecated)                                           | 10              | 4.x    | latest-4 | (Not available)         | 3.x           | ❌                                                                 |
+| 5.x previous    | :x: (deprecated)                                           | 14              | 5.x    | latest-5 | (Not available)         | 4.0 - 4.18    | ❌                                                                 |
+| 6.x maintenance | :white_check_mark: (security fixes only, until 2027-06-25) | 22              | 6.x    | latest-6 | 6, 6.x, 6.x.x, 6.x-next | 4.19 - 4.35.x | [e2e-tests/main](https://github.com/verdaccio/e2e-tests/tree/main) |
+| 7.x current     | :white_check_mark:                                         | 24              | 7.x    | latest   | 7, 7.x, 7.x.x, 7.x-next | 7.x           | [e2e-tests/7.x](https://github.com/verdaccio/e2e-tests/tree/7.x)   |
+| 8.x             | :x: (skipped)                                              | 18              | 8.x    | next-8   | (none)                  | n/a           | ❌                                                                 |
+| 9.x next        | :white_check_mark:                                         | 24              | master | next-9   | nightly-master          | n/a           | master branch                                                      |
 
 ## Migration Guide
 
@@ -19,18 +19,26 @@ The migration from Verdaccio v5/v6 to v7 contains breaking changes. Refer to the
 
 For migrations from older versions to v5/6 refer to the [v5 migration guide](https://verdaccio.org/blog/2021/04/14/verdaccio-5-migration-guide/).
 
+### About 7.x
+
+Verdaccio `7.0.0` was released on 2026-10-25 and is the current stable line: it is what `npm install -g verdaccio` and `docker pull verdaccio/verdaccio` install, it receives bug fixes, new features and expedited security fixes, and it runs on the 9.x internal modules (`@verdaccio/*`). Nightly builds of the `7.x` branch are published as `7.x-next` on Docker Hub.
+
+### About 6.x (maintenance)
+
+With the release of 7.0.0, 6.x moved to maintenance. It receives **security fixes only** for **8 months** after that release, until **2027-06-25**; no new features or regular bug fixes land on 6.x. Releases are published under the `latest-6` npm tag and the `6`, `6.x` and `6.x.x` Docker tags. Plan the upgrade to 7.x before that date; the [migration guide](#migration-guide) covers the breaking changes.
+
 ### About 8.x
 
-Version 8.x has been skipped and will not have a public release. Its internal modules will continue to receive bug fixes while 6.x is still supported. No new features will be added to 8.x. Development continues directly on 9.x.
+Version 8.x has been skipped and will not have a public release. Its internal modules receive security fixes only, for as long as 6.x is in maintenance, since they are what 6.x depends on. No new features will be added to 8.x. Development continues directly on 9.x.
 
-### Experimental Versions
+### Next Versions
 
-Experimental versions (currently `9.x`) are not production-ready and are intended for testing and early feedback. Issues found on experimental releases—**including security-related ones**—are treated as regular bugs, not as security vulnerabilities, and they do not follow the expedited fix timeline reserved for supported stable versions.
+Next versions (currently `9.x`, npm tag `next-9`) are pre-releases: not production-ready, intended for testing and early feedback. Issues found on next releases—**including security-related ones**—are treated as regular bugs, not as security vulnerabilities, and they do not follow the expedited fix timeline reserved for supported stable versions.
 
-We still appreciate responsible disclosure for any sensitive findings on experimental versions through the [official security channel](./SECURITY.md), but please be aware that:
+We still appreciate responsible disclosure for any sensitive findings on next versions through the [official security channel](./SECURITY.md), but please be aware that:
 
-- Fixes will land on the experimental branch on a best-effort basis, with no guaranteed turnaround.
-- Expedited security releases are only issued for currently supported, non-experimental majors.
+- Fixes will land on the `master` branch on a best-effort basis, with no guaranteed turnaround.
+- Expedited security releases are only issued for stable majors (7.x) and, for security fixes, 6.x in maintenance.
 - The recommendation is always to run the latest supported stable version in production.
 
 ### Deprecated Versions

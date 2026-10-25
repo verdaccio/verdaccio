@@ -6,7 +6,7 @@ symlink to this file. Humans are welcome to follow it too; where it repeats
 
 ## What this branch is
 
-`master` is the **9.x experimental** line: the monorepo that produces every
+`master` is the **9.x next** line: the monorepo that produces every
 `@verdaccio/*` internal package, the `@verdaccio/ui-theme` web UI, and the
 `verdaccio` binary in `packages/verdaccio`. It publishes under the npm tag
 `next-9` and the Docker tag `nightly-master`. The support table, npm tags, and
@@ -15,12 +15,12 @@ security policy in [SECURITY.md](./SECURITY.md).
 
 The other branches of this repository:
 
-| Branch   | Role                                                                                                      |
-| -------- | --------------------------------------------------------------------------------------------------------- |
-| `master` | 9.x experimental. Source of truth for all `@verdaccio/*` packages and the UI theme. New features go here. |
-| `6.x`    | Current stable `verdaccio` (npm `latest`). Bug fixes only. Its `@verdaccio/*` internals come from `8.x`.  |
-| `7.x`    | Next major binary (npm `next-7`). Its `@verdaccio/*` internals come from `master`.                        |
-| `8.x`    | Internal modules consumed by 6.x. Bug fixes only, no public `verdaccio` release.                          |
+| Branch   | Role                                                                                                     |
+| -------- | -------------------------------------------------------------------------------------------------------- |
+| `master` | 9.x next. Source of truth for all `@verdaccio/*` packages and the UI theme. New features go here.        |
+| `6.x`    | Current stable `verdaccio` (npm `latest`). Bug fixes only. Its `@verdaccio/*` internals come from `8.x`. |
+| `7.x`    | Next major binary (npm `next-7`). Its `@verdaccio/*` internals come from `master`.                       |
+| `8.x`    | Internal modules consumed by 6.x. Bug fixes only, no public `verdaccio` release.                         |
 
 Rules that follow from this layout:
 
@@ -221,8 +221,8 @@ client depends on is still a contract.
   is one sentence. The changeset carries the user-facing detail; do not paste
   it into the body.
 - **Every PR carries labels**: exactly one release-line label, which is
-  `7.x branch (next)` for PRs against `master` (the label predates 9.x) and
-  `6.x branch (latest)` for `6.x`, plus one or more content labels (typically one
+  `7.x branch (stable)` for PRs against `master` (9.x ships through the 7 binary) and
+  `6.x branch (maintenance)` for `6.x`, plus one or more content labels (typically one
   to three). The
   [pr-labels](./.agents/skills/pr-labels/SKILL.md) skill has the taxonomy and
   worked examples; `gh label list --limit 300` is the current list, never

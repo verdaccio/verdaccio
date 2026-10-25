@@ -74,8 +74,8 @@ already fixed at the current head, or out of scope, and say which.
 - **Body**: brief, problem and approach only; no test plan or validation log, not a
   paste of the changeset, no AI attribution trailers or footers. A long body is a
   finding; a thin changeset is a bigger one.
-- **Labels**: exactly one release-line label (`7.x branch (next)` for `master`,
-  `6.x branch (latest)` for `6.x`) plus content labels that describe what the PR
+- **Labels**: exactly one release-line label (`7.x branch (stable)` for `master`,
+  `6.x branch (maintenance)` for `6.x`) plus content labels that describe what the PR
   touches (see the [pr-labels](../pr-labels/SKILL.md) skill). Missing labels are a
   finding. `security` is never yours to add; `AI assisted` belongs to the author or a
   maintainer, so on someone else's PR you mention it rather than apply it.

@@ -2,15 +2,22 @@
 
 ## Supported versions
 
-You can find details about the supported versions of Verdaccio in the [version history](https://github.com/verdaccio/verdaccio/blob/master/VERSIONS.md).
+| Line          | Status                       | Security fixes                                                               |
+| ------------- | ---------------------------- | ---------------------------------------------------------------------------- |
+| 7.x           | current stable (`latest`)    | yes, expedited releases                                                      |
+| 6.x           | maintenance                  | security fixes only, for 8 months after the 7.0.0 release (until 2027-06-25) |
+| 9.x           | next (`next-9`, pre-release) | treated as regular bugs, see below                                           |
+| 5.x and older | deprecated                   | no                                                                           |
 
-### Experimental versions
+The full table, including Node.js, npm tags and Docker images per line, is in the [version history](https://github.com/verdaccio/verdaccio/blob/master/VERSIONS.md).
 
-Issues reported against experimental versions (e.g. `9.x`) are treated as **bugs, not security vulnerabilities**. We still encourage you to share any sensitive findings through the official channel described below—responsible disclosure is always appreciated—but be aware that:
+### Next versions
 
-- Experimental versions do **not** receive expedited security fixes.
+Issues reported against next (pre-release) versions (e.g. `9.x`) are treated as **bugs, not security vulnerabilities**. We still encourage you to share any sensitive findings through the official channel described below—responsible disclosure is always appreciated—but be aware that:
+
+- Next versions do **not** receive expedited security fixes.
 - Patches land on a best-effort basis with no guaranteed timeline.
-- Coordinated security releases are only issued for currently supported, non-experimental majors.
+- Coordinated security releases are only issued for stable majors (7.x) and, for security fixes, 6.x in maintenance.
 
 If you are running Verdaccio in production, please use the latest supported stable version listed in [VERSIONS.md](https://github.com/verdaccio/verdaccio/blob/master/VERSIONS.md).
 
