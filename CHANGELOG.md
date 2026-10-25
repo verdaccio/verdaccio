@@ -1,5 +1,20 @@
 # Changelog
 
+## 7.0.1
+
+### Patch Changes
+
+- 449ad6b: Restore the `@verdaccio/package-filter` plugin in the `verdaccio` 7 package so the filter configuration works again.
+  
+  Verdaccio 7.0.0 shipped a default `config.yaml` (also the one inside the `verdaccio/verdaccio:7` Docker image) with the `filters: '@verdaccio/package-filter'` section enabled, but the package no longer declared the plugin as a dependency: it was dropped when the 7.x line moved to the published `@verdaccio/*` modules. On startup the plugin loader logged `package not found, try to install @verdaccio/package-filter with a package manager` and continued without it, so any `minAgeDays`, `dateThreshold` or `block` rules configured under `filters` were silently not enforced.
+  
+  The plugin is a dependency of `verdaccio` again, as it is on the 6.x line, and the startup error is gone. No configuration change is needed; installations that worked around the problem by commenting out the `filters` section can enable it again. Affected: `verdaccio@7.0.0` and the `verdaccio/verdaccio:7` Docker image.
+- 14aaded: Show the `verdaccio` package version in the web UI footer instead of the internal module version.
+  
+  `verdaccio@7.0.0` (and the `verdaccio/verdaccio:7` Docker image) displayed `9.0.0-next-9.40` in the bottom-right corner of the web UI. The 7 binary is a thin layer over the published `@verdaccio/*` 9.x modules, and `@verdaccio/server` filled the version shown by the UI from its own package while the command line and the startup log already reported the right one.
+  
+  This release updates the `@verdaccio/*` modules to `9.0.0-next-9.41`, whose `@verdaccio/server` lets the embedding binary set that value, and passes the `verdaccio` package version to it, so the UI now shows the same version as `verdaccio --version`. No configuration change is needed.
+
 ## 7.0.0
 
 ### Major Changes
