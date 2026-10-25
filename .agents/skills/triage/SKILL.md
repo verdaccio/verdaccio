@@ -53,8 +53,8 @@ Release-line labels: `6.x branch (maintenance)` for the maintenance line, `7.x b
 **Never apply `security`.** If the report describes a vulnerability on a
 supported line, do not discuss the vector in the issue; the report is to ask
 the reporter to follow [SECURITY.md](../../../SECURITY.md) and to tell the
-maintainer privately. On 9.x experimental a security finding is a regular bug
-(see VERSIONS.md), but still keep exploit detail out of public text.
+maintainer privately. This applies to 9.x too: the 7 binary runs the 9.x
+modules, so a finding there is a finding on the stable line.
 
 ### Release lines change what "reproduce" means
 

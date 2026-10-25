@@ -30,16 +30,6 @@ With the release of 7.0.0, 6.x moved to maintenance. It receives **security fixe
 
 Version 8.x has been skipped and will not have a public release. Its internal modules receive security fixes only, for as long as 6.x is in maintenance, since they are what 6.x depends on. No new features will be added to 8.x. Development continues directly on 9.x.
 
-### Next Versions
-
-Next versions (currently `9.x`, npm tag `next-9`) are pre-releases: not production-ready, intended for testing and early feedback. Issues found on next releases—**including security-related ones**—are treated as regular bugs, not as security vulnerabilities, and they do not follow the expedited fix timeline reserved for supported stable versions.
-
-We still appreciate responsible disclosure for any sensitive findings on next versions through the [official security channel](./SECURITY.md), but please be aware that:
-
-- Fixes will land on the `master` branch on a best-effort basis, with no guaranteed turnaround.
-- Expedited security releases are only issued for stable majors (7.x) and, for security fixes, 6.x in maintenance.
-- The recommendation is always to run the latest supported stable version in production.
-
 ### Deprecated Versions
 
 Deprecated versions aren’t supported anymore and shouldn’t be used in production. They don’t get updates—including security fixes—and we don’t run E2E tests on them.
