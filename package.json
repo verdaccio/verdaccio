@@ -80,6 +80,7 @@
     "@verdaccio/logger": "9.0.0-next-9.40",
     "@verdaccio/middleware": "9.0.0-next-9.40",
     "@verdaccio/node-api": "9.0.0-next-9.40",
+    "@verdaccio/package-filter": "14.0.0-next-9.64",
     "@verdaccio/proxy": "9.0.0-next-9.40",
     "@verdaccio/server": "9.0.0-next-9.40",
     "@verdaccio/store": "9.0.0-next-9.40",

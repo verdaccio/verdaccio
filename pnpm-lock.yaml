@@ -136,6 +136,9 @@ importers:
       '@verdaccio/node-api':
         specifier: 9.0.0-next-9.40
         version: 9.0.0-next-9.40(supports-color@8.1.1)
+      '@verdaccio/package-filter':
+        specifier: 14.0.0-next-9.64
+        version: 14.0.0-next-9.64(supports-color@8.1.1)
       '@verdaccio/proxy':
         specifier: 9.0.0-next-9.40
         version: 9.0.0-next-9.40(supports-color@8.1.1)
@@ -1388,6 +1391,10 @@ packages:
 
   '@verdaccio/node-api@9.0.0-next-9.40':
     resolution: {integrity: sha512-NhWGbAQd8vjL1ckRrzonPG55EqlcQqgZhuEK//RurPc514ODh1Nm0OXfB1iUeH2ZCbi6dhZs7Ky3PVU3Q3wQgQ==}
+    engines: {node: '>=24'}
+
+  '@verdaccio/package-filter@14.0.0-next-9.64':
+    resolution: {integrity: sha512-fFDZHdsyKhtJwg29j5ktHuTr0zKm59rIEpjVIodtI+w4HtTIvExzZwXjGVBbqcO5WHq5cbS9ADImxcZf+hHszg==}
     engines: {node: '>=24'}
 
   '@verdaccio/proxy@9.0.0-next-9.40':
@@ -4390,6 +4397,15 @@ snapshots:
       '@verdaccio/logger': 9.0.0-next-9.40(supports-color@8.1.1)
       debug: 4.4.3(supports-color@8.1.1)
       lodash-es: 4.18.1
+    transitivePeerDependencies:
+      - supports-color
+
+  '@verdaccio/package-filter@14.0.0-next-9.64(supports-color@8.1.1)':
+    dependencies:
+      '@verdaccio/core': 9.0.0-next-9.40
+      debug: 4.4.3(supports-color@8.1.1)
+      minimatch: 10.2.6
+      semver: 7.8.5
     transitivePeerDependencies:
       - supports-color
 
