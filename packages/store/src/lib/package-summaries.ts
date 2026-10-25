@@ -66,3 +66,36 @@ export class PackageSummaryCache {
     return this.entries.size;
   }
 }
+
+/** Index of the first entry greater than `name` in a sorted list. */
+export function indexAfter(sorted: readonly string[], name: string): number {
+  let low = 0;
+  let high = sorted.length;
+  while (low < high) {
+    const middle = (low + high) >>> 1;
+    if (sorted[middle] <= name) {
+      low = middle + 1;
+    } else {
+      high = middle;
+    }
+  }
+  return low;
+}
+
+/** The sorted list with `name` inserted; the same list when it is already there. */
+export function withName(sorted: readonly string[], name: string): readonly string[] {
+  const index = indexAfter(sorted, name);
+  if (sorted[index - 1] === name) {
+    return sorted;
+  }
+  return [...sorted.slice(0, index), name, ...sorted.slice(index)];
+}
+
+/** The sorted list without `name`; the same list when it is not there. */
+export function withoutName(sorted: readonly string[], name: string): readonly string[] {
+  const index = indexAfter(sorted, name) - 1;
+  if (index < 0 || sorted[index] !== name) {
+    return sorted;
+  }
+  return [...sorted.slice(0, index), ...sorted.slice(index + 1)];
+}

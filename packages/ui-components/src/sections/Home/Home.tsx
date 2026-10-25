@@ -1,3 +1,4 @@
+import Button from '@mui/material/Button';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router';
@@ -54,6 +55,21 @@ const Home: React.FC = () => {
     return <GenericError />;
   }
 
+  // a filter could match few rows and keep the end in view, so loading more becomes a click
+  const isFiltering = query !== '' || scope !== '';
+  const renderLoadMore = () =>
+    isFiltering && manifests.hasMore ? (
+      <Button
+        data-testid="package-list-load-more"
+        disabled={manifests.isLoadingMore}
+        onClick={manifests.loadMore}
+        sx={{ mt: 2 }}
+        variant="outlined"
+      >
+        {t('packageList.load-more')}
+      </Button>
+    ) : null;
+
   const renderList = () => {
     // without the toolbar the list keeps the server order: nothing on screen could change it
     if (packages.length <= 1 || configOptions.showPackageListToolbar === false) {
@@ -75,7 +91,7 @@ const Home: React.FC = () => {
         {visiblePackages.length > 0 ? (
           <PackageList
             key={`${query}|${scope}|${sort}`}
-            onEndReached={manifests.loadMore}
+            onEndReached={isFiltering ? undefined : manifests.loadMore}
             packages={visiblePackages}
           />
         ) : (
@@ -83,6 +99,7 @@ const Home: React.FC = () => {
             <NoItems text={t('packageList.no-match')} />
           </div>
         )}
+        {renderLoadMore()}
       </>
     );
   };

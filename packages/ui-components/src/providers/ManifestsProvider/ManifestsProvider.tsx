@@ -17,6 +17,9 @@ export interface ManifestsContextProps {
   manifests: ManifestWeb[];
   /** Fetches the next page of cached packages; a no-op when there is none or one is in flight. */
   loadMore: () => void;
+  /** Whether the registry holds cached packages beyond the pages loaded so far. */
+  hasMore: boolean;
+  isLoadingMore: boolean;
 }
 
 export interface Author {
@@ -36,10 +39,9 @@ export interface ManifestWeb extends Omit<Manifest, 'time' | 'author'> {
 }
 
 interface CachedPackagesPage {
-  total: number;
-  offset: number;
-  limit: number;
   packages: ManifestWeb[];
+  /** Cursor for the next page, `null` on the last one. */
+  next: string | null;
 }
 
 export const CACHED_PAGE_SIZE = 50;
@@ -64,13 +66,13 @@ const ManifestsProvider: React.FC<{ children: ReactElement; emptyRefreshMs?: num
 
   // the user is part of the key so a login starts over with what that user may see
   const cached = useSWRInfinite<CachedPackagesPage>(
-    (pageIndex, previous: CachedPackagesPage | null) => {
-      if (!showCached || (previous && previous.offset + previous.limit >= previous.total)) {
+    (_pageIndex, previous: CachedPackagesPage | null) => {
+      if (!showCached || previous?.next === null) {
         return null;
       }
-      const offset = pageIndex * CACHED_PAGE_SIZE;
+      const after = previous ? `&after=${encodeURIComponent(previous.next)}` : '';
       return [
-        `${basePath}${APIRoute.CACHED_PACKAGES}?offset=${offset}&limit=${CACHED_PAGE_SIZE}`,
+        `${basePath}${APIRoute.CACHED_PACKAGES}?limit=${CACHED_PAGE_SIZE}${after}`,
         userState?.username ?? '',
       ];
     },
@@ -80,8 +82,7 @@ const ManifestsProvider: React.FC<{ children: ReactElement; emptyRefreshMs?: num
   const { setSize, isValidating: isLoadingCached } = cached;
   const cachedPages = cached.data;
   const lastPage = cachedPages?.[cachedPages.length - 1];
-  const hasMoreCached =
-    showCached && !!lastPage && lastPage.offset + lastPage.limit < lastPage.total;
+  const hasMoreCached = showCached && !!lastPage && lastPage.next !== null;
 
   const loadMore = useCallback(() => {
     if (hasMoreCached && !isLoadingCached) {
@@ -107,6 +108,8 @@ const ManifestsProvider: React.FC<{ children: ReactElement; emptyRefreshMs?: num
       value={{
         manifests,
         loadMore,
+        hasMore: hasMoreCached,
+        isLoadingMore: hasMoreCached && isLoadingCached,
         isLoading: data.isLoading,
         // any error counts (network failures have no `.code`), but a failed
         // revalidation must not hide an already-cached, renderable list

@@ -81,7 +81,8 @@
     "sort-name": "Name",
     "sort-recent": "Recently published",
     "count": "{{shown}} of {{total}} packages",
-    "no-match": "No packages match the current filter."
+    "no-match": "No packages match the current filter.",
+    "load-more": "Load more packages"
   },
   "package": {
     "published-on": "Published {{time}}",

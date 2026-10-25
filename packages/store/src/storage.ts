@@ -4,7 +4,7 @@ import assert from 'node:assert';
 import { basename } from 'node:path';
 import { PassThrough, Readable, Transform } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
-import { setImmediate as yieldToEventLoop } from 'node:timers/promises';
+import { setTimeout as pause, setImmediate as yieldToEventLoop } from 'node:timers/promises';
 import { URL } from 'node:url';
 
 import { getProxiesForPackage, hasProxyTo } from '@verdaccio/config';
@@ -64,6 +64,8 @@ import {
   type PackageSummary,
   PackageSummaryCache,
   toPackageSummary,
+  withName,
+  withoutName,
 } from './lib/package-summaries';
 import { isPublishablePackage } from './lib/publish-utils';
 import {
@@ -94,10 +96,11 @@ const debug = buildDebug('verdaccio:storage');
 export const noSuchFile = 'ENOENT';
 export const resourceNotAvailable = 'EAGAIN';
 export const PROTO_NAME = '__proto__';
-// the cached-package scan walks the whole storage folder, so it is reused for a short while
-export const CACHED_NAMES_TTL_MS = 30_000;
+// the name index and the summaries follow this process's writes; the ttls only cover other instances
+export const CACHED_NAMES_TTL_MS = 5 * 60_000;
 export const PACKAGE_SUMMARIES_MAX = 50_000;
 export const PACKAGE_SUMMARIES_TTL_MS = 60 * 60_000;
+export const SUMMARY_WARMUP_PAUSE_MS = 10;
 
 class Storage {
   public localStorage: LocalStorage;
@@ -107,8 +110,8 @@ class Storage {
   public readonly uplinks: ProxyInstanceList;
   private searchService: Search;
   private stageStorage: StageStorage | null = null;
-  private cachedNames: { names: string[]; createdAt: number } | null = null;
-  private cachedNamesPending: Promise<string[]> | null = null;
+  private cachedNames: { names: readonly string[]; createdAt: number } | null = null;
+  private cachedNamesPending: Promise<readonly string[]> | null = null;
   private readonly packageSummaries = new PackageSummaryCache(
     PACKAGE_SUMMARIES_MAX,
     PACKAGE_SUMMARIES_TTL_MS
@@ -758,7 +761,7 @@ class Storage {
    * Names of the packages cached from uplinks (on storage but not published here), sorted.
    * Discovered through the storage plugin `search`; empty when the plugin does not implement it.
    */
-  public async getCachedPackageNames(): Promise<string[]> {
+  public async getCachedPackageNames(): Promise<readonly string[]> {
     const now = Date.now();
     if (this.cachedNames && now - this.cachedNames.createdAt < CACHED_NAMES_TTL_MS) {
       return this.cachedNames.names;
@@ -776,9 +779,9 @@ class Storage {
 
   /**
    * Summary of each cached package, in the given order; unreadable ones are skipped.
-   * Packuments are parsed once and the summary is reused until this process rewrites them.
+   * A packument is parsed only when its summary is missing or older than the time to live.
    */
-  public async getCachedPackagesSummaries(names: string[]): Promise<PackageSummary[]> {
+  public async getCachedPackagesSummaries(names: readonly string[]): Promise<PackageSummary[]> {
     const summaries: PackageSummary[] = [];
     for (const name of names) {
       const summary = this.packageSummaries.get(name) ?? (await this.loadPackageSummary(name));
@@ -789,23 +792,31 @@ class Storage {
     return summaries;
   }
 
-  /** Fills the summary cache for every cached package in the background, one packument at a time. */
+  /**
+   * Fills the summary cache once per process, paced in the background; writes keep it current after that.
+   * Skipped when the cache cannot hold every package.
+   */
   public warmCachedPackagesSummaries(): void {
     this.summariesWarmup ??= (async () => {
       const names = await this.getCachedPackageNames();
+      if (names.length > PACKAGE_SUMMARIES_MAX) {
+        this.logger.info(
+          { count: names.length, max: PACKAGE_SUMMARIES_MAX },
+          '@{count} cached packages exceed the @{max} summaries kept in memory, pages are read on demand'
+        );
+        return;
+      }
       for (const name of names) {
         if (!this.packageSummaries.get(name)) {
           await this.loadPackageSummary(name);
+          await pause(SUMMARY_WARMUP_PAUSE_MS);
         }
       }
       debug('cached package summaries warmed %o', this.packageSummaries.size);
-    })()
-      .catch((err) => {
-        this.logger.warn({ err: err?.message }, 'warming cached package summaries failed: @{err}');
-      })
-      .finally(() => {
-        this.summariesWarmup = null;
-      });
+    })().catch((err) => {
+      this.logger.warn({ err: err?.message }, 'warming cached package summaries failed: @{err}');
+      this.summariesWarmup = null;
+    });
   }
 
   private async loadPackageSummary(name: string): Promise<PackageSummary | null> {
@@ -820,22 +831,55 @@ class Storage {
       this.packageSummaries.set(name, summary);
       return summary;
     } catch (err: any) {
-      this.logger.warn(
-        { name, err: err?.message },
-        'cached package @{name} could not be listed: @{err}'
-      );
+      if (err?.status === HTTP_STATUS.NOT_FOUND) {
+        debug('cached package %o has no manifest to list', name);
+      } else {
+        this.logger.warn(
+          { name, err: err?.message },
+          'cached package @{name} could not be listed: @{err}'
+        );
+      }
       return null;
     }
   }
 
-  private forgetListedPackage(name: string, membershipChanged = false): void {
-    this.packageSummaries.delete(name);
-    if (membershipChanged) {
-      this.cachedNames = null;
+  /** Keeps the list current from the manifest just written, so no request has to parse it again. */
+  private async rememberWrittenPackage(name: string, manifest: Manifest): Promise<void> {
+    if (this.config.flags?.cachedPackages !== true) {
+      this.packageSummaries.delete(name);
+      return;
+    }
+    try {
+      const version = await this.getListedVersion(manifest);
+      if (version) {
+        this.packageSummaries.set(name, toPackageSummary(version as Version & { time?: string }));
+      } else {
+        this.packageSummaries.delete(name);
+      }
+      if (this.cachedNames) {
+        const privatePackages: string[] = await this.localStorage.getStoragePlugin().get();
+        if (!privatePackages.includes(name)) {
+          this.cachedNames.names = withName(this.cachedNames.names, name);
+        }
+      }
+    } catch (err: any) {
+      this.packageSummaries.delete(name);
+      this.logger.warn(
+        { name, err: err?.message },
+        'listing written package @{name} failed: @{err}'
+      );
     }
   }
 
-  private async scanCachedPackageNames(): Promise<string[]> {
+  /** A package published here or removed is no longer a cached one. */
+  private forgetCachedPackage(name: string): void {
+    this.packageSummaries.delete(name);
+    if (this.cachedNames) {
+      this.cachedNames.names = withoutName(this.cachedNames.names, name);
+    }
+  }
+
+  private async scanCachedPackageNames(): Promise<readonly string[]> {
     const plugin = this.localStorage.getStoragePlugin();
     if (typeof plugin.search !== 'function') {
       debug('storage plugin has no search, no cached packages to list');
@@ -850,23 +894,22 @@ class Storage {
     return Array.from(new Set(names)).sort();
   }
 
-  /** The `latest` version of a manifest shaped for the web package list, after filters. */
+  /** A copy of the `latest` version of a manifest shaped for the web package list, after filters. */
   private async getListedVersion(manifest: Manifest): Promise<Version | null> {
     const [filteredManifest] = await this.applyFilters(manifest);
     const latest = filteredManifest[DIST_TAGS]?.latest;
     if (!latest || !filteredManifest.versions[latest]) {
       return null;
     }
-    const version: Version = filteredManifest.versions[latest];
     const timeList = filteredManifest.time as GenericBody;
-    // @ts-ignore
-    version.time = timeList?.[latest];
-    // Add for stars api
-    // @ts-ignore
-    version.users = filteredManifest.users;
-    // Remove readmes for packages list (which might exist with keep_readmes config)
-    version.readme = '';
-    return version;
+    return {
+      ...filteredManifest.versions[latest],
+      time: timeList?.[latest],
+      // for the stars api
+      users: filteredManifest.users,
+      // readmes may be kept (keep_readmes) but the list never shows them
+      readme: '',
+    } as Version;
   }
 
   public saveToken(token: Token): Promise<any> {
@@ -1094,7 +1137,7 @@ class Storage {
       // remove folder
       debug('remove package folder');
       await storage.removePackage(pkgName);
-      this.forgetListedPackage(pkgName, true);
+      this.forgetCachedPackage(pkgName);
       this.logger.info({ pkgName }, 'package @{pkgName} removed');
     } catch (err: any) {
       this.logger.error({ err }, 'removed package has failed: @{err.message}');
@@ -1838,7 +1881,7 @@ class Storage {
       try {
         debug('%s add on database', name);
         await this.localStorage.getStoragePlugin().add(name);
-        this.forgetListedPackage(name, true);
+        this.forgetCachedPackage(name);
         this.logger.debug({ name, version }, 'version @{version} added to database for @{name}');
       } catch (err: any) {
         throw errorUtils.getBadData(err.message);
@@ -1884,7 +1927,7 @@ class Storage {
 
     try {
       await storage.createPackage(name, packageData);
-      this.forgetListedPackage(name, true);
+      this.forgetCachedPackage(name);
       this.logger.info({ name }, 'created new package @{name}');
       return;
     } catch (err: any) {
@@ -1962,7 +2005,7 @@ class Storage {
       throw errorUtils.getBadData();
     }
     await storage.savePackage(name, this.setDefaultRevision(json));
-    this.forgetListedPackage(name);
+    await this.rememberWrittenPackage(name, json);
   }
 
   /**

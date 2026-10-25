@@ -12,7 +12,7 @@ import {
   WebUrls,
   getRequestOptions,
 } from '@verdaccio/middleware';
-import type { Storage } from '@verdaccio/store';
+import { type Storage, indexAfter } from '@verdaccio/store';
 import { getLocalRegistryTarballUri } from '@verdaccio/tarball';
 import type { Config, RemoteUser, Version } from '@verdaccio/types';
 
@@ -42,11 +42,14 @@ const debug = buildDebug('verdaccio:web:api:package');
 
 export const CACHED_PAGE_DEFAULT_LIMIT = 50;
 export const CACHED_PAGE_MAX_LIMIT = 100;
-const CACHED_ACCESS_MEMO_USERS = 500;
+// access checks per request, so a user allowed few packages cannot make one request walk the index
+export const CACHED_PAGE_SCAN_BUDGET = 1_000;
 
-const parsePageParam = (value: unknown, fallback: number, max: number): number => {
+const parseLimit = (value: unknown): number => {
   const parsed = Number.parseInt(String(value ?? ''), 10);
-  return Number.isNaN(parsed) || parsed < 0 ? fallback : Math.min(parsed, max);
+  return Number.isNaN(parsed) || parsed <= 0
+    ? CACHED_PAGE_DEFAULT_LIMIT
+    : Math.min(parsed, CACHED_PAGE_MAX_LIMIT);
 };
 
 function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router {
@@ -55,29 +58,6 @@ function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router 
   const pkgRouter = Router(); /* eslint new-cap: 0 */
   const anonymousRemoteUser: RemoteUser = createAnonymousRemoteUser();
   const showCachedPackages = config.flags?.cachedPackages === true;
-  // allowed names per user, valid while the store hands back the same name index
-  const allowedCachedNames = new Map<string, { names: string[]; allowed: string[] }>();
-
-  async function getAllowedCachedNames(remoteUser: RemoteUser): Promise<string[]> {
-    const names = await storage.getCachedPackageNames();
-    const user = !isLoginEnabled ? anonymousRemoteUser : remoteUser;
-    const key = JSON.stringify([user?.name ?? null, [...(user?.groups ?? [])].sort()]);
-    const memo = allowedCachedNames.get(key);
-    if (memo?.names === names) {
-      return memo.allowed;
-    }
-    const allowed: string[] = [];
-    for (const name of names) {
-      if (await checkAllow(name, remoteUser)) {
-        allowed.push(name);
-      }
-    }
-    if (allowedCachedNames.size >= CACHED_ACCESS_MEMO_USERS) {
-      allowedCachedNames.clear();
-    }
-    allowedCachedNames.set(key, { names, allowed });
-    return allowed;
-  }
 
   debug('initialized package web api');
   const checkAllow = (name: string, remoteUser: RemoteUser): Promise<boolean> =>
@@ -167,7 +147,7 @@ function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router 
     }
   );
 
-  // pages are cut from the sorted name index, so only the requested page reads manifests
+  // the page is cut from the sorted name index by cursor, so only its manifests are read
   if (showCachedPackages) {
     pkgRouter.get(
       WebUrls.packages_cached,
@@ -177,19 +157,26 @@ function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router 
         next: $NextFunctionVer
       ): Promise<void> {
         try {
-          const offset = parsePageParam(req.query.offset, 0, Number.MAX_SAFE_INTEGER);
-          const limit =
-            parsePageParam(req.query.limit, CACHED_PAGE_DEFAULT_LIMIT, CACHED_PAGE_MAX_LIMIT) ||
-            CACHED_PAGE_DEFAULT_LIMIT;
-          const allowed = await getAllowedCachedNames(req.remote_user);
-          const page = allowed.slice(offset, offset + limit);
-          debug('cached packages page %o-%o of %o', offset, offset + page.length, allowed.length);
+          const limit = parseLimit(req.query.limit);
+          const after = typeof req.query.after === 'string' ? req.query.after : '';
+          const names = await storage.getCachedPackageNames();
+          const start = after ? indexAfter(names, after) : 0;
+          const end = Math.min(names.length, start + CACHED_PAGE_SCAN_BUDGET);
+          const page: string[] = [];
+          let scanned = start;
+          while (scanned < end && page.length < limit) {
+            const name = names[scanned++];
+            if (await checkAllow(name, req.remote_user)) {
+              page.push(name);
+            }
+          }
+          debug('cached packages page after %o: %o of %o names', after, page.length, names.length);
           const summaries = await storage.getCachedPackagesSummaries(page);
           // after the page, so the first visit is not slowed down by the warmup
           storage.warmCachedPackagesSummaries();
           const packages = await processPackages(summaries, req);
           packages.forEach((pkg) => markOrigin(pkg, 'cached'));
-          next({ total: allowed.length, offset, limit, packages });
+          next({ packages, next: scanned < names.length ? names[scanned - 1] : null });
         } catch (error: any) {
           next(error);
         }

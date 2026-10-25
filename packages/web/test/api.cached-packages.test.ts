@@ -72,7 +72,7 @@ describe('cached packages web api', () => {
     ]);
 
     const cached = await getJson(app, '/-/verdaccio/data/packages/cached').expect(HTTP_STATUS.OK);
-    expect(cached.body.total).toEqual(3);
+    expect(cached.body.next).toBeNull();
     expect(cached.body.packages.map((pkg) => [pkg.name, pkg.origin])).toEqual([
       ['@scope/remote-c', 'cached'],
       ['remote-a', 'cached'],
@@ -85,22 +85,29 @@ describe('cached packages web api', () => {
     expect(cached.body.packages[1]).not.toHaveProperty('dependencies');
   });
 
-  test('should page the cached list by offset and limit', async () => {
+  test('should page the cached list by cursor and limit', async () => {
     const app = await initializeServer('cached-packages.yaml');
     for (const name of ['pkg-a', 'pkg-b', 'pkg-c']) {
       await cacheFromUplink(app, name);
     }
 
-    const page = await getJson(app, '/-/verdaccio/data/packages/cached?offset=1&limit=1').expect(
+    const first = await getJson(app, '/-/verdaccio/data/packages/cached?limit=1').expect(
       HTTP_STATUS.OK
     );
-    expect(page.body).toMatchObject({ total: 3, offset: 1, limit: 1 });
-    expect(page.body.packages.map((pkg) => pkg.name)).toEqual(['pkg-b']);
+    expect(first.body.packages.map((pkg) => pkg.name)).toEqual(['pkg-a']);
+    expect(first.body.next).toEqual('pkg-a');
 
-    const pastTheEnd = await getJson(app, '/-/verdaccio/data/packages/cached?offset=10').expect(
+    const second = await getJson(
+      app,
+      `/-/verdaccio/data/packages/cached?limit=2&after=pkg-a`
+    ).expect(HTTP_STATUS.OK);
+    expect(second.body.packages.map((pkg) => pkg.name)).toEqual(['pkg-b', 'pkg-c']);
+    expect(second.body.next).toBeNull();
+
+    const pastTheEnd = await getJson(app, '/-/verdaccio/data/packages/cached?after=zzz').expect(
       HTTP_STATUS.OK
     );
-    expect(pastTheEnd.body.packages).toEqual([]);
+    expect(pastTheEnd.body).toEqual({ packages: [], next: null });
   });
 
   test('should rewrite tarball urls for each request host', async () => {
@@ -130,8 +137,8 @@ describe('cached packages web api', () => {
     const anonymous = await getJson(app, '/-/verdaccio/data/packages/cached').expect(
       HTTP_STATUS.OK
     );
-    expect(anonymous.body.total).toEqual(1);
     expect(anonymous.body.packages.map((pkg) => pkg.name)).toEqual(['public-pkg']);
+    expect(anonymous.body.next).toBeNull();
 
     const authenticated = await getJson(app, '/-/verdaccio/data/packages/cached')
       .set(HEADER_TYPE.AUTHORIZATION, `Bearer ${login.body.token}`)

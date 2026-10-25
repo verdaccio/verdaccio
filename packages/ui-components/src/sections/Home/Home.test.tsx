@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import { useLocation } from 'react-router';
+import { HttpResponse, http } from 'msw';
 import { afterEach, describe, expect, test, vi } from 'vitest';
 
 import { ManifestsProvider } from '../../providers';
@@ -132,6 +133,32 @@ describe('Home', () => {
       await renderHome('/?q=nothing-matches');
       expect(screen.getByTestId('package-list-no-match')).toBeInTheDocument();
       expect(screen.queryByTestId('help-card')).not.toBeInTheDocument();
+    });
+
+    test('loads more cached packages on demand while a filter is active', async () => {
+      window.__VERDACCIO_BASENAME_UI_OPTIONS = { flags: { cachedPackages: true } };
+      const cachedUrl = 'http://localhost:9000/-/verdaccio/data/packages/cached';
+      const cachedPage = (name: string, next: string | null) =>
+        HttpResponse.json({
+          packages: [{ name, version: '1.0.0', author: { name: 'Sam' }, origin: 'cached' }],
+          next,
+        });
+      server.use(
+        http.get(cachedUrl, ({ request }) =>
+          new URL(request.url).searchParams.get('after')
+            ? cachedPage('jquery-ui', null)
+            : cachedPage('jquery-plugin', 'jquery-plugin')
+        )
+      );
+      try {
+        await renderHome('/?q=jquery');
+        await waitFor(() => expect(screen.getAllByTestId('package-item-list')).toHaveLength(2));
+        fireEvent.click(screen.getByTestId('package-list-load-more'));
+        await waitFor(() => expect(screen.getAllByTestId('package-item-list')).toHaveLength(3));
+        expect(screen.queryByTestId('package-list-load-more')).not.toBeInTheDocument();
+      } finally {
+        window.__VERDACCIO_BASENAME_UI_OPTIONS = {};
+      }
     });
   });
 });

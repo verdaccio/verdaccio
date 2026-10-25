@@ -72,14 +72,17 @@ describe('<ManifestsProvider />', () => {
         http.get(PACKAGES_URL, () => HttpResponse.json([pkg('a', 'private'), pkg('b', 'private')])),
         http.get(CACHED_URL, ({ request }) => {
           const params = new URL(request.url).searchParams;
-          const offset = Number(params.get('offset'));
+          const after = params.get('after');
           const limit = Number(params.get('limit'));
-          const names = Array.from({ length: total }, (_, i) => `cached-${i}`);
+          const names = Array.from(
+            { length: total },
+            (_, i) => `cached-${String(i).padStart(2, '0')}`
+          );
+          const start = after ? names.indexOf(after) + 1 : 0;
+          const page = names.slice(start, start + limit);
           return HttpResponse.json({
-            total,
-            offset,
-            limit,
-            packages: names.slice(offset, offset + limit).map((name) => pkg(name, 'cached')),
+            packages: page.map((name) => pkg(name, 'cached')),
+            next: start + limit < total ? page[page.length - 1] : null,
           });
         })
       );
@@ -105,7 +108,7 @@ describe('<ManifestsProvider />', () => {
       server.use(
         http.get(CACHED_URL, () => {
           cachedRequests++;
-          return HttpResponse.json({ total: 0, offset: 0, limit: 50, packages: [] });
+          return HttpResponse.json({ packages: [], next: null });
         })
       );
 
