@@ -1,5 +1,14 @@
 # @verdaccio/search
 
+## 9.0.0-next-9.41
+
+### Patch Changes
+
+- @verdaccio/config@9.0.0-next-9.41
+  - @verdaccio/core@9.0.0-next-9.41
+  - @verdaccio/proxy@9.0.0-next-9.41
+  - @verdaccio/logger@9.0.0-next-9.41
+
 ## 9.0.0-next-9.40
 
 ### Patch Changes

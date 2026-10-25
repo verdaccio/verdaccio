@@ -1,5 +1,16 @@
 # @verdaccio/cli
 
+## 9.0.0-next-9.41
+
+### Patch Changes
+
+- Updated dependencies [d4a76b2]
+  - @verdaccio/server@9.0.0-next-9.41
+  - @verdaccio/config@9.0.0-next-9.41
+  - @verdaccio/core@9.0.0-next-9.41
+  - @verdaccio/node-api@9.0.0-next-9.41
+  - @verdaccio/logger@9.0.0-next-9.41
+
 ## 9.0.0-next-9.40
 
 ### Patch Changes
