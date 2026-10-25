@@ -3,6 +3,7 @@ import path from 'node:path';
 import supertest from 'supertest';
 import { afterEach, beforeAll, describe, expect, test, vi } from 'vitest';
 
+import { Auth } from '@verdaccio/auth';
 import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
 import { generateRemotePackageMetadata, publishVersion } from '@verdaccio/test-helper';
@@ -108,6 +109,31 @@ describe('cached packages web api', () => {
       HTTP_STATUS.OK
     );
     expect(pastTheEnd.body).toEqual({ packages: [], next: null });
+  });
+
+  test('should ask the auth plugin once per package and remember the answer', async () => {
+    // cached-packages.yaml loads auth-memory, which implements allow_access
+    const app = await initializeServer('cached-packages.yaml');
+    for (const name of ['pkg-a', 'pkg-b', 'pkg-c']) {
+      await cacheFromUplink(app, name);
+    }
+    const allowAccess = vi.spyOn(Auth.prototype, 'allow_access');
+    try {
+      await getJson(app, '/-/verdaccio/data/packages/cached?limit=2').expect(HTTP_STATUS.OK);
+      expect(allowAccess).toHaveBeenCalledTimes(2);
+
+      await getJson(app, '/-/verdaccio/data/packages/cached?limit=2').expect(HTTP_STATUS.OK);
+      expect(allowAccess).toHaveBeenCalledTimes(2);
+
+      const next = await getJson(
+        app,
+        '/-/verdaccio/data/packages/cached?limit=2&after=pkg-b'
+      ).expect(HTTP_STATUS.OK);
+      expect(next.body.packages.map((pkg) => pkg.name)).toEqual(['pkg-c']);
+      expect(allowAccess).toHaveBeenCalledTimes(3);
+    } finally {
+      allowAccess.mockRestore();
+    }
   });
 
   test('should rewrite tarball urls for each request host', async () => {
