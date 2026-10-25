@@ -15,3 +15,8 @@ export async function initLogger(logConfig: ConfigYaml) {
   debug('initializing logger with config: %o', logConfig.log);
   await setup(logConfig.log as LoggerConfigItem);
 }
+
+// `process.env.PACKAGE_VERSION` is inlined by vite at build time; `dev` when running from source
+export function getPackageVersion(): string {
+  return process.env.PACKAGE_VERSION || 'dev';
+}

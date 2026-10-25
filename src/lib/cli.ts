@@ -2,8 +2,9 @@
 import { runCli } from '@verdaccio/cli';
 
 import { startServer } from './run-server';
+import { getPackageVersion } from './utils';
 
-const pkgVersion = process.env.PACKAGE_VERSION || 'dev';
+const pkgVersion = getPackageVersion();
 
 if (pkgVersion.includes('canary')) {
   console.warn(

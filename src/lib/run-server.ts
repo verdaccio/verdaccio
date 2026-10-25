@@ -7,7 +7,7 @@ import { ConfigYaml, Config as IConfig } from '@verdaccio/types';
 import AppConfig from './config';
 import { logger } from './logger';
 import Storage from './storage';
-import { initLogger } from './utils';
+import { getPackageVersion, initLogger } from './utils';
 
 /**
  * Build the Express app from a raw config by reusing @verdaccio/server's
@@ -18,7 +18,7 @@ export async function endPointAPI(configHash: ConfigYaml): Promise<any> {
   const appConfig: IConfig = new AppConfig(_.cloneDeep(configHash));
   const storage = new Storage(appConfig, logger);
   await storage.init(appConfig);
-  return defineAPI(appConfig, storage as any);
+  return defineAPI(appConfig, storage as any, { version: getPackageVersion() });
 }
 
 /**
