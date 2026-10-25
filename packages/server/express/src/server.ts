@@ -45,7 +45,17 @@ const debug = buildDebug('verdaccio:server');
 const currentDir = import.meta.dirname;
 const { version } = pkgUtils.getPackageJson(currentDir, '..');
 
-export const defineAPI = async function (config: IConfig, storage: Storage): Promise<Express> {
+export interface DefineAPIOptions {
+  /** Version shown by the web UI; defaults to the `@verdaccio/server` version. */
+  version?: string;
+}
+
+export const defineAPI = async function (
+  config: IConfig,
+  storage: Storage,
+  options: DefineAPIOptions = {}
+): Promise<Express> {
+  const appVersion = options.version ?? version ?? '';
   const auth = new Auth(config, logger);
   await auth.init();
   const app = express();
@@ -146,7 +156,7 @@ export const defineAPI = async function (config: IConfig, storage: Storage): Pro
   // For WebUI & WebUI API
   if (get(config, 'web.enabled', get(config, 'web.enable', true))) {
     app.use((_req, res, next) => {
-      res.locals.app_version = version ?? '';
+      res.locals.app_version = appVersion;
       next();
     });
     const middleware = await webMiddleware(config, auth, storage, logger);

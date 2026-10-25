@@ -1,12 +1,17 @@
 import { createHash, randomBytes } from 'node:crypto';
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
 import { gzipSync } from 'node:zlib';
 import supertest from 'supertest';
 import { beforeAll, describe, expect, test } from 'vitest';
 
+import { Config } from '@verdaccio/config';
 import { API_ERROR, HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
-import { setup } from '@verdaccio/logger';
+import { logger, setup } from '@verdaccio/logger';
+import { Storage } from '@verdaccio/store';
 
-import { initializeServer } from './_helper';
+import { defineAPI } from '../src';
+import { getConf, initializeServer } from './_helper';
 
 const TARBALL_DATA =
   'H4sIAAAAAAAAE+2W32vbMBDH85y/QnjQp9qxLEeBMsbGlocNBmN7bFdQ5WuqxJaEpGQdo//79KPeQsnI' +
@@ -334,5 +339,32 @@ describe('package version status validation before authentication', () => {
     await supertest(app)
       .get('/-/package/example/version/1.0.0/status')
       .expect(HTTP_STATUS.UNAUTHORIZED);
+  });
+});
+
+describe('web ui version', () => {
+  const serverVersion = JSON.parse(
+    readFileSync(path.join(import.meta.dirname, '../package.json'), 'utf8')
+  ).version;
+
+  async function initializeServerWithVersion(version?: string) {
+    const config = new Config(await getConf('web-enabled.yaml'));
+    await setup(config.log ?? {});
+    const storage = new Storage(config, logger);
+    await storage.init(config);
+    return defineAPI(config, storage, version ? { version } : {});
+  }
+
+  test('should expose the @verdaccio/server version by default', async () => {
+    const app = await initializeServerWithVersion();
+    const response = await supertest(app).get('/-/static/ui-options.js').expect(HTTP_STATUS.OK);
+    expect(response.text).toContain(`"version":"${serverVersion}"`);
+  });
+
+  test('should expose the version given to defineAPI', async () => {
+    const app = await initializeServerWithVersion('7.0.0');
+    const response = await supertest(app).get('/-/static/ui-options.js').expect(HTTP_STATUS.OK);
+    expect(response.text).toContain('"version":"7.0.0"');
+    expect(response.text).not.toContain(`"version":"${serverVersion}"`);
   });
 });
