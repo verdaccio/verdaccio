@@ -4,20 +4,19 @@
 
 The following table describes the versions of this project:
 
-| Version         | Supported                                                  | Minimum Node.js | Branch | Npm Tag  | Docker Images           | Helm Charts   | E2E Tests                                                          |
-| --------------- | ---------------------------------------------------------- | --------------- | ------ | -------- | ----------------------- | ------------- | ------------------------------------------------------------------ |
-| 4.x             | :x: (deprecated)                                           | 10              | 4.x    | latest-4 | (Not available)         | 3.x           | ❌                                                                 |
-| 5.x previous    | :x: (deprecated)                                           | 14              | 5.x    | latest-5 | (Not available)         | 4.0 - 4.18    | ❌                                                                 |
-| 6.x maintenance | :white_check_mark: (security fixes only, until 2027-06-25) | 22              | 6.x    | latest-6 | 6, 6.x, 6.x.x, 6.x-next | 4.19 - 4.35.x | [e2e-tests/main](https://github.com/verdaccio/e2e-tests/tree/main) |
-| 7.x current     | :white_check_mark:                                         | 24              | 7.x    | latest   | 7, 7.x, 7.x.x, 7.x-next | 7.x           | [e2e-tests/7.x](https://github.com/verdaccio/e2e-tests/tree/7.x)   |
-| 8.x             | :x: (skipped)                                              | 18              | 8.x    | next-8   | (none)                  | n/a           | ❌                                                                 |
-| 9.x next        | :white_check_mark:                                         | 24              | master | next-9   | nightly-master          | n/a           | master branch                                                      |
+| Version         | Supported                                                  | Minimum Node.js | Branch | Npm Tag  | Docker Images           | Helm Charts   |
+| --------------- | ---------------------------------------------------------- | --------------- | ------ | -------- | ----------------------- | ------------- |
+| 4.x             | :x: (deprecated)                                           | 10              | 4.x    | latest-4 | (Not available)         | 3.x           |
+| 5.x previous    | :x: (deprecated)                                           | 14              | 5.x    | latest-5 | (Not available)         | 4.0 - 4.18    |
+| 6.x maintenance | :white_check_mark: (security fixes only, until 2027-06-25) | 22              | 6.x    | latest-6 | 6, 6.x, 6.x.x, 6.x-next | 4.19 - 4.35.x |
+| 7.x current     | :white_check_mark:                                         | 24              | 7.x    | latest   | 7, 7.x, 7.x.x, 7.x-next | 7.x           |
+| 8.x             | :x: (skipped)                                              | 18              | 8.x    | next-8   | (none)                  | n/a           |
+| 9.x next        | :white_check_mark:                                         | 24              | master | next-9   | nightly-master          | n/a           |
 
 ## Migration Guide
 
-The migration from Verdaccio v5/v6 to v7 contains breaking changes. Refer to the priliminary [migration guide](https://github.com/verdaccio/verdaccio/blob/master/docs/migration-v5-to-v6.md) for more information.
-
-For migrations from older versions to v5/6 refer to the [v5 migration guide](https://verdaccio.org/blog/2021/04/14/verdaccio-5-migration-guide/).
+- **6.x (or 5.x) to 7.x**: [Migrating from Verdaccio 6 to Verdaccio 7](https://verdaccio.org/blog/2026/09/27/verdaccio-6-to-7-migration) walks through runtime, configuration, authentication, storage, plugins, validation and rollback; the list of breaking changes is kept in [docs/migrations-guide.md](https://github.com/verdaccio/verdaccio/blob/master/docs/migrations-guide.md). For the feature highlights, see [What's new in Verdaccio 7](https://verdaccio.org/blog/2026/10/25/verdaccio-7-release).
+- **4.x and older to 5.x**: [Verdaccio 5 migration guide](https://verdaccio.org/blog/2021/04/14/verdaccio-5-migration-guide/).
 
 ### About 7.x
 
@@ -73,9 +72,3 @@ Deprecated Docker images will be removed from Docker Hub after one year of their
 ## Helms Charts
 
 The official Verdaccio Helm Charts are found at https://artifacthub.io/packages/helm/verdaccio/verdaccio.
-
-## E2E Tests
-
-The e2e test are set of basic test running on each release to ensure the basic functionality of Verdaccio. The tests are located at
-different branches, depending on the version. For versions `6.x` and `7.x` the tests are located at the [e2e-test](https://github.com/verdaccio/e2e-tests) and everything else on this repository.
-For more details what's being tested, please refer to the [readme file](https://github.com/verdaccio/verdaccio?tab=readme-ov-file#integration-tests) on this repository.
