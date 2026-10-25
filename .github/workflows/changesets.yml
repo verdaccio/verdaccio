@@ -120,7 +120,7 @@ jobs:
         with:
           images: verdaccio/verdaccio
           flavor: |
-            latest=true
+            latest=false
           tags: |
             type=raw,value=${{ steps.ver.outputs.version }}
             type=raw,value=${{ steps.ver.outputs.major }}
