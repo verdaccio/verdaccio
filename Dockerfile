@@ -85,9 +85,6 @@ EXPOSE $VERDACCIO_PORT
 
 VOLUME /verdaccio/storage
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-    CMD wget --quiet --tries=1 --spider http://localhost:$VERDACCIO_PORT/-/ping || exit 1
-
 ENTRYPOINT ["uid_entrypoint"]
 
 CMD ["/bin/sh", "-c", "verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://$VERDACCIO_ADDRESS:$VERDACCIO_PORT"]

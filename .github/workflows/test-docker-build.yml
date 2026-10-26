@@ -29,11 +29,25 @@ jobs:
 
       - name: Run Verdaccio in background
         run: |
-          docker run -d --name verdaccio-test -e "DEBUG=verdaccio*" -p 4873:4873 verdaccio-test
+          docker run -d --name verdaccio-test -e "DEBUG=verdaccio*" -p 4873:4873 \
+            --health-cmd 'wget --quiet --tries=1 --spider http://127.0.0.1:4873/-/ping || exit 1' \
+            --health-interval 5s --health-timeout 5s --health-start-period 10s --health-retries 3 \
+            verdaccio-test
           for i in $(seq 1 30); do
             curl --fail --silent http://localhost:4873/-/ping && exit 0
             sleep 1
           done
+          exit 1
+
+      - name: Verify the documented health check reports healthy
+        run: |
+          for i in $(seq 1 60); do
+            health=$(docker inspect --format '{{.State.Health.Status}}' verdaccio-test)
+            [ "$health" = "healthy" ] && exit 0
+            [ "$health" = "unhealthy" ] && break
+            sleep 1
+          done
+          docker inspect --format '{{json .State.Health}}' verdaccio-test
           exit 1
 
       - name: Set up Node.js
