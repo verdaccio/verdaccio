@@ -35,8 +35,8 @@ describe('<DependencyBlock /> component', () => {
       />
     );
 
-    const depTags = screen.getAllByTestId(/.*/);
-    const depNames = depTags.map((tag) => tag.getAttribute('data-testid'));
+    const depTags = screen.getByTestId('foo').querySelectorAll('.dep-tag');
+    const depNames = Array.from(depTags, (tag) => tag.getAttribute('data-testid'));
     expect(depNames).toEqual(['axios', 'jquery', 'lodash']);
   });
 });
