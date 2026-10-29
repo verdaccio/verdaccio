@@ -190,8 +190,8 @@ export interface FullRemoteManifest {
   readme?: string;
   /** store star assigned to this packages by users */
   users?: PackageUsers;
-  // TODO: not clear what access exactly means
-  access?: any;
+  /** access level of the package, e.g., public or restricted */
+  access?: string;
   bugs?: { url: string };
   license?: string;
   homepage?: string;

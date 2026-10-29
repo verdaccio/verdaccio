@@ -286,6 +286,34 @@ describe('package', () => {
       expect(response.body.name).toEqual(pkg);
     });
 
+    test.each(['foo-access', '@scope/foo-access'])(
+      'should return the stored manifest.access for %s',
+      async (pkg) => {
+        const { app, storage } = await initializeServerWithContext('package.yaml');
+        await publishVersion(app, pkg, '1.0.0').expect(HTTP_STATUS.CREATED);
+        const packageStorage = storage.localStorage.getStoragePlugin().getPackageStorage(pkg);
+        const manifest = await packageStorage.readPackage(pkg);
+        manifest.access = 'public';
+        await packageStorage.savePackage(pkg, manifest);
+
+        const response = await supertest(app)
+          .get(`/${encodeURIComponent(pkg)}`)
+          .set(HEADERS.ACCEPT, HEADERS.JSON)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.OK);
+
+        expect(response.body.access).toBe(manifest.access);
+
+        const abbreviatedResponse = await supertest(app)
+          .get(`/${encodeURIComponent(pkg)}`)
+          .set(HEADERS.ACCEPT, Storage.ABBREVIATED_HEADER)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_INSTALL_CHARSET)
+          .expect(HTTP_STATUS.OK);
+
+        expect(abbreviatedResponse.body).not.toHaveProperty('access');
+      }
+    );
+
     test('should authorize protected package routes with a web bearer token (#5765)', async () => {
       const { app, auth } = await initializeServerWithContext('package-web-token.yaml');
       const token = await auth.jwtEncrypt(createRemoteUser('web-user', []), {});

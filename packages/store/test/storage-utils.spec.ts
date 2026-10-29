@@ -6,6 +6,7 @@ import type { Manifest } from '@verdaccio/types';
 
 import {
   STORAGE,
+  cleanUpLinksRef,
   cleanUpReadme,
   distFileFromVersion,
   lookupDistFile,
@@ -23,6 +24,30 @@ import {
 import { readFile } from './fixtures/test.utils';
 
 describe('Storage Utils', () => {
+  describe('cleanUpLinksRef', () => {
+    test.each(['public', 'restricted', 'private', null])(
+      'should preserve manifest.access %s while removing internal fields',
+      (access) => {
+        const manifest = generatePackageMetadata('foo', '1.0.0');
+        manifest.access = access;
+
+        const result = cleanUpLinksRef(manifest);
+
+        expect(result).toHaveProperty('access', access);
+        expect(result).not.toHaveProperty('_uplinks');
+        expect(result).not.toHaveProperty('_distfiles');
+        expect(result).not.toHaveProperty('_attachments');
+      }
+    );
+
+    test('should not add access when the manifest does not contain it', () => {
+      const manifest = generatePackageMetadata('foo', '1.0.0');
+      delete manifest.access;
+
+      expect(cleanUpLinksRef(manifest)).not.toHaveProperty('access');
+    });
+  });
+
   describe('normalizeDistTags', () => {
     const dist = (version) => ({
       tarball: `http://fake.verdaccio.org/npm_test/-/npm_test-${version}.tgz`,
