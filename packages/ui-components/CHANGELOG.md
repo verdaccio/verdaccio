@@ -1,5 +1,13 @@
 # @verdaccio/ui-components
 
+## 5.0.0-next-9.27
+
+### Patch Changes
+
+- 7769814: chore(ui-components): sort dependencies
+  
+  Sort dependency tags alphabetically by name in the dependency blocks. Dependency blocks previously showed tags in source order. They now sort tags by package name. No configuration change is required.
+
 ## 5.0.0-next-9.26
 
 ### Patch Changes
