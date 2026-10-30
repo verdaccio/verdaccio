@@ -296,6 +296,8 @@ log:
 # Renamed from "experiments" to "flags" in next major release
 # flags:
 #  changePassword: true
+#  # List packages cached from uplinks in the web UI, loaded page by page.
+#  cachedPackages: false
 #  # Staged publishing (`npm stage`). Versions are uploaded for review and only
 #  # become installable once a maintainer approves them.
 #  stage: false

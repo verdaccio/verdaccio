@@ -4,6 +4,7 @@ import assert from 'node:assert';
 import { basename } from 'node:path';
 import { PassThrough, Readable, Transform } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
+import { setImmediate as yieldToEventLoop } from 'node:timers/promises';
 import { URL } from 'node:url';
 
 import { getProxiesForPackage, hasProxyTo } from '@verdaccio/config';
@@ -59,6 +60,11 @@ import type {
 import type { PublishOptions, UpdateManifestOptions } from '.';
 import { cleanUpReadme, isDeprecatedManifest, tagVersion, tagVersionNext } from '.';
 import { type Filters, applyManifestFilters, loadFilterPlugins } from './filter-pipeline';
+import {
+  type PackageSummary,
+  PackageSummaryCache,
+  toPackageSummary,
+} from './lib/package-summaries';
 import { isPublishablePackage } from './lib/publish-utils';
 import {
   STORAGE,
@@ -88,6 +94,10 @@ const debug = buildDebug('verdaccio:storage');
 export const noSuchFile = 'ENOENT';
 export const resourceNotAvailable = 'EAGAIN';
 export const PROTO_NAME = '__proto__';
+// the cached-package scan walks the whole storage folder, so it is reused for a short while
+export const CACHED_NAMES_TTL_MS = 30_000;
+export const PACKAGE_SUMMARIES_MAX = 50_000;
+export const PACKAGE_SUMMARIES_TTL_MS = 60 * 60_000;
 
 class Storage {
   public localStorage: LocalStorage;
@@ -97,6 +107,13 @@ class Storage {
   public readonly uplinks: ProxyInstanceList;
   private searchService: Search;
   private stageStorage: StageStorage | null = null;
+  private cachedNames: { names: string[]; createdAt: number } | null = null;
+  private cachedNamesPending: Promise<string[]> | null = null;
+  private readonly packageSummaries = new PackageSummaryCache(
+    PACKAGE_SUMMARIES_MAX,
+    PACKAGE_SUMMARIES_TTL_MS
+  );
+  private summariesWarmup: Promise<void> | null = null;
   public constructor(config: Config, logger: Logger) {
     this.config = config;
     this.logger = logger.child({ module: 'storage' });
@@ -727,27 +744,129 @@ class Storage {
     for (const pkg of database) {
       debug('get local database %o', pkg);
       const manifest = await this.getPackageLocalMetadata(pkg);
-      const [filteredManifest] = await this.applyFilters(manifest);
-      const latest = filteredManifest[DIST_TAGS].latest;
-      if (latest && filteredManifest.versions[latest]) {
-        const version: Version = filteredManifest.versions[latest];
-        const timeList = filteredManifest.time as GenericBody;
-        const time = timeList[latest];
-        // @ts-ignore
-        version.time = time;
-
-        // Add for stars api
-        // @ts-ignore
-        version.users = filteredManifest.users;
-        // Remove readmes for packages list (which might exist with keep_readmes config)
-        version.readme = '';
-
+      const version = await this.getListedVersion(manifest);
+      if (version) {
         packages.push(version);
       } else {
         this.logger.warn({ package: pkg }, 'package @{package} does not have a "latest" tag?');
       }
     }
     return packages;
+  }
+
+  /**
+   * Names of the packages cached from uplinks (on storage but not published here), sorted.
+   * Discovered through the storage plugin `search`; empty when the plugin does not implement it.
+   */
+  public async getCachedPackageNames(): Promise<string[]> {
+    const now = Date.now();
+    if (this.cachedNames && now - this.cachedNames.createdAt < CACHED_NAMES_TTL_MS) {
+      return this.cachedNames.names;
+    }
+    this.cachedNamesPending ??= this.scanCachedPackageNames()
+      .then((names) => {
+        this.cachedNames = { names, createdAt: Date.now() };
+        return names;
+      })
+      .finally(() => {
+        this.cachedNamesPending = null;
+      });
+    return this.cachedNamesPending;
+  }
+
+  /**
+   * Summary of each cached package, in the given order; unreadable ones are skipped.
+   * Packuments are parsed once and the summary is reused until this process rewrites them.
+   */
+  public async getCachedPackagesSummaries(names: string[]): Promise<PackageSummary[]> {
+    const summaries: PackageSummary[] = [];
+    for (const name of names) {
+      const summary = this.packageSummaries.get(name) ?? (await this.loadPackageSummary(name));
+      if (summary) {
+        summaries.push(summary);
+      }
+    }
+    return summaries;
+  }
+
+  /** Fills the summary cache for every cached package in the background, one packument at a time. */
+  public warmCachedPackagesSummaries(): void {
+    this.summariesWarmup ??= (async () => {
+      const names = await this.getCachedPackageNames();
+      for (const name of names) {
+        if (!this.packageSummaries.get(name)) {
+          await this.loadPackageSummary(name);
+        }
+      }
+      debug('cached package summaries warmed %o', this.packageSummaries.size);
+    })()
+      .catch((err) => {
+        this.logger.warn({ err: err?.message }, 'warming cached package summaries failed: @{err}');
+      })
+      .finally(() => {
+        this.summariesWarmup = null;
+      });
+  }
+
+  private async loadPackageSummary(name: string): Promise<PackageSummary | null> {
+    // a packument can be tens of megabytes; let queued requests run between two parses
+    await yieldToEventLoop();
+    try {
+      const version = await this.getListedVersion(await this.getPackageLocalMetadata(name));
+      if (!version) {
+        return null;
+      }
+      const summary = toPackageSummary(version as Version & { time?: string });
+      this.packageSummaries.set(name, summary);
+      return summary;
+    } catch (err: any) {
+      this.logger.warn(
+        { name, err: err?.message },
+        'cached package @{name} could not be listed: @{err}'
+      );
+      return null;
+    }
+  }
+
+  private forgetListedPackage(name: string, membershipChanged = false): void {
+    this.packageSummaries.delete(name);
+    if (membershipChanged) {
+      this.cachedNames = null;
+    }
+  }
+
+  private async scanCachedPackageNames(): Promise<string[]> {
+    const plugin = this.localStorage.getStoragePlugin();
+    if (typeof plugin.search !== 'function') {
+      debug('storage plugin has no search, no cached packages to list');
+      return [];
+    }
+    const privatePackages = new Set<string>(await plugin.get());
+    const items = await plugin.search({ text: '' } as searchUtils.SearchQuery);
+    const names = items
+      .filter((item) => !item.verdaccioPrivate && !privatePackages.has(item.package.name))
+      .map((item) => item.package.name);
+    debug('cached packages found %o', names.length);
+    return Array.from(new Set(names)).sort();
+  }
+
+  /** The `latest` version of a manifest shaped for the web package list, after filters. */
+  private async getListedVersion(manifest: Manifest): Promise<Version | null> {
+    const [filteredManifest] = await this.applyFilters(manifest);
+    const latest = filteredManifest[DIST_TAGS]?.latest;
+    if (!latest || !filteredManifest.versions[latest]) {
+      return null;
+    }
+    const version: Version = filteredManifest.versions[latest];
+    const timeList = filteredManifest.time as GenericBody;
+    // @ts-ignore
+    version.time = timeList?.[latest];
+    // Add for stars api
+    // @ts-ignore
+    version.users = filteredManifest.users;
+    // Remove readmes for packages list (which might exist with keep_readmes config)
+    version.readme = '';
+    return version;
   }
 
   public saveToken(token: Token): Promise<any> {
@@ -975,6 +1094,7 @@ class Storage {
       // remove folder
       debug('remove package folder');
       await storage.removePackage(pkgName);
+      this.forgetListedPackage(pkgName, true);
       this.logger.info({ pkgName }, 'package @{pkgName} removed');
     } catch (err: any) {
       this.logger.error({ err }, 'removed package has failed: @{err.message}');
@@ -1718,6 +1838,7 @@ class Storage {
       try {
         debug('%s add on database', name);
         await this.localStorage.getStoragePlugin().add(name);
+        this.forgetListedPackage(name, true);
         this.logger.debug({ name, version }, 'version @{version} added to database for @{name}');
       } catch (err: any) {
         throw errorUtils.getBadData(err.message);
@@ -1763,6 +1884,7 @@ class Storage {
 
     try {
       await storage.createPackage(name, packageData);
+      this.forgetListedPackage(name, true);
       this.logger.info({ name }, 'created new package @{name}');
       return;
     } catch (err: any) {
@@ -1840,6 +1962,7 @@ class Storage {
       throw errorUtils.getBadData();
     }
     await storage.savePackage(name, this.setDefaultRevision(json));
+    this.forgetListedPackage(name);
   }
 
   /**

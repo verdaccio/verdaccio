@@ -57,7 +57,7 @@ const Home: React.FC = () => {
   const renderList = () => {
     // without the toolbar the list keeps the server order: nothing on screen could change it
     if (packages.length <= 1 || configOptions.showPackageListToolbar === false) {
-      return <PackageList packages={packages} />;
+      return <PackageList onEndReached={manifests.loadMore} packages={packages} />;
     }
     return (
       <>
@@ -73,7 +73,11 @@ const Home: React.FC = () => {
           total={packages.length}
         />
         {visiblePackages.length > 0 ? (
-          <PackageList key={`${query}|${scope}|${sort}`} packages={visiblePackages} />
+          <PackageList
+            key={`${query}|${scope}|${sort}`}
+            onEndReached={manifests.loadMore}
+            packages={visiblePackages}
+          />
         ) : (
           <div data-testid="package-list-no-match">
             <NoItems text={t('packageList.no-match')} />

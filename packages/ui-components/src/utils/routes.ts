@@ -26,6 +26,7 @@ export enum APIRoute {
   RESET_PASSWORD = '/-/verdaccio/sec/reset_password',
   CONFIG = '/-/verdaccio/packages',
   PACKAGES = '/-/verdaccio/data/packages',
+  CACHED_PACKAGES = '/-/verdaccio/data/packages/cached',
   SEARCH = '/-/verdaccio/data/search/', // :value
   SIDEBAR = '/-/verdaccio/data/sidebar/', // :packageName?v=version
   README = '/-/verdaccio/data/package/readme/', // :packageName?v=version

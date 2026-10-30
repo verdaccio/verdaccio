@@ -92,7 +92,11 @@
     "bugs": "Bugs",
     "download": "Download {{what}}",
     "the-tar-file": "the tar file",
-    "tarball": "Tarball"
+    "tarball": "Tarball",
+    "origin-private": "Private",
+    "origin-private-description": "Published to this registry",
+    "origin-cached": "Cached",
+    "origin-cached-description": "Cached from an uplink"
   },
   "dependencies": {
     "has-no-dependencies": "{{package}} has no dependencies.",

@@ -12,15 +12,30 @@ import { utils } from '../../utils';
 
 interface Props {
   packages: ManifestWeb[];
+  /** Called when the rendered rows reach the end of the list. */
+  onEndReached?: () => void;
 }
 
-const PackageList: React.FC<Props> = ({ packages }) => {
+const END_REACHED_THRESHOLD = 5;
+
+const PackageList: React.FC<Props> = ({ packages, onEndReached }) => {
   const { configOptions } = useConfig();
   // heights are cached by row index: callers remount the list (key) when its rows change
   const [cache] = useState(() => new CellMeasurerCache({ fixedWidth: true, defaultHeight: 100 }));
   const renderRow = ({ index, key, parent, style }: ListRowProps) => {
-    const { name, version, description, time, keywords, dist, homepage, bugs, author, license } =
-      packages[index];
+    const {
+      name,
+      version,
+      description,
+      time,
+      keywords,
+      dist,
+      homepage,
+      bugs,
+      author,
+      license,
+      origin,
+    } = packages[index];
     // TODO: move format license to API side.
     const formattedLicense = utils.formatLicense(license);
     return (
@@ -36,6 +51,7 @@ const PackageList: React.FC<Props> = ({ packages }) => {
             keywords={keywords}
             license={formattedLicense}
             name={name}
+            origin={origin}
             showDownload={configOptions.showDownloadTarball}
             time={time}
             version={version}
@@ -63,6 +79,11 @@ const PackageList: React.FC<Props> = ({ packages }) => {
                   deferredMeasurementCache={cache}
                   height={height}
                   isScrolling={isScrolling}
+                  onRowsRendered={({ stopIndex }) => {
+                    if (stopIndex >= packages.length - END_REACHED_THRESHOLD) {
+                      onEndReached?.();
+                    }
+                  }}
                   onScroll={onChildScroll}
                   overscanRowCount={3}
                   rowCount={packages?.length}
