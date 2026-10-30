@@ -1414,7 +1414,14 @@ class Storage {
           isNil(manifest.readme) === false ? String(manifest.readme) : '';
       }
       // addVersion will move the readme from the the published version to the root level
-      await this.addVersion(name, versionToPublish, versions[versionToPublish], null, tarballStats);
+      await this.addVersion(
+        name,
+        versionToPublish,
+        versions[versionToPublish],
+        null,
+        tarballStats,
+        manifest.access
+      );
     } catch (err: any) {
       this.logger.error({ err }, 'updated version has failed: @{err.message}');
       debug('error on create a version for %o with error %o', name, err.message);
@@ -1639,12 +1646,16 @@ class Storage {
     version: string,
     metadata: Version,
     tag: StringValue,
-    tarballStats: TarballDetails
+    tarballStats: TarballDetails,
+    access?: Manifest['access']
   ): Promise<void> {
     debug(`add version %s package for %s`, version, name);
     await this.updatePackage(name, async (data: Manifest): Promise<Manifest> => {
       // keep latest readme in manifest (on root level)
       data.readme = metadata.readme;
+      if (typeof access === 'string') {
+        data.access = access;
+      }
       debug('%s readme mutated', name);
       // removing other readmes depends on config
       metadata = cleanUpReadme(metadata, metadata[DIST_TAGS], this.config?.publish?.keep_readmes);
