@@ -1653,7 +1653,7 @@ class Storage {
     await this.updatePackage(name, async (data: Manifest): Promise<Manifest> => {
       // keep latest readme in manifest (on root level)
       data.readme = metadata.readme;
-      if (!isNil(access)) {
+      if (typeof access === 'string') {
         data.access = access;
       }
       debug('%s readme mutated', name);
