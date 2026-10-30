@@ -39,6 +39,9 @@ export const DependencyBlock: React.FC<DependencyBlockProps> = ({ title, depende
   const { t } = useTranslation();
   const deps = Object.entries(dependencies);
 
+  // sort dependencies alphabetically by name
+  deps.sort(([nameA], [nameB]) => nameA.localeCompare(nameB));
+
   function handleClick(name: string): void {
     navigate(`${Route.DETAIL}${name}`);
   }

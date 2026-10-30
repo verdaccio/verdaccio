@@ -26,4 +26,17 @@ describe('<DependencyBlock /> component', () => {
 
     fireEvent.click(screen.getByTestId('jquery'));
   });
+
+  test('dependencies are sorted alphabetically', () => {
+    renderWithRouteDetail(
+      <DependencyBlock
+        dependencies={{ jquery: '1.0.0', axios: '1.0.0', lodash: '1.0.0' }}
+        title="foo"
+      />
+    );
+
+    const depTags = screen.getByTestId('foo').querySelectorAll('.dep-tag');
+    const depNames = Array.from(depTags, (tag) => tag.getAttribute('data-testid'));
+    expect(depNames).toEqual(['axios', 'jquery', 'lodash']);
+  });
 });
