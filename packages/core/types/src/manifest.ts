@@ -191,7 +191,7 @@ export interface FullRemoteManifest {
   /** store star assigned to this packages by users */
   users?: PackageUsers;
   /** access level of the package, e.g., public or restricted */
-  access?: string;
+  access?: string | null;
   bugs?: { url: string };
   license?: string;
   homepage?: string;

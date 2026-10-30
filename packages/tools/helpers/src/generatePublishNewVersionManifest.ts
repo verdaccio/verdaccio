@@ -63,7 +63,7 @@ export function generatePublishNewVersionManifest(
         },
       },
     },
-    access: 'public',
+    access: null,
     readme,
     _attachments: {
       [`${pkgName}-${version}.tgz`]: {
