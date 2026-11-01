@@ -23,7 +23,7 @@ async function cacheFromUplink(app, name: string, token?: string) {
   nock(REMOTE)
     .get((uri) => decodeURIComponent(uri) === `/${name}`)
     .reply(200, generateRemotePackageMetadata(name, '1.0.0', REMOTE));
-  const request = supertest(app).get(`/${name.replace('/', '%2f')}`);
+  const request = supertest(app).get(`/${name.replaceAll('/', '%2f')}`);
   if (token) {
     request.set(HEADER_TYPE.AUTHORIZATION, `Bearer ${token}`);
   }
