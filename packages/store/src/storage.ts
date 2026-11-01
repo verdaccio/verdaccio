@@ -822,13 +822,17 @@ class Storage {
   private async loadPackageSummary(name: string): Promise<PackageSummary | null> {
     // a packument can be tens of megabytes; let queued requests run between two parses
     await yieldToEventLoop();
+    const generation = this.packageSummaries.generation(name);
     try {
       const version = await this.getListedVersion(await this.getPackageLocalMetadata(name));
       if (!version) {
         return null;
       }
       const summary = toPackageSummary(version as Version & { time?: string });
-      this.packageSummaries.set(name, summary);
+      if (!this.packageSummaries.set(name, summary, generation)) {
+        debug('cached package %o was written while being listed', name);
+        return this.packageSummaries.get(name) ?? summary;
+      }
       return summary;
     } catch (err: any) {
       if (err?.status === HTTP_STATUS.NOT_FOUND) {

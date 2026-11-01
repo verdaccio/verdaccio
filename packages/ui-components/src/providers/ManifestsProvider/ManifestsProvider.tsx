@@ -1,5 +1,5 @@
 import type { ReactElement } from 'react';
-import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import useSWRInfinite from 'swr/infinite';
 
 import type { Manifest } from '@verdaccio/types';
@@ -63,6 +63,7 @@ const ManifestsProvider: React.FC<{ children: ReactElement; emptyRefreshMs?: num
 
   const showCached = getConfiguration().flags?.cachedPackages === true;
   const { userState } = useAuth();
+  const [cachedRefreshInterval, setCachedRefreshInterval] = useState(0);
 
   // the user is part of the key so a login starts over with what that user may see
   const cached = useSWRInfinite<CachedPackagesPage>(
@@ -77,7 +78,19 @@ const ManifestsProvider: React.FC<{ children: ReactElement; emptyRefreshMs?: num
       ];
     },
     ([url]: [string]) => API.request<CachedPackagesPage>(url),
-    { revalidateFirstPage: false, revalidateOnFocus: false }
+    {
+      // only the poll below refetches the first page; loading more pages never does
+      revalidateFirstPage: cachedRefreshInterval > 0,
+      revalidateOnFocus: false,
+      refreshInterval: cachedRefreshInterval,
+      // like the private list: poll while nothing is cached yet, so the first install shows up
+      onSuccess: (pages) =>
+        setCachedRefreshInterval(
+          pages.length === 1 && pages[0].packages.length === 0 && pages[0].next === null
+            ? emptyRefreshMs
+            : 0
+        ),
+    }
   );
   const { setSize, isValidating: isLoadingCached } = cached;
   const cachedPages = cached.data;
@@ -103,6 +116,18 @@ const ManifestsProvider: React.FC<{ children: ReactElement; emptyRefreshMs?: num
       : privateManifests;
   }, [data.data, cachedPages]);
 
+  // the rows only ask for more once rendered, so an empty list has to ask by itself
+  const nothingListedYet = manifests.length === 0 && hasMoreCached;
+  useEffect(() => {
+    if (nothingListedYet && !isLoadingCached) {
+      setSize((size) => size + 1);
+    }
+  }, [nothingListedYet, isLoadingCached, setSize]);
+
+  const privateEmpty = Array.isArray(data.data) && data.data.length === 0;
+  const cachedPending =
+    showCached && cached.error === undefined && (cachedPages === undefined || nothingListedYet);
+
   return (
     <ManifestsContext.Provider
       value={{
@@ -110,7 +135,8 @@ const ManifestsProvider: React.FC<{ children: ReactElement; emptyRefreshMs?: num
         loadMore,
         hasMore: hasMoreCached,
         isLoadingMore: hasMoreCached && isLoadingCached,
-        isLoading: data.isLoading,
+        // an empty private registry is not known to be empty until the first cached page answers
+        isLoading: data.isLoading || (privateEmpty && cachedPending),
         // any error counts (network failures have no `.code`), but a failed
         // revalidation must not hide an already-cached, renderable list
         isError: typeof data.error !== 'undefined' && typeof data.data === 'undefined',

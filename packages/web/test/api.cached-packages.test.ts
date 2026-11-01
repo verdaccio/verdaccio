@@ -6,6 +6,7 @@ import { afterEach, beforeAll, describe, expect, test, vi } from 'vitest';
 import { Auth } from '@verdaccio/auth';
 import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
+import { Storage } from '@verdaccio/store';
 import { generateRemotePackageMetadata, publishVersion } from '@verdaccio/test-helper';
 
 import { initializeServer } from './helper';
@@ -109,6 +110,28 @@ describe('cached packages web api', () => {
       HTTP_STATUS.OK
     );
     expect(pastTheEnd.body).toEqual({ packages: [], next: null });
+  });
+
+  test('should fill a page past cached packages without a listable version', async () => {
+    const app = await initializeServer('cached-packages.yaml');
+    await cacheFromUplink(app, 'pkg-a');
+    await cacheFromUplink(app, 'pkg-b');
+    // the store skips a name whose manifest cannot be listed (no latest, unreadable)
+    const summaries = Storage.prototype.getCachedPackagesSummaries;
+    const skipFirst = vi
+      .spyOn(Storage.prototype, 'getCachedPackagesSummaries')
+      .mockImplementation(function (this: Storage, names) {
+        return names.includes('pkg-a') ? Promise.resolve([]) : summaries.call(this, names);
+      });
+    try {
+      const page = await getJson(app, '/-/verdaccio/data/packages/cached?limit=1').expect(
+        HTTP_STATUS.OK
+      );
+      expect(page.body.packages.map((pkg) => pkg.name)).toEqual(['pkg-b']);
+      expect(page.body.next).toBeNull();
+    } finally {
+      skipFirst.mockRestore();
+    }
   });
 
   test('should ask the auth plugin once per package and remember the answer', async () => {

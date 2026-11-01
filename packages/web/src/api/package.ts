@@ -12,7 +12,7 @@ import {
   WebUrls,
   getRequestOptions,
 } from '@verdaccio/middleware';
-import { type Storage, indexAfter } from '@verdaccio/store';
+import { type PackageSummary, type Storage, indexAfter } from '@verdaccio/store';
 import { getLocalRegistryTarballUri } from '@verdaccio/tarball';
 import type { Config, RemoteUser, Version } from '@verdaccio/types';
 
@@ -23,7 +23,8 @@ export { $RequestExtend, $ResponseExtend, $NextFunctionVer }; // Was required by
 
 export type PackageOrigin = 'private' | 'cached';
 
-type ListedPackage = Pick<Version, 'name' | 'author'> & { dist?: { tarball: string } };
+type ListedPackage = Pick<Version, 'name'> &
+  Partial<Pick<Version, 'author'>> & { dist?: { tarball: string } };
 
 const markOrigin = (pkg: ListedPackage, origin: PackageOrigin) => {
   // @ts-ignore
@@ -204,19 +205,19 @@ function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router 
             ? CACHED_PAGE_SCAN_BUDGET_WITH_PLUGIN
             : CACHED_PAGE_SCAN_BUDGET;
           const end = Math.min(names.length, start + budget);
-          const page: string[] = [];
+          // names without a listable version do not count: a page is never empty while names remain
+          const page: PackageSummary[] = [];
           let scanned = start;
           while (scanned < end && page.length < limit) {
             const name = names[scanned++];
             if (await isCachedPackageAllowed(name, req.remote_user)) {
-              page.push(name);
+              page.push(...(await storage.getCachedPackagesSummaries([name])));
             }
           }
           debug('cached packages page after %o: %o of %o names', after, page.length, names.length);
-          const summaries = await storage.getCachedPackagesSummaries(page);
           // after the page, so the first visit is not slowed down by the warmup
           storage.warmCachedPackagesSummaries();
-          const packages = await processPackages(summaries, req, { alreadyAllowed: true });
+          const packages = await processPackages(page, req, { alreadyAllowed: true });
           packages.forEach((pkg) => markOrigin(pkg, 'cached'));
           next({ packages, next: scanned < names.length ? names[scanned - 1] : null });
         } catch (error: any) {

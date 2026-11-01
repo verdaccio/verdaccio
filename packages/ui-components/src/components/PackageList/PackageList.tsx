@@ -1,5 +1,5 @@
 import Divider from '@mui/material/Divider';
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { AutoSizer } from 'react-virtualized/dist/commonjs/AutoSizer';
 import { CellMeasurer, CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
 import type { ListRowProps } from 'react-virtualized/dist/commonjs/List';
@@ -18,10 +18,32 @@ interface Props {
 
 const END_REACHED_THRESHOLD = 5;
 
+/** Heights cached per package, not per row index: a new page or a sort moves rows around. */
+class PackageHeightCache extends CellMeasurerCache {
+  private rows: ManifestWeb[] = [];
+
+  public constructor() {
+    super({
+      fixedWidth: true,
+      defaultHeight: 100,
+      // the first row has no divider above it, so it measures on its own
+      keyMapper: (rowIndex) => `${rowIndex === 0 ? 'first:' : ''}${this.rows[rowIndex]?.name}`,
+    });
+  }
+
+  public setRows(rows: ManifestWeb[]): void {
+    this.rows = rows;
+  }
+}
+
 const PackageList: React.FC<Props> = ({ packages, onEndReached }) => {
   const { configOptions } = useConfig();
-  // heights are cached by row index: callers remount the list (key) when its rows change
-  const [cache] = useState(() => new CellMeasurerCache({ fixedWidth: true, defaultHeight: 100 }));
+  const listRef = useRef<List>(null);
+  const [cache] = useState(() => new PackageHeightCache());
+  useLayoutEffect(() => {
+    cache.setRows(packages);
+    listRef.current?.recomputeRowHeights();
+  }, [cache, packages]);
   const renderRow = ({ index, key, parent, style }: ListRowProps) => {
     const {
       name,
@@ -77,6 +99,7 @@ const PackageList: React.FC<Props> = ({ packages, onEndReached }) => {
                 <List
                   autoHeight={true}
                   deferredMeasurementCache={cache}
+                  ref={listRef}
                   height={height}
                   isScrolling={isScrolling}
                   onRowsRendered={({ stopIndex }) => {

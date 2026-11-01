@@ -2894,6 +2894,27 @@ describe('storage', () => {
         expect(read).toHaveBeenCalledTimes(1);
       });
 
+      test('should not let a read started before a write overwrite the written summary', async () => {
+        const storage = await initStorage(true);
+        let finishRead!: () => void;
+        const reading = new Promise<void>((resolve) => (finishRead = resolve));
+        vi.spyOn(storage, 'getPackageLocalMetadata').mockImplementation(async () => {
+          await reading;
+          return manifestWith('foo', '1.0.0');
+        });
+        mockWrites(storage, 'foo');
+
+        const pending = storage.getCachedPackagesSummaries(['foo']);
+        await new Promise((resolve) => setTimeout(resolve, 20));
+        await (storage as any).writePackage('foo', manifestWith('foo', '2.0.0'));
+        finishRead();
+
+        await expect(pending).resolves.toEqual([expect.objectContaining({ version: '2.0.0' })]);
+        await expect(storage.getCachedPackagesSummaries(['foo'])).resolves.toEqual([
+          expect.objectContaining({ version: '2.0.0' }),
+        ]);
+      });
+
       test('should drop the summary on write when the flag is off', async () => {
         const storage = await initStorage();
         const read = vi
