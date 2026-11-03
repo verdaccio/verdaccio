@@ -1,0 +1,27 @@
+storage: ./storage
+auth:
+  htpasswd:
+    file: ./htpasswd-package-rule-permissions
+uplinks: {}
+log: { type: stdout, format: json, level: fatal }
+packages:
+  '@private/*':
+    access: owner
+    publish: owner
+    unpublish: owner
+  'private-*':
+    access: owner
+    publish: owner
+    unpublish: owner
+  '@{internal,secret}/*':
+    access: owner
+    publish: owner
+    unpublish: owner
+  '@*/*':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+  '**':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
