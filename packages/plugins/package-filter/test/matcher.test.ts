@@ -1,4 +1,4 @@
-import { Minimatch } from 'minimatch';
+import * as minimatch from 'minimatch';
 import { Range } from 'semver';
 import { afterEach, describe, expect, test, vi } from 'vitest';
 
@@ -8,6 +8,10 @@ import { parseConfig } from '../src/config/parser';
 import type { ParsedRule } from '../src/config/types';
 import { matchRules, prepareRules } from '../src/filtering/matcher';
 import { MatchType } from '../src/filtering/types';
+
+vi.mock('minimatch', async (importOriginal) => ({
+  ...(await importOriginal<typeof minimatch>()),
+}));
 
 function createVersion(name: string, version: string): Version {
   return {
@@ -119,18 +123,18 @@ describe('matchRules', () => {
   });
 
   test('does not run glob matchers for exact-only parsed rules', () => {
-    const match = vi.spyOn(Minimatch.prototype, 'match');
+    const match = vi.spyOn(minimatch.Minimatch.prototype, 'match');
+    const constructor = vi.spyOn(minimatch, 'Minimatch');
     const rules = parseConfig({
       block: [{ scope: '@babel' }, { package: '@types/node' }],
     }).blockRules;
-    const make = vi.spyOn(Minimatch.prototype, 'make');
     const iterate = vi.spyOn(rules, Symbol.iterator);
 
     const result = matchRules(createManifest('@verdaccio/test'), rules);
 
     expect(result).toBeUndefined();
     expect(match).not.toHaveBeenCalled();
-    expect(make).not.toHaveBeenCalled();
+    expect(constructor).not.toHaveBeenCalled();
     expect(iterate).not.toHaveBeenCalled();
   });
 
@@ -139,7 +143,7 @@ describe('matchRules', () => {
       ['@other-*', 'scope'],
       ['@babel/*', 'package'],
     ]);
-    const make = vi.spyOn(Minimatch.prototype, 'make');
+    const constructor = vi.spyOn(minimatch, 'Minimatch');
     const iterate = vi.spyOn(rules, Symbol.iterator);
 
     for (let i = 0; i < 2; i++) {
@@ -152,7 +156,7 @@ describe('matchRules', () => {
       expect(matchRules(createManifest('@verdaccio/test'), rules)).toBeUndefined();
     }
 
-    expect(make).toHaveBeenCalledTimes(2);
+    expect(constructor).toHaveBeenCalledTimes(2);
     expect(iterate).toHaveBeenCalledTimes(1);
   });
 

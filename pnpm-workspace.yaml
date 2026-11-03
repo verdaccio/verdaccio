@@ -24,6 +24,9 @@ minimumReleaseAge: 10080
 # of blocking them; strict keeps the pnpm 11 behavior (fail on immature versions)
 minimumReleaseAgeStrict: true
 minimumReleaseAgeExclude:
+  # Security update: minimatch 11 fixes GHSA-g3hv-75wg-m249.
+  - minimatch@11.0.3
+  - '@isaacs/nonrecursive-glob-match@1.0.3'
   - '@verdaccio/*'
   - '@verdaccio-scope/*'
   - 'verdaccio-*'

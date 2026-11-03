@@ -1,4 +1,3 @@
-import type { MMRegExp } from 'minimatch';
 import { minimatch } from 'minimatch';
 
 import type { PackageAccess, PackageList } from '@verdaccio/types';
@@ -34,7 +33,7 @@ export function getMatchedPackagesSpec(
 ): PackageAccess | void {
   for (const i in packages) {
     // match case-insensitively, npm package names are case-insensitive
-    if ((minimatch.makeRe(i, { nocase: true }) as MMRegExp).exec(pkgName)) {
+    if (minimatch(pkgName, i, { nocase: true })) {
       return packages[i];
     }
   }
