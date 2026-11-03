@@ -38,6 +38,13 @@ describe('package rule permissions with minimatch', () => {
     }
   });
 
+  test.each(['public-core', '@public/core'])(
+    'denies anonymous publication for %s',
+    async (name) => {
+      await publishVersion(app, name, '1.1.0').expect(HTTP_STATUS.UNAUTHORIZED);
+    }
+  );
+
   describe.each(privatePackages)('%s remains private ahead of public wildcards', (name) => {
     test.each(['metadata', 'tarball'] as const)(
       'enforces read permissions for %s',
