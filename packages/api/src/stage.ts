@@ -277,11 +277,7 @@ export default function stage(
   /** Download the staged tarball so a maintainer can inspect it before approving. */
   router.get(
     STAGE_API_ENDPOINTS.tarball,
-    async function (
-      req: $RequestExtend,
-      res: $ResponseExtend,
-      next: $NextFunctionVer
-    ): Promise<void> {
+    async function (req: $RequestExtend, res: $ResponseExtend): Promise<void> {
       const abort = new AbortController();
       try {
         const record = await loadRecord(req);
@@ -301,7 +297,6 @@ export default function stage(
           // Error bodies are JSON — drop the optimistic octet-stream header.
           res.removeHeader(HEADERS.CONTENT_TYPE);
           res.locals.report_error(err);
-          next(err);
         });
         req.on('aborted', () => abort.abort());
 
@@ -309,7 +304,6 @@ export default function stage(
         stream.pipe(res);
       } catch (err: any) {
         res.locals.report_error(err);
-        return next(err);
       }
     }
   );

@@ -1,6 +1,9 @@
 import type { Application } from 'express';
 import express from 'express';
 import { isEmpty } from 'lodash-es';
+import { once } from 'node:events';
+import net from 'node:net';
+import type { AddressInfo } from 'node:net';
 import os from 'node:os';
 import path from 'node:path';
 import supertest from 'supertest';
@@ -200,4 +203,72 @@ export function getPackage(
   }
 
   return test.expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET).expect(statusCode);
+}
+
+export type RawResponse = { status: number; body: string };
+
+function readResponse(socket: net.Socket): Promise<RawResponse> {
+  return new Promise((resolve, reject) => {
+    let buffer = Buffer.alloc(0);
+    const settle = (error?: Error, response?: RawResponse) => {
+      socket.off('data', onData).off('error', settle).off('close', onClose);
+      if (error) {
+        reject(error);
+      } else {
+        resolve(response as RawResponse);
+      }
+    };
+    const onClose = () => settle(new Error('socket closed before the response completed'));
+    const onData = (chunk: Buffer) => {
+      buffer = Buffer.concat([buffer, chunk]);
+      const headerEnd = buffer.indexOf('\r\n\r\n');
+      if (headerEnd === -1) {
+        return;
+      }
+      const head = buffer.subarray(0, headerEnd).toString('latin1');
+      const length = Number(/^content-length:\s*(\d+)\s*$/im.exec(head)?.[1]);
+      if (Number.isNaN(length)) {
+        settle(new Error(`response without content-length: ${head}`));
+      } else if (buffer.length >= headerEnd + 4 + length) {
+        const body = buffer.subarray(headerEnd + 4, headerEnd + 4 + length).toString('utf8');
+        settle(undefined, { status: Number(head.split(' ')[1]), body });
+      }
+    };
+    socket.on('data', onData).once('error', settle).once('close', onClose);
+  });
+}
+
+/**
+ * Sends the GET requests one after another over a single keep-alive socket (supertest opens one
+ * per request); rejects if the server closes or resets the socket before every response arrives.
+ */
+export async function keepAliveGet(
+  app: Application,
+  paths: string[],
+  headers: Record<string, string> = {}
+): Promise<RawResponse[]> {
+  const server = app.listen(0, '127.0.0.1');
+  await once(server, 'listening');
+  const socket = net.connect((server.address() as AddressInfo).port, '127.0.0.1');
+  try {
+    await once(socket, 'connect');
+    const head = Object.entries({ host: 'localhost', accept: HEADERS.JSON, ...headers })
+      .map(([name, value]) => `${name}: ${value}\r\n`)
+      .join('');
+    const responses: RawResponse[] = [];
+    for (const path of paths) {
+      const response = readResponse(socket);
+      socket.write(`GET ${path} HTTP/1.1\r\n${head}\r\n`);
+      responses.push(
+        await response.catch((error: Error) => {
+          throw new Error(`request ${responses.length + 1} of ${paths.length}: ${error.message}`);
+        })
+      );
+    }
+    return responses;
+  } finally {
+    socket.destroy();
+    server.closeAllConnections();
+    await new Promise((resolve) => server.close(resolve));
+  }
 }
