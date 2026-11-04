@@ -229,6 +229,11 @@ docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 
 Docker examples are available [in this repository](https://github.com/verdaccio/verdaccio/tree/master/docker-examples).
 
+## One-Click Deploy
+
+<a href="https://repocloud.io/details/Verdaccio/"><img src="https://d16t0pc4846x52.cloudfront.net/deploylobe.svg" alt="Deploy on RepoCloud" height="42"></a>
+<a href="https://railway.com/deploy/verdaccio"><img src="https://railway.com/button.svg" alt="Deploy on Railway" height="42"></a>
+
 ## Compatibility
 
 Verdaccio aims to support all features of a standard npm client that make sense to support in a private repository. Unfortunately, it isn't always possible.
