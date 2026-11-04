@@ -1,0 +1,22 @@
+auth:
+  htpasswd:
+    file: ./htpasswd-tarball-metadata
+
+uplinks:
+  remote:
+    url: https://registry.tarball.test/
+    retry: 0
+
+log: { type: stdout, format: pretty, level: warn }
+
+packages:
+  'remote-*':
+    access: $all
+    proxy: remote
+  '**':
+    access: $all
+    publish: $anonymous
+    unpublish: $anonymous
+
+flags:
+  tarballMetadata: false

@@ -130,6 +130,14 @@ export type FlagsConfig = {
   tfa?: boolean;
 
   /**
+   * Experimental: reads published and cached tarballs in the background to fill
+   * `dist.fileCount`/`dist.unpackedSize` and serve per-version READMEs to the web UI.
+   *
+   * @default false
+   */
+  tarballMetadata?: boolean;
+
+  /**
    * Enables web-based login flow.
    *
    * @default false
@@ -245,6 +253,14 @@ export interface Security {
 
 export type ReadmeOptions = 'latest' | 'tagged' | 'all';
 
+/**
+ * Options for the experimental `flags.tarballMetadata`.
+ */
+export interface TarballMetadataConf {
+  /** Tarballs larger than this many megabytes are never unpacked. */
+  max_size_mb?: number;
+}
+
 export interface PublishOptions {
   allow_offline: boolean;
   keep_readmes?: ReadmeOptions;
@@ -355,6 +371,7 @@ export interface ConfigYaml {
   https_proxy?: string;
   no_proxy?: string;
   max_body_size?: string;
+  tarball_metadata?: TarballMetadataConf;
   notifications?: Notifications;
   notify?: Notifications | Notifications[];
   middlewares?: any;

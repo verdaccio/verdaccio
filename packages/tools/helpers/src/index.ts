@@ -7,3 +7,5 @@ export { generatePublishNewVersionManifest } from './generatePublishNewVersionMa
 export { initializeServer } from './initializeServer';
 export { publishVersion } from './actions';
 export { generateUnPublishPackageMetadata } from './generateUnPublishPackageMetadata';
+export { generateTarball } from './generateTarball';
+export { generatePackageMetadataWithTarball } from './generatePackageMetadataWithTarball';
