@@ -1,6 +1,6 @@
 {
   "name": "verdaccio",
-  "version": "9.0.0-next-9.41",
+  "version": "9.0.0-next-9.42",
   "description": "A lightweight private npm proxy registry",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -38,14 +38,14 @@
   },
   "homepage": "https://verdaccio.org",
   "dependencies": {
-    "@verdaccio/cli": "workspace:9.0.0-next-9.41",
-    "@verdaccio/config": "workspace:9.0.0-next-9.41",
-    "@verdaccio/node-api": "workspace:9.0.0-next-9.41",
-    "@verdaccio/server": "workspace:9.0.0-next-9.41",
-    "@verdaccio/ui-theme": "workspace:9.0.0-next-9.41",
-    "verdaccio-audit": "workspace:14.0.0-next-9.41",
-    "verdaccio-htpasswd": "workspace:14.0.0-next-9.41",
-    "@verdaccio/package-filter": "workspace:14.0.0-next-9.65"
+    "@verdaccio/cli": "workspace:9.0.0-next-9.42",
+    "@verdaccio/config": "workspace:9.0.0-next-9.42",
+    "@verdaccio/node-api": "workspace:9.0.0-next-9.42",
+    "@verdaccio/server": "workspace:9.0.0-next-9.42",
+    "@verdaccio/ui-theme": "workspace:9.0.0-next-9.42",
+    "verdaccio-audit": "workspace:14.0.0-next-9.42",
+    "verdaccio-htpasswd": "workspace:14.0.0-next-9.42",
+    "@verdaccio/package-filter": "workspace:14.0.0-next-9.66"
   },
   "devDependencies": {
     "rimraf": "6.1.3",
