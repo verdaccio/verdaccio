@@ -20,6 +20,7 @@ export type SearchPackageBody = {
   };
   publisher?: any;
   maintainers?: PublisherMaintainer[];
+  access?: string;
 };
 
 /**
