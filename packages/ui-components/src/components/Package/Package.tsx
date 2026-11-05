@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import BugReport from '@mui/icons-material/BugReport';
 import DownloadIcon from '@mui/icons-material/CloudDownload';
 import HomeIcon from '@mui/icons-material/Home';
+import Chip from '@mui/material/Chip';
 import CircularProgress from '@mui/material/CircularProgress';
 import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
@@ -57,6 +58,7 @@ export interface PackageInterface {
   bugs?: Bugs | string;
   dist?: Dist;
   showDownload?: boolean;
+  origin?: 'private' | 'cached';
 }
 
 const Package: React.FC<PackageInterface> = ({
@@ -68,6 +70,7 @@ const Package: React.FC<PackageInterface> = ({
   keywords,
   license,
   name: packageName,
+  origin,
   time,
   showDownload = true,
   version,
@@ -198,6 +201,18 @@ const Package: React.FC<PackageInterface> = ({
               {packageName}
             </PackageTitle>
           </WrapperLink>
+          {origin && (
+            <Tooltip title={t(`package.origin-${origin}-description`)}>
+              <Chip
+                color={origin === 'private' ? 'primary' : 'default'}
+                data-testid={`package-origin-${origin}`}
+                label={t(`package.origin-${origin}`)}
+                size="small"
+                sx={{ ml: 1, verticalAlign: 'middle' }}
+                variant="outlined"
+              />
+            </Tooltip>
+          )}
         </Grid>
         <GridRightAligned size="auto">
           {renderHomePageLink()}

@@ -1,4 +1,4 @@
-import { HttpResponse, http } from 'msw';
+import { HttpResponse, delay, http } from 'msw';
 import React from 'react';
 import { useSWRConfig } from 'swr';
 import { afterEach, describe, expect, test } from 'vitest';
@@ -13,9 +13,27 @@ import {
   screen,
   waitFor,
 } from '../../test/test-react-testing-library';
-import ManifestsProvider, { useManifests } from './ManifestsProvider';
+import ManifestsProvider, { CACHED_PAGE_SIZE, useManifests } from './ManifestsProvider';
 
 const PACKAGES_URL = 'http://localhost:9000/-/verdaccio/data/packages';
+const CACHED_URL = 'http://localhost:9000/-/verdaccio/data/packages/cached';
+
+const pkg = (name: string, origin: 'private' | 'cached') => ({ name, version: '1.0.0', origin });
+
+function PagedComponent() {
+  const { isLoading, loadMore, manifests } = useManifests();
+  return isLoading ? (
+    <div>{'loading ...'}</div>
+  ) : (
+    <div>
+      <button onClick={() => loadMore?.()} type="button">
+        {'more'}
+      </button>
+      <div>{`total:${manifests?.length}`}</div>
+      <div>{`cached:${manifests?.filter((m) => m.origin === 'cached').length}`}</div>
+    </div>
+  );
+}
 
 function CustomComponent() {
   const { isError, isLoading, manifests } = useManifests();
@@ -38,6 +56,160 @@ function CustomComponent() {
 describe('<ManifestsProvider />', () => {
   afterEach(() => {
     cleanup();
+  });
+
+  describe('with flags.cachedPackages', () => {
+    const options = window.__VERDACCIO_BASENAME_UI_OPTIONS;
+
+    afterEach(() => {
+      window.__VERDACCIO_BASENAME_UI_OPTIONS = options;
+    });
+
+    test('should append cached packages page by page after the private ones', async () => {
+      window.__VERDACCIO_BASENAME_UI_OPTIONS = { ...options, flags: { cachedPackages: true } };
+      const total = 60;
+      server.use(
+        http.get(PACKAGES_URL, () => HttpResponse.json([pkg('a', 'private'), pkg('b', 'private')])),
+        http.get(CACHED_URL, ({ request }) => {
+          const params = new URL(request.url).searchParams;
+          const after = params.get('after');
+          const limit = Number(params.get('limit'));
+          const names = Array.from(
+            { length: total },
+            (_, i) => `cached-${String(i).padStart(2, '0')}`
+          );
+          const start = after ? names.indexOf(after) + 1 : 0;
+          const page = names.slice(start, start + limit);
+          return HttpResponse.json({
+            packages: page.map((name) => pkg(name, 'cached')),
+            next: start + limit < total ? page[page.length - 1] : null,
+          });
+        })
+      );
+
+      await act(async () =>
+        renderWithRouter(
+          <ManifestsProvider>
+            <PagedComponent />
+          </ManifestsProvider>,
+          RouterPath.ROOT,
+          [RouterPath.ROOT]
+        )
+      );
+
+      await waitFor(() => screen.getByText(`total:${2 + CACHED_PAGE_SIZE}`));
+      fireEvent.click(screen.getByText('more'));
+      await waitFor(() => screen.getByText(`total:${2 + total}`));
+      expect(screen.getByText(`cached:${total}`)).toBeInTheDocument();
+    });
+
+    test('should keep loading while the private list is empty and the cached one is pending', async () => {
+      window.__VERDACCIO_BASENAME_UI_OPTIONS = { ...options, flags: { cachedPackages: true } };
+      server.use(
+        http.get(PACKAGES_URL, () => HttpResponse.json([])),
+        http.get(CACHED_URL, async () => {
+          await delay(200);
+          return HttpResponse.json({ packages: [pkg('cached-a', 'cached')], next: null });
+        })
+      );
+
+      await act(async () =>
+        renderWithRouter(
+          <ManifestsProvider>
+            <PagedComponent />
+          </ManifestsProvider>,
+          RouterPath.ROOT,
+          [RouterPath.ROOT]
+        )
+      );
+
+      // the private list has answered, the cached one has not: still loading, not an empty registry
+      await act(async () => new Promise((resolve) => setTimeout(resolve, 50)));
+      expect(screen.getByText('loading ...')).toBeInTheDocument();
+      await waitFor(() => screen.getByText('total:1'));
+    });
+
+    test('should ask for the next cached page by itself while nothing is listed', async () => {
+      window.__VERDACCIO_BASENAME_UI_OPTIONS = { ...options, flags: { cachedPackages: true } };
+      server.use(
+        http.get(PACKAGES_URL, () => HttpResponse.json([])),
+        http.get(CACHED_URL, ({ request }) => {
+          const after = new URL(request.url).searchParams.get('after');
+          return HttpResponse.json(
+            after === 'hidden-b'
+              ? { packages: [pkg('cached-c', 'cached')], next: null }
+              : { packages: [], next: after ? 'hidden-b' : 'hidden-a' }
+          );
+        })
+      );
+
+      await act(async () =>
+        renderWithRouter(
+          <ManifestsProvider>
+            <PagedComponent />
+          </ManifestsProvider>,
+          RouterPath.ROOT,
+          [RouterPath.ROOT]
+        )
+      );
+
+      await waitFor(() => screen.getByText('total:1'));
+      expect(screen.getByText('cached:1')).toBeInTheDocument();
+    });
+
+    test('should poll the cached list while it is empty and stop once a package arrives', async () => {
+      window.__VERDACCIO_BASENAME_UI_OPTIONS = { ...options, flags: { cachedPackages: true } };
+      let requests = 0;
+      server.use(
+        http.get(PACKAGES_URL, () => HttpResponse.json([pkg('a', 'private')])),
+        http.get(CACHED_URL, () => {
+          requests += 1;
+          return HttpResponse.json({
+            packages: requests < 2 ? [] : [pkg('cached-a', 'cached')],
+            next: null,
+          });
+        })
+      );
+
+      renderWithRouter(
+        <ManifestsProvider emptyRefreshMs={50}>
+          <PagedComponent />
+        </ManifestsProvider>,
+        RouterPath.ROOT,
+        [RouterPath.ROOT]
+      );
+
+      // SWR dedupes revalidations for 2s, so the second request lands after that window
+      await waitFor(() => expect(screen.getByText('cached:1')).toBeInTheDocument(), {
+        timeout: 5000,
+      });
+      const requestsWhenFound = requests;
+      await new Promise((resolve) => setTimeout(resolve, 300));
+      expect(requests).toBe(requestsWhenFound);
+    }, 10_000);
+
+    test('should not request cached packages when the flag is off', async () => {
+      let cachedRequests = 0;
+      server.use(
+        http.get(CACHED_URL, () => {
+          cachedRequests++;
+          return HttpResponse.json({ packages: [], next: null });
+        })
+      );
+
+      await act(async () =>
+        renderWithRouter(
+          <ManifestsProvider>
+            <PagedComponent />
+          </ManifestsProvider>,
+          RouterPath.ROOT,
+          [RouterPath.ROOT]
+        )
+      );
+
+      await waitFor(() => screen.getByText('cached:0'));
+      expect(cachedRequests).toBe(0);
+    });
   });
 
   test('should load data from the provider', async () => {

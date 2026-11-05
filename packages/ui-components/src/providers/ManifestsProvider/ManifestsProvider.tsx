@@ -1,17 +1,25 @@
 import type { ReactElement } from 'react';
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import useSWRInfinite from 'swr/infinite';
 
 import type { Manifest } from '@verdaccio/types';
 
 import { useData } from '../../api/use-data';
 import { getConfiguration } from '../../configuration';
+import API from '../../store/api';
 import { stripTrailingSlash } from '../../store/utils';
 import { APIRoute } from '../../utils/routes';
+import { useAuth } from '../AuthProvider';
 
 export interface ManifestsContextProps {
   isError: boolean;
   isLoading: boolean;
   manifests: ManifestWeb[];
+  /** Fetches the next page of cached packages; a no-op when there is none or one is in flight. */
+  loadMore: () => void;
+  /** Whether the registry holds cached packages beyond the pages loaded so far. */
+  hasMore: boolean;
+  isLoadingMore: boolean;
 }
 
 export interface Author {
@@ -26,7 +34,17 @@ export interface ManifestWeb extends Omit<Manifest, 'time' | 'author'> {
   author: Author;
   version: string;
   dist: any;
+  /** Only set when `flags.cachedPackages` is enabled. */
+  origin?: 'private' | 'cached';
 }
+
+interface CachedPackagesPage {
+  packages: ManifestWeb[];
+  /** Cursor for the next page, `null` on the last one. */
+  next: string | null;
+}
+
+export const CACHED_PAGE_SIZE = 50;
 
 export const ManifestsContext = createContext<Partial<ManifestsContextProps>>({});
 
@@ -43,17 +61,82 @@ const ManifestsProvider: React.FC<{ children: ReactElement; emptyRefreshMs?: num
   // a number, not SWR's function form: that one is read once at mount, before any data exists
   const [refreshInterval, setRefreshInterval] = useState(0);
 
+  const showCached = getConfiguration().flags?.cachedPackages === true;
+  const { userState } = useAuth();
+  const [cachedRefreshInterval, setCachedRefreshInterval] = useState(0);
+
+  // the user is part of the key so a login starts over with what that user may see
+  const cached = useSWRInfinite<CachedPackagesPage>(
+    (_pageIndex, previous: CachedPackagesPage | null) => {
+      if (!showCached || previous?.next === null) {
+        return null;
+      }
+      const after = previous ? `&after=${encodeURIComponent(previous.next)}` : '';
+      return [
+        `${basePath}${APIRoute.CACHED_PACKAGES}?limit=${CACHED_PAGE_SIZE}${after}`,
+        userState?.username ?? '',
+      ];
+    },
+    ([url]: [string]) => API.request<CachedPackagesPage>(url),
+    {
+      // only the poll below refetches the first page; loading more pages never does
+      revalidateFirstPage: cachedRefreshInterval > 0,
+      revalidateOnFocus: false,
+      refreshInterval: cachedRefreshInterval,
+      // like the private list: poll while nothing is cached yet, so the first install shows up
+      onSuccess: (pages) =>
+        setCachedRefreshInterval(
+          pages.length === 1 && pages[0].packages.length === 0 && pages[0].next === null
+            ? emptyRefreshMs
+            : 0
+        ),
+    }
+  );
+  const { setSize, isValidating: isLoadingCached } = cached;
+  const cachedPages = cached.data;
+  const lastPage = cachedPages?.[cachedPages.length - 1];
+  const hasMoreCached = showCached && !!lastPage && lastPage.next !== null;
+
+  const loadMore = useCallback(() => {
+    if (hasMoreCached && !isLoadingCached) {
+      setSize((size) => size + 1);
+    }
+  }, [hasMoreCached, isLoadingCached, setSize]);
+
   const data = useData<ManifestWeb[]>(basePath, APIRoute.PACKAGES, undefined, undefined, {
     refreshInterval,
     onSuccess: (latest) =>
       setRefreshInterval(Array.isArray(latest) && latest.length === 0 ? emptyRefreshMs : 0),
   });
 
+  const manifests = useMemo(() => {
+    const privateManifests = (data.data as ManifestWeb[]) ?? [];
+    return cachedPages
+      ? privateManifests.concat(cachedPages.flatMap((page) => page.packages))
+      : privateManifests;
+  }, [data.data, cachedPages]);
+
+  // the rows only ask for more once rendered, so an empty list has to ask by itself
+  const nothingListedYet = manifests.length === 0 && hasMoreCached;
+  useEffect(() => {
+    if (nothingListedYet && !isLoadingCached) {
+      setSize((size) => size + 1);
+    }
+  }, [nothingListedYet, isLoadingCached, setSize]);
+
+  const privateEmpty = Array.isArray(data.data) && data.data.length === 0;
+  const cachedPending =
+    showCached && cached.error === undefined && (cachedPages === undefined || nothingListedYet);
+
   return (
     <ManifestsContext.Provider
       value={{
-        manifests: (data.data as ManifestWeb[]) ?? [],
-        isLoading: data.isLoading,
+        manifests,
+        loadMore,
+        hasMore: hasMoreCached,
+        isLoadingMore: hasMoreCached && isLoadingCached,
+        // an empty private registry is not known to be empty until the first cached page answers
+        isLoading: data.isLoading || (privateEmpty && cachedPending),
         // any error counts (network failures have no `.code`), but a failed
         // revalidation must not hide an already-cached, renderable list
         isError: typeof data.error !== 'undefined' && typeof data.data === 'undefined',
