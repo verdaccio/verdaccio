@@ -1,5 +1,13 @@
 # Changelog
 
+## 6.11.2
+
+### Patch Changes
+
+- c537fff: Update verdaccio dependencies to the `latest` npm dist-tag (`@verdaccio/ui-theme` tracks `next-9`):
+  
+  - `@verdaccio/ui-theme`: `9.0.0-next-9.40` → `9.0.0-next-9.42`
+
 ## 6.11.1
 
 ### Patch Changes
