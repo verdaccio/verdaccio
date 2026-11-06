@@ -110,47 +110,47 @@ importers:
   .:
     dependencies:
       '@verdaccio/auth':
-        specifier: 9.0.0-next-9.41
-        version: 9.0.0-next-9.41(supports-color@8.1.1)
+        specifier: 9.0.0-next-9.42
+        version: 9.0.0-next-9.42(supports-color@8.1.1)
       '@verdaccio/cli':
-        specifier: 9.0.0-next-9.41
-        version: 9.0.0-next-9.41(supports-color@8.1.1)(typanion@3.14.0)
+        specifier: 9.0.0-next-9.42
+        version: 9.0.0-next-9.42(supports-color@8.1.1)(typanion@3.14.0)
       '@verdaccio/config':
-        specifier: 9.0.0-next-9.41
-        version: 9.0.0-next-9.41(supports-color@8.1.1)
+        specifier: 9.0.0-next-9.42
+        version: 9.0.0-next-9.42(supports-color@8.1.1)
       '@verdaccio/core':
-        specifier: 9.0.0-next-9.41
-        version: 9.0.0-next-9.41
+        specifier: 9.0.0-next-9.42
+        version: 9.0.0-next-9.42
       '@verdaccio/loaders':
-        specifier: 9.0.0-next-9.41
-        version: 9.0.0-next-9.41(supports-color@8.1.1)
+        specifier: 9.0.0-next-9.42
+        version: 9.0.0-next-9.42(supports-color@8.1.1)
       '@verdaccio/local-storage':
-        specifier: 14.0.0-next-9.41
-        version: 14.0.0-next-9.41(supports-color@8.1.1)
+        specifier: 14.0.0-next-9.42
+        version: 14.0.0-next-9.42(supports-color@8.1.1)
       '@verdaccio/logger':
-        specifier: 9.0.0-next-9.41
-        version: 9.0.0-next-9.41(supports-color@8.1.1)
+        specifier: 9.0.0-next-9.42
+        version: 9.0.0-next-9.42(supports-color@8.1.1)
       '@verdaccio/middleware':
-        specifier: 9.0.0-next-9.41
-        version: 9.0.0-next-9.41(supports-color@8.1.1)
+        specifier: 9.0.0-next-9.42
+        version: 9.0.0-next-9.42(supports-color@8.1.1)
       '@verdaccio/node-api':
-        specifier: 9.0.0-next-9.41
-        version: 9.0.0-next-9.41(supports-color@8.1.1)
+        specifier: 9.0.0-next-9.42
+        version: 9.0.0-next-9.42(supports-color@8.1.1)
       '@verdaccio/package-filter':
-        specifier: 14.0.0-next-9.65
-        version: 14.0.0-next-9.65(supports-color@8.1.1)
+        specifier: 14.0.0-next-9.66
+        version: 14.0.0-next-9.66(supports-color@8.1.1)
       '@verdaccio/proxy':
-        specifier: 9.0.0-next-9.41
-        version: 9.0.0-next-9.41(supports-color@8.1.1)
+        specifier: 9.0.0-next-9.42
+        version: 9.0.0-next-9.42(supports-color@8.1.1)
       '@verdaccio/server':
-        specifier: 9.0.0-next-9.41
-        version: 9.0.0-next-9.41(supports-color@8.1.1)
+        specifier: 9.0.0-next-9.42
+        version: 9.0.0-next-9.42(supports-color@8.1.1)
       '@verdaccio/store':
-        specifier: 9.0.0-next-9.41
-        version: 9.0.0-next-9.41(supports-color@8.1.1)
+        specifier: 9.0.0-next-9.42
+        version: 9.0.0-next-9.42(supports-color@8.1.1)
       '@verdaccio/ui-theme':
-        specifier: 9.0.0-next-9.41
-        version: 9.0.0-next-9.41(supports-color@8.1.1)
+        specifier: 9.0.0-next-9.42
+        version: 9.0.0-next-9.42(supports-color@8.1.1)
       debug:
         specifier: 4.4.3
         version: 4.4.3(supports-color@8.1.1)
@@ -164,11 +164,11 @@ importers:
         specifier: 7.8.5
         version: 7.8.5
       verdaccio-audit:
-        specifier: 14.0.0-next-9.41
-        version: 14.0.0-next-9.41(supports-color@8.1.1)
+        specifier: 14.0.0-next-9.42
+        version: 14.0.0-next-9.42(supports-color@8.1.1)
       verdaccio-htpasswd:
-        specifier: 14.0.0-next-9.41
-        version: 14.0.0-next-9.41(supports-color@8.1.1)
+        specifier: 14.0.0-next-9.42
+        version: 14.0.0-next-9.42(supports-color@8.1.1)
     devDependencies:
       '@changesets/changelog-github':
         specifier: 1.0.1
@@ -207,8 +207,8 @@ importers:
         specifier: 0.0.2
         version: 0.0.2
       '@verdaccio/api':
-        specifier: 9.0.0-next-9.41
-        version: 9.0.0-next-9.41(supports-color@8.1.1)
+        specifier: 9.0.0-next-9.42
+        version: 9.0.0-next-9.42(supports-color@8.1.1)
       '@verdaccio/e2e-cli':
         specifier: 4.0.1
         version: 4.0.1(supports-color@8.1.1)
@@ -216,14 +216,14 @@ importers:
         specifier: 2.8.0
         version: 2.8.0(cypress@16.2.0)
       '@verdaccio/test-helper':
-        specifier: 5.0.0-next-9.42
-        version: 5.0.0-next-9.42(supports-color@8.1.1)
+        specifier: 5.0.0-next-9.43
+        version: 5.0.0-next-9.43(supports-color@8.1.1)
       '@verdaccio/types':
         specifier: 14.0.0-next-9.18
         version: 14.0.0-next-9.18
       '@verdaccio/web':
-        specifier: 9.0.0-next-9.41
-        version: 9.0.0-next-9.41(supports-color@8.1.1)
+        specifier: 9.0.0-next-9.42
+        version: 9.0.0-next-9.42(supports-color@8.1.1)
       '@vitest/coverage-v8':
         specifier: 5.0.5
         version: 5.0.5(vitest@5.0.5)
@@ -267,11 +267,11 @@ importers:
         specifier: 7.0.2
         version: 7.0.2
       verdaccio-auth-memory:
-        specifier: 14.0.0-next-9.41
-        version: 14.0.0-next-9.41(supports-color@8.1.1)
+        specifier: 14.0.0-next-9.42
+        version: 14.0.0-next-9.42(supports-color@8.1.1)
       verdaccio-memory:
-        specifier: 14.0.0-next-9.41
-        version: 14.0.0-next-9.41(supports-color@8.1.1)
+        specifier: 14.0.0-next-9.42
+        version: 14.0.0-next-9.42(supports-color@8.1.1)
       vite:
         specifier: 8.3.4
         version: 8.3.4(@types/node@25.5.0)(esbuild@0.28.2)(tsx@4.23.15)(yaml@2.9.1)
@@ -544,6 +544,9 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@isaacs/nonrecursive-glob-match@1.0.3':
+    resolution: {integrity: sha512-SI7kyKHq4XXDRozw+r9GlRZkia1ZkFrpLW98r2IC2Bpr8YkFGE3fvjzmxCG0x78A++69HmDNrDvSMYBZmHGpKA==}
 
   '@jridgewell/resolve-uri@3.1.2':
     resolution: {integrity: sha512-bRISgCIjP20/tbWSPWMEi54QVPRZExkuD9lJL+UIxUKtwVJA8wW1Trb1jMs1RFXo1CBTNZ/5hpC9QvmKWdopKw==}
@@ -1330,16 +1333,16 @@ packages:
     resolution: {integrity: sha512-BqeDqLcYcm3CRYlrQnAueKg8vabBtqwgZ4jRLZJtig+JWzSX50sKdWrzbhf6waQT/HjRO+ADUs/2gjl1tdOTMQ==}
     engines: {node: '>=12'}
 
-  '@verdaccio/api@9.0.0-next-9.41':
-    resolution: {integrity: sha512-+C5vxvR9ycu7SdoO9JvIuwC00xyZ2cNFMpAJxPgfyy20fxnkjcOxndYQi2dQibdmORX35RBad7bkNqIOq/TeIA==}
+  '@verdaccio/api@9.0.0-next-9.42':
+    resolution: {integrity: sha512-zxiJwTb/F0A2FeW4DR2w01bvhPUYi3xblsxrHA2k60WVpC2KZUsOIOyA6/LYxVmQhjlh527lXHRuZmByLCyaXg==}
     engines: {node: '>=24'}
 
-  '@verdaccio/auth@9.0.0-next-9.41':
-    resolution: {integrity: sha512-qx37mVIcSEy3pRTMX8UhVH9qi0kpM70GDSK11uWFQwy+URcoVeuf00ukPth5gaF7N77uNJe4iT5HR9oDJEjOOQ==}
+  '@verdaccio/auth@9.0.0-next-9.42':
+    resolution: {integrity: sha512-bF5krHibdFUO9XnsRde7VDOJGz0JUGYL9qoUXbs/JFtjnSEyA0Pquv6SJ7GlVycdzevuZKpm4k6bXgpHxrGwAw==}
     engines: {node: '>=24'}
 
-  '@verdaccio/cli@9.0.0-next-9.41':
-    resolution: {integrity: sha512-JDamAqCCDUWjCYBdBcjYRvPxlMrB/f772k8PT6SUvhnWVX99fQ0YvsEpLaK7Z7C2gu6iflcHg8MXeQ8euemJ2Q==}
+  '@verdaccio/cli@9.0.0-next-9.42':
+    resolution: {integrity: sha512-MwqgI2IZMTd0MaStyujkKhPmqplVh9mw4aDMEYNIC1Xy6vnW+tZsrYpKH0r7xXSi/DVK5cN+orkkh0VkDe9Nrw==}
     engines: {node: '>=24'}
     hasBin: true
 
@@ -1348,12 +1351,12 @@ packages:
     engines: {node: '>=8'}
     deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
-  '@verdaccio/config@9.0.0-next-9.41':
-    resolution: {integrity: sha512-7nSpclNDUCdlEuk9ZnjL1Gzp4Z3WCuyfYIbWMW3wDnT+ES239rBrOFHD12/9f7ORnOkVYpFMa+AdE8cBonX/9g==}
+  '@verdaccio/config@9.0.0-next-9.42':
+    resolution: {integrity: sha512-3jaldrG2v93afnvPwQlzVvGUd0iKAun288AHynY4LWayg4GBG9I1R/t6As/mO3W6Rbk5hDpttyDGBOryrngPsQ==}
     engines: {node: '>=24'}
 
-  '@verdaccio/core@9.0.0-next-9.41':
-    resolution: {integrity: sha512-afWiwSXbwk0k90UQBOvfHKHZ+h6lQRJCyOs2hLns3sFooAHnKvXDK1YWAeSC/wRvhLCsKOTAc39lD6VVWHsVfg==}
+  '@verdaccio/core@9.0.0-next-9.42':
+    resolution: {integrity: sha512-W0JE5NgiWmMYFRHCnKGKyxvgaQSVEAb0AkC3Bkj4JZPlY8EqwKzwKOkigk06l2mCXtfOv61RWQlDLGKI9icoDw==}
     engines: {node: '>=24'}
 
   '@verdaccio/e2e-cli@4.0.1':
@@ -1369,36 +1372,36 @@ packages:
     resolution: {integrity: sha512-3WuWIYnUcPS1/CG4UvrAoiPjwcJ1P8aD73j/R+UU2W3mH9diHSx3LWJQyRd3Gg3n6RzL49xtps+OzEZofedn2A==}
     engines: {node: '>=24'}
 
-  '@verdaccio/hooks@9.0.0-next-9.41':
-    resolution: {integrity: sha512-qtrKARkrdrT+L804G3MJ+huJEsJfPC0fzGFOAXH9HXlGT3POWyFARN7iyDBx8beZxs5dbf4T6LlXoTDGC7IQeQ==}
+  '@verdaccio/hooks@9.0.0-next-9.42':
+    resolution: {integrity: sha512-XdNRzJiHXNLKgHV1Y6hxH7w0p0W72ql/crUy+if3dygJgf8Fv5tuv7HeyA18/1iXecNGdET1glrjhI4gMTbpoQ==}
     engines: {node: '>=24'}
 
-  '@verdaccio/loaders@9.0.0-next-9.41':
-    resolution: {integrity: sha512-HOueyj8iawXfl2iN8wCu/ji00Uy8Axr5ANJFwsrV5qnmziZVnsCWdEXUjVvRpbfKNOX+fRjxIgOK6MKwVCmDjA==}
+  '@verdaccio/loaders@9.0.0-next-9.42':
+    resolution: {integrity: sha512-4ki+ga3yLGrJUoD6wCT5fuIukw/wyh1sN8JKfBY35O6iUG8aXKWgoEsI+sqRKU/W/uL162lxKzE1/6njivA8zg==}
     engines: {node: '>=24'}
 
-  '@verdaccio/local-storage@14.0.0-next-9.41':
-    resolution: {integrity: sha512-bzNyjnNF1d1YDlB4EdYGWcTJryR2yvNOBVqmKTzofJHrg+/vFkKnbfbK7e/GWfXnMxlKw+G+rbQ5JDQZs99GCA==}
+  '@verdaccio/local-storage@14.0.0-next-9.42':
+    resolution: {integrity: sha512-Q+cvGml/8P4UeNV6w/84hM9pHkFYQ5SB1h+j6bE5rDEpIZ0P2k38xtDx13lPuY88j4h7szMLw1KXJEJtNjfsDA==}
     engines: {node: '>=24'}
 
-  '@verdaccio/logger@9.0.0-next-9.41':
-    resolution: {integrity: sha512-J9X33ynamOLaIVUONs4/DiGmtQA8dcE7r/LESe39l9uJhl0r5LWEsD1++g153yFzSsDDzKkx65BOK9LwfGFwNg==}
+  '@verdaccio/logger@9.0.0-next-9.42':
+    resolution: {integrity: sha512-fK9mmFEa34Pc7Sn5x/G/avDPkObzuZnCNRY47xDhE6VJQO5LCpcTPQXxCFS6NE2aCnw87t+ROwW/O24bFWD7dQ==}
     engines: {node: '>=24'}
 
-  '@verdaccio/middleware@9.0.0-next-9.41':
-    resolution: {integrity: sha512-TBsTu8asei8Ifl+5XBnCa6k/q1THVjLhI9/M3OfVWAtAEz2o1ikPcAYKANnEHuTdpatXUKgHdoOIn09apYSRWA==}
+  '@verdaccio/middleware@9.0.0-next-9.42':
+    resolution: {integrity: sha512-1MMMwOtYa8MH/YdWjJtXM5YPw7y9xnPFnlqBwA72Y0sCFr2TDDlfRwc0CJIluVZPFQBviIe74P1pZv8vid6iGg==}
     engines: {node: '>=24'}
 
-  '@verdaccio/node-api@9.0.0-next-9.41':
-    resolution: {integrity: sha512-aj5/ifu1uqhaFfgMOEu/xPuH+pnfMoXR8a2mwfIXIns3bsjs9Ha/0VaKQNPNN04NDuTmzkAvIBedj9gktnNFbw==}
+  '@verdaccio/node-api@9.0.0-next-9.42':
+    resolution: {integrity: sha512-B/gNkn1j55ZMInN8i+Onc0YBe7QQMuN1tDUvIVCtHqpy54ngiBePjN6AbAMGuVJHTPZVJCF86QMOJJHwcPU3/Q==}
     engines: {node: '>=24'}
 
-  '@verdaccio/package-filter@14.0.0-next-9.65':
-    resolution: {integrity: sha512-2dEOQ2Qlbp/X/CPjsD19Ryy3s/207y3t6TcVeMrwKwnNTxIrVikYhzqjIxwHFHQiluUPgzwqXsX5a1Z+l36lNA==}
+  '@verdaccio/package-filter@14.0.0-next-9.66':
+    resolution: {integrity: sha512-KMr0LFN6X7p/VrZTM6GKoEe70n63fmYtQoI0HNSRCqhovrGDBLiyt8VZEZ4QqIn961XP8MkOuFIVUWKs41LsHw==}
     engines: {node: '>=24'}
 
-  '@verdaccio/proxy@9.0.0-next-9.41':
-    resolution: {integrity: sha512-PcTC+WNRCvfIS3DwPEelCHoahtvhb0tpeWpXLcPd47CS0Gg6yqoBhLWNE+jR1UCdTF8wrreCBguCw6WDfWj6XQ==}
+  '@verdaccio/proxy@9.0.0-next-9.42':
+    resolution: {integrity: sha512-wXSdnsyxHA47arj4s3edm7Od5hEa1QpWf03sMl7+NM3pVWUnvM3GifvkZIz5sbQ7/KwISfLsVQvXn268eU1ZYw==}
     engines: {node: '>=24'}
 
   '@verdaccio/registry-cli@1.1.0':
@@ -1406,42 +1409,42 @@ packages:
     engines: {node: '>=24'}
     hasBin: true
 
-  '@verdaccio/search@9.0.0-next-9.41':
-    resolution: {integrity: sha512-pINZ2nhaqylkMnjSRFZ32aM2kg8400dHJC51FKxwHyYlXubwPID/dryxx/TGVcCGA+i4mvy8OaUQP6YzwjOfIg==}
+  '@verdaccio/search@9.0.0-next-9.42':
+    resolution: {integrity: sha512-NHZvzM3YHu9e2s1eVrIv4m2xrKBnvIekGZ01qjgSZpks+XmRg5l67TyCXGozT+LO0j8nyLs2orsHwFgZTMb/sg==}
     engines: {node: '>=24'}
 
-  '@verdaccio/server@9.0.0-next-9.41':
-    resolution: {integrity: sha512-RsXFtz4lbKGfxvfDqrHZ3qk/5n78yDHYxInpU6mIhsRWxFzyAF8OnIx/CJS47oPhNkl/70ECLgmE1zCdu7YjEg==}
+  '@verdaccio/server@9.0.0-next-9.42':
+    resolution: {integrity: sha512-dwXaY9vl/G/lJXzHzOV8nIc8tp4AyWrK7iXhqYS90woVQubBb9PTvXZ/QdAoZ6OJNCe0Ntqti6pBOLnJoV6MGQ==}
     engines: {node: '>=24'}
 
-  '@verdaccio/signature@9.0.0-next-9.41':
-    resolution: {integrity: sha512-CcibTGVb60xaPpjP+z18X3AxnFIb6LqVAnkLywTjaCbYQ/VNYGCWK8K+fmbLrw1ZPMpKKalaXdxqYfEF8otBqg==}
+  '@verdaccio/signature@9.0.0-next-9.42':
+    resolution: {integrity: sha512-RRf2Tv7g8joPdlzNjk1dpAi9w9Od/JhKIqEJgfXBdNIBO65tRvTp1oViCUgKF9YN/fAgUKzBbvAAVXkMArdJWA==}
     engines: {node: '>=24'}
 
-  '@verdaccio/store@9.0.0-next-9.41':
-    resolution: {integrity: sha512-XDckQepIyQvc6cJZFSsfu0F7CQOoS880NreB6B9ydfGIEoA1JqFgCZJWFa+8XODFw5Bdq2hP1Bo90NToTTCBRA==}
+  '@verdaccio/store@9.0.0-next-9.42':
+    resolution: {integrity: sha512-AR8FqEIS09Fi7fS5Tjd6RqDVwl3J6ABaX+PKqP94Sjklr1EHt2VnvTA/SNdiE0Bsvs4QLHIge5g6F3Dp5e+flQ==}
     engines: {node: '>=24'}
 
-  '@verdaccio/tarball@14.0.0-next-9.41':
-    resolution: {integrity: sha512-GNiSaR2q4SAgRAFFv2ngeBLlXlqfT6QEY/TmtwIMz2pCa7ZtDbU0fPF5HrHv3mV783vmDVUqCtfYsk48TK6J9g==}
+  '@verdaccio/tarball@14.0.0-next-9.42':
+    resolution: {integrity: sha512-H5CvmDsCdz/IVwEtJpmXjnXGLBzRJlkmqAw1JfC36yjZLu+IMuQec3NbCw8RZgZtJFYuGayXC5sQv2l20ORDQg==}
     engines: {node: '>=24'}
 
-  '@verdaccio/test-helper@5.0.0-next-9.42':
-    resolution: {integrity: sha512-LqbW93TCge1CdapQ6LoPQxDIvsnzNY/clg0ctfnlyMs4bGSBKwYkIwsNNBFU9QvREkO0a0dCnncEDCdWDDdwkQ==}
+  '@verdaccio/test-helper@5.0.0-next-9.43':
+    resolution: {integrity: sha512-HjaPt368y7trnMrMyVN5NbdbuGLlFBpf0YXxxDpU24oGqtD+KtKpJxCao8paKZ1eTOLdfde5JLbuHQQxw7qs9Q==}
 
   '@verdaccio/types@14.0.0-next-9.18':
     resolution: {integrity: sha512-zFv5d/FVS5cBTmMFwUnuobu8xoB5EozlOnnv/UK8xxkSo2cqXQal/gHF0fMlTTkzoVsOc7x64yen8eDyXPFv6w==}
     engines: {node: '>=24'}
 
-  '@verdaccio/ui-theme@9.0.0-next-9.41':
-    resolution: {integrity: sha512-vRtdEywaFSmMMd11QVPBgFNJAqh/HLWtheo2UxOISalu2vO+hxvYcbb2GEFZOCZoS94OK9Pwe82FR0N7DDcG7w==}
+  '@verdaccio/ui-theme@9.0.0-next-9.42':
+    resolution: {integrity: sha512-sgAsLwa7QlRr4zwPZC+DDloOsRE67yFhNT6WpbsP4rdOiRJ51t634ARYW3iaJWWyjJOePtVzaPbq/HcdbSC0Ew==}
 
-  '@verdaccio/url@14.0.0-next-9.41':
-    resolution: {integrity: sha512-DrlxRPY/F0X2ylA8JJuINUZMvWzC9jQNBzsrg6t7NMONyVGlr7gU3F3IoZ2bYVrvx2xnV1PavTiqOMwHUzmI5g==}
+  '@verdaccio/url@14.0.0-next-9.42':
+    resolution: {integrity: sha512-KpSKx53Ae4yG4Ka6GX5zEYTGZLY71CDHDw4IOHO/Odkwo5WjAXZrR360I+wie8C0nleJzh8YFAwPFeo7GOfepA==}
     engines: {node: '>=24'}
 
-  '@verdaccio/web@9.0.0-next-9.41':
-    resolution: {integrity: sha512-gLnkze28YbCoQJUv4lIP7zk0sGtDLYcV6QZNZE8OryJal9swNgHsrVd/qTmUpJA6noGMl5+N8RINUY2HbkgB/A==}
+  '@verdaccio/web@9.0.0-next-9.42':
+    resolution: {integrity: sha512-ahnqxHKirD4ufRc0Pg57q9rYp/yG6ma+H9aacIx1J5R3mHAu092s35+Nxv2AJF6fyAISG8SdnzAy/iIJEV9qjA==}
     engines: {node: '>=24'}
 
   '@vitest/coverage-v8@5.0.5':
@@ -2569,8 +2572,8 @@ packages:
     resolution: {integrity: sha512-e5ISH9xMYU0DzrT+jl8q2ze9D6eWBto+I8CNpe+VI+K2J/F/k3PdkdTdz4wvGVH4NTpo+NRYTVIuMQEMMcsLqg==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
-  minimatch@10.2.6:
-    resolution: {integrity: sha512-vpLQEs+VLCr1nU0BXS07maYoFwlDAH0gngQuuttxIwutDFEMHq2blX+8vpgxDdK3J1PwjCJiep77OitTZ4Ll1A==}
+  minimatch@11.0.3:
+    resolution: {integrity: sha512-iny/40PEGkNJQ5/Pv6z3nm6FbRAby32GeZRjCUJk2WnNDbgPSTcdI+DDvLqsgBdD4cD5sMtMheqPPnehCCa8Nw==}
     engines: {node: 18 || 20 || >=22}
 
   minimist@1.2.8:
@@ -3221,20 +3224,20 @@ packages:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
 
-  verdaccio-audit@14.0.0-next-9.41:
-    resolution: {integrity: sha512-iWv7I4Z1yNmaekaAnICO7Hw0uWlQ+MFrxv2f21sDKnqVK9jLFWq5LYMZGlNceL715DF1EfGnoXz/Cbd37O8tfw==}
+  verdaccio-audit@14.0.0-next-9.42:
+    resolution: {integrity: sha512-asLZ8a/mTe/MypGIocAE8nFYAiMTOripREtB8aW7mzWb6uz92247mcDbPIR0Bz07ROUrFdeglt+hpC5pkbGuVA==}
     engines: {node: '>=24'}
 
-  verdaccio-auth-memory@14.0.0-next-9.41:
-    resolution: {integrity: sha512-hhRhemYtHbH/XKPj/pG82Dvg37QMr/jZGr5hHyGj2C80+5uzf5HzzYSqZAp9qttsa+9CBi+fYw7pmR920E59aA==}
+  verdaccio-auth-memory@14.0.0-next-9.42:
+    resolution: {integrity: sha512-6OYfDbQk4TcQJgcGRZx6PeRFbC+HZNYj1rlH18J+5LKJ49LvgkABMoKJqR012GNHbxHuXZUSTRilZyRDCE9DOQ==}
     engines: {node: '>=24'}
 
-  verdaccio-htpasswd@14.0.0-next-9.41:
-    resolution: {integrity: sha512-MwVf01NnTYg1k++1wa4z16Gc34nENXW1SO/RFbFPOaW1EPEWQHsnECEd3+PcxnVx09KpRbvD2DaGwSM6tdUEvg==}
+  verdaccio-htpasswd@14.0.0-next-9.42:
+    resolution: {integrity: sha512-KPlquR2tYV8vITCXoI8YlkNmEkciB1oMjh5Ww2eD1OwyPfbKdGCxSewTsfnkdvHmIOm33/1OVKziJ6qJ8d1d4Q==}
     engines: {node: '>=24'}
 
-  verdaccio-memory@14.0.0-next-9.41:
-    resolution: {integrity: sha512-FvqqZqhnOVd4fFEBAsTsunF8kx/94/sZ/yeH9W+IRZb44EHVVI7ZrREKssm2+RGkUZp+plQD9no4qjEme4VZrg==}
+  verdaccio-memory@14.0.0-next-9.42:
+    resolution: {integrity: sha512-/abFdqd4WLRWr/w6FwkMP9Ax6vzB/rDoIBtzqRjAu4Gt7E1wZMBRz2yFHdJommD6FvSeTUj82JNbGZwgRjZ0SQ==}
     engines: {node: '>=24'}
 
   verror@1.10.0:
@@ -3618,6 +3621,8 @@ snapshots:
 
   '@esbuild/win32-x64@0.28.2':
     optional: true
+
+  '@isaacs/nonrecursive-glob-match@1.0.3': {}
 
   '@jridgewell/resolve-uri@3.1.2': {}
 
@@ -4232,15 +4237,15 @@ snapshots:
     dependencies:
       '@verdaccio/commons-api': 10.2.0
 
-  '@verdaccio/api@9.0.0-next-9.41(supports-color@8.1.1)':
+  '@verdaccio/api@9.0.0-next-9.42(supports-color@8.1.1)':
     dependencies:
-      '@verdaccio/auth': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/config': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/core': 9.0.0-next-9.41
-      '@verdaccio/hooks': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/logger': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/middleware': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/store': 9.0.0-next-9.41(supports-color@8.1.1)
+      '@verdaccio/auth': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/config': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/core': 9.0.0-next-9.42
+      '@verdaccio/hooks': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/logger': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/middleware': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/store': 9.0.0-next-9.42(supports-color@8.1.1)
       debug: 4.4.3(supports-color@8.1.1)
       express: 5.3.0(supports-color@8.1.1)
       lodash-es: 4.18.1
@@ -4250,26 +4255,26 @@ snapshots:
       - react-native-b4a
       - supports-color
 
-  '@verdaccio/auth@9.0.0-next-9.41(supports-color@8.1.1)':
+  '@verdaccio/auth@9.0.0-next-9.42(supports-color@8.1.1)':
     dependencies:
-      '@verdaccio/config': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/core': 9.0.0-next-9.41
-      '@verdaccio/loaders': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/signature': 9.0.0-next-9.41(supports-color@8.1.1)
+      '@verdaccio/config': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/core': 9.0.0-next-9.42
+      '@verdaccio/loaders': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/signature': 9.0.0-next-9.42(supports-color@8.1.1)
       debug: 4.4.3(supports-color@8.1.1)
       lodash-es: 4.18.1
       otpauth: 9.5.1
-      verdaccio-htpasswd: 14.0.0-next-9.41(supports-color@8.1.1)
+      verdaccio-htpasswd: 14.0.0-next-9.42(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
-  '@verdaccio/cli@9.0.0-next-9.41(supports-color@8.1.1)(typanion@3.14.0)':
+  '@verdaccio/cli@9.0.0-next-9.42(supports-color@8.1.1)(typanion@3.14.0)':
     dependencies:
-      '@verdaccio/config': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/core': 9.0.0-next-9.41
-      '@verdaccio/logger': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/node-api': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/server': 9.0.0-next-9.41(supports-color@8.1.1)
+      '@verdaccio/config': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/core': 9.0.0-next-9.42
+      '@verdaccio/logger': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/node-api': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/server': 9.0.0-next-9.42(supports-color@8.1.1)
       chalk: 6.0.1
       clipanion: 4.0.0-rc.4(typanion@3.14.0)
       semver: 7.8.5
@@ -4285,21 +4290,21 @@ snapshots:
       http-errors: 2.0.0
       http-status-codes: 2.2.0
 
-  '@verdaccio/config@9.0.0-next-9.41(supports-color@8.1.1)':
+  '@verdaccio/config@9.0.0-next-9.42(supports-color@8.1.1)':
     dependencies:
-      '@verdaccio/core': 9.0.0-next-9.41
+      '@verdaccio/core': 9.0.0-next-9.42
       debug: 4.4.3(supports-color@8.1.1)
       js-yaml: 5.5.0
       lodash-es: 4.18.1
     transitivePeerDependencies:
       - supports-color
 
-  '@verdaccio/core@9.0.0-next-9.41':
+  '@verdaccio/core@9.0.0-next-9.42':
     dependencies:
       ajv: 8.20.0
       http-errors: 2.0.1
       http-status-codes: 2.3.0
-      minimatch: 10.2.6
+      minimatch: 11.0.3
       process-warning: 5.1.1
       sanitize-filename: 1.6.4
       semver: 7.8.5
@@ -4321,27 +4326,27 @@ snapshots:
     dependencies:
       lockfile: 1.0.4
 
-  '@verdaccio/hooks@9.0.0-next-9.41(supports-color@8.1.1)':
+  '@verdaccio/hooks@9.0.0-next-9.42(supports-color@8.1.1)':
     dependencies:
-      '@verdaccio/core': 9.0.0-next-9.41
-      '@verdaccio/logger': 9.0.0-next-9.41(supports-color@8.1.1)
+      '@verdaccio/core': 9.0.0-next-9.42
+      '@verdaccio/logger': 9.0.0-next-9.42(supports-color@8.1.1)
       debug: 4.4.3(supports-color@8.1.1)
       got: 16.1.0
       handlebars: 4.7.10
     transitivePeerDependencies:
       - supports-color
 
-  '@verdaccio/loaders@9.0.0-next-9.41(supports-color@8.1.1)':
+  '@verdaccio/loaders@9.0.0-next-9.42(supports-color@8.1.1)':
     dependencies:
-      '@verdaccio/core': 9.0.0-next-9.41
+      '@verdaccio/core': 9.0.0-next-9.42
       debug: 4.4.3(supports-color@8.1.1)
       lodash-es: 4.18.1
     transitivePeerDependencies:
       - supports-color
 
-  '@verdaccio/local-storage@14.0.0-next-9.41(supports-color@8.1.1)':
+  '@verdaccio/local-storage@14.0.0-next-9.42(supports-color@8.1.1)':
     dependencies:
-      '@verdaccio/core': 9.0.0-next-9.41
+      '@verdaccio/core': 9.0.0-next-9.42
       '@verdaccio/file-locking': 14.0.0-next-9.4
       debug: 4.4.3(supports-color@8.1.1)
       globby: 11.1.0
@@ -4351,9 +4356,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@verdaccio/logger@9.0.0-next-9.41(supports-color@8.1.1)':
+  '@verdaccio/logger@9.0.0-next-9.42(supports-color@8.1.1)':
     dependencies:
-      '@verdaccio/core': 9.0.0-next-9.41
+      '@verdaccio/core': 9.0.0-next-9.42
       colorette: 2.0.20
       dayjs: 1.11.23
       debug: 4.4.3(supports-color@8.1.1)
@@ -4364,11 +4369,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@verdaccio/middleware@9.0.0-next-9.41(supports-color@8.1.1)':
+  '@verdaccio/middleware@9.0.0-next-9.42(supports-color@8.1.1)':
     dependencies:
-      '@verdaccio/config': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/core': 9.0.0-next-9.41
-      '@verdaccio/url': 14.0.0-next-9.41(supports-color@8.1.1)
+      '@verdaccio/config': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/core': 9.0.0-next-9.42
+      '@verdaccio/url': 14.0.0-next-9.42(supports-color@8.1.1)
       debug: 4.4.3(supports-color@8.1.1)
       express: 5.3.0(supports-color@8.1.1)
       express-rate-limit: 8.7.1(express@5.3.0(supports-color@8.1.1))(supports-color@8.1.1)
@@ -4377,28 +4382,28 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@verdaccio/node-api@9.0.0-next-9.41(supports-color@8.1.1)':
+  '@verdaccio/node-api@9.0.0-next-9.42(supports-color@8.1.1)':
     dependencies:
-      '@verdaccio/config': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/logger': 9.0.0-next-9.41(supports-color@8.1.1)
+      '@verdaccio/config': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/logger': 9.0.0-next-9.42(supports-color@8.1.1)
       debug: 4.4.3(supports-color@8.1.1)
       lodash-es: 4.18.1
     transitivePeerDependencies:
       - supports-color
 
-  '@verdaccio/package-filter@14.0.0-next-9.65(supports-color@8.1.1)':
+  '@verdaccio/package-filter@14.0.0-next-9.66(supports-color@8.1.1)':
     dependencies:
-      '@verdaccio/core': 9.0.0-next-9.41
+      '@verdaccio/core': 9.0.0-next-9.42
       debug: 4.4.3(supports-color@8.1.1)
-      minimatch: 10.2.6
+      minimatch: 11.0.3
       semver: 7.8.5
     transitivePeerDependencies:
       - supports-color
 
-  '@verdaccio/proxy@9.0.0-next-9.41(supports-color@8.1.1)':
+  '@verdaccio/proxy@9.0.0-next-9.42(supports-color@8.1.1)':
     dependencies:
-      '@verdaccio/config': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/core': 9.0.0-next-9.41
+      '@verdaccio/config': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/core': 9.0.0-next-9.42
       JSONStream: 1.3.5
       debug: 4.4.3(supports-color@8.1.1)
       got: 16.1.0
@@ -4409,60 +4414,60 @@ snapshots:
 
   '@verdaccio/registry-cli@1.1.0': {}
 
-  '@verdaccio/search@9.0.0-next-9.41(supports-color@8.1.1)':
+  '@verdaccio/search@9.0.0-next-9.42(supports-color@8.1.1)':
     dependencies:
-      '@verdaccio/config': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/core': 9.0.0-next-9.41
-      '@verdaccio/logger': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/proxy': 9.0.0-next-9.41(supports-color@8.1.1)
+      '@verdaccio/config': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/core': 9.0.0-next-9.42
+      '@verdaccio/logger': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/proxy': 9.0.0-next-9.42(supports-color@8.1.1)
       debug: 4.4.3(supports-color@8.1.1)
       lodash-es: 4.18.1
     transitivePeerDependencies:
       - supports-color
 
-  '@verdaccio/server@9.0.0-next-9.41(supports-color@8.1.1)':
+  '@verdaccio/server@9.0.0-next-9.42(supports-color@8.1.1)':
     dependencies:
-      '@verdaccio/api': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/auth': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/config': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/core': 9.0.0-next-9.41
-      '@verdaccio/loaders': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/logger': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/middleware': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/store': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/web': 9.0.0-next-9.41(supports-color@8.1.1)
+      '@verdaccio/api': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/auth': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/config': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/core': 9.0.0-next-9.42
+      '@verdaccio/loaders': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/logger': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/middleware': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/store': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/web': 9.0.0-next-9.42(supports-color@8.1.1)
       compression: 1.8.2(supports-color@8.1.1)
       cors: 2.8.6
       debug: 4.4.3(supports-color@8.1.1)
       express: 5.3.0(supports-color@8.1.1)
       lodash-es: 4.18.1
-      verdaccio-audit: 14.0.0-next-9.41(supports-color@8.1.1)
+      verdaccio-audit: 14.0.0-next-9.42(supports-color@8.1.1)
     transitivePeerDependencies:
       - bare-abort-controller
       - bare-buffer
       - react-native-b4a
       - supports-color
 
-  '@verdaccio/signature@9.0.0-next-9.41(supports-color@8.1.1)':
+  '@verdaccio/signature@9.0.0-next-9.42(supports-color@8.1.1)':
     dependencies:
-      '@verdaccio/config': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/core': 9.0.0-next-9.41
+      '@verdaccio/config': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/core': 9.0.0-next-9.42
       debug: 4.4.3(supports-color@8.1.1)
       jsonwebtoken: 9.0.3
     transitivePeerDependencies:
       - supports-color
 
-  '@verdaccio/store@9.0.0-next-9.41(supports-color@8.1.1)':
+  '@verdaccio/store@9.0.0-next-9.42(supports-color@8.1.1)':
     dependencies:
-      '@verdaccio/config': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/core': 9.0.0-next-9.41
-      '@verdaccio/loaders': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/local-storage': 14.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/logger': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/proxy': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/search': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/tarball': 14.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/url': 14.0.0-next-9.41(supports-color@8.1.1)
+      '@verdaccio/config': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/core': 9.0.0-next-9.42
+      '@verdaccio/loaders': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/local-storage': 14.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/logger': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/proxy': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/search': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/tarball': 14.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/url': 14.0.0-next-9.42(supports-color@8.1.1)
       debug: 4.4.3(supports-color@8.1.1)
       lodash-es: 4.18.1
       semver: 7.8.5
@@ -4472,10 +4477,10 @@ snapshots:
       - react-native-b4a
       - supports-color
 
-  '@verdaccio/tarball@14.0.0-next-9.41(supports-color@8.1.1)':
+  '@verdaccio/tarball@14.0.0-next-9.42(supports-color@8.1.1)':
     dependencies:
-      '@verdaccio/core': 9.0.0-next-9.41
-      '@verdaccio/url': 14.0.0-next-9.41(supports-color@8.1.1)
+      '@verdaccio/core': 9.0.0-next-9.42
+      '@verdaccio/url': 14.0.0-next-9.42(supports-color@8.1.1)
       debug: 4.4.3(supports-color@8.1.1)
       gunzip-maybe: 1.4.2
       tar-stream: 3.2.2
@@ -4485,13 +4490,13 @@ snapshots:
       - react-native-b4a
       - supports-color
 
-  '@verdaccio/test-helper@5.0.0-next-9.42(supports-color@8.1.1)':
+  '@verdaccio/test-helper@5.0.0-next-9.43(supports-color@8.1.1)':
     dependencies:
-      '@verdaccio/auth': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/config': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/core': 9.0.0-next-9.41
-      '@verdaccio/logger': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/middleware': 9.0.0-next-9.41(supports-color@8.1.1)
+      '@verdaccio/auth': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/config': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/core': 9.0.0-next-9.42
+      '@verdaccio/logger': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/middleware': 9.0.0-next-9.42(supports-color@8.1.1)
       debug: 4.4.3(supports-color@8.1.1)
       express: 5.3.0(supports-color@8.1.1)
       supertest: 7.1.4(supports-color@8.1.1)
@@ -4503,31 +4508,31 @@ snapshots:
       '@types/cors': 2.8.19
       '@types/jsonwebtoken': 9.0.10
 
-  '@verdaccio/ui-theme@9.0.0-next-9.41(supports-color@8.1.1)':
+  '@verdaccio/ui-theme@9.0.0-next-9.42(supports-color@8.1.1)':
     dependencies:
       debug: 4.4.3(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
-  '@verdaccio/url@14.0.0-next-9.41(supports-color@8.1.1)':
+  '@verdaccio/url@14.0.0-next-9.42(supports-color@8.1.1)':
     dependencies:
-      '@verdaccio/core': 9.0.0-next-9.41
+      '@verdaccio/core': 9.0.0-next-9.42
       debug: 4.4.3(supports-color@8.1.1)
       validator: 13.15.35
     transitivePeerDependencies:
       - supports-color
 
-  '@verdaccio/web@9.0.0-next-9.41(supports-color@8.1.1)':
+  '@verdaccio/web@9.0.0-next-9.42(supports-color@8.1.1)':
     dependencies:
-      '@verdaccio/auth': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/config': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/core': 9.0.0-next-9.41
-      '@verdaccio/loaders': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/logger': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/middleware': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/store': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/tarball': 14.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/ui-theme': 9.0.0-next-9.41(supports-color@8.1.1)
+      '@verdaccio/auth': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/config': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/core': 9.0.0-next-9.42
+      '@verdaccio/loaders': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/logger': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/middleware': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/store': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/tarball': 14.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/ui-theme': 9.0.0-next-9.42(supports-color@8.1.1)
       debug: 4.4.3(supports-color@8.1.1)
       express: 5.3.0(supports-color@8.1.1)
       lodash-es: 4.18.1
@@ -5674,8 +5679,9 @@ snapshots:
 
   mimic-response@4.0.0: {}
 
-  minimatch@10.2.6:
+  minimatch@11.0.3:
     dependencies:
+      '@isaacs/nonrecursive-glob-match': 1.0.3
       brace-expansion: 5.0.12
 
   minimist@1.2.8: {}
@@ -6373,26 +6379,26 @@ snapshots:
 
   vary@1.1.2: {}
 
-  verdaccio-audit@14.0.0-next-9.41(supports-color@8.1.1):
+  verdaccio-audit@14.0.0-next-9.42(supports-color@8.1.1):
     dependencies:
-      '@verdaccio/config': 9.0.0-next-9.41(supports-color@8.1.1)
-      '@verdaccio/core': 9.0.0-next-9.41
+      '@verdaccio/config': 9.0.0-next-9.42(supports-color@8.1.1)
+      '@verdaccio/core': 9.0.0-next-9.42
       express: 5.3.0(supports-color@8.1.1)
       got: 16.1.0
       hpagent: 1.2.0
     transitivePeerDependencies:
       - supports-color
 
-  verdaccio-auth-memory@14.0.0-next-9.41(supports-color@8.1.1):
+  verdaccio-auth-memory@14.0.0-next-9.42(supports-color@8.1.1):
     dependencies:
-      '@verdaccio/core': 9.0.0-next-9.41
+      '@verdaccio/core': 9.0.0-next-9.42
       debug: 4.4.3(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
-  verdaccio-htpasswd@14.0.0-next-9.41(supports-color@8.1.1):
+  verdaccio-htpasswd@14.0.0-next-9.42(supports-color@8.1.1):
     dependencies:
-      '@verdaccio/core': 9.0.0-next-9.41
+      '@verdaccio/core': 9.0.0-next-9.42
       '@verdaccio/file-locking': 14.0.0-next-9.4
       apache-md5: 1.1.8
       bcryptjs: 3.0.3
@@ -6402,9 +6408,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  verdaccio-memory@14.0.0-next-9.41(supports-color@8.1.1):
+  verdaccio-memory@14.0.0-next-9.42(supports-color@8.1.1):
     dependencies:
-      '@verdaccio/core': 9.0.0-next-9.41
+      '@verdaccio/core': 9.0.0-next-9.42
       debug: 4.4.3(supports-color@8.1.1)
       memfs: 4.80.0
     transitivePeerDependencies:
