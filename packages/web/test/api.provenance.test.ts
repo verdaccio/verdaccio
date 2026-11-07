@@ -19,13 +19,13 @@ vi.mock('@verdaccio/ui-theme', () => ({ default: (...args: any[]) => mockManifes
 
 const npmjs = 'https://registry.npmjs.org';
 
-function remoteSemver() {
-  const manifest = generateRemotePackageMetadata('semver', '7.8.6', npmjs);
+function remoteSemver(name = 'semver') {
+  const manifest = generateRemotePackageMetadata(name, '7.8.6', npmjs);
   manifest.versions['7.8.6'].dist = {
     ...manifest.versions['7.8.6'].dist,
     signatures: [{ keyid: 'SHA256:DhQ8', sig: 'MEUC' }],
     attestations: {
-      url: `${npmjs}/-/npm/v1/attestations/semver@7.8.6`,
+      url: `${npmjs}/-/npm/v1/attestations/${name}@7.8.6`,
       provenance: { predicateType: 'https://slsa.dev/provenance/v1' },
     },
   };
@@ -63,6 +63,57 @@ describe('provenance api', () => {
       transparencyLogUrl: 'https://search.sigstore.dev/?logIndex=3644633127',
       hasPublishAttestation: true,
     });
+  });
+
+  test('asks the uplink that supplied the version, not the first one declared', async () => {
+    nock('https://mirror.test').get('/mirrored-pkg').reply(404);
+    nock(npmjs).get('/mirrored-pkg').reply(200, remoteSemver('mirrored-pkg'));
+    const wrong = nock('https://mirror.test')
+      .get('/-/npm/v1/attestations/mirrored-pkg@7.8.6')
+      .reply(200, attestations);
+    nock(npmjs).get('/-/npm/v1/attestations/mirrored-pkg@7.8.6').reply(200, attestations);
+    const app = await initializeServer('provenance.yaml');
+
+    const response = await supertest(app)
+      .get('/-/verdaccio/data/package/provenance/mirrored-pkg?v=7.8.6')
+      .expect(HTTP_STATUS.OK);
+    expect(response.body.sourceRepository).toBe('https://github.com/npm/node-semver');
+    expect(wrong.isDone()).toBe(false);
+  });
+
+  test('reports an upstream failure instead of a missing bundle', async () => {
+    nock(npmjs).get('/semver').reply(200, remoteSemver());
+    nock(npmjs).persist().get('/-/npm/v1/attestations/semver@7.8.6').reply(503);
+    const app = await initializeServer('provenance.yaml');
+
+    const response = await supertest(app).get(
+      '/-/verdaccio/data/package/provenance/semver?v=7.8.6'
+    );
+    expect(response.status).toBeGreaterThanOrEqual(HTTP_STATUS.INTERNAL_ERROR);
+  });
+
+  test('applies the package access rules', async () => {
+    nock(npmjs)
+      .get(/\/@restricted(%2f|%2F|\/)dashboard$/)
+      .times(2)
+      .reply(200, remoteSemver('@restricted/dashboard'));
+    nock(npmjs)
+      .get(/\/-\/npm\/v1\/attestations\/@restricted(%2f|%2F|\/)dashboard@7\.8\.6$/)
+      .reply(200, attestations);
+    const app = await initializeServer('provenance.yaml');
+
+    await supertest(app)
+      .get('/-/verdaccio/data/package/provenance/@restricted/dashboard?v=7.8.6')
+      .expect(HTTP_STATUS.FORBIDDEN);
+    const login = await supertest(app)
+      .post('/-/verdaccio/sec/login')
+      .send({ username: 'test', password: 'test' })
+      .expect(HTTP_STATUS.OK);
+    const response = await supertest(app)
+      .get('/-/verdaccio/data/package/provenance/@restricted/dashboard?v=7.8.6')
+      .set('authorization', `Bearer ${login.body.token}`)
+      .expect(HTTP_STATUS.OK);
+    expect(response.body.name).toBe('@restricted/dashboard');
   });
 
   test('returns 404 for a version without attestations', async () => {

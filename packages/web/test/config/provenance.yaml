@@ -9,6 +9,8 @@ web:
   title: verdaccio
 
 uplinks:
+  mirror:
+    url: https://mirror.test/
   npmjs:
     url: https://registry.npmjs.org/
 
@@ -18,6 +20,14 @@ packages:
   'local-*':
     access: $anonymous
     publish: $anonymous
+  'mirrored-*':
+    access: $anonymous
+    publish: $anonymous
+    proxy: mirror npmjs
+  '@restricted/*':
+    access: $authenticated
+    publish: $anonymous
+    proxy: npmjs
   '@*/*':
     access: $anonymous
     publish: $anonymous

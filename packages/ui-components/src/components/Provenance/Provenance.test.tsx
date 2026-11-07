@@ -149,9 +149,29 @@ describe('<Provenance /> component', () => {
     expect(queryByText('sidebar.provenance.built-on')).not.toBeInTheDocument();
   });
 
+  test('renders unsafe urls as plain text', async () => {
+    const { getByTestId, getByText } = render(
+      <Provenance
+        packageMeta={meta({
+          attestations: { ...attestations, url: 'javascript:alert(1)' },
+        })}
+        packageName="semver"
+      />
+    );
+    fireEvent.click(getByTestId('provenance-badge'));
+    await waitFor(() => expect(getByText('javascript:alert(1)')).toBeInTheDocument());
+    expect(getByText('javascript:alert(1)').closest('a')).toBeNull();
+  });
+
   test('labels', () => {
     expect(provenanceLabel('https://slsa.dev/provenance/v1')).toBe('SLSA v1');
+    expect(provenanceLabel('https://example.test/provenance/v1')).toBe(
+      'https://example.test/provenance/v1'
+    );
     expect(provenanceLabel('https://example.test/custom')).toBe('https://example.test/custom');
+    expect(builderLabel('https://evil.test/github.com/actions/runner/x')).toBe(
+      'https://evil.test/github.com/actions/runner/x'
+    );
     expect(builderLabel('https://github.com/actions/runner/github-hosted')).toBe('GitHub Actions');
     expect(builderLabel('https://github.com/actions/runner/self-hosted')).toBe(
       'GitHub Actions (self-hosted)'

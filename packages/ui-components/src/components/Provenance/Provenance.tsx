@@ -16,12 +16,13 @@ import { stripTrailingSlash } from '../../store/utils';
 import type { Attestations, PackageMetaInterface, Signature } from '../../types/packageMeta';
 import type { ProvenanceSummary } from '../../types/provenance';
 import { APIRoute } from '../../utils/routes';
+import { isURL } from '../../utils/url';
 import { DistChips, DistListItem, StyledText } from '../Distribution/styles';
 import RegistryInfoDialog from '../RegistryInfoDialog';
 
-// `https://slsa.dev/provenance/v1` → `SLSA v1`
+// `https://slsa.dev/provenance/v1` → `SLSA v1`; other predicate types are shown as they are
 export function provenanceLabel(predicateType: string): string {
-  const version = predicateType.match(/\/provenance\/(v[\d.]+)/)?.[1];
+  const version = predicateType.match(/^https:\/\/slsa\.dev\/provenance\/(v[\d.]+)$/)?.[1];
   return version ? `SLSA ${version}` : predicateType;
 }
 
@@ -30,7 +31,7 @@ export function builderLabel(builder: string, buildType?: string): string {
   if (buildType?.startsWith('https://github.com/npm/cli/gitlab')) {
     return 'GitLab CI/CD';
   }
-  if (/github\.com\/actions\/runner/.test(builder)) {
+  if (/^https:\/\/github\.com\/actions\/runner(\/|$)/.test(builder)) {
     return builder.endsWith('/self-hosted') ? 'GitHub Actions (self-hosted)' : 'GitHub Actions';
   }
   return builder;
@@ -39,11 +40,17 @@ export function builderLabel(builder: string, buildType?: string): string {
 // GitLab statements carry the job name here, GitHub ones the workflow file
 const isWorkflowFile = (entry: string) => /\.ya?ml$/.test(entry);
 
-const ExternalLink: FC<{ href: string; children: React.ReactNode }> = ({ href, children }) => (
-  <Link href={href} rel="noopener noreferrer" target="_blank" underline="hover">
-    {children}
-  </Link>
-);
+// every url here comes from the registry metadata or the attestation bundle
+const isHttpUrl = (href: string) => /^https?:\/\//i.test(href) && isURL(href);
+
+const ExternalLink: FC<{ href: string; children: React.ReactNode }> = ({ href, children }) =>
+  isHttpUrl(href) ? (
+    <Link href={href} rel="noopener noreferrer" target="_blank" underline="hover">
+      {children}
+    </Link>
+  ) : (
+    <>{children}</>
+  );
 
 const Detail: FC<{ label: string; children: React.ReactNode }> = ({ label, children }) => (
   <ListItem disableGutters={true} sx={{ py: 0.5 }}>

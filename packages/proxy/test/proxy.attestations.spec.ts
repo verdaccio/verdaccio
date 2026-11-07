@@ -48,5 +48,19 @@ describe('proxy attestations', () => {
       nock(domain).get('/-/npm/v1/attestations/semver@7.8.6').reply(404);
       expect(await createProxy().getAttestations('semver', '7.8.6')).toBeNull();
     });
+
+    test('encodes the version segment', async () => {
+      nock(domain).get('/-/npm/v1/attestations/pkg@1.0.0%2Fx').reply(404);
+      expect(await createProxy().getAttestations('pkg', '1.0.0/x')).toBeNull();
+    });
+
+    test('clears the failure count once the uplink answers again', async () => {
+      nock(domain).get('/-/npm/v1/attestations/semver@7.8.6').reply(200, attestations);
+      const proxy = createProxy();
+      proxy.failed_requests = proxy.max_fails;
+      proxy.last_request_time = Date.now() - proxy.fail_timeout - 1;
+      await proxy.getAttestations('semver', '7.8.6');
+      expect(proxy.failed_requests).toBe(0);
+    });
   });
 });

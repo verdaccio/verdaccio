@@ -89,6 +89,61 @@ describe('summarizeProvenance', () => {
     expect(summary?.transparencyLogUrl).toBeUndefined();
   });
 
+  test('ignores malformed entries and unset log indices', () => {
+    const summary = summarizeProvenance([
+      null as any,
+      { predicateType: 42 as any, bundle: {} },
+      {
+        predicateType: 'https://slsa.dev/provenance/v1',
+        bundle: {
+          dsseEnvelope: {
+            payload: encode({
+              predicate: {
+                buildDefinition: {
+                  externalParameters: { workflow: { repository: 123, path: ['x'] } },
+                  resolvedDependencies: [
+                    { uri: 'git+https://github.com/other/dep@v1', digest: { gitCommit: 'bad' } },
+                    { uri: 'git+https://github.com/org/repo@main', digest: { gitCommit: 'good' } },
+                  ],
+                },
+                runDetails: { builder: { id: null }, metadata: { invocationId: {} } },
+              },
+            }),
+          },
+          verificationMaterial: { tlogEntries: [{ logIndex: null }] },
+        },
+      },
+    ]);
+    expect(summary).toEqual({
+      predicateType: 'https://slsa.dev/provenance/v1',
+      hasPublishAttestation: false,
+    });
+  });
+
+  test('takes the commit of the workflow repository dependency', () => {
+    const statement = {
+      predicate: {
+        buildDefinition: {
+          externalParameters: { workflow: { repository: 'https://github.com/org/repo' } },
+          resolvedDependencies: [
+            { uri: 'git+https://github.com/other/dep@v1', digest: { gitCommit: 'bad' } },
+            {
+              uri: 'git+https://github.com/org/repo@refs/heads/main',
+              digest: { gitCommit: 'good' },
+            },
+          ],
+        },
+      },
+    };
+    const summary = summarizeProvenance([
+      {
+        predicateType: 'https://slsa.dev/provenance/v1',
+        bundle: { dsseEnvelope: { payload: encode(statement) } },
+      },
+    ]);
+    expect(summary?.sourceCommit).toBe('good');
+  });
+
   test('returns null without a provenance attestation', () => {
     expect(summarizeProvenance([])).toBeNull();
     expect(

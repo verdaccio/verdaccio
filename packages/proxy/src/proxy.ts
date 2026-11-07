@@ -574,7 +574,7 @@ class ProxyStorage implements IProxy {
     version: string
   ): Promise<AttestationsResponse | null> {
     const body = await this.fetchJson<AttestationsResponse>(
-      `/-/npm/v1/attestations/${encode(name)}@${version}`
+      `/-/npm/v1/attestations/${encode(name)}@${encodeURIComponent(version)}`
     );
     return Array.isArray(body?.attestations) ? body : null;
   }
@@ -596,6 +596,10 @@ class ProxyStorage implements IProxy {
         retry: this.retry,
       });
       this.last_request_time = Date.now();
+      if (this.failed_requests >= this.max_fails) {
+        this.failed_requests = 0;
+        this.logger.warn({ host: this.url.host }, 'host @{host} is now online');
+      }
       this.logger.http(
         { request, status: response.statusCode },
         "@{!status}, req: '@{request.method} @{request.url}'"

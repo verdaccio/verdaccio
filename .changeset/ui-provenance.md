@@ -4,6 +4,7 @@
 '@verdaccio/store': minor
 '@verdaccio/types': minor
 '@verdaccio/ui-components': minor
+'@verdaccio/ui-theme': minor
 '@verdaccio/web': minor
 ---
 
