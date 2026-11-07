@@ -34,6 +34,8 @@ runs:
         if [ -z "$config" ]; then
           config=/tmp/verdaccio-e2e/config.yaml
           pnpm --silent verdaccio-e2e --print-config --uplink-port ${{ inputs.uplink-port }} > "$config"
+          # master only: lets scenario:audit-signatures run; other lines skip it on the 404
+          printf 'flags:\n  signatures: true\n' >> "$config"
         fi
         nohup node ${{ inputs.bin }} --config "$config" --listen 4873 > "${{ inputs.log }}" 2>&1 &
         for i in $(seq 1 30); do

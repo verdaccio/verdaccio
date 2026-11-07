@@ -30,7 +30,7 @@ import type {
   ProxyInstanceList,
   ProxySearchParams,
 } from '@verdaccio/proxy';
-import type { AttestationsResponse } from '@verdaccio/proxy';
+import type { AttestationsResponse, RegistryKey } from '@verdaccio/proxy';
 import { ProxyStorage, setupUpLinks, updateVersionsHiddenUpLinkNext } from '@verdaccio/proxy';
 import Search, { SEARCH_MAX_CANDIDATES } from '@verdaccio/search';
 import type { TarballDetails } from '@verdaccio/tarball';
@@ -85,6 +85,8 @@ import { LocalStorage } from './local-storage';
 import type { IGetPackageOptionsNext, OwnerManifestBody } from './type';
 
 const debug = buildDebug('verdaccio:storage');
+// registry signing keys rotate every few years; refresh hourly
+const REGISTRY_KEYS_TTL = 60 * 60 * 1000;
 
 export const noSuchFile = 'ENOENT';
 export const resourceNotAvailable = 'EAGAIN';
@@ -96,6 +98,7 @@ class Storage {
   public readonly config: Config;
   public readonly logger: Logger;
   public readonly uplinks: ProxyInstanceList;
+  private registryKeysCache?: { keys: RegistryKey[] | null; expires: number };
   private searchService: Search;
   private stageStorage: StageStorage | null = null;
   public constructor(config: Config, logger: Logger) {
@@ -1064,6 +1067,50 @@ class Storage {
 
       return newData;
     });
+  }
+
+  /** Signing keys of every uplink merged by keyid, for `GET /-/npm/v1/keys`; null when none has keys. */
+  public async getRegistryKeys(): Promise<RegistryKey[] | null> {
+    if (this.registryKeysCache && this.registryKeysCache.expires > Date.now()) {
+      return this.registryKeysCache.keys;
+    }
+    // a complete answer is cached for the TTL, with or without keys; failures are retried
+    const byKeyId = new Map<string, RegistryKey>();
+    let complete = true;
+    let lastError: Error | undefined;
+    for (const uplinkName of Object.keys(this.uplinks)) {
+      try {
+        for (const key of (await this.uplinks[uplinkName].getRegistryKeys()) ?? []) {
+          const known = byKeyId.get(key.keyid);
+          // the first uplink declared wins; a different key under the same id is never served
+          if (known && known.key !== key.key) {
+            this.logger.warn(
+              { uplinkName, keyid: key.keyid },
+              'uplink @{uplinkName} publishes a different key for @{keyid}, ignored'
+            );
+          } else if (!known) {
+            byKeyId.set(key.keyid, key);
+          }
+        }
+      } catch (err: any) {
+        complete = false;
+        lastError = err;
+        this.logger.warn(
+          { uplinkName, err: err.message },
+          'signing keys of uplink @{uplinkName} unavailable: @{err}'
+        );
+      }
+    }
+    if (byKeyId.size === 0 && lastError) {
+      // no keys because every uplink failed is an outage, not a registry without keys
+      throw lastError;
+    }
+    const keys = byKeyId.size === 0 ? null : [...byKeyId.values()];
+    // a partial set is served but not cached, so a recovered uplink is asked again next time
+    if (complete) {
+      this.registryKeysCache = { keys, expires: Date.now() + REGISTRY_KEYS_TTL };
+    }
+    return keys;
   }
 
   /**

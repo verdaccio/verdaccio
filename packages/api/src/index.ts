@@ -32,6 +32,7 @@ import user from './user';
 import login from './v1/login';
 import profile from './v1/profile';
 import v1Search from './v1/search';
+import signatures from './v1/signatures';
 import token from './v1/token';
 import whoami from './whoami';
 
@@ -102,6 +103,9 @@ export default function (config: Config, auth: Auth, storage: Storage, logger: L
   ping(app);
   v1Search(app, auth, storage, config, logger);
   token(app, auth, storage, config, logger, otpForAuth);
+  if (config.flags?.signatures) {
+    signatures(app, auth, storage, logger);
+  }
   // must stay before pkg(): its '/:package{/:version}' route would otherwise
   // swallow GET /-/stage
   if (config.flags?.stage) {

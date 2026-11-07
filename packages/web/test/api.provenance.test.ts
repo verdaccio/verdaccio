@@ -3,7 +3,7 @@ import path from 'node:path';
 import supertest from 'supertest';
 import { afterEach, beforeAll, describe, expect, test, vi } from 'vitest';
 
-import { HTTP_STATUS } from '@verdaccio/core';
+import { API_ERROR, HTTP_STATUS } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
 import { generateRemotePackageMetadata, publishVersion } from '@verdaccio/test-helper';
 
@@ -159,6 +159,72 @@ describe('provenance api', () => {
     await supertest(app)
       .get('/-/verdaccio/data/package/provenance/local-pkg')
       .expect(HTTP_STATUS.NOT_FOUND);
+  });
+
+  test.each([
+    ['path traversal', '../../7.8.6'],
+    ['encoded path traversal', '..%2F..%2F7.8.6'],
+    ['traversal after a valid version', '7.8.6/../7.8.6'],
+    ['__proto__', '__proto__'],
+    ['constructor', 'constructor'],
+    ['prototype', 'prototype'],
+    ['hasOwnProperty', 'hasOwnProperty'],
+    ['toString', 'toString'],
+    ['valueOf', 'valueOf'],
+    ['a script tag', '<script>alert(1)</script>'],
+    ['a version followed by markup', '7.8.6<script>'],
+    ['an empty string', ''],
+    ['whitespace', ' '],
+    ['a padded version', ' 7.8.6 '],
+    ['a version with a newline', '7.8.6\n'],
+    ['a null byte', '7.8.6\u0000'],
+    ['a v prefix', 'v7.8.6'],
+    ['an uppercase v prefix', 'V7.8.6'],
+    ['a semver range', '^7.8.6'],
+    ['a tilde range', '~7.8.6'],
+    ['a comparator', '>=7.8.6'],
+    ['a wildcard', '*'],
+    ['an x-range', '7.x'],
+    ['a major only', '7'],
+    ['a major.minor only', '7.8'],
+    ['a trailing hyphen', '7.8.6-'],
+    ['build metadata', '7.8.6+build.1'],
+    ['a prerelease that does not exist', '7.8.6-beta.1'],
+    ['fullwidth digits', '７.８.６'],
+    ['the string null', 'null'],
+    ['the string undefined', 'undefined'],
+    ['the string NaN', 'NaN'],
+    ['zero', '0'],
+    ['a negative number', '-1'],
+    ['an unknown dist-tag', 'next'],
+    ['a dist-tag with trailing space', 'latest '],
+    ['a JSON string', '"7.8.6"'],
+    ['a JSON object', '{"v":"7.8.6"}'],
+    ['an object literal string', '[object Object]'],
+    ['a 300-character value', 'a'.repeat(300)],
+  ])('answers a generic 404 to %s as version, without echoing it', async (_label, v) => {
+    nock(npmjs).get('/semver').reply(200, remoteSemver());
+    const app = await initializeServer('provenance.yaml');
+
+    const response = await supertest(app)
+      .get(`/-/verdaccio/data/package/provenance/semver?v=${encodeURIComponent(v)}`)
+      .expect(HTTP_STATUS.NOT_FOUND);
+    expect(response.body).toEqual({ error: API_ERROR.NO_PACKAGE });
+  });
+
+  test.each([
+    ['a repeated v parameter', 'v=7.8.6&v=../../x'],
+    ['a bracketed v parameter', 'v[]=7.8.6'],
+    ['an object-shaped v parameter', 'v[x]=7.8.6'],
+  ])('%s is not a version and falls back to latest', async (_label, query) => {
+    nock(npmjs).get('/semver').reply(200, remoteSemver());
+    nock(npmjs).get('/-/npm/v1/attestations/semver@7.8.6').reply(200, attestations);
+    const app = await initializeServer('provenance.yaml');
+
+    const response = await supertest(app)
+      .get(`/-/verdaccio/data/package/provenance/semver?${query}`)
+      .expect(HTTP_STATUS.OK);
+    expect(response.body.version).toBe('7.8.6');
   });
 
   test('returns 404 for an unknown version', async () => {

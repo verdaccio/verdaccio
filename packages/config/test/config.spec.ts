@@ -140,6 +140,7 @@ describe('flags', () => {
       createUser: false,
       stage: false,
       tfa: false,
+      signatures: false,
       webLogin: false,
     });
   });
@@ -152,6 +153,7 @@ describe('flags', () => {
       createUser: false,
       stage: true,
       tfa: false,
+      signatures: false,
       webLogin: false,
     });
   });

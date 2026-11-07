@@ -12,7 +12,9 @@
 #   ./scripts/e2e-cli-local.sh yarn-modern@4
 set -euo pipefail
 
-REGISTRY_URL="http://localhost:4873"
+# REGISTRY_PORT lets the script coexist with a dev server on 4873
+REGISTRY_PORT="${REGISTRY_PORT:-4873}"
+REGISTRY_URL="http://localhost:$REGISTRY_PORT"
 PM="${1:-npm@11}"
 VERDACCIO_PID=""
 WORK_DIR=""
@@ -42,37 +44,16 @@ fi
 WORK_DIR="$(mktemp -d)"
 echo "Using temp storage: $WORK_DIR"
 
-cat > "$WORK_DIR/config.yaml" <<EOF
-storage: $WORK_DIR/storage
-plugins: $WORK_DIR/plugins
-web:
-  title: Verdaccio E2E
-auth:
-  htpasswd:
-    file: $WORK_DIR/htpasswd
-uplinks:
-  npmjs:
-    url: https://registry.npmjs.org/
-packages:
-  '@*/*':
-    access: \$all
-    publish: \$authenticated
-    proxy: npmjs
-  '**':
-    access: \$all
-    publish: \$authenticated
-    proxy: npmjs
-middlewares:
-  audit:
-    enabled: true
-log:
-  type: stdout
-  format: pretty
-  level: warn
-EOF
+# Same config CI uses, from the battery itself, plus the mock uplink port and the
+# master-only signatures flag so every scenario runs locally too
+UPLINK_PORT=4874
+pnpm --silent verdaccio-e2e --print-config --uplink-port "$UPLINK_PORT" > "$WORK_DIR/config.yaml"
+sed -i.bak "s#storage: ./storage#storage: $WORK_DIR/storage#; s#file: ./htpasswd#file: $WORK_DIR/htpasswd#" "$WORK_DIR/config.yaml"
+rm -f "$WORK_DIR/config.yaml.bak"
+printf 'flags:\n  signatures: true\n' >> "$WORK_DIR/config.yaml"
 
 echo "Starting Verdaccio..."
-node "$ROOT_DIR/packages/verdaccio/debug/bootstrap.js" --config "$WORK_DIR/config.yaml" --listen 4873 &
+node "$ROOT_DIR/packages/verdaccio/debug/bootstrap.js" --config "$WORK_DIR/config.yaml" --listen "$REGISTRY_PORT" &
 VERDACCIO_PID=$!
 
 for i in $(seq 1 30); do
@@ -90,4 +71,4 @@ done
 echo ""
 echo "Running E2E CLI tests: pm=$PM"
 echo "---"
-pnpm verdaccio-e2e --registry "$REGISTRY_URL" --pm "$PM" -v
+E2E_UPLINK_PORT="$UPLINK_PORT" pnpm verdaccio-e2e --registry "$REGISTRY_URL" --pm "$PM" --uplink-port "$UPLINK_PORT" -v

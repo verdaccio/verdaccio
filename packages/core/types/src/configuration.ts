@@ -130,6 +130,14 @@ export type FlagsConfig = {
   tfa?: boolean;
 
   /**
+   * Serves the signing keys and sigstore attestations of the uplinks so that
+   * `npm audit signatures` can verify proxied packages through the registry.
+   *
+   * @default false
+   */
+  signatures?: boolean;
+
+  /**
    * Enables web-based login flow.
    *
    * @default false
