@@ -1165,8 +1165,8 @@ importers:
         specifier: 1.11.23
         version: 1.11.23
       i18next:
-        specifier: 26.5.11
-        version: 26.5.11(typescript@7.0.2)
+        specifier: 26.5.12
+        version: 26.5.12(typescript@7.0.2)
       mutationobserver-shim:
         specifier: 0.3.7
         version: 0.3.7
@@ -1178,13 +1178,13 @@ importers:
         version: 19.3.1(react@19.3.1)
       react-i18next:
         specifier: 17.1.9
-        version: 17.1.9(i18next@26.5.11(typescript@7.0.2))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@7.0.2)
+        version: 17.1.9(i18next@26.5.12(typescript@7.0.2))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@7.0.2)
       react-markdown:
         specifier: 10.1.0
         version: 10.1.0(@types/react@19.2.18)(react@19.3.1)(supports-color@5.5.0)
       react-router:
-        specifier: 8.5.0
-        version: 8.5.0(@types/react-dom@19.2.5(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+        specifier: 8.5.1
+        version: 8.5.1(@types/react-dom@19.2.5(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       rimraf:
         specifier: 6.1.3
         version: 6.1.3
@@ -1550,8 +1550,8 @@ importers:
         specifier: 5.9.2
         version: 5.9.2(@standard-schema/spec@1.1.0)(ajv@8.20.0)(react-hook-form@7.91.0(@types/react@19.2.18)(react@19.3.1))(typanion@3.14.0)(yup@1.7.1)
       '@microlink/react-json-view':
-        specifier: 1.31.43
-        version: 1.31.43(@types/react@19.2.18)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+        specifier: 1.31.44
+        version: 1.31.44(@types/react@19.2.18)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@mui/icons-material':
         specifier: 7.3.11
         version: 7.3.11(@mui/material@7.3.11(@emotion/react@11.14.0(@types/react@19.2.18)(react@19.3.1)(supports-color@5.5.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.18)(react@19.3.1)(supports-color@5.5.0))(@types/react@19.2.18)(react@19.3.1)(supports-color@5.5.0))(@types/react@19.2.18)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(@types/react@19.2.18)(react@19.3.1)
@@ -1577,8 +1577,8 @@ importers:
         specifier: 11.12.0
         version: 11.12.0
       i18next:
-        specifier: 26.5.11
-        version: 26.5.11(typescript@7.0.2)
+        specifier: 26.5.12
+        version: 26.5.12(typescript@7.0.2)
       js-base64:
         specifier: 3.9.5
         version: 3.9.5
@@ -1608,13 +1608,13 @@ importers:
         version: 7.91.0(@types/react@19.2.18)(react@19.3.1)
       react-i18next:
         specifier: 17.1.9
-        version: 17.1.9(i18next@26.5.11(typescript@7.0.2))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@7.0.2)
+        version: 17.1.9(i18next@26.5.12(typescript@7.0.2))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@7.0.2)
       react-markdown:
         specifier: 10.1.0
         version: 10.1.0(@types/react@19.2.18)(react@19.3.1)(supports-color@5.5.0)
       react-router:
-        specifier: 8.5.0
-        version: 8.5.0(@types/react-dom@19.2.5(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+        specifier: 8.5.1
+        version: 8.5.1(@types/react-dom@19.2.5(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       react-virtualized:
         specifier: 9.22.6
         version: 9.22.6(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -2570,8 +2570,8 @@ packages:
       '@types/react': '>=16'
       react: '>=16'
 
-  '@microlink/react-json-view@1.31.43':
-    resolution: {integrity: sha512-zKmzMq1W1dr2ALRbqZkjZlar9Z/J3xsn/c8cQ/gnblSrrOaaYa7FaY9DNElr9LSEckVmY7vljEJ22V46ICZF5w==}
+  '@microlink/react-json-view@1.31.44':
+    resolution: {integrity: sha512-eCxgqt7KmypJIsPv2ZCt9an9xYk+LHPp2es548mgVhbtD5zFXfbz/+yahL/Fb6EP6xHSMpYuy+FQbTzg0y+WZg==}
     engines: {node: '>=17'}
     peerDependencies:
       react: '>= 15'
@@ -4942,8 +4942,8 @@ packages:
     resolution: {integrity: sha512-Y93lCzHYgGWdrJ66yIktxiaGULYc6oGiABxhcO5AufBeOyoIdZF7bIfLaOrbM0iGIOXQQgxxRrFEnb+Y6w1n4A==}
     engines: {node: '>=10.18'}
 
-  i18next@26.5.11:
-    resolution: {integrity: sha512-Wc0klBPKxqZ2tL2qdAnF8xvvnWgr1IMGSY2ikTiAvaFVbz7xiFARtkoU4RidBDw1SyziGROp0qxu6qnJ7l2Wug==}
+  i18next@26.5.12:
+    resolution: {integrity: sha512-vTt8tc3y5axoU7wwTYg8vjpILLyP33a5GyGJAVI7FDRx1XueYxZVIkcVeStoftrVnAM/o28hKvK0sslucDI9aQ==}
     peerDependencies:
       typescript: ^5 || ^6 || ^7
     peerDependenciesMeta:
@@ -6042,8 +6042,8 @@ packages:
       '@types/react': '>=18'
       react: '>=18'
 
-  react-router@8.5.0:
-    resolution: {integrity: sha512-9nEd/deifcTJIIcUaNIyQGkyXD0D6QVB9XD2O5GgHpP3xu3U5RXm87YQ8++Wn8JQWgMBM/5+PjWPM/7n7O7WHA==}
+  react-router@8.5.1:
+    resolution: {integrity: sha512-5u1eQ46QjuXjNfEnLwzrnou1Bm5dquO3xjVYkkMYCudtkicD2AQHtx+fvXzPATtPJx8TW6DR1x1TDRqsfHyZBw==}
     engines: {node: '>=22.22.0'}
     peerDependencies:
       '@types/react': '>=19.2.0'
@@ -7765,7 +7765,7 @@ snapshots:
       '@types/react': 19.2.18
       react: 19.3.1
 
-  '@microlink/react-json-view@1.31.43(@types/react@19.2.18)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
+  '@microlink/react-json-view@1.31.44(@types/react@19.2.18)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
     dependencies:
       react: 19.3.1
       react-base16-styling: 0.10.0
@@ -9988,7 +9988,7 @@ snapshots:
 
   hyperdyperid@1.2.0: {}
 
-  i18next@26.5.11(typescript@7.0.2):
+  i18next@26.5.12(typescript@7.0.2):
     optionalDependencies:
       typescript: 7.0.2
 
@@ -11177,11 +11177,11 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.2.18
 
-  react-i18next@17.1.9(i18next@26.5.11(typescript@7.0.2))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@7.0.2):
+  react-i18next@17.1.9(i18next@26.5.12(typescript@7.0.2))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(typescript@7.0.2):
     dependencies:
       '@babel/runtime': 7.29.7
       html-parse-stringify: 4.0.1
-      i18next: 26.5.11(typescript@7.0.2)
+      i18next: 26.5.12(typescript@7.0.2)
       react: 19.3.1
       use-sync-external-store: 1.6.0(react@19.3.1)
     optionalDependencies:
@@ -11214,7 +11214,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  react-router@8.5.0(@types/react-dom@19.2.5(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.3.1(react@19.3.1))(react@19.3.1):
+  react-router@8.5.1(@types/react-dom@19.2.5(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.3.1(react@19.3.1))(react@19.3.1):
     dependencies:
       '@remix-run/route-pattern': 0.22.1
       cookie-es: 3.1.1
