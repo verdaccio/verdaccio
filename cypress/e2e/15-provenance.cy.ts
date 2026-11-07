@@ -1,0 +1,15 @@
+import { createRegistryConfig, provenanceTests } from '@verdaccio/e2e-ui';
+
+const registryUrl = Cypress.expose('VERDACCIO_URL') || 'http://localhost:4873';
+
+const config = createRegistryConfig({
+  registryUrl,
+  title: 'Verdaccio e2e',
+  credentials: { user: 'test', password: 'test' },
+  features: {
+    // the "Provenance" sidebar section ships with master (verdaccio#6447)
+    provenance: { sidebarSection: true },
+  },
+});
+
+provenanceTests(config);
