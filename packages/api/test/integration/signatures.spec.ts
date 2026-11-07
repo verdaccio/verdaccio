@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, test } from 'vitest';
 
 import { HTTP_STATUS } from '@verdaccio/core';
 
-import { initializeServer } from './_helper';
+import { getNewToken, initializeServer } from './_helper';
 
 const npmjs = 'https://registry.npmjs.org';
 const mirror = 'https://mirror.example.test';
@@ -65,14 +65,34 @@ describe('signatures', () => {
       expect(nock.isDone()).toBe(true);
     });
 
-    test('keeps the keys an uplink returns when another one fails', async () => {
+    test('keeps the keys an uplink returns when another one fails, without caching them', async () => {
       nock(npmjs)
         .get('/-/npm/v1/keys')
+        .times(2)
         .reply(200, { keys: [key('A')] });
       nock(mirror).get('/-/npm/v1/keys').reply(500);
 
       const response = await supertest(app).get('/-/npm/v1/keys').expect(HTTP_STATUS.OK);
       expect(response.body.keys.map((k: any) => k.keyid)).toEqual(['A']);
+
+      // the mirror is back: the partial set was not cached, so its keys appear right away
+      nock(mirror)
+        .get('/-/npm/v1/keys')
+        .reply(200, { keys: [key('B')] });
+      const recovered = await supertest(app).get('/-/npm/v1/keys').expect(HTTP_STATUS.OK);
+      expect(recovered.body.keys.map((k: any) => k.keyid)).toEqual(['A', 'B']);
+    });
+
+    test('keeps the first key published under a key id', async () => {
+      nock(npmjs)
+        .get('/-/npm/v1/keys')
+        .reply(200, { keys: [key('A')] });
+      nock(mirror)
+        .get('/-/npm/v1/keys')
+        .reply(200, { keys: [{ ...key('A'), key: 'something-else' }] });
+
+      const response = await supertest(app).get('/-/npm/v1/keys').expect(HTTP_STATUS.OK);
+      expect(response.body.keys).toEqual([key('A')]);
     });
 
     test('returns 404 when no uplink publishes keys', async () => {
@@ -124,8 +144,20 @@ describe('signatures', () => {
     });
 
     test('applies the package access rules', async () => {
-      const response = await supertest(app).get('/-/npm/v1/attestations/private-pkg@1.0.0');
-      expect([HTTP_STATUS.UNAUTHORIZED, HTTP_STATUS.FORBIDDEN]).toContain(response.status);
+      const upstream = nock(npmjs)
+        .get('/-/npm/v1/attestations/private-pkg@1.0.0')
+        .reply(200, attestations);
+
+      const denied = await supertest(app).get('/-/npm/v1/attestations/private-pkg@1.0.0');
+      expect([HTTP_STATUS.UNAUTHORIZED, HTTP_STATUS.FORBIDDEN]).toContain(denied.status);
+      expect(upstream.isDone()).toBe(false);
+
+      const token = await getNewToken(app, { name: 'signer', password: 'signer-password' });
+      const allowed = await supertest(app)
+        .get('/-/npm/v1/attestations/private-pkg@1.0.0')
+        .set('authorization', `Bearer ${token}`)
+        .expect(HTTP_STATUS.OK);
+      expect(allowed.body).toEqual(attestations);
     });
   });
 });

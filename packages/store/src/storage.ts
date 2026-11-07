@@ -1075,12 +1075,23 @@ class Storage {
       return this.registryKeysCache.keys;
     }
     const byKeyId = new Map<string, RegistryKey>();
+    let complete = true;
     for (const uplinkName of Object.keys(this.uplinks)) {
       try {
         for (const key of (await this.uplinks[uplinkName].getRegistryKeys()) ?? []) {
-          byKeyId.set(key.keyid, key);
+          const known = byKeyId.get(key.keyid);
+          // the first uplink declared wins; a different key under the same id is never served
+          if (known && known.key !== key.key) {
+            this.logger.warn(
+              { uplinkName, keyid: key.keyid },
+              'uplink @{uplinkName} publishes a different key for @{keyid}, ignored'
+            );
+          } else if (!known) {
+            byKeyId.set(key.keyid, key);
+          }
         }
       } catch (err: any) {
+        complete = false;
         this.logger.warn(
           { uplinkName, err: err.message },
           'signing keys of uplink @{uplinkName} unavailable: @{err}'
@@ -1091,7 +1102,10 @@ class Storage {
       return null;
     }
     const keys = [...byKeyId.values()];
-    this.registryKeysCache = { keys, expires: Date.now() + REGISTRY_KEYS_TTL };
+    // a partial set is served but not cached, so a recovered uplink is asked again next time
+    if (complete) {
+      this.registryKeysCache = { keys, expires: Date.now() + REGISTRY_KEYS_TTL };
+    }
     return keys;
   }
 
