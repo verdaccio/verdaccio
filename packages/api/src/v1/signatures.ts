@@ -19,7 +19,8 @@ function splitSpec(req: $RequestExtend, _res: $ResponseExtend, next: $NextFuncti
     !validationUtils.validatePackage(name) ||
     !validationUtils.validateExactVersion(version)
   ) {
-    return next(errorUtils.getBadRequest(`invalid package spec ${spec}`));
+    // the spec is not echoed back: it is attacker-controlled input
+    return next(errorUtils.getBadRequest('invalid package spec'));
   }
   req.params.package = name;
   req.params.version = version;

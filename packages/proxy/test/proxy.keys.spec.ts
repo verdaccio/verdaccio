@@ -49,6 +49,13 @@ describe('proxy registry keys', () => {
     expect(await createProxy().getRegistryKeys()).toBeNull();
   });
 
+  test('drops malformed key entries', async () => {
+    nock(domain)
+      .get('/-/npm/v1/keys')
+      .reply(200, { keys: [null, { keyid: 'SHA256:x' }, { key: 'MFkw' }, ...keys] });
+    expect(await createProxy().getRegistryKeys()).toEqual(keys);
+  });
+
   test('returns null when the body carries no keys array', async () => {
     nock(domain).get('/-/npm/v1/keys').reply(200, { keys: 'nope' });
     expect(await createProxy().getRegistryKeys()).toBeNull();

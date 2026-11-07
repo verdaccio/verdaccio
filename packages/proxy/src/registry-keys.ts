@@ -29,7 +29,15 @@ export async function fetchRegistryKeys({
       { request, status: response.statusCode },
       "@{!status}, req: '@{request.method} @{request.url}'"
     );
-    return Array.isArray(response.body?.keys) ? response.body.keys : null;
+    const keys = response.body?.keys;
+    if (!Array.isArray(keys)) {
+      return null;
+    }
+    // only well-formed entries are relayed to npm
+    return keys.filter(
+      (item): item is RegistryKey =>
+        typeof item?.keyid === 'string' && item.keyid !== '' && typeof item.key === 'string'
+    );
   } catch (err: any) {
     if (err.code === 'ERR_NON_2XX_3XX_RESPONSE') {
       const code = err.response.statusCode;

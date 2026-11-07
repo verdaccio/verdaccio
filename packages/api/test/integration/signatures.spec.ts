@@ -151,6 +151,25 @@ describe('signatures', () => {
         .expect(HTTP_STATUS.BAD_REQUEST);
     });
 
+    test('rejects a malformed spec without echoing it', async () => {
+      const specs = [
+        '<script>alert(1)</script>@1.0.0',
+        '../../etc@1.0.0',
+        '..\..\etc@1.0.0',
+        '%2e%2e%2fetc@1.0.0',
+        '@scope/__proto__@1.0.0',
+        'semver@../../1.0.0',
+        'semver@1.0.0/../2.0.0',
+      ];
+      for (const spec of specs) {
+        const response = await supertest(app)
+          .get(`/-/npm/v1/attestations/${encodeURIComponent(spec)}`)
+          .expect(HTTP_STATUS.BAD_REQUEST);
+        expect(response.headers['content-type']).toMatch(/application\/json/);
+        expect(JSON.stringify(response.body)).not.toMatch(/script|etc|__proto__/);
+      }
+    });
+
     test('applies the package access rules', async () => {
       const upstream = nock(npmjs)
         .get('/-/npm/v1/attestations/private-pkg@1.0.0')

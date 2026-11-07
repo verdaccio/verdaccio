@@ -161,6 +161,18 @@ describe('provenance api', () => {
       .expect(HTTP_STATUS.NOT_FOUND);
   });
 
+  test('answers 404 to traversal-like or prototype versions without echoing them', async () => {
+    nock(npmjs).get('/semver').reply(200, remoteSemver());
+    const app = await initializeServer('provenance.yaml');
+
+    for (const v of ['../../7.8.6', '__proto__', 'constructor', '<script>']) {
+      const response = await supertest(app)
+        .get(`/-/verdaccio/data/package/provenance/semver?v=${encodeURIComponent(v)}`)
+        .expect(HTTP_STATUS.NOT_FOUND);
+      expect(JSON.stringify(response.body)).not.toMatch(/\.\.|proto|constructor|script/);
+    }
+  });
+
   test('returns 404 for an unknown version', async () => {
     nock(npmjs).get('/semver').reply(200, remoteSemver());
     const app = await initializeServer('provenance.yaml');
