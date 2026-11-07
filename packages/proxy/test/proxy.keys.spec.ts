@@ -50,13 +50,21 @@ describe('proxy registry keys', () => {
     expect(await createProxy().getRegistryKeys()).toBeNull();
   });
 
-  test('drops entries without the full key shape', async () => {
-    nock(domain)
-      .get('/-/npm/v1/keys')
-      .reply(200, {
-        keys: [null, { keyid: 'SHA256:x', key: 'MFkw' }, { ...keys[0], expires: 42 }, ...keys],
-      });
-    expect(await createProxy().getRegistryKeys()).toEqual(keys);
+  test.each([
+    ['a null entry', [null, ...keys]],
+    ['an entry without keytype and scheme', [{ keyid: 'SHA256:x', key: 'MFkw' }, ...keys]],
+    ['an entry with a numeric expires', [...keys, { ...keys[0], expires: 42 }]],
+    ['only invalid entries', [null, { keyid: 'SHA256:x' }]],
+  ])('rejects a response with %s instead of relaying a partial set', async (_label, body) => {
+    nock(domain).get('/-/npm/v1/keys').reply(200, { keys: body });
+    await expect(createProxy().getRegistryKeys()).rejects.toThrow(
+      API_ERROR.INVALID_UPLINK_KEYS_RESPONSE
+    );
+  });
+
+  test('an empty keys array is a registry without keys', async () => {
+    nock(domain).get('/-/npm/v1/keys').reply(200, { keys: [] });
+    expect(await createProxy().getRegistryKeys()).toEqual([]);
   });
 
   test('rejects a successful response without a keys array', async () => {
