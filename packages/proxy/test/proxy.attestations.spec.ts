@@ -50,6 +50,17 @@ describe('proxy attestations', () => {
       expect(await createProxy().getAttestations('semver', '7.8.6')).toBeNull();
     });
 
+    test('refuses oversized responses', async () => {
+      nock(domain)
+        .get('/-/npm/v1/attestations/semver@7.8.6')
+        .reply(200, `{"attestations":[{"predicateType":"${'x'.repeat(2 * 1024 * 1024)}"}]}`, {
+          'content-type': 'application/json',
+        });
+      await expect(createProxy().getAttestations('semver', '7.8.6')).rejects.toThrow(
+        'uplink response too large'
+      );
+    });
+
     test('encodes the version segment', async () => {
       nock(domain).get('/-/npm/v1/attestations/pkg@1.0.0%2Fx').reply(404);
       expect(await createProxy().getAttestations('pkg', '1.0.0/x')).toBeNull();

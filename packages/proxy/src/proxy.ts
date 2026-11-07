@@ -21,6 +21,8 @@ import {
 import type { AgentOptionsConf, Config, Logger, Manifest, UpLinkConf } from '@verdaccio/types';
 
 import CustomAgents from './agent';
+import type { AttestationsResponse } from './attestations';
+import { attestationsPath, fetchAttestations } from './attestations';
 import { parseInterval } from './proxy-utils';
 
 const debug = buildDebug('verdaccio:proxy');
@@ -55,10 +57,6 @@ export type ProxySearchParams = {
   retry?: Partial<RetryOptions>;
   onSearchPage?: (total: number | undefined) => void;
 };
-export interface AttestationsResponse {
-  attestations: { predicateType: string; bundle: unknown }[];
-}
-
 export interface IProxy {
   uplinkName: string;
   config: UpLinkConfLocal;
@@ -528,55 +526,22 @@ class ProxyStorage implements IProxy {
     name: string,
     version: string
   ): Promise<AttestationsResponse | null> {
-    const body = await this.fetchJson<AttestationsResponse>(
-      `/-/npm/v1/attestations/${encode(name)}@${encodeURIComponent(version)}`
-    );
-    return Array.isArray(body?.attestations) ? body : null;
-  }
-
-  // a 404 is a regular answer here (registry without attestations), hence null
-  private async fetchJson<T>(path: string): Promise<T | null> {
     if (this._ifRequestFailure()) {
       throw errorUtils.getInternalError(API_ERROR.UPLINK_OFFLINE);
     }
-    const uri = this.buildUri(path);
-    const headers = this.applyUplinkHeaders(this.getHeaders());
-    const request = { method: 'GET', url: uri };
+    const uri = this.buildUri(attestationsPath(name, version));
     // the breaker measures `fail_timeout` from the last attempt, successful or not
     this.last_request_time = Date.now();
-    try {
-      const response = await got<T>(uri, {
-        headers,
-        responseType: 'json',
-        agent: this.agent,
-        timeout: this.timeout,
-        retry: this.retry,
-        hooks: this.breakerHooks('GET', uri),
-      });
-      this.logger.http(
-        { request, status: response.statusCode },
-        "@{!status}, req: '@{request.method} @{request.url}'"
-      );
-      return response.body;
-    } catch (err: any) {
-      if (err.code === 'ERR_NON_2XX_3XX_RESPONSE') {
-        const code = err.response.statusCode;
-        this.logger.http(
-          { request, status: code },
-          "@{!status}, req: '@{request.method} @{request.url}'"
-        );
-        if (code === HTTP_STATUS.NOT_FOUND) {
-          return null;
-        }
-        const error = errorUtils.getInternalError(`${API_ERROR.BAD_STATUS_CODE}: ${code}`);
-        error.remoteStatus = code;
-        throw error;
-      }
-      if (this._isRequestTimeout(err)) {
-        throw errorUtils.getServiceUnavailable(API_ERROR.SERVER_TIME_OUT);
-      }
-      throw err;
-    }
+    return fetchAttestations({
+      uri,
+      headers: this.applyUplinkHeaders(this.getHeaders()),
+      agent: this.agent,
+      timeout: this.timeout,
+      retry: this.retry,
+      hooks: this.breakerHooks('GET', uri),
+      logger: this.logger,
+      isTimeout: (err) => this._isRequestTimeout(err),
+    });
   }
 
   // circuit-breaker bookkeeping shared by every uplink request: a 2xx closes it, retries open it
