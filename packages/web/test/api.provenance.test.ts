@@ -19,8 +19,8 @@ vi.mock('@verdaccio/ui-theme', () => ({ default: (...args: any[]) => mockManifes
 
 const npmjs = 'https://registry.npmjs.org';
 
-function remoteSemver(name = 'semver') {
-  const manifest = generateRemotePackageMetadata(name, '7.8.6', npmjs);
+function remoteSemver(name = 'semver', domain = npmjs) {
+  const manifest = generateRemotePackageMetadata(name, '7.8.6', domain);
   manifest.versions['7.8.6'].dist = {
     ...manifest.versions['7.8.6'].dist,
     signatures: [{ keyid: 'SHA256:DhQ8', sig: 'MEUC' }],
@@ -78,6 +78,23 @@ describe('provenance api', () => {
       .get('/-/verdaccio/data/package/provenance/mirrored-pkg?v=7.8.6')
       .expect(HTTP_STATUS.OK);
     expect(response.body.sourceRepository).toBe('https://github.com/npm/node-semver');
+    expect(wrong.isDone()).toBe(false);
+  });
+
+  test('tells apart two uplinks on the same host by their path', async () => {
+    nock(npmjs).get('/mirrored-pkg').reply(404);
+    nock(npmjs)
+      .get('/sub/mirrored-pkg')
+      .reply(200, remoteSemver('mirrored-pkg', `${npmjs}/sub`));
+    const wrong = nock(npmjs)
+      .get('/-/npm/v1/attestations/mirrored-pkg@7.8.6')
+      .reply(200, attestations);
+    nock(npmjs).get('/sub/-/npm/v1/attestations/mirrored-pkg@7.8.6').reply(200, attestations);
+    const app = await initializeServer('provenance-same-host.yaml');
+
+    await supertest(app)
+      .get('/-/verdaccio/data/package/provenance/mirrored-pkg?v=7.8.6')
+      .expect(HTTP_STATUS.OK);
     expect(wrong.isDone()).toBe(false);
   });
 

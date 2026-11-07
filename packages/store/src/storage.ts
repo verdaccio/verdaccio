@@ -1111,13 +1111,14 @@ class Storage {
       return undefined;
     }
     const remote = manifest._distfiles?.[tarballUtils.extractTarballFromUrl(tarball)]?.url;
-    if (typeof remote !== 'string' || !URL.canParse(remote)) {
+    if (typeof remote !== 'string') {
       return undefined;
     }
-    const host = new URL(remote).host;
-    return Object.keys(this.uplinks).find(
-      (uplinkName) => this.uplinks[uplinkName].url.host === host
-    );
+    // same protocol, host and path prefix as the tarball routing; two uplinks may share a host,
+    // so the most specific path wins
+    return Object.keys(this.uplinks)
+      .filter((uplinkName) => uplinkServesUrl(this.uplinks[uplinkName].url, remote))
+      .sort((a, b) => this.uplinks[b].url.pathname.length - this.uplinks[a].url.pathname.length)[0];
   }
 
   /**

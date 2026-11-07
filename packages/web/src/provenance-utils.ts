@@ -46,14 +46,24 @@ function logIndexOf(bundle: any): number | undefined {
   return Number.isSafeInteger(index) && index >= 0 ? index : undefined;
 }
 
-// the dependency of the workflow repository; a lone dependency is taken as such
+// `git+https://github.com/org/repo@ref` and `https://github.com/org/repo/` → `github.com/org/repo`
+const repositoryKey = (value?: string) =>
+  value
+    ?.replace(/^git\+/, '')
+    .split('@')[0]
+    .replace(/^https?:\/\//, '')
+    .replace(/\.git$/, '')
+    .replace(/\/+$/, '')
+    .toLowerCase();
+
+// the dependency whose repository is exactly the workflow one; a lone dependency is taken as such
 function workflowCommit(dependencies: unknown, repository?: string): string | undefined {
   if (!Array.isArray(dependencies)) {
     return undefined;
   }
-  const origin = repository?.replace(/^https?:\/\//, '');
+  const origin = repositoryKey(repository);
   const match =
-    (origin && dependencies.find((item) => str(item?.uri)?.includes(origin))) ??
+    (origin && dependencies.find((item) => repositoryKey(str(item?.uri)) === origin)) ??
     (dependencies.length === 1 ? dependencies[0] : undefined);
   return str(match?.digest?.gitCommit);
 }

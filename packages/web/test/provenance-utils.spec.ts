@@ -127,6 +127,7 @@ describe('summarizeProvenance', () => {
           externalParameters: { workflow: { repository: 'https://github.com/org/repo' } },
           resolvedDependencies: [
             { uri: 'git+https://github.com/other/dep@v1', digest: { gitCommit: 'bad' } },
+            { uri: 'git+https://github.com/org/repository@v1', digest: { gitCommit: 'prefix' } },
             {
               uri: 'git+https://github.com/org/repo@refs/heads/main',
               digest: { gitCommit: 'good' },
