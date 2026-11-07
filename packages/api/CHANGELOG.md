@@ -1,5 +1,41 @@
 # @verdaccio/api
 
+## 9.0.0-next-9.43
+
+### Minor Changes
+
+- aeaf4d8: Make `npm audit signatures` work through Verdaccio for packages proxied from an uplink, behind the experimental `flags.signatures` setting.
+  
+  Verdaccio already kept the `dist.signatures` and `dist.attestations` fields that registry.npmjs.org attaches to every version, but it did not serve the two routes the npm CLI reads to verify them. npm resolves signing keys by registry host, so against Verdaccio it requested `GET /-/npm/v1/keys`, received a 404 and aborted the whole command with `EMISSINGSIGNATUREKEY` on the first package coming from npmjs. Attestation bundles are fetched from the registry the package was installed from as well, so `GET /-/npm/v1/attestations/<name>@<version>` also returned 404.
+  
+  Both routes now exist when `flags.signatures: true` is set in the configuration (the feature is experimental and may change). `GET /-/npm/v1/keys` returns the signing keys of every configured uplink merged by key id (refreshed hourly) and answers 404 when none publishes keys. `GET /-/npm/v1/attestations/<name>@<version>` relays the attestations from the first uplink that proxies the package, applying the package `access` rules, and answers 404 when the uplink has none. With this `npm audit signatures` verifies registry signatures and provenance attestations of proxied packages exactly as it does against registry.npmjs.org. Enable it with:
+  
+  ```yaml
+  flags:
+    signatures: true
+  ```
+  
+  Packages published to Verdaccio itself are not signed yet. npm treats any registry that publishes keys as a registry whose packages should all be signed, so once the flag is on `npm audit signatures` lists every locally published package as having a missing registry signature and exits with code 1; proxied packages verify, local ones are reported. Keep the flag off if that report would break a CI gate, until Verdaccio signs local packages. `npm publish --provenance` is still rejected.
+
+### Patch Changes
+
+- 4099f77: Fix the registry closing the client connection after answering a failed tarball download, which made the next request on that keep-alive connection fail with `ECONNRESET` or "other side closed".
+  
+  When a tarball request fails before any data is sent, for example a 404 for a tarball that does not exist locally or on any uplink, the registry sent the JSON error response and then also passed the same error on to the HTTP framework. Because the response was already sent, the framework reacted by destroying the socket. Package managers reuse connections, so the request that followed on the same socket failed whenever the client sent it before noticing the close, which keep-alive clients under load usually do. Each of these failures also printed a raw `NotFoundError` stack trace to stderr. The download of a staged tarball (available when the `stage` flag is enabled) had the same problem.
+  
+  A failed tarball request is now answered once with its JSON error and the connection stays open for the next request. Failures after the download has started are unchanged: the connection is still terminated, because no error status can be sent at that point. No configuration change is needed.
+  
+  Affected: verdaccio 7.x (7.0.0 to 7.0.2) and the `@verdaccio/api` 9.0.0-next prereleases it ships, up to `9.0.0-next-9.42`. verdaccio 6.x is not affected.
+- Updated dependencies [aeaf4d8]
+- Updated dependencies [8c56d8e]
+  - @verdaccio/config@9.0.0-next-9.43
+  - @verdaccio/core@9.0.0-next-9.43
+  - @verdaccio/middleware@9.0.0-next-9.43
+  - @verdaccio/store@9.0.0-next-9.43
+  - @verdaccio/auth@9.0.0-next-9.43
+  - @verdaccio/hooks@9.0.0-next-9.43
+  - @verdaccio/logger@9.0.0-next-9.43
+
 ## 9.0.0-next-9.42
 
 ### Patch Changes
