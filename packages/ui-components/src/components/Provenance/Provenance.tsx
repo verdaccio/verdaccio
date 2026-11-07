@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { useData } from '../../api/use-data';
 import { getConfiguration } from '../../configuration';
 import { stripTrailingSlash } from '../../store/utils';
-import type { Attestations, PackageMetaInterface, Signature } from '../../types/packageMeta';
+import type { PackageMetaInterface, Signature } from '../../types/packageMeta';
 import type { ProvenanceSummary } from '../../types/provenance';
 import { APIRoute } from '../../utils/routes';
 import { isURL } from '../../utils/url';
@@ -45,6 +45,30 @@ const isWorkflowFile = (entry: string) => /\.ya?ml$/.test(entry);
 // GitLab commit pages live under `/-/commit/`, GitHub (and most forges) under `/commit/`
 export function commitUrl(repository: string, commit: string, buildType?: string): string {
   return `${repository}/${isGitLab(buildType) ? '-/commit' : 'commit'}/${encodeURIComponent(commit)}`;
+}
+
+// each segment of the workflow path is encoded on its own so `/` keeps separating them
+export function workflowUrl(repository: string, commit: string, workflowPath: string): string {
+  const path = workflowPath.split('/').map(encodeURIComponent).join('/');
+  return `${repository}/blob/${encodeURIComponent(commit)}/${path}`;
+}
+
+// `dist.attestations` and `dist.signatures` come straight from package metadata, not from the decoder
+type ProvenanceMeta = { url?: string; provenance?: { predicateType: string } };
+
+function readAttestations(raw: unknown): ProvenanceMeta | undefined {
+  const value = raw as { url?: unknown; provenance?: { predicateType?: unknown } } | undefined;
+  const url = typeof value?.url === 'string' && value.url.length > 0 ? value.url : undefined;
+  const predicateType = value?.provenance?.predicateType;
+  const provenance =
+    typeof predicateType === 'string' && predicateType.length > 0 ? { predicateType } : undefined;
+  return url || provenance ? { url, provenance } : undefined;
+}
+
+function readSignatures(raw: unknown): Signature[] {
+  return Array.isArray(raw)
+    ? raw.filter((item): item is Signature => typeof item?.keyid === 'string' && item.keyid !== '')
+    : [];
 }
 
 // every url here comes from the registry metadata or the attestation bundle
@@ -113,7 +137,7 @@ const BuildDetails: FC<{ packageName: string; version?: string }> = ({ packageNa
       {data.workflowPath ? (
         <Detail label={t('sidebar.provenance.workflow')}>
           {repository && commit && isWorkflowFile(data.workflowPath) ? (
-            <ExternalLink href={`${repository}/blob/${commit}/${data.workflowPath}`}>
+            <ExternalLink href={workflowUrl(repository, commit, data.workflowPath)}>
               {data.workflowPath}
             </ExternalLink>
           ) : (
@@ -144,7 +168,7 @@ const ProvenanceDialog: FC<{
   onClose: () => void;
   packageName: string;
   version: string;
-  attestations?: Attestations;
+  attestations?: ProvenanceMeta;
   signatures: Signature[];
   showDetails: boolean;
 }> = ({ open, onClose, packageName, version, attestations, signatures, showDetails }) => {
@@ -155,6 +179,9 @@ const ProvenanceDialog: FC<{
   return (
     <RegistryInfoDialog onClose={onClose} open={open} title={t('sidebar.provenance.title')}>
       <Typography sx={{ pt: 2 }} variant="subtitle2">{`${packageName}@${version}`}</Typography>
+      <Typography color="text.secondary" variant="body2">
+        {t('sidebar.provenance.disclaimer')}
+      </Typography>
       <List dense={true}>
         {provenance ? (
           <Detail label={t('sidebar.provenance.provenance')}>
@@ -194,8 +221,8 @@ const Provenance: FC<{
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const latest = packageMeta?.latest;
-  const attestations = latest?.dist?.attestations;
-  const signatures = latest?.dist?.signatures ?? [];
+  const attestations = readAttestations(latest?.dist?.attestations);
+  const signatures = readSignatures(latest?.dist?.signatures);
   const provenance = attestations?.provenance;
 
   if (!provenance && signatures.length === 0) {

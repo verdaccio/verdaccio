@@ -130,9 +130,15 @@ describe('summarizeProvenance', () => {
     const statement = {
       predicate: {
         buildDefinition: {
-          externalParameters: { workflow: { repository: 'https://github.com/org/repo' } },
+          externalParameters: {
+            workflow: { repository: 'https://github.com/org/repo', ref: 'refs/heads/main' },
+          },
           resolvedDependencies: [
             { uri: 'git+https://github.com/other/dep@v1', digest: { gitCommit: 'bad0000' } },
+            {
+              uri: 'git+https://github.com/org/repo@refs/heads/release',
+              digest: { gitCommit: 'e1ea5e0' },
+            },
             { uri: 'git+https://github.com/org/repository@v1', digest: { gitCommit: 'aaa1111' } },
             { uri: 'git+https://github.com/org/repo@v0', digest: { gitCommit: 'bad/../sha' } },
             {
@@ -150,6 +156,26 @@ describe('summarizeProvenance', () => {
       },
     ]);
     expect(summary?.sourceCommit).toBe('c0ffee1');
+  });
+
+  test('omits the commit when no dependency is the workflow repository', () => {
+    const statement = {
+      predicate: {
+        buildDefinition: {
+          externalParameters: { workflow: { repository: 'https://github.com/org/repo' } },
+          resolvedDependencies: [
+            { uri: 'git+https://github.com/other/dep@v1', digest: { gitCommit: 'bad0000' } },
+          ],
+        },
+      },
+    };
+    const summary = summarizeProvenance([
+      {
+        predicateType: 'https://slsa.dev/provenance/v1',
+        bundle: { dsseEnvelope: { payload: encode(statement) } },
+      },
+    ]);
+    expect(summary?.sourceCommit).toBeUndefined();
   });
 
   test('returns null without a provenance attestation', () => {

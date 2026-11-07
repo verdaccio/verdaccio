@@ -1111,7 +1111,11 @@ class Storage {
       typeof tarball === 'string'
         ? manifest._distfiles?.[tarballUtils.extractTarballFromUrl(tarball)]?.registry
         : undefined;
-    return registry && this.uplinks[registry] ? registry : undefined;
+    return registry &&
+      this.uplinks[registry] &&
+      hasProxyTo(manifest.name, registry, this.config.packages)
+      ? registry
+      : undefined;
   }
 
   /**

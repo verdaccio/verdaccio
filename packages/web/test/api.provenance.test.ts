@@ -98,6 +98,25 @@ describe('provenance api', () => {
     expect(wrong.isDone()).toBe(false);
   });
 
+  test('keeps the recorded uplink apart from a twin with the same url', async () => {
+    nock(npmjs).matchHeader('x-uplink', 'a').get('/dup-pkg').reply(404);
+    nock(npmjs).matchHeader('x-uplink', 'b').get('/dup-pkg').reply(200, remoteSemver('dup-pkg'));
+    const wrong = nock(npmjs)
+      .matchHeader('x-uplink', 'a')
+      .get('/-/npm/v1/attestations/dup-pkg@7.8.6')
+      .reply(200, attestations);
+    nock(npmjs)
+      .matchHeader('x-uplink', 'b')
+      .get('/-/npm/v1/attestations/dup-pkg@7.8.6')
+      .reply(200, attestations);
+    const app = await initializeServer('provenance-duplicate-url.yaml');
+
+    await supertest(app)
+      .get('/-/verdaccio/data/package/provenance/dup-pkg?v=7.8.6')
+      .expect(HTTP_STATUS.OK);
+    expect(wrong.isDone()).toBe(false);
+  });
+
   test('reports an upstream failure instead of a missing bundle', async () => {
     nock(npmjs).get('/semver').reply(200, remoteSemver());
     nock(npmjs).persist().get('/-/npm/v1/attestations/semver@7.8.6').reply(503);

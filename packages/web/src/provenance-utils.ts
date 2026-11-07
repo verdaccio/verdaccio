@@ -56,18 +56,23 @@ const repositoryKey = (value?: string) =>
     .replace(/\/+$/, '')
     .toLowerCase();
 
-// the dependency whose repository is exactly the workflow one; a lone dependency is taken as such
-function workflowCommit(dependencies: unknown, repository?: string): string | undefined {
-  if (!Array.isArray(dependencies)) {
+// the github-actions build type lists the workflow repository as `git+<repository>@<ref>`
+function workflowCommit(
+  dependencies: unknown,
+  repository?: string,
+  ref?: string
+): string | undefined {
+  const origin = repositoryKey(repository);
+  if (!Array.isArray(dependencies) || !origin) {
     return undefined;
   }
-  const origin = repositoryKey(repository);
-  const match =
-    (origin &&
-      dependencies.find(
-        (item) => repositoryKey(str(item?.uri)) === origin && gitSha(item?.digest?.gitCommit)
-      )) ??
-    (dependencies.length === 1 ? dependencies[0] : undefined);
+  const match = dependencies.find((item) => {
+    const uri = str(item?.uri);
+    const depRef = uri?.replace(/^git\+/, '').split('@')[1];
+    return (
+      repositoryKey(uri) === origin && (!ref || depRef === ref) && gitSha(item?.digest?.gitCommit)
+    );
+  });
   return gitSha(match?.digest?.gitCommit);
 }
 
@@ -86,7 +91,11 @@ function readPredicate(predicate: any): Partial<ProvenanceSummary> {
       builder: str(runDetails?.builder?.id),
       sourceRepository: repository,
       sourceRef: str(workflow.ref),
-      sourceCommit: workflowCommit(buildDefinition.resolvedDependencies, repository),
+      sourceCommit: workflowCommit(
+        buildDefinition.resolvedDependencies,
+        repository,
+        str(workflow.ref)
+      ),
       workflowPath: str(workflow.path),
       buildRunUrl: str(runDetails?.metadata?.invocationId),
     };

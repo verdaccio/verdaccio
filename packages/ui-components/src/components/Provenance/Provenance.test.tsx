@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { cleanup, fireEvent, render, waitFor } from '../../test/test-react-testing-library';
 import type { PackageMetaInterface } from '../../types/packageMeta';
-import Provenance, { builderLabel, commitUrl, provenanceLabel } from './Provenance';
+import Provenance, { builderLabel, commitUrl, provenanceLabel, workflowUrl } from './Provenance';
 
 const requestMock = vi.hoisted(() => vi.fn());
 vi.mock('../../store/api', () => ({ default: { request: requestMock } }));
@@ -74,7 +74,45 @@ describe('<Provenance /> component', () => {
     await waitFor(() => expect(getByTestId('registryInfo--dialog')).toBeInTheDocument());
     expect(getByText('semver@7.8.6')).toBeInTheDocument();
     expect(getByText('SHA256:DhQ8')).toBeInTheDocument();
+    expect(getByText('sidebar.provenance.disclaimer')).toBeInTheDocument();
     expect(requestMock).not.toHaveBeenCalled();
+  });
+
+  test('ignores malformed metadata fields', async () => {
+    const { getByTestId, getByText, queryByText } = render(
+      <Provenance
+        packageMeta={meta({
+          attestations: { url: attestations.url, provenance: {} },
+          signatures: [null, { keyid: 'SHA256:ok', sig: 'MEUC' }, { sig: 'orphan' }],
+        })}
+        packageName="semver"
+      />
+    );
+    const badge = getByTestId('provenance-badge');
+    expect(badge).toHaveTextContent('sidebar.provenance.registry-signature');
+    fireEvent.click(badge);
+    await waitFor(() => expect(getByText('SHA256:ok')).toBeInTheDocument());
+    expect(queryByText('sidebar.provenance.provenance:', { exact: false })).not.toBeInTheDocument();
+    expect(getByText('registry.npmjs.org/-/npm/v1/attestations/semver@7.8.6')).toBeInTheDocument();
+  });
+
+  test('tolerates signatures that are not an array', () => {
+    const { getByTestId } = render(
+      <Provenance packageMeta={meta({ attestations, signatures: 'nope' })} packageName="semver" />
+    );
+    expect(getByTestId('provenance-badge')).toHaveTextContent(
+      'sidebar.provenance.provenance: SLSA v1'
+    );
+  });
+
+  test('renders nothing when every field is malformed', () => {
+    const { container } = render(
+      <Provenance
+        packageMeta={meta({ attestations: { provenance: {} }, signatures: [null] })}
+        packageName="semver"
+      />
+    );
+    expect(container).toBeEmptyDOMElement();
   });
 
   test('provenance: the details are requested only when the dialog opens', async () => {
@@ -203,6 +241,9 @@ describe('<Provenance /> component', () => {
     expect(commitUrl('https://github.com/o/r', 'abc')).toBe('https://github.com/o/r/commit/abc');
     expect(commitUrl('https://github.com/o/r', 'a#b?c/d')).toBe(
       'https://github.com/o/r/commit/a%23b%3Fc%2Fd'
+    );
+    expect(workflowUrl('https://github.com/o/r', 'abc', '.github/workflows/re lease#1.yml')).toBe(
+      'https://github.com/o/r/blob/abc/.github/workflows/re%20lease%231.yml'
     );
     expect(
       commitUrl('https://gitlab.com/g/p', 'abc', 'https://github.com/npm/cli/gitlab/v0alpha1')
