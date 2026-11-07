@@ -58,6 +58,32 @@ describe('pkg-utils', () => {
   });
 });
 
+describe('parsePackageSpec', () => {
+  test('splits plain and scoped specs on the last @', () => {
+    expect(pkgUtils.parsePackageSpec('semver@7.8.6')).toEqual({ name: 'semver', version: '7.8.6' });
+    expect(pkgUtils.parsePackageSpec('@scope/pkg@1.0.0-beta.1')).toEqual({
+      name: '@scope/pkg',
+      version: '1.0.0-beta.1',
+    });
+  });
+
+  test('rejects specs without an exact version or with an invalid name', () => {
+    for (const spec of [
+      'semver',
+      '@scope/pkg',
+      'semver@',
+      'semver@^7.0.0',
+      'semver@latest',
+      'semver@v7.8.6',
+      '../../etc@1.0.0',
+      '@scope/__proto__@1.0.0',
+      'semver@1.0.0/../2.0.0',
+    ]) {
+      expect(pkgUtils.parsePackageSpec(spec)).toBeNull();
+    }
+  });
+});
+
 describe('getPackageJson', () => {
   test('@verdaccio/core', () => {
     const packageJson = pkgUtils.getPackageJson(import.meta.dirname, '..');

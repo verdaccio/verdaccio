@@ -1,6 +1,7 @@
 ---
 '@verdaccio/api': minor
 '@verdaccio/config': minor
+'@verdaccio/core': minor
 '@verdaccio/middleware': minor
 '@verdaccio/proxy': minor
 '@verdaccio/store': minor

@@ -1,7 +1,7 @@
 import type { Router } from 'express';
 
 import type { Auth } from '@verdaccio/auth';
-import { API_ERROR, errorUtils, reqUtils, validationUtils } from '@verdaccio/core';
+import { API_ERROR, errorUtils, pkgUtils, reqUtils } from '@verdaccio/core';
 import { SIGNATURE_API_ENDPOINTS, allow } from '@verdaccio/middleware';
 import type { Storage } from '@verdaccio/store';
 import type { Logger } from '@verdaccio/types';
@@ -10,20 +10,13 @@ import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../../ty
 
 // `:spec` is `name@version`; the access rules read them as separate params
 function splitSpec(req: $RequestExtend, _res: $ResponseExtend, next: $NextFunctionVer): void {
-  const spec = reqUtils.paramToString(req.params.spec);
-  const at = spec.lastIndexOf('@');
-  const name = spec.slice(0, at);
-  const version = spec.slice(at + 1);
-  if (
-    at <= 0 ||
-    !validationUtils.validatePackage(name) ||
-    !validationUtils.validateExactVersion(version)
-  ) {
+  const parsed = pkgUtils.parsePackageSpec(reqUtils.paramToString(req.params.spec));
+  if (!parsed) {
     // the spec is not echoed back: it is attacker-controlled input
     return next(errorUtils.getBadRequest('invalid package spec'));
   }
-  req.params.package = name;
-  req.params.version = version;
+  req.params.package = parsed.name;
+  req.params.version = parsed.version;
   next();
 }
 

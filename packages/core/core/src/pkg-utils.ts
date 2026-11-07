@@ -5,6 +5,7 @@ import semver from 'semver';
 import type { Manifest } from '@verdaccio/types';
 
 import { DIST_TAGS } from './constants';
+import { validateExactVersion, validatePackage } from './validation-utils';
 
 /**
  * Whether `version` is a string that semver parses in loose mode, the format npm
@@ -61,4 +62,15 @@ export function getLatest(pkg: Manifest): string {
 export function getPackageJson(packagePath: string, relativePath: string): Record<string, unknown> {
   const packageJsonPath = path.join(packagePath, relativePath, 'package.json');
   return JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+}
+
+/** Splits an exact `name@version` spec (`@scope/pkg@1.2.3`); null unless both parts are valid. */
+export function parsePackageSpec(spec: string): { name: string; version: string } | null {
+  const at = spec.lastIndexOf('@');
+  if (at <= 0) {
+    return null;
+  }
+  const name = spec.slice(0, at);
+  const version = spec.slice(at + 1);
+  return validatePackage(name) && validateExactVersion(version) ? { name, version } : null;
 }
