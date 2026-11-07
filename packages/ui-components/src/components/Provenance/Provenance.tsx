@@ -25,10 +25,19 @@ export function provenanceLabel(predicateType: string): string {
   return version ? `SLSA ${version}` : predicateType;
 }
 
-// `https://github.com/actions/runner/github-hosted` → `GitHub Actions`
-export function builderLabel(builder: string): string {
-  return /github\.com\/actions\//.test(builder) ? 'GitHub Actions' : builder;
+// npm and Yarn generate provenance on GitHub Actions (SLSA v1) and GitLab CI/CD (npm's own v0.2 build type)
+export function builderLabel(builder: string, buildType?: string): string {
+  if (buildType?.startsWith('https://github.com/npm/cli/gitlab')) {
+    return 'GitLab CI/CD';
+  }
+  if (/github\.com\/actions\/runner/.test(builder)) {
+    return builder.endsWith('/self-hosted') ? 'GitHub Actions (self-hosted)' : 'GitHub Actions';
+  }
+  return builder;
 }
+
+// GitLab statements carry the job name here, GitHub ones the workflow file
+const isWorkflowFile = (entry: string) => /\.ya?ml$/.test(entry);
 
 const ExternalLink: FC<{ href: string; children: React.ReactNode }> = ({ href, children }) => (
   <Link href={href} rel="noopener noreferrer" target="_blank" underline="hover">
@@ -70,7 +79,9 @@ const BuildDetails: FC<{ packageName: string; version?: string }> = ({ packageNa
   return (
     <>
       {data.builder ? (
-        <Detail label={t('sidebar.provenance.built-on')}>{builderLabel(data.builder)}</Detail>
+        <Detail label={t('sidebar.provenance.built-on')}>
+          {builderLabel(data.builder, data.buildType)}
+        </Detail>
       ) : null}
       {repository ? (
         <Detail label={t('sidebar.provenance.source')}>
@@ -83,11 +94,15 @@ const BuildDetails: FC<{ packageName: string; version?: string }> = ({ packageNa
           <ExternalLink href={`${repository}/commit/${commit}`}>{commit.slice(0, 12)}</ExternalLink>
         </Detail>
       ) : null}
-      {repository && commit && data.workflowPath ? (
+      {data.workflowPath ? (
         <Detail label={t('sidebar.provenance.workflow')}>
-          <ExternalLink href={`${repository}/blob/${commit}/${data.workflowPath}`}>
-            {data.workflowPath}
-          </ExternalLink>
+          {repository && commit && isWorkflowFile(data.workflowPath) ? (
+            <ExternalLink href={`${repository}/blob/${commit}/${data.workflowPath}`}>
+              {data.workflowPath}
+            </ExternalLink>
+          ) : (
+            data.workflowPath
+          )}
         </Detail>
       ) : null}
       {data.buildRunUrl ? (

@@ -153,6 +153,17 @@ describe('<Provenance /> component', () => {
     expect(provenanceLabel('https://slsa.dev/provenance/v1')).toBe('SLSA v1');
     expect(provenanceLabel('https://example.test/custom')).toBe('https://example.test/custom');
     expect(builderLabel('https://github.com/actions/runner/github-hosted')).toBe('GitHub Actions');
-    expect(builderLabel('https://gitlab.com/runner')).toBe('https://gitlab.com/runner');
+    expect(builderLabel('https://github.com/actions/runner/self-hosted')).toBe(
+      'GitHub Actions (self-hosted)'
+    );
+    expect(
+      builderLabel(
+        'https://gitlab.com/group/project/-/runners/12345',
+        'https://github.com/npm/cli/gitlab/v0alpha1'
+      )
+    ).toBe('GitLab CI/CD');
+    expect(builderLabel('https://example.test/builder', 'https://example.test/build/v1')).toBe(
+      'https://example.test/builder'
+    );
   });
 });

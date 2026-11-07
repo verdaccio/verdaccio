@@ -58,6 +58,37 @@ describe('summarizeProvenance', () => {
     });
   });
 
+  test('reads the GitLab CI/CD statement npm generates', () => {
+    const statement = {
+      predicate: {
+        buildType: 'https://github.com/npm/cli/gitlab/v0alpha1',
+        builder: { id: 'https://gitlab.com/group/project/-/runners/12345' },
+        invocation: {
+          configSource: {
+            uri: 'git+https://gitlab.com/group/project',
+            digest: { sha1: 'def456' },
+            entryPoint: 'publish',
+          },
+        },
+      },
+    };
+    const summary = summarizeProvenance([
+      {
+        predicateType: 'https://slsa.dev/provenance/v0.2',
+        bundle: { dsseEnvelope: { payload: encode(statement) } },
+      },
+    ]);
+    expect(summary).toMatchObject({
+      buildType: 'https://github.com/npm/cli/gitlab/v0alpha1',
+      builder: 'https://gitlab.com/group/project/-/runners/12345',
+      sourceRepository: 'https://gitlab.com/group/project',
+      sourceCommit: 'def456',
+      workflowPath: 'publish',
+    });
+    expect(summary?.sourceRef).toBeUndefined();
+    expect(summary?.transparencyLogUrl).toBeUndefined();
+  });
+
   test('returns null without a provenance attestation', () => {
     expect(summarizeProvenance([])).toBeNull();
     expect(
