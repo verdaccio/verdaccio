@@ -1,0 +1,20 @@
+{
+  "name": "semver",
+  "version": "7.8.6",
+  "predicateType": "https://slsa.dev/provenance/v1",
+  "signatures": [
+    {
+      "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+    }
+  ],
+  "buildType": "https://slsa-framework.github.io/github-actions-buildtypes/workflow/v1",
+  "builder": "https://github.com/actions/runner/github-hosted",
+  "sourceRepository": "https://github.com/npm/node-semver",
+  "sourceRef": "refs/heads/main",
+  "sourceCommit": "b37b033b585ad5e575afeccadb426ea41bc6cea4",
+  "workflowPath": ".github/workflows/release.yml",
+  "buildRunUrl": "https://github.com/npm/node-semver/actions/runs/41486847600/attempts/1",
+  "transparencyLogIndex": 3644633127,
+  "transparencyLogUrl": "https://search.sigstore.dev/?logIndex=3644633127",
+  "hasPublishAttestation": true
+}

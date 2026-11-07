@@ -55,6 +55,10 @@ export type ProxySearchParams = {
   retry?: Partial<RetryOptions>;
   onSearchPage?: (total: number | undefined) => void;
 };
+export interface AttestationsResponse {
+  attestations: { predicateType: string; bundle: unknown }[];
+}
+
 export interface IProxy {
   uplinkName: string;
   config: UpLinkConfLocal;
@@ -79,6 +83,7 @@ export interface IProxy {
       throwHttpErrors?: boolean;
     }
   ): PassThrough;
+  getAttestations(name: string, version: string): Promise<AttestationsResponse | null>;
 }
 
 // this type is need it by storage
@@ -558,6 +563,60 @@ class ProxyStorage implements IProxy {
           { errorMessage: err?.message, name: this.uplinkName },
           'proxy uplink @{name} search error: @{errorMessage}'
         );
+      }
+      throw err;
+    }
+  }
+
+  /** Sigstore attestations the uplink holds for a version; null when it has none. */
+  public async getAttestations(
+    name: string,
+    version: string
+  ): Promise<AttestationsResponse | null> {
+    const body = await this.fetchJson<AttestationsResponse>(
+      `/-/npm/v1/attestations/${encode(name)}@${version}`
+    );
+    return Array.isArray(body?.attestations) ? body : null;
+  }
+
+  // a 404 is a regular answer here (registry without attestations), hence null
+  private async fetchJson<T>(path: string): Promise<T | null> {
+    if (this._ifRequestFailure()) {
+      throw errorUtils.getInternalError(API_ERROR.UPLINK_OFFLINE);
+    }
+    const uri = this.buildUri(path);
+    const headers = this.applyUplinkHeaders(this.getHeaders());
+    const request = { method: 'GET', url: uri };
+    try {
+      const response = await got<T>(uri, {
+        headers,
+        responseType: 'json',
+        agent: this.agent,
+        timeout: this.timeout,
+        retry: this.retry,
+      });
+      this.last_request_time = Date.now();
+      this.logger.http(
+        { request, status: response.statusCode },
+        "@{!status}, req: '@{request.method} @{request.url}'"
+      );
+      return response.body;
+    } catch (err: any) {
+      if (err.code === 'ERR_NON_2XX_3XX_RESPONSE') {
+        const code = err.response.statusCode;
+        this.logger.http(
+          { request, status: code },
+          "@{!status}, req: '@{request.method} @{request.url}'"
+        );
+        if (code === HTTP_STATUS.NOT_FOUND) {
+          return null;
+        }
+        const error = errorUtils.getInternalError(`${API_ERROR.BAD_STATUS_CODE}: ${code}`);
+        error.remoteStatus = code;
+        throw error;
+      }
+      if (this._isRequestTimeout(err)) {
+        throw errorUtils.getServiceUnavailable(API_ERROR.SERVER_TIME_OUT);
       }
       throw err;
     }

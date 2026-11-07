@@ -65,9 +65,15 @@ export interface Signatures {
   sig: string;
 }
 
+export interface Attestations {
+  url: string;
+  provenance?: { predicateType: string };
+}
+
 export interface Dist {
   'npm-signature'?: string;
   signatures?: Signatures[];
+  attestations?: Attestations;
   fileCount?: number;
   integrity?: string;
   shasum: string;

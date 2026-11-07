@@ -1,0 +1,80 @@
+import { describe, expect, test } from 'vitest';
+
+import { summarizeProvenance } from '../src/provenance-utils';
+import semver from './partials/attestations-semver.json';
+
+const encode = (statement: unknown) =>
+  Buffer.from(JSON.stringify(statement), 'utf8').toString('base64');
+
+describe('summarizeProvenance', () => {
+  test('reads a SLSA v1 statement from a real npmjs bundle', () => {
+    const summary = summarizeProvenance(semver.attestations as any);
+    expect(summary).toEqual({
+      predicateType: 'https://slsa.dev/provenance/v1',
+      buildType: 'https://slsa-framework.github.io/github-actions-buildtypes/workflow/v1',
+      builder: 'https://github.com/actions/runner/github-hosted',
+      sourceRepository: 'https://github.com/npm/node-semver',
+      sourceRef: 'refs/heads/main',
+      sourceCommit: 'b37b033b585ad5e575afeccadb426ea41bc6cea4',
+      workflowPath: '.github/workflows/release.yml',
+      buildRunUrl: 'https://github.com/npm/node-semver/actions/runs/41486847600/attempts/1',
+      transparencyLogIndex: 3644633127,
+      transparencyLogUrl: 'https://search.sigstore.dev/?logIndex=3644633127',
+      hasPublishAttestation: true,
+    });
+  });
+
+  test('reads a SLSA v0.2 statement', () => {
+    const statement = {
+      predicate: {
+        buildType: 'https://github.com/npm/cli/gha/v2',
+        builder: { id: 'https://github.com/actions/runner' },
+        invocation: {
+          configSource: {
+            uri: 'git+https://github.com/org/repo@refs/heads/main',
+            digest: { sha1: 'abc123' },
+            entryPoint: '.github/workflows/publish.yml',
+          },
+        },
+        metadata: { buildInvocationId: 'https://github.com/org/repo/actions/runs/1' },
+      },
+    };
+    const summary = summarizeProvenance([
+      {
+        predicateType: 'https://slsa.dev/provenance/v0.2',
+        bundle: {
+          dsseEnvelope: { payload: encode(statement) },
+          verificationMaterial: { tlogEntries: [{ logIndex: '42' }] },
+        },
+      },
+    ]);
+    expect(summary).toMatchObject({
+      sourceRepository: 'https://github.com/org/repo',
+      sourceRef: 'refs/heads/main',
+      sourceCommit: 'abc123',
+      workflowPath: '.github/workflows/publish.yml',
+      transparencyLogIndex: 42,
+      hasPublishAttestation: false,
+    });
+  });
+
+  test('returns null without a provenance attestation', () => {
+    expect(summarizeProvenance([])).toBeNull();
+    expect(
+      summarizeProvenance([{ predicateType: semver.attestations[0].predicateType, bundle: {} }])
+    ).toBeNull();
+  });
+
+  test('keeps the predicate type when the payload cannot be decoded', () => {
+    const summary = summarizeProvenance([
+      {
+        predicateType: 'https://slsa.dev/provenance/v1',
+        bundle: { dsseEnvelope: { payload: '%%' } },
+      },
+    ]);
+    expect(summary).toEqual({
+      predicateType: 'https://slsa.dev/provenance/v1',
+      hasPublishAttestation: false,
+    });
+  });
+});

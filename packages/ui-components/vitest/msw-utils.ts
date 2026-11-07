@@ -232,3 +232,9 @@ export const mockLogin = (status = 200, customResponse?: object) =>
       }
     );
   }) as unknown as MswResolver);
+
+export const mockProvenance = () =>
+  http.get(`${BASE_URL}/-/verdaccio/data/package/provenance/*`, (() => {
+    debug('Received provenance request. Returning mock data.');
+    return HttpResponse.json(require('./api/provenance-semver.json'));
+  }) as unknown as MswResolver);
