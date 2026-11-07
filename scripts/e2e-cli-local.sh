@@ -12,7 +12,9 @@
 #   ./scripts/e2e-cli-local.sh yarn-modern@4
 set -euo pipefail
 
-REGISTRY_URL="http://localhost:4873"
+# REGISTRY_PORT lets the script coexist with a dev server on 4873
+REGISTRY_PORT="${REGISTRY_PORT:-4873}"
+REGISTRY_URL="http://localhost:$REGISTRY_PORT"
 PM="${1:-npm@11}"
 VERDACCIO_PID=""
 WORK_DIR=""
@@ -51,7 +53,7 @@ rm -f "$WORK_DIR/config.yaml.bak"
 printf 'flags:\n  signatures: true\n' >> "$WORK_DIR/config.yaml"
 
 echo "Starting Verdaccio..."
-node "$ROOT_DIR/packages/verdaccio/debug/bootstrap.js" --config "$WORK_DIR/config.yaml" --listen 4873 &
+node "$ROOT_DIR/packages/verdaccio/debug/bootstrap.js" --config "$WORK_DIR/config.yaml" --listen "$REGISTRY_PORT" &
 VERDACCIO_PID=$!
 
 for i in $(seq 1 30); do
