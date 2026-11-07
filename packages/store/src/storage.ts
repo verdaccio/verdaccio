@@ -1067,8 +1067,8 @@ class Storage {
   }
 
   /**
-   * Attestations of a version, asked to the uplink that supplied it (the one recorded in
-   * `_distfiles`) or, when unknown, to the uplinks that proxy the package in order. Null when
+   * Attestations of a version, asked to the uplink recorded for it in `_distfiles` or, when
+   * unknown, to the uplinks that proxy the package in order. Null when
    * none has them; the last lookup error is thrown when no uplink could answer.
    */
   public async getAttestations(
@@ -1104,21 +1104,14 @@ class Storage {
     return null;
   }
 
-  // `_distfiles` keeps the remote tarball url of each version; its host names the uplink
+  // `_distfiles` records the uplink a version was merged from (see updateUplinkToRemoteProtocol)
   private uplinkOfVersion(manifest: Manifest, version: string): string | undefined {
     const tarball = manifest.versions?.[version]?.dist?.tarball;
-    if (typeof tarball !== 'string') {
-      return undefined;
-    }
-    const remote = manifest._distfiles?.[tarballUtils.extractTarballFromUrl(tarball)]?.url;
-    if (typeof remote !== 'string') {
-      return undefined;
-    }
-    // same protocol, host and path prefix as the tarball routing; two uplinks may share a host,
-    // so the most specific path wins
-    return Object.keys(this.uplinks)
-      .filter((uplinkName) => uplinkServesUrl(this.uplinks[uplinkName].url, remote))
-      .sort((a, b) => this.uplinks[b].url.pathname.length - this.uplinks[a].url.pathname.length)[0];
+    const registry =
+      typeof tarball === 'string'
+        ? manifest._distfiles?.[tarballUtils.extractTarballFromUrl(tarball)]?.registry
+        : undefined;
+    return registry && this.uplinks[registry] ? registry : undefined;
   }
 
   /**
