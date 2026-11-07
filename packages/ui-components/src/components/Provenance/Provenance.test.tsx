@@ -201,6 +201,9 @@ describe('<Provenance /> component', () => {
       'https://evil.test/github.com/actions/runner/x'
     );
     expect(commitUrl('https://github.com/o/r', 'abc')).toBe('https://github.com/o/r/commit/abc');
+    expect(commitUrl('https://github.com/o/r', 'a#b?c/d')).toBe(
+      'https://github.com/o/r/commit/a%23b%3Fc%2Fd'
+    );
     expect(
       commitUrl('https://gitlab.com/g/p', 'abc', 'https://github.com/npm/cli/gitlab/v0alpha1')
     ).toBe('https://gitlab.com/g/p/-/commit/abc');

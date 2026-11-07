@@ -63,10 +63,17 @@ function workflowCommit(dependencies: unknown, repository?: string): string | un
   }
   const origin = repositoryKey(repository);
   const match =
-    (origin && dependencies.find((item) => repositoryKey(str(item?.uri)) === origin)) ??
+    (origin &&
+      dependencies.find(
+        (item) => repositoryKey(str(item?.uri)) === origin && gitSha(item?.digest?.gitCommit)
+      )) ??
     (dependencies.length === 1 ? dependencies[0] : undefined);
-  return str(match?.digest?.gitCommit);
+  return gitSha(match?.digest?.gitCommit);
 }
+
+// a git object id, so the commit can be used as a single url path segment
+const gitSha = (value: unknown): string | undefined =>
+  typeof value === 'string' && /^[0-9a-f]{7,64}$/i.test(value) ? value : undefined;
 
 // SLSA v1: github-actions build type; v0.2: the shape npm used before 2024
 function readPredicate(predicate: any): Partial<ProvenanceSummary> {
@@ -94,7 +101,7 @@ function readPredicate(predicate: any): Partial<ProvenanceSummary> {
     builder: str(predicate?.builder?.id),
     sourceRepository: str(repository),
     sourceRef: str(ref),
-    sourceCommit: str(source.digest?.sha1),
+    sourceCommit: gitSha(source.digest?.sha1),
     workflowPath: str(source.entryPoint),
     buildRunUrl: str(predicate?.metadata?.buildInvocationId),
   };

@@ -32,7 +32,7 @@ describe('summarizeProvenance', () => {
         invocation: {
           configSource: {
             uri: 'git+https://github.com/org/repo@refs/heads/main',
-            digest: { sha1: 'abc123' },
+            digest: { sha1: 'abc1234' },
             entryPoint: '.github/workflows/publish.yml',
           },
         },
@@ -51,7 +51,7 @@ describe('summarizeProvenance', () => {
     expect(summary).toMatchObject({
       sourceRepository: 'https://github.com/org/repo',
       sourceRef: 'refs/heads/main',
-      sourceCommit: 'abc123',
+      sourceCommit: 'abc1234',
       workflowPath: '.github/workflows/publish.yml',
       transparencyLogIndex: 42,
       hasPublishAttestation: false,
@@ -66,7 +66,7 @@ describe('summarizeProvenance', () => {
         invocation: {
           configSource: {
             uri: 'git+https://gitlab.com/group/project',
-            digest: { sha1: 'def456' },
+            digest: { sha1: 'def4567' },
             entryPoint: 'publish',
           },
         },
@@ -82,7 +82,7 @@ describe('summarizeProvenance', () => {
       buildType: 'https://github.com/npm/cli/gitlab/v0alpha1',
       builder: 'https://gitlab.com/group/project/-/runners/12345',
       sourceRepository: 'https://gitlab.com/group/project',
-      sourceCommit: 'def456',
+      sourceCommit: 'def4567',
       workflowPath: 'publish',
     });
     expect(summary?.sourceRef).toBeUndefined();
@@ -102,8 +102,14 @@ describe('summarizeProvenance', () => {
                 buildDefinition: {
                   externalParameters: { workflow: { repository: 123, path: ['x'] } },
                   resolvedDependencies: [
-                    { uri: 'git+https://github.com/other/dep@v1', digest: { gitCommit: 'bad' } },
-                    { uri: 'git+https://github.com/org/repo@main', digest: { gitCommit: 'good' } },
+                    {
+                      uri: 'git+https://github.com/other/dep@v1',
+                      digest: { gitCommit: 'bad0000' },
+                    },
+                    {
+                      uri: 'git+https://github.com/org/repo@main',
+                      digest: { gitCommit: 'c0ffee1' },
+                    },
                   ],
                 },
                 runDetails: { builder: { id: null }, metadata: { invocationId: {} } },
@@ -126,11 +132,12 @@ describe('summarizeProvenance', () => {
         buildDefinition: {
           externalParameters: { workflow: { repository: 'https://github.com/org/repo' } },
           resolvedDependencies: [
-            { uri: 'git+https://github.com/other/dep@v1', digest: { gitCommit: 'bad' } },
-            { uri: 'git+https://github.com/org/repository@v1', digest: { gitCommit: 'prefix' } },
+            { uri: 'git+https://github.com/other/dep@v1', digest: { gitCommit: 'bad0000' } },
+            { uri: 'git+https://github.com/org/repository@v1', digest: { gitCommit: 'aaa1111' } },
+            { uri: 'git+https://github.com/org/repo@v0', digest: { gitCommit: 'bad/../sha' } },
             {
               uri: 'git+https://github.com/org/repo@refs/heads/main',
-              digest: { gitCommit: 'good' },
+              digest: { gitCommit: 'c0ffee1' },
             },
           ],
         },
@@ -142,7 +149,7 @@ describe('summarizeProvenance', () => {
         bundle: { dsseEnvelope: { payload: encode(statement) } },
       },
     ]);
-    expect(summary?.sourceCommit).toBe('good');
+    expect(summary?.sourceCommit).toBe('c0ffee1');
   });
 
   test('returns null without a provenance attestation', () => {

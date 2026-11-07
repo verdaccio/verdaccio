@@ -44,7 +44,7 @@ const isWorkflowFile = (entry: string) => /\.ya?ml$/.test(entry);
 
 // GitLab commit pages live under `/-/commit/`, GitHub (and most forges) under `/commit/`
 export function commitUrl(repository: string, commit: string, buildType?: string): string {
-  return `${repository}/${isGitLab(buildType) ? '-/commit' : 'commit'}/${commit}`;
+  return `${repository}/${isGitLab(buildType) ? '-/commit' : 'commit'}/${encodeURIComponent(commit)}`;
 }
 
 // every url here comes from the registry metadata or the attestation bundle
