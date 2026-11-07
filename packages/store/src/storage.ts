@@ -2306,8 +2306,8 @@ class Storage {
               url: version.dist.tarball,
               sha: version.dist.shasum,
             });
-            // store cache metadata this the manifest
-            const upLink: string = version[Symbol.for('__verdaccio_uplink')];
+            // the symbol is only set on cached versions, so the syncing uplink is the usual source
+            const upLink: string = version[Symbol.for('__verdaccio_uplink')] ?? uplinkName;
             if (isNil(upLink) === false) {
               this.updateUplinkToRemoteProtocol(hash, upLink);
             }
