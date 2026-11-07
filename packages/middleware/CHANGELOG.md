@@ -1,5 +1,34 @@
 # @verdaccio/middleware
 
+## 9.0.0-next-9.43
+
+### Minor Changes
+
+- aeaf4d8: Make `npm audit signatures` work through Verdaccio for packages proxied from an uplink, behind the experimental `flags.signatures` setting.
+  
+  Verdaccio already kept the `dist.signatures` and `dist.attestations` fields that registry.npmjs.org attaches to every version, but it did not serve the two routes the npm CLI reads to verify them. npm resolves signing keys by registry host, so against Verdaccio it requested `GET /-/npm/v1/keys`, received a 404 and aborted the whole command with `EMISSINGSIGNATUREKEY` on the first package coming from npmjs. Attestation bundles are fetched from the registry the package was installed from as well, so `GET /-/npm/v1/attestations/<name>@<version>` also returned 404.
+  
+  Both routes now exist when `flags.signatures: true` is set in the configuration (the feature is experimental and may change). `GET /-/npm/v1/keys` returns the signing keys of every configured uplink merged by key id (refreshed hourly) and answers 404 when none publishes keys. `GET /-/npm/v1/attestations/<name>@<version>` relays the attestations from the first uplink that proxies the package, applying the package `access` rules, and answers 404 when the uplink has none. With this `npm audit signatures` verifies registry signatures and provenance attestations of proxied packages exactly as it does against registry.npmjs.org. Enable it with:
+  
+  ```yaml
+  flags:
+    signatures: true
+  ```
+  
+  Packages published to Verdaccio itself are not signed yet. npm treats any registry that publishes keys as a registry whose packages should all be signed, so once the flag is on `npm audit signatures` lists every locally published package as having a missing registry signature and exits with code 1; proxied packages verify, local ones are reported. Keep the flag off if that report would break a CI gate, until Verdaccio signs local packages. `npm publish --provenance` is still rejected.
+- 8c56d8e: Show the provenance and registry signature of a version in the web UI.
+  
+  The package sidebar gets a "Provenance" section, under "Distribution", when the selected version carries a sigstore attestation or a registry signature, the fields registry.npmjs.org attaches to every version it signs. Its chip reads "Provenance: SLSA v1" for a version with provenance and "Registry signature" for one that only has a signature. Clicking it opens a dialog with the statement type, the signing key ids and a link to the attestation bundle. Nothing is verified in the browser: the dialog states what the registry metadata contains, and verification remains the job of `npm audit signatures`.
+  
+  The dialog also shows what the provenance statement says about the build, read from the attestation bundle by a new web endpoint, `GET /-/verdaccio/data/package/provenance/<name>?v=<version>`: the builder (GitHub Actions, self-hosted or not, or GitLab CI/CD, the two environments npm and Yarn generate provenance in), the source repository, ref and commit, the workflow file or job, the build run and the Sigstore transparency log entry, each linked to its origin. The endpoint relays the bundle from the uplink the version was synced from, applies the package access rules and answers 404 for versions without attestations. The build details therefore need an uplink that serves the npm attestation endpoint, `/-/npm/v1/attestations/<name>@<version>`, as registry.npmjs.org does; a Verdaccio upstream will only do so once it gains the registry signature routes, which are a separate change, and against such upstreams the dialog shows the summary and the bundle link alone. The request is made only when the dialog opens and only when the server announces the endpoint through the new `capabilities.provenance` UI option, so the theme keeps working against older servers without a single failing request: the chip, the dialog summary and the bundle link come from the sidebar data alone, and the build details simply stay out.
+
+### Patch Changes
+
+- Updated dependencies [aeaf4d8]
+  - @verdaccio/config@9.0.0-next-9.43
+  - @verdaccio/core@9.0.0-next-9.43
+  - @verdaccio/url@14.0.0-next-9.43
+
 ## 9.0.0-next-9.42
 
 ### Patch Changes
