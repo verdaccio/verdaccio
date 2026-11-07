@@ -49,16 +49,18 @@ describe('proxy registry keys', () => {
     expect(await createProxy().getRegistryKeys()).toBeNull();
   });
 
-  test('drops malformed key entries', async () => {
+  test('drops entries without the full key shape', async () => {
     nock(domain)
       .get('/-/npm/v1/keys')
-      .reply(200, { keys: [null, { keyid: 'SHA256:x' }, { key: 'MFkw' }, ...keys] });
+      .reply(200, {
+        keys: [null, { keyid: 'SHA256:x', key: 'MFkw' }, { ...keys[0], expires: 42 }, ...keys],
+      });
     expect(await createProxy().getRegistryKeys()).toEqual(keys);
   });
 
-  test('returns null when the body carries no keys array', async () => {
+  test('rejects a successful response without a keys array', async () => {
     nock(domain).get('/-/npm/v1/keys').reply(200, { keys: 'nope' });
-    expect(await createProxy().getRegistryKeys()).toBeNull();
+    await expect(createProxy().getRegistryKeys()).rejects.toThrow('invalid uplink keys response');
   });
 
   test('rejects other upstream failures', async () => {

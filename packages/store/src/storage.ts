@@ -98,7 +98,7 @@ class Storage {
   public readonly config: Config;
   public readonly logger: Logger;
   public readonly uplinks: ProxyInstanceList;
-  private registryKeysCache?: { keys: RegistryKey[]; expires: number };
+  private registryKeysCache?: { keys: RegistryKey[] | null; expires: number };
   private searchService: Search;
   private stageStorage: StageStorage | null = null;
   public constructor(config: Config, logger: Logger) {
@@ -1074,6 +1074,7 @@ class Storage {
     if (this.registryKeysCache && this.registryKeysCache.expires > Date.now()) {
       return this.registryKeysCache.keys;
     }
+    // a complete answer is cached for the TTL, with or without keys; failures are retried
     const byKeyId = new Map<string, RegistryKey>();
     let complete = true;
     let lastError: Error | undefined;
@@ -1100,14 +1101,11 @@ class Storage {
         );
       }
     }
-    if (byKeyId.size === 0) {
+    if (byKeyId.size === 0 && lastError) {
       // no keys because every uplink failed is an outage, not a registry without keys
-      if (lastError) {
-        throw lastError;
-      }
-      return null;
+      throw lastError;
     }
-    const keys = [...byKeyId.values()];
+    const keys = byKeyId.size === 0 ? null : [...byKeyId.values()];
     // a partial set is served but not cached, so a recovered uplink is asked again next time
     if (complete) {
       this.registryKeysCache = { keys, expires: Date.now() + REGISTRY_KEYS_TTL };

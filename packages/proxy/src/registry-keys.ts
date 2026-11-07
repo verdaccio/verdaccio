@@ -15,6 +15,17 @@ export interface RegistryKey {
 
 export const REGISTRY_KEYS_PATH = '/-/npm/v1/keys';
 
+function isRegistryKey(item: any): item is RegistryKey {
+  return (
+    typeof item?.keyid === 'string' &&
+    item.keyid !== '' &&
+    typeof item.key === 'string' &&
+    typeof item.keytype === 'string' &&
+    typeof item.scheme === 'string' &&
+    (item.expires === null || typeof item.expires === 'string')
+  );
+}
+
 /** Signing keys the uplink publishes for `npm audit signatures`; null when it has none (404). */
 export async function fetchRegistryKeys({
   uri,
@@ -30,14 +41,12 @@ export async function fetchRegistryKeys({
       "@{!status}, req: '@{request.method} @{request.url}'"
     );
     const keys = response.body?.keys;
+    // a 2xx without a keys array is a broken uplink, not a registry without keys
     if (!Array.isArray(keys)) {
-      return null;
+      throw errorUtils.getInternalError('invalid uplink keys response');
     }
-    // only well-formed entries are relayed to npm
-    return keys.filter(
-      (item): item is RegistryKey =>
-        typeof item?.keyid === 'string' && item.keyid !== '' && typeof item.key === 'string'
-    );
+    // only entries with the full npm key shape are relayed
+    return keys.filter(isRegistryKey);
   } catch (err: any) {
     if (err.code === 'ERR_NON_2XX_3XX_RESPONSE') {
       const code = err.response.statusCode;

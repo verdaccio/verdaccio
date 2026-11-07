@@ -83,6 +83,23 @@ describe('signatures', () => {
       expect(recovered.body.keys.map((k: any) => k.keyid)).toEqual(['A', 'B']);
     });
 
+    test('treats a malformed successful answer as a failure and retries it', async () => {
+      nock(npmjs)
+        .get('/-/npm/v1/keys')
+        .times(2)
+        .reply(200, { keys: [key('A')] });
+      nock(mirror).get('/-/npm/v1/keys').reply(200, { keys: 'invalid' });
+
+      const first = await supertest(app).get('/-/npm/v1/keys').expect(HTTP_STATUS.OK);
+      expect(first.body.keys.map((k: any) => k.keyid)).toEqual(['A']);
+
+      nock(mirror)
+        .get('/-/npm/v1/keys')
+        .reply(200, { keys: [key('B')] });
+      const second = await supertest(app).get('/-/npm/v1/keys').expect(HTTP_STATUS.OK);
+      expect(second.body.keys.map((k: any) => k.keyid)).toEqual(['A', 'B']);
+    });
+
     test('keeps the first key published under a key id', async () => {
       nock(npmjs)
         .get('/-/npm/v1/keys')
@@ -103,11 +120,14 @@ describe('signatures', () => {
       expect(response.status).toBeGreaterThanOrEqual(HTTP_STATUS.INTERNAL_ERROR);
     });
 
-    test('returns 404 when no uplink publishes keys', async () => {
+    test('returns 404 when no uplink publishes keys, and caches that answer', async () => {
       nock(npmjs).get('/-/npm/v1/keys').reply(404);
       nock(mirror).get('/-/npm/v1/keys').reply(404);
 
       await supertest(app).get('/-/npm/v1/keys').expect(HTTP_STATUS.NOT_FOUND);
+      // interceptors are consumed: a second round trip to the uplinks would not be a 404
+      await supertest(app).get('/-/npm/v1/keys').expect(HTTP_STATUS.NOT_FOUND);
+      expect(nock.isDone()).toBe(true);
     });
   });
 
@@ -155,7 +175,7 @@ describe('signatures', () => {
       const specs = [
         '<script>alert(1)</script>@1.0.0',
         '../../etc@1.0.0',
-        '..\..\etc@1.0.0',
+        '..\\..\\etc@1.0.0',
         '%2e%2e%2fetc@1.0.0',
         '@scope/__proto__@1.0.0',
         'semver@../../1.0.0',
