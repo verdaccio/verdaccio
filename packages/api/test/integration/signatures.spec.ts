@@ -95,6 +95,14 @@ describe('signatures', () => {
       expect(response.body.keys).toEqual([key('A')]);
     });
 
+    test('reports an outage when every uplink fails', async () => {
+      nock(npmjs).get('/-/npm/v1/keys').reply(503);
+      nock(mirror).get('/-/npm/v1/keys').reply(500);
+
+      const response = await supertest(app).get('/-/npm/v1/keys');
+      expect(response.status).toBeGreaterThanOrEqual(HTTP_STATUS.INTERNAL_ERROR);
+    });
+
     test('returns 404 when no uplink publishes keys', async () => {
       nock(npmjs).get('/-/npm/v1/keys').reply(404);
       nock(mirror).get('/-/npm/v1/keys').reply(404);

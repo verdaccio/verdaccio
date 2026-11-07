@@ -1076,6 +1076,7 @@ class Storage {
     }
     const byKeyId = new Map<string, RegistryKey>();
     let complete = true;
+    let lastError: Error | undefined;
     for (const uplinkName of Object.keys(this.uplinks)) {
       try {
         for (const key of (await this.uplinks[uplinkName].getRegistryKeys()) ?? []) {
@@ -1092,6 +1093,7 @@ class Storage {
         }
       } catch (err: any) {
         complete = false;
+        lastError = err;
         this.logger.warn(
           { uplinkName, err: err.message },
           'signing keys of uplink @{uplinkName} unavailable: @{err}'
@@ -1099,6 +1101,10 @@ class Storage {
       }
     }
     if (byKeyId.size === 0) {
+      // no keys because every uplink failed is an outage, not a registry without keys
+      if (lastError) {
+        throw lastError;
+      }
       return null;
     }
     const keys = [...byKeyId.values()];
