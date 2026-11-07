@@ -2,6 +2,16 @@ import type { Author } from '@verdaccio/types';
 
 export type ModuleType = 'commonjs' | 'module';
 
+export interface Signature {
+  keyid: string;
+  sig: string;
+}
+
+export interface Attestations {
+  url: string;
+  provenance?: { predicateType: string };
+}
+
 export type Latest = {
   author?: string | Author;
   deprecated?: string;
@@ -10,6 +20,8 @@ export type Latest = {
     fileCount: number;
     unpackedSize: number;
     tarball?: string;
+    signatures?: Signature[];
+    attestations?: Attestations;
   };
   engines?: {
     node?: string;

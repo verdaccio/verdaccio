@@ -30,6 +30,7 @@ import type {
   ProxyInstanceList,
   ProxySearchParams,
 } from '@verdaccio/proxy';
+import type { AttestationsResponse } from '@verdaccio/proxy';
 import { ProxyStorage, setupUpLinks, updateVersionsHiddenUpLinkNext } from '@verdaccio/proxy';
 import Search, { SEARCH_MAX_CANDIDATES } from '@verdaccio/search';
 import type { TarballDetails } from '@verdaccio/tarball';
@@ -1063,6 +1064,58 @@ class Storage {
 
       return newData;
     });
+  }
+
+  /**
+   * Attestations of a version, asked to the uplink recorded for it in `_distfiles` or, when
+   * unknown, to the uplinks that proxy the package in order. Null when
+   * none has them; the last lookup error is thrown when no uplink could answer.
+   */
+  public async getAttestations(
+    name: string,
+    version: string
+  ): Promise<AttestationsResponse | null> {
+    const cached = await this.getPackagelocalByName(name);
+    const source = cached ? this.uplinkOfVersion(cached, version) : undefined;
+    const candidates = source
+      ? [source]
+      : Object.keys(this.uplinks).filter((uplinkName) =>
+          hasProxyTo(name, uplinkName, this.config.packages)
+        );
+    let lastError: Error | undefined;
+    for (const uplinkName of candidates) {
+      try {
+        const attestations = await this.uplinks[uplinkName].getAttestations(name, version);
+        if (attestations) {
+          return attestations;
+        }
+        lastError = undefined;
+      } catch (err: any) {
+        lastError = err;
+        this.logger.warn(
+          { name, version, uplinkName, err: err.message },
+          'attestations of @{name}@@{version} unavailable on uplink @{uplinkName}: @{err}'
+        );
+      }
+    }
+    if (lastError) {
+      throw lastError;
+    }
+    return null;
+  }
+
+  // `_distfiles` records the uplink a version was merged from (see updateUplinkToRemoteProtocol)
+  private uplinkOfVersion(manifest: Manifest, version: string): string | undefined {
+    const tarball = manifest.versions?.[version]?.dist?.tarball;
+    const registry =
+      typeof tarball === 'string'
+        ? manifest._distfiles?.[tarballUtils.extractTarballFromUrl(tarball)]?.registry
+        : undefined;
+    return registry &&
+      this.uplinks[registry] &&
+      hasProxyTo(manifest.name, registry, this.config.packages)
+      ? registry
+      : undefined;
   }
 
   /**
@@ -2257,8 +2310,8 @@ class Storage {
               url: version.dist.tarball,
               sha: version.dist.shasum,
             });
-            // store cache metadata this the manifest
-            const upLink: string = version[Symbol.for('__verdaccio_uplink')];
+            // the symbol is only set on cached versions, so the syncing uplink is the usual source
+            const upLink: string = version[Symbol.for('__verdaccio_uplink')] ?? uplinkName;
             if (isNil(upLink) === false) {
               this.updateUplinkToRemoteProtocol(hash, upLink);
             }

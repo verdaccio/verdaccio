@@ -177,6 +177,11 @@ export type CommonWebConf = {
 /**
  * Options are passed to the index.html
  */
+/** Web endpoints this server exposes beyond the common web API; the theme also runs on older servers. */
+export type UICapabilities = {
+  provenance?: boolean;
+};
+
 export type TemplateUIOptions = {
   uri?: string;
   protocol?: string;
@@ -186,6 +191,7 @@ export type TemplateUIOptions = {
   base: string;
   version?: string;
   flags?: FlagsConfig;
+  capabilities?: UICapabilities;
 } & CommonWebConf;
 
 /**

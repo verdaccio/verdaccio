@@ -1,0 +1,39 @@
+auth:
+  auth-memory:
+    users:
+      test:
+        name: test
+        password: test
+
+web:
+  title: verdaccio
+
+uplinks:
+  root:
+    url: https://registry.npmjs.org/
+  sub:
+    url: https://registry.npmjs.org/sub/
+
+log: { type: stdout, format: pretty, level: trace }
+
+packages:
+  'local-*':
+    access: $anonymous
+    publish: $anonymous
+  'mirrored-*':
+    access: $anonymous
+    publish: $anonymous
+    proxy: root sub
+  '@restricted/*':
+    access: $authenticated
+    publish: $anonymous
+    proxy: root
+  '@*/*':
+    access: $anonymous
+    publish: $anonymous
+    proxy: root
+  '**':
+    access: $anonymous
+    publish: $anonymous
+    proxy: root
+_debug: true

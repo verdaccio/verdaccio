@@ -6,6 +6,8 @@ export enum WebUrls {
   sidebar_package = '/sidebar/:package',
   readme_package_scoped_version = '/package/readme/:scope/:package{/:version}',
   readme_package_version = '/package/readme/:package{/:version}',
+  provenance_package_scoped = '/package/provenance/:scope/:package',
+  provenance_package = '/package/provenance/:package',
   packages_all = '/packages',
   user_login = '/login',
   user_signup = '/signup',

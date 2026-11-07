@@ -73,6 +73,7 @@ describe('test web server', () => {
             title: 'verdaccio web',
             scope: '@scope',
             language: 'en-US',
+            capabilities: { provenance: true },
           })
         );
       });

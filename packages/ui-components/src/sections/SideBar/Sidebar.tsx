@@ -9,6 +9,7 @@ import Engines from '../../components/Engines';
 import FundButton from '../../components/FundButton';
 import Install from '../../components/Install';
 import Keywords from '../../components/Keywords';
+import Provenance from '../../components/Provenance';
 import Repository from '../../components/Repository';
 import SideBarTitle from '../../components/SideBarTitle';
 import { DownloadProvider, useConfig, useVersion } from '../../providers';
@@ -59,6 +60,12 @@ const DetailSidebar: React.FC = () => {
       <Repository packageMeta={packageMeta} />
       <Engines packageMeta={packageMeta} />
       <Dist packageMeta={packageMeta} />
+      <Provenance
+        packageMeta={packageMeta}
+        packageName={packageName}
+        showDetails={configOptions.capabilities?.provenance === true}
+        version={packageVersion}
+      />
       <Keywords packageMeta={packageMeta} />
       <Author packageMeta={packageMeta} />
       <Developers packageMeta={packageMeta} type={DeveloperType.MAINTAINERS} />

@@ -29,6 +29,7 @@ export enum APIRoute {
   SEARCH = '/-/verdaccio/data/search/', // :value
   SIDEBAR = '/-/verdaccio/data/sidebar/', // :packageName?v=version
   README = '/-/verdaccio/data/package/readme/', // :packageName?v=version
+  PROVENANCE = '/-/verdaccio/data/package/provenance/', // :packageName?v=version
   // served by the registry router, not the web one, like CHANGE_PASSWORD_API
   STAGE = '/-/stage',
 }

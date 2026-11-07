@@ -169,6 +169,19 @@
       "size": "Size",
       "file-count": "File Count"
     },
+    "provenance": {
+      "title": "Provenance",
+      "provenance": "Provenance",
+      "registry-signature": "Registry signature",
+      "built-on": "Built on",
+      "source": "Source",
+      "commit": "Commit",
+      "workflow": "Workflow",
+      "build-run": "Build run",
+      "transparency-log": "Transparency log",
+      "attestation": "Attestation",
+      "disclaimer": "Registry-provided metadata; cryptographic verification has not been performed."
+    },
     "keywords": {
       "title": "Keywords"
     },

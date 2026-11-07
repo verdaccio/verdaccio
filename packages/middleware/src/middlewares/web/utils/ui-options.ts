@@ -103,5 +103,7 @@ export function getUIOptions(
     scope,
     language,
     hideDeprecatedVersions,
+    // `/-/verdaccio/data/package/provenance` exists only on this server line
+    capabilities: { provenance: true },
   };
 }

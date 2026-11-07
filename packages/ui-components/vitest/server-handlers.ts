@@ -3,6 +3,7 @@ import {
   mockCliLogin,
   mockHomePackages,
   mockLogin,
+  mockProvenance,
   mockReadme,
   mockResetPassword,
   mockSearch,
@@ -28,6 +29,7 @@ export const handlers = [
   mockCliLogin(),
   mockAddUser(),
   mockTarball(),
+  mockProvenance(),
   // Error presets
   mockSidebar('JSONStream', null, 401),
   mockSidebar('kleur', null, 404),
