@@ -77,6 +77,7 @@ class Config implements AppConfig {
       createUser: config.flags?.createUser ?? false,
       stage: config.flags?.stage ?? false,
       tfa: config.flags?.tfa ?? false,
+      signatures: config.flags?.signatures ?? false,
     };
     this.user_agent = config.user_agent;
 

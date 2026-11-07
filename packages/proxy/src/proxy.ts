@@ -23,6 +23,8 @@ import type { AgentOptionsConf, Config, Logger, Manifest, UpLinkConf } from '@ve
 import CustomAgents from './agent';
 import type { AttestationsResponse } from './attestations';
 import { attestationsPath, fetchAttestations } from './attestations';
+import type { RegistryKey } from './registry-keys';
+import { REGISTRY_KEYS_PATH, fetchRegistryKeys } from './registry-keys';
 import { parseInterval } from './proxy-utils';
 
 const debug = buildDebug('verdaccio:proxy');
@@ -81,6 +83,7 @@ export interface IProxy {
       throwHttpErrors?: boolean;
     }
   ): PassThrough;
+  getRegistryKeys(): Promise<RegistryKey[] | null>;
   getAttestations(name: string, version: string): Promise<AttestationsResponse | null>;
 }
 
@@ -519,6 +522,25 @@ class ProxyStorage implements IProxy {
       }
       throw err;
     }
+  }
+
+  /** Signing keys the uplink publishes for `npm audit signatures`; null when it has none. */
+  public async getRegistryKeys(): Promise<RegistryKey[] | null> {
+    if (this._ifRequestFailure()) {
+      throw errorUtils.getInternalError(API_ERROR.UPLINK_OFFLINE);
+    }
+    const uri = this.buildUri(REGISTRY_KEYS_PATH);
+    this.last_request_time = Date.now();
+    return fetchRegistryKeys({
+      uri,
+      headers: this.applyUplinkHeaders(this.getHeaders()),
+      agent: this.agent,
+      timeout: this.timeout,
+      retry: this.retry,
+      hooks: this.breakerHooks('GET', uri),
+      logger: this.logger,
+      isTimeout: (err) => this._isRequestTimeout(err),
+    });
   }
 
   /** Sigstore attestations the uplink holds for a version; null when it has none. */

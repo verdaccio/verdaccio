@@ -1,0 +1,39 @@
+storage: ./storage
+
+auth:
+  htpasswd:
+    file: ./htpasswd-signatures
+
+web:
+  enable: true
+  title: verdaccio
+
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
+  mirror:
+    url: https://mirror.example.test/
+
+log: { type: stdout, format: pretty, level: trace }
+
+packages:
+  '@mirror/*':
+    access: $all
+    publish: $authenticated
+    proxy: mirror
+  'private-*':
+    access: $authenticated
+    publish: $authenticated
+    proxy: npmjs
+  'local-*':
+    access: $all
+    publish: $authenticated
+  '**':
+    access: $all
+    publish: $authenticated
+    proxy: npmjs
+
+flags:
+  signatures: true
+
+_debug: true
