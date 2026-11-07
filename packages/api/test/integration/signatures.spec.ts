@@ -1,0 +1,131 @@
+import nock from 'nock';
+import supertest from 'supertest';
+import { beforeEach, describe, expect, test } from 'vitest';
+
+import { HTTP_STATUS } from '@verdaccio/core';
+
+import { initializeServer } from './_helper';
+
+const npmjs = 'https://registry.npmjs.org';
+const mirror = 'https://mirror.example.test';
+
+const key = (keyid: string) => ({
+  expires: null,
+  keyid,
+  keytype: 'ecdsa-sha2-nistp256',
+  scheme: 'ecdsa-sha2-nistp256',
+  key: `key-${keyid}`,
+});
+const attestations = {
+  attestations: [
+    {
+      predicateType: 'https://github.com/npm/attestation/tree/main/specs/publish/v0.1',
+      bundle: { mediaType: 'application/vnd.dev.sigstore.bundle+json;version=0.2' },
+    },
+    {
+      predicateType: 'https://slsa.dev/provenance/v1',
+      bundle: { mediaType: 'application/vnd.dev.sigstore.bundle.v0.3+json' },
+    },
+  ],
+};
+
+describe('signatures', () => {
+  let app: any;
+
+  describe('without flags.signatures', () => {
+    test('does not expose the routes', async () => {
+      const plain = await initializeServer('package.yaml');
+      await supertest(plain).get('/-/npm/v1/keys').expect(HTTP_STATUS.NOT_FOUND);
+      await supertest(plain)
+        .get('/-/npm/v1/attestations/semver@7.8.6')
+        .expect(HTTP_STATUS.NOT_FOUND);
+    });
+  });
+
+  beforeEach(async () => {
+    nock.cleanAll();
+    app = await initializeServer('signatures.yaml');
+  });
+
+  describe('GET /-/npm/v1/keys', () => {
+    test('merges the keys of every uplink by keyid and caches them', async () => {
+      nock(npmjs)
+        .get('/-/npm/v1/keys')
+        .reply(200, { keys: [key('A'), key('B')] });
+      nock(mirror)
+        .get('/-/npm/v1/keys')
+        .reply(200, { keys: [key('B'), key('C')] });
+
+      const response = await supertest(app).get('/-/npm/v1/keys').expect(HTTP_STATUS.OK);
+      expect(response.body.keys.map((k: any) => k.keyid)).toEqual(['A', 'B', 'C']);
+
+      // interceptors are consumed, so a second hit on the uplinks would fail
+      const cached = await supertest(app).get('/-/npm/v1/keys').expect(HTTP_STATUS.OK);
+      expect(cached.body.keys).toHaveLength(3);
+      expect(nock.isDone()).toBe(true);
+    });
+
+    test('keeps the keys an uplink returns when another one fails', async () => {
+      nock(npmjs)
+        .get('/-/npm/v1/keys')
+        .reply(200, { keys: [key('A')] });
+      nock(mirror).get('/-/npm/v1/keys').reply(500);
+
+      const response = await supertest(app).get('/-/npm/v1/keys').expect(HTTP_STATUS.OK);
+      expect(response.body.keys.map((k: any) => k.keyid)).toEqual(['A']);
+    });
+
+    test('returns 404 when no uplink publishes keys', async () => {
+      nock(npmjs).get('/-/npm/v1/keys').reply(404);
+      nock(mirror).get('/-/npm/v1/keys').reply(404);
+
+      await supertest(app).get('/-/npm/v1/keys').expect(HTTP_STATUS.NOT_FOUND);
+    });
+  });
+
+  describe('GET /-/npm/v1/attestations/:spec', () => {
+    test('relays the attestations of the uplink that proxies the package', async () => {
+      nock(npmjs).get('/-/npm/v1/attestations/semver@7.8.6').reply(200, attestations);
+
+      const response = await supertest(app)
+        .get('/-/npm/v1/attestations/semver@7.8.6')
+        .expect(HTTP_STATUS.OK);
+      expect(response.body).toEqual(attestations);
+    });
+
+    test('accepts a scoped spec with an encoded or a plain slash', async () => {
+      nock(mirror)
+        .get('/-/npm/v1/attestations/@mirror%2Fpkg@1.0.0')
+        .times(2)
+        .reply(200, attestations);
+
+      await supertest(app).get('/-/npm/v1/attestations/@mirror/pkg@1.0.0').expect(HTTP_STATUS.OK);
+      await supertest(app).get('/-/npm/v1/attestations/@mirror%2fpkg@1.0.0').expect(HTTP_STATUS.OK);
+      expect(nock.isDone()).toBe(true);
+    });
+
+    test('returns 404 when the uplink has no attestations for the version', async () => {
+      nock(npmjs).get('/-/npm/v1/attestations/semver@7.8.6').reply(404);
+
+      await supertest(app).get('/-/npm/v1/attestations/semver@7.8.6').expect(HTTP_STATUS.NOT_FOUND);
+    });
+
+    test('returns 404 for a package without uplinks', async () => {
+      await supertest(app)
+        .get('/-/npm/v1/attestations/local-pkg@1.0.0')
+        .expect(HTTP_STATUS.NOT_FOUND);
+    });
+
+    test('rejects a spec without an exact version', async () => {
+      await supertest(app).get('/-/npm/v1/attestations/semver').expect(HTTP_STATUS.BAD_REQUEST);
+      await supertest(app)
+        .get('/-/npm/v1/attestations/semver@latest')
+        .expect(HTTP_STATUS.BAD_REQUEST);
+    });
+
+    test('applies the package access rules', async () => {
+      const response = await supertest(app).get('/-/npm/v1/attestations/private-pkg@1.0.0');
+      expect([HTTP_STATUS.UNAUTHORIZED, HTTP_STATUS.FORBIDDEN]).toContain(response.status);
+    });
+  });
+});

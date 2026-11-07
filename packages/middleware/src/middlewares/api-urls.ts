@@ -75,6 +75,12 @@ export enum TOKEN_API_ENDPOINTS {
   delete_token = '/-/npm/v1/tokens/token/:tokenKey',
 }
 
+/** Routes `npm audit signatures` reads: registry signing keys and sigstore attestations. */
+export enum SIGNATURE_API_ENDPOINTS {
+  keys = '/-/npm/v1/keys',
+  attestations = '/-/npm/v1/attestations/:spec',
+}
+
 export enum LOGIN_API_ENDPOINTS {
   login = '/-/v1/login',
   login_cli = '/-/v1/login_cli',

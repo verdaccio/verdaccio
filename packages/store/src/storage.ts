@@ -30,7 +30,7 @@ import type {
   ProxyInstanceList,
   ProxySearchParams,
 } from '@verdaccio/proxy';
-import type { AttestationsResponse } from '@verdaccio/proxy';
+import type { AttestationsResponse, RegistryKey } from '@verdaccio/proxy';
 import { ProxyStorage, setupUpLinks, updateVersionsHiddenUpLinkNext } from '@verdaccio/proxy';
 import Search, { SEARCH_MAX_CANDIDATES } from '@verdaccio/search';
 import type { TarballDetails } from '@verdaccio/tarball';
@@ -85,6 +85,8 @@ import { LocalStorage } from './local-storage';
 import type { IGetPackageOptionsNext, OwnerManifestBody } from './type';
 
 const debug = buildDebug('verdaccio:storage');
+// registry signing keys rotate every few years; refresh hourly
+const REGISTRY_KEYS_TTL = 60 * 60 * 1000;
 
 export const noSuchFile = 'ENOENT';
 export const resourceNotAvailable = 'EAGAIN';
@@ -96,6 +98,7 @@ class Storage {
   public readonly config: Config;
   public readonly logger: Logger;
   public readonly uplinks: ProxyInstanceList;
+  private registryKeysCache?: { keys: RegistryKey[]; expires: number };
   private searchService: Search;
   private stageStorage: StageStorage | null = null;
   public constructor(config: Config, logger: Logger) {
@@ -1064,6 +1067,32 @@ class Storage {
 
       return newData;
     });
+  }
+
+  /** Signing keys of every uplink merged by keyid, for `GET /-/npm/v1/keys`; null when none has keys. */
+  public async getRegistryKeys(): Promise<RegistryKey[] | null> {
+    if (this.registryKeysCache && this.registryKeysCache.expires > Date.now()) {
+      return this.registryKeysCache.keys;
+    }
+    const byKeyId = new Map<string, RegistryKey>();
+    for (const uplinkName of Object.keys(this.uplinks)) {
+      try {
+        for (const key of (await this.uplinks[uplinkName].getRegistryKeys()) ?? []) {
+          byKeyId.set(key.keyid, key);
+        }
+      } catch (err: any) {
+        this.logger.warn(
+          { uplinkName, err: err.message },
+          'signing keys of uplink @{uplinkName} unavailable: @{err}'
+        );
+      }
+    }
+    if (byKeyId.size === 0) {
+      return null;
+    }
+    const keys = [...byKeyId.values()];
+    this.registryKeysCache = { keys, expires: Date.now() + REGISTRY_KEYS_TTL };
+    return keys;
   }
 
   /**
