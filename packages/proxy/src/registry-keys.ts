@@ -15,7 +15,8 @@ export interface RegistryKey {
 
 export const REGISTRY_KEYS_PATH = '/-/npm/v1/keys';
 
-function isRegistryKey(item: any): item is RegistryKey {
+/** True only for an entry with the full shape npm publishes under `/-/npm/v1/keys`. */
+export function isRegistryKey(item: any): item is RegistryKey {
   return (
     typeof item?.keyid === 'string' &&
     item.keyid !== '' &&

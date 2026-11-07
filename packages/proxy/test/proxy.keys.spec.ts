@@ -70,4 +70,9 @@ describe('proxy registry keys', () => {
     nock(domain).get('/-/npm/v1/keys').reply(500);
     await expect(createProxy().getRegistryKeys()).rejects.toThrow('bad status code: 500');
   });
+
+  test('reports a timeout as the uplink being unavailable', async () => {
+    nock(domain).get('/-/npm/v1/keys').replyWithError({ code: 'ETIMEDOUT' });
+    await expect(createProxy().getRegistryKeys()).rejects.toThrow(API_ERROR.SERVER_TIME_OUT);
+  });
 });
