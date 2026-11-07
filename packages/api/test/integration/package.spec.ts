@@ -5,13 +5,22 @@ import supertest from 'supertest';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { createRemoteUser } from '@verdaccio/config';
-import { DIST_TAGS, HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core';
+import {
+  API_ERROR,
+  DIST_TAGS,
+  HEADERS,
+  HEADER_TYPE,
+  HTTP_STATUS,
+  TOKEN_BEARER,
+  errorUtils,
+} from '@verdaccio/core';
 import { Storage } from '@verdaccio/store';
 
 import {
   buildToken,
   initializeServer,
   initializeServerWithContext,
+  keepAliveGet,
   publishVersion,
 } from './_helper';
 
@@ -53,6 +62,32 @@ describe('package', () => {
         .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HTTP_STATUS.NOT_FOUND);
     });
+
+    test.each(['missing tarball', 'rejected lookup'] as const)(
+      'should keep the keep-alive connection usable after a tarball 404 (%s)',
+      async (failure) => {
+        await publishVersion(app, 'foo-keepalive', '1.0.1');
+        const spy =
+          failure === 'rejected lookup'
+            ? vi
+                .spyOn(Storage.prototype, 'getTarball')
+                .mockRejectedValue(errorUtils.getNotFound(API_ERROR.NO_SUCH_FILE))
+            : undefined;
+        try {
+          const url = '/foo-keepalive/-/foo-keepalive-1.0.0.tgz';
+          const responses = await keepAliveGet(app, [url, url]);
+          expect(responses.map(({ status }) => status)).toEqual([
+            HTTP_STATUS.NOT_FOUND,
+            HTTP_STATUS.NOT_FOUND,
+          ]);
+          for (const { body } of responses) {
+            expect(JSON.parse(body).error).toBeTruthy();
+          }
+        } finally {
+          spy?.mockRestore();
+        }
+      }
+    );
 
     test('should return a content-length header for the tarball', async () => {
       await publishVersion(app, 'foo-length', '1.0.0');

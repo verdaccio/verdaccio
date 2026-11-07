@@ -1,12 +1,29 @@
 import nock from 'nock';
+import { Readable } from 'node:stream';
 import supertest from 'supertest';
-import { beforeAll, beforeEach, describe, expect, test } from 'vitest';
+import type { MockInstance } from 'vitest';
+import { beforeAll, beforeEach, describe, expect, test, vi } from 'vitest';
 
-import { HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER, UUID_PATTERN } from '@verdaccio/core';
+import {
+  API_ERROR,
+  HEADERS,
+  HEADER_TYPE,
+  HTTP_STATUS,
+  TOKEN_BEARER,
+  UUID_PATTERN,
+  errorUtils,
+} from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
+import { StageStorage } from '@verdaccio/store';
 import { generatePackageMetadata } from '@verdaccio/test-helper';
 
-import { buildToken, getNewToken, initializeServer, publishVersionWithToken } from './_helper';
+import {
+  buildToken,
+  getNewToken,
+  initializeServer,
+  keepAliveGet,
+  publishVersionWithToken,
+} from './_helper';
 
 const A_UUID = '8f6d5b3c-1a2e-4f7b-9c0d-1e2f3a4b5c6d';
 /** 404 from the GET catch-all, 590 from the test server's unmatched-request handler. */
@@ -332,6 +349,42 @@ describe('stage', () => {
         HTTP_STATUS.NOT_FOUND
       );
     });
+
+    test.each(['unknown id', 'stream error'] as const)(
+      'should keep the keep-alive connection usable after a tarball 404 (%s)',
+      async (failure) => {
+        const { app, token } = await buildApp();
+        let stageId = A_UUID;
+        let spy: MockInstance | undefined;
+        if (failure === 'stream error') {
+          stageId = (await stageVersion(app, 'foo-keepalive', '1.0.0', token)).body.stageId;
+          // fails on the first read, once the route has attached its error handler
+          spy = vi.spyOn(StageStorage.prototype, 'readTarball').mockImplementation(
+            async () =>
+              new Readable({
+                read() {
+                  this.destroy(errorUtils.getNotFound(API_ERROR.NO_SUCH_FILE));
+                },
+              })
+          );
+        }
+        try {
+          const url = `/-/stage/${stageId}/tarball`;
+          const responses = await keepAliveGet(app, [url, url], {
+            authorization: buildToken(TOKEN_BEARER, token),
+          });
+          expect(responses.map(({ status }) => status)).toEqual([
+            HTTP_STATUS.NOT_FOUND,
+            HTTP_STATUS.NOT_FOUND,
+          ]);
+          for (const { body } of responses) {
+            expect(JSON.parse(body).error).toBeTruthy();
+          }
+        } finally {
+          spy?.mockRestore();
+        }
+      }
+    );
   });
 
   describe('approve', () => {

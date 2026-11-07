@@ -59,7 +59,7 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
   route.get(
     PACKAGE_API_ENDPOINTS.get_package_tarball,
     can('access'),
-    async function (req: $RequestExtend, res: $ResponseExtend, next): Promise<void> {
+    async function (req: $RequestExtend, res: $ResponseExtend): Promise<void> {
       const pkgName = reqUtils.paramToString(req.params.package);
       const filename = reqUtils.paramToString(req.params.filename);
       const abort = new AbortController();
@@ -96,7 +96,6 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
           // error formatter pick the content type.
           res.removeHeader(HEADERS.CONTENT_TYPE);
           res.locals.report_error(err);
-          next(err);
         });
 
         req.on('abort', () => {
@@ -108,7 +107,6 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
         stream.pipe(res);
       } catch (err: any) {
         res.locals.report_error(err);
-        next(err);
       }
     }
   );
