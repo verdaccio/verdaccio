@@ -26,9 +26,11 @@ export function provenanceLabel(predicateType: string): string {
   return version ? `SLSA ${version}` : predicateType;
 }
 
+const isGitLab = (buildType?: string) => buildType?.startsWith('https://github.com/npm/cli/gitlab');
+
 // npm and Yarn generate provenance on GitHub Actions (SLSA v1) and GitLab CI/CD (npm's own v0.2 build type)
 export function builderLabel(builder: string, buildType?: string): string {
-  if (buildType?.startsWith('https://github.com/npm/cli/gitlab')) {
+  if (isGitLab(buildType)) {
     return 'GitLab CI/CD';
   }
   if (/^https:\/\/github\.com\/actions\/runner(\/|$)/.test(builder)) {
@@ -39,6 +41,11 @@ export function builderLabel(builder: string, buildType?: string): string {
 
 // GitLab statements carry the job name here, GitHub ones the workflow file
 const isWorkflowFile = (entry: string) => /\.ya?ml$/.test(entry);
+
+// GitLab commit pages live under `/-/commit/`, GitHub (and most forges) under `/commit/`
+export function commitUrl(repository: string, commit: string, buildType?: string): string {
+  return `${repository}/${isGitLab(buildType) ? '-/commit' : 'commit'}/${commit}`;
+}
 
 // every url here comes from the registry metadata or the attestation bundle
 const isHttpUrl = (href: string) => /^https?:\/\//i.test(href) && isURL(href);
@@ -98,7 +105,9 @@ const BuildDetails: FC<{ packageName: string; version?: string }> = ({ packageNa
       ) : null}
       {repository && commit ? (
         <Detail label={t('sidebar.provenance.commit')}>
-          <ExternalLink href={`${repository}/commit/${commit}`}>{commit.slice(0, 12)}</ExternalLink>
+          <ExternalLink href={commitUrl(repository, commit, data.buildType)}>
+            {commit.slice(0, 12)}
+          </ExternalLink>
         </Detail>
       ) : null}
       {data.workflowPath ? (

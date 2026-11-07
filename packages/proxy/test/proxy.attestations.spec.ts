@@ -3,6 +3,7 @@ import path from 'node:path';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
+import { API_ERROR } from '@verdaccio/core';
 import type { Logger } from '@verdaccio/types';
 
 import { ProxyStorage } from '../src';
@@ -52,6 +53,21 @@ describe('proxy attestations', () => {
     test('encodes the version segment', async () => {
       nock(domain).get('/-/npm/v1/attestations/pkg@1.0.0%2Fx').reply(404);
       expect(await createProxy().getAttestations('pkg', '1.0.0/x')).toBeNull();
+    });
+
+    test('opens the circuit breaker after repeated failures', async () => {
+      nock(domain).get('/-/npm/v1/attestations/semver@7.8.6').times(2).reply(500);
+      const proxy = new ProxyStorage(
+        'uplink',
+        { url: domain, retry: 1, max_fails: 1 } as any,
+        conf,
+        logger
+      );
+      await expect(proxy.getAttestations('semver', '7.8.6')).rejects.toThrow('bad status code');
+      expect(proxy.failed_requests).toBe(1);
+      await expect(proxy.getAttestations('semver', '7.8.6')).rejects.toThrow(
+        API_ERROR.UPLINK_OFFLINE
+      );
     });
 
     test('clears the failure count once the uplink answers again', async () => {

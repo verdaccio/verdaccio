@@ -1,6 +1,6 @@
 import JSONStream from 'JSONStream';
 import buildDebug from 'debug';
-import type { Agents, Delays, RequestError, RetryOptions, Headers as gotHeaders } from 'got';
+import type { Agents, Delays, Hooks, RequestError, RetryOptions, Headers as gotHeaders } from 'got';
 import got, { Options } from 'got';
 import { isNil, isObject } from 'lodash-es';
 import type Stream from 'node:stream';
@@ -343,52 +343,7 @@ class ProxyStorage implements IProxy {
         agent: this.agent,
         retry,
         timeout: this.timeout,
-        hooks: {
-          afterResponse: [
-            (afterResponse) => {
-              const code = afterResponse.statusCode;
-              debug('after response code is %s', code);
-              if (code >= HTTP_STATUS.OK && code < HTTP_STATUS.MULTIPLE_CHOICES) {
-                if (this.failed_requests >= this.max_fails) {
-                  this.failed_requests = 0;
-                  this.logger.warn(
-                    {
-                      host: this.url.host,
-                    },
-                    'host @{host} is now online'
-                  );
-                }
-              }
-
-              return afterResponse;
-            },
-          ],
-          beforeRetry: [
-            (error: RequestError, count: number) => {
-              debug('retry %s count: %s', uri, count);
-              this.failed_requests = count ?? 0;
-              this.logger.info(
-                {
-                  request: {
-                    method: method,
-                    url: uri,
-                  },
-                  error: error.message,
-                  retryCount: this.failed_requests,
-                },
-                "retry @{retryCount} req: '@{request.method} @{request.url}'"
-              );
-              if (this.failed_requests >= this.max_fails) {
-                this.logger.warn(
-                  {
-                    host: this.url.host,
-                  },
-                  'host @{host} is now offline'
-                );
-              }
-            },
-          ],
-        },
+        hooks: this.breakerHooks(method, uri),
       })
         .on('request', () => {
           this.last_request_time = Date.now();
@@ -587,6 +542,8 @@ class ProxyStorage implements IProxy {
     const uri = this.buildUri(path);
     const headers = this.applyUplinkHeaders(this.getHeaders());
     const request = { method: 'GET', url: uri };
+    // the breaker measures `fail_timeout` from the last attempt, successful or not
+    this.last_request_time = Date.now();
     try {
       const response = await got<T>(uri, {
         headers,
@@ -594,12 +551,8 @@ class ProxyStorage implements IProxy {
         agent: this.agent,
         timeout: this.timeout,
         retry: this.retry,
+        hooks: this.breakerHooks('GET', uri),
       });
-      this.last_request_time = Date.now();
-      if (this.failed_requests >= this.max_fails) {
-        this.failed_requests = 0;
-        this.logger.warn({ host: this.url.host }, 'host @{host} is now online');
-      }
       this.logger.http(
         { request, status: response.statusCode },
         "@{!status}, req: '@{request.method} @{request.url}'"
@@ -624,6 +577,56 @@ class ProxyStorage implements IProxy {
       }
       throw err;
     }
+  }
+
+  // circuit-breaker bookkeeping shared by every uplink request: a 2xx closes it, retries open it
+  private breakerHooks(method: string, uri: string): Partial<Hooks> {
+    return {
+      afterResponse: [
+        (afterResponse) => {
+          const code = afterResponse.statusCode;
+          debug('after response code is %s', code);
+          if (code >= HTTP_STATUS.OK && code < HTTP_STATUS.MULTIPLE_CHOICES) {
+            if (this.failed_requests >= this.max_fails) {
+              this.failed_requests = 0;
+              this.logger.warn(
+                {
+                  host: this.url.host,
+                },
+                'host @{host} is now online'
+              );
+            }
+          }
+
+          return afterResponse;
+        },
+      ],
+      beforeRetry: [
+        (error: RequestError, count: number) => {
+          debug('retry %s count: %s', uri, count);
+          this.failed_requests = count ?? 0;
+          this.logger.info(
+            {
+              request: {
+                method: method,
+                url: uri,
+              },
+              error: error.message,
+              retryCount: this.failed_requests,
+            },
+            "retry @{retryCount} req: '@{request.method} @{request.url}'"
+          );
+          if (this.failed_requests >= this.max_fails) {
+            this.logger.warn(
+              {
+                host: this.url.host,
+              },
+              'host @{host} is now offline'
+            );
+          }
+        },
+      ],
+    };
   }
 
   private buildUri(path: string): string {

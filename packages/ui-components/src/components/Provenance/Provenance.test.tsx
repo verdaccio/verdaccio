@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { cleanup, fireEvent, render, waitFor } from '../../test/test-react-testing-library';
 import type { PackageMetaInterface } from '../../types/packageMeta';
-import Provenance, { builderLabel, provenanceLabel } from './Provenance';
+import Provenance, { builderLabel, commitUrl, provenanceLabel } from './Provenance';
 
 const requestMock = vi.hoisted(() => vi.fn());
 vi.mock('../../store/api', () => ({ default: { request: requestMock } }));
@@ -149,6 +149,34 @@ describe('<Provenance /> component', () => {
     expect(queryByText('sidebar.provenance.built-on')).not.toBeInTheDocument();
   });
 
+  test('links GitLab commits under /-/commit/ and shows the job name as text', async () => {
+    requestMock.mockResolvedValue({
+      ...summary,
+      buildType: 'https://github.com/npm/cli/gitlab/v0alpha1',
+      builder: 'https://gitlab.com/group/project/-/runners/12345',
+      sourceRepository: 'https://gitlab.com/group/project',
+      sourceRef: undefined,
+      sourceCommit: 'def4567890abcdef',
+      workflowPath: 'publish',
+      buildRunUrl: undefined,
+    });
+    const { getByTestId, getByText } = render(
+      <Provenance
+        packageMeta={meta({ attestations })}
+        packageName="semver"
+        showDetails={true}
+        version="7.8.6"
+      />
+    );
+    fireEvent.click(getByTestId('provenance-badge'));
+    await waitFor(() => expect(getByText('GitLab CI/CD')).toBeInTheDocument());
+    expect(getByText('def4567890ab')).toHaveAttribute(
+      'href',
+      'https://gitlab.com/group/project/-/commit/def4567890abcdef'
+    );
+    expect(getByText('publish').closest('a')).toBeNull();
+  });
+
   test('renders unsafe urls as plain text', async () => {
     const { getByTestId, getByText } = render(
       <Provenance
@@ -172,6 +200,10 @@ describe('<Provenance /> component', () => {
     expect(builderLabel('https://evil.test/github.com/actions/runner/x')).toBe(
       'https://evil.test/github.com/actions/runner/x'
     );
+    expect(commitUrl('https://github.com/o/r', 'abc')).toBe('https://github.com/o/r/commit/abc');
+    expect(
+      commitUrl('https://gitlab.com/g/p', 'abc', 'https://github.com/npm/cli/gitlab/v0alpha1')
+    ).toBe('https://gitlab.com/g/p/-/commit/abc');
     expect(builderLabel('https://github.com/actions/runner/github-hosted')).toBe('GitHub Actions');
     expect(builderLabel('https://github.com/actions/runner/self-hosted')).toBe(
       'GitHub Actions (self-hosted)'
