@@ -47,6 +47,8 @@ export const API_ERROR = {
   SESSION_ID_REQUIRED: 'session id is required',
   SESSION_ID_INVALID: 'session id is invalid',
   SESSION_TOKEN_EXPIRED: 'session token expired',
+  INVALID_PACKAGE_SPEC: 'invalid package spec',
+  INVALID_UPLINK_KEYS_RESPONSE: 'invalid uplink keys response',
 };
 
 export const SUPPORT_ERRORS = {

@@ -13,7 +13,7 @@ function splitSpec(req: $RequestExtend, _res: $ResponseExtend, next: $NextFuncti
   const parsed = pkgUtils.parsePackageSpec(reqUtils.paramToString(req.params.spec));
   if (!parsed) {
     // the spec is not echoed back: it is attacker-controlled input
-    return next(errorUtils.getBadRequest('invalid package spec'));
+    return next(errorUtils.getBadRequest(API_ERROR.INVALID_PACKAGE_SPEC));
   }
   req.params.package = parsed.name;
   req.params.version = parsed.version;

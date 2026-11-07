@@ -3,6 +3,7 @@ import path from 'node:path';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
+import { API_ERROR } from '@verdaccio/core';
 import type { Logger } from '@verdaccio/types';
 
 import { ProxyStorage } from '../src';
@@ -60,7 +61,9 @@ describe('proxy registry keys', () => {
 
   test('rejects a successful response without a keys array', async () => {
     nock(domain).get('/-/npm/v1/keys').reply(200, { keys: 'nope' });
-    await expect(createProxy().getRegistryKeys()).rejects.toThrow('invalid uplink keys response');
+    await expect(createProxy().getRegistryKeys()).rejects.toThrow(
+      API_ERROR.INVALID_UPLINK_KEYS_RESPONSE
+    );
   });
 
   test('rejects other upstream failures', async () => {

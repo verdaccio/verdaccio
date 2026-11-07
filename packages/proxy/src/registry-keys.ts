@@ -43,7 +43,7 @@ export async function fetchRegistryKeys({
     const keys = response.body?.keys;
     // a 2xx without a keys array is a broken uplink, not a registry without keys
     if (!Array.isArray(keys)) {
-      throw errorUtils.getInternalError('invalid uplink keys response');
+      throw errorUtils.getInternalError(API_ERROR.INVALID_UPLINK_KEYS_RESPONSE);
     }
     // only entries with the full npm key shape are relayed
     return keys.filter(isRegistryKey);
