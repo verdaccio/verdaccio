@@ -84,10 +84,10 @@ class Config implements AppConfig {
       signatures: config.flags?.signatures ?? false,
       tarballMetadata: config.flags?.tarballMetadata ?? false,
     };
-    const maxSizeMB = Number(config.tarball_metadata?.max_size_mb);
+    const maxSizeMB = config.tarball_metadata?.max_size_mb;
     this.tarball_metadata = {
       max_size_mb:
-        Number.isFinite(maxSizeMB) && maxSizeMB > 0
+        typeof maxSizeMB === 'number' && Number.isFinite(maxSizeMB) && maxSizeMB > 0
           ? maxSizeMB
           : DEFAULT_TARBALL_METADATA_MAX_SIZE_MB,
     };

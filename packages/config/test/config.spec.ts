@@ -182,11 +182,17 @@ describe('tarball_metadata', () => {
     expect(config.tarball_metadata.max_size_mb).toBe(5);
   });
 
-  test.each(['20MB', -1, 0, NaN])('should default an invalid unpack limit %p', (max_size_mb) => {
-    const config = new Config({ ...getDefaultConfig(), tarball_metadata: { max_size_mb } } as any);
+  test.each(['20MB', true, -1, 0, NaN])(
+    'should default an invalid unpack limit %p',
+    (max_size_mb) => {
+      const config = new Config({
+        ...getDefaultConfig(),
+        tarball_metadata: { max_size_mb },
+      } as any);
 
-    expect(config.tarball_metadata.max_size_mb).toBe(DEFAULT_TARBALL_METADATA_MAX_SIZE_MB);
-  });
+      expect(config.tarball_metadata.max_size_mb).toBe(DEFAULT_TARBALL_METADATA_MAX_SIZE_MB);
+    }
+  );
 });
 
 describe('checkSecretKey', () => {

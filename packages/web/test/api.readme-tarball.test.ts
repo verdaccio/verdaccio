@@ -7,6 +7,7 @@ import { afterEach, beforeAll, beforeEach, describe, expect, test, vi } from 'vi
 import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
 import { extractTarballMetadata } from '@verdaccio/tarball';
+import type * as TarballModule from '@verdaccio/tarball';
 import {
   generatePackageMetadataWithTarball,
   generateRemotePackageMetadata,
@@ -19,7 +20,7 @@ import { initializeServer } from './helper';
 const mockManifest = vi.hoisted(() => vi.fn());
 vi.mock('@verdaccio/ui-theme', () => ({ default: (...args: any[]) => mockManifest()(...args) }));
 vi.mock('@verdaccio/tarball', async (importOriginal) => {
-  const original = await importOriginal<typeof import('@verdaccio/tarball')>();
+  const original = await importOriginal<typeof TarballModule>();
   return { ...original, extractTarballMetadata: vi.fn(original.extractTarballMetadata) };
 });
 
@@ -194,6 +195,29 @@ describe('readme api with flags.tarballMetadata', () => {
     const response = await supertest(app).get('/remote-stats').expect(HTTP_STATUS.OK);
     expect(response.body.versions['1.0.0'].dist).toMatchObject({
       fileCount: 99,
+      unpackedSize: 12345,
+    });
+  });
+
+  test('fills only the dist stats the uplink leaves out', async () => {
+    const app = await initializeServer('tarball-metadata.yaml');
+    const tarball = await createTarball('remote-partial', '1.0.0', 'partial readme');
+    const remote = generateRemotePackageMetadata('remote-partial', '1.0.0', UPLINK);
+    remote.readme = '';
+    remote.versions['1.0.0'].readme = '';
+    delete remote.versions['1.0.0'].dist.fileCount;
+    remote.versions['1.0.0'].dist.unpackedSize = 12345;
+    nock(UPLINK).get('/remote-partial').reply(HTTP_STATUS.OK, remote).persist();
+    nock(UPLINK)
+      .get('/remote-partial/-/remote-partial-1.0.0.tgz')
+      .reply(HTTP_STATUS.OK, tarball, { [HEADER_TYPE.CONTENT_LENGTH]: String(tarball.length) });
+
+    expect((await getReadme(app, 'remote-partial?v=1.0.0')).text).toBe('partial readme');
+    await new Promise((resolve) => setTimeout(resolve, 200));
+
+    const response = await supertest(app).get('/remote-partial').expect(HTTP_STATUS.OK);
+    expect(response.body.versions['1.0.0'].dist).toMatchObject({
+      fileCount: 2,
       unpackedSize: 12345,
     });
   });

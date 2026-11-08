@@ -628,8 +628,8 @@ class Storage {
     await this.updatePackage(name, async (manifest: Manifest): Promise<Manifest> => {
       const version = findVersion(manifest);
       if (version && !hasStats(version)) {
-        version.dist.fileCount = fileCount;
-        version.dist.unpackedSize = unpackedSize;
+        version.dist.fileCount ??= fileCount;
+        version.dist.unpackedSize ??= unpackedSize;
         debug('tarball stats saved for %o %o', name, filename);
       }
       return manifest;
@@ -1600,7 +1600,10 @@ class Storage {
       await this.uploadTarball(name, tarballName, readable, {
         signal: options.signal,
       });
-      this.tarballMetadata?.schedule(name, tarballName, async () => Readable.from(buffer));
+      // re-read the stored tarball so the upload buffer is not held until an extraction slot frees
+      this.tarballMetadata?.schedule(name, tarballName, (signal) =>
+        this.getLocalTarball(name, tarballName, { signal })
+      );
     } catch (err: any) {
       this.logger.error({ err }, 'upload tarball has failed: @{err.message}');
       // TODO: undo if this fails
