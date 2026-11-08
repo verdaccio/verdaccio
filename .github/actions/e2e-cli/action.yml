@@ -3,7 +3,7 @@ description: 'Run the @verdaccio/e2e-cli battery for one package manager against
 
 inputs:
   pm:
-    description: 'Package manager spec, e.g. npm@11, pnpm@11, bun'
+    description: 'Package manager spec, e.g. npm@11, pnpm@11, bun@1.4.4'
     required: true
   uplink-port:
     description: 'Mock uplink port; empty skips the uplink scenarios'
@@ -19,7 +19,9 @@ runs:
   steps:
     - name: Setup Bun
       if: startsWith(inputs.pm, 'bun')
-      uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+      shell: bash
+      # the npm package ships the binary, so the pinned install does not depend on GitHub releases
+      run: npm install -g "${{ inputs.pm }}"
     - name: Run E2E CLI tests
       shell: bash
       env:
