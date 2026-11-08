@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 import { extractTarballMetadata } from '@verdaccio/tarball';
+import type * as TarballModule from '@verdaccio/tarball';
 import {
   generatePackageMetadataWithTarball,
   generateRemotePackageMetadata,
@@ -15,7 +16,7 @@ import { initializeServer, publishVersion } from './_helper';
 vi.mock('@verdaccio/store', () => import('../../../store/src'));
 vi.mock('@verdaccio/local-storage', () => import('../../../plugins/local-storage/src'));
 vi.mock('@verdaccio/tarball', async (importOriginal) => {
-  const original = await importOriginal<typeof import('@verdaccio/tarball')>();
+  const original = await importOriginal<typeof TarballModule>();
   return { ...original, extractTarballMetadata: vi.fn(original.extractTarballMetadata) };
 });
 

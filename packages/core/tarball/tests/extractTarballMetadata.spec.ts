@@ -88,6 +88,23 @@ describe('extractTarballMetadata', () => {
     ).rejects.toBeInstanceOf(TarballLimitError);
   });
 
+  test('rejects inflated zero blocks that declare no entries', async () => {
+    const zeroBlocks = Buffer.alloc(4 * 1024 * 1024);
+    await expect(
+      extractTarballMetadata(Readable.from(gzipSync(zeroBlocks)), { maxUnpackedSize: 1024 * 1024 })
+    ).rejects.toBeInstanceOf(TarballLimitError);
+  });
+
+  test('rejects nested gzip that inflates past maxUnpackedSize', async () => {
+    const zeroBlocks = Buffer.alloc(4 * 1024 * 1024);
+    await expect(
+      extractTarballMetadata(Readable.from(gzipSync(gzipSync(zeroBlocks))), {
+        maxTarballSize: 1024,
+        maxUnpackedSize: 1024 * 1024,
+      })
+    ).rejects.toBeInstanceOf(TarballLimitError);
+  });
+
   test('reads an uncompressed tar', async () => {
     const tar = await createTar(files);
     const metadata = await extractTarballMetadata(Readable.from(tar));

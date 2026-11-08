@@ -20,7 +20,7 @@ export type TarballMetadata = TarballDetails & {
 export type ExtractTarballMetadataOptions = {
   /** Stop with a TarballLimitError once more than this many compressed bytes were read. */
   maxTarballSize?: number;
-  /** Stop with a TarballLimitError once the declared unpacked size exceeds this. */
+  /** Stop with a TarballLimitError once the inflated or declared unpacked size exceeds this. */
   maxUnpackedSize?: number;
   /** Larger READMEs are counted but not returned. */
   maxReadmeSize?: number;
@@ -67,6 +67,19 @@ export async function extractTarballMetadata(
     },
   });
 
+  // tar-stream skips all-zero blocks without an entry, so declared sizes alone miss inflated padding
+  let inflatedBytes = 0;
+  const unpackGuard = new Transform({
+    transform(chunk: Buffer, _encoding, callback) {
+      inflatedBytes += chunk.length;
+      if (inflatedBytes > maxUnpackedSize) {
+        callback(new TarballLimitError(`tarball unpacks to more than ${maxUnpackedSize} bytes`));
+        return;
+      }
+      callback(null, chunk);
+    },
+  });
+
   const extract = tarStream.extract();
   extract.on('entry', (header, stream, next) => {
     fileCount++;
@@ -104,7 +117,9 @@ export async function extractTarballMetadata(
     ? AbortSignal.any([signal, limitController.signal])
     : limitController.signal;
   try {
-    await pipeline(source, sizeGuard, gunzipMaybe(), extract, { signal: pipelineSignal });
+    await pipeline(source, sizeGuard, gunzipMaybe(), unpackGuard, extract, {
+      signal: pipelineSignal,
+    });
   } catch (err) {
     throw limitError ?? err;
   }
