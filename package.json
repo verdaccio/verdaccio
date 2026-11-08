@@ -1,6 +1,6 @@
 {
   "name": "verdaccio",
-  "version": "7.0.2",
+  "version": "7.1.0",
   "description": "A lightweight private npm proxy registry",
   "keywords": [
     "enterprise",
