@@ -114,9 +114,12 @@ whose diff matches the workflow's `paths:` filter (`packages/**`, `tests/**`,
 `docker-examples/**`, `package.json`, `pnpm-workspace.yaml`,
 `vite.lib.config.mjs`, `.changeset/**`, or the workflow file itself); a
 docs-only or `.agents/`/`.claude/`-only PR triggers none of it. **CI does not
-run on draft PRs.** New third-party dependencies must be at least seven days old
-(`minimumReleaseAge` in `pnpm-workspace.yaml`); an install that fails on that
-rule is not a lockfile bug.
+run on draft PRs.** A push to `master` also runs every package's tests with
+coverage and publishes the HTML reports, as the last job of the run, to
+https://verdaccio.github.io/verdaccio/, which needs GitHub Pages set to deploy
+from GitHub Actions. New third-party dependencies must be at least seven days
+old (`minimumReleaseAge` in `pnpm-workspace.yaml`); an install that fails on
+that rule is not a lockfile bug.
 
 ## Never ignore test failures
 

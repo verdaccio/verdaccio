@@ -38,7 +38,7 @@ jobs:
         run: pnpm lint
       - name: Format
         run: pnpm format:check
-  # Pushes to master only run lint and format; everything else runs on PRs
+  # Pushes to master run lint and format plus the coverage report; everything else runs on PRs
   build:
     if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false }}
     strategy:
@@ -190,6 +190,71 @@ jobs:
         uses: ./.github/actions/cypress-binary
         with:
           save: 'true'
+  # Not a check: measures coverage on master and publishes the reports to GitHub Pages
+  coverage:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && github.repository == 'verdaccio/verdaccio'
+    runs-on: ubuntu-latest
+    name: Coverage / ${{ matrix.suite }}
+    strategy:
+      fail-fast: true
+      matrix:
+        suite: [ui, core]
+        include:
+          - suite: ui
+            filter: --filter @verdaccio/ui-components
+          # @verdaccio/types has no tests and its test script would not accept the coverage flags
+          - suite: core
+            filter: --filter "./packages/**" --filter "!@verdaccio/ui-components" --filter "!@verdaccio/types" --no-sort
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install dependencies
+        uses: ./.github/actions/install-app
+        with:
+          node-version: 24
+      - name: Build
+        run: pnpm build
+      - name: Test with coverage
+        # pnpm forwards the flags to every package's test script only without a `--` separator;
+        # the include lists untested source files too, which vitest otherwise leaves out
+        run: pnpm ${{ matrix.filter }} test --coverage --coverage.include='src/**/*.{ts,tsx,js,jsx,mjs}' --coverage.reporter=html --coverage.reporter=json-summary
+      - name: Pack the reports
+        run: find packages -type d -name coverage -not -path '*/node_modules/*' -print0 | tar czf coverage-${{ matrix.suite }}.tgz --null -T -
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: coverage-${{ matrix.suite }}
+          path: coverage-${{ matrix.suite }}.tgz
+          retention-days: 1
+  # Last step of a master run: publishes only when lint, format and the coverage runs passed
+  coverage-pages:
+    needs: [lint-and-format, coverage]
+    runs-on: ubuntu-latest
+    name: Coverage report
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: coverage-pages
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: coverage-*
+          merge-multiple: true
+      - name: Build the site
+        run: |
+          for archive in coverage-*.tgz; do tar xzf "$archive"; done
+          node scripts/coverage-site.mjs
+      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: coverage/site
+      - id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
   changeset-validation:
     needs: [lint-and-format, build]
     if: ${{ github.event_name == 'pull_request' && github.event.pull_request.draft == false && always() && !failure() && !cancelled() }}
