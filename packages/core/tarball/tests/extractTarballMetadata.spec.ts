@@ -142,4 +142,11 @@ describe('extractTarballMetadata', () => {
       extractTarballMetadata(Readable.from(Buffer.from('this is not a tarball')))
     ).rejects.toThrow();
   });
+
+  test('rejects a truncated tar without leaking an unhandled error', async () => {
+    const tar = await createTar([{ name: 'package/big.bin', content: 'x'.repeat(4096) }]);
+    await expect(
+      extractTarballMetadata(Readable.from(tar.subarray(0, 512 + 2048)))
+    ).rejects.toThrow('Unexpected end of data');
+  });
 });

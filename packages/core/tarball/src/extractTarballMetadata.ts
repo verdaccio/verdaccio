@@ -82,6 +82,8 @@ export async function extractTarballMetadata(
 
   const extract = tarStream.extract();
   extract.on('entry', (header, stream, next) => {
+    // a truncated archive destroys the pending entry with the error the pipeline already reports
+    stream.on('error', () => {});
     fileCount++;
     unpackedSize += Number(header.size ?? 0);
     if (unpackedSize > maxUnpackedSize) {
