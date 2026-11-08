@@ -21,7 +21,7 @@ a PR, are held to the same rules; their presence is not guaranteed.
 
 1. **Security first** (§1).
 2. **Client compatibility and correctness** (§2) — the registry API is a contract with
-   npm, pnpm, yarn, bun, and deno.
+   npm, pnpm, yarn, and bun.
 3. **Performance** (§3) — tarball streaming, packument serving, uplink proxying, and
    auth run on every request.
 4. **Product fit** (§4) — new config keys, routes, and plugin hooks are surface that
@@ -102,7 +102,7 @@ code bug.
 
 ## 2. Client compatibility and correctness
 
-The e2e matrix runs npm 10–12, yarn modern 3 and 4, pnpm 11–12, bun, and deno on a PR
+The e2e matrix runs npm 11–12, yarn modern 3 and 4, pnpm 11–12, and bun on a PR
 whose diff matches `ci.yml`'s `pull_request.paths` filter — a docs-only or
 `.agents/`/`.claude/`-only PR does not trigger it, so a missing check there is not
 completed coverage. Each client has its own expectations; a change that works for

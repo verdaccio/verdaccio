@@ -95,13 +95,12 @@ We test compatibility across different versions of npm, pnpm, and Yarn to ensure
 
 E2E CLI tests run in CI via the [`verdaccio-e2e`](https://github.com/verdaccio/e2e-tests) tool on Node.js 24 and 26 against the following matrix:
 
-| Package Manager | Versions   |
-| --------------- | ---------- |
-| npm             | 10, 11, 12 |
-| yarn modern     | 3, 4       |
-| pnpm            | 10, 11     |
-| bun             | latest     |
-| deno            | latest     |
+| Package Manager | Versions |
+| --------------- | -------- |
+| npm             | 11, 12   |
+| yarn modern     | 3, 4     |
+| pnpm            | 11, 12   |
+| bun             | 1.4.4    |
 
 ## Donations
 

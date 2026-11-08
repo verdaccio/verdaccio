@@ -108,8 +108,8 @@ packages: `pnpm local:publish:release`. `DEBUG=verdaccio:* pnpm test` enables
 the `debug` namespaces.
 
 CI (`.github/workflows/ci.yml`) runs lint, format check, build and tests on
-Node.js 24 and 26, a Docker build, the CLI e2e matrix (npm 10–12, yarn modern
-3–4, pnpm 11–12, bun, deno) and the Cypress UI suite — but only on a ready PR
+Node.js 24 and 26, a Docker build, the CLI e2e matrix (npm 11–12, yarn modern
+3–4, pnpm 11–12, bun) and the Cypress UI suite — but only on a ready PR
 whose diff matches the workflow's `paths:` filter (`packages/**`, `tests/**`,
 `docker-examples/**`, `package.json`, `pnpm-workspace.yaml`,
 `vite.lib.config.mjs`, `.changeset/**`, or the workflow file itself); a
@@ -205,7 +205,7 @@ needs it, never to the root unless it is tooling.
 ## Compatibility with package managers
 
 Verdaccio implements the npm registry API and is exercised by npm, pnpm, yarn
-(classic and modern), bun, and deno. Any change to a response body, status
+(classic and modern), and bun. Any change to a response body, status
 code, header, URL scheme, or authentication flow must match what
 registry.npmjs.org does and what those clients expect. When in doubt, read the
 npm CLI source (`npm/cli`) and the registry documentation before changing a
