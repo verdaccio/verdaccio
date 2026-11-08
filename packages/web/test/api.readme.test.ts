@@ -76,6 +76,18 @@ describe('readme api', () => {
     expect(response.text).toMatch(NOT_README_FOUND);
   });
 
+  test('should answer with the not found message when the stored readme is not a string', async () => {
+    const app = await initializeServer('default-test.yaml');
+    const readme = { not: 'a string' } as unknown as string;
+    await publishVersion(app, 'pk1-test', '1.0.0', { readme });
+    const response = await supertest(app)
+      .get('/-/verdaccio/data/package/readme/pk1-test')
+      .set('Accept', HEADERS.TEXT_PLAIN)
+      .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_PLAIN_UTF8)
+      .expect(HTTP_STATUS.OK);
+    expect(response.text).toMatch(NOT_README_FOUND);
+  });
+
   test('should fetch readme with keeping all readmes (latest)', async () => {
     const app = await initializeServer('keep-all-readmes.yaml');
     await publishVersion(app, 'pk1-test', '1.0.0', { readme: 'my readme' });
@@ -115,6 +127,14 @@ describe('readme api', () => {
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_PLAIN_UTF8)
       .expect(HTTP_STATUS.OK);
     expect(response.text).toMatch('my new readme');
+  });
+
+  test('should return 404 for a package that does not exist', async () => {
+    const app = await initializeServer('default-test.yaml');
+    await supertest(app)
+      .get('/-/verdaccio/data/package/readme/pk-missing')
+      .set('Accept', HEADERS.TEXT_PLAIN)
+      .expect(HTTP_STATUS.NOT_FOUND);
   });
 
   test('should return 404 for a version that does not exist instead of falling back to latest', async () => {

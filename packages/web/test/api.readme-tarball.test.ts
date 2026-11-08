@@ -303,4 +303,42 @@ describe('readme api with flags.tarballMetadata', () => {
 
     expect((await getReadme(app, 'local-pkg?v=1.0.0')).text).toBe('readme two');
   });
+
+  test('falls back to the manifest README when the tarball has none', async () => {
+    const app = await initializeServer('tarball-metadata.yaml');
+    const tarball = await generateTarball({
+      'package/package.json': JSON.stringify({ name: 'remote-bare', version: '1.0.0' }),
+    });
+    const remote = generateRemotePackageMetadata('remote-bare', '1.1.0', UPLINK, ['1.0.0']);
+    remote.readme = 'latest readme';
+    remote.versions['1.0.0'].readme = '';
+    remote.versions['1.1.0'].readme = 'latest readme';
+    nock(UPLINK).get('/remote-bare').reply(HTTP_STATUS.OK, remote).persist();
+    nock(UPLINK)
+      .get('/remote-bare/-/remote-bare-1.0.0.tgz')
+      .reply(HTTP_STATUS.OK, tarball, { [HEADER_TYPE.CONTENT_LENGTH]: String(tarball.length) });
+
+    expect((await getReadme(app, 'remote-bare?v=1.0.0')).text).toBe('latest readme');
+    // the missing README is remembered, so the tarball is not fetched or unpacked again
+    expect((await getReadme(app, 'remote-bare?v=1.0.0')).text).toBe('latest readme');
+    expect(extractTarballMetadata).toHaveBeenCalledTimes(1);
+  });
+
+  test('answers with the not found message when neither the manifest nor the tarball has a README', async () => {
+    const app = await initializeServer('tarball-metadata.yaml');
+    const tarball = await generateTarball({
+      'package/package.json': JSON.stringify({ name: 'remote-silent', version: '1.0.0' }),
+    });
+    const remote = generateRemotePackageMetadata('remote-silent', '1.0.0', UPLINK);
+    delete remote.readme;
+    Reflect.deleteProperty(remote.versions['1.0.0'], 'readme');
+    nock(UPLINK).get('/remote-silent').reply(HTTP_STATUS.OK, remote).persist();
+    nock(UPLINK)
+      .get('/remote-silent/-/remote-silent-1.0.0.tgz')
+      .reply(HTTP_STATUS.OK, tarball, { [HEADER_TYPE.CONTENT_LENGTH]: String(tarball.length) });
+
+    expect((await getReadme(app, 'remote-silent')).text).toBe(NOT_README_FOUND);
+    expect((await getReadme(app, 'remote-silent')).text).toBe(NOT_README_FOUND);
+    expect(extractTarballMetadata).toHaveBeenCalledTimes(1);
+  });
 });
