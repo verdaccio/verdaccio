@@ -3,7 +3,7 @@ description: 'Run the @verdaccio/e2e-cli battery for one package manager against
 
 inputs:
   pm:
-    description: 'Package manager spec, e.g. npm@11, pnpm@11, bun, deno'
+    description: 'Package manager spec, e.g. npm@11, pnpm@11, bun'
     required: true
   uplink-port:
     description: 'Mock uplink port; empty skips the uplink scenarios'
@@ -20,9 +20,6 @@ runs:
     - name: Setup Bun
       if: startsWith(inputs.pm, 'bun')
       uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
-    - name: Setup Deno
-      if: startsWith(inputs.pm, 'deno')
-      uses: denoland/setup-deno@22d081ff2d3a40755e97629de92e3bcbfa7cf2ed
     - name: Run E2E CLI tests
       shell: bash
       env:

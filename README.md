@@ -101,7 +101,6 @@ E2E CLI tests run in CI via the [`verdaccio-e2e`](https://github.com/verdaccio/e
 | yarn modern     | 3, 4       |
 | pnpm            | 10, 11     |
 | bun             | latest     |
-| deno            | latest     |
 
 ## Donations
 
