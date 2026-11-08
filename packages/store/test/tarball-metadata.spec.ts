@@ -1,10 +1,10 @@
-import { Readable } from 'node:stream';
+import { PassThrough, Readable } from 'node:stream';
 import { describe, expect, test, vi } from 'vitest';
 
 import { generateTarball } from '@verdaccio/test-helper';
 import type { Logger } from '@verdaccio/types';
 
-import { TarballMetadataService } from '../src/tarball-metadata';
+import { MAX_PENDING_BACKGROUND_JOBS, TarballMetadataService } from '../src/tarball-metadata';
 
 const createTarball = (readme: string): Promise<Buffer> =>
   generateTarball({ 'package/package.json': '{"name":"foo"}', 'package/README.md': readme });
@@ -138,5 +138,84 @@ describe('TarballMetadataService', () => {
 
     await expect(Promise.all(pending)).resolves.toEqual(['# foo', '# foo', '# foo', '# foo']);
     expect(peak).toBe(2);
+  });
+
+  test('schedule ignores a tarball that is cached or already being extracted', async () => {
+    const tarball = await createTarball('# foo');
+    const { service, onMetadata } = createService();
+    const release = Promise.withResolvers<void>();
+    const source = vi.fn(async () => {
+      await release.promise;
+      return Readable.from(tarball);
+    });
+
+    service.schedule('foo', 'foo-1.0.0.tgz', source);
+    service.schedule('foo', 'foo-1.0.0.tgz', source);
+    release.resolve();
+    await vi.waitFor(() => expect(onMetadata).toHaveBeenCalledTimes(1));
+
+    service.schedule('foo', 'foo-1.0.0.tgz', source);
+    await new Promise((resolve) => setImmediate(resolve));
+    expect(source).toHaveBeenCalledTimes(1);
+    expect(onMetadata).toHaveBeenCalledTimes(1);
+  });
+
+  test('drops background jobs once the pending limit is reached', async () => {
+    const tarball = await createTarball('# foo');
+    const { service, onMetadata } = createService();
+    const release = Promise.withResolvers<void>();
+    const source = vi.fn(async () => {
+      await release.promise;
+      return Readable.from(tarball);
+    });
+
+    for (let i = 0; i < MAX_PENDING_BACKGROUND_JOBS; i++) {
+      service.schedule(`pkg-${i}`, `pkg-${i}-1.0.0.tgz`, source);
+    }
+    service.schedule('late', 'late-1.0.0.tgz', source);
+    release.resolve();
+    await vi.waitFor(() => expect(onMetadata).toHaveBeenCalledTimes(MAX_PENDING_BACKGROUND_JOBS), {
+      timeout: 10_000,
+    });
+    expect(onMetadata).not.toHaveBeenCalledWith('late', 'late-1.0.0.tgz', expect.anything());
+
+    // finished jobs leave the queue, so the dropped tarball is accepted again
+    await new Promise((resolve) => setImmediate(resolve));
+    service.schedule('late', 'late-1.0.0.tgz', source);
+    await vi.waitFor(() =>
+      expect(onMetadata).toHaveBeenCalledWith('late', 'late-1.0.0.tgz', expect.anything())
+    );
+  });
+
+  test('serves the README when saving its stats fails', async () => {
+    const tarball = await createTarball('# foo');
+    const { service, logger, onMetadata } = createService();
+    onMetadata.mockRejectedValue(new Error('disk full'));
+    const source = vi.fn(async () => Readable.from(tarball));
+
+    await expect(service.getReadme('foo', 'foo-1.0.0.tgz', source)).resolves.toBe('# foo');
+    expect(logger.warn).toHaveBeenCalledWith(
+      expect.objectContaining({ name: 'foo', filename: 'foo-1.0.0.tgz', err: expect.any(Error) }),
+      expect.stringContaining('saving tarball stats')
+    );
+
+    await expect(service.getReadme('foo', 'foo-1.0.0.tgz', source)).resolves.toBe('# foo');
+    expect(source).toHaveBeenCalledTimes(1);
+  });
+
+  test('unpacks a tarball whose announced size is within the limit', async () => {
+    const tarball = await createTarball('# foo');
+    const { service, onMetadata } = createService(1);
+    const source = vi.fn(async () => {
+      const stream = new PassThrough();
+      setImmediate(() => {
+        stream.emit('content-length', tarball.length);
+        stream.end(tarball);
+      });
+      return stream;
+    });
+
+    await expect(service.getReadme('foo', 'foo-1.0.0.tgz', source)).resolves.toBe('# foo');
+    expect(onMetadata).toHaveBeenCalledTimes(1);
   });
 });

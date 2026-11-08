@@ -12,7 +12,7 @@ import type { Logger } from '@verdaccio/types';
 const debug = buildDebug('verdaccio:storage:tarball-metadata');
 
 const MAX_CONCURRENT_EXTRACTIONS = 2;
-const MAX_PENDING_BACKGROUND_JOBS = 100;
+export const MAX_PENDING_BACKGROUND_JOBS = 100;
 const README_CACHE_MAX_BYTES = 50 * 1024 * 1024;
 // guards against gzip bombs: unpacked content may be at most this many times the tarball limit
 const MAX_UNPACKED_RATIO = 10;

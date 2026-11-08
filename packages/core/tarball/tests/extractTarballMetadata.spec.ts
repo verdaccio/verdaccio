@@ -149,4 +149,49 @@ describe('extractTarballMetadata', () => {
       extractTarballMetadata(Readable.from(tar.subarray(0, 512 + 2048)))
     ).rejects.toThrow('Unexpected end of data');
   });
+
+  test('rejects a declared entry size above maxUnpackedSize before reading its content', async () => {
+    const tar = await createTar([{ name: 'package/big.bin', content: 'x'.repeat(4096) }]);
+    const headerOnly = tar.subarray(0, 512);
+    await expect(
+      extractTarballMetadata(Readable.from(headerOnly), { maxUnpackedSize: 1024 })
+    ).rejects.toThrow(new TarballLimitError('tarball unpacks to more than 1024 bytes'));
+  });
+
+  test('accepts a tar that inflates to exactly maxUnpackedSize', async () => {
+    const tar = await createTar(files);
+    const tarball = gzipSync(tar);
+    await expect(
+      extractTarballMetadata(Readable.from(tarball), { maxUnpackedSize: tar.length })
+    ).resolves.toMatchObject({ fileCount: 4 });
+    await expect(
+      extractTarballMetadata(Readable.from(tarball), { maxUnpackedSize: tar.length - 1 })
+    ).rejects.toBeInstanceOf(TarballLimitError);
+  });
+
+  test('matches README names regardless of case', async () => {
+    const tarball = await createTarball([{ name: 'package/Readme.TXT', content: 'shouting' }]);
+    const metadata = await extractTarballMetadata(Readable.from(tarball));
+    expect(metadata.readme).toBe('shouting');
+  });
+
+  test('returns a README of exactly maxReadmeSize bytes', async () => {
+    const tarball = await createTarball([{ name: 'package/README.md', content: 'abcde' }]);
+    const exact = await extractTarballMetadata(Readable.from(tarball), { maxReadmeSize: 5 });
+    expect(exact.readme).toBe('abcde');
+    const over = await extractTarballMetadata(Readable.from(tarball), { maxReadmeSize: 4 });
+    expect(over.readme).toBeUndefined();
+    expect(over.fileCount).toBe(1);
+  });
+
+  test('decodes a multi-byte README delivered in small chunks', async () => {
+    const readme = '# ñandú 🦤\n'.repeat(40);
+    const tar = await createTar([{ name: 'package/README.md', content: readme }]);
+    const chunks = Array.from({ length: Math.ceil(tar.length / 7) }, (_, i) =>
+      tar.subarray(i * 7, (i + 1) * 7)
+    );
+    const metadata = await extractTarballMetadata(Readable.from(chunks));
+    expect(metadata.readme).toBe(readme);
+    expect(metadata.unpackedSize).toBe(Buffer.byteLength(readme));
+  });
 });
