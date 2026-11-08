@@ -99,6 +99,13 @@ export type RateLimit = {
  */
 export type FlagsConfig = {
   /**
+   * Lists packages cached from uplinks in the web UI, next to the private ones.
+   *
+   * @default false
+   */
+  cachedPackages?: boolean;
+
+  /**
    * Enables user password change functionality.
    *
    * @default false

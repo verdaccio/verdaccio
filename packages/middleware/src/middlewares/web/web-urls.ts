@@ -9,6 +9,7 @@ export enum WebUrls {
   provenance_package_scoped = '/package/provenance/:scope/:package',
   provenance_package = '/package/provenance/:package',
   packages_all = '/packages',
+  packages_cached = '/packages/cached',
   user_login = '/login',
   user_signup = '/signup',
   search = '/search/:anything',

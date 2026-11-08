@@ -136,6 +136,7 @@ describe('flags', () => {
     const config = new Config(getDefaultConfig());
 
     expect(config.flags).toEqual({
+      cachedPackages: false,
       changePassword: false,
       createUser: false,
       stage: false,
@@ -149,6 +150,7 @@ describe('flags', () => {
     const config = new Config({ ...getDefaultConfig(), flags: { stage: true } });
 
     expect(config.flags).toEqual({
+      cachedPackages: false,
       changePassword: false,
       createUser: false,
       stage: true,

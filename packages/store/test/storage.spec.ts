@@ -40,6 +40,7 @@ import type {
 } from '@verdaccio/types';
 
 import { Storage } from '../src';
+import { CACHED_NAMES_TTL_MS } from '../src/storage';
 import manifestFooRemoteNpmjs from './fixtures/manifests/foo-npmjs.json';
 import { configExample } from './helpers';
 
@@ -2743,6 +2744,225 @@ describe('storage', () => {
 
         expect((response as Manifest).name).toEqual('foo');
         expect((response as Manifest)[DIST_TAGS].latest).toEqual('9.0.0');
+      });
+    });
+  });
+
+  describe('cached packages', () => {
+    const searchItem = (name: string, verdaccioPrivate = false) => ({
+      package: { name },
+      verdaccioPrivate,
+      verdaccioPkgCached: !verdaccioPrivate,
+      score: { final: 1, detail: { maintenance: 0, popularity: 1, quality: 1 } },
+    });
+
+    const initStorage = async (cachedPackages = false) => {
+      const config = new Config(
+        configExample({
+          ...getDefaultConfig(),
+          storage: generateRandomStorage(),
+          flags: { cachedPackages },
+        })
+      );
+      const storage = new Storage(config, logger);
+      await storage.init(config);
+      return storage;
+    };
+
+    const manifestWith = (name: string, version: string) =>
+      ({ ...generatePackageMetadata(name, version), _attachments: {} }) as Manifest;
+
+    const mockWrites = (storage: Storage, name: string) => {
+      const plugin = storage.localStorage.getStoragePlugin().getPackageStorage(name);
+      vi.spyOn(storage as any, 'getPrivatePackageStorage').mockReturnValue({
+        ...plugin,
+        savePackage: vi.fn().mockResolvedValue(undefined),
+      });
+    };
+
+    describe('getCachedPackageNames', () => {
+      test('should list only non-private packages, sorted', async () => {
+        const storage = await initStorage();
+        const plugin = storage.localStorage.getStoragePlugin();
+        vi.spyOn(plugin, 'get').mockResolvedValue(['published']);
+        vi.spyOn(plugin, 'search').mockResolvedValue([
+          searchItem('zeta'),
+          searchItem('private-one', true),
+          searchItem('published'),
+          searchItem('@scope/alpha'),
+        ] as any);
+
+        await expect(storage.getCachedPackageNames()).resolves.toEqual(['@scope/alpha', 'zeta']);
+      });
+
+      test('should reuse one storage scan within the ttl', async () => {
+        const storage = await initStorage();
+        const plugin = storage.localStorage.getStoragePlugin();
+        const search = vi.spyOn(plugin, 'search').mockResolvedValue([searchItem('foo')] as any);
+
+        await Promise.all([storage.getCachedPackageNames(), storage.getCachedPackageNames()]);
+        await storage.getCachedPackageNames();
+        expect(search).toHaveBeenCalledTimes(1);
+
+        MockDate.set(Date.now() + CACHED_NAMES_TTL_MS + 1);
+        try {
+          await storage.getCachedPackageNames();
+        } finally {
+          MockDate.reset();
+        }
+        expect(search).toHaveBeenCalledTimes(2);
+      });
+
+      test('should return nothing when the storage plugin has no search', async () => {
+        const storage = await initStorage();
+        const plugin = storage.localStorage.getStoragePlugin();
+        // @ts-ignore
+        plugin.search = undefined;
+
+        await expect(storage.getCachedPackageNames()).resolves.toEqual([]);
+      });
+
+      test('should follow writes and removals without scanning the storage again', async () => {
+        const storage = await initStorage(true);
+        const plugin = storage.localStorage.getStoragePlugin();
+        const search = vi
+          .spyOn(plugin, 'search')
+          .mockResolvedValue([searchItem('a'), searchItem('c')] as any);
+        mockWrites(storage, 'b');
+        await expect(storage.getCachedPackageNames()).resolves.toEqual(['a', 'c']);
+
+        await (storage as any).writePackage('b', manifestWith('b', '1.0.0'));
+        await expect(storage.getCachedPackageNames()).resolves.toEqual(['a', 'b', 'c']);
+
+        (storage as any).forgetCachedPackage('c');
+        await expect(storage.getCachedPackageNames()).resolves.toEqual(['a', 'b']);
+        expect(search).toHaveBeenCalledTimes(1);
+      });
+
+      test('should not list a written package that is private', async () => {
+        const storage = await initStorage(true);
+        const plugin = storage.localStorage.getStoragePlugin();
+        vi.spyOn(plugin, 'get').mockResolvedValue(['mine']);
+        vi.spyOn(plugin, 'search').mockResolvedValue([searchItem('a')] as any);
+        mockWrites(storage, 'mine');
+        await storage.getCachedPackageNames();
+
+        await (storage as any).writePackage('mine', manifestWith('mine', '1.0.0'));
+        await expect(storage.getCachedPackageNames()).resolves.toEqual(['a']);
+      });
+    });
+
+    describe('getCachedPackagesSummaries', () => {
+      test('should return only the listed fields of the latest version', async () => {
+        const storage = await initStorage();
+        vi.spyOn(storage, 'getPackageLocalMetadata').mockResolvedValue(
+          manifestWith('foo', '1.0.0')
+        );
+
+        const [summary] = await storage.getCachedPackagesSummaries(['foo']);
+        expect(summary).toEqual(expect.objectContaining({ name: 'foo', version: '1.0.0' }));
+        expect(summary).not.toHaveProperty('readme');
+        expect(summary).not.toHaveProperty('dependencies');
+        expect(Object.keys(summary.dist ?? {})).toEqual(['tarball', 'unpackedSize']);
+      });
+
+      test('should parse each packument once and reuse the summary', async () => {
+        const storage = await initStorage();
+        const read = vi
+          .spyOn(storage, 'getPackageLocalMetadata')
+          .mockResolvedValue(manifestWith('foo', '1.0.0'));
+
+        await storage.getCachedPackagesSummaries(['foo']);
+        await storage.getCachedPackagesSummaries(['foo']);
+        expect(read).toHaveBeenCalledTimes(1);
+      });
+
+      test('should take the summary from the manifest being written', async () => {
+        const storage = await initStorage(true);
+        const read = vi
+          .spyOn(storage, 'getPackageLocalMetadata')
+          .mockResolvedValue(manifestWith('foo', '1.0.0'));
+        mockWrites(storage, 'foo');
+
+        await expect(storage.getCachedPackagesSummaries(['foo'])).resolves.toEqual([
+          expect.objectContaining({ version: '1.0.0' }),
+        ]);
+        await (storage as any).writePackage('foo', manifestWith('foo', '2.0.0'));
+        await expect(storage.getCachedPackagesSummaries(['foo'])).resolves.toEqual([
+          expect.objectContaining({ version: '2.0.0' }),
+        ]);
+        expect(read).toHaveBeenCalledTimes(1);
+      });
+
+      test('should not let a read started before a write overwrite the written summary', async () => {
+        const storage = await initStorage(true);
+        let finishRead!: () => void;
+        const reading = new Promise<void>((resolve) => (finishRead = resolve));
+        vi.spyOn(storage, 'getPackageLocalMetadata').mockImplementation(async () => {
+          await reading;
+          return manifestWith('foo', '1.0.0');
+        });
+        mockWrites(storage, 'foo');
+
+        const pending = storage.getCachedPackagesSummaries(['foo']);
+        await new Promise((resolve) => setTimeout(resolve, 20));
+        await (storage as any).writePackage('foo', manifestWith('foo', '2.0.0'));
+        finishRead();
+
+        await expect(pending).resolves.toEqual([expect.objectContaining({ version: '2.0.0' })]);
+        await expect(storage.getCachedPackagesSummaries(['foo'])).resolves.toEqual([
+          expect.objectContaining({ version: '2.0.0' }),
+        ]);
+      });
+
+      test('should drop the summary on write when the flag is off', async () => {
+        const storage = await initStorage();
+        const read = vi
+          .spyOn(storage, 'getPackageLocalMetadata')
+          .mockResolvedValueOnce(manifestWith('foo', '1.0.0'))
+          .mockResolvedValueOnce(manifestWith('foo', '2.0.0'));
+        mockWrites(storage, 'foo');
+
+        await storage.getCachedPackagesSummaries(['foo']);
+        await (storage as any).writePackage('foo', manifestWith('foo', '2.0.0'));
+        await expect(storage.getCachedPackagesSummaries(['foo'])).resolves.toEqual([
+          expect.objectContaining({ version: '2.0.0' }),
+        ]);
+        expect(read).toHaveBeenCalledTimes(2);
+      });
+
+      test('should skip packages that cannot be read', async () => {
+        const storage = await initStorage();
+        vi.spyOn(storage, 'getPackageLocalMetadata').mockImplementation(async (name) => {
+          if (name === 'broken') {
+            throw new Error('corrupt');
+          }
+          return manifestWith(name, '1.0.0');
+        });
+
+        const summaries = await storage.getCachedPackagesSummaries(['broken', 'foo']);
+        expect(summaries.map((summary) => summary.name)).toEqual(['foo']);
+      });
+    });
+
+    describe('warmCachedPackagesSummaries', () => {
+      test('should read every cached packument once per process', async () => {
+        const storage = await initStorage(true);
+        const plugin = storage.localStorage.getStoragePlugin();
+        vi.spyOn(plugin, 'search').mockResolvedValue([searchItem('a'), searchItem('b')] as any);
+        const read = vi
+          .spyOn(storage, 'getPackageLocalMetadata')
+          .mockImplementation(async (name) => manifestWith(name, '1.0.0'));
+
+        storage.warmCachedPackagesSummaries();
+        storage.warmCachedPackagesSummaries();
+        await (storage as any).summariesWarmup;
+        expect(read).toHaveBeenCalledTimes(2);
+
+        storage.warmCachedPackagesSummaries();
+        await (storage as any).summariesWarmup;
+        await expect(storage.getCachedPackagesSummaries(['a', 'b'])).resolves.toHaveLength(2);
+        expect(read).toHaveBeenCalledTimes(2);
       });
     });
   });

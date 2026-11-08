@@ -72,6 +72,7 @@ class Config implements AppConfig {
     this.security = merge(defaultSecurity, config.security);
     this.server = merge({}, defaultServerSettings, config.server);
     this.flags = {
+      cachedPackages: config.flags?.cachedPackages ?? false,
       changePassword: config.flags?.changePassword ?? false,
       webLogin: config.flags?.webLogin ?? false,
       createUser: config.flags?.createUser ?? false,
