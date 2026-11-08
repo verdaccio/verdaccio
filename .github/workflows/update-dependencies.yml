@@ -10,6 +10,10 @@ on:
         description: 'npm dist-tag to bump verdaccio packages to'
         required: true
         default: 'next-9'
+      allow_major:
+        description: 'Accept a bump whose master changelogs carry breaking changes'
+        type: boolean
+        default: false
   # Only run on pushes to 7.x. This also avoids re-triggering on the workflow's
   # own PR branch (chore/update-verdaccio-dependencies), preventing a self-loop.
   push:
@@ -67,11 +71,29 @@ jobs:
         if: steps.diff.outputs.changed == 'true'
         run: pnpm build
 
+      - name: Write the changeset from the master changelogs
+        if: steps.diff.outputs.changed == 'true'
+        id: changeset
+        env:
+          DIST_TAG: ${{ github.event.inputs.dist_tag || 'next-9' }}
+          ALLOW_MAJOR: ${{ github.event.inputs.allow_major == 'true' && '--allow-major' || '' }}
+        # The bumped @verdaccio/* packages are developed on master; their
+        # CHANGELOG.md entries between the old and new versions become the
+        # changeset body and decide the bump (minor when any package gained a feature).
+        run: |
+          git fetch --no-tags origin master
+          CHANGESET=".changeset/update-verdaccio-dependencies-${GITHUB_RUN_ID}.md"
+          BUMP=$(node scripts/dependency-update-changeset.mjs \
+            --master origin/master --dist-tag "$DIST_TAG" --out "$CHANGESET" $ALLOW_MAJOR)
+          echo "bump=$BUMP" >> "$GITHUB_OUTPUT"
+          cat "$CHANGESET"
+
       - name: Create or update pull request
         if: steps.diff.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DIST_TAG: ${{ github.event.inputs.dist_tag || 'next-9' }}
+          BUMP: ${{ steps.changeset.outputs.bump }}
         run: |
           # Stable branch: the working tree is already rebased on the latest
           # 7.x (checked out above), so force-pushing it rebases any existing PR.
@@ -80,32 +102,27 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "$BRANCH"
 
-          # Use a unique name per run to preserve each dependency update
-          # in the prerelease history under .changeset/pre/.
-          CHANGESET=".changeset/update-verdaccio-dependencies-${GITHUB_RUN_ID}.md"
-          printf '%s\n' \
-            "---" \
-            "'verdaccio': patch" \
-            "---" \
-            "" \
-            "Update verdaccio dependencies (\`@verdaccio/*\`, \`verdaccio\`, \`verdaccio-*\`) to the \`$DIST_TAG\` npm dist-tag." \
-            > "$CHANGESET"
-
-          # Format updated package.json files and the changeset before committing.
+          # Format updated package.json files before committing.
           pnpm format
 
+          # The squash commit takes the PR title: a bump that brings features is a feat.
+          if [ "$BUMP" = "patch" ]; then
+            TITLE="chore: update verdaccio 7.x dependencies"
+          else
+            TITLE="feat: update verdaccio 7.x dependencies"
+          fi
           git add -A
-          git commit -m "chore: update verdaccio 7.x dependencies"
+          git commit -m "$TITLE"
           git push --force origin "$BRANCH"
 
-          if [ -n "$(gh pr list --head "$BRANCH" --base 7.x --state open --json number --jq '.[].number')" ]; then
-            echo "Existing PR found — branch force-pushed (rebased onto latest 7.x)."
-          else
-            gh pr create \
-              --base 7.x \
-              --head "$BRANCH" \
-              --title "chore: update verdaccio 7.x dependencies" \
-              --body "Automated update of verdaccio packages only — \`@verdaccio/*\`, \`verdaccio\`, and \`verdaccio-*\` — to the \`$DIST_TAG\` npm dist-tag. Triggered manually via the **update verdaccio 7.x dependencies** workflow.
+          BODY="Automated update of verdaccio packages only — \`@verdaccio/*\`, \`verdaccio\`, and \`verdaccio-*\` — to the \`$DIST_TAG\` npm dist-tag. The changeset is built from the master changelogs of the bumped packages (\`$BUMP\` bump). Triggered via the **update verdaccio 7.x dependencies** workflow.
 
           $(git diff --stat HEAD~1)"
+
+          PR=$(gh pr list --head "$BRANCH" --base 7.x --state open --json number --jq '.[].number')
+          if [ -n "$PR" ]; then
+            echo "Existing PR #$PR found — branch force-pushed (rebased onto latest 7.x)."
+            gh pr edit "$PR" --title "$TITLE" --body "$BODY"
+          else
+            gh pr create --base 7.x --head "$BRANCH" --title "$TITLE" --body "$BODY"
           fi

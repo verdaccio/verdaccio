@@ -29,7 +29,9 @@ lines. Most merged PRs are one of two automated shapes that touch no `src/`
 file at all: `chore: update verdaccio 7.x dependencies` (the
 `update-dependencies.yml` workflow, manually triggered, bumps every
 `@verdaccio/*`/`verdaccio`/`verdaccio-*` package to a given npm dist-tag —
-`next-9` by default — and opens the PR itself, changeset included) and
+`next-9` by default — and opens the PR itself; its changeset and bump come
+from the master `CHANGELOG.md` entries of the bumped runtime packages, via
+`scripts/dependency-update-changeset.mjs`) and
 `chore: release 7.x (next-7)` (the Changesets release-cut PR). A PR that
 actually changes `src/` is the rare case; because the branch is this thin, a
 mistake there has an outsized blast radius for its size, so give it more
