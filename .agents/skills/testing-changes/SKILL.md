@@ -73,7 +73,7 @@ The CLI battery is `@verdaccio/e2e-cli` (repository `verdaccio/e2e-tests`). Loca
 
 ```bash
 pnpm build
-./scripts/e2e-cli-local.sh npm@11       # also npm@10, npm@12, pnpm@10, pnpm@11, yarn-classic, yarn-modern@4, bun
+./scripts/e2e-cli-local.sh npm@11       # also npm@12, pnpm@11, pnpm@12, yarn-modern@3, yarn-modern@4, bun@1.4.4
 ```
 
 It starts a fresh registry on port 4873, runs the client scenarios, and cleans up. CI

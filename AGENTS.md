@@ -108,7 +108,7 @@ packages: `pnpm local:publish:release`. `DEBUG=verdaccio:* pnpm test` enables
 the `debug` namespaces.
 
 CI (`.github/workflows/ci.yml`) runs lint, format check, build and tests on
-Node.js 24 and 26, a Docker build, the CLI e2e matrix (npm 10–12, yarn modern
+Node.js 24 and 26, a Docker build, the CLI e2e matrix (npm 11–12, yarn modern
 3–4, pnpm 11–12, bun) and the Cypress UI suite — but only on a ready PR
 whose diff matches the workflow's `paths:` filter (`packages/**`, `tests/**`,
 `docker-examples/**`, `package.json`, `pnpm-workspace.yaml`,
