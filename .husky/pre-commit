@@ -10,7 +10,7 @@ fi
 run_over_files() {
   files=$1
   shift
-  output=$(echo "$files" | xargs "$@" 2>&1)
+  output=$(printf '%s\n' "$files" | tr '\n' '\0' | xargs -0 -s 6000 "$@" 2>&1)
   status=$?
   [ -n "$output" ] && echo "$output"
   if [ "$status" -ne 0 ] && echo "$output" | grep -q "Expected at least one target file"; then
@@ -33,5 +33,5 @@ if [ -n "$STAGED" ]; then
   fi
 
   # Re-stage files that oxfmt/oxlint modified
-  echo "$STAGED" | xargs git add
+  printf '%s\n' "$STAGED" | tr '\n' '\0' | xargs -0 -s 6000 git add --
 fi
