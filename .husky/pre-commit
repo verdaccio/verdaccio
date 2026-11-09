@@ -10,13 +10,16 @@ fi
 run_over_files() {
   files=$1
   shift
-  output=$(printf '%s\n' "$files" | tr '\n' '\0' | xargs -0 -s 6000 "$@" 2>&1)
-  status=$?
-  [ -n "$output" ] && echo "$output"
-  if [ "$status" -ne 0 ] && echo "$output" | grep -q "Expected at least one target file"; then
-    return 0
-  fi
-  return "$status"
+  # Each batch tolerates only its own "no target file" result; any other failure exits 1 (xargs then returns 123).
+  printf '%s\n' "$files" | tr '\n' '\0' | xargs -0 -s 6000 sh -c '
+    output=$("$@" 2>&1)
+    status=$?
+    [ -n "$output" ] && echo "$output"
+    if [ "$status" -ne 0 ] && ! echo "$output" | grep -q "Expected at least one target file"; then
+      exit 1
+    fi
+    exit 0
+  ' sh "$@"
 }
 
 # Format and lint staged files with oxfmt + oxlint, then re-stage any fixes.
