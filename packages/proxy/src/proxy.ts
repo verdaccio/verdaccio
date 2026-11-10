@@ -189,6 +189,8 @@ class ProxyStorage implements IProxy {
   }
 
   public getHeaders(headers = {}): gotHeaders {
+    // work on a copy: callers may pass the uplink `headers` config object, which is shared by every request
+    headers = { ...headers };
     const accept = HEADERS.ACCEPT;
     const acceptEncoding = HEADERS.ACCEPT_ENCODING;
     const userAgent = HEADERS.USER_AGENT;
