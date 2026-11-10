@@ -1,7 +1,7 @@
 import buildDebug from 'debug';
 import { existsSync, readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
-import { join, resolve } from 'node:path';
+import { isAbsolute, join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 import { PLUGIN_CATEGORY, PLUGIN_PREFIX } from '@verdaccio/core';
@@ -79,7 +79,7 @@ async function tryResolve(modulePath: string): Promise<{ module: any; error?: st
       importPath = resolveEntryPoint(modulePath);
       debug('resolved ESM entry point: %o', importPath);
     }
-    const importUrl = importPath.startsWith('/') ? pathToFileURL(importPath).href : importPath;
+    const importUrl = isAbsolute(importPath) ? pathToFileURL(importPath).href : importPath;
     const mod = await import(importUrl);
     return { module: mod };
   } catch (importErr: any) {
