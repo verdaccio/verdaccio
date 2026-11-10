@@ -28,6 +28,8 @@ import type { Config, Logger, Manifest, RemoteUser } from '@verdaccio/types';
 
 import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
 
+import { abortOnResponseClose } from './abort-on-response-close';
+
 const debug = buildDebug('verdaccio:api:stage');
 
 const DEFAULT_PER_PAGE = 10;
@@ -298,7 +300,7 @@ export default function stage(
           res.removeHeader(HEADERS.CONTENT_TYPE);
           res.locals.report_error(err);
         });
-        req.on('aborted', () => abort.abort());
+        abortOnResponseClose(res, abort, stream);
 
         res.header(HEADERS.CONTENT_TYPE, HEADERS.OCTET_STREAM);
         stream.pipe(res);

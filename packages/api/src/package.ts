@@ -9,6 +9,8 @@ import type { Logger } from '@verdaccio/types';
 
 import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
 
+import { abortOnResponseClose } from './abort-on-response-close';
+
 const debug = buildDebug('verdaccio:api:package');
 
 export default function (route: Router, auth: Auth, storage: Storage, logger: Logger): void {
@@ -98,9 +100,8 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
           res.locals.report_error(err);
         });
 
-        req.on('abort', () => {
-          debug('request aborted for %o', req.url);
-          abort.abort();
+        abortOnResponseClose(res, abort, stream, () => {
+          debug('client closed tarball download for %o', req.url);
         });
 
         res.header(HEADERS.CONTENT_TYPE, HEADERS.OCTET_STREAM);
