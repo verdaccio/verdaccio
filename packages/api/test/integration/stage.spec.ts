@@ -1,5 +1,5 @@
 import nock from 'nock';
-import { Readable } from 'node:stream';
+import { PassThrough, Readable } from 'node:stream';
 import supertest from 'supertest';
 import type { MockInstance } from 'vitest';
 import { beforeAll, beforeEach, describe, expect, test, vi } from 'vitest';
@@ -348,6 +348,57 @@ describe('stage', () => {
       await authed(supertest(app).get(`/-/stage/${A_UUID}/tarball`), token).expect(
         HTTP_STATUS.NOT_FOUND
       );
+    });
+
+    test('should abort storage and destroy the stream when the client disconnects mid-download', async () => {
+      const { app, token } = await buildApp();
+      const staged = await stageVersion(app, 'foo-disconnect', '1.0.0', token);
+      const stream = new PassThrough();
+      let signal: AbortSignal | undefined;
+      const spy = vi
+        .spyOn(StageStorage.prototype, 'readTarball')
+        .mockImplementation(async (_id, opts) => {
+          signal = opts.signal;
+          return stream as any;
+        });
+      try {
+        stream.push(Buffer.alloc(1024));
+        const request = authed(
+          supertest(app)
+            .get(`/-/stage/${staged.body.stageId}/tarball`)
+            .timeout({ deadline: 3000 })
+            .buffer(true)
+            .parse((response, callback) => {
+              response.once('data', () => {
+                request.abort();
+              });
+              response.once('error', callback);
+              response.once('end', () => callback(null, Buffer.alloc(0)));
+            }),
+          token
+        );
+        const aborted = new Promise<void>((resolve) => {
+          const watch = (): void => {
+            if (!signal) {
+              setImmediate(watch);
+              return;
+            }
+            if (signal.aborted) {
+              resolve();
+              return;
+            }
+            signal.addEventListener('abort', () => resolve(), { once: true });
+          };
+          watch();
+        });
+        await expect(request).rejects.toThrow(/aborted|socket hang up|ECONNRESET/i);
+        await aborted;
+        expect(signal?.aborted).toBe(true);
+        expect(stream.destroyed).toBe(true);
+      } finally {
+        stream.destroy();
+        spy.mockRestore();
+      }
     });
 
     test.each(['unknown id', 'stream error'] as const)(

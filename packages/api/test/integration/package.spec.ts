@@ -101,7 +101,52 @@ describe('package', () => {
       expect(contentLength).toBeGreaterThan(0);
       expect(contentLength).toEqual(Buffer.from(response.body).length);
     });
-    test.todo('fails on file was aborted');
+    test('should abort storage and destroy the stream when the client disconnects mid-download', async () => {
+      const stream = new PassThrough();
+      let signal: AbortSignal | undefined;
+      const spy = vi
+        .spyOn(Storage.prototype, 'getTarball')
+        .mockImplementation(async (_n, _f, opts) => {
+          signal = opts.signal;
+          return stream as any;
+        });
+      try {
+        // Keep the source open so the download is still in flight when the client leaves.
+        stream.push(Buffer.alloc(1024));
+        const request = supertest(app)
+          .get('/foo/-/foo-1.0.0.tgz')
+          .timeout({ deadline: 3000 })
+          .buffer(true)
+          .parse((response, callback) => {
+            response.once('data', () => {
+              request.abort();
+            });
+            response.once('error', callback);
+            response.once('end', () => callback(null, Buffer.alloc(0)));
+          });
+        const aborted = new Promise<void>((resolve) => {
+          const watch = (): void => {
+            if (!signal) {
+              setImmediate(watch);
+              return;
+            }
+            if (signal.aborted) {
+              resolve();
+              return;
+            }
+            signal.addEventListener('abort', () => resolve(), { once: true });
+          };
+          watch();
+        });
+        await expect(request).rejects.toThrow(/aborted|socket hang up|ECONNRESET/i);
+        await aborted;
+        expect(signal?.aborted).toBe(true);
+        expect(stream.destroyed).toBe(true);
+      } finally {
+        stream.destroy();
+        spy.mockRestore();
+      }
+    });
 
     test('should terminate the connection when the stream fails mid-download', async () => {
       // simulates an uplink dropping the connection halfway through a tarball:
