@@ -18,6 +18,7 @@ jobs:
       github.actor != 'renovate[bot]' &&
       github.actor != 'dependabot[bot]' &&
       github.head_ref != 'changeset-release/master' &&
+      github.repository == 'verdaccio/verdaccio' &&
       !contains(github.event.pull_request.labels.*.name, 'skip changeset')
     runs-on: ubuntu-latest
     name: Changeset file check
