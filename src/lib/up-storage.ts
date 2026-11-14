@@ -485,14 +485,20 @@ class ProxyStorage {
     let current_length = 0;
     let expected_length;
 
-    stream.abort = () => {};
-    const readStream = this.request({
+    const readStream: any = this.request({
       uri_full: url,
       encoding: null,
       headers: {
         Accept: contentTypeAccept,
       },
     });
+    stream.abort = () => {
+      // a caller giving up is not an uplink failure
+      readStream._verdaccio_aborted = true;
+      if (typeof readStream.abort === 'function') {
+        readStream.abort();
+      }
+    };
 
     readStream.on('response', function (res: any) {
       if (res.statusCode === HTTP_STATUS.NOT_FOUND) {

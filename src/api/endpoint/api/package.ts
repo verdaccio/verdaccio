@@ -13,6 +13,20 @@ import type Storage from '../../../lib/storage';
 import { ErrorCode, getVersion } from '../../../lib/utils';
 import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../../../types';
 
+// a response that closes before it finished means the client went away
+const onClientDisconnect = (res: $ResponseExtend, callback: () => void): void => {
+  const notify = (): void => {
+    if (!res.writableFinished) {
+      callback();
+    }
+  };
+  if (res.destroyed) {
+    notify();
+  } else {
+    res.once('close', notify);
+  }
+};
+
 const downloadStream = (
   packageName: string,
   filename: string,
@@ -21,13 +35,23 @@ const downloadStream = (
   res: $ResponseExtend
 ): void => {
   const stream = storage.getTarball(packageName, filename);
+  let clientGone = false;
 
   stream.on('content-length', function (content): void {
     res.header('Content-Length', content);
   });
 
   stream.on('error', function (err): void {
+    if (clientGone) {
+      return;
+    }
     return res.locals.report_error(err);
+  });
+
+  onClientDisconnect(res, () => {
+    clientGone = true;
+    logger.debug({ url: req.url }, 'client closed the tarball download @{url}');
+    stream.abort();
   });
 
   res.header(HEADERS.CONTENT_TYPE, HEADERS.OCTET_STREAM);
