@@ -1,5 +1,13 @@
 # @verdaccio/proxy
 
+## 9.0.0-next-9.45
+
+### Patch Changes
+
+- 5afb52c: Fix the `via` header sent to an uplink growing with every request when the uplink has a `headers` option in the config.
+- @verdaccio/config@9.0.0-next-9.45
+  - @verdaccio/core@9.0.0-next-9.45
+
 ## 9.0.0-next-9.44
 
 ### Patch Changes

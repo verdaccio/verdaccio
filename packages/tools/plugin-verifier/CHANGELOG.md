@@ -1,5 +1,14 @@
 # @verdaccio/plugin-verifier
 
+## 1.0.0-next-9.41
+
+### Patch Changes
+
+- 3d707f0: fix: plugin-verifier on windows
+- @verdaccio/core@9.0.0-next-9.45
+  - @verdaccio/loaders@9.0.0-next-9.45
+  - @verdaccio/logger@9.0.0-next-9.45
+
 ## 1.0.0-next-9.40
 
 ### Patch Changes

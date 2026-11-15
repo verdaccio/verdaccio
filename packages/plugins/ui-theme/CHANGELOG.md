@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 9.0.0-next-9.45
+
+### Patch Changes
+
+- 0ab5fc9: chore(ui-theme): type clean-up
+
 ## 9.0.0-next-9.44
 
 No changes in this release.

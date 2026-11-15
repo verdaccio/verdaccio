@@ -1,5 +1,20 @@
 # @verdaccio/api
 
+## 9.0.0-next-9.45
+
+### Patch Changes
+
+- 486f40b: Abort the storage read of a tarball download when the client disconnects before the response finishes.
+- Updated dependencies [8b3b1ad]
+- Updated dependencies [3239848]
+  - @verdaccio/store@9.0.0-next-9.45
+  - @verdaccio/config@9.0.0-next-9.45
+  - @verdaccio/core@9.0.0-next-9.45
+  - @verdaccio/auth@9.0.0-next-9.45
+  - @verdaccio/hooks@9.0.0-next-9.45
+  - @verdaccio/middleware@9.0.0-next-9.45
+  - @verdaccio/logger@9.0.0-next-9.45
+
 ## 9.0.0-next-9.44
 
 ### Patch Changes

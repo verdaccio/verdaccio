@@ -1,5 +1,17 @@
 # @verdaccio/admin-cli
 
+## 9.0.0-next-9.45
+
+### Patch Changes
+
+- Updated dependencies [8b3b1ad]
+- Updated dependencies [3239848]
+  - @verdaccio/store@9.0.0-next-9.45
+  - @verdaccio/config@9.0.0-next-9.45
+  - @verdaccio/core@9.0.0-next-9.45
+  - @verdaccio/auth@9.0.0-next-9.45
+  - @verdaccio/logger@9.0.0-next-9.45
+
 ## 9.0.0-next-9.44
 
 ### Patch Changes
