@@ -1,9 +1,12 @@
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { PassThrough, Readable } from 'node:stream';
+import { pipeline } from 'node:stream/promises';
 import { beforeAll, describe, expect, test } from 'vitest';
 
 import { getDefaultConfig } from '@verdaccio/config';
+import { errorUtils } from '@verdaccio/core';
 import LocalDatabaseNewModule from '@verdaccio/local-storage';
 import { setup } from '@verdaccio/logger';
 import type { Logger } from '@verdaccio/types';
@@ -53,6 +56,32 @@ function legacyPluginEmitting(names: string[]): any {
       next();
     },
   };
+}
+
+/** A legacy plugin whose package storage only implements `writeTarball`. */
+function legacyPluginWithUpload(createUpload: () => any): any {
+  return { ...legacyPluginEmitting([]), getPackageStorage: () => ({ writeTarball: createUpload }) };
+}
+
+/** An upload that is never consumed, so writes wait on `drain`, and that then emits `error`, like the S3 plugin. */
+function failingUpload(error: Error): any {
+  const upload: any = new PassThrough();
+  upload.done = () => {};
+  upload.abort = () => {};
+  setImmediate(() => upload.emit('error', error));
+  return upload;
+}
+
+/** Stream a tarball through the cache write the way `@verdaccio/store` does for an uplink. */
+async function streamThroughCache(cacheStream: any): Promise<number> {
+  const chunks = Array.from({ length: 8 }, (_, i) => Buffer.alloc(64 * 1024, i));
+  const clientStream = new PassThrough();
+  let received = 0;
+  clientStream.on('data', (chunk: Buffer) => {
+    received += chunk.length;
+  });
+  await pipeline(Readable.from(chunks), clientStream, cacheStream);
+  return received;
 }
 
 describe('legacy storage adapter', () => {
@@ -144,6 +173,28 @@ describe('legacy storage adapter', () => {
       const wrapped = wrapLegacyStoragePlugin(plugin, logger);
 
       expect(await wrapped.search({})).toHaveLength(2);
+    });
+  });
+
+  describe('writeTarball', () => {
+    test('a tarball the plugin already stores (409) does not cut the client stream short', async () => {
+      const plugin = wrapLegacyStoragePlugin(
+        legacyPluginWithUpload(() => failingUpload(errorUtils.getConflict('file already exists'))),
+        logger
+      );
+      const cacheStream = await plugin.getPackageStorage('foo').writeTarball('foo-1.0.0.tgz');
+
+      await expect(streamThroughCache(cacheStream)).resolves.toBe(8 * 64 * 1024);
+    });
+
+    test('any other plugin error still fails the cache write', async () => {
+      const plugin = wrapLegacyStoragePlugin(
+        legacyPluginWithUpload(() => failingUpload(errorUtils.getInternalError('disk full'))),
+        logger
+      );
+      const cacheStream = await plugin.getPackageStorage('foo').writeTarball('foo-1.0.0.tgz');
+
+      await expect(streamThroughCache(cacheStream)).rejects.toThrow('disk full');
     });
   });
 });
