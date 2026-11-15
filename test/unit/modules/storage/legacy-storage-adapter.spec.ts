@@ -72,6 +72,20 @@ function failingUpload(error: Error): any {
   return upload;
 }
 
+/** An upload that consumes every write and emits `error` once `done()` finalises it. */
+function uploadFailingOnDone(error: Error): any {
+  const upload: any = new PassThrough();
+  upload.resume();
+  upload.abort = () => {};
+  upload.done = () => setImmediate(() => upload.emit('error', error));
+  return upload;
+}
+
+/** The `EEXISTS` error `@verdaccio/local-storage-legacy` emits for a file it already stores. */
+function legacyFileExistsError(): Error {
+  return Object.assign(errorUtils.getConflict('file already exists'), { code: 'EEXISTS' });
+}
+
 /** Stream a tarball through the cache write the way `@verdaccio/store` does for an uplink. */
 async function streamThroughCache(cacheStream: any): Promise<number> {
   const chunks = Array.from({ length: 8 }, (_, i) => Buffer.alloc(64 * 1024, i));
@@ -80,7 +94,9 @@ async function streamThroughCache(cacheStream: any): Promise<number> {
   clientStream.on('data', (chunk: Buffer) => {
     received += chunk.length;
   });
-  await pipeline(Readable.from(chunks), clientStream, cacheStream);
+  await pipeline(Readable.from(chunks), clientStream, cacheStream, {
+    signal: new AbortController().signal,
+  });
   return received;
 }
 
@@ -177,9 +193,27 @@ describe('legacy storage adapter', () => {
   });
 
   describe('writeTarball', () => {
-    test('a tarball the plugin already stores (409) does not cut the client stream short', async () => {
+    test.each([
+      ['409 conflict', () => errorUtils.getConflict('file already exists')],
+      ['EEXISTS', legacyFileExistsError],
+    ])(
+      'a tarball the plugin already stores (%s) does not cut the client stream short',
+      async (_, error) => {
+        const plugin = wrapLegacyStoragePlugin(
+          legacyPluginWithUpload(() => failingUpload(error())),
+          logger
+        );
+        const cacheStream = await plugin.getPackageStorage('foo').writeTarball('foo-1.0.0.tgz');
+
+        await expect(streamThroughCache(cacheStream)).resolves.toBe(8 * 64 * 1024);
+      }
+    );
+
+    test('a conflict reported when the write is finalised still completes the download', async () => {
       const plugin = wrapLegacyStoragePlugin(
-        legacyPluginWithUpload(() => failingUpload(errorUtils.getConflict('file already exists'))),
+        legacyPluginWithUpload(() =>
+          uploadFailingOnDone(errorUtils.getConflict('file already exists'))
+        ),
         logger
       );
       const cacheStream = await plugin.getPackageStorage('foo').writeTarball('foo-1.0.0.tgz');

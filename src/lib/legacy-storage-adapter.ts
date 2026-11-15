@@ -115,11 +115,16 @@ function readTarball(handler: any, fileName: string, options: { signal?: AbortSi
  *  - so we forward writes to the legacy stream, call `.done()` on `_final`, and
  *    only complete (emit `close`) once the legacy stream emits `success`.
  */
+// `errorUtils.getConflict` (code 409) or the legacy local storage's `EEXISTS` code.
+function isAlreadyStoredError(err: any): boolean {
+  return err?.code === HTTP_STATUS.CONFLICT || err?.code === 'EEXISTS';
+}
+
 function writeTarball(handler: any, fileName: string, options: { signal?: AbortSignal } = {}) {
   const upload = handler.writeTarball(fileName);
   const { signal } = options;
-  // A 409 means the plugin already stores this tarball (e.g. a concurrent request cached it):
-  // skip the cache write, as Verdaccio 6 did, instead of failing the pipeline serving the client.
+  // The plugin already stores this tarball (e.g. a concurrent request cached it): skip the write,
+  // as Verdaccio 6 did for uplink caching, instead of failing the pipeline serving the client.
   let alreadyStored = false;
   let pendingWrite: (() => void) | null = null;
   const releasePendingWrite = (): void => {
@@ -152,7 +157,7 @@ function writeTarball(handler: any, fileName: string, options: { signal?: AbortS
 
   upload.on('open', () => bridge.emit('open'));
   upload.on('error', (err: any) => {
-    if (err?.code === HTTP_STATUS.CONFLICT) {
+    if (isAlreadyStoredError(err)) {
       debug('tarball %o is already stored, skipping the cache write', fileName);
       alreadyStored = true;
       releasePendingWrite();
