@@ -82,36 +82,16 @@ describe('x-forwarded-for sent to uplinks', () => {
     expect(seen.metadata[0]).toMatch(new RegExp(`^${LOOPBACK}$`));
   });
 
-  test('tarball request forwards the incoming chain plus the client address', async () => {
-    const seen = mockUplink('remote-tarball-chain');
-    await getTarball(app, 'remote-tarball-chain', CHAIN);
-    const expected = new RegExp(`^203\\.0\\.113\\.7, 10\\.0\\.0\\.1, ${LOOPBACK}$`);
-    expect(seen.tarball).toHaveLength(1);
-    expect(seen.tarball[0]).toMatch(expected);
-    // the manifest lookup done to resolve the tarball carries it too
+  test('tarball request sends no header, with or without an incoming chain', async () => {
+    const seen = mockUplink('remote-tarball');
+    await getTarball(app, 'remote-tarball', CHAIN);
+    // the manifest lookup done to resolve the tarball carries none either
     expect(seen.metadata.length).toBeGreaterThan(0);
-    for (const value of seen.metadata) {
-      expect(value).toMatch(expected);
-    }
-  });
-
-  test('tarball request without a chain forwards only the client address', async () => {
-    const seen = mockUplink('remote-tarball-direct');
-    await getTarball(app, 'remote-tarball-direct');
     expect(seen.tarball).toHaveLength(1);
-    expect(seen.tarball[0]).toMatch(new RegExp(`^${LOOPBACK}$`));
-    expect([...seen.metadata, ...seen.tarball]).not.toContain('undefined');
+    expect(new Set([...seen.metadata, ...seen.tarball])).toEqual(new Set([undefined]));
   });
 
-  test('tarball request after the manifest is cached still forwards the chain', async () => {
-    const seen = mockUplink('remote-tarball-cached');
-    await getManifest(app, 'remote-tarball-cached');
-    await getTarball(app, 'remote-tarball-cached', CHAIN);
-    expect(seen.tarball).toHaveLength(1);
-    expect(seen.tarball[0]).toMatch(new RegExp(`^203\\.0\\.113\\.7, 10\\.0\\.0\\.1, ${LOOPBACK}$`));
-  });
-
-  test('tarball hosted outside the uplink is requested without the client origin', async () => {
+  test('tarball hosted outside the uplink is requested without the header', async () => {
     const seen = mockUplink('remote-tarball-elsewhere', UPLINK, ELSEWHERE);
     await getTarball(app, 'remote-tarball-elsewhere', CHAIN);
     expect(seen.tarball).toEqual([undefined]);

@@ -1,13 +1,16 @@
 ---
 '@verdaccio/proxy': patch
 '@verdaccio/store': patch
-'@verdaccio/api': patch
 ---
 
 Fix the `X-Forwarded-For` header sent to uplinks.
 
-Tarball requests to an uplink carried the literal value `undefined`, because the client address was never passed along. A reverse proxy or firewall in front of the uplink could log, rate limit or reject those requests under a bogus address.
+Tarball requests to an uplink carried the literal value `undefined`, because no client address is passed on that path. A reverse proxy or firewall in front of the uplink could log, rate limit or reject those requests under a bogus address. The header is now only generated when the client address is known, so tarball requests carry no `X-Forwarded-For`, as in 6.x.
 
-The header is now only sent when the client address is known, and it is built the same way for metadata and tarball requests: the `X-Forwarded-For` chain the client request arrived with, followed by the client address. Metadata requests had lost the incoming chain compared to 6.x, and tarball requests now carry it as well.
+Metadata requests forward the `X-Forwarded-For` chain the client request arrived with, followed by the client address. Since 7.x they sent the client address alone and dropped the incoming chain that 6.x forwarded.
 
-The client origin is only sent to a configured uplink. A tarball hosted on another host than the uplink is fetched without it. An `X-Forwarded-For` value set in the `headers` option of an uplink takes precedence however the header name is capitalised (a lower-case `x-forwarded-for` lost against the generated value on tarball requests), and nothing is sent when the uplink goes through `http_proxy` or `https_proxy`, as before.
+An `X-Forwarded-For` value set in the `headers` option of an uplink takes precedence however the header name is capitalised. A lower-case `x-forwarded-for` lost against the generated value on tarball requests.
+
+When the uplink goes through `http_proxy` or `https_proxy` no client-origin header is generated, as before; a value set in the uplink `headers` is still sent.
+
+No configuration change is needed.

@@ -600,7 +600,7 @@ export function uplinkServesUrl(uplinkUrl: URL, tarballUrl: string): boolean {
   }
 }
 
-/** Where a client request comes from, as forwarded to an uplink. */
+/** Where a client request comes from, as forwarded to an uplink on metadata requests. */
 export type ClientOrigin = { remoteAddress?: string; forwardedFor?: string };
 
 /** The client address and the `X-Forwarded-For` chain its request arrived with. */

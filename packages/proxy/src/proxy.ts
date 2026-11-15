@@ -79,9 +79,7 @@ export interface IProxy {
   ): Promise<[Manifest, string]>;
   fetchTarball(
     url: string,
-    options: Partial<
-      Pick<ISyncUplinksOptions, 'remoteAddress' | 'forwardedFor' | 'etag' | 'retry'>
-    > & {
+    options: Partial<Pick<ISyncUplinksOptions, 'remoteAddress' | 'etag' | 'retry'>> & {
       throwHttpErrors?: boolean;
     }
   ): PassThrough;
@@ -434,17 +432,14 @@ class ProxyStorage implements IProxy {
   // FIXME: handle stream and retry
   public fetchTarball(
     url: string,
-    overrideOptions: Pick<
-      ISyncUplinksOptions,
-      'remoteAddress' | 'forwardedFor' | 'etag' | 'retry'
-    > & {
+    overrideOptions: Pick<ISyncUplinksOptions, 'remoteAddress' | 'etag' | 'retry'> & {
       throwHttpErrors?: boolean;
     }
   ): any {
     debug('fetching url for %s', url);
     const options = { ...this.config, ...overrideOptions };
     let headers = this.getHeaders(options?.headers);
-    headers = this.addProxyHeaders(headers, options.remoteAddress, options.forwardedFor);
+    headers = this.addProxyHeaders(headers, options.remoteAddress);
     headers = this.applyUplinkHeaders(headers);
     // the following headers cannot be overwritten
     if (isNil(options.etag) === false) {

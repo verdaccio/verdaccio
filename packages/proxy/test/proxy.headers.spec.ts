@@ -113,17 +113,16 @@ describe('uplink headers config', () => {
       const proxy = new ProxyStorage('uplink', { url: domain }, conf, logger);
       const client = { remoteAddress: '10.0.0.2', forwardedFor: '203.0.113.7, 10.0.0.1' };
 
-      await drain(proxy.fetchTarball(tarball, client));
       await proxy.getRemoteMetadata('pkg', client);
 
-      expect(seen).toEqual(['203.0.113.7, 10.0.0.1, 10.0.0.2', '203.0.113.7, 10.0.0.1, 10.0.0.2']);
+      expect(seen).toEqual(['203.0.113.7, 10.0.0.1, 10.0.0.2']);
     });
 
     test('ignores a chain without a client address', async () => {
       const seen = recordRequests();
       const proxy = new ProxyStorage('uplink', { url: domain }, conf, logger);
 
-      await drain(proxy.fetchTarball(tarball, { forwardedFor: '203.0.113.7' }));
+      await proxy.getRemoteMetadata('pkg', { forwardedFor: '203.0.113.7' });
 
       expect(seen).toEqual([undefined]);
     });
