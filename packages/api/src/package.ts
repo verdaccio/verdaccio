@@ -84,6 +84,9 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
 
         stream.once('error', (err) => {
           debug('error on download tarball %o', err);
+          if (abort.signal.aborted) {
+            return;
+          }
           if (res.headersSent) {
             // The 200 + headers are already on the wire (streaming had started),
             // so an error status can no longer be sent; destroying the response

@@ -3,8 +3,8 @@ import { describe, expect, test, vi } from 'vitest';
 
 import { abortOnResponseClose } from '../../src/abort-on-response-close';
 
-function response(writableFinished = false) {
-  return Object.assign(new EventEmitter(), { writableFinished });
+function response(writableFinished = false, destroyed = false) {
+  return Object.assign(new EventEmitter(), { writableFinished, destroyed });
 }
 
 describe('abortOnResponseClose', () => {
@@ -43,6 +43,31 @@ describe('abortOnResponseClose', () => {
     abortOnResponseClose(res, abort, stream);
     res.emit('close');
 
+    expect(stream.destroy).not.toHaveBeenCalled();
+  });
+
+  test('aborts right away when the response is already closed', () => {
+    const abort = new AbortController();
+    const stream = { destroy: vi.fn() };
+    const onDisconnect = vi.fn();
+    const res = response(false, true);
+
+    abortOnResponseClose(res, abort, stream, onDisconnect);
+
+    expect(onDisconnect).toHaveBeenCalledOnce();
+    expect(abort.signal.aborted).toBe(true);
+    expect(stream.destroy).toHaveBeenCalledOnce();
+    expect(res.listenerCount('close')).toBe(0);
+  });
+
+  test('ignores a response that already closed cleanly', () => {
+    const abort = new AbortController();
+    const stream = { destroy: vi.fn() };
+    const res = response(true, true);
+
+    abortOnResponseClose(res, abort, stream);
+
+    expect(abort.signal.aborted).toBe(false);
     expect(stream.destroy).not.toHaveBeenCalled();
   });
 });

@@ -2,6 +2,7 @@ import type { Readable } from 'node:stream';
 
 type ClosableResponse = {
   writableFinished: boolean;
+  destroyed: boolean;
   on(event: 'close', listener: () => void): unknown;
 };
 
@@ -12,12 +13,17 @@ export function abortOnResponseClose(
   stream: Pick<Readable, 'destroy'>,
   onDisconnect?: () => void
 ): void {
-  res.on('close', () => {
+  const onClose = (): void => {
     if (res.writableFinished || abort.signal.aborted) {
       return;
     }
     onDisconnect?.();
     abort.abort();
     stream.destroy();
-  });
+  };
+  if (res.destroyed) {
+    onClose();
+    return;
+  }
+  res.on('close', onClose);
 }

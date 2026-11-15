@@ -289,6 +289,9 @@ export default function stage(
           res.header(HEADER_TYPE.CONTENT_LENGTH, String(size));
         });
         stream.once('error', (err: any) => {
+          if (abort.signal.aborted) {
+            return;
+          }
           if (res.headersSent) {
             // The 200 + headers are already on the wire; destroying the
             // response is the only way to signal the failure — and the error
