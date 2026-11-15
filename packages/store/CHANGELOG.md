@@ -1,5 +1,22 @@
 # @verdaccio/store
 
+## 9.0.0-next-9.45
+
+### Patch Changes
+
+- 8b3b1ad: chore(store): skip storing secret if it's not changed
+- 3239848: chore(store): type clean-up
+- Updated dependencies [5afb52c]
+  - @verdaccio/proxy@9.0.0-next-9.45
+  - @verdaccio/search@9.0.0-next-9.45
+  - @verdaccio/config@9.0.0-next-9.45
+  - @verdaccio/core@9.0.0-next-9.45
+  - @verdaccio/loaders@9.0.0-next-9.45
+  - @verdaccio/tarball@14.0.0-next-9.45
+  - @verdaccio/url@14.0.0-next-9.45
+  - @verdaccio/logger@9.0.0-next-9.45
+  - @verdaccio/local-storage@14.0.0-next-9.45
+
 ## 9.0.0-next-9.44
 
 ### Minor Changes

@@ -1,5 +1,22 @@
 # @verdaccio/web
 
+## 9.0.0-next-9.45
+
+### Patch Changes
+
+- Updated dependencies [8b3b1ad]
+- Updated dependencies [3239848]
+- Updated dependencies [0ab5fc9]
+  - @verdaccio/store@9.0.0-next-9.45
+  - @verdaccio/ui-theme@9.0.0-next-9.45
+  - @verdaccio/config@9.0.0-next-9.45
+  - @verdaccio/core@9.0.0-next-9.45
+  - @verdaccio/auth@9.0.0-next-9.45
+  - @verdaccio/loaders@9.0.0-next-9.45
+  - @verdaccio/middleware@9.0.0-next-9.45
+  - @verdaccio/tarball@14.0.0-next-9.45
+  - @verdaccio/logger@9.0.0-next-9.45
+
 ## 9.0.0-next-9.44
 
 ### Minor Changes
