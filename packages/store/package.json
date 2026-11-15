@@ -51,7 +51,7 @@
     "debug": "4.4.3",
     "lodash-es": "4.18.1",
     "lru-cache": "11.5.0",
-    "semver": "7.8.5"
+    "semver": "7.8.6"
   },
   "devDependencies": {
     "@types/lodash-es": "4.17.12",
