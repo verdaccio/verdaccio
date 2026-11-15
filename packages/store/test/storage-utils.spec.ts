@@ -8,6 +8,7 @@ import {
   STORAGE,
   cleanUpReadme,
   distFileFromVersion,
+  getClientOrigin,
   lookupDistFile,
   tarballMatchesFilename,
   uplinkServesUrl,
@@ -821,6 +822,37 @@ describe('Storage Utils', () => {
       ).toBe(false);
       expect(maintainerAllowsLocalUser('$uplink:npmjs:bob', 'bob')).toBe(false);
       expect(maintainerAllowsLocalUser({ name: 'anonymous', email: '' }, undefined)).toBe(true);
+    });
+  });
+
+  describe('getClientOrigin', () => {
+    const base = { host: 'localhost', protocol: 'http' };
+
+    test('returns the client address and the forwarded chain', () => {
+      expect(
+        getClientOrigin({
+          ...base,
+          headers: { 'x-forwarded-for': '203.0.113.7, 10.0.0.1' },
+          remoteAddress: '10.0.0.2',
+        })
+      ).toEqual({ remoteAddress: '10.0.0.2', forwardedFor: '203.0.113.7, 10.0.0.1' });
+    });
+
+    test('joins a header that arrived more than once', () => {
+      expect(
+        getClientOrigin({
+          ...base,
+          headers: { 'x-forwarded-for': ['203.0.113.7', '10.0.0.1'] } as any,
+          remoteAddress: '10.0.0.2',
+        }).forwardedFor
+      ).toBe('203.0.113.7, 10.0.0.1');
+    });
+
+    test('leaves the chain empty for a direct client', () => {
+      expect(getClientOrigin({ ...base, headers: {}, remoteAddress: '198.51.100.4' })).toEqual({
+        remoteAddress: '198.51.100.4',
+        forwardedFor: undefined,
+      });
     });
   });
 });

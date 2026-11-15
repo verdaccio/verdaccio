@@ -70,6 +70,7 @@ import {
   cleanUpLinksRef,
   generatePackageTemplate,
   generateRevision,
+  getClientOrigin,
   getLatestReadme,
   mapManifestToSearchPackageBody,
   maintainerAllowsLocalUser,
@@ -2064,7 +2065,7 @@ class Storage {
     const [remoteManifest, upLinksErrors] = await this.syncUplinksMetadata(name, data, {
       uplinksLook: options.uplinksLook,
       retry: options.retry,
-      remoteAddress: options.requestOptions.remoteAddress,
+      ...getClientOrigin(options.requestOptions),
       // etag??
     });
 

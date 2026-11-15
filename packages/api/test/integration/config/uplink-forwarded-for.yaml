@@ -1,0 +1,26 @@
+auth:
+  htpasswd:
+    file: ./htpasswd-uplink-forwarded-for
+
+uplinks:
+  remote:
+    url: https://registry.forwarded.test/
+    retry: 0
+  pinned:
+    url: https://pinned.forwarded.test/
+    retry: 0
+    headers:
+      x-forwarded-for: 192.0.2.99
+
+log: { type: stdout, format: pretty, level: warn }
+
+packages:
+  'pinned-*':
+    access: $all
+    proxy: pinned
+  'remote-*':
+    access: $all
+    proxy: remote
+  '**':
+    access: $all
+    publish: $anonymous

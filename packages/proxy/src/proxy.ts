@@ -94,6 +94,8 @@ export interface ISyncUplinksOptions extends Options {
   uplinksLook?: boolean;
   etag?: string;
   remoteAddress?: string;
+  /** `X-Forwarded-For` chain the client request arrived with */
+  forwardedFor?: string;
 }
 
 /**
@@ -308,6 +310,12 @@ class ProxyStorage implements IProxy {
     // add/override headers specified in the config
     /* eslint guard-for-in: 0 */
     for (const key in this.config.headers) {
+      // header names are case-insensitive: drop any other spelling so the config value wins
+      for (const existing of Object.keys(headers)) {
+        if (existing !== key && existing.toLowerCase() === key.toLowerCase()) {
+          delete headers[existing];
+        }
+      }
       headers[key] = this.config.headers[key];
     }
     return headers;
@@ -324,7 +332,7 @@ class ProxyStorage implements IProxy {
     // FUTURE: allow mix headers that comes from the client
     debug('getting metadata for package %s', name);
     let headers = this.getHeaders(options?.headers);
-    headers = this.addProxyHeaders(headers, options.remoteAddress);
+    headers = this.addProxyHeaders(headers, options.remoteAddress, options.forwardedFor);
     headers = this.applyUplinkHeaders(headers);
     // the following headers cannot be overwritten
     if (isNil(options.etag) === false) {
@@ -624,14 +632,19 @@ class ProxyStorage implements IProxy {
     return new URL(path.replace(/^\/+/, ''), base).href;
   }
 
-  private addProxyHeaders(headers: gotHeaders, remoteAddress?: string): gotHeaders {
+  private addProxyHeaders(
+    headers: gotHeaders,
+    remoteAddress?: string,
+    forwardedFor?: string
+  ): gotHeaders {
     // Only submit X-Forwarded-For field if we don't have a proxy selected
     // in the config file.
     //
     // Otherwise misconfigured proxy could return 407
-    if (!this.proxy) {
-      headers[HEADERS.FORWARDED_FOR] =
-        (headers['x-forwarded-for'] ? headers['x-forwarded-for'] + ', ' : '') + remoteAddress;
+    // without a client address there is nothing to forward
+    if (!this.proxy && remoteAddress) {
+      const chain = forwardedFor || headers['x-forwarded-for'];
+      headers[HEADERS.FORWARDED_FOR] = (chain ? chain + ', ' : '') + remoteAddress;
     }
 
     // always attach Via header to avoid loops, even if we're not proxying
