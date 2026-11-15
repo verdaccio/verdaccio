@@ -2,7 +2,7 @@ import type { Application } from 'express';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import http from 'node:http';
-import type { AddressInfo } from 'node:net';
+import type { AddressInfo, Socket } from 'node:net';
 import path from 'node:path';
 import supertest from 'supertest';
 import { afterEach, describe, expect, test, vi } from 'vitest';
@@ -10,7 +10,9 @@ import { afterEach, describe, expect, test, vi } from 'vitest';
 import { HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 import { generateRemotePackageMetadata } from '@verdaccio/test-helper';
 
+import LocalStorage from '../../../../src/lib/local-storage';
 import Storage from '../../../../src/lib/storage';
+import ProxyStorage from '../../../../src/lib/up-storage';
 import { initializeServer, publishVersion } from './_helper';
 
 // larger than every buffer between the file and the socket, so a download is still in flight
@@ -37,12 +39,20 @@ async function waitFor(condition: () => boolean, what: string, timeout = 4000): 
   }
 }
 
-const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
+/** One turn of the event loop: every callback already queued has run. */
+const tick = (): Promise<void> => new Promise((resolve) => setImmediate(resolve));
+
+// server side sockets still open, to observe when a server saw its client leave
+const serverSockets = new Set<Socket>();
 
 async function listen(
   handler: http.RequestListener
 ): Promise<{ server: http.Server; port: number }> {
   const server = http.createServer(handler);
+  server.on('connection', (socket) => {
+    serverSockets.add(socket);
+    socket.once('close', () => serverSockets.delete(socket));
+  });
   await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve));
   cleanups.push(
     () =>
@@ -101,8 +111,13 @@ async function requestAndDisconnect(
   const req = http.get({ host: '127.0.0.1', port, path: url, agent: false });
   req.on('error', () => {});
   await ready;
+  const clientPort = req.socket?.localPort;
   req.destroy();
-  await sleep(50);
+  await waitFor(
+    () => ![...serverSockets].some((socket) => socket.remotePort === clientPort),
+    'the server to see the client leave'
+  );
+  await tick();
 }
 
 type TarballReads = { streams: fs.ReadStream[] };
@@ -310,18 +325,24 @@ describe('tarball download when the client disconnects', () => {
       const { port, reads } = await localRegistry(['foo']);
       const gate = deferred();
       const requested = deferred();
+      const checked = deferred();
+      const readLocal = vi.spyOn(LocalStorage.prototype, 'getTarball');
       vi.spyOn(Storage.prototype as any, '_isTarballAllowedByFilters').mockImplementation(
         async () => {
           requested.resolve();
           await gate.promise;
+          // resolves after the storage continued past the filter check
+          setImmediate(checked.resolve);
           return true;
         }
       );
 
       await requestAndDisconnect(port, tarballUrl('foo'), requested.promise);
       gate.resolve();
-      await sleep(200);
+      await checked.promise;
+      await tick();
 
+      expect(readLocal).not.toHaveBeenCalled();
       expect(reads.streams).toHaveLength(0);
     });
 
@@ -397,11 +418,14 @@ describe('tarball download when the client disconnects', () => {
 
     test('should still cache a tarball that was downloaded completely', async () => {
       const { port, upstream } = await proxyRegistry();
+      const writes = trackTarballWrites();
 
       const first = await download(port, tarballUrl('foo'));
       expect(first.body.equals(TARBALL)).toBe(true);
-      // the cache is committed after the response ends
-      await sleep(300);
+      // the cache is committed after the response ends: wait for the final file
+      expect(writes).toHaveLength(1);
+      const cached = path.join(path.dirname(writes[0]), 'foo-1.0.0.tgz');
+      await waitFor(() => fs.existsSync(cached), 'the tarball to be committed to the cache');
       const second = await download(port, tarballUrl('foo'));
 
       expect(second.status).toBe(HTTP_STATUS.OK);
@@ -430,12 +454,34 @@ describe('tarball download when the client disconnects', () => {
       const requested = deferred();
       upstream.packumentGate = gate.promise;
       upstream.onPackumentRequest = requested.resolve;
+      const fetchTarball = vi.spyOn(ProxyStorage.prototype, 'fetchTarball');
+      // the first thing a proxied download does after the lookup is to open the cache file
+      const cacheTarball = vi.spyOn(LocalStorage.prototype, 'addTarball');
+      // resolves once the storage handled the result of the metadata lookup
+      const lookedUp = deferred();
+      const syncUplinks = (Storage.prototype as any)._syncUplinksMetadata;
+      vi.spyOn(Storage.prototype as any, '_syncUplinksMetadata').mockImplementation(function (
+        this: Storage,
+        name: string,
+        info: unknown,
+        options: unknown,
+        callback: (...args: unknown[]) => unknown
+      ) {
+        return syncUplinks.call(this, name, info, options, (...args: unknown[]) => {
+          const result = callback(...args);
+          lookedUp.resolve();
+          return result;
+        });
+      });
 
       await requestAndDisconnect(port, tarballUrl('foo'), requested.promise);
       gate.resolve();
-      await sleep(300);
+      await lookedUp.promise;
+      await tick();
 
       expect(upstream.packumentRequests).toBeGreaterThan(0);
+      expect(cacheTarball).not.toHaveBeenCalled();
+      expect(fetchTarball).not.toHaveBeenCalled();
       expect(upstream.tarballRequests).toBe(0);
     });
 
@@ -451,11 +497,26 @@ describe('tarball download when the client disconnects', () => {
         await gate.promise;
         return false;
       });
+      const fetchTarball = vi.spyOn(ProxyStorage.prototype, 'fetchTarball');
+      const readLocal = vi.spyOn(LocalStorage.prototype, 'getTarball');
+      // resolves after the storage continued past the filter check of the download
+      const checked = deferred();
+      const isAllowed = (Storage.prototype as any)._isTarballAllowedByFilters;
+      vi.spyOn(Storage.prototype as any, '_isTarballAllowedByFilters').mockImplementation(
+        async function (this: Storage, ...args: unknown[]) {
+          const allowed = await isAllowed.apply(this, args);
+          setImmediate(checked.resolve);
+          return allowed;
+        }
+      );
 
       await requestAndDisconnect(port, tarballUrl('foo'), requested.promise);
       gate.resolve();
-      await sleep(300);
+      await checked.promise;
+      await tick();
 
+      expect(readLocal).not.toHaveBeenCalled();
+      expect(fetchTarball).not.toHaveBeenCalled();
       expect(upstream.tarballRequests).toBe(0);
     });
 
