@@ -128,17 +128,20 @@ describe('uplink headers config', () => {
       expect(seen).toEqual([undefined]);
     });
 
-    test('a value set in the uplink headers config wins', async () => {
-      const seen = recordRequests();
-      const headers = { 'X-Forwarded-For': '192.0.2.9' };
-      const proxy = new ProxyStorage('uplink', { url: domain, headers }, conf, logger);
+    test.each(['X-Forwarded-For', 'x-forwarded-for', 'X-FORWARDED-FOR'])(
+      'a value set in the uplink headers config as %s wins',
+      async (name) => {
+        const seen = recordRequests();
+        const headers = { [name]: '192.0.2.9' };
+        const proxy = new ProxyStorage('uplink', { url: domain, headers }, conf, logger);
 
-      await drain(proxy.fetchTarball(tarball, {}));
-      await drain(proxy.fetchTarball(tarball, { remoteAddress: '198.51.100.4' }));
-      await proxy.getRemoteMetadata('pkg', { remoteAddress: '198.51.100.4' });
+        await drain(proxy.fetchTarball(tarball, {}));
+        await drain(proxy.fetchTarball(tarball, { remoteAddress: '198.51.100.4' }));
+        await proxy.getRemoteMetadata('pkg', { remoteAddress: '198.51.100.4' });
 
-      expect(seen).toEqual(['192.0.2.9', '192.0.2.9', '192.0.2.9']);
-      expect(headers).toEqual({ 'X-Forwarded-For': '192.0.2.9' });
-    });
+        expect(seen).toEqual(['192.0.2.9', '192.0.2.9', '192.0.2.9']);
+        expect(headers).toEqual({ [name]: '192.0.2.9' });
+      }
+    );
   });
 });

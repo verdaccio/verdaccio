@@ -312,6 +312,12 @@ class ProxyStorage implements IProxy {
     // add/override headers specified in the config
     /* eslint guard-for-in: 0 */
     for (const key in this.config.headers) {
+      // header names are case-insensitive: drop any other spelling so the config value wins
+      for (const existing of Object.keys(headers)) {
+        if (existing !== key && existing.toLowerCase() === key.toLowerCase()) {
+          delete headers[existing];
+        }
+      }
       headers[key] = this.config.headers[key];
     }
     return headers;

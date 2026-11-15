@@ -10,4 +10,4 @@ Tarball requests to an uplink carried the literal value `undefined`, because the
 
 The header is now only sent when the client address is known, and it is built the same way for metadata and tarball requests: the `X-Forwarded-For` chain the client request arrived with, followed by the client address. Metadata requests had lost the incoming chain compared to 6.x, and tarball requests now carry it as well.
 
-The client origin is only sent to a configured uplink. A tarball hosted on another host than the uplink is fetched without it. An `X-Forwarded-For` value set in the `headers` option of an uplink still takes precedence, and nothing is sent when the uplink goes through `http_proxy` or `https_proxy`, as before.
+The client origin is only sent to a configured uplink. A tarball hosted on another host than the uplink is fetched without it. An `X-Forwarded-For` value set in the `headers` option of an uplink takes precedence however the header name is capitalised (a lower-case `x-forwarded-for` lost against the generated value on tarball requests), and nothing is sent when the uplink goes through `http_proxy` or `https_proxy`, as before.
