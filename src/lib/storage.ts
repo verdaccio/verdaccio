@@ -355,7 +355,12 @@ class Storage {
   public getTarball(name: string, filename: string) {
     debug('get tarball for package %o filename %o', name, filename);
     const readStream = new ReadTarball({});
-    readStream.abort = function () {};
+    let aborted = false;
+    let abortSource = function (): void {};
+    readStream.abort = function (): void {
+      aborted = true;
+      abortSource();
+    };
 
     const self = this;
 
@@ -367,10 +372,18 @@ class Storage {
         readStream.emit('error', ErrorCode.getNotFound(API_ERROR.NO_PACKAGE));
         return;
       }
+      if (aborted) {
+        return;
+      }
 
       // trying local first
       let localStream: any = self.localStorage.getTarball(name, filename);
       let isOpen = false;
+      abortSource = function (): void {
+        if (localStream) {
+          localStream.abort();
+        }
+      };
       localStream.on('error', (err): any => {
         if (isOpen || err.status !== HTTP_STATUS.NOT_FOUND) {
           return readStream.emit('error', err);
@@ -450,6 +463,9 @@ class Storage {
      * @param {Manifest} origin package metadata the distfile was resolved from
      */
     function serveFile(file: DistFile, origin?: Manifest | null): void {
+      if (aborted) {
+        return;
+      }
       let uplink: any = null;
 
       const candidates: any[] = [];
@@ -517,10 +533,25 @@ class Storage {
         debug('cache remote tarball disabled');
       }
 
+      let rstream2: any = null;
+      // drop the cache write first so a truncated tarball is never committed
+      abortSource = function (): void {
+        if (savestream) {
+          savestream.abort();
+        }
+        savestream = null;
+        if (rstream2) {
+          rstream2.abort();
+        }
+      };
+
       let on_open = function (): void {
         // prevent it from being called twice
         on_open = function () {};
-        const rstream2 = uplink.fetchTarball(file.url);
+        if (aborted) {
+          return;
+        }
+        rstream2 = uplink.fetchTarball(file.url);
         rstream2.on('error', function (err): void {
           if (savestream) {
             savestream.abort();
