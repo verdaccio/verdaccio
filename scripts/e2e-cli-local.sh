@@ -71,4 +71,6 @@ done
 echo ""
 echo "Running E2E CLI tests: pm=$PM"
 echo "---"
-E2E_UPLINK_PORT="$UPLINK_PORT" pnpm verdaccio-e2e --registry "$REGISTRY_URL" --pm "$PM" --uplink-port "$UPLINK_PORT" -v
+# same on-demand scenarios CI enables; override with E2E_PENDING_CONTRACT_CHECKS
+E2E_PENDING_CONTRACT_CHECKS="${E2E_PENDING_CONTRACT_CHECKS-tarballs,tarball-disconnect}" \
+  E2E_UPLINK_PORT="$UPLINK_PORT" pnpm verdaccio-e2e --registry "$REGISTRY_URL" --pm "$PM" --uplink-port "$UPLINK_PORT" -v

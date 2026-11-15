@@ -272,3 +272,44 @@ export async function keepAliveGet(
     await new Promise((resolve) => server.close(resolve));
   }
 }
+
+/**
+ * Sends a GET and drops the connection once `until` resolves, without reading the response.
+ * Resolves after the server saw the socket close; the returned function shuts the server down.
+ */
+export async function abandonedGet(
+  app: Application,
+  path: string,
+  options: {
+    until: Promise<unknown>;
+    headers?: Record<string, string>;
+    reportError?: (err: unknown) => void;
+  }
+): Promise<() => Promise<void>> {
+  const outer = express();
+  outer.use((_req, res, next) => {
+    if (options.reportError) {
+      res.locals.report_error = options.reportError;
+    }
+    next();
+  });
+  outer.use(app);
+  const server = outer.listen(0, '127.0.0.1');
+  await once(server, 'listening');
+  const serverSocketClosed = once(server, 'connection').then(([socket]) => once(socket, 'close'));
+  const socket = net.connect((server.address() as AddressInfo).port, '127.0.0.1');
+  socket.on('error', () => {});
+  await once(socket, 'connect');
+  const head = Object.entries({ host: 'localhost', ...options.headers })
+    .map(([name, value]) => `${name}: ${value}\r\n`)
+    .join('');
+  socket.write(`GET ${path} HTTP/1.1\r\n${head}\r\n`);
+  await options.until;
+  socket.destroy();
+  await serverSocketClosed;
+  await new Promise((resolve) => setImmediate(resolve));
+  return async () => {
+    server.closeAllConnections();
+    await new Promise((resolve) => server.close(resolve));
+  };
+}

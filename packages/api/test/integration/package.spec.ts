@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-import { PassThrough } from 'node:stream';
+import { PassThrough, addAbortSignal } from 'node:stream';
 import { finished } from 'node:stream/promises';
 import supertest from 'supertest';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
@@ -17,6 +17,7 @@ import {
 import { Storage } from '@verdaccio/store';
 
 import {
+  abandonedGet,
   buildToken,
   initializeServer,
   initializeServerWithContext,
@@ -101,7 +102,110 @@ describe('package', () => {
       expect(contentLength).toBeGreaterThan(0);
       expect(contentLength).toEqual(Buffer.from(response.body).length);
     });
-    test.todo('fails on file was aborted');
+    test('should abort storage and destroy the stream when the client disconnects mid-download', async () => {
+      const stream = new PassThrough();
+      let signal: AbortSignal | undefined;
+      const spy = vi
+        .spyOn(Storage.prototype, 'getTarball')
+        .mockImplementation(async (_n, _f, opts) => {
+          signal = opts.signal;
+          return stream as any;
+        });
+      try {
+        // Keep the source open so the download is still in flight when the client leaves.
+        stream.push(Buffer.alloc(1024));
+        const request = supertest(app)
+          .get('/foo/-/foo-1.0.0.tgz')
+          .timeout({ deadline: 3000 })
+          .buffer(true)
+          .parse((response, callback) => {
+            response.once('data', () => {
+              request.abort();
+            });
+            response.once('error', callback);
+            response.once('end', () => callback(null, Buffer.alloc(0)));
+          });
+        const aborted = new Promise<void>((resolve) => {
+          const watch = (): void => {
+            if (!signal) {
+              setImmediate(watch);
+              return;
+            }
+            if (signal.aborted) {
+              resolve();
+              return;
+            }
+            signal.addEventListener('abort', () => resolve(), { once: true });
+          };
+          watch();
+        });
+        await expect(request).rejects.toThrow(/aborted|socket hang up|ECONNRESET/i);
+        await aborted;
+        expect(signal?.aborted).toBe(true);
+        expect(stream.destroyed).toBe(true);
+      } finally {
+        stream.destroy();
+        spy.mockRestore();
+      }
+    });
+
+    test('should release the stream when the client disconnects before storage resolves', async () => {
+      const stream = new PassThrough();
+      let signal: AbortSignal | undefined;
+      let onRequested: () => void = () => {};
+      const requested = new Promise<void>((resolve) => (onRequested = resolve));
+      let release: () => void = () => {};
+      const gate = new Promise<void>((resolve) => (release = resolve));
+      const spy = vi
+        .spyOn(Storage.prototype, 'getTarball')
+        .mockImplementation(async (_n, _f, opts) => {
+          signal = opts.signal;
+          onRequested();
+          await gate;
+          return stream as any;
+        });
+      let close: () => Promise<void> = async () => {};
+      try {
+        // the client is gone while the storage lookup is still pending
+        close = await abandonedGet(app, '/foo/-/foo-1.0.0.tgz', { until: requested });
+        expect(stream.destroyed).toBe(false);
+        release();
+        await vi.waitFor(() => expect(stream.destroyed).toBe(true));
+        expect(signal?.aborted).toBe(true);
+      } finally {
+        release();
+        stream.destroy();
+        spy.mockRestore();
+        await close();
+      }
+    });
+
+    test('should not report an error when the client disconnects before the first chunk', async () => {
+      let stream: PassThrough | undefined;
+      let onRequested: () => void = () => {};
+      const requested = new Promise<void>((resolve) => (onRequested = resolve));
+      const spy = vi
+        .spyOn(Storage.prototype, 'getTarball')
+        .mockImplementation(async (_n, _f, opts) => {
+          // like the storage plugins: aborting the signal fails the stream
+          stream = addAbortSignal(opts.signal, new PassThrough());
+          // let the route attach its handlers before the client leaves
+          setImmediate(onRequested);
+          return stream as any;
+        });
+      const reportError = vi.fn();
+      let close: () => Promise<void> = async () => {};
+      try {
+        close = await abandonedGet(app, '/foo/-/foo-1.0.0.tgz', { until: requested, reportError });
+        await vi.waitFor(() => expect(stream?.destroyed).toBe(true));
+        await new Promise((resolve) => setImmediate(resolve));
+        expect(reportError).not.toHaveBeenCalled();
+      } finally {
+        stream?.destroy();
+        spy.mockRestore();
+        await close();
+      }
+    });
 
     test('should terminate the connection when the stream fails mid-download', async () => {
       // simulates an uplink dropping the connection halfway through a tarball:

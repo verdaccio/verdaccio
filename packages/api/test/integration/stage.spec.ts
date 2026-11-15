@@ -1,5 +1,5 @@
 import nock from 'nock';
-import { Readable } from 'node:stream';
+import { PassThrough, Readable, addAbortSignal } from 'node:stream';
 import supertest from 'supertest';
 import type { MockInstance } from 'vitest';
 import { beforeAll, beforeEach, describe, expect, test, vi } from 'vitest';
@@ -18,6 +18,7 @@ import { StageStorage } from '@verdaccio/store';
 import { generatePackageMetadata } from '@verdaccio/test-helper';
 
 import {
+  abandonedGet,
   buildToken,
   getNewToken,
   initializeServer,
@@ -348,6 +349,126 @@ describe('stage', () => {
       await authed(supertest(app).get(`/-/stage/${A_UUID}/tarball`), token).expect(
         HTTP_STATUS.NOT_FOUND
       );
+    });
+
+    test('should abort storage and destroy the stream when the client disconnects mid-download', async () => {
+      const { app, token } = await buildApp();
+      const staged = await stageVersion(app, 'foo-disconnect', '1.0.0', token);
+      const stream = new PassThrough();
+      let signal: AbortSignal | undefined;
+      const spy = vi
+        .spyOn(StageStorage.prototype, 'readTarball')
+        .mockImplementation(async (_id, opts) => {
+          signal = opts.signal;
+          return stream as any;
+        });
+      try {
+        stream.push(Buffer.alloc(1024));
+        const request = authed(
+          supertest(app)
+            .get(`/-/stage/${staged.body.stageId}/tarball`)
+            .timeout({ deadline: 3000 })
+            .buffer(true)
+            .parse((response, callback) => {
+              response.once('data', () => {
+                request.abort();
+              });
+              response.once('error', callback);
+              response.once('end', () => callback(null, Buffer.alloc(0)));
+            }),
+          token
+        );
+        const aborted = new Promise<void>((resolve) => {
+          const watch = (): void => {
+            if (!signal) {
+              setImmediate(watch);
+              return;
+            }
+            if (signal.aborted) {
+              resolve();
+              return;
+            }
+            signal.addEventListener('abort', () => resolve(), { once: true });
+          };
+          watch();
+        });
+        await expect(request).rejects.toThrow(/aborted|socket hang up|ECONNRESET/i);
+        await aborted;
+        expect(signal?.aborted).toBe(true);
+        expect(stream.destroyed).toBe(true);
+      } finally {
+        stream.destroy();
+        spy.mockRestore();
+      }
+    });
+
+    test('should release the stream when the client disconnects before storage resolves', async () => {
+      const { app, token } = await buildApp();
+      const staged = await stageVersion(app, 'foo-early-disconnect', '1.0.0', token);
+      const stream = new PassThrough();
+      let signal: AbortSignal | undefined;
+      let onRequested: () => void = () => {};
+      const requested = new Promise<void>((resolve) => (onRequested = resolve));
+      let release: () => void = () => {};
+      const gate = new Promise<void>((resolve) => (release = resolve));
+      const spy = vi
+        .spyOn(StageStorage.prototype, 'readTarball')
+        .mockImplementation(async (_id, opts) => {
+          signal = opts.signal;
+          onRequested();
+          await gate;
+          return stream as any;
+        });
+      let close: () => Promise<void> = async () => {};
+      try {
+        // the client is gone while the storage read is still pending
+        close = await abandonedGet(app, `/-/stage/${staged.body.stageId}/tarball`, {
+          until: requested,
+          headers: { [HEADERS.AUTHORIZATION]: buildToken(TOKEN_BEARER, token) },
+        });
+        expect(stream.destroyed).toBe(false);
+        release();
+        await vi.waitFor(() => expect(stream.destroyed).toBe(true));
+        expect(signal?.aborted).toBe(true);
+      } finally {
+        release();
+        stream.destroy();
+        spy.mockRestore();
+        await close();
+      }
+    });
+
+    test('should not report an error when the client disconnects before the first chunk', async () => {
+      const { app, token } = await buildApp();
+      const staged = await stageVersion(app, 'foo-silent-disconnect', '1.0.0', token);
+      let stream: PassThrough | undefined;
+      let onRequested: () => void = () => {};
+      const requested = new Promise<void>((resolve) => (onRequested = resolve));
+      const spy = vi
+        .spyOn(StageStorage.prototype, 'readTarball')
+        .mockImplementation(async (_id, opts) => {
+          // like the storage plugins: aborting the signal fails the stream
+          stream = addAbortSignal(opts.signal, new PassThrough());
+          // let the route attach its handlers before the client leaves
+          setImmediate(onRequested);
+          return stream as any;
+        });
+      const reportError = vi.fn();
+      let close: () => Promise<void> = async () => {};
+      try {
+        close = await abandonedGet(app, `/-/stage/${staged.body.stageId}/tarball`, {
+          until: requested,
+          headers: { [HEADERS.AUTHORIZATION]: buildToken(TOKEN_BEARER, token) },
+          reportError,
+        });
+        await vi.waitFor(() => expect(stream?.destroyed).toBe(true));
+        await new Promise((resolve) => setImmediate(resolve));
+        expect(reportError).not.toHaveBeenCalled();
+      } finally {
+        stream?.destroy();
+        spy.mockRestore();
+        await close();
+      }
     });
 
     test.each(['unknown id', 'stream error'] as const)(
