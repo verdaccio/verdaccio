@@ -12,7 +12,7 @@ inputs:
   pending-checks:
     description: 'E2E_PENDING_CONTRACT_CHECKS'
     required: false
-    default: 'tarballs'
+    default: 'tarballs,tarball-disconnect'
 
 runs:
   using: composite
