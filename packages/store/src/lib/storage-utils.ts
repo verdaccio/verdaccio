@@ -25,6 +25,8 @@ import type {
   Version,
 } from '@verdaccio/types';
 
+import type { RequestOptions } from '@verdaccio/url';
+
 import { sortVersionsAndFilterInvalid } from './versions-utils';
 
 const debug = buildDebug('verdaccio:storage:utils');
@@ -596,4 +598,16 @@ export function uplinkServesUrl(uplinkUrl: URL, tarballUrl: string): boolean {
   } catch {
     return false;
   }
+}
+
+/** Where a client request comes from, as forwarded to an uplink. */
+export type ClientOrigin = { remoteAddress?: string; forwardedFor?: string };
+
+/** The client address and the `X-Forwarded-For` chain its request arrived with. */
+export function getClientOrigin(requestOptions: RequestOptions): ClientOrigin {
+  const forwarded = requestOptions.headers?.['x-forwarded-for'];
+  return {
+    remoteAddress: requestOptions.remoteAddress,
+    forwardedFor: Array.isArray(forwarded) ? forwarded.join(', ') : forwarded,
+  };
 }

@@ -69,6 +69,7 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
         debug('downloading tarball %o', filename);
         const stream = (await storage.getTarball(pkgName, filename, {
           signal: abort.signal,
+          requestOptions: getRequestOptions(req),
           // TODO: review why this param
           // enableRemote: true,
         })) as any;
