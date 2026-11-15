@@ -1877,9 +1877,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/e2e-cli@npm:4.0.1":
-  version: 4.0.1
-  resolution: "@verdaccio/e2e-cli@npm:4.0.1"
+"@verdaccio/e2e-cli@npm:4.2.0":
+  version: 4.2.0
+  resolution: "@verdaccio/e2e-cli@npm:4.2.0"
   dependencies:
     "@verdaccio/registry-cli": "npm:^1.1.0"
     debug: "npm:4.4.3"
@@ -1887,7 +1887,7 @@ __metadata:
     js-yaml: "npm:5.4.1"
   bin:
     verdaccio-e2e: ./bin/e2e-cli.js
-  checksum: 10c0/a3d2ca5b5404a1b3fb2eb9ff085aa75a1e75de090cfe19469a0c8cf3e21bf81f81ec3b7378a41956703ceb158fbac74ce862092eb906576fbedbc21bc2ed3e8a
+  checksum: 10c0/8d752add7e4d9ac19322e05e6037f9ad64c11afa03d302571d6949988cffcbf9410ff84bbf902339d5aff195d897c9f0077c9c060530ecdf855f99db23c3d46f
   languageName: node
   linkType: hard
 
@@ -7250,7 +7250,7 @@ __metadata:
     "@verdaccio/auth": "npm:8.1.7"
     "@verdaccio/config": "npm:8.4.0"
     "@verdaccio/core": "npm:8.4.0"
-    "@verdaccio/e2e-cli": "npm:4.0.1"
+    "@verdaccio/e2e-cli": "npm:4.2.0"
     "@verdaccio/e2e-ui": "npm:2.8.0"
     "@verdaccio/hooks": "npm:8.1.8"
     "@verdaccio/loaders": "npm:8.1.7"
