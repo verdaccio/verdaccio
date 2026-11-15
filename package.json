@@ -14,6 +14,9 @@
     "type": "opencollective",
     "url": "https://opencollective.com/verdaccio"
   },
+  "bin": {
+    "verdaccio": "./packages/verdaccio/bin/verdaccio"
+  },
   "devDependencies": {
     "@changesets/cli": "3.0.3",
     "@crowdin/cli": "5.4.0",
