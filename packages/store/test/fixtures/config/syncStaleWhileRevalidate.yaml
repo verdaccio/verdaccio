@@ -1,0 +1,11 @@
+uplinks:
+  ver:
+    url: https://fake.verdaccio.org/
+    retry: 0
+    stale_while_revalidate: true
+packages:
+  'foo':
+    access: $all
+    publish: $authenticated
+    proxy: ver
+log: { type: stdout, format: pretty, level: warn }

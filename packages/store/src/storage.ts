@@ -108,6 +108,7 @@ class Storage {
   private searchService: Search;
   private stageStorage: StageStorage | null = null;
   private tarballMetadata: TarballMetadataService | null = null;
+  private backgroundRefreshStartedAt = new Map<string, number>();
   public constructor(config: Config, logger: Logger) {
     this.config = config;
     this.logger = logger.child({ module: 'storage' });
@@ -2065,6 +2066,7 @@ class Storage {
     const [remoteManifest, upLinksErrors] = await this.syncUplinksMetadata(name, data, {
       uplinksLook: options.uplinksLook,
       retry: options.retry,
+      allowStale: true,
       ...getClientOrigin(options.requestOptions),
       // etag??
     });
@@ -2137,6 +2139,16 @@ class Storage {
         return [null, []];
       }
 
+      return await this.applyFilters(localManifest);
+    }
+
+    if (
+      options.allowStale === true &&
+      localManifest !== null &&
+      this.hasExpiredUplinksServingStale(localManifest, upLinks)
+    ) {
+      debug('serving %o from the store while its uplinks refresh in the background', name);
+      this.refreshUplinksInBackground(name, upLinks);
       return await this.applyFilters(localManifest);
     }
 
@@ -2216,6 +2228,65 @@ class Storage {
 
       throw errorUtils.getNotFound(API_ERROR.NO_PACKAGE);
     }
+  }
+
+  /**
+   * True when every uplink of the package has been fetched before, at least one is past its
+   * `maxage`, and every expired one has `stale_while_revalidate` enabled.
+   */
+  private hasExpiredUplinksServingStale(manifest: Manifest, upLinks: string[]): boolean {
+    const proxies = upLinks.map((uplinkName) => this.uplinks[uplinkName]);
+    const fetchedAt = (proxy: IProxy): number | undefined => {
+      const upLinkMeta = manifest._uplinks?.[proxy.uplinkName];
+      return validationUtils.isObject(upLinkMeta) ? upLinkMeta.fetched : undefined;
+    };
+    if (proxies.some((proxy) => !fetchedAt(proxy))) {
+      return false;
+    }
+    const expired = proxies.filter(
+      (proxy) => Date.now() - (fetchedAt(proxy) as number) >= proxy.maxage
+    );
+    return expired.length > 0 && expired.every((proxy) => proxy.stale_while_revalidate);
+  }
+
+  /**
+   * Start one uplink refresh of `name` unless one started less than the longest uplink
+   * timeout ago (at least 30 s); that one is treated as abandoned afterwards.
+   */
+  private refreshUplinksInBackground(name: string, upLinks: string[]): void {
+    const abandonAfterMs = Math.max(
+      30_000,
+      ...upLinks.map((uplinkName) => this.uplinks[uplinkName].timeout.request ?? 0)
+    );
+    const inFlightStartedAt = this.backgroundRefreshStartedAt.get(name);
+    if (inFlightStartedAt !== undefined && Date.now() - inFlightStartedAt < abandonAfterMs) {
+      return;
+    }
+    const startedAt = Date.now();
+    this.backgroundRefreshStartedAt.set(name, startedAt);
+    this.getPackageLocalMetadata(name)
+      .then((storedManifest) =>
+        this.syncUplinksMetadata(name, storedManifest, { uplinksLook: true })
+      )
+      .then(([, errors]) => {
+        for (const err of errors) {
+          this.logger.warn(
+            { err, packageName: name },
+            'background uplink refresh of @{packageName} reported @{!err.message}'
+          );
+        }
+      })
+      .catch((err) => {
+        this.logger.warn(
+          { err, packageName: name },
+          'background uplink refresh of @{packageName} failed @{!err.message}'
+        );
+      })
+      .finally(() => {
+        if (this.backgroundRefreshStartedAt.get(name) === startedAt) {
+          this.backgroundRefreshStartedAt.delete(name);
+        }
+      });
   }
 
   /**

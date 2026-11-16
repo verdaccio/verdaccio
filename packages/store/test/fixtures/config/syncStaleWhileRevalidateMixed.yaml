@@ -1,0 +1,14 @@
+uplinks:
+  ver:
+    url: https://fake.verdaccio.org/
+    retry: 0
+    stale_while_revalidate: true
+  npmjs:
+    url: https://registry.npmjs.org/
+    retry: 0
+packages:
+  'foo-multiple':
+    access: $all
+    publish: $authenticated
+    proxy: ver npmjs
+log: { type: stdout, format: pretty, level: warn }
