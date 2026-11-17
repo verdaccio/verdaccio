@@ -5,6 +5,8 @@ import { defineConfig } from 'cypress';
 
 import { setupVerdaccioTasks } from '@verdaccio/e2e-ui';
 
+import { startRoutingRegistry, stopRoutingRegistry } from './cypress/support/routing-registry';
+
 const registryUrl = process.env.VERDACCIO_URL || 'http://localhost:4873';
 
 const watchers: Record<string, fs.FSWatcher> = {};
@@ -73,9 +75,16 @@ export default defineConfig({
     baseUrl: registryUrl,
     specPattern: 'cypress/e2e/**/*.cy.ts',
     supportFile: 'cypress/support/e2e.ts',
-    setupNodeEvents(on) {
+    setupNodeEvents(on, config) {
       on('file:preprocessor', viteBundle);
       setupVerdaccioTasks(on, { registryUrl });
+      on('task', {
+        startRoutingRegistry: () => startRoutingRegistry(config.projectRoot),
+        stopRoutingRegistry,
+      });
+      on('after:spec', async () => {
+        await stopRoutingRegistry();
+      });
     },
   },
   video: false,
