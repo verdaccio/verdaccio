@@ -2232,7 +2232,8 @@ class Storage {
 
   /**
    * True when every uplink of the package has been fetched before, at least one is past its
-   * `maxage`, and every expired one has `stale_while_revalidate` enabled.
+   * `maxage`, and every expired one has `stale_while_revalidate` set and was fetched less than
+   * `maxage + stale_while_revalidate` ago.
    */
   private hasExpiredUplinksServingStale(manifest: Manifest, upLinks: string[]): boolean {
     const proxies = upLinks.map((uplinkName) => this.uplinks[uplinkName]);
@@ -2243,10 +2244,16 @@ class Storage {
     if (proxies.some((proxy) => !fetchedAt(proxy))) {
       return false;
     }
-    const expired = proxies.filter(
-      (proxy) => Date.now() - (fetchedAt(proxy) as number) >= proxy.maxage
+    const now = Date.now();
+    const expired = proxies.filter((proxy) => now - (fetchedAt(proxy) as number) >= proxy.maxage);
+    return (
+      expired.length > 0 &&
+      expired.every(
+        (proxy) =>
+          proxy.stale_while_revalidate > 0 &&
+          now - (fetchedAt(proxy) as number) < proxy.maxage + proxy.stale_while_revalidate
+      )
     );
-    return expired.length > 0 && expired.every((proxy) => proxy.stale_while_revalidate);
   }
 
   /**

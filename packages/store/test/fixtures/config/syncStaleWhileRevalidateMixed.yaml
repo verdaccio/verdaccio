@@ -2,7 +2,7 @@ uplinks:
   ver:
     url: https://fake.verdaccio.org/
     retry: 0
-    stale_while_revalidate: true
+    stale_while_revalidate: 24h
   npmjs:
     url: https://registry.npmjs.org/
     retry: 0

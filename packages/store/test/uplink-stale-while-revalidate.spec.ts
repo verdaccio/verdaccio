@@ -143,6 +143,23 @@ describe('uplink stale-while-revalidate', () => {
     expect(Object.keys((manifest as Manifest).versions)).toEqual(['1.0.0', '2.0.0']);
   });
 
+  test('refreshes synchronously when the stored copy is older than maxage plus the interval', async () => {
+    const name = 'foo';
+    const { storage, storagePath } = await createStorage('syncStaleWhileRevalidate.yaml');
+    const before = await seedExpiredCache(storage, storagePath, name, expiredManifest(name));
+    before._uplinks.ver.fetched = Date.now() - 2 * 24 * 60 * 60 * 1000;
+    writeManifest(storagePath, name, before);
+    const uplink = slowUplink(UPLINK, name, 200, refreshedManifest(name));
+
+    const [manifest] = await storage.syncUplinksMetadata(name, before, {
+      allowStale: true,
+      retry: { limit: 0 },
+    });
+
+    expect(uplink.hits).toEqual(1);
+    expect(Object.keys((manifest as Manifest).versions)).toEqual(['1.0.0', '2.0.0']);
+  });
+
   test('refreshes synchronously when the package was never fetched from the uplink', async () => {
     const name = 'foo';
     const { storage, storagePath } = await createStorage('syncStaleWhileRevalidate.yaml');

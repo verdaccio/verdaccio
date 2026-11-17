@@ -146,19 +146,19 @@ describe('proxy', () => {
   });
 
   describe('stale_while_revalidate configuration', () => {
-    test('is off unless the uplink enables it', () => {
+    test('is off unless the uplink sets an interval', () => {
       const proxy = new ProxyStorage('uplink', defaultRequestOptions as any, conf, logger);
-      expect(proxy.stale_while_revalidate).toEqual(false);
+      expect(proxy.stale_while_revalidate).toEqual(0);
     });
 
-    test('is read from the uplink config', () => {
+    test('is parsed from the uplink config like maxage', () => {
       const proxy = new ProxyStorage(
         'uplink',
-        { ...defaultRequestOptions, stale_while_revalidate: true } as any,
+        { ...defaultRequestOptions, stale_while_revalidate: '24h' } as any,
         conf,
         logger
       );
-      expect(proxy.stale_while_revalidate).toEqual(true);
+      expect(proxy.stale_while_revalidate).toEqual(24 * 60 * 60 * 1000);
     });
   });
 

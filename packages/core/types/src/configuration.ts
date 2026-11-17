@@ -79,7 +79,7 @@ export interface UpLinkConf {
   maxage?: string | void;
   max_fails?: number | void;
   fail_timeout?: string | void;
-  stale_while_revalidate?: boolean;
+  stale_while_revalidate?: string | void;
   headers?: Headers;
   auth?: UpLinkTokenConf;
   strict_ssl?: boolean | void;
