@@ -101,7 +101,7 @@
     "@types/express": "5.0.6",
     "@types/http-errors": "2.0.5",
     "@types/lodash-es": "^4",
-    "@types/node": "25.5.0",
+    "@types/node": "26.6.6",
     "@types/semver": "7.8.0",
     "@types/supertest": "7.2.1",
     "@verdaccio-scope/verdaccio-auth-foo": "0.0.2",
