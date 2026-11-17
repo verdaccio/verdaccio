@@ -36,7 +36,7 @@
     "@types/jsonwebtoken": "9.0.10",
     "@types/lodash-es": "4.17.12",
     "@types/ms": "2.1.0",
-    "@types/node": "24.13.3",
+    "@types/node": "26.6.6",
     "@types/node-fetch": "2.6.13",
     "@types/qs": "6.15.1",
     "@types/range-parser": "1.2.7",
