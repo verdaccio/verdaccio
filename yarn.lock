@@ -1891,12 +1891,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/e2e-ui@npm:2.8.0":
-  version: 2.8.0
-  resolution: "@verdaccio/e2e-ui@npm:2.8.0"
+"@verdaccio/e2e-ui@npm:2.10.0":
+  version: 2.10.0
+  resolution: "@verdaccio/e2e-ui@npm:2.10.0"
   peerDependencies:
     cypress: ">=12.0.0"
-  checksum: 10c0/8e57e19c37e18d0a9122ea5be822b9d3ef1c7d2eed84d406cafd626217e0f8215de598bdef00fd58810b77e284fd30833d3b6a9ac347f8d7434b4f0beab02610
+  checksum: 10c0/0b96ea1fc84714b0c4223b35fd9294b2581b8fb1fea294ff1277ae9cbaefdf7c949932fd2649e8bf80224ab0947b6edb65190cfb461b333e060d9771072ccc2d
   languageName: node
   linkType: hard
 
@@ -7251,7 +7251,7 @@ __metadata:
     "@verdaccio/config": "npm:8.4.0"
     "@verdaccio/core": "npm:8.4.0"
     "@verdaccio/e2e-cli": "npm:4.2.0"
-    "@verdaccio/e2e-ui": "npm:2.8.0"
+    "@verdaccio/e2e-ui": "npm:2.10.0"
     "@verdaccio/hooks": "npm:8.1.8"
     "@verdaccio/loaders": "npm:8.1.7"
     "@verdaccio/local-storage-legacy": "npm:11.4.7"
