@@ -2106,12 +2106,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/ui-theme@npm:9.0.0-next-9.45":
-  version: 9.0.0-next-9.45
-  resolution: "@verdaccio/ui-theme@npm:9.0.0-next-9.45"
+"@verdaccio/ui-theme@npm:9.0.0-next-9.46":
+  version: 9.0.0-next-9.46
+  resolution: "@verdaccio/ui-theme@npm:9.0.0-next-9.46"
   dependencies:
     debug: "npm:4.4.3"
-  checksum: 10c0/1fbd6478fa2cc6712b2f44f69e8f921efddfb0e5056e6f679c56a0e9d5033f24df583e49840b9ffde7e0d565fbdca92db7a8c00c3e97b29264407b266cbdc686
+  checksum: 10c0/6ca79b9a5a88128ba1cc853c135614cd912eb518a59f0a3aee1cd7d47ba96a8d265fb3a50165f23aae955eb118427818c23d520d9c24fc10f58003b0c6d07a45
   languageName: node
   linkType: hard
 
@@ -7280,7 +7280,7 @@ __metadata:
     "@verdaccio/tarball": "npm:13.1.7"
     "@verdaccio/test-helper": "npm:4.1.8"
     "@verdaccio/types": "npm:13.1.0"
-    "@verdaccio/ui-theme": "npm:9.0.0-next-9.45"
+    "@verdaccio/ui-theme": "npm:9.0.0-next-9.46"
     "@verdaccio/url": "npm:13.1.7"
     "@vitest/coverage-v8": "npm:4.1.11"
     JSONStream: "npm:1.3.5"
