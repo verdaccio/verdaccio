@@ -25,9 +25,8 @@ export const log = (logger) => {
       req.headers.cookie = '<Classified>';
     }
 
-    req.url = req.originalUrl;
-    req.log.info({ req: req, ip: req.ip }, "@{ip} requested '@{req.method} @{req.url}'");
-    req.originalUrl = req.url;
+    const request = Object.create(req, { url: { value: req.originalUrl, enumerable: true } });
+    req.log.info({ req: request, ip: req.ip }, "@{ip} requested '@{req.method} @{req.url}'");
 
     if (_.isNil(_auth) === false) {
       req.headers.authorization = _auth;
@@ -63,12 +62,11 @@ export const log = (logger) => {
         message = LOG_VERDACCIO_BYTES;
       }
 
-      req.url = req.originalUrl;
       req.log.http(
         {
           request: {
             method: req.method,
-            url: req.url,
+            url: req.originalUrl,
           },
           user: req.remote_user?.name || null,
           remoteIP,
@@ -81,7 +79,6 @@ export const log = (logger) => {
         },
         message
       );
-      req.originalUrl = req.url;
     };
 
     req.on('close', function (): void {
