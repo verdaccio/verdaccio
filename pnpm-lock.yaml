@@ -188,7 +188,7 @@ importers:
         specifier: workspace:8.1.7
         version: link:../logger/logger
       '@verdaccio/middleware':
-        specifier: workspace:8.2.0
+        specifier: workspace:8.2.1
         version: link:../middleware
       '@verdaccio/types':
         specifier: workspace:13.1.0
@@ -885,7 +885,7 @@ importers:
         specifier: workspace:8.1.7
         version: link:../logger/logger
       '@verdaccio/middleware':
-        specifier: workspace:8.2.0
+        specifier: workspace:8.2.1
         version: link:../middleware
       '@verdaccio/types':
         specifier: workspace:13.1.0
