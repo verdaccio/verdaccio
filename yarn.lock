@@ -2002,6 +2002,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@verdaccio/middleware@npm:8.2.1":
+  version: 8.2.1
+  resolution: "@verdaccio/middleware@npm:8.2.1"
+  dependencies:
+    "@verdaccio/config": "npm:8.4.0"
+    "@verdaccio/core": "npm:8.4.0"
+    "@verdaccio/url": "npm:13.1.7"
+    debug: "npm:4.4.3"
+    express: "npm:4.22.3"
+    express-rate-limit: "npm:5.5.1"
+    lodash: "npm:4.18.1"
+    lru-cache: "npm:7.18.3"
+  checksum: 10c0/3f1ca61c109f943e5073784f6819c161878f5949733849fab4a0da627059573ae534c65a8c2f345c254a44ca79041df38128740c2d5345ef6d0a4c57c34d6475
+  languageName: node
+  linkType: hard
+
 "@verdaccio/package-filter@npm:13.2.5":
   version: 13.2.5
   resolution: "@verdaccio/package-filter@npm:13.2.5"
@@ -7256,7 +7272,7 @@ __metadata:
     "@verdaccio/loaders": "npm:8.1.7"
     "@verdaccio/local-storage-legacy": "npm:11.4.7"
     "@verdaccio/logger": "npm:8.1.7"
-    "@verdaccio/middleware": "npm:8.2.0"
+    "@verdaccio/middleware": "npm:8.2.1"
     "@verdaccio/package-filter": "npm:13.2.5"
     "@verdaccio/search-indexer": "npm:8.1.0"
     "@verdaccio/signature": "npm:8.1.7"
