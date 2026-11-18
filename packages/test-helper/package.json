@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/test-helper",
-  "version": "4.1.8",
+  "version": "4.1.9",
   "description": "Verdaccio Test Helpers",
   "homepage": "https://verdaccio.org",
   "bugs": {
@@ -45,7 +45,7 @@
     "@verdaccio/config": "workspace:8.4.0",
     "@verdaccio/core": "workspace:8.4.0",
     "@verdaccio/logger": "workspace:8.1.7",
-    "@verdaccio/middleware": "workspace:8.2.0",
+    "@verdaccio/middleware": "workspace:8.2.1",
     "@verdaccio/types": "workspace:13.1.0",
     "body-parser": "1.20.9",
     "debug": "4.4.3",
