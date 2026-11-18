@@ -1,15 +1,75 @@
+import { once } from 'node:events';
 import fs from 'node:fs';
+import type { Server } from 'node:http';
+import { createRequire } from 'node:module';
+import type { AddressInfo } from 'node:net';
+import os from 'node:os';
 import path from 'node:path';
 
 import { defineConfig } from 'cypress';
 
 import { setupVerdaccioTasks } from '@verdaccio/e2e-ui';
 
-import { startRoutingRegistry, stopRoutingRegistry } from './cypress/support/routing-registry';
-
 const registryUrl = process.env.VERDACCIO_URL || 'http://localhost:4873';
 
 const watchers: Record<string, fs.FSWatcher> = {};
+
+let routingServer: Server | undefined;
+let routingStorage: string | undefined;
+
+function registryUrls(listener: Server) {
+  const publishUrl = `http://127.0.0.1:${(listener.address() as AddressInfo).port}`;
+  return { registryUrl: `${publishUrl}/registry`, publishUrl };
+}
+
+async function stopRoutingRegistry() {
+  if (routingServer) {
+    const current = routingServer;
+    routingServer = undefined;
+    current.closeAllConnections();
+    await new Promise<void>((resolve, reject) => {
+      current.close((error) => (error ? reject(error) : resolve()));
+    });
+  }
+  if (routingStorage) {
+    await fs.promises.rm(routingStorage, { recursive: true, force: true });
+    routingStorage = undefined;
+  }
+  return null;
+}
+
+async function startRoutingRegistry(projectRoot: string) {
+  if (routingServer) return registryUrls(routingServer);
+  const local = createRequire(path.join(projectRoot, 'packages/server/express/package.json'));
+  const express = local('express');
+  routingStorage = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'verdaccio-routing-e2e-'));
+  const configPath = path.join(routingStorage, 'config.yaml');
+  await fs.promises.writeFile(configPath, '');
+  const config = {
+    storage: routingStorage,
+    self_path: configPath,
+    configPath,
+    url_prefix: '/registry',
+    auth: { htpasswd: { file: path.join(routingStorage, 'htpasswd') } },
+    uplinks: {},
+    packages: { '**': { access: '$all', publish: '$all', unpublish: '$all' } },
+    plugins: path.join(projectRoot, 'packages/server/express/test/config/plugins'),
+    middlewares: { 'routing-delay': { defer: true } },
+    web: { enable: true, title: 'Verdaccio routing' },
+    log: { type: 'stdout', format: 'json', level: 'warn' },
+  };
+  await local('@verdaccio/logger').setup(config.log);
+  const { startServer } = local('./build/index.js');
+  const app = express();
+  const registry = await startServer(config);
+  app.use('/registry', registry);
+  // Fixture publishing uses the root; browser requests exercise the prefixed mount.
+  app.use('/', registry);
+  const listener: Server = app.listen(0, '127.0.0.1');
+  routingServer = listener;
+  await once(listener, 'listening');
+  return registryUrls(listener);
+}
 
 /**
  * Bundle spec/support files with Vite. TypeScript 7 no longer ships the JS

@@ -1,4 +1,4 @@
-import { createRegistryConfig, detailTests } from '@verdaccio/e2e-ui';
+import { createRegistryConfig, detailTests, prefixedRoutingTests } from '@verdaccio/e2e-ui';
 
 const registryUrl = Cypress.expose('VERDACCIO_URL') || 'http://localhost:4873';
 
@@ -17,3 +17,4 @@ const config = createRegistryConfig({
 });
 
 detailTests(config);
+prefixedRoutingTests(config);
