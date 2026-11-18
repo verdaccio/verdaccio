@@ -87,6 +87,18 @@ jobs:
         if: steps.diff.outputs.changed == 'true'
         run: yarn build
 
+      - name: Write the changeset from the changelogs
+        if: steps.diff.outputs.changed == 'true'
+        # The bumped modules are developed on 8.x and @verdaccio/ui-theme on
+        # master: their CHANGELOG.md entries between the old and new versions
+        # become the changeset body. Stable filename so re-runs overwrite it.
+        run: |
+          git fetch --no-tags origin 8.x master
+          node scripts/dependency-update-changeset.mjs \
+            --modules origin/8.x --ui origin/master \
+            --out .changeset/update-verdaccio-dependencies.md
+          cat .changeset/update-verdaccio-dependencies.md
+
       - name: Create or update pull request
         if: steps.diff.outputs.changed == 'true'
         env:
@@ -98,18 +110,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "$BRANCH"
-
-          # Generate a changeset (stable filename so re-runs overwrite it). The
-          # body lists every bumped package, old → new, from the summary step.
-          {
-            echo "---"
-            echo "'verdaccio': patch"
-            echo "---"
-            echo ""
-            echo "Update verdaccio dependencies to the \`latest\` npm dist-tag (\`@verdaccio/ui-theme\` tracks \`next-9\`):"
-            echo ""
-            cat "$RUNNER_TEMP/updated-deps.md"
-          } > .changeset/update-verdaccio-dependencies.md
 
           # Format updated package.json files and the changeset before committing.
           yarn format

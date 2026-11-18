@@ -211,6 +211,9 @@ PR `skip changeset`. This branch is **not** in pre mode: a `patch` bump releases
   capability maintainers explicitly agreed to ship on 6.x; never `major`.
 - A dependency bump that pulls in a `@verdaccio/*` fix describes that fix for
   the operator, not the version number.
+  The `update-dependencies.yml` workflow does this itself: its changeset is built
+  from the `CHANGELOG.md` entries of the bumped packages (`8.x` for the modules,
+  `master` for `@verdaccio/ui-theme`) by `scripts/dependency-update-changeset.mjs`.
 - **One changeset per PR, not per package.**
 - **The changeset is the changelog entry, so develop it properly.** It is what
   operators read at upgrade time and the only place the change is explained for
