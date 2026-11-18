@@ -63,17 +63,22 @@ export const log = (logger, options: LogOptions = {}) => {
       req.headers.cookie = '<Classified>';
     }
 
-    req.url = req.originalUrl;
     const requestUrl = req.url;
     const _skipLog = shouldSkipLog(requestUrl);
     if (_skipLog) {
       if (debug.enabled) {
-        debug(convertToDebugString(constants.LOG_REQUEST_MESSAGE), req.ip, req.method, req.url);
+        debug(
+          convertToDebugString(constants.LOG_REQUEST_MESSAGE),
+          req.ip,
+          req.method,
+          req.originalUrl
+        );
       }
     } else {
-      req.log.info({ req, ip: req.ip }, constants.LOG_REQUEST_MESSAGE);
+      // Log the full URL without changing the path Express uses for routing.
+      const request = Object.create(req, { url: { value: req.originalUrl, enumerable: true } });
+      req.log.info({ req: request, ip: req.ip }, constants.LOG_REQUEST_MESSAGE);
     }
-    req.originalUrl = req.url;
 
     if (isNil(_auth) === false) {
       req.headers.authorization = _auth;
