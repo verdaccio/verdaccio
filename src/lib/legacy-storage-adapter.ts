@@ -1,6 +1,7 @@
 import buildDebug from 'debug';
 import { Writable } from 'node:stream';
 
+import { HTTP_STATUS } from '@verdaccio/core';
 import { Logger } from '@verdaccio/types';
 
 const debug = buildDebug('verdaccio:storage:legacy-adapter');
@@ -114,21 +115,40 @@ function readTarball(handler: any, fileName: string, options: { signal?: AbortSi
  *  - so we forward writes to the legacy stream, call `.done()` on `_final`, and
  *    only complete (emit `close`) once the legacy stream emits `success`.
  */
+// `errorUtils.getConflict` (code 409) or the legacy local storage's `EEXISTS` code.
+function isAlreadyStoredError(err: any): boolean {
+  return err?.code === HTTP_STATUS.CONFLICT || err?.code === 'EEXISTS';
+}
+
 function writeTarball(handler: any, fileName: string, options: { signal?: AbortSignal } = {}) {
   const upload = handler.writeTarball(fileName);
   const { signal } = options;
+  // The plugin already stores this tarball (e.g. a concurrent request cached it): skip the write,
+  // as Verdaccio 6 did for uplink caching, instead of failing the pipeline serving the client.
+  let alreadyStored = false;
+  let pendingWrite: (() => void) | null = null;
+  const releasePendingWrite = (): void => {
+    const cb = pendingWrite;
+    pendingWrite = null;
+    cb?.();
+  };
 
   const bridge = new Writable({
     write(chunk, _enc, cb): void {
-      if (upload.write(chunk)) {
+      if (alreadyStored || upload.write(chunk)) {
         cb();
       } else {
-        upload.once('drain', cb);
+        pendingWrite = cb;
+        upload.once('drain', releasePendingWrite);
       }
     },
     final(cb): void {
+      if (alreadyStored) {
+        cb();
+        return;
+      }
       upload.once('success', () => cb());
-      upload.once('error', (err: any) => cb(err));
+      upload.once('error', (err: any) => cb(alreadyStored ? undefined : err));
       // `done()` waits for the legacy stream's `end`, so end it first.
       upload.end();
       upload.done();
@@ -136,7 +156,15 @@ function writeTarball(handler: any, fileName: string, options: { signal?: AbortS
   });
 
   upload.on('open', () => bridge.emit('open'));
-  upload.on('error', (err: any) => bridge.destroy(err));
+  upload.on('error', (err: any) => {
+    if (isAlreadyStoredError(err)) {
+      debug('tarball %o is already stored, skipping the cache write', fileName);
+      alreadyStored = true;
+      releasePendingWrite();
+      return;
+    }
+    bridge.destroy(err);
+  });
 
   if (signal) {
     const onAbort = (): void => {
