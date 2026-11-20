@@ -133,6 +133,44 @@ describe('setupLatestTag', () => {
     expect(manifest[DIST_TAGS].latest).toBe('2.0.0-beta');
   });
 
+  describe('with the original latest version', () => {
+    const multiTrack = () =>
+      createManifest({
+        [DIST_TAGS]: {},
+        versions: {
+          '4.22.0': { name: 'test-pkg', version: '4.22.0' },
+          '5.2.0': { name: 'test-pkg', version: '5.2.0' },
+          '4.22.1': { name: 'test-pkg', version: '4.22.1' },
+          '4.22.2': { name: 'test-pkg', version: '4.22.2' },
+        } as any,
+        time: {
+          '4.22.0': '2025-12-01T16:23:07.582Z',
+          '5.2.0': '2025-12-01T16:23:57.541Z',
+          '4.22.1': '2025-12-01T20:50:41.122Z',
+          '4.22.2': '2026-05-11T18:50:00.007Z',
+        },
+      });
+
+    test('picks the newest version of the same major line', () => {
+      const manifest = multiTrack();
+      setupLatestTag(manifest, '5.2.1');
+      expect(manifest[DIST_TAGS].latest).toBe('5.2.0');
+    });
+
+    test('removes latest when no version of the same major line remains', () => {
+      const manifest = multiTrack();
+      delete manifest.versions['5.2.0'];
+      setupLatestTag(manifest, '5.2.1');
+      expect(manifest[DIST_TAGS].latest).toBeUndefined();
+    });
+
+    test('ignores the major line when the original latest is not a valid version', () => {
+      const manifest = multiTrack();
+      setupLatestTag(manifest, 'not-a-version');
+      expect(manifest[DIST_TAGS].latest).toBe('4.22.2');
+    });
+  });
+
   test('assigns latest to pre-release without time data', () => {
     const manifest = createManifest({
       [DIST_TAGS]: {},

@@ -68,8 +68,10 @@ export function getLatestVersion(manifest: Manifest, versions: string[]): string
  * Set the latest tag if dist-tags/latest is missing.
  * The last stable version available is used when possible.
  * Otherwise, it uses the latest version not found in dist-tags.
+ * When the original latest version is known, only versions of its major line
+ * are considered, so latest never jumps to another release track.
  */
-export function setupLatestTag(manifest: Manifest): void {
+export function setupLatestTag(manifest: Manifest, originalLatest?: string): void {
   const distTags = manifest[DIST_TAGS];
   if (distTags.latest) {
     // Tag 'latest' must only be fixed when latest version was blocked
@@ -82,7 +84,14 @@ export function setupLatestTag(manifest: Manifest): void {
   }
 
   const distTagsVersions = Object.values(distTags);
-  const untaggedVersions = versions.filter((v) => semver.valid(v) && !distTagsVersions.includes(v));
+  const originalMajor =
+    originalLatest && semver.valid(originalLatest) ? semver.major(originalLatest) : undefined;
+  const untaggedVersions = versions.filter(
+    (v) =>
+      semver.valid(v) &&
+      !distTagsVersions.includes(v) &&
+      (originalMajor === undefined || semver.major(v) === originalMajor)
+  );
   if (untaggedVersions.length === 0) {
     return;
   }

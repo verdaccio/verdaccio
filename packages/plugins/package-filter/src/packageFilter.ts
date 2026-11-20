@@ -1,6 +1,6 @@
 import buildDebug from 'debug';
 
-import { pluginUtils } from '@verdaccio/core';
+import { DIST_TAGS, pluginUtils } from '@verdaccio/core';
 import type { Logger, Manifest } from '@verdaccio/types';
 
 import { parseConfig } from './config/parser';
@@ -130,8 +130,9 @@ export class PackageFilterPlugin
     // rewrote version content and cleanup still needs to run.
     const wasModified = removedCount > 0 || newManifest.readme !== manifest.readme;
     if (wasModified) {
+      const originalLatest = manifest[DIST_TAGS]?.latest;
       cleanupTags(newManifest);
-      setupLatestTag(newManifest);
+      setupLatestTag(newManifest, originalLatest);
       cleanupTime(newManifest);
       setupCreatedAndModified(newManifest);
       cleanupDistFiles(newManifest);
