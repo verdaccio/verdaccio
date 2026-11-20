@@ -86,18 +86,20 @@ export function setupLatestTag(manifest: Manifest, originalLatest?: string): voi
   const distTagsVersions = Object.values(distTags);
   const originalMajor =
     originalLatest && semver.valid(originalLatest) ? semver.major(originalLatest) : undefined;
-  const untaggedVersions = versions.filter(
-    (v) =>
-      semver.valid(v) &&
-      !distTagsVersions.includes(v) &&
-      (originalMajor === undefined || semver.major(v) === originalMajor)
+  const sameLineVersions = versions.filter(
+    (v) => semver.valid(v) && (originalMajor === undefined || semver.major(v) === originalMajor)
   );
-  if (untaggedVersions.length === 0) {
+  const untaggedVersions = sameLineVersions.filter((v) => !distTagsVersions.includes(v));
+  if (untaggedVersions.length === 0 && originalMajor === undefined) {
     return;
   }
 
-  // Try stable versions first (no "-next" or "-beta", etc.)
-  const stableVersions = untaggedVersions.filter((v) => !semver.prerelease(v));
+  // Try stable versions first (no "-next" or "-beta", etc.).
+  // Within the original latest's major line, a stable version may be latest
+  // even when a custom tag (e.g. latest-5) also points to it.
+  const stableVersions = (originalMajor === undefined ? untaggedVersions : sameLineVersions).filter(
+    (v) => !semver.prerelease(v)
+  );
   const latestStableVersion = getLatestVersion(manifest, stableVersions);
   if (latestStableVersion) {
     debug('reassigned latest tag to stable version %s for %s', latestStableVersion, manifest.name);

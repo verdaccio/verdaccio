@@ -164,6 +164,14 @@ describe('setupLatestTag', () => {
       expect(manifest[DIST_TAGS].latest).toBeUndefined();
     });
 
+    test('picks a same-major stable version even when a custom tag references it', () => {
+      const manifest = multiTrack();
+      manifest[DIST_TAGS]['latest-5'] = '5.2.0';
+      setupLatestTag(manifest, '5.2.1');
+      expect(manifest[DIST_TAGS].latest).toBe('5.2.0');
+      expect(manifest[DIST_TAGS]['latest-5']).toBe('5.2.0');
+    });
+
     test('ignores the major line when the original latest is not a valid version', () => {
       const manifest = multiTrack();
       setupLatestTag(manifest, 'not-a-version');
