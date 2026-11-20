@@ -59,7 +59,7 @@ describe('PackageFilterPlugin', () => {
       const babelResult = await plugin.filter_metadata(babelTestManifest);
       expect(getVersionKeys(babelResult)).not.toContain('3.0.0');
       expect(getVersionKeys(babelResult)).toEqual(['1.0.0', '1.5.0']);
-      expect(getLatest(babelResult)).toBe('1.5.0');
+      expect(getLatest(babelResult)).toBeUndefined();
 
       // Should block 2.6.3 version of @types/node (published 2025, after 2023 threshold)
       const typesResult = await plugin.filter_metadata(typesNodeManifest);
@@ -78,7 +78,7 @@ describe('PackageFilterPlugin', () => {
       const babelResult = await plugin.filter_metadata(babelTestManifest);
       expect(getVersionKeys(babelResult)).not.toContain('3.0.0');
       expect(getVersionKeys(babelResult)).toEqual(['1.0.0', '1.5.0']);
-      expect(getLatest(babelResult)).toBe('1.5.0');
+      expect(getLatest(babelResult)).toBeUndefined();
 
       // Should block 2.6.3 version of @types/node (published 2025, after 2023 threshold)
       const typesResult = await plugin.filter_metadata(typesNodeManifest);
@@ -99,7 +99,7 @@ describe('PackageFilterPlugin', () => {
         const babelResult = await plugin.filter_metadata(babelTestManifest);
         expect(getVersionKeys(babelResult)).not.toContain('3.0.0');
         expect(getVersionKeys(babelResult)).toEqual(['1.0.0', '1.5.0']);
-        expect(getLatest(babelResult)).toBe('1.5.0');
+        expect(getLatest(babelResult)).toBeUndefined();
 
         // Should block 2.6.3 version of @types/node (published 2025, after 2023 threshold)
         const typesResult = await plugin.filter_metadata(typesNodeManifest);
@@ -119,7 +119,7 @@ describe('PackageFilterPlugin', () => {
         const babelResult = await plugin.filter_metadata(babelTestManifest);
         expect(getVersionKeys(babelResult)).not.toContain('3.0.0');
         expect(getVersionKeys(babelResult)).toEqual(['1.0.0', '1.5.0']);
-        expect(getLatest(babelResult)).toBe('1.5.0');
+        expect(getLatest(babelResult)).toBeUndefined();
 
         // Should block 2.6.3 version of @types/node (published 2025, after 2023 threshold)
         const typesResult = await plugin.filter_metadata(typesNodeManifest);
@@ -206,7 +206,7 @@ describe('PackageFilterPlugin', () => {
       expect(getVersionKeys(babelResult)).not.toContain('1.5.0');
       expect(getVersionKeys(babelResult)).not.toContain('3.0.0');
       expect(getVersionKeys(babelResult)).toEqual(['1.0.0']);
-      expect(getLatest(babelResult)).toBe('1.0.0');
+      expect(getLatest(babelResult)).toBeUndefined();
 
       // Should not block @types/node
       const typesResult = await plugin.filter_metadata(typesNodeManifest);
@@ -222,7 +222,7 @@ describe('PackageFilterPlugin', () => {
 
       const babelResult = await plugin.filter_metadata(babelTestManifest);
       expect(getVersionKeys(babelResult)).toEqual(['1.0.0']);
-      expect(getLatest(babelResult)).toBe('1.0.0');
+      expect(getLatest(babelResult)).toBeUndefined();
 
       const typesResult = await plugin.filter_metadata(typesNodeManifest);
       expect(getVersionKeys(typesResult)).toEqual(['1.0.0', '2.2.0', '2.6.3']);
@@ -280,7 +280,7 @@ describe('PackageFilterPlugin', () => {
       expect(getVersionKeys(babelResult)).not.toContain('1.0.0');
       expect(getVersionKeys(babelResult)).not.toContain('3.0.0');
       expect(getVersionKeys(babelResult)).toEqual(['1.5.0']);
-      expect(getLatest(babelResult)).toBe('1.5.0');
+      expect(getLatest(babelResult)).toBeUndefined();
 
       // Should not block @types/node
       const typesResult = await plugin.filter_metadata(typesNodeManifest);
@@ -656,7 +656,7 @@ describe('PackageFilterPlugin', () => {
         expect(getVersionKeys(typesResult)).not.toContain('2.2.0');
         expect(getVersionKeys(typesResult)).not.toContain('2.6.3');
         expect(getVersionKeys(typesResult)).toEqual(['1.0.0']);
-        expect(getLatest(typesResult)).toBe('1.0.0');
+        expect(getLatest(typesResult)).toBeUndefined();
       });
 
       test('allow by package', async function () {
@@ -679,7 +679,7 @@ describe('PackageFilterPlugin', () => {
         expect(getVersionKeys(typesResult)).not.toContain('2.2.0');
         expect(getVersionKeys(typesResult)).not.toContain('2.6.3');
         expect(getVersionKeys(typesResult)).toEqual(['1.0.0']);
-        expect(getLatest(typesResult)).toBe('1.0.0');
+        expect(getLatest(typesResult)).toBeUndefined();
       });
 
       test('allow by versions', async function () {
@@ -703,7 +703,7 @@ describe('PackageFilterPlugin', () => {
         expect(getVersionKeys(typesResult)).not.toContain('2.2.0');
         expect(getVersionKeys(typesResult)).not.toContain('2.6.3');
         expect(getVersionKeys(typesResult)).toEqual(['1.0.0']);
-        expect(getLatest(typesResult)).toBe('1.0.0');
+        expect(getLatest(typesResult)).toBeUndefined();
       });
     });
 
@@ -884,14 +884,14 @@ describe('PackageFilterPlugin', () => {
       expect(getVersionKeys(result)).not.toContain('1.0.0');
     });
 
-    test('excludeDeprecated reassigns latest when the deprecated version was tagged latest', async function () {
+    test('excludeDeprecated removes latest when no version of its major line remains', async function () {
       const config = { excludeDeprecated: true };
       const plugin = new PackageFilterPlugin(config, pluginOptions);
 
       const result = await plugin.filter_metadata(latestDeprecatedManifest);
       expect(getVersionKeys(result)).toEqual(['1.0.0', '2.0.0']);
       expect(getVersionKeys(result)).not.toContain('3.0.0');
-      expect(getLatest(result)).toBe('2.0.0');
+      expect(getLatest(result)).toBeUndefined();
     });
   });
 
