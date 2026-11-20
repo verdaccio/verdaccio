@@ -68,8 +68,9 @@ export function getLatestVersion(manifest: Manifest, versions: string[]): string
  * Set the latest tag if dist-tags/latest is missing.
  * The last stable version available is used when possible.
  * Otherwise, it uses the latest version not found in dist-tags.
- * When the original latest version is known, only versions of its major line
- * are considered, so latest never jumps to another release track.
+ * When the original latest version is known, only stable versions of its major
+ * line are considered, so latest never jumps to another release track or to a
+ * pre-release; if none remains, latest stays unset.
  */
 export function setupLatestTag(manifest: Manifest, originalLatest?: string): void {
   const distTags = manifest[DIST_TAGS];
@@ -104,6 +105,11 @@ export function setupLatestTag(manifest: Manifest, originalLatest?: string): voi
   if (latestStableVersion) {
     debug('reassigned latest tag to stable version %s for %s', latestStableVersion, manifest.name);
     distTags.latest = latestStableVersion;
+    return;
+  }
+
+  // No same-major stable version: leave latest unset rather than pick a pre-release
+  if (originalMajor !== undefined) {
     return;
   }
 

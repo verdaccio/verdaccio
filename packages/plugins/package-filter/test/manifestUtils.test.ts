@@ -172,6 +172,15 @@ describe('setupLatestTag', () => {
       expect(manifest[DIST_TAGS]['latest-5']).toBe('5.2.0');
     });
 
+    test('removes latest instead of picking a same-major pre-release', () => {
+      const manifest = multiTrack();
+      delete manifest.versions['5.2.0'];
+      manifest.versions['5.3.0-beta.1'] = { name: 'test-pkg', version: '5.3.0-beta.1' } as any;
+      manifest.time['5.3.0-beta.1'] = '2026-06-01T00:00:00.000Z';
+      setupLatestTag(manifest, '5.2.1');
+      expect(manifest[DIST_TAGS].latest).toBeUndefined();
+    });
+
     test('ignores the major line when the original latest is not a valid version', () => {
       const manifest = multiTrack();
       setupLatestTag(manifest, 'not-a-version');
