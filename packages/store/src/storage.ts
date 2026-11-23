@@ -98,6 +98,17 @@ export const noSuchFile = 'ENOENT';
 export const resourceNotAvailable = 'EAGAIN';
 export const PROTO_NAME = '__proto__';
 
+/** True when an uplink failed for a reason other than the package or file being absent. */
+function hasNonNotFoundUplinkError(errors: any[] | undefined): boolean {
+  return (errors ?? []).some((err) => {
+    const code = err?.code ?? err?.statusCode ?? err?.status;
+    if (code === HTTP_STATUS.NOT_FOUND) {
+      return false;
+    }
+    return err?.message !== API_ERROR.NOT_PACKAGE_UPLINK && err?.message !== API_ERROR.NO_PACKAGE;
+  });
+}
+
 class Storage {
   public localStorage: LocalStorage;
   public filters: Filters | null;
@@ -108,6 +119,7 @@ class Storage {
   private searchService: Search;
   private stageStorage: StageStorage | null = null;
   private tarballMetadata: TarballMetadataService | null = null;
+  private uplinkRefreshInflight = new Map<string, Promise<[Manifest | null, any]>>();
   public constructor(config: Config, logger: Logger) {
     this.config = config;
     this.logger = logger.child({ module: 'storage' });
@@ -364,19 +376,20 @@ class Storage {
       });
     } else {
       debug('dist file not found, proceed update upstream');
-      // no dist url found, proceed to fetch from upstream
-      // should not be the case
-      // ensure get the latest data
-      const [updatedManifest] = await this.syncUplinksMetadata(name, rawManifest, {
-        uplinksLook: true,
-      });
+      // the cached manifest may predate this version, so skip maxage for this sync
+      const [updatedManifest, uplinkErrors] = await this.refreshUplinksMetadataForTarball(
+        name,
+        rawManifest
+      );
       const distFile =
         updatedManifest === null ? null : lookupDistFile(updatedManifest as Manifest, filename);
 
       if (updatedManifest === null || !distFile) {
+        if (hasNonNotFoundUplinkError(uplinkErrors)) {
+          debug('remote tarball unavailable, uplink sync failed');
+          throw errorUtils.getServiceUnavailable(API_ERROR.UPLINK_OFFLINE);
+        }
         debug('remote tarball not found');
-        // TODO: review the error message, it causes unnecessary
-        // error on console
         throw errorUtils.getNotFound(API_ERROR.NO_SUCH_FILE);
       }
 
@@ -384,6 +397,23 @@ class Storage {
         signal,
       });
     }
+  }
+
+  /** One forced uplink sync per package at a time, shared by concurrent tarball misses. */
+  private refreshUplinksMetadataForTarball(
+    name: string,
+    rawManifest: Manifest | null
+  ): Promise<[Manifest | null, any]> {
+    const inflight = this.uplinkRefreshInflight.get(name);
+    if (inflight) {
+      return inflight;
+    }
+    const pending = this.syncUplinksMetadata(name, rawManifest, {
+      uplinksLook: true,
+      skipMaxAge: true,
+    }).finally(() => this.uplinkRefreshInflight.delete(name));
+    this.uplinkRefreshInflight.set(name, pending);
+    return pending;
   }
 
   private fetchTarballFromDistFile(
@@ -2212,6 +2242,10 @@ class Storage {
           throw err;
         }
       }
+      if (hasNonNotFoundUplinkError(uplinksErrors)) {
+        debug('uplinks sync failed with an unavailable uplink');
+        throw errorUtils.getServiceUnavailable(API_ERROR.UPLINK_OFFLINE);
+      }
       debug('uplinks sync failed with no package found');
 
       throw errorUtils.getNotFound(API_ERROR.NO_PACKAGE);
@@ -2239,7 +2273,7 @@ class Storage {
     const upLinkMeta = cachedManifest._uplinks[uplink.uplinkName];
     let _cacheManifest = { ...cachedManifest };
 
-    if (validationUtils.isObject(upLinkMeta)) {
+    if (validationUtils.isObject(upLinkMeta) && !options.skipMaxAge) {
       const fetched = upLinkMeta.fetched;
 
       // we check the uplink cache is fresh

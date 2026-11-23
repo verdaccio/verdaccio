@@ -325,6 +325,54 @@ describe('proxy', () => {
           'host @{host} is now online'
         );
       }, 10000);
+
+      test('should let concurrent requests probe the uplink after fail_timeout', async () => {
+        nock(domain)
+          .get('/jquery')
+          .twice()
+          .reply(500, 'some-text')
+          .get('/jquery')
+          .delay(200)
+          .reply(200, { body: { name: 'foo', version: '1.0.0' } })
+          .get('/jquery')
+          .reply(200, { body: { name: 'bar', version: '2.0.0' } });
+
+        const prox1 = new ProxyStorage(
+          'uplink',
+          { ...defaultRequestOptions, fail_timeout: '1s', max_fails: 1 },
+          conf,
+          logger
+        );
+        await expect(
+          prox1.getRemoteMetadata('jquery', {
+            remoteAddress: '127.0.0.1',
+            retry: { limit: 1 },
+          })
+        ).rejects.toThrow();
+        await expect(
+          prox1.getRemoteMetadata('jquery', {
+            remoteAddress: '127.0.0.1',
+            retry: { limit: 0 },
+          })
+        ).rejects.toThrow(errorUtils.getInternalError(errorUtils.API_ERROR.UPLINK_OFFLINE));
+
+        await setTimeout(1100);
+        const first = prox1.getRemoteMetadata('jquery', {
+          remoteAddress: '127.0.0.1',
+          retry: { limit: 0 },
+        });
+        // the first probe is on the wire and has refreshed last_request_time
+        await setTimeout(50);
+        // a concurrent probe must not get UPLINK_OFFLINE
+        const second = prox1.getRemoteMetadata('jquery', {
+          remoteAddress: '127.0.0.1',
+          retry: { limit: 0 },
+        });
+        const [[manifest1], [manifest2]] = await Promise.all([first, second]);
+        expect(manifest1).toEqual({ body: { name: 'foo', version: '1.0.0' } });
+        expect(manifest2).toEqual({ body: { name: 'bar', version: '2.0.0' } });
+        expect(prox1.failed_requests).toBe(0);
+      }, 10000);
     });
 
     describe('timeout', () => {
