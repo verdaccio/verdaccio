@@ -326,6 +326,24 @@ describe('proxy', () => {
         );
       }, 10000);
 
+      test('should allow the first request when max_fails is 0', async () => {
+        nock(domain)
+          .get('/jquery')
+          .reply(200, { body: { name: 'foo', version: '1.0.0' } });
+
+        const prox1 = new ProxyStorage(
+          'uplink',
+          { ...defaultRequestOptions, max_fails: 0 },
+          conf,
+          logger
+        );
+        const [manifest] = await prox1.getRemoteMetadata('jquery', {
+          remoteAddress: '127.0.0.1',
+          retry: { limit: 0 },
+        });
+        expect(manifest).toEqual({ body: { name: 'foo', version: '1.0.0' } });
+      });
+
       test('should let concurrent requests probe the uplink after fail_timeout', async () => {
         nock(domain)
           .get('/jquery')

@@ -120,8 +120,7 @@ class ProxyStorage implements IProxy {
   public agent_options: AgentOptionsConf;
   public proxy: string | undefined;
   private agent: Agents;
-  // @ts-ignore
-  public last_request_time: number | null;
+  public last_request_time: number | null = null;
   public strict_ssl: boolean;
   private retry: Partial<RetryOptions>;
   private hostOffline = false;
