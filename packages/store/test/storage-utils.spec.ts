@@ -118,6 +118,16 @@ describe('Storage Utils', () => {
 
       expect(normalizeDistTags(pkg)[DIST_TAGS]).toEqual({ beta: '1.0.1', latest: '1.0.1' });
     });
+
+    test('should delete a dist-tag whose value is not a string', () => {
+      const pkg = cloneMetadata();
+      pkg[DIST_TAGS] = {
+        latest: { $ne: null },
+        beta: '1.0.1',
+      };
+
+      expect(normalizeDistTags(pkg)[DIST_TAGS]).toEqual({ beta: '1.0.1' });
+    });
   });
 
   describe('normalizePackage', () => {

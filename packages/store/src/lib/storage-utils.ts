@@ -402,6 +402,11 @@ export function normalizeDistTags(manifest: Manifest): Manifest {
         // if the version is invalid, delete the dist-tag entry
         delete manifest[DIST_TAGS][tag];
       }
+    } else {
+      // dist-tag values must be version strings; anything else (an object,
+      // a number, null) is a malformed manifest that would later be used as
+      // a version key and crash consumers such as the search endpoint
+      delete manifest[DIST_TAGS][tag];
     }
   }
 
