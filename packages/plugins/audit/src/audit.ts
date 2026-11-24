@@ -12,6 +12,13 @@ import type { ConfigAudit } from './types';
 // FUTURE: we should be able to overwrite this
 export const REGISTRY_DOMAIN = 'https://registry.npmjs.org';
 
+// Headers the audit endpoints may receive. Everything else is dropped: the
+// npm CLI talks to this registry with its own credentials, and none of them
+// (authorization, cookie, proxy-authorization, npm-otp) are the upstream's.
+const FORWARDED_HEADERS = new Set(['accept', 'accept-language', 'user-agent']);
+const FORWARDED_HEADER_PREFIXES = ['npm-'];
+const BLOCKED_HEADERS = new Set(['npm-otp']);
+
 export default class ProxyAudit
   extends pluginUtils.Plugin<ConfigAudit>
   implements pluginUtils.ExpressMiddleware<ConfigAudit, {}, Auth>
@@ -36,14 +43,13 @@ export default class ProxyAudit
     ): Promise<void> => {
       const headers: Record<string, string | string[] | undefined> = {};
       for (const [key, value] of Object.entries(req.headers)) {
-        if (
-          key === 'host' ||
-          key === 'content-encoding' ||
-          key === 'content-length' ||
-          key === 'content-type' ||
-          key === 'connection' ||
-          key === 'transfer-encoding'
-        ) {
+        // Only forward what the audit endpoint needs. The client's own
+        // credentials (authorization, cookie, proxy-authorization, npm-otp)
+        // belong to this registry and must not be handed to registry.npmjs.org.
+        const forwarded =
+          FORWARDED_HEADERS.has(key) ||
+          FORWARDED_HEADER_PREFIXES.some((prefix) => key.startsWith(prefix));
+        if (!forwarded || BLOCKED_HEADERS.has(key)) {
           continue;
         }
         headers[key] = value;
