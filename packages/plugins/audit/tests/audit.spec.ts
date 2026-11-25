@@ -162,6 +162,7 @@ describe('Audit plugin', () => {
       .set('cookie', 'session=secret')
       .set('proxy-authorization', 'Basic dXNlcjpwYXNz')
       .set('npm-otp', '123456')
+      .set('npm-token', 'secret-token')
       .set('npm-command', 'audit')
       .set('user-agent', 'npm/10.9.0 node/v22.0.0')
       .expect(HTTP_STATUS.OK);
@@ -172,5 +173,7 @@ describe('Audit plugin', () => {
     expect(seen['cookie']).toBeUndefined();
     expect(seen['proxy-authorization']).toBeUndefined();
     expect(seen['npm-otp']).toBeUndefined();
+    // an arbitrary client header under the npm- prefix must not be forwarded
+    expect(seen['npm-token']).toBeUndefined();
   });
 });
