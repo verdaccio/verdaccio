@@ -30,8 +30,8 @@ export function getVersion(versions: Versions, version: string): Version | undef
 
   for (const versionItem in versions) {
     if (Object.prototype.hasOwnProperty.call(versions, versionItem)) {
-      // @ts-ignore
-      if (versionSemver.compare(semver.parse(versionItem, true)) === 0) {
+      const itemSemver = semver.parse(versionItem, true);
+      if (itemSemver !== null && versionSemver.compare(itemSemver) === 0) {
         return versions[versionItem];
       }
     }
