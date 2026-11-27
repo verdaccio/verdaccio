@@ -6,7 +6,7 @@ import type { searchUtils } from '@verdaccio/core';
 import { fileUtils } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
 import { removeDuplicates } from '@verdaccio/search';
-import { generatePackageMetadata, getDeprecatedPackageMetadata } from '@verdaccio/test-helper';
+import { generatePackageMetadata } from '@verdaccio/test-helper';
 import type { Logger } from '@verdaccio/types';
 
 import { Storage } from '../src';
@@ -91,12 +91,12 @@ describe('search', () => {
         options('pkg-good')
       );
       await storage.updateManifest(generatePackageMetadata('pkg-bad', '1.0.0'), options('pkg-bad'));
-      // a deprecation body stores its dist-tags as sent: latest points to no version
-      const { _rev } = await storage.getPackageLocalMetadata('pkg-bad');
-      await storage.updateManifest(
-        getDeprecatedPackageMetadata('pkg-bad', '1.0.0', { latest: '9.9.9' }, 'deprecated', _rev),
-        options('pkg-bad')
-      );
+      // pkg-bad reads back with a latest tag that points to no version
+      const readManifest = storage.getPackageLocalMetadata.bind(storage);
+      vi.spyOn(storage, 'getPackageLocalMetadata').mockImplementation(async (name) => {
+        const manifest = await readManifest(name);
+        return name === 'pkg-bad' ? { ...manifest, 'dist-tags': { latest: '9.9.9' } } : manifest;
+      });
       const warn = vi.spyOn(storage.logger, 'warn');
 
       const results = await storage.getCachedPackages({ text: 'pkg' } as searchUtils.SearchQuery);
