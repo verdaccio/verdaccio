@@ -1,12 +1,12 @@
 import nock from 'nock';
-import { beforeAll, describe, expect, test } from 'vitest';
+import { beforeAll, describe, expect, test, vi } from 'vitest';
 
 import { Config, getDefaultConfig } from '@verdaccio/config';
 import type { searchUtils } from '@verdaccio/core';
 import { fileUtils } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
 import { removeDuplicates } from '@verdaccio/search';
-import { generatePackageMetadata } from '@verdaccio/test-helper';
+import { generatePackageMetadata, getDeprecatedPackageMetadata } from '@verdaccio/test-helper';
 import type { Logger } from '@verdaccio/types';
 
 import { Storage } from '../src';
@@ -67,6 +67,45 @@ describe('search', () => {
       // @ts-expect-error
       const results = await storage.search({ url, query: { text: 'verdaccio' }, abort });
       expect(results).toHaveLength(4);
+    });
+  });
+
+  describe('getCachedPackages', () => {
+    const options = (name: string) => ({
+      signal: new AbortController().signal,
+      name,
+      uplinksLook: false,
+      revision: '1',
+      requestOptions: { host: 'localhost', protocol: 'http', headers: {} },
+    });
+
+    test('skips a package whose manifest cannot be mapped and returns the others', async () => {
+      const config = new Config({
+        ...getDefaultConfig(),
+        storage: await fileUtils.createTempStorageFolder('search-cached'),
+      });
+      const storage = new Storage(config, logger);
+      await storage.init(config);
+      await storage.updateManifest(
+        generatePackageMetadata('pkg-good', '1.0.0'),
+        options('pkg-good')
+      );
+      await storage.updateManifest(generatePackageMetadata('pkg-bad', '1.0.0'), options('pkg-bad'));
+      // a deprecation body stores its dist-tags as sent: latest points to no version
+      const { _rev } = await storage.getPackageLocalMetadata('pkg-bad');
+      await storage.updateManifest(
+        getDeprecatedPackageMetadata('pkg-bad', '1.0.0', { latest: '9.9.9' }, 'deprecated', _rev),
+        options('pkg-bad')
+      );
+      const warn = vi.spyOn(storage.logger, 'warn');
+
+      const results = await storage.getCachedPackages({ text: 'pkg' } as searchUtils.SearchQuery);
+
+      expect(results.map((item) => item.package.name)).toEqual(['pkg-good']);
+      expect(warn).toHaveBeenCalledWith(
+        expect.objectContaining({ packageName: 'pkg-bad' }),
+        expect.any(String)
+      );
     });
   });
 });
