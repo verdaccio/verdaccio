@@ -49,6 +49,15 @@ describe('versions-utils', () => {
       expect(getVersion({ ...metadata } as any, 'v2.0.0')).toBeUndefined();
     });
 
+    test('should skip version keys that are not valid semver', () => {
+      const versions = {
+        '10000000000000000.0.0': { dist: dist('10000000000000000.0.0') },
+        ...metadata,
+      };
+      expect(getVersion(versions as any, 'v1.0.1')).toEqual({ dist: dist('1.0.1') });
+      expect(getVersion(versions as any, '2.0.0')).toBeUndefined();
+    });
+
     test('should return nothing on get invalid versions', () => {
       // @ts-ignore
       expect(getVersion({ ...metadata } as any, undefined)).toBeUndefined();
