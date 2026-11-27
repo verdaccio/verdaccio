@@ -1,5 +1,5 @@
 import nock from 'nock';
-import { beforeAll, describe, expect, test } from 'vitest';
+import { beforeAll, describe, expect, test, vi } from 'vitest';
 
 import { Config, getDefaultConfig } from '@verdaccio/config';
 import type { searchUtils } from '@verdaccio/core';
@@ -67,6 +67,45 @@ describe('search', () => {
       // @ts-expect-error
       const results = await storage.search({ url, query: { text: 'verdaccio' }, abort });
       expect(results).toHaveLength(4);
+    });
+  });
+
+  describe('getCachedPackages', () => {
+    const options = (name: string) => ({
+      signal: new AbortController().signal,
+      name,
+      uplinksLook: false,
+      revision: '1',
+      requestOptions: { host: 'localhost', protocol: 'http', headers: {} },
+    });
+
+    test('skips a package whose manifest cannot be mapped and returns the others', async () => {
+      const config = new Config({
+        ...getDefaultConfig(),
+        storage: await fileUtils.createTempStorageFolder('search-cached'),
+      });
+      const storage = new Storage(config, logger);
+      await storage.init(config);
+      await storage.updateManifest(
+        generatePackageMetadata('pkg-good', '1.0.0'),
+        options('pkg-good')
+      );
+      await storage.updateManifest(generatePackageMetadata('pkg-bad', '1.0.0'), options('pkg-bad'));
+      // pkg-bad reads back with a latest tag that points to no version
+      const readManifest = storage.getPackageLocalMetadata.bind(storage);
+      vi.spyOn(storage, 'getPackageLocalMetadata').mockImplementation(async (name) => {
+        const manifest = await readManifest(name);
+        return name === 'pkg-bad' ? { ...manifest, 'dist-tags': { latest: '9.9.9' } } : manifest;
+      });
+      const warn = vi.spyOn(storage.logger, 'warn');
+
+      const results = await storage.getCachedPackages({ text: 'pkg' } as searchUtils.SearchQuery);
+
+      expect(results.map((item) => item.package.name)).toEqual(['pkg-good']);
+      expect(warn).toHaveBeenCalledWith(
+        expect.objectContaining({ packageName: 'pkg-bad' }),
+        expect.any(String)
+      );
     });
   });
 });

@@ -959,23 +959,32 @@ class Storage {
       const items = await this.localStorage.getStoragePlugin().search(query);
       try {
         for (const searchItem of items) {
-          const manifest = await this.getPackageLocalMetadata(searchItem.package.name);
-          const [filteredManifest] = await this.applyFilters(manifest);
-          if (isEmpty(filteredManifest?.versions) === false) {
-            const searchPackage = mapManifestToSearchPackageBody(filteredManifest, searchItem);
-            debug('search local stream found %o', searchPackage.name);
-            const searchPackageItem: searchUtils.SearchPackageItem = {
-              package: searchPackage,
-              score: searchItem.score,
-              verdaccioPkgCached: searchItem.verdaccioPkgCached,
-              verdaccioPrivate: searchItem.verdaccioPrivate,
-              flags: searchItem?.flags,
-              // FUTURE: find a better way to calculate the score
-              searchScore: 1,
-            };
-            results.push(searchPackageItem);
-          } else {
-            debug('local item without versions detected %s', searchItem.package.name);
+          try {
+            const manifest = await this.getPackageLocalMetadata(searchItem.package.name);
+            const [filteredManifest] = await this.applyFilters(manifest);
+            if (isEmpty(filteredManifest?.versions) === false) {
+              const searchPackage = mapManifestToSearchPackageBody(filteredManifest, searchItem);
+              debug('search local stream found %o', searchPackage.name);
+              const searchPackageItem: searchUtils.SearchPackageItem = {
+                package: searchPackage,
+                score: searchItem.score,
+                verdaccioPkgCached: searchItem.verdaccioPkgCached,
+                verdaccioPrivate: searchItem.verdaccioPrivate,
+                flags: searchItem?.flags,
+                // FUTURE: find a better way to calculate the score
+                searchScore: 1,
+              };
+              results.push(searchPackageItem);
+            } else {
+              debug('local item without versions detected %s', searchItem.package.name);
+            }
+          } catch (err) {
+            // a single malformed manifest must not break the search response
+            // for every other package
+            this.logger.warn(
+              { err, packageName: searchItem.package.name },
+              'skip @{packageName} on search response: @{err.message}'
+            );
           }
         }
         debug('search local stream end');
