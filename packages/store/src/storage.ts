@@ -959,7 +959,19 @@ class Storage {
       const items = await this.localStorage.getStoragePlugin().search(query);
       try {
         for (const searchItem of items) {
-          const manifest = await this.getPackageLocalMetadata(searchItem.package.name);
+          let manifest: Manifest;
+          try {
+            manifest = await this.getPackageLocalMetadata(searchItem.package.name);
+          } catch (err: any) {
+            if (err?.status !== HTTP_STATUS.NOT_FOUND) {
+              throw err;
+            }
+            this.logger.warn(
+              { package: searchItem.package.name },
+              'package @{package} listed by the storage plugin was not found, skipping it'
+            );
+            continue;
+          }
           const [filteredManifest] = await this.applyFilters(manifest);
           if (isEmpty(filteredManifest?.versions) === false) {
             const searchPackage = mapManifestToSearchPackageBody(filteredManifest, searchItem);

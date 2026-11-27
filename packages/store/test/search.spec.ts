@@ -1,9 +1,9 @@
 import nock from 'nock';
-import { beforeAll, describe, expect, test } from 'vitest';
+import { beforeAll, describe, expect, test, vi } from 'vitest';
 
 import { Config, getDefaultConfig } from '@verdaccio/config';
 import type { searchUtils } from '@verdaccio/core';
-import { fileUtils } from '@verdaccio/core';
+import { errorUtils, fileUtils } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
 import { removeDuplicates } from '@verdaccio/search';
 import { generatePackageMetadata } from '@verdaccio/test-helper';
@@ -67,6 +67,64 @@ describe('search', () => {
       // @ts-expect-error
       const results = await storage.search({ url, query: { text: 'verdaccio' }, abort });
       expect(results).toHaveLength(4);
+    });
+  });
+
+  describe('getCachedPackages', () => {
+    const searchItem = (name: string): searchUtils.SearchItem => ({
+      package: { name },
+      verdaccioPrivate: true,
+      verdaccioPkgCached: false,
+      score: {
+        final: 1,
+        detail: { quality: 1, popularity: 1, maintenance: 1 },
+      },
+    });
+
+    const createStorage = async () => {
+      const config = new Config({
+        ...getDefaultConfig(),
+        storage: await fileUtils.createTempStorageFolder('search-cached'),
+      });
+      const storage = new Storage(config, logger);
+      await storage.init(config);
+      await storage.updateManifest(generatePackageMetadata('real-pkg', '1.0.0'), {
+        signal: new AbortController().signal,
+        name: 'real-pkg',
+        uplinksLook: false,
+        revision: '1',
+        requestOptions: { host: 'localhost', protocol: 'http', headers: {} },
+      });
+      return storage;
+    };
+
+    test('skips a name whose package is gone and returns the others', async () => {
+      const storage = await createStorage();
+      vi.spyOn(storage.localStorage.getStoragePlugin(), 'search').mockResolvedValue([
+        searchItem('ghost-pkg'),
+        searchItem('real-pkg'),
+      ]);
+      const warn = vi.spyOn(storage.logger, 'warn');
+
+      const results = await storage.getCachedPackages({ text: 'pkg' } as searchUtils.SearchQuery);
+
+      expect(results.map((item) => item.package.name)).toEqual(['real-pkg']);
+      expect(warn).toHaveBeenCalledWith(
+        expect.objectContaining({ package: 'ghost-pkg' }),
+        expect.any(String)
+      );
+    });
+
+    test('fails on any other error reading a package', async () => {
+      const storage = await createStorage();
+      vi.spyOn(storage.localStorage.getStoragePlugin(), 'search').mockResolvedValue([
+        searchItem('real-pkg'),
+      ]);
+      vi.spyOn(storage, 'getPackageLocalMetadata').mockRejectedValue(errorUtils.getInternalError());
+
+      await expect(
+        storage.getCachedPackages({ text: 'pkg' } as searchUtils.SearchQuery)
+      ).rejects.toThrow();
     });
   });
 });
