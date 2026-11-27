@@ -145,6 +145,23 @@ describe('proxy', () => {
     });
   });
 
+  describe('stale_while_revalidate configuration', () => {
+    test('is off unless the uplink sets an interval', () => {
+      const proxy = new ProxyStorage('uplink', defaultRequestOptions as any, conf, logger);
+      expect(proxy.stale_while_revalidate).toEqual(0);
+    });
+
+    test('is parsed from the uplink config like maxage', () => {
+      const proxy = new ProxyStorage(
+        'uplink',
+        { ...defaultRequestOptions, stale_while_revalidate: '24h' } as any,
+        conf,
+        logger
+      );
+      expect(proxy.stale_while_revalidate).toEqual(24 * 60 * 60 * 1000);
+    });
+  });
+
   describe('retry configuration', () => {
     test('should not derive the got retry limit from max_fails', () => {
       // max_fails is the circuit-breaker threshold; using it as the per-request

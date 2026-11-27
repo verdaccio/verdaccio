@@ -72,6 +72,7 @@ export interface IProxy {
   timeout: Delays;
   max_fails: number;
   fail_timeout: number;
+  stale_while_revalidate: number;
   search(options: ProxySearchParams): Promise<Stream.Readable>;
   getRemoteMetadata(
     name: string,
@@ -96,6 +97,8 @@ export interface ISyncUplinksOptions extends Options {
   remoteAddress?: string;
   /** `X-Forwarded-For` chain the client request arrived with */
   forwardedFor?: string;
+  /** serve the stored manifest and refresh uplinks past `maxage` in the background */
+  allowStale?: boolean;
 }
 
 /**
@@ -115,6 +118,7 @@ class ProxyStorage implements IProxy {
   public timeout: Delays;
   public max_fails: number;
   public fail_timeout: number;
+  public stale_while_revalidate: number;
   public agent_options: AgentOptionsConf;
   public proxy: string | undefined;
   private agent: Agents;
@@ -168,6 +172,9 @@ class ProxyStorage implements IProxy {
     debug('set timeout %s', this.timeout);
     this.max_fails = Number(setConfig(this.config, 'max_fails', this.config.max_fails ?? 2));
     this.fail_timeout = parseInterval(setConfig(this.config, 'fail_timeout', '5m'));
+    this.stale_while_revalidate = parseInterval(
+      setConfig(this.config, 'stale_while_revalidate', '0m')
+    );
     this.strict_ssl = Boolean(setConfig(this.config, 'strict_ssl', true));
     // `max_fails` is the circuit-breaker threshold (failed requests before the
     // uplink is considered offline) and must not drive the per-request retry
