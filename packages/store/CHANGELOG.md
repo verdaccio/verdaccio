@@ -1,5 +1,23 @@
 # @verdaccio/store
 
+## 9.0.0-next-9.47
+
+### Patch Changes
+
+- f062e3d: Ignore malformed `dist-tags` values and skip packages that fail to load during search, so one bad manifest no longer breaks `/-/v1/search` for everyone.
+- f45b135: Fix `GET /:package/:version` returning `500 Internal Server Error` when the package has a version key that is not valid semver.
+  
+  Some public packages have such keys in `versions`, for example `10000000000000000.0.0`, which is larger than `Number.MAX_SAFE_INTEGER` and is rejected by `semver`. When the requested version did not match a key exactly, the loose lookup compared it with every key and threw `TypeError: Invalid version` on the bad one. A missing version then answered 500 instead of 404, and a loose lookup such as `v1.0.0` could fail even though `1.0.0` exists. Keys that are not valid semver are now skipped during the loose lookup, so these requests answer 404 or the matching version again.
+- @verdaccio/config@9.0.0-next-9.47
+  - @verdaccio/core@9.0.0-next-9.47
+  - @verdaccio/loaders@9.0.0-next-9.47
+  - @verdaccio/proxy@9.0.0-next-9.47
+  - @verdaccio/search@9.0.0-next-9.47
+  - @verdaccio/tarball@14.0.0-next-9.47
+  - @verdaccio/url@14.0.0-next-9.47
+  - @verdaccio/logger@9.0.0-next-9.47
+  - @verdaccio/local-storage@14.0.0-next-9.47
+
 ## 9.0.0-next-9.46
 
 ### Patch Changes

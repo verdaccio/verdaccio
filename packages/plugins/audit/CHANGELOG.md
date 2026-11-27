@@ -1,5 +1,13 @@
 # Change Log
 
+## 14.0.0-next-9.47
+
+### Patch Changes
+
+- daaf8d6: Forward only audit-safe request headers to registry.npmjs.org, so client credentials (authorization, cookie, proxy-authorization, npm-otp and arbitrary npm-prefixed headers) are not relayed upstream.
+- @verdaccio/config@9.0.0-next-9.47
+  - @verdaccio/core@9.0.0-next-9.47
+
 ## 14.0.0-next-9.46
 
 ### Patch Changes
