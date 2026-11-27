@@ -1,5 +1,15 @@
 # @verdaccio/auth
 
+## 9.0.0-next-9.47
+
+### Patch Changes
+
+- @verdaccio/config@9.0.0-next-9.47
+  - @verdaccio/core@9.0.0-next-9.47
+  - @verdaccio/loaders@9.0.0-next-9.47
+  - verdaccio-htpasswd@14.0.0-next-9.47
+  - @verdaccio/signature@9.0.0-next-9.47
+
 ## 9.0.0-next-9.46
 
 ### Patch Changes

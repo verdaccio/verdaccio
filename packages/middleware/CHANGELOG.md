@@ -1,5 +1,13 @@
 # @verdaccio/middleware
 
+## 9.0.0-next-9.47
+
+### Patch Changes
+
+- @verdaccio/config@9.0.0-next-9.47
+  - @verdaccio/core@9.0.0-next-9.47
+  - @verdaccio/url@14.0.0-next-9.47
+
 ## 9.0.0-next-9.46
 
 ### Patch Changes
