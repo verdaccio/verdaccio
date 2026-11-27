@@ -134,4 +134,46 @@ describe('Audit plugin', () => {
       .set('content-type', 'application/json')
       .expect(HTTP_STATUS.OK);
   });
+
+  test('should not forward client credentials to registry.npmjs.org', async () => {
+    let seen: Record<string, string | string[] | undefined> = {};
+    nock('https://registry.npmjs.org')
+      .post('/-/npm/v1/security/audits/quick')
+      .reply(function () {
+        seen = this.req.headers as Record<string, string | string[] | undefined>;
+        return [200, { foo: 'someData' }];
+      });
+    const config = { strict_ssl: false } as ConfigAudit;
+    const audit = new ProxyAudit(auditConfig, { logger, config: config });
+    const app = express();
+    app.use(express.json({ limit: '10mb' }));
+    audit.register_middlewares(app, {
+      // @ts-ignore
+      config: {
+        https_proxy: '',
+        http_proxy: '',
+      },
+    });
+    await supertest(app)
+      .post('/-/npm/v1/security/audits/quick')
+      .send({ lodash: ['4.17.21'] })
+      .set('content-type', 'application/json')
+      .set('authorization', 'Bearer verdaccio-token')
+      .set('cookie', 'session=secret')
+      .set('proxy-authorization', 'Basic dXNlcjpwYXNz')
+      .set('npm-otp', '123456')
+      .set('npm-token', 'secret-token')
+      .set('npm-command', 'audit')
+      .set('user-agent', 'npm/10.9.0 node/v22.0.0')
+      .expect(HTTP_STATUS.OK);
+
+    expect(seen['npm-command']).toBe('audit');
+    expect(seen['user-agent']).toBe('npm/10.9.0 node/v22.0.0');
+    expect(seen['authorization']).toBeUndefined();
+    expect(seen['cookie']).toBeUndefined();
+    expect(seen['proxy-authorization']).toBeUndefined();
+    expect(seen['npm-otp']).toBeUndefined();
+    // an arbitrary client header under the npm- prefix must not be forwarded
+    expect(seen['npm-token']).toBeUndefined();
+  });
 });
