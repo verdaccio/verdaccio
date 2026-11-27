@@ -10,7 +10,12 @@ import {
   generateUnPublishPackageMetadata,
 } from '@verdaccio/test-helper';
 
-import { getPackage, initializeServer, publishVersion } from './_helper';
+import {
+  getPackage,
+  initializeServer,
+  initializeServerWithContext,
+  publishVersion,
+} from './_helper';
 
 describe('publish', () => {
   describe('handle errors', () => {
@@ -74,6 +79,60 @@ describe('publish', () => {
 
   describe('publish a package', () => {
     describe('no proxies setup', () => {
+      test.each(['public', 'restricted'])(
+        'should persist scoped package access %s across publishes',
+        async (access) => {
+          const pkgName = '@scope/access';
+          const { app, storage } = await initializeServerWithContext('publish.yaml');
+          const publish = async (version: string, value: string | null | undefined) => {
+            const manifest = generatePackageMetadata(pkgName, version);
+            delete manifest.access;
+            const body = value === undefined ? manifest : { ...manifest, access: value };
+            await supertest(app)
+              .put(`/${encodeURIComponent(pkgName)}`)
+              .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+              .send(body)
+              .expect(HTTP_STATUS.CREATED);
+          };
+          const expectAccess = async (value: string) => {
+            const stored = await storage.getPackageLocalMetadata(pkgName);
+            expect(stored.access).toBe(value);
+            const response = await getPackage(app, '', pkgName).expect(HTTP_STATUS.OK);
+            expect(response.body.access).toBe(value);
+          };
+
+          await publish('1.0.0', access);
+          await expectAccess(access);
+          await publish('1.0.1', undefined);
+          await expectAccess(access);
+          await publish('1.0.2', null);
+          await expectAccess(access);
+          const updatedAccess = access === 'public' ? 'restricted' : 'public';
+          await publish('1.0.3', updatedAccess);
+          await expectAccess(updatedAccess);
+        }
+      );
+
+      test('should not invent access when publishing without an explicit value', async () => {
+        const pkgName = '@scope/no-access';
+        const { app, storage } = await initializeServerWithContext('publish.yaml');
+        for (const [version, access] of [
+          ['1.0.0', undefined],
+          ['1.0.1', null],
+        ] as const) {
+          const manifest = generatePackageMetadata(pkgName, version);
+          delete manifest.access;
+          await supertest(app)
+            .put(`/${encodeURIComponent(pkgName)}`)
+            .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+            .send(access === undefined ? manifest : { ...manifest, access })
+            .expect(HTTP_STATUS.CREATED);
+          expect(await storage.getPackageLocalMetadata(pkgName)).not.toHaveProperty('access');
+          const response = await getPackage(app, '', pkgName).expect(HTTP_STATUS.OK);
+          expect(response.body).not.toHaveProperty('access');
+        }
+      });
+
       test.each([['foo', '@scope/foo']])('should publish a package', async (pkgName) => {
         const app = await initializeServer('publish.yaml');
         new Promise((resolve) => {
