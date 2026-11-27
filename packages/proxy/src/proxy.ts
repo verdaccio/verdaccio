@@ -583,7 +583,10 @@ class ProxyStorage implements IProxy {
         (afterResponse) => {
           const code = afterResponse.statusCode;
           debug('after response code is %s', code);
-          if (code >= HTTP_STATUS.OK && code < HTTP_STATUS.MULTIPLE_CHOICES) {
+          if (
+            (code >= HTTP_STATUS.OK && code < HTTP_STATUS.MULTIPLE_CHOICES) ||
+            code === HTTP_STATUS.NOT_MODIFIED
+          ) {
             if (this.failed_requests >= this.max_fails) {
               this.failed_requests = 0;
               this.logger.warn(

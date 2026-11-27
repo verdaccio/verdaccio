@@ -4,7 +4,7 @@ import { setTimeout } from 'node:timers/promises';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
-import { API_ERROR, errorUtils } from '@verdaccio/core';
+import { API_ERROR, HTTP_STATUS, errorUtils } from '@verdaccio/core';
 import type { Logger } from '@verdaccio/types';
 
 import { ProxyStorage } from '../src';
@@ -325,6 +325,48 @@ describe('proxy', () => {
           'host @{host} is now online'
         );
       }, 10000);
+
+      test('recovers after a 304 and fetches uncached package metadata', async () => {
+        const proxy = new ProxyStorage(
+          'uplink',
+          { ...defaultRequestOptions, fail_timeout: '1m', max_fails: 1 },
+          conf,
+          logger
+        );
+        const etag = '"cached-package"';
+        nock(domain).get('/cached-package').twice().reply(HTTP_STATUS.INTERNAL_ERROR);
+        nock(domain)
+          .get('/cached-package')
+          .matchHeader('if-none-match', etag)
+          .reply(HTTP_STATUS.NOT_MODIFIED);
+        nock(domain).get('/uncached-package').reply(HTTP_STATUS.OK, { name: 'uncached-package' });
+
+        vi.useFakeTimers({ toFake: ['Date'] });
+        try {
+          await expect(
+            proxy.getRemoteMetadata('cached-package', {
+              etag,
+              retry: {
+                limit: 1,
+                calculateDelay: ({ computedValue }) => Math.min(computedValue, 1),
+              },
+            })
+          ).rejects.toMatchObject({ remoteStatus: HTTP_STATUS.INTERNAL_ERROR });
+          await expect(proxy.getRemoteMetadata('uncached-package', {})).rejects.toThrow(
+            API_ERROR.UPLINK_OFFLINE
+          );
+
+          vi.setSystemTime(Date.now() + 60_000);
+
+          await expect(proxy.getRemoteMetadata('cached-package', { etag })).rejects.toMatchObject({
+            code: HTTP_STATUS.NOT_MODIFIED,
+          });
+          const [manifest] = await proxy.getRemoteMetadata('uncached-package', {});
+          expect(manifest.name).toBe('uncached-package');
+        } finally {
+          vi.useRealTimers();
+        }
+      });
     });
 
     describe('timeout', () => {
