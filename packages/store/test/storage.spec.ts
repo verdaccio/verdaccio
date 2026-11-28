@@ -501,6 +501,66 @@ describe('storage', () => {
         ).rejects.toThrow(API_ERROR.PACKAGE_EXIST);
       });
 
+      describe('publish.allow_offline', () => {
+        const pkgName = 'upstream';
+        const settings = {
+          uplinksLook: true,
+          revision: '1',
+          requestOptions: defaultRequestOptions,
+        };
+        const getStorage = async (publish?: { allow_offline: boolean }) => {
+          const config = getConfig('getTarball-getupstream.yaml', publish ? { publish } : {});
+          const storage = new Storage(config, logger);
+          await storage.init(config);
+          return storage;
+        };
+
+        test('refuses a version that exists upstream when allow_offline is not set', async () => {
+          nock('https://fake.verdaccio.org')
+            .get(`/${pkgName}`)
+            .reply(200, generateRemotePackageMetadata(pkgName, '1.0.0'));
+          const storage = await getStorage();
+
+          await expect(
+            storage.updateManifest(generatePackageMetadata(pkgName, '1.0.0'), {
+              signal: new AbortController().signal,
+              name: pkgName,
+              ...settings,
+            })
+          ).rejects.toThrow(API_ERROR.PACKAGE_EXIST);
+        });
+
+        test('publishes a package missing upstream when allow_offline is not set', async () => {
+          const scope = nock('https://fake.verdaccio.org').get(`/${pkgName}`).reply(404);
+          const storage = await getStorage();
+
+          await expect(
+            storage.updateManifest(generatePackageMetadata(pkgName, '1.0.0'), {
+              signal: new AbortController().signal,
+              name: pkgName,
+              ...settings,
+            })
+          ).resolves.toEqual(API_MESSAGE.PKG_CREATED);
+          expect(scope.isDone()).toBe(true);
+        });
+
+        test('does not look into the uplinks when allow_offline is true', async () => {
+          const scope = nock('https://fake.verdaccio.org')
+            .get(`/${pkgName}`)
+            .reply(200, generateRemotePackageMetadata(pkgName, '1.0.0'));
+          const storage = await getStorage({ allow_offline: true });
+
+          await expect(
+            storage.updateManifest(generatePackageMetadata(pkgName, '1.0.0'), {
+              signal: new AbortController().signal,
+              name: pkgName,
+              ...settings,
+            })
+          ).resolves.toEqual(API_MESSAGE.PKG_CREATED);
+          expect(scope.isDone()).toBe(false);
+        });
+      });
+
       test('create private package with readme only in manifest', async () => {
         const mockDate = '2018-01-14T11:17:40.712Z';
         MockDate.set(mockDate);
@@ -1860,6 +1920,7 @@ describe('storage', () => {
           configExample({
             ...getDefaultConfig(),
             storage: generateRandomStorage(),
+            publish: { allow_offline: true },
           })
         );
         const storage = new Storage(config, logger);
@@ -2048,6 +2109,7 @@ describe('storage', () => {
           configExample(
             {
               storage: generateRandomStorage(),
+              publish: { allow_offline: true },
             },
             './fixtures/config/getTarball-getupstream.yaml',
             import.meta.dirname
@@ -2765,6 +2827,7 @@ describe('storage', () => {
         configExample({
           ...getDefaultConfig(),
           storage: generateRandomStorage(),
+          publish: { allow_offline: true },
         })
       );
       const req = httpMocks.createRequest({
@@ -2799,6 +2862,7 @@ describe('storage', () => {
         configExample({
           ...getDefaultConfig(),
           storage: generateRandomStorage(),
+          publish: { allow_offline: true },
         })
       );
       const req = httpMocks.createRequest({
@@ -2905,6 +2969,7 @@ describe('storage', () => {
         configExample({
           ...getDefaultConfig(),
           storage: generateRandomStorage(),
+          publish: { allow_offline: true },
         })
       );
       const req = httpMocks.createRequest({
