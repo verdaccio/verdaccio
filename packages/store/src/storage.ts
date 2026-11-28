@@ -1549,7 +1549,8 @@ class Storage {
         debug('%s version %s already exists (locally)', name, versionToPublish);
         throw errorUtils.getConflict();
       }
-      const uplinksLook = this.config?.publish?.allow_offline === false;
+      // allow_offline defaults to false, so an unset value still looks into the uplinks
+      const uplinksLook = this.config?.publish?.allow_offline !== true;
       // if execution get here, package does not exist locally, we search upstream
       const remoteManifest = await this.checkPackageRemote(name, uplinksLook);
       if (remoteManifest?.versions[versionToPublish] != null) {
